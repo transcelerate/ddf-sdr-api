@@ -1,0 +1,267 @@
+{
+  "clinicalStudy": {
+    "studyTitle": "Study Number two 2nd",
+    "studyType": "INTERVENTIONAL",
+    "studyPhase": "PHASE_1_TRIAL",
+    "interventionModel": "PARALLEL",
+    "tag": "1.0Draft",
+    "studyIdentifiers": [
+      {
+        "id": "ACMECT001",
+        "orgCode": "2.16.840.1.113883.3.1077",
+        "name": "ClinicalTrials.gov",
+        "idType": "REGISTRY_STUDY"
+      },
+      {
+        "id": "ACME001",
+        "orgCode": "2.16.840.1",
+        "name": "SponsorNo",
+        "idType": "SPONSOR_ID"
+      }
+    ],
+    "currentSections": [
+      {
+        "id": "0ee0571f-95f4-4094-8e33-6ba1292b4054",
+        "sectionType": "INVESTIGATIONAL_INTERVENTIONS",
+        "investigationalInterventions": [
+          {
+            "id": "29cbef72-0471-4307-9ee4-3c434a974231",
+            "description": "Ibuprofen 200mg",
+            "interventionType": "DRUG",
+            "coding": [
+              {
+                "code": "26929004",
+                "codeSystem": "SNOMED-CT",
+                "codeSystemVersion": "4.0.6.4",
+                "decode": "Alzheimer's disease (disorder)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "e36118b3-bb80-4059-9a8d-93017f99aa4a",
+        "sectionType": "STUDY_DESIGNS",
+        "studyDesigns": [
+          {
+            "currentSections": [
+              {
+                "id": "cea5aefa-7b45-4cc4-b91d-516148802454",
+                "sectionType": "PLANNED_WORKFLOWS",
+                "plannedWorkflows": [
+                  {
+                    "id": "45ec9461-521b-448d-a561-1cdef5fdf477",
+                    "description": "Planned Workflow for Study ACME001",
+                    "startPoint": {
+                      "id": "b6fd5a0f-8095-4f1b-896c-e3290fc08985",
+                      "type": "SCREENING",
+                      "subjectStatusGrouping": "In Screening",
+                      "startDate": "2022-Jan-10",
+                      "endDate": "2022-Jan-20"
+                    },
+                    "endPoint": {
+                      "id": "fe48c199-2c47-4b2f-8ca5-4aa9608759ef",
+                      "type": "SCREENING",
+                      "subjectStatusGrouping": "In Screening",
+                      "startDate": "2022-Jan-10",
+                      "endDate": "2022-Jan-20"
+                    },
+                    "transitions": [
+                      {
+                        "id": "3fcb20e0-8f6d-4cb9-b146-0184063880c4",
+                        "description": "go to next when subject has systolic blood pressure below 130 mmHg",
+                        "fromPointInTime": {
+                          "id": "72868a96-52cb-4b34-9e6b-52b163def55c",
+                          "type": "SCREENING",
+                          "subjectStatusGrouping": "In Screening",
+                          "startDate": "2022-Jan-10",
+                          "endDate": "2022-Jan-20"
+                        },
+                        "toPointInTime": {
+                          "id": "92934070-12af-4ed8-a963-f813aac5a448",
+                          "type": "SCREENING",
+                          "subjectStatusGrouping": "In Screening",
+                          "startDate": "2022-Jan-10",
+                          "endDate": "2022-Jan-20"
+                        },
+                        "transitionRule": {
+                          "id": "16ba5222-0282-43b8-8a4a-be61a5e7dfe9",
+                          "description": "Textual description of the rule",
+                          "coding": [
+                            {
+                              "code": "test transition rule in Python",
+                              "codeSystem": "Python",
+                              "codeSystemVersion": "1.0",
+                              "decode": "???"
+                            }
+                          ]
+                        },
+                        "describedBy": "",
+                        "transitionCriteria": [
+                          {
+                            "id": "1353dc72-ac4c-4174-b7a3-d3c7dba2e763",
+                            "type": "RANDOMIZATION",
+                            "description": "This is some criterion",
+                            "specificationIds": [ "", "" ],
+                            "domain": "",
+                            "dictionary": "",
+                            "testName": "",
+                            "numericMinValue": "0.00",
+                            "numericMinValueInclusive": "0.0",
+                            "numericMaxValue": "100.00",
+                            "valueUnit": "",
+                            "textualResult": "",
+                            "timing": "",
+                            "timingDetail": "",
+                            "timingGap": "",
+                            "timingDays": 10,
+                            "route": "",
+                            "numericaMaxValueInclusive": "100.00",
+                            "criterionDetails": [ "", "" ]
+                          }
+                        ],
+                        "studyProtocolCriterionTransitionNumber": 5
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "cba986b0-0be7-4292-ab03-6202fb44c485",
+                "sectionType": "STUDY_POPULATIONS",
+                "studyPopulations": [
+                  {
+                    "id": "8a94504e-4488-4424-ad49-4632d95f4e86",
+                    "description": "healthy volunteers of age between 18 and 65"
+                  }
+                ]
+              },
+              {
+                "id": "040203c9-a887-4530-ae50-da73d37853ed",
+                "sectionType": "STUDY_CELLS",
+                "studyCells": [
+                  {
+                    "id": "78d223c8-a8d5-47f5-ae2e-4276de807afb",
+                    "studyElements": [
+                      {
+                        "id": "81daa6e7-6446-414d-9f34-70a8bfebc10b",
+                        "name": "washout after treatment element",
+                        "description": "This element is for washout after treatment with either active ingredient or placebo",
+                        "startRule": {
+                          "id": "347e924c-3239-441a-bb08-82464fb6e0e5",
+                          "description": "Textual description of the rule",
+                          "coding": [
+                            {
+                              "code": "test transition rule in Python",
+                              "codeSystem": "Python",
+                              "codeSystemVersion": "1.0",
+                              "decode": "???"
+                            }
+                          ]
+                        },
+                        "endRule": {
+                          "id": "0d74c4c6-a793-4f46-8237-2e1b32c76f6d",
+                          "description": "Textual description of the rule",
+                          "coding": [
+                            {
+                              "code": "test transition rule in Perl",
+                              "codeSystem": "Perl",
+                              "codeSystemVersion": "1.0",
+                              "decode": "???"
+                            }
+                          ]
+                        }
+                      }
+                    ],
+                    "studyArm": {
+                      "description": "200mg Ibuprofen active comparator arm",
+                      "id": "6b9465ac-7458-42f1-9dd8-a2fbbeb71282",
+                      "studyArmType": "ACTIVE_COMPARATOR_ARM",
+                      "studyOriginType": "INTERNAL",
+                      "studyArmOrigin": "HISTORICAL",
+                      "name": "My Comparator Arm"
+                    },
+                    "studyEpoch": {
+                      "id": "df32b138-8639-4a1c-8c44-cd7cae7ec940",
+                      "epochType": "SCREENING",
+                      "name": "First treatment epoch",
+                      "description": "First treatment epoch with low dose",
+                      "sequenceInStudy": 2
+                    }
+                  }
+                ]
+              }
+            ],
+            "studyDesignId": "ad4393db-e076-4ca0-a02a-fdb6f930bf06"
+          }
+        ]
+      },
+      {
+        "id": "ebd35f48-34b6-4f4b-82c3-414412b740e2",
+        "sectionType": "OBJECTIVES",
+        "objectives": [
+          {
+            "description": "Example trial objective",
+            "endpoints": [
+              {
+                "description": "Cumulative incidence of virus detection in sputum samples among participants up to...",
+                "purpose": "EFFICACY",
+                "id": "1daa6ca6-3b06-4205-8482-038174e17465",
+                "outcomeLevel": "PRIMARY"
+              }
+            ],
+            "id": "7932a775-32ae-43af-b868-78940140e107",
+            "level": "PRIMARY"
+          }
+        ]
+      },
+      {
+        "id": "66dc03d6-3846-44c5-99f1-5cfbc3bdcfdb",
+        "sectionType": "STUDY_INDICATIONS",
+        "studyIndications": [
+          {
+            "id": "dd6f7b56-b87f-4d83-8135-fbdedd075f43",
+            "description": "Alzheimer's disease",
+            "coding": [
+              {
+                "code": "test transition rule in Python",
+                "codeSystem": "Python",
+                "codeSystemVersion": "1.0",
+                "decode": "???"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "66dc03d6-3846-44c5-99f1-5cfbc3bdcfdb",
+        "sectionType": "STUDY_PROTOCOL",
+        "studyProtocol": {
+          "amendments": [
+            {
+              "amendmentDate": "",
+              "version": ""
+            }
+          ],
+          "protocolId": "PR01",
+          "briefTitle": "DDR Targeting Agents in ABTC",
+          "officialTitle": "DDR-Umbrella Study of DDR (DNA-Damage Response) Targeting Agents in Advanced Biliary Tract Cancer",
+          "publicTitle": "Umbrella ABTC Study",
+          "version": "1.0",
+          "scientificTitle": "DDR-Umbrella Study of DNA-Damage Response Targeting Agents in Advanced Biliary Tract Cancer",
+          "sections": [
+            "",
+            ""
+          ]
+        }
+      }
+    ],
+    "studyId": "558cdd9e-47a7-4ae7-a719-eb4f4573c539"
+  },
+  "auditTrail": {
+    "entryDateTime": "2022-JAN-12",
+    "entrySystemId": null,
+    "entrySystem": null,
+    "studyVersion": 2
+  }
+}

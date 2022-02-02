@@ -1,0 +1,101 @@
+[
+  {
+    "_id": {
+      "timestamp": 1636472444,
+      "machine": 14082257,
+      "pid": 5576,
+      "increment": 4670147,
+      "creationTime": "2021-11-09T15:40:44Z"
+    },
+    "clinicalStudy": {
+      "studyId": "1",
+      "studyTitle": "Vaccine Ig Levels in Nasal Mucosa as Measured by Nasal Epithelial Lining Fluid",
+      "studyType": "EXPANDED_ACCESS",
+      "interventationModel": "Parallel Assignment",
+      "investigationalIntervention": [
+        {
+          "investigationalInterventionId": "1",
+          "id": "DRUG",
+          "description": "AZD6738",
+          "coding": [
+            {
+              "code": "",
+              "codeSystem": "",
+              "codeSystemVersion": "",
+              "decode": ""
+            }
+          ]
+        }
+      ],
+      "studyIdentifier": [
+        {
+          "id": "1",
+          "idType": {
+            "code": "NCT04298021",
+            "name": "ClinicalTrials"
+          }
+        }
+      ],
+      "studyObjective": [
+        {
+          "studyobjectiveId": 1,
+          "ObjectiveLevel": "PRIMARY",
+          "Objective": [
+            {
+              "description": "A surveillance study To assess the safety of AZD6738 and Durvalumab combination or AZD6738 and Olaparib combination in biliary tract cancer patients",
+              "endpoints": [
+                {
+                  "OutcomeLevel": "PRIMARY",
+                  "endpoint": [
+                    {
+                      "description": "",
+                      "purpose": "SAFETY"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "studyPhase": "PHASE_1_TRAIL",
+      "studyProtocol": {
+        "amendments": [
+          {
+            "amendmentdate": "",
+            "version": "V1"
+          }
+        ],
+        "briefTitle": "Umbrella Study of Targeting Agents in Advanced Biliary Tract Cancer",
+        "officialTitle": "",
+        "protocolId": "C400-1001",
+        "publicTitle": "",
+        "version": "Draft/Final",
+        "sections": [
+          "",
+          ""
+        ]
+      },
+      "studyTargetIndication": {
+        "studyIndicationId": 1,
+        "coding": [
+          {
+            "code": "",
+            "codeSystem": "",
+            "codeSystemVersion": "",
+            "decode": ""
+          }
+        ],
+        "description": "Bile duct cancer",
+        "id": 5
+      },
+      "studyTargetPopulation": [
+        {
+          "Id": "1",
+          "Description": "biliary tract cancer patients who have failed to 1st-line chemotherapy"
+        }
+      ]
+    }
+  }
+]
+

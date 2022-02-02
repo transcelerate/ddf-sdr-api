@@ -1,0 +1,69 @@
+steps:
+
+- task: SonarSource.sonarqube.15B84CA1-B62F-4A2A-A403-89B77A063157.SonarQubePrepare@5
+  displayName: 'Prepare analysis on SonarQube'
+  inputs:
+    SonarQube: 'SDR_SonarQube'
+    projectKey: 'Study_Definitions_Repository_SDR_API'
+    extraProperties: 'sonar.exclusions=TransCelerate.SDR.WebApi/TransCelerate.SDR.DataAccess'
+
+- task: NuGetToolInstaller@1
+  displayName: 'Use NuGet '
+
+- task: NuGetCommand@2
+  displayName: 'NuGet restore'
+
+- task: VSBuild@1
+  displayName: 'Build solution TransCelerate.SDR.WebApi/TransCelerate.SDR.sln'
+  inputs:
+    solution: TransCelerate.SDR.WebApi/TransCelerate.SDR.sln
+    msbuildArgs: '/p:DeployOnBuild=True'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet test'
+  inputs:
+    command: test
+    projects: TransCelerate.SDR.WebApi/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj
+    arguments: '--configuration $(buildConfiguration) --collect "Code coverage" -s "CodeCoverage.runsettings" '
+    workingDirectory: '$(System.DefaultWorkingDirectory)/TransCelerate.SDR.WebApi'
+
+- task: ArchiveFiles@2
+  displayName: 'Archive file'
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)\Transcelerate.SDR.WebAPI\Transcelerate.SDR.WebAPI\bin\Debug\netcoreapp3.1\Publish\**'
+    archiveFile: publish.zip
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)'
+    Contents: '**.zip'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
+
+- task: SonarSource.sonarqube.6D01813A-9589-4B15-8491-8164AEB38055.SonarQubeAnalyze@5
+  displayName: 'Run Code Analysis'
+
+- task: SonarSource.sonarqube.291ed61f-1ee4-45d3-b1b0-bf822d9095ef.SonarQubePublish@5
+  displayName: 'Publish Quality Gate Result'
+
+- task: mspremier.BuildQualityChecks.QualityChecks-task.BuildQualityChecks@8
+  displayName: 'Check build quality'
+  inputs:
+    checkCoverage: true
+    coverageFailOption: fixed
+    coverageType: lines
+    coverageThreshold: 70
+  enabled: false
+
+- task: SimondeLang.sonar-buildbreaker.sonar-buildbreaker.sonar-buildbreaker@8
+  displayName: 'Break build on quality gate failure'
+  inputs:
+    SonarQube: 'SDR_SonarQube'
+
+- task: mspremier.BuildQualityChecks.QualityChecks-task.BuildQualityChecks@8
+  displayName: 'Check build quality'
+  enabled: false
+

@@ -1,0 +1,17 @@
+{
+	"studyId": "f3b176f5-a692-441f-bf53-4dc0def19601",
+	"auditTrail": [
+		{
+			"entryDateTime": "2022-JAN-22",
+			"entrySystemId": "LH2",
+			"entrySystem": "LocalHost",
+			"studyVersion": 2
+		},
+		{
+			"entryDateTime": "2022-JAN-22",
+			"entrySystemId": "LH2",
+			"entrySystem": "LocalHost",
+			"studyVersion": 1
+		}
+	]
+}

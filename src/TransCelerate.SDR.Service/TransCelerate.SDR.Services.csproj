@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TransCelerate.SDR.Core\TransCelerate.SDR.Core.csproj" />
+    <ProjectReference Include="..\TransCelerate.SDR.DataAccess\TransCelerate.SDR.DataAccess.csproj" />
+  </ItemGroup>
+
+</Project>

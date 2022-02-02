@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransCelerate.SDR.WebApi", "TransCelerate.SDR.WebApi\TransCelerate.SDR.WebApi.csproj", "{7CD72CB0-7BD6-402F-BD97-450B8345BD00}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransCelerate.SDR.Core", "TransCelerate.SDR.Core\TransCelerate.SDR.Core.csproj", "{D3E1FF4B-0280-4CFB-8D1F-65817DB5253E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransCelerate.SDR.UnitTesting", "TransCelerate.SDR.UnitTesting\TransCelerate.SDR.UnitTesting.csproj", "{F9C86A86-9D93-4A75-88E8-CCFD31A65FE8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransCelerate.SDR.DataAccess", "TransCelerate.SDR.DataAccess\TransCelerate.SDR.DataAccess.csproj", "{EA506581-3ED4-4784-910D-73EEA9B703EF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransCelerate.SDR.Services", "TransCelerate.SDR.Service\TransCelerate.SDR.Services.csproj", "{510D0B38-B43F-44B9-B816-11DCA9CE9D5C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7CD72CB0-7BD6-402F-BD97-450B8345BD00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CD72CB0-7BD6-402F-BD97-450B8345BD00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CD72CB0-7BD6-402F-BD97-450B8345BD00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CD72CB0-7BD6-402F-BD97-450B8345BD00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3E1FF4B-0280-4CFB-8D1F-65817DB5253E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3E1FF4B-0280-4CFB-8D1F-65817DB5253E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3E1FF4B-0280-4CFB-8D1F-65817DB5253E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3E1FF4B-0280-4CFB-8D1F-65817DB5253E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9C86A86-9D93-4A75-88E8-CCFD31A65FE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9C86A86-9D93-4A75-88E8-CCFD31A65FE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9C86A86-9D93-4A75-88E8-CCFD31A65FE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9C86A86-9D93-4A75-88E8-CCFD31A65FE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA506581-3ED4-4784-910D-73EEA9B703EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA506581-3ED4-4784-910D-73EEA9B703EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA506581-3ED4-4784-910D-73EEA9B703EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA506581-3ED4-4784-910D-73EEA9B703EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{510D0B38-B43F-44B9-B816-11DCA9CE9D5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{510D0B38-B43F-44B9-B816-11DCA9CE9D5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{510D0B38-B43F-44B9-B816-11DCA9CE9D5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{510D0B38-B43F-44B9-B816-11DCA9CE9D5C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A401B0EF-DDF8-4416-A67B-9055F052086B}
+	EndGlobalSection
+EndGlobal

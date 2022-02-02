@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Entities\Amendment.cs" />
+    <Compile Remove="Entities\ClinicalStudy.cs" />
+    <Compile Remove="Entities\IdentifierType.cs" />
+    <Compile Remove="Entities\InvestigationalIntervention.cs" />
+    <Compile Remove="Entities\Section.cs" />
+    <Compile Remove="Entities\StudyEndpoint.cs" />
+    <Compile Remove="Entities\StudyIdentifier.cs" />
+    <Compile Remove="Entities\StudyIndication.cs" />
+    <Compile Remove="Entities\StudyObjective.cs" />
+    <Compile Remove="Entities\StudyProtocol.cs" />
+    <Compile Remove="Entities\StudyTargetPopulation.cs" />
+    <Compile Remove="Entities\StudyTrialIntentType.cs" />
+    <Compile Remove="Entities\StudyTrialType.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DomainModels\" />
+    <Folder Include="ClassDiagrams\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.14.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+ 
+  <ItemGroup>
+    <Folder Include="Utilities\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.19.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.21" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="1.19.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TransCelerate.SDR.Core\TransCelerate.SDR.Core.csproj" />
+    <ProjectReference Include="..\TransCelerate.SDR.DataAccess\TransCelerate.SDR.DataAccess.csproj" />
+    <ProjectReference Include="..\TransCelerate.SDR.Service\TransCelerate.SDR.Services.csproj" />
+  </ItemGroup>
+
+
+</Project>
