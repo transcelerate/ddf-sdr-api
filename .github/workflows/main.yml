@@ -39,7 +39,7 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: dotnet test
-      run: dotnet test src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj --configuration ${{ env.buildConfiguration }}
+      run: dotnet test src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj --configuration release
     - # 'Note: This is a third party action and currently only supports Linux: https://github.com/marketplace/actions/create-zip-file'
       name: Archive ${{ github.workspace }}
       uses: montudor/action-zip@v0.1.0
