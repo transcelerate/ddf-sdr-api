@@ -44,13 +44,11 @@ jobs:
       name: Archive ${{ github.workspace }}
       uses: montudor/action-zip@v0.1.0
       with:
-        args: zip -qq -r publish.zip ${{ github.workspace }}\src\Transcelerate.SDR.WebAPI\bin\Debug
-etcoreapp3.1\Publish\**
+        args: zip -qq -r publish.zip ${{ github.workspace }}\src\Transcelerate.SDR.WebAPI\bin\Debug\netcoreapp3.1\Publish\**
     - name: 'Copy Files to: ${{ github.workspace }}'
       run: Copy '${{ github.workspace }}/**.zip' '${{ github.workspace }}'
     - name: 'Publish Artifact: Artifact'
       uses: actions/upload-artifact@v2
       with:
-        path: 
-        name: Build-Artifact
-      if: (${{ job.status }} != 'cancelled')
+        path: ${{ github.workspace }}
+        name: Build-Artifacted')
