@@ -25,7 +25,7 @@ jobs:
     - name: Use NuGet
       uses: nuget/setup-nuget@v1
     - name: NuGet restore
-      run: nuget restore
+      run: nuget restore 'ddf-sdr-api/src/TransCelerate.SDR.sln'
     - name: Build solution **\*.sln
       run: msbuild 'src/TransCelerate.SDR.sln' /p:DeployOnBuild=True
     - uses: actions/setup-dotnet@v1
