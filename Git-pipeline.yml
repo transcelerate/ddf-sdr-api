@@ -1,5 +1,8 @@
 
 jobs:
+  scripts:
+    runs-on: windows-latest
+    
   build:
     steps:
     - uses: actions/checkout@v2
@@ -9,7 +12,7 @@ jobs:
     - name: NuGet restore
       run: nuget restore
     - name: Build solution **\*.sln
-      run: msbuild 'TransCelerate.SDR.WebApi/TransCelerate.SDR.sln' /p:DeployOnBuild=True
+      run: msbuild 'src/TransCelerate.SDR.sln' /p:DeployOnBuild=True
     - uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
@@ -21,12 +24,12 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: dotnet test
-      run: dotnet test TransCelerate.SDR.WebApi/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj --configuration ${{ env.buildConfiguration }}
+      run: dotnet test src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj --configuration ${{ env.buildConfiguration }}
     - # 'Note: This is a third party action and currently only supports Linux: https://github.com/marketplace/actions/create-zip-file'
       name: Archive ${{ github.workspace }}
       uses: montudor/action-zip@v0.1.0
       with:
-        args: zip -qq -r publish.zip ${{ github.workspace }}\Transcelerate.SDR.WebAPI\Transcelerate.SDR.WebAPI\bin\Debug
+        args: zip -qq -r publish.zip ${{ github.workspace }}\src\Transcelerate.SDR.WebAPI\bin\Debug
 etcoreapp3.1\Publish\**
     - name: 'Copy Files to: ${{ github.workspace }}'
       run: Copy '${{ github.workspace }}/**.zip' '${{ github.workspace }}'
