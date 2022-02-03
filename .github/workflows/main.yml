@@ -1,0 +1,56 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: microsoft/setup-msbuild@v1.0.2
+    - name: Use NuGet
+      uses: nuget/setup-nuget@v1
+    - name: NuGet restore
+      run: nuget restore
+    - name: Build solution **\*.sln
+      run: msbuild 'src/TransCelerate.SDR.sln' /p:DeployOnBuild=True
+    - uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.0.x
+    - name: Install .NET Core SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: dotnet test
+      run: dotnet test src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj --configuration ${{ env.buildConfiguration }}
+    - # 'Note: This is a third party action and currently only supports Linux: https://github.com/marketplace/actions/create-zip-file'
+      name: Archive ${{ github.workspace }}
+      uses: montudor/action-zip@v0.1.0
+      with:
+        args: zip -qq -r publish.zip ${{ github.workspace }}\src\Transcelerate.SDR.WebAPI\bin\Debug
+etcoreapp3.1\Publish\**
+    - name: 'Copy Files to: ${{ github.workspace }}'
+      run: Copy '${{ github.workspace }}/**.zip' '${{ github.workspace }}'
+    - name: 'Publish Artifact: Artifact'
+      uses: actions/upload-artifact@v2
+      with:
+        path: 
+        name: Build-Artifact
+      if: (${{ job.status }} != 'cancelled')
