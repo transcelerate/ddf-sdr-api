@@ -18,7 +18,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
     - uses: microsoft/setup-msbuild@v1.0.2
@@ -40,15 +40,17 @@ jobs:
         dotnet-version: 5.0.x
     - name: dotnet test
       run: dotnet test src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj --configuration release
-    - # 'Note: This is a third party action and currently only supports Linux: https://github.com/marketplace/actions/create-zip-file'
-      name: Archive ${{ github.workspace }}
-      uses: montudor/action-zip@v0.1.0
+       # 'Note: This is a third party action and currently only supports Linux: https://github.com/marketplace/actions/create-zip-file' 
+    - name: PowerShell script
+      # You may pin to the exact commit or the version.
+      # uses: Amadevus/pwsh-script@1f1751bbf3d1a92127bfc6c32403283625880cbf
+      uses: Amadevus/pwsh-script@v2.0.1
       with:
-        args: zip -qq -r publish.zip ${{ github.workspace }}\src\Transcelerate.SDR.WebAPI\bin\Debug\netcoreapp3.1\Publish\**
-    - name: 'Copy Files to: ${{ github.workspace }}'
-      run: Copy '${{ github.workspace }}/**.zip' '${{ github.workspace }}'
+      # PowerShell script to execute in Actions-hydrated context
+        script: Compress-Archive -Path "${{ github.workspace }}\src\Transcelerate.SDR.WebAPI\bin\Debug\netcoreapp3.1\Publish\**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
+    
     - name: 'Publish Artifact: Artifact'
       uses: actions/upload-artifact@v2
       with:
-        path: ${{ github.workspace }}
+        path: ${{ github.workspace }}/**.zip
         name: Build-Artifacted')
