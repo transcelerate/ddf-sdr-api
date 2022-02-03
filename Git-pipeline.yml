@@ -1,0 +1,38 @@
+
+jobs:
+  build:
+    steps:
+    - uses: actions/checkout@v2
+    - uses: microsoft/setup-msbuild@v1.0.2
+    - name: Use NuGet
+      uses: nuget/setup-nuget@v1
+    - name: NuGet restore
+      run: nuget restore
+    - name: Build solution **\*.sln
+      run: msbuild 'TransCelerate.SDR.WebApi/TransCelerate.SDR.sln' /p:DeployOnBuild=True
+    - uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.0.x
+    - name: Install .NET Core SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: dotnet test
+      run: dotnet test TransCelerate.SDR.WebApi/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj --configuration ${{ env.buildConfiguration }}
+    - # 'Note: This is a third party action and currently only supports Linux: https://github.com/marketplace/actions/create-zip-file'
+      name: Archive ${{ github.workspace }}
+      uses: montudor/action-zip@v0.1.0
+      with:
+        args: zip -qq -r publish.zip ${{ github.workspace }}\Transcelerate.SDR.WebAPI\Transcelerate.SDR.WebAPI\bin\Debug
+etcoreapp3.1\Publish\**
+    - name: 'Copy Files to: ${{ github.workspace }}'
+      run: Copy '${{ github.workspace }}/**.zip' '${{ github.workspace }}'
+    - name: 'Publish Artifact: Artifact'
+      uses: actions/upload-artifact@v2
+      with:
+        path: 
+        name: Build-Artifact
+      if: (${{ job.status }} != 'cancelled')
