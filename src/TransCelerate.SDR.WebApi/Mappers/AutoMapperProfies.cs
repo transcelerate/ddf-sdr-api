@@ -46,7 +46,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
                 .ForMember(dest => dest.entrySystemId, opt => opt.MapFrom(src => src.auditTrail.entrySystemId));
 
             //Mappers for POST methods
-            CreateMap<PostStudyDTO, StudyEntity>();
+            CreateMap<PostStudyDTO, StudyEntity>().ReverseMap();        
 
             //Mappers for both GET and POST
             CreateMap<AuditTrailEntity, AuditTrailDTO>()
@@ -97,8 +97,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
                 .ForMember(dest => dest.EndPointsId, opt => opt.MapFrom(src => src.id)).ReverseMap();            
 
             //Mapper for Search method request body
-            CreateMap<SearchParametersDTO, SearchParameters>();
-
+            CreateMap<SearchParametersDTO, SearchParameters>();         
         }
     }
 }

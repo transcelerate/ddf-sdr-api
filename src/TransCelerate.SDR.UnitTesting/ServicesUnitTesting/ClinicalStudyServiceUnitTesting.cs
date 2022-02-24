@@ -15,6 +15,7 @@ using Moq;
 using TransCelerate.SDR.WebApi.Mappers;
 using Microsoft.Extensions.Logging;
 using TransCelerate.SDR.Core.Utilities;
+using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.UnitTesting
 {
@@ -576,12 +577,12 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void GetSections_UnitTest_FailureResponse()
         {
-            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync("1", 1, "1.0Draft"))
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync("1", 1, null))
                     .Returns(Task.FromResult(GetDataFromStaticJson()));
             ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);
             string[] sections = { "study_cells", "study_objectives", "study_investigational_interventions", "study_planned_workflow", "study_target_populations", "study_indications", "study_design" };
 
-            var method = ClinicalStudyService.GetSections("2", 1, "1.0Draft", sections);
+            var method = ClinicalStudyService.GetSections("2", 1, null, sections);
             method.Wait();
 
             //Actual
@@ -589,6 +590,17 @@ namespace TransCelerate.SDR.UnitTesting
 
             //Assert          
             Assert.IsNull(actual_result);
+
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>(), "New"))
+                   .Throws(new Exception("Error"));
+            ClinicalStudyService ClinicalStudyService1 = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);            
+
+            method = ClinicalStudyService1.GetSections("1", 1, "New", sections);
+
+            Assert.Throws<AggregateException>(method.Wait);
+
+
+
         }
         #endregion
 
@@ -673,12 +685,12 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void GetDesignSections_UnitTest_FailureResponse()
         {
-            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync("1", 1, "1.0Draft"))
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync("1", 1, null))
                     .Returns(Task.FromResult(GetDataFromStaticJson()));
             ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);
             string[] sections = { "study_cells", "study_objectives", "study_investigational_interventions", "study_planned_workflow", "study_target_populations", "study_indications", "study_design" };
 
-            var method = ClinicalStudyService.GetStudyDesignSections("2","1", 1, "1.0Draft", sections);
+            var method = ClinicalStudyService.GetStudyDesignSections("2","1", 1, null, sections);
             method.Wait();
 
             //Actual
@@ -733,7 +745,68 @@ namespace TransCelerate.SDR.UnitTesting
             //Assert          
             Assert.IsNull(actual_result);
         }
-        #endregion      
+        #endregion
+
+        #region GET All StudyId UnitTesting
+        public class AllStudyElementsResponse
+        {
+            public string studyId { get; set; }
+            public string studyTitle { get; set; }
+            public int[] studyVersion { get; set; }
+        }
+        public class AllStudyResponse
+        {
+            public object study { get; set; }
+        }
+
+        [Test]
+        public void GetAllStudy_UnitTest_SuccessResponse()
+        {
+            DateTime fromDate = DateTime.Now;
+            DateTime toDate = DateTime.Now.AddHours(23).AddMinutes(59).AddSeconds(59);
+            _mockClinicalStudyRepository.Setup(x => x.GetAllStudyId(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+                    .Returns(Task.FromResult(GetListDataFromStaticJson()));
+            ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);           
+
+
+            var method = ClinicalStudyService.GetAllStudyId(fromDate, toDate);
+            method.Wait();
+            var result = method.Result;
+
+            //Expected
+            var expected = GetListDataFromStaticJson();
+
+            //Actual            
+            var actual_result = JsonConvert.DeserializeObject<AllStudyResponse>(
+                JsonConvert.SerializeObject(result));
+
+            var studyElements = JsonConvert.DeserializeObject<List<AllStudyElementsResponse>>(
+                JsonConvert.SerializeObject(actual_result.study));
+
+            //Assert                    
+
+            Assert.AreEqual(expected[0].clinicalStudy.studyId, studyElements[0].studyId);
+            Assert.AreEqual(expected[0].clinicalStudy.studyTitle, studyElements[0].studyTitle);
+            Assert.AreEqual(expected[1].auditTrail.studyVersion, studyElements[0].studyVersion[0]);
+            Assert.AreEqual(expected[0].auditTrail.studyVersion, studyElements[0].studyVersion[1]);
+        }
+
+        [Test]
+        public void GetAllStudy_UnitTest_FailureResponse()
+        {
+            DateTime fromDate = DateTime.Now;
+            DateTime toDate = DateTime.Now.AddHours(23).AddMinutes(59).AddSeconds(59);
+            _mockClinicalStudyRepository.Setup(x => x.GetAllStudyId(fromDate, toDate))
+                    .Returns(Task.FromResult(GetListDataFromStaticJson()));
+            ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);            
+
+            var method = ClinicalStudyService.GetAllStudyId(It.IsAny<DateTime>(), It.IsAny<DateTime>());
+            method.Wait();
+
+            Assert.IsNull(method.Result);
+        }
+        #endregion 
+
         #endregion
 
         #region POST Method Unit Testing
@@ -746,6 +819,7 @@ namespace TransCelerate.SDR.UnitTesting
             ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);
             var studyDTO = JsonConvert.DeserializeObject<PostStudyDTO>(
                 JsonConvert.SerializeObject(GetPostDataFromStaticJson()));
+            studyDTO.clinicalStudy.studyId = null;
 
             var method = ClinicalStudyService.PostAllElements(studyDTO,null,null);
             method.Wait();
@@ -761,6 +835,22 @@ namespace TransCelerate.SDR.UnitTesting
             //Assert          
             Assert.IsNotNull(actual_result);
             Assert.AreEqual(expected, actual_result.studyId);
+
+            var newStudyDTO = JsonConvert.DeserializeObject<PostStudyDTO>(
+                JsonConvert.SerializeObject(GetPostDataFromStaticJson()));
+
+            method = ClinicalStudyService.PostAllElements(newStudyDTO, null, null);
+            method.Wait();            
+
+            //Expected
+            expected = Constants.ErrorMessages.NotValidStudyId;
+
+            //Actual            
+            var newActual_result = method.Result;
+
+            //Assert          
+            Assert.IsNotNull(actual_result);
+            Assert.AreEqual(expected, newActual_result);
         }
         #endregion
 

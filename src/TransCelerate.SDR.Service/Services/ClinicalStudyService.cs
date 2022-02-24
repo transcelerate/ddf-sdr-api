@@ -498,12 +498,7 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {                       
-                    var studyDTO = _mapper.Map<GetStudyDTO>(study);
-                    if(DateTime.ParseExact(studyDTO.auditTrail.entryDateTime,Constants.DateFormats.DateFormatForAuditResponse,CultureInfo.InvariantCulture)
-                        == DateTime.MinValue)
-                    {
-                        studyDTO.auditTrail.entryDateTime = null;
-                    }
+                    var studyDTO = _mapper.Map<GetStudyDTO>(study);                  
                     var studyResponse = JsonConvert.DeserializeObject(
                            JsonConvert.SerializeObject(studyDTO, JsonSettings.JsonSerializerSettings()));                    
                     return studyResponse;                  
@@ -582,7 +577,7 @@ namespace TransCelerate.SDR.Services.Services
         {
             try
             {
-                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyService)}; Method : {nameof(GetSections)};");
+                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyService)}; Method : {nameof(GetStudyDesignSections)};");
                 studyId = studyId.Trim();
 
                 StudyEntity study;
@@ -617,7 +612,7 @@ namespace TransCelerate.SDR.Services.Services
             }
             finally
             {
-                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyService)}; Method : {nameof(GetSections)};");
+                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyService)}; Method : {nameof(GetStudyDesignSections)};");
             }
         }
 
@@ -659,6 +654,53 @@ namespace TransCelerate.SDR.Services.Services
                 _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyService)}; Method : {nameof(GetAuditTrail)};");
             }
         }
+
+        /// <summary>
+        /// Get AllStudy Id's
+        /// </summary>
+        /// <param name="fromDate"></param>
+        /// <param name="toDate"></param>
+        /// <returns></returns>
+        public async Task<object> GetAllStudyId(DateTime fromDate, DateTime toDate)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyService)}; Method : {nameof(GetAllStudyId)};");
+                var studies = await _clinicalStudyRepository.GetAllStudyId(fromDate, toDate);
+                if (studies == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    var groupStudy = studies.GroupBy(x=> new { x.clinicalStudy.studyId })
+                                            .Select(g => new
+                                            {
+                                                studyId = g.Key.studyId,                                               
+                                                studyTitle = g.Select(x=>x).Where(x=>x.auditTrail.studyVersion== g.Max(x => x.auditTrail.studyVersion)).FirstOrDefault().clinicalStudy.studyTitle,
+                                                studyVersion = g.Select(x=>x.auditTrail.studyVersion).OrderBy(x=>x).ToArray(),
+                                                date = g.Select(x => x).Where(x => x.auditTrail.studyVersion == g.Max(x => x.auditTrail.studyVersion)).FirstOrDefault().auditTrail.entryDateTime,
+                                            })     
+                                            .OrderByDescending(x=>x.date)
+                                            .ToList();
+
+                    AllStudyIdResponseDTO allStudyIdResponseDTO = new AllStudyIdResponseDTO()
+                    {
+                        study = JsonConvert.DeserializeObject<List<StudyHistory>>(JsonConvert.SerializeObject(groupStudy))
+                    };
+
+                    return allStudyIdResponseDTO;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyService)}; Method : {nameof(GetAllStudyId)};");
+            }
+        }
         #endregion
 
 
@@ -666,53 +708,94 @@ namespace TransCelerate.SDR.Services.Services
         /// <summary>
         /// POST All Elements For a Study
         /// </summary>
-        /// <param name="study"></param>
+        /// <param name="studyDTO"></param>
         /// <param name="entrySystem"></param>
         /// <param name="entrySystemId"></param>
         /// <returns></returns>
-        public async Task<object> PostAllElements(PostStudyDTO study,string entrySystem, string entrySystemId)
+        public async Task<object> PostAllElements(PostStudyDTO studyDTO,string entrySystem, string entrySystemId)
         {
             try
             {
-                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyService)}; Method : {nameof(PostAllElements)};");                               
-                var incomingstudyEntity = _mapper.Map<StudyEntity>(study);
-                StudyEntity existingStudyEntity = _clinicalStudyRepository.GetStudyItemsAsync(incomingstudyEntity.clinicalStudy.studyId, 0).Result;
+                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyService)}; Method : {nameof(PostAllElements)};");                  
+                var incomingstudyEntity = _mapper.Map<StudyEntity>(studyDTO);
                 AuditTrailEntity auditTrailEntity = new AuditTrailEntity();
                 incomingstudyEntity.auditTrail = auditTrailEntity;
                 incomingstudyEntity.auditTrail.entryDateTime = DateTime.UtcNow;
                 incomingstudyEntity.auditTrail.entrySystemId = entrySystemId;
-                incomingstudyEntity.auditTrail.entrySystem = entrySystem;                
-                incomingstudyEntity.clinicalStudy.tag = incomingstudyEntity.clinicalStudy.tag.Trim();
+                incomingstudyEntity.auditTrail.entrySystem = entrySystem;
                 PostStudyResponseDTO postStudyDTO = new PostStudyResponseDTO();
-                
-                if (existingStudyEntity == null)
+                if (String.IsNullOrEmpty(incomingstudyEntity.clinicalStudy.studyId))
                 {
                     incomingstudyEntity.auditTrail.studyVersion = 1;
-                    incomingstudyEntity.clinicalStudy.studyId = Guid.NewGuid().ToString();
+                    incomingstudyEntity.clinicalStudy.studyId = IdGenerator.GenerateId();
                     incomingstudyEntity._id = ObjectId.GenerateNewId();
+                    incomingstudyEntity.clinicalStudy.studyIdentifiers.ForEach(x => x.studyIdentifierId = IdGenerator.GenerateId());
+                    SectionIdGenerator.GenerateSectionId(incomingstudyEntity);
 
                     _logger.LogInformation($"Study Input : {JsonConvert.SerializeObject(incomingstudyEntity)}");
                     postStudyDTO.studyId =  await _clinicalStudyRepository.PostStudyItemsAsync(incomingstudyEntity).ConfigureAwait(false);
+                    postStudyDTO.studyVersion = incomingstudyEntity.auditTrail.studyVersion;
+                    var studyDesign = incomingstudyEntity.clinicalStudy.currentSections!=null?incomingstudyEntity.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).ToList():new List<CurrentSectionsEntity>();
+                    if (studyDesign.Count() != 0)
+                    {
+                        var designIdList = new List<string>();
+                        foreach (var item in studyDesign.Find(x => x.studyDesigns != null).studyDesigns)
+                        {
+                            designIdList.Add(item.studyDesignId);
+                        }
+                        postStudyDTO.studyDesignId = designIdList;
+                    }
                 }
                 else
                 {
-                    if (PostStudyElementsCheck.StudyComparison(incomingstudyEntity, existingStudyEntity))
+                    StudyEntity existingStudyEntity = _clinicalStudyRepository.GetStudyItemsAsync(incomingstudyEntity.clinicalStudy.studyId, 0).Result;
+                    //var existingStudyDTO = _mapper.Map<PostStudyDTO>(existingStudyEntity);
+                    
+                    if(existingStudyEntity == null)
                     {
-                        incomingstudyEntity.auditTrail.studyVersion = existingStudyEntity.auditTrail.studyVersion;
-
-                        _logger.LogInformation($"Study Input : {JsonConvert.SerializeObject(incomingstudyEntity)}");
-                        postStudyDTO.studyId = await _clinicalStudyRepository.UpdateStudyItemsAsync(incomingstudyEntity);
+                        return Constants.ErrorMessages.NotValidStudyId;
                     }
                     else
                     {
-                        incomingstudyEntity._id = ObjectId.GenerateNewId();                        
-                        incomingstudyEntity.auditTrail.studyVersion = existingStudyEntity.auditTrail.studyVersion + 1;
+                        existingStudyEntity.auditTrail.entryDateTime = incomingstudyEntity.auditTrail.entryDateTime;
+                        existingStudyEntity.auditTrail.entrySystem = incomingstudyEntity.auditTrail.entrySystem;
+                        existingStudyEntity.auditTrail.entrySystemId = incomingstudyEntity.auditTrail.entrySystemId;
+                        incomingstudyEntity._id = existingStudyEntity._id;
+                        incomingstudyEntity.auditTrail.studyVersion = existingStudyEntity.auditTrail.studyVersion;
+                        var duplicateExistingStudy = JsonConvert.DeserializeObject<StudyEntity>(JsonConvert.SerializeObject(existingStudyEntity));
+                        var duplicateIncomingStudy = JsonConvert.DeserializeObject<StudyEntity>(JsonConvert.SerializeObject(incomingstudyEntity));
+                        if (PostStudyElementsCheck.StudyComparison(duplicateIncomingStudy, duplicateExistingStudy))
+                        {
+                            _logger.LogInformation($"Study Input : {JsonConvert.SerializeObject(existingStudyEntity)}");
+                            postStudyDTO.studyId = await _clinicalStudyRepository.UpdateStudyItemsAsync(existingStudyEntity);
+                            postStudyDTO.studyVersion = existingStudyEntity.auditTrail.studyVersion;
+                        }
+                        else
+                        {
+                            incomingstudyEntity._id = ObjectId.GenerateNewId();
+                            existingStudyEntity.auditTrail.studyVersion += 1;
+                            //existingStudyEntity = _mapper.Map<StudyEntity>(incomingstudyEntity);
+                            PostStudyElementsCheck.SectionCheck(incomingstudyEntity, existingStudyEntity);
 
-                        _logger.LogInformation($"Study Input : {JsonConvert.SerializeObject(incomingstudyEntity)}");
-                        postStudyDTO.studyId = await _clinicalStudyRepository.PostStudyItemsAsync(incomingstudyEntity).ConfigureAwait(false);
+                            _logger.LogInformation($"Study Input : {JsonConvert.SerializeObject(existingStudyEntity)}");
+                            existingStudyEntity._id = ObjectId.GenerateNewId();
+                            postStudyDTO.studyId = await _clinicalStudyRepository.PostStudyItemsAsync(existingStudyEntity).ConfigureAwait(false);
+                            postStudyDTO.studyVersion = existingStudyEntity.auditTrail.studyVersion;
+                        }
+                        var studyDesign = existingStudyEntity.clinicalStudy.currentSections != null ? existingStudyEntity.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).ToList() : new List<CurrentSectionsEntity>();
+                        if (studyDesign.Count() != 0)
+                        {
+                            var designIdList = new List<string>();
+                            foreach (var item in studyDesign.Find(x => x.studyDesigns != null).studyDesigns)
+                            {
+                                designIdList.Add(item.studyDesignId);
+                            }
+                            postStudyDTO.studyDesignId = designIdList;
+                        }
                     }
                 }
-                return postStudyDTO;
+                return JsonConvert.DeserializeObject(
+                           JsonConvert.SerializeObject(postStudyDTO, JsonSettings.JsonSerializerSettings()));
             }
             catch (Exception ex)
             {

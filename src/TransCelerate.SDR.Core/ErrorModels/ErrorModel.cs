@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TransCelerate.SDR.Core.ViewModels
+namespace TransCelerate.SDR.Core.ErrorModels
 {
     public class ErrorModel
     {

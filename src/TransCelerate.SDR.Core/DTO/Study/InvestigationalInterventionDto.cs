@@ -10,8 +10,7 @@ using TransCelerate.SDR.Core.Utilities.Helpers;
 namespace TransCelerate.SDR.Core.DTO.Study
 {
     public class InvestigationalInterventionDTO
-    {
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
+    {        
         public string id { get; set; }
 
         [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]

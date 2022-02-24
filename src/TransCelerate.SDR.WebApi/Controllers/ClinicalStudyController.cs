@@ -570,7 +570,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(GetStudy)};");                
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
-                    _logger.LogInformation($"Inputs: StudyId: {studyId}; Version: {version}; Status: {tag ?? "<null>"}; Sections: {sections}");
+                    _logger.LogInformation($"Inputs: StudyId: {studyId}; Version: {version}; Status: {tag ?? "<null>"}; Sections: {sections??"<null>"}");
                     string[] sectionArray = new string[] { };
                     if(!String.IsNullOrWhiteSpace(sections))
                     {
@@ -585,7 +585,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                             isValidSection = Enum.GetNames(typeof(StudySections)).Contains(item.Trim().ToLower());
                             if(!isValidSection)
                             {
-                                return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide a valid section")).Value);
+                                return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.SectionNotValid)).Value);
                             }
                         }
                         study = await _clinicalStudyService.GetSections(studyId: studyId, version: version, tag: tag,sections: sectionArray).ConfigureAwait(false);
@@ -599,7 +599,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     {
                         if (Request != null)
                             Response.Headers.Add("Controller", "True");
-                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound("The requested study document not found")).Value);
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
                     }
                     else
                     {
@@ -608,7 +608,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 }
                 else
                 {
-                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide a valid study")).Value);
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
                 }
             }
             catch (Exception ex)
@@ -637,10 +637,10 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(GetStudy)};");
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(GetStudyDesignSections)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
-                    _logger.LogInformation($"Inputs: StudyId: {studyId}; StudyDesignId: {studyDesignId}; Version: {version}; Status: {tag ?? "<null>"}; Sections: {sections}");
+                    _logger.LogInformation($"Inputs: StudyId: {studyId}; StudyDesignId: {studyDesignId}; Version: {version}; Status: {tag ?? "<null>"}; Sections: {sections??"<null>"}");
                     string[] sectionArray = new string[] { };
                     if (!String.IsNullOrWhiteSpace(sections))
                     {
@@ -654,7 +654,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                             isValidSection = Enum.GetNames(typeof(StudyDesignSections)).Contains(item.Trim().ToLower());
                             if (!isValidSection)
                             {
-                                return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide a valid section")).Value);
+                                return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.SectionNotValid)).Value);
                             }
                         }
                         
@@ -666,7 +666,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     {
                         if (Request != null)
                             Response.Headers.Add("Controller", "True");
-                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound("The requested study document not found")).Value);
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
                     }
                     else
                     {
@@ -675,7 +675,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         {
                             if (Request != null)
                                 Response.Headers.Add("Controller", "True");
-                            return NotFound(new JsonResult(ErrorResponseHelper.NotFound("The requested study design not found")).Value);
+                            return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyDesignNotFound)).Value);
                         }
                         else
                         {
@@ -685,7 +685,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 }
                 else
                 {
-                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide a valid study")).Value);
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
                 }
             }
             catch (Exception ex)
@@ -695,7 +695,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyController)}; Method : {nameof(GetStudy)};");
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyController)}; Method : {nameof(GetStudyDesignSections)};");
             }
         }
         /// <summary>
@@ -734,7 +734,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     {
                         if (Request != null)
                             Response.Headers.Add("Controller", "True");
-                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound("The audit trial for the study elements is not found")).Value);
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
                     }
                     else
                     {
@@ -743,7 +743,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 }
                 else
                 {
-                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("ToDate must be greater than or equal to FromDate")).Value);
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError)).Value);
                 }
             }
             catch (Exception ex)
@@ -754,6 +754,64 @@ namespace TransCelerate.SDR.WebApi.Controllers
             finally
             {
                 _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyController)}; Method : {nameof(GetAuditTrail)};");
+            }
+        }
+
+        /// <summary>
+        /// Get All StudyId's in the database
+        /// </summary>
+        /// <param name="fromDate"></param>
+        /// <param name="toDate"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route(Route.StudyHistory)]
+        public async Task<IActionResult> GetAllStudyId(DateTime fromDate, DateTime toDate)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(GetAllStudyId)};");
+
+                _logger.LogInformation($"Inputs: FromDate: {fromDate}; ToDate: {toDate};");
+
+                if (toDate == DateTime.MinValue)
+                {
+                    toDate = DateTime.UtcNow;
+                }
+                if (toDate != DateTime.MinValue)
+                {
+                    toDate = toDate.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
+                }
+                if (fromDate != DateTime.MinValue)
+                {
+                    fromDate = fromDate.Date;
+                }
+                if (fromDate <= toDate)
+                {
+                    var studyHistoryResponse = await _clinicalStudyService.GetAllStudyId(fromDate, toDate);
+                    if (studyHistoryResponse == null)
+                    {
+                        if (Request != null)
+                            Response.Headers.Add("Controller", "True");
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
+                    }
+                    else
+                    {
+                        return Ok(studyHistoryResponse);
+                    }
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex.Message}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyController)}; Method : {nameof(GetAllStudyId)};");
             }
         }
         #endregion
@@ -785,16 +843,23 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         {
                             if (Request != null)
                                 Response.Headers.Add("Controller", "True");
-                            return BadRequest(new JsonResult(ErrorResponseHelper.NotFound("The POST request for the study has failed")).Value);
+                            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("An Error Occured")).Value);
                         }
                         else
                         {
-                            return Created($"study/{studyDTO.clinicalStudy.studyId}", new JsonResult(response).Value);
+                            if(response.ToString() ==  Constants.ErrorMessages.NotValidStudyId)
+                            {
+                                return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.NotValidStudyId)).Value);
+                            }
+                            else
+                            {
+                                return Created($"study/{studyDTO.clinicalStudy.studyId}", new JsonResult(response).Value);
+                            }
                         }
                     }
                     else
                     {
-                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide a valid study")).Value);
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
                     }
                 }
                 else
@@ -834,7 +899,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                            && String.IsNullOrWhiteSpace(searchparameters.studyId) && String.IsNullOrWhiteSpace(searchparameters.studyTitle)
                            && String.IsNullOrWhiteSpace(searchparameters.fromDate) && String.IsNullOrWhiteSpace(searchparameters.toDate))                         
                         {
-                            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Any one of the field is required")).Value);
+                            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ValidationErrorMessage.AnyOneFieldError)).Value);
                         }
                         if(String.IsNullOrWhiteSpace(searchparameters.toDate))
                         {
@@ -848,7 +913,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         {
                             if (Convert.ToDateTime(searchparameters.fromDate) > Convert.ToDateTime(searchparameters.toDate))
                             {
-                                return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("To date must be greater than From date")).Value);
+                                return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError)).Value);
                             }
                         }
                         var response = await _clinicalStudyService.SearchStudy(searchparameters).ConfigureAwait(false);
@@ -857,7 +922,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         {
                             if (Request != null)
                                 Response.Headers.Add("Controller", "True");
-                            return NotFound(new JsonResult(ErrorResponseHelper.NotFound("No Study Matches the search keywords")).Value);
+                            return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.SearchNotFound)).Value);
                         }
                         else
                         {                           
@@ -866,7 +931,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     }
                     else
                     {
-                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide valid search parameters")).Value);
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
                     }
                 }
                 else

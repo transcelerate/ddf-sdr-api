@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
-using TransCelerate.SDR.Core.ViewModels;
+using TransCelerate.SDR.Core.ErrorModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using TransCelerate.SDR.Core.ErrorModels;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
 {
@@ -73,17 +72,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 error = validationProblemDetails
             };
             return errorModel;
-        } 
-        public static ValidationErrorModel BadRequest()
-        {            
-            ValidationErrorModel errorModel = new ValidationErrorModel
-            {
-                statusCode = ((int)HttpStatusCode.BadRequest).ToString(),
-                message = "API Specification Error",
-                error = "JSON data is not compliant to API Specifications"
-            };
-            return errorModel;
-        }
+        }        
         public static ErrorModel MethodNotAllowed(string detail = null)
         {
             ErrorModel errorModel = new ErrorModel

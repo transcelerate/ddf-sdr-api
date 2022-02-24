@@ -34,6 +34,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         public const string StudyDesign = "{studyId}/studydesign/{studyDesignId}"; 
 
         public const string AuditTrail = "audittrail/{studyId}";
+
+        public const string StudyHistory = "studyhistory";
         #endregion
 
         #region POST Method Routes

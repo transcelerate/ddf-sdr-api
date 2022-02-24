@@ -49,16 +49,18 @@ namespace TransCelerate.SDR.WebApi
                 {                    
                     builder.AddApplicationInsights(Config.instrumentationKey);
                 });
-            ILogger logger = loggerFactory.CreateLogger<Startup>();   
+            ILogger logger = loggerFactory.CreateLogger<Startup>();
             #endregion
 
             //Authorization for the APIs
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)            
-                    .AddJwtBearer(o =>
-                    {
-                        o.Audience = Config.clientID;
-                        o.Authority = Config.instance+Config.tenantID;                
-                    });
+            #region Removed as part of certificate authentication
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //            .AddJwtBearer(o =>
+            //            {
+            //                o.Audience = Config.clientID;
+            //                o.Authority = Config.instance + Config.tenantID;
+            //            }); 
+            #endregion
 
             //Swagger
             services.AddSwaggerGen(c =>
@@ -192,7 +194,7 @@ namespace TransCelerate.SDR.WebApi
             //Map Endpoints with authorization
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers().RequireAuthorization();
+                endpoints.MapControllers();
             });          
         }
 

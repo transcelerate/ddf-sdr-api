@@ -9,6 +9,16 @@ namespace TransCelerate.SDR.Core.Utilities.Common
     /// </summary>
     public static class Constants
     {
+        public struct KeyVault
+        {
+            public const string Key = "KeyVault:Vault";
+
+            public const string ClientId = "KeyVault:ClientId";
+
+            public const string ClientSecret = "KeyVault:ClientSecret";
+
+            public const string DefaultKeyVault = "https://vault.azure.net/.default";
+        }
         public struct Collections
         {
             public const string Study = "Study";
@@ -27,7 +37,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         } 
         public struct RegularExpressions
         {
-            public const string AlphaNumericsWithSpace = @"^[a-zA-Z0-9\s]*$";
+           public const string AlphaNumericsWithSpace = @"^[a-zA-Z0-9\s\.]*$";       
         }
         public struct ValidationErrorMessage
         {
@@ -38,6 +48,24 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string JsonParseError = "Cannot deserialize";
 
             public const string ValidDateError = "Enter A Valid Date";
+
+            public const string AnyOneFieldError = "Any one of the field is required";
+        }
+        public struct ErrorMessages
+        {
+            public const string StudyNotFound = "The requested study document not found";
+
+            public const string StudyDesignNotFound = "The requested study design not found";
+
+            public const string DateError = "ToDate must be greater than or equal to FromDate";
+
+            public const string StudyInputError = "Kindly provide a valid input";
+
+            public const string SearchNotFound = "No Study Matches the search keywords";
+
+            public const string SectionNotValid = "Kindly provide a valid section";
+
+            public const string NotValidStudyId = "The provided studyId is not valid";
         }
     }
 }

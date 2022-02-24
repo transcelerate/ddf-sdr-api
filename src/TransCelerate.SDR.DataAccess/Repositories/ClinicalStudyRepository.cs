@@ -184,6 +184,45 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
         }
 
+        /// <summary>
+        /// GET All StudyId's
+        /// </summary>
+        /// <param name="fromDate"></param>
+        /// <param name="toDate"></param>
+        /// <returns></returns>
+        public async Task<List<StudyEntity>> GetAllStudyId(DateTime fromDate, DateTime toDate)
+        {
+            _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(GetAllStudyId)};");
+            try
+            {
+                var collection = _database.GetCollection<StudyEntity>(Constants.Collections.Study);
+                List<StudyEntity> studies = new List<StudyEntity>();
+                studies = await collection.Find(s =>                                                  
+                                                  s.auditTrail.entryDateTime >= fromDate
+                                                  && s.auditTrail.entryDateTime <= toDate)
+                                                  .SortByDescending(s => s.auditTrail.entryDateTime)
+                                                  .ToListAsync().ConfigureAwait(false);
+
+                if (studies.Count == 0)
+                {
+                    _logger.LogWarning($"There are no Study in {Constants.Collections.Study} Collection");
+                    return null;
+                }
+                else
+                {
+                    return studies;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(GetAllStudyId)};");
+            }
+        }
+
         #endregion
 
         #region POST Data       
@@ -307,8 +346,12 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                             return asc ? filteredResult.OrderBy(s => s.clinicalStudy.studyPhase ?? "") : filteredResult.OrderByDescending(s => s.clinicalStudy.studyPhase ?? "");
                         case "lastmodifiedbysystem":
                             return asc ? filteredResult.OrderBy(s => s.auditTrail.entrySystem ?? "") : filteredResult.OrderByDescending(s => s.auditTrail.entrySystem ?? "");
-                        case "sdrversion":
+                        case "tag":
                             return asc ? filteredResult.OrderBy(s => s.clinicalStudy.tag ?? "") : filteredResult.OrderByDescending(s => s.clinicalStudy.tag ?? "");
+                        case "sdrversion":
+                            return asc ? filteredResult.OrderBy(s => s.auditTrail.studyVersion) : filteredResult.OrderByDescending(s => s.auditTrail.studyVersion);
+                        case "status":
+                            return asc ? filteredResult.OrderBy(s => s.clinicalStudy.status ?? "") : filteredResult.OrderByDescending(s => s.clinicalStudy.status ?? "");
                         case "lastmodifieddate":
                             return asc ? filteredResult.OrderBy(s => s.auditTrail.entryDateTime) : filteredResult.OrderByDescending(s => s.auditTrail.entryDateTime);
                         default:

@@ -1,0 +1,1078 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Transcelerate SDR",
+    "version": "v1"
+  },
+  "paths": {
+    "/study/{studyId}": {
+      "get": {
+        "tags": [
+          "ClinicalStudy"
+        ],
+        "parameters": [
+          {
+            "name": "studyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "tag",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sections",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/{studyId}/studydesign/{studyDesignId}": {
+      "get": {
+        "tags": [
+          "ClinicalStudy"
+        ],
+        "parameters": [
+          {
+            "name": "studyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "studyDesignId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "tag",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sections",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/audittrail/{studyId}": {
+      "get": {
+        "tags": [
+          "ClinicalStudy"
+        ],
+        "parameters": [
+          {
+            "name": "studyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fromDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "toDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/studyhistory": {
+      "get": {
+        "tags": [
+          "ClinicalStudy"
+        ],
+        "parameters": [
+          {
+            "name": "fromDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "toDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/study": {
+      "post": {
+        "tags": [
+          "ClinicalStudy"
+        ],
+        "parameters": [
+          {
+            "name": "entrySystemId",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "entrySystem",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostStudyDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostStudyDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostStudyDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostStudyDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/search": {
+      "post": {
+        "tags": [
+          "ClinicalStudy"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchParametersDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchParametersDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchParametersDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchParametersDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AmendmentDTO": {
+        "type": "object",
+        "properties": {
+          "amendmentDate": {
+            "type": "string",
+            "nullable": true
+          },
+          "version": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuditTrailDTO": {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "entryDateTime": {
+            "type": "string",
+            "nullable": true
+          },
+          "entrySystemId": {
+            "type": "string",
+            "nullable": true
+          },
+          "entrySystem": {
+            "type": "string",
+            "nullable": true
+          },
+          "studyVersion": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClinicalStudyDTO": {
+        "required": [
+          "studyIdentifiers",
+          "studyTitle",
+          "studyType"
+        ],
+        "type": "object",
+        "properties": {
+          "studyTitle": {
+            "type": "string"
+          },
+          "studyType": {
+            "type": "string"
+          },
+          "interventionModel": {
+            "type": "string",
+            "nullable": true
+          },
+          "studyPhase": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "tag": {
+            "type": "string",
+            "nullable": true
+          },
+          "studyIdentifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StudyIdentifierDTO"
+            }
+          },
+          "currentSections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CurrentSectionsDTO"
+            },
+            "nullable": true
+          },
+          "studyId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CodingDTO": {
+        "required": [
+          "code",
+          "codeSystem",
+          "codeSystemVersion",
+          "decode"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "codeSystem": {
+            "type": "string"
+          },
+          "codeSystemVersion": {
+            "type": "string"
+          },
+          "decode": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CurrentSectionsDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "sectionType": {
+            "type": "string",
+            "nullable": true
+          },
+          "plannedWorkflows": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PlannedWorkflowDTO"
+            },
+            "nullable": true
+          },
+          "studyPopulations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StudyPopulationDTO"
+            },
+            "nullable": true
+          },
+          "studyCells": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StudyCellDTO"
+            },
+            "nullable": true
+          },
+          "investigationalInterventions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InvestigationalInterventionDTO"
+            },
+            "nullable": true
+          },
+          "studyDesigns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StudyDesignDTO"
+            },
+            "nullable": true
+          },
+          "objectives": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StudyObjectiveDTO"
+            },
+            "nullable": true
+          },
+          "studyIndications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StudyIndicationDTO"
+            },
+            "nullable": true
+          },
+          "studyProtocol": {
+            "$ref": "#/components/schemas/StudyProtocolDTO"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EndpointsDTO": {
+        "required": [
+          "description",
+          "outcomeLevel",
+          "purpose"
+        ],
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "purpose": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "outcomeLevel": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "InvestigationalInterventionDTO": {
+        "required": [
+          "coding",
+          "description",
+          "interventionType"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string"
+          },
+          "interventionType": {
+            "type": "string"
+          },
+          "coding": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CodingDTO"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "PlannedWorkflowDTO": {
+        "required": [
+          "description",
+          "endPoint",
+          "startPoint",
+          "transitions"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string"
+          },
+          "startPoint": {
+            "$ref": "#/components/schemas/PointInTimeDTO"
+          },
+          "endPoint": {
+            "$ref": "#/components/schemas/PointInTimeDTO"
+          },
+          "transitions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransitionDTO"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "PointInTimeDTO": {
+        "required": [
+          "endDate",
+          "startDate",
+          "subjectStatusGrouping",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "type": "string"
+          },
+          "subjectStatusGrouping": {
+            "type": "string"
+          },
+          "startDate": {
+            "type": "string"
+          },
+          "endDate": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PostStudyDTO": {
+        "type": "object",
+        "properties": {
+          "clinicalStudy": {
+            "$ref": "#/components/schemas/ClinicalStudyDTO"
+          },
+          "auditTrailDTO": {
+            "$ref": "#/components/schemas/AuditTrailDTO"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RuleDTO": {
+        "required": [
+          "coding",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string"
+          },
+          "coding": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CodingDTO"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "SearchParametersDTO": {
+        "type": "object",
+        "properties": {
+          "studyId": {
+            "pattern": "^[a-zA-Z0-9\\s\\.]*$",
+            "type": "string",
+            "nullable": true
+          },
+          "studyTitle": {
+            "pattern": "^[a-zA-Z0-9\\s\\.]*$",
+            "type": "string",
+            "nullable": true
+          },
+          "briefTitle": {
+            "pattern": "^[a-zA-Z0-9\\s\\.]*$",
+            "type": "string",
+            "nullable": true
+          },
+          "indication": {
+            "pattern": "^[a-zA-Z0-9\\s\\.]*$",
+            "type": "string",
+            "nullable": true
+          },
+          "interventionModel": {
+            "type": "string",
+            "nullable": true
+          },
+          "phase": {
+            "type": "string",
+            "nullable": true
+          },
+          "fromDate": {
+            "type": "string",
+            "nullable": true
+          },
+          "toDate": {
+            "type": "string",
+            "nullable": true
+          },
+          "pageSize": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageNumber": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "header": {
+            "type": "string",
+            "nullable": true
+          },
+          "asc": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StudyArmDTO": {
+        "required": [
+          "description",
+          "name",
+          "studyArmOrigin",
+          "studyArmType",
+          "studyOriginType"
+        ],
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "studyArmType": {
+            "type": "string"
+          },
+          "studyOriginType": {
+            "type": "string"
+          },
+          "studyArmOrigin": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StudyCellDTO": {
+        "required": [
+          "studyArm",
+          "studyElements",
+          "studyEpoch"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "studyElements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StudyElementDTO"
+            }
+          },
+          "studyArm": {
+            "$ref": "#/components/schemas/StudyArmDTO"
+          },
+          "studyEpoch": {
+            "$ref": "#/components/schemas/StudyEpochDTO"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StudyDesignDTO": {
+        "type": "object",
+        "properties": {
+          "currentSections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CurrentSectionsDTO"
+            },
+            "nullable": true
+          },
+          "studyDesignId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "StudyElementDTO": {
+        "required": [
+          "description",
+          "endRule",
+          "name",
+          "startRule"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "startRule": {
+            "$ref": "#/components/schemas/RuleDTO"
+          },
+          "endRule": {
+            "$ref": "#/components/schemas/RuleDTO"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StudyEpochDTO": {
+        "required": [
+          "description",
+          "epochType",
+          "name",
+          "sequenceInStudy"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "epochType": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "sequenceInStudy": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StudyIdentifierDTO": {
+        "required": [
+          "idType",
+          "name",
+          "orgCode"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "orgCode": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "idType": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StudyIndicationDTO": {
+        "required": [
+          "coding",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string"
+          },
+          "coding": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CodingDTO"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "StudyObjectiveDTO": {
+        "required": [
+          "description",
+          "level"
+        ],
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "level": {
+            "type": "string"
+          },
+          "endpoints": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EndpointsDTO"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "StudyPopulationDTO": {
+        "required": [
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StudyProtocolDTO": {
+        "type": "object",
+        "properties": {
+          "amendments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AmendmentDTO"
+            },
+            "nullable": true
+          },
+          "protocolId": {
+            "type": "string",
+            "nullable": true
+          },
+          "briefTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "officialTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "publicTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "version": {
+            "type": "string",
+            "nullable": true
+          },
+          "sections": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransitionCriteriaDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "specificationIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "domain": {
+            "type": "string",
+            "nullable": true
+          },
+          "dictionary": {
+            "type": "string",
+            "nullable": true
+          },
+          "testName": {
+            "type": "string",
+            "nullable": true
+          },
+          "numericMinValue": {
+            "type": "string",
+            "nullable": true
+          },
+          "numericMinValueInclusive": {
+            "type": "string",
+            "nullable": true
+          },
+          "numericMaxValue": {
+            "type": "string",
+            "nullable": true
+          },
+          "valueUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "textualResult": {
+            "type": "string",
+            "nullable": true
+          },
+          "timing": {
+            "type": "string",
+            "nullable": true
+          },
+          "timingDetail": {
+            "type": "string",
+            "nullable": true
+          },
+          "timingGap": {
+            "type": "string",
+            "nullable": true
+          },
+          "timingDays": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "route": {
+            "type": "string",
+            "nullable": true
+          },
+          "numericaMaxValueInclusive": {
+            "type": "string",
+            "nullable": true
+          },
+          "criterionDetails": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransitionDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "fromPointInTime": {
+            "$ref": "#/components/schemas/PointInTimeDTO"
+          },
+          "toPointInTime": {
+            "$ref": "#/components/schemas/PointInTimeDTO"
+          },
+          "transitionRule": {
+            "$ref": "#/components/schemas/TransitionRuleDTO"
+          },
+          "describedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "transitionCriteria": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransitionCriteriaDTO"
+            },
+            "nullable": true
+          },
+          "studyProtocolCriterionTransitionNumber": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransitionRuleDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "coding": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CodingDTO"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "description": "JWT Authorization header using the Bearer scheme (Example: 'Bearer 12345abcdef')",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": []
+    }
+  ]
+}

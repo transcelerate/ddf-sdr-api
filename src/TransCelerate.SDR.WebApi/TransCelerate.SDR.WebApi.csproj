@@ -3,15 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
- 
-  <ItemGroup>
-    <Folder Include="Utilities\" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.19.0" />
+    <PackageReference Include="Azure.Identity" Version="1.5.0" />
+    <PackageReference Include="Azure.Security.KeyVault.Secrets" Version="4.2.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.20.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.21" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.AzureKeyVault" Version="3.1.22" />
     <PackageReference Include="Microsoft.Identity.Web" Version="1.19.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
@@ -21,6 +20,12 @@
     <ProjectReference Include="..\TransCelerate.SDR.Core\TransCelerate.SDR.Core.csproj" />
     <ProjectReference Include="..\TransCelerate.SDR.DataAccess\TransCelerate.SDR.DataAccess.csproj" />
     <ProjectReference Include="..\TransCelerate.SDR.Service\TransCelerate.SDR.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Utilities\Swagger.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 

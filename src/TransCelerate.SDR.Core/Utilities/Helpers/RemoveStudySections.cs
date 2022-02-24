@@ -56,13 +56,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                         switch (item)
                         {
                             case "study_planned_workflow":
-                                getStudySectionsDTO.studyDesigns.ForEach(x => x.plannedWorkflows.RemoveAll(y => y != null));
+                                getStudySectionsDTO.studyDesigns.FindAll(x => x.plannedWorkflows != null).ForEach(x => x.plannedWorkflows.RemoveAll(y => y != null));
                                 break;
                             case "study_target_populations":
-                                getStudySectionsDTO.studyDesigns.ForEach(x => x.studyPopulations.RemoveAll(y => y != null));
+                                getStudySectionsDTO.studyDesigns.FindAll(x=>x.studyPopulations!=null).ForEach(x => x.studyPopulations.RemoveAll(y => y != null));
                                 break;
                             case "study_cells":
-                                getStudySectionsDTO.studyDesigns.ForEach(x => x.studyCells.RemoveAll(y => y != null));
+                                getStudySectionsDTO.studyDesigns.FindAll(x => x.studyCells != null).ForEach(x => x.studyCells.RemoveAll(y => y != null));
                                 break;
                             default:
                                 break;

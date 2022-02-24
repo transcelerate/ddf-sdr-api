@@ -8,7 +8,7 @@ namespace TransCelerate.SDR.Core.DTO.Study
 {
     public class StudyIdentifierDTO
     {
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
+       
         public string id { get; set; }
 
         [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]

@@ -257,5 +257,11 @@
       }
     ],
     "studyId": "558cdd9e-47a7-4ae7-a719-eb4f4573c539"
+  },
+  "auditTrail": {
+    "entrySystem": "LocalHost",
+    "entrySystemId": "LH",
+    "studyVersion": 1,
+    "entryDateTime": "2022-01-20"
   }
 }
