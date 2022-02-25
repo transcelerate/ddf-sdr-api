@@ -60,13 +60,13 @@ jobs:
 #         script: Compress-Archive -Path "${{ github.workspace }}\src\Transcelerate.SDR.WebAPI\bin\Debug\netcoreapp3.1\Publish\**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
     - uses: papeloto/action-zip@v1
       with:
-          files: '${{ github.workspace }}\src\Transcelerate.SDR.WebAPI\bin\Release\netcoreapp3.1\Publish\**'
-          dest: '${{ github.workspace }}\Publish.zip'
+          files: '${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/netcoreapp3.1/publish/**'
+          dest: '${{ github.workspace }}/Publish.zip'
           
     - name: 'Publish Artifact: Artifact'
       uses: actions/upload-artifact@v2
       with:
-        path: '${{ github.workspace }}\Publish.zip'
+        path: '${{ github.workspace }}/Publish.zip'
         name: Build-Artifact
         
     - # "Note: the 'AZURE_SP' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
