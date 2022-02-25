@@ -61,25 +61,19 @@ jobs:
         path: ${{ github.workspace }}/**.zip
         name: Build-Artifact
         
-    - uses: actions/checkout@v2
     - # "Note: the 'AZURE_SP' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
       name: Azure Login
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_SP }}
-        
-    - uses: Azure/get-keyvault-secrets@v1
-      with:
-        keyvault: "${{ secrets.KeyVault_Dev }}" # name of key vault in Azure portal
       
     - name: Find and Replace User Name - Using Build Variable
       run: |
-        find ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/appsettings.json -type f -exec sed -i ''s@{#KeyVault-Name#}@'${{ steps.myGetSecretAction.outputs.KeyVault_Dev }}'@g'' {} \;
-      
-  
+        find ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/appsettings.json -type f -exec sed -i ''s@{#KeyVault-Name#}@'${{ secrets.KeyVault_Dev }}'@g'' {} \;
+        
         
     - name: 'Run Azure webapp deploy action using publish profile credentials'
       uses: azure/webapps-deploy@v2
       with: 
         app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
-        package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/SampleWebApplication/'
+        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
