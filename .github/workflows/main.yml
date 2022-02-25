@@ -42,7 +42,7 @@ jobs:
       run: nuget restore '${{ github.workspace }}/src/TransCelerate.SDR.sln'
       
     - name: Build solution **\*.sln
-      run: dotnet publish 'src/TransCelerate.SDR.sln'
+      run: dotnet publish 'src/TransCelerate.SDR.sln' --configuration release
       
     - name: dotnet test
       run: dotnet test src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj --configuration release
