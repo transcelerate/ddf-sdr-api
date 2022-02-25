@@ -48,6 +48,11 @@ jobs:
     - name: Build solution **\*.sln
       run: dotnet publish 'src/TransCelerate.SDR.sln' --configuration release
       
+    - name: Perform a Pester test from the Tests.ps1 file
+      shell: pwsh
+      run: |
+          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/netcoreapp3.1/publish/**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
+      
 #     - name: dotnet test
 #       run: dotnet test src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj --configuration release
        # 'Note: This is a third party action and currently only supports Linux: https://github.com/marketplace/actions/create-zip-file' 
@@ -58,10 +63,10 @@ jobs:
 #       with:
 #       # PowerShell script to execute in Actions-hydrated context
 #         script: Compress-Archive -Path "${{ github.workspace }}\src\Transcelerate.SDR.WebAPI\bin\Debug\netcoreapp3.1\Publish\**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
-    - uses: papeloto/action-zip@v1
-      with:
-          files: '${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/netcoreapp3.1/publish/**'
-          dest: '${{ github.workspace }}/Publish.zip'
+#     - uses: papeloto/action-zip@v1
+#       with:
+#           files: '${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/netcoreapp3.1/publish/**'
+#           dest: '${{ github.workspace }}/Publish.zip'
           
     - name: 'Publish Artifact: Artifact'
       uses: actions/upload-artifact@v2
