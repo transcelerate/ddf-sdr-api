@@ -56,7 +56,7 @@ jobs:
 #         script: Compress-Archive -Path "${{ github.workspace }}\src\Transcelerate.SDR.WebAPI\bin\Debug\netcoreapp3.1\Publish\**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
     - uses: papeloto/action-zip@v1
       with:
-          files: '${{ github.workspace }}\src\Transcelerate.SDR.WebAPI\bin\Debug\netcoreapp3.1\Publish\**'
+          files: '${{ github.workspace }}\src\Transcelerate.SDR.WebAPI\bin\Release\netcoreapp3.1\Publish\**'
           dest: '${{ github.workspace }}\Publish.zip'
           
     - name: 'Publish Artifact: Artifact'
