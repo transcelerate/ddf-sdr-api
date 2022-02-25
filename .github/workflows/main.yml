@@ -54,10 +54,15 @@ jobs:
           Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/netcoreapp3.1/publish/**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
       
     - name: dotnet test
-      run: |
-        dotnet build src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj --configuration release
-        dotnet test src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj --configuration release       
-          
+      run: dotnet build src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj --configuration release
+    
+    - name: Run tmate
+      uses: mxschmitt/action-tmate@v2
+      timeout-minutes: 10
+        
+    - name: dotnet test
+      run: dotnet test src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj --configuration release       
+        
     - name: 'Publish Artifact: Artifact'
       uses: actions/upload-artifact@v2
       with:
