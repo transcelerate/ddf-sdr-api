@@ -67,10 +67,14 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_SP }}
       
-    - name: Find and Replace User Name - Using Build Variable
-      run: |
-        find ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/appsettings.json -type f -exec sed -i ''s@{#KeyVault-Name#}@'${{ secrets.KeyVault_Dev }}'@g'' {} \;
-        
+#     - name: Find and Replace User Name - Using Build Variable
+#       run: |
+#         find ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/appsettings.json -type f -exec sed -i ''s@{#KeyVault-Name#}@'${{ secrets.KeyVault_Dev }}'@g'' {} \;
+       
+    - name: App Settings Variable Substitution
+      uses: microsoft/variable-substitution@v1
+      with:
+         files: '${{ secrets.KeyVault_Dev }}/{{ github.workspace }}/src/TransCelerate.SDR.WebApi/appsettings.json'
         
     - name: 'Run Azure webapp deploy action using publish profile credentials'
       uses: azure/webapps-deploy@v2
