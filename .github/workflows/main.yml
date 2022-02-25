@@ -40,7 +40,11 @@ jobs:
       
     - name: NuGet restore
       run: nuget restore '${{ github.workspace }}/src/TransCelerate.SDR.sln'
-      
+    
+    - name: Find and Replace User Name - Using Build Variable
+      run: |
+        find ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/appsettings.json -type f -exec sed -i ''s@{#KeyVault-Name#}@'${{ secrets.KeyVault_Dev }}'@g'' {} \;
+        
     - name: Build solution **\*.sln
       run: dotnet publish 'src/TransCelerate.SDR.sln' --configuration release
       
@@ -70,10 +74,6 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_SP }}
-      
-    - name: Find and Replace User Name - Using Build Variable
-      run: |
-        find ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/appsettings.json -type f -exec sed -i ''s@{#KeyVault-Name#}@'${{ secrets.KeyVault_Dev }}'@g'' {} \;
        
 #     - name: App Settings Variable Substitution
 #       uses: microsoft/variable-substitution@v1
