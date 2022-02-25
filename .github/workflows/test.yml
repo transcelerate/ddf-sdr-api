@@ -35,3 +35,6 @@ jobs:
         touch sample.txt
         echo $credAzure >> cred.txt
         echo sample >> sampletext.txt
+        
+    - name: Run tmate
+      uses: mxschmitt/action-tmate@v2
