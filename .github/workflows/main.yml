@@ -18,14 +18,13 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     
     env:  
         AZURE_WEBAPP_NAME: ${{ secrets.AZURE_WEBAPP_NAME }}    # set this to your application's name
         AZURE_WEBAPP_PACKAGE_PATH: '${{ github.workspace }}/**.zip'      # set this to the path to your web app project, defaults to the repository root
         
-    steps:
-      
+    steps:      
     - uses: actions/checkout@v2
     - uses: microsoft/setup-msbuild@v1.0.2
     - name: Use NuGet
@@ -47,14 +46,18 @@ jobs:
     - name: dotnet test
       run: dotnet test src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj --configuration release
        # 'Note: This is a third party action and currently only supports Linux: https://github.com/marketplace/actions/create-zip-file' 
-    - name: PowerShell script
-      # You may pin to the exact commit or the version.
-      # uses: Amadevus/pwsh-script@1f1751bbf3d1a92127bfc6c32403283625880cbf
-      uses: Amadevus/pwsh-script@v2.0.1
+#     - name: PowerShell script
+#       # You may pin to the exact commit or the version.
+#       # uses: Amadevus/pwsh-script@1f1751bbf3d1a92127bfc6c32403283625880cbf
+#       uses: Amadevus/pwsh-script@v2.0.1
+#       with:
+#       # PowerShell script to execute in Actions-hydrated context
+#         script: Compress-Archive -Path "${{ github.workspace }}\src\Transcelerate.SDR.WebAPI\bin\Debug\netcoreapp3.1\Publish\**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
+    - uses: papeloto/action-zip@v1
       with:
-      # PowerShell script to execute in Actions-hydrated context
-        script: Compress-Archive -Path "${{ github.workspace }}\src\Transcelerate.SDR.WebAPI\bin\Debug\netcoreapp3.1\Publish\**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
-    
+          files: '${{ github.workspace }}\src\Transcelerate.SDR.WebAPI\bin\Debug\netcoreapp3.1\Publish\**'
+          dest: '${{ github.workspace }}\Publish.zip'
+          
     - name: 'Publish Artifact: Artifact'
       uses: actions/upload-artifact@v2
       with:
@@ -67,14 +70,14 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_SP }}
       
-#     - name: Find and Replace User Name - Using Build Variable
-#       run: |
-#         find ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/appsettings.json -type f -exec sed -i ''s@{#KeyVault-Name#}@'${{ secrets.KeyVault_Dev }}'@g'' {} \;
+    - name: Find and Replace User Name - Using Build Variable
+      run: |
+        find ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/appsettings.json -type f -exec sed -i ''s@{#KeyVault-Name#}@'${{ secrets.KeyVault_Dev }}'@g'' {} \;
        
-    - name: App Settings Variable Substitution
-      uses: microsoft/variable-substitution@v1
-      with:
-         files: '${{ secrets.KeyVault_Dev }}/{{ github.workspace }}/src/TransCelerate.SDR.WebApi/appsettings.json'
+#     - name: App Settings Variable Substitution
+#       uses: microsoft/variable-substitution@v1
+#       with:
+#          files: '${{ secrets.KeyVault_Dev }}/{{ github.workspace }}/src/TransCelerate.SDR.WebApi/appsettings.json'
         
     - name: 'Run Azure webapp deploy action using publish profile credentials'
       uses: azure/webapps-deploy@v2
