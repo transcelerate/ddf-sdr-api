@@ -20,7 +20,11 @@ using TransCelerate.SDR.WebApi.Mappers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
+using System.Reflection;
+using System.IO;
 using TransCelerate.SDR.Core.Utilities;
+using TransCelerate.SDR.RuleEngine;
+using FluentValidation.AspNetCore;
 
 namespace TransCelerate.SDR.WebApi
 {
@@ -64,34 +68,46 @@ namespace TransCelerate.SDR.WebApi
 
             //Swagger
             services.AddSwaggerGen(c =>
-            {                
+            {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Transcelerate SDR", Version = "v1" });
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    Description = "JWT Authorization header using the Bearer scheme (Example: 'Bearer 12345abcdef')",
-                    Name = "Authorization",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer"
-                });
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                {
-                    new OpenApiSecurityScheme
-                    {
-                        Reference = new OpenApiReference
-                        {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = "Bearer"
-                        }
-                    },
-                    Array.Empty<string>()
-                }
-                });
-            });  
-            
+                #region Removed As a part of certificate authentication
+                //c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                //{
+                //    Description = "JWT Authorization header using the Bearer scheme (Example: 'Bearer 12345abcdef')",
+                //    Name = "Authorization",
+                //    In = ParameterLocation.Header,
+                //    Type = SecuritySchemeType.ApiKey,
+                //    Scheme = "Bearer"
+                //});
+                //c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                //{
+                //{
+                //    new OpenApiSecurityScheme
+                //    {
+                //        Reference = new OpenApiReference
+                //        {
+                //            Type = ReferenceType.SecurityScheme,
+                //            Id = "Bearer"
+                //        }
+                //    },
+                //    Array.Empty<string>()
+                //}
+                //}); 
+                #endregion
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
+
             //Mapping EndPoints
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation(fv =>
+            {
+                fv.DisableDataAnnotationsValidation = true;
+                fv.ImplicitlyValidateChildProperties = true;
+                fv.ImplicitlyValidateRootCollectionElements = true;
+
+                fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            });
 
             //Enabling CORS
             services.AddCors();
@@ -106,7 +122,8 @@ namespace TransCelerate.SDR.WebApi
             services.AddAutoMapper(typeof(AutoMapperProfies).Assembly);   
             
             //API to use MVC with validation handling and JSON response
-            services.AddMvc().AddNewtonsoftJson();            
+            services.AddMvc().AddNewtonsoftJson();
+            //services.AddValidationDependencies();
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.InvalidModelStateResponseFactory = context =>
@@ -118,7 +135,7 @@ namespace TransCelerate.SDR.WebApi
                         logger.LogError($"API Spec Error : {JsonConvert.SerializeObject(problemDetails.Errors)} ; Input: {JsonConvert.SerializeObject(inputs)} ;");
                         return new BadRequestObjectResult(ErrorResponseHelper.BadRequest("Bad Request"));
                     }
-                    else if (JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.ConformanceError.ToLower()) || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.ValidDateError.ToLower()))
+                    else if (JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyEmptyError.ToLower()) || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyMissingError.ToLower()))
                     {
                         logger.LogError($"Conformance Error  : {JsonConvert.SerializeObject(problemDetails.Errors)} ; Input: {JsonConvert.SerializeObject(inputs)} ;");
                         return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(problemDetails.Errors));

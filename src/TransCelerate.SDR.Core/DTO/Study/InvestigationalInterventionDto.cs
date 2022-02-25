@@ -11,16 +11,11 @@ namespace TransCelerate.SDR.Core.DTO.Study
 {
     public class InvestigationalInterventionDTO
     {        
-        public string id { get; set; }
-
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
-        public string description { get; set; }      
-
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
+        public string id { get; set; }        
+        public string description { get; set; }              
         public string interventionType { get; set; }
-
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
-        [EmptyListValidationHelper(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
+        public string interventionModel { get; set; }
+        public string status { get; set; }
         public List<CodingDTO> coding { get; set; }        
     }
 

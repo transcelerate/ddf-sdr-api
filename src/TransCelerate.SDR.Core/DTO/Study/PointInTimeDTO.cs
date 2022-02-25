@@ -11,19 +11,13 @@ namespace TransCelerate.SDR.Core.DTO.Study
     {
         
         public string id { get; set; }
-
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
+      
         public string type { get; set; }
-
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
+      
         public string subjectStatusGrouping { get; set; }
-
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
-        [DateValidationHelper(ErrorMessage = Constants.ValidationErrorMessage.ValidDateError)]
+         
         public string startDate { get; set; }
-
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
-        [DateValidationHelper(ErrorMessage = Constants.ValidationErrorMessage.ValidDateError)]
+      
         public string endDate { get; set; }
     }
 }

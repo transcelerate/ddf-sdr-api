@@ -44,7 +44,8 @@ namespace TransCelerate.SDR.WebApi
                                                  (azureTokenProvider.KeyVaultTokenCallback));
                         config.AddAzureKeyVault(vaultName, keyVaultClient, new DefaultKeyVaultSecretManager());
                     }
-                    //For running the code in local
+                    //For running the code in local.
+                    //Need to add vault Name, client Id and client secret of registered app which is linked to keyvault.
                     else
                     {
                         config.AddAzureKeyVault(vaultName, clientId, clientSecret);

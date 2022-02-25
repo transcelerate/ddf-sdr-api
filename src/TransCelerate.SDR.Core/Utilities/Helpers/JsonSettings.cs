@@ -20,7 +20,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             {
                 Formatting = Formatting.Indented,
                 NullValueHandling = NullValueHandling.Ignore,
-                ContractResolver = ShouldSerializeContractResolver.Instance,
+                //ContractResolver = ShouldSerializeContractResolver.Instance,
             };
             return JsonSettings;
         }

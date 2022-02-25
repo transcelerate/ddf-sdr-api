@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using TransCelerate.SDR.Core.Utilities;
 using Microsoft.Extensions.Configuration;
@@ -13,8 +14,11 @@ using System.IO;
 using Newtonsoft.Json;
 using TransCelerate.SDR.Core.Entities.Study;
 using TransCelerate.SDR.Core.ErrorModels;
+using TransCelerate.SDR.RuleEngine;
+using Microsoft.Extensions.DependencyInjection;
+using TransCelerate.SDR.Core.DTO;
 
-namespace TransCelerate.SDR.UnitTesting.CommonClassesUnitTesting
+namespace TransCelerate.SDR.UnitTesting
 {
     public class CommonClassesUnitTesting
     {
@@ -22,7 +26,8 @@ namespace TransCelerate.SDR.UnitTesting.CommonClassesUnitTesting
         private Mock<ILogger> _mockSDRLogger = new Mock<ILogger>();
         private Mock<ILogger> _mockErrorSDRLogger = new Mock <ILogger>(MockBehavior.Strict);
         private Mock<IConfiguration> _mockConfig = new Mock<IConfiguration>();
-        private Mock<IConfigurationSection> _mockConfigSections = new Mock<IConfigurationSection>();       
+        private Mock<IConfigurationSection> _mockConfigSections = new Mock<IConfigurationSection>();
+        private IServiceCollection serviceDescriptors = Mock.Of<IServiceCollection>();
 
         #region Setup
         public StudyEntity GetPostDataFromStaticJson()
@@ -30,7 +35,11 @@ namespace TransCelerate.SDR.UnitTesting.CommonClassesUnitTesting
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Data\PostStudyData.json");            
             return JsonConvert.DeserializeObject<StudyEntity>(jsonData); 
         }
-        
+        public PostStudyDTO PostDataFromStaticJson()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Data\PostStudyData.json");
+            return JsonConvert.DeserializeObject<PostStudyDTO>(jsonData);            
+        }
         #endregion
 
         #region LogHelper UnitTesting
@@ -188,7 +197,7 @@ namespace TransCelerate.SDR.UnitTesting.CommonClassesUnitTesting
 
         #region Post Study Elements Check Testing
         [Test]
-        public void PostStudyElementsCheck_UnitTesting()
+        public void PostStudyElements_Section_Check_UnitTesting()
         {
             var incomingpostStudyDTO = GetPostDataFromStaticJson();
             var existingpostStudyDTO = GetPostDataFromStaticJson();
@@ -213,8 +222,7 @@ namespace TransCelerate.SDR.UnitTesting.CommonClassesUnitTesting
             SectionIdGenerator.GenerateSectionId(incomingpostStudyDTO);
             existingpostStudyDTO.clinicalStudy.currentSections.FindAll(x => x.investigationalInterventions != null).ForEach(x => x.investigationalInterventions = null);
             existingpostStudyDTO.clinicalStudy.currentSections.FindAll(x => x.objectives != null).ForEach(x => x.objectives = null);
-            existingpostStudyDTO.clinicalStudy.currentSections.FindAll(x => x.studyIndications != null).ForEach(x => x.studyIndications = null);
-            existingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyProtocol != null).studyProtocol.protocolId=null;
+            existingpostStudyDTO.clinicalStudy.currentSections.FindAll(x => x.studyIndications != null).ForEach(x => x.studyIndications = null);            
             existingpostStudyDTO.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).ForEach(x => x.studyDesigns = null);
             PostStudyElementsCheck.SectionCheck(incomingpostStudyDTO, existingpostStudyDTO);
 
@@ -223,7 +231,7 @@ namespace TransCelerate.SDR.UnitTesting.CommonClassesUnitTesting
             SectionIdGenerator.GenerateSectionId(existingpostStudyDTO);
             incomingpostStudyDTO = JsonConvert.DeserializeObject<StudyEntity>(JsonConvert.SerializeObject(existingpostStudyDTO));
 
-            existingpostStudyDTO.clinicalStudy.currentSections.FindAll(x => x.objectives != null).Find(x => x.objectives != null).objectives.Find(x => x.endpoints!=null).endpoints.ForEach(x=>x.EndPointsId="");
+            existingpostStudyDTO.clinicalStudy.currentSections.FindAll(x => x.objectives != null).Find(x => x.objectives != null).objectives.Find(x => x.endpoints!=null).endpoints.ForEach(x=>x.endPointsId="");
             existingpostStudyDTO.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).Find(x => x.studyDesigns != null).studyDesigns.Find(x => x.currentSections != null).currentSections
                 .FindAll(x => x.plannedWorkflows != null).ForEach(x => x.plannedWorkflows = null);
             existingpostStudyDTO.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).Find(x => x.studyDesigns != null).studyDesigns.Find(x => x.currentSections != null).currentSections
@@ -249,11 +257,22 @@ namespace TransCelerate.SDR.UnitTesting.CommonClassesUnitTesting
             SectionIdGenerator.GenerateSectionId(existingpostStudyDTO);
             incomingpostStudyDTO = incomingpostStudyDTO = JsonConvert.DeserializeObject<StudyEntity>(JsonConvert.SerializeObject(existingpostStudyDTO)); 
             existingpostStudyDTO.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).FindAll(x => x.studyDesigns != null).Find(x => x.studyDesigns != null).studyDesigns.Find(x => x.currentSections != null).currentSections.Find(x => x.plannedWorkflows != null)
-                                                              .plannedWorkflows.Find(x => x.transitions != null).startPoint.pointInTimeId = null;
+                                                              .plannedWorkflows.Find(x => x.workflowItemMatrix != null).workflowItemMatrix.workFlowItemMatrixId = null;
             existingpostStudyDTO.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).FindAll(x => x.studyDesigns != null).Find(x => x.studyDesigns != null).studyDesigns.Find(x => x.currentSections != null).currentSections.Find(x => x.plannedWorkflows != null)
-                                                              .plannedWorkflows.Find(x => x.transitions != null).transitions.Find(x=>x.transitionCriteria!=null).transitionCriteria.ForEach(x=>x.transitionCriteriaId= null);
-            existingpostStudyDTO.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).FindAll(x => x.studyDesigns != null).Find(x => x.studyDesigns != null).studyDesigns.Find(x => x.currentSections != null).currentSections.Find(x => x.plannedWorkflows != null)
-                                                              .plannedWorkflows.Find(x => x.transitions != null).transitions.Find(x => x.transitionCriteria != null).transitionRule.transitionRuleId= null;
+                                                              .plannedWorkflows.Find(x => x.workflowItemMatrix != null).workflowItemMatrix.matrix.ForEach(x =>
+                                                              {
+                                                                  x.matrixId = null;
+                                                                  x.items.ForEach(i =>
+                                                                  {
+                                                                      i.itemId = null;
+                                                                      i.activity.activityId = null;
+                                                                      i.encounter.encounterId = null;
+                                                                      i.activity.studyDataCollection.ForEach(sdc => sdc.studyDataCollectionId = null);
+                                                                      i.encounter.epoch.epochId = null;
+                                                                      i.encounter.startRule.RuleId = null;
+                                                                      i.encounter.endRule.RuleId = null;
+                                                                  });
+                                                              });           
             existingpostStudyDTO.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).Find(x => x.studyDesigns != null).studyDesigns.Find(x => x.currentSections != null).currentSections.Find(x => x.studyCells != null)
                                                               .studyCells.Find(x => x.studyArm != null).studyArm.studyArmId = null;
             existingpostStudyDTO.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).Find(x => x.studyDesigns != null).studyDesigns.Find(x => x.currentSections != null).currentSections.Find(x => x.studyCells != null)
@@ -267,11 +286,20 @@ namespace TransCelerate.SDR.UnitTesting.CommonClassesUnitTesting
             SectionIdGenerator.GenerateSectionId(existingpostStudyDTO);
             incomingpostStudyDTO = incomingpostStudyDTO = JsonConvert.DeserializeObject<StudyEntity>(JsonConvert.SerializeObject(existingpostStudyDTO));
             existingpostStudyDTO.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).FindAll(x => x.studyDesigns != null).Find(x => x.studyDesigns != null).studyDesigns.Find(x => x.currentSections != null).currentSections.Find(x => x.plannedWorkflows != null)
-                                                              .plannedWorkflows.Find(x => x.transitions != null).startPoint.pointInTimeId = "";
-            existingpostStudyDTO.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).FindAll(x => x.studyDesigns != null).Find(x => x.studyDesigns != null).studyDesigns.Find(x => x.currentSections != null).currentSections.Find(x => x.plannedWorkflows != null)
-                                                              .plannedWorkflows.Find(x => x.transitions != null).transitions.Find(x => x.transitionCriteria != null).transitionCriteria.ForEach(x => x.transitionCriteriaId = "");
-            existingpostStudyDTO.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).FindAll(x => x.studyDesigns != null).Find(x => x.studyDesigns != null).studyDesigns.Find(x => x.currentSections != null).currentSections.Find(x => x.plannedWorkflows != null)
-                                                              .plannedWorkflows.Find(x => x.transitions != null).transitions.Find(x => x.transitionCriteria != null).transitionRule.transitionRuleId = "";
+                                                              .plannedWorkflows.Find(x => x.workflowItemMatrix != null).workflowItemMatrix.matrix.ForEach(x =>
+                                                              {
+                                                                  x.matrixId = null;
+                                                                  x.items.ForEach(i =>
+                                                                  {
+                                                                      i.itemId = null;
+                                                                      i.activity.activityId = null;
+                                                                      i.encounter.encounterId = null;
+                                                                      i.activity.studyDataCollection.ForEach(sdc => sdc.studyDataCollectionId = null);
+                                                                      i.encounter.epoch.epochId = null;
+                                                                      i.encounter.startRule.RuleId = null;
+                                                                      i.encounter.endRule.RuleId = null;
+                                                                  });
+                                                              });
             existingpostStudyDTO.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).Find(x => x.studyDesigns != null).studyDesigns.Find(x => x.currentSections != null).currentSections.Find(x => x.studyCells != null)
                                                               .studyCells.Find(x => x.studyArm != null).studyArm.studyArmId = "";
             existingpostStudyDTO.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).Find(x => x.studyDesigns != null).studyDesigns.Find(x => x.currentSections != null).currentSections.Find(x => x.studyCells != null)
@@ -293,6 +321,39 @@ namespace TransCelerate.SDR.UnitTesting.CommonClassesUnitTesting
 
             Assert.IsTrue(dateValidationHelper.IsValid(""));
             Assert.IsTrue(dateValidationHelper.IsValid("2022-10-12"));
+        }
+        #endregion
+
+        #region FluentValidation Unit Testing
+        [Test]
+        public void ClinicalStudyValidation_UnitTesting()
+        {            
+            ValidationDependencies.AddValidationDependencies(serviceDescriptors);
+            var incomingpostStudyDTO = PostDataFromStaticJson();
+            ClinicalStudyValidator clinicalStudyRules = new ClinicalStudyValidator();
+            var result= clinicalStudyRules.Validate(incomingpostStudyDTO);
+            Assert.IsTrue(result.IsValid);
+
+            StudyIdentifiersValidator studyIdentifiersValidator = new StudyIdentifiersValidator();            
+            Assert.IsTrue(studyIdentifiersValidator.Validate(incomingpostStudyDTO.clinicalStudy.studyIdentifiers[0]).IsValid);            
+
+            StudyObjectivesValidator StudyObjectivesValidator = new StudyObjectivesValidator();
+            Assert.IsTrue(StudyObjectivesValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x=>x.objectives!=null).objectives[0]).IsValid);
+
+            EndpointsValidator EndpointsValidator = new EndpointsValidator();
+            Assert.IsTrue(EndpointsValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.objectives != null).objectives[0].endpoints[0]).IsValid);
+
+            StudyIndicationValidator StudyIndicationValidator = new StudyIndicationValidator();
+            Assert.IsTrue(StudyIndicationValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyIndications != null).studyIndications[0]).IsValid);
+
+            StudyPopulationValidator StudyPopulationValidator = new StudyPopulationValidator();
+            Assert.IsTrue(StudyPopulationValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.studyPopulations != null).studyPopulations[0]).IsValid);            
+
+            StudyCellsValidator StudyCellsValidator = new StudyCellsValidator();
+            Assert.IsTrue(StudyCellsValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.studyCells != null).studyCells[0]).IsValid);
+
+            PlannedWorkFlowValidator PlannedWorkFlowValidator = new PlannedWorkFlowValidator();
+            Assert.IsTrue(PlannedWorkFlowValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.plannedWorkflows != null).plannedWorkflows[0]).IsValid);
         }
         #endregion
     }

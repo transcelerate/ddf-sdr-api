@@ -12,31 +12,26 @@ namespace TransCelerate.SDR.Core.DTO.Study
     
     public class StudyObjectiveDTO
     {
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
-        public string description { get; set; }
-
       
+        public string description { get; set; }
+    
         public string id { get; set; }
 
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
         public string level { get; set; }
-        
+       
         public List<EndpointsDTO> endpoints { get; set; }        
     }
      
     
     public class EndpointsDTO
     {
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
+      
         public string description { get; set; }
 
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
         public string purpose { get; set; }
-
        
         public string id { get; set; }
 
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
         public string outcomeLevel { get; set; }                
     }  
 }

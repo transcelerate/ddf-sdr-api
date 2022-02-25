@@ -22,13 +22,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                             break;
                         case "study_objectives":
                             getStudySectionsDTO.objectives = null;
-                            break;
-                        case "study_investigational_interventions":
-                            getStudySectionsDTO.investigationalInterventions = null;
-                            break;                      
-                        case "study_protocol":
-                            getStudySectionsDTO.studyProtocol = null;
-                            break;
+                            break;                        
+                        //Removed Study Protocol
+                        //case "study_protocol":
+                        //    getStudySectionsDTO.studyProtocol = null;
+                        //    break;
                         case "study_design":
                             getStudySectionsDTO.studyDesigns = null;
                             break;
@@ -44,8 +42,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             getStudySectionsDTO.studyIndications = null;
             getStudySectionsDTO.objectives = null;
-            getStudySectionsDTO.investigationalInterventions = null;
-            getStudySectionsDTO.studyProtocol = null;              
+            //Removed Study Protocol
+            //getStudySectionsDTO.studyProtocol = null;              
             if(sections.Count()!=0)
             {
                 foreach (var item in Enum.GetNames(typeof(StudyDesignSections)))
@@ -56,13 +54,16 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                         switch (item)
                         {
                             case "study_planned_workflow":
-                                getStudySectionsDTO.studyDesigns.FindAll(x => x.plannedWorkflows != null).ForEach(x => x.plannedWorkflows.RemoveAll(y => y != null));
+                                getStudySectionsDTO.studyDesigns.FindAll(x => x.plannedWorkflows != null).ForEach(x => x.plannedWorkflows=null);
                                 break;
                             case "study_target_populations":
-                                getStudySectionsDTO.studyDesigns.FindAll(x=>x.studyPopulations!=null).ForEach(x => x.studyPopulations.RemoveAll(y => y != null));
+                                getStudySectionsDTO.studyDesigns.FindAll(x=>x.studyPopulations!=null).ForEach(x => x.studyPopulations=null);
                                 break;
                             case "study_cells":
-                                getStudySectionsDTO.studyDesigns.FindAll(x => x.studyCells != null).ForEach(x => x.studyCells.RemoveAll(y => y != null));
+                                getStudySectionsDTO.studyDesigns.FindAll(x => x.studyCells != null).ForEach(x => x.studyCells=null);
+                                break; 
+                            case "study_investigational_interventions":
+                                getStudySectionsDTO.studyDesigns.FindAll(x => x.investigationalInterventions != null).ForEach(x => x.investigationalInterventions=null);
                                 break;
                             default:
                                 break;

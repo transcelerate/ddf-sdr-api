@@ -16,6 +16,7 @@ namespace TransCelerate.SDR.Core.DTO.Study
         public List<StudyDesignDTO> studyDesigns { get; set; }
         public List<StudyObjectiveDTO> objectives { get; set; }
         public List<StudyIndicationDTO> studyIndications { get; set; }
-        public StudyProtocolDTO studyProtocol { get; set; }
+        //Removed Study Protocol
+        //public StudyProtocolDTO studyProtocol { get; set; }
     }
 }

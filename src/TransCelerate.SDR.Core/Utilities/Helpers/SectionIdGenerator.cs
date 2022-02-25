@@ -29,22 +29,16 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                             .ForEach(i => i.currentSectionsId = IdGenerator.GenerateId())));
                     }
 
-                    //Id Generation for each section
-
-                    //investigationalInterventionId
-                    studyEntity.clinicalStudy.currentSections
-                                            .FindAll(x => x.investigationalInterventions != null)
-                                            .ForEach(x => x.investigationalInterventions
-                                            .ForEach(y => y.investigationalInterventionId = IdGenerator.GenerateId()));
+                    //Id Generation for each section                  
 
                     //ObjectiveId
                     studyEntity.clinicalStudy.currentSections
                                             .FindAll(x => x.objectives != null)
                                             .ForEach(x => x.objectives
                                             .ForEach(y => {
-                                                y.ObjectiveId = IdGenerator.GenerateId();
+                                                y.objectiveId = IdGenerator.GenerateId();
                                                 y.endpoints.FindAll(x=>x!=null)
-                                                           .ForEach(x => x.EndPointsId = IdGenerator.GenerateId());
+                                                           .ForEach(x => x.endPointsId = IdGenerator.GenerateId());
                                             }));
 
                     //studyIndicationId
@@ -53,12 +47,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                             .ForEach(x => x.studyIndications
                                             .ForEach(y => y.studyIndicationId = IdGenerator.GenerateId()));
 
+                    //Removed Study Protocol
                     //protocolId
-                    if(studyEntity.clinicalStudy.currentSections.Any(x => x.studyProtocol != null))
-                    {
-                        studyEntity.clinicalStudy.currentSections.Find(x => x.studyProtocol != null)
-                                                             .studyProtocol.protocolId = IdGenerator.GenerateId();
-                    }
+                    //if(studyEntity.clinicalStudy.currentSections.Any(x => x.studyProtocol != null))
+                    //{
+                    //    studyEntity.clinicalStudy.currentSections.Find(x => x.studyProtocol != null)
+                    //                                         .studyProtocol.protocolId = IdGenerator.GenerateId();
+                    //}
                     //studyDesignId
                     studyEntity.clinicalStudy.currentSections
                                             .FindAll(x => x.studyDesigns != null)
@@ -75,6 +70,16 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                             .ForEach(p => p.studyPopulations
                                             .ForEach(i => i.studyPopulationId = IdGenerator.GenerateId()))));
 
+                    //investigationalInterventionId
+                    studyEntity.clinicalStudy.currentSections
+                                            .FindAll(x => x.studyDesigns != null)
+                                            .ForEach(y => y.studyDesigns
+                                            .FindAll(n => n.currentSections != null)
+                                            .ForEach(z => z.currentSections
+                                            .FindAll(x => x.investigationalInterventions != null)
+                                            .ForEach(x => x.investigationalInterventions
+                                            .ForEach(y => y.investigationalInterventionId = IdGenerator.GenerateId()))));
+
                     //plannedWorkFlowId and sub-elements Id's
                     studyEntity.clinicalStudy.currentSections
                                             .FindAll(x => x.studyDesigns != null)
@@ -87,13 +92,30 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                                 i.plannedWorkFlowId = IdGenerator.GenerateId();
                                                 i.startPoint.pointInTimeId = IdGenerator.GenerateId();
                                                 i.endPoint.pointInTimeId = IdGenerator.GenerateId();
-                                                i.transitions.ForEach(t => {
-                                                    t.transitionId = IdGenerator.GenerateId();
-                                                    t.fromPointInTime.pointInTimeId = IdGenerator.GenerateId();
-                                                    t.toPointInTime.pointInTimeId = IdGenerator.GenerateId();
-                                                    t.transitionRule.transitionRuleId = IdGenerator.GenerateId();
-                                                    t.transitionCriteria.ForEach(c => c.transitionCriteriaId = IdGenerator.GenerateId());
+                                                i.workflowItemMatrix.workFlowItemMatrixId = IdGenerator.GenerateId();
+                                                i.workflowItemMatrix.matrix.ForEach(m =>
+                                                {
+                                                    m.matrixId = IdGenerator.GenerateId();
+                                                    m.items.ForEach(item =>
+                                                    {
+                                                        item.itemId = IdGenerator.GenerateId();
+                                                        item.fromPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                                                        item.toPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                                                        item.activity.activityId = IdGenerator.GenerateId();
+                                                        item.activity.studyDataCollection.ForEach(sdc => sdc.studyDataCollectionId = IdGenerator.GenerateId());
+                                                        item.encounter.encounterId = IdGenerator.GenerateId();
+                                                        item.encounter.startRule.RuleId = IdGenerator.GenerateId();
+                                                        item.encounter.endRule.RuleId = IdGenerator.GenerateId();
+                                                        item.encounter.epoch.epochId = IdGenerator.GenerateId(); 
+                                                    });
                                                 });
+                                                //i.transitions.ForEach(t => {
+                                                //    t.transitionId = IdGenerator.GenerateId();
+                                                //    t.fromPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                                                //    t.toPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                                                //    t.transitionRule.transitionRuleId = IdGenerator.GenerateId();
+                                                //    t.transitionCriteria.ForEach(c => c.transitionCriteriaId = IdGenerator.GenerateId());
+                                                //});
                                             }))));
 
                     //studyCellId and sub-elements Id's
@@ -126,8 +148,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         public static StudyObjectiveEntity StudyObjectivesIdGenerator(StudyObjectiveEntity studyObjectivesEntity)
         {
             //study objectives Id
-            studyObjectivesEntity.ObjectiveId = IdGenerator.GenerateId();
-            studyObjectivesEntity.endpoints.ForEach(x => x.EndPointsId = IdGenerator.GenerateId());
+            studyObjectivesEntity.objectiveId = IdGenerator.GenerateId();
+            studyObjectivesEntity.endpoints.ForEach(x => x.endPointsId = IdGenerator.GenerateId());
           
             return studyObjectivesEntity;
         }       
@@ -137,14 +159,31 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             plannedWorkFlowEntity.plannedWorkFlowId = IdGenerator.GenerateId();
             plannedWorkFlowEntity.startPoint.pointInTimeId = IdGenerator.GenerateId();
             plannedWorkFlowEntity.endPoint.pointInTimeId = IdGenerator.GenerateId();
-            plannedWorkFlowEntity.transitions.ForEach(t => {
-                                         t.transitionId = IdGenerator.GenerateId();
-                                         t.fromPointInTime.pointInTimeId = IdGenerator.GenerateId();
-                                         t.toPointInTime.pointInTimeId = IdGenerator.GenerateId();
-                                         t.transitionRule.transitionRuleId = IdGenerator.GenerateId();
-                                         t.transitionCriteria.ForEach(c => c.transitionCriteriaId = IdGenerator.GenerateId());
-                                     });
-                               
+            plannedWorkFlowEntity.workflowItemMatrix.workFlowItemMatrixId = IdGenerator.GenerateId();
+            plannedWorkFlowEntity.workflowItemMatrix.matrix.ForEach(m =>
+                                {
+                                    m.matrixId = IdGenerator.GenerateId();
+                                    m.items.ForEach(item =>
+                                    {
+                                        item.itemId = IdGenerator.GenerateId();
+                                        item.fromPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                                        item.toPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                                        item.activity.activityId = IdGenerator.GenerateId();
+                                        item.activity.studyDataCollection.ForEach(sdc => sdc.studyDataCollectionId = IdGenerator.GenerateId());
+                                        item.encounter.encounterId = IdGenerator.GenerateId();
+                                        item.encounter.startRule.RuleId = IdGenerator.GenerateId();
+                                        item.encounter.endRule.RuleId = IdGenerator.GenerateId();
+                                        item.encounter.epoch.epochId = IdGenerator.GenerateId();
+                                    });
+                                });
+            //plannedWorkFlowEntity.transitions.ForEach(t => {
+            //                             t.transitionId = IdGenerator.GenerateId();
+            //                             t.fromPointInTime.pointInTimeId = IdGenerator.GenerateId();
+            //                             t.toPointInTime.pointInTimeId = IdGenerator.GenerateId();
+            //                             t.transitionRule.transitionRuleId = IdGenerator.GenerateId();
+            //                             t.transitionCriteria.ForEach(c => c.transitionCriteriaId = IdGenerator.GenerateId());
+            //                         });
+
             return plannedWorkFlowEntity;
         }
         public static StudyCellEntity StudyCellsIdGenerator(StudyCellEntity studyCellEntity)
@@ -166,10 +205,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             //studyDesignId
             studyDesignEntity.studyDesignId = IdGenerator.GenerateId();
-
-            //studyPopulationId
+            
             if(studyDesignEntity.currentSections!=null)
             {
+                //studyPopulationId
                 studyDesignEntity.currentSections.FindAll(n => n.studyPopulations != null)
                                                  .ForEach(p => p.studyPopulations
                                                  .ForEach(i => i.studyPopulationId = IdGenerator.GenerateId()));
@@ -181,13 +220,30 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                                      i.plannedWorkFlowId = IdGenerator.GenerateId();
                                                      i.startPoint.pointInTimeId = IdGenerator.GenerateId();
                                                      i.endPoint.pointInTimeId = IdGenerator.GenerateId();
-                                                     i.transitions.ForEach(t => {
-                                                         t.transitionId = IdGenerator.GenerateId();
-                                                         t.fromPointInTime.pointInTimeId = IdGenerator.GenerateId();
-                                                         t.toPointInTime.pointInTimeId = IdGenerator.GenerateId();
-                                                         t.transitionRule.transitionRuleId = IdGenerator.GenerateId();
-                                                         t.transitionCriteria.ForEach(c => c.transitionCriteriaId = IdGenerator.GenerateId());
+                                                     i.workflowItemMatrix.workFlowItemMatrixId = IdGenerator.GenerateId();
+                                                     i.workflowItemMatrix.matrix.ForEach(m =>
+                                                     {
+                                                         m.matrixId = IdGenerator.GenerateId();
+                                                         m.items.ForEach(item =>
+                                                         {
+                                                             item.itemId = IdGenerator.GenerateId();
+                                                             item.fromPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                                                             item.toPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                                                             item.activity.activityId = IdGenerator.GenerateId();
+                                                             item.activity.studyDataCollection.ForEach(sdc => sdc.studyDataCollectionId = IdGenerator.GenerateId());
+                                                             item.encounter.encounterId = IdGenerator.GenerateId();
+                                                             item.encounter.startRule.RuleId = IdGenerator.GenerateId();
+                                                             item.encounter.endRule.RuleId = IdGenerator.GenerateId();
+                                                             item.encounter.epoch.epochId = IdGenerator.GenerateId();
+                                                         });
                                                      });
+                                                     //i.transitions.ForEach(t => {
+                                                     //    t.transitionId = IdGenerator.GenerateId();
+                                                     //    t.fromPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                                                     //    t.toPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                                                     //    t.transitionRule.transitionRuleId = IdGenerator.GenerateId();
+                                                     //    t.transitionCriteria.ForEach(c => c.transitionCriteriaId = IdGenerator.GenerateId());
+                                                     //});
                                                  }));
 
                 //studyCellId and sub-elements Id's
@@ -203,6 +259,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                                          e.endRule.RuleId = IdGenerator.GenerateId();
                                                      });
                                                  }));
+
+                //InvestigationalIntervention Id
+                studyDesignEntity.currentSections.FindAll(n => n.investigationalInterventions != null)
+                                                 .ForEach(p => p.investigationalInterventions
+                                                 .ForEach(i => i.investigationalInterventionId = IdGenerator.GenerateId()));
             }
             
             return studyDesignEntity;

@@ -106,7 +106,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 {
                     _study = await collection.Find(s => 
                                                 (s.clinicalStudy.studyId == studyId)
-                                                && s.clinicalStudy.tag == tag)
+                                                && s.clinicalStudy.studyTag == tag)
                                              .SortByDescending(s => s.auditTrail.studyVersion)
                                              .Limit(1)
                                              .SingleOrDefaultAsync().ConfigureAwait(false);
@@ -115,7 +115,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 {
                     _study = await collection.Find(s => 
                                                 (s.clinicalStudy.studyId == studyId
-                                                 && s.clinicalStudy.tag == tag
+                                                 && s.clinicalStudy.studyTag == tag
                                                  && s.auditTrail.studyVersion == version))
                                              .SortByDescending(s => s.auditTrail.studyVersion)
                                              .Limit(1)
@@ -190,27 +190,34 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// <param name="fromDate"></param>
         /// <param name="toDate"></param>
         /// <returns></returns>
-        public async Task<List<StudyEntity>> GetAllStudyId(DateTime fromDate, DateTime toDate)
+        public async Task<object> GetAllStudyId(DateTime fromDate, DateTime toDate)
         {
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(GetAllStudyId)};");
             try
             {
                 var collection = _database.GetCollection<StudyEntity>(Constants.Collections.Study);
-                List<StudyEntity> studies = new List<StudyEntity>();
-                studies = await collection.Find(s =>                                                  
-                                                  s.auditTrail.entryDateTime >= fromDate
-                                                  && s.auditTrail.entryDateTime <= toDate)
-                                                  .SortByDescending(s => s.auditTrail.entryDateTime)
-                                                  .ToListAsync().ConfigureAwait(false);
+                var result = await collection.Find(s =>
+                                                    s.auditTrail.entryDateTime >= fromDate
+                                                    && s.auditTrail.entryDateTime <= toDate)
+                                            .Project(x => new { x.clinicalStudy.studyId, x.clinicalStudy.studyTitle, x.auditTrail.studyVersion, x.auditTrail.entryDateTime })
+                                            .SortByDescending(s => s.auditTrail.entryDateTime)
+                                            .ToListAsync().ConfigureAwait(false);
 
-                if (studies.Count == 0)
+                //studies = await collection.Find(s =>
+                //                                  s.auditTrail.entryDateTime >= fromDate
+                //                                  && s.auditTrail.entryDateTime <= toDate)
+                //                                  .SortByDescending(s => s.auditTrail.entryDateTime)
+                //                                  .ToListAsync().ConfigureAwait(false);
+
+
+                if (result.Count == 0)
                 {
                     _logger.LogWarning($"There are no Study in {Constants.Collections.Study} Collection");
                     return null;
                 }
                 else
                 {
-                    return studies;
+                    return result;
                 }
             }
             catch (Exception ex)
@@ -250,18 +257,19 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 {
                     filter &= builder.Where(x => x.clinicalStudy.studyTitle.ToLower().Contains(searchParameters.studyTitle.ToLower()));
                 }
-                if (!String.IsNullOrWhiteSpace(searchParameters.briefTitle))
-                {
-                    filter &= builder.Where(x => x.clinicalStudy.currentSections.Any(x=>x.studyProtocol.briefTitle.ToLower().Contains(searchParameters.briefTitle.ToLower())));
-                }
+                //Removed Study Protocol
+                //if (!String.IsNullOrWhiteSpace(searchParameters.briefTitle))
+                //{
+                //    filter &= builder.Where(x => x.clinicalStudy.currentSections.Any(x=>x.studyProtocol.briefTitle.ToLower().Contains(searchParameters.briefTitle.ToLower())));
+                //}
                 if (!String.IsNullOrWhiteSpace(searchParameters.indication))
                 {
                     filter &= builder.Where(x => x.clinicalStudy.currentSections.Any(x=>x.studyIndications.Any(x=>x.description.ToLower().Contains(searchParameters.indication.ToLower()))));
                 }
-                if (!String.IsNullOrWhiteSpace(searchParameters.interventionModel))
-                {
-                    filter &= builder.Where(x => x.clinicalStudy.interventionModel.ToLower().Contains(searchParameters.interventionModel.ToLower()));
-                }
+                //if (!String.IsNullOrWhiteSpace(searchParameters.interventionModel))
+                //{
+                //    filter &= builder.Where(x => x.clinicalStudy.interventionModel.ToLower().Contains(searchParameters.interventionModel.ToLower()));
+                //}
                 if (!String.IsNullOrWhiteSpace(searchParameters.phase))
                 {
                     filter &= builder.Where(x => x.clinicalStudy.studyPhase.ToLower().Contains(searchParameters.phase.ToLower()));
@@ -274,12 +282,12 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
                 #region Group Query 
                 var groups = collection.AsQueryable()
-                                        .GroupBy(x => new { x.clinicalStudy.studyId,x.clinicalStudy.tag })                                        
+                                        .GroupBy(x => new { x.clinicalStudy.studyId,x.clinicalStudy.studyTag })                                        
                                         .Select(g => new
                                         {
                                             id = g.Key.studyId,
                                             total = g.Count(),
-                                            version = g.Key.tag,
+                                            version = g.Key.studyTag,
                                             recordVersion = g.Max(x => x.auditTrail.studyVersion)
                                         })
                                         .ToList();             
@@ -331,27 +339,28 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                     {
                         case "studytitle":
                             return asc ? filteredResult.OrderBy(s => s.clinicalStudy.studyTitle) : filteredResult.OrderByDescending(s => s.clinicalStudy.studyTitle);
-                        case "brieftitle":
-                            return asc ? filteredResult.OrderBy(s => s.clinicalStudy.currentSections!=null ? s.clinicalStudy.currentSections.Select(y => y.studyProtocol).FirstOrDefault(s => s != null) != null ? s.clinicalStudy.currentSections.Select(y => y.studyProtocol).FirstOrDefault(s => s != null).briefTitle ?? "" : "" : "")
-                                                                : filteredResult.OrderByDescending(s => s.clinicalStudy.currentSections != null ? s.clinicalStudy.currentSections.Select(y => y.studyProtocol).FirstOrDefault(s => s != null) != null ? s.clinicalStudy.currentSections.Select(y => y.studyProtocol).FirstOrDefault(s => s != null).briefTitle ?? "" : "" : "");
+                        //Removed Study Protocol
+                        //case "brieftitle":
+                        //    return asc ? filteredResult.OrderBy(s => s.clinicalStudy.currentSections!=null ? s.clinicalStudy.currentSections.Select(y => y.studyProtocol).FirstOrDefault(s => s != null) != null ? s.clinicalStudy.currentSections.Select(y => y.studyProtocol).FirstOrDefault(s => s != null).briefTitle ?? "" : "" : "")
+                        //                                        : filteredResult.OrderByDescending(s => s.clinicalStudy.currentSections != null ? s.clinicalStudy.currentSections.Select(y => y.studyProtocol).FirstOrDefault(s => s != null) != null ? s.clinicalStudy.currentSections.Select(y => y.studyProtocol).FirstOrDefault(s => s != null).briefTitle ?? "" : "" : "");
                         case "sponsorid":
                             return asc ? filteredResult.OrderBy(s => s.clinicalStudy.studyIdentifiers.Find(x=>x.idType==Constants.IdType.SPONSOR_ID).orgCode ?? "")
                                                                 : filteredResult.OrderByDescending(s => s.clinicalStudy.studyIdentifiers.Find(x => x.idType == Constants.IdType.SPONSOR_ID).orgCode ?? "");
                         case "indication":
                             return asc ? filteredResult.OrderBy(s => s.clinicalStudy.currentSections!=null ? s.clinicalStudy.currentSections.Where(x => x.studyIndications != null).Count() != 0 ? s.clinicalStudy.currentSections.Select(y => y.studyIndications).FirstOrDefault(s => s != null).Select(z => z.description).FirstOrDefault() ?? "" : "" : "" )
                                                                 : filteredResult.OrderByDescending(s => s.clinicalStudy.currentSections != null ? s.clinicalStudy.currentSections.Where(x => x.studyIndications != null).Count() != 0 ? s.clinicalStudy.currentSections.Select(y => y.studyIndications).FirstOrDefault(s => s != null).Select(z => z.description).FirstOrDefault() ?? "" : "" : "");
-                        case "interventionmodel":
-                            return asc ? filteredResult.OrderBy(s => s.clinicalStudy.interventionModel ?? "") : filteredResult.OrderByDescending(s => s.clinicalStudy.interventionModel ?? "");
+                        //case "interventionmodel":
+                        //    return asc ? filteredResult.OrderBy(s => s.clinicalStudy.interventionModel ?? "") : filteredResult.OrderByDescending(s => s.clinicalStudy.interventionModel ?? "");
                         case "phase":
                             return asc ? filteredResult.OrderBy(s => s.clinicalStudy.studyPhase ?? "") : filteredResult.OrderByDescending(s => s.clinicalStudy.studyPhase ?? "");
                         case "lastmodifiedbysystem":
                             return asc ? filteredResult.OrderBy(s => s.auditTrail.entrySystem ?? "") : filteredResult.OrderByDescending(s => s.auditTrail.entrySystem ?? "");
                         case "tag":
-                            return asc ? filteredResult.OrderBy(s => s.clinicalStudy.tag ?? "") : filteredResult.OrderByDescending(s => s.clinicalStudy.tag ?? "");
+                            return asc ? filteredResult.OrderBy(s => s.clinicalStudy.studyTag ?? "") : filteredResult.OrderByDescending(s => s.clinicalStudy.studyTag ?? "");
                         case "sdrversion":
                             return asc ? filteredResult.OrderBy(s => s.auditTrail.studyVersion) : filteredResult.OrderByDescending(s => s.auditTrail.studyVersion);
                         case "status":
-                            return asc ? filteredResult.OrderBy(s => s.clinicalStudy.status ?? "") : filteredResult.OrderByDescending(s => s.clinicalStudy.status ?? "");
+                            return asc ? filteredResult.OrderBy(s => s.clinicalStudy.studyStatus ?? "") : filteredResult.OrderByDescending(s => s.clinicalStudy.studyStatus ?? "");
                         case "lastmodifieddate":
                             return asc ? filteredResult.OrderBy(s => s.auditTrail.entryDateTime) : filteredResult.OrderByDescending(s => s.auditTrail.entryDateTime);
                         default:

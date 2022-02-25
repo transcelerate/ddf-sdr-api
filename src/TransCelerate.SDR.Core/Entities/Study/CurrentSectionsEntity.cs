@@ -31,8 +31,8 @@ namespace TransCelerate.SDR.Core.Entities.Study
 
         [BsonIgnoreIfNull]
         public List<StudyIndicationEntity> studyIndications { get; set; }
-
-        [BsonIgnoreIfNull]
-        public StudyProtocolEntity studyProtocol { get; set; }
+        //Removed Study Protocol
+        //[BsonIgnoreIfNull]
+        //public StudyProtocolEntity studyProtocol { get; set; }
     }
 }

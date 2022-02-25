@@ -12,11 +12,8 @@ namespace TransCelerate.SDR.Core.DTO.Study
        
         public string id { get; set; }
 
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
         public string description { get; set; }
 
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
-        [EmptyListValidationHelper(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
         public List<CodingDTO> coding { get; set; }
     }
 }

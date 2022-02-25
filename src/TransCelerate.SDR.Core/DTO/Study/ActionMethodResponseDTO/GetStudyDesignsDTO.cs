@@ -10,5 +10,6 @@ namespace TransCelerate.SDR.Core.DTO.Study
         public List<PlannedWorkflowDTO> plannedWorkflows { get; set; }
         public List<StudyPopulationDTO> studyPopulations { get; set; }
         public List<StudyCellDTO> studyCells { get; set; }
+        public List<InvestigationalInterventionDTO> investigationalInterventions { get; set; }
     }
 }

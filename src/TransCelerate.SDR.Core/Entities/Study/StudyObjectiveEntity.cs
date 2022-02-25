@@ -12,7 +12,7 @@ namespace TransCelerate.SDR.Core.Entities.Study
         public string description { get; set; }
 
         [BsonElement("id")]
-        public string ObjectiveId { get; set; }
+        public string objectiveId { get; set; }
 
         public string level { get; set; }
 
@@ -27,7 +27,7 @@ namespace TransCelerate.SDR.Core.Entities.Study
         public string purpose { get; set; }
 
         [BsonElement("id")]
-        public string EndPointsId { get; set; }
+        public string endPointsId { get; set; }
 
         public string outcomeLevel { get; set; }
     }            

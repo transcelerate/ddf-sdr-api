@@ -1,33 +1,45 @@
 {
   "clinicalStudy": {
-    "studyTitle": "Study Number two 2nd",
+    "studyId": "ef70fb0f-0504-4f30-8173-34491d8326f1",
+    "studyTitle": "Study Number One",
     "studyType": "INTERVENTIONAL",
     "studyPhase": "PHASE_1_TRIAL",
-    "interventionModel": "PARALLEL",
-    "tag": "1.0Draft",
+    "studyStatus": "this is a study status",
+    "studyTag": "1.0Draft",
     "studyIdentifiers": [
       {
-        "id": "ACMECT001",
+        "id": "2b384f8b-24ce-4c46-8b4b-4a1da98442cb",
         "orgCode": "2.16.840.1.113883.3.1077",
         "name": "ClinicalTrials.gov",
         "idType": "REGISTRY_STUDY"
       },
       {
-        "id": "ACME001",
-        "orgCode": "2.16.840.1",
-        "name": "SponsorNo",
+        "id": "bcd84097-35ce-464d-afa9-7bb0b9efafdb",
+        "orgCode": "2.16.840.1.113883.3.1077",
+        "name": "ClinicalTrials.gov",
         "idType": "SPONSOR_ID"
+      },
+      {
+        "id": "bcd84097-35ce-464d-afa9-7bb0bd3ca5db",
+        "orgCode": "2.16.842.1.113844.3.1088",
+        "name": "ClinicalTrials.gov",
+        "idType": "SPONSOR_ID"
+      }
+    ],
+    "studyProtocolReferences": [
+      {
+        "studyProtocolId": "81988ee1-cfd4-4a62-8f8f-d9985d3ca5db",
+        "studyProtocolVersion": "1.0"
       }
     ],
     "currentSections": [
       {
-        "id": "0ee0571f-95f4-4094-8e33-6ba1292b4054",
-        "sectionType": "INVESTIGATIONAL_INTERVENTIONS",
-        "investigationalInterventions": [
+        "id": "7b37e316-908b-42a4-a22c-62198046756e",
+        "sectionType": "STUDY_INDICATIONS",
+        "studyIndications": [
           {
-            "id": "29cbef72-0471-4307-9ee4-3c434a974231",
-            "description": "Ibuprofen 200mg",
-            "interventionType": "DRUG",
+            "id": "a400f8b6-47dd-4006-96fb-bc4dfbfc4985",
+            "description": "Alzheimer's disease",
             "coding": [
               {
                 "code": "26929004",
@@ -40,115 +52,221 @@
         ]
       },
       {
-        "id": "e36118b3-bb80-4059-9a8d-93017f99aa4a",
+        "id": "42101386-e196-4a64-9d1c-ddd168ee79e2",
         "sectionType": "STUDY_DESIGNS",
         "studyDesigns": [
           {
+            "studyDesignId": "02ab88b2-b3bd-427d-bb1a-6f9966d7e6dd",
             "currentSections": [
               {
-                "id": "cea5aefa-7b45-4cc4-b91d-516148802454",
-                "sectionType": "PLANNED_WORKFLOWS",
-                "plannedWorkflows": [
-                  {
-                    "id": "45ec9461-521b-448d-a561-1cdef5fdf477",
-                    "description": "Planned Workflow for Study ACME001",
-                    "startPoint": {
-                      "id": "b6fd5a0f-8095-4f1b-896c-e3290fc08985",
-                      "type": "SCREENING",
-                      "subjectStatusGrouping": "In Screening",
-                      "startDate": "2022-Jan-10",
-                      "endDate": "2022-Jan-20"
-                    },
-                    "endPoint": {
-                      "id": "fe48c199-2c47-4b2f-8ca5-4aa9608759ef",
-                      "type": "SCREENING",
-                      "subjectStatusGrouping": "In Screening",
-                      "startDate": "2022-Jan-10",
-                      "endDate": "2022-Jan-20"
-                    },
-                    "transitions": [
-                      {
-                        "id": "3fcb20e0-8f6d-4cb9-b146-0184063880c4",
-                        "description": "go to next when subject has systolic blood pressure below 130 mmHg",
-                        "fromPointInTime": {
-                          "id": "72868a96-52cb-4b34-9e6b-52b163def55c",
-                          "type": "SCREENING",
-                          "subjectStatusGrouping": "In Screening",
-                          "startDate": "2022-Jan-10",
-                          "endDate": "2022-Jan-20"
-                        },
-                        "toPointInTime": {
-                          "id": "92934070-12af-4ed8-a963-f813aac5a448",
-                          "type": "SCREENING",
-                          "subjectStatusGrouping": "In Screening",
-                          "startDate": "2022-Jan-10",
-                          "endDate": "2022-Jan-20"
-                        },
-                        "transitionRule": {
-                          "id": "16ba5222-0282-43b8-8a4a-be61a5e7dfe9",
-                          "description": "Textual description of the rule",
-                          "coding": [
-                            {
-                              "code": "test transition rule in Python",
-                              "codeSystem": "Python",
-                              "codeSystemVersion": "1.0",
-                              "decode": "???"
-                            }
-                          ]
-                        },
-                        "describedBy": "",
-                        "transitionCriteria": [
-                          {
-                            "id": "1353dc72-ac4c-4174-b7a3-d3c7dba2e763",
-                            "type": "RANDOMIZATION",
-                            "description": "This is some criterion",
-                            "specificationIds": [ "", "" ],
-                            "domain": "",
-                            "dictionary": "",
-                            "testName": "",
-                            "numericMinValue": "0.00",
-                            "numericMinValueInclusive": "0.0",
-                            "numericMaxValue": "100.00",
-                            "valueUnit": "",
-                            "textualResult": "",
-                            "timing": "",
-                            "timingDetail": "",
-                            "timingGap": "",
-                            "timingDays": 10,
-                            "route": "",
-                            "numericaMaxValueInclusive": "100.00",
-                            "criterionDetails": [ "", "" ]
-                          }
-                        ],
-                        "studyProtocolCriterionTransitionNumber": 5
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "id": "cba986b0-0be7-4292-ab03-6202fb44c485",
+                "id": "83afc60c-7fc0-4b14-beaf-d4be4b832ab0",
                 "sectionType": "STUDY_POPULATIONS",
                 "studyPopulations": [
                   {
-                    "id": "8a94504e-4488-4424-ad49-4632d95f4e86",
+                    "id": "f01a8c2c-4219-4653-9bf0-588962f2ccf8",
                     "description": "healthy volunteers of age between 18 and 65"
                   }
                 ]
               },
               {
-                "id": "040203c9-a887-4530-ae50-da73d37853ed",
+                "id": "42b703dc-f7d1-4f65-9200-b77ef2b15a3c",
+                "sectionType": "PLANNED_WORKFLOWS",
+                "plannedWorkflows": [
+                  {
+                    "id": "0c8ad228-1848-4335-8cc7-630e2be5e06d",
+                    "description": "Planned Workflow for DeprecatedStudy ACME001",
+                    "startPoint": {
+                      "id": "759d2735-49c2-4a0b-9a75-6ed9f81a55cc",
+                      "type": "SCREENING",
+                      "subjectStatusGrouping": "In Screening",
+                      "startDate": "2022-JAN-01",
+                      "endDate": "2022-JAN-31"
+                    },
+                    "endPoint": {
+                      "id": "f8f8ea1f-77c6-4cd4-ad2e-19c6e609cf95",
+                      "type": "SCREENING",
+                      "subjectStatusGrouping": "In Screening",
+                      "startDate": "2022-JAN-01",
+                      "endDate": "2022-JAN-31"
+                    },
+                    "workflowItemMatrix": {
+                      "id": "0cc2fe3a-3b46-412e-8127-b874a6b89df2",
+                      "matrix": [
+                        {
+                          "id": "0fe36197-7c82-4fe5-9648-df3a0214151e",
+                          "items": [
+                            {
+                              "id": "e3e84e94-927e-42da-9625-e4f18bc4b7a4",
+                              "description": "go to next when subject has systolic blood pressure below 130 mmHg",
+                              "fromPointInTime": {
+                                "id": "70b40929-f370-4062-a0d2-b73509284075",
+                                "type": "SCREENING",
+                                "subjectStatusGrouping": "In Screening",
+                                "startDate": "2022-JAN-01",
+                                "endDate": "2022-JAN-31"
+                              },
+                              "toPointInTime": {
+                                "id": "edf69da2-73c3-4b32-855c-ca670eb5af6b",
+                                "type": "SCREENING",
+                                "subjectStatusGrouping": "In Screening",
+                                "startDate": "2022-JAN-01",
+                                "endDate": "2022-JAN-31"
+                              },
+                              "activity": {
+                                "id": "5eedee11-3dd3-40ba-b4df-d8e6df6f40f7",
+                                "definedProcedures": [
+                                  {
+                                    "procedureCode": "testCode"
+                                  }
+                                ],
+                                "studyDataCollection": [
+                                  {
+                                    "id": "b2c18361-270b-4147-a9d8-809a05982f6e",
+                                    "name": "Systolic Blood Pressure",
+                                    "description": "Measurement of systolic blood pressure in sitting position in either mm or cm Mercury column",
+                                    "eCRFLink": "https://library.cdisc.org/api/mdr/cdashig/2-1/domains/VS"
+                                  }
+                                ]
+                              },
+                              "encounter": {
+                                "id": "84e8c00f-5da2-4872-bec2-821aba190e45",
+                                "name": "test visit",
+                                "description": "visit description",
+                                "contactMode": "IN_PERSON",
+                                "environmentalSetting": "CLINIC",
+                                "startRule": {
+                                  "id": "311f6542-ee97-40d1-8b51-a1885976d2d8",
+                                  "description": "start rule",
+                                  "coding": [
+                                    {
+                                      "code": "xyz",
+                                      "codeSystem": "test system",
+                                      "codeSystemVersion": "1.0",
+                                      "decode": "the decode string"
+                                    }
+                                  ]
+                                },
+                                "endRule": {
+                                  "id": "c356e3b6-af25-47fd-8849-7c485cd11910",
+                                  "description": "end rule",
+                                  "coding": [
+                                    {
+                                      "code": "xyz",
+                                      "codeSystem": "test system",
+                                      "codeSystemVersion": "1.0",
+                                      "decode": "the decode string"
+                                    }
+                                  ]
+                                },
+                                "epoch": {
+                                  "id": "83457bbb-0a88-4823-8956-cf4daf5117fa",
+                                  "epochType": "SCREENING",
+                                  "name": "First treatment epoch",
+                                  "description": "First treatment epoch with low dose",
+                                  "sequenceInStudy": 1
+                                }
+                              },
+                              "previousItemsInSequence": [],
+                              "nextItemsInSequence": [
+                                "7de4ed95-b812-42c8-807b-a94637dff3a3"
+                              ]
+                            },
+                            {
+                              "id": "7de4ed95-b812-42c8-807b-a94637dff3a3",
+                              "description": "go to next when subject has systolic blood pressure below 130 mmHg",
+                              "fromPointInTime": {
+                                "id": "d366d7a3-c283-4b92-a478-2960fcd35432",
+                                "type": "SCREENING",
+                                "subjectStatusGrouping": "In Screening",
+                                "startDate": "2022-JAN-01",
+                                "endDate": "2022-JAN-31"
+                              },
+                              "toPointInTime": {
+                                "id": "9cff2953-cb7a-4526-993f-5f91d2149539",
+                                "type": "SCREENING",
+                                "subjectStatusGrouping": "In Screening",
+                                "startDate": "2022-JAN-01",
+                                "endDate": "2022-JAN-31"
+                              },
+                              "activity": {
+                                "id": "bb235543-ab66-4b7a-be77-ca700b392794",
+                                "definedProcedures": [
+                                  {
+                                    "procedureCode": "testCode"
+                                  }
+                                ],
+                                "studyDataCollection": [
+                                  {
+                                    "id": "7364b2a2-ef85-4323-b102-623bb98648b0",
+                                    "name": "Systolic Blood Pressure",
+                                    "description": "Measurement of systolic blood pressure in sitting position in either mm or cm Mercury column",
+                                    "eCRFLink": "https://library.cdisc.org/api/mdr/cdashig/2-1/domains/VS"
+                                  }
+                                ]
+                              },
+                              "encounter": {
+                                "id": "fb680f98-324b-459a-b753-9cf2c9f6c950",
+                                "name": "test visit",
+                                "description": "visit description",
+                                "startRule": {
+                                  "id": "b4b295d1-562b-4229-8cea-ab92bb10696f",
+                                  "description": "start rule",
+                                  "coding": [
+                                    {
+                                      "code": "xyz",
+                                      "codeSystem": "test system",
+                                      "codeSystemVersion": "1.0",
+                                      "decode": "the decode string"
+                                    }
+                                  ]
+                                },
+                                "endRule": {
+                                  "id": "0e44b54c-b7f2-432a-9a2a-17a736061bf2",
+                                  "description": "end rule",
+                                  "coding": [
+                                    {
+                                      "code": "xyz",
+                                      "codeSystem": "test system",
+                                      "codeSystemVersion": "1.0",
+                                      "decode": "the decode string"
+                                    }
+                                  ]
+                                },
+                                "epoch": {
+                                  "id": "c02df6b2-58fd-41f5-90f2-2b4ff375eedd",
+                                  "epochType": "SCREENING",
+                                  "name": "First treatment epoch",
+                                  "description": "First treatment epoch with low dose",
+                                  "sequenceInStudy": 1
+                                },
+                                "contactMode": "IN_PERSON",
+                                "environmentalSetting": "CLINIC"
+                              },
+                              "previousItemsInSequence": [
+                                "e3e84e94-927e-42da-9625-e4f18bc4b7a4"
+                              ],
+                              "nextItemsInSequence": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "cea95311-e84a-4ab9-9906-2260ab26833a",
                 "sectionType": "STUDY_CELLS",
                 "studyCells": [
                   {
-                    "id": "78d223c8-a8d5-47f5-ae2e-4276de807afb",
+                    "id": "1fb9267b-d1bd-45f1-859d-faf2c1b4a692",
                     "studyElements": [
                       {
-                        "id": "81daa6e7-6446-414d-9f34-70a8bfebc10b",
+                        "id": "250cf0a9-53f4-4e00-b8be-ba961b4bfce7",
                         "name": "washout after treatment element",
                         "description": "This element is for washout after treatment with either active ingredient or placebo",
                         "startRule": {
-                          "id": "347e924c-3239-441a-bb08-82464fb6e0e5",
+                          "id": "ff0ef5ef-10f5-40e8-bb88-19c28d3bf6fb",
                           "description": "Textual description of the rule",
                           "coding": [
                             {
@@ -160,7 +278,7 @@
                           ]
                         },
                         "endRule": {
-                          "id": "0d74c4c6-a793-4f46-8237-2e1b32c76f6d",
+                          "id": "95d65b62-bdb3-4d8e-b7d3-f85d640e3afd",
                           "description": "Textual description of the rule",
                           "coding": [
                             {
@@ -174,15 +292,15 @@
                       }
                     ],
                     "studyArm": {
+                      "id": "7d012060-ca0e-4760-9bcc-054d58bcf68a",
                       "description": "200mg Ibuprofen active comparator arm",
-                      "id": "6b9465ac-7458-42f1-9dd8-a2fbbeb71282",
                       "studyArmType": "ACTIVE_COMPARATOR_ARM",
                       "studyOriginType": "INTERNAL",
                       "studyArmOrigin": "HISTORICAL",
                       "name": "My Comparator Arm"
                     },
                     "studyEpoch": {
-                      "id": "df32b138-8639-4a1c-8c44-cd7cae7ec940",
+                      "id": "fdbe877c-4930-4a1c-9a2b-f981dd191c44",
                       "epochType": "SCREENING",
                       "name": "First treatment epoch",
                       "description": "First treatment epoch with low dose",
@@ -190,78 +308,55 @@
                     }
                   }
                 ]
-              }
-            ],
-            "studyDesignId": "ad4393db-e076-4ca0-a02a-fdb6f930bf06"
-          }
-        ]
-      },
-      {
-        "id": "ebd35f48-34b6-4f4b-82c3-414412b740e2",
-        "sectionType": "OBJECTIVES",
-        "objectives": [
-          {
-            "description": "Example trial objective",
-            "endpoints": [
+              },
               {
-                "description": "Cumulative incidence of virus detection in sputum samples among participants up to...",
-                "purpose": "EFFICACY",
-                "id": "1daa6ca6-3b06-4205-8482-038174e17465",
-                "outcomeLevel": "PRIMARY"
-              }
-            ],
-            "id": "7932a775-32ae-43af-b868-78940140e107",
-            "level": "PRIMARY"
-          }
-        ]
-      },
-      {
-        "id": "66dc03d6-3846-44c5-99f1-5cfbc3bdcfdb",
-        "sectionType": "STUDY_INDICATIONS",
-        "studyIndications": [
-          {
-            "id": "dd6f7b56-b87f-4d83-8135-fbdedd075f43",
-            "description": "Alzheimer's disease",
-            "coding": [
-              {
-                "code": "test transition rule in Python",
-                "codeSystem": "Python",
-                "codeSystemVersion": "1.0",
-                "decode": "???"
+                "id": "3244548d-fa75-43af-9c35-ba33be6b5fcb",
+                "sectionType": "INVESTIGATIONAL_INTERVENTIONS",
+                "investigationalInterventions": [
+                  {
+                    "id": "2039a45f-a5a9-43eb-8c5e-b0ae9c8f0135",
+                    "description": "Ibuprofen 200mg",
+                    "interventionModel": "SEQUENTIAL",
+                    "status": "A Status",
+                    "coding": [
+                      {
+                        "code": "26929004",
+                        "codeSystem": "SNOMED-CT",
+                        "codeSystemVersion": "4.0.6.4",
+                        "decode": "Alzheimer's disease (disorder)"
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           }
         ]
       },
       {
-        "id": "66dc03d6-3846-44c5-99f1-5cfbc3bdcfdb",
-        "sectionType": "STUDY_PROTOCOL",
-        "studyProtocol": {
-          "amendments": [
-            {
-              "amendmentDate": "",
-              "version": ""
-            }
-          ],
-          "protocolId": "PR01",
-          "briefTitle": "DDR Targeting Agents in ABTC",
-          "officialTitle": "DDR-Umbrella Study of DDR (DNA-Damage Response) Targeting Agents in Advanced Biliary Tract Cancer",
-          "publicTitle": "Umbrella ABTC Study",
-          "version": "1.0",
-          "scientificTitle": "DDR-Umbrella Study of DNA-Damage Response Targeting Agents in Advanced Biliary Tract Cancer",
-          "sections": [
-            "",
-            ""
-          ]
-        }
+        "id": "082ca01c-69d3-403b-8f95-cb3148dc0e7b",
+        "sectionType": "OBJECTIVES",
+        "objectives": [
+          {
+            "id": "2e466c5f-010e-4eb1-b7c9-ddb16a8d8e36",
+            "description": "Example trial objective",
+            "level": "PRIMARY",
+            "endpoints": [
+              {
+                "id": "ce464a6b-77b0-4d77-aa37-ed464f2f229d",
+                "description": "Cumulative incidence of virus detection in sputum samples among participants up to...",
+                "purpose": "EFFICACY",
+                "outcomeLevel": "PRIMARY"
+              }
+            ]
+          }
+        ]
       }
-    ],
-    "studyId": "558cdd9e-47a7-4ae7-a719-eb4f4573c539"
+    ]
   },
   "auditTrail": {
-    "entryDateTime": "2022-JAN-12",
-    "entrySystemId": null,
-    "entrySystem": null,
+    "entryDateTime": "2022-FEB-25",
+    "entrySystem": "Test System",
     "studyVersion": 2
   }
 }

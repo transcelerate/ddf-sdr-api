@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransCelerate.SDR.DataAcces
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransCelerate.SDR.Services", "TransCelerate.SDR.Service\TransCelerate.SDR.Services.csproj", "{510D0B38-B43F-44B9-B816-11DCA9CE9D5C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransCelerate.SDR.RuleEngine", "TransCelerate.SDR.RuleEngine\TransCelerate.SDR.RuleEngine.csproj", "{FC722F3A-20A4-4C0A-BEE2-DC87C736D593}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{510D0B38-B43F-44B9-B816-11DCA9CE9D5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{510D0B38-B43F-44B9-B816-11DCA9CE9D5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{510D0B38-B43F-44B9-B816-11DCA9CE9D5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC722F3A-20A4-4C0A-BEE2-DC87C736D593}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC722F3A-20A4-4C0A-BEE2-DC87C736D593}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC722F3A-20A4-4C0A-BEE2-DC87C736D593}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC722F3A-20A4-4C0A-BEE2-DC87C736D593}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,23 +9,17 @@ namespace TransCelerate.SDR.Core.DTO.Study
 {
     public class ClinicalStudyDTO
     {
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
+        public string studyId { get; set; }
         public string studyTitle { get; set; }
-
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
-        public string studyType { get; set; }
-        public string interventionModel { get; set; }
+        public string studyType { get; set; }        
 
         public string studyPhase { get; set; }
-        public string status { get; set; }
-        public string tag { get; set; }
+        public string studyStatus { get; set; }
+        public string studyTag { get; set; }
 
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
-        [EmptyListValidationHelper(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
         public List<StudyIdentifierDTO> studyIdentifiers { get; set; }
 
         public List<CurrentSectionsDTO> currentSections { get; set; }
-
-        public string studyId { get; set; }
+      
     }
 }

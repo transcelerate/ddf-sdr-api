@@ -8,11 +8,8 @@ using TransCelerate.SDR.Core.Utilities.Common;
 namespace TransCelerate.SDR.Core.DTO.Study
 {
     public class StudyPopulationDTO
-    {
-      
+    {      
         public string id { get; set; }
-
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
         public string description { get; set; }
     }
 }

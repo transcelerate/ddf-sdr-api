@@ -8,13 +8,13 @@ namespace TransCelerate.SDR.Core.DTO.Study
 {
     public class CodingDTO
     {
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
+
         public string code { get; set; }
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
+
         public string codeSystem { get; set; }
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
+
         public string codeSystemVersion { get; set; }
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
+
         public string decode { get; set; }
     }
 }

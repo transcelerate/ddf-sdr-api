@@ -11,7 +11,7 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         Task<StudyEntity> GetStudyItemsAsync(string studyId,int version); 
         Task<StudyEntity> GetStudyItemsAsync(string studyId, int version, string tag);
         Task<List<StudyEntity>> GetAuditTrail(DateTime fromDate, DateTime toDate, string study);
-        Task<List<StudyEntity>> GetAllStudyId(DateTime fromDate, DateTime toDate);
+        Task<object> GetAllStudyId(DateTime fromDate, DateTime toDate);
         Task<string> PostStudyItemsAsync(StudyEntity study); 
         Task<List<StudyEntity>> SearchStudy(SearchParameters searchParameters);
         Task<string> UpdateStudyItemsAsync(StudyEntity study);

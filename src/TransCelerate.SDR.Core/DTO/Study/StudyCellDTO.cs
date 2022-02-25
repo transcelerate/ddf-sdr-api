@@ -11,15 +11,11 @@ namespace TransCelerate.SDR.Core.DTO.Study
     {
    
         public string id { get; set; }
-
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
-        [EmptyListValidationHelper(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
+              
         public List<StudyElementDTO> studyElements { get; set; }
-
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
+      
         public StudyArmDTO studyArm { get; set; }
-
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
+      
         public StudyEpochDTO studyEpoch { get; set; }
     }
 }

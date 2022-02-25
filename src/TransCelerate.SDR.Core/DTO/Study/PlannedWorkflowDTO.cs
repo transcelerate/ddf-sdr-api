@@ -11,18 +11,15 @@ namespace TransCelerate.SDR.Core.DTO.Study
     {
         
         public string id { get; set; }
-
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
+       
         public string description { get; set; }
-
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]        
+               
         public PointInTimeDTO startPoint { get; set; }
-
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
+       
         public PointInTimeDTO endPoint { get; set; }
+               
+        //public List<TransitionDTO> transitions { get; set; }
 
-        [Required(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
-        [EmptyListValidationHelper(ErrorMessage = Constants.ValidationErrorMessage.ConformanceError)]
-        public List<TransitionDTO> transitions { get; set; }
+        public WorkflowItemMatrixDTO workflowItemMatrix { get; set; }
     }
 }

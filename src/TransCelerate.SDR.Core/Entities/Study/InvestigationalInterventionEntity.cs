@@ -17,6 +17,8 @@ namespace TransCelerate.SDR.Core.Entities.Study
         public string description { get; set; }
 
         public string interventionType { get; set; }
+        public string interventionModel { get; set; }
+        public string status { get; set; }
         public List<CodingEntity> coding { get; set; }
     }
 }

@@ -12,6 +12,7 @@ namespace TransCelerate.SDR.Core.Entities.Study
         public string description { get; set; }
         public PointInTimeEntity startPoint { get; set; }
         public PointInTimeEntity endPoint { get; set; }
-        public List<TransitionEntity> transitions { get; set; }
+        //public List<TransitionEntity> transitions { get; set; }
+        public WorkFlowItemMatrixEntity workflowItemMatrix { get; set; }
     }
 }

@@ -50,6 +50,10 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string ValidDateError = "Enter A Valid Date";
 
             public const string AnyOneFieldError = "Any one of the field is required";
+
+            public const string PropertyMissingError = "Field is missing";
+
+            public const string PropertyEmptyError = "Field is empty";
         }
         public struct ErrorMessages
         {

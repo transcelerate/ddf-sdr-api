@@ -16,6 +16,7 @@ using TransCelerate.SDR.WebApi.Mappers;
 using Microsoft.Extensions.Logging;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
+using TransCelerate.SDR.Core.Entities;
 
 namespace TransCelerate.SDR.UnitTesting
 {
@@ -91,399 +92,6 @@ namespace TransCelerate.SDR.UnitTesting
         #region TestCases
 
         #region GET Methods Unit Testing
-        #region Depricated EndPoints UnitTesting
-        //#region InterventionModel UnitTesting
-        //[Test]
-        //public void InterventionModel_UnitTest_SuccessResponse()
-        //{
-        //    var mockLogger = Mock.Of<ILogger<ClinicalStudyService>>();
-        //    ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockGetClinicalStudyRepository.Object, _mockMapper, mockLogger);
-
-        //    var method = ClinicalStudyService.InterventionModel("1", "1", "New");
-        //    method.Wait();
-
-        //    //Expected
-        //    var expected = GetDataFromStaticJson();
-
-        //    //Actual            
-        //    var actual_result = method.Result;
-
-        //    //Assert                      
-
-        //    Assert.AreEqual(expected.clinicalStudy.interventionModel, actual_result.interventionModel);
-        //}
-
-        //[Test]
-        //public void InterventionModel_UnitTest_FailureResponse()
-        //{
-        //    var mockLogger = Mock.Of<ILogger<ClinicalStudyService>>();
-        //    ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockGetClinicalStudyRepository.Object, _mockMapper, mockLogger);
-        //    var method = ClinicalStudyService.InterventionModel("2", "1", "New");
-        //    method.Wait();
-
-        //    //Actual
-
-        //    var actual_result = method.Result;
-
-        //    //Assert          
-        //    Assert.IsNull(actual_result);
-        //}
-        //#endregion
-
-        //#region InvestigationIntervention UnitTesting
-        //[Test]
-        //public void Investigationalinterventions_UnitTest_SuccessResponse()
-        //{
-        //    var mockLogger = Mock.Of<ILogger<ClinicalStudyService>>();
-        //    ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockGetClinicalStudyRepository.Object, _mockMapper, mockLogger);
-
-        //    var method = ClinicalStudyService.Investigationalinterventions("1", "1", "New");
-        //    method.Wait();
-
-        //    //Expected
-        //    var expected = GetDataFromStaticJson();
-
-        //    //Actual            
-        //    var actual_result = JsonConvert.DeserializeObject<InvestigationalInterventionResponse>(
-        //        JsonConvert.SerializeObject(method.Result));
-
-        //    //Assert          
-        //    Assert.AreEqual(expected.clinicalStudy.investigationalIntervention[0].description, actual_result.investigationalIntervention[0].description);
-        //    Assert.AreEqual(expected.clinicalStudy.investigationalIntervention[0].investigationalInterventionId, actual_result.investigationalIntervention[0].investigationalInterventionId);
-        //    Assert.AreEqual(expected.clinicalStudy.investigationalIntervention[0].coding[0].code, actual_result.investigationalIntervention[0].coding[0].code);
-        //    Assert.AreEqual(expected.clinicalStudy.investigationalIntervention[0].coding[0].codeSystem, actual_result.investigationalIntervention[0].coding[0].codeSystem);
-        //    Assert.AreEqual(expected.clinicalStudy.investigationalIntervention[0].coding[0].codeSystemVersion, actual_result.investigationalIntervention[0].coding[0].codeSystemVersion);
-        //    Assert.AreEqual(expected.clinicalStudy.investigationalIntervention[0].coding[0].decode, actual_result.investigationalIntervention[0].coding[0].decode);
-        //}
-
-        //[Test]
-        //public void Investigationalinterventions_UnitTest_FailureResponse()
-        //{
-        //    var mockLogger = Mock.Of<ILogger<ClinicalStudyService>>();
-        //    ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockGetClinicalStudyRepository.Object, _mockMapper, mockLogger);
-        //    var method = ClinicalStudyService.Investigationalinterventions("2", "1", "New");
-        //    method.Wait();
-
-        //    //Actual
-
-        //    var actual_result = method.Result;
-
-        //    //Assert          
-        //    Assert.IsNull(actual_result);
-        //}
-        //#endregion
-
-        //#region StudyIdentifier UnitTesting
-        //[Test]
-        //public void StudyIdentifiers_UnitTest_SuccessResponse()
-        //{
-        //    var mockLogger = Mock.Of<ILogger<ClinicalStudyService>>();
-        //    ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockGetClinicalStudyRepository.Object, _mockMapper, mockLogger);
-
-        //    var method = ClinicalStudyService.StudyIdentifiers("1", "1", "New");
-        //    method.Wait();
-
-
-        //    //Expected
-        //    var expected = GetDataFromStaticJson();
-
-        //    //Actual            
-        //    var actual_result = JsonConvert.DeserializeObject<StudyIdentifierResponse>(
-        //        JsonConvert.SerializeObject(method.Result));
-
-        //    //Assert                  
-
-        //    Assert.AreEqual(expected.clinicalStudy.studyIdentifier[0].studyIdentifierId, actual_result.studyIdentifier[0].id);
-        //    Assert.AreEqual(expected.clinicalStudy.studyIdentifier[0].idType.code, actual_result.studyIdentifier[0].idType.code);
-        //    Assert.AreEqual(expected.clinicalStudy.studyIdentifier[0].idType.name, actual_result.studyIdentifier[0].idType.name);
-        //}
-
-        //[Test]
-        //public void StudyIdentifiers_UnitTest_FailureResponse()
-        //{
-        //    var mockLogger = Mock.Of<ILogger<ClinicalStudyService>>();
-        //    ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockGetClinicalStudyRepository.Object, _mockMapper, mockLogger);
-        //    var method = ClinicalStudyService.StudyIdentifiers("2", "1", "New");
-        //    method.Wait();
-
-        //    //Actual
-
-        //    var actual_result = method.Result;
-
-        //    //Assert          
-        //    Assert.IsNull(actual_result);
-        //}
-        //#endregion
-
-        //#region StudyPhase UnitTesting
-        //[Test]
-        //public void StudyPhase_UnitTest_SuccessResponse()
-        //{
-        //    var mockLogger = Mock.Of<ILogger<ClinicalStudyService>>();
-        //    ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockGetClinicalStudyRepository.Object, _mockMapper, mockLogger);
-
-        //    var method = ClinicalStudyService.StudyPhase("1", "1", "New");
-        //    method.Wait();
-
-
-        //    //Expected
-        //    var expected = GetDataFromStaticJson();
-
-        //    //Actual            
-        //    var actual_result = method.Result;
-
-        //    //Assert                    
-        //    Assert.AreEqual(expected.clinicalStudy.studyPhase.ToString(), actual_result.studyPhase);
-        //}
-
-        //[Test]
-        //public void StudyPhase_UnitTest_FailureResponse()
-        //{
-        //    var mockLogger = Mock.Of<ILogger<ClinicalStudyService>>();
-        //    ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockGetClinicalStudyRepository.Object, _mockMapper, mockLogger);
-        //    var method = ClinicalStudyService.StudyPhase("2", "1", "New");
-        //    method.Wait();
-
-        //    //Actual
-        //    var actual_result = method.Result;
-
-        //    //Assert          
-        //    Assert.IsNull(actual_result);
-        //}
-        //#endregion
-
-        //#region StudyProtocol UnitTesting
-        //[Test]
-        //public void StudyProtocol_UnitTest_SuccessResponse()
-        //{
-        //    var mockLogger = Mock.Of<ILogger<ClinicalStudyService>>();
-        //    ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockGetClinicalStudyRepository.Object, _mockMapper, mockLogger);
-
-        //    var method = ClinicalStudyService.StudyProtocol("1", "1", "New");
-        //    method.Wait();
-
-
-        //    //Expected
-        //    var expected = GetDataFromStaticJson();
-
-        //    //Actual            
-        //    var actual_result = JsonConvert.DeserializeObject<StudyProtocolResponse>(
-        //        JsonConvert.SerializeObject(method.Result));
-
-        //    //Assert          
-        //    Assert.AreEqual(expected.clinicalStudy.studyProtocol.protocolId, actual_result.studyProtocol.protocolId);
-        //    Assert.AreEqual(expected.clinicalStudy.studyProtocol.briefTitle, actual_result.studyProtocol.briefTitle);
-        //    Assert.AreEqual(expected.clinicalStudy.studyProtocol.officialTitle, actual_result.studyProtocol.officialTitle);
-        //    Assert.AreEqual(expected.clinicalStudy.studyProtocol.version, actual_result.studyProtocol.version);
-        //}
-
-        //[Test]
-        //public void StudyProtocol_UnitTest_FailureResponse()
-        //{
-        //    var mockLogger = Mock.Of<ILogger<ClinicalStudyService>>();
-        //    ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockGetClinicalStudyRepository.Object, _mockMapper, mockLogger);
-        //    var method = ClinicalStudyService.StudyProtocol("2", "1", "New");
-        //    method.Wait();
-
-        //    //Actual
-        //    var actual_result = method.Result;
-
-        //    //Assert          
-        //    Assert.IsNull(actual_result);
-        //}
-
-        //#endregion
-
-        //#region StudyObjectives UnitTesting
-        //[Test]
-        //public void StudyObjectives_UnitTest_SuccessResponse()
-        //{
-        //    var mockLogger = Mock.Of<ILogger<ClinicalStudyService>>();
-        //    ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockGetClinicalStudyRepository.Object, _mockMapper, mockLogger);
-
-        //    var method = ClinicalStudyService.StudyObjectives("1", "1", "New");
-        //    method.Wait();
-
-        //    //Expected
-        //    var expected = GetDataFromStaticJson();
-
-        //    //Actual            
-        //    var actual_result = JsonConvert.DeserializeObject<StudyObjectivesResponse>(
-        //        JsonConvert.SerializeObject(method.Result));
-
-        //    //Assert                    
-        //    Assert.AreEqual(expected.clinicalStudy.studyObjective[0].objectiveLevel, actual_result.studyObjective[0].objectiveLevel);
-        //    Assert.AreEqual(expected.clinicalStudy.studyObjective[0].objective[0].description, actual_result.studyObjective[0].objective[0].description);
-        //}
-
-        //[Test]
-        //public void StudyObjectives_UnitTest_FailureResponse()
-        //{
-        //    var mockLogger = Mock.Of<ILogger<ClinicalStudyService>>();
-        //    ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockGetClinicalStudyRepository.Object, _mockMapper, mockLogger);
-
-        //    var method = ClinicalStudyService.StudyObjectives("2", "1", "New");
-        //    method.Wait();
-
-        //    //Actual
-        //    var actual_result = method.Result;
-
-        //    //Assert          
-        //    Assert.IsNull(actual_result);
-        //}
-        //#endregion
-
-        //#region StudyTargetPopulation UnitTesting
-        //[Test]
-        //public void StudyTargetPopulation_UnitTest_SuccessResponse()
-        //{
-        //    var mockLogger = Mock.Of<ILogger<ClinicalStudyService>>();
-        //    ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockGetClinicalStudyRepository.Object, _mockMapper, mockLogger);
-
-        //    var method = ClinicalStudyService.StudyTargetPopulation("1", "1", "New");
-        //    method.Wait();
-
-        //    //Expected
-        //    var expected = GetDataFromStaticJson();
-
-        //    //Actual            
-        //    var actual_result = method.Result as StudyTargetPopulationResponse;
-
-        //    //Assert                    
-        //    Assert.AreEqual(expected.clinicalStudy.studyTargetPopulation[0].studyTargetPopulationId, actual_result.studyTargetPopulation[0].id);
-        //    Assert.AreEqual(expected.clinicalStudy.studyTargetPopulation[0].description, actual_result.studyTargetPopulation[0].description);
-        //}
-
-        //[Test]
-        //public void StudyTargetPopulation_UnitTest_FailureResponse()
-        //{
-        //    var mockLogger = Mock.Of<ILogger<ClinicalStudyService>>();
-        //    ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockGetClinicalStudyRepository.Object, _mockMapper, mockLogger);
-        //    var method = ClinicalStudyService.StudyTargetPopulation("2", "1", "New");
-        //    method.Wait();
-
-        //    //Actual
-        //    var actual_result = method.Result;
-
-        //    //Assert          
-        //    Assert.IsNull(actual_result);
-        //}
-        //#endregion
-
-        //#region StudyTitle UnitTesting
-        //[Test]
-        //public void StudyTitle_UnitTest_SuccessResponse()
-        //{
-        //    var mockLogger = Mock.Of<ILogger<ClinicalStudyService>>();
-        //    ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockGetClinicalStudyRepository.Object, _mockMapper, mockLogger);
-
-        //    var method = ClinicalStudyService.StudyTitle("1", "1", "New");
-        //    method.Wait();
-
-        //    //Expected
-        //    var expected = GetDataFromStaticJson();
-
-        //    //Actual            
-        //    var actual_result = method.Result;
-
-        //    //Assert          
-        //    Assert.AreEqual(expected.clinicalStudy.studyTitle, actual_result.studyTitle);
-        //}
-
-        //[Test]
-        //public void StudyTitle_UnitTest_FailureResponse()
-        //{
-        //    var mockLogger = Mock.Of<ILogger<ClinicalStudyService>>();
-        //    ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockGetClinicalStudyRepository.Object, _mockMapper, mockLogger);
-        //    var method = ClinicalStudyService.StudyTitle("2", "1", "New");
-        //    method.Wait();
-
-        //    //Actual
-        //    var actual_result = method.Result;
-
-        //    //Assert          
-        //    Assert.IsNull(actual_result);
-        //}
-        //#endregion
-
-        //#region StudyType UnitTesting
-        //[Test]
-        //public void StudyType_UnitTest_SuccessResponse()
-        //{
-        //    var mockLogger = Mock.Of<ILogger<ClinicalStudyService>>();
-        //    ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockGetClinicalStudyRepository.Object, _mockMapper, mockLogger);
-
-        //    var method = ClinicalStudyService.StudyType("1", "1", "New");
-        //    method.Wait();
-
-        //    //Expected
-        //    var expected = GetDataFromStaticJson();
-
-        //    //Actual            
-        //    var actual_result = method.Result;
-
-        //    //Assert                     
-        //    Assert.AreEqual(expected.clinicalStudy.studyType.ToString(), actual_result.studyType);
-        //}
-
-        //[Test]
-        //public void StudyType_UnitTest_FailureResponse()
-        //{
-        //    var mockLogger = Mock.Of<ILogger<ClinicalStudyService>>();
-        //    ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockGetClinicalStudyRepository.Object, _mockMapper, mockLogger);
-        //    var method = ClinicalStudyService.StudyType("2", "1", "New");
-        //    method.Wait();
-
-        //    //Actual
-        //    var actual_result = method.Result;
-
-        //    //Assert          
-        //    Assert.IsNull(actual_result);
-        //}
-        //#endregion
-
-        //#region StudyIndication UnitTesting
-        //[Test]
-        //public void StudyIndication_UnitTest_SuccessResponse()
-        //{
-        //    var mockLogger = Mock.Of<ILogger<ClinicalStudyService>>();
-        //    ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockGetClinicalStudyRepository.Object, _mockMapper, mockLogger);
-
-        //    var method = ClinicalStudyService.StudyIndication("1", "1", "New");
-        //    method.Wait();
-
-        //    //Expected
-        //    var expected = GetDataFromStaticJson();
-
-        //    //Actual            
-        //    var actual_result = JsonConvert.DeserializeObject<StudyIndicationResponse>(
-        //        JsonConvert.SerializeObject(method.Result));
-
-        //    //Assert                
-        //    Assert.AreEqual(expected.clinicalStudy.studyTargetIndication.studyTargetIndicationId, actual_result.studyTargetIndication.id);
-        //    Assert.AreEqual(expected.clinicalStudy.studyTargetIndication.description, actual_result.studyTargetIndication.description);
-        //    Assert.AreEqual(expected.clinicalStudy.studyTargetIndication.coding[0].code, actual_result.studyTargetIndication.coding[0].code);
-        //    Assert.AreEqual(expected.clinicalStudy.studyTargetIndication.coding[0].codeSystem, actual_result.studyTargetIndication.coding[0].codeSystem);
-        //    Assert.AreEqual(expected.clinicalStudy.studyTargetIndication.coding[0].codeSystemVersion, actual_result.studyTargetIndication.coding[0].codeSystemVersion);
-        //    Assert.AreEqual(expected.clinicalStudy.studyTargetIndication.coding[0].decode, actual_result.studyTargetIndication.coding[0].decode);
-        //}
-
-        //[Test]
-        //public void StudyIndication_UnitTest_FailureResponse()
-        //{
-        //    var mockLogger = Mock.Of<ILogger<ClinicalStudyService>>();
-        //    ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockGetClinicalStudyRepository.Object, _mockMapper, mockLogger);
-        //    var method = ClinicalStudyService.StudyIndication("2", "1", "New");
-        //    method.Wait();
-
-        //    //Actual
-        //    var actual_result = method.Result;
-
-        //    //Assert          
-        //    Assert.IsNull(actual_result);
-        //}
-        //#endregion 
-        #endregion
 
         #region GET All Elements UnitTesting
         [Test]
@@ -507,7 +115,10 @@ namespace TransCelerate.SDR.UnitTesting
             //Assert          
             Assert.AreEqual(expected.clinicalStudy.studyId, actual_result.clinicalStudy.studyId);
             Assert.AreEqual(expected.clinicalStudy.studyPhase, actual_result.clinicalStudy.studyPhase);
-            Assert.AreEqual(expected.clinicalStudy.currentSections[0].investigationalInterventions[0].investigationalInterventionId, actual_result.clinicalStudy.investigationalInterventions[0].id);
+            Assert.NotNull(actual_result.clinicalStudy.objectives);
+            Assert.NotNull(actual_result.clinicalStudy.studyIdentifiers);
+            Assert.NotNull(actual_result.clinicalStudy.studyIndications);
+            Assert.NotNull(actual_result.clinicalStudy.studyDesigns);
             Assert.AreEqual(expected.clinicalStudy.studyTitle, actual_result.clinicalStudy.studyTitle);
         }
 
@@ -532,7 +143,7 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void GetSections_UnitTest_SuccessResponse()
         {
-            string[] sections = {"study_objectives", "study_investigational_interventions", "study_protocol", "study_indications", "study_design" };
+            string[] sections = {"study_objectives", "study_indications", "study_design" };
             _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync("1", 1, "1.0Draft"))
                     .Returns(Task.FromResult(GetDataFromStaticJson()));
             ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);            
@@ -548,14 +159,15 @@ namespace TransCelerate.SDR.UnitTesting
             var actual_result = JsonConvert.DeserializeObject<GetStudySectionsDTO>(
                 JsonConvert.SerializeObject(result));
 
-            //Assert          
-            Assert.AreEqual(expected.investigationalInterventions[0].interventionType, actual_result.investigationalInterventions[0].interventionType);     
-            Assert.AreEqual(expected.objectives[0].description, actual_result.objectives[0].description);
-            Assert.AreEqual(expected.studyProtocol.protocolId, actual_result.studyProtocol.protocolId);            
+            //Assert                      
+            Assert.AreEqual(expected.objectives[0].description, actual_result.objectives[0].description);            
             Assert.AreEqual(expected.studyIndications[0].description, actual_result.studyIndications[0].description);
             Assert.AreEqual(expected.studyDesigns[0].studyDesignId, actual_result.studyDesigns[0].studyDesignId);                        
-            Assert.AreEqual(expected.studyId, actual_result.studyId);                        
-            Assert.AreEqual(expected.studyVersion, actual_result.studyVersion);
+            Assert.AreEqual(expected.studyDesigns[0].plannedWorkflows[0].description, actual_result.studyDesigns[0].plannedWorkflows[0].description);                        
+            Assert.AreEqual(expected.studyDesigns[0].investigationalInterventions[0].description, actual_result.studyDesigns[0].investigationalInterventions[0].description);                        
+            Assert.AreEqual(expected.studyDesigns[0].studyCells[0].studyArm.description, actual_result.studyDesigns[0].studyCells[0].studyArm.description);                        
+            Assert.AreEqual(expected.studyDesigns[0].studyPopulations[0].description, actual_result.studyDesigns[0].studyPopulations[0].description);                        
+            Assert.AreEqual(expected.studyId, actual_result.studyId);                                    
 
             sections = new string[] { };
             method = ClinicalStudyService.GetSections("1", 1, "1.0Draft", sections);
@@ -570,8 +182,7 @@ namespace TransCelerate.SDR.UnitTesting
                 JsonConvert.SerializeObject(result));
 
             //Assert                      
-            Assert.AreEqual(expected.studyId, actual_result.studyId);
-            Assert.AreEqual(expected.studyVersion, actual_result.studyVersion);
+            Assert.AreEqual(expected.studyId, actual_result.studyId);            
         }
 
         [Test]
@@ -598,9 +209,6 @@ namespace TransCelerate.SDR.UnitTesting
             method = ClinicalStudyService1.GetSections("1", 1, "New", sections);
 
             Assert.Throws<AggregateException>(method.Wait);
-
-
-
         }
         #endregion
 
@@ -613,7 +221,7 @@ namespace TransCelerate.SDR.UnitTesting
                     .Returns(Task.FromResult(GetDataFromStaticJson()));
             ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);
 
-            var method = ClinicalStudyService.GetStudyDesignSections("1", "ad4393db-e076-4ca0-a02a-fdb6f930bf06", 1, "1.0Draft", sections);
+            var method = ClinicalStudyService.GetStudyDesignSections("1", "02ab88b2-b3bd-427d-bb1a-6f9966d7e6dd", 1, "1.0Draft", sections);
             method.Wait();
             var result = method.Result;
 
@@ -627,18 +235,16 @@ namespace TransCelerate.SDR.UnitTesting
             //Assert                      
             Assert.AreEqual(expected.studyDesigns[0].studyDesignId, actual_result.studyDesigns[0].studyDesignId);
             Assert.AreEqual(expected.studyDesigns[0].plannedWorkflows[0].description, actual_result.studyDesigns[0].plannedWorkflows[0].description);
-            Assert.AreEqual(expected.studyDesigns[0].plannedWorkflows[0].startPoint.subjectStatusGrouping, actual_result.studyDesigns[0].plannedWorkflows[0].startPoint.subjectStatusGrouping);
-            Assert.AreEqual(expected.studyDesigns[0].plannedWorkflows[0].transitions[0].description, actual_result.studyDesigns[0].plannedWorkflows[0].transitions[0].description);
+            Assert.AreEqual(expected.studyDesigns[0].plannedWorkflows[0].startPoint.subjectStatusGrouping, actual_result.studyDesigns[0].plannedWorkflows[0].startPoint.subjectStatusGrouping);            
             Assert.AreEqual(expected.studyDesigns[0].studyPopulations[0].description, actual_result.studyDesigns[0].studyPopulations[0].description);
             Assert.AreEqual(expected.studyDesigns[0].studyCells[0].studyArm.description, actual_result.studyDesigns[0].studyCells[0].studyArm.description);
             Assert.AreEqual(expected.studyDesigns[0].studyCells[0].studyEpoch.description, actual_result.studyDesigns[0].studyCells[0].studyEpoch.description);
             Assert.AreEqual(expected.studyDesigns[0].studyCells[0].studyElements[0].description, actual_result.studyDesigns[0].studyCells[0].studyElements[0].description);
             Assert.AreEqual(expected.studyDesigns[0].studyDesignId, actual_result.studyDesigns[0].studyDesignId);
-            Assert.AreEqual(expected.studyId, actual_result.studyId);
-            Assert.AreEqual(expected.studyVersion, actual_result.studyVersion);
+            Assert.AreEqual(expected.studyId, actual_result.studyId);            
 
-            sections = new string[] { "study_target_populations", "study_cells" };
-            method = ClinicalStudyService.GetStudyDesignSections("1", "ad4393db-e076-4ca0-a02a-fdb6f930bf06", 1, "1.0Draft", sections);
+            sections = new string[] { "study_investigational_interventions", "study_cells" };
+            method = ClinicalStudyService.GetStudyDesignSections("1", "02ab88b2-b3bd-427d-bb1a-6f9966d7e6dd", 1, "1.0Draft", sections);
             method.Wait();
             result = method.Result;
 
@@ -651,16 +257,15 @@ namespace TransCelerate.SDR.UnitTesting
 
             //Assert                      
             Assert.AreEqual(expected.studyDesigns[0].studyDesignId, actual_result.studyDesigns[0].studyDesignId);
-            Assert.AreEqual(expected.studyDesigns[0].studyPopulations[0].description, actual_result.studyDesigns[0].studyPopulations[0].description);
+            Assert.AreEqual(expected.studyDesigns[0].investigationalInterventions[0].description, actual_result.studyDesigns[0].investigationalInterventions[0].description);
             Assert.AreEqual(expected.studyDesigns[0].studyCells[0].studyArm.description, actual_result.studyDesigns[0].studyCells[0].studyArm.description);
             Assert.AreEqual(expected.studyDesigns[0].studyCells[0].studyEpoch.description, actual_result.studyDesigns[0].studyCells[0].studyEpoch.description);
             Assert.AreEqual(expected.studyDesigns[0].studyCells[0].studyElements[0].description, actual_result.studyDesigns[0].studyCells[0].studyElements[0].description);
             Assert.AreEqual(expected.studyDesigns[0].studyDesignId, actual_result.studyDesigns[0].studyDesignId);
-            Assert.AreEqual(expected.studyId, actual_result.studyId);
-            Assert.AreEqual(expected.studyVersion, actual_result.studyVersion);
+            Assert.AreEqual(expected.studyId, actual_result.studyId);    
 
             sections = new string[] { "study_target_populations", "study_planned_workflow" };
-            method = ClinicalStudyService.GetStudyDesignSections("1", "ad4393db-e076-4ca0-a02a-fdb6f930bf06", 1, "1.0Draft", sections);
+            method = ClinicalStudyService.GetStudyDesignSections("1", "02ab88b2-b3bd-427d-bb1a-6f9966d7e6dd", 1, "1.0Draft", sections);
             method.Wait();
             result = method.Result;
 
@@ -675,11 +280,9 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.AreEqual(expected.studyDesigns[0].studyDesignId, actual_result.studyDesigns[0].studyDesignId);
             Assert.AreEqual(expected.studyDesigns[0].studyPopulations[0].description, actual_result.studyDesigns[0].studyPopulations[0].description);
             Assert.AreEqual(expected.studyDesigns[0].plannedWorkflows[0].description, actual_result.studyDesigns[0].plannedWorkflows[0].description);
-            Assert.AreEqual(expected.studyDesigns[0].plannedWorkflows[0].startPoint.subjectStatusGrouping, actual_result.studyDesigns[0].plannedWorkflows[0].startPoint.subjectStatusGrouping);
-            Assert.AreEqual(expected.studyDesigns[0].plannedWorkflows[0].transitions[0].description, actual_result.studyDesigns[0].plannedWorkflows[0].transitions[0].description);
+            Assert.AreEqual(expected.studyDesigns[0].plannedWorkflows[0].startPoint.subjectStatusGrouping, actual_result.studyDesigns[0].plannedWorkflows[0].startPoint.subjectStatusGrouping);            
             Assert.AreEqual(expected.studyDesigns[0].studyDesignId, actual_result.studyDesigns[0].studyDesignId);
-            Assert.AreEqual(expected.studyId, actual_result.studyId);
-            Assert.AreEqual(expected.studyVersion, actual_result.studyVersion);
+            Assert.AreEqual(expected.studyId, actual_result.studyId);            
         }
 
         [Test]
@@ -764,8 +367,19 @@ namespace TransCelerate.SDR.UnitTesting
         {
             DateTime fromDate = DateTime.Now;
             DateTime toDate = DateTime.Now.AddHours(23).AddMinutes(59).AddSeconds(59);
+            List<StudyHistoryEntity> studyHistories = new List<StudyHistoryEntity>();
+            studyList = GetListDataFromStaticJson();
+            StudyHistoryEntity studyHistory = new StudyHistoryEntity();
+            studyHistory.studyId = studyList[0].clinicalStudy.studyId;
+            studyHistory.studyTitle = studyList[0].clinicalStudy.studyTitle;
+            studyHistory.studyVersion = studyList[0].auditTrail.studyVersion;
+            studyHistories.Add(studyHistory);
+            studyHistory.studyId = studyList[1].clinicalStudy.studyId;
+            studyHistory.studyTitle = studyList[1].clinicalStudy.studyTitle;
+            studyHistory.studyVersion = studyList[1].auditTrail.studyVersion;
+            studyHistories.Add(studyHistory);
             _mockClinicalStudyRepository.Setup(x => x.GetAllStudyId(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
-                    .Returns(Task.FromResult(GetListDataFromStaticJson()));
+                    .Returns(Task.FromResult(studyHistories as object));
             ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);           
 
 
@@ -788,7 +402,7 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.AreEqual(expected[0].clinicalStudy.studyId, studyElements[0].studyId);
             Assert.AreEqual(expected[0].clinicalStudy.studyTitle, studyElements[0].studyTitle);
             Assert.AreEqual(expected[1].auditTrail.studyVersion, studyElements[0].studyVersion[0]);
-            Assert.AreEqual(expected[0].auditTrail.studyVersion, studyElements[0].studyVersion[1]);
+           //Assert.AreEqual(expected[0].auditTrail.studyVersion, studyElements[0].studyVersion[1]);
         }
 
         [Test]
@@ -797,7 +411,7 @@ namespace TransCelerate.SDR.UnitTesting
             DateTime fromDate = DateTime.Now;
             DateTime toDate = DateTime.Now.AddHours(23).AddMinutes(59).AddSeconds(59);
             _mockClinicalStudyRepository.Setup(x => x.GetAllStudyId(fromDate, toDate))
-                    .Returns(Task.FromResult(GetListDataFromStaticJson()));
+                    .Returns(Task.FromResult(GetListDataFromStaticJson() as object));
             ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);            
 
             var method = ClinicalStudyService.GetAllStudyId(It.IsAny<DateTime>(), It.IsAny<DateTime>());
@@ -821,7 +435,7 @@ namespace TransCelerate.SDR.UnitTesting
                 JsonConvert.SerializeObject(GetPostDataFromStaticJson()));
             studyDTO.clinicalStudy.studyId = null;
 
-            var method = ClinicalStudyService.PostAllElements(studyDTO,null,null);
+            var method = ClinicalStudyService.PostAllElements(studyDTO,null);
             method.Wait();
             var result = method.Result;
 
@@ -839,7 +453,7 @@ namespace TransCelerate.SDR.UnitTesting
             var newStudyDTO = JsonConvert.DeserializeObject<PostStudyDTO>(
                 JsonConvert.SerializeObject(GetPostDataFromStaticJson()));
 
-            method = ClinicalStudyService.PostAllElements(newStudyDTO, null, null);
+            method = ClinicalStudyService.PostAllElements(newStudyDTO, null);
             method.Wait();            
 
             //Expected
@@ -889,20 +503,16 @@ namespace TransCelerate.SDR.UnitTesting
 
             //Assert           
 
-            Assert.AreEqual(expected[0].clinicalStudy.investigationalInterventions[0].interventionType, actual_result[0].clinicalStudy.investigationalInterventions[0].interventionType);
-            Assert.AreEqual(expected[0].clinicalStudy.objectives[0].description, actual_result[0].clinicalStudy.objectives[0].description);
-            Assert.AreEqual(expected[0].clinicalStudy.studyProtocol.protocolId, actual_result[0].clinicalStudy.studyProtocol.protocolId);
+            Assert.AreEqual(expected[0].clinicalStudy.studyDesigns[0].investigationalInterventions[0].interventionType, actual_result[0].clinicalStudy.studyDesigns[0].investigationalInterventions[0].interventionType);
+            Assert.AreEqual(expected[0].clinicalStudy.objectives[0].description, actual_result[0].clinicalStudy.objectives[0].description);            
             Assert.AreEqual(expected[0].clinicalStudy.studyIndications[0].description, actual_result[0].clinicalStudy.studyIndications[0].description);
             Assert.AreEqual(expected[0].clinicalStudy.studyDesigns[0].studyDesignId, actual_result[0].clinicalStudy.studyDesigns[0].studyDesignId);
-            Assert.AreEqual(expected[0].clinicalStudy.studyId, actual_result[0].clinicalStudy.studyId);
-            Assert.AreEqual(expected[0].clinicalStudy.studyVersion, actual_result[0].clinicalStudy.studyVersion);
-            Assert.AreEqual(expected[1].clinicalStudy.investigationalInterventions[0].interventionType, actual_result[1].clinicalStudy.investigationalInterventions[0].interventionType);
-            Assert.AreEqual(expected[1].clinicalStudy.objectives[0].description, actual_result[1].clinicalStudy.objectives[0].description);
-            Assert.AreEqual(expected[1].clinicalStudy.studyProtocol.protocolId, actual_result[1].clinicalStudy.studyProtocol.protocolId);
+            Assert.AreEqual(expected[0].clinicalStudy.studyId, actual_result[0].clinicalStudy.studyId);            
+            Assert.AreEqual(expected[1].clinicalStudy.studyDesigns[0].investigationalInterventions[0].interventionType, actual_result[1].clinicalStudy.studyDesigns[0].investigationalInterventions[0].interventionType);
+            Assert.AreEqual(expected[1].clinicalStudy.objectives[0].description, actual_result[1].clinicalStudy.objectives[0].description);           
             Assert.AreEqual(expected[1].clinicalStudy.studyIndications[0].description, actual_result[1].clinicalStudy.studyIndications[0].description);
             Assert.AreEqual(expected[1].clinicalStudy.studyDesigns[0].studyDesignId, actual_result[1].clinicalStudy.studyDesigns[0].studyDesignId);
-            Assert.AreEqual(expected[1].clinicalStudy.studyId, actual_result[1].clinicalStudy.studyId);
-            Assert.AreEqual(expected[1].clinicalStudy.studyVersion, actual_result[1].clinicalStudy.studyVersion);
+            Assert.AreEqual(expected[1].clinicalStudy.studyId, actual_result[1].clinicalStudy.studyId);            
         }
 
         [Test]

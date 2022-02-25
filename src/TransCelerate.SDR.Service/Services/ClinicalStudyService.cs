@@ -15,6 +15,7 @@ using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.DataAccess.Interfaces;
 using TransCelerate.SDR.Services.Interfaces;
+using TransCelerate.SDR.Core.Entities;
 
 namespace TransCelerate.SDR.Services.Services
 {
@@ -37,435 +38,6 @@ namespace TransCelerate.SDR.Services.Services
 
         #region ActionMethods
         #region GET Methods
-        #region Depricated Methods
-        ////GET InterventionModel For a Study
-
-        //public async Task<InterventionModelResponse> InterventionModel(string study, string version, string status)
-        //{
-        //    try
-        //    {
-        //        _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServie)}; Method : {nameof(InterventionModel)};");
-        //        study = study.Trim();
-        //        StudyEntity _study;
-        //        if (String.IsNullOrWhiteSpace(status))
-        //        {
-        //            _study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: study, version: version).ConfigureAwait(false);
-        //        }
-        //        else
-        //        {
-        //            status = status.Trim();
-        //            _study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: study, version: version, status: status).ConfigureAwait(false);
-        //        }
-
-        //        if (_study == null || String.IsNullOrEmpty(_study.clinicalStudy.interventionModel))
-        //        {
-        //            return null;
-        //        }
-        //        else
-        //        {
-        //            InterventionModelResponse interventionModelDTO = new InterventionModelResponse()
-        //            {
-        //                interventionModel = _study.clinicalStudy.interventionModel,
-        //            };
-        //            return interventionModelDTO;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServie)}; Method : {nameof(InterventionModel)};");
-        //    }
-        //}
-
-        ////GET Investigationalinterventions For a Study
-        //public async Task<object> Investigationalinterventions(string study, string version, string status)
-        //{
-        //    try
-        //    {
-        //        _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServie)}; Method : {nameof(Investigationalinterventions)};");
-        //        study = study.Trim();
-        //        StudyEntity _study;
-        //        if (String.IsNullOrWhiteSpace(status))
-        //        {
-        //            _study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: study, version: version).ConfigureAwait(false);
-        //        }
-        //        else
-        //        {
-        //            status = status.Trim();
-        //            _study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: study, version: version, status: status).ConfigureAwait(false);
-        //        }
-
-        //        if (_study == null || _study.clinicalStudy.investigationalIntervention == null)
-        //        {
-        //            return null;
-        //        }
-        //        else
-        //        {
-        //            InvestigationalInterventionResponse InvestigationalIntervention = new InvestigationalInterventionResponse()
-        //            {
-        //                investigationalIntervention = _mapper.Map<List<InvestigationalInterventionDTO>>(_study.clinicalStudy.investigationalIntervention),
-        //            };
-        //            var InvestigationalInterventionResponse = JsonConvert.DeserializeObject(
-        //                   JsonConvert.SerializeObject(InvestigationalIntervention, JsonSettings.JsonSerializerSettings()));
-        //            return InvestigationalInterventionResponse;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServie)}; Method : {nameof(Investigationalinterventions)};");
-        //    }
-        //}
-
-        ////GET StudyIdentifiers For a Study      
-        //public async Task<object> StudyIdentifiers(string study, string version, string status)
-        //{
-        //    try
-        //    {
-        //        _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServie)}; Method : {nameof(StudyIdentifiers)};");
-        //        study = study.Trim();
-        //        StudyEntity _study;
-        //        if (String.IsNullOrWhiteSpace(status))
-        //        {
-        //            _study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: study, version: version).ConfigureAwait(false);
-        //        }
-        //        else
-        //        {
-        //            status = status.Trim();
-        //            _study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: study, version: version, status: status).ConfigureAwait(false);
-        //        }
-
-        //        if (_study == null || _study.clinicalStudy.studyIdentifier == null)
-        //        {
-        //            return null;
-        //        }
-        //        else
-        //        {
-        //            StudyIdentifierResponse studyIdentifier = new StudyIdentifierResponse()
-        //            {
-        //                studyIdentifier = _mapper.Map<List<StudyIdentifierDTO>>(_study.clinicalStudy.studyIdentifier),
-        //            };
-        //            var studyIdentifierResponse = JsonConvert.DeserializeObject(
-        //                   JsonConvert.SerializeObject(studyIdentifier, JsonSettings.JsonSerializerSettings()));
-        //            return studyIdentifierResponse;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServie)}; Method : {nameof(StudyIdentifiers)};");
-        //    }
-        //}
-
-        ////GET StudyPhase For a Study       
-        //public async Task<StudyPhaseResponse> StudyPhase(string study, string version, string status)
-        //{
-        //    try
-        //    {
-        //        _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServie)}; Method : {nameof(StudyPhase)};");
-        //        study = study.Trim();
-        //        StudyEntity _study;
-        //        if (String.IsNullOrWhiteSpace(status))
-        //        {
-        //            _study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: study, version: version).ConfigureAwait(false);
-        //        }
-        //        else
-        //        {
-        //            status = status.Trim();
-        //            _study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: study, version: version, status: status).ConfigureAwait(false);
-        //        }
-
-        //        if (_study == null || _study.clinicalStudy.studyPhase == null)
-        //        {
-        //            return null;
-        //        }
-        //        else
-        //        {
-        //            StudyPhaseResponse studyphase = new StudyPhaseResponse()
-        //            {
-        //                studyPhase = String.IsNullOrEmpty(_study.clinicalStudy.studyPhase.ToString()) == true ? string.Empty : _study.clinicalStudy.studyPhase.ToString()
-        //            };
-        //            return studyphase;
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServie)}; Method : {nameof(StudyPhase)};");
-        //    }
-        //}
-
-        ////GET StudyProtocol For a Study
-
-        //public async Task<object> StudyProtocol(string study, string version, string status)
-        //{
-        //    try
-        //    {
-        //        _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServie)}; Method : {nameof(StudyProtocol)};");
-        //        study = study.Trim();
-        //        StudyEntity _study;
-        //        if (String.IsNullOrWhiteSpace(status))
-        //        {
-        //            _study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: study, version: version).ConfigureAwait(false);
-        //        }
-        //        else
-        //        {
-        //            status = status.Trim();
-        //            _study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: study, version: version, status: status).ConfigureAwait(false);
-        //        }
-
-        //        if (_study == null || _study.clinicalStudy.studyProtocol == null)
-        //        {
-        //            return null;
-        //        }
-        //        else
-        //        {
-        //            StudyProtocolResponse protocol = new StudyProtocolResponse()
-        //            {
-        //                studyProtocol = _mapper.Map<StudyProtocolDTO>(_study.clinicalStudy.studyProtocol),
-        //            };
-        //            var protocolResponse = JsonConvert.DeserializeObject(
-        //                   JsonConvert.SerializeObject(protocol, JsonSettings.JsonSerializerSettings()));
-        //            return protocolResponse;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServie)}; Method : {nameof(StudyProtocol)};");
-        //    }
-        //}
-
-        ////GET StudyObjectives For a Study        
-        //public async Task<object> StudyObjectives(string study, string version, string status)
-        //{
-        //    try
-        //    {
-        //        _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServie)}; Method : {nameof(StudyObjectives)};");
-        //        study = study.Trim();
-        //        StudyEntity _study;
-        //        if (String.IsNullOrWhiteSpace(status))
-        //        {
-        //            _study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: study, version: version).ConfigureAwait(false);
-        //        }
-        //        else
-        //        {
-        //            status = status.Trim();
-        //            _study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: study, version: version, status: status).ConfigureAwait(false);
-        //        }
-
-        //        if (_study == null || _study.clinicalStudy.studyObjective == null)
-        //        {
-        //            return null;
-        //        }
-        //        else
-        //        {
-
-        //            StudyObjectivesResponse studyObjective = new StudyObjectivesResponse()
-        //            {
-        //                studyObjective = _mapper.Map<List<StudyObjectiveDTO>>(_study.clinicalStudy.studyObjective)
-        //            };
-        //            var studyObjectivesResponse = JsonConvert.DeserializeObject(
-        //                   JsonConvert.SerializeObject(studyObjective, JsonSettings.JsonSerializerSettings()));
-        //            return studyObjectivesResponse;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServie)}; Method : {nameof(StudyObjectives)};");
-        //    }
-        //}
-
-        ////GET StudyTargetPopulation For a Study
-
-        //public async Task<object> StudyTargetPopulation(string study, string version, string status)
-        //{
-        //    try
-        //    {
-        //        _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServie)}; Method : {nameof(StudyTargetPopulation)};");
-        //        study = study.Trim();
-        //        StudyEntity _study;
-        //        if (String.IsNullOrWhiteSpace(status))
-        //        {
-        //            _study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: study, version: version).ConfigureAwait(false);
-        //        }
-        //        else
-        //        {
-        //            status = status.Trim();
-        //            _study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: study, version: version, status: status).ConfigureAwait(false);
-        //        }
-
-        //        if (_study == null || _study.clinicalStudy.studyTargetPopulation == null)
-        //        {
-        //            return null;
-        //        }
-        //        else
-        //        {
-        //            StudyTargetPopulationResponse studyTargetPopulation = new StudyTargetPopulationResponse()
-        //            {
-        //                studyTargetPopulation = _mapper.Map<List<StudyTargetPopulationDTO>>(_study.clinicalStudy.studyTargetPopulation),
-        //            };
-        //            var studyTargetPopulationResponse = JsonConvert.DeserializeObject(
-        //                   JsonConvert.SerializeObject(studyTargetPopulation, JsonSettings.JsonSerializerSettings()));
-        //            return studyTargetPopulation;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServie)}; Method : {nameof(StudyTargetPopulation)};");
-        //    }
-        //}
-
-        ////GET StudyTitle For a Study     
-        //public async Task<StudyTitleResponse> StudyTitle(string study, string version, string status)
-        //{
-        //    try
-        //    {
-        //        _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServie)}; Method : {nameof(StudyTitle)};");
-        //        study = study.Trim();
-        //        StudyEntity _study;
-        //        if (String.IsNullOrWhiteSpace(status))
-        //        {
-        //            _study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: study, version: version).ConfigureAwait(false);
-        //        }
-        //        else
-        //        {
-        //            status = status.Trim();
-        //            _study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: study, version: version, status: status).ConfigureAwait(false);
-        //        }
-
-        //        if (_study == null || String.IsNullOrEmpty(_study.clinicalStudy.studyTitle))
-        //        {
-        //            return null;
-        //        }
-        //        else
-        //        {
-        //            StudyTitleResponse studytitle = new StudyTitleResponse()
-        //            {
-        //                studyTitle = _study.clinicalStudy.studyTitle,
-
-        //            };
-        //            return studytitle;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServie)}; Method : {nameof(StudyTitle)};");
-        //    }
-        //}
-
-        ////GET StudyIndication For a Study       
-        //public async Task<object> StudyIndication(string study, string version, string status)
-        //{
-        //    try
-        //    {
-        //        _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServie)}; Method : {nameof(StudyIndication)};");
-        //        study = study.Trim();
-        //        StudyEntity _study;
-        //        if (String.IsNullOrWhiteSpace(status))
-        //        {
-        //            _study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: study, version: version).ConfigureAwait(false);
-        //        }
-        //        else
-        //        {
-        //            status = status.Trim();
-        //            _study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: study, version: version, status: status).ConfigureAwait(false);
-        //        }
-
-        //        if (_study == null || _study.clinicalStudy.studyTargetIndication == null)
-        //        {
-        //            return null;
-        //        }
-        //        else
-        //        {
-        //            StudyIndicationResponse studyIndication = new StudyIndicationResponse()
-        //            {
-        //                studyTargetIndication = _mapper.Map<StudyTargetIndicationDTO>(_study.clinicalStudy.studyTargetIndication),
-        //            };
-        //            var studyIndicationResponse = JsonConvert.DeserializeObject(
-        //                   JsonConvert.SerializeObject(studyIndication, JsonSettings.JsonSerializerSettings()));
-        //            return studyIndicationResponse;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServie)}; Method : {nameof(StudyIndication)};");
-        //    }
-        //}
-
-        ////GET StudyType For a Study       
-        //public async Task<StudyTypeResponse> StudyType(string study, string version, string status)
-        //{
-        //    try
-        //    {
-        //        _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServie)}; Method : {nameof(StudyType)};");
-        //        study = study.Trim();
-        //        StudyEntity _study;
-        //        if (String.IsNullOrWhiteSpace(status))
-        //        {
-        //            _study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: study, version: version).ConfigureAwait(false);
-        //        }
-        //        else
-        //        {
-        //            status = status.Trim();
-        //            _study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: study, version: version, status: status).ConfigureAwait(false);
-        //        }
-
-        //        if (_study == null || _study.clinicalStudy.studyType == null)
-        //        {
-        //            return null;
-        //        }
-        //        else
-        //        {
-        //            StudyTypeResponse studytype = new StudyTypeResponse()
-        //            {
-        //                studyType = String.IsNullOrEmpty(_study.clinicalStudy.studyType.ToString()) == true ? string.Empty : _study.clinicalStudy.studyType.ToString(),
-        //            };
-        //            return studytype;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServie)}; Method : {nameof(StudyType)};");
-        //    }
-        //} 
-        #endregion
 
         /// <summary>
         /// GET All Elements For a Study
@@ -673,15 +245,16 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {
-                    var groupStudy = studies.GroupBy(x=> new { x.clinicalStudy.studyId })
+                    List<StudyHistoryEntity> studyHistories = JsonConvert.DeserializeObject<List<StudyHistoryEntity>>(JsonConvert.SerializeObject(studies));
+                    var groupStudy = studyHistories.GroupBy(x => new { x.studyId })
                                             .Select(g => new
                                             {
-                                                studyId = g.Key.studyId,                                               
-                                                studyTitle = g.Select(x=>x).Where(x=>x.auditTrail.studyVersion== g.Max(x => x.auditTrail.studyVersion)).FirstOrDefault().clinicalStudy.studyTitle,
-                                                studyVersion = g.Select(x=>x.auditTrail.studyVersion).OrderBy(x=>x).ToArray(),
-                                                date = g.Select(x => x).Where(x => x.auditTrail.studyVersion == g.Max(x => x.auditTrail.studyVersion)).FirstOrDefault().auditTrail.entryDateTime,
-                                            })     
-                                            .OrderByDescending(x=>x.date)
+                                                studyId = g.Key.studyId,
+                                                studyTitle = g.Select(x => x).Where(x => x.studyVersion == g.Max(x => x.studyVersion)).FirstOrDefault().studyTitle,
+                                                studyVersion = g.Select(x => x.studyVersion).OrderBy(x => x).ToArray(),
+                                                date = g.Select(x => x).Where(x => x.studyVersion == g.Max(x => x.studyVersion)).FirstOrDefault().entryDateTime
+                                            })
+                                            .OrderByDescending(x => x.date)
                                             .ToList();
 
                     AllStudyIdResponseDTO allStudyIdResponseDTO = new AllStudyIdResponseDTO()
@@ -712,7 +285,7 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="entrySystem"></param>
         /// <param name="entrySystemId"></param>
         /// <returns></returns>
-        public async Task<object> PostAllElements(PostStudyDTO studyDTO,string entrySystem, string entrySystemId)
+        public async Task<object> PostAllElements(PostStudyDTO studyDTO,string entrySystem)
         {
             try
             {
@@ -720,8 +293,7 @@ namespace TransCelerate.SDR.Services.Services
                 var incomingstudyEntity = _mapper.Map<StudyEntity>(studyDTO);
                 AuditTrailEntity auditTrailEntity = new AuditTrailEntity();
                 incomingstudyEntity.auditTrail = auditTrailEntity;
-                incomingstudyEntity.auditTrail.entryDateTime = DateTime.UtcNow;
-                incomingstudyEntity.auditTrail.entrySystemId = entrySystemId;
+                incomingstudyEntity.auditTrail.entryDateTime = DateTime.UtcNow;   
                 incomingstudyEntity.auditTrail.entrySystem = entrySystem;
                 PostStudyResponseDTO postStudyDTO = new PostStudyResponseDTO();
                 if (String.IsNullOrEmpty(incomingstudyEntity.clinicalStudy.studyId))
@@ -731,8 +303,17 @@ namespace TransCelerate.SDR.Services.Services
                     incomingstudyEntity._id = ObjectId.GenerateNewId();
                     incomingstudyEntity.clinicalStudy.studyIdentifiers.ForEach(x => x.studyIdentifierId = IdGenerator.GenerateId());
                     SectionIdGenerator.GenerateSectionId(incomingstudyEntity);
+                    if (incomingstudyEntity.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns.FindAll(x => x.currentSections != null).Count() != 0)
+                    {
+                        incomingstudyEntity.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns
+                                                              .Find(x => x.currentSections != null).currentSections
+                                                              .FindAll(x => x.plannedWorkflows != null)
+                                                              .ForEach(x => x.plannedWorkflows
+                                                                    .ForEach(p => p.workflowItemMatrix.matrix
+                                                                            .ForEach(m => m.items = PreviousItemNextItemHelper.GetPreviousNextItems(m.items))));
+                    }
 
-                    _logger.LogInformation($"Study Input : {JsonConvert.SerializeObject(incomingstudyEntity)}");
+                    _logger.LogInformation($"entrySystem: {entrySystem??"<null>"}; Study Input : {JsonConvert.SerializeObject(incomingstudyEntity)}");
                     postStudyDTO.studyId =  await _clinicalStudyRepository.PostStudyItemsAsync(incomingstudyEntity).ConfigureAwait(false);
                     postStudyDTO.studyVersion = incomingstudyEntity.auditTrail.studyVersion;
                     var studyDesign = incomingstudyEntity.clinicalStudy.currentSections!=null?incomingstudyEntity.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).ToList():new List<CurrentSectionsEntity>();
@@ -758,8 +339,7 @@ namespace TransCelerate.SDR.Services.Services
                     else
                     {
                         existingStudyEntity.auditTrail.entryDateTime = incomingstudyEntity.auditTrail.entryDateTime;
-                        existingStudyEntity.auditTrail.entrySystem = incomingstudyEntity.auditTrail.entrySystem;
-                        existingStudyEntity.auditTrail.entrySystemId = incomingstudyEntity.auditTrail.entrySystemId;
+                        existingStudyEntity.auditTrail.entrySystem = incomingstudyEntity.auditTrail.entrySystem;                        
                         incomingstudyEntity._id = existingStudyEntity._id;
                         incomingstudyEntity.auditTrail.studyVersion = existingStudyEntity.auditTrail.studyVersion;
                         var duplicateExistingStudy = JsonConvert.DeserializeObject<StudyEntity>(JsonConvert.SerializeObject(existingStudyEntity));

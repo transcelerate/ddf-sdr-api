@@ -10,6 +10,10 @@ using TransCelerate.SDR.Core.DTO.Study;
 using TransCelerate.SDR.Core.Utilities;
 using System.Linq;
 using TransCelerate.SDR.Core.DTO;
+using Microsoft.AspNetCore.Http;
+using Swashbuckle.AspNetCore.Annotations;
+using System.Collections.Generic;
+using TransCelerate.SDR.Core.ErrorModels;
 
 namespace TransCelerate.SDR.WebApi.Controllers
 {
@@ -34,525 +38,6 @@ namespace TransCelerate.SDR.WebApi.Controllers
 
         #region GET Methods
 
-        #region Depricated EndPoints
-        ////GET InterventionModel For a Study
-        //[HttpGet]
-        //[Route(Route.InterventionModel)]
-        //public async Task<IActionResult> InterventionModel(string study, string version, string status)
-        //{
-        //    try
-        //    {
-        //        _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(InterventionModel)};");
-        //        if (!String.IsNullOrWhiteSpace(study))
-        //        {
-        //            _logger.LogInformation($"Inputs: StudyId: {study}; Version: {version ?? "<null>"}; Status: {status ?? "<null>"};");
-        //            #region Validations                                      
-        //            if (!String.IsNullOrWhiteSpace(status))
-        //            {
-        //                bool isValidStatus = Enum.GetNames(typeof(Status)).Contains(status);
-        //                if (!isValidStatus)
-        //                {
-        //                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide a valid status")).Value);
-        //                }
-        //            }
-        //            #endregion
-
-        //            var interventionModel = await _clinicalStudyService.InterventionModel(study: study, version: version, status: status).ConfigureAwait(false);
-
-        //            if (interventionModel == null)
-        //            {
-        //                if (Request != null)
-        //                    Response.Headers.Add("Controller", "True");
-        //                return NotFound(new JsonResult(ErrorResponseHelper.NotFound("The requested InterventionModel for the study : " + study + (version != null ? $" for version : {version}" : "") + (status != null ? $" for status : {status}" : "") + " is not found")).Value);
-        //            }
-        //            else
-        //            {
-        //                return Ok(interventionModel);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide a valid study")).Value);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError($"Exception occured. Exception : {ex.Message}");
-        //        return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
-        //    }
-        //    finally
-        //    {
-        //        _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyController)}; Method : {nameof(InterventionModel)};");
-        //    }
-        //}
-
-        ////GET Investigationalinterventions For a Study
-        //[HttpGet]
-        //[Route(Route.Investigationalinterventions)]
-        //public async Task<IActionResult> Investigationalinterventions(string study, string version, string status)
-        //{
-        //    try
-        //    {
-        //        _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(Investigationalinterventions)};");
-        //        if (!String.IsNullOrWhiteSpace(study))
-        //        {
-        //            _logger.LogInformation($"Inputs: StudyId: {study}; Version: {version ?? "<null>"}; Status: {status ?? "<null>"};");
-        //            #region Validation                                       
-        //            if (!String.IsNullOrWhiteSpace(status))
-        //            {
-        //                bool isValidStatus = Enum.GetNames(typeof(Status)).Contains(status);
-        //                if (!isValidStatus)
-        //                {
-        //                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide a valid status")).Value);
-        //                }
-        //            }
-        //            #endregion                    
-
-        //            var investigationalIntervention = await _clinicalStudyService.Investigationalinterventions(study: study, version: version, status: status).ConfigureAwait(false);
-
-        //            if (investigationalIntervention == null)
-        //            {
-        //                if (Request != null)
-        //                    Response.Headers.Add("Controller", "True");
-        //                return NotFound(new JsonResult(ErrorResponseHelper.NotFound("The requested Investigationalinterventions for the study : " + study + (version != null ? $" for version : {version}" : "") + (status != null ? $" for status : {status}" : "") + " is not found")).Value);
-        //            }
-        //            else
-        //            {
-        //                return Ok(investigationalIntervention);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide a valid study")).Value);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError($"Exception occured. Exception : {ex.Message}");
-        //        return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
-        //    }
-        //    finally
-        //    {
-        //        _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyController)}; Method : {nameof(Investigationalinterventions)};");
-        //    }
-        //}
-
-        ////GET StudyIdentifiers For a Study
-        //[HttpGet]
-        //[Route(Route.StudyIdentifiers)]
-        //public async Task<IActionResult> StudyIdentifiers(string study, string version, string status)
-        //{
-        //    try
-        //    {
-        //        _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(StudyIdentifiers)};");
-        //        if (!String.IsNullOrWhiteSpace(study))
-        //        {
-        //            _logger.LogInformation($"Inputs: StudyId: {study}; Version: {version ?? "<null>"}; Status: {status ?? "<null>"};");
-        //            #region Validations
-
-        //            if (!String.IsNullOrWhiteSpace(status))
-        //            {
-        //                bool isValidStatus = Enum.GetNames(typeof(Status)).Contains(status);
-        //                if (!isValidStatus)
-        //                {
-        //                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide a valid status")).Value);
-        //                }
-        //            }
-        //            #endregion
-
-        //            var studyIdentifier = await _clinicalStudyService.StudyIdentifiers(study: study, version: version, status: status).ConfigureAwait(false);
-
-        //            if (studyIdentifier == null)
-        //            {
-        //                if (Request != null)
-        //                    Response.Headers.Add("Controller", "True");
-        //                return NotFound(new JsonResult(ErrorResponseHelper.NotFound("The requested studyidentifiers for the study : " + study + (version != null ? $" for version : {version}" : "") + (status != null ? $" for status : {status}" : "") + " is not found")).Value);
-        //            }
-        //            else
-        //            {
-        //                return Ok(studyIdentifier);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide a valid study")).Value);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError($"Exception occured. Exception : {ex.Message}");
-        //        return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
-        //    }
-        //    finally
-        //    {
-        //        _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyController)}; Method : {nameof(StudyIdentifiers)};");
-        //    }
-        //}
-
-        ////GET StudyPhase For a Study
-        //[HttpGet]
-        //[Route(Route.StudyPhase)]
-        //public async Task<IActionResult> StudyPhase(string study, string version, string status)
-        //{
-        //    try
-        //    {
-        //        _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(StudyPhase)};");
-        //        if (!String.IsNullOrWhiteSpace(study))
-        //        {
-        //            _logger.LogInformation($"Inputs: StudyId: {study}; Version: {version ?? "<null>"}; Status: {status ?? "<null>"};");
-        //            #region Validations
-
-        //            if (!String.IsNullOrWhiteSpace(status))
-        //            {
-        //                bool isValidStatus = Enum.GetNames(typeof(Status)).Contains(status);
-        //                if (!isValidStatus)
-        //                {
-        //                    _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyController)}; Method : {nameof(StudyPhase)};");
-        //                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide a valid status")).Value);
-        //                }
-        //            }
-        //            #endregion
-
-        //            var studyphase = await _clinicalStudyService.StudyPhase(study: study, version: version, status: status).ConfigureAwait(false);
-
-        //            if (studyphase == null)
-        //            {
-        //                if (Request != null)
-        //                    Response.Headers.Add("Controller", "True");
-        //                return NotFound(new JsonResult(ErrorResponseHelper.NotFound("The requested StudyPhase for the study : " + study + (version != null ? $" for version : {version}" : "") + (status != null ? $" for status : {status}" : "") + " is not found")).Value);
-        //            }
-        //            else
-        //            {
-        //                return Ok(studyphase);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide a valid study")).Value);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError($"Exception occured. Exception : {ex.Message}");
-        //        return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
-        //    }
-        //    finally
-        //    {
-        //        _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyController)}; Method : {nameof(StudyPhase)};");
-        //    }
-        //}
-
-        ////GET StudyProtocol For a Study
-        //[HttpGet]
-        //[Route(Route.StudyProtocol)]
-        //public async Task<IActionResult> StudyProtocol(string study, string version, string status)
-        //{
-        //    try
-        //    {
-        //        _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(StudyProtocol)};");
-        //        if (!String.IsNullOrWhiteSpace(study))
-        //        {
-        //            _logger.LogInformation($"Inputs: StudyId: {study}; Version: {version ?? "<null>"}; Status: {status ?? "<null>"};");
-        //            #region Validations
-
-        //            if (!String.IsNullOrWhiteSpace(status))
-        //            {
-        //                bool isValidStatus = Enum.GetNames(typeof(Status)).Contains(status);
-        //                if (!isValidStatus)
-        //                {
-        //                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide a valid status")).Value);
-        //                }
-        //            }
-        //            #endregion
-
-        //            var studyProtocol = await _clinicalStudyService.StudyProtocol(study: study, version: version, status: status).ConfigureAwait(false);
-        //            if (studyProtocol == null)
-        //            {
-        //                if (Request != null)
-        //                    Response.Headers.Add("Controller", "True");
-        //                return NotFound(new JsonResult(ErrorResponseHelper.NotFound("The requested study protocol for the study : " + study + (version != null ? $" for version : {version}" : "") + (status != null ? $" for status : {status}" : "") + " is not found")).Value);
-        //            }
-        //            else
-        //            {
-        //                return Ok(studyProtocol);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide a valid study")).Value);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError($"Exception occured. Exception : {ex.Message}");
-        //        return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
-        //    }
-        //    finally
-        //    {
-        //        _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyController)}; Method : {nameof(StudyProtocol)};");
-        //    }
-        //}
-
-        ////GET StudyObjectives For a Study
-        //[HttpGet]
-        //[Route(Route.StudyObjectives)]
-        //public async Task<IActionResult> StudyObjectives(string study, string version, string status)
-        //{
-        //    try
-        //    {
-        //        _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(StudyObjectives)};");
-        //        if (!String.IsNullOrWhiteSpace(study))
-        //        {
-        //            _logger.LogInformation($"Inputs: StudyId: {study}; Version: {version ?? "<null>"}; Status: {status ?? "<null>"};");
-        //            #region Validations
-
-        //            if (!String.IsNullOrWhiteSpace(status))
-        //            {
-        //                bool isValidStatus = Enum.GetNames(typeof(Status)).Contains(status);
-        //                if (!isValidStatus)
-        //                {
-        //                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide a valid status")).Value);
-        //                }
-        //            }
-        //            #endregion
-
-        //            var studyObjectives = await _clinicalStudyService.StudyObjectives(study: study, version: version, status: status).ConfigureAwait(false);
-
-        //            if (studyObjectives == null)
-        //            {
-        //                if (Request != null)
-        //                    Response.Headers.Add("Controller", "True");
-        //                return NotFound(new JsonResult(ErrorResponseHelper.NotFound("The requested study objectives for the study : " + study + (version != null ? $" for version : {version}" : "") + (status != null ? $" for status : {status}" : "") + " is not found")).Value);
-        //            }
-        //            else
-        //            {
-        //                return Ok(studyObjectives);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide a valid study")).Value);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError($"Exception occured. Exception : {ex.Message}");
-        //        return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
-        //    }
-        //    finally
-        //    {
-        //        _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyController)}; Method : {nameof(StudyObjectives)};");
-        //    }
-        //}
-
-        ////GET StudyTargetPopulation For a Study
-        //[HttpGet]
-        //[Route(Route.StudyTargetPopulation)]
-        //public async Task<IActionResult> StudyTargetPopulation(string study, string version, string status)
-        //{
-        //    try
-        //    {
-        //        _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(StudyTargetPopulation)};");
-        //        if (!String.IsNullOrWhiteSpace(study))
-        //        {
-        //            _logger.LogInformation($"Inputs: StudyId: {study}; Version: {version ?? "<null>"}; Status: {status ?? "<null>"};");
-        //            #region Validations
-
-        //            if (!String.IsNullOrWhiteSpace(status))
-        //            {
-        //                bool isValidStatus = Enum.GetNames(typeof(Status)).Contains(status);
-        //                if (!isValidStatus)
-        //                {
-        //                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide a valid status")).Value);
-        //                }
-        //            }
-        //            #endregion
-
-        //            var studyTargetPopulation = await _clinicalStudyService.StudyTargetPopulation(study: study, version: version, status: status).ConfigureAwait(false);
-
-        //            if (studyTargetPopulation == null)
-        //            {
-        //                if (Request != null)
-        //                    Response.Headers.Add("Controller", "True");
-        //                return NotFound(new JsonResult(ErrorResponseHelper.NotFound("The requested StudyTargetPopulation for the study : " + study + (version != null ? $" for version : {version}" : "") + (status != null ? $" for status : {status}" : "") + " is not found")).Value);
-        //            }
-        //            else
-        //            {
-        //                return Ok(studyTargetPopulation);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide a valid study")).Value);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError($"Exception occured. Exception : {ex.Message}");
-        //        return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
-        //    }
-        //    finally
-        //    {
-        //        _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyController)}; Method : {nameof(StudyTargetPopulation)};");
-        //    }
-        //}
-
-        ////GET StudyTitle For a Study
-        //[HttpGet]
-        //[Route(Route.StudyTitle)]
-        //public async Task<IActionResult> StudyTitle(string study, string version, string status)
-        //{
-        //    try
-        //    {
-        //        _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(StudyTitle)};");
-        //        if (!String.IsNullOrWhiteSpace(study))
-        //        {
-        //            _logger.LogInformation($"Inputs: StudyId: {study}; Version: {version ?? "<null>"}; Status: {status ?? "<null>"};");
-        //            #region Validations
-
-        //            if (!String.IsNullOrWhiteSpace(status))
-        //            {
-        //                bool isValidStatus = Enum.GetNames(typeof(Status)).Contains(status);
-        //                if (!isValidStatus)
-        //                {
-        //                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide a valid status")).Value);
-        //                }
-        //            }
-        //            #endregion
-
-        //            var studyTitle = await _clinicalStudyService.StudyTitle(study: study, version: version, status: status).ConfigureAwait(false);
-
-        //            if (studyTitle == null)
-        //            {
-        //                if (Request != null)
-        //                    Response.Headers.Add("Controller", "True");
-        //                return NotFound(new JsonResult(ErrorResponseHelper.NotFound("The requested studytitle for the study : " + study + (version != null ? $" for version : {version}" : "") + (status != null ? $" for status : {status}" : "") + " is not found")).Value);
-        //            }
-        //            else
-        //            {
-        //                return Ok(studyTitle);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide a valid study")).Value);
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError($"Exception occured. Exception : {ex.Message}");
-        //        return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
-        //    }
-        //    finally
-        //    {
-        //        _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyController)}; Method : {nameof(StudyTitle)};");
-        //    }
-        //}
-
-        ////GET StudyIndication For a Study
-        //[HttpGet]
-        //[Route(Route.StudyIndication)]
-        //public async Task<IActionResult> StudyIndication(string study, string version, string status)
-        //{
-        //    try
-        //    {
-        //        _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(StudyIndication)};");
-        //        if (!String.IsNullOrWhiteSpace(study))
-        //        {
-        //            #region Validations
-        //            _logger.LogInformation($"Inputs: StudyId: {study}; Version: {version ?? "<null>"}; Status: {status ?? "<null>"};");
-
-        //            if (!String.IsNullOrWhiteSpace(status))
-        //            {
-        //                bool isValidStatus = Enum.GetNames(typeof(Status)).Contains(status);
-        //                if (!isValidStatus)
-        //                {
-        //                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide a valid status")).Value);
-        //                }
-        //            }
-        //            #endregion
-        //            var studyIndication = await _clinicalStudyService.StudyIndication(study: study, version: version, status: status).ConfigureAwait(false);
-
-        //            if (studyIndication == null)
-        //            {
-        //                if (Request != null)
-        //                    Response.Headers.Add("Controller", "True");
-        //                return NotFound(new JsonResult(ErrorResponseHelper.NotFound("The requested studyindication for the study : " + study + (version != null ? $" for version : {version}" : "") + (status != null ? $" for status : {status}" : "") + " is not found")).Value);
-        //            }
-        //            else
-        //            {
-        //                return Ok(studyIndication);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide a valid study")).Value);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError($"Exception occured. Exception : {ex.Message}");
-        //        return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
-        //    }
-        //    finally
-        //    {
-        //        _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyController)}; Method : {nameof(StudyIndication)};");
-        //    }
-        //}
-
-        ////GET StudyType For a Study
-        //[HttpGet]
-        //[Route(Route.StudyType)]
-        //public async Task<IActionResult> StudyType(string study, string version, string status)
-        //{
-        //    try
-        //    {
-        //        _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(StudyType)};");
-        //        if (!String.IsNullOrWhiteSpace(study))
-        //        {
-        //            _logger.LogInformation($"Inputs: StudyId: {study}; Version: {version ?? "<null>"}; Status: {status ?? "<null>"};");
-        //            #region Validations
-
-        //            if (!String.IsNullOrWhiteSpace(status))
-        //            {
-        //                bool isValidStatus = Enum.GetNames(typeof(Status)).Contains(status);
-        //                if (!isValidStatus)
-        //                {
-        //                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide a valid status")).Value);
-        //                }
-        //            }
-        //            #endregion
-        //            var studyType = await _clinicalStudyService.StudyType(study: study, version: version, status: status).ConfigureAwait(false);
-
-        //            if (studyType == null)
-        //            {
-        //                if (Request != null)
-        //                    Response.Headers.Add("Controller", "True");
-        //                return NotFound(new JsonResult(ErrorResponseHelper.NotFound("The requested studytype for the study : " + study + (version != null ? $" for version : {version}" : "") + (status != null ? $" for status : {status}" : "") + " is not found")).Value);
-        //            }
-        //            else
-        //            {
-        //                return Ok(studyType);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest("Kindly provide a valid study")).Value);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError($"Exception occured. Exception : {ex.Message}");
-        //        return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
-        //    }
-        //    finally
-        //    {
-        //        _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyController)}; Method : {nameof(StudyType)};");
-        //    }
-        //} 
-        #endregion
-
         /// <summary>
         /// GET All Elements For a Study
         /// </summary>
@@ -560,9 +45,15 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <param name="version"></param>
         /// <param name="tag"></param>
         /// <param name="sections"></param>
-        /// <returns></returns>
+        /// <response code="200">Returns Study</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">The Study for the studyId is Not Found</response>
         [HttpGet]
         [Route(Route.Study)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(GetStudyDTO))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
         public async Task<IActionResult> GetStudy(string studyId,int version, string tag,[FromQuery] string sections)
         {
             try
@@ -630,9 +121,15 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <param name="version"></param>
         /// <param name="tag"></param>
         /// <param name="sections"></param>
-        /// <returns></returns>
+        /// <response code="200">Returns a list of StudyDesigns</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">The StudyDesigns for the study is Not Found</response>
         [HttpGet]
         [Route(Route.StudyDesign)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(GetStudyDesignsDTO))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
         public async Task<IActionResult> GetStudyDesignSections(string studyId, string studyDesignId, int version, string tag, [FromQuery] string sections)
         {
             try
@@ -698,15 +195,22 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyController)}; Method : {nameof(GetStudyDesignSections)};");
             }
         }
+
         /// <summary>
-        /// GET Audit Trial
+        /// GET Audit Trail of a study
         /// </summary>
+        /// <param name="studyId"></param>
         /// <param name="fromDate"></param>
         /// <param name="toDate"></param>
-        /// <param name="studyId"></param>
-        /// <returns></returns>
+        /// <response code="200">Returns a list of Audit Trail of a study</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">The Audit trail for the study is Not Found</response>
         [HttpGet]
         [Route(Route.AuditTrail)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IEnumerable<GetStudyAuditDTO>))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
         public async Task<IActionResult> GetAuditTrail(string studyId,DateTime fromDate, DateTime toDate)
         {
             try
@@ -762,9 +266,15 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// </summary>
         /// <param name="fromDate"></param>
         /// <param name="toDate"></param>
-        /// <returns></returns>
+        /// <response code="200">Returns All Study Id's</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">There is no study</response>
         [HttpGet]
         [Route(Route.StudyHistory)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(AllStudyIdResponseDTO))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
         public async Task<IActionResult> GetAllStudyId(DateTime fromDate, DateTime toDate)
         {
             try
@@ -821,13 +331,16 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <summary>
         /// POST All Elements For a Study  
         /// </summary>        
-        /// <param name="studyDTO"></param>
-        /// <param name="entrySystemId"></param>
+        /// <param name="studyDTO"></param>        
         /// <param name="entrySystem"></param>
-        /// <returns></returns>
+        /// <response code="201">Study Created</response>
+        /// <response code="400">Bad Request</response>       
         [HttpPost]
         [Route(Route.PostElements)]
-        public async Task<IActionResult> PostAllElements([FromBody] PostStudyDTO studyDTO,[FromHeader] string entrySystemId,[FromHeader] string entrySystem)
+        [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(PostStudyResponseDTO))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> PostAllElements([FromBody] PostStudyDTO studyDTO,[FromHeader] string entrySystem)
         {
             try
             {
@@ -836,7 +349,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(PostAllElements)};");
                     if (studyDTO != null)
                     {
-                        var response = await _clinicalStudyService.PostAllElements(studyDTO, entrySystem: entrySystem, entrySystemId: entrySystemId)
+                        var response = await _clinicalStudyService.PostAllElements(studyDTO, entrySystem: entrySystem)
                                                                   .ConfigureAwait(false);
 
                         if (response == null)
@@ -882,9 +395,15 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// Search For a Study 
         /// </summary>
         /// <param name="searchparameters"></param>
-        /// <returns></returns>
+        /// <response code="200">Returns All Study that matches the search criteria</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">There is no study that matches the search criteria</response>
         [HttpPost]
         [Route(Route.SearchElements)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IEnumerable<GetStudyDTO>))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
         public async Task<IActionResult> SearchStudy([FromBody] SearchParametersDTO searchparameters)
         {
             try
