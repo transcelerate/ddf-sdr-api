@@ -62,6 +62,7 @@ jobs:
         project_path: '${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting'
         report_name: 'TransCelerate.SDR.UnitTesting'
         report_title: API Tests Report
+        github_token: ${{ secrets.GITHUB_TOKEN }}
         
     - name: 'Publish Artifact: Artifact'
       uses: actions/upload-artifact@v2
