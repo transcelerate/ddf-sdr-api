@@ -54,8 +54,19 @@ jobs:
           Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/netcoreapp3.1/publish/**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
            
     - name: dotnet test
-      run: dotnet test '${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release  --collect:"XPlat Code Coverage"
+      run: dotnet test '${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release  --collect:"XPlat Code Coverage" --logger trx
     
+    - name: Copy report
+      run: cp coverage/*/coverage.cobertura.xml coverage/coverage.cobertura.xml
+      
+    - name: Code Coverage Summary Report
+      uses: irongut/CodeCoverageSummary@v1.0.2
+      with:
+        filename: coverage/coverage.cobertura.xml
+        badge: true
+        format: 'markdown'
+        output: 'both'
+        
     - name: use this action, test solution dir
       uses: zyborg/dotnet-tests-report@v1
       with:
