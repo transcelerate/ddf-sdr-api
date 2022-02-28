@@ -54,12 +54,14 @@ jobs:
           Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/netcoreapp3.1/publish/**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
            
     - name: dotnet test
-      run: dotnet test '${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release  -/p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+      run: dotnet test '${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release  --collect:"XPlat Code Coverage"
     
-    - name: Publish coverage report to coveralls.io
-      uses: coverallsapp/github-action@master
+    - name: use this action, test solution dir
+      uses: zyborg/dotnet-tests-report@v1
       with:
-        path-to-lcov: '${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting/TestResults/coverage.info'
+        project_path: '${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting'
+        report_name: 'TransCelerate.SDR.UnitTesting'
+        report_title: API Tests Report
         
     - name: 'Publish Artifact: Artifact'
       uses: actions/upload-artifact@v2
