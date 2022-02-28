@@ -32,12 +32,12 @@ namespace TransCelerate.SDR.UnitTesting
         #region Setup
         public StudyEntity GetPostDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Data\PostStudyData.json");            
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/PostStudyData.json");            
             return JsonConvert.DeserializeObject<StudyEntity>(jsonData); 
         }
         public PostStudyDTO PostDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Data\PostStudyData.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/PostStudyData.json");
             return JsonConvert.DeserializeObject<PostStudyDTO>(jsonData);            
         }
         #endregion
