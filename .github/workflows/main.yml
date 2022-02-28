@@ -54,13 +54,12 @@ jobs:
           Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/netcoreapp3.1/publish/**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
            
     - name: dotnet test
-      run: dotnet test '${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release  --logger:"trx;LogFileName=${{ github.workspace }}/TestResults.xml"    
+      run: dotnet test '${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release  -/p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
     
-    - name: Publish Unit Test Results
-      uses: EnricoMi/publish-unit-test-result-action@v1
-      if: always()
+    - name: Publish coverage report to coveralls.io
+      uses: coverallsapp/github-action@master
       with:
-        files: '${{ github.workspace }}/TestResults.xml'
+        path-to-lcov: '${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting/TestResults/coverage.info'
         
     - name: 'Publish Artifact: Artifact'
       uses: actions/upload-artifact@v2
