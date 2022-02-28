@@ -57,7 +57,7 @@ jobs:
       run: dotnet test '${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release  --collect:"XPlat Code Coverage" --logger trx
     
     - name: Copy report
-      run: cp coverage/*/coverage.cobertura.xml coverage/coverage.cobertura.xml
+      run: cp **/coverage.cobertura.xml coverage/coverage.cobertura.xml
       
     - name: Code Coverage Summary Report
       uses: irongut/CodeCoverageSummary@v1.0.2
