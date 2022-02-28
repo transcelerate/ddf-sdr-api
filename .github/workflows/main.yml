@@ -56,9 +56,9 @@ jobs:
     - name: dotnet test build
       run: dotnet build '${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release
     
-    - name: Run tmate
-      uses: mxschmitt/action-tmate@v2
-      timeout-minutes: 10
+#     - name: Run tmate
+#       uses: mxschmitt/action-tmate@v2
+#       timeout-minutes: 10
         
     - name: dotnet test
       run: dotnet test '${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release       
