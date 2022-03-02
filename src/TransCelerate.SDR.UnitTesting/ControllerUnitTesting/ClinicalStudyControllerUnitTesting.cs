@@ -49,49 +49,49 @@ namespace TransCelerate.SDR.UnitTesting
         #region Setup
         public StudyEntity GetDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/GetStudyData.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Data\GetStudyData.json");
             study = JsonConvert.DeserializeObject<StudyEntity>(jsonData);
             return study;
         }
         public PostStudyDTO PostDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/PostStudyData.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Data\PostStudyData.json");
             postStudyDTO = JsonConvert.DeserializeObject<PostStudyDTO>(jsonData);
             return postStudyDTO;
         }
         public List<GetStudyDTO> GetDataForSearchFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/GetStudyListData.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Data\GetStudyListData.json");
             studyDTO = JsonConvert.DeserializeObject<List<GetStudyDTO>>(jsonData);
             return studyDTO;
         }
         public GetStudySectionsDTO GetStudySectionsDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/GetStudySectionsData.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Data\GetStudySectionsData.json");
             studySectionsDTO = JsonConvert.DeserializeObject<GetStudySectionsDTO>(jsonData);
             return studySectionsDTO;
         }
         public StudyEntity GetPostDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/PostStudyData.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Data\PostStudyData.json");
             study = JsonConvert.DeserializeObject<StudyEntity>(jsonData);
             return study;
         }
         public GetStudyAuditDTO GetAuditDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/GetStudyAuditData.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Data\GetStudyAuditData.json");
             auditTrail = JsonConvert.DeserializeObject<GetStudyAuditDTO>(jsonData);
             return auditTrail;
         }
         public List<StudyEntity> GetListDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/GetStudyListData.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Data\GetStudyListData.json");
             studyList = JsonConvert.DeserializeObject<List<StudyEntity>>(jsonData);
             return studyList;
         }
         public List<StudyEntity> GetListForSearchDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/GetSearchStudyData.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Data\GetSearchStudyData.json");
             studyList = JsonConvert.DeserializeObject<List<StudyEntity>>(jsonData);
             return studyList;
         }
