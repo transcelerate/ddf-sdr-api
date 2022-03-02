@@ -1,9 +1,11 @@
 ﻿using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TransCelerate.SDR.Core.DTO.Study;
 using TransCelerate.SDR.Core.Utilities.Common;
+using TransCelerate.SDR.Core.Utilities.Helpers;
 
 namespace TransCelerate.SDR.RuleEngine
 {
@@ -12,11 +14,6 @@ namespace TransCelerate.SDR.RuleEngine
         public StudyIndicationValidator()
         {
             RuleFor(x => x.description)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-
-            RuleFor(x => x.coding)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);

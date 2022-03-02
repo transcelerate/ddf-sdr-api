@@ -65,7 +65,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string StudyInputError = "Kindly provide a valid input";
 
-            public const string SearchNotFound = "No Study Matches the search keywords";
+            public const string SearchNotFound = "No study matches the search keywords";
 
             public const string SectionNotValid = "Kindly provide a valid section";
 

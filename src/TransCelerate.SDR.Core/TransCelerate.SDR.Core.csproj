@@ -5,6 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DTO\Study\TransitionCriteriaDTO.cs" />
+    <Compile Remove="DTO\Study\TransitionDTO.cs" />
+    <Compile Remove="DTO\Study\TransitionRuleDTO.cs" />
     <Compile Remove="Entities\Amendment.cs" />
     <Compile Remove="Entities\ClinicalStudy.cs" />
     <Compile Remove="Entities\IdentifierType.cs" />
@@ -18,6 +21,10 @@
     <Compile Remove="Entities\StudyTargetPopulation.cs" />
     <Compile Remove="Entities\StudyTrialIntentType.cs" />
     <Compile Remove="Entities\StudyTrialType.cs" />
+    <Compile Remove="Entities\Study\TransitionCriteriaEntity.cs" />
+    <Compile Remove="Entities\Study\TransitionEntity.cs" />
+    <Compile Remove="Entities\Study\TransitionRuleEntity.cs" />
+    <Compile Remove="Utilities\Helpers\ShouldSerializeContractResolver.cs" />
   </ItemGroup>
 
   <ItemGroup>

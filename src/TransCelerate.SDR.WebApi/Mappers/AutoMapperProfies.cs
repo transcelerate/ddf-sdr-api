@@ -34,7 +34,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
                 .ForMember(dest => dest.plannedWorkflows, opt => opt.MapFrom(src => src.currentSections.Select(x => x.plannedWorkflows).FirstOrDefault(s => s != null)))
                 .ForMember(dest => dest.studyCells, opt => opt.MapFrom(src => src.currentSections.Select(x => x.studyCells).FirstOrDefault(s => s != null)))
                 .ForMember(dest => dest.studyPopulations, opt => opt.MapFrom(src => src.currentSections.Select(x => x.studyPopulations).FirstOrDefault(s => s != null)));
-            CreateMap<StudyEntity, AuditTrailDTO>()
+            CreateMap<StudyEntity, AuditTrailEndpointResponseDTO>()
                 .ForMember(dest => dest.entryDateTime, opt => opt.MapFrom(src => src.auditTrail.entryDateTime.ToString(Constants.DateFormats.DateFormatForAuditResponse).ToUpper()))
                 .ForMember(dest => dest.entrySystem, opt => opt.MapFrom(src => src.auditTrail.entrySystem))
                 .ForMember(dest => dest.studyVersion, opt => opt.MapFrom(src => src.auditTrail.studyVersion))
@@ -51,8 +51,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
                 .ReverseMap();
             CreateMap<ClinicalStudyEntity, ClinicalStudyDTO>().ReverseMap();                          
             CreateMap<CodingEntity, CodingDTO>().ReverseMap();                      
-            CreateMap<StudyProtocolEntity, StudyProtocolDTO>().ReverseMap();
-            CreateMap<AmendmentEntity, AmendmentDTO>().ReverseMap();
+            CreateMap<StudyProtocolEntity, StudyProtocolDTO>().ReverseMap();            
             CreateMap<StudyDesignDTO, StudyDesignEntity>().ReverseMap();            
             CreateMap<StudyIdentifierEntity, StudyIdentifierDTO>()
                 .ForMember(dest => dest.id, opt => opt.MapFrom(src => src.studyIdentifierId)).ReverseMap();

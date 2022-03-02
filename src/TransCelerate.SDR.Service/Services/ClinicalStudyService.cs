@@ -46,7 +46,7 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="version"></param>
         /// <param name="tag"></param>
         /// <returns></returns>
-        public async Task<object> GetAllElements(string studyId,int version, string tag)
+        public async Task<GetStudyDTO> GetAllElements(string studyId,int version, string tag)
         {
             try
             {
@@ -70,10 +70,8 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {                       
-                    var studyDTO = _mapper.Map<GetStudyDTO>(study);                  
-                    var studyResponse = JsonConvert.DeserializeObject(
-                           JsonConvert.SerializeObject(studyDTO, JsonSettings.JsonSerializerSettings()));                    
-                    return studyResponse;                  
+                    var studyDTO = _mapper.Map<GetStudyDTO>(study);                                                        
+                    return studyDTO;                  
                 }
             }
             catch (Exception ex)
@@ -94,7 +92,7 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="tag"></param>
         /// <param name="sections"></param>
         /// <returns></returns>
-        public async Task<object> GetSections(string studyId, int version, string tag, string[] sections)
+        public async Task<GetStudySectionsDTO> GetSections(string studyId, int version, string tag, string[] sections)
         {
             try
             {
@@ -119,11 +117,11 @@ namespace TransCelerate.SDR.Services.Services
                 else
                 {                    
                     var studySectionDTO = _mapper.Map<GetStudySectionsDTO>(study.clinicalStudy);
-                    studySectionDTO.studyVersion = study.auditTrail.studyVersion;                    
+                    studySectionDTO.studyVersion = study.auditTrail.studyVersion;
+                                       
                     studySectionDTO = RemoveStudySections.RemoveSections(sections, studySectionDTO);
-                    var studyResponse = JsonConvert.DeserializeObject(
-                           JsonConvert.SerializeObject(studySectionDTO, JsonSettings.JsonSerializerSettings()));
-                    return studyResponse;
+                   
+                    return studySectionDTO;
                 }
             }
             catch (Exception ex)
@@ -145,7 +143,7 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="sections"></param>
         /// <param name="studyDesignId"></param>
         /// <returns></returns>
-        public async Task<object> GetStudyDesignSections(string studyId, string studyDesignId, int version, string tag, string[] sections)
+        public async Task<GetStudySectionsDTO> GetStudyDesignSections(string studyId, string studyDesignId, int version, string tag, string[] sections)
         {
             try
             {
@@ -173,9 +171,8 @@ namespace TransCelerate.SDR.Services.Services
                     studySectionDTO.studyVersion = study.auditTrail.studyVersion;
                     studySectionDTO.studyDesigns = studySectionDTO.studyDesigns.FindAll(x => x.studyDesignId == studyDesignId).ToList();
                     studySectionDTO = RemoveStudySections.RemoveSectionsForStudyDesign(sections, studySectionDTO);
-                    var studyResponse = JsonConvert.DeserializeObject(
-                           JsonConvert.SerializeObject(studySectionDTO, JsonSettings.JsonSerializerSettings()));
-                    return studyResponse;
+                   
+                    return studySectionDTO;
                 }
             }
             catch (Exception ex)
@@ -195,7 +192,7 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="toDate"></param>
         /// <param name="studyId"></param>
         /// <returns></returns>
-        public async Task<object> GetAuditTrail(DateTime fromDate, DateTime toDate, string studyId)
+        public async Task<GetStudyAuditDTO> GetAuditTrail(DateTime fromDate, DateTime toDate, string studyId)
         {
             try
             {
@@ -207,14 +204,13 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {
-                    var auditTrailDTOList = _mapper.Map<List<AuditTrailDTO>>(studies);
+                    var auditTrailDTOList = _mapper.Map<List<AuditTrailEndpointResponseDTO>>(studies);
                     GetStudyAuditDTO getStudyAuditDTO = new GetStudyAuditDTO
                     {
                         studyId = studyId, auditTrail = auditTrailDTOList
                     };
-                    var studyAuditResponsesObject = JsonConvert.DeserializeObject(
-                           JsonConvert.SerializeObject(getStudyAuditDTO, JsonSettings.JsonSerializerSettings()));
-                    return studyAuditResponsesObject;
+                    
+                    return getStudyAuditDTO;
                 }
             }
             catch (Exception ex)
@@ -233,7 +229,7 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="fromDate"></param>
         /// <param name="toDate"></param>
         /// <returns></returns>
-        public async Task<object> GetAllStudyId(DateTime fromDate, DateTime toDate)
+        public async Task<GetStudyHistoryResponseDTO> GetAllStudyId(DateTime fromDate, DateTime toDate)
         {
             try
             {
@@ -257,7 +253,7 @@ namespace TransCelerate.SDR.Services.Services
                                             .OrderByDescending(x => x.date)
                                             .ToList();
 
-                    AllStudyIdResponseDTO allStudyIdResponseDTO = new AllStudyIdResponseDTO()
+                    GetStudyHistoryResponseDTO allStudyIdResponseDTO = new GetStudyHistoryResponseDTO()
                     {
                         study = JsonConvert.DeserializeObject<List<StudyHistory>>(JsonConvert.SerializeObject(groupStudy))
                     };
@@ -374,8 +370,7 @@ namespace TransCelerate.SDR.Services.Services
                         }
                     }
                 }
-                return JsonConvert.DeserializeObject(
-                           JsonConvert.SerializeObject(postStudyDTO, JsonSettings.JsonSerializerSettings()));
+                return postStudyDTO;
             }
             catch (Exception ex)
             {
@@ -392,7 +387,7 @@ namespace TransCelerate.SDR.Services.Services
         /// </summary>
         /// <param name="searchParameters"></param>
         /// <returns></returns>
-        public async Task<object> SearchStudy(SearchParametersDTO searchParametersDTO)
+        public async Task<List<GetStudyDTO>> SearchStudy(SearchParametersDTO searchParametersDTO)
         {
             try
             {
@@ -410,9 +405,8 @@ namespace TransCelerate.SDR.Services.Services
                 else
                 {
                     var studiesDTO = _mapper.Map<List<GetStudyDTO>>(studies);
-                    var searchResponse = JsonConvert.DeserializeObject(
-                           JsonConvert.SerializeObject(studiesDTO, JsonSettings.JsonSerializerSettings()));
-                    return searchResponse;
+                  
+                    return studiesDTO;
                 }
             }
             catch (Exception ex)

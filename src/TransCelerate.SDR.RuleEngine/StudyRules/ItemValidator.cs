@@ -8,18 +8,22 @@ using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.RuleEngine
 {
-    public class StudyObjectivesValidator : AbstractValidator<StudyObjectiveDTO>
+    public class ItemValidator : AbstractValidator<ItemDTO>
     {
-        public StudyObjectivesValidator()
-        {           
+        public ItemValidator()
+        {
             RuleFor(x => x.description)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+            RuleFor(x => x.fromPointInTime)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-            RuleFor(x => x.level)
+            RuleFor(x => x.toPointInTime)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);            
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
         }
     }
 }

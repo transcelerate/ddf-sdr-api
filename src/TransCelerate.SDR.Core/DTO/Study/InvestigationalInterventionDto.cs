@@ -12,8 +12,7 @@ namespace TransCelerate.SDR.Core.DTO.Study
     public class InvestigationalInterventionDTO
     {        
         public string id { get; set; }        
-        public string description { get; set; }              
-        public string interventionType { get; set; }
+        public string description { get; set; }                      
         public string interventionModel { get; set; }
         public string status { get; set; }
         public List<CodingDTO> coding { get; set; }        

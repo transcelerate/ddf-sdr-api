@@ -16,10 +16,10 @@ namespace TransCelerate.SDR.RuleEngine
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-            RuleFor(x => x.coding)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);          
+            //RuleFor(x => x.coding)
+            //    .Cascade(CascadeMode.Stop)
+            //    .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+            //    .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);          
         }
     }
 }

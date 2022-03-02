@@ -8,6 +8,6 @@ namespace TransCelerate.SDR.Core.DTO
     public class PostStudyDTO
     {
         public ClinicalStudyDTO clinicalStudy { get; set; }
-        public AuditTrailDTO auditTrailDTO { get; set; }
+        //public AuditTrailDTO auditTrailDTO { get; set; }
     }
 }

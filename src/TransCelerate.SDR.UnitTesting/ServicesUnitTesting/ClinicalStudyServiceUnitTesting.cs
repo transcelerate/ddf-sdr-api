@@ -37,43 +37,43 @@ namespace TransCelerate.SDR.UnitTesting
         #region Setup
         public StudyEntity GetDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Data\GetStudyData.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/GetStudyData.json");
             study = JsonConvert.DeserializeObject<StudyEntity>(jsonData);
             return study;
         }
         public List<GetStudyDTO> GetDataForSearchFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Data\GetStudyListData.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/GetStudyListData.json");
             studyDTO = JsonConvert.DeserializeObject<List<GetStudyDTO>>(jsonData);
             return studyDTO;
         }
         public GetStudySectionsDTO GetStudySectionsDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Data\GetStudySectionsData.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/GetStudySectionsData.json");
             studySectionsDTO = JsonConvert.DeserializeObject<GetStudySectionsDTO>(jsonData);
             return studySectionsDTO;
         }
         public StudyEntity GetPostDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Data\PostStudyData.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/PostStudyData.json");
             study = JsonConvert.DeserializeObject<StudyEntity>(jsonData);
             return study;
         }
         public GetStudyAuditDTO GetAuditDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Data\GetStudyAuditData.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/GetStudyAuditData.json");
             auditTrail = JsonConvert.DeserializeObject<GetStudyAuditDTO>(jsonData);
             return auditTrail;
         } 
         public List<StudyEntity> GetListDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Data\GetStudyListData.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/GetStudyListData.json");
             studyList = JsonConvert.DeserializeObject<List<StudyEntity>>(jsonData);
             return studyList;
         }
         public List<StudyEntity> GetListForSearchDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Data\GetSearchStudyData.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/GetSearchStudyData.json");
             studyList = JsonConvert.DeserializeObject<List<StudyEntity>>(jsonData);
             return studyList;
         }       
@@ -435,7 +435,7 @@ namespace TransCelerate.SDR.UnitTesting
                 JsonConvert.SerializeObject(GetPostDataFromStaticJson()));
             studyDTO.clinicalStudy.studyId = null;
 
-            var method = ClinicalStudyService.PostAllElements(studyDTO,null);
+            var method = ClinicalStudyService.PostAllElements(studyDTO,"A");
             method.Wait();
             var result = method.Result;
 
@@ -502,13 +502,11 @@ namespace TransCelerate.SDR.UnitTesting
                JsonConvert.SerializeObject((result)));
 
             //Assert           
-
-            Assert.AreEqual(expected[0].clinicalStudy.studyDesigns[0].investigationalInterventions[0].interventionType, actual_result[0].clinicalStudy.studyDesigns[0].investigationalInterventions[0].interventionType);
+            
             Assert.AreEqual(expected[0].clinicalStudy.objectives[0].description, actual_result[0].clinicalStudy.objectives[0].description);            
             Assert.AreEqual(expected[0].clinicalStudy.studyIndications[0].description, actual_result[0].clinicalStudy.studyIndications[0].description);
             Assert.AreEqual(expected[0].clinicalStudy.studyDesigns[0].studyDesignId, actual_result[0].clinicalStudy.studyDesigns[0].studyDesignId);
-            Assert.AreEqual(expected[0].clinicalStudy.studyId, actual_result[0].clinicalStudy.studyId);            
-            Assert.AreEqual(expected[1].clinicalStudy.studyDesigns[0].investigationalInterventions[0].interventionType, actual_result[1].clinicalStudy.studyDesigns[0].investigationalInterventions[0].interventionType);
+            Assert.AreEqual(expected[0].clinicalStudy.studyId, actual_result[0].clinicalStudy.studyId);                        
             Assert.AreEqual(expected[1].clinicalStudy.objectives[0].description, actual_result[1].clinicalStudy.objectives[0].description);           
             Assert.AreEqual(expected[1].clinicalStudy.studyIndications[0].description, actual_result[1].clinicalStudy.studyIndications[0].description);
             Assert.AreEqual(expected[1].clinicalStudy.studyDesigns[0].studyDesignId, actual_result[1].clinicalStudy.studyDesigns[0].studyDesignId);

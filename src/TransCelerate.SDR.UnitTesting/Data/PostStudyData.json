@@ -246,6 +246,82 @@
                                 "e3e84e94-927e-42da-9625-e4f18bc4b7a4"
                               ],
                               "nextItemsInSequence": []
+                            },
+                            {
+                              "id": "e3e84e94-927e-42da-9625-e4f18bc4b88k",
+                              "description": "go to next when subject has systolic blood pressure below 130 mmHg",
+                              "fromPointInTime": {
+                                "id": "70b40929-f370-4062-a0d2-b73509284075",
+                                "type": "SCREENING",
+                                "subjectStatusGrouping": "In Screening",
+                                "startDate": "2022-JAN-01",
+                                "endDate": "2022-JAN-31"
+                              },
+                              "toPointInTime": {
+                                "id": "edf69da2-73c3-4b32-855c-ca670eb5af6b",
+                                "type": "SCREENING",
+                                "subjectStatusGrouping": "In Screening",
+                                "startDate": "2022-JAN-01",
+                                "endDate": "2022-JAN-31"
+                              },
+                              "activity": {
+                                "id": "5eedee11-3dd3-40ba-b4df-d8e6df6f40f7",
+                                "definedProcedures": [
+                                  {
+                                    "procedureCode": "testCode"
+                                  }
+                                ],
+                                "studyDataCollection": [
+                                  {
+                                    "id": "b2c18361-270b-4147-a9d8-809a05982f6e",
+                                    "name": "Systolic Blood Pressure",
+                                    "description": "Measurement of systolic blood pressure in sitting position in either mm or cm Mercury column",
+                                    "eCRFLink": "https://library.cdisc.org/api/mdr/cdashig/2-1/domains/VS"
+                                  }
+                                ]
+                              },
+                              "encounter": {
+                                "id": "84e8c00f-5da2-4872-bec2-821aba190e45",
+                                "name": "test visit",
+                                "description": "visit description",
+                                "contactMode": "IN_PERSON",
+                                "environmentalSetting": "CLINIC",
+                                "startRule": {
+                                  "id": "311f6542-ee97-40d1-8b51-a1885976d2d8",
+                                  "description": "start rule",
+                                  "coding": [
+                                    {
+                                      "code": "xyz",
+                                      "codeSystem": "test system",
+                                      "codeSystemVersion": "1.0",
+                                      "decode": "the decode string"
+                                    }
+                                  ]
+                                },
+                                "endRule": {
+                                  "id": "c356e3b6-af25-47fd-8849-7c485cd11910",
+                                  "description": "end rule",
+                                  "coding": [
+                                    {
+                                      "code": "xyz",
+                                      "codeSystem": "test system",
+                                      "codeSystemVersion": "1.0",
+                                      "decode": "the decode string"
+                                    }
+                                  ]
+                                },
+                                "epoch": {
+                                  "id": "83457bbb-0a88-4823-8956-cf4daf5117fa",
+                                  "epochType": "SCREENING",
+                                  "name": "First treatment epoch",
+                                  "description": "First treatment epoch with low dose",
+                                  "sequenceInStudy": 1
+                                }
+                              },
+                              "previousItemsInSequence": [],
+                              "nextItemsInSequence": [
+                                "7de4ed95-b812-42c8-807b-a94637dff3a3"
+                              ]
                             }
                           ]
                         }

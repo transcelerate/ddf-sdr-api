@@ -19,7 +19,9 @@ namespace TransCelerate.SDR.Core.Entities.Study
 
         public List<StudyIdentifierEntity> studyIdentifiers { get; set; }
 
-        public List<CurrentSectionsEntity> currentSections { get; set; }       
+        public List<CurrentSectionsEntity> currentSections { get; set; }
+
+        public List<StudyProtocolEntity> studyProtocolReferences { get; set; }
 
     }
 }

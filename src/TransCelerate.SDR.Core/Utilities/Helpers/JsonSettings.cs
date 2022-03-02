@@ -19,7 +19,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             JsonSerializerSettings JsonSettings = new JsonSerializerSettings
             {
                 Formatting = Formatting.Indented,
-                NullValueHandling = NullValueHandling.Ignore,
+                //NullValueHandling = NullValueHandling.Ignore,
                 //ContractResolver = ShouldSerializeContractResolver.Instance,
             };
             return JsonSettings;

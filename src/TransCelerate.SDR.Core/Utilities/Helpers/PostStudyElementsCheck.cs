@@ -595,81 +595,83 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             }
         }
 
-        public static void TransitionSectionCheck(List<TransitionEntity> existingTransitionEntities, List<TransitionEntity> incomingTransitionEntities)
-        {
-            try
-            {
-                var transitionList = new List<TransitionEntity>();
-                foreach (var item in incomingTransitionEntities)
-                {
-                    if (existingTransitionEntities.Any(x => x.transitionId == item.transitionId))
-                    {
-                        PointInTimeSectionCheck(existingTransitionEntities.Find(x => x.transitionId == item.transitionId).fromPointInTime, item.fromPointInTime);
-                        PointInTimeSectionCheck(existingTransitionEntities.Find(x => x.transitionId == item.transitionId).toPointInTime, item.toPointInTime);
-                        TransitionCriteriaSectionCheck(existingTransitionEntities.Find(x => x.transitionId == item.transitionId).transitionCriteria, item.transitionCriteria);
-                        TransitionRuleSectionCheck(existingTransitionEntities.Find(x => x.transitionId == item.transitionId).transitionRule, item.transitionRule);
-                        transitionList.Add(item);
-                        existingTransitionEntities.RemoveAll(x => x.transitionId == item.transitionId);
-                    }
-                    else
-                    {
-                        item.transitionId = IdGenerator.GenerateId();
-                        item.transitionCriteria.ForEach(x => x.transitionCriteriaId = IdGenerator.GenerateId());
-                        transitionList.Add(item);
-                    }
+        #region Removed Transitions From Planned WorkFlows
+        //public static void TransitionSectionCheck(List<TransitionEntity> existingTransitionEntities, List<TransitionEntity> incomingTransitionEntities)
+        //{
+        //    try
+        //    {
+        //        var transitionList = new List<TransitionEntity>();
+        //        foreach (var item in incomingTransitionEntities)
+        //        {
+        //            if (existingTransitionEntities.Any(x => x.transitionId == item.transitionId))
+        //            {
+        //                PointInTimeSectionCheck(existingTransitionEntities.Find(x => x.transitionId == item.transitionId).fromPointInTime, item.fromPointInTime);
+        //                PointInTimeSectionCheck(existingTransitionEntities.Find(x => x.transitionId == item.transitionId).toPointInTime, item.toPointInTime);
+        //                TransitionCriteriaSectionCheck(existingTransitionEntities.Find(x => x.transitionId == item.transitionId).transitionCriteria, item.transitionCriteria);
+        //                TransitionRuleSectionCheck(existingTransitionEntities.Find(x => x.transitionId == item.transitionId).transitionRule, item.transitionRule);
+        //                transitionList.Add(item);
+        //                existingTransitionEntities.RemoveAll(x => x.transitionId == item.transitionId);
+        //            }
+        //            else
+        //            {
+        //                item.transitionId = IdGenerator.GenerateId();
+        //                item.transitionCriteria.ForEach(x => x.transitionCriteriaId = IdGenerator.GenerateId());
+        //                transitionList.Add(item);
+        //            }
 
-                }
-                incomingTransitionEntities = transitionList;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        //        }
+        //        incomingTransitionEntities = transitionList;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
 
-        public static void TransitionCriteriaSectionCheck(List<TransitionCriteriaEntity> existingTransitionCriteriaEntities,List<TransitionCriteriaEntity> incomingTransitionCriteriaEntities)
-        {
-            try
-            {
-                var transitionCriteriaList = new List<TransitionCriteriaEntity>();
-                foreach (var item in incomingTransitionCriteriaEntities)
-                {
-                    if (existingTransitionCriteriaEntities.Any(x => x.transitionCriteriaId == item.transitionCriteriaId))
-                    {
-                        transitionCriteriaList.Add(item);
-                        existingTransitionCriteriaEntities.RemoveAll(x => x.transitionCriteriaId == item.transitionCriteriaId);
-                    }
-                    else
-                    {
-                        item.transitionCriteriaId = IdGenerator.GenerateId();
-                        transitionCriteriaList.Add(item);
-                    }
-                }
-                incomingTransitionCriteriaEntities = transitionCriteriaList;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-        public static void TransitionRuleSectionCheck(TransitionRuleEntity existingTransitionRuleEntity, TransitionRuleEntity incomingTransitionRuleEntity)
-        {
-            try
-            {
-                if (existingTransitionRuleEntity.transitionRuleId == null && incomingTransitionRuleEntity.transitionRuleId != null)
-                {
-                    incomingTransitionRuleEntity.transitionRuleId = IdGenerator.GenerateId();
-                }
-                else if (existingTransitionRuleEntity.transitionRuleId != incomingTransitionRuleEntity.transitionRuleId)
-                {
-                    incomingTransitionRuleEntity.transitionRuleId = IdGenerator.GenerateId();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        //public static void TransitionCriteriaSectionCheck(List<TransitionCriteriaEntity> existingTransitionCriteriaEntities, List<TransitionCriteriaEntity> incomingTransitionCriteriaEntities)
+        //{
+        //    try
+        //    {
+        //        var transitionCriteriaList = new List<TransitionCriteriaEntity>();
+        //        foreach (var item in incomingTransitionCriteriaEntities)
+        //        {
+        //            if (existingTransitionCriteriaEntities.Any(x => x.transitionCriteriaId == item.transitionCriteriaId))
+        //            {
+        //                transitionCriteriaList.Add(item);
+        //                existingTransitionCriteriaEntities.RemoveAll(x => x.transitionCriteriaId == item.transitionCriteriaId);
+        //            }
+        //            else
+        //            {
+        //                item.transitionCriteriaId = IdGenerator.GenerateId();
+        //                transitionCriteriaList.Add(item);
+        //            }
+        //        }
+        //        incomingTransitionCriteriaEntities = transitionCriteriaList;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
+        //public static void TransitionRuleSectionCheck(TransitionRuleEntity existingTransitionRuleEntity, TransitionRuleEntity incomingTransitionRuleEntity)
+        //{
+        //    try
+        //    {
+        //        if (existingTransitionRuleEntity.transitionRuleId == null && incomingTransitionRuleEntity.transitionRuleId != null)
+        //        {
+        //            incomingTransitionRuleEntity.transitionRuleId = IdGenerator.GenerateId();
+        //        }
+        //        else if (existingTransitionRuleEntity.transitionRuleId != incomingTransitionRuleEntity.transitionRuleId)
+        //        {
+        //            incomingTransitionRuleEntity.transitionRuleId = IdGenerator.GenerateId();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //} 
+        #endregion
         public static void PointInTimeSectionCheck(PointInTimeEntity existingPointInTime, PointInTimeEntity incomingPointInTime)
         {
             try

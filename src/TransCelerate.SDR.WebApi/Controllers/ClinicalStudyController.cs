@@ -44,16 +44,16 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <param name="studyId"></param>
         /// <param name="version"></param>
         /// <param name="tag"></param>
-        /// <param name="sections"></param>
+        /// <param name="sections"></param>        
         /// <response code="200">Returns Study</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>
         [HttpGet]
-        [Route(Route.Study)]
+        [Route(Route.Study)]        
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(GetStudyDTO))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
-        [Produces("application/json")]
+        [Produces("application/json")]       
         public async Task<IActionResult> GetStudy(string studyId,int version, string tag,[FromQuery] string sections)
         {
             try
@@ -168,7 +168,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     else
                     {
                         //If StudyDesignId is not found
-                        if (!study.ToString().Contains("studyDesignId"))
+                        if (!study.studyDesigns.Any(x=>x.studyDesignId== studyDesignId))
                         {
                             if (Request != null)
                                 Response.Headers.Add("Controller", "True");
@@ -271,7 +271,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="404">There is no study</response>
         [HttpGet]
         [Route(Route.StudyHistory)]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(AllStudyIdResponseDTO))]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(GetStudyHistoryResponseDTO))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]

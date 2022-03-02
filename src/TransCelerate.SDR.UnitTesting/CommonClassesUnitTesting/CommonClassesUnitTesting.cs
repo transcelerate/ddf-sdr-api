@@ -17,6 +17,10 @@ using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.RuleEngine;
 using Microsoft.Extensions.DependencyInjection;
 using TransCelerate.SDR.Core.DTO;
+using TransCelerate.SDR.WebApi;
+using TransCelerate.SDR.WebApi.Mappers;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 
 namespace TransCelerate.SDR.UnitTesting
 {
@@ -26,18 +30,20 @@ namespace TransCelerate.SDR.UnitTesting
         private Mock<ILogger> _mockSDRLogger = new Mock<ILogger>();
         private Mock<ILogger> _mockErrorSDRLogger = new Mock <ILogger>(MockBehavior.Strict);
         private Mock<IConfiguration> _mockConfig = new Mock<IConfiguration>();
-        private Mock<IConfigurationSection> _mockConfigSections = new Mock<IConfigurationSection>();
+        //private IConfiguration _mockConfiguration = Mock.Of<IConfiguration>();
         private IServiceCollection serviceDescriptors = Mock.Of<IServiceCollection>();
+        //private IApplicationBuilder app = Mock.Of<IApplicationBuilder>();
+        //private IWebHostEnvironment env = Mock.Of<IWebHostEnvironment>();
 
         #region Setup
         public StudyEntity GetPostDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Data\PostStudyData.json");            
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/PostStudyData.json");            
             return JsonConvert.DeserializeObject<StudyEntity>(jsonData); 
         }
         public PostStudyDTO PostDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"\Data\PostStudyData.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/PostStudyData.json");
             return JsonConvert.DeserializeObject<PostStudyDTO>(jsonData);            
         }
         #endregion
@@ -337,24 +343,85 @@ namespace TransCelerate.SDR.UnitTesting
             StudyIdentifiersValidator studyIdentifiersValidator = new StudyIdentifiersValidator();            
             Assert.IsTrue(studyIdentifiersValidator.Validate(incomingpostStudyDTO.clinicalStudy.studyIdentifiers[0]).IsValid);            
 
-            StudyObjectivesValidator StudyObjectivesValidator = new StudyObjectivesValidator();
-            Assert.IsTrue(StudyObjectivesValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x=>x.objectives!=null).objectives[0]).IsValid);
+            StudyObjectivesValidator studyObjectivesValidator = new StudyObjectivesValidator();
+            Assert.IsTrue(studyObjectivesValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x=>x.objectives!=null).objectives[0]).IsValid);
 
-            EndpointsValidator EndpointsValidator = new EndpointsValidator();
-            Assert.IsTrue(EndpointsValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.objectives != null).objectives[0].endpoints[0]).IsValid);
+            EndpointsValidator endpointsValidator = new EndpointsValidator();
+            Assert.IsTrue(endpointsValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.objectives != null).objectives[0].endpoints[0]).IsValid);
 
-            StudyIndicationValidator StudyIndicationValidator = new StudyIndicationValidator();
-            Assert.IsTrue(StudyIndicationValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyIndications != null).studyIndications[0]).IsValid);
+            StudyIndicationValidator studyIndicationValidator = new StudyIndicationValidator();
+            Assert.IsTrue(studyIndicationValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyIndications != null).studyIndications[0]).IsValid);
 
-            StudyPopulationValidator StudyPopulationValidator = new StudyPopulationValidator();
-            Assert.IsTrue(StudyPopulationValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.studyPopulations != null).studyPopulations[0]).IsValid);            
+            StudyPopulationValidator studyPopulationValidator = new StudyPopulationValidator();
+            Assert.IsTrue(studyPopulationValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.studyPopulations != null).studyPopulations[0]).IsValid);            
 
-            StudyCellsValidator StudyCellsValidator = new StudyCellsValidator();
-            Assert.IsTrue(StudyCellsValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.studyCells != null).studyCells[0]).IsValid);
+            StudyCellsValidator studyCellsValidator = new StudyCellsValidator();
+            Assert.IsTrue(studyCellsValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.studyCells != null).studyCells[0]).IsValid);
 
-            PlannedWorkFlowValidator PlannedWorkFlowValidator = new PlannedWorkFlowValidator();
-            Assert.IsTrue(PlannedWorkFlowValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.plannedWorkflows != null).plannedWorkflows[0]).IsValid);
+            PlannedWorkFlowValidator plannedWorkFlowValidator = new PlannedWorkFlowValidator();
+            Assert.IsTrue(plannedWorkFlowValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.plannedWorkflows != null).plannedWorkflows[0]).IsValid);
+
+            InvestigationalInterventionValidatior investigationalInterventionValidatior = new InvestigationalInterventionValidatior();
+            Assert.IsTrue(investigationalInterventionValidatior.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.investigationalInterventions != null).investigationalInterventions[0]).IsValid);
+            
+            CodingValidator codingValidator = new CodingValidator();
+            Assert.IsTrue(codingValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.investigationalInterventions != null).investigationalInterventions[0].coding[0]).IsValid);
+
+            PointInTimeValidator pointInTimeValidator = new PointInTimeValidator();
+            Assert.IsTrue(pointInTimeValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.plannedWorkflows != null).plannedWorkflows[0].startPoint).IsValid);
+
+            StudyElementsValidator studyElementsValidator = new StudyElementsValidator();
+            Assert.IsTrue(studyElementsValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.studyCells != null).studyCells[0].studyElements[0]).IsValid);
+
+            RuleValidator ruleValidator = new RuleValidator();
+            Assert.IsTrue(ruleValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.studyCells != null).studyCells[0].studyElements[0].endRule).IsValid);
+
+            StudyArmValidator studyArmValidator = new StudyArmValidator();
+            Assert.IsTrue(studyArmValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.studyCells != null).studyCells[0].studyArm).IsValid);
+
+            StudyEpochValidator studyEpochValidator = new StudyEpochValidator();
+            Assert.IsTrue(studyEpochValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.studyCells != null).studyCells[0].studyEpoch).IsValid);
+
+            StudyProtocolValidator studyProtocolValidator = new StudyProtocolValidator();
+            Assert.IsTrue(studyProtocolValidator.Validate(incomingpostStudyDTO.clinicalStudy.studyProtocolReferences[0]).IsValid);
+
+            WorkFlowItemMatrixValidator workFlowItemMatrixValidator = new WorkFlowItemMatrixValidator();
+            Assert.IsTrue(workFlowItemMatrixValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.plannedWorkflows != null).plannedWorkflows[0].workflowItemMatrix).IsValid);
+
+            MatrixValidator matrixValidator = new MatrixValidator();
+            Assert.IsTrue(matrixValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.plannedWorkflows != null).plannedWorkflows[0].workflowItemMatrix.matrix[0]).IsValid);
+
+            ItemValidator itemValidator = new ItemValidator();
+            Assert.IsTrue(itemValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.plannedWorkflows != null).plannedWorkflows[0].workflowItemMatrix.matrix[0].items[0]).IsValid);
+
+            ActivityValidator activityValidator = new ActivityValidator();
+            Assert.IsTrue(activityValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.plannedWorkflows != null).plannedWorkflows[0].workflowItemMatrix.matrix[0].items[0].activity).IsValid);
+
+            StudyDataCollectionValidator studyDataCollectionValidator = new StudyDataCollectionValidator();
+            Assert.IsTrue(studyDataCollectionValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.plannedWorkflows != null).plannedWorkflows[0].workflowItemMatrix.matrix[0].items[0].activity.studyDataCollection[0]).IsValid);
+
+            DefinedProcedureValidator definedProcedureValidator = new DefinedProcedureValidator();
+            Assert.IsTrue(definedProcedureValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.plannedWorkflows != null).plannedWorkflows[0].workflowItemMatrix.matrix[0].items[0].activity.definedProcedures[0]).IsValid);
+
+            EncounterValidator encounterValidator = new EncounterValidator();
+            Assert.IsTrue(encounterValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.plannedWorkflows != null).plannedWorkflows[0].workflowItemMatrix.matrix[0].items[0].encounter).IsValid);
+
+            EpochValidator epochValidator = new EpochValidator();
+            Assert.IsTrue(epochValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.plannedWorkflows != null).plannedWorkflows[0].workflowItemMatrix.matrix[0].items[0].encounter.epoch).IsValid);
         }
         #endregion
+
+        //#region StartUp Unit Testing
+        //[Test]
+        //public void Startup_UnitTesting()
+        //{
+        //    _mockConfig.Setup(x => x.GetSection(It.IsAny<string>()).Value)
+        //        .Returns("Value");
+        //    Startup startUpClass = new Startup(_mockConfig.Object);
+
+        //    startUpClass.ConfigureServices(serviceDescriptors);
+        //    startUpClass.Configure(app, env);
+        //}
+        //#endregion
     }
 }

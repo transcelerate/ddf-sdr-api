@@ -20,6 +20,9 @@ namespace TransCelerate.SDR.Core.DTO.Study
         public List<StudyIdentifierDTO> studyIdentifiers { get; set; }
 
         public List<CurrentSectionsDTO> currentSections { get; set; }
-      
+
+        public List<StudyProtocolDTO> studyProtocolReferences { get; set; }
+
+
     }
 }

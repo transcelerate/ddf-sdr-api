@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using System;
+using System.Linq;
 using System.Net;
 using TransCelerate.SDR.Core.AppSettings;
 using TransCelerate.SDR.Services.Interfaces;
@@ -70,6 +71,7 @@ namespace TransCelerate.SDR.WebApi
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Transcelerate SDR", Version = "v1" });
+                
                 #region Removed As a part of certificate authentication
                 //c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 //{
@@ -123,7 +125,7 @@ namespace TransCelerate.SDR.WebApi
             
             //API to use MVC with validation handling and JSON response
             services.AddMvc().AddNewtonsoftJson();
-            //services.AddValidationDependencies();
+            services.AddValidationDependencies();
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.InvalidModelStateResponseFactory = context =>
