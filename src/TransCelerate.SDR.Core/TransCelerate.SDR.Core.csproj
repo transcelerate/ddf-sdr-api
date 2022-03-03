@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +24,7 @@
     <Compile Remove="Entities\Study\TransitionCriteriaEntity.cs" />
     <Compile Remove="Entities\Study\TransitionEntity.cs" />
     <Compile Remove="Entities\Study\TransitionRuleEntity.cs" />
+    <Compile Remove="Utilities\Helpers\JsonSettings.cs" />
     <Compile Remove="Utilities\Helpers\ShouldSerializeContractResolver.cs" />
   </ItemGroup>
 
@@ -33,9 +34,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.14.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />

@@ -74,9 +74,9 @@ namespace TransCelerate.SDR.Services.Services
                     return studyDTO;                  
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {                
-                throw ex;
+                throw;
             }
             finally
             {
@@ -124,9 +124,9 @@ namespace TransCelerate.SDR.Services.Services
                     return studySectionDTO;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
             finally
             {
@@ -175,9 +175,9 @@ namespace TransCelerate.SDR.Services.Services
                     return studySectionDTO;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
             finally
             {
@@ -213,9 +213,9 @@ namespace TransCelerate.SDR.Services.Services
                     return getStudyAuditDTO;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {                
-                throw ex;
+                throw;
             }
             finally
             {
@@ -255,15 +255,15 @@ namespace TransCelerate.SDR.Services.Services
 
                     GetStudyHistoryResponseDTO allStudyIdResponseDTO = new GetStudyHistoryResponseDTO()
                     {
-                        study = JsonConvert.DeserializeObject<List<StudyHistory>>(JsonConvert.SerializeObject(groupStudy))
+                        study = JsonConvert.DeserializeObject<List<StudyHistoryDTO>>(JsonConvert.SerializeObject(groupStudy))
                     };
 
                     return allStudyIdResponseDTO;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
             finally
             {
@@ -299,14 +299,21 @@ namespace TransCelerate.SDR.Services.Services
                     incomingstudyEntity._id = ObjectId.GenerateNewId();
                     incomingstudyEntity.clinicalStudy.studyIdentifiers.ForEach(x => x.studyIdentifierId = IdGenerator.GenerateId());
                     SectionIdGenerator.GenerateSectionId(incomingstudyEntity);
-                    if (incomingstudyEntity.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns.FindAll(x => x.currentSections != null).Count() != 0)
+                    if (incomingstudyEntity.clinicalStudy.currentSections != null)
                     {
-                        incomingstudyEntity.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns
-                                                              .Find(x => x.currentSections != null).currentSections
-                                                              .FindAll(x => x.plannedWorkflows != null)
-                                                              .ForEach(x => x.plannedWorkflows
-                                                                    .ForEach(p => p.workflowItemMatrix.matrix
-                                                                            .ForEach(m => m.items = PreviousItemNextItemHelper.GetPreviousNextItems(m.items))));
+                        if (incomingstudyEntity.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).Count() != 0)
+                        {
+                            if (incomingstudyEntity.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns
+                                                                .FindAll(x => x.currentSections != null).Count() != 0)
+                            {
+                                incomingstudyEntity.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns
+                                                                  .Find(x => x.currentSections != null).currentSections
+                                                                  .FindAll(x => x.plannedWorkflows != null)
+                                                                  .ForEach(x => x.plannedWorkflows
+                                                                        .ForEach(p => p.workflowItemMatrix.matrix
+                                                                                .ForEach(m => m.items = PreviousItemNextItemHelper.GetPreviousNextItems(m.items))));
+                            }
+                        }
                     }
 
                     _logger.LogInformation($"entrySystem: {entrySystem??"<null>"}; Study Input : {JsonConvert.SerializeObject(incomingstudyEntity)}");
@@ -372,9 +379,9 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 return postStudyDTO;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
             finally
             {
@@ -409,9 +416,9 @@ namespace TransCelerate.SDR.Services.Services
                     return studiesDTO;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {                
-                throw ex;
+                throw;
             }
             finally
             {

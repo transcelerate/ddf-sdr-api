@@ -12,7 +12,10 @@ namespace TransCelerate.SDR.RuleEngine
     {
         public DefinedProcedureValidator()
         {
-                  
+             RuleFor(x=>x.procedureCode)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
         }
     }
 }

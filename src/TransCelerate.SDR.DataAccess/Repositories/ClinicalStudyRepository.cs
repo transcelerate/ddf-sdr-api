@@ -78,9 +78,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                     return _study;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {                                
-                throw ex;
+                throw;
             }
             finally
             {
@@ -133,9 +133,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                     return _study as StudyEntity;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {               
-                throw ex;
+                throw;
             }
             finally
             {
@@ -174,9 +174,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                     return studies;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {                
-                throw ex;
+                throw;
             }
             finally
             {
@@ -220,9 +220,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                     return result;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
             finally
             {
@@ -266,10 +266,10 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 {
                     filter &= builder.Where(x => x.clinicalStudy.currentSections.Any(x=>x.studyIndications.Any(x=>x.description.ToLower().Contains(searchParameters.indication.ToLower()))));
                 }
-                //if (!String.IsNullOrWhiteSpace(searchParameters.interventionModel))
-                //{
-                //    filter &= builder.Where(x => x.clinicalStudy.interventionModel.ToLower().Contains(searchParameters.interventionModel.ToLower()));
-                //}
+                if (!String.IsNullOrWhiteSpace(searchParameters.interventionModel))
+                {
+                    filter &= builder.Where(x => x.clinicalStudy.currentSections.Any(x=>x.studyDesigns.Any(x=>x.currentSections.Any(x=>x.investigationalInterventions.Any(x=>x.description.ToLower().Contains(searchParameters.interventionModel.ToLower()))))));
+                }
                 if (!String.IsNullOrWhiteSpace(searchParameters.phase))
                 {
                     filter &= builder.Where(x => x.clinicalStudy.studyPhase.ToLower().Contains(searchParameters.phase.ToLower()));
@@ -319,9 +319,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 }
                
             }
-            catch (Exception ex)
+            catch (Exception)
             {                
-                throw ex;
+                throw;
             }
             finally
             {
@@ -349,8 +349,25 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                         case "indication":
                             return asc ? filteredResult.OrderBy(s => s.clinicalStudy.currentSections!=null ? s.clinicalStudy.currentSections.Where(x => x.studyIndications != null).Count() != 0 ? s.clinicalStudy.currentSections.Select(y => y.studyIndications).FirstOrDefault(s => s != null).Select(z => z.description).FirstOrDefault() ?? "" : "" : "" )
                                                                 : filteredResult.OrderByDescending(s => s.clinicalStudy.currentSections != null ? s.clinicalStudy.currentSections.Where(x => x.studyIndications != null).Count() != 0 ? s.clinicalStudy.currentSections.Select(y => y.studyIndications).FirstOrDefault(s => s != null).Select(z => z.description).FirstOrDefault() ?? "" : "" : "");
-                        //case "interventionmodel":
-                        //    return asc ? filteredResult.OrderBy(s => s.clinicalStudy.interventionModel ?? "") : filteredResult.OrderByDescending(s => s.clinicalStudy.interventionModel ?? "");
+                        case "interventionmodel":
+                            return asc ? filteredResult.OrderBy(s => s.clinicalStudy.currentSections != null ?
+                                                                                s.clinicalStudy.currentSections.Where(x => x.studyDesigns != null).Count() != 0 ?
+                                                                                        s.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns.FindAll(x => x.currentSections != null).Count() != 0 ?
+                                                                                            s.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns.Find(x => x.currentSections != null).currentSections.FindAll(x => x.investigationalInterventions != null).Count() != 0 ?
+                                                                                                s.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns.Find(x => x.currentSections != null).currentSections.Find(x => x.investigationalInterventions != null).investigationalInterventions.Select(x => x.interventionModel).FirstOrDefault() ?? ""
+                                                                                             : ""
+                                                                                        : ""
+                                                                                : ""
+                                                                         : "")
+                                       : filteredResult.OrderByDescending(s => s.clinicalStudy.currentSections != null ?
+                                                                                s.clinicalStudy.currentSections.Where(x => x.studyDesigns != null).Count() != 0 ?
+                                                                                        s.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns.FindAll(x => x.currentSections != null).Count() != 0 ?
+                                                                                            s.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns.Find(x => x.currentSections != null).currentSections.FindAll(x => x.investigationalInterventions != null).Count() != 0 ?
+                                                                                                s.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns.Find(x => x.currentSections != null).currentSections.Find(x => x.investigationalInterventions != null).investigationalInterventions.Select(x => x.interventionModel).FirstOrDefault() ?? ""
+                                                                                             : ""
+                                                                                        : ""
+                                                                                : ""
+                                                                         : "");
                         case "phase":
                             return asc ? filteredResult.OrderBy(s => s.clinicalStudy.studyPhase ?? "") : filteredResult.OrderByDescending(s => s.clinicalStudy.studyPhase ?? "");
                         case "lastmodifiedbysystem":
@@ -372,9 +389,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                     return filteredResult.OrderByDescending(s => s.auditTrail.entryDateTime);
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {                
-                throw e;
+                throw;
             }
             finally
             {
@@ -397,9 +414,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
                 return (study.clinicalStudy.studyId);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
             finally
             {
@@ -431,9 +448,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
                 return (study.clinicalStudy.studyId);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
             finally
             {

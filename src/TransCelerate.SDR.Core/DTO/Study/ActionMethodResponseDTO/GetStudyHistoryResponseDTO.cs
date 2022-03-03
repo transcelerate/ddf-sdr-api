@@ -6,10 +6,10 @@ namespace TransCelerate.SDR.Core.DTO.Study
 {
     public class GetStudyHistoryResponseDTO
     {        
-        public List<StudyHistory> study { get; set; }
+        public List<StudyHistoryDTO> study { get; set; }
     }  
     
-    public class StudyHistory
+    public class StudyHistoryDTO
     {
         public string studyTitle { get; set; }
         public string studyId { get; set; }

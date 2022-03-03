@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TransCelerate.SDR.Core.Entities.Study;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
 {
@@ -20,9 +22,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
 
                 return JsonObjectCheck(incoming, existing);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
         public static bool JsonObjectCheck(object incoming, object existing)
@@ -32,9 +34,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 return JToken.DeepEquals(JObject.Parse(JsonConvert.SerializeObject(incoming)),
                                JObject.Parse(JsonConvert.SerializeObject(existing)));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
         public static StudyEntity RemoveId(StudyEntity studyEntity)
@@ -168,9 +170,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 }
                 return studyEntity;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
         #endregion
@@ -226,24 +228,33 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     List<StudyDesignEntity> existingStudyDesignEntities = existing.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).Count()!=0? existing.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns: new List<StudyDesignEntity>();
                     List<StudyDesignEntity> incomingStudyDesignEntities = incoming.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).Count() != 0 ? incoming.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns : new List<StudyDesignEntity>();                   
 
-                    //Study Objectives Section
-                    StudyObjectivesSectionCheck(existing, existingStudyObjectivesEntities, incomingStudyObjectivesEntities);
+                    ////Study Objectives Section
+                    //StudyObjectivesSectionCheck(existing, existingStudyObjectivesEntities, incomingStudyObjectivesEntities);
 
-                    //Study Indications Section
-                    StudyIndicationSectionCheck(existing, existingStudyIndicationEntities, incomingStudyIndicationEntities);
+                    ////Study Indications Section
+                    //StudyIndicationSectionCheck(existing, existingStudyIndicationEntities, incomingStudyIndicationEntities);
 
-                    //Removed StudyProtocol Section
-                    //Study Protocol Section
-                    //StudyProtocolSectionCheck(existing, existingStudyProtocolEntities, incomingStudyProtocolEntities);
+                    ////Removed StudyProtocol Section
+                    ////Study Protocol Section
+                    ////StudyProtocolSectionCheck(existing, existingStudyProtocolEntities, incomingStudyProtocolEntities);
 
-                    //Study Design Section
-                    StudyDesignSectionCheck(existing, existingStudyDesignEntities, incomingStudyDesignEntities);
+                    ////Study Design Section
+                    //StudyDesignSectionCheck(existing, existingStudyDesignEntities, incomingStudyDesignEntities);
+
+                    Parallel.Invoke(
+                                //Study Objectives Section
+                                ()=>StudyObjectivesSectionCheck(existing, existingStudyObjectivesEntities, incomingStudyObjectivesEntities),
+                                //Study Indications Section
+                                () => StudyIndicationSectionCheck(existing, existingStudyIndicationEntities, incomingStudyIndicationEntities),
+                                //Study Design Section
+                                () => StudyDesignSectionCheck(existing, existingStudyDesignEntities, incomingStudyDesignEntities)
+                            );
                 }                
                 return existing;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -306,9 +317,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     existing.clinicalStudy.currentSections.FindAll(x => x.objectives != null).ForEach(x => x.objectives = studyObjectivesList);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -347,9 +358,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     existing.clinicalStudy.currentSections.FindAll(x => x.studyIndications != null).ForEach(x => x.studyIndications = studyIndicationList);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }        
 
@@ -428,6 +439,16 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                             //Investigational Intervention Section
                             InvestigationalInvestigationSectionCheck(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId), existingInvestigationalInterventionEntities, incomingInvestigationalInterventionEntities);
 
+                            Parallel.Invoke(
+                                    //Study Populations Section
+                                    ()=>StudyPopulationsSectionCheck(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId), existingStudyPopulationsEntities, incomingStudyPopulationsEntities),
+                                    //Study Cells Section
+                                    ()=>StudyCellsSectionCheck(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId), existingStudyCellEntities, incomingStudyCellEntities),
+                                    //Planned WorkFlow Section
+                                    ()=>StudyPlannedWorkFlowSectionCheck(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId), existingPlannedWorkFlowEntities, incomingPlannedWorkFlowEntities),
+                                    //Investigational Intervention Section
+                                    ()=>InvestigationalInvestigationSectionCheck(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId), existingInvestigationalInterventionEntities, incomingInvestigationalInterventionEntities)
+                                );
 
                             studyDesignList.Add(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId));
                             existing.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns.RemoveAll(x => x.studyDesignId == item.studyDesignId);
@@ -453,9 +474,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 }
                 #endregion
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -498,9 +519,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     existingStudyDesign.currentSections.FindAll(x => x.investigationalInterventions != null).ForEach(x => x.investigationalInterventions = investigationalInterventionList);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
         public static void StudyPopulationsSectionCheck(StudyDesignEntity existingStudyDesign, List<StudyPopulationEntity> existingStudyPopulationEntities, List<StudyPopulationEntity> incomingStudyPopulationEntities)
@@ -538,9 +559,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     existingStudyDesign.currentSections.FindAll(x => x.studyPopulations != null).ForEach(x => x.studyPopulations = studyPopulationList);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -589,9 +610,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     existingStudyDesign.currentSections.FindAll(x => x.plannedWorkflows != null).ForEach(x => x.plannedWorkflows = plannedWorkFlowsList);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -622,9 +643,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         //        }
         //        incomingTransitionEntities = transitionList;
         //    }
-        //    catch (Exception ex)
+        //    catch (Exception)
         //    {
-        //        throw ex;
+        //        throw;
         //    }
         //}
 
@@ -648,9 +669,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         //        }
         //        incomingTransitionCriteriaEntities = transitionCriteriaList;
         //    }
-        //    catch (Exception ex)
+        //    catch (Exception)
         //    {
-        //        throw ex;
+        //        throw;
         //    }
         //}
         //public static void TransitionRuleSectionCheck(TransitionRuleEntity existingTransitionRuleEntity, TransitionRuleEntity incomingTransitionRuleEntity)
@@ -666,9 +687,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         //            incomingTransitionRuleEntity.transitionRuleId = IdGenerator.GenerateId();
         //        }
         //    }
-        //    catch (Exception ex)
+        //    catch (Exception)
         //    {
-        //        throw ex;
+        //        throw;
         //    }
         //} 
         #endregion
@@ -685,9 +706,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     incomingPointInTime.pointInTimeId = IdGenerator.GenerateId();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -721,9 +742,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     MatrixSectionCheck(existingWorkFlowItemMatrixEntity.matrix, incomingWorkFlowItemMatrixEntity.matrix);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
         public static void MatrixSectionCheck(List<MatrixEntity> existingMatrixEntities, List<MatrixEntity> incomingMatrixEntities)
@@ -760,9 +781,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 }
                 incomingMatrixEntities = matrixList;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
         public static void ItemSectionCheck(List<ItemEntity> existingItemEntities, List<ItemEntity> incomingItemEntities)
@@ -802,9 +823,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 }                
                 incomingItemEntities = itemList;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
         public static void ActivitySectionCheck(ActivityEntity existingActivityEntity, ActivityEntity incomingActivityEntity)
@@ -822,9 +843,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     StudyDataCollectionSectionCheck(existingActivityEntity.studyDataCollection, incomingActivityEntity.studyDataCollection);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
         public static void StudyDataCollectionSectionCheck(List<StudyDataCollectionEntity> existingStudyDataCollectionEntities, List<StudyDataCollectionEntity> incomingStudyDataCollectionEntities)
@@ -848,9 +869,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 }
                 incomingStudyDataCollectionEntities = studyDataCollectionList;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -873,9 +894,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     EpochSectionCheck(existingEncounterEntity.epoch, incomingEncounterEntity.epoch);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
         public static void EpochSectionCheck(EpochEntity existingEpochEntity, EpochEntity incomingEpochEntity)
@@ -888,9 +909,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     incomingEpochEntity.epochId = IdGenerator.GenerateId();
                 }               
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
         #endregion        
@@ -939,9 +960,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     existingStudyDesign.currentSections.FindAll(x => x.studyCells != null).ForEach(x => x.studyCells = studyCellList);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -969,9 +990,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 }
                 incomingStudyElementsEntities = studyElementsList;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
         public static void RuleSectionCheck(RuleEntity existingRuleEntity, RuleEntity incomingRuleEntity)
@@ -987,9 +1008,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     incomingRuleEntity.RuleId = IdGenerator.GenerateId();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -1006,9 +1027,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     incomingStudyArm.studyArmId = IdGenerator.GenerateId();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
         public static void StudyEpochSectionCheck(StudyEpochEntity existingStudyEpoch, StudyEpochEntity incomingStudyEpoch)
@@ -1024,9 +1045,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     incomingStudyEpoch.studyEpochId = IdGenerator.GenerateId();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
         #endregion
@@ -1067,9 +1088,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         //            existing.clinicalStudy.currentSections.FindAll(x => x.studyProtocol != null).ForEach(x => x.studyProtocol = existingSudyProtocol);
         //        }
         //    }
-        //    catch (Exception ex)
+        //    catch (Exception)
         //    {
-        //        throw ex;
+        //        throw;
         //    }
         //}
         #endregion

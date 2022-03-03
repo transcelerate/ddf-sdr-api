@@ -428,7 +428,15 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         {
                             searchparameters.toDate = Convert.ToDateTime(searchparameters.toDate).Date.AddHours(23).AddMinutes(59).AddSeconds(59).ToString();
                         }
-                        if((!String.IsNullOrWhiteSpace(searchparameters.fromDate)) && (!String.IsNullOrWhiteSpace(searchparameters.toDate)))
+                        if (String.IsNullOrWhiteSpace(searchparameters.fromDate))
+                        {
+                            searchparameters.fromDate = DateTime.MinValue.ToString();
+                        }
+                        else
+                        {
+                            searchparameters.fromDate = Convert.ToDateTime(searchparameters.fromDate).ToString();
+                        }
+                        if ((!String.IsNullOrWhiteSpace(searchparameters.fromDate)) && (!String.IsNullOrWhiteSpace(searchparameters.toDate)))
                         {
                             if (Convert.ToDateTime(searchparameters.fromDate) > Convert.ToDateTime(searchparameters.toDate))
                             {
