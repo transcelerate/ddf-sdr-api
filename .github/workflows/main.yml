@@ -51,7 +51,7 @@ jobs:
     - name: Zip publish files
       shell: pwsh
       run: |
-          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/netcoreapp3.1/publish/**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
+          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net6.0/publish/**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
            
     - name: dotnet test
       run: |
