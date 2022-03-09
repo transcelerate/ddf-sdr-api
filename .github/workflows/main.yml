@@ -103,17 +103,22 @@ jobs:
 #         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         
         
-    - name: Sonarscanner for dotnet
-      uses: Secbyte/dotnet-sonarscanner@v2.3
-      with:
-       projectName: ddf-sdr-api
-       projectKey: transceleratebiopharmainc_ddf-sdr-api
-       beginArguments: >
-        /d:sonar.verbose="true"
-        /d:sonar.cs.opencover.reportsPaths='${{ github.workspace }}/coverage.cobertura.xml'
+#     - name: Sonarscanner for dotnet
+#       uses: Secbyte/dotnet-sonarscanner@v2.3
+#       with:
+#        projectName: ddf-sdr-api
+#        projectKey: transceleratebiopharmainc_ddf-sdr-api
+#        beginArguments: >
+#         /d:sonar.verbose="true"
+#         /d:sonar.cs.opencover.reportsPaths='${{ github.workspace }}/coverage.cobertura.xml'
        
+#       env:
+#        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+
+    - name: Sonarqube end
+      run: dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
       env:
-       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-       SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
