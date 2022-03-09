@@ -94,10 +94,24 @@ jobs:
 #         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
 
-    - uses: actions/checkout@v2
+#     - uses: actions/checkout@v2
+#       with:
+#         fetch-depth: 0
+#     - uses: sonarsource/sonarqube-scan-action@master
+#       env:
+#         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        
+        
+    - name: Sonarscanner for dotnet
+      uses: Secbyte/dotnet-sonarscanner@v2.3
       with:
-        fetch-depth: 0
-    - uses: sonarsource/sonarqube-scan-action@master
+       beginArguments: >
+        /d:sonar.verbose="true"
+        /d:sonar.cs.opencover.reportsPaths='${{ github.workspace }}/coverage.cobertura.xml'
+       
       env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    
