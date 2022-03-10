@@ -131,8 +131,8 @@ jobs:
           ./.sonar/scanner/dotnet-sonarscanner begin /k:"transceleratebiopharmainc_ddf-sdr-api" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.coverageReportPaths="${{ github.workspace }}/coverage.cobertura.xml"
           dotnet build 'src/TransCelerate.SDR.sln' --configuration release
           dotnet publish 'src/TransCelerate.SDR.sln' --configuration release
-          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net6.0/publish/**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
-          dotnet test 'src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release  --collect "Code coverage" -s "CodeCoverage.runsettings" --logger trx 
+          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net6.0/publish/**" -DestinationPath "${{ github.workspace }}/Publish.zip" -Force  
+          dotnet test 'src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release  --collect "Code coverage" -s "src/CodeCoverage.runsettings" --logger trx 
           Copy-Item 'src/TransCelerate.SDR.UnitTesting/TestResults/*/coverage.cobertura.xml' '${{ github.workspace }}/coverage.cobertura.xml'
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
      
