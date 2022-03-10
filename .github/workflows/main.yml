@@ -136,6 +136,10 @@ jobs:
           Copy-Item 'src/TransCelerate.SDR.UnitTesting/TestResults/*/coverage.cobertura.xml' '${{ github.workspace }}/coverage.cobertura.xml'
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
      
+    - name: run tmate
+      uses: mxschmitt/action-tmate@v3
+      if: always()
+      
 #     - name: 'Run Azure webapp deploy action using publish profile credentials'
 #       uses: azure/webapps-deploy@v2
 #       with: 
