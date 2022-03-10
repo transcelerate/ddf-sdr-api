@@ -46,60 +46,21 @@ jobs:
       uses: nuget/setup-nuget@v1
       
     - name: NuGet restore
-      run: nuget restore '${{ github.workspace }}/src/TransCelerate.SDR.sln'
+      run: nuget restore '${{ github.workspace }}/src/TransCelerate.SDR.sln'      
       
-      
-#     - name: Sonarqube Begin
-#       run: | 
-#        dotnet tool install --global dotnet-sonarscanner
-#        dotnet sonarscanner begin /o:someorg /k:somekey /d:sonar.login=${{ secrets.SONAR_TOKEN }} /s:$GITHUB_WORKSPACE/SonarQube.Analysis.xml
-    
+ 
     - name: Find and Replace User Name - Using Build Variable
       run: |
         find ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/appsettings.json -type f -exec sed -i ''s@{#KeyVault-Name#}@'${{ secrets.KeyVault_Dev }}'@g'' {} \;
         
-#     - name: Build solution **\*.sln
-#       run: dotnet publish 'src/TransCelerate.SDR.sln' --configuration release
+    - name: Build solution **\*.sln
+      run: dotnet publish 'src/TransCelerate.SDR.sln' --configuration release
       
-#     - name: Zip publish files
-#       shell: pwsh
-#       run: |
-#           Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net6.0/publish/**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
+    - name: Zip publish files
+      shell: pwsh
+      run: |
+          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net6.0/publish/**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
            
-#     - name: dotnet test
-#       run: |
-#         cd '${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting/'
-#         dotnet test TransCelerate.SDR.UnitTesting.csproj --configuration release  --collect:"XPlat Code Coverage" --logger trx
-#         cp TestResults/*/coverage.cobertura.xml '${{ github.workspace }}/coverage.cobertura.xml'
-          
-#     - name: Code Coverage Summary Report
-#       uses: irongut/CodeCoverageSummary@v1.0.2
-#       with:
-#         filename: coverage.cobertura.xml
-#         badge: true
-#         format: 'markdown'
-#         output: 'both'
-        
-#     - name: use this action, test solution dir
-#       uses: zyborg/dotnet-tests-report@v1
-#       with:
-#         project_path: '${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting'
-#         report_name: 'TransCelerate.SDR.UnitTesting'
-#         report_title: API Tests Report
-#         github_token: ${{ secrets.GITHUB_TOKEN }}
-        
-#     - name: 'Publish Artifact: Artifact'
-#       uses: actions/upload-artifact@v2
-#       with:
-#         path: '${{ github.workspace }}/Publish.zip'
-#         name: Build-Artifact
-        
-#    - # "Note: the 'AZURE_SP' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
-#       name: Azure Login
-#       uses: azure/login@v1
-#       with:
-#         creds: ${{ secrets.AZURE_SP }}       
-        
     - name: Cache SonarQube packages
       uses: actions/cache@v1
       with:
@@ -129,18 +90,40 @@ jobs:
       shell: pwsh
       run: |
           ./.sonar/scanner/dotnet-sonarscanner begin /k:"transceleratebiopharmainc_ddf-sdr-api" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.coverageReportPaths="${{ github.workspace }}/coverage/SonarQube.xml" /d:sonar.cs.vstest.reportsPaths="*.trx" /d:sonar.verbose=true /d:sonar.log.level="TRACE"
-          dotnet publish 'src/TransCelerate.SDR.sln' --configuration release
-          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net6.0/publish/**" -DestinationPath "${{ github.workspace }}/Publish.zip" -Force  
           
           dotnet test 'src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release  --collect "XPlat Code Coverage" -s "src/CodeCoverage.runsettings" --logger trx 
           cd ${{ github.workspace }}
           reportgenerator "-reports:src/TransCelerate.SDR.UnitTesting/TestResults/*/coverage.cobertura.xml" "-targetdir:coverage" -reporttypes:"Cobertura;SonarQube"
           
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-     
-#     - name: run tmate
-#       uses: mxschmitt/action-tmate@v3
-#       if: always()
+          
+    - name: Code Coverage Summary Report
+      uses: irongut/CodeCoverageSummary@v1.0.2
+      with:
+        filename: 'coverage/coverage.cobertura.xml'
+        badge: true
+        format: 'markdown'
+        output: 'both'
+        
+    - name: use this action, test solution dir
+      uses: zyborg/dotnet-tests-report@v1
+      with:
+        project_path: '${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting'
+        report_name: 'TransCelerate.SDR.UnitTesting'
+        report_title: API Tests Report
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: 'Publish Artifact: Artifact'
+      uses: actions/upload-artifact@v2
+      with:
+        path: '${{ github.workspace }}/Publish.zip'
+        name: Build-Artifact
+        
+    - # "Note: the 'AZURE_SP' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
+      name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_SP }}   
       
 #     - name: 'Run Azure webapp deploy action using publish profile credentials'
 #       uses: azure/webapps-deploy@v2
