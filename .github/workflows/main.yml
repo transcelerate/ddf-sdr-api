@@ -121,6 +121,7 @@ jobs:
       run: |
           New-Item -Path ./.sonar/scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
+          dotnet tool update dotnet-reportgenerator-globaltool -g 
           
     - name: Build and analyze
       env:
@@ -129,6 +130,10 @@ jobs:
       run: |
           ./.sonar/scanner/dotnet-sonarscanner begin /k:"transceleratebiopharmainc_ddf-sdr-api" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
           dotnet build 'src/TransCelerate.SDR.sln' --configuration release
+          dotnet publish 'src/TransCelerate.SDR.sln' --configuration release
+          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net6.0/publish/**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
+          dotnet test 'src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release  --collect:"XPlat Code Coverage" --logger trx 
+          Copy-Item 'src/TransCelerate.SDR.UnitTesting/TestResults/*/coverage.cobertura.xml' '${{ github.workspace }}/coverage.cobertura.xml'
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
      
 #     - name: 'Run Azure webapp deploy action using publish profile credentials'
