@@ -11,11 +11,11 @@
               <Exclude>
 <!--                 <ModulePath>TransCelerate.SDR.UnitTesting</ModulePath> -->
                 <ModulePath>.*moq.dll</ModulePath> -->
-                <ModulePath>.*CPPUnitTestFramework.*</ModulePath>
+<!--                 <ModulePath>.*CPPUnitTestFramework.*</ModulePath>
                 <ModulePath>.*TestAdapter.*</ModulePath>
                 <ModulePath>.*TransCelerate.SDR.DataAccess.*</ModulePath>
                 <ModulePath>**/TransCelerate.SDR.WebApi/Program.cs</ModulePath>
-                <ModulePath>**/TransCelerate.SDR.WebApi/Startup.cs</ModulePath>
+                <ModulePath>**/TransCelerate.SDR.WebApi/Startup.cs</ModulePath> -->
               </Exclude>
             </ModulePaths> 
           </CodeCoverage>
