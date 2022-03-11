@@ -9,7 +9,7 @@
             <!-- Match assembly file paths: -->
             <ModulePaths>              
               <Exclude>
-                <ModulePath>TransCelerate.SDR.UnitTesting</ModulePath>
+<!--                 <ModulePath>TransCelerate.SDR.UnitTesting</ModulePath> -->
                 <ModulePath>.*moq.dll</ModulePath> -->
                 <ModulePath>.*CPPUnitTestFramework.*</ModulePath>
                 <ModulePath>.*TestAdapter.*</ModulePath>
