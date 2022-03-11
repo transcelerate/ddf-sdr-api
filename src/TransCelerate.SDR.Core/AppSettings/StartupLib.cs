@@ -8,6 +8,10 @@ namespace TransCelerate.SDR.Core.AppSettings
 {
     public static class StartupLib
     {
+        /// <summary>
+        /// Get From appsettings.json at runtime
+        /// </summary>
+        /// <param name="config"></param>
         public static void SetConstants(IConfiguration config)
         {            
             Config.connectionString = Convert.ToString(config.GetSection("ConnectionStrings:ServerName").Value);

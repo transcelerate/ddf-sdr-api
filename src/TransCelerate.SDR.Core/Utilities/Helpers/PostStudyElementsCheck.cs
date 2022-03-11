@@ -13,6 +13,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
     public static class PostStudyElementsCheck
     {
         #region Full Study Check
+        /// <summary>
+        /// This method is used to check whether the incoming study and existing study are same
+        /// </summary>
+        /// <param name="incoming"></param>
+        /// <param name="existing"></param>
+        /// <returns></returns>
         public static bool StudyComparison(StudyEntity incoming, StudyEntity existing)
         {
             try
@@ -27,6 +33,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 throw;
             }
         }
+        /// <summary>
+        /// This method will check whether two Json objects are same or not
+        /// </summary>
+        /// <param name="incoming"></param>
+        /// <param name="existing"></param>
+        /// <returns></returns>
         public static bool JsonObjectCheck(object incoming, object existing)
         {
             try
@@ -39,6 +51,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 throw;
             }
         }
+        /// <summary>
+        /// This method will remove all the id fields in the study
+        /// </summary>
+        /// <param name="studyEntity"></param>
+        /// <returns></returns>
         public static StudyEntity RemoveId(StudyEntity studyEntity)
         {
             try
@@ -210,6 +227,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         #endregion
 
         #region Study SectionCheck
+        /// <summary>
+        /// Section Level Study comparison for sectional POST
+        /// </summary>
+        /// <param name="incoming"></param>
+        /// <param name="existing"></param>
+        /// <returns></returns>
         public static StudyEntity SectionCheck(StudyEntity incoming, StudyEntity existing)
         {
             try
@@ -242,7 +265,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 {
                     existing.clinicalStudy.currentSections = SectionIdGenerator.GenerateSectionId(incoming).clinicalStudy.currentSections;
                 }
-                else if(incoming.clinicalStudy.currentSections != null && existing.clinicalStudy.currentSections != null)
+                //If there is current sections in existing entity, the we are proceeding with section level checks
+                else if (incoming.clinicalStudy.currentSections != null && existing.clinicalStudy.currentSections != null)
                 {
                     List<InvestigationalInterventionEntity> existingInvestigationalInterventionEntities = existing.clinicalStudy.currentSections.FindAll(x => x.investigationalInterventions != null).Count() != 0 ? existing.clinicalStudy.currentSections.Find(x => x.investigationalInterventions != null).investigationalInterventions : new List<InvestigationalInterventionEntity>();
                     List<InvestigationalInterventionEntity> incomingInvestigationalInterventionEntities = incoming.clinicalStudy.currentSections.FindAll(x => x.investigationalInterventions != null).Count()!=0 ? incoming.clinicalStudy.currentSections.Find(x => x.investigationalInterventions != null).investigationalInterventions:new List<InvestigationalInterventionEntity>();
@@ -251,27 +275,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     List<StudyObjectiveEntity> incomingStudyObjectivesEntities = incoming.clinicalStudy.currentSections.FindAll(x => x.objectives != null).Count() !=0 ? incoming.clinicalStudy.currentSections.Find(x => x.objectives != null).objectives: new List<StudyObjectiveEntity>();
 
                     List<StudyIndicationEntity> existingStudyIndicationEntities = existing.clinicalStudy.currentSections.FindAll(x => x.studyIndications != null).Count()!=0? existing.clinicalStudy.currentSections.Find(x => x.studyIndications != null).studyIndications:new List<StudyIndicationEntity>();
-                    List<StudyIndicationEntity> incomingStudyIndicationEntities = incoming.clinicalStudy.currentSections.FindAll(x => x.studyIndications != null).Count() != 0 ? incoming.clinicalStudy.currentSections.Find(x => x.studyIndications != null).studyIndications : new List<StudyIndicationEntity>();
-
-                    //Removed StudyProtocol Section
-                    //StudyProtocolEntity existingStudyProtocolEntities = existing.clinicalStudy.currentSections.FindAll(x => x.studyProtocol != null).Count()!=0 ? existing.clinicalStudy.currentSections.Find(x => x.studyProtocol != null).studyProtocol : new StudyProtocolEntity();
-                    //StudyProtocolEntity incomingStudyProtocolEntities = incoming.clinicalStudy.currentSections.FindAll(x => x.studyProtocol != null).Count() != 0 ? incoming.clinicalStudy.currentSections.Find(x => x.studyProtocol != null).studyProtocol : new StudyProtocolEntity();
+                    List<StudyIndicationEntity> incomingStudyIndicationEntities = incoming.clinicalStudy.currentSections.FindAll(x => x.studyIndications != null).Count() != 0 ? incoming.clinicalStudy.currentSections.Find(x => x.studyIndications != null).studyIndications : new List<StudyIndicationEntity>();                   
 
                     List<StudyDesignEntity> existingStudyDesignEntities = existing.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).Count()!=0? existing.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns: new List<StudyDesignEntity>();
-                    List<StudyDesignEntity> incomingStudyDesignEntities = incoming.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).Count() != 0 ? incoming.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns : new List<StudyDesignEntity>();                   
-
-                    ////Study Objectives Section
-                    //StudyObjectivesSectionCheck(existing, existingStudyObjectivesEntities, incomingStudyObjectivesEntities);
-
-                    ////Study Indications Section
-                    //StudyIndicationSectionCheck(existing, existingStudyIndicationEntities, incomingStudyIndicationEntities);
-
-                    ////Removed StudyProtocol Section
-                    ////Study Protocol Section
-                    ////StudyProtocolSectionCheck(existing, existingStudyProtocolEntities, incomingStudyProtocolEntities);
-
-                    ////Study Design Section
-                    //StudyDesignSectionCheck(existing, existingStudyDesignEntities, incomingStudyDesignEntities);
+                    List<StudyDesignEntity> incomingStudyDesignEntities = incoming.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).Count() != 0 ? incoming.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns : new List<StudyDesignEntity>();                                      
 
                     Parallel.Invoke(
                                 //Study Objectives Section
@@ -291,7 +298,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         }
 
         #region Study Level Sections       
-
+        /// <summary>
+        /// Check for Study Objectives section 
+        /// </summary>
+        /// <param name="existing"></param>
+        /// <param name="existingStudyObjectivesEntities"></param>
+        /// <param name="incomingStudyObjectivesEntities"></param>
         public static void StudyObjectivesSectionCheck(StudyEntity existing, List<StudyObjectiveEntity> existingStudyObjectivesEntities, List<StudyObjectiveEntity> incomingStudyObjectivesEntities)
         {
             try
@@ -358,6 +370,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             }
         }
 
+        /// <summary>
+        /// Check for Study Indication section 
+        /// </summary>
+        /// <param name="existing"></param>
+        /// <param name="existingStudyIndicationEntities"></param>
+        /// <param name="incomingStudyIndicationEntities"></param>
         public static void StudyIndicationSectionCheck(StudyEntity existing, List<StudyIndicationEntity> existingStudyIndicationEntities, List<StudyIndicationEntity> incomingStudyIndicationEntities)
         {
             try
@@ -397,8 +415,14 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             {
                 throw;
             }
-        }        
+        }
 
+        /// <summary>
+        /// Check for Study Design section 
+        /// </summary>
+        /// <param name="existing"></param>
+        /// <param name="existingStudyDesignEntities"></param>
+        /// <param name="incomingStudyDesignEntities"></param>
         public static void StudyDesignSectionCheck(StudyEntity existing, List<StudyDesignEntity> existingStudyDesignEntities,List<StudyDesignEntity> incomingStudyDesignEntities)
         {
             try
@@ -460,19 +484,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                             List<InvestigationalInterventionEntity> incomingInvestigationalInterventionEntities = incomingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId).currentSections
                                                                                                                      .FindAll(x => x.studyCells != null).Count() != 0 ?
                                                                                           incomingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId).currentSections
-                                                                                                                     .Find(x => x.investigationalInterventions != null).investigationalInterventions : new List<InvestigationalInterventionEntity>();
-
-                            ////Study Populations Section
-                            //StudyPopulationsSectionCheck(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId), existingStudyPopulationsEntities, incomingStudyPopulationsEntities);
-
-                            ////Study Cells Section
-                            //StudyCellsSectionCheck(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId), existingStudyCellEntities, incomingStudyCellEntities);
-
-                            ////Planned WorkFlow Section
-                            //StudyPlannedWorkFlowSectionCheck(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId), existingPlannedWorkFlowEntities, incomingPlannedWorkFlowEntities);
-
-                            ////Investigational Intervention Section
-                            //InvestigationalInvestigationSectionCheck(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId), existingInvestigationalInterventionEntities, incomingInvestigationalInterventionEntities);
+                                                                                                                     .Find(x => x.investigationalInterventions != null).investigationalInterventions : new List<InvestigationalInterventionEntity>();                          
 
                             Parallel.Invoke(
                                     //Study Populations Section
@@ -510,7 +522,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         #endregion
 
         #region Study Design Sections
-
+        /// <summary>
+        /// Check for Investigational Intervention section 
+        /// </summary>
+        /// <param name="existingStudyDesign"></param>
+        /// <param name="existingInvestigationalInterventionEntities"></param>
+        /// <param name="incomingInvestigationalInterventionEntities"></param>
         public static void InvestigationalInvestigationSectionCheck(StudyDesignEntity existingStudyDesign, List<InvestigationalInterventionEntity> existingInvestigationalInterventionEntities, List<InvestigationalInterventionEntity> incomingInvestigationalInterventionEntities)
         {
             try
@@ -551,6 +568,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 throw;
             }
         }
+
+        /// <summary>
+        /// Check for Study Population section 
+        /// </summary>
+        /// <param name="existingStudyDesign"></param>
+        /// <param name="existingStudyPopulationEntities"></param>
+        /// <param name="incomingStudyPopulationEntities"></param>
         public static void StudyPopulationsSectionCheck(StudyDesignEntity existingStudyDesign, List<StudyPopulationEntity> existingStudyPopulationEntities, List<StudyPopulationEntity> incomingStudyPopulationEntities)
         {
             try
@@ -593,6 +617,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         }
 
         #region Planned WorkFlow Section
+        /// <summary>
+        /// Check for Study Planned WorkFlow section 
+        /// </summary>
+        /// <param name="existingStudyDesign"></param>
+        /// <param name="existingPlannedWorkFlowsEntities"></param>
+        /// <param name="incomingPlannedWorkFlowsEntities"></param>
         public static void StudyPlannedWorkFlowSectionCheck(StudyDesignEntity existingStudyDesign, List<PlannedWorkFlowEntity> existingPlannedWorkFlowsEntities, List<PlannedWorkFlowEntity> incomingPlannedWorkFlowsEntities)
         {
             try
@@ -643,83 +673,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             }
         }
 
-        #region Removed Transitions From Planned WorkFlows
-        //public static void TransitionSectionCheck(List<TransitionEntity> existingTransitionEntities, List<TransitionEntity> incomingTransitionEntities)
-        //{
-        //    try
-        //    {
-        //        var transitionList = new List<TransitionEntity>();
-        //        foreach (var item in incomingTransitionEntities)
-        //        {
-        //            if (existingTransitionEntities.Any(x => x.transitionId == item.transitionId))
-        //            {
-        //                PointInTimeSectionCheck(existingTransitionEntities.Find(x => x.transitionId == item.transitionId).fromPointInTime, item.fromPointInTime);
-        //                PointInTimeSectionCheck(existingTransitionEntities.Find(x => x.transitionId == item.transitionId).toPointInTime, item.toPointInTime);
-        //                TransitionCriteriaSectionCheck(existingTransitionEntities.Find(x => x.transitionId == item.transitionId).transitionCriteria, item.transitionCriteria);
-        //                TransitionRuleSectionCheck(existingTransitionEntities.Find(x => x.transitionId == item.transitionId).transitionRule, item.transitionRule);
-        //                transitionList.Add(item);
-        //                existingTransitionEntities.RemoveAll(x => x.transitionId == item.transitionId);
-        //            }
-        //            else
-        //            {
-        //                item.transitionId = IdGenerator.GenerateId();
-        //                item.transitionCriteria.ForEach(x => x.transitionCriteriaId = IdGenerator.GenerateId());
-        //                transitionList.Add(item);
-        //            }
-
-        //        }
-        //        incomingTransitionEntities = transitionList;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
-
-        //public static void TransitionCriteriaSectionCheck(List<TransitionCriteriaEntity> existingTransitionCriteriaEntities, List<TransitionCriteriaEntity> incomingTransitionCriteriaEntities)
-        //{
-        //    try
-        //    {
-        //        var transitionCriteriaList = new List<TransitionCriteriaEntity>();
-        //        foreach (var item in incomingTransitionCriteriaEntities)
-        //        {
-        //            if (existingTransitionCriteriaEntities.Any(x => x.transitionCriteriaId == item.transitionCriteriaId))
-        //            {
-        //                transitionCriteriaList.Add(item);
-        //                existingTransitionCriteriaEntities.RemoveAll(x => x.transitionCriteriaId == item.transitionCriteriaId);
-        //            }
-        //            else
-        //            {
-        //                item.transitionCriteriaId = IdGenerator.GenerateId();
-        //                transitionCriteriaList.Add(item);
-        //            }
-        //        }
-        //        incomingTransitionCriteriaEntities = transitionCriteriaList;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
-        //public static void TransitionRuleSectionCheck(TransitionRuleEntity existingTransitionRuleEntity, TransitionRuleEntity incomingTransitionRuleEntity)
-        //{
-        //    try
-        //    {
-        //        if (existingTransitionRuleEntity.transitionRuleId == null && incomingTransitionRuleEntity.transitionRuleId != null)
-        //        {
-        //            incomingTransitionRuleEntity.transitionRuleId = IdGenerator.GenerateId();
-        //        }
-        //        else if (existingTransitionRuleEntity.transitionRuleId != incomingTransitionRuleEntity.transitionRuleId)
-        //        {
-        //            incomingTransitionRuleEntity.transitionRuleId = IdGenerator.GenerateId();
-        //        }
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //} 
-        #endregion
+        /// <summary>
+        /// Check for PointInTime section 
+        /// </summary>
+        /// <param name="existingPointInTime"></param>
+        /// <param name="incomingPointInTime"></param>
         public static void PointInTimeSectionCheck(PointInTimeEntity existingPointInTime, PointInTimeEntity incomingPointInTime)
         {
             try
@@ -741,6 +699,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             }
         }
 
+        /// <summary>
+        /// Check for WorkFlowItemMatrix section 
+        /// </summary>
+        /// <param name="existingWorkFlowItemMatrixEntity"></param>
+        /// <param name="incomingWorkFlowItemMatrixEntity"></param>
         public static void WorkFlowItemMatrixSectionCheck(WorkFlowItemMatrixEntity existingWorkFlowItemMatrixEntity,WorkFlowItemMatrixEntity incomingWorkFlowItemMatrixEntity)
         {
             try
@@ -778,6 +741,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 throw;
             }
         }
+
+        /// <summary>
+        /// Check for Matrix section 
+        /// </summary>
+        /// <param name="existingMatrixEntities"></param>
+        /// <param name="incomingMatrixEntities"></param>
         public static void MatrixSectionCheck(List<MatrixEntity> existingMatrixEntities, List<MatrixEntity> incomingMatrixEntities)
         {
             try
@@ -817,6 +786,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 throw;
             }
         }
+
+        /// <summary>
+        /// Check for Items section 
+        /// </summary>
+        /// <param name="existingItemEntities"></param>
+        /// <param name="incomingItemEntities"></param>
         public static void ItemSectionCheck(List<ItemEntity> existingItemEntities, List<ItemEntity> incomingItemEntities)
         {
             try
@@ -859,6 +834,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 throw;
             }
         }
+
+        /// <summary>
+        /// Check for Activity section 
+        /// </summary>
+        /// <param name="existingActivityEntity"></param>
+        /// <param name="incomingActivityEntity"></param>
         public static void ActivitySectionCheck(ActivityEntity existingActivityEntity, ActivityEntity incomingActivityEntity)
         {
             try
@@ -879,6 +860,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 throw;
             }
         }
+
+        /// <summary>
+        /// Check for StudyDataCollection section 
+        /// </summary>
+        /// <param name="existingStudyDataCollectionEntities"></param>
+        /// <param name="incomingStudyDataCollectionEntities"></param>
         public static void StudyDataCollectionSectionCheck(List<StudyDataCollectionEntity> existingStudyDataCollectionEntities, List<StudyDataCollectionEntity> incomingStudyDataCollectionEntities)
         {
             try
@@ -906,6 +893,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             }
         }
 
+        /// <summary>
+        /// Check for Encounter section 
+        /// </summary>
+        /// <param name="existingEncounterEntity"></param>
+        /// <param name="incomingEncounterEntity"></param>
         public static void EncounterSectionCheck(EncounterEntity existingEncounterEntity, EncounterEntity incomingEncounterEntity)
         {
             try
@@ -930,6 +922,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 throw;
             }
         }
+
+        /// <summary>
+        /// Check for Epoch section 
+        /// </summary>
+        /// <param name="existingEpochEntity"></param>
+        /// <param name="incomingEpochEntity"></param>
         public static void EpochSectionCheck(EpochEntity existingEpochEntity, EpochEntity incomingEpochEntity)
         {
             try
@@ -948,6 +946,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         #endregion        
 
         #region Study Cells Section
+        /// <summary>
+        /// Check for StudyCells section 
+        /// </summary>
+        /// <param name="existingStudyDesign"></param>
+        /// <param name="existingStudyCellsEntities"></param>
+        /// <param name="incomingStudyCellsEntities"></param>
         public static void StudyCellsSectionCheck(StudyDesignEntity existingStudyDesign, List<StudyCellEntity> existingStudyCellsEntities, List<StudyCellEntity> incomingStudyCellsEntities)
         {
             try
@@ -997,6 +1001,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             }
         }
 
+        /// <summary>
+        /// Check for StudyElements section 
+        /// </summary>
+        /// <param name="existingStudyElementsEntities"></param>
+        /// <param name="incomingStudyElementsEntities"></param>
         public static void StudyElementsSectionCheck(List<StudyElementEntity> existingStudyElementsEntities, List<StudyElementEntity> incomingStudyElementsEntities)
         {
             try
@@ -1026,6 +1035,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 throw;
             }
         }
+
+        /// <summary>
+        /// Check for Rule section 
+        /// </summary>
+        /// <param name="existingRuleEntity"></param>
+        /// <param name="incomingRuleEntity"></param>
         public static void RuleSectionCheck(RuleEntity existingRuleEntity, RuleEntity incomingRuleEntity)
         {
             try
@@ -1045,6 +1060,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             }
         }
 
+        /// <summary>
+        /// Check for StudyArm section 
+        /// </summary>
+        /// <param name="existingStudyArm"></param>
+        /// <param name="incomingStudyArm"></param>
         public static void StudyArmSectionCheck(StudyArmEntity existingStudyArm,StudyArmEntity incomingStudyArm)
         {
             try
@@ -1063,6 +1083,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 throw;
             }
         }
+
+        /// <summary>
+        /// Check for StudyEpoch section 
+        /// </summary>
+        /// <param name="existingStudyEpoch"></param>
+        /// <param name="incomingStudyEpoch"></param>
         public static void StudyEpochSectionCheck(StudyEpochEntity existingStudyEpoch, StudyEpochEntity incomingStudyEpoch)
         {
             try
@@ -1084,46 +1110,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         #endregion
         #endregion
 
-        #endregion
-
-        #region Removed Study Protocol Section
-        
-        //public static void StudyProtocolSectionCheck(StudyEntity existing, StudyProtocolEntity existingSudyProtocol, StudyProtocolEntity incomingStudyProtocol)
-        //{
-        //    try
-        //    {
-        //        if (existingSudyProtocol.protocolId == null && incomingStudyProtocol.protocolId != null)
-        //        {
-        //            incomingStudyProtocol.protocolId = IdGenerator.GenerateId();
-        //            StudyProtocolEntity studyProtocolEntity = new StudyProtocolEntity();
-
-        //            CurrentSectionsEntity currentSectionsEntity = new CurrentSectionsEntity()
-        //            {
-        //                currentSectionsId = IdGenerator.GenerateId(),
-        //                sectionType = StudySectionTypes.STUDY_PROTOCOL.ToString(),
-        //                studyProtocol = incomingStudyProtocol
-        //            };
-        //            existing.clinicalStudy.currentSections.Add(currentSectionsEntity);
-        //        }
-        //        else if (existingSudyProtocol.protocolId != null && incomingStudyProtocol.protocolId != null)
-        //        {
-        //            if (incomingStudyProtocol.protocolId == existingSudyProtocol.protocolId)
-        //            {
-        //                existingSudyProtocol = incomingStudyProtocol;
-        //            }
-        //            else
-        //            {
-        //                incomingStudyProtocol.protocolId = IdGenerator.GenerateId();
-        //                existingSudyProtocol = incomingStudyProtocol;
-        //            }
-        //            existing.clinicalStudy.currentSections.FindAll(x => x.studyProtocol != null).ForEach(x => x.studyProtocol = existingSudyProtocol);
-        //        }
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
         #endregion
     }
 }

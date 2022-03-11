@@ -70,32 +70,7 @@ namespace TransCelerate.SDR.WebApi
             //Swagger
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Transcelerate SDR", Version = "v1" });
-                
-                #region Removed As a part of certificate authentication
-                //c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                //{
-                //    Description = "JWT Authorization header using the Bearer scheme (Example: 'Bearer 12345abcdef')",
-                //    Name = "Authorization",
-                //    In = ParameterLocation.Header,
-                //    Type = SecuritySchemeType.ApiKey,
-                //    Scheme = "Bearer"
-                //});
-                //c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                //{
-                //{
-                //    new OpenApiSecurityScheme
-                //    {
-                //        Reference = new OpenApiReference
-                //        {
-                //            Type = ReferenceType.SecurityScheme,
-                //            Id = "Bearer"
-                //        }
-                //    },
-                //    Array.Empty<string>()
-                //}
-                //}); 
-                #endregion
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Transcelerate SDR", Version = "v1" });                             
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
@@ -131,17 +106,14 @@ namespace TransCelerate.SDR.WebApi
                 options.InvalidModelStateResponseFactory = context =>
                 {
                     ValidationProblemDetails problemDetails = new ValidationProblemDetails(context.ModelState);
-                    var inputs = ((Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)context).ActionArguments;
-                    if (JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.JsonParseError.ToLower()))
-                    {
-                        logger.LogError($"API Spec Error : {JsonConvert.SerializeObject(problemDetails.Errors)} ; Input: {JsonConvert.SerializeObject(inputs)} ;");
-                        return new BadRequestObjectResult(ErrorResponseHelper.BadRequest("Bad Request"));
-                    }
-                    else if (JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyEmptyError.ToLower()) || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyMissingError.ToLower()))
+                    var inputs = ((Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)context).ActionArguments;                  
+                    //For Conformance error
+                    if (JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyEmptyError.ToLower()) || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyMissingError.ToLower()))
                     {
                         logger.LogError($"Conformance Error  : {JsonConvert.SerializeObject(problemDetails.Errors)} ; Input: {JsonConvert.SerializeObject(inputs)} ;");
                         return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(problemDetails.Errors));
                     }
+                    //Other errors
                     else
                     {
                         logger.LogError($"Input Error : {JsonConvert.SerializeObject(problemDetails.Errors)} ; Input: {JsonConvert.SerializeObject(inputs)} ;");

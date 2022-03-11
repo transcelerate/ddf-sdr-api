@@ -10,6 +10,9 @@ namespace TransCelerate.SDR.RuleEngine
 {
     public class PointInTimeValidator : AbstractValidator<PointInTimeDTO>
     {
+        /// <summary>
+        /// Validator for PointInTime
+        /// </summary>
         public PointInTimeValidator()
         {           
             RuleFor(x => x.type)

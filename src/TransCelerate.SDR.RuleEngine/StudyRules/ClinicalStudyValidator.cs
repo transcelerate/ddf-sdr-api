@@ -11,6 +11,9 @@ namespace TransCelerate.SDR.RuleEngine
 {
     public class ClinicalStudyValidator : AbstractValidator<PostStudyDTO>
     {
+        /// <summary>
+        /// Validator for ClinicalStudy
+        /// </summary>
         public ClinicalStudyValidator()
         {
 

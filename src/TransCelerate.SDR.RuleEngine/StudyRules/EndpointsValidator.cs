@@ -10,6 +10,9 @@ namespace TransCelerate.SDR.RuleEngine
 {
     public class EndpointsValidator : AbstractValidator<EndpointsDTO>
     {
+        /// <summary>
+        /// Validator for Endpoints
+        /// </summary>
         public EndpointsValidator()
         {           
             RuleFor(x => x.description)

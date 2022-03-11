@@ -10,6 +10,9 @@ namespace TransCelerate.SDR.RuleEngine
 {
     public class DefinedProcedureValidator : AbstractValidator<DefinedProcedureDTO>
     {
+        /// <summary>
+        /// Validator for DefinedProcedure
+        /// </summary>
         public DefinedProcedureValidator()
         {
              RuleFor(x=>x.procedureCode)

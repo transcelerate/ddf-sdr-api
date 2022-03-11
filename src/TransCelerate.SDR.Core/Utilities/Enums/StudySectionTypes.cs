@@ -4,6 +4,9 @@ using System.Text;
 
 namespace TransCelerate.SDR.Core.Utilities
 {
+    /// <summary>
+    /// Sections Types for adding in CurrentSections: SectionType
+    /// </summary>
     public enum StudySectionTypes
     {
         INVESTIGATIONAL_INTERVENTIONS,

@@ -10,6 +10,9 @@ namespace TransCelerate.SDR.RuleEngine
 {
     public class EncounterValidator : AbstractValidator<EncounterDTO>
     {
+        /// <summary>
+        /// Validator for Encounter
+        /// </summary>
         public EncounterValidator()
         {
             RuleFor(x => x.name)

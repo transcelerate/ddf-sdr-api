@@ -228,6 +228,7 @@ namespace TransCelerate.SDR.Services.Services
         /// </summary>
         /// <param name="fromDate"></param>
         /// <param name="toDate"></param>
+        /// <param name="studyTitle"></param>
         /// <returns></returns>
         public async Task<GetStudyHistoryResponseDTO> GetAllStudyId(DateTime fromDate, DateTime toDate, string studyTitle)
         {

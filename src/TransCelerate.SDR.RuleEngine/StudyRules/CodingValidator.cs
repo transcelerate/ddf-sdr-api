@@ -10,6 +10,9 @@ namespace TransCelerate.SDR.RuleEngine
 {
     public class CodingValidator : AbstractValidator<CodingDTO>
     {
+        /// <summary>
+        /// Validator for Coding
+        /// </summary>
         public CodingValidator()
         {           
             RuleFor(x => x.code)

@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DomainModels\**" />
+    <EmbeddedResource Remove="DomainModels\**" />
+    <None Remove="DomainModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="DTO\Study\TransitionCriteriaDTO.cs" />
     <Compile Remove="DTO\Study\TransitionDTO.cs" />
     <Compile Remove="DTO\Study\TransitionRuleDTO.cs" />
@@ -26,11 +32,6 @@
     <Compile Remove="Entities\Study\TransitionRuleEntity.cs" />
     <Compile Remove="Utilities\Helpers\JsonSettings.cs" />
     <Compile Remove="Utilities\Helpers\ShouldSerializeContractResolver.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DomainModels\" />
-    <Folder Include="ClassDiagrams\" />
   </ItemGroup>
 
   <ItemGroup>

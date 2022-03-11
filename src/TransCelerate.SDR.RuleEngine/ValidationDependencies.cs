@@ -10,6 +10,11 @@ namespace TransCelerate.SDR.RuleEngine
 {
     public static class ValidationDependencies
     {
+        /// <summary>
+        /// Add all the dependencies for validations
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
         public static IServiceCollection AddValidationDependencies(this IServiceCollection services)
         {
             //Study Level Validators

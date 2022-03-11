@@ -10,6 +10,9 @@ namespace TransCelerate.SDR.RuleEngine
 {
     public class StudyProtocolValidator : AbstractValidator<StudyProtocolDTO>
     {
+        /// <summary>
+        /// Validator for studyProtocol
+        /// </summary>
         public StudyProtocolValidator()
         {                              
         }

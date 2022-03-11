@@ -4,6 +4,9 @@ using System.Text;
 
 namespace TransCelerate.SDR.Core.Utilities
 {
+    /// <summary>
+    /// Enums for StudyDesign Sections
+    /// </summary>
     public enum StudyDesignSections
     {
         study_planned_workflow,

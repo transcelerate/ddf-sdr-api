@@ -10,6 +10,9 @@ namespace TransCelerate.SDR.RuleEngine
 {
     public class StudyPopulationValidator : AbstractValidator<StudyPopulationDTO>
     {
+        /// <summary>
+        /// Validator for studyPopulations
+        /// </summary>
         public StudyPopulationValidator()
         {           
             RuleFor(x => x.description)

@@ -10,6 +10,9 @@ namespace TransCelerate.SDR.RuleEngine
 {
     public class MatrixValidator : AbstractValidator<MatrixDTO>
     {
+        /// <summary>
+        /// Validator for Matrix
+        /// </summary>
         public MatrixValidator()
         {
             RuleFor(x => x.items)

@@ -1,19 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+
+using TransCelerate.SDR.Core.DTO;
+using TransCelerate.SDR.Core.DTO.Study;
+using TransCelerate.SDR.Core.ErrorModels;
+using TransCelerate.SDR.Core.Utilities;
+using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.Services.Interfaces;
-using TransCelerate.SDR.Core.Utilities.Common;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Logging;
-using TransCelerate.SDR.Core.DTO.Study;
-using TransCelerate.SDR.Core.Utilities;
-using System.Linq;
-using TransCelerate.SDR.Core.DTO;
-using Microsoft.AspNetCore.Http;
-using Swashbuckle.AspNetCore.Annotations;
-using System.Collections.Generic;
-using TransCelerate.SDR.Core.ErrorModels;
 
 namespace TransCelerate.SDR.WebApi.Controllers
 {

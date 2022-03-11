@@ -8,8 +8,16 @@ using Microsoft.Extensions.Logging;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
 {
+    /// <summary>
+    /// Response Helper for Errors
+    /// </summary>
     public static class ErrorResponseHelper
-    {        
+    {      
+        /// <summary>
+        /// Resposne Helper When there is an exception
+        /// </summary>
+        /// <param name="exception"></param>
+        /// <returns></returns>
         public static ErrorModel ErrorResponseModel(Exception exception)
         {
             string statusCode;
@@ -25,6 +33,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             return errorModel;
         }
 
+        /// <summary>
+        /// Resposne Helper When there is an Unauthorized Access
+        /// </summary>
+        /// <returns></returns>
         public static ErrorModel UnAuthorizedAccess()
         {
             ErrorModel errorModel = new ErrorModel
@@ -34,6 +46,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             };
             return errorModel;
         }
+
+        /// <summary>
+        /// Resposne Helper When the resource is Not Found
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public static ErrorModel NotFound(string message = null)
         {
             ErrorModel errorModel = new ErrorModel
@@ -43,6 +61,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             };
             return errorModel;
         }
+
+        /// <summary>
+        /// Resposne Helper When there is Gateway Error
+        /// </summary>
+        /// <returns></returns>
         public static ErrorModel GatewayError()
         {
             ErrorModel errorModel = new ErrorModel
@@ -53,6 +76,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             return errorModel;
         }
 
+        /// <summary>
+        /// Resposne Helper When there is bad request
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public static ErrorModel BadRequest(string message = null)
         {
             ErrorModel errorModel = new ErrorModel
@@ -63,6 +91,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             return errorModel;
         }
 
+        /// <summary>
+        /// Resposne Helper When Conformance Error or Invalid Inpt
+        /// </summary>
+        /// <param name="validationProblemDetails"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public static ValidationErrorModel BadRequest(Object validationProblemDetails, string message = null)
         {            
             ValidationErrorModel errorModel = new ValidationErrorModel
@@ -72,7 +106,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 error = validationProblemDetails
             };
             return errorModel;
-        }        
+        }
+
+        /// <summary>
+        /// Resposne Helper When specific method for an API is not called. Ex: When a GET method is called with a POST request.
+        /// </summary>
+        /// <param name="detail"></param>
+        /// <returns></returns>
         public static ErrorModel MethodNotAllowed(string detail = null)
         {
             ErrorModel errorModel = new ErrorModel

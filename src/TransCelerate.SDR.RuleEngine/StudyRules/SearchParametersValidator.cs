@@ -12,6 +12,9 @@ namespace TransCelerate.SDR.RuleEngine
 {
     public class SearchParametersValidator : AbstractValidator<SearchParametersDTO>
     {
+        /// <summary>
+        /// Validator for SearchParameters
+        /// </summary>
         public SearchParametersValidator()
         {
             RuleFor(x => x.studyTitle)
@@ -22,13 +25,7 @@ namespace TransCelerate.SDR.RuleEngine
                 .WithMessage(Constants.ValidationErrorMessage.AlphaNumericErrorMessage);
             RuleFor(x => x.indication)
                 .Matches(Constants.RegularExpressions.AlphaNumericsWithSpace)
-                .WithMessage(Constants.ValidationErrorMessage.AlphaNumericErrorMessage);
-            //RuleFor(x => x.interventionModel)
-            //    .Matches(Constants.RegularExpressions.AlphaNumericsWithSpace)
-            //    .WithMessage(Constants.ValidationErrorMessage.AlphaNumericErrorMessage);
-            //RuleFor(x => x.phase)
-            //    .Matches(Constants.RegularExpressions.AlphaNumericsWithSpace)
-            //    .WithMessage(Constants.ValidationErrorMessage.AlphaNumericErrorMessage);
+                .WithMessage(Constants.ValidationErrorMessage.AlphaNumericErrorMessage);           
             RuleFor(x => x.fromDate)
                 .Must(x=>DateValidationHelper.IsValid(x))
                 .WithMessage(Constants.ValidationErrorMessage.ValidDateError);

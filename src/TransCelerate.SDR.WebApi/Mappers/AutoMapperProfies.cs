@@ -13,6 +13,9 @@ namespace TransCelerate.SDR.WebApi.Mappers
 {
     public class AutoMapperProfies : Profile
     {
+        /// <summary>
+        /// This class is for creating the mappers between DTOs and Entities
+        /// </summary>
         public AutoMapperProfies()
         {
             AllowNullCollections = true;
@@ -80,13 +83,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<StudyElementDTO, StudyElementEntity>()
                 .ForMember(dest => dest.studyElementId, opt => opt.MapFrom(src => src.id)).ReverseMap();            
             CreateMap<StudyEpochDTO, StudyEpochEntity>()
-                .ForMember(dest => dest.studyEpochId, opt => opt.MapFrom(src => src.id)).ReverseMap();
-            //CreateMap<TransitionCriteriaDTO, TransitionCriteriaEntity>()
-            //    .ForMember(dest => dest.transitionCriteriaId, opt => opt.MapFrom(src => src.id)).ReverseMap();
-            //CreateMap<TransitionDTO, TransitionEntity>()
-            //    .ForMember(dest => dest.transitionId, opt => opt.MapFrom(src => src.id)).ReverseMap();
-            //CreateMap<TransitionRuleDTO, TransitionRuleEntity>()
-            //    .ForMember(dest => dest.transitionRuleId, opt => opt.MapFrom(src => src.id)).ReverseMap();
+                .ForMember(dest => dest.studyEpochId, opt => opt.MapFrom(src => src.id)).ReverseMap();          
             CreateMap<StudyObjectiveDTO, StudyObjectiveEntity>()
                 .ForMember(dest => dest.objectiveId, opt => opt.MapFrom(src => src.id)).ReverseMap();
             CreateMap<EndpointsDTO, EndpointsEntity>()

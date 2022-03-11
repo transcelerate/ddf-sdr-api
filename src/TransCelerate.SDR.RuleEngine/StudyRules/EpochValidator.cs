@@ -10,25 +10,16 @@ namespace TransCelerate.SDR.RuleEngine
 {
     public class EpochValidator : AbstractValidator<EpochDTO>
     {
+        /// <summary>
+        /// Validator for Epoch
+        /// </summary>
         public EpochValidator()
-        {
-            //RuleFor(x => x.description)
-            //   .Cascade(CascadeMode.Stop)
-            //   .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-            //   .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-            //RuleFor(x => x.name)
-            //    .Cascade(CascadeMode.Stop)
-            //    .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-            //    .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+        {           
             RuleFor(x => x.epochType)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-            //RuleFor(x => x.sequenceInStudy)
-            //    .Cascade(CascadeMode.Stop)
-            //    .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-            //    .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-
+         
         }
     }
 }

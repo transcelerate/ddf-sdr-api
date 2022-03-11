@@ -8,72 +8,101 @@ using Newtonsoft.Json;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
 {
+    /// <summary>
+    /// This class is for removing sections from the study for sectional response
+    /// </summary>
     public static class RemoveStudySections
     {
+        /// <summary>
+        /// This method is for removing study level sections
+        /// </summary>
+        /// <param name="sections"></param>
+        /// <param name="getStudySectionsDTO"></param>
+        /// <returns></returns>
         public static object RemoveSections(string[] sections, GetStudySectionsDTO getStudySectionsDTO)
         {
-            var jsonObject = JObject.Parse(JsonConvert.SerializeObject(getStudySectionsDTO));
-            foreach (var item in Enum.GetNames(typeof(StudySections)))
+            try
             {
-                sections = sections.Select(t => t.Trim().ToLower()).ToArray();               
-                if (!sections.Contains(item))
+                var jsonObject = JObject.Parse(JsonConvert.SerializeObject(getStudySectionsDTO));
+                foreach (var item in Enum.GetNames(typeof(StudySections)))
                 {
-                    switch(item)
+                    sections = sections.Select(t => t.Trim().ToLower()).ToArray();
+                    if (!sections.Contains(item))
                     {
-                        case "study_indications":                            
-                            jsonObject.Property(nameof(GetStudySectionsDTO.studyIndications)).Remove();
-                            break;
-                        case "study_objectives":                            
-                            jsonObject.Property(nameof(GetStudySectionsDTO.objectives)).Remove();
-                            break;                                              
-                        case "study_design":                            
-                            jsonObject.Property(nameof(GetStudySectionsDTO.studyDesigns)).Remove();
-                            break;
-                        default:
-                            break;                            
+                        switch (item)
+                        {
+                            case "study_indications":
+                                jsonObject.Property(nameof(GetStudySectionsDTO.studyIndications)).Remove();
+                                break;
+                            case "study_objectives":
+                                jsonObject.Property(nameof(GetStudySectionsDTO.objectives)).Remove();
+                                break;
+                            case "study_design":
+                                jsonObject.Property(nameof(GetStudySectionsDTO.studyDesigns)).Remove();
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
+                return jsonObject;
             }
-            return jsonObject;
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
+        /// <summary>
+        /// This method is for removing study design level sections
+        /// </summary>
+        /// <param name="sections"></param>
+        /// <param name="getStudySectionsDTO"></param>
+        /// <returns></returns>
         public static object RemoveSectionsForStudyDesign(string[] sections, GetStudySectionsDTO getStudySectionsDTO)
         {
-            var jsonObject = JObject.Parse(JsonConvert.SerializeObject(getStudySectionsDTO));
-            jsonObject.Property(nameof(GetStudySectionsDTO.studyIndications)).Remove();
-            jsonObject.Property(nameof(GetStudySectionsDTO.objectives)).Remove();
-            if(getStudySectionsDTO.studyDesigns.Count()!=0)
+            try
             {
-                if (sections.Count() != 0)
+                var jsonObject = JObject.Parse(JsonConvert.SerializeObject(getStudySectionsDTO));
+                jsonObject.Property(nameof(GetStudySectionsDTO.studyIndications)).Remove();
+                jsonObject.Property(nameof(GetStudySectionsDTO.objectives)).Remove();
+                if (getStudySectionsDTO.studyDesigns.Count() != 0)
                 {
-                    foreach (var item in Enum.GetNames(typeof(StudyDesignSections)))
+                    if (sections.Count() != 0)
                     {
-                        sections = sections.Select(t => t.Trim().ToLower()).ToArray();
-                        if (!sections.Contains(item))
+                        foreach (var item in Enum.GetNames(typeof(StudyDesignSections)))
                         {
-                            switch (item)
+                            sections = sections.Select(t => t.Trim().ToLower()).ToArray();
+                            if (!sections.Contains(item))
                             {
-                                case "study_planned_workflow":
-                                    jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(GetStudyDesignsDTO.plannedWorkflows)).ToList().ForEach(x => x.Remove());
-                                    break;
-                                case "study_target_populations":
-                                    jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(GetStudyDesignsDTO.studyPopulations)).ToList().ForEach(x => x.Remove());
-                                    break;
-                                case "study_cells":
-                                    jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(GetStudyDesignsDTO.studyCells)).ToList().ForEach(x => x.Remove());
-                                    break;
-                                case "study_investigational_interventions":
-                                    jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(GetStudyDesignsDTO.investigationalInterventions)).ToList().ForEach(x => x.Remove());
-                                    break;
-                                default:
-                                    break;
+                                switch (item)
+                                {
+                                    case "study_planned_workflow":
+                                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(GetStudyDesignsDTO.plannedWorkflows)).ToList().ForEach(x => x.Remove());
+                                        break;
+                                    case "study_target_populations":
+                                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(GetStudyDesignsDTO.studyPopulations)).ToList().ForEach(x => x.Remove());
+                                        break;
+                                    case "study_cells":
+                                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(GetStudyDesignsDTO.studyCells)).ToList().ForEach(x => x.Remove());
+                                        break;
+                                    case "study_investigational_interventions":
+                                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(GetStudyDesignsDTO.investigationalInterventions)).ToList().ForEach(x => x.Remove());
+                                        break;
+                                    default:
+                                        break;
+                                }
                             }
                         }
                     }
                 }
+
+                return jsonObject;
             }
-            
-            return jsonObject;
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

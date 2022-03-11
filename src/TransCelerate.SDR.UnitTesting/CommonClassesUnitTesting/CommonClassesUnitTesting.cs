@@ -250,7 +250,7 @@ namespace TransCelerate.SDR.UnitTesting
             //Planned WorkFlows and Study Cells
             existingpostStudyDTO = GetPostDataFromStaticJson();
             SectionIdGenerator.GenerateSectionId(existingpostStudyDTO);
-            incomingpostStudyDTO = incomingpostStudyDTO = JsonConvert.DeserializeObject<StudyEntity>(JsonConvert.SerializeObject(existingpostStudyDTO)); 
+            incomingpostStudyDTO = JsonConvert.DeserializeObject<StudyEntity>(JsonConvert.SerializeObject(existingpostStudyDTO)); 
             existingpostStudyDTO.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).Find(x=>x.studyDesigns!=null).studyDesigns.Find(x=>x.currentSections!=null).currentSections.Find(x=>x.plannedWorkflows!=null)
                                                               .plannedWorkflows.ForEach(x => x.plannedWorkFlowId = "");
             existingpostStudyDTO.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).Find(x => x.studyDesigns != null).studyDesigns.Find(x => x.currentSections != null).currentSections.Find(x => x.studyPopulations != null)
@@ -262,7 +262,12 @@ namespace TransCelerate.SDR.UnitTesting
             
             existingpostStudyDTO = GetPostDataFromStaticJson();
             SectionIdGenerator.GenerateSectionId(existingpostStudyDTO);
-            incomingpostStudyDTO = incomingpostStudyDTO = JsonConvert.DeserializeObject<StudyEntity>(JsonConvert.SerializeObject(existingpostStudyDTO)); 
+            var anotherMatrix = JsonConvert.DeserializeObject<List<MatrixEntity>>(JsonConvert.SerializeObject(existingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.plannedWorkflows != null).plannedWorkflows[0].workflowItemMatrix.matrix));
+            PostStudyElementsCheck.MatrixSectionCheck(existingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.plannedWorkflows != null).plannedWorkflows[0].workflowItemMatrix.matrix, anotherMatrix);
+            var studyCells = JsonConvert.DeserializeObject<List<StudyCellEntity>>(JsonConvert.SerializeObject(existingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.studyCells != null).studyCells));
+            var anotherStudyCells = JsonConvert.DeserializeObject<List<StudyCellEntity>>(JsonConvert.SerializeObject(existingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.studyCells != null).studyCells));            
+            PostStudyElementsCheck.StudyCellsSectionCheck(existingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0], studyCells, anotherStudyCells);
+            incomingpostStudyDTO = JsonConvert.DeserializeObject<StudyEntity>(JsonConvert.SerializeObject(existingpostStudyDTO)); 
             existingpostStudyDTO.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).FindAll(x => x.studyDesigns != null).Find(x => x.studyDesigns != null).studyDesigns.Find(x => x.currentSections != null).currentSections.Find(x => x.plannedWorkflows != null)
                                                               .plannedWorkflows.Find(x => x.workflowItemMatrix != null).workflowItemMatrix.workFlowItemMatrixId = null;
             existingpostStudyDTO.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).FindAll(x => x.studyDesigns != null).Find(x => x.studyDesigns != null).studyDesigns.Find(x => x.currentSections != null).currentSections.Find(x => x.plannedWorkflows != null)
@@ -291,7 +296,7 @@ namespace TransCelerate.SDR.UnitTesting
             PostStudyElementsCheck.SectionCheck(incomingpostStudyDTO, existingpostStudyDTO);
             existingpostStudyDTO = GetPostDataFromStaticJson();
             SectionIdGenerator.GenerateSectionId(existingpostStudyDTO);
-            incomingpostStudyDTO = incomingpostStudyDTO = JsonConvert.DeserializeObject<StudyEntity>(JsonConvert.SerializeObject(existingpostStudyDTO));
+            incomingpostStudyDTO = JsonConvert.DeserializeObject<StudyEntity>(JsonConvert.SerializeObject(existingpostStudyDTO));
             existingpostStudyDTO.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).FindAll(x => x.studyDesigns != null).Find(x => x.studyDesigns != null).studyDesigns.Find(x => x.currentSections != null).currentSections.Find(x => x.plannedWorkflows != null)
                                                               .plannedWorkflows.Find(x => x.workflowItemMatrix != null).workflowItemMatrix.matrix.ForEach(x =>
                                                               {
@@ -316,7 +321,7 @@ namespace TransCelerate.SDR.UnitTesting
             existingpostStudyDTO.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).Find(x => x.studyDesigns != null).studyDesigns.Find(x => x.currentSections != null).currentSections.Find(x => x.studyCells != null)
                                                               .studyCells.Find(x => x.studyElements != null).studyElements.ForEach(x => x.startRule.RuleId = "");
             PostStudyElementsCheck.SectionCheck(incomingpostStudyDTO, existingpostStudyDTO);
-            PostStudyElementsCheck.RemoveId(incomingpostStudyDTO);
+            PostStudyElementsCheck.RemoveId(incomingpostStudyDTO);            
         }
         #endregion
 

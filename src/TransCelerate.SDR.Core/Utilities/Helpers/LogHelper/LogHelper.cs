@@ -15,6 +15,10 @@ namespace TransCelerate.SDR.Core.Utilities
             _logger = logger.CreateLogger(Constants.LogConstant.Application);
         }
 
+        /// <summary>
+        /// Logs Information
+        /// </summary>
+        /// <param name="message"></param>
         public void LogInformation(string message)
         {
             try
@@ -24,9 +28,14 @@ namespace TransCelerate.SDR.Core.Utilities
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                throw ex;
+                throw;
             }
         }
+
+        /// <summary>
+        /// Logs Warning
+        /// </summary>
+        /// <param name="message"></param>
         public void LogWarning(string message)
         {
             try
@@ -36,10 +45,14 @@ namespace TransCelerate.SDR.Core.Utilities
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                throw ex;
+                throw;
             }
         }
 
+        /// <summary>
+        /// Logs Error
+        /// </summary>
+        /// <param name="message"></param>
         public void LogError(string message)
         {
             try
@@ -49,10 +62,14 @@ namespace TransCelerate.SDR.Core.Utilities
             catch (Exception ex)
             {
                 _logger.LogError($"Error in Logger: {ex.Message}");
-                throw ex;
+                throw;
             }
         }
 
+        /// <summary>
+        /// Logs When debug logging is is added 
+        /// </summary>
+        /// <param name="message"></param>
         public void LogDebug(string message)
         {
             try
@@ -62,10 +79,14 @@ namespace TransCelerate.SDR.Core.Utilities
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                throw ex;
+                throw;
             }
         }
 
+        /// <summary>
+        /// Logs Critical Failures
+        /// </summary>
+        /// <param name="message"></param>
         public void LogCriitical(string message)
         {
             try
@@ -75,10 +96,14 @@ namespace TransCelerate.SDR.Core.Utilities
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                throw ex;
+                throw;
             }
         }
 
+        /// <summary>
+        /// Logs Traces
+        /// </summary>
+        /// <param name="message"></param>
         public void LogTrace(string message)
         {
             try
@@ -88,7 +113,7 @@ namespace TransCelerate.SDR.Core.Utilities
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                throw ex;
+                throw;
             }
         }
 

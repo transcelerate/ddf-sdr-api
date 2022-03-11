@@ -10,16 +10,15 @@ namespace TransCelerate.SDR.RuleEngine
 {
     public class RuleValidator : AbstractValidator<RuleDTO>
     {
+        /// <summary>
+        /// Validator for Rule
+        /// </summary>
         public RuleValidator()
         {           
             RuleFor(x => x.description)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-            //RuleFor(x => x.coding)
-            //    .Cascade(CascadeMode.Stop)
-            //    .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-            //    .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);          
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);            
         }
     }
 }

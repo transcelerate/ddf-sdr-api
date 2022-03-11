@@ -7,8 +7,16 @@ using TransCelerate.SDR.Core.Entities.Study;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
 {
+    /// <summary>
+    /// This class is for generating Id for each Sections
+    /// </summary>
     public static class SectionIdGenerator
     {
+        /// <summary>
+        /// Generate Id for all the sections
+        /// </summary>
+        /// <param name="studyEntity"></param>
+        /// <returns></returns>
         public static StudyEntity GenerateSectionId(StudyEntity studyEntity)
         {
             try
@@ -43,13 +51,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                             .ForEach(x => x.studyIndications
                                             .ForEach(y => y.studyIndicationId = IdGenerator.GenerateId()));
 
-                    //Removed Study Protocol
-                    //protocolId
-                    //if(studyEntity.clinicalStudy.currentSections.Any(x => x.studyProtocol != null))
-                    //{
-                    //    studyEntity.clinicalStudy.currentSections.Find(x => x.studyProtocol != null)
-                    //                                         .studyProtocol.protocolId = IdGenerator.GenerateId();
-                    //}
+                   
                     //studyDesignId
                     studyEntity.clinicalStudy.currentSections
                                             .FindAll(x => x.studyDesigns != null)
@@ -104,35 +106,55 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             }
         }
 
+        /// <summary>
+        /// Generate Id for Study Objectives
+        /// </summary>
+        /// <param name="studyObjectivesEntity"></param>
+        /// <returns></returns>
         public static StudyObjectiveEntity StudyObjectivesIdGenerator(StudyObjectiveEntity studyObjectivesEntity)
         {
-            //study objectives Id
-            studyObjectivesEntity.objectiveId = IdGenerator.GenerateId();
-            if(studyObjectivesEntity.endpoints!=null)
-                studyObjectivesEntity.endpoints.ForEach(x => x.endPointsId = IdGenerator.GenerateId());
-          
-            return studyObjectivesEntity;
-        }       
+            try
+            {
+                //study objectives Id
+                studyObjectivesEntity.objectiveId = IdGenerator.GenerateId();
+                if (studyObjectivesEntity.endpoints != null)
+                    studyObjectivesEntity.endpoints.ForEach(x => x.endPointsId = IdGenerator.GenerateId());
+
+                return studyObjectivesEntity;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Generate Id for Study PlannedWorkFlows
+        /// </summary>
+        /// <param name="plannedWorkFlowEntity"></param>
+        /// <returns></returns>
         public static PlannedWorkFlowEntity StudyPlannedWorkFlowIdGenerator(PlannedWorkFlowEntity plannedWorkFlowEntity)
         {
-            //plannedWorkFlowId and sub-elements Id's         
-            plannedWorkFlowEntity.plannedWorkFlowId = IdGenerator.GenerateId();
-            plannedWorkFlowEntity.plannedWorkFlowId = IdGenerator.GenerateId();
-            if (plannedWorkFlowEntity.startPoint != null)
-                plannedWorkFlowEntity.startPoint.pointInTimeId = IdGenerator.GenerateId();
-
-            if (plannedWorkFlowEntity.endPoint != null)
-                plannedWorkFlowEntity.endPoint.pointInTimeId = IdGenerator.GenerateId();
-
-            if (plannedWorkFlowEntity.workflowItemMatrix != null)
+            try
             {
-                plannedWorkFlowEntity.workflowItemMatrix.workFlowItemMatrixId = IdGenerator.GenerateId();
-                if(plannedWorkFlowEntity.workflowItemMatrix.matrix!=null)
+                //plannedWorkFlowId and sub-elements Id's         
+                plannedWorkFlowEntity.plannedWorkFlowId = IdGenerator.GenerateId();
+                plannedWorkFlowEntity.plannedWorkFlowId = IdGenerator.GenerateId();
+                if (plannedWorkFlowEntity.startPoint != null)
+                    plannedWorkFlowEntity.startPoint.pointInTimeId = IdGenerator.GenerateId();
+
+                if (plannedWorkFlowEntity.endPoint != null)
+                    plannedWorkFlowEntity.endPoint.pointInTimeId = IdGenerator.GenerateId();
+
+                if (plannedWorkFlowEntity.workflowItemMatrix != null)
                 {
-                    plannedWorkFlowEntity.workflowItemMatrix.matrix.FindAll(x => x != null).ForEach(m =>
+                    plannedWorkFlowEntity.workflowItemMatrix.workFlowItemMatrixId = IdGenerator.GenerateId();
+                    if (plannedWorkFlowEntity.workflowItemMatrix.matrix != null)
+                    {
+                        plannedWorkFlowEntity.workflowItemMatrix.matrix.FindAll(x => x != null).ForEach(m =>
                         {
                             m.matrixId = IdGenerator.GenerateId();
-                            if(m.items!=null)
+                            if (m.items != null)
                             {
                                 m.items.FindAll(x => x != null).ForEach(item =>
                                 {
@@ -146,7 +168,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                     if (item.activity != null)
                                     {
                                         item.activity.activityId = IdGenerator.GenerateId();
-                                        if(item.activity.studyDataCollection!=null)
+                                        if (item.activity.studyDataCollection != null)
                                             item.activity.studyDataCollection.FindAll(x => x != null).ForEach(sdc => sdc.studyDataCollectionId = IdGenerator.GenerateId());
                                     }
                                     if (item.encounter != null)
@@ -164,62 +186,92 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                 });
                             }
                         });
+                    }
                 }
-            }
 
-            return plannedWorkFlowEntity;
+                return plannedWorkFlowEntity;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
+
+        /// <summary>
+        /// Generate Id for Study Cells
+        /// </summary>
+        /// <param name="studyCellEntity"></param>
+        /// <returns></returns>
         public static StudyCellEntity StudyCellsIdGenerator(StudyCellEntity studyCellEntity)
         {
-            //studyCellId and sub-elements Id's
-            studyCellEntity.studyCellId = IdGenerator.GenerateId();
-            if (studyCellEntity.studyArm != null)
-                studyCellEntity.studyArm.studyArmId = IdGenerator.GenerateId();
-
-            if (studyCellEntity.studyEpoch != null)
-                studyCellEntity.studyEpoch.studyEpochId = IdGenerator.GenerateId();
-
-            if (studyCellEntity.studyElements != null)
+            try
             {
-                studyCellEntity.studyElements.FindAll(x => x != null).ForEach(e => {
-                    e.studyElementId = IdGenerator.GenerateId();
-                    e.startRule.RuleId = IdGenerator.GenerateId();
-                    e.endRule.RuleId = IdGenerator.GenerateId();
-                });
-            }
+                //studyCellId and sub-elements Id's
+                studyCellEntity.studyCellId = IdGenerator.GenerateId();
+                if (studyCellEntity.studyArm != null)
+                    studyCellEntity.studyArm.studyArmId = IdGenerator.GenerateId();
 
-            return studyCellEntity;
+                if (studyCellEntity.studyEpoch != null)
+                    studyCellEntity.studyEpoch.studyEpochId = IdGenerator.GenerateId();
+
+                if (studyCellEntity.studyElements != null)
+                {
+                    studyCellEntity.studyElements.FindAll(x => x != null).ForEach(e => {
+                        e.studyElementId = IdGenerator.GenerateId();
+                        e.startRule.RuleId = IdGenerator.GenerateId();
+                        e.endRule.RuleId = IdGenerator.GenerateId();
+                    });
+                }
+
+                return studyCellEntity;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
+        /// <summary>
+        /// Generate Id for Study Designs
+        /// </summary>
+        /// <param name="studyDesignEntity"></param>
+        /// <returns></returns>
         public static StudyDesignEntity StudyDesignIdGenerator(StudyDesignEntity studyDesignEntity)
         {
-            //studyDesignId
-            studyDesignEntity.studyDesignId = IdGenerator.GenerateId();
-            
-            if(studyDesignEntity.currentSections!=null)
+            try
             {
-                //studyPopulationId
-                studyDesignEntity.currentSections.FindAll(n => n.studyPopulations != null)
-                                                 .ForEach(p => p.studyPopulations
-                                                 .ForEach(i => i.studyPopulationId = IdGenerator.GenerateId()));
+                //studyDesignId
+                studyDesignEntity.studyDesignId = IdGenerator.GenerateId();
 
-                //plannedWorkFlowId and sub-elements Id's
-                studyDesignEntity.currentSections.FindAll(n => n.plannedWorkflows != null)
-                                                 .ForEach(p => p.plannedWorkflows
-                                                 .ForEach(i => StudyPlannedWorkFlowIdGenerator(i)));
+                if (studyDesignEntity.currentSections != null)
+                {
+                    //studyPopulationId
+                    studyDesignEntity.currentSections.FindAll(n => n.studyPopulations != null)
+                                                     .ForEach(p => p.studyPopulations
+                                                     .ForEach(i => i.studyPopulationId = IdGenerator.GenerateId()));
 
-                //studyCellId and sub-elements Id's
-                studyDesignEntity.currentSections.FindAll(n => n.studyCells != null)
-                                                 .ForEach(p => p.studyCells
-                                                 .ForEach(i => StudyCellsIdGenerator(i)));
+                    //plannedWorkFlowId and sub-elements Id's
+                    studyDesignEntity.currentSections.FindAll(n => n.plannedWorkflows != null)
+                                                     .ForEach(p => p.plannedWorkflows
+                                                     .ForEach(i => StudyPlannedWorkFlowIdGenerator(i)));
 
-                //InvestigationalIntervention Id
-                studyDesignEntity.currentSections.FindAll(n => n.investigationalInterventions != null)
-                                                 .ForEach(p => p.investigationalInterventions
-                                                 .ForEach(i => i.investigationalInterventionId = IdGenerator.GenerateId()));
+                    //studyCellId and sub-elements Id's
+                    studyDesignEntity.currentSections.FindAll(n => n.studyCells != null)
+                                                     .ForEach(p => p.studyCells
+                                                     .ForEach(i => StudyCellsIdGenerator(i)));
+
+                    //InvestigationalIntervention Id
+                    studyDesignEntity.currentSections.FindAll(n => n.investigationalInterventions != null)
+                                                     .ForEach(p => p.investigationalInterventions
+                                                     .ForEach(i => i.investigationalInterventionId = IdGenerator.GenerateId()));
+                }
+
+                return studyDesignEntity;
             }
-            
-            return studyDesignEntity;
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

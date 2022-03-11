@@ -10,6 +10,9 @@ namespace TransCelerate.SDR.RuleEngine
 {
     public class ActivityValidator : AbstractValidator<ActivityDTO>
     {
+        /// <summary>
+        /// Validator for Activity
+        /// </summary>
         public ActivityValidator()
         {
             RuleFor(x => x.description)

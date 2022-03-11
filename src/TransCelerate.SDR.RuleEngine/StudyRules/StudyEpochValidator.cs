@@ -10,25 +10,16 @@ namespace TransCelerate.SDR.RuleEngine
 {
     public class StudyEpochValidator : AbstractValidator<StudyEpochDTO>
     {
+        /// <summary>
+        /// Validator for StudyEpoch
+        /// </summary>
         public StudyEpochValidator()
         {           
 
             RuleFor(x => x.epochType)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-            //RuleFor(x => x.description)
-            //    .Cascade(CascadeMode.Stop)
-            //    .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-            //    .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-            //RuleFor(x => x.sequenceInStudy)
-            //    .Cascade(CascadeMode.Stop)
-            //    .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-            //    .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-            //RuleFor(x => x.name)
-            //    .Cascade(CascadeMode.Stop)
-            //    .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-            //    .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);            
         }
     }
 }
