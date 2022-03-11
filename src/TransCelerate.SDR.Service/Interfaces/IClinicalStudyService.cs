@@ -17,16 +17,16 @@ namespace TransCelerate.SDR.Services.Interfaces
         Task<GetStudyDTO> GetAllElements(string studyId,int version, string tag);
 
         //GET All Elements For a Study
-        Task<GetStudySectionsDTO> GetSections(string studyId, int version, string tag, string[] sections);
+        Task<object> GetSections(string studyId, int version, string tag, string[] sections);
 
         //GET For a StudyDesign sections for a study
-        Task<GetStudySectionsDTO> GetStudyDesignSections(string studyId,string studyDesignId, int version, string tag, string[] sections);
+        Task<object> GetStudyDesignSections(string studyId,string studyDesignId, int version, string tag, string[] sections);
 
         //GET AuditTrail For a Study
         Task<GetStudyAuditDTO> GetAuditTrail(DateTime fromDate, DateTime toDate, string study);
 
         //GET All studyId's
-        Task<GetStudyHistoryResponseDTO> GetAllStudyId(DateTime fromDate, DateTime toDate);
+        Task<GetStudyHistoryResponseDTO> GetAllStudyId(DateTime fromDate, DateTime toDate,string studyTitle);
         #endregion
 
         #region POST Methods

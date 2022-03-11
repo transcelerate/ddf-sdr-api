@@ -48,6 +48,9 @@ namespace TransCelerate.SDR.RuleEngine
             services.AddTransient<IValidator<PointInTimeDTO>, PointInTimeValidator>();
             services.AddTransient<IValidator<EpochDTO>, EpochValidator>();
 
+            //Search Validaitions
+            services.AddTransient<IValidator<SearchParametersDTO>, SearchParametersValidator>();
+
             return services;
         }
     }

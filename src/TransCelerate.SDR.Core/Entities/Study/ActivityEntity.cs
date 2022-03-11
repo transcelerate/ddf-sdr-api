@@ -9,6 +9,7 @@ namespace TransCelerate.SDR.Core.Entities.Study
     {
         [BsonElement("id")]
         public string activityId { get; set; }
+        public string description { get; set; }
         public List<DefinedProcedureEntity> definedProcedures { get; set; }
         public List<StudyDataCollectionEntity> studyDataCollection { get; set; }
     }

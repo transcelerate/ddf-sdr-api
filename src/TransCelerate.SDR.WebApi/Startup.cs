@@ -47,7 +47,7 @@ namespace TransCelerate.SDR.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             // Application Insights for logs
-            services.AddApplicationInsightsTelemetry();
+            services.AddApplicationInsightsTelemetry(Config.instrumentationKey);
 
             #region Only for Logging in Startup
             var loggerFactory = LoggerFactory.Create(builder =>

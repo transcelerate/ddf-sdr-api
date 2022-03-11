@@ -9,7 +9,7 @@ namespace TransCelerate.SDR.Core.DTO.Study
 {
     public class StudyProtocolDTO
     {
-        public string protocolId { get; set; }
+        public string studyProtocolId { get; set; }
         public string studyProtocolVersion { get; set; }
     }
 }

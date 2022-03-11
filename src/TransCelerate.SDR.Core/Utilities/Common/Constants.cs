@@ -54,6 +54,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string PropertyMissingError = "Field is missing";
 
             public const string PropertyEmptyError = "Field is empty";
+
+            public const string NumberError = "Enter a valid number";
         }
         public struct ErrorMessages
         {

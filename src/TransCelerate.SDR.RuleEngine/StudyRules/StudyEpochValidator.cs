@@ -17,18 +17,18 @@ namespace TransCelerate.SDR.RuleEngine
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-            RuleFor(x => x.description)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-            RuleFor(x => x.sequenceInStudy)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-            RuleFor(x => x.name)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+            //RuleFor(x => x.description)
+            //    .Cascade(CascadeMode.Stop)
+            //    .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+            //    .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+            //RuleFor(x => x.sequenceInStudy)
+            //    .Cascade(CascadeMode.Stop)
+            //    .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+            //    .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+            //RuleFor(x => x.name)
+            //    .Cascade(CascadeMode.Stop)
+            //    .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+            //    .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
         }
     }
 }

@@ -90,6 +90,12 @@ The below endpoint can be used to fetch the audit trail for the study ID.
 ​/audittrail​/{studyId}
 ```
 
+The below endpoint can be used to fetch all the study Id's in the SDR
+
+```
+/studyhistory
+```
+
 
 **POST Endpoints**
 

@@ -12,10 +12,10 @@ namespace TransCelerate.SDR.Core.Entities.Study
         public string type { get; set; }
         public string subjectStatusGrouping { get; set; }
 
-        [BsonDateTimeOptions(Kind =DateTimeKind.Local)]
+        [BsonDateTimeOptions(Kind =DateTimeKind.Utc)]
         public DateTime startDate { get; set; }
 
-        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
         public DateTime endDate { get; set; }
     }
 }

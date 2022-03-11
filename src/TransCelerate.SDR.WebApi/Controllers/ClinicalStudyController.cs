@@ -168,7 +168,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     else
                     {
                         //If StudyDesignId is not found
-                        if (!study.studyDesigns.Any(x=>x.studyDesignId== studyDesignId))
+                        if (!study.ToString().Contains(studyDesignId))
                         {
                             if (Request != null)
                                 Response.Headers.Add("Controller", "True");
@@ -266,6 +266,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// </summary>
         /// <param name="fromDate"></param>
         /// <param name="toDate"></param>
+        /// <param name="studyTitle"></param>
         /// <response code="200">Returns All Study Id's</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">There is no study</response>
@@ -275,7 +276,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetAllStudyId(DateTime fromDate, DateTime toDate)
+        public async Task<IActionResult> GetAllStudyId(DateTime fromDate, DateTime toDate,string studyTitle)
         {
             try
             {
@@ -297,7 +298,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 }
                 if (fromDate <= toDate)
                 {
-                    var studyHistoryResponse = await _clinicalStudyService.GetAllStudyId(fromDate, toDate);
+                    var studyHistoryResponse = await _clinicalStudyService.GetAllStudyId(fromDate, toDate,studyTitle);
                     if (studyHistoryResponse == null)
                     {
                         if (Request != null)
@@ -413,7 +414,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 {
                     if (searchparameters != null)
                     {
-                        if(String.IsNullOrWhiteSpace(searchparameters.briefTitle) && String.IsNullOrWhiteSpace(searchparameters.indication)
+                        if(String.IsNullOrWhiteSpace(searchparameters.indication)
                            && String.IsNullOrWhiteSpace(searchparameters.interventionModel) && String.IsNullOrWhiteSpace(searchparameters.phase)
                            && String.IsNullOrWhiteSpace(searchparameters.studyId) && String.IsNullOrWhiteSpace(searchparameters.studyTitle)
                            && String.IsNullOrWhiteSpace(searchparameters.fromDate) && String.IsNullOrWhiteSpace(searchparameters.toDate))                         

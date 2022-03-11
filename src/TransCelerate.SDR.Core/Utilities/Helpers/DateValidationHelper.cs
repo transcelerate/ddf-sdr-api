@@ -5,9 +5,9 @@ using System.Text;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
 {
-    public class DateValidationHelper : ValidationAttribute
+    public static class DateValidationHelper 
     {
-        public override bool IsValid(object value)
+        public static bool IsValid(object value)
         {
             var dateString = value as string;
             if (string.IsNullOrWhiteSpace(dateString))

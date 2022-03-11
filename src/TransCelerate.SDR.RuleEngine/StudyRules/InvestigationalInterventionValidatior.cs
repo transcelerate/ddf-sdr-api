@@ -12,14 +12,14 @@ namespace TransCelerate.SDR.RuleEngine
     {
         public InvestigationalInterventionValidatior()
         {           
-            RuleFor(x => x.description)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-            RuleFor(x => x.interventionModel)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+            //RuleFor(x => x.description)
+            //    .Cascade(CascadeMode.Stop)
+            //    .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+            //    .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+            //RuleFor(x => x.interventionModel)
+            //    .Cascade(CascadeMode.Stop)
+            //    .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+            //    .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
             
         }
     }

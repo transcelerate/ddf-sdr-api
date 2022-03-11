@@ -67,8 +67,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                             .ForEach(x => x.objectives
                                             .ForEach(y => {
                                                 y.objectiveId = null;
-                                                y.endpoints.FindAll(x => x != null)
+                                                if (y.endpoints != null)
+                                                {
+                                                    y.endpoints.FindAll(x => x != null)
                                                            .ForEach(x => x.endPointsId = null);
+                                                }
                                             }));
 
                     //studyIndicationId
@@ -121,32 +124,54 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                             .ForEach(p => p.plannedWorkflows
                                             .ForEach(i => {
                                                 i.plannedWorkFlowId = null;
-                                                i.startPoint.pointInTimeId = null;
-                                                i.endPoint.pointInTimeId = null;
-                                                i.workflowItemMatrix.workFlowItemMatrixId = null;
-                                                i.workflowItemMatrix.matrix.ForEach(m =>
+                                                if (i.startPoint != null)
+                                                    i.startPoint.pointInTimeId = null;
+
+                                                if (i.endPoint != null)
+                                                    i.endPoint.pointInTimeId = null;
+
+                                                if (i.workflowItemMatrix != null)
                                                 {
-                                                    m.matrixId = null;
-                                                    m.items.ForEach(item =>
-                                                    {
-                                                        item.itemId = null;
-                                                        item.fromPointInTime.pointInTimeId = null;
-                                                        item.toPointInTime.pointInTimeId = null;
-                                                        item.activity.activityId = null;
-                                                        item.activity.studyDataCollection.ForEach(sdc => sdc.studyDataCollectionId = null);
-                                                        item.encounter.encounterId = null;
-                                                        item.encounter.startRule.RuleId = null;
-                                                        item.encounter.endRule.RuleId = null;
-                                                        item.encounter.epoch.epochId = null;
-                                                    });
-                                                });
-                                                //i.transitions.ForEach(t => {
-                                                //    t.transitionId = null;
-                                                //    t.fromPointInTime.pointInTimeId = null;
-                                                //    t.toPointInTime.pointInTimeId = null;
-                                                //    t.transitionRule.transitionRuleId = null;
-                                                //    t.transitionCriteria.ForEach(c => c.transitionCriteriaId = null);
-                                                //});
+                                                    i.workflowItemMatrix.workFlowItemMatrixId = null;
+                                                    if (i.workflowItemMatrix.matrix!=null)
+                                                    {                                                       
+                                                        i.workflowItemMatrix.matrix.FindAll(x => x != null).ForEach(m =>
+                                                        {
+                                                            m.matrixId = null;
+                                                            if(m.items!=null)
+                                                            {
+                                                                m.items.FindAll(x => x != null).ForEach(item =>
+                                                                {
+                                                                    item.itemId = null;
+                                                                    if (item.fromPointInTime != null)
+                                                                        item.fromPointInTime.pointInTimeId = null;
+
+                                                                    if (item.toPointInTime != null)
+                                                                        item.toPointInTime.pointInTimeId = null;
+
+                                                                    if (item.activity != null)
+                                                                    {
+                                                                        item.activity.activityId = null;
+                                                                        if(item.activity.studyDataCollection != null)
+                                                                            item.activity.studyDataCollection.FindAll(x => x != null).ForEach(sdc => sdc.studyDataCollectionId = null); 
+                                                                    }
+                                                                    if (item.encounter != null)
+                                                                    {
+                                                                        item.encounter.encounterId = null;
+                                                                        if (item.encounter.startRule != null)
+                                                                            item.encounter.startRule.RuleId = null;
+
+                                                                        if (item.encounter.endRule != null)
+                                                                            item.encounter.endRule.RuleId = null;
+
+                                                                        if (item.encounter.epoch != null)
+                                                                            item.encounter.epoch.epochId = null;
+                                                                    }
+                                                                });
+                                                            }
+                                                        });
+                                                    }
+                                                }
                                             }))));
 
                     //studyCellId and sub-elements Id's
@@ -159,13 +184,20 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                             .ForEach(p => p.studyCells
                                             .ForEach(i => {
                                                 i.studyCellId = null;
-                                                i.studyArm.studyArmId = null;
-                                                i.studyEpoch.studyEpochId = null;
-                                                i.studyElements.ForEach(e => {
-                                                    e.studyElementId = null;
-                                                    e.startRule.RuleId = null;
-                                                    e.endRule.RuleId = null;
-                                                });
+                                                if (i.studyArm != null)
+                                                    i.studyArm.studyArmId = null;
+
+                                                if (i.studyEpoch != null)
+                                                    i.studyEpoch.studyEpochId = null;
+
+                                                if(i.studyElements!=null)
+                                                {
+                                                    i.studyElements.FindAll(x => x != null).ForEach(e => {
+                                                        e.studyElementId = null;
+                                                        e.startRule.RuleId = null;
+                                                        e.endRule.RuleId = null;
+                                                    });
+                                                }
                                             }))));
                 }
                 return studyEntity;
@@ -288,23 +320,26 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     {
                         if (existingStudyObjectivesEntities.Any(x => x.objectiveId == item.objectiveId))
                         {
-                            var endPointList = new List<EndpointsEntity>();
-                            foreach (var endpoint in item.endpoints)
-                            {                                
-                                if(existingStudyObjectivesEntities.Find(x=>x.objectiveId==item.objectiveId)
-                                    .endpoints.Any(x=>x.endPointsId==endpoint.endPointsId))
+                            if(item.endpoints!=null)
+                            {
+                                var endPointList = new List<EndpointsEntity>();
+                                foreach (var endpoint in item.endpoints)
                                 {
-                                    endPointList.Add(endpoint);
-                                    existingStudyObjectivesEntities.Find(x => x.objectiveId == item.objectiveId)
-                                    .endpoints.RemoveAll(x => x.endPointsId == endpoint.endPointsId);
+                                    if (existingStudyObjectivesEntities.Find(x => x.objectiveId == item.objectiveId)
+                                        .endpoints.Any(x => x.endPointsId == endpoint.endPointsId))
+                                    {
+                                        endPointList.Add(endpoint);
+                                        existingStudyObjectivesEntities.Find(x => x.objectiveId == item.objectiveId)
+                                        .endpoints.RemoveAll(x => x.endPointsId == endpoint.endPointsId);
+                                    }
+                                    else
+                                    {
+                                        endpoint.endPointsId = IdGenerator.GenerateId();
+                                        endPointList.Add(endpoint);
+                                    }
                                 }
-                                else
-                                {
-                                    endpoint.endPointsId = IdGenerator.GenerateId();
-                                    endPointList.Add(endpoint);
-                                }                                
-                            }
-                            item.endpoints = endPointList;
+                                item.endpoints = endPointList;
+                            }                            
                             studyObjectivesList.Add(item);
                             existing.clinicalStudy.currentSections.Find(x => x.objectives != null).objectives.RemoveAll(x => x.objectiveId == item.objectiveId);
                         }
@@ -427,17 +462,17 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                                                                           incomingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId).currentSections
                                                                                                                      .Find(x => x.investigationalInterventions != null).investigationalInterventions : new List<InvestigationalInterventionEntity>();
 
-                            //Study Populations Section
-                            StudyPopulationsSectionCheck(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId), existingStudyPopulationsEntities, incomingStudyPopulationsEntities);
+                            ////Study Populations Section
+                            //StudyPopulationsSectionCheck(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId), existingStudyPopulationsEntities, incomingStudyPopulationsEntities);
 
-                            //Study Cells Section
-                            StudyCellsSectionCheck(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId), existingStudyCellEntities, incomingStudyCellEntities);
+                            ////Study Cells Section
+                            //StudyCellsSectionCheck(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId), existingStudyCellEntities, incomingStudyCellEntities);
 
-                            //Planned WorkFlow Section
-                            StudyPlannedWorkFlowSectionCheck(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId), existingPlannedWorkFlowEntities, incomingPlannedWorkFlowEntities);
+                            ////Planned WorkFlow Section
+                            //StudyPlannedWorkFlowSectionCheck(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId), existingPlannedWorkFlowEntities, incomingPlannedWorkFlowEntities);
 
-                            //Investigational Intervention Section
-                            InvestigationalInvestigationSectionCheck(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId), existingInvestigationalInterventionEntities, incomingInvestigationalInterventionEntities);
+                            ////Investigational Intervention Section
+                            //InvestigationalInvestigationSectionCheck(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId), existingInvestigationalInterventionEntities, incomingInvestigationalInterventionEntities);
 
                             Parallel.Invoke(
                                     //Study Populations Section
@@ -463,15 +498,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 }
 
                 #region Previous and Next Items Logic
-                if(existing.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns.FindAll(x => x.currentSections != null).Count()!=0)
-                {
-                    existing.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns
-                                                          .Find(x => x.currentSections != null).currentSections
-                                                          .FindAll(x => x.plannedWorkflows != null)
-                                                          .ForEach(x => x.plannedWorkflows
-                                                                .ForEach(p => p.workflowItemMatrix.matrix
-                                                                        .ForEach(m => m.items = PreviousItemNextItemHelper.GetPreviousNextItems(m.items))));
-                }
+                PreviousItemNextItemHelper.PreviousItemsNextItemsWraper(existing);
                 #endregion
             }
             catch (Exception)
@@ -700,10 +727,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 if (existingPointInTime.pointInTimeId == null && incomingPointInTime.pointInTimeId != null)
                 {
                     incomingPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                    existingPointInTime = incomingPointInTime;
                 }
                 else if (existingPointInTime.pointInTimeId != incomingPointInTime.pointInTimeId)
                 {
                     incomingPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                    existingPointInTime = incomingPointInTime;
                 }
             }
             catch (Exception)
@@ -736,10 +765,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                             item.encounter.epoch.epochId = IdGenerator.GenerateId();
                         });
                     });
+                    existingWorkFlowItemMatrixEntity = incomingWorkFlowItemMatrixEntity;
                 }                
                 else if (existingWorkFlowItemMatrixEntity.workFlowItemMatrixId == incomingWorkFlowItemMatrixEntity.workFlowItemMatrixId)
                 {
                     MatrixSectionCheck(existingWorkFlowItemMatrixEntity.matrix, incomingWorkFlowItemMatrixEntity.matrix);
+                    existingWorkFlowItemMatrixEntity = incomingWorkFlowItemMatrixEntity;
                 }
             }
             catch (Exception)
@@ -906,7 +937,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 if ((existingEpochEntity.epochId == null && incomingEpochEntity.epochId != null)
                     || (existingEpochEntity.epochId != incomingEpochEntity.epochId))
                 {
-                    incomingEpochEntity.epochId = IdGenerator.GenerateId();
+                    incomingEpochEntity.epochId = IdGenerator.GenerateId();                    
                 }               
             }
             catch (Exception)

@@ -8,5 +8,7 @@ namespace TransCelerate.SDR.Core.DTO.Study
     {
         public List<CurrentSectionsDTO> currentSections { get; set; }
         public string studyDesignId { get; set; }
+        public string trialIntentType { get; set; }
+        public string trialType { get; set; }
     }
 }

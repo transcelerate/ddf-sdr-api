@@ -12,10 +12,10 @@ namespace TransCelerate.SDR.RuleEngine
     {
         public StudyArmValidator()
         {           
-            RuleFor(x => x.description)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+            //RuleFor(x => x.description)
+            //    .Cascade(CascadeMode.Stop)
+            //    .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+            //    .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
             RuleFor(x => x.studyArmType)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
@@ -28,10 +28,10 @@ namespace TransCelerate.SDR.RuleEngine
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-            RuleFor(x => x.name)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+            //RuleFor(x => x.name)
+            //    .Cascade(CascadeMode.Stop)
+            //    .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+            //    .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
         }
     }
 }

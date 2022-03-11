@@ -15,6 +15,7 @@ namespace TransCelerate.SDR.Core.DTO.Study
         public string studyTag { get; set; }
 
         public List<StudyIdentifierDTO> studyIdentifiers { get; set; }
+        public List<StudyProtocolDTO> studyProtocolReferences { get; set; }
 
         public List<GetStudyDesignsDTO> studyDesigns { get; set; }
         public List<StudyObjectiveDTO> objectives { get; set; }

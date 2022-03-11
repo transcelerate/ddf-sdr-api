@@ -92,7 +92,7 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="tag"></param>
         /// <param name="sections"></param>
         /// <returns></returns>
-        public async Task<GetStudySectionsDTO> GetSections(string studyId, int version, string tag, string[] sections)
+        public async Task<object> GetSections(string studyId, int version, string tag, string[] sections)
         {
             try
             {
@@ -119,9 +119,9 @@ namespace TransCelerate.SDR.Services.Services
                     var studySectionDTO = _mapper.Map<GetStudySectionsDTO>(study.clinicalStudy);
                     studySectionDTO.studyVersion = study.auditTrail.studyVersion;
                                        
-                    studySectionDTO = RemoveStudySections.RemoveSections(sections, studySectionDTO);
+                    //studySectionDTO = RemoveStudySections.RemoveSections(sections, studySectionDTO);
                    
-                    return studySectionDTO;
+                    return RemoveStudySections.RemoveSections(sections, studySectionDTO);
                 }
             }
             catch (Exception)
@@ -143,7 +143,7 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="sections"></param>
         /// <param name="studyDesignId"></param>
         /// <returns></returns>
-        public async Task<GetStudySectionsDTO> GetStudyDesignSections(string studyId, string studyDesignId, int version, string tag, string[] sections)
+        public async Task<object> GetStudyDesignSections(string studyId, string studyDesignId, int version, string tag, string[] sections)
         {
             try
             {
@@ -169,10 +169,10 @@ namespace TransCelerate.SDR.Services.Services
                 {                    
                     var studySectionDTO = _mapper.Map<GetStudySectionsDTO>(study.clinicalStudy);
                     studySectionDTO.studyVersion = study.auditTrail.studyVersion;
-                    studySectionDTO.studyDesigns = studySectionDTO.studyDesigns.FindAll(x => x.studyDesignId == studyDesignId).ToList();
-                    studySectionDTO = RemoveStudySections.RemoveSectionsForStudyDesign(sections, studySectionDTO);
+                    studySectionDTO.studyDesigns = studySectionDTO.studyDesigns != null? studySectionDTO.studyDesigns.FindAll(x => x.studyDesignId == studyDesignId).Count()!=0 ? studySectionDTO.studyDesigns.FindAll(x => x.studyDesignId == studyDesignId).ToList(): new List<GetStudyDesignsDTO>() : new List<GetStudyDesignsDTO>();
+                    //studySectionDTO = RemoveStudySections.RemoveSectionsForStudyDesign(sections, studySectionDTO);
                    
-                    return studySectionDTO;
+                    return RemoveStudySections.RemoveSectionsForStudyDesign(sections, studySectionDTO);
                 }
             }
             catch (Exception)
@@ -229,20 +229,20 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="fromDate"></param>
         /// <param name="toDate"></param>
         /// <returns></returns>
-        public async Task<GetStudyHistoryResponseDTO> GetAllStudyId(DateTime fromDate, DateTime toDate)
+        public async Task<GetStudyHistoryResponseDTO> GetAllStudyId(DateTime fromDate, DateTime toDate, string studyTitle)
         {
             try
             {
                 _logger.LogInformation($"Started Service : {nameof(ClinicalStudyService)}; Method : {nameof(GetAllStudyId)};");
-                var studies = await _clinicalStudyRepository.GetAllStudyId(fromDate, toDate);
+                var studies = await _clinicalStudyRepository.GetAllStudyId(fromDate, toDate, studyTitle);
                 if (studies == null)
                 {
                     return null;
                 }
                 else
                 {
-                    List<StudyHistoryEntity> studyHistories = JsonConvert.DeserializeObject<List<StudyHistoryEntity>>(JsonConvert.SerializeObject(studies));
-                    var groupStudy = studyHistories.GroupBy(x => new { x.studyId })
+                    //List<StudyHistoryEntity> studyHistories = JsonConvert.DeserializeObject<List<StudyHistoryEntity>>(JsonConvert.SerializeObject(studies));
+                    var groupStudy = studies.GroupBy(x => new { x.studyId })
                                             .Select(g => new
                                             {
                                                 studyId = g.Key.studyId,
@@ -299,27 +299,16 @@ namespace TransCelerate.SDR.Services.Services
                     incomingstudyEntity._id = ObjectId.GenerateNewId();
                     incomingstudyEntity.clinicalStudy.studyIdentifiers.ForEach(x => x.studyIdentifierId = IdGenerator.GenerateId());
                     SectionIdGenerator.GenerateSectionId(incomingstudyEntity);
-                    if (incomingstudyEntity.clinicalStudy.currentSections != null)
-                    {
-                        if (incomingstudyEntity.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).Count() != 0)
-                        {
-                            if (incomingstudyEntity.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns
-                                                                .FindAll(x => x.currentSections != null).Count() != 0)
-                            {
-                                incomingstudyEntity.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns
-                                                                  .Find(x => x.currentSections != null).currentSections
-                                                                  .FindAll(x => x.plannedWorkflows != null)
-                                                                  .ForEach(x => x.plannedWorkflows
-                                                                        .ForEach(p => p.workflowItemMatrix.matrix
-                                                                                .ForEach(m => m.items = PreviousItemNextItemHelper.GetPreviousNextItems(m.items))));
-                            }
-                        }
-                    }
+                    #region Previous and Next Items Logic
+                    PreviousItemNextItemHelper.PreviousItemsNextItemsWraper(incomingstudyEntity);
+                    #endregion
 
                     _logger.LogInformation($"entrySystem: {entrySystem??"<null>"}; Study Input : {JsonConvert.SerializeObject(incomingstudyEntity)}");
                     postStudyDTO.studyId =  await _clinicalStudyRepository.PostStudyItemsAsync(incomingstudyEntity).ConfigureAwait(false);
+                    
+                    #region Response ID mapping
                     postStudyDTO.studyVersion = incomingstudyEntity.auditTrail.studyVersion;
-                    var studyDesign = incomingstudyEntity.clinicalStudy.currentSections!=null?incomingstudyEntity.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).ToList():new List<CurrentSectionsEntity>();
+                    var studyDesign = incomingstudyEntity.clinicalStudy.currentSections != null ? incomingstudyEntity.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).ToList() : new List<CurrentSectionsEntity>();
                     if (studyDesign.Count() != 0)
                     {
                         var designIdList = new List<string>();
@@ -328,12 +317,12 @@ namespace TransCelerate.SDR.Services.Services
                             designIdList.Add(item.studyDesignId);
                         }
                         postStudyDTO.studyDesignId = designIdList;
-                    }
+                    } 
+                    #endregion
                 }
                 else
                 {
-                    StudyEntity existingStudyEntity = _clinicalStudyRepository.GetStudyItemsAsync(incomingstudyEntity.clinicalStudy.studyId, 0).Result;
-                    //var existingStudyDTO = _mapper.Map<PostStudyDTO>(existingStudyEntity);
+                    StudyEntity existingStudyEntity = _clinicalStudyRepository.GetStudyItemsAsync(incomingstudyEntity.clinicalStudy.studyId, 0).Result;                    
                     
                     if(existingStudyEntity == null)
                     {
@@ -356,8 +345,7 @@ namespace TransCelerate.SDR.Services.Services
                         else
                         {
                             incomingstudyEntity._id = ObjectId.GenerateNewId();
-                            existingStudyEntity.auditTrail.studyVersion += 1;
-                            //existingStudyEntity = _mapper.Map<StudyEntity>(incomingstudyEntity);
+                            existingStudyEntity.auditTrail.studyVersion += 1;                            
                             PostStudyElementsCheck.SectionCheck(incomingstudyEntity, existingStudyEntity);
 
                             _logger.LogInformation($"Study Input : {JsonConvert.SerializeObject(existingStudyEntity)}");
@@ -365,6 +353,7 @@ namespace TransCelerate.SDR.Services.Services
                             postStudyDTO.studyId = await _clinicalStudyRepository.PostStudyItemsAsync(existingStudyEntity).ConfigureAwait(false);
                             postStudyDTO.studyVersion = existingStudyEntity.auditTrail.studyVersion;
                         }
+                        #region Response ID mapping
                         var studyDesign = existingStudyEntity.clinicalStudy.currentSections != null ? existingStudyEntity.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).ToList() : new List<CurrentSectionsEntity>();
                         if (studyDesign.Count() != 0)
                         {
@@ -375,6 +364,7 @@ namespace TransCelerate.SDR.Services.Services
                             }
                             postStudyDTO.studyDesignId = designIdList;
                         }
+                        #endregion
                     }
                 }
                 return postStudyDTO;

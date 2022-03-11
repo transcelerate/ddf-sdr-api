@@ -21,6 +21,7 @@ using TransCelerate.SDR.WebApi;
 using TransCelerate.SDR.WebApi.Mappers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using TransCelerate.SDR.Core.DTO.Study;
 
 namespace TransCelerate.SDR.UnitTesting
 {
@@ -322,11 +323,9 @@ namespace TransCelerate.SDR.UnitTesting
         #region DateValidationHelper Unit Testing
         [Test]
         public void DateValidaitonHelper_UnitTesting()
-        {
-            DateValidationHelper dateValidationHelper = new DateValidationHelper();
-
-            Assert.IsTrue(dateValidationHelper.IsValid(""));
-            Assert.IsTrue(dateValidationHelper.IsValid("2022-10-12"));
+        {            
+            Assert.IsTrue(DateValidationHelper.IsValid(""));
+            Assert.IsTrue(DateValidationHelper.IsValid("2022-10-12"));
         }
         #endregion
 
@@ -408,20 +407,24 @@ namespace TransCelerate.SDR.UnitTesting
 
             EpochValidator epochValidator = new EpochValidator();
             Assert.IsTrue(epochValidator.Validate(incomingpostStudyDTO.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns[0].currentSections.Find(x => x.plannedWorkflows != null).plannedWorkflows[0].workflowItemMatrix.matrix[0].items[0].encounter.epoch).IsValid);
+
+            SearchParametersDTO searchParameters = new SearchParametersDTO
+            {         
+                indication = "Bile",
+                interventionModel = "CROSS_OVER",
+                studyTitle = "Umbrella",
+                pageNumber = 1,
+                pageSize = 25,
+                phase = "PHASE_1_TRAIL",
+                studyId = "100",
+                fromDate = "",
+                toDate =""
+            };
+            SearchParametersValidator searchParametersValidator = new SearchParametersValidator();
+            var res = searchParametersValidator.Validate(searchParameters);
+            Assert.IsTrue(searchParametersValidator.Validate(searchParameters).IsValid);
         }
         #endregion
-
-        //#region StartUp Unit Testing
-        //[Test]
-        //public void Startup_UnitTesting()
-        //{
-        //    _mockConfig.Setup(x => x.GetSection(It.IsAny<string>()).Value)
-        //        .Returns("Value");
-        //    Startup startUpClass = new Startup(_mockConfig.Object);
-
-        //    startUpClass.ConfigureServices(serviceDescriptors);
-        //    startUpClass.Configure(app, env);
-        //}
-        //#endregion
+        
     }
 }

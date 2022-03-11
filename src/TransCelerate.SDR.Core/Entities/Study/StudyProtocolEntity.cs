@@ -9,7 +9,7 @@ namespace TransCelerate.SDR.Core.Entities.Study
     [BsonIgnoreExtraElements]
     public class StudyProtocolEntity
     {        
-        public string protocolId { get; set; }
+        public string studyProtocolId { get; set; }
         public string studyProtocolVersion { get; set; }       
     }
 }
