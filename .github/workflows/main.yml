@@ -60,32 +60,7 @@ jobs:
       shell: pwsh
       run: |
           Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net6.0/publish/**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
-           
-   
-          
-    - name: Code Coverage Summary Report
-      uses: irongut/CodeCoverageSummary@v1.0.2
-      with:
-        filename: 'coverage/Cobertura.xml'
-        badge: true
-        format: 'markdown'
-        output: 'both'
-        
-    - name: use this action, test solution dir
-      uses: zyborg/dotnet-tests-report@v1
-      with:
-        project_path: '${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting'
-        report_name: 'TransCelerate.SDR.UnitTesting'
-        report_title: API Tests Report
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        
-    - name: 'Publish Artifact: Artifact'
-      uses: actions/upload-artifact@v2
-      with:
-        path: '${{ github.workspace }}/Publish.zip'
-        name: Build-Artifact
-        
-        
+     
     - name: Cache SonarQube packages
       uses: actions/cache@v1
       with:
@@ -121,6 +96,30 @@ jobs:
           reportgenerator "-reports:src/TransCelerate.SDR.UnitTesting/TestResults/*/coverage.cobertura.xml" "-targetdir:coverage" -reporttypes:"Cobertura;SonarQube"
           
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+   
+          
+    - name: Code Coverage Summary Report
+      uses: irongut/CodeCoverageSummary@v1.0.2
+      with:
+        filename: 'coverage/Cobertura.xml'
+        badge: true
+        format: 'markdown'
+        output: 'both'
+        
+    - name: use this action, test solution dir
+      uses: zyborg/dotnet-tests-report@v1
+      with:
+        project_path: '${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting'
+        report_name: 'TransCelerate.SDR.UnitTesting'
+        report_title: API Tests Report
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: 'Publish Artifact: Artifact'
+      uses: actions/upload-artifact@v2
+      with:
+        path: '${{ github.workspace }}/Publish.zip'
+        name: Build-Artifact
+        
         
     - # "Note: the 'AZURE_SP' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
       name: Azure Login
