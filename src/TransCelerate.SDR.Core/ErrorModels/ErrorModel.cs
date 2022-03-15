@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TransCelerate.SDR.Core.ErrorModels
+﻿namespace TransCelerate.SDR.Core.ErrorModels
 {
+    /// <summary>
+    /// This class is a Model for error
+    /// </summary>
     public class ErrorModel
     {
         public string statusCode { get; set; }

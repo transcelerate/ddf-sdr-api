@@ -1,16 +1,10 @@
-using Azure.Identity;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Server.Kestrel.Https;
 using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.AzureKeyVault;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.WebApi
@@ -36,7 +30,7 @@ namespace TransCelerate.SDR.WebApi
                     var clientSecret = builfConfig[Constants.KeyVault.ClientSecret];
 
                     //For deployed code
-                    if (clientId == null)
+                    if (String.IsNullOrEmpty(clientId))
                     {
                         var azureTokenProvider = new AzureServiceTokenProvider();
                         var keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback

@@ -1,12 +1,10 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Linq;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using TransCelerate.SDR.Core.Entities.Study;
-using System.Threading;
+using System.Linq;
 using System.Threading.Tasks;
+using TransCelerate.SDR.Core.Entities.Study;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
 {
@@ -18,7 +16,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// </summary>
         /// <param name="incoming"></param>
         /// <param name="existing"></param>
-        /// <returns></returns>
+        /// <returns>        
+        /// <see langword="true"/> If incoming and existing study entities are identical
+        /// </returns>
         public static bool StudyComparison(StudyEntity incoming, StudyEntity existing)
         {
             try
@@ -38,7 +38,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// </summary>
         /// <param name="incoming"></param>
         /// <param name="existing"></param>
-        /// <returns></returns>
+        /// <returns>        
+        /// <see langword="true"/> If incoming and existing study entities are identical
+        /// </returns>
         public static bool JsonObjectCheck(object incoming, object existing)
         {
             try
@@ -55,7 +57,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// This method will remove all the id fields in the study
         /// </summary>
         /// <param name="studyEntity"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="StudyEntity"/> after removing all ID fields        
+        /// </returns>
         public static StudyEntity RemoveId(StudyEntity studyEntity)
         {
             try
@@ -232,7 +236,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// </summary>
         /// <param name="incoming"></param>
         /// <param name="existing"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="StudyEntity"/> after checking the section for Posting the data to the database       
+        /// </returns>
         public static StudyEntity SectionCheck(StudyEntity incoming, StudyEntity existing)
         {
             try

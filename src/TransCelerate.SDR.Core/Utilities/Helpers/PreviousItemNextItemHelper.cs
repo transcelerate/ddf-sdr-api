@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using TransCelerate.SDR.Core.Entities.Study;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
@@ -15,7 +14,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// Get the ItemList from the Study
         /// </summary>
         /// <param name="studyEntity"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="StudyEntity"/> after creating previuosItems and NextItems Array        
+        /// </returns>
         public static StudyEntity PreviousItemsNextItemsWraper(StudyEntity studyEntity)
         {
             try
@@ -62,7 +63,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// Generate the Previous Items and Next Items
         /// </summary>
         /// <param name="itemEntities"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="List{ItemEntity}"/> after creating previuosItems and NextItems Array            
+        /// </returns>
         public static List<ItemEntity> GetPreviousNextItems(List<ItemEntity> itemEntities)
         {
             try

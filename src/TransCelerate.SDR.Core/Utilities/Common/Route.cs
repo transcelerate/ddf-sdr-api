@@ -1,34 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TransCelerate.SDR.Core.Utilities.Common
+﻿namespace TransCelerate.SDR.Core.Utilities.Common
 {
+    /// <summary>
+    /// This class holds list of routes for all the endpoints
+    /// </summary>
     public static class Route
     {
-        #region GET Method Routes
-        #region Depricated Routes
-        //public const string InterventionModel = "{study}/elements/interventionmodel";
-
-        //public const string Investigationalinterventions = "{study}/elements/investigationalinterventions";
-
-        //public const string StudyIdentifiers = "{study}/elements/studyidentifiers";
-
-        //public const string StudyPhase = "{study}/elements/studyphase";
-
-        //public const string StudyProtocol = "{study}/elements/studyprotocol";
-
-        //public const string StudyObjectives = "{study}/elements/studyobjectives";
-
-        //public const string StudyTargetPopulation = "{study}/elements/studytargetpopulations";
-
-        //public const string StudyTitle = "{study}/elements/studytitle";
-
-        //public const string StudyType = "{study}/elements/studytype";
-
-        //public const string StudyIndication = "{study}/elements/studyindications"; 
-        #endregion
-
+        #region GET Method Routes        
         public const string Study = "study/{studyId}"; 
 
         public const string StudyDesign = "{studyId}/studydesign/{studyDesignId}"; 

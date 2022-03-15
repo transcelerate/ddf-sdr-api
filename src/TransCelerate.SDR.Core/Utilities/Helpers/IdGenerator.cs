@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
 {
@@ -9,7 +7,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Used for generating UUID
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// A new <see cref="Guid"/>         
+        /// </returns>
         public static string GenerateId()
         {
             return Guid.NewGuid().ToString();

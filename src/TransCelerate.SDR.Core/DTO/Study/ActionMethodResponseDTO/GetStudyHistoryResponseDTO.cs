@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.DTO.Study
 {
+    /// <summary>
+    /// This class is a DTO for GET Method for all study Id
+    /// </summary>
     public class GetStudyHistoryResponseDTO
     {        
         public List<StudyHistoryDTO> study { get; set; }

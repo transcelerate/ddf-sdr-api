@@ -1,21 +1,18 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using Newtonsoft.Json;
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO;
 using TransCelerate.SDR.Core.DTO.Study;
 using TransCelerate.SDR.Core.Entities.Study;
-using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities;
+using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.DataAccess.Interfaces;
 using TransCelerate.SDR.Services.Interfaces;
-using TransCelerate.SDR.Core.Entities;
 
 namespace TransCelerate.SDR.Services.Services
 {
@@ -45,7 +42,10 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="studyId"></param>
         /// <param name="version"></param>
         /// <param name="tag"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="GetStudyDTO"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
         public async Task<GetStudyDTO> GetAllElements(string studyId,int version, string tag)
         {
             try
@@ -91,7 +91,10 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="version"></param>
         /// <param name="tag"></param>
         /// <param name="sections"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="object"/> of study sections with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
         public async Task<object> GetSections(string studyId, int version, string tag, string[] sections)
         {
             try
@@ -132,8 +135,8 @@ namespace TransCelerate.SDR.Services.Services
             {
                 _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyService)}; Method : {nameof(GetSections)};");
             }
-        } 
-        
+        }
+
         /// <summary>
         /// GET For a StudyDesign sections for a study
         /// </summary>
@@ -142,7 +145,10 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="tag"></param>
         /// <param name="sections"></param>
         /// <param name="studyDesignId"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="object"/> of studyDesign sections with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
         public async Task<object> GetStudyDesignSections(string studyId, string studyDesignId, int version, string tag, string[] sections)
         {
             try
@@ -191,7 +197,10 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="fromDate"></param>
         /// <param name="toDate"></param>
         /// <param name="studyId"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="GetStudyAuditDTO"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
         public async Task<GetStudyAuditDTO> GetAuditTrail(DateTime fromDate, DateTime toDate, string studyId)
         {
             try
@@ -229,7 +238,10 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="fromDate"></param>
         /// <param name="toDate"></param>
         /// <param name="studyTitle"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="GetStudyHistoryResponseDTO"/> which has list of study ID's <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
         public async Task<GetStudyHistoryResponseDTO> GetAllStudyId(DateTime fromDate, DateTime toDate, string studyTitle)
         {
             try
@@ -281,7 +293,10 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="studyDTO"></param>
         /// <param name="entrySystem"></param>
         /// <param name="entrySystemId"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="PostStudyResponseDTO"/> which has study ID and study design ID's <br></br> <br></br>
+        /// <see langword="null"/> If the insert is not done
+        /// </returns>
         public async Task<object> PostAllElements(PostStudyDTO studyDTO,string entrySystem)
         {
             try
@@ -381,10 +396,13 @@ namespace TransCelerate.SDR.Services.Services
         }
 
         /// <summary>
-        /// POST All Elements For a Study
+        /// Search Study Elements with search criteria
         /// </summary>
         /// <param name="searchParameters"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="List{GetStudyDTO}}"/> which matches serach criteria <br></br> <br></br>
+        /// <see langword="null"/> If the insert is not done
+        /// </returns>
         public async Task<List<GetStudyDTO>> SearchStudy(SearchParametersDTO searchParametersDTO)
         {
             try

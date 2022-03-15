@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Text;
+
 using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.Core.Utilities
@@ -18,7 +17,7 @@ namespace TransCelerate.SDR.Core.Utilities
         /// <summary>
         /// Logs Information
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="message">The message will be logged</param>
         public void LogInformation(string message)
         {
             try
@@ -35,7 +34,7 @@ namespace TransCelerate.SDR.Core.Utilities
         /// <summary>
         /// Logs Warning
         /// </summary>
-        /// <param name="message"></param>
+       /// <param name="message">The message will be logged</param>
         public void LogWarning(string message)
         {
             try
@@ -52,7 +51,7 @@ namespace TransCelerate.SDR.Core.Utilities
         /// <summary>
         /// Logs Error
         /// </summary>
-        /// <param name="message"></param>
+       /// <param name="message">The message will be logged</param>
         public void LogError(string message)
         {
             try
@@ -69,7 +68,7 @@ namespace TransCelerate.SDR.Core.Utilities
         /// <summary>
         /// Logs When debug logging is is added 
         /// </summary>
-        /// <param name="message"></param>
+       /// <param name="message">The message will be logged</param>
         public void LogDebug(string message)
         {
             try
@@ -86,7 +85,7 @@ namespace TransCelerate.SDR.Core.Utilities
         /// <summary>
         /// Logs Critical Failures
         /// </summary>
-        /// <param name="message"></param>
+       /// <param name="message">The message will be logged</param>
         public void LogCriitical(string message)
         {
             try
@@ -103,7 +102,7 @@ namespace TransCelerate.SDR.Core.Utilities
         /// <summary>
         /// Logs Traces
         /// </summary>
-        /// <param name="message"></param>
+       /// <param name="message">The message will be logged</param>
         public void LogTrace(string message)
         {
             try

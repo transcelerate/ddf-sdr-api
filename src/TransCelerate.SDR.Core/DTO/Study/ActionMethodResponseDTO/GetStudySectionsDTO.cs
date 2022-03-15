@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.DTO.Study
 {
+    /// <summary>
+    /// This class is a DTO for GET Method for study Level sections
+    /// </summary>
     public class GetStudySectionsDTO
     {
         public string studyId { get; set; }

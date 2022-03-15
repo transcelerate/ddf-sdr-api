@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
-using System.Text;
 using TransCelerate.SDR.Core.Entities.Study;
 
 
@@ -16,7 +14,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// Generate Id for all the sections
         /// </summary>
         /// <param name="studyEntity"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="StudyEntity"/> after generating ID for all Sections        
+        /// </returns>
         public static StudyEntity GenerateSectionId(StudyEntity studyEntity)
         {
             try
@@ -110,7 +110,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// Generate Id for Study Objectives
         /// </summary>
         /// <param name="studyObjectivesEntity"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="StudyObjectiveEntity"/> after generating ID for StudyObjective Section        
+        /// </returns>
         public static StudyObjectiveEntity StudyObjectivesIdGenerator(StudyObjectiveEntity studyObjectivesEntity)
         {
             try
@@ -132,7 +134,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// Generate Id for Study PlannedWorkFlows
         /// </summary>
         /// <param name="plannedWorkFlowEntity"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="PlannedWorkFlowEntity"/> after generating ID for PlannedWorkFlow Section        
+        /// </returns>
         public static PlannedWorkFlowEntity StudyPlannedWorkFlowIdGenerator(PlannedWorkFlowEntity plannedWorkFlowEntity)
         {
             try
@@ -201,7 +205,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// Generate Id for Study Cells
         /// </summary>
         /// <param name="studyCellEntity"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="StudyCellEntity"/> after generating ID for StudyCell Section        
+        /// </returns>
         public static StudyCellEntity StudyCellsIdGenerator(StudyCellEntity studyCellEntity)
         {
             try
@@ -235,7 +241,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// Generate Id for Study Designs
         /// </summary>
         /// <param name="studyDesignEntity"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="StudyDesignEntity"/> after generating ID for StudyDesign Section        
+        /// </returns>
         public static StudyDesignEntity StudyDesignIdGenerator(StudyDesignEntity studyDesignEntity)
         {
             try

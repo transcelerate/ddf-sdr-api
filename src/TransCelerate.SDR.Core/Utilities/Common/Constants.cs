@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TransCelerate.SDR.Core.Utilities.Common
+﻿namespace TransCelerate.SDR.Core.Utilities.Common
 {
     /// <summary>
     /// This class holds all the constant strings used in the application

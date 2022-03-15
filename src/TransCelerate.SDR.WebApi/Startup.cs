@@ -1,31 +1,30 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MongoDB.Driver;
 using Newtonsoft.Json;
 using System;
-using System.Linq;
+using System.IO;
 using System.Net;
+using System.Reflection;
+
 using TransCelerate.SDR.Core.AppSettings;
-using TransCelerate.SDR.Services.Interfaces;
-using TransCelerate.SDR.DataAccess.Interfaces;
-using TransCelerate.SDR.Services.Services;
-using TransCelerate.SDR.DataAccess.Repositories;
+using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
-using TransCelerate.SDR.WebApi.Mappers;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using MongoDB.Driver;
-using System.Reflection;
-using System.IO;
-using TransCelerate.SDR.Core.Utilities;
+using TransCelerate.SDR.DataAccess.Interfaces;
+using TransCelerate.SDR.DataAccess.Repositories;
 using TransCelerate.SDR.RuleEngine;
-using FluentValidation.AspNetCore;
+using TransCelerate.SDR.Services.Interfaces;
+using TransCelerate.SDR.Services.Services;
+using TransCelerate.SDR.WebApi.Mappers;
 
 namespace TransCelerate.SDR.WebApi
 {

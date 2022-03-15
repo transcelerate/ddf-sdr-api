@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TransCelerate.SDR.Core.Utilities
+﻿namespace TransCelerate.SDR.Core.Utilities
 {
     /// <summary>
     /// Enums for StudyDesign Sections

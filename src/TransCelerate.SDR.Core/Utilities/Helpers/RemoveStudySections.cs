@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TransCelerate.SDR.Core.DTO.Study;
-using System.Linq;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
+using System;
+using System.Linq;
+using TransCelerate.SDR.Core.DTO.Study;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
 {
@@ -18,7 +16,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// </summary>
         /// <param name="sections"></param>
         /// <param name="getStudySectionsDTO"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="object"/> After removing sections which are not in the sections array        
+        /// </returns>
         public static object RemoveSections(string[] sections, GetStudySectionsDTO getStudySectionsDTO)
         {
             try
@@ -58,7 +58,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// </summary>
         /// <param name="sections"></param>
         /// <param name="getStudySectionsDTO"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="object"/> After removing sections which are not in the sections array           
+        /// </returns>
         public static object RemoveSectionsForStudyDesign(string[] sections, GetStudySectionsDTO getStudySectionsDTO)
         {
             try

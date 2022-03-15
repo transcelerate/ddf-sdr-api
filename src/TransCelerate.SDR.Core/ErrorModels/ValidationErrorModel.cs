@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TransCelerate.SDR.Core.ErrorModels
+﻿namespace TransCelerate.SDR.Core.ErrorModels
 {
+    /// <summary>
+    /// This class is a Model for validation errors
+    /// </summary>
     public class ValidationErrorModel
     {
         public string statusCode { get; set; }

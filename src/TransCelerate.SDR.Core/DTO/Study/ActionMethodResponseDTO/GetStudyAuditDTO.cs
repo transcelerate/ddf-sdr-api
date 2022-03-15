@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TransCelerate.SDR.Core.Utilities;
+﻿using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.DTO.Study
 {
+    /// <summary>
+    /// This class is a DTO for GET Method for AuditTrail of a study
+    /// </summary>
     public class GetStudyAuditDTO
     {    
         public string studyId { get; set; }     

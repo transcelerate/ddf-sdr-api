@@ -264,6 +264,14 @@
               "type": "string",
               "format": "date-time"
             }
+          },
+          {
+            "name": "studyTitle",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -272,7 +280,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AllStudyIdResponse"
+                  "$ref": "#/components/schemas/GetStudyHistoryResponse"
                 }
               }
             }
@@ -443,6 +451,10 @@
             "type": "string",
             "nullable": true
           },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
           "definedProcedures": {
             "type": "array",
             "items": {
@@ -460,20 +472,25 @@
         },
         "additionalProperties": false
       },
-      "AllStudyIdResponse": {
+      "AuditTrail": {
         "type": "object",
         "properties": {
-          "study": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/StudyHistory"
-            },
+          "entryDateTime": {
+            "type": "string",
             "nullable": true
+          },
+          "entrySystem": {
+            "type": "string",
+            "nullable": true
+          },
+          "studyVersion": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
       },
-      "AuditTrail": {
+      "AuditTrailEndpointResponse": {
         "type": "object",
         "properties": {
           "studyTag": {
@@ -537,6 +554,13 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/CurrentSections"
+            },
+            "nullable": true
+          },
+          "studyProtocolReferences": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StudyProtocol"
             },
             "nullable": true
           }
@@ -769,6 +793,13 @@
             },
             "nullable": true
           },
+          "studyProtocolReferences": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StudyProtocol"
+            },
+            "nullable": true
+          },
           "studyDesigns": {
             "type": "array",
             "items": {
@@ -803,7 +834,7 @@
           "auditTrail": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/AuditTrail"
+              "$ref": "#/components/schemas/AuditTrailEndpointResponse"
             },
             "nullable": true
           }
@@ -814,6 +845,14 @@
         "type": "object",
         "properties": {
           "studyDesignId": {
+            "type": "string",
+            "nullable": true
+          },
+          "trialIntentType": {
+            "type": "string",
+            "nullable": true
+          },
+          "trialType": {
             "type": "string",
             "nullable": true
           },
@@ -860,6 +899,19 @@
         },
         "additionalProperties": false
       },
+      "GetStudyHistoryResponse": {
+        "type": "object",
+        "properties": {
+          "study": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StudyHistory"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "InvestigationalIntervention": {
         "type": "object",
         "properties": {
@@ -868,10 +920,6 @@
             "nullable": true
           },
           "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "interventionType": {
             "type": "string",
             "nullable": true
           },
@@ -1004,9 +1052,6 @@
         "properties": {
           "clinicalStudy": {
             "$ref": "#/components/schemas/ClinicalStudy"
-          },
-          "auditTrail": {
-            "$ref": "#/components/schemas/AuditTrail"
           }
         },
         "additionalProperties": false
@@ -1057,22 +1102,14 @@
         "type": "object",
         "properties": {
           "studyId": {
-            "pattern": "^[a-zA-Z0-9\\s\\.]*$",
             "type": "string",
             "nullable": true
           },
           "studyTitle": {
-            "pattern": "^[a-zA-Z0-9\\s\\.]*$",
-            "type": "string",
-            "nullable": true
-          },
-          "briefTitle": {
-            "pattern": "^[a-zA-Z0-9\\s\\.]*$",
             "type": "string",
             "nullable": true
           },
           "indication": {
-            "pattern": "^[a-zA-Z0-9\\s\\.]*$",
             "type": "string",
             "nullable": true
           },
@@ -1093,14 +1130,10 @@
             "nullable": true
           },
           "pageSize": {
-            "maximum": 2147483647,
-            "minimum": 1,
             "type": "integer",
             "format": "int32"
           },
           "pageNumber": {
-            "maximum": 2147483647,
-            "minimum": 1,
             "type": "integer",
             "format": "int32"
           },
@@ -1202,6 +1235,14 @@
           "studyDesignId": {
             "type": "string",
             "nullable": true
+          },
+          "trialIntentType": {
+            "type": "string",
+            "nullable": true
+          },
+          "trialType": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1231,12 +1272,6 @@
         "additionalProperties": false
       },
       "StudyEpoch": {
-        "required": [
-          "description",
-          "epochType",
-          "name",
-          "sequenceInStudy"
-        ],
         "type": "object",
         "properties": {
           "id": {
@@ -1244,13 +1279,16 @@
             "nullable": true
           },
           "epochType": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "description": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "sequenceInStudy": {
             "type": "integer",
@@ -1357,6 +1395,20 @@
             "nullable": true
           },
           "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "StudyProtocol": {
+        "type": "object",
+        "properties": {
+          "studyProtocolId": {
+            "type": "string",
+            "nullable": true
+          },
+          "studyProtocolVersion": {
             "type": "string",
             "nullable": true
           }

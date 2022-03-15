@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using TransCelerate.SDR.Core.ErrorModels;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
 {
@@ -12,12 +8,14 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
     /// Response Helper for Errors
     /// </summary>
     public static class ErrorResponseHelper
-    {      
+    {
         /// <summary>
         /// Resposne Helper When there is an exception
         /// </summary>
         /// <param name="exception"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="ErrorModel"/> When there is an exception      
+        /// </returns>>
         public static ErrorModel ErrorResponseModel(Exception exception)
         {
             string statusCode;
@@ -36,7 +34,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Resposne Helper When there is an Unauthorized Access
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="ErrorModel"/> When there is an Unauthorized Access      
+        /// </returns>>
         public static ErrorModel UnAuthorizedAccess()
         {
             ErrorModel errorModel = new ErrorModel
@@ -51,7 +51,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// Resposne Helper When the resource is Not Found
         /// </summary>
         /// <param name="message"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="ErrorModel"/> When the resource is Not Found
+        /// </returns>>
         public static ErrorModel NotFound(string message = null)
         {
             ErrorModel errorModel = new ErrorModel
@@ -65,7 +67,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Resposne Helper When there is Gateway Error
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="ErrorModel"/> When there is Gateway Error
+        /// </returns>>
         public static ErrorModel GatewayError()
         {
             ErrorModel errorModel = new ErrorModel
@@ -77,10 +81,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         }
 
         /// <summary>
-        /// Resposne Helper When there is bad request
+        /// Resposne Helper When there is Bad Request
         /// </summary>
         /// <param name="message"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="ErrorModel"/> When there is Bad Request
+        /// </returns>>
         public static ErrorModel BadRequest(string message = null)
         {
             ErrorModel errorModel = new ErrorModel
@@ -92,11 +98,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         }
 
         /// <summary>
-        /// Resposne Helper When Conformance Error or Invalid Inpt
+        /// Resposne Helper When there is Conformance Error or Invalid Inpt
         /// </summary>
         /// <param name="validationProblemDetails"></param>
         /// <param name="message"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="ValidationErrorModel"/> When there is Conformance Error or Invalid Inpt
+        /// </returns>>
         public static ValidationErrorModel BadRequest(Object validationProblemDetails, string message = null)
         {            
             ValidationErrorModel errorModel = new ValidationErrorModel
@@ -112,7 +120,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// Resposne Helper When specific method for an API is not called. Ex: When a GET method is called with a POST request.
         /// </summary>
         /// <param name="detail"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="ErrorModel"/> When specific method for an API is not called
+        /// </returns>>
         public static ErrorModel MethodNotAllowed(string detail = null)
         {
             ErrorModel errorModel = new ErrorModel
