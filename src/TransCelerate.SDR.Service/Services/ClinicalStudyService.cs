@@ -70,7 +70,7 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {                       
-                    var studyDTO = _mapper.Map<GetStudyDTO>(study);                                                        
+                    var studyDTO = _mapper.Map<GetStudyDTO>(study);  //Mapping Entity to Dto                                                  
                     return studyDTO;                  
                 }
             }
@@ -120,11 +120,9 @@ namespace TransCelerate.SDR.Services.Services
                 else
                 {                    
                     var studySectionDTO = _mapper.Map<GetStudySectionsDTO>(study.clinicalStudy);
-                    studySectionDTO.studyVersion = study.auditTrail.studyVersion;
-                                       
-                    //studySectionDTO = RemoveStudySections.RemoveSections(sections, studySectionDTO);
+                    studySectionDTO.studyVersion = study.auditTrail.studyVersion;                                                           
                    
-                    return RemoveStudySections.RemoveSections(sections, studySectionDTO);
+                    return RemoveStudySections.RemoveSections(sections, studySectionDTO); //Remove the sections which are not part of sections array
                 }
             }
             catch (Exception)
@@ -173,12 +171,11 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {                    
-                    var studySectionDTO = _mapper.Map<GetStudySectionsDTO>(study.clinicalStudy);
+                    var studySectionDTO = _mapper.Map<GetStudySectionsDTO>(study.clinicalStudy); //Mapping Entity to Dto  
                     studySectionDTO.studyVersion = study.auditTrail.studyVersion;
-                    studySectionDTO.studyDesigns = studySectionDTO.studyDesigns != null? studySectionDTO.studyDesigns.FindAll(x => x.studyDesignId == studyDesignId).Count()!=0 ? studySectionDTO.studyDesigns.FindAll(x => x.studyDesignId == studyDesignId).ToList(): new List<GetStudyDesignsDTO>() : new List<GetStudyDesignsDTO>();
-                    //studySectionDTO = RemoveStudySections.RemoveSectionsForStudyDesign(sections, studySectionDTO);
+                    studySectionDTO.studyDesigns = studySectionDTO.studyDesigns != null? studySectionDTO.studyDesigns.FindAll(x => x.studyDesignId == studyDesignId).Count()!=0 ? studySectionDTO.studyDesigns.FindAll(x => x.studyDesignId == studyDesignId).ToList(): new List<GetStudyDesignsDTO>() : new List<GetStudyDesignsDTO>();                    
                    
-                    return RemoveStudySections.RemoveSectionsForStudyDesign(sections, studySectionDTO);
+                    return RemoveStudySections.RemoveSectionsForStudyDesign(sections, studySectionDTO); //Remove the sections which are not part of sections array
                 }
             }
             catch (Exception)
@@ -213,7 +210,7 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {
-                    var auditTrailDTOList = _mapper.Map<List<AuditTrailEndpointResponseDTO>>(studies);
+                    var auditTrailDTOList = _mapper.Map<List<AuditTrailEndpointResponseDTO>>(studies); //Mapping Entity to Dto 
                     GetStudyAuditDTO getStudyAuditDTO = new GetStudyAuditDTO
                     {
                         studyId = studyId, auditTrail = auditTrailDTOList
@@ -247,14 +244,13 @@ namespace TransCelerate.SDR.Services.Services
             try
             {
                 _logger.LogInformation($"Started Service : {nameof(ClinicalStudyService)}; Method : {nameof(GetAllStudyId)};");
-                var studies = await _clinicalStudyRepository.GetAllStudyId(fromDate, toDate, studyTitle);
+                var studies = await _clinicalStudyRepository.GetAllStudyId(fromDate, toDate, studyTitle); //Getting List of studyId, studyTitle and Version
                 if (studies == null)
                 {
                     return null;
                 }
                 else
-                {
-                    //List<StudyHistoryEntity> studyHistories = JsonConvert.DeserializeObject<List<StudyHistoryEntity>>(JsonConvert.SerializeObject(studies));
+                {                    
                     var groupStudy = studies.GroupBy(x => new { x.studyId })
                                             .Select(g => new
                                             {
@@ -262,11 +258,11 @@ namespace TransCelerate.SDR.Services.Services
                                                 studyTitle = g.Select(x => x).Where(x => x.studyVersion == g.Max(x => x.studyVersion)).FirstOrDefault().studyTitle,
                                                 studyVersion = g.Select(x => x.studyVersion).OrderBy(x => x).ToArray(),
                                                 date = g.Select(x => x).Where(x => x.studyVersion == g.Max(x => x.studyVersion)).FirstOrDefault().entryDateTime
-                                            })
+                                            }) // Grouping the Id's by studyId
                                             .OrderByDescending(x => x.date)
                                             .ToList();
 
-                    GetStudyHistoryResponseDTO allStudyIdResponseDTO = new GetStudyHistoryResponseDTO()
+                    GetStudyHistoryResponseDTO allStudyIdResponseDTO = new GetStudyHistoryResponseDTO() //Mapping Group to Study History ResponseDto 
                     {
                         study = JsonConvert.DeserializeObject<List<StudyHistoryDTO>>(JsonConvert.SerializeObject(groupStudy))
                     };
@@ -302,19 +298,24 @@ namespace TransCelerate.SDR.Services.Services
             try
             {
                 _logger.LogInformation($"Started Service : {nameof(ClinicalStudyService)}; Method : {nameof(PostAllElements)};");                  
-                var incomingstudyEntity = _mapper.Map<StudyEntity>(studyDTO);
+                var incomingstudyEntity = _mapper.Map<StudyEntity>(studyDTO);           //Mapping Dto to Entity                
+                #region Adding Audit Trail for Incoming Study
                 AuditTrailEntity auditTrailEntity = new AuditTrailEntity();
                 incomingstudyEntity.auditTrail = auditTrailEntity;
-                incomingstudyEntity.auditTrail.entryDateTime = DateTime.UtcNow;   
-                incomingstudyEntity.auditTrail.entrySystem = entrySystem;
-                PostStudyResponseDTO postStudyDTO = new PostStudyResponseDTO();
-                if (String.IsNullOrEmpty(incomingstudyEntity.clinicalStudy.studyId))
+                incomingstudyEntity.auditTrail.entryDateTime = DateTime.UtcNow;
+                incomingstudyEntity.auditTrail.entrySystem = entrySystem; 
+                #endregion
+
+                PostStudyResponseDTO postStudyDTO = new PostStudyResponseDTO(); //This class is for sending response for the POST Request
+
+                if (String.IsNullOrEmpty(incomingstudyEntity.clinicalStudy.studyId)) 
                 {
-                    incomingstudyEntity.auditTrail.studyVersion = 1;
-                    incomingstudyEntity.clinicalStudy.studyId = IdGenerator.GenerateId();
-                    incomingstudyEntity._id = ObjectId.GenerateNewId();
-                    incomingstudyEntity.clinicalStudy.studyIdentifiers.ForEach(x => x.studyIdentifierId = IdGenerator.GenerateId());
-                    SectionIdGenerator.GenerateSectionId(incomingstudyEntity);
+                    incomingstudyEntity.auditTrail.studyVersion = 1; 
+                    incomingstudyEntity.clinicalStudy.studyId = IdGenerator.GenerateId(); 
+                    incomingstudyEntity._id = ObjectId.GenerateNewId(); 
+                    incomingstudyEntity.clinicalStudy.studyIdentifiers.ForEach(x => x.studyIdentifierId = IdGenerator.GenerateId()); //UUID for studyIdentifiers
+                    SectionIdGenerator.GenerateSectionId(incomingstudyEntity); //UUID for all sections
+
                     #region Previous and Next Items Logic
                     PreviousItemNextItemHelper.PreviousItemsNextItemsWraper(incomingstudyEntity);
                     #endregion
@@ -336,11 +337,11 @@ namespace TransCelerate.SDR.Services.Services
                     } 
                     #endregion
                 }
-                else
+                else //If there is a studyId in the input
                 {
-                    StudyEntity existingStudyEntity = _clinicalStudyRepository.GetStudyItemsAsync(incomingstudyEntity.clinicalStudy.studyId, 0).Result;                    
+                    StudyEntity existingStudyEntity = _clinicalStudyRepository.GetStudyItemsAsync(incomingstudyEntity.clinicalStudy.studyId, 0).Result;                  
                     
-                    if(existingStudyEntity == null)
+                    if(existingStudyEntity == null)  
                     {
                         return Constants.ErrorMessages.NotValidStudyId;
                     }
@@ -350,12 +351,14 @@ namespace TransCelerate.SDR.Services.Services
                         existingStudyEntity.auditTrail.entrySystem = incomingstudyEntity.auditTrail.entrySystem;                        
                         incomingstudyEntity._id = existingStudyEntity._id;
                         incomingstudyEntity.auditTrail.studyVersion = existingStudyEntity.auditTrail.studyVersion;
-                        var duplicateExistingStudy = JsonConvert.DeserializeObject<StudyEntity>(JsonConvert.SerializeObject(existingStudyEntity));
-                        var duplicateIncomingStudy = JsonConvert.DeserializeObject<StudyEntity>(JsonConvert.SerializeObject(incomingstudyEntity));
-                        if (PostStudyElementsCheck.StudyComparison(duplicateIncomingStudy, duplicateExistingStudy))
+
+                        var duplicateExistingStudy = JsonConvert.DeserializeObject<StudyEntity>(JsonConvert.SerializeObject(existingStudyEntity)); // Creating duplicates for existing entity
+                        var duplicateIncomingStudy = JsonConvert.DeserializeObject<StudyEntity>(JsonConvert.SerializeObject(incomingstudyEntity)); // Creating duplicates for incoming entity
+
+                        if (PostStudyElementsCheck.StudyComparison(duplicateIncomingStudy, duplicateExistingStudy)) //If the data in existing and incoming are same
                         {
                             _logger.LogInformation($"Study Input : {JsonConvert.SerializeObject(existingStudyEntity)}");
-                            postStudyDTO.studyId = await _clinicalStudyRepository.UpdateStudyItemsAsync(existingStudyEntity);
+                            postStudyDTO.studyId = await _clinicalStudyRepository.UpdateStudyItemsAsync(existingStudyEntity); //update the existing latest version
                             postStudyDTO.studyVersion = existingStudyEntity.auditTrail.studyVersion;
                         }
                         else
@@ -369,6 +372,7 @@ namespace TransCelerate.SDR.Services.Services
                             postStudyDTO.studyId = await _clinicalStudyRepository.PostStudyItemsAsync(existingStudyEntity).ConfigureAwait(false);
                             postStudyDTO.studyVersion = existingStudyEntity.auditTrail.studyVersion;
                         }
+
                         #region Response ID mapping
                         var studyDesign = existingStudyEntity.clinicalStudy.currentSections != null ? existingStudyEntity.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).ToList() : new List<CurrentSectionsEntity>();
                         if (studyDesign.Count() != 0)
@@ -420,7 +424,7 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {
-                    var studiesDTO = _mapper.Map<List<GetStudyDTO>>(studies);
+                    var studiesDTO = _mapper.Map<List<GetStudyDTO>>(studies); //Mapper to map from Entity to Dto
                   
                     return studiesDTO;
                 }

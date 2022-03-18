@@ -293,7 +293,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                             _id = x.item._id,
                                             clinicalStudy = x.item.clinicalStudy,
                                             auditTrail = x.item.auditTrail
-                                        }) //Grouping and selecting latest document for each group
+                                        }) //Projecting latest document for each group
                                         .Match(Filter(searchParameters))      //Add Filters based on search criteria                                                                        
                                         .ToListAsync().ConfigureAwait(false);
 
@@ -387,8 +387,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                         case "studytitle": //Sort by studyTitle
                             return asc ? filteredResult.OrderBy(s => s.clinicalStudy.studyTitle) : filteredResult.OrderByDescending(s => s.clinicalStudy.studyTitle);                        
                         case "sponsorid": //Sort by studyIdentifier: orgCode
-                            return asc ? filteredResult.OrderBy(s => s.clinicalStudy.studyIdentifiers.Find(x => x.idType == Constants.IdType.SPONSOR_ID).orgCode ?? "")
-                                                                : filteredResult.OrderByDescending(s => s.clinicalStudy.studyIdentifiers.FindAll(x => x.idType == Constants.IdType.SPONSOR_ID).Count()!=0 ? s.clinicalStudy.studyIdentifiers.Find(x => x.idType == Constants.IdType.SPONSOR_ID).orgCode : "");
+                            return asc ? filteredResult.OrderBy(s => s.clinicalStudy.studyIdentifiers.FindAll(x => x.idType == Constants.IdType.SPONSOR_ID).Count() !=0 ? s.clinicalStudy.studyIdentifiers.Find(x => x.idType == Constants.IdType.SPONSOR_ID).orgCode ?? "" : "")
+                                                                : filteredResult.OrderByDescending(s => s.clinicalStudy.studyIdentifiers.FindAll(x => x.idType == Constants.IdType.SPONSOR_ID).Count() != 0 ? s.clinicalStudy.studyIdentifiers.Find(x => x.idType == Constants.IdType.SPONSOR_ID).orgCode ?? "" : "");
                         case "indication": //Sort by studyIndication: description
                             return asc ? filteredResult.OrderBy(s => s.clinicalStudy.currentSections != null ? s.clinicalStudy.currentSections.Where(x => x.studyIndications != null).Count() != 0 ? s.clinicalStudy.currentSections.Select(y => y.studyIndications).FirstOrDefault(s => s != null).Select(z => z.description).FirstOrDefault() ?? "" : "" : "")
                                                                 : filteredResult.OrderByDescending(s => s.clinicalStudy.currentSections != null ? s.clinicalStudy.currentSections.Where(x => x.studyIndications != null).Count() != 0 ? s.clinicalStudy.currentSections.Select(y => y.studyIndications).FirstOrDefault(s => s != null).Select(z => z.description).FirstOrDefault() ?? "" : "" : "");

@@ -54,17 +54,7 @@ namespace TransCelerate.SDR.WebApi
                     builder.AddApplicationInsights(Config.instrumentationKey);
                 });
             ILogger logger = loggerFactory.CreateLogger<Startup>();
-            #endregion
-
-            //Authorization for the APIs
-            #region Removed as part of certificate authentication
-            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            //            .AddJwtBearer(o =>
-            //            {
-            //                o.Audience = Config.clientID;
-            //                o.Authority = Config.instance + Config.tenantID;
-            //            }); 
-            #endregion
+            #endregion            
 
             //Swagger
             services.AddSwaggerGen(c =>
@@ -75,7 +65,7 @@ namespace TransCelerate.SDR.WebApi
                 c.IncludeXmlComments(xmlPath);
             });
 
-            //Mapping EndPoints
+            //Mapping EndPoints and overriding Data Annotations validation
             services.AddControllers().AddFluentValidation(fv =>
             {
                 fv.DisableDataAnnotationsValidation = true;
@@ -153,8 +143,7 @@ namespace TransCelerate.SDR.WebApi
             //Custom Response for the API HTTP errors
             app.Use(async (context, next) =>
             {               
-                await next();           
-                context.Response.Headers.Add("Content-Type", "application/json; charset=utf-8");
+                await next();                           
                 if (context.Response.StatusCode == (int)HttpStatusCode.Unauthorized)
                 {                    
                     await context.Response.WriteAsync(JsonConvert.SerializeObject(ErrorResponseHelper.UnAuthorizedAccess()));
