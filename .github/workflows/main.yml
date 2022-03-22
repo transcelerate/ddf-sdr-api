@@ -74,6 +74,33 @@ jobs:
         path: '${{ github.workspace }}/Publish.zip'
         name: Build-Artifact
         
+        ##################################################################################
+        
+    - name: Dotnet Test
+      # Running Dotnet test cases and also scanning the code code in sonar with using code coverage file
+      run: |
+          dotnet test 'src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release  --collect "XPlat Code Coverage" --logger trx 
+          cp ${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting/TestResults/*/coverage.cobertura.xml '${{ github.workspace }}/coverage.cobertura.xml'
+    
+    - name: Code Coverage Summary Report
+      uses: irongut/CodeCoverageSummary@v1.0.2
+      # Code Coverage report
+      with:
+#         filename: 'coverage/Cobertura.xml'
+        filename: coverage.cobertura.xml
+        badge: true
+        format: 'markdown'
+        output: 'both'
+        
+    - name: use this action, test solution dir
+      uses: zyborg/dotnet-tests-report@v1
+      # Publish the test cases run in Github
+      with:
+        project_path: '${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting'
+        report_name: 'TransCelerate.SDR.UnitTesting'
+        report_title: API Tests Report
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        
 ###################---------------------Sonar Scan and Test Case Execution---------------------###################################
 
     - name: Cache SonarQube packages
@@ -128,30 +155,30 @@ jobs:
    
   #################---------------Test Case and Code Coverage Results------------------###########################
  
-    - name: Dotnet Test
-      # Running Dotnet test cases and also scanning the code code in sonar with using code coverage file
-      run: |
-          dotnet test 'src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release  --collect "XPlat Code Coverage" --logger trx 
-          cp ${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting/TestResults/*/coverage.cobertura.xml '${{ github.workspace }}/coverage.cobertura.xml'
+#     - name: Dotnet Test
+#       # Running Dotnet test cases and also scanning the code code in sonar with using code coverage file
+#       run: |
+#           dotnet test 'src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release  --collect "XPlat Code Coverage" --logger trx 
+#           cp ${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting/TestResults/*/coverage.cobertura.xml '${{ github.workspace }}/coverage.cobertura.xml'
     
-    - name: Code Coverage Summary Report
-      uses: irongut/CodeCoverageSummary@v1.0.2
-      # Code Coverage report
-      with:
-#         filename: 'coverage/Cobertura.xml'
-        filename: coverage.cobertura.xml
-        badge: true
-        format: 'markdown'
-        output: 'both'
+#     - name: Code Coverage Summary Report
+#       uses: irongut/CodeCoverageSummary@v1.0.2
+#       # Code Coverage report
+#       with:
+# #         filename: 'coverage/Cobertura.xml'
+#         filename: coverage.cobertura.xml
+#         badge: true
+#         format: 'markdown'
+#         output: 'both'
         
-    - name: use this action, test solution dir
-      uses: zyborg/dotnet-tests-report@v1
-      # Publish the test cases run in Github
-      with:
-        project_path: '${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting'
-        report_name: 'TransCelerate.SDR.UnitTesting'
-        report_title: API Tests Report
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+#     - name: use this action, test solution dir
+#       uses: zyborg/dotnet-tests-report@v1
+#       # Publish the test cases run in Github
+#       with:
+#         project_path: '${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting'
+#         report_name: 'TransCelerate.SDR.UnitTesting'
+#         report_title: API Tests Report
+#         github_token: ${{ secrets.GITHUB_TOKEN }}
   
       
 ##########################-------------Deployment----------------#####################################
