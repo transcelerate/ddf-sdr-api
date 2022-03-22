@@ -128,12 +128,11 @@ jobs:
    
   #################---------------Test Case and Code Coverage Results------------------###########################
  
-    - name: Test Case Run
-      shell: pwsh
+    - name: Dotnet Test
       # Running Dotnet test cases and also scanning the code code in sonar with using code coverage file
-      run: |    
+      run: |
           dotnet test 'src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release  --collect "XPlat Code Coverage" --logger trx 
-
+          cp TestResults/*/coverage.cobertura.xml '${{ github.workspace }}/coverage/Cobertura.xml'
     
     - name: Code Coverage Summary Report
       uses: irongut/CodeCoverageSummary@v1.0.2
