@@ -132,7 +132,7 @@ jobs:
       # Running Dotnet test cases and also scanning the code code in sonar with using code coverage file
       run: |
           dotnet test 'src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release  --collect "XPlat Code Coverage" --logger trx 
-          cp TestResults/*/coverage.cobertura.xml '${{ github.workspace }}/coverage/Cobertura.xml'
+          cp ${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting/TestResults/*/coverage.cobertura.xml '${{ github.workspace }}/coverage/Cobertura.xml'
     
     - name: Code Coverage Summary Report
       uses: irongut/CodeCoverageSummary@v1.0.2
