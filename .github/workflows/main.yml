@@ -74,7 +74,7 @@ jobs:
         path: '${{ github.workspace }}/Publish.zip'
         name: Build-Artifact
         
-        ##################################################################################
+    ###########################---------------NUnit Test Cases-----------------------#############################
         
     - name: Dotnet Test
       # Running Dotnet test cases and also scanning the code code in sonar with using code coverage file
@@ -101,7 +101,7 @@ jobs:
         report_title: API Tests Report
         github_token: ${{ secrets.GITHUB_TOKEN }}
         
-###################---------------------Sonar Scan and Test Case Execution---------------------###################################
+###################---------------------Sonar Scan-------------------------###################################
 
     - name: Cache SonarQube packages
       uses: actions/cache@v1
