@@ -103,20 +103,20 @@ jobs:
 #           dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
 #           dotnet tool update dotnet-reportgenerator-globaltool -g 
           
-    - name: Build and analyze
-      # GITHUB_TOKEN secret used from secrets
-      env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-      shell: pwsh
-      # Running Dotnet test cases and also scanning the code code in sonar with using code coverage file
-      run: |
-          ./.sonar/scanner/dotnet-sonarscanner begin /k:"transceleratebiopharmainc_ddf-sdr-api" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.coverageReportPaths="${{ github.workspace }}/coverage/SonarQube.xml" /d:sonar.cobertura.reportPath='${{ github.workspace }}/coverage/Cobertura.xml'
+#     - name: Build and analyze
+#       # GITHUB_TOKEN secret used from secrets
+#       env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+#       shell: pwsh
+#       # Running Dotnet test cases and also scanning the code code in sonar with using code coverage file
+#       run: |
+#           ./.sonar/scanner/dotnet-sonarscanner begin /k:"transceleratebiopharmainc_ddf-sdr-api" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.coverageReportPaths="${{ github.workspace }}/coverage/SonarQube.xml" /d:sonar.cobertura.reportPath='${{ github.workspace }}/coverage/Cobertura.xml'
           
-          dotnet test 'src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release  --collect "XPlat Code Coverage" -s "src/CodeCoverage.runsettings" --logger trx 
-          cd ${{ github.workspace }}
-          reportgenerator "-reports:src/TransCelerate.SDR.UnitTesting/TestResults/*/coverage.cobertura.xml" "-targetdir:coverage" -reporttypes:"Cobertura;SonarQube"
+#           dotnet test 'src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release  --collect "XPlat Code Coverage" -s "src/CodeCoverage.runsettings" --logger trx 
+#           cd ${{ github.workspace }}
+#           reportgenerator "-reports:src/TransCelerate.SDR.UnitTesting/TestResults/*/coverage.cobertura.xml" "-targetdir:coverage" -reporttypes:"Cobertura;SonarQube"
           
-          ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+#           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
           
           
     # If you wish to fail your job when the Quality Gate is red, uncomment the
@@ -127,7 +127,14 @@ jobs:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
    
   #################---------------Test Case and Code Coverage Results------------------###########################
-  
+ 
+    - name: Test Case Run
+      shell: pwsh
+      # Running Dotnet test cases and also scanning the code code in sonar with using code coverage file
+      run: |    
+          dotnet test 'src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release  --collect "XPlat Code Coverage" --logger trx 
+
+    
     - name: Code Coverage Summary Report
       uses: irongut/CodeCoverageSummary@v1.0.2
       # Code Coverage report
