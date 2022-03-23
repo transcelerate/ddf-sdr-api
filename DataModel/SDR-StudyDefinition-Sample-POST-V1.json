@@ -1,0 +1,247 @@
+{
+	"clinicalStudy": {
+		"studyId": "",
+		"studyTitle": "Study Number One",
+		"studyType": "INTERVENTIONAL",
+		"studyPhase": "PHASE_1_TRIAL",
+		"studyStatus": "this is a study status",
+		"studyTag": "1.0Draft",
+		"studyIdentifiers": [
+			{
+				"orgCode": "2.16.840.1.113883.3.1077",
+				"name": "ClinicalTrials.gov",
+				"idType": "REGISTRY_STUDY"
+			},
+			{
+				"orgCode": "2.16.840.1.113883.3.1077",
+				"name": "ClinicalTrials.gov",
+				"idType": "SPONSOR_ID"
+			},
+			{
+				"orgCode": "2.16.842.1.113844.3.1088",
+				"name": "ClinicalTrials.gov",
+				"idType": "SPONSOR_ID"
+			}
+		],
+		"studyProtocolReferences": [
+			{
+				"studyProtocolId": null,
+				"studyProtocolVersion": null
+			}
+		],
+		"currentSections": [
+			{
+				"sectionType": "STUDY_INDICATIONS",
+				"studyIndications": [
+					{
+						"description": "Alzheimer's disease",
+						"coding": [
+							{
+								"code": "26929004",
+								"codeSystem": "SNOMED-CT",
+								"codeSystemVersion": "4.0.6.4",
+								"decode": "Alzheimer's disease (disorder)"
+							}
+						]
+					}
+				]
+			},
+			{
+				"sectionType": "STUDY_DESIGNS",
+				"studyDesigns": [
+					{
+						"studyDesignId": "",
+						"trialIntentType":"TrialIntentType1",
+						"trialType":"TrialType1",
+						"currentSections": [
+							{
+								"sectionType": "STUDY_POPULATIONS",
+								"studyPopulations": [
+									{
+										"description": "healthy volunteers of age between 18 and 65"
+									}
+								]
+							},
+							{
+								"sectionType": "PLANNED_WORKFLOWS",
+								"plannedWorkflows": [
+									{
+										"description": "Planned Workflow for DeprecatedStudy ACME001",
+										"startPoint": {
+											"type": "SCREENING",
+											"subjectStatusGrouping": "In Screening",
+											"startDate": "2022-JAN-01",
+											"endDate": "2022-JAN-31"
+										},
+										"endPoint": {
+											"type": "SCREENING",
+											"subjectStatusGrouping": "In Screening",
+											"startDate": "2022-JAN-01",
+											"endDate": "2022-JAN-31"
+										},
+										"workflowItemMatrix": {
+											"matrix": [
+												{
+													"items": [
+														{
+															"description": "go to next when subject has systolic blood pressure below 130 mmHg",
+															"fromPointInTime": {
+																"type": "SCREENING",
+																"subjectStatusGrouping": "In Screening",
+																"startDate": "2022-JAN-01",
+																"endDate": "2022-JAN-31"
+															},
+															"toPointInTime": {
+																"type": "SCREENING",
+																"subjectStatusGrouping": "In Screening",
+																"startDate": "2022-JAN-01",
+																"endDate": "2022-JAN-31"
+															},
+															"activity": {
+																"description":"Some common activity",
+																"definedProcedures": [
+																	{
+																		"procedureCode": "testCode"
+																	}
+																],
+																"studyDataCollection": [
+																	{
+																		"name": "Systolic Blood Pressure",
+																		"description": "Measurement of systolic blood pressure in sitting position in either mm or cm Mercury column",
+																		"eCRFLink": "https://library.cdisc.org/api/mdr/cdashig/2-1/domains/VS"
+																	}
+																]
+															},
+															"encounter": {
+																"name": "test visit",
+																"description": "visit description",
+																"contactMode": "IN_PERSON",
+																"environmentalSetting": "CLINIC",
+																"startRule": {
+																	"description": "start rule",
+																	"coding": [
+																		{
+																			"code": "xyz",
+																			"codeSystem": "test system",
+																			"codeSystemVersion": "1.0",
+																			"decode": "the decode string"
+																		}
+																	]
+																},
+																"endRule": {
+																	"description": "end rule",
+																	"coding": [
+																		{
+																			"code": "xyz",
+																			"codeSystem": "test system",
+																			"codeSystemVersion": "1.0",
+																			"decode": "the decode string"
+																		}
+																	]
+																},
+																"epoch": {
+																	"epochType": "SCREENING",
+																	"name": "First treatment epoch",
+																	"description": "First treatment epoch with low dose",
+																	"sequenceInStudy": 1
+																}
+															},
+															"previousItemsInSequence": [],
+															"nextItemsInSequence": []
+														}	
+													]
+												}
+											]
+										}
+									}
+								]
+							},
+							{
+								"sectionType": "STUDY_CELLS",
+								"studyCells": [
+									{
+										"studyElements": [
+											{
+												"name": "washout after treatment element",
+												"description": "This element is for washout after treatment with either active ingredient or placebo",
+												"startRule": {
+													"description": "Textual description of the rule",
+													"coding": [
+														{
+															"code": "test transition rule in Python",
+															"codeSystem": "Python",
+															"codeSystemVersion": "1.0",
+															"decode": "???"
+														}
+													]
+												},
+												"endRule": {
+													"description": "Textual description of the rule",
+													"coding": [
+														{
+															"code": "test transition rule in Perl",
+															"codeSystem": "Perl",
+															"codeSystemVersion": "1.0",
+															"decode": "???"
+														}
+													]
+												}
+											}
+										],
+										"studyArm": {
+											"description": "200mg Ibuprofen active comparator arm",
+											"studyArmType": "ACTIVE_COMPARATOR_ARM",
+											"studyOriginType": "INTERNAL",
+											"studyArmOrigin": "HISTORICAL",
+											"name": "My Comparator Arm"
+										},
+										"studyEpoch": {
+											"epochType": "SCREENING",
+											"name": "First treatment epoch",
+											"description": "First treatment epoch with low dose",
+											"sequenceInStudy": 2
+										}
+									}
+								]
+							},
+							{
+								"sectionType": "INVESTIGATIONAL_INTERVENTIONS",
+								"investigationalInterventions": [
+									{
+										"description": "Ibuprofen 200mg",
+										"interventionModel": "SEQUENTIAL",
+										"status": "A Status",
+										"coding": [
+											{
+												"code": "26929004",
+												"codeSystem": "SNOMED-CT",
+												"codeSystemVersion": "4.0.6.4",
+												"decode": "Alzheimer's disease (disorder)"
+											}
+										]
+									}
+								]
+							}
+						]
+					}
+				]
+			},
+			{
+				"sectionType": "OBJECTIVES",
+				"objectives": [
+					{
+						"description": "Example trial objective",
+						"level": "PRIMARY",
+						"endpoints": [
+							{
+								"description": "Cumulative incidence of virus detection in sputum samples among participants up to...",
+								"purpose": "EFFICACY",
+								"outcomeLevel": "PRIMARY"
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+}
