@@ -51,7 +51,6 @@ jobs:
     - name: NuGet restore
       run: nuget restore '${{ github.workspace }}/src/TransCelerate.SDR.sln'      
       
- 
     - name: Find and Replace User Name - Using Build Variable
       # Replace the Keyvault value in appsettings.json
       run: |
