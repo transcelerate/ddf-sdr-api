@@ -134,7 +134,7 @@ jobs:
       shell: pwsh
       # Running Dotnet test cases and also scanning the code code in sonar with using code coverage file
       run: |
-          ./.sonar/scanner/dotnet-sonarscanner begin /k:"transceleratebiopharmainc_ddf-sdr-api" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.coverageReportPaths="${{ github.workspace }}/coverage/SonarQube.xml" /d:sonar.cobertura.reportPath='${{ github.workspace }}/coverage.cobertura.xml'
+          ./.sonar/scanner/dotnet-sonarscanner begin /k:"transceleratebiopharmainc_ddf-sdr-api" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.coverageReportPaths="${{ github.workspace }}/coverage/SonarQube.xml" /d:sonar.cobertura.reportPath='${{ github.workspace }}/coverage/Cobertura.xml'
           
           dotnet test 'src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release  --collect "XPlat Code Coverage" -s "src/CodeCoverage.runsettings" --logger trx 
           cd ${{ github.workspace }}
