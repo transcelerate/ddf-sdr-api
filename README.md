@@ -13,7 +13,7 @@ Study Definition Repository (SDR) Reference Implementation is TransCelerate’s 
 
 This is a .NET 6 Web API project that is designed to expose APIs which upstream/downstream systems can utilize to store and retrieve study definitions from SDR.
 
-Please read the [API User Guide](documents/ddf-sdr-user-guide-api.pdf) to get started. 
+Please read the [DDF SDR API User Guide](documents/ddf-sdr-user-guide-api.pdf) to get started. 
 
 # Pre-requisites
 
