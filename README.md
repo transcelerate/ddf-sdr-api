@@ -15,6 +15,8 @@ This is a .NET 6 Web API project that is designed to expose APIs which upstream/
 
 Please read the [DDF SDR API User Guide](documents/ddf-sdr-user-guide-api.pdf) to get started. 
 
+NOTE: As of May 2022, the DDF initiative is still the process of setting up operations, and any pull requests submitted will not be triaged at this point in time.
+
 # Pre-requisites
 
 1. Install [Visual Studio 2022](https://visualstudio.microsoft.com/) with default options to run the solution.
