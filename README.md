@@ -19,9 +19,9 @@ Please read the [DDF SDR API User Guide](documents/ddf-sdr-user-guide-api.pdf) t
 NOTE: As of May 2022, the DDF initiative is still the process of setting up operations, and any pull requests submitted will not be triaged at this point in time.
 
 # Sample Data
-For those looking to evaluate the USDM with a sample data set, please see the following to files:
+For those looking to evaluate the USDM with a sample data set, please see the following to files in the Data Model folder:
 - [Sample Data via Excel](https://github.com/transcelerate/ddf-sdr-api/blob/main/DataModel/SDR%20Study%20Sample-JSON.xlsx)
-- [Sample Data via JSON](DataModel/SDR-StudyDefinition-Sample-POST-V1.json)
+- [Sample Data via JSON](https://github.com/transcelerate/ddf-sdr-api/blob/main/DataModel/SDR%20Study%20Sample-JSON.json)
 
 # Pre-requisites
 
