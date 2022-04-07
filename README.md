@@ -1,4 +1,5 @@
 - [Introduction](#introduction)
+- [Sample Data](#sample-data)
 - [Pre-requisites](#pre-requisites)
 - [Code setup and debugging](#code-setup-and-debugging)
 - [Base solution structure](#base-solution-structure)
@@ -19,7 +20,7 @@ NOTE: As of May 2022, the DDF initiative is still the process of setting up oper
 
 # Sample Data
 For those looking to evaluate the USDM with a sample data set, please see the following to files:
-- [Sample Data via Excel]()
+- [Sample Data via Excel](https://github.com/transcelerate/ddf-sdr-api/blob/main/DataModel/SDR%20Study%20Sample-JSON.xlsx)
 - [Sample Data via JSON](DataModel/SDR-StudyDefinition-Sample-POST-V1.json)
 
 # Pre-requisites
