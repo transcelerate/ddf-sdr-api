@@ -29,7 +29,7 @@ For those looking to evaluate the USDM with a sample data set, please see the fo
 
 # Code setup and debugging
 
-### How to setup code
+## How to setup code
 
 1. Clone the repo into a local directory using below git command.
 
@@ -38,7 +38,7 @@ git clone "repo_url"
 ```
 2. Once repo is cloned, open the solution in Visual Studio 2022 IDE.
 
-### How To Run
+## How To Run
 
 1. For running the code locally, take a copy of appsettings.json file and rename the copied file to appsettings.Development.json file in the root folder of TransCelerate.SDR.WebApi project.
 
