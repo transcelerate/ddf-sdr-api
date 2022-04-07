@@ -17,6 +17,11 @@ Please read the [DDF SDR API User Guide](documents/ddf-sdr-user-guide-api.pdf) t
 
 NOTE: As of May 2022, the DDF initiative is still the process of setting up operations, and any pull requests submitted will not be triaged at this point in time.
 
+# Sample Data
+For those looking to evaluate the USDM with a sample data set, please see the following to files:
+- [Sample Data via Excel]()
+- [Sample Data via JSON](DataModel/SDR-StudyDefinition-Sample-POST-V1.json)
+
 # Pre-requisites
 
 1. Install [Visual Studio 2022](https://visualstudio.microsoft.com/) with default options to run the solution.
