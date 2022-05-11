@@ -1,4 +1,5 @@
 - [Introduction](#introduction)
+  - [Requirements to Contribute and Propose Changes](#requirements-to-contribute-and-propose-changes)
 - [Sample Data](#sample-data)
 - [Pre-requisites](#pre-requisites)
 - [Code setup and debugging](#code-setup-and-debugging)
