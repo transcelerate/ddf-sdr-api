@@ -215,7 +215,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                                 {
                                                     i.studyElements.FindAll(x => x != null).ForEach(e => {
                                                         e.studyElementId = null;
+                                                        if (e.startRule != null)
                                                         e.startRule.RuleId = null;
+                                                        if (e.endRule != null)
                                                         e.endRule.RuleId = null;
                                                     });
                                                 }
@@ -248,6 +250,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 existing.clinicalStudy.studyPhase = incoming.clinicalStudy.studyPhase ?? existing.clinicalStudy.studyPhase;                
                 existing.clinicalStudy.studyTag = incoming.clinicalStudy.studyTag ?? existing.clinicalStudy.studyTag;
                 existing.clinicalStudy.studyStatus = incoming.clinicalStudy.studyStatus ?? existing.clinicalStudy.studyStatus;
+                if (incoming.clinicalStudy.studyProtocolReferences != null)
+                {
+                    if (incoming.clinicalStudy.studyProtocolReferences.Count > 0)
+                    {
+                        existing.clinicalStudy.studyProtocolReferences = incoming.clinicalStudy.studyProtocolReferences;
+                    }
+                }
 
                 //For studyIdentifiers
                 var studyIdentifiersList = new List<StudyIdentifierEntity>();
@@ -274,8 +283,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 //If there is current sections in existing entity, the we are proceeding with section level checks
                 else if (incoming.clinicalStudy.currentSections != null && existing.clinicalStudy.currentSections != null)
                 {
-                    List<InvestigationalInterventionEntity> existingInvestigationalInterventionEntities = existing.clinicalStudy.currentSections.FindAll(x => x.investigationalInterventions != null).Count() != 0 ? existing.clinicalStudy.currentSections.Find(x => x.investigationalInterventions != null).investigationalInterventions : new List<InvestigationalInterventionEntity>();
-                    List<InvestigationalInterventionEntity> incomingInvestigationalInterventionEntities = incoming.clinicalStudy.currentSections.FindAll(x => x.investigationalInterventions != null).Count()!=0 ? incoming.clinicalStudy.currentSections.Find(x => x.investigationalInterventions != null).investigationalInterventions:new List<InvestigationalInterventionEntity>();
 
                     List<StudyObjectiveEntity> existingStudyObjectivesEntities = existing.clinicalStudy.currentSections.FindAll(x => x.objectives != null).Count()!=0 ? existing.clinicalStudy.currentSections.Find(x => x.objectives != null).objectives: new List<StudyObjectiveEntity>();
                     List<StudyObjectiveEntity> incomingStudyObjectivesEntities = incoming.clinicalStudy.currentSections.FindAll(x => x.objectives != null).Count() !=0 ? incoming.clinicalStudy.currentSections.Find(x => x.objectives != null).objectives: new List<StudyObjectiveEntity>();
@@ -344,11 +351,20 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                 foreach (var endpoint in item.endpoints)
                                 {
                                     if (existingStudyObjectivesEntities.Find(x => x.objectiveId == item.objectiveId)
+                                        .endpoints != null)
+                                    {
+                                        if (existingStudyObjectivesEntities.Find(x => x.objectiveId == item.objectiveId)
                                         .endpoints.Any(x => x.endPointsId == endpoint.endPointsId))
                                     {
                                         endPointList.Add(endpoint);
                                         existingStudyObjectivesEntities.Find(x => x.objectiveId == item.objectiveId)
                                         .endpoints.RemoveAll(x => x.endPointsId == endpoint.endPointsId);
+                                        }
+                                        else
+                                        {
+                                            endpoint.endPointsId = IdGenerator.GenerateId();
+                                            endPointList.Add(endpoint);
+                                        }
                                     }
                                     else
                                     {
@@ -456,6 +472,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     {
                         if (existingStudyDesignEntities.Any(x => x.studyDesignId == item.studyDesignId))
                         {                            
+                            existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId).trialIntentType = item.trialIntentType;
+                            existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId).trialType = item.trialType;
+                            if (existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId).currentSections == null)
+                            {
+                                existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId).currentSections = new List<CurrentSectionsEntity>();
+                            }
                             List<PlannedWorkFlowEntity> existingPlannedWorkFlowEntities = existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId).currentSections
                                                                                                                      .FindAll(x => x.plannedWorkflows != null).Count() != 0 ?
                                                                                           existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId).currentSections
@@ -484,11 +506,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                                                                                                       .Find(x => x.studyCells != null).studyCells : new List<StudyCellEntity>();
 
                             List<InvestigationalInterventionEntity> existingInvestigationalInterventionEntities = existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId).currentSections
-                                                                                                                     .FindAll(x => x.studyCells != null).Count() != 0 ?
+                                                                                                                     .FindAll(x => x.investigationalInterventions != null).Count() != 0 ?
                                                                                           existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId).currentSections
                                                                                                                      .Find(x => x.investigationalInterventions != null).investigationalInterventions : new List<InvestigationalInterventionEntity>();
                             List<InvestigationalInterventionEntity> incomingInvestigationalInterventionEntities = incomingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId).currentSections
-                                                                                                                     .FindAll(x => x.studyCells != null).Count() != 0 ?
+                                                                                                                     .FindAll(x => x.investigationalInterventions != null).Count() != 0 ?
                                                                                           incomingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId).currentSections
                                                                                                                      .Find(x => x.investigationalInterventions != null).investigationalInterventions : new List<InvestigationalInterventionEntity>();                          
 
@@ -587,12 +609,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             {
                 if (existingStudyPopulationEntities.Count() == 0 && incomingStudyPopulationEntities.Count() != 0)
                 {
-                    existingStudyPopulationEntities.ForEach(x => x.studyPopulationId = IdGenerator.GenerateId());
+                    incomingStudyPopulationEntities.ForEach(x => x.studyPopulationId = IdGenerator.GenerateId());
                     CurrentSectionsEntity currentSectionsEntity = new CurrentSectionsEntity()
                     {
                         currentSectionsId = IdGenerator.GenerateId(),
                         sectionType = StudySectionTypes.STUDY_POPULATIONS.ToString(),
-                        studyPopulations = existingStudyPopulationEntities
+                        studyPopulations = incomingStudyPopulationEntities
                     };
                     existingStudyDesign.currentSections.Add(currentSectionsEntity);
                 }
@@ -688,15 +710,18 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             try
             {
-                if (existingPointInTime.pointInTimeId == null && incomingPointInTime.pointInTimeId != null)
+                if (incomingPointInTime != null)
+                {                    
+                    if (existingPointInTime == null || (existingPointInTime.pointInTimeId == null && incomingPointInTime.pointInTimeId != null))
                 {
                     incomingPointInTime.pointInTimeId = IdGenerator.GenerateId();
                     existingPointInTime = incomingPointInTime;
                 }
-                else if (existingPointInTime.pointInTimeId != incomingPointInTime.pointInTimeId)
+                    else if (existingPointInTime == null || (existingPointInTime.pointInTimeId != incomingPointInTime.pointInTimeId))
                 {
                     incomingPointInTime.pointInTimeId = IdGenerator.GenerateId();
                     existingPointInTime = incomingPointInTime;
+                    }
                 }
             }
             catch (Exception)
@@ -714,32 +739,50 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             try
             {
-                if ((existingWorkFlowItemMatrixEntity.workFlowItemMatrixId == null && incomingWorkFlowItemMatrixEntity.workFlowItemMatrixId != null)
-                    || (existingWorkFlowItemMatrixEntity.workFlowItemMatrixId != incomingWorkFlowItemMatrixEntity.workFlowItemMatrixId))
+                if (incomingWorkFlowItemMatrixEntity != null)
+                {
+                    if ((existingWorkFlowItemMatrixEntity == null) || ((existingWorkFlowItemMatrixEntity.workFlowItemMatrixId == null && incomingWorkFlowItemMatrixEntity.workFlowItemMatrixId != null)
+                    || (existingWorkFlowItemMatrixEntity.workFlowItemMatrixId != incomingWorkFlowItemMatrixEntity.workFlowItemMatrixId)))
                 {
                     incomingWorkFlowItemMatrixEntity.workFlowItemMatrixId = IdGenerator.GenerateId();
                     incomingWorkFlowItemMatrixEntity.matrix.ForEach(m =>
                     {
                         m.matrixId = IdGenerator.GenerateId();
+                            if(m.items!=null)
+                            {
                         m.items.ForEach(item =>
                         {
                             item.itemId = IdGenerator.GenerateId();
+                                    if (item.fromPointInTime != null)
                             item.fromPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                                    if (item.toPointInTime != null)
                             item.toPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                                    if (item.activity != null)
+                                    {
                             item.activity.activityId = IdGenerator.GenerateId();
+                                        if (item.activity.studyDataCollection != null)
                             item.activity.studyDataCollection.ForEach(sdc => sdc.studyDataCollectionId = IdGenerator.GenerateId());
+                                    }
+                                    if (item.encounter != null)
+                                    {
                             item.encounter.encounterId = IdGenerator.GenerateId();
+                                        if (item.encounter.startRule != null)
                             item.encounter.startRule.RuleId = IdGenerator.GenerateId();
+                                        if (item.encounter.endRule != null)
                             item.encounter.endRule.RuleId = IdGenerator.GenerateId();
+                                        if (item.encounter.epoch != null)
                             item.encounter.epoch.epochId = IdGenerator.GenerateId();
+                                    }
                         });
+                            }
                     });
                     existingWorkFlowItemMatrixEntity = incomingWorkFlowItemMatrixEntity;
                 }                
-                else if (existingWorkFlowItemMatrixEntity.workFlowItemMatrixId == incomingWorkFlowItemMatrixEntity.workFlowItemMatrixId)
+                    else if (existingWorkFlowItemMatrixEntity != null && existingWorkFlowItemMatrixEntity.workFlowItemMatrixId == incomingWorkFlowItemMatrixEntity.workFlowItemMatrixId)
                 {
                     MatrixSectionCheck(existingWorkFlowItemMatrixEntity.matrix, incomingWorkFlowItemMatrixEntity.matrix);
                     existingWorkFlowItemMatrixEntity = incomingWorkFlowItemMatrixEntity;
+                    }
                 }
             }
             catch (Exception)
@@ -758,9 +801,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             try
             {
                 var matrixList = new List<MatrixEntity>();
+                if (incomingMatrixEntities != null)
+                {
                 foreach (var iterator in incomingMatrixEntities)
                 {
-                    if (existingMatrixEntities.Any(x => x.matrixId == iterator.matrixId))
+                        if (existingMatrixEntities != null && existingMatrixEntities.Any(x => x.matrixId == iterator.matrixId))
                     {
                         ItemSectionCheck(existingMatrixEntities.Find(x => x.matrixId == iterator.matrixId).items, iterator.items);                        
                         matrixList.Add(iterator);
@@ -769,21 +814,37 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     else
                     {
                         iterator.matrixId = IdGenerator.GenerateId();
+                            if(iterator.items != null)
+                            {
                         iterator.items.ForEach(item =>
                         {
                             item.itemId = IdGenerator.GenerateId();
+                                    if (item.fromPointInTime != null)
                             item.fromPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                                    if (item.toPointInTime != null)
                             item.toPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                                    if (item.activity != null)
+                                    {
                             item.activity.activityId = IdGenerator.GenerateId();
+                                        if (item.activity.studyDataCollection != null)
                             item.activity.studyDataCollection.ForEach(sdc => sdc.studyDataCollectionId = IdGenerator.GenerateId());
+                                    }
+                                    if (item.encounter != null)
+                                    {
                             item.encounter.encounterId = IdGenerator.GenerateId();
+                                        if (item.encounter.startRule != null)
                             item.encounter.startRule.RuleId = IdGenerator.GenerateId();
+                                        if (item.encounter.endRule != null)
                             item.encounter.endRule.RuleId = IdGenerator.GenerateId();
+                                        if (item.encounter.epoch != null)
                             item.encounter.epoch.epochId = IdGenerator.GenerateId();
+                                    }
                         });
+                            }
                         matrixList.Add(iterator);
                     }
 
+                    }
                 }
                 incomingMatrixEntities = matrixList;
             }
@@ -803,9 +864,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             try
             {
                 var itemList = new List<ItemEntity>();
+                if (incomingItemEntities != null)
+                {
                 foreach (var iterator in incomingItemEntities)
                 {
-                    if (existingItemEntities.Any(x => x.itemId == iterator.itemId))
+                        if (existingItemEntities != null && existingItemEntities.Any(x => x.itemId == iterator.itemId))
                     {
                         PointInTimeSectionCheck(existingItemEntities.Find(x => x.itemId == iterator.itemId).fromPointInTime, iterator.fromPointInTime);
                         PointInTimeSectionCheck(existingItemEntities.Find(x => x.itemId == iterator.itemId).toPointInTime, iterator.toPointInTime);
@@ -819,19 +882,32 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     else
                     {
                         iterator.itemId = IdGenerator.GenerateId();
+                            if (iterator.fromPointInTime != null)
                         iterator.fromPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                            if (iterator.toPointInTime != null)
                         iterator.toPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                            if (iterator.activity != null)
+                            {
                         iterator.activity.activityId = IdGenerator.GenerateId();
+                                if (iterator.activity.studyDataCollection != null)
                         iterator.activity.studyDataCollection.ForEach(sdc => sdc.studyDataCollectionId = IdGenerator.GenerateId());
+                            }
+                            if (iterator.encounter != null)
+                            {
                         iterator.encounter.encounterId = IdGenerator.GenerateId();
+                                if (iterator.encounter.startRule != null)
                         iterator.encounter.startRule.RuleId = IdGenerator.GenerateId();
+                                if (iterator.encounter.endRule != null)
                         iterator.encounter.endRule.RuleId = IdGenerator.GenerateId();
+                                if (iterator.encounter.epoch != null)
                         iterator.encounter.epoch.epochId = IdGenerator.GenerateId();
+                            }
                         iterator.nextItemsInSequence = new List<string>();                        
                         iterator.previousItemsInSequence = new List<string>();                        
                         itemList.Add(iterator);
                     }
 
+                    }
                 }                
                 incomingItemEntities = itemList;
             }
@@ -850,15 +926,21 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             try
             {
-                if ((existingActivityEntity.activityId == null && incomingActivityEntity.activityId != null)
-                    || (existingActivityEntity.activityId != incomingActivityEntity.activityId))
+                if (incomingActivityEntity != null)
+                {
+                    if ((existingActivityEntity == null) || ((existingActivityEntity.activityId == null && incomingActivityEntity.activityId != null)
+                    || (existingActivityEntity.activityId != incomingActivityEntity.activityId)))
                 {
                     incomingActivityEntity.activityId = IdGenerator.GenerateId();
+                        if(incomingActivityEntity.studyDataCollection!=null)
+                        {
                     incomingActivityEntity.studyDataCollection.ForEach(sdc => sdc.studyDataCollectionId = IdGenerator.GenerateId());                    
                 }
-                else if (existingActivityEntity.activityId == incomingActivityEntity.activityId)
+                    }
+                    else if (existingActivityEntity != null && existingActivityEntity.activityId == incomingActivityEntity.activityId)
                 {
                     StudyDataCollectionSectionCheck(existingActivityEntity.studyDataCollection, incomingActivityEntity.studyDataCollection);
+                    }
                 }
             }
             catch (Exception)
@@ -877,9 +959,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             try
             {
                 var studyDataCollectionList = new List<StudyDataCollectionEntity>();
+                if (incomingStudyDataCollectionEntities != null)
+                {
                 foreach (var iterator in incomingStudyDataCollectionEntities)
                 {
-                    if (existingStudyDataCollectionEntities.Any(x => x.studyDataCollectionId == iterator.studyDataCollectionId))
+                        if (existingStudyDataCollectionEntities != null && existingStudyDataCollectionEntities.Any(x => x.studyDataCollectionId == iterator.studyDataCollectionId))
                     {
                         studyDataCollectionList.Add(iterator);
                         existingStudyDataCollectionEntities.RemoveAll(x => x.studyDataCollectionId == iterator.studyDataCollectionId);
@@ -890,6 +974,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                         studyDataCollectionList.Add(iterator);
                     }
 
+                }
                 }
                 incomingStudyDataCollectionEntities = studyDataCollectionList;
             }
@@ -908,19 +993,35 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             try
             {
-                if ((existingEncounterEntity.encounterId == null && incomingEncounterEntity.encounterId != null)
-                    || (existingEncounterEntity.encounterId != incomingEncounterEntity.encounterId))
+                if (incomingEncounterEntity != null)
+                {
+                    if ((existingEncounterEntity != null) && ((existingEncounterEntity.encounterId == null && incomingEncounterEntity.encounterId != null)
+                    || (existingEncounterEntity.encounterId != incomingEncounterEntity.encounterId)))
                 {
                     incomingEncounterEntity.encounterId = IdGenerator.GenerateId();
+                        if (incomingEncounterEntity.startRule != null)
                     incomingEncounterEntity.startRule.RuleId = IdGenerator.GenerateId();
+                        if (incomingEncounterEntity.endRule != null)
                     incomingEncounterEntity.endRule.RuleId = IdGenerator.GenerateId();
+                        if (incomingEncounterEntity.epoch != null)
                     incomingEncounterEntity.epoch.epochId = IdGenerator.GenerateId();
                 }
-                else if (existingEncounterEntity.encounterId == incomingEncounterEntity.encounterId)
+                    else if (existingEncounterEntity != null && existingEncounterEntity.encounterId == incomingEncounterEntity.encounterId)
                 {
                     RuleSectionCheck(existingEncounterEntity.startRule, incomingEncounterEntity.startRule);
                     RuleSectionCheck(existingEncounterEntity.endRule, incomingEncounterEntity.endRule);
                     EpochSectionCheck(existingEncounterEntity.epoch, incomingEncounterEntity.epoch);
+                    }
+                    else if(existingEncounterEntity == null)
+                    {
+                        incomingEncounterEntity.encounterId = IdGenerator.GenerateId();
+                        if (incomingEncounterEntity.startRule != null)
+                            incomingEncounterEntity.startRule.RuleId = IdGenerator.GenerateId();
+                        if (incomingEncounterEntity.endRule != null)
+                            incomingEncounterEntity.endRule.RuleId = IdGenerator.GenerateId();
+                        if (incomingEncounterEntity.epoch != null)
+                            incomingEncounterEntity.epoch.epochId = IdGenerator.GenerateId();
+                    }
                 }
             }
             catch (Exception)
@@ -938,10 +1039,17 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             try
             {
-                if ((existingEpochEntity.epochId == null && incomingEpochEntity.epochId != null)
-                    || (existingEpochEntity.epochId != incomingEpochEntity.epochId))
+                if (incomingEpochEntity != null)
+                {
+                    if ((existingEpochEntity != null) && ((existingEpochEntity.epochId == null && incomingEpochEntity.epochId != null)
+                    || (existingEpochEntity.epochId != incomingEpochEntity.epochId)))
                 {
                     incomingEpochEntity.epochId = IdGenerator.GenerateId();                    
+                    }
+                    else if(existingEpochEntity == null)
+                    {
+                        incomingEpochEntity.epochId = IdGenerator.GenerateId();
+                    }
                 }               
             }
             catch (Exception)
@@ -1017,9 +1125,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             try
             {
                 var studyElementsList = new List<StudyElementEntity>();
+                if (incomingStudyElementsEntities != null)
+                {
                 foreach (var item in incomingStudyElementsEntities)
                 {
-                    if (existingStudyElementsEntities.Any(x => x.studyElementId == item.studyElementId))
+                        if (existingStudyElementsEntities != null && existingStudyElementsEntities.Any(x => x.studyElementId == item.studyElementId))
                     {
                         RuleSectionCheck(existingStudyElementsEntities.Find(x => x.studyElementId == item.studyElementId).startRule, item.startRule);
                         RuleSectionCheck(existingStudyElementsEntities.Find(x => x.studyElementId == item.studyElementId).endRule, item.endRule);
@@ -1029,9 +1139,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     else
                     {
                         item.studyElementId = IdGenerator.GenerateId();
+                            if(item.startRule!=null)
                         item.startRule.RuleId = IdGenerator.GenerateId();
+                            if(item.endRule!=null)
                         item.endRule.RuleId = IdGenerator.GenerateId();
                         studyElementsList.Add(item);
+                        }
                     }
                 }
                 incomingStudyElementsEntities = studyElementsList;
@@ -1051,13 +1164,20 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             try
             {
-                if (existingRuleEntity.RuleId == null && incomingRuleEntity.RuleId != null)
+                if (incomingRuleEntity != null)
+                {
+                    if (existingRuleEntity != null && existingRuleEntity.RuleId == null && incomingRuleEntity.RuleId != null)
                 {
                     incomingRuleEntity.RuleId = IdGenerator.GenerateId();
                 }
-                else if (existingRuleEntity.RuleId != incomingRuleEntity.RuleId)
+                    else if (existingRuleEntity != null && existingRuleEntity.RuleId != incomingRuleEntity.RuleId)
                 {
                     incomingRuleEntity.RuleId = IdGenerator.GenerateId();
+                    }
+                    else if(existingRuleEntity == null)
+                    {
+                        incomingRuleEntity.RuleId = IdGenerator.GenerateId();
+                    }
                 }
             }
             catch (Exception)
@@ -1075,13 +1195,20 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             try
             {
-                if (existingStudyArm.studyArmId == null && incomingStudyArm.studyArmId != null)
+                if (incomingStudyArm != null)
+                {
+                    if (existingStudyArm != null && existingStudyArm.studyArmId == null && incomingStudyArm.studyArmId != null)
                 {
                     incomingStudyArm.studyArmId = IdGenerator.GenerateId();
                 }
-                else if (existingStudyArm.studyArmId != incomingStudyArm.studyArmId)
+                    else if (existingStudyArm != null && existingStudyArm.studyArmId != incomingStudyArm.studyArmId)
                 {
                     incomingStudyArm.studyArmId = IdGenerator.GenerateId();
+                    }
+                    else if(existingStudyArm == null)
+                    {
+                        incomingStudyArm.studyArmId = IdGenerator.GenerateId();
+                    }
                 }
             }
             catch (Exception)
@@ -1099,13 +1226,20 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             try
             {
-                if (existingStudyEpoch.studyEpochId == null && incomingStudyEpoch.studyEpochId != null)
+                if (incomingStudyEpoch != null)
+                {
+                    if (existingStudyEpoch != null && existingStudyEpoch.studyEpochId == null && incomingStudyEpoch.studyEpochId != null)
                 {
                     incomingStudyEpoch.studyEpochId = IdGenerator.GenerateId();
                 }
-                else if (existingStudyEpoch.studyEpochId != incomingStudyEpoch.studyEpochId)
+                    else if (existingStudyEpoch != null && existingStudyEpoch.studyEpochId != incomingStudyEpoch.studyEpochId)
                 {
                     incomingStudyEpoch.studyEpochId = IdGenerator.GenerateId();
+                    }
+                    else if (existingStudyEpoch == null)
+                    {
+                        incomingStudyEpoch.studyEpochId = IdGenerator.GenerateId();
+                    }
                 }
             }
             catch (Exception)

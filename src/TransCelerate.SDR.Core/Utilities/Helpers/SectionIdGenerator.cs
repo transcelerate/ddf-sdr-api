@@ -224,7 +224,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 {
                     studyCellEntity.studyElements.FindAll(x => x != null).ForEach(e => {
                         e.studyElementId = IdGenerator.GenerateId();
+                        if(e.startRule != null)
                         e.startRule.RuleId = IdGenerator.GenerateId();
+                        if(e.endRule != null)
                         e.endRule.RuleId = IdGenerator.GenerateId();
                     });
                 }
@@ -253,6 +255,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
 
                 if (studyDesignEntity.currentSections != null)
                 {
+                    studyDesignEntity.currentSections.ForEach(x => x.currentSectionsId = IdGenerator.GenerateId());
                     //studyPopulationId
                     studyDesignEntity.currentSections.FindAll(n => n.studyPopulations != null)
                                                      .ForEach(p => p.studyPopulations
