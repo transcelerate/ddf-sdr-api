@@ -13,7 +13,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Get the ItemList from the Study
         /// </summary>
-        /// <param name="studyEntity"></param>
+        /// <param name="studyEntity">Study Entity for which Previous and Next Items need to be created</param>
         /// <returns>
         /// A <see cref="StudyEntity"/> after creating previuosItems and NextItems Array        
         /// </returns>
@@ -62,7 +62,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Generate the Previous Items and Next Items
         /// </summary>
-        /// <param name="itemEntities"></param>
+        /// <param name="itemEntities">Item List for which Previous and Next Items need to be created</param>
         /// <returns>
         /// A <see cref="List{ItemEntity}"/> after creating previuosItems and NextItems Array            
         /// </returns>

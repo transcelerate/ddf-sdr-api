@@ -22,6 +22,8 @@ using TransCelerate.SDR.WebApi.Mappers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using TransCelerate.SDR.Core.DTO.Study;
+using TransCelerate.SDR.Core.DTO.UserGroups;
+using TransCelerate.SDR.Core.Entities.UserGroups;
 
 namespace TransCelerate.SDR.UnitTesting
 {
@@ -29,7 +31,7 @@ namespace TransCelerate.SDR.UnitTesting
     {
         private Mock<ILoggerFactory> _mockLogger = new Mock<ILoggerFactory>();
         private Mock<ILogger> _mockSDRLogger = new Mock<ILogger>();
-        private Mock<ILogger> _mockErrorSDRLogger = new Mock <ILogger>(MockBehavior.Strict);
+        private Mock<ILogger> _mockErrorSDRLogger = new Mock<ILogger>(MockBehavior.Strict);
         private Mock<IConfiguration> _mockConfig = new Mock<IConfiguration>();
         //private IConfiguration _mockConfiguration = Mock.Of<IConfiguration>();
         private IServiceCollection serviceDescriptors = Mock.Of<IServiceCollection>();
@@ -39,13 +41,94 @@ namespace TransCelerate.SDR.UnitTesting
         #region Setup
         public StudyEntity GetPostDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/PostStudyData.json");            
-            return JsonConvert.DeserializeObject<StudyEntity>(jsonData); 
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/PostStudyData.json");
+            return JsonConvert.DeserializeObject<StudyEntity>(jsonData);
         }
         public PostStudyDTO PostDataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/PostStudyData.json");
-            return JsonConvert.DeserializeObject<PostStudyDTO>(jsonData);            
+            return JsonConvert.DeserializeObject<PostStudyDTO>(jsonData);
+        }
+        public SDRGroupsDTO PostAGroupDto()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/UserGroupMappingData.json");
+            var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingEntity>(jsonData);
+            var groupDetails = JsonConvert.DeserializeObject<SDRGroupsDTO>(JsonConvert.SerializeObject(userGrouppMapping.SDRGroups[0]));
+            return groupDetails;
+        }
+        public IEnumerable<GroupDetailsEntity> GetGroupDetails()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/UserGroupMappingData.json");
+            var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingEntity>(jsonData);
+            var groupDetails = JsonConvert.DeserializeObject<IEnumerable<GroupDetailsEntity>>(JsonConvert.SerializeObject(userGrouppMapping.SDRGroups));
+            return groupDetails;
+        }
+        public PostUserToGroupsDTO PostUser()
+        {
+            List<GroupsTaggedToUser> groupList = new List<GroupsTaggedToUser>();
+            GroupsTaggedToUser groupsTaggedToUser = new GroupsTaggedToUser
+            {
+                groupId = "0193a357-8519-4488-90e4-522f701658b9",
+                groupName = "OncologyRead",
+                isActive = true
+            };
+            GroupsTaggedToUser groupsTaggedToUser2 = new GroupsTaggedToUser
+            {
+                groupId = "c50ccb41-db9b-4b97-b132-cbbfaa68af5a",
+                groupName = "AmnesiaReadWrite",
+                isActive = true
+            }; GroupsTaggedToUser groupsTaggedToUser3 = new GroupsTaggedToUser
+            {
+                groupId = "83864612-ffbd-463f-90ce-3e8819c5d132",
+                groupName = "AmnesiaReadWrite",
+                isActive = true
+            };
+            groupList.Add(groupsTaggedToUser);
+            groupList.Add(groupsTaggedToUser2);
+            groupList.Add(groupsTaggedToUser3);
+            PostUserToGroupsDTO postUserToGroupsDTO = new PostUserToGroupsDTO
+            {
+                email = "user1@SDR.com",
+                oid = "aw2dq254wfdsf",
+                groups = groupList
+            };
+            
+            return postUserToGroupsDTO;
+        }
+        public IEnumerable<PostUserToGroupsDTO> UserList()
+        {
+            List<GroupsTaggedToUser> groupList = new List<GroupsTaggedToUser>();
+            GroupsTaggedToUser groupsTaggedToUser = new GroupsTaggedToUser
+            {
+                groupId = "0193a357-8519-4488-90e4-522f701658b9",
+                groupName = "OncologyRead",
+                isActive = true
+            };
+            GroupsTaggedToUser groupsTaggedToUser2 = new GroupsTaggedToUser
+            {
+                groupId = "c50ccb41-db9b-4b97-b132-cbbfaa68af5a",
+                groupName = "AmnesiaReadWrite",
+                isActive = true
+            }; GroupsTaggedToUser groupsTaggedToUser3 = new GroupsTaggedToUser
+            {
+                groupId = "83864612-ffbd-463f-90ce-3e8819c5d132",
+                groupName = "AmnesiaReadWrite",
+                isActive = true
+            };
+            groupList.Add(groupsTaggedToUser);
+            groupList.Add(groupsTaggedToUser2);
+            groupList.Add(groupsTaggedToUser3);
+            PostUserToGroupsDTO postUserToGroupsDTO = new PostUserToGroupsDTO
+            {
+                email = "user1@SDR.com",
+                oid = "aw2dq254wfdsf",
+                groups = groupList
+            };
+            List<PostUserToGroupsDTO> postUserToGroups = new List<PostUserToGroupsDTO>();
+            postUserToGroups.Add(postUserToGroupsDTO);
+            IEnumerable<PostUserToGroupsDTO> postUserToGroupsIenum = JsonConvert.DeserializeObject<IEnumerable<PostUserToGroupsDTO>>(
+                                                                    JsonConvert.SerializeObject(postUserToGroups));
+            return postUserToGroupsIenum;
         }
         #endregion
 
@@ -169,6 +252,7 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.AreEqual(Config.connectionString, "Value");
             Assert.AreEqual(Config.databaseName, "Value");
             Assert.AreEqual(Config.instrumentationKey, "Value");    
+            Assert.AreEqual(Config.dateRange, "Value");    
         }
         #endregion
 
@@ -428,8 +512,57 @@ namespace TransCelerate.SDR.UnitTesting
             SearchParametersValidator searchParametersValidator = new SearchParametersValidator();
             var res = searchParametersValidator.Validate(searchParameters);
             Assert.IsTrue(searchParametersValidator.Validate(searchParameters).IsValid);
+
+            UserGroupsQueryParameters userGroupsQueryParameters = new UserGroupsQueryParameters
+            {
+                sortBy = "email",
+                sortOrder = "desc",
+                pageNumber = 1,
+                pageSize = 20
+            };
+            UserGroupsQueryParametersValidator userGroupsQueryParametersValidator = new UserGroupsQueryParametersValidator();
+            Assert.IsTrue(userGroupsQueryParametersValidator.Validate(userGroupsQueryParameters).IsValid);
+
+            GroupsValidator groupsValidator = new GroupsValidator();
+            Assert.IsTrue(groupsValidator.Validate(PostAGroupDto()).IsValid);
+
+            PostUserToGroupValidator usersValidator = new PostUserToGroupValidator();
+            Assert.IsTrue(usersValidator.Validate(PostUser()).IsValid);
         }
         #endregion
-        
+        [Test]
+        public void UserGroupSortingHelper_UnitTesting()
+        {
+            UserGroupsQueryParameters userGroupsQueryParameters = new UserGroupsQueryParameters
+            {
+                sortBy = "email",
+                sortOrder = "desc",
+                pageNumber = 1,
+                pageSize = 20
+            };
+            for(int i=0; i < 7; i++)
+            {
+                if(i == 0)
+                    userGroupsQueryParameters.sortBy = "email";
+                if(i == 1)
+                    userGroupsQueryParameters.sortBy = "modifiedon";
+                if (i == 2)
+                    userGroupsQueryParameters.sortBy = "modifiedby";
+                if (i == 3)
+                    userGroupsQueryParameters.sortBy = "createdby";
+                if (i == 4)
+                    userGroupsQueryParameters.sortBy = "createdon";
+                if (i == 5)
+                    userGroupsQueryParameters.sortBy = "name";
+                if (i == 6)
+                    userGroupsQueryParameters.sortBy = "";
+                UserGroupSortingHelper.OrderGroups(GetGroupDetails(), userGroupsQueryParameters);
+                UserGroupSortingHelper.OrderUsers(UserList(), userGroupsQueryParameters);
+            }
+            
+        }
+        #region UserGroup Sorting Unit Testing
+        #endregion
+
     }
 }

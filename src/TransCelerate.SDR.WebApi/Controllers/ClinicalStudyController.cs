@@ -40,10 +40,10 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <summary>
         /// GET All Elements For a Study
         /// </summary>
-        /// <param name="studyId"></param>
-        /// <param name="version"></param>
-        /// <param name="tag"></param>
-        /// <param name="sections"></param>        
+        /// <param name="studyId">Study ID</param>
+        /// <param name="version">Version of study</param>
+        /// <param name="tag">Tag of a study</param>
+        /// <param name="sections">Study sections which have to be fetched</param> 
         /// <response code="200">Returns Study</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>
@@ -115,11 +115,11 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <summary>
         /// GET For a StudyDesign sections for a study
         /// </summary>
-        /// <param name="studyId"></param>
-        /// <param name="studyDesignId"></param>
-        /// <param name="version"></param>
-        /// <param name="tag"></param>
-        /// <param name="sections"></param>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="studyDesignId">Study Design Id</param>
+        /// <param name="version">Version of study</param>
+        /// <param name="tag">Tag of a study</param>        
+        /// <param name="sections">Study Design sections which have to be fetched</param>  
         /// <response code="200">Returns a list of StudyDesigns</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">The StudyDesigns for the study is Not Found</response>
@@ -198,9 +198,9 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <summary>
         /// GET Audit Trail of a study
         /// </summary>
-        /// <param name="studyId"></param>
-        /// <param name="fromDate"></param>
-        /// <param name="toDate"></param>
+        /// <param name="fromDate">Start Date for Date Filter</param>
+        /// <param name="toDate">End Date for Date Filter</param>
+        /// <param name="studyId">Study ID</param>
         /// <response code="200">Returns a list of Audit Trail of a study</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Audit trail for the study is Not Found</response>
@@ -263,9 +263,9 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <summary>
         /// Get All StudyId's in the database
         /// </summary>
-        /// <param name="fromDate"></param>
-        /// <param name="toDate"></param>
-        /// <param name="studyTitle"></param>
+        /// <param name="fromDate">Start Date for Date Filter</param>
+        /// <param name="toDate">End Date for Date Filter</param>
+        /// <param name="studyTitle">Study Title Filter</param>
         /// <response code="200">Returns All Study Id's</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">There is no study</response>
@@ -281,7 +281,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             {
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(GetAllStudyId)};");
 
-                _logger.LogInformation($"Inputs: FromDate: {fromDate}; ToDate: {toDate};");
+                _logger.LogInformation($"Inputs: FromDate: {fromDate}; ToDate: {toDate}; DateRange from Key Vault :{Config.dateRange}");
 
                 if (toDate == DateTime.MinValue)
                 {
@@ -294,6 +294,10 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 if (fromDate != DateTime.MinValue)
                 {
                     fromDate = fromDate.Date;
+                }
+                else
+                {
+                    fromDate = DateTime.UtcNow.AddDays(-(Convert.ToInt32(Config.dateRange))).Date;
                 }
                 if (fromDate <= toDate)
                 {
@@ -331,13 +335,13 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <summary>
         /// POST All Elements For a Study  
         /// </summary>        
-        /// <param name="studyDTO"></param>        
-        /// <param name="entrySystem"></param>
+        /// <param name="studyDTO">Study for Inserting/Updating in Database</param>
+        /// <param name="entrySystem">System which made the request</param> 
         /// <response code="201">Study Created</response>
         /// <response code="400">Bad Request</response>       
         [HttpPost]
         [Route(Route.PostElements)]
-        [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(PostStudyResponseDTO))]
+        [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(PostStudyDTO))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [Produces("application/json")]
         public async Task<IActionResult> PostAllElements([FromBody] PostStudyDTO studyDTO,[FromHeader] string entrySystem)
@@ -394,7 +398,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <summary>
         /// Search For a Study 
         /// </summary>
-        /// <param name="searchparameters"></param>
+        /// <param name="searchparameters">Parameters to search in database</param>
         /// <response code="200">Returns All Study that matches the search criteria</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">There is no study that matches the search criteria</response>

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using TransCelerate.SDR.Core.DTO;
 using TransCelerate.SDR.Core.DTO.Study;
+using TransCelerate.SDR.Core.DTO.UserGroups;
 
 namespace TransCelerate.SDR.RuleEngine
 {
@@ -15,25 +16,25 @@ namespace TransCelerate.SDR.RuleEngine
         public static IServiceCollection AddValidationDependencies(this IServiceCollection services)
         {
             //Study Level Validators
-            services.AddTransient<IValidator<PostStudyDTO>, ClinicalStudyValidator>();
+            services.AddTransient<IValidator<PostStudyDTO>, ClinicalStudyValidator>();            
             services.AddTransient<IValidator<StudyIdentifierDTO>, StudyIdentifiersValidator>();
             services.AddTransient<IValidator<StudyProtocolDTO>, StudyProtocolValidator>();
             //Section Level Validators
-            ///Investigational Intervention Section
+            ////Investigational Intervention Section
             services.AddTransient<IValidator<InvestigationalInterventionDTO>, InvestigationalInterventionValidatior>();
-            ///Study Objectives Section
+            ////Study Objectives Section
             services.AddTransient<IValidator<StudyObjectiveDTO>, StudyObjectivesValidator>();            
-            ///Study Indications Section
+            ////Study Indications Section
             services.AddTransient<IValidator<StudyIndicationDTO>, StudyIndicationValidator>();
-            ///Study Design Section
-            ////Study Population Section
+            ////Study Design Section
+            //////Study Population Section
             services.AddTransient<IValidator<StudyPopulationDTO>, StudyPopulationValidator>();
-            ////Study Cell Section
+            //////Study Cell Section
             services.AddTransient<IValidator<StudyCellDTO>, StudyCellsValidator>();
             services.AddTransient<IValidator<StudyElementDTO>, StudyElementsValidator>();            
             services.AddTransient<IValidator<StudyArmDTO>, StudyArmValidator>();
             services.AddTransient<IValidator<StudyEpochDTO>, StudyEpochValidator>();
-            ////Planned WorkFlow Section
+            //////Planned WorkFlow Section
             services.AddTransient<IValidator<PlannedWorkflowDTO>, PlannedWorkFlowValidator>();            
             services.AddTransient<IValidator<WorkflowItemMatrixDTO>, WorkFlowItemMatrixValidator>();
             services.AddTransient<IValidator<MatrixDTO>, MatrixValidator>();
@@ -52,6 +53,12 @@ namespace TransCelerate.SDR.RuleEngine
 
             //Search Validaitions
             services.AddTransient<IValidator<SearchParametersDTO>, SearchParametersValidator>();
+
+
+            //User Group Mapping Validator
+            services.AddTransient<IValidator<SDRGroupsDTO>, GroupsValidator>();
+            services.AddTransient<IValidator<PostUserToGroupsDTO>, PostUserToGroupValidator>();
+            services.AddTransient<IValidator<UserGroupsQueryParameters>, UserGroupsQueryParametersValidator>();
 
             return services;
         }

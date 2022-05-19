@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using TransCelerate.SDR.Core.ErrorModels;
+using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
 {
@@ -12,7 +13,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Resposne Helper When there is an exception
         /// </summary>
-        /// <param name="exception"></param>
+        /// <param name="exception">Exception</param>
         /// <returns>
         /// A <see cref="ErrorModel"/> When there is an exception      
         /// </returns>>
@@ -26,7 +27,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             ErrorModel errorModel = new ErrorModel
             {
                 statusCode = statusCode,
-                message = "An Error Occured"                
+                message = Constants.ErrorMessages.GenericError
             };
             return errorModel;
         }
@@ -50,7 +51,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Resposne Helper When the resource is Not Found
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="message">Message for error response</param>
         /// <returns>
         /// A <see cref="ErrorModel"/> When the resource is Not Found
         /// </returns>>
@@ -83,7 +84,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Resposne Helper When there is Bad Request
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="message">Message for error response</param>
         /// <returns>
         /// A <see cref="ErrorModel"/> When there is Bad Request
         /// </returns>>
@@ -100,8 +101,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Resposne Helper When there is Conformance Error or Invalid Inpt
         /// </summary>
-        /// <param name="validationProblemDetails"></param>
-        /// <param name="message"></param>
+        /// <param name="validationProblemDetails">Object for holding validation errors</param>
+        /// <param name="message">Message for error response</param>
         /// <returns>
         /// A <see cref="ValidationErrorModel"/> When there is Conformance Error or Invalid Inpt
         /// </returns>>
@@ -119,16 +120,26 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Resposne Helper When specific method for an API is not called. Ex: When a GET method is called with a POST request.
         /// </summary>
-        /// <param name="detail"></param>
+        /// <param name="message">Message for error response</param>
         /// <returns>
         /// A <see cref="ErrorModel"/> When specific method for an API is not called
         /// </returns>>
-        public static ErrorModel MethodNotAllowed(string detail = null)
+        public static ErrorModel MethodNotAllowed(string message = null)
         {
             ErrorModel errorModel = new ErrorModel
             {
                 statusCode = ((int)HttpStatusCode.MethodNotAllowed).ToString(),
-                message = detail ?? "Method Not Allowed"
+                message = message ?? "Method Not Allowed"
+            };
+            return errorModel;
+        }
+        
+        public static ErrorModel InternalServerError(string message = null)
+        {
+            ErrorModel errorModel = new ErrorModel
+            {
+                statusCode = ((int)HttpStatusCode.InternalServerError).ToString(),
+                message = message ?? "Internal Server Error"
             };
             return errorModel;
         }

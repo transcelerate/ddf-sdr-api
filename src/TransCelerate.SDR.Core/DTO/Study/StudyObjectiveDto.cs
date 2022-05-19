@@ -12,11 +12,9 @@ namespace TransCelerate.SDR.Core.DTO.Study
     
     public class StudyObjectiveDTO
     {
-      
-        public string description { get; set; }
-    
         public string id { get; set; }
-
+        public string description { get; set; }
+            
         public string level { get; set; }
        
         public List<EndpointsDTO> endpoints { get; set; }        
@@ -25,12 +23,10 @@ namespace TransCelerate.SDR.Core.DTO.Study
     
     public class EndpointsDTO
     {
-      
+        public string id { get; set; }
         public string description { get; set; }
 
-        public string purpose { get; set; }
-       
-        public string id { get; set; }
+        public string purpose { get; set; }              
 
         public string outcomeLevel { get; set; }                
     }  

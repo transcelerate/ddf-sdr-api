@@ -440,7 +440,7 @@ namespace TransCelerate.SDR.UnitTesting
         public void PostAllElments_UnitTest_SuccessResponse()
         {
             _mockClinicalStudyRepository.Setup(x => x.PostStudyItemsAsync(It.IsAny<StudyEntity>()))
-                    .Returns(Task.FromResult(GetDataFromStaticJson().clinicalStudy.studyId));
+                    .Returns(Task.FromResult(GetPostDataFromStaticJson().clinicalStudy.studyId));
             ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);
             var studyDTO = JsonConvert.DeserializeObject<PostStudyDTO>(
                 JsonConvert.SerializeObject(GetPostDataFromStaticJson()));
@@ -449,17 +449,13 @@ namespace TransCelerate.SDR.UnitTesting
             var method = ClinicalStudyService.PostAllElements(studyDTO,"A");
             method.Wait();
             var result = method.Result;
-
-            //Expected
-            var expected = GetDataFromStaticJson().clinicalStudy.studyId;
-
+          
             //Actual            
-            var actual_result = JsonConvert.DeserializeObject<PostStudyResponseDTO>(
+            var actual_result = JsonConvert.DeserializeObject<PostStudyDTO>(
                 JsonConvert.SerializeObject(result));
 
             //Assert          
-            Assert.IsNotNull(actual_result);
-            Assert.AreEqual(expected, actual_result.studyId);
+            Assert.IsNotNull(actual_result);         
 
             var newStudyDTO = JsonConvert.DeserializeObject<PostStudyDTO>(
                 JsonConvert.SerializeObject(GetPostDataFromStaticJson()));
@@ -468,7 +464,7 @@ namespace TransCelerate.SDR.UnitTesting
             method.Wait();            
 
             //Expected
-            expected = Constants.ErrorMessages.NotValidStudyId;
+            var expected = Constants.ErrorMessages.NotValidStudyId;
 
             //Actual            
             var newActual_result = method.Result;

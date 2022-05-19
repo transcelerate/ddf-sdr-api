@@ -6,7 +6,13 @@
     public class GetStudyDTO
     {
         //public string _id { get; set; }
+        /// <summary>
+        /// This property holds the ClinicalStudy Component of the Study 
+        /// </summary>
         public GetClinicalStudyDTO clinicalStudy { get; set; }
+        /// <summary>
+        /// This property holds the Audit Trail Component of the Study 
+        /// </summary>
         public AuditTrailDTO auditTrail { get; set; }
     }
 }

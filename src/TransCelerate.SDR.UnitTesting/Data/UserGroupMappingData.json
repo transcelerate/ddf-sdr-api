@@ -1,0 +1,285 @@
+{
+  "SDRGroups": [
+    {
+      "groupId": "0193a357-8519-4488-90e4-522f701658b9",
+      "groupName": "OncologyRead",
+      "groupDescription": "Detailed description of group",
+      "permission": "READONLY",
+      "groupFilter": [
+        {
+          "groupFieldName": "studyType",
+          "groupFilterValues": [
+            "INTERVENTIONAL",
+            "EXPANDED_ACCESS"
+          ]
+        },
+        {
+          "groupFieldName": "study",
+          "groupFilterValues": [
+            "Study Number Two",
+            "StudyTitle1-Tag3"
+          ]
+        }
+      ],
+      "users": [
+        {
+          "oid": "<AzurePortal-OID1>",
+          "email": "user1@SDR.com",
+          "isActive": true
+        },
+        {
+          "oid": "<AzurePortal-OID2>",
+          "email": "user2@SDR.com",
+          "isActive": true
+        }
+      ],
+      "groupCreatedBy": "admin1@SDR.com",
+      "groupCreatedOn":  "2022-05-10T08:43:43.713Z",
+      "groupModifiedBy": "admin2@SDR.com",
+       "groupModifiedOn":  "2022-05-11T08:43:43.713Z",
+      "groupEnabled": true
+    },
+    {
+      "groupId": "83864612-ffbd-463f-90ce-3e8819c5d132",
+      "groupName": "OncologyWrite",
+      "groupDescription": "Detailed description of group",
+      "permission": "READ_WRITE",
+      "groupFilter": [
+        {
+          "groupFieldName": "studyType",
+          "groupFilterValues": [
+            "INTERVENTIONAL",
+            "EXPANDED_ACCESS"
+          ]
+        },
+        {
+          "groupFieldName": "study",
+          "groupFilterValues": [
+            "StudyTitle1-Tag2",
+            "StudyTitle1-Tag3"
+          ]
+        }
+      ],
+      "users": [
+        {
+          "oid": "<AzurePortal-OID3>",
+          "email": "user3@SDR.com",
+          "isActive": true
+        },
+        {
+          "oid": "<AzurePortal-OID4>",
+          "email": "user4@SDR.com",
+          "isActive": true
+        }
+      ],
+      "groupCreatedBy": "admin1@SDR.com",
+      "groupCreatedOn":  "2022-05-10T08:43:43.713Z",
+      "groupModifiedBy": "admin2@SDR.com",
+       "groupModifiedOn":  "2022-05-11T08:43:43.713Z",
+      "groupEnabled": true
+    },
+    {
+      "groupId": "b9f848b8-9af7-46c1-9a3c-2663f547cc7a",
+      "groupName": "AlzheimerReadWrite",
+      "groupDescription": "Detailed description of group",
+      "permission": "READ_WRITE",
+      "groupFilter": [
+        {
+          "groupFieldName": "studyType",
+          "groupFilterValues": [
+            "INTERVENTIONAL",
+            "SEQUENTIAL"
+          ]
+        },
+        {
+          "groupFieldName": "study",
+          "groupFilterValues": [
+            "StudyTitle1-Tag4",
+            "StudyTitle1-Tag5"
+          ]
+        }
+      ],
+      "users": [
+        {
+          "oid": "<AzurePortal-OID1>",
+          "email": "user1@SDR.com",
+          "isActive": true
+        },
+        {
+          "oid": "<AzurePortal-OID3>",
+          "email": "user3@SDR.com",
+          "isActive": false
+        },
+        {
+          "oid": "<AzurePortal-OID3>",
+          "email": "user6@SDR.com",
+          "isActive": false
+        }
+      ],
+      "groupCreatedBy": "admin1@SDR.com",
+      "groupCreatedOn":  "2022-05-10T08:43:43.713Z",
+      "groupModifiedBy": "",
+       "groupModifiedOn":  "2022-05-11T08:43:43.713Z",    
+      "groupEnabled": true
+    },
+    {
+      "groupId": "9eb070f2-58e9-4c63-ae29-43d4f3202809",
+      "groupName": "ParkinsonReadWrite",
+      "groupDescription": "Detailed description of group",
+      "permission": "READ_WRITE",
+      "groupFilter": [
+        {
+          "groupFieldName": "studyType",
+          "groupFilterValues": [
+            "INTERVENTIONAL",
+            "SEQUENTIAL"
+          ]
+        },
+        {
+          "groupFieldName": "study",
+          "groupFilterValues": [
+            "StudyTitle1-Tag4",
+            "StudyTitle1-Tag5"
+          ]
+        }
+      ],
+      "users": [
+        {
+          "oid": "<AzurePortal-OID1>",
+          "email": "user1@SDR.com",
+          "isActive": true
+        },
+        {
+          "oid": "<AzurePortal-OID3>",
+          "email": "user3@SDR.com",
+          "isActive": false
+        }
+      ],
+      "groupCreatedBy": "",
+      "groupCreatedOn":  "2022-05-10T08:43:43.713Z",
+      "groupModifiedBy": "admin2@SDR.com",
+       "groupModifiedOn":  "2022-05-11T08:43:43.713Z",
+      "groupEnabled": true
+    },
+    {
+      "groupId": "d47a4fdb-944c-4a0d-add2-2f78706f0e52",
+      "groupName": "AlzheimerRead",
+      "groupDescription": "Detailed description of group",
+      "permission": "READONLY",
+      "groupFilter": [
+        {
+          "groupFieldName": "studyType",
+          "groupFilterValues": [
+            "INTERVENTIONAL",
+            "SEQUENTIAL"
+          ]
+        }
+      ],
+      "users": [
+        {
+          "oid": "<AzurePortal-OID3>",
+          "email": "user1@SDR.com",
+          "isActive": true
+        },
+        {
+          "oid": "<AzurePortal-OID4>",
+          "email": "user3@SDR.com",
+          "isActive": true
+        }
+      ],
+      "groupCreatedBy": "",
+      "groupCreatedOn":  "2022-05-10T08:43:43.713Z",
+      "groupModifiedBy": "",
+       "groupModifiedOn":  "2022-05-11T08:43:43.713Z",   
+      "groupEnabled": true
+    },
+    {
+      "groupId": "236b775e-6ef1-4a69-b398-74fbe8413771",
+      "groupName": "TherapyRead",
+      "groupDescription": "Group is for Therapy",
+      "permission": "READ_WRITE",
+      "groupFilter": [
+        {
+          "groupFieldName": "studyType",
+          "groupFilterValues": [
+            "INTERVENTIONAL",
+            "SEQUENTIAL"
+          ]
+        },
+        {
+          "groupFieldName": "study",
+          "groupFilterValues": [
+            "StudyTitle1-Tag4",
+            "StudyTitle1-Tag5"
+          ]
+        }
+      ],
+      "users": [
+        {
+          "oid": "<AzurePortal-OID3>",
+          "email": "user5@SDR.com",
+          "isActive": true
+        }
+      ],
+      "groupCreatedBy": "",
+      "groupCreatedOn":  "2022-05-10T08:43:43.713Z",
+      "groupModifiedBy": "",
+       "groupModifiedOn":  "2022-05-11T08:43:43.713Z",
+      "groupEnabled": true
+    },
+    {
+      "groupId": "d7aa036b-8ebf-4960-936b-e02adf5b6270",
+      "groupName": "AmnesiaRead",
+      "groupDescription": "Group is for Amnesia",
+      "permission": "READONLY",
+      "groupFilter": [
+        {
+          "groupFieldName": "studyType",
+          "groupFilterValues": [
+            "INTERVENTIONAL"
+          ]
+        },
+        {
+          "groupFieldName": "study",
+          "groupFilterValues": [
+            "StudyTitle1-Tag6",
+            "StudyTitle1-Tag7"
+          ]
+        }
+      ],
+      "users": null,
+      "groupCreatedBy": "",
+      "groupCreatedOn":  "2022-05-10T08:43:43.713Z",
+      "groupModifiedBy": null,
+       "groupModifiedOn":  "2022-05-11T08:43:43.713Z",
+      "groupEnabled": true
+    },
+    {
+      "groupId": "c50ccb41-db9b-4b97-b132-cbbfaa68af5a",
+      "groupName": "AmnesiaReadWrite",
+      "groupDescription": "Group is for Amnesia",
+      "permission": "READ_WRITE",
+      "groupFilter": [
+        {
+          "groupFieldName": "studyType",
+          "groupFilterValues": [
+            "INTERVENTIONAL"
+          ]
+        },
+        {
+          "groupFieldName": "study",
+          "groupFilterValues": [
+            "StudyTitle1-Tag6",
+            "StudyTitle1-Tag7"
+          ]
+        }
+      ],
+      "users": null,
+      "groupCreatedBy": "",
+      "groupCreatedOn":  "2022-05-10T08:43:43.713Z",
+      "groupModifiedBy": null,
+       "groupModifiedOn":  "2022-05-11T08:43:43.713Z",
+      "groupEnabled": true
+    }
+  ]
+}

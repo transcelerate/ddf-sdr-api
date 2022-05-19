@@ -8,5 +8,6 @@
         public static string connectionString { get; set; }
         public static string databaseName { get; set; }        
         public static string instrumentationKey { get; set; }
+        public static string dateRange { get; set; }
     }
 }

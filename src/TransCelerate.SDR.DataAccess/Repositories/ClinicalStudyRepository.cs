@@ -40,8 +40,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// <summary>
         /// GET a Study for a study ID with version filter
         /// </summary>
-        /// <param name="studyId"></param>
-        /// <param name="version"></param>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="version">Version of study</param>
         /// <returns>
         /// A <see cref="StudyEntity"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
@@ -70,7 +70,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                              .Limit(1)                  //Taking top 1 result
                                              .SingleOrDefaultAsync().ConfigureAwait(false);
                 }
-
+               
                 if (_study == null)
                 {
                     _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.Study} Collection");
@@ -90,13 +90,14 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(GetStudyItemsAsync)};");
             }
         }
+        
 
         /// <summary>
         /// GET a Study for a study ID with version and tag filter
         /// </summary>
-        /// <param name="studyId"></param>
-        /// <param name="version"></param>
-        /// <param name="tag"></param>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="version">Version of study</param>
+        /// <param name="tag">Tag of a study</param>
         /// <returns>
         /// A <see cref="StudyEntity"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
@@ -152,9 +153,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// <summary>
         /// GET List of study for a study ID
         /// </summary>
-        /// <param name="fromDate"></param>
-        /// <param name="toDate"></param>
-        /// <param name="study"></param>
+        /// <param name="fromDate">Start Date for Date Filter</param>
+        /// <param name="toDate">End Date for Date Filter</param>
+        /// <param name="studyId">Study ID</param>
         /// <returns>
         /// A <see cref="List{StudyEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
@@ -196,9 +197,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// <summary>
         /// Get List of all studyId 
         /// </summary>
-        /// <param name="fromDate"></param>
-        /// <param name="toDate"></param>
-        /// <param name="studyTitle"></param>
+        /// <param name="fromDate">Start Date for Date Filter</param>
+        /// <param name="toDate">End Date for Date Filter</param>
+        /// <param name="studyTitle">Study Title Filter</param>
         /// <returns>
         /// A <see cref="List{StudyHistoryEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
@@ -257,7 +258,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// <summary>
         /// Search the collection based on search criteria
         /// </summary>
-        /// <param name="searchParameters"></param>
+        /// <param name="searchParameters">Parameters to search in database</param>
         /// <returns>
         /// A <see cref="List{StudyEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
@@ -323,11 +324,12 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         }
 
         /// <summary>
-        /// Add filter definition for querying DB
+        /// Search the collection based on search criteria
         /// </summary>
-        /// <param name="searchParameters"></param>
+        /// <param name="searchParameters">Parameters to search in database</param>
         /// <returns>
-        /// A Filtered <see cref="FilterDefinition{StudyEntity}"/> 
+        /// A <see cref="FilterDefinition{StudyEntity}"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
         public FilterDefinition<StudyEntity> Filter(SearchParameters searchParameters)
         {
@@ -369,9 +371,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// <summary>
         /// Sorting the result set
         /// </summary>
-        /// <param name="filteredResult"></param>
-        /// <param name="property"></param>
-        /// <param name="asc"></param>
+        /// <param name="filteredResult">Filtered result from database</param>
+        /// <param name="property">Property by which the sorting must be done</param>
+        /// <param name="asc">Ascending/Descending</param>
         /// <returns>
         /// A Sorted <see cref="IEnumerable{StudyEntity}"/>  
         /// </returns>
@@ -445,9 +447,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// <summary>
         /// POST a Study
         /// </summary>
-        /// <param name="study"></param>
+        /// <param name="study">Study for Inserting into Database</param>
         /// <returns>
-        /// A studyId which was inserted     
+        /// A studyId which was inserted <br></br> <br></br>        
         /// </returns>
         public async Task<string> PostStudyItemsAsync(StudyEntity study)
         {
@@ -476,9 +478,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// <summary>
         /// Updates a Study
         /// </summary>
-        /// <param name="study"></param>
+        /// <param name="study">Update study in database</param>
         /// <returns>
-        /// A studyId which was inserted        
+        /// A studyId which was inserted <br></br> <br></br>        
         /// </returns>
         public async Task<string> UpdateStudyItemsAsync(StudyEntity study)
         {

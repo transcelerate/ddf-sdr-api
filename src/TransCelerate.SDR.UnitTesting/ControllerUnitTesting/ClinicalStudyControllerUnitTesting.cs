@@ -618,7 +618,7 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void PostAllElments_UnitTest_SuccessResponse()
         {
-            PostStudyResponseDTO postStudyResponseDTO = new PostStudyResponseDTO { studyId = GetDataFromStaticJson().clinicalStudy.studyId };
+            PostStudyDTO postStudyResponseDTO = new PostStudyDTO { clinicalStudy = PostDataFromStaticJson().clinicalStudy, };
 
             _mockClinicalStudyRepository.Setup(x => x.PostStudyItemsAsync(It.IsAny<StudyEntity>()))
                     .Returns(Task.FromResult(GetDataFromStaticJson().clinicalStudy.studyId));
@@ -636,7 +636,7 @@ namespace TransCelerate.SDR.UnitTesting
             var expected = GetDataFromStaticJson().clinicalStudy.studyId;
 
             //Actual            
-            var actual_result = JsonConvert.DeserializeObject<PostStudyResponseDTO>(
+            var actual_result = JsonConvert.DeserializeObject<PostStudyDTO>(
                  JsonConvert.SerializeObject((result as CreatedResult).Value));
 
             //Assert          
@@ -644,12 +644,12 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.AreEqual(201, (result as CreatedResult).StatusCode);
             Assert.IsInstanceOf(typeof(CreatedResult), result);
 
-            Assert.AreEqual(expected, actual_result.studyId);
+            Assert.AreEqual(expected, actual_result.clinicalStudy.studyId);
         }
         [Test]
         public void PostAllElments_UnitTest_FailureResponse()
         {
-            PostStudyResponseDTO postStudyResponseDTO = new PostStudyResponseDTO { studyId = GetDataFromStaticJson().clinicalStudy.studyId };
+            PostStudyDTO postStudyResponseDTO = new PostStudyDTO { clinicalStudy = PostDataFromStaticJson().clinicalStudy };
 
             _mockClinicalStudyRepository.Setup(x => x.PostStudyItemsAsync(It.IsAny<StudyEntity>()))
                     .Throws(new Exception("Error"));

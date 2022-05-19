@@ -15,9 +15,9 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// <summary>
         /// GET All Elements For a Study
         /// </summary>
-        /// <param name="studyId"></param>
-        /// <param name="version"></param>
-        /// <param name="tag"></param>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="version">Version of study</param>
+        /// <param name="tag">Tag of a study</param>
         /// <returns>
         /// A <see cref="GetStudyDTO"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
@@ -27,10 +27,10 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// <summary>
         /// GET All Elements For a Study
         /// </summary>
-        /// <param name="studyId"></param>
-        /// <param name="version"></param>
-        /// <param name="tag"></param>
-        /// <param name="sections"></param>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="version">Version of study</param>
+        /// <param name="tag">Tag of a study</param>
+        /// <param name="sections">Study sections which have to be fetched</param>
         /// <returns>
         /// A <see cref="object"/> of study sections with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
@@ -40,11 +40,11 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// <summary>
         /// GET For a StudyDesign sections for a study
         /// </summary>
-        /// <param name="studyId"></param>
-        /// <param name="version"></param>
-        /// <param name="tag"></param>
-        /// <param name="sections"></param>
-        /// <param name="studyDesignId"></param>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="version">Version of study</param>
+        /// <param name="tag">Tag of a study</param>
+        /// <param name="studyDesignId">Study Design Id</param>
+        /// <param name="sections">Study Design sections which have to be fetched</param>   
         /// <returns>
         /// A <see cref="object"/> of studyDesign sections with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
@@ -54,20 +54,21 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// <summary>
         /// GET Audit Trial
         /// </summary>
-        /// <param name="fromDate"></param>
-        /// <param name="toDate"></param>
-        /// <param name="studyId"></param>
+        /// <param name="fromDate">Start Date for Date Filter</param>
+        /// <param name="toDate">End Date for Date Filter</param>
+        /// <param name="studyId">Study ID</param>
         /// <returns>
         /// A <see cref="GetStudyAuditDTO"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        Task<GetStudyAuditDTO> GetAuditTrail(DateTime fromDate, DateTime toDate, string study);
+        Task<GetStudyAuditDTO> GetAuditTrail(DateTime fromDate, DateTime toDate, string studyId);
 
+        /// <summary>
         /// Get AllStudy Id's
         /// </summary>
-        /// <param name="fromDate"></param>
-        /// <param name="toDate"></param>
-        /// <param name="studyTitle"></param>
+        /// <param name="fromDate">Start Date for Date Filter</param>
+        /// <param name="toDate">End Date for Date Filter</param>
+        /// <param name="studyTitle">Study Title Filter</param>
         /// <returns>
         /// A <see cref="GetStudyHistoryResponseDTO"/> which has list of study ID's <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
@@ -79,24 +80,23 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// <summary>
         /// POST All Elements For a Study
         /// </summary>
-        /// <param name="studyDTO"></param>
-        /// <param name="entrySystem"></param>
-        /// <param name="entrySystemId"></param>
+        /// <param name="studyDTO">Study for Inserting/Updating in Database</param>
+        /// <param name="entrySystem">System which made the request</param>        
         /// <returns>
-        /// A <see cref="PostStudyResponseDTO"/> which has study ID and study design ID's <br></br> <br></br>
+        /// A <see cref="PostStudyDTO"/> which has study ID and study design ID's <br></br> <br></br>
         /// <see langword="null"/> If the insert is not done
         /// </returns>
-        Task<object> PostAllElements(PostStudyDTO study,string entrySystem);
+        Task<object> PostAllElements(PostStudyDTO studyDTO, string entrySystem);
 
         /// <summary>
         /// Search Study Elements with search criteria
         /// </summary>
-        /// <param name="searchParameters"></param>
+        /// <param name="searchParametersDTO">Parameters to search in database</param>
         /// <returns>
-        /// A <see cref="List{GetStudyDTO}}"/> which matches serach criteria <br></br> <br></br>
+        /// A <see cref="List{GetStudyDTO}"/> which matches serach criteria <br></br> <br></br>
         /// <see langword="null"/> If the insert is not done
         /// </returns>
-        Task<List<GetStudyDTO>> SearchStudy(SearchParametersDTO searchParameters);
+        Task<List<GetStudyDTO>> SearchStudy(SearchParametersDTO searchParametersDTO);
         #endregion
         #endregion        
 

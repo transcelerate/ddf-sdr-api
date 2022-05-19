@@ -39,9 +39,9 @@ namespace TransCelerate.SDR.Services.Services
         /// <summary>
         /// GET All Elements For a Study
         /// </summary>
-        /// <param name="studyId"></param>
-        /// <param name="version"></param>
-        /// <param name="tag"></param>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="version">Version of study</param>
+        /// <param name="tag">Tag of a study</param>
         /// <returns>
         /// A <see cref="GetStudyDTO"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
@@ -87,10 +87,10 @@ namespace TransCelerate.SDR.Services.Services
         /// <summary>
         /// GET All Elements For a Study
         /// </summary>
-        /// <param name="studyId"></param>
-        /// <param name="version"></param>
-        /// <param name="tag"></param>
-        /// <param name="sections"></param>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="version">Version of study</param>
+        /// <param name="tag">Tag of a study</param>
+        /// <param name="sections">Study sections which have to be fetched</param>
         /// <returns>
         /// A <see cref="object"/> of study sections with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
@@ -138,11 +138,11 @@ namespace TransCelerate.SDR.Services.Services
         /// <summary>
         /// GET For a StudyDesign sections for a study
         /// </summary>
-        /// <param name="studyId"></param>
-        /// <param name="version"></param>
-        /// <param name="tag"></param>
-        /// <param name="sections"></param>
-        /// <param name="studyDesignId"></param>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="version">Version of study</param>
+        /// <param name="tag">Tag of a study</param>
+        /// <param name="studyDesignId">Study Design Id</param>
+        /// <param name="sections">Study Design sections which have to be fetched</param>   
         /// <returns>
         /// A <see cref="object"/> of studyDesign sections with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
@@ -191,9 +191,9 @@ namespace TransCelerate.SDR.Services.Services
         /// <summary>
         /// GET Audit Trial
         /// </summary>
-        /// <param name="fromDate"></param>
-        /// <param name="toDate"></param>
-        /// <param name="studyId"></param>
+        /// <param name="fromDate">Start Date for Date Filter</param>
+        /// <param name="toDate">End Date for Date Filter</param>
+        /// <param name="studyId">Study ID</param>
         /// <returns>
         /// A <see cref="GetStudyAuditDTO"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
@@ -232,9 +232,9 @@ namespace TransCelerate.SDR.Services.Services
         /// <summary>
         /// Get AllStudy Id's
         /// </summary>
-        /// <param name="fromDate"></param>
-        /// <param name="toDate"></param>
-        /// <param name="studyTitle"></param>
+        /// <param name="fromDate">Start Date for Date Filter</param>
+        /// <param name="toDate">End Date for Date Filter</param>
+        /// <param name="studyTitle">Study Title Filter</param>
         /// <returns>
         /// A <see cref="GetStudyHistoryResponseDTO"/> which has list of study ID's <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
@@ -286,11 +286,10 @@ namespace TransCelerate.SDR.Services.Services
         /// <summary>
         /// POST All Elements For a Study
         /// </summary>
-        /// <param name="studyDTO"></param>
-        /// <param name="entrySystem"></param>
-        /// <param name="entrySystemId"></param>
+        /// <param name="studyDTO">Study for Inserting/Updating in Database</param>
+        /// <param name="entrySystem">System which made the request</param>        
         /// <returns>
-        /// A <see cref="PostStudyResponseDTO"/> which has study ID and study design ID's <br></br> <br></br>
+        /// A <see cref="PostStudyDTO"/> which has study ID and study design ID's <br></br> <br></br>
         /// <see langword="null"/> If the insert is not done
         /// </returns>
         public async Task<object> PostAllElements(PostStudyDTO studyDTO,string entrySystem)
@@ -303,10 +302,11 @@ namespace TransCelerate.SDR.Services.Services
                 AuditTrailEntity auditTrailEntity = new AuditTrailEntity();
                 incomingstudyEntity.auditTrail = auditTrailEntity;
                 incomingstudyEntity.auditTrail.entryDateTime = DateTime.UtcNow;
-                incomingstudyEntity.auditTrail.entrySystem = entrySystem; 
+                incomingstudyEntity.auditTrail.entrySystem = entrySystem;
                 #endregion
 
-                PostStudyResponseDTO postStudyDTO = new PostStudyResponseDTO(); //This class is for sending response for the POST Request
+                object responseObject; //This object is for sending response for the POST Request
+                //PostStudyResponseDTO postStudyDTO = new PostStudyResponseDTO(); //This class is for sending response for the POST Request
 
                 if (String.IsNullOrEmpty(incomingstudyEntity.clinicalStudy.studyId)) 
                 {
@@ -321,21 +321,9 @@ namespace TransCelerate.SDR.Services.Services
                     #endregion
 
                     _logger.LogInformation($"entrySystem: {entrySystem??"<null>"}; Study Input : {JsonConvert.SerializeObject(incomingstudyEntity)}");
-                    postStudyDTO.studyId =  await _clinicalStudyRepository.PostStudyItemsAsync(incomingstudyEntity).ConfigureAwait(false);
-                    
-                    #region Response ID mapping
-                    postStudyDTO.studyVersion = incomingstudyEntity.auditTrail.studyVersion;
-                    var studyDesign = incomingstudyEntity.clinicalStudy.currentSections != null ? incomingstudyEntity.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).ToList() : new List<CurrentSectionsEntity>();
-                    if (studyDesign.Count() != 0)
-                    {
-                        var designIdList = new List<string>();
-                        foreach (var item in studyDesign.Find(x => x.studyDesigns != null).studyDesigns)
-                        {
-                            designIdList.Add(item.studyDesignId);
-                        }
-                        postStudyDTO.studyDesignId = designIdList;
-                    } 
-                    #endregion
+                    await _clinicalStudyRepository.PostStudyItemsAsync(incomingstudyEntity).ConfigureAwait(false);
+                    studyDTO = _mapper.Map<PostStudyDTO>(incomingstudyEntity);
+                    responseObject = RemoveStudySections.PostResponseRemoveSections(studyDTO);                   
                 }
                 else //If there is a studyId in the input
                 {
@@ -358,8 +346,9 @@ namespace TransCelerate.SDR.Services.Services
                         if (PostStudyElementsCheck.StudyComparison(duplicateIncomingStudy, duplicateExistingStudy)) //If the data in existing and incoming are same
                         {
                             _logger.LogInformation($"Study Input : {JsonConvert.SerializeObject(existingStudyEntity)}");
-                            postStudyDTO.studyId = await _clinicalStudyRepository.UpdateStudyItemsAsync(existingStudyEntity); //update the existing latest version
-                            postStudyDTO.studyVersion = existingStudyEntity.auditTrail.studyVersion;
+                            await _clinicalStudyRepository.UpdateStudyItemsAsync(existingStudyEntity); //update the existing latest version
+                            studyDTO = _mapper.Map<PostStudyDTO>(existingStudyEntity);
+                            responseObject = RemoveStudySections.PostResponseRemoveSections(studyDTO);                         
                         }
                         else
                         {
@@ -369,25 +358,13 @@ namespace TransCelerate.SDR.Services.Services
 
                             _logger.LogInformation($"Study Input : {JsonConvert.SerializeObject(existingStudyEntity)}");
                             existingStudyEntity._id = ObjectId.GenerateNewId();
-                            postStudyDTO.studyId = await _clinicalStudyRepository.PostStudyItemsAsync(existingStudyEntity).ConfigureAwait(false);
-                            postStudyDTO.studyVersion = existingStudyEntity.auditTrail.studyVersion;
-                        }
-
-                        #region Response ID mapping
-                        var studyDesign = existingStudyEntity.clinicalStudy.currentSections != null ? existingStudyEntity.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).ToList() : new List<CurrentSectionsEntity>();
-                        if (studyDesign.Count() != 0)
-                        {
-                            var designIdList = new List<string>();
-                            foreach (var item in studyDesign.Find(x => x.studyDesigns != null).studyDesigns)
-                            {
-                                designIdList.Add(item.studyDesignId);
-                            }
-                            postStudyDTO.studyDesignId = designIdList;
-                        }
-                        #endregion
+                            await _clinicalStudyRepository.PostStudyItemsAsync(existingStudyEntity).ConfigureAwait(false);
+                            studyDTO = _mapper.Map<PostStudyDTO>(existingStudyEntity);
+                            responseObject = RemoveStudySections.PostResponseRemoveSections(studyDTO);                            
+                        }                       
                     }
                 }
-                return postStudyDTO;
+                return responseObject;
             }
             catch (Exception)
             {
@@ -402,9 +379,9 @@ namespace TransCelerate.SDR.Services.Services
         /// <summary>
         /// Search Study Elements with search criteria
         /// </summary>
-        /// <param name="searchParameters"></param>
+        /// <param name="searchParametersDTO">Parameters to search in database</param>
         /// <returns>
-        /// A <see cref="List{GetStudyDTO}}"/> which matches serach criteria <br></br> <br></br>
+        /// A <see cref="List{GetStudyDTO}"/> which matches serach criteria <br></br> <br></br>
         /// <see langword="null"/> If the insert is not done
         /// </returns>
         public async Task<List<GetStudyDTO>> SearchStudy(SearchParametersDTO searchParametersDTO)

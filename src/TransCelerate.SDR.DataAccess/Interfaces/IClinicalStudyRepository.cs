@@ -11,8 +11,8 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// <summary>
         /// GET a Study for a study ID with version filter
         /// </summary>
-        /// <param name="studyId"></param>
-        /// <param name="version"></param>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="version">Version of study</param>
         /// <returns>
         /// A <see cref="StudyEntity"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
@@ -22,9 +22,9 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// <summary>
         /// GET a Study for a study ID with version and tag filter
         /// </summary>
-        /// <param name="studyId"></param>
-        /// <param name="version"></param>
-        /// <param name="tag"></param>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="version">Version of study</param>
+        /// <param name="tag">Tag of a study</param>
         /// <returns>
         /// A <see cref="StudyEntity"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
@@ -34,21 +34,21 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// <summary>
         /// GET List of study for a study ID
         /// </summary>
-        /// <param name="fromDate"></param>
-        /// <param name="toDate"></param>
-        /// <param name="study"></param>
+        /// <param name="fromDate">Start Date for Date Filter</param>
+        /// <param name="toDate">End Date for Date Filter</param>
+        /// <param name="studyId">Study ID</param>
         /// <returns>
         /// A <see cref="List{StudyEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        Task<List<StudyEntity>> GetAuditTrail(DateTime fromDate, DateTime toDate, string study);
+        Task<List<StudyEntity>> GetAuditTrail(DateTime fromDate, DateTime toDate, string studyId);
 
         /// <summary>
         /// Get List of all studyId 
         /// </summary>
-        /// <param name="fromDate"></param>
-        /// <param name="toDate"></param>
-        /// <param name="studyTitle"></param>
+        /// <param name="fromDate">Start Date for Date Filter</param>
+        /// <param name="toDate">End Date for Date Filter</param>
+        /// <param name="studyTitle">Study Title Filter</param>
         /// <returns>
         /// A <see cref="List{StudyHistoryEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
@@ -56,18 +56,9 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         Task<List<StudyHistoryEntity>> GetAllStudyId(DateTime fromDate, DateTime toDate, string studyTitle);
 
         /// <summary>
-        /// POST a Study
-        /// </summary>
-        /// <param name="study"></param>
-        /// <returns>
-        /// A studyId which was inserted <br></br> <br></br>        
-        /// </returns>
-        Task<string> PostStudyItemsAsync(StudyEntity study);
-
-        /// <summary>
         /// Search the collection based on search criteria
         /// </summary>
-        /// <param name="searchParameters"></param>
+        /// <param name="searchParameters">Parameters to search in database</param>
         /// <returns>
         /// A <see cref="List{StudyEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
@@ -75,9 +66,18 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         Task<List<StudyEntity>> SearchStudy(SearchParameters searchParameters);
 
         /// <summary>
+        /// POST a Study
+        /// </summary>
+        /// <param name="study">Study for Inserting into Database</param>
+        /// <returns>
+        /// A studyId which was inserted <br></br> <br></br>        
+        /// </returns>
+        Task<string> PostStudyItemsAsync(StudyEntity study);        
+
+        /// <summary>
         /// Updates a Study
         /// </summary>
-        /// <param name="study"></param>
+        /// <param name="study">Update study in database</param>
         /// <returns>
         /// A studyId which was inserted <br></br> <br></br>        
         /// </returns>

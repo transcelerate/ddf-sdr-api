@@ -25,6 +25,7 @@ using TransCelerate.SDR.RuleEngine;
 using TransCelerate.SDR.Services.Interfaces;
 using TransCelerate.SDR.Services.Services;
 using TransCelerate.SDR.WebApi.Mappers;
+using TransCelerate.SDR.Core.DTO.UserGroups;
 
 namespace TransCelerate.SDR.WebApi
 {
@@ -81,6 +82,8 @@ namespace TransCelerate.SDR.WebApi
             //Dependency Injection of interfaces
             services.AddTransient<IClinicalStudyRepository, ClinicalStudyRepository>();
             services.AddTransient<IClinicalStudyService, ClinicalStudyService>();
+            services.AddTransient<IUserGroupMappingRepository, UserGroupMappingRepository>();
+            services.AddTransient<IUserGroupMappingService, UserGroupMappingService>();
             services.AddTransient<ILogHelper, LogHelper>();
             services.AddTransient<IMongoClient,MongoClient>(db=>new MongoClient(Config.connectionString));
 
@@ -97,7 +100,9 @@ namespace TransCelerate.SDR.WebApi
                     ValidationProblemDetails problemDetails = new ValidationProblemDetails(context.ModelState);
                     var inputs = ((Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)context).ActionArguments;                  
                     //For Conformance error
-                    if (JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyEmptyError.ToLower()) || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyMissingError.ToLower()))
+                    if (JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyEmptyError.ToLower()) || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyMissingError.ToLower())
+                        || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.SelectAtleastOneGroup.ToLower()) || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.InvalidPermissionValue.ToLower())
+                        || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.GroupFilterEmptyError.ToLower()))
                     {
                         logger.LogError($"Conformance Error  : {JsonConvert.SerializeObject(problemDetails.Errors)} ; Input: {JsonConvert.SerializeObject(inputs)} ;");
                         return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(problemDetails.Errors));
@@ -116,7 +121,7 @@ namespace TransCelerate.SDR.WebApi
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         /// </summary>
         /// <param name="app"></param>
-        /// <param name="env"></param>
+        /// <param name="env"></param>        
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {            
             if (env.IsDevelopment())
@@ -142,8 +147,12 @@ namespace TransCelerate.SDR.WebApi
 
             //Custom Response for the API HTTP errors
             app.Use(async (context, next) =>
-            {               
-                await next();                           
+            {
+                await next();
+                if (context.Response.StatusCode == (int)HttpStatusCode.InternalServerError)
+                {
+                    await context.Response.WriteAsync(JsonConvert.SerializeObject(ErrorResponseHelper.InternalServerError()));
+                }
                 if (context.Response.StatusCode == (int)HttpStatusCode.Unauthorized)
                 {                    
                     await context.Response.WriteAsync(JsonConvert.SerializeObject(ErrorResponseHelper.UnAuthorizedAccess()));
@@ -174,7 +183,7 @@ namespace TransCelerate.SDR.WebApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-            });          
+            });            
         }
 
     }
