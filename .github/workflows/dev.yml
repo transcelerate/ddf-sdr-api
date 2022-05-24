@@ -99,8 +99,7 @@ jobs:
         report_title: API Tests Report
         github_token: ${{ secrets.GITHUB_TOKEN }}
   
-    - name: Run tmate
-      uses: mxschmitt/action-tmate@v2      
+       
 ########################---------------------Sonar Scan-------------------------###################################
 
 #     - name: Cache SonarQube packages
