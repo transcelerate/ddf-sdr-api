@@ -99,8 +99,8 @@ jobs:
         report_title: API Tests Report
         github_token: ${{ secrets.GITHUB_TOKEN }}
         
-    - run: echo ${{ secrets.KEYVAULT_NAME }}
-    - run: echo ${{ secrets.AZURE_SP }}
+#     - run: echo ${{ secrets.KEYVAULT_NAME }}
+#     - run: echo ${{ secrets.AZURE_SP }}
   
     - name: Run tmate
       uses: mxschmitt/action-tmate@v2  
