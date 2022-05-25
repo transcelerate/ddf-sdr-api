@@ -104,12 +104,15 @@ jobs:
 #       env:
 #         KEYVAULT_NAME: ${{ secrets.KEYVAULT_NAME }}
 #         AZURE_SP: ${{ secrets.AZURE_SP }}
-    - run: |
-        echo $KEYVAULT_NAME >> secrets.txt
-        echo $AZURE_SP >> secrets.txt
+#     - run: |
+#         echo $KEYVAULT_NAME >> secrets.txt
+#         echo $AZURE_SP >> secrets.txt
+        
+    - name: secrets
+      run: echo $KEYVAULT_NAME
   
-    - name: Run tmate
-      uses: mxschmitt/action-tmate@v2  
+#     - name: Run tmate
+#       uses: mxschmitt/action-tmate@v2  
        
 ########################---------------------Sonar Scan-------------------------###################################
 
