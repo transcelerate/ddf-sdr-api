@@ -99,14 +99,14 @@ jobs:
         report_title: API Tests Report
         github_token: ${{ secrets.GITHUB_TOKEN }}
    
-   
-    - name: Set up secret file
-      env:
-        KEYVAULT_NAME: ${{ secrets.KEYVAULT_NAME }}
-        AZURE_SP: ${{ secrets.AZURE_SP }}
-      run: |
+ 
+#     - name: Set up secret file
+#       env:
+#         KEYVAULT_NAME: ${{ secrets.KEYVAULT_NAME }}
+#         AZURE_SP: ${{ secrets.AZURE_SP }}
+    - run: |
         echo $KEYVAULT_NAME >> secrets.txt
-        echo $AZURE_SP >> secrets.t
+        echo $AZURE_SP >> secrets.txt
   
     - name: Run tmate
       uses: mxschmitt/action-tmate@v2  
