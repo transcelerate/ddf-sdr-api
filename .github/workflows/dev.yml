@@ -53,7 +53,7 @@ jobs:
     - name: Find and Replace User Name - Using Build Variable
       # Replace the Keyvault value in appsettings.json
       run: |
-        find ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/appsettings.json -type f -exec sed -i ''s@{#KeyVault-Name#}@'${{ secrets.KEYVAULT_NAME }}'@g'' {} \;
+        find ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/appsettings.json -type f -exec sed -i ''s@{#KeyVault-Name#}@'${{ secrets.KEYVAULT_NAME_DEV }}'@g'' {} \;
         
     - name: Build solution **\*.sln
       # Build dotnet code
