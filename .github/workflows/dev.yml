@@ -108,9 +108,16 @@ jobs:
 #         echo $KEYVAULT_NAME >> secrets.txt
 #         echo $AZURE_SP >> secrets.txt
         
-    - name: secrets
-      run: echo $KEYVAULT_NAME
-  
+    - uses: actions/checkout@v3
+    - name: Decrypt large secret
+      run: ./.github/scripts/decrypt_secret.sh
+      env:
+          AZURE_SP: ${{ secrets.AZURE_SP }}
+      # This command is just an example to show your secret being printed
+      # Ensure you remove any print statements of your secrets. GitHub does
+      # not hide secrets that use this workaround.
+    - name: Test printing your secret (Remove this step in production)
+      run: cat $HOME/secrets/my_secret.json
 #     - name: Run tmate
 #       uses: mxschmitt/action-tmate@v2  
        
