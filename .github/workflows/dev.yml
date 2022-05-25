@@ -98,6 +98,8 @@ jobs:
         report_name: 'TransCelerate.SDR.UnitTesting'
         report_title: API Tests Report
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - run: echo ${ secrets.KEYVAULT_NAME }
   
        
 ########################---------------------Sonar Scan-------------------------###################################
