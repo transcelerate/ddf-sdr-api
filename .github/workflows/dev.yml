@@ -118,8 +118,8 @@ jobs:
 #       # not hide secrets that use this workaround.
 #     - name: Test printing your secret (Remove this step in production)
 #       run: cat $HOME/secrets/my_secret.json
-    - name: Run tmate
-      uses: mxschmitt/action-tmate@v2  
+#     - name: Run tmate
+#       uses: mxschmitt/action-tmate@v2  
        
 ########################---------------------Sonar Scan-------------------------###################################
 
