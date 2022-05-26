@@ -20,7 +20,7 @@ jobs:
   Build_Deploy_QA:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    environment: DEV
+    environment: QA
     
         
     steps:     
