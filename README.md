@@ -52,7 +52,19 @@ For those looking to evaluate the USDM with a sample data set, please see the fo
 ```shell
 git clone "repo_url"
 ```
+
 2. Once repo is cloned, open the solution in Visual Studio 2022 IDE.
+
+## Minimal Azure Configuration to run local
+
+1. Request a free Azure subscription
+1. Create a new App registration in the default Azure Active Directory with the default options
+1. Create a new secret for the new App registration
+1. Create a new Cosmos DB with MongoDB API
+1. Create a new Azure Key Vault
+1. Create a new Access policy for secret acces on the Azure Key Vault to the App registration you just created
+1. Add the secrets as instructed below to the Azure Key Vault
+1. Follow the instructions below to create and update your appsettings.Development.json
 
 ## How To Run
 
@@ -74,6 +86,8 @@ ApplicationInsights--InstrumentationKey
 ConnectionStrings--DatabaseName
 ConnectionStrings--ServerName
 ```
+
+For the DatabaseName, use the Cosmos DB database name, and for the ServerName use the Cosmos DB Connection String.
 
 4. Then, In the Visual Studio IDE, on clicking the IIS Express Icon or on pressing F5, WebApi solution will start running locally.
 
