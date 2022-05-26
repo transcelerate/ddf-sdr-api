@@ -15,11 +15,15 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  Build:
+  
+  # This workflow contains a single job called "build"
+  Build_Deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    environment: DEV   
-    steps:    
+    environment: DEV
+    
+        
+    steps:     
     - name: Set up JDK 11
       uses: actions/setup-java@v1
       # Setup JDK 11
@@ -96,6 +100,25 @@ jobs:
         report_title: API Tests Report
         github_token: ${{ secrets.GITHUB_TOKEN }}
    
+ 
+#     - name: Set up secret file
+#       env:
+#         KEYVAULT_NAME: ${{ secrets.KEYVAULT_NAME }}
+#         AZURE_SP: ${{ secrets.AZURE_SP }}
+#     - run: |
+#         echo $KEYVAULT_NAME >> secrets.txt
+#         echo $AZURE_SP >> secrets.txt
+        
+#     - uses: actions/checkout@v3
+#     - name: Decrypt large secret
+#       run: ./.github/scripts/decrypt_secret.sh
+#       env:
+#           AZURE_SP: ${{ secrets.AZURE_SP }}
+#       # This command is just an example to show your secret being printed
+#       # Ensure you remove any print statements of your secrets. GitHub does
+#       # not hide secrets that use this workaround.
+#     - name: Test printing your secret (Remove this step in production)
+#       run: cat $HOME/secrets/my_secret.json
 #     - name: Run tmate
 #       uses: mxschmitt/action-tmate@v2  
        
@@ -151,16 +174,9 @@ jobs:
 #        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 ##############################-------------Deployment----------------#####################################
-
-  Deploy:
-    needs: Build
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-    environment: DEV
-    steps:
         
-     # "Note: the 'AZURE_SP' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
-    - name: Azure Login
+    - # "Note: the 'AZURE_SP' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
+      name: Azure Login
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_SP_DEV }}   
