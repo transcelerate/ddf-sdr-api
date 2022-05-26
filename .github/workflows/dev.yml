@@ -15,14 +15,11 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
+  job1:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    environment: DEV
-    
-        
-    steps:     
+       
+    steps:    
     - name: Set up JDK 11
       uses: actions/setup-java@v1
       # Setup JDK 11
@@ -50,10 +47,6 @@ jobs:
     - name: NuGet restore
       run: nuget restore '${{ github.workspace }}/src/TransCelerate.SDR.sln'      
       
-    - name: Find and Replace User Name - Using Build Variable
-      # Replace the Keyvault value in appsettings.json
-      run: |
-        find ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/appsettings.json -type f -exec sed -i ''s@{#KeyVault-Name#}@'${{ secrets.KEYVAULT_NAME_DEV }}'@g'' {} \;
         
     - name: Build solution **\*.sln
       # Build dotnet code
@@ -99,25 +92,6 @@ jobs:
         report_title: API Tests Report
         github_token: ${{ secrets.GITHUB_TOKEN }}
    
- 
-#     - name: Set up secret file
-#       env:
-#         KEYVAULT_NAME: ${{ secrets.KEYVAULT_NAME }}
-#         AZURE_SP: ${{ secrets.AZURE_SP }}
-#     - run: |
-#         echo $KEYVAULT_NAME >> secrets.txt
-#         echo $AZURE_SP >> secrets.txt
-        
-#     - uses: actions/checkout@v3
-#     - name: Decrypt large secret
-#       run: ./.github/scripts/decrypt_secret.sh
-#       env:
-#           AZURE_SP: ${{ secrets.AZURE_SP }}
-#       # This command is just an example to show your secret being printed
-#       # Ensure you remove any print statements of your secrets. GitHub does
-#       # not hide secrets that use this workaround.
-#     - name: Test printing your secret (Remove this step in production)
-#       run: cat $HOME/secrets/my_secret.json
 #     - name: Run tmate
 #       uses: mxschmitt/action-tmate@v2  
        
@@ -173,24 +147,35 @@ jobs:
 #        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 ##############################-------------Deployment----------------#####################################
+
+  job2:
+ 
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    environment: DEV
+    steps:
+    - name: Find and Replace User Name - Using Build Variable
+      # Replace the Keyvault value in appsettings.json
+      run: |
+        find ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/appsettings.json -type f -exec sed -i ''s@{#KeyVault-Name#}@'${{ secrets.KEYVAULT_NAME_DEV }}'@g'' {} \;
         
-    - # "Note: the 'AZURE_SP' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
-      name: Azure Login
+     # "Note: the 'AZURE_SP' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
+    - name: Azure Login
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_SP_DEV }}   
       
-    - name: 'Run Azure webapp deploy action using publish profile credentials'
-      env:  
-        # AZURE_WEBAPP_NAME is getting fetched from secrets
-        # AZURE_WEBAPP_PACKAGE_PATH is declared from build path
-        AZURE_WEBAPP_NAME: ${{ secrets.AZURE_WEBAPP_NAME_DEV }}    # set this to your application's name
-        AZURE_WEBAPP_PACKAGE_PATH: '${{ github.workspace }}/**.zip'      # set this to the path to your web app project, defaults to the repository root
-      uses: azure/webapps-deploy@v2
-      # Deploy to target machine and path
-      with: 
-        app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
-        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+#     - name: 'Run Azure webapp deploy action using publish profile credentials'
+#       env:  
+#         # AZURE_WEBAPP_NAME is getting fetched from secrets
+#         # AZURE_WEBAPP_PACKAGE_PATH is declared from build path
+#         AZURE_WEBAPP_NAME: ${{ secrets.AZURE_WEBAPP_NAME_DEV }}    # set this to your application's name
+#         AZURE_WEBAPP_PACKAGE_PATH: '${{ github.workspace }}/**.zip'      # set this to the path to your web app project, defaults to the repository root
+#       uses: azure/webapps-deploy@v2
+#       # Deploy to target machine and path
+#       with: 
+#         app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
+#         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
 
         
