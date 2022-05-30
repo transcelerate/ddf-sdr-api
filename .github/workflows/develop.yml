@@ -175,23 +175,23 @@ jobs:
 
 ##############################-------------Deployment----------------#####################################
         
-    - # "Note: the 'AZURE_SP' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
-      name: Azure Login
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_SP_DEV }}   
+#     - # "Note: the 'AZURE_SP' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
+#       name: Azure Login
+#       uses: azure/login@v1
+#       with:
+#         creds: ${{ secrets.AZURE_SP_DEV }}   
       
-    - name: 'Run Azure webapp deploy action using publish profile credentials'
-      env:  
-        # AZURE_WEBAPP_NAME is getting fetched from secrets
-        # AZURE_WEBAPP_PACKAGE_PATH is declared from build path
-        AZURE_WEBAPP_NAME: ${{ secrets.AZURE_WEBAPP_NAME_DEV }}    # set this to your application's name
-        AZURE_WEBAPP_PACKAGE_PATH: '${{ github.workspace }}/**.zip'      # set this to the path to your web app project, defaults to the repository root
-      uses: azure/webapps-deploy@v2
-      # Deploy to target machine and path
-      with: 
-        app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
-        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+#     - name: 'Run Azure webapp deploy action using publish profile credentials'
+#       env:  
+#         # AZURE_WEBAPP_NAME is getting fetched from secrets
+#         # AZURE_WEBAPP_PACKAGE_PATH is declared from build path
+#         AZURE_WEBAPP_NAME: ${{ secrets.AZURE_WEBAPP_NAME_DEV }}    # set this to your application's name
+#         AZURE_WEBAPP_PACKAGE_PATH: '${{ github.workspace }}/**.zip'      # set this to the path to your web app project, defaults to the repository root
+#       uses: azure/webapps-deploy@v2
+#       # Deploy to target machine and path
+#       with: 
+#         app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
+#         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
 
         
