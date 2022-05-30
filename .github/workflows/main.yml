@@ -4,7 +4,7 @@ name: CICD_Pre_Prod
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
+  # Triggers the workflow on push or pull request events but only for the develop branch
   push:
     branches: [ main ]
   pull_request:
@@ -15,10 +15,12 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  
   # This workflow contains a single job called "build"
-  build:
+  Build_Deploy_DEV:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    environment: PRE_PROD
     
         
     steps:     
@@ -28,16 +30,19 @@ jobs:
       with:
           java-version: 1.11
           
-    - uses: actions/checkout@v2
+    - name: Fetch Depth      
+      uses: actions/checkout@v2
       with:
           # fetch depth is used to disable shallow cloning while sonarqube analysis
           fetch-depth: 0
 
+    - name: Dotnet Setup
     - uses: actions/setup-dotnet@v1
       # Setup for dotnet
       with:
         dotnet-version: 6.0.x
         
+    - name: Dotnet Version    
     - uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
@@ -97,7 +102,9 @@ jobs:
         report_name: 'TransCelerate.SDR.UnitTesting'
         report_title: API Tests Report
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        
+   
+ 
+       
 ########################---------------------Sonar Scan-------------------------###################################
 
 #     - name: Cache SonarQube packages
@@ -148,7 +155,8 @@ jobs:
 #         scanMetadataReportFile: .sonarqube/out/.sonar/report-task.txt
 #       env:
 #        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
- 
+
+
 ##############################-------------Deployment----------------#####################################
         
     - # "Note: the 'AZURE_SP' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
@@ -168,6 +176,8 @@ jobs:
       with: 
         app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+
+
         
 
 
