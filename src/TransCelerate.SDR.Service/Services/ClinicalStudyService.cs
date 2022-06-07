@@ -425,8 +425,29 @@ namespace TransCelerate.SDR.Services.Services
                 else
                 {
                     var studiesDTO = _mapper.Map<List<GetStudyDTO>>(studies); //Mapper to map from Entity to Dto
-                  
-                    return studiesDTO;
+                    for(int i=0; i < studiesDTO.Count; i++)
+                    {
+                        var investigationalInterventionsEntity = studies[i].investigationalInterventions?.Where(x => x != null && x.Count() > 0).SelectMany(x => x)
+                                                                                .Where(x => x != null && x.Count() > 0).SelectMany(x => x)
+                                                                                .Where(x => x != null && x.Count() > 0).SelectMany(x => x).ToList();
+
+                        var studyIndications = studies[i].studyIndications?.Where(x => x != null && x.Count() > 0).SelectMany(x => x).ToList();
+                                                                                
+
+                        var investigationalInterventionsDTO = _mapper.Map<List<InvestigationalInterventionDTO>>(investigationalInterventionsEntity);
+                        var studyIndicationsDTO = _mapper.Map<List<StudyIndicationDTO>>(studyIndications);
+                        var studyDesigns = new List<GetStudyDesignsDTO>();
+                        var studyDesign = new GetStudyDesignsDTO
+                        {
+                            investigationalInterventions = investigationalInterventionsDTO
+                        };
+                        studyDesigns.Add(studyDesign);
+                        studiesDTO[i].clinicalStudy.studyDesigns = studyDesigns;
+                        studiesDTO[i].clinicalStudy.studyIndications = studyIndicationsDTO;
+                        studiesDTO[i].auditTrail.entryDateTime = Convert.ToDateTime(studiesDTO[i].auditTrail.entryDateTime).ToString(Constants.DateFormats.DateFormatForAuditResponse).ToUpper();
+                    }
+                                        
+                    return studiesDTO;                   
                 }
             }
             catch (Exception)
