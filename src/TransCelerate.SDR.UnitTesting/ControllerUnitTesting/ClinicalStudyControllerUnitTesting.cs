@@ -83,11 +83,10 @@ namespace TransCelerate.SDR.UnitTesting
             studyList = JsonConvert.DeserializeObject<List<StudyEntity>>(jsonData);
             return studyList;
         }
-        public List<StudyEntity> GetListForSearchDataFromStaticJson()
+        public List<SearchResponse> GetListForSearchDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/GetSearchStudyData.json");
-            studyList = JsonConvert.DeserializeObject<List<StudyEntity>>(jsonData);
-            return studyList;
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/GetSearchStudyData.json");            
+            return JsonConvert.DeserializeObject<List<SearchResponse>>(jsonData);
         }
 
         [SetUp]
@@ -719,16 +718,9 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsNotNull((result as OkObjectResult).Value);
             Assert.AreEqual(200, (result as OkObjectResult).StatusCode);
             Assert.IsInstanceOf(typeof(OkObjectResult), result);
-
-            
-            Assert.AreEqual(expected[0].clinicalStudy.objectives[0].description, actual_result[0].clinicalStudy.objectives[0].description);
-            Assert.AreEqual(expected[0].clinicalStudy.studyIndications[0].description, actual_result[0].clinicalStudy.studyIndications[0].description);
-            Assert.AreEqual(expected[0].clinicalStudy.studyDesigns[0].studyDesignId, actual_result[0].clinicalStudy.studyDesigns[0].studyDesignId);
-            Assert.AreEqual(expected[0].clinicalStudy.studyId, actual_result[0].clinicalStudy.studyId);            
-            Assert.AreEqual(expected[1].clinicalStudy.objectives[0].description, actual_result[1].clinicalStudy.objectives[0].description);
-            Assert.AreEqual(expected[1].clinicalStudy.studyIndications[0].description, actual_result[1].clinicalStudy.studyIndications[0].description);
-            Assert.AreEqual(expected[1].clinicalStudy.studyDesigns[0].studyDesignId, actual_result[1].clinicalStudy.studyDesigns[0].studyDesignId);
-            Assert.AreEqual(expected[1].clinicalStudy.studyId, actual_result[1].clinicalStudy.studyId);
+                        
+            Assert.AreEqual(expected[0].clinicalStudy.studyIndications[0].description, actual_result[0].clinicalStudy.studyIndications[0].description);                                       
+            Assert.AreEqual(expected[1].clinicalStudy.studyIndications[0].description, actual_result[1].clinicalStudy.studyIndications[0].description);                      
         }
 
         [Test]

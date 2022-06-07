@@ -69,10 +69,10 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// </summary>
         /// <param name="searchParameters"></param>
         /// <returns>
-        /// A <see cref="List{StudyEntity}"/> with matching studyId <br></br> <br></br>
+        /// A <see cref="List{SearchResponseEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        Task<List<StudyEntity>> SearchStudy(SearchParameters searchParameters);
+        Task<List<SearchResponse>> SearchStudy(SearchParameters searchParameters);
 
         /// <summary>
         /// Updates a Study
