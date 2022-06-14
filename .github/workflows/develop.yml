@@ -38,7 +38,7 @@ jobs:
           fetch-depth: 0
 
     - name: Dotnet Setup
-    - uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v1
       # Setup for dotnet
       with:
         dotnet-version: 6.0.x
