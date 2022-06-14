@@ -17,7 +17,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
     public class UserGroupMappingRepository : IUserGroupMappingRepository
     {
         #region Variables     
-        private readonly string _databaseName = Config.databaseName;
+        private readonly string _databaseName = Config.DatabaseName;
         private readonly ILogHelper _logger;
 
         private readonly IMongoClient _client;
@@ -83,14 +83,16 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             try
             {
                 var collection = _database.GetCollection<UserGroupMappingEntity>(Constants.Collections.SDRGrouping);
-                
-                var userGroups = await collection.Find(_ => true)
-                                                       .Project(x=>x.SDRGroups.Where(x=>x.groupEnabled==true)
-                                                       .Select(g=> new GroupDetailsEntity
+                List<GroupDetailsEntity> userGroups = new List<GroupDetailsEntity>();
+                if (userGroupsQueryParameters.pageNumber==0 || userGroupsQueryParameters.pageSize==0)
+                {
+                    userGroups = await collection.Find(_ => true)
+                                                       .Project(x => x.SDRGroups.Where(x => x.groupEnabled == true)
+                                                       .Select(g => new GroupDetailsEntity
                                                        {
                                                            groupName = g.groupName,
                                                            groupId = g.groupId,
-                                                           groupDescription = g.groupDescription,  
+                                                           groupDescription = g.groupDescription,
                                                            groupFilter = g.groupFilter,
                                                            permission = g.permission,
                                                            groupCreatedOn = g.groupCreatedOn,
@@ -100,10 +102,37 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                            groupModifiedBy = g.groupModifiedBy
                                                        })
                                                        .OrderGroups(userGroupsQueryParameters)
-                                                       .Skip((userGroupsQueryParameters.pageNumber - 1) * userGroupsQueryParameters.pageSize)
-                                                       .Take(userGroupsQueryParameters.pageSize).ToList())                                                       
-                                                       .FirstOrDefaultAsync().ConfigureAwait(false);                
+                                                       .ToList())
+                                                       .FirstOrDefaultAsync().ConfigureAwait(false);
+                }
+                else
+                {
+                    userGroups = await collection.Find(_ => true)
+                                                      .Project(x => x.SDRGroups.Where(x => x.groupEnabled == true)
+                                                      .Select(g => new GroupDetailsEntity
+                                                      {
+                                                          groupName = g.groupName,
+                                                          groupId = g.groupId,
+                                                          groupDescription = g.groupDescription,
+                                                          groupFilter = g.groupFilter,
+                                                          permission = g.permission,
+                                                          groupCreatedOn = g.groupCreatedOn,
+                                                          groupModifiedOn = g.groupModifiedOn,
+                                                          groupEnabled = g.groupEnabled,
+                                                          groupCreatedBy = g.groupCreatedBy,
+                                                          groupModifiedBy = g.groupModifiedBy
+                                                      })
+                                                      .OrderGroups(userGroupsQueryParameters)
+                                                      .Skip((userGroupsQueryParameters.pageNumber - 1) * userGroupsQueryParameters.pageSize)
+                                                      .Take(userGroupsQueryParameters.pageSize).ToList())
+                                                      .FirstOrDefaultAsync().ConfigureAwait(false);
+                }
                 if (userGroups == null)
+                {
+                    _logger.LogWarning($"There is no group in {Constants.Collections.SDRGrouping} Collection");
+                    return null;
+                }
+                else if(userGroups.Count == 0)
                 {
                     _logger.LogWarning($"There is no group in {Constants.Collections.SDRGrouping} Collection");
                     return null;
@@ -199,6 +228,44 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             finally
             {
                 _logger.LogInformation($"Ended Repository : {nameof(UserGroupMappingRepository)}; Method : {nameof(GetGroups)};");
+            }
+        }
+
+        /// <summary>
+        /// GET group by groupName
+        /// </summary>        
+        /// <returns> A <see cref="SDRGroupsEntity"/> with List of Group Name and Group Id <br></br>
+        /// <see langword="null"/> if there are no groups
+        /// </returns>      
+        public async Task<SDRGroupsEntity> GetGroupByName(string groupName)
+        {
+            _logger.LogInformation($"Started Repository : {nameof(UserGroupMappingRepository)}; Method : {nameof(GetGroupByName)};");
+            try
+            {
+                var collection = _database.GetCollection<UserGroupMappingEntity>(Constants.Collections.SDRGrouping);
+
+                var userGroups = await collection.Find(_ => true)
+                                                       .Project(x => x.SDRGroups.Where(x => x.groupName.ToLower() == groupName.ToLower()))
+                                                       .FirstOrDefaultAsync()
+                                                       .ConfigureAwait(false);                
+
+                if (userGroups == null)
+                {
+                    _logger.LogWarning($"There is no group in {Constants.Collections.SDRGrouping} Collection");
+                    return null;
+                }
+                else
+                {
+                    return userGroups.FirstOrDefault();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Repository : {nameof(UserGroupMappingRepository)}; Method : {nameof(GetGroupByName)};");
             }
         }
         #endregion

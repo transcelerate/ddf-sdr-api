@@ -24,12 +24,19 @@ namespace TransCelerate.SDR.Services.Interfaces
         Task<object> GetUsersList(UserGroupsQueryParameters userGroupsQueryParameters);
 
         /// <summary>
-        /// GET All Users for a group
+        /// GET All groups
         /// </summary>        
         /// <returns> A <see cref="object"/> with List of groupId and groupName <br />
         /// <see langword="null"/> if there are no groups
         /// </returns>   
         Task<object> ListGroups();
+        /// <summary>
+        /// Check GroupName
+        /// </summary>        
+        /// <returns> A <see cref="object"/> with groupId and isExists <br />
+        /// <see langword="null"/> if there are no groups
+        /// </returns>   
+        Task<object> CheckGroupName(string groupName);
 
         /// <summary>
         /// Add/Modify A Group 

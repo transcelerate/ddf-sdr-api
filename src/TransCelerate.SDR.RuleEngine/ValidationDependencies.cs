@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using TransCelerate.SDR.Core.DTO;
 using TransCelerate.SDR.Core.DTO.Study;
+using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.DTO.UserGroups;
 
 namespace TransCelerate.SDR.RuleEngine
@@ -59,6 +60,11 @@ namespace TransCelerate.SDR.RuleEngine
             services.AddTransient<IValidator<SDRGroupsDTO>, GroupsValidator>();
             services.AddTransient<IValidator<PostUserToGroupsDTO>, PostUserToGroupValidator>();
             services.AddTransient<IValidator<UserGroupsQueryParameters>, UserGroupsQueryParametersValidator>();
+            services.AddTransient<IValidator<GroupFilterDTO>, GroupFilterValidator>();
+            services.AddTransient<IValidator<GroupFilterValuesDTO>, GroupFilterValuesValidator>();
+
+            //Token Validator
+            services.AddTransient<IValidator<UserLogin>, UserLoginValidator>();
 
             return services;
         }

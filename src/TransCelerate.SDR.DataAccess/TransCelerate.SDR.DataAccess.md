@@ -4,7 +4,7 @@
 ## Contents
 
 - [ClinicalStudyRepository](#T-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepository')
-  - [ApplyOrderBy(filteredResult,property,asc)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-ApplyOrderBy-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyEntity},System-String,System-Boolean- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepository.ApplyOrderBy(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyEntity},System.String,System.Boolean)')
+  - [ApplyOrderBy(filteredResult,property,asc)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-ApplyOrderBy-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-SearchResponse},System-String,System-Boolean- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepository.ApplyOrderBy(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.SearchResponse},System.String,System.Boolean)')
   - [Filter(searchParameters)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-Filter-TransCelerate-SDR-Core-Entities-Study-SearchParameters- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepository.Filter(TransCelerate.SDR.Core.Entities.Study.SearchParameters)')
   - [GetAllStudyId(fromDate,toDate,studyTitle)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-GetAllStudyId-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepository.GetAllStudyId(System.DateTime,System.DateTime,System.String)')
   - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-GetAuditTrail-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepository.GetAuditTrail(System.DateTime,System.DateTime,System.String)')
@@ -16,6 +16,7 @@
 - [IClinicalStudyRepository](#T-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepository')
   - [GetAllStudyId(fromDate,toDate,studyTitle)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-GetAllStudyId-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepository.GetAllStudyId(System.DateTime,System.DateTime,System.String)')
   - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-GetAuditTrail-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepository.GetAuditTrail(System.DateTime,System.DateTime,System.String)')
+  - [GetGroupsOfUser()](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-GetGroupsOfUser 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepository.GetGroupsOfUser')
   - [GetStudyItemsAsync(studyId,version)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-GetStudyItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepository.GetStudyItemsAsync(System.String,System.Int32)')
   - [GetStudyItemsAsync(studyId,version,tag)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-GetStudyItemsAsync-System-String,System-Int32,System-String- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepository.GetStudyItemsAsync(System.String,System.Int32,System.String)')
   - [PostStudyItemsAsync(study)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-PostStudyItemsAsync-TransCelerate-SDR-Core-Entities-Study-StudyEntity- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepository.PostStudyItemsAsync(TransCelerate.SDR.Core.Entities.Study.StudyEntity)')
@@ -25,6 +26,7 @@
   - [AddAGroup(group)](#M-TransCelerate-SDR-DataAccess-Interfaces-IUserGroupMappingRepository-AddAGroup-TransCelerate-SDR-Core-Entities-UserGroups-SDRGroupsEntity- 'TransCelerate.SDR.DataAccess.Interfaces.IUserGroupMappingRepository.AddAGroup(TransCelerate.SDR.Core.Entities.UserGroups.SDRGroupsEntity)')
   - [GetAGroupById()](#M-TransCelerate-SDR-DataAccess-Interfaces-IUserGroupMappingRepository-GetAGroupById-System-String- 'TransCelerate.SDR.DataAccess.Interfaces.IUserGroupMappingRepository.GetAGroupById(System.String)')
   - [GetAllUserGroups()](#M-TransCelerate-SDR-DataAccess-Interfaces-IUserGroupMappingRepository-GetAllUserGroups 'TransCelerate.SDR.DataAccess.Interfaces.IUserGroupMappingRepository.GetAllUserGroups')
+  - [GetGroupByName()](#M-TransCelerate-SDR-DataAccess-Interfaces-IUserGroupMappingRepository-GetGroupByName-System-String- 'TransCelerate.SDR.DataAccess.Interfaces.IUserGroupMappingRepository.GetGroupByName(System.String)')
   - [GetGroupList()](#M-TransCelerate-SDR-DataAccess-Interfaces-IUserGroupMappingRepository-GetGroupList 'TransCelerate.SDR.DataAccess.Interfaces.IUserGroupMappingRepository.GetGroupList')
   - [GetGroups()](#M-TransCelerate-SDR-DataAccess-Interfaces-IUserGroupMappingRepository-GetGroups-TransCelerate-SDR-Core-DTO-UserGroups-UserGroupsQueryParameters- 'TransCelerate.SDR.DataAccess.Interfaces.IUserGroupMappingRepository.GetGroups(TransCelerate.SDR.Core.DTO.UserGroups.UserGroupsQueryParameters)')
   - [UpdateAGroup(group)](#M-TransCelerate-SDR-DataAccess-Interfaces-IUserGroupMappingRepository-UpdateAGroup-TransCelerate-SDR-Core-Entities-UserGroups-SDRGroupsEntity- 'TransCelerate.SDR.DataAccess.Interfaces.IUserGroupMappingRepository.UpdateAGroup(TransCelerate.SDR.Core.Entities.UserGroups.SDRGroupsEntity)')
@@ -33,6 +35,7 @@
   - [AddAGroup(group)](#M-TransCelerate-SDR-DataAccess-Repositories-UserGroupMappingRepository-AddAGroup-TransCelerate-SDR-Core-Entities-UserGroups-SDRGroupsEntity- 'TransCelerate.SDR.DataAccess.Repositories.UserGroupMappingRepository.AddAGroup(TransCelerate.SDR.Core.Entities.UserGroups.SDRGroupsEntity)')
   - [GetAGroupById()](#M-TransCelerate-SDR-DataAccess-Repositories-UserGroupMappingRepository-GetAGroupById-System-String- 'TransCelerate.SDR.DataAccess.Repositories.UserGroupMappingRepository.GetAGroupById(System.String)')
   - [GetAllUserGroups()](#M-TransCelerate-SDR-DataAccess-Repositories-UserGroupMappingRepository-GetAllUserGroups 'TransCelerate.SDR.DataAccess.Repositories.UserGroupMappingRepository.GetAllUserGroups')
+  - [GetGroupByName()](#M-TransCelerate-SDR-DataAccess-Repositories-UserGroupMappingRepository-GetGroupByName-System-String- 'TransCelerate.SDR.DataAccess.Repositories.UserGroupMappingRepository.GetGroupByName(System.String)')
   - [GetGroupList()](#M-TransCelerate-SDR-DataAccess-Repositories-UserGroupMappingRepository-GetGroupList 'TransCelerate.SDR.DataAccess.Repositories.UserGroupMappingRepository.GetGroupList')
   - [GetGroups()](#M-TransCelerate-SDR-DataAccess-Repositories-UserGroupMappingRepository-GetGroups-TransCelerate-SDR-Core-DTO-UserGroups-UserGroupsQueryParameters- 'TransCelerate.SDR.DataAccess.Repositories.UserGroupMappingRepository.GetGroups(TransCelerate.SDR.Core.DTO.UserGroups.UserGroupsQueryParameters)')
   - [UpdateAGroup(group)](#M-TransCelerate-SDR-DataAccess-Repositories-UserGroupMappingRepository-UpdateAGroup-TransCelerate-SDR-Core-Entities-UserGroups-SDRGroupsEntity- 'TransCelerate.SDR.DataAccess.Repositories.UserGroupMappingRepository.UpdateAGroup(TransCelerate.SDR.Core.Entities.UserGroups.SDRGroupsEntity)')
@@ -45,7 +48,7 @@
 
 TransCelerate.SDR.DataAccess.Repositories
 
-<a name='M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-ApplyOrderBy-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyEntity},System-String,System-Boolean-'></a>
+<a name='M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-ApplyOrderBy-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-SearchResponse},System-String,System-Boolean-'></a>
 ### ApplyOrderBy(filteredResult,property,asc) `method`
 
 ##### Summary
@@ -60,7 +63,7 @@ A Sorted [IEnumerable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev1
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| filteredResult | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyEntity}') | Filtered result from database |
+| filteredResult | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.SearchResponse}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.SearchResponse}') | Filtered result from database |
 | property | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Property by which the sorting must be done |
 | asc | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') | Ascending/Descending |
 
@@ -252,6 +255,21 @@ A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US
 | toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | End Date for Date Filter |
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
 
+<a name='M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-GetGroupsOfUser'></a>
+### GetGroupsOfUser() `method`
+
+##### Summary
+
+GET groups assigned to user
+
+##### Returns
+
+A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') with matching studyId `null` If no study is matching with studyId
+
+##### Parameters
+
+This method has no parameters.
+
 <a name='M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-GetStudyItemsAsync-System-String,System-Int32-'></a>
 ### GetStudyItemsAsync(studyId,version) `method`
 
@@ -394,6 +412,21 @@ A [UserGroupMappingEntity](#T-TransCelerate-SDR-Core-Entities-UserGroups-UserGro
 
 This method has no parameters.
 
+<a name='M-TransCelerate-SDR-DataAccess-Interfaces-IUserGroupMappingRepository-GetGroupByName-System-String-'></a>
+### GetGroupByName() `method`
+
+##### Summary
+
+GET a group by groupName
+
+##### Returns
+
+A [SDRGroupsEntity](#T-TransCelerate-SDR-Core-Entities-UserGroups-SDRGroupsEntity 'TransCelerate.SDR.Core.Entities.UserGroups.SDRGroupsEntity') with List of Group Name and Group Id `null` if there are no groups
+
+##### Parameters
+
+This method has no parameters.
+
 <a name='M-TransCelerate-SDR-DataAccess-Interfaces-IUserGroupMappingRepository-GetGroupList'></a>
 ### GetGroupList() `method`
 
@@ -507,6 +540,21 @@ GET All Users for a group
 ##### Returns
 
 A [UserGroupMappingEntity](#T-TransCelerate-SDR-Core-Entities-UserGroups-UserGroupMappingEntity 'TransCelerate.SDR.Core.Entities.UserGroups.UserGroupMappingEntity') with List of Groups `null` if there are no groups
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-TransCelerate-SDR-DataAccess-Repositories-UserGroupMappingRepository-GetGroupByName-System-String-'></a>
+### GetGroupByName() `method`
+
+##### Summary
+
+GET group by groupName
+
+##### Returns
+
+A [SDRGroupsEntity](#T-TransCelerate-SDR-Core-Entities-UserGroups-SDRGroupsEntity 'TransCelerate.SDR.Core.Entities.UserGroups.SDRGroupsEntity') with List of Group Name and Group Id `null` if there are no groups
 
 ##### Parameters
 

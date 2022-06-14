@@ -38,6 +38,14 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// <see langword="null"/> if there are no groups
         /// </returns>   
         Task<SDRGroupsEntity> GetAGroupById(string groupId);
+
+        /// <summary>
+        /// GET a group by groupName
+        /// </summary>        
+        /// <returns> A <see cref="SDRGroupsEntity"/> with List of Group Name and Group Id <br></br>
+        /// <see langword="null"/> if there are no groups
+        /// </returns>   
+        Task<SDRGroupsEntity> GetGroupByName(string groupName);
         /// <summary>
         /// Add a Group 
         /// </summary>

@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO;
 using TransCelerate.SDR.Core.DTO.Study;
 using TransCelerate.SDR.Core.Entities.Study;
+using TransCelerate.SDR.Core.Entities.UserGroups;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
+using TransCelerate.SDR.Core.Utilities.Enums;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.DataAccess.Interfaces;
 using TransCelerate.SDR.Services.Interfaces;
@@ -43,10 +45,10 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="version">Version of study</param>
         /// <param name="tag">Tag of a study</param>
         /// <returns>
-        /// A <see cref="GetStudyDTO"/> with matching studyId <br></br> <br></br>
+        /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<GetStudyDTO> GetAllElements(string studyId,int version, string tag)
+        public async Task<object> GetAllElements(string studyId,int version, string tag)
         {
             try
             {
@@ -69,7 +71,10 @@ namespace TransCelerate.SDR.Services.Services
                     return null;
                 }
                 else
-                {                       
+                {                 
+                    var checkStudy = await CheckAccessForAStudy(study);
+                    if (checkStudy == null)
+                        return Constants.ErrorMessages.Forbidden;
                     var studyDTO = _mapper.Map<GetStudyDTO>(study);  //Mapping Entity to Dto                                                  
                     return studyDTO;                  
                 }
@@ -118,7 +123,10 @@ namespace TransCelerate.SDR.Services.Services
                     return null;
                 }
                 else
-                {                    
+                {
+                    var checkStudy = await CheckAccessForAStudy(study);
+                    if (checkStudy == null)
+                        return Constants.ErrorMessages.Forbidden;
                     var studySectionDTO = _mapper.Map<GetStudySectionsDTO>(study.clinicalStudy);
                     studySectionDTO.studyVersion = study.auditTrail.studyVersion;                                                           
                    
@@ -170,7 +178,10 @@ namespace TransCelerate.SDR.Services.Services
                     return null;
                 }
                 else
-                {                    
+                {
+                    var checkStudy = await CheckAccessForAStudy(study);
+                    if (checkStudy == null)
+                        return Constants.ErrorMessages.Forbidden;
                     var studySectionDTO = _mapper.Map<GetStudySectionsDTO>(study.clinicalStudy); //Mapping Entity to Dto  
                     studySectionDTO.studyVersion = study.auditTrail.studyVersion;
                     studySectionDTO.studyDesigns = studySectionDTO.studyDesigns != null? studySectionDTO.studyDesigns.FindAll(x => x.studyDesignId == studyDesignId).Count()!=0 ? studySectionDTO.studyDesigns.FindAll(x => x.studyDesignId == studyDesignId).ToList(): new List<GetStudyDesignsDTO>() : new List<GetStudyDesignsDTO>();                    
@@ -195,10 +206,10 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="toDate">End Date for Date Filter</param>
         /// <param name="studyId">Study ID</param>
         /// <returns>
-        /// A <see cref="GetStudyAuditDTO"/> with matching studyId <br></br> <br></br>
+        /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<GetStudyAuditDTO> GetAuditTrail(DateTime fromDate, DateTime toDate, string studyId)
+        public async Task<object> GetAuditTrail(DateTime fromDate, DateTime toDate, string studyId)
         {
             try
             {
@@ -210,6 +221,9 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {
+                    studies = await CheckAccessForAuditTrail(studies);
+                    if (studies == null)
+                        return Constants.ErrorMessages.Forbidden;
                     var auditTrailDTOList = _mapper.Map<List<AuditTrailEndpointResponseDTO>>(studies); //Mapping Entity to Dto 
                     GetStudyAuditDTO getStudyAuditDTO = new GetStudyAuditDTO
                     {
@@ -296,7 +310,9 @@ namespace TransCelerate.SDR.Services.Services
         {
             try
             {
-                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyService)}; Method : {nameof(PostAllElements)};");                  
+                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyService)}; Method : {nameof(PostAllElements)};");
+                if (!await CheckPermissionForAUser())
+                    return Constants.ErrorMessages.PostRestricted;
                 var incomingstudyEntity = _mapper.Map<StudyEntity>(studyDTO);           //Mapping Dto to Entity                
                 #region Adding Audit Trail for Incoming Study
                 AuditTrailEntity auditTrailEntity = new AuditTrailEntity();
@@ -402,8 +418,29 @@ namespace TransCelerate.SDR.Services.Services
                 else
                 {
                     var studiesDTO = _mapper.Map<List<GetStudyDTO>>(studies); //Mapper to map from Entity to Dto
-                  
-                    return studiesDTO;
+                    for(int i=0; i < studiesDTO.Count; i++)
+                    {
+                        var investigationalInterventionsEntity = studies[i].investigationalInterventions?.Where(x => x != null && x.Count() > 0).SelectMany(x => x)
+                                                                                .Where(x => x != null && x.Count() > 0).SelectMany(x => x)
+                                                                                .Where(x => x != null && x.Count() > 0).SelectMany(x => x).ToList();
+
+                        var studyIndications = studies[i].studyIndications?.Where(x => x != null && x.Count() > 0).SelectMany(x => x).ToList();
+                                                                                
+
+                        var investigationalInterventionsDTO = _mapper.Map<List<InvestigationalInterventionDTO>>(investigationalInterventionsEntity);
+                        var studyIndicationsDTO = _mapper.Map<List<StudyIndicationDTO>>(studyIndications);
+                        var studyDesigns = new List<GetStudyDesignsDTO>();
+                        var studyDesign = new GetStudyDesignsDTO
+                        {
+                            investigationalInterventions = investigationalInterventionsDTO
+                        };
+                        studyDesigns.Add(studyDesign);
+                        studiesDTO[i].clinicalStudy.studyDesigns = studyDesigns;
+                        studiesDTO[i].clinicalStudy.studyIndications = studyIndicationsDTO;
+                        studiesDTO[i].auditTrail.entryDateTime = Convert.ToDateTime(studiesDTO[i].auditTrail.entryDateTime).ToString(Constants.DateFormats.DateFormatForAuditResponse).ToUpper();
+                    }
+                                        
+                    return studiesDTO;                   
                 }
             }
             catch (Exception)
@@ -418,5 +455,166 @@ namespace TransCelerate.SDR.Services.Services
         #endregion
         #endregion
 
+        #region User Group Mapping For Study
+        /// <summary>
+        /// Check access for the study
+        /// </summary>
+        /// <param name="study">Study for which user access have to be checked</param>   
+        /// <returns>
+        /// A <see cref="StudyEntity"/> if the user have access <br></br> <br></br>
+        /// <see langword="null"/> If user doesn't have access to the study
+        /// </returns>
+        public async Task<StudyEntity> CheckAccessForAStudy(StudyEntity study)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyService)}; Method : {nameof(CheckAccessForAStudy)};");
+                
+                if (Config.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+                {
+                    var groups = await _clinicalStudyRepository.GetGroupsOfUser().ConfigureAwait(false);
+
+                    if (groups != null && groups.Count > 0)
+                    {
+                        List<string> studyTypeFilterValues = new List<string>();
+                        List<string> studyIdFilterValues = new List<string>();
+                        studyTypeFilterValues.AddRange(groups.SelectMany(x => x.groupFilter)
+                                                             .Where(x => x.groupFieldName == GroupFieldNames.studyType.ToString())
+                                                             .SelectMany(x => x.groupFilterValues)
+                                                             .Select(x => x.groupFilterValueId.ToLower())
+                                                             .ToList());
+                        studyIdFilterValues.AddRange(groups.SelectMany(x => x.groupFilter)
+                                                             .Where(x => x.groupFieldName == GroupFieldNames.study.ToString())
+                                                             .SelectMany(x => x.groupFilterValues)
+                                                             .Select(x => x.groupFilterValueId)
+                                                             .ToList());
+                        if (studyIdFilterValues.Contains(study.clinicalStudy.studyId))
+                            return study;
+                        else if(studyTypeFilterValues.Contains(study.clinicalStudy.studyType.ToLower()))
+                            return study;
+                        else 
+                            return null;
+                    }
+                    else
+                    {
+                        // Filter should not give any results
+                        return null;
+                    }
+                }
+                else
+                    return study;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyService)}; Method : {nameof(CheckAccessForAStudy)};");
+            }
+        }
+
+        /// <summary>
+        /// Check access for the Study Aduit
+        /// </summary>
+        /// <param name="studyList">Study List for which user access have to be checked</param>   
+        /// <returns>
+        /// A <see cref="List{StudyEntity}"/> if the user have access <br></br> <br></br>
+        /// <see langword="null"/> If user doesn't have access to the study
+        /// </returns>
+        public async Task<List<StudyEntity>> CheckAccessForAuditTrail(List<StudyEntity> studyList)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyService)}; Method : {nameof(CheckAccessForAuditTrail)};");
+
+                if (Config.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+                {
+                    var groups = await _clinicalStudyRepository.GetGroupsOfUser().ConfigureAwait(false);
+
+                    if (groups != null && groups.Count > 0)
+                    {
+                        List<string> studyTypeFilterValues = new List<string>();
+                        List<string> studyIdFilterValues = new List<string>();
+                        studyTypeFilterValues.AddRange(groups.SelectMany(x => x.groupFilter)
+                                                             .Where(x => x.groupFieldName == GroupFieldNames.studyType.ToString())
+                                                             .SelectMany(x => x.groupFilterValues)
+                                                             .Select(x => x.groupFilterValueId.ToLower())
+                                                             .ToList());
+                        studyIdFilterValues.AddRange(groups.SelectMany(x => x.groupFilter)
+                                                             .Where(x => x.groupFieldName == GroupFieldNames.study.ToString())
+                                                             .SelectMany(x => x.groupFilterValues)
+                                                             .Select(x => x.groupFilterValueId)
+                                                             .ToList());
+                        var studyListAfterFiltering = new List<StudyEntity>();
+                        if (studyIdFilterValues.Contains(studyList[0].clinicalStudy.studyId))
+                            return studyList;
+                        else
+                        {
+                            studyList.RemoveAll(x => !studyTypeFilterValues.Contains(x.clinicalStudy.studyType.ToLower()));
+                            return studyList.Count > 0 ? studyList : null;
+                        }
+                        
+                    }
+                    else
+                    {                        
+                        return null;
+                    }
+                }
+                else
+                    return studyList;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyService)}; Method : {nameof(CheckAccessForAuditTrail)};");
+            }
+        }
+
+        /// <summary>
+        /// Check READ_WRITE Permission for a user
+        /// </summary>        
+        /// <returns>
+        /// <see langword="true"/> If the user have READ_WRITE access in any of the groups <br></br> <br></br>
+        /// <see langword="false"/> If the user does not have READ_WRITE access in any of the groups
+        /// </returns>
+        public async Task<bool> CheckPermissionForAUser()
+        {
+            try
+            {
+                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyService)}; Method : {nameof(CheckPermissionForAUser)};");
+
+                if (Config.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+                {
+                    var groups = await _clinicalStudyRepository.GetGroupsOfUser().ConfigureAwait(false);
+
+                    if (groups != null && groups.Count > 0)
+                    {
+                        if (groups.Any(x => x.permission == Permissions.READ_WRITE.ToString()))
+                            return true;
+                        else
+                            return false;
+                    }
+                    else
+                    {                        
+                        return false;
+                    }
+                }
+                else
+                    return true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyService)}; Method : {nameof(CheckPermissionForAUser)};");
+            }
+        }
+        #endregion
     }
 }

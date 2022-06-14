@@ -12,6 +12,7 @@ using Moq;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using System.IO;
 using Newtonsoft.Json;
+using TransCelerate.SDR.WebApi.Controllers;
 using TransCelerate.SDR.Core.Entities.Study;
 using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.RuleEngine;
@@ -24,6 +25,11 @@ using Microsoft.AspNetCore.Hosting;
 using TransCelerate.SDR.Core.DTO.Study;
 using TransCelerate.SDR.Core.DTO.UserGroups;
 using TransCelerate.SDR.Core.Entities.UserGroups;
+using Microsoft.AspNetCore.Http;
+using System.Net;
+using Microsoft.AspNetCore.Authorization;
+using TransCelerate.SDR.Core.DTO.Token;
+using Microsoft.AspNetCore.Mvc;
 
 namespace TransCelerate.SDR.UnitTesting
 {
@@ -31,6 +37,7 @@ namespace TransCelerate.SDR.UnitTesting
     {
         private Mock<ILoggerFactory> _mockLogger = new Mock<ILoggerFactory>();
         private Mock<ILogger> _mockSDRLogger = new Mock<ILogger>();
+        private ILogHelper _mockLogHelper = Mock.Of<ILogHelper>();
         private Mock<ILogger> _mockErrorSDRLogger = new Mock<ILogger>(MockBehavior.Strict);
         private Mock<IConfiguration> _mockConfig = new Mock<IConfiguration>();
         //private IConfiguration _mockConfiguration = Mock.Of<IConfiguration>();
@@ -52,7 +59,7 @@ namespace TransCelerate.SDR.UnitTesting
         public SDRGroupsDTO PostAGroupDto()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/UserGroupMappingData.json");
-            var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingEntity>(jsonData);
+            var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingDTO>(jsonData);
             var groupDetails = JsonConvert.DeserializeObject<SDRGroupsDTO>(JsonConvert.SerializeObject(userGrouppMapping.SDRGroups[0]));
             return groupDetails;
         }
@@ -247,12 +254,18 @@ namespace TransCelerate.SDR.UnitTesting
         public void Startup_Library_UnitTesting()
         {
             _mockConfig.Setup(x => x.GetSection(It.IsAny<string>()).Value)
-                .Returns("Value");
+                .Returns("true");
             StartupLib.SetConstants(_mockConfig.Object);       
-            Assert.AreEqual(Config.connectionString, "Value");
-            Assert.AreEqual(Config.databaseName, "Value");
-            Assert.AreEqual(Config.instrumentationKey, "Value");    
-            Assert.AreEqual(Config.dateRange, "Value");    
+            Assert.AreEqual(Config.ConnectionString, "true");
+            Assert.AreEqual(Config.DatabaseName, "true");
+            Assert.AreEqual(Config.InstrumentationKey, "true");    
+            Assert.AreEqual(Config.DateRange, "true");    
+            Assert.AreEqual(Config.Audience, "true");    
+            Assert.AreEqual(Config.Scope, "true");    
+            Assert.AreEqual(Config.TenantID, "true");    
+            Assert.AreEqual(Config.Authority, "true");               
+            Assert.AreEqual(Config.isAuthEnabled, true);               
+            Assert.AreEqual(Config.isGroupFilterEnabled, true);               
         }
         #endregion
 
@@ -420,7 +433,7 @@ namespace TransCelerate.SDR.UnitTesting
 
         #region FluentValidation Unit Testing
         [Test]
-        public void ClinicalStudyValidation_UnitTesting()
+        public void FluentValidation_UnitTesting()
         {            
             ValidationDependencies.AddValidationDependencies(serviceDescriptors);
             var incomingpostStudyDTO = PostDataFromStaticJson();
@@ -528,8 +541,23 @@ namespace TransCelerate.SDR.UnitTesting
 
             PostUserToGroupValidator usersValidator = new PostUserToGroupValidator();
             Assert.IsTrue(usersValidator.Validate(PostUser()).IsValid);
+
+            GroupFilterValidator groupFilterValidator = new GroupFilterValidator();
+            Assert.IsTrue(groupFilterValidator.Validate(PostAGroupDto().groupFilter[0]).IsValid);
+
+            GroupFilterValuesValidator groupFilterValuesValidator = new GroupFilterValuesValidator();
+            Assert.IsTrue(groupFilterValuesValidator.Validate(PostAGroupDto().groupFilter[0].groupFilterValues[0]).IsValid);
+
+            UserLogin user = new UserLogin
+            {
+                username="user",password="password"
+            };
+            UserLoginValidator userLoginValidator = new UserLoginValidator();
+            Assert.IsTrue(userLoginValidator.Validate(user).IsValid);
         }
         #endregion
+
+        #region UserGroup Sorting Unit Testing
         [Test]
         public void UserGroupSortingHelper_UnitTesting()
         {
@@ -540,11 +568,11 @@ namespace TransCelerate.SDR.UnitTesting
                 pageNumber = 1,
                 pageSize = 20
             };
-            for(int i=0; i < 7; i++)
+            for (int i = 0; i < 7; i++)
             {
-                if(i == 0)
+                if (i == 0)
                     userGroupsQueryParameters.sortBy = "email";
-                if(i == 1)
+                if (i == 1)
                     userGroupsQueryParameters.sortBy = "modifiedon";
                 if (i == 2)
                     userGroupsQueryParameters.sortBy = "modifiedby";
@@ -559,10 +587,71 @@ namespace TransCelerate.SDR.UnitTesting
                 UserGroupSortingHelper.OrderGroups(GetGroupDetails(), userGroupsQueryParameters);
                 UserGroupSortingHelper.OrderUsers(UserList(), userGroupsQueryParameters);
             }
-            
+
         }
-        #region UserGroup Sorting Unit Testing
         #endregion
 
+
+        #region HttpContext Response Helper UnitTesting
+        [Test]
+        public void HttpContextResponseHelper_UnitTesting()
+        {
+            //var mockHttpContext = Mock.Of<HttpContext>();
+            var mockHttpContext = new DefaultHttpContext();
+            string response = string.Empty;
+            mockHttpContext.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+            var method = HttpContextResponseHelper.Response(mockHttpContext, response);
+            method.Wait();
+            response = method.Result;
+            Assert.IsTrue(response.Contains(((int)HttpStatusCode.Forbidden).ToString()));
+            mockHttpContext.Response.Headers.Remove("Content-Type");
+            mockHttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            method = HttpContextResponseHelper.Response(mockHttpContext, response);
+            method.Wait();
+            response = method.Result;
+            Assert.IsTrue(response.Contains(((int)HttpStatusCode.Unauthorized).ToString()));
+            mockHttpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
+            mockHttpContext.Response.Headers.Remove("Content-Type");
+            method = HttpContextResponseHelper.Response(mockHttpContext, response);
+            method.Wait();
+            response = method.Result;
+            Assert.IsTrue(response.Contains(((int)HttpStatusCode.NotFound).ToString()));
+            mockHttpContext.Response.StatusCode = (int)HttpStatusCode.MethodNotAllowed;
+            mockHttpContext.Response.Headers.Remove("Content-Type");
+            method = HttpContextResponseHelper.Response(mockHttpContext, response);
+            method.Wait();
+            response = method.Result;
+            Assert.IsTrue(response.Contains(((int)HttpStatusCode.MethodNotAllowed).ToString()));
+        }
+        #endregion
+
+        #region
+        [Test]
+        public void TokenControllerUnitTesting()
+        {
+            UserLogin user = new UserLogin
+            {
+                username = "user",
+                password = "password"
+            };
+            TokenController tokenController = new TokenController(_mockLogHelper);
+            var method = tokenController.GetToken(user);
+            method.Wait();
+
+            //Expected
+            var expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError);
+
+            //Actual
+            var actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
+
+            //Assert          
+            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
+            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual("400", actual_result.statusCode);
+        }
+        #endregion
     }
 }

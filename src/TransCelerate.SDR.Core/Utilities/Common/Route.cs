@@ -30,9 +30,15 @@
 
         public const string GetGroupList = "usergroups/getgrouplist";
 
+        public const string GetUsersFromAD = "usergroups/listusers";
+
+        public const string CheckGroupName = "usergroups/checkgroupname";
+
         public const string PostAGroup = "usergroups/postgroup";
 
         public const string PostUserToGroups = "usergroups/postuser";
         #endregion
+
+        public const string Token = "auth/token";
     }
 }

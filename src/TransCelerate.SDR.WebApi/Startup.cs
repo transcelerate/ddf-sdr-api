@@ -26,13 +26,20 @@ using TransCelerate.SDR.Services.Interfaces;
 using TransCelerate.SDR.Services.Services;
 using TransCelerate.SDR.WebApi.Mappers;
 using TransCelerate.SDR.Core.DTO.UserGroups;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using TransCelerate.SDR.Core.Filters;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TransCelerate.SDR.WebApi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment _env;
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
+            _env = env;
             //Assign Values from appsettings.json at runtime
             StartupLib.SetConstants(configuration);
             Configuration = configuration;
@@ -45,14 +52,14 @@ namespace TransCelerate.SDR.WebApi
         /// </summary>
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
-        {
+        {           
             // Application Insights for logs
-            services.AddApplicationInsightsTelemetry(Config.instrumentationKey);
+            services.AddApplicationInsightsTelemetry(Config.InstrumentationKey);
 
             #region Only for Logging in Startup
             var loggerFactory = LoggerFactory.Create(builder =>
                 {                    
-                    builder.AddApplicationInsights(Config.instrumentationKey);
+                    builder.AddApplicationInsights(Config.InstrumentationKey);
                 });
             ILogger logger = loggerFactory.CreateLogger<Startup>();
             #endregion            
@@ -64,10 +71,44 @@ namespace TransCelerate.SDR.WebApi
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme (Example: 'Bearer 12345abcdef')",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    Array.Empty<string>()
+                }
+                });
             });
 
+            #region Authorization
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                        .AddJwtBearer(o =>
+                        {
+                            o.Audience = Config.Audience;
+                            o.Authority = Config.Authority;                            
+                        });            
+            #endregion
+
             //Mapping EndPoints and overriding Data Annotations validation
-            services.AddControllers().AddFluentValidation(fv =>
+            services.AddControllers(config =>
+            {
+                config.Filters.Add<ActionFilter>();
+            }).AddFluentValidation(fv =>
             {
                 fv.DisableDataAnnotationsValidation = true;
                 fv.ImplicitlyValidateChildProperties = true;
@@ -85,7 +126,12 @@ namespace TransCelerate.SDR.WebApi
             services.AddTransient<IUserGroupMappingRepository, UserGroupMappingRepository>();
             services.AddTransient<IUserGroupMappingService, UserGroupMappingService>();
             services.AddTransient<ILogHelper, LogHelper>();
-            services.AddTransient<IMongoClient,MongoClient>(db=>new MongoClient(Config.connectionString));
+            services.AddTransient<IMongoClient,MongoClient>(db=>new MongoClient(Config.ConnectionString));
+            if (_env.IsDevelopment())
+            {
+                if (!Config.isAuthEnabled)
+                    services.AddTransient<IAuthorizationHandler, AllowAnonymousFilter>();
+            }
 
             //AutoMapper Profile
             services.AddAutoMapper(typeof(AutoMapperProfies).Assembly);   
@@ -98,11 +144,12 @@ namespace TransCelerate.SDR.WebApi
                 options.InvalidModelStateResponseFactory = context =>
                 {
                     ValidationProblemDetails problemDetails = new ValidationProblemDetails(context.ModelState);
-                    var inputs = ((Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)context).ActionArguments;                  
+                    var inputs = ((Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)context).ActionArguments;
+                    context.HttpContext.Response.Headers.Add("InvalidInput", "True");
                     //For Conformance error
-                    if (JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyEmptyError.ToLower()) || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyMissingError.ToLower())
+                    if ((JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyEmptyError.ToLower()) || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyMissingError.ToLower())
                         || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.SelectAtleastOneGroup.ToLower()) || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.InvalidPermissionValue.ToLower())
-                        || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.GroupFilterEmptyError.ToLower()))
+                        || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.GroupFilterEmptyError.ToLower())) && !JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.TokenConstants.Username.ToLower()) && !JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.TokenConstants.Password.ToLower()))
                     {
                         logger.LogError($"Conformance Error  : {JsonConvert.SerializeObject(problemDetails.Errors)} ; Input: {JsonConvert.SerializeObject(inputs)} ;");
                         return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(problemDetails.Errors));
@@ -122,11 +169,13 @@ namespace TransCelerate.SDR.WebApi
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>        
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        /// <param name="logger"></param>        
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,ILogger<Startup> logger)
         {            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
             }
             //Swagger
             app.UseSwagger();
@@ -148,31 +197,47 @@ namespace TransCelerate.SDR.WebApi
             //Custom Response for the API HTTP errors
             app.Use(async (context, next) =>
             {
-                await next();
-                if (context.Response.StatusCode == (int)HttpStatusCode.InternalServerError)
+                try
                 {
-                    await context.Response.WriteAsync(JsonConvert.SerializeObject(ErrorResponseHelper.InternalServerError()));
-                }
-                if (context.Response.StatusCode == (int)HttpStatusCode.Unauthorized)
-                {                    
-                    await context.Response.WriteAsync(JsonConvert.SerializeObject(ErrorResponseHelper.UnAuthorizedAccess()));
-                }
-                if (context.Response.StatusCode == (int)HttpStatusCode.NotFound)
-                {
-                    if (String.IsNullOrWhiteSpace(context.Response.Headers["Controller"]))
-                    {                        
-                        await context.Response.WriteAsync(JsonConvert.SerializeObject(ErrorResponseHelper.NotFound()));
+                    await next();
+                    string request = string.Empty;
+                    string response = string.Empty;
+                    response = await HttpContextResponseHelper.Response(context, response);
+
+                    if (String.IsNullOrWhiteSpace(context.Response.Headers["Controller"]) && String.IsNullOrWhiteSpace(context.Response.Headers["InvalidInput"]))
+                    {
+                        var AuthToken = context.Request.Headers["Authorization"];
+                        using (StreamReader reader = new StreamReader(context.Request.Body))
+                        {
+                            var text = await reader.ReadToEndAsync();
+                            if (text != null)
+                                request = text.ToString();
+                        }
+                        logger.LogInformation($"Status Code: {context.Response.StatusCode}; URL: {context.Request.Path}; requestBody : {request}; responseBody : {response};AuthToken: {AuthToken}");
                     }
+                    Config.UserName = null;
+                    Config.UserRole = null;
                 }
-                if (context.Response.StatusCode == (int)HttpStatusCode.InternalServerError)
-                {                    
-                    await context.Response.WriteAsync(JsonConvert.SerializeObject(ErrorResponseHelper.GatewayError()));
+                catch (Exception ex)
+                {
+                    if (String.IsNullOrWhiteSpace(context.Response.Headers["Content-Type"]))
+                        context.Response.Headers.Add("Content-Type", "application/json");
+                    string request= string.Empty;
+                    var AuthToken = context.Request.Headers["Authorization"];
+                    using (StreamReader reader = new StreamReader(context.Request.Body))
+                    {
+                        var text = await reader.ReadToEndAsync();
+                        if (text != null)
+                            request = text.ToString();
+                    }
+                    var response = JsonConvert.SerializeObject(ErrorResponseHelper.ErrorResponseModel(ex));
+                    context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    logger.LogError($"Exception Occurred: {ex.Message}");
+                    logger.LogInformation($"Status Code: {context.Response.StatusCode}; URL: {context.Request.Path}; requestBody : {request}; responseBody : {response};AuthToken: {AuthToken}");
+                    Config.UserName = null;
+                    Config.UserRole = null;
+                    await context.Response.WriteAsync(response);
                 }
-                if (context.Response.StatusCode == (int)HttpStatusCode.MethodNotAllowed)
-                {                    
-                    await context.Response.WriteAsync(JsonConvert.SerializeObject(ErrorResponseHelper.MethodNotAllowed()));
-                }
-                
             });
 
             //Enable Authenticationa and Authorization for the Endpoints
