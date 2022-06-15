@@ -4,6 +4,9 @@
 ## Contents
 
 - [ClinicalStudyService](#T-TransCelerate-SDR-Services-Services-ClinicalStudyService 'TransCelerate.SDR.Services.Services.ClinicalStudyService')
+  - [CheckAccessForAStudy(study)](#M-TransCelerate-SDR-Services-Services-ClinicalStudyService-CheckAccessForAStudy-TransCelerate-SDR-Core-Entities-Study-StudyEntity- 'TransCelerate.SDR.Services.Services.ClinicalStudyService.CheckAccessForAStudy(TransCelerate.SDR.Core.Entities.Study.StudyEntity)')
+  - [CheckAccessForAuditTrail(studyList)](#M-TransCelerate-SDR-Services-Services-ClinicalStudyService-CheckAccessForAuditTrail-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyEntity}- 'TransCelerate.SDR.Services.Services.ClinicalStudyService.CheckAccessForAuditTrail(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyEntity})')
+  - [CheckPermissionForAUser()](#M-TransCelerate-SDR-Services-Services-ClinicalStudyService-CheckPermissionForAUser 'TransCelerate.SDR.Services.Services.ClinicalStudyService.CheckPermissionForAUser')
   - [GetAllElements(studyId,version,tag)](#M-TransCelerate-SDR-Services-Services-ClinicalStudyService-GetAllElements-System-String,System-Int32,System-String- 'TransCelerate.SDR.Services.Services.ClinicalStudyService.GetAllElements(System.String,System.Int32,System.String)')
   - [GetAllStudyId(fromDate,toDate,studyTitle)](#M-TransCelerate-SDR-Services-Services-ClinicalStudyService-GetAllStudyId-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.Services.Services.ClinicalStudyService.GetAllStudyId(System.DateTime,System.DateTime,System.String)')
   - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-Services-Services-ClinicalStudyService-GetAuditTrail-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.Services.Services.ClinicalStudyService.GetAuditTrail(System.DateTime,System.DateTime,System.String)')
@@ -12,6 +15,8 @@
   - [PostAllElements(studyDTO,entrySystem)](#M-TransCelerate-SDR-Services-Services-ClinicalStudyService-PostAllElements-TransCelerate-SDR-Core-DTO-PostStudyDTO,System-String- 'TransCelerate.SDR.Services.Services.ClinicalStudyService.PostAllElements(TransCelerate.SDR.Core.DTO.PostStudyDTO,System.String)')
   - [SearchStudy(searchParametersDTO)](#M-TransCelerate-SDR-Services-Services-ClinicalStudyService-SearchStudy-TransCelerate-SDR-Core-DTO-Study-SearchParametersDTO- 'TransCelerate.SDR.Services.Services.ClinicalStudyService.SearchStudy(TransCelerate.SDR.Core.DTO.Study.SearchParametersDTO)')
 - [IClinicalStudyService](#T-TransCelerate-SDR-Services-Interfaces-IClinicalStudyService 'TransCelerate.SDR.Services.Interfaces.IClinicalStudyService')
+  - [CheckAccessForAStudy(study)](#M-TransCelerate-SDR-Services-Interfaces-IClinicalStudyService-CheckAccessForAStudy-TransCelerate-SDR-Core-Entities-Study-StudyEntity- 'TransCelerate.SDR.Services.Interfaces.IClinicalStudyService.CheckAccessForAStudy(TransCelerate.SDR.Core.Entities.Study.StudyEntity)')
+  - [CheckPermissionForAUser()](#M-TransCelerate-SDR-Services-Interfaces-IClinicalStudyService-CheckPermissionForAUser 'TransCelerate.SDR.Services.Interfaces.IClinicalStudyService.CheckPermissionForAUser')
   - [GetAllElements(studyId,version,tag)](#M-TransCelerate-SDR-Services-Interfaces-IClinicalStudyService-GetAllElements-System-String,System-Int32,System-String- 'TransCelerate.SDR.Services.Interfaces.IClinicalStudyService.GetAllElements(System.String,System.Int32,System.String)')
   - [GetAllStudyId(fromDate,toDate,studyTitle)](#M-TransCelerate-SDR-Services-Interfaces-IClinicalStudyService-GetAllStudyId-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.Services.Interfaces.IClinicalStudyService.GetAllStudyId(System.DateTime,System.DateTime,System.String)')
   - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-Services-Interfaces-IClinicalStudyService-GetAuditTrail-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.Services.Interfaces.IClinicalStudyService.GetAuditTrail(System.DateTime,System.DateTime,System.String)')
@@ -20,12 +25,14 @@
   - [PostAllElements(studyDTO,entrySystem)](#M-TransCelerate-SDR-Services-Interfaces-IClinicalStudyService-PostAllElements-TransCelerate-SDR-Core-DTO-PostStudyDTO,System-String- 'TransCelerate.SDR.Services.Interfaces.IClinicalStudyService.PostAllElements(TransCelerate.SDR.Core.DTO.PostStudyDTO,System.String)')
   - [SearchStudy(searchParametersDTO)](#M-TransCelerate-SDR-Services-Interfaces-IClinicalStudyService-SearchStudy-TransCelerate-SDR-Core-DTO-Study-SearchParametersDTO- 'TransCelerate.SDR.Services.Interfaces.IClinicalStudyService.SearchStudy(TransCelerate.SDR.Core.DTO.Study.SearchParametersDTO)')
 - [IUserGroupMappingService](#T-TransCelerate-SDR-Services-Interfaces-IUserGroupMappingService 'TransCelerate.SDR.Services.Interfaces.IUserGroupMappingService')
+  - [CheckGroupName()](#M-TransCelerate-SDR-Services-Interfaces-IUserGroupMappingService-CheckGroupName-System-String- 'TransCelerate.SDR.Services.Interfaces.IUserGroupMappingService.CheckGroupName(System.String)')
   - [GetUserGroups()](#M-TransCelerate-SDR-Services-Interfaces-IUserGroupMappingService-GetUserGroups-TransCelerate-SDR-Core-DTO-UserGroups-UserGroupsQueryParameters- 'TransCelerate.SDR.Services.Interfaces.IUserGroupMappingService.GetUserGroups(TransCelerate.SDR.Core.DTO.UserGroups.UserGroupsQueryParameters)')
   - [GetUsersList()](#M-TransCelerate-SDR-Services-Interfaces-IUserGroupMappingService-GetUsersList-TransCelerate-SDR-Core-DTO-UserGroups-UserGroupsQueryParameters- 'TransCelerate.SDR.Services.Interfaces.IUserGroupMappingService.GetUsersList(TransCelerate.SDR.Core.DTO.UserGroups.UserGroupsQueryParameters)')
   - [ListGroups()](#M-TransCelerate-SDR-Services-Interfaces-IUserGroupMappingService-ListGroups 'TransCelerate.SDR.Services.Interfaces.IUserGroupMappingService.ListGroups')
   - [PostGroup(groupDTO)](#M-TransCelerate-SDR-Services-Interfaces-IUserGroupMappingService-PostGroup-TransCelerate-SDR-Core-DTO-UserGroups-SDRGroupsDTO- 'TransCelerate.SDR.Services.Interfaces.IUserGroupMappingService.PostGroup(TransCelerate.SDR.Core.DTO.UserGroups.SDRGroupsDTO)')
   - [PostUserToGroups(userToGroupsDTO)](#M-TransCelerate-SDR-Services-Interfaces-IUserGroupMappingService-PostUserToGroups-TransCelerate-SDR-Core-DTO-UserGroups-PostUserToGroupsDTO- 'TransCelerate.SDR.Services.Interfaces.IUserGroupMappingService.PostUserToGroups(TransCelerate.SDR.Core.DTO.UserGroups.PostUserToGroupsDTO)')
 - [UserGroupMappingService](#T-TransCelerate-SDR-Services-Services-UserGroupMappingService 'TransCelerate.SDR.Services.Services.UserGroupMappingService')
+  - [CheckGroupName()](#M-TransCelerate-SDR-Services-Services-UserGroupMappingService-CheckGroupName-System-String- 'TransCelerate.SDR.Services.Services.UserGroupMappingService.CheckGroupName(System.String)')
   - [GetUserGroups()](#M-TransCelerate-SDR-Services-Services-UserGroupMappingService-GetUserGroups-TransCelerate-SDR-Core-DTO-UserGroups-UserGroupsQueryParameters- 'TransCelerate.SDR.Services.Services.UserGroupMappingService.GetUserGroups(TransCelerate.SDR.Core.DTO.UserGroups.UserGroupsQueryParameters)')
   - [GetUsersList()](#M-TransCelerate-SDR-Services-Services-UserGroupMappingService-GetUsersList-TransCelerate-SDR-Core-DTO-UserGroups-UserGroupsQueryParameters- 'TransCelerate.SDR.Services.Services.UserGroupMappingService.GetUsersList(TransCelerate.SDR.Core.DTO.UserGroups.UserGroupsQueryParameters)')
   - [ListGroups()](#M-TransCelerate-SDR-Services-Services-UserGroupMappingService-ListGroups 'TransCelerate.SDR.Services.Services.UserGroupMappingService.ListGroups')
@@ -39,6 +46,55 @@
 
 TransCelerate.SDR.Services.Services
 
+<a name='M-TransCelerate-SDR-Services-Services-ClinicalStudyService-CheckAccessForAStudy-TransCelerate-SDR-Core-Entities-Study-StudyEntity-'></a>
+### CheckAccessForAStudy(study) `method`
+
+##### Summary
+
+Check access for the study
+
+##### Returns
+
+A [StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') if the user have access `null` If user doesn't have access to the study
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| study | [TransCelerate.SDR.Core.Entities.Study.StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') | Study for which user access have to be checked |
+
+<a name='M-TransCelerate-SDR-Services-Services-ClinicalStudyService-CheckAccessForAuditTrail-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyEntity}-'></a>
+### CheckAccessForAuditTrail(studyList) `method`
+
+##### Summary
+
+Check access for the Study Aduit
+
+##### Returns
+
+A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') if the user have access `null` If user doesn't have access to the study
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyList | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyEntity}') | Study List for which user access have to be checked |
+
+<a name='M-TransCelerate-SDR-Services-Services-ClinicalStudyService-CheckPermissionForAUser'></a>
+### CheckPermissionForAUser() `method`
+
+##### Summary
+
+Check READ_WRITE Permission for a user
+
+##### Returns
+
+`true` If the user have READ_WRITE access in any of the groups `false` If the user does not have READ_WRITE access in any of the groups
+
+##### Parameters
+
+This method has no parameters.
+
 <a name='M-TransCelerate-SDR-Services-Services-ClinicalStudyService-GetAllElements-System-String,System-Int32,System-String-'></a>
 ### GetAllElements(studyId,version,tag) `method`
 
@@ -48,7 +104,7 @@ GET All Elements For a Study
 
 ##### Returns
 
-A [GetStudyDTO](#T-TransCelerate-SDR-Core-DTO-Study-GetStudyDTO 'TransCelerate.SDR.Core.DTO.Study.GetStudyDTO') with matching studyId `null` If no study is matching with studyId
+A [Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') with matching studyId `null` If no study is matching with studyId
 
 ##### Parameters
 
@@ -86,7 +142,7 @@ GET Audit Trial
 
 ##### Returns
 
-A [GetStudyAuditDTO](#T-TransCelerate-SDR-Core-DTO-Study-GetStudyAuditDTO 'TransCelerate.SDR.Core.DTO.Study.GetStudyAuditDTO') with matching studyId `null` If no study is matching with studyId
+A [Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') with matching studyId `null` If no study is matching with studyId
 
 ##### Parameters
 
@@ -179,6 +235,38 @@ A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US
 
 TransCelerate.SDR.Services.Interfaces
 
+<a name='M-TransCelerate-SDR-Services-Interfaces-IClinicalStudyService-CheckAccessForAStudy-TransCelerate-SDR-Core-Entities-Study-StudyEntity-'></a>
+### CheckAccessForAStudy(study) `method`
+
+##### Summary
+
+Check access for the study
+
+##### Returns
+
+A [StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') if the user have access `null` If user doesn't have access to the study
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| study | [TransCelerate.SDR.Core.Entities.Study.StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') | Study for which user access have to be checked |
+
+<a name='M-TransCelerate-SDR-Services-Interfaces-IClinicalStudyService-CheckPermissionForAUser'></a>
+### CheckPermissionForAUser() `method`
+
+##### Summary
+
+Check READ_WRITE Permission for a user
+
+##### Returns
+
+`true` If the user have READ_WRITE access in any of the groups `false` If the user does not have READ_WRITE access in any of the groups
+
+##### Parameters
+
+This method has no parameters.
+
 <a name='M-TransCelerate-SDR-Services-Interfaces-IClinicalStudyService-GetAllElements-System-String,System-Int32,System-String-'></a>
 ### GetAllElements(studyId,version,tag) `method`
 
@@ -188,7 +276,7 @@ GET All Elements For a Study
 
 ##### Returns
 
-A [GetStudyDTO](#T-TransCelerate-SDR-Core-DTO-Study-GetStudyDTO 'TransCelerate.SDR.Core.DTO.Study.GetStudyDTO') with matching studyId `null` If no study is matching with studyId
+A [Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') with matching studyId `null` If no study is matching with studyId
 
 ##### Parameters
 
@@ -226,7 +314,7 @@ GET Audit Trial
 
 ##### Returns
 
-A [GetStudyAuditDTO](#T-TransCelerate-SDR-Core-DTO-Study-GetStudyAuditDTO 'TransCelerate.SDR.Core.DTO.Study.GetStudyAuditDTO') with matching studyId `null` If no study is matching with studyId
+A [Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') with matching studyId `null` If no study is matching with studyId
 
 ##### Parameters
 
@@ -319,6 +407,21 @@ A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US
 
 TransCelerate.SDR.Services.Interfaces
 
+<a name='M-TransCelerate-SDR-Services-Interfaces-IUserGroupMappingService-CheckGroupName-System-String-'></a>
+### CheckGroupName() `method`
+
+##### Summary
+
+Check GroupName
+
+##### Returns
+
+A [Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') with groupId and isExists `null` if there are no groups
+
+##### Parameters
+
+This method has no parameters.
+
 <a name='M-TransCelerate-SDR-Services-Interfaces-IUserGroupMappingService-GetUserGroups-TransCelerate-SDR-Core-DTO-UserGroups-UserGroupsQueryParameters-'></a>
 ### GetUserGroups() `method`
 
@@ -354,7 +457,7 @@ This method has no parameters.
 
 ##### Summary
 
-GET All Users for a group
+GET All groups
 
 ##### Returns
 
@@ -405,6 +508,21 @@ A [Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&
 
 TransCelerate.SDR.Services.Services
 
+<a name='M-TransCelerate-SDR-Services-Services-UserGroupMappingService-CheckGroupName-System-String-'></a>
+### CheckGroupName() `method`
+
+##### Summary
+
+GET Group by groupName
+
+##### Returns
+
+A [Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') with List of groupId and groupName `null` if there are no groups
+
+##### Parameters
+
+This method has no parameters.
+
 <a name='M-TransCelerate-SDR-Services-Services-UserGroupMappingService-GetUserGroups-TransCelerate-SDR-Core-DTO-UserGroups-UserGroupsQueryParameters-'></a>
 ### GetUserGroups() `method`
 
@@ -440,7 +558,7 @@ This method has no parameters.
 
 ##### Summary
 
-GET All Users for a group
+GET All groups
 
 ##### Returns
 

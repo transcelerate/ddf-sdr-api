@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.Entities;
 using TransCelerate.SDR.Core.Entities.Study;
+using TransCelerate.SDR.Core.Entities.UserGroups;
 
 namespace TransCelerate.SDR.DataAccess.Interfaces
 {
@@ -17,7 +18,7 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// A <see cref="StudyEntity"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        Task<StudyEntity> GetStudyItemsAsync(string studyId,int version);
+        Task<StudyEntity> GetStudyItemsAsync(string studyId, int version);
 
         /// <summary>
         /// GET a Study for a study ID with version and tag filter
@@ -54,16 +55,24 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
         Task<List<StudyHistoryEntity>> GetAllStudyId(DateTime fromDate, DateTime toDate, string studyTitle);
+        /// <summary>
+        /// GET groups assigned to user
+        /// </summary>
+        /// <returns>
+        /// A <see cref="List{SDRGroupsEntity}"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        Task<List<SDRGroupsEntity>> GetGroupsOfUser();
 
         /// <summary>
         /// Search the collection based on search criteria
         /// </summary>
         /// <param name="searchParameters">Parameters to search in database</param>
         /// <returns>
-        /// A <see cref="List{StudyEntity}"/> with matching studyId <br></br> <br></br>
+        /// A <see cref="List{SearchResponseEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        Task<List<StudyEntity>> SearchStudy(SearchParameters searchParameters);
+        Task<List<SearchResponse>> SearchStudy(SearchParameters searchParameters);
 
         /// <summary>
         /// POST a Study
@@ -72,7 +81,7 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// <returns>
         /// A studyId which was inserted <br></br> <br></br>        
         /// </returns>
-        Task<string> PostStudyItemsAsync(StudyEntity study);        
+        Task<string> PostStudyItemsAsync(StudyEntity study);
 
         /// <summary>
         /// Updates a Study
@@ -82,5 +91,5 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// A studyId which was inserted <br></br> <br></br>        
         /// </returns>
         Task<string> UpdateStudyItemsAsync(StudyEntity study);
-    }   
+    }
 }

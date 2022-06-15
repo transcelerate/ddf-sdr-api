@@ -108,6 +108,13 @@ namespace TransCelerate.SDR.Services.Services
                     //remove disable group for a user
                     users.RemoveAll(x => x.isActive == false);
 
+                    int userCount = users.Count;
+                    if(userGroupsQueryParameters.pageNumber == 0 || userGroupsQueryParameters.pageSize==0)
+                    {
+                        userGroupsQueryParameters.pageSize = userCount;
+                        userGroupsQueryParameters.pageNumber = 1;
+                    }
+
                     //conversion of group list to user list
                     var userWithListOfGroups = users.GroupBy(x => x.email)
                                                      .Select(g => new 
@@ -143,7 +150,7 @@ namespace TransCelerate.SDR.Services.Services
         }
 
         /// <summary>
-        /// GET All Users for a group
+        /// GET All groups
         /// </summary>        
         /// <returns> A <see cref="object"/> with List of groupId and groupName <br />
         /// <see langword="null"/> if there are no groups
@@ -171,6 +178,34 @@ namespace TransCelerate.SDR.Services.Services
                 _logger.LogInformation($"Ended Service : {nameof(UserGroupMappingService)}; Method : {nameof(ListGroups)};");
             }
         }
+        /// <summary>
+        /// GET Group by groupName
+        /// </summary>        
+        /// <returns> A <see cref="object"/> with List of groupId and groupName <br />
+        /// <see langword="null"/> if there are no groups
+        /// </returns>  
+        public async Task<object> CheckGroupName(string groupName)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Service : {nameof(UserGroupMappingService)}; Method : {nameof(ListGroups)};");
+                var userGroupEntity = await _userGroupMappingRepository.GetGroupByName(groupName);
+
+                if (userGroupEntity == null)
+                    return new {groupName = groupName,isExists = false};
+
+                else
+                    return new { groupName = groupName, isExists = true };
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Service : {nameof(UserGroupMappingService)}; Method : {nameof(ListGroups)};");
+            }
+        }
         #endregion
         #region POST
         /// <summary>
@@ -185,20 +220,20 @@ namespace TransCelerate.SDR.Services.Services
             {
                 _logger.LogInformation($"Started Service : {nameof(UserGroupMappingService)}; Method : {nameof(PostGroup)};");
                 var groupEntity = _mapper.Map<SDRGroupsEntity>(groupDTO);
-                groupEntity.groupModifiedBy = "";
+                groupEntity.groupModifiedBy = Config.UserName;
                 groupEntity.groupModifiedOn = DateTime.UtcNow;
 
                 if (String.IsNullOrWhiteSpace(groupDTO.groupId))
                 {
                     //create a group
                     var existingUserGroups = await _userGroupMappingRepository.GetGroupList();
-                    if(existingUserGroups != null && existingUserGroups != null)
+                    if(existingUserGroups != null && existingUserGroups.Count > 0)
                     {
                         if (existingUserGroups.Any(x => x.groupName.ToLower() == groupDTO.groupName.ToLower()))
                             return Constants.ErrorMessages.GroupNameExists;
                     }
                     groupEntity.groupId = IdGenerator.GenerateId();                    
-                    groupEntity.groupCreatedBy = "";
+                    groupEntity.groupCreatedBy = Config.UserName;
                     groupEntity.groupCreatedOn = DateTime.UtcNow;                 
 
                     await _userGroupMappingRepository.AddAGroup(groupEntity);
@@ -214,6 +249,7 @@ namespace TransCelerate.SDR.Services.Services
                     existingUserGroup.groupFilter = groupEntity.groupFilter;
                     existingUserGroup.groupModifiedBy = groupEntity.groupModifiedBy;
                     existingUserGroup.groupModifiedOn = groupEntity.groupModifiedOn;    
+                    existingUserGroup.groupEnabled = groupEntity.groupEnabled;    
 
                     await _userGroupMappingRepository.UpdateAGroup(existingUserGroup);
                     groupEntity = existingUserGroup;
@@ -285,7 +321,7 @@ namespace TransCelerate.SDR.Services.Services
                             userGroupsEntity.SDRGroups.Find(x => x.groupId == groups.groupId)
                                                 .users.Add(user);
                         }
-                        userGroupsEntity.SDRGroups.Find(x => x.groupId == groups.groupId).groupModifiedBy = "";
+                        userGroupsEntity.SDRGroups.Find(x => x.groupId == groups.groupId).groupModifiedBy = Config.UserName;
                         userGroupsEntity.SDRGroups.Find(x => x.groupId == groups.groupId).groupModifiedOn = DateTime.UtcNow;
                     }
                     else

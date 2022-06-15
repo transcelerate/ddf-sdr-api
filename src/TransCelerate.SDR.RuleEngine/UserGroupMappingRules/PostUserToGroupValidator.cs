@@ -21,7 +21,18 @@ namespace TransCelerate.SDR.RuleEngine
             RuleFor(x => x.groups)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .Must(x => x.Count > 0).WithMessage(Constants.ValidationErrorMessage.SelectAtleastOneGroup);
+               .Must(x => x.Count > 0).WithMessage(Constants.ValidationErrorMessage.SelectAtleastOneGroup)
+               .ForEach(child =>
+               {
+                   child.ChildRules(x => x.RuleFor(x => x.groupId)
+                                            .Cascade(CascadeMode.Stop)
+                                            .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                                            .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError));
+                   child.ChildRules(x => x.RuleFor(x => x.groupName)
+                                            .Cascade(CascadeMode.Stop)
+                                            .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                                            .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError));
+               });
         }
     }
 }

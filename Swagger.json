@@ -15,7 +15,7 @@
           {
             "name": "studyId",
             "in": "path",
-            "description": "",
+            "description": "Study ID",
             "required": true,
             "schema": {
               "type": "string"
@@ -24,7 +24,7 @@
           {
             "name": "version",
             "in": "query",
-            "description": "",
+            "description": "Version of study",
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -33,7 +33,7 @@
           {
             "name": "tag",
             "in": "query",
-            "description": "",
+            "description": "Tag of a study",
             "schema": {
               "type": "string"
             }
@@ -41,10 +41,10 @@
           {
             "name": "sections",
             "in": "query",
-            "description": "",
+            "description": "Study sections which have to be fetched",
             "schema": {
               "type": "string",
-			  "enum" : ["study_indications","study_objectives","study_design"]
+              "enum": [ "study_indications", "study_objectives", "study_design" ]
             }
           }
         ],
@@ -54,7 +54,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetStudy"
+                  "$ref": "#/components/schemas/GetStudyDTO"
                 }
               }
             }
@@ -92,7 +92,7 @@
           {
             "name": "studyId",
             "in": "path",
-            "description": "",
+            "description": "Study ID",
             "required": true,
             "schema": {
               "type": "string"
@@ -101,7 +101,7 @@
           {
             "name": "studyDesignId",
             "in": "path",
-            "description": "",
+            "description": "Study Design Id",
             "required": true,
             "schema": {
               "type": "string"
@@ -110,7 +110,7 @@
           {
             "name": "version",
             "in": "query",
-            "description": "",
+            "description": "Version of study",
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -119,7 +119,7 @@
           {
             "name": "tag",
             "in": "query",
-            "description": "",
+            "description": "Tag of a study",
             "schema": {
               "type": "string"
             }
@@ -127,10 +127,10 @@
           {
             "name": "sections",
             "in": "query",
-            "description": "",
+            "description": "Study Design sections which have to be fetched",
             "schema": {
               "type": "string",
-			  "enum" : ["study_planned_workflow","study_target_populations","study_investigational_interventions","study_cells"]
+              "enum": [ "study_planned_workflow", "study_target_populations", "study_investigational_interventions", "study_cells" ]
             }
           }
         ],
@@ -140,7 +140,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetStudyDesigns"
+                  "$ref": "#/components/schemas/GetStudyDesignsDTO"
                 }
               }
             }
@@ -178,7 +178,7 @@
           {
             "name": "studyId",
             "in": "path",
-            "description": "",
+            "description": "Study ID",
             "required": true,
             "schema": {
               "type": "string"
@@ -187,7 +187,7 @@
           {
             "name": "fromDate",
             "in": "query",
-            "description": "",
+            "description": "Start Date for Date Filter",
             "schema": {
               "type": "string",
               "format": "date-time"
@@ -196,7 +196,7 @@
           {
             "name": "toDate",
             "in": "query",
-            "description": "",
+            "description": "End Date for Date Filter",
             "schema": {
               "type": "string",
               "format": "date-time"
@@ -211,7 +211,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/GetStudyAudit"
+                    "$ref": "#/components/schemas/GetStudyAuditDTO"
                   }
                 }
               }
@@ -250,7 +250,7 @@
           {
             "name": "fromDate",
             "in": "query",
-            "description": "",
+            "description": "Start Date for Date Filter",
             "schema": {
               "type": "string",
               "format": "date-time"
@@ -259,7 +259,7 @@
           {
             "name": "toDate",
             "in": "query",
-            "description": "",
+            "description": "End Date for Date Filter",
             "schema": {
               "type": "string",
               "format": "date-time"
@@ -268,7 +268,7 @@
           {
             "name": "studyTitle",
             "in": "query",
-            "description": "",
+            "description": "Study Title Filter",
             "schema": {
               "type": "string"
             }
@@ -280,7 +280,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetStudyHistoryResponse"
+                  "$ref": "#/components/schemas/GetStudyHistoryResponseDTO"
                 }
               }
             }
@@ -318,33 +318,33 @@
           {
             "name": "entrySystem",
             "in": "header",
-            "description": "",
+            "description": "System which made the request",
             "schema": {
               "type": "string"
             }
           }
         ],
         "requestBody": {
-          "description": "",
+          "description": "Study for Inserting/Updating in Database",
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/PostStudy"
+                "$ref": "#/components/schemas/PostStudyDTO"
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PostStudy"
+                "$ref": "#/components/schemas/PostStudyDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/PostStudy"
+                "$ref": "#/components/schemas/PostStudyDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/PostStudy"
+                "$ref": "#/components/schemas/PostStudyDTO"
               }
             }
           }
@@ -355,7 +355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PostStudyResponse"
+                  "$ref": "#/components/schemas/PostStudyDTO"
                 }
               }
             }
@@ -380,26 +380,26 @@
         ],
         "summary": "Search For a Study",
         "requestBody": {
-          "description": "",
+          "description": "Parameters to search in database",
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/SearchParameters"
+                "$ref": "#/components/schemas/SearchParametersDTO"
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SearchParameters"
+                "$ref": "#/components/schemas/SearchParametersDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/SearchParameters"
+                "$ref": "#/components/schemas/SearchParametersDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/SearchParameters"
+                "$ref": "#/components/schemas/SearchParametersDTO"
               }
             }
           }
@@ -412,7 +412,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/GetStudy"
+                    "$ref": "#/components/schemas/GetStudyDTO"
                   }
                 }
               }
@@ -440,11 +440,655 @@
           }
         }
       }
+    },
+    "/auth/token": {
+      "post": {
+        "tags": [
+          "Token"
+        ],
+        "summary": "GET Token for accessing API's",
+        "requestBody": {
+          "description": "logging user details",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLogin"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLogin"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLogin"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLogin"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns Token"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/usergroups/getgroups": {
+      "post": {
+        "tags": [
+          "UserGroups"
+        ],
+        "summary": "GET All Groups",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserGroupsQueryParameters"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserGroupsQueryParameters"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserGroupsQueryParameters"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserGroupsQueryParameters"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns List of Groups",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserGroupMappingDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserGroupMappingDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserGroupMappingDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "There are no groups in database",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/usergroups/getusers": {
+      "post": {
+        "tags": [
+          "UserGroups"
+        ],
+        "summary": "GET All Users",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserGroupsQueryParameters"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserGroupsQueryParameters"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserGroupsQueryParameters"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserGroupsQueryParameters"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns List of users in a group",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UsersDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UsersDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UsersDTO"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "There are no users tagged to groups",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/usergroups/getgrouplist": {
+      "get": {
+        "tags": [
+          "UserGroups"
+        ],
+        "summary": "GET group list",
+        "responses": {
+          "200": {
+            "description": "Returns List of users in a group",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UsersDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UsersDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UsersDTO"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The users for the groupId is Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/usergroups/listusers": {
+      "get": {
+        "tags": [
+          "UserGroups"
+        ],
+        "summary": "GET user list from AD",
+        "responses": {
+          "200": {
+            "description": "Returns List of users in a AD",
+            "content": {
+              "text/plain": {
+                "schema": {}
+              },
+              "application/json": {
+                "schema": {}
+              },
+              "text/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The users for the groupId is Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/usergroups/checkgroupname": {
+      "get": {
+        "tags": [
+          "UserGroups"
+        ],
+        "summary": "Check Group name",
+        "parameters": [
+          {
+            "name": "groupName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a object with the group existance boolean value",
+            "content": {
+              "text/plain": {
+                "schema": {}
+              },
+              "application/json": {
+                "schema": {}
+              },
+              "text/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The users for the groupId is Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/usergroups/postgroup": {
+      "post": {
+        "tags": [
+          "UserGroups"
+        ],
+        "summary": "POST a group",
+        "requestBody": {
+          "description": "Group which needs to be added/modified",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SDRGroupsDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SDRGroupsDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SDRGroupsDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SDRGroupsDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns List of users in a group",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserGroupMappingDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserGroupMappingDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserGroupMappingDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The users for the groupId is Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/usergroups/postuser": {
+      "post": {
+        "tags": [
+          "UserGroups"
+        ],
+        "summary": "POST a user to groups",
+        "requestBody": {
+          "description": "User which needs to be added/modified to groups",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostUserToGroupsDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostUserToGroupsDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostUserToGroupsDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostUserToGroupsDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns List of users in a group",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserGroupMappingDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserGroupMappingDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserGroupMappingDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The users for the groupId is Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
-      "Activity": {
+      "ActivityDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -458,21 +1102,21 @@
           "definedProcedures": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/DefinedProcedure"
+              "$ref": "#/components/schemas/DefinedProcedureDTO"
             },
             "nullable": true
           },
           "studyDataCollection": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StudyDataCollection"
+              "$ref": "#/components/schemas/StudyDataCollectionDTO"
             },
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "AuditTrail": {
+      "AuditTrailDTO": {
         "type": "object",
         "properties": {
           "entryDateTime": {
@@ -490,7 +1134,7 @@
         },
         "additionalProperties": false
       },
-      "AuditTrailEndpointResponse": {
+      "AuditTrailEndpointResponseDTO": {
         "type": "object",
         "properties": {
           "studyTag": {
@@ -516,7 +1160,7 @@
         },
         "additionalProperties": false
       },
-      "ClinicalStudy": {
+      "ClinicalStudyDTO": {
         "type": "object",
         "properties": {
           "studyId": {
@@ -546,28 +1190,28 @@
           "studyIdentifiers": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StudyIdentifier"
+              "$ref": "#/components/schemas/StudyIdentifierDTO"
             },
             "nullable": true
           },
           "currentSections": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/CurrentSections"
+              "$ref": "#/components/schemas/CurrentSectionsDTO"
             },
             "nullable": true
           },
           "studyProtocolReferences": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StudyProtocol"
+              "$ref": "#/components/schemas/StudyProtocolDTO"
             },
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "Coding": {
+      "CodingDTO": {
         "type": "object",
         "properties": {
           "code": {
@@ -589,7 +1233,7 @@
         },
         "additionalProperties": false
       },
-      "CurrentSections": {
+      "CurrentSectionsDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -603,56 +1247,56 @@
           "plannedWorkflows": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PlannedWorkflow"
+              "$ref": "#/components/schemas/PlannedWorkflowDTO"
             },
             "nullable": true
           },
           "studyPopulations": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StudyPopulation"
+              "$ref": "#/components/schemas/StudyPopulationDTO"
             },
             "nullable": true
           },
           "studyCells": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StudyCell"
+              "$ref": "#/components/schemas/StudyCellDTO"
             },
             "nullable": true
           },
           "investigationalInterventions": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/InvestigationalIntervention"
+              "$ref": "#/components/schemas/InvestigationalInterventionDTO"
             },
             "nullable": true
           },
           "studyDesigns": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StudyDesign"
+              "$ref": "#/components/schemas/StudyDesignDTO"
             },
             "nullable": true
           },
           "objectives": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StudyObjective"
+              "$ref": "#/components/schemas/StudyObjectiveDTO"
             },
             "nullable": true
           },
           "studyIndications": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StudyIndication"
+              "$ref": "#/components/schemas/StudyIndicationDTO"
             },
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "DefinedProcedure": {
+      "DefinedProcedureDTO": {
         "type": "object",
         "properties": {
           "procedureCode": {
@@ -662,7 +1306,7 @@
         },
         "additionalProperties": false
       },
-      "Encounter": {
+      "EncounterDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -686,29 +1330,29 @@
             "nullable": true
           },
           "startRule": {
-            "$ref": "#/components/schemas/Rule"
+            "$ref": "#/components/schemas/RuleDTO"
           },
           "endRule": {
-            "$ref": "#/components/schemas/Rule"
+            "$ref": "#/components/schemas/RuleDTO"
           },
           "epoch": {
-            "$ref": "#/components/schemas/Epoch"
+            "$ref": "#/components/schemas/EpochDTO"
           }
         },
         "additionalProperties": false
       },
-      "Endpoints": {
+      "EndpointsDTO": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
           "description": {
             "type": "string",
             "nullable": true
           },
           "purpose": {
-            "type": "string",
-            "nullable": true
-          },
-          "id": {
             "type": "string",
             "nullable": true
           },
@@ -719,7 +1363,7 @@
         },
         "additionalProperties": false
       },
-      "Epoch": {
+      "EpochDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -759,7 +1403,7 @@
         },
         "additionalProperties": false
       },
-      "GetClinicalStudy": {
+      "GetClinicalStudyDTO": {
         "type": "object",
         "properties": {
           "studyId": {
@@ -789,42 +1433,42 @@
           "studyIdentifiers": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StudyIdentifier"
+              "$ref": "#/components/schemas/StudyIdentifierDTO"
             },
             "nullable": true
           },
           "studyProtocolReferences": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StudyProtocol"
+              "$ref": "#/components/schemas/StudyProtocolDTO"
             },
             "nullable": true
           },
           "studyDesigns": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/GetStudyDesigns"
+              "$ref": "#/components/schemas/GetStudyDesignsDTO"
             },
             "nullable": true
           },
           "objectives": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StudyObjective"
+              "$ref": "#/components/schemas/StudyObjectiveDTO"
             },
             "nullable": true
           },
           "studyIndications": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StudyIndication"
+              "$ref": "#/components/schemas/StudyIndicationDTO"
             },
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "GetStudyAudit": {
+      "GetStudyAuditDTO": {
         "type": "object",
         "properties": {
           "studyId": {
@@ -834,14 +1478,14 @@
           "auditTrail": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/AuditTrailEndpointResponse"
+              "$ref": "#/components/schemas/AuditTrailEndpointResponseDTO"
             },
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "GetStudyDesigns": {
+      "GetStudyDesignsDTO": {
         "type": "object",
         "properties": {
           "studyDesignId": {
@@ -859,60 +1503,108 @@
           "plannedWorkflows": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PlannedWorkflow"
+              "$ref": "#/components/schemas/PlannedWorkflowDTO"
             },
             "nullable": true
           },
           "studyPopulations": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StudyPopulation"
+              "$ref": "#/components/schemas/StudyPopulationDTO"
             },
             "nullable": true
           },
           "studyCells": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StudyCell"
+              "$ref": "#/components/schemas/StudyCellDTO"
             },
             "nullable": true
           },
           "investigationalInterventions": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/InvestigationalIntervention"
+              "$ref": "#/components/schemas/InvestigationalInterventionDTO"
             },
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "GetStudy": {
+      "GetStudyDTO": {
         "type": "object",
         "properties": {
           "clinicalStudy": {
-            "$ref": "#/components/schemas/GetClinicalStudy"
+            "$ref": "#/components/schemas/GetClinicalStudyDTO"
           },
           "auditTrail": {
-            "$ref": "#/components/schemas/AuditTrail"
+            "$ref": "#/components/schemas/AuditTrailDTO"
           }
         },
         "additionalProperties": false
       },
-      "GetStudyHistoryResponse": {
+      "GetStudyHistoryResponseDTO": {
         "type": "object",
         "properties": {
           "study": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StudyHistory"
+              "$ref": "#/components/schemas/StudyHistoryDTO"
             },
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "InvestigationalIntervention": {
+      "GroupFilterDTO": {
+        "type": "object",
+        "properties": {
+          "groupFieldName": {
+            "type": "string",
+            "nullable": true
+          },
+          "groupFilterValues": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GroupFilterValuesDTO"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GroupFilterValuesDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GroupsTaggedToUser": {
+        "type": "object",
+        "properties": {
+          "groupId": {
+            "type": "string",
+            "nullable": true
+          },
+          "groupName": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "InvestigationalInterventionDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -934,14 +1626,14 @@
           "coding": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Coding"
+              "$ref": "#/components/schemas/CodingDTO"
             },
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "Item": {
+      "ItemDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -953,16 +1645,16 @@
             "nullable": true
           },
           "fromPointInTime": {
-            "$ref": "#/components/schemas/PointInTime"
+            "$ref": "#/components/schemas/PointInTimeDTO"
           },
           "toPointInTime": {
-            "$ref": "#/components/schemas/PointInTime"
+            "$ref": "#/components/schemas/PointInTimeDTO"
           },
           "activity": {
-            "$ref": "#/components/schemas/Activity"
+            "$ref": "#/components/schemas/ActivityDTO"
           },
           "encounter": {
-            "$ref": "#/components/schemas/Encounter"
+            "$ref": "#/components/schemas/EncounterDTO"
           },
           "previousItemsInSequence": {
             "type": "array",
@@ -981,7 +1673,7 @@
         },
         "additionalProperties": false
       },
-      "Matrix": {
+      "MatrixDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -991,14 +1683,14 @@
           "items": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Item"
+              "$ref": "#/components/schemas/ItemDTO"
             },
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "PlannedWorkflow": {
+      "PlannedWorkflowDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -1010,18 +1702,18 @@
             "nullable": true
           },
           "startPoint": {
-            "$ref": "#/components/schemas/PointInTime"
+            "$ref": "#/components/schemas/PointInTimeDTO"
           },
           "endPoint": {
-            "$ref": "#/components/schemas/PointInTime"
+            "$ref": "#/components/schemas/PointInTimeDTO"
           },
           "workflowItemMatrix": {
-            "$ref": "#/components/schemas/WorkflowItemMatrix"
+            "$ref": "#/components/schemas/WorkflowItemMatrixDTO"
           }
         },
         "additionalProperties": false
       },
-      "PointInTime": {
+      "PointInTimeDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -1047,37 +1739,40 @@
         },
         "additionalProperties": false
       },
-      "PostStudy": {
+      "PostStudyDTO": {
         "type": "object",
         "properties": {
           "clinicalStudy": {
-            "$ref": "#/components/schemas/ClinicalStudy"
+            "$ref": "#/components/schemas/ClinicalStudyDTO"
+          },
+          "auditTrail": {
+            "$ref": "#/components/schemas/AuditTrailDTO"
           }
         },
         "additionalProperties": false
       },
-      "PostStudyResponse": {
+      "PostUserToGroupsDTO": {
         "type": "object",
         "properties": {
-          "studyId": {
+          "oid": {
             "type": "string",
             "nullable": true
           },
-          "studyVersion": {
-            "type": "integer",
-            "format": "int32"
+          "email": {
+            "type": "string",
+            "nullable": true
           },
-          "studyDesignId": {
+          "groups": {
             "type": "array",
             "items": {
-              "type": "string"
+              "$ref": "#/components/schemas/GroupsTaggedToUser"
             },
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "Rule": {
+      "RuleDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -1091,14 +1786,69 @@
           "coding": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Coding"
+              "$ref": "#/components/schemas/CodingDTO"
             },
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "SearchParameters": {
+      "SDRGroupsDTO": {
+        "type": "object",
+        "properties": {
+          "groupId": {
+            "type": "string",
+            "nullable": true
+          },
+          "groupName": {
+            "type": "string",
+            "nullable": true
+          },
+          "groupDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "permission": {
+            "type": "string",
+            "nullable": true
+          },
+          "groupFilter": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GroupFilterDTO"
+            },
+            "nullable": true
+          },
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UsersDTO"
+            },
+            "nullable": true
+          },
+          "groupCreatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "groupCreatedOn": {
+            "type": "string",
+            "nullable": true
+          },
+          "groupModifiedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "groupModifiedOn": {
+            "type": "string",
+            "nullable": true
+          },
+          "groupEnabled": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SearchParametersDTO": {
         "type": "object",
         "properties": {
           "studyId": {
@@ -1147,7 +1897,7 @@
         },
         "additionalProperties": false
       },
-      "StudyArm": {
+      "StudyArmDTO": {
         "type": "object",
         "properties": {
           "description": {
@@ -1177,7 +1927,7 @@
         },
         "additionalProperties": false
       },
-      "StudyCell": {
+      "StudyCellDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -1187,20 +1937,20 @@
           "studyElements": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StudyElement"
+              "$ref": "#/components/schemas/StudyElementDTO"
             },
             "nullable": true
           },
           "studyArm": {
-            "$ref": "#/components/schemas/StudyArm"
+            "$ref": "#/components/schemas/StudyArmDTO"
           },
           "studyEpoch": {
-            "$ref": "#/components/schemas/StudyEpoch"
+            "$ref": "#/components/schemas/StudyEpochDTO"
           }
         },
         "additionalProperties": false
       },
-      "StudyDataCollection": {
+      "StudyDataCollectionDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -1222,13 +1972,13 @@
         },
         "additionalProperties": false
       },
-      "StudyDesign": {
+      "StudyDesignDTO": {
         "type": "object",
         "properties": {
           "currentSections": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/CurrentSections"
+              "$ref": "#/components/schemas/CurrentSectionsDTO"
             },
             "nullable": true
           },
@@ -1247,7 +1997,7 @@
         },
         "additionalProperties": false
       },
-      "StudyElement": {
+      "StudyElementDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -1263,15 +2013,15 @@
             "nullable": true
           },
           "startRule": {
-            "$ref": "#/components/schemas/Rule"
+            "$ref": "#/components/schemas/RuleDTO"
           },
           "endRule": {
-            "$ref": "#/components/schemas/Rule"
+            "$ref": "#/components/schemas/RuleDTO"
           }
         },
         "additionalProperties": false
       },
-      "StudyEpoch": {
+      "StudyEpochDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -1297,7 +2047,7 @@
         },
         "additionalProperties": false
       },
-      "StudyHistory": {
+      "StudyHistoryDTO": {
         "type": "object",
         "properties": {
           "studyTitle": {
@@ -1319,7 +2069,7 @@
         },
         "additionalProperties": false
       },
-      "StudyIdentifier": {
+      "StudyIdentifierDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -1341,7 +2091,7 @@
         },
         "additionalProperties": false
       },
-      "StudyIndication": {
+      "StudyIndicationDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -1355,21 +2105,21 @@
           "coding": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Coding"
+              "$ref": "#/components/schemas/CodingDTO"
             },
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "StudyObjective": {
+      "StudyObjectiveDTO": {
         "type": "object",
         "properties": {
-          "description": {
+          "id": {
             "type": "string",
             "nullable": true
           },
-          "id": {
+          "description": {
             "type": "string",
             "nullable": true
           },
@@ -1380,14 +2130,14 @@
           "endpoints": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Endpoints"
+              "$ref": "#/components/schemas/EndpointsDTO"
             },
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "StudyPopulation": {
+      "StudyPopulationDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -1401,7 +2151,7 @@
         },
         "additionalProperties": false
       },
-      "StudyProtocol": {
+      "StudyProtocolDTO": {
         "type": "object",
         "properties": {
           "studyProtocolId": {
@@ -1415,7 +2165,85 @@
         },
         "additionalProperties": false
       },
-      "WorkflowItemMatrix": {
+      "UserGroupMappingDTO": {
+        "type": "object",
+        "properties": {
+          "sdrGroups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SDRGroupsDTO"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserGroupsQueryParameters": {
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sortOrder": {
+            "type": "string",
+            "nullable": true
+          },
+          "sortBy": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserLogin": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UsersDTO": {
+        "type": "object",
+        "properties": {
+          "oid": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "groupId": {
+            "type": "string",
+            "nullable": true
+          },
+          "groupName": {
+            "type": "string",
+            "nullable": true
+          },
+          "groupModifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WorkflowItemMatrixDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -1425,13 +2253,26 @@
           "matrix": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Matrix"
+              "$ref": "#/components/schemas/MatrixDTO"
             },
             "nullable": true
           }
         },
         "additionalProperties": false
       }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "description": "JWT Authorization header using the Bearer scheme (Example: 'Bearer 12345abcdef')",
+        "name": "Authorization",
+        "in": "header"
+      }
     }
-  }
+  },
+  "security": [
+    {
+      "Bearer": []
+    }
+  ]
 }

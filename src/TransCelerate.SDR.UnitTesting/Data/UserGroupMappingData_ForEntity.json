@@ -10,11 +10,11 @@
           "groupFieldName": "studyType",
           "groupFilterValues": [
             {
-              "id": "INTERVENTIONAL",
+             "groupFilterValueId": "INTERVENTIONAL",
               "title": "INTERVENTIONAL"
             },
             {
-              "id": "EXPANDED_ACCESS",
+             "groupFilterValueId": "EXPANDED_ACCESS",
               "title": "EXPANDED_ACCESS"
             }
           ]
@@ -23,11 +23,11 @@
           "groupFieldName": "study",
           "groupFilterValues": [
             {
-              "id": "studyId1",
+             "groupFilterValueId": "studyId1",
               "title": "Study Number Two"
             },
             {
-              "id": "studyId2",
+             "groupFilterValueId": "studyId2",
               "title": "StudyTitle1-Tag3"
             }            
           ]
@@ -61,11 +61,11 @@
           "groupFieldName": "studyType",
           "groupFilterValues": [
             {
-              "id": "INTERVENTIONAL",
+             "groupFilterValueId": "INTERVENTIONAL",
               "title": "INTERVENTIONAL"
             },
             {
-              "id": "EXPANDED_ACCESS",
+             "groupFilterValueId": "EXPANDED_ACCESS",
               "title": "EXPANDED_ACCESS"
             }
           ]
@@ -74,11 +74,11 @@
           "groupFieldName": "study",
           "groupFilterValues": [
             {
-              "id": "studyId1",
+             "groupFilterValueId": "studyId1",
               "title": "Study Number Two"
             },
             {
-              "id": "studyId2",
+             "groupFilterValueId": "studyId2",
               "title": "StudyTitle1-Tag3"
             }
           ]
@@ -112,11 +112,11 @@
           "groupFieldName": "studyType",
           "groupFilterValues": [
             {
-              "id": "INTERVENTIONAL",
+             "groupFilterValueId": "INTERVENTIONAL",
               "title": "INTERVENTIONAL"
             },
             {
-              "id": "EXPANDED_ACCESS",
+             "groupFilterValueId": "EXPANDED_ACCESS",
               "title": "EXPANDED_ACCESS"
             }
           ]
@@ -125,11 +125,11 @@
           "groupFieldName": "study",
           "groupFilterValues": [
             {
-              "id": "studyId1",
+             "groupFilterValueId": "studyId1",
               "title": "Study Number Two"
             },
             {
-              "id": "studyId2",
+             "groupFilterValueId": "studyId2",
               "title": "StudyTitle1-Tag3"
             }
           ]

@@ -23,6 +23,20 @@ namespace TransCelerate.SDR.WebApi.Mappers
             AllowNullCollections = true;
             AllowNullDestinationValues = true;
 
+            //Mappers for search method                      
+
+            CreateMap<GetStudyDTO, SearchResponse>()      
+               .ForMember(dest=>dest.studyId,opt=>opt.MapFrom(src=>src.clinicalStudy.studyId))
+               .ForMember(dest=>dest.studyPhase,opt=>opt.MapFrom(src=>src.clinicalStudy.studyPhase))
+               .ForMember(dest=>dest.studyTitle,opt=>opt.MapFrom(src=>src.clinicalStudy.studyTitle))
+               .ForMember(dest=>dest.studyType,opt=>opt.MapFrom(src=>src.clinicalStudy.studyType))
+               .ForMember(dest=>dest.studyTag,opt=>opt.MapFrom(src=>src.clinicalStudy.studyTag))
+               .ForMember(dest=>dest.studyStatus,opt=>opt.MapFrom(src=>src.clinicalStudy.studyStatus))
+               .ForMember(dest=>dest.studyIdentifiers,opt=>opt.MapFrom(src=>src.clinicalStudy.studyIdentifiers))
+               .ForMember(dest=>dest.entrySystem,opt=>opt.MapFrom(src=>src.auditTrail.entrySystem))
+               .ForMember(dest=>dest.studyVersion,opt=>opt.MapFrom(src=>src.auditTrail.studyVersion))
+               .ForMember(dest => dest.entryDateTime, opt => opt.MapFrom(src => src.auditTrail.entryDateTime)).ReverseMap();
+
             //Mappers for GET Methods
             CreateMap<StudyEntity, GetStudyDTO>();
             CreateMap<ClinicalStudyEntity, GetClinicalStudyDTO>()
@@ -132,6 +146,9 @@ namespace TransCelerate.SDR.WebApi.Mappers
                 .ForMember(dest => dest.groupModifiedOn, opt => opt.MapFrom(src => src.groupModifiedOn.ToString(Constants.DateFormats.DateFormatForAuditResponse).ToUpper()))
                 .ReverseMap();
             CreateMap<GroupListEntity, GroupListDTO>().ReverseMap();
+            CreateMap<GroupFilterValuesEntity, GroupFilterValuesDTO>()
+                .ForMember(dest=>dest.id, opt=>opt.MapFrom(src=>src.groupFilterValueId))
+                .ReverseMap();
 
         }
     }

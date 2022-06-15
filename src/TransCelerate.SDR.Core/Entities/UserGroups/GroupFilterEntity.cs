@@ -9,6 +9,6 @@ namespace TransCelerate.SDR.Core.Entities.UserGroups
     public class GroupFilterEntity
     {
         public string groupFieldName { get; set; }
-        public List<string> groupFilterValues { get; set; }
+        public List<GroupFilterValuesEntity> groupFilterValues { get; set; }
     }
 }

@@ -20,8 +20,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         public static ErrorModel ErrorResponseModel(Exception exception)
         {
             string statusCode;
-            if (exception is UnauthorizedAccessException) statusCode = ((int)HttpStatusCode.Forbidden).ToString();
-            else if (exception is TimeoutException) statusCode = ((int)HttpStatusCode.GatewayTimeout).ToString();
+            if (exception is UnauthorizedAccessException) statusCode = ((int)HttpStatusCode.Forbidden).ToString();            
             else statusCode = ((int)HttpStatusCode.BadRequest).ToString();
 
             ErrorModel errorModel = new ErrorModel
@@ -38,12 +37,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <returns>
         /// A <see cref="ErrorModel"/> When there is an Unauthorized Access      
         /// </returns>>
-        public static ErrorModel UnAuthorizedAccess()
+        public static ErrorModel UnAuthorizedAccess(string message = null)
         {
             ErrorModel errorModel = new ErrorModel
             {
                 statusCode = ((int)HttpStatusCode.Unauthorized).ToString(),
-                message = "Access Denied"
+                message = message ?? Constants.ErrorMessages.UnAuthorized
             };
             return errorModel;
         }
@@ -133,13 +132,35 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             };
             return errorModel;
         }
-        
+        /// <summary>
+        /// Resposne Helper When there is a Internal server error
+        /// </summary>
+        /// <param name="message">Message for error response</param>
+        /// <returns>
+        /// A <see cref="ErrorModel"/> 
+        /// </returns>>
         public static ErrorModel InternalServerError(string message = null)
         {
             ErrorModel errorModel = new ErrorModel
             {
                 statusCode = ((int)HttpStatusCode.InternalServerError).ToString(),
                 message = message ?? "Internal Server Error"
+            };
+            return errorModel;
+        }
+        /// <summary>
+        /// Resposne Helper When the user is accessing a restricted data or APi
+        /// </summary>
+        /// <param name="message">Message for error response</param>
+        /// <returns>
+        /// A <see cref="ErrorModel"/> 
+        /// </returns>>
+        public static ErrorModel Forbidden(string message = null)
+        {
+            ErrorModel errorModel = new ErrorModel
+            {
+                statusCode = ((int)HttpStatusCode.Forbidden).ToString(),
+                message = message ?? Constants.ErrorMessages.Forbidden
             };
             return errorModel;
         }

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Azure.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
@@ -15,20 +17,20 @@ using TransCelerate.SDR.Services.Interfaces;
 
 namespace TransCelerate.SDR.WebApi.Controllers
 {
-
+    [Authorize(Roles = Constants.Roles.Org_Admin)]
     [ApiController]
     public class UserGroupsController : ControllerBase
     {
         #region Variables
         private readonly IUserGroupMappingService _userGroupMappingService;
-        private readonly ILogHelper _logger;
+        private readonly ILogHelper _logger;        
         #endregion
 
         #region Constructor
         public UserGroupsController(IUserGroupMappingService userGroupMappingService, ILogHelper logger)
         {
             _userGroupMappingService = userGroupMappingService;
-            _logger = logger;
+            _logger = logger;              
         }
         #endregion
 
@@ -53,15 +55,11 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(GetUserGroups)};");
                 var groups = await _userGroupMappingService.GetUserGroups(userGroupsQueryParameters);
                 if(groups == null)
-                {
-                    if (Request != null)
-                        Response.Headers.Add("Controller", "True");
+                {                    
                     return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.GroupsNotFound)).Value);
                 }
                 else if(groups.Count == 0)
-                {
-                    if (Request != null)
-                        Response.Headers.Add("Controller", "True");
+                {                                            
                     return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.GroupsNotFound)).Value);
                 }
                 else
@@ -98,9 +96,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(GetUsersList)};");
                 var users = await _userGroupMappingService.GetUsersList(userGroupsQueryParameters);
                 if (users == null)
-                {
-                    if (Request != null)
-                        Response.Headers.Add("Controller", "True");
+                {                      
                     return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.UsersNotFound)).Value);
                 }               
                 else
@@ -137,9 +133,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(GetGroupList)};");
                 var users = await _userGroupMappingService.ListGroups();
                 if (users == null)
-                {
-                    if (Request != null)
-                        Response.Headers.Add("Controller", "True");
+                {                    
                     return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.GroupsNotFound)).Value);
                 }
                 else
@@ -155,6 +149,94 @@ namespace TransCelerate.SDR.WebApi.Controllers
             finally
             {
                 _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(GetGroupList)};");
+            }
+        }
+
+
+        /// <summary>
+        /// GET user list from AD
+        /// </summary>        
+        /// <response code="200">Returns List of users in a AD</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">The users for the groupId is Not Found</response>
+        [HttpGet]
+        [Route(Route.GetUsersFromAD)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(object))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        public async Task<IActionResult> GetUserList()
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(GetUserList)};");
+
+                ClientSecretCredential clientSecretCredential = new ClientSecretCredential(
+                    Config.TenantID, Config.ClientId, Config.ClientSecret);
+                Microsoft.Graph.GraphServiceClient graphServiceClient =
+                    new Microsoft.Graph.GraphServiceClient(clientSecretCredential);               
+
+                var users = await graphServiceClient.Users.Request().GetAsync();         
+               
+                if (users == null)
+                {
+                    return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.GroupsNotFound)).Value);
+                }
+                else
+                {
+                    var userList = users.Select(x => new
+                                                {
+                                                    x.Id,
+                                                    x.DisplayName,
+                                                    x.Mail
+                                                }).ToList();
+                    return Ok(userList);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex.Message}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(GetUserList)};");
+            }
+        }
+
+        /// <summary>
+        /// Check Group name
+        /// </summary>        
+        /// <response code="200">Returns a object with the group existance boolean value</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">The users for the groupId is Not Found</response>
+        [HttpGet]
+        [Route(Route.CheckGroupName)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(object))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        public async Task<IActionResult> CheckGroupName(string groupName)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(CheckGroupName)};");
+                if(!String.IsNullOrWhiteSpace(groupName))
+                {
+                    return Ok(await _userGroupMappingService.CheckGroupName(groupName));
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest()).Value);
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex.Message}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(CheckGroupName)};");
             }
         }
         #endregion
@@ -186,8 +268,6 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     var response = await _userGroupMappingService.PostGroup(groupDTO);
                     if (response == null)
                     {
-                        if (Request != null)
-                            Response.Headers.Add("Controller", "True");
                         return NotFound(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError)).Value);
                     }   
                     else if(Convert.ToString(response) == Constants.ErrorMessages.GroupNameExists)
@@ -240,9 +320,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 {
                     var response = await _userGroupMappingService.PostUserToGroups(userToGroupsDTO);
                     if (response == null)
-                    {
-                        if (Request != null)
-                            Response.Headers.Add("Controller", "True");
+                    {   
                         return NotFound(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError)).Value);
                     }                    
                     else

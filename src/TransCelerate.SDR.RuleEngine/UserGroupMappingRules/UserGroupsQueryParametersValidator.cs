@@ -19,6 +19,14 @@ namespace TransCelerate.SDR.RuleEngine
                  .When(x=> !String.IsNullOrEmpty(x.sortOrder))
                  .WithMessage(Constants.ValidationErrorMessage.InvalidSortOrder);
 
+            RuleFor(x => x.pageNumber)
+                .GreaterThanOrEqualTo(0)
+                .WithMessage(Constants.ValidationErrorMessage.EnterValidNumber);
+
+            RuleFor(x => x.pageSize)
+                .GreaterThanOrEqualTo(0)
+                .WithMessage(Constants.ValidationErrorMessage.EnterValidNumber);
+
 
         }
     }

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace TransCelerate.SDR.Core.DTO.UserGroups
 {
-    public class GroupFilterDTO
+    public class GroupFilterValuesDTO
     {
-        public string groupFieldName { get; set; }
-        public List<GroupFilterValuesDTO> groupFilterValues { get; set; }
+        public string id { get; set; }
+
+        public string title { get; set; }
     }
 }

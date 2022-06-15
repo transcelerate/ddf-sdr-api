@@ -3,6 +3,8 @@
 
 ## Contents
 
+- [ActionFilter](#T-TransCelerate-SDR-Core-Filters-ActionFilter 'TransCelerate.SDR.Core.Filters.ActionFilter')
+- [AllowAnonymousFilter](#T-TransCelerate-SDR-Core-Filters-AllowAnonymousFilter 'TransCelerate.SDR.Core.Filters.AllowAnonymousFilter')
 - [Config](#T-TransCelerate-SDR-Core-Utilities-Common-Config 'TransCelerate.SDR.Core.Utilities.Common.Config')
 - [Constants](#T-TransCelerate-SDR-Core-Utilities-Common-Constants 'TransCelerate.SDR.Core.Utilities.Common.Constants')
 - [DateValidationHelper](#T-TransCelerate-SDR-Core-Utilities-Helpers-DateValidationHelper 'TransCelerate.SDR.Core.Utilities.Helpers.DateValidationHelper')
@@ -12,10 +14,12 @@
   - [BadRequest(message)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-BadRequest-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.BadRequest(System.String)')
   - [BadRequest(validationProblemDetails,message)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-BadRequest-System-Object,System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.BadRequest(System.Object,System.String)')
   - [ErrorResponseModel(exception)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-ErrorResponseModel-System-Exception- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.ErrorResponseModel(System.Exception)')
+  - [Forbidden(message)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-Forbidden-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.Forbidden(System.String)')
   - [GatewayError()](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-GatewayError 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.GatewayError')
+  - [InternalServerError(message)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-InternalServerError-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.InternalServerError(System.String)')
   - [MethodNotAllowed(message)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-MethodNotAllowed-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.MethodNotAllowed(System.String)')
   - [NotFound(message)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-NotFound-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.NotFound(System.String)')
-  - [UnAuthorizedAccess()](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-UnAuthorizedAccess 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.UnAuthorizedAccess')
+  - [UnAuthorizedAccess()](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-UnAuthorizedAccess-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.UnAuthorizedAccess(System.String)')
 - [GetClinicalStudyDTO](#T-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO')
   - [objectives](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-objectives 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.objectives')
   - [studyDesigns](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyDesigns 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.studyDesigns')
@@ -50,6 +54,8 @@
   - [studyId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-studyId 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.studyId')
   - [studyIndications](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-studyIndications 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.studyIndications')
   - [studyVersion](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-studyVersion 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.studyVersion')
+- [HttpContextResponseHelper](#T-TransCelerate-SDR-Core-Utilities-Helpers-HttpContextResponseHelper 'TransCelerate.SDR.Core.Utilities.Helpers.HttpContextResponseHelper')
+  - [Response(context,response)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HttpContextResponseHelper-Response-Microsoft-AspNetCore-Http-HttpContext,System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HttpContextResponseHelper.Response(Microsoft.AspNetCore.Http.HttpContext,System.String)')
 - [IdGenerator](#T-TransCelerate-SDR-Core-Utilities-Helpers-IdGenerator 'TransCelerate.SDR.Core.Utilities.Helpers.IdGenerator')
   - [GenerateId()](#M-TransCelerate-SDR-Core-Utilities-Helpers-IdGenerator-GenerateId 'TransCelerate.SDR.Core.Utilities.Helpers.IdGenerator.GenerateId')
 - [LogHelper](#T-TransCelerate-SDR-Core-Utilities-LogHelper 'TransCelerate.SDR.Core.Utilities.LogHelper')
@@ -111,6 +117,28 @@
   - [OrderGroups(groupDetails,userGroupsQueryParameters)](#M-TransCelerate-SDR-Core-Utilities-Helpers-UserGroupSortingHelper-OrderGroups-System-Collections-Generic-IEnumerable{TransCelerate-SDR-Core-Entities-UserGroups-GroupDetailsEntity},TransCelerate-SDR-Core-DTO-UserGroups-UserGroupsQueryParameters- 'TransCelerate.SDR.Core.Utilities.Helpers.UserGroupSortingHelper.OrderGroups(System.Collections.Generic.IEnumerable{TransCelerate.SDR.Core.Entities.UserGroups.GroupDetailsEntity},TransCelerate.SDR.Core.DTO.UserGroups.UserGroupsQueryParameters)')
   - [OrderUsers(users,userGroupsQueryParameters)](#M-TransCelerate-SDR-Core-Utilities-Helpers-UserGroupSortingHelper-OrderUsers-System-Collections-Generic-IEnumerable{TransCelerate-SDR-Core-DTO-UserGroups-PostUserToGroupsDTO},TransCelerate-SDR-Core-DTO-UserGroups-UserGroupsQueryParameters- 'TransCelerate.SDR.Core.Utilities.Helpers.UserGroupSortingHelper.OrderUsers(System.Collections.Generic.IEnumerable{TransCelerate.SDR.Core.DTO.UserGroups.PostUserToGroupsDTO},TransCelerate.SDR.Core.DTO.UserGroups.UserGroupsQueryParameters)')
 - [ValidationErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-ValidationErrorModel 'TransCelerate.SDR.Core.ErrorModels.ValidationErrorModel')
+
+<a name='T-TransCelerate-SDR-Core-Filters-ActionFilter'></a>
+## ActionFilter `type`
+
+##### Namespace
+
+TransCelerate.SDR.Core.Filters
+
+##### Summary
+
+This class is an action filter which will be executed before and after an action is performed
+
+<a name='T-TransCelerate-SDR-Core-Filters-AllowAnonymousFilter'></a>
+## AllowAnonymousFilter `type`
+
+##### Namespace
+
+TransCelerate.SDR.Core.Filters
+
+##### Summary
+
+This authorisation handler will bypass all requirements
 
 <a name='T-TransCelerate-SDR-Core-Utilities-Common-Config'></a>
 ## Config `type`
@@ -232,6 +260,23 @@ A [ErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-ErrorModel 'TransCelerate.S
 | ---- | ---- | ----------- |
 | exception | [System.Exception](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Exception 'System.Exception') | Exception |
 
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-Forbidden-System-String-'></a>
+### Forbidden(message) `method`
+
+##### Summary
+
+Resposne Helper When the user is accessing a restricted data or APi
+
+##### Returns
+
+A [ErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-ErrorModel 'TransCelerate.SDR.Core.ErrorModels.ErrorModel')
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| message | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Message for error response |
+
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-GatewayError'></a>
 ### GatewayError() `method`
 
@@ -246,6 +291,23 @@ A [ErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-ErrorModel 'TransCelerate.S
 ##### Parameters
 
 This method has no parameters.
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-InternalServerError-System-String-'></a>
+### InternalServerError(message) `method`
+
+##### Summary
+
+Resposne Helper When there is a Internal server error
+
+##### Returns
+
+A [ErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-ErrorModel 'TransCelerate.SDR.Core.ErrorModels.ErrorModel')
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| message | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Message for error response |
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-MethodNotAllowed-System-String-'></a>
 ### MethodNotAllowed(message) `method`
@@ -281,7 +343,7 @@ A [ErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-ErrorModel 'TransCelerate.S
 | ---- | ---- | ----------- |
 | message | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Message for error response |
 
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-UnAuthorizedAccess'></a>
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-UnAuthorizedAccess-System-String-'></a>
 ### UnAuthorizedAccess() `method`
 
 ##### Summary
@@ -557,6 +619,35 @@ This property holds the List of Study Indications for specific [studyId](#P-Tran
 ##### Summary
 
 This property holds the value of version of Study
+
+<a name='T-TransCelerate-SDR-Core-Utilities-Helpers-HttpContextResponseHelper'></a>
+## HttpContextResponseHelper `type`
+
+##### Namespace
+
+TransCelerate.SDR.Core.Utilities.Helpers
+
+##### Summary
+
+This class is used to format the error messages in the response
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HttpContextResponseHelper-Response-Microsoft-AspNetCore-Http-HttpContext,System-String-'></a>
+### Response(context,response) `method`
+
+##### Summary
+
+This method is used to format the error messages in the response
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| context | [Microsoft.AspNetCore.Http.HttpContext](#T-Microsoft-AspNetCore-Http-HttpContext 'Microsoft.AspNetCore.Http.HttpContext') | HttpContext |
+| response | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Response string |
 
 <a name='T-TransCelerate-SDR-Core-Utilities-Helpers-IdGenerator'></a>
 ## IdGenerator `type`

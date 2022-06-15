@@ -15,10 +15,10 @@ namespace TransCelerate.SDR.RuleEngine
     {
         public GroupsValidator()
         {
-            RuleFor(x=>x.groupName)
+            RuleFor(x => x.groupName)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);  
             RuleFor(x => x.groupFilter)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)

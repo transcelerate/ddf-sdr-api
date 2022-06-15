@@ -12,11 +12,15 @@
   - [PostAllElements(studyDTO,entrySystem)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyController-PostAllElements-TransCelerate-SDR-Core-DTO-PostStudyDTO,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyController.PostAllElements(TransCelerate.SDR.Core.DTO.PostStudyDTO,System.String)')
   - [SearchStudy(searchparameters)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyController-SearchStudy-TransCelerate-SDR-Core-DTO-Study-SearchParametersDTO- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyController.SearchStudy(TransCelerate.SDR.Core.DTO.Study.SearchParametersDTO)')
 - [Startup](#T-TransCelerate-SDR-WebApi-Startup 'TransCelerate.SDR.WebApi.Startup')
-  - [Configure(app,env)](#M-TransCelerate-SDR-WebApi-Startup-Configure-Microsoft-AspNetCore-Builder-IApplicationBuilder,Microsoft-AspNetCore-Hosting-IWebHostEnvironment- 'TransCelerate.SDR.WebApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)')
+  - [Configure(app,env,logger)](#M-TransCelerate-SDR-WebApi-Startup-Configure-Microsoft-AspNetCore-Builder-IApplicationBuilder,Microsoft-AspNetCore-Hosting-IWebHostEnvironment,Microsoft-Extensions-Logging-ILogger{TransCelerate-SDR-WebApi-Startup}- 'TransCelerate.SDR.WebApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Logging.ILogger{TransCelerate.SDR.WebApi.Startup})')
   - [ConfigureServices(services)](#M-TransCelerate-SDR-WebApi-Startup-ConfigureServices-Microsoft-Extensions-DependencyInjection-IServiceCollection- 'TransCelerate.SDR.WebApi.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)')
+- [TokenController](#T-TransCelerate-SDR-WebApi-Controllers-TokenController 'TransCelerate.SDR.WebApi.Controllers.TokenController')
+  - [GetToken(user)](#M-TransCelerate-SDR-WebApi-Controllers-TokenController-GetToken-TransCelerate-SDR-Core-DTO-Token-UserLogin- 'TransCelerate.SDR.WebApi.Controllers.TokenController.GetToken(TransCelerate.SDR.Core.DTO.Token.UserLogin)')
 - [UserGroupsController](#T-TransCelerate-SDR-WebApi-Controllers-UserGroupsController 'TransCelerate.SDR.WebApi.Controllers.UserGroupsController')
+  - [CheckGroupName()](#M-TransCelerate-SDR-WebApi-Controllers-UserGroupsController-CheckGroupName-System-String- 'TransCelerate.SDR.WebApi.Controllers.UserGroupsController.CheckGroupName(System.String)')
   - [GetGroupList()](#M-TransCelerate-SDR-WebApi-Controllers-UserGroupsController-GetGroupList 'TransCelerate.SDR.WebApi.Controllers.UserGroupsController.GetGroupList')
   - [GetUserGroups()](#M-TransCelerate-SDR-WebApi-Controllers-UserGroupsController-GetUserGroups-TransCelerate-SDR-Core-DTO-UserGroups-UserGroupsQueryParameters- 'TransCelerate.SDR.WebApi.Controllers.UserGroupsController.GetUserGroups(TransCelerate.SDR.Core.DTO.UserGroups.UserGroupsQueryParameters)')
+  - [GetUserList()](#M-TransCelerate-SDR-WebApi-Controllers-UserGroupsController-GetUserList 'TransCelerate.SDR.WebApi.Controllers.UserGroupsController.GetUserList')
   - [GetUsersList()](#M-TransCelerate-SDR-WebApi-Controllers-UserGroupsController-GetUsersList-TransCelerate-SDR-Core-DTO-UserGroups-UserGroupsQueryParameters- 'TransCelerate.SDR.WebApi.Controllers.UserGroupsController.GetUsersList(TransCelerate.SDR.Core.DTO.UserGroups.UserGroupsQueryParameters)')
   - [PostGroup(groupDTO)](#M-TransCelerate-SDR-WebApi-Controllers-UserGroupsController-PostGroup-TransCelerate-SDR-Core-DTO-UserGroups-SDRGroupsDTO- 'TransCelerate.SDR.WebApi.Controllers.UserGroupsController.PostGroup(TransCelerate.SDR.Core.DTO.UserGroups.SDRGroupsDTO)')
   - [PostUserToGroups(userToGroupsDTO)](#M-TransCelerate-SDR-WebApi-Controllers-UserGroupsController-PostUserToGroups-TransCelerate-SDR-Core-DTO-UserGroups-PostUserToGroupsDTO- 'TransCelerate.SDR.WebApi.Controllers.UserGroupsController.PostUserToGroups(TransCelerate.SDR.Core.DTO.UserGroups.PostUserToGroupsDTO)')
@@ -136,8 +140,8 @@ Search For a Study
 
 TransCelerate.SDR.WebApi
 
-<a name='M-TransCelerate-SDR-WebApi-Startup-Configure-Microsoft-AspNetCore-Builder-IApplicationBuilder,Microsoft-AspNetCore-Hosting-IWebHostEnvironment-'></a>
-### Configure(app,env) `method`
+<a name='M-TransCelerate-SDR-WebApi-Startup-Configure-Microsoft-AspNetCore-Builder-IApplicationBuilder,Microsoft-AspNetCore-Hosting-IWebHostEnvironment,Microsoft-Extensions-Logging-ILogger{TransCelerate-SDR-WebApi-Startup}-'></a>
+### Configure(app,env,logger) `method`
 
 ##### Summary
 
@@ -149,6 +153,7 @@ This method gets called by the runtime. Use this method to configure the HTTP re
 | ---- | ---- | ----------- |
 | app | [Microsoft.AspNetCore.Builder.IApplicationBuilder](#T-Microsoft-AspNetCore-Builder-IApplicationBuilder 'Microsoft.AspNetCore.Builder.IApplicationBuilder') |  |
 | env | [Microsoft.AspNetCore.Hosting.IWebHostEnvironment](#T-Microsoft-AspNetCore-Hosting-IWebHostEnvironment 'Microsoft.AspNetCore.Hosting.IWebHostEnvironment') |  |
+| logger | [Microsoft.Extensions.Logging.ILogger{TransCelerate.SDR.WebApi.Startup}](#T-Microsoft-Extensions-Logging-ILogger{TransCelerate-SDR-WebApi-Startup} 'Microsoft.Extensions.Logging.ILogger{TransCelerate.SDR.WebApi.Startup}') |  |
 
 <a name='M-TransCelerate-SDR-WebApi-Startup-ConfigureServices-Microsoft-Extensions-DependencyInjection-IServiceCollection-'></a>
 ### ConfigureServices(services) `method`
@@ -163,12 +168,43 @@ This method gets called by the runtime. Use this method to add services to the c
 | ---- | ---- | ----------- |
 | services | [Microsoft.Extensions.DependencyInjection.IServiceCollection](#T-Microsoft-Extensions-DependencyInjection-IServiceCollection 'Microsoft.Extensions.DependencyInjection.IServiceCollection') |  |
 
+<a name='T-TransCelerate-SDR-WebApi-Controllers-TokenController'></a>
+## TokenController `type`
+
+##### Namespace
+
+TransCelerate.SDR.WebApi.Controllers
+
+<a name='M-TransCelerate-SDR-WebApi-Controllers-TokenController-GetToken-TransCelerate-SDR-Core-DTO-Token-UserLogin-'></a>
+### GetToken(user) `method`
+
+##### Summary
+
+GET Token for accessing API's
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| user | [TransCelerate.SDR.Core.DTO.Token.UserLogin](#T-TransCelerate-SDR-Core-DTO-Token-UserLogin 'TransCelerate.SDR.Core.DTO.Token.UserLogin') | logging user details |
+
 <a name='T-TransCelerate-SDR-WebApi-Controllers-UserGroupsController'></a>
 ## UserGroupsController `type`
 
 ##### Namespace
 
 TransCelerate.SDR.WebApi.Controllers
+
+<a name='M-TransCelerate-SDR-WebApi-Controllers-UserGroupsController-CheckGroupName-System-String-'></a>
+### CheckGroupName() `method`
+
+##### Summary
+
+Check Group name
+
+##### Parameters
+
+This method has no parameters.
 
 <a name='M-TransCelerate-SDR-WebApi-Controllers-UserGroupsController-GetGroupList'></a>
 ### GetGroupList() `method`
@@ -187,6 +223,17 @@ This method has no parameters.
 ##### Summary
 
 GET All Groups
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-TransCelerate-SDR-WebApi-Controllers-UserGroupsController-GetUserList'></a>
+### GetUserList() `method`
+
+##### Summary
+
+GET user list from AD
 
 ##### Parameters
 

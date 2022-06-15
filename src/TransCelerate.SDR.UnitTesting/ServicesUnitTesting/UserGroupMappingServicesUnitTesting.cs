@@ -240,8 +240,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             //Assert          
             Assert.IsTrue(expected.Any(x=>x.groupName==actual_result[0].groupName));
             Assert.IsTrue(expected.Any(x=>x.groupName==actual_result[1].groupName));
-            Assert.IsTrue(expected.Any(x=>x.groupName==actual_result[2].groupName));
-            Assert.IsTrue(expected.Any(x=>x.groupName==actual_result[3].groupName));            
+            Assert.IsTrue(expected.Any(x=>x.groupName==actual_result[2].groupName));                     
         }
 
         [Test]
@@ -264,6 +263,38 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     .Throws(new Exception("Error"));
             UserGroupMappingService userGroupMappingService1 = new UserGroupMappingService(_mockUserGroupMappingRepository.Object, _mockMapper, _mockLogger);
             var error = userGroupMappingService1.ListGroups();
+
+
+            Assert.Throws<AggregateException>(error.Wait);
+        }
+        #endregion
+
+        #region Check GroupName 
+        [Test]
+        public void CheckGroupName_UnitTest_FailureResponse()
+        {
+            _mockUserGroupMappingRepository.Setup(x => x.GetGroupByName("A"))
+                   .Returns(Task.FromResult(GetDataFromStaticJson().SDRGroups[0]));
+            UserGroupMappingService userGroupMappingService = new UserGroupMappingService(_mockUserGroupMappingRepository.Object, _mockMapper, _mockLogger);
+
+            var method = userGroupMappingService.CheckGroupName("A");
+            method.Wait();
+
+            //Actual
+            var actual_result = method.Result;
+
+            //Assert          
+            Assert.IsNotNull(actual_result);
+
+            method = userGroupMappingService.CheckGroupName("B");
+            method.Wait();
+            Assert.IsNotNull(method.Result);
+
+
+            _mockUserGroupMappingRepository.Setup(x => x.GetGroupByName("A"))
+                    .Throws(new Exception("Error"));
+            UserGroupMappingService userGroupMappingService1 = new UserGroupMappingService(_mockUserGroupMappingRepository.Object, _mockMapper, _mockLogger);
+            var error = userGroupMappingService1.CheckGroupName("A");
 
 
             Assert.Throws<AggregateException>(error.Wait);

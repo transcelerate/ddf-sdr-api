@@ -327,8 +327,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             Assert.IsTrue(expected.Any(x => x.groupName == actual_result[0].groupName));
             Assert.IsTrue(expected.Any(x => x.groupName == actual_result[1].groupName));
-            Assert.IsTrue(expected.Any(x => x.groupName == actual_result[2].groupName));
-            Assert.IsTrue(expected.Any(x => x.groupName == actual_result[3].groupName));
+            Assert.IsTrue(expected.Any(x => x.groupName == actual_result[2].groupName));           
         }
 
         [Test]
@@ -355,6 +354,53 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsNotNull((error as BadRequestObjectResult).Value);
             Assert.AreEqual(400, (error as BadRequestObjectResult).StatusCode);
             Assert.IsInstanceOf(typeof(BadRequestObjectResult), error);
+        }
+        #endregion
+
+        #region CheckGroupName
+        [Test]
+        public void CheckGroupName_UnitTesting()
+        {
+            _mockUserGroupMappingService.Setup(x => x.CheckGroupName(It.IsAny<string>()))
+                    .Returns(Task.FromResult(GetDataFromStaticJson().SDRGroups[0] as object));
+            UserGroupsController userGroupMappingController = new UserGroupsController(_mockUserGroupMappingService.Object, _mockLogger);
+
+            var method = userGroupMappingController.CheckGroupName("A");
+            method.Wait();
+            var result = method.Result;
+
+            //Expected
+            var expected = new {groupName = GetDataFromStaticJson().SDRGroups[0].groupName,isExists = false};
+
+            //Actual            
+            var actual_result = JsonConvert.DeserializeObject<object>(JsonConvert.SerializeObject((result as OkObjectResult).Value));
+
+            //Assert          
+
+            Assert.IsNotNull((result as OkObjectResult).Value);
+            Assert.AreEqual(200, (result as OkObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(OkObjectResult), result);
+
+            actual_result.Equals(expected);
+
+            method = userGroupMappingController.CheckGroupName(null);
+            method.Wait();
+            result = method.Result;
+
+            Assert.IsNotNull((result as BadRequestObjectResult).Value);
+            Assert.AreEqual(400, (result as BadRequestObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), result);
+
+            _mockUserGroupMappingService.Setup(x => x.CheckGroupName(It.IsAny<string>()))
+                    .Throws(new Exception("Error"));
+
+            method = userGroupMappingController.CheckGroupName("A");
+            method.Wait();
+            result = method.Result;
+
+            Assert.IsNotNull((result as BadRequestObjectResult).Value);
+            Assert.AreEqual(400, (result as BadRequestObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), result);
         }
         #endregion
 
