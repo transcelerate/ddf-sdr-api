@@ -219,8 +219,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 filter &= builder.Where(x => x.auditTrail.entryDateTime >= fromDate
                                          && x.auditTrail.entryDateTime <= toDate);
                 if (!String.IsNullOrEmpty(studyTitle))
-                    filter &= builder.Where(x => x.clinicalStudy.studyTitle.ToLower().Contains(studyTitle.ToLower()));
-                filter &= GroupFilter();
+                    filter &= builder.Where(x => x.clinicalStudy.studyTitle.ToLower().Contains(studyTitle.ToLower()));                
 
                 List<StudyHistoryEntity> studyHistories = await collection
                                                         .Find(filter) // Condition for matching date range
@@ -230,10 +229,13 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                                     studyId = x.clinicalStudy.studyId, 
                                                                     studyTitle = x.clinicalStudy.studyTitle, 
                                                                     studyVersion = x.auditTrail.studyVersion, 
-                                                                    entryDateTime = x.auditTrail.entryDateTime 
+                                                                    entryDateTime = x.auditTrail.entryDateTime,
+                                                                    studyType = x.clinicalStudy.studyType
                                                                 })  //Project only the required fields
                                                         .SortByDescending(s => s.auditTrail.entryDateTime)  // Sort by descending on entryDateTime
-                                                        .ToListAsync().ConfigureAwait(false);                               
+                                                        .ToListAsync().ConfigureAwait(false);   
+                
+                studyHistories = GroupFilterForStudyHistory(studyHistories);
 
                 if (studyHistories.Count() == 0)
                 {
@@ -350,12 +352,12 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             //Filter for studyIndication: description
             if (!String.IsNullOrWhiteSpace(searchParameters.indication))
             {
-                searchResults = searchResults.Where(x => x.studyIndications != null && x.studyIndications.Count() > 0 ? x.studyIndications.Any(x => x.Any(x => x.description.ToLower().Contains(searchParameters.indication.ToLower()))) : 1 == 0).ToList();
+                searchResults = searchResults.Where(x => x.studyIndications != null && x.studyIndications.Count() > 0 ? x.studyIndications.Any(x => x.Any(x => x.description!=null? x.description.ToLower().Contains(searchParameters.indication.ToLower()) : 1 == 0)) : 1 == 0).ToList();
             }
             //Filter for studyDesign: InvestigationalIntervention: Intervention Model
             if (!String.IsNullOrWhiteSpace(searchParameters.interventionModel))
             {
-                searchResults = searchResults.Where(x => x.investigationalInterventions != null && x.investigationalInterventions.Count() > 0 ? x.investigationalInterventions.Any(x => x.Any(x => x.Any(x => x.Any(x => x.interventionModel.ToLower().Contains(searchParameters.interventionModel.ToLower()))))) : 1 == 0).ToList();
+                searchResults = searchResults.Where(x => x.investigationalInterventions != null && x.investigationalInterventions.Count() > 0 ? x.investigationalInterventions.Any(x => x.Any(x => x.Any(x => x.Any(x => x.interventionModel!=null? x.interventionModel.ToLower().Contains(searchParameters.interventionModel.ToLower()):1==0)))) : 1 == 0).ToList();
             }
             //Filter for studyPhase
             if (!String.IsNullOrWhiteSpace(searchParameters.phase))
@@ -376,7 +378,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                     studyTypeFilterValues.AddRange(groups.SelectMany(x => x.groupFilter)
                                                          .Where(x => x.groupFieldName == GroupFieldNames.studyType.ToString())
                                                          .SelectMany(x => x.groupFilterValues)
-                                                         .Select(x => x.groupFilterValueId)
+                                                         .Select(x => x.groupFilterValueId.ToLower())
                                                          .ToList());
                     studyIdFilterValues.AddRange(groups.SelectMany(x => x.groupFilter)
                                                          .Where(x => x.groupFieldName == GroupFieldNames.study.ToString())
@@ -384,7 +386,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                          .Select(x => x.groupFilterValueId)
                                                          .ToList());
 
-                    searchResults = searchResults.Where(x => studyTypeFilterValues.Contains(x.studyType.ToLower()) || studyIdFilterValues.Contains(x.studyId.ToLower())).ToList();
+                    searchResults = searchResults.Where(x => studyTypeFilterValues.Contains(x.studyType.ToLower()) || studyIdFilterValues.Contains(x.studyId)).ToList();
                 }
                 else
                 {
@@ -530,7 +532,40 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         }
         #endregion
 
-        #region Data Filtering based on groups      
+        #region Data Filtering based on groups    
+        
+        public List<StudyHistoryEntity> GroupFilterForStudyHistory(List<StudyHistoryEntity> studyHistoryEntities)
+        {
+            if (Config.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+            {
+                var groups = GetGroupsOfUser().Result;
+
+                if (groups != null && groups.Count > 0)
+                {
+                    List<string> studyTypeFilterValues = new List<string>();
+                    List<string> studyIdFilterValues = new List<string>();
+                    studyTypeFilterValues.AddRange(groups.SelectMany(x => x.groupFilter)
+                                                         .Where(x => x.groupFieldName == GroupFieldNames.studyType.ToString())
+                                                         .SelectMany(x => x.groupFilterValues)
+                                                         .Select(x => x.groupFilterValueId.ToLower())
+                                                         .ToList());
+                    studyIdFilterValues.AddRange(groups.SelectMany(x => x.groupFilter)
+                                                         .Where(x => x.groupFieldName == GroupFieldNames.study.ToString())
+                                                         .SelectMany(x => x.groupFilterValues)
+                                                         .Select(x => x.groupFilterValueId)
+                                                         .ToList());
+
+
+                    studyHistoryEntities = studyHistoryEntities.Where(x => studyTypeFilterValues.Contains(x.studyType.ToLower()) || studyIdFilterValues.Contains(x.studyId)).ToList();
+                }
+                else
+                {
+                    // Filter should not give any results
+                    studyHistoryEntities = studyHistoryEntities.Where(x => 1 == 0).ToList();
+                }
+            }
+            return studyHistoryEntities;
+        }
         public FilterDefinition<StudyEntity> GroupFilter()
         {
             var builder = Builders<StudyEntity>.Filter;
