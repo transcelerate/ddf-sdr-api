@@ -95,6 +95,12 @@ namespace TransCelerate.SDR.WebApi
                 });
             });
 
+            if (_env.IsDevelopment())
+            {
+                if (!Config.isAuthEnabled)
+                    services.AddTransient<IAuthorizationHandler, AllowAnonymousFilter>();
+            }
+
             #region Authorization
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                         .AddJwtBearer(o =>
@@ -126,12 +132,7 @@ namespace TransCelerate.SDR.WebApi
             services.AddTransient<IUserGroupMappingRepository, UserGroupMappingRepository>();
             services.AddTransient<IUserGroupMappingService, UserGroupMappingService>();
             services.AddTransient<ILogHelper, LogHelper>();
-            services.AddTransient<IMongoClient,MongoClient>(db=>new MongoClient(Config.ConnectionString));
-            if (_env.IsDevelopment())
-            {
-                if (!Config.isAuthEnabled)
-                    services.AddTransient<IAuthorizationHandler, AllowAnonymousFilter>();
-            }
+            services.AddTransient<IMongoClient,MongoClient>(db=>new MongoClient(Config.ConnectionString));            
 
             //AutoMapper Profile
             services.AddAutoMapper(typeof(AutoMapperProfies).Assembly);   
