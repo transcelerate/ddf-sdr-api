@@ -565,52 +565,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 }
             }
             return studyHistoryEntities;
-        }
-        public FilterDefinition<StudyEntity> GroupFilter()
-        {
-            var builder = Builders<StudyEntity>.Filter;
-            var filter = builder.Empty;
-            if (Config.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
-            {
-                var groups = GetGroupsOfUser().Result;
-
-                if (groups != null && groups.Count > 0)
-                {
-                    List<string> studyTypeFilterValues = new List<string>();
-                    List<string> studyIdFilterValues = new List<string>();
-                    studyTypeFilterValues.AddRange(groups.SelectMany(x => x.groupFilter)
-                                                         .Where(x => x.groupFieldName == GroupFieldNames.studyType.ToString())
-                                                         .SelectMany(x => x.groupFilterValues)
-                                                         .Select(x => x.groupFilterValueId)
-                                                         .ToList());
-                    studyIdFilterValues.AddRange(groups.SelectMany(x => x.groupFilter)
-                                                         .Where(x => x.groupFieldName == GroupFieldNames.study.ToString())
-                                                         .SelectMany(x => x.groupFilterValues)
-                                                         .Select(x => x.groupFilterValueId)
-                                                         .ToList());
-
-                    
-                    if (studyTypeFilterValues.Count > 0)
-                    {
-                        var regexFilter = "(" + string.Join("|", studyTypeFilterValues.Distinct()) + ")";
-                        filter &= builder.Regex(x => x.clinicalStudy.studyType, new BsonRegularExpression(new Regex(regexFilter, RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace)));
-                        //filter &= builder.In(x => x.clinicalStudy.studyType, studyTypeFilterValues);
-                    }
-
-                    if (studyIdFilterValues.Count > 0 && studyTypeFilterValues.Count > 0)
-                        filter |= builder.In(x => x.clinicalStudy.studyId, studyIdFilterValues);
-                    else if(studyIdFilterValues.Count > 0 && studyTypeFilterValues.Count == 0)
-                        filter &= builder.In(x => x.clinicalStudy.studyId, studyIdFilterValues);
-                }
-                else
-                {
-                    // Filter should not give any results
-                    filter &= builder.Where(x => 1 == 0);
-                }
-            }
-
-            return filter;
-        }
+        }        
 
         public async Task<List<SDRGroupsEntity>> GetGroupsOfUser()
         {

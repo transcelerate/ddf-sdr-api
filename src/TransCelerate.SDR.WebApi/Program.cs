@@ -29,20 +29,28 @@ namespace TransCelerate.SDR.WebApi
                     var clientId = builfConfig[Constants.KeyVault.ClientId];
                     var clientSecret = builfConfig[Constants.KeyVault.ClientSecret];
 
-                    //For deployed code
-                    if (String.IsNullOrEmpty(clientId))
+                    if (!context.HostingEnvironment.IsDevelopment())
                     {
-                        var azureTokenProvider = new AzureServiceTokenProvider();
-                        var keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback
-                                                 (azureTokenProvider.KeyVaultTokenCallback));
-                        config.AddAzureKeyVault(vaultName, keyVaultClient, new DefaultKeyVaultSecretManager());
-                    }
-                    //For running the code in local.
-                    //Need to add vault Name, client Id and client secret of registered app which is linked to keyvault.
+                        //For deployed code
+                        if (!String.IsNullOrEmpty(vaultName))
+                        {
+                            var azureTokenProvider = new AzureServiceTokenProvider();
+                            var keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback
+                                                     (azureTokenProvider.KeyVaultTokenCallback));
+                            config.AddAzureKeyVault(vaultName, keyVaultClient, new DefaultKeyVaultSecretManager());
+                        }
+                    }                    
                     else
                     {
-                        config.AddAzureKeyVault(vaultName, clientId, clientSecret);
+                        //For getting key vault values when running the code in local:
+                        //          Need to add vault Name, client Id and client secret of registered app which is linked to keyvault
+                        //          and uncomment below if block.
+                        //if (!String.IsNullOrEmpty(vaultName) && !String.IsNullOrEmpty(clientId) && !String.IsNullOrEmpty(clientId))
+                        //{
+                        //    config.AddAzureKeyVault(vaultName, clientId, clientSecret);
+                        //}
                     }
+
                 });
     }
 }
