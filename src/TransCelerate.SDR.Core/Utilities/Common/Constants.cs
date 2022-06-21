@@ -79,6 +79,8 @@
             public const string InvalidSortOrder = "Sort Order is not valid";
 
             public const string EnterValidNumber = "Enter a valid number";
+
+            public const string RootElementMissing = "Root Element is missing";
         }
 
         public struct ErrorMessages
