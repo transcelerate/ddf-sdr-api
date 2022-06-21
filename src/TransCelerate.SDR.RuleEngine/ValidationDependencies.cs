@@ -17,7 +17,8 @@ namespace TransCelerate.SDR.RuleEngine
         public static IServiceCollection AddValidationDependencies(this IServiceCollection services)
         {
             //Study Level Validators
-            services.AddTransient<IValidator<PostStudyDTO>, ClinicalStudyValidator>();            
+            services.AddTransient<IValidator<ClinicalStudyDTO>, ClinicalStudyValidator>();            
+            services.AddTransient<IValidator<PostStudyDTO>, PostStudyValidator>();            
             services.AddTransient<IValidator<StudyIdentifierDTO>, StudyIdentifiersValidator>();
             services.AddTransient<IValidator<StudyProtocolDTO>, StudyProtocolValidator>();
             //Section Level Validators
