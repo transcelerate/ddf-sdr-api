@@ -437,8 +437,11 @@ namespace TransCelerate.SDR.UnitTesting
         {            
             ValidationDependencies.AddValidationDependencies(serviceDescriptors);
             var incomingpostStudyDTO = PostDataFromStaticJson();
+            PostStudyValidator postStudyValidator = new PostStudyValidator();
+            Assert.IsTrue(postStudyValidator.Validate(incomingpostStudyDTO).IsValid);
+
             ClinicalStudyValidator clinicalStudyRules = new ClinicalStudyValidator();
-            var result= clinicalStudyRules.Validate(incomingpostStudyDTO);
+            var result= clinicalStudyRules.Validate(incomingpostStudyDTO.clinicalStudy);
             Assert.IsTrue(result.IsValid);
 
             StudyIdentifiersValidator studyIdentifiersValidator = new StudyIdentifiersValidator();            
