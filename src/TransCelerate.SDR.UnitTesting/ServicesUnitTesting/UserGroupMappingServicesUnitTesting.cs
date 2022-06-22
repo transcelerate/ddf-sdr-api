@@ -257,7 +257,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             var actual_result = method.Result;
 
             //Assert          
-            Assert.IsNull(actual_result);
+            Assert.IsEmpty(actual_result);
 
             _mockUserGroupMappingRepository.Setup(x => x.GetGroupList())
                     .Throws(new Exception("Error"));

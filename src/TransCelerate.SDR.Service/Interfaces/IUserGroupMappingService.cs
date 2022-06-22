@@ -26,10 +26,10 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// <summary>
         /// GET All groups
         /// </summary>        
-        /// <returns> A <see cref="object"/> with List of groupId and groupName <br />
+        /// <returns> A <see cref="List{GroupListDTO}"/> with List of groupId and groupName <br />
         /// <see langword="null"/> if there are no groups
         /// </returns>   
-        Task<object> ListGroups();
+        Task<List<GroupListDTO>> ListGroups();
         /// <summary>
         /// Check GroupName
         /// </summary>        

@@ -152,10 +152,10 @@ namespace TransCelerate.SDR.Services.Services
         /// <summary>
         /// GET All groups
         /// </summary>        
-        /// <returns> A <see cref="object"/> with List of groupId and groupName <br />
+        /// <returns> A <see cref="List{GroupListDTO}"/> with List of groupId and groupName <br />
         /// <see langword="null"/> if there are no groups
         /// </returns>  
-        public async Task<object> ListGroups()
+        public async Task<List<GroupListDTO>> ListGroups()
         {
             try
             {
@@ -163,7 +163,7 @@ namespace TransCelerate.SDR.Services.Services
                 var userGroupListEntity = await _userGroupMappingRepository.GetGroupList();
                 
                 if(userGroupListEntity == null || userGroupListEntity.Count==0)
-                    return null;
+                    return new List<GroupListDTO>();
 
                 var userGroupListDTO = _mapper.Map<List<GroupListDTO>>(userGroupListEntity);
 

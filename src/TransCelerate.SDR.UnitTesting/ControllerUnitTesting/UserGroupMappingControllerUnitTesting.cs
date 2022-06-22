@@ -51,11 +51,11 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             return groupDetails;
         }
 
-        public List<GroupListEntity> GetListGroups()
+        public List<GroupDetailsDTO> GetListGroups()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/UserGroupMappingData.json");
             var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingEntity>(jsonData);
-            var groupDetails = JsonConvert.DeserializeObject<List<GroupListEntity>>(JsonConvert.SerializeObject(userGrouppMapping.SDRGroups));
+            var groupDetails = JsonConvert.DeserializeObject<List<GroupDetailsDTO>>(JsonConvert.SerializeObject(userGrouppMapping.SDRGroups));
             return groupDetails;
         }
         public SDRGroupsDTO PostAGroupDto()
@@ -306,7 +306,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         public void ListGroups_UnitTest_SuccessResponse()
         {
             _mockUserGroupMappingService.Setup(x => x.ListGroups())
-                    .Returns(Task.FromResult(GetListGroups() as object));
+                    .Returns(Task.FromResult(JsonConvert.DeserializeObject<List<GroupListDTO>>(JsonConvert.SerializeObject(GetListGroups()))));
             UserGroupsController userGroupMappingController = new UserGroupsController(_mockUserGroupMappingService.Object,_mockLogger);
 
             var method = userGroupMappingController.GetGroupList();
@@ -334,21 +334,11 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         public void ListGroups_UnitTest_FailureResponse()
         {
             _mockUserGroupMappingService.Setup(x => x.ListGroups())
-                   .Returns(Task.FromResult(null as object));
+                 .Throws(new Exception("Error"));
             UserGroupsController userGroupMappingController = new UserGroupsController(_mockUserGroupMappingService.Object, _mockLogger);
 
             var method = userGroupMappingController.GetGroupList();
             method.Wait();
-            var result = method.Result;
-
-            //Assert          
-            Assert.IsNotNull((result as NotFoundObjectResult).Value);
-            Assert.AreEqual(404, (result as NotFoundObjectResult).StatusCode);
-            Assert.IsInstanceOf(typeof(NotFoundObjectResult), result);
-
-            _mockUserGroupMappingService.Setup(x => x.ListGroups())
-                    .Throws(new Exception("Error"));            
-            method = userGroupMappingController.GetGroupList();
             var error = method.Result;
 
             Assert.IsNotNull((error as BadRequestObjectResult).Value);

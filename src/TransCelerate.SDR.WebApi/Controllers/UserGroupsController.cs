@@ -131,15 +131,8 @@ namespace TransCelerate.SDR.WebApi.Controllers
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(GetGroupList)};");
-                var users = await _userGroupMappingService.ListGroups();
-                if (users == null)
-                {                    
-                    return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.GroupsNotFound)).Value);
-                }
-                else
-                {
-                    return Ok(users);
-                }
+                var groups = await _userGroupMappingService.ListGroups();
+                return Ok(groups);
             }
             catch (Exception ex)
             {
