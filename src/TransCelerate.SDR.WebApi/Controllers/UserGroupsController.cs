@@ -6,8 +6,9 @@ using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
-
+using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.DTO.UserGroups;
 using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.Core.Utilities;
@@ -252,13 +253,18 @@ namespace TransCelerate.SDR.WebApi.Controllers
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(PostGroup)};");
+                LoggedInUser user = new LoggedInUser
+                {
+                    UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                    UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
+                };
                 if (groupDTO == null)
                 {
                     return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.PostGroupDataNotValid)).Value);
                 }
                 else
                 {
-                    var response = await _userGroupMappingService.PostGroup(groupDTO);
+                    var response = await _userGroupMappingService.PostGroup(groupDTO,user);
                     if (response == null)
                     {
                         return NotFound(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError)).Value);
@@ -305,13 +311,18 @@ namespace TransCelerate.SDR.WebApi.Controllers
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(PostGroup)};");
+                LoggedInUser user = new LoggedInUser
+                {
+                    UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                    UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
+                };
                 if (userToGroupsDTO == null)
                 {
                     return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.PostGroupDataNotValid)).Value);
                 }
                 else
                 {
-                    var response = await _userGroupMappingService.PostUserToGroups(userToGroupsDTO);
+                    var response = await _userGroupMappingService.PostUserToGroups(userToGroupsDTO,user);
                     if (response == null)
                     {   
                         return NotFound(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError)).Value);

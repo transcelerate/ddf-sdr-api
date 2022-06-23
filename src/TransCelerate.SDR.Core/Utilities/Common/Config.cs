@@ -15,8 +15,6 @@
         public static string ClientSecret { get; set; }
         public static string Authority { get; set; }
         public static string Scope { get; set; }
-        public static string UserName { get; set; }
-        public static string UserRole { get; set; }
         public static bool isGroupFilterEnabled { get; set; }
         public static bool isAuthEnabled { get; set; }
     }
