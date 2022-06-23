@@ -35,19 +35,7 @@ namespace TransCelerate.SDR.Core.Filters
                 string response = string.Empty;
                 int statusCode = 0;
 
-                // execute any code before the action executes
-                if (context != null)
-                {
-                    if(context.HttpContext.User!=null)
-                    {
-                        if (context.HttpContext.User.FindFirst(ClaimTypes.Name) != null)
-                            if (context.HttpContext.User.FindFirst(ClaimTypes.Name) != null)
-                                Config.UserName = context.HttpContext.User.FindFirst(ClaimTypes.Name).Value;
-                        if (context.HttpContext.User.FindFirst(ClaimTypes.Role) != null)
-                            if (context.HttpContext.User.FindFirst(ClaimTypes.Role).Value != null)
-                                 Config.UserRole = context.HttpContext.User.FindFirst(ClaimTypes.Role).Value;
-                    }
-                }                
+                // execute any code before the action executes                             
 
                 var result = await next();
                 // execute any code after the action executes                
@@ -69,7 +57,7 @@ namespace TransCelerate.SDR.Core.Filters
                     var AuthToken = context.HttpContext.Request.Headers["Authorization"];
                     context.HttpContext.Response.Headers.Add("Controller", "True");
                     //Logging Request and Response parameters
-                    _logger.LogInformation($"Status Code: {statusCode}; userName: {Config.UserName ?? "<null>"}; userRole: {Config.UserRole ?? "<null>"}; URL: {context.HttpContext.Request.Path}; inputs : {request}; responseBody : {response};AuthToken: {AuthToken}");
+                    _logger.LogInformation($"Status Code: {statusCode}; UserName : {context.HttpContext.User?.FindFirst(ClaimTypes.Name)?.Value}; UserRole : {context.HttpContext.User?.FindFirst(ClaimTypes.Role)?.Value} URL: {context.HttpContext.Request.Path}; AuthToken: {AuthToken}");
                 }
             }
             catch (Exception ex)

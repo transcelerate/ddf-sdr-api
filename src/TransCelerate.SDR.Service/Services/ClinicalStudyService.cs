@@ -15,6 +15,8 @@ using TransCelerate.SDR.Core.Utilities.Enums;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.DataAccess.Interfaces;
 using TransCelerate.SDR.Services.Interfaces;
+using TransCelerate.SDR.Core.DTO.Token;
+
 
 namespace TransCelerate.SDR.Services.Services
 {
@@ -44,11 +46,12 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="studyId">Study ID</param>
         /// <param name="version">Version of study</param>
         /// <param name="tag">Tag of a study</param>
+        /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<object> GetAllElements(string studyId,int version, string tag)
+        public async Task<object> GetAllElements(string studyId,int version, string tag, LoggedInUser user)
         {
             try
             {
@@ -72,7 +75,7 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {                 
-                    var checkStudy = await CheckAccessForAStudy(study);
+                    var checkStudy = await CheckAccessForAStudy(study, user);
                     if (checkStudy == null)
                         return Constants.ErrorMessages.Forbidden;
                     var studyDTO = _mapper.Map<GetStudyDTO>(study);  //Mapping Entity to Dto                                                  
@@ -96,11 +99,12 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="version">Version of study</param>
         /// <param name="tag">Tag of a study</param>
         /// <param name="sections">Study sections which have to be fetched</param>
+        /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="object"/> of study sections with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<object> GetSections(string studyId, int version, string tag, string[] sections)
+        public async Task<object> GetSections(string studyId, int version, string tag, string[] sections, LoggedInUser user)
         {
             try
             {
@@ -124,7 +128,7 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {
-                    var checkStudy = await CheckAccessForAStudy(study);
+                    var checkStudy = await CheckAccessForAStudy(study, user);
                     if (checkStudy == null)
                         return Constants.ErrorMessages.Forbidden;
                     var studySectionDTO = _mapper.Map<GetStudySectionsDTO>(study.clinicalStudy);
@@ -151,11 +155,12 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="tag">Tag of a study</param>
         /// <param name="studyDesignId">Study Design Id</param>
         /// <param name="sections">Study Design sections which have to be fetched</param>   
+        /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="object"/> of studyDesign sections with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<object> GetStudyDesignSections(string studyId, string studyDesignId, int version, string tag, string[] sections)
+        public async Task<object> GetStudyDesignSections(string studyId, string studyDesignId, int version, string tag, string[] sections, LoggedInUser user)
         {
             try
             {
@@ -179,7 +184,7 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {
-                    var checkStudy = await CheckAccessForAStudy(study);
+                    var checkStudy = await CheckAccessForAStudy(study, user);
                     if (checkStudy == null)
                         return Constants.ErrorMessages.Forbidden;
                     var studySectionDTO = _mapper.Map<GetStudySectionsDTO>(study.clinicalStudy); //Mapping Entity to Dto  
@@ -205,11 +210,12 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="fromDate">Start Date for Date Filter</param>
         /// <param name="toDate">End Date for Date Filter</param>
         /// <param name="studyId">Study ID</param>
+        /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<object> GetAuditTrail(DateTime fromDate, DateTime toDate, string studyId)
+        public async Task<object> GetAuditTrail(DateTime fromDate, DateTime toDate, string studyId, LoggedInUser user)
         {
             try
             {
@@ -221,7 +227,7 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {
-                    studies = await CheckAccessForAuditTrail(studies);
+                    studies = await CheckAccessForAuditTrail(studies, user);
                     if (studies == null)
                         return Constants.ErrorMessages.Forbidden;
                     var auditTrailDTOList = _mapper.Map<List<AuditTrailEndpointResponseDTO>>(studies); //Mapping Entity to Dto 
@@ -249,16 +255,17 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="fromDate">Start Date for Date Filter</param>
         /// <param name="toDate">End Date for Date Filter</param>
         /// <param name="studyTitle">Study Title Filter</param>
+        /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="GetStudyHistoryResponseDTO"/> which has list of study ID's <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<GetStudyHistoryResponseDTO> GetAllStudyId(DateTime fromDate, DateTime toDate, string studyTitle)
+        public async Task<GetStudyHistoryResponseDTO> GetAllStudyId(DateTime fromDate, DateTime toDate, string studyTitle, LoggedInUser user)
         {
             try
             {
                 _logger.LogInformation($"Started Service : {nameof(ClinicalStudyService)}; Method : {nameof(GetAllStudyId)};");
-                var studies = await _clinicalStudyRepository.GetAllStudyId(fromDate, toDate, studyTitle); //Getting List of studyId, studyTitle and Version
+                var studies = await _clinicalStudyRepository.GetAllStudyId(fromDate, toDate, studyTitle,user); //Getting List of studyId, studyTitle and Version
                 if (studies == null)
                 {
                     return null;
@@ -301,17 +308,18 @@ namespace TransCelerate.SDR.Services.Services
         /// POST All Elements For a Study
         /// </summary>
         /// <param name="studyDTO">Study for Inserting/Updating in Database</param>
-        /// <param name="entrySystem">System which made the request</param>        
+        /// <param name="entrySystem">System which made the request</param>  
+        /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="PostStudyDTO"/> which has study ID and study design ID's <br></br> <br></br>
         /// <see langword="null"/> If the insert is not done
         /// </returns>
-        public async Task<object> PostAllElements(PostStudyDTO studyDTO,string entrySystem)
+        public async Task<object> PostAllElements(PostStudyDTO studyDTO,string entrySystem, LoggedInUser user)
         {
             try
             {
                 _logger.LogInformation($"Started Service : {nameof(ClinicalStudyService)}; Method : {nameof(PostAllElements)};");
-                if (!await CheckPermissionForAUser())
+                if (!await CheckPermissionForAUser(user))
                     return Constants.ErrorMessages.PostRestricted;
                 var incomingstudyEntity = _mapper.Map<StudyEntity>(studyDTO);           //Mapping Dto to Entity                
                 #region Adding Audit Trail for Incoming Study
@@ -396,11 +404,12 @@ namespace TransCelerate.SDR.Services.Services
         /// Search Study Elements with search criteria
         /// </summary>
         /// <param name="searchParametersDTO">Parameters to search in database</param>
+        /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="List{GetStudyDTO}"/> which matches serach criteria <br></br> <br></br>
         /// <see langword="null"/> If the insert is not done
         /// </returns>
-        public async Task<List<GetStudyDTO>> SearchStudy(SearchParametersDTO searchParametersDTO)
+        public async Task<List<GetStudyDTO>> SearchStudy(SearchParametersDTO searchParametersDTO, LoggedInUser user)
         {
             try
             {
@@ -409,7 +418,7 @@ namespace TransCelerate.SDR.Services.Services
 
                 var searchParameters = _mapper.Map<SearchParameters>(searchParametersDTO);
 
-                var studies = await _clinicalStudyRepository.SearchStudy(searchParameters).ConfigureAwait(false);
+                var studies = await _clinicalStudyRepository.SearchStudy(searchParameters,user).ConfigureAwait(false);
                 
                 if (studies == null)
                 {                  
@@ -460,19 +469,20 @@ namespace TransCelerate.SDR.Services.Services
         /// Check access for the study
         /// </summary>
         /// <param name="study">Study for which user access have to be checked</param>   
+        /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="StudyEntity"/> if the user have access <br></br> <br></br>
         /// <see langword="null"/> If user doesn't have access to the study
         /// </returns>
-        public async Task<StudyEntity> CheckAccessForAStudy(StudyEntity study)
+        public async Task<StudyEntity> CheckAccessForAStudy(StudyEntity study, LoggedInUser user)
         {
             try
             {
                 _logger.LogInformation($"Started Service : {nameof(ClinicalStudyService)}; Method : {nameof(CheckAccessForAStudy)};");
                 
-                if (Config.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+                if (user.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
                 {
-                    var groups = await _clinicalStudyRepository.GetGroupsOfUser().ConfigureAwait(false);
+                    var groups = await _clinicalStudyRepository.GetGroupsOfUser(user).ConfigureAwait(false);
 
                     if (groups != null && groups.Count > 0)
                     {
@@ -518,19 +528,20 @@ namespace TransCelerate.SDR.Services.Services
         /// Check access for the Study Aduit
         /// </summary>
         /// <param name="studyList">Study List for which user access have to be checked</param>   
+        /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="List{StudyEntity}"/> if the user have access <br></br> <br></br>
         /// <see langword="null"/> If user doesn't have access to the study
         /// </returns>
-        public async Task<List<StudyEntity>> CheckAccessForAuditTrail(List<StudyEntity> studyList)
+        public async Task<List<StudyEntity>> CheckAccessForAuditTrail(List<StudyEntity> studyList, LoggedInUser user)
         {
             try
             {
                 _logger.LogInformation($"Started Service : {nameof(ClinicalStudyService)}; Method : {nameof(CheckAccessForAuditTrail)};");
 
-                if (Config.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+                if (user.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
                 {
-                    var groups = await _clinicalStudyRepository.GetGroupsOfUser().ConfigureAwait(false);
+                    var groups = await _clinicalStudyRepository.GetGroupsOfUser(user).ConfigureAwait(false);
 
                     if (groups != null && groups.Count > 0)
                     {
@@ -576,20 +587,21 @@ namespace TransCelerate.SDR.Services.Services
 
         /// <summary>
         /// Check READ_WRITE Permission for a user
-        /// </summary>        
+        /// </summary>    
+        /// <param name="user">Logged In User</param>
         /// <returns>
         /// <see langword="true"/> If the user have READ_WRITE access in any of the groups <br></br> <br></br>
         /// <see langword="false"/> If the user does not have READ_WRITE access in any of the groups
         /// </returns>
-        public async Task<bool> CheckPermissionForAUser()
+        public async Task<bool> CheckPermissionForAUser(LoggedInUser user)
         {
             try
             {
                 _logger.LogInformation($"Started Service : {nameof(ClinicalStudyService)}; Method : {nameof(CheckPermissionForAUser)};");
 
-                if (Config.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+                if (user.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
                 {
-                    var groups = await _clinicalStudyRepository.GetGroupsOfUser().ConfigureAwait(false);
+                    var groups = await _clinicalStudyRepository.GetGroupsOfUser(user).ConfigureAwait(false);
 
                     if (groups != null && groups.Count > 0)
                     {

@@ -16,6 +16,7 @@ using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.Core.Filters;
 using TransCelerate.SDR.Services.Interfaces;
+using TransCelerate.SDR.Core.DTO.Token;
 using System.Net;
 
 namespace TransCelerate.SDR.WebApi.Controllers
@@ -64,6 +65,11 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(GetStudy)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
+                    LoggedInUser user = new LoggedInUser
+                    {
+                        UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                        UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
+                    };
                     _logger.LogInformation($"Inputs: StudyId: {studyId}; Version: {version}; Status: {tag ?? "<null>"}; Sections: {sections ?? "<null>"}");
                     string[] sectionArray = new string[] { };
                     if (!String.IsNullOrWhiteSpace(sections))
@@ -82,11 +88,11 @@ namespace TransCelerate.SDR.WebApi.Controllers
                                 return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.SectionNotValid)).Value);
                             }
                         }
-                        study = await _clinicalStudyService.GetSections(studyId: studyId, version: version, tag: tag, sections: sectionArray).ConfigureAwait(false);
+                        study = await _clinicalStudyService.GetSections(studyId: studyId, version: version, tag: tag, sections: sectionArray,user:user).ConfigureAwait(false);
                     }
                     else
                     {
-                        study = await _clinicalStudyService.GetAllElements(studyId: studyId, version: version, tag: tag).ConfigureAwait(false);
+                        study = await _clinicalStudyService.GetAllElements(studyId: studyId, version: version, tag: tag,user:user).ConfigureAwait(false);
                     }
 
                     if (study == null)
@@ -142,6 +148,11 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(GetStudyDesignSections)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
+                    LoggedInUser user = new LoggedInUser
+                    {
+                        UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                        UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
+                    };
                     _logger.LogInformation($"Inputs: StudyId: {studyId}; StudyDesignId: {studyDesignId}; Version: {version}; Status: {tag ?? "<null>"}; Sections: {sections ?? "<null>"}");
                     string[] sectionArray = new string[] { };
                     if (!String.IsNullOrWhiteSpace(sections))
@@ -161,7 +172,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         }
 
                     }
-                    var study = await _clinicalStudyService.GetStudyDesignSections(studyDesignId: studyDesignId, studyId: studyId, version: version, tag: tag, sections: sectionArray).ConfigureAwait(false);
+                    var study = await _clinicalStudyService.GetStudyDesignSections(studyDesignId: studyDesignId, studyId: studyId, version: version, tag: tag, sections: sectionArray,user:user).ConfigureAwait(false);
 
                     //If StudyId is not found
                     if (study == null)
@@ -221,7 +232,11 @@ namespace TransCelerate.SDR.WebApi.Controllers
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(GetAuditTrail)};");
-
+                LoggedInUser user = new LoggedInUser
+                {
+                    UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                    UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
+                };
                 _logger.LogInformation($"Inputs: FromDate: {fromDate}; ToDate: {toDate}; Study: {studyId ?? "<null>"};");
 
                 if (toDate == DateTime.MinValue)
@@ -238,7 +253,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 }
                 if (fromDate <= toDate)
                 {
-                    var studyAuditResponse = await _clinicalStudyService.GetAuditTrail(fromDate, toDate, studyId);
+                    var studyAuditResponse = await _clinicalStudyService.GetAuditTrail(fromDate, toDate, studyId, user);
                     if (studyAuditResponse == null)
                     {
                         return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
@@ -288,7 +303,11 @@ namespace TransCelerate.SDR.WebApi.Controllers
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(GetAllStudyId)};");
-
+                LoggedInUser user = new LoggedInUser
+                {
+                    UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                    UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
+                };
                 _logger.LogInformation($"Inputs: FromDate: {fromDate}; ToDate: {toDate}; DateRange from Key Vault :{Config.DateRange}");
 
                 if (toDate == DateTime.MinValue)
@@ -309,7 +328,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 }
                 if (fromDate <= toDate)
                 {
-                    var studyHistoryResponse = await _clinicalStudyService.GetAllStudyId(fromDate, toDate, studyTitle);
+                    var studyHistoryResponse = await _clinicalStudyService.GetAllStudyId(fromDate, toDate, studyTitle, user);
                     if (studyHistoryResponse == null)
                     {
                         return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
@@ -359,7 +378,12 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(PostAllElements)};");
                     if (studyDTO != null)
                     {
-                        var response = await _clinicalStudyService.PostAllElements(studyDTO, entrySystem: entrySystem)
+                        LoggedInUser user = new LoggedInUser
+                        {
+                            UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                            UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
+                        };
+                        var response = await _clinicalStudyService.PostAllElements(studyDTO, entrySystem: entrySystem,user: user)
                                                                   .ConfigureAwait(false);
 
                         if (response == null)
@@ -423,6 +447,11 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(SearchStudy)};");
                 if (ModelState.IsValid)
                 {
+                    LoggedInUser user = new LoggedInUser
+                    {
+                        UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                        UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
+                    };
                     if (searchparameters != null)
                     {
                         if (String.IsNullOrWhiteSpace(searchparameters.indication)
@@ -455,7 +484,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                                 return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError)).Value);
                             }
                         }
-                        var response = await _clinicalStudyService.SearchStudy(searchparameters).ConfigureAwait(false);
+                        var response = await _clinicalStudyService.SearchStudy(searchparameters,user).ConfigureAwait(false);
 
                         if (response == null)
                         {

@@ -215,9 +215,7 @@ namespace TransCelerate.SDR.WebApi
                                 request = text.ToString();
                         }
                         logger.LogInformation($"Status Code: {context.Response.StatusCode}; URL: {context.Request.Path}; requestBody : {request}; responseBody : {response};AuthToken: {AuthToken}");
-                    }
-                    Config.UserName = null;
-                    Config.UserRole = null;
+                    }                 
                 }
                 catch (Exception ex)
                 {
@@ -234,9 +232,7 @@ namespace TransCelerate.SDR.WebApi
                     var response = JsonConvert.SerializeObject(ErrorResponseHelper.ErrorResponseModel(ex));
                     context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     logger.LogError($"Exception Occurred: {ex.Message}");
-                    logger.LogInformation($"Status Code: {context.Response.StatusCode}; URL: {context.Request.Path}; requestBody : {request}; responseBody : {response};AuthToken: {AuthToken}");
-                    Config.UserName = null;
-                    Config.UserRole = null;
+                    logger.LogInformation($"Status Code: {context.Response.StatusCode}; URL: {context.Request.Path}; requestBody : {request}; responseBody : {response};AuthToken: {AuthToken}");      
                     await context.Response.WriteAsync(response);
                 }
             });
