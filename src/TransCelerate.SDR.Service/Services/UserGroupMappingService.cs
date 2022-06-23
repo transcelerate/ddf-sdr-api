@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.DTO.UserGroups;
 using TransCelerate.SDR.Core.Entities.Study;
 using TransCelerate.SDR.Core.Entities.UserGroups;
@@ -212,15 +213,16 @@ namespace TransCelerate.SDR.Services.Services
         /// Add/Modify A Group 
         /// </summary>
         /// <param name="groupDTO">Group that needs to be added/modified</param> 
+        /// <param name="user">Logged In User</param>
         /// <returns> A <see cref="object"/> Group that was added/modified <br />        
         /// </returns>  
-        public async Task<object> PostGroup(SDRGroupsDTO groupDTO)
+        public async Task<object> PostGroup(SDRGroupsDTO groupDTO,LoggedInUser user)
         {
             try
             {
                 _logger.LogInformation($"Started Service : {nameof(UserGroupMappingService)}; Method : {nameof(PostGroup)};");
                 var groupEntity = _mapper.Map<SDRGroupsEntity>(groupDTO);
-                groupEntity.groupModifiedBy = Config.UserName;
+                groupEntity.groupModifiedBy = user.UserName;
                 groupEntity.groupModifiedOn = DateTime.UtcNow;
 
                 if (String.IsNullOrWhiteSpace(groupDTO.groupId))
@@ -233,7 +235,7 @@ namespace TransCelerate.SDR.Services.Services
                             return Constants.ErrorMessages.GroupNameExists;
                     }
                     groupEntity.groupId = IdGenerator.GenerateId();                    
-                    groupEntity.groupCreatedBy = Config.UserName;
+                    groupEntity.groupCreatedBy = user.UserName;
                     groupEntity.groupCreatedOn = DateTime.UtcNow;                 
 
                     await _userGroupMappingRepository.AddAGroup(groupEntity);
@@ -272,9 +274,10 @@ namespace TransCelerate.SDR.Services.Services
         /// Add/Update User Group Mapping
         /// </summary>
         /// <param name="userToGroupsDTO">User Group Mapping</param> 
+        /// <param name="loggedInUser">Logged In User</param>
         /// <returns> A <see cref="object"/> which has user group mapping <br />        
         /// </returns>  
-        public async Task<object> PostUserToGroups(PostUserToGroupsDTO userToGroupsDTO)
+        public async Task<object> PostUserToGroups(PostUserToGroupsDTO userToGroupsDTO, LoggedInUser loggedInUser)
         {
             try
             {
@@ -321,7 +324,7 @@ namespace TransCelerate.SDR.Services.Services
                             userGroupsEntity.SDRGroups.Find(x => x.groupId == groups.groupId)
                                                 .users.Add(user);
                         }
-                        userGroupsEntity.SDRGroups.Find(x => x.groupId == groups.groupId).groupModifiedBy = Config.UserName;
+                        userGroupsEntity.SDRGroups.Find(x => x.groupId == groups.groupId).groupModifiedBy = loggedInUser.UserName;
                         userGroupsEntity.SDRGroups.Find(x => x.groupId == groups.groupId).groupModifiedOn = DateTime.UtcNow;
                     }
                     else

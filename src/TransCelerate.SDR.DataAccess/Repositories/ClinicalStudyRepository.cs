@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
+using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities;
 using TransCelerate.SDR.Core.Entities.Study;
 using TransCelerate.SDR.Core.Entities.UserGroups;
@@ -204,11 +204,12 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// <param name="fromDate">Start Date for Date Filter</param>
         /// <param name="toDate">End Date for Date Filter</param>
         /// <param name="studyTitle">Study Title Filter</param>
+        /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="List{StudyHistoryEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<List<StudyHistoryEntity>> GetAllStudyId(DateTime fromDate, DateTime toDate, string studyTitle)
+        public async Task<List<StudyHistoryEntity>> GetAllStudyId(DateTime fromDate, DateTime toDate, string studyTitle,LoggedInUser user)
         {
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(GetAllStudyId)};");
             try
@@ -235,7 +236,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                         .SortByDescending(s => s.auditTrail.entryDateTime)  // Sort by descending on entryDateTime
                                                         .ToListAsync().ConfigureAwait(false);   
                 
-                studyHistories = GroupFilterForStudyHistory(studyHistories);
+                studyHistories = GroupFilterForStudyHistory(studyHistories,user);
 
                 if (studyHistories.Count() == 0)
                 {
@@ -265,11 +266,12 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// Search the collection based on search criteria
         /// </summary>
         /// <param name="searchParameters">Parameters to search in database</param>
+        /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="List{SearchResponseEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<List<SearchResponse>> SearchStudy(SearchParameters searchParameters)
+        public async Task<List<SearchResponse>> SearchStudy(SearchParameters searchParameters, LoggedInUser user)
         {
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(SearchStudy)};");
             try
@@ -309,7 +311,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                         select filter)
                             .ToList();
 
-                var searchResults = LinqFilter(finalGroupResult, searchParameters);
+                var searchResults = LinqFilter(finalGroupResult, searchParameters,user);
 
                 var sortedList = ApplyOrderBy(searchResults, searchParameters.header, searchParameters.asc) // Sort the data based on input
                                            .Skip((searchParameters.pageNumber - 1) * searchParameters.pageSize) //page number
@@ -337,7 +339,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
         }
 
-        public List<SearchResponse> LinqFilter(List<SearchResponse> searchResults, SearchParameters searchParameters)
+        public List<SearchResponse> LinqFilter(List<SearchResponse> searchResults, SearchParameters searchParameters, LoggedInUser user)
         {
             #region StudyFilters
             if (!String.IsNullOrWhiteSpace(searchParameters.studyId))
@@ -367,9 +369,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             #endregion
 
             #region GroupFilters
-            if (Config.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+            if (user.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
             {
-                var groups = GetGroupsOfUser().Result;
+                var groups = GetGroupsOfUser(user).Result;
 
                 if (groups != null && groups.Count > 0)
                 {
@@ -534,11 +536,11 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
         #region Data Filtering based on groups    
         
-        public List<StudyHistoryEntity> GroupFilterForStudyHistory(List<StudyHistoryEntity> studyHistoryEntities)
+        public List<StudyHistoryEntity> GroupFilterForStudyHistory(List<StudyHistoryEntity> studyHistoryEntities, LoggedInUser user)
         {
-            if (Config.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+            if (user.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
             {
-                var groups = GetGroupsOfUser().Result;
+                var groups = GetGroupsOfUser(user).Result;
 
                 if (groups != null && groups.Count > 0)
                 {
@@ -567,7 +569,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             return studyHistoryEntities;
         }        
 
-        public async Task<List<SDRGroupsEntity>> GetGroupsOfUser()
+        public async Task<List<SDRGroupsEntity>> GetGroupsOfUser(LoggedInUser user)
         {
             var groupsCollection = _database.GetCollection<UserGroupMappingEntity>(Constants.Collections.SDRGrouping);
 
@@ -575,7 +577,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                              .Project(x => x.SDRGroups
                                                            .Where(x => x.groupEnabled == true)
                                                            .Where(x => x.users != null)
-                                                           .Where(x => x.users.Any(x => (x.email == Config.UserName && x.isActive == true)))                                                           
+                                                           .Where(x => x.users.Any(x => (x.email == user.UserName && x.isActive == true)))                                                           
                                                            .ToList())
                                              .FirstOrDefaultAsync().ConfigureAwait(false);
         }

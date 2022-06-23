@@ -16,6 +16,7 @@ using Microsoft.Extensions.Logging;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using System.Linq;
+using TransCelerate.SDR.Core.DTO.Token;
 
 namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 {
@@ -26,6 +27,12 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         private ILogHelper _mockLogger = Mock.Of<ILogHelper>();
         private Mock<IUserGroupMappingRepository> _mockUserGroupMappingRepository = new Mock<IUserGroupMappingRepository>(MockBehavior.Loose);
         #endregion
+
+        LoggedInUser user = new LoggedInUser
+        {
+            UserName = "user1@SDR.com",
+            UserRole = Constants.Roles.Org_Admin
+        };
         public UserGroupMappingEntity GetDataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/UserGroupMappingData.json");
@@ -315,7 +322,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     .Returns(Task.FromResult(postDataEntity));
             UserGroupMappingService userGroupMappingService = new UserGroupMappingService(_mockUserGroupMappingRepository.Object, _mockMapper, _mockLogger);
            
-            var method = userGroupMappingService.PostGroup(postDataDto);
+            var method = userGroupMappingService.PostGroup(postDataDto, user);
             method.Wait();
             var result = method.Result;
 
@@ -331,7 +338,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                    .Returns(Task.FromResult(postDataEntity));
             UserGroupMappingService userGroupMappingService1 = new UserGroupMappingService(_mockUserGroupMappingRepository.Object, _mockMapper, _mockLogger);
             postDataDto.groupId = null;
-            var method1 = userGroupMappingService1.PostGroup(postDataDto);
+            var method1 = userGroupMappingService1.PostGroup(postDataDto, user);
             method.Wait();
             var result1 = method.Result;
 
@@ -374,7 +381,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     .Returns(Task.FromResult(GetDataFromStaticJson()));
             UserGroupMappingService userGroupMappingService = new UserGroupMappingService(_mockUserGroupMappingRepository.Object, _mockMapper, _mockLogger);
 
-            var method = userGroupMappingService.PostUserToGroups(postUserToGroupsDTO);
+            var method = userGroupMappingService.PostUserToGroups(postUserToGroupsDTO, user);
             method.Wait();
             var result = method.Result;
 

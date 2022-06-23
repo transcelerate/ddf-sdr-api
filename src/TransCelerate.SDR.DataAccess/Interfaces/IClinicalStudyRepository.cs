@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using TransCelerate.SDR.Core.Entities;
 using TransCelerate.SDR.Core.Entities.Study;
 using TransCelerate.SDR.Core.Entities.UserGroups;
+using TransCelerate.SDR.Core.DTO.Token;
 
 namespace TransCelerate.SDR.DataAccess.Interfaces
 {
@@ -50,29 +51,32 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// <param name="fromDate">Start Date for Date Filter</param>
         /// <param name="toDate">End Date for Date Filter</param>
         /// <param name="studyTitle">Study Title Filter</param>
+        /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="List{StudyHistoryEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        Task<List<StudyHistoryEntity>> GetAllStudyId(DateTime fromDate, DateTime toDate, string studyTitle);
+        Task<List<StudyHistoryEntity>> GetAllStudyId(DateTime fromDate, DateTime toDate, string studyTitle, LoggedInUser user);
         /// <summary>
         /// GET groups assigned to user
         /// </summary>
+        /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="List{SDRGroupsEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        Task<List<SDRGroupsEntity>> GetGroupsOfUser();
+        Task<List<SDRGroupsEntity>> GetGroupsOfUser(LoggedInUser user);
 
         /// <summary>
         /// Search the collection based on search criteria
         /// </summary>
         /// <param name="searchParameters">Parameters to search in database</param>
+        /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="List{SearchResponseEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        Task<List<SearchResponse>> SearchStudy(SearchParameters searchParameters);
+        Task<List<SearchResponse>> SearchStudy(SearchParameters searchParameters, LoggedInUser user);
 
         /// <summary>
         /// POST a Study
