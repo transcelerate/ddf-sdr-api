@@ -517,6 +517,86 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyController)}; Method : {nameof(SearchStudy)};");
             }
         }
+
+        /// <summary>
+        /// Search For a Study 
+        /// </summary>
+        /// <param name="searchparameters">Parameters to search in database</param>
+        /// <response code="200">Returns All Study that matches the search criteria</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">There is no study that matches the search criteria</response>
+        [HttpPost]
+        [Route(Route.SearchTitle)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IEnumerable<GetStudyDTO>))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> SearchTitle([FromBody] SearchTitleParametersDTO searchparameters)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(SearchTitle)};");
+                if (ModelState.IsValid)
+                {
+                    LoggedInUser user = new LoggedInUser
+                    {
+                        UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                        UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
+                    };
+                    if (searchparameters != null)
+                    {
+                        if (String.IsNullOrWhiteSpace(searchparameters.studyTitle)
+                           && String.IsNullOrWhiteSpace(searchparameters.fromDate) && String.IsNullOrWhiteSpace(searchparameters.toDate))
+                        {
+                            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ValidationErrorMessage.AnyOneFieldError)).Value);
+                        }
+                        if (String.IsNullOrWhiteSpace(searchparameters.toDate))
+                        {
+                            searchparameters.toDate = DateTime.UtcNow.Date.AddHours(23).AddMinutes(59).AddSeconds(59).ToString();
+                        }
+                        else
+                        {
+                            searchparameters.toDate = Convert.ToDateTime(searchparameters.toDate).Date.AddHours(23).AddMinutes(59).AddSeconds(59).ToString();
+                        }
+                        if (String.IsNullOrWhiteSpace(searchparameters.fromDate))
+                        {
+                            searchparameters.fromDate = DateTime.MinValue.ToString();
+                        }
+                        else
+                        {
+                            searchparameters.fromDate = Convert.ToDateTime(searchparameters.fromDate).ToString();
+                        }
+                        if ((!String.IsNullOrWhiteSpace(searchparameters.fromDate)) && (!String.IsNullOrWhiteSpace(searchparameters.toDate)))
+                        {
+                            if (Convert.ToDateTime(searchparameters.fromDate) > Convert.ToDateTime(searchparameters.toDate))
+                            {
+                                return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError)).Value);
+                            }
+                        }
+                        var response = await _clinicalStudyService.SearchTitle(searchparameters, user).ConfigureAwait(false);
+
+                        return Ok(response);
+                    }
+                    else
+                    {
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
+                    }
+                }
+                else
+                {
+                    return ValidationProblem();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex.Message}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyController)}; Method : {nameof(SearchTitle)};");
+            }
+        }
         #endregion
 
         #endregion

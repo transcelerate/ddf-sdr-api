@@ -27,6 +27,8 @@
   - [#ctor()](#M-TransCelerate-SDR-RuleEngine-PlannedWorkFlowValidator-#ctor 'TransCelerate.SDR.RuleEngine.PlannedWorkFlowValidator.#ctor')
 - [PointInTimeValidator](#T-TransCelerate-SDR-RuleEngine-PointInTimeValidator 'TransCelerate.SDR.RuleEngine.PointInTimeValidator')
   - [#ctor()](#M-TransCelerate-SDR-RuleEngine-PointInTimeValidator-#ctor 'TransCelerate.SDR.RuleEngine.PointInTimeValidator.#ctor')
+- [PostStudyValidator](#T-TransCelerate-SDR-RuleEngine-PostStudyValidator 'TransCelerate.SDR.RuleEngine.PostStudyValidator')
+  - [#ctor()](#M-TransCelerate-SDR-RuleEngine-PostStudyValidator-#ctor 'TransCelerate.SDR.RuleEngine.PostStudyValidator.#ctor')
 - [RuleValidator](#T-TransCelerate-SDR-RuleEngine-RuleValidator 'TransCelerate.SDR.RuleEngine.RuleValidator')
   - [#ctor()](#M-TransCelerate-SDR-RuleEngine-RuleValidator-#ctor 'TransCelerate.SDR.RuleEngine.RuleValidator.#ctor')
 - [SearchParametersValidator](#T-TransCelerate-SDR-RuleEngine-SearchParametersValidator 'TransCelerate.SDR.RuleEngine.SearchParametersValidator')
@@ -267,6 +269,24 @@ TransCelerate.SDR.RuleEngine
 ##### Summary
 
 Validator for PointInTime
+
+##### Parameters
+
+This constructor has no parameters.
+
+<a name='T-TransCelerate-SDR-RuleEngine-PostStudyValidator'></a>
+## PostStudyValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngine
+
+<a name='M-TransCelerate-SDR-RuleEngine-PostStudyValidator-#ctor'></a>
+### #ctor() `constructor`
+
+##### Summary
+
+Validator for ClinicalStudy
 
 ##### Parameters
 

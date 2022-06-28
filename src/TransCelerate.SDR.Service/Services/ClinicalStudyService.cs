@@ -461,6 +461,79 @@ namespace TransCelerate.SDR.Services.Services
                 _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyService)}; Method : {nameof(SearchStudy)};");
             }
         }
+
+
+        /// <summary>
+        /// Search Study Elements with search criteria
+        /// </summary>
+        /// <param name="searchParametersDTO">Parameters to search in database</param>
+        /// <param name="user">Logged In User</param>
+        /// <returns>
+        /// A <see cref="List{SearchTitleDTO}"/> which matches serach criteria <br></br> <br></br>
+        /// <see langword="null"/> If the insert is not done
+        /// </returns>
+        public async Task<List<SearchTitleDTO>> SearchTitle(SearchTitleParametersDTO searchParametersDTO, LoggedInUser user)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyService)}; Method : {nameof(SearchTitle)};");
+                _logger.LogInformation($"Search Parameters : {JsonConvert.SerializeObject(searchParametersDTO)}");
+
+                if (user.UserRole == Constants.Roles.App_User && searchParametersDTO.groupByStudyId)
+                    return new List<SearchTitleDTO>();
+                var searchParameters = _mapper.Map<SearchTitleParameters>(searchParametersDTO);
+
+                var searchResponse = await _clinicalStudyRepository.SearchTitle(searchParameters, user);
+                var searchTitleDTOList = _mapper.Map<List<SearchTitleDTO>>(searchResponse);
+
+                if (searchParameters.groupByStudyId)
+                {                    
+                    searchTitleDTOList = searchTitleDTOList.GroupBy(x => x.clinicalStudy.studyId)
+                                                    .Select(g => new SearchTitleDTO
+                                                    {
+                                                        clinicalStudy = g.Where(x => x.auditTrail.studyVersion == g.Max(x => x.auditTrail.studyVersion)).Select(x => x.clinicalStudy).FirstOrDefault(),
+                                                        auditTrail = g.Where(x => x.auditTrail.studyVersion == g.Max(x => x.auditTrail.studyVersion)).Select(x => x.auditTrail).FirstOrDefault()
+                                                    }).ToList();
+                }
+
+
+                searchTitleDTOList = SortStudyTitle(searchTitleDTOList, searchParametersDTO)
+                                           .Skip((searchParametersDTO.pageNumber - 1) * searchParametersDTO.pageSize)
+                                           .Take(searchParametersDTO.pageSize)
+                                           .ToList();
+
+                searchTitleDTOList.ForEach(x => x.auditTrail.entryDateTime = Convert.ToDateTime(x.auditTrail.entryDateTime).ToString(Constants.DateFormats.DateFormatForAuditResponse).ToUpper());
+                
+                return searchTitleDTOList;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyService)}; Method : {nameof(SearchTitle)};");
+            }
+        }
+
+        public List<SearchTitleDTO> SortStudyTitle(List<SearchTitleDTO> searchTitleDTOs, SearchTitleParametersDTO searchParametersDTO)
+        {
+            if (!String.IsNullOrWhiteSpace(searchParametersDTO.sortBy))
+            {
+                return searchParametersDTO.sortBy.ToLower() switch
+                {
+                    "studytitle" => searchParametersDTO.sortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.clinicalStudy.studyTitle).ToList() : searchTitleDTOs.OrderByDescending(x => x.clinicalStudy.studyTitle).ToList(),
+                    "tag" => searchParametersDTO.sortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.clinicalStudy.studyTag).ToList() : searchTitleDTOs.OrderByDescending(x => x.clinicalStudy.studyTag).ToList(),
+                    "lastmodifieddate" => searchParametersDTO.sortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.auditTrail.entryDateTime).ToList() : searchTitleDTOs.OrderByDescending(x => x.auditTrail.entryDateTime).ToList(),
+                    "version" => searchParametersDTO.sortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.auditTrail.studyVersion).ToList() : searchTitleDTOs.OrderByDescending(x => x.auditTrail.studyVersion).ToList(),
+                    _ => searchParametersDTO.sortOrder == SortOrder.desc.ToString() ? searchTitleDTOs.OrderByDescending(x => x.clinicalStudy.studyTitle).ToList() : searchTitleDTOs.OrderBy(x => x.clinicalStudy.studyTitle).ToList(),
+                };
+            }
+            else
+            {
+                return searchParametersDTO.sortOrder == SortOrder.desc.ToString() ? searchTitleDTOs.OrderByDescending(x => x.clinicalStudy.studyTitle).ToList() : searchTitleDTOs.OrderBy(x => x.clinicalStudy.studyTitle).ToList();
+            }
+        }
         #endregion
         #endregion
 
