@@ -94,6 +94,16 @@ namespace TransCelerate.SDR.UnitTesting
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/GetSearchStudyData.json");            
             return JsonConvert.DeserializeObject<List<SearchResponse>>(jsonData);
         }
+        public List<SearchTitleEntity> GetListForSearchTitleDataFromStaticJson()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/GetSearchStudyData.json");
+            return JsonConvert.DeserializeObject<List<SearchTitleEntity>>(jsonData);
+        }
+        public List<SearchTitleDTO> GetListForSearchTitleDTODataFromStaticJson()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/GetStudyListData.json");
+            return JsonConvert.DeserializeObject<List<SearchTitleDTO>>(jsonData);
+        }
 
         [SetUp]
         public void SetUp()
@@ -823,6 +833,126 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
 
             Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual("400", actual_result.statusCode);
+
+        }
+        #endregion
+
+        #region Search Study Title Unit Testing
+        [Test]
+        public void SearchStudyTitle_UnitTest_SuccessResponse()
+        {            
+            SearchTitleParametersDTO searchParameters = new SearchTitleParametersDTO
+            {
+                studyTitle = "Umbrella",
+                pageNumber = 1,
+                pageSize = 25,
+                fromDate = DateTime.Now.AddDays(-5).ToString(),
+                toDate = DateTime.Now.ToString(),
+                groupByStudyId = true
+            };            
+            _mockClinicalStudyService.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersDTO>(), It.IsAny<LoggedInUser>()))
+                    .Returns(Task.FromResult(GetListForSearchTitleDTODataFromStaticJson()));
+            ClinicalStudyController clinicalStudyController = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
+
+
+            var method = clinicalStudyController.SearchTitle(searchParameters);
+            method.Wait();
+            var result = method.Result;
+
+            //Expected
+            var expected = GetListForSearchTitleDTODataFromStaticJson();
+
+            //Actual            
+            var actual_result = JsonConvert.DeserializeObject<List<SearchTitleDTO>>(
+               JsonConvert.SerializeObject(((result as OkObjectResult).Value)));
+
+            //Assert          
+            Assert.IsNotNull((result as OkObjectResult).Value);
+            Assert.AreEqual(200, (result as OkObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(OkObjectResult), result);
+
+            Assert.AreEqual(expected[0].clinicalStudy.studyTitle, actual_result[0].clinicalStudy.studyTitle);           
+        }
+
+        [Test]
+        public void SearchStudyTitle_UnitTest_FailureResponse()
+        {
+            SearchTitleParametersDTO searchParameters = new SearchTitleParametersDTO
+            {
+                studyTitle = "Umbrella",
+                pageNumber = 1,
+                pageSize = 25,
+                fromDate = "",
+                toDate = "",
+                groupByStudyId = true
+            };
+            _mockClinicalStudyService.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersDTO>(), It.IsAny<LoggedInUser>()))
+                    .Returns(Task.FromResult(GetListForSearchTitleDTODataFromStaticJson()));
+            ClinicalStudyController clinicalStudyController = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
+
+            SearchTitleParametersDTO searchParametersChanged = new SearchTitleParametersDTO
+            {
+                studyTitle = "",
+                pageNumber = 1,
+                pageSize = 25,
+                fromDate = "",
+                toDate = "",
+                groupByStudyId = true
+            };
+            var method = clinicalStudyController.SearchTitle(searchParametersChanged);
+            method.Wait();
+            var result = method.Result;
+
+            //Expected
+            var expected = Constants.ValidationErrorMessage.AnyOneFieldError;
+            //Actual            
+            var actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
+
+            //Assert          
+            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
+            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
+
+            Assert.AreEqual(expected, actual_result.message);
+            Assert.AreEqual("400", actual_result.statusCode);
+           
+            _mockClinicalStudyService.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersDTO>(), It.IsAny<LoggedInUser>()))
+                    .Throws(new Exception("Error"));
+         
+
+            method = clinicalStudyController.SearchTitle(searchParameters);
+            method.Wait();
+
+            //Expected
+            var expected_error = ErrorResponseHelper.BadRequest("An Error Occured");
+
+            //Actual
+            actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
+
+            //Assert          
+            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
+            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
+
+            Assert.AreEqual(expected_error.message, actual_result.message);
+            Assert.AreEqual("400", actual_result.statusCode);
+
+            method = clinicalStudyController.SearchTitle(null);
+            method.Wait();
+
+            //Expected
+            expected_error = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError);
+
+            //Actual
+            actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
+
+            //Assert          
+            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
+            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
+
+            Assert.AreEqual(expected_error.message, actual_result.message);
             Assert.AreEqual("400", actual_result.statusCode);
 
         }

@@ -20,6 +20,8 @@
         public const string PostElements = "study";
 
         public const string SearchElements = "search";
+
+        public const string SearchTitle = "searchstudytitle";
         #endregion
         #endregion
 
