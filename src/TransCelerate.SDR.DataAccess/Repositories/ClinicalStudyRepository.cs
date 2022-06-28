@@ -474,6 +474,77 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         }
 
         /// <summary>
+        /// Search the collection based on search criteria
+        /// </summary>
+        /// <param name="searchParameters">Parameters to search in database</param>
+        /// <returns>
+        /// A <see cref="FilterDefinition{StudyEntity}"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        public FilterDefinition<StudyEntity> Filter(SearchTitleParameters searchParameters)
+        {
+            var builder = Builders<StudyEntity>.Filter;
+            var filter = builder.Empty;
+
+            //Filter for Date Range
+            filter &= builder.Where(x => x.auditTrail.entryDateTime >= searchParameters.fromDate
+                                         && x.auditTrail.entryDateTime <= searchParameters.toDate);
+
+            if (!String.IsNullOrWhiteSpace(searchParameters.studyTitle))
+                filter &= builder.Where(x => x.clinicalStudy.studyTitle.ToLower().Contains(searchParameters.studyTitle.ToLower()));
+
+            return filter;
+        }
+
+        /// <summary>
+        /// Search the collection based on search criteria
+        /// </summary>
+        /// <param name="searchParameters">Parameters to search in database</param>
+        /// <param name="user">Logged In User</param>
+        /// <returns>
+        /// A <see cref="List{SearchTitleEntity}"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        public async Task<List<SearchTitleEntity>> SearchTitle(SearchTitleParameters searchParameters, LoggedInUser user)
+        {
+            _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(SearchStudy)};");
+            try
+            {
+                var collection = _database.GetCollection<StudyEntity>(Constants.Collections.Study);
+
+                var builder = Builders<StudyEntity>.Filter;
+                var filter = builder.Empty;
+
+                var filteredResult = await collection
+                                                 .Aggregate()
+                                                 .Match(Filter(searchParameters))
+                                                 .Project(x => new SearchTitleEntity
+                                                 {
+                                                     studyId = x.clinicalStudy.studyId ?? null,
+                                                     studyTag = x.clinicalStudy.studyTag ?? null,
+                                                     studyType = x.clinicalStudy.studyType ?? null,                                                    
+                                                     studyTitle = x.clinicalStudy.studyTitle ?? null,                                                                                                         
+                                                     entryDateTime = x.auditTrail.entryDateTime,                                                     
+                                                     studyVersion = x.auditTrail.studyVersion,
+                                                 })
+                                                 .ToListAsync().ConfigureAwait(false);
+
+                var groupFilterResult = GroupFilterForSearchTitle(filteredResult, user).ToList();
+
+
+                return groupFilterResult;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(SearchStudy)};");
+            }
+        }
+        /// <summary>
         /// Sorting the result set
         /// </summary>
         /// <param name="filteredResult">Filtered result from database</param>
@@ -567,7 +638,39 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 }
             }
             return studyHistoryEntities;
-        }        
+        }
+        public List<SearchTitleEntity> GroupFilterForSearchTitle(List<SearchTitleEntity> searchTitleEntities, LoggedInUser user)
+        {
+            if (user.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+            {
+                var groups = GetGroupsOfUser(user).Result;
+
+                if (groups != null && groups.Count > 0)
+                {
+                    List<string> studyTypeFilterValues = new List<string>();
+                    List<string> studyIdFilterValues = new List<string>();
+                    studyTypeFilterValues.AddRange(groups.SelectMany(x => x.groupFilter)
+                                                         .Where(x => x.groupFieldName == GroupFieldNames.studyType.ToString())
+                                                         .SelectMany(x => x.groupFilterValues)
+                                                         .Select(x => x.groupFilterValueId.ToLower())
+                                                         .ToList());
+                    studyIdFilterValues.AddRange(groups.SelectMany(x => x.groupFilter)
+                                                         .Where(x => x.groupFieldName == GroupFieldNames.study.ToString())
+                                                         .SelectMany(x => x.groupFilterValues)
+                                                         .Select(x => x.groupFilterValueId)
+                                                         .ToList());
+
+
+                    searchTitleEntities = searchTitleEntities.Where(x => studyTypeFilterValues.Contains(x.studyType.ToLower()) || studyIdFilterValues.Contains(x.studyId)).ToList();
+                }
+                else
+                {
+                    // Filter should not give any results
+                    searchTitleEntities = searchTitleEntities.Where(x => 1 == 0).ToList();
+                }
+            }
+            return searchTitleEntities;
+        }
 
         public async Task<List<SDRGroupsEntity>> GetGroupsOfUser(LoggedInUser user)
         {

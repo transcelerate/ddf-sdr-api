@@ -89,9 +89,19 @@ namespace TransCelerate.SDR.UnitTesting
         public List<SearchResponse> GetListForSearchDataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/GetSearchStudyData.json");           
-            return JsonConvert.DeserializeObject<List<SearchResponse>>(jsonData); ;
-        }       
-       
+            return JsonConvert.DeserializeObject<List<SearchResponse>>(jsonData); 
+        }
+        public List<SearchTitleEntity> GetListForSearchTitleDataFromStaticJson()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/GetSearchStudyData.json");
+            return JsonConvert.DeserializeObject<List<SearchTitleEntity>>(jsonData); 
+        }
+        public List<SearchTitleDTO> GetListForSearchTitleDTODataFromStaticJson()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/GetStudyListData.json");
+            return JsonConvert.DeserializeObject<List<SearchTitleDTO>>(jsonData);
+        }
+
         [SetUp]
         public void SetUp()
         {
@@ -574,6 +584,51 @@ namespace TransCelerate.SDR.UnitTesting
 
             //Assert          
             Assert.IsNull(actual_result);
+        }
+
+        [Test]
+        public void SearchTitle_UnitTest_SuccessResponse()
+        {
+            _mockClinicalStudyRepository.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParameters>(), user))
+                    .Returns(Task.FromResult(GetListForSearchTitleDataFromStaticJson()));
+            SearchTitleParametersDTO searchParameters = new SearchTitleParametersDTO
+            {               
+                studyTitle = "Umbrella",
+                pageNumber = 1,
+                pageSize = 25,             
+                fromDate = DateTime.Now.AddDays(-5).ToString(),
+                toDate = DateTime.Now.ToString(),
+                groupByStudyId = true
+            };
+            ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);
+
+
+            var method = ClinicalStudyService.SearchTitle(searchParameters, user);
+            method.Wait();
+            var result = method.Result;
+
+            //Expected
+            var expected = GetListForSearchTitleDTODataFromStaticJson();
+
+            //Actual            
+            var actual_result = JsonConvert.DeserializeObject<List<SearchTitleDTO>>(
+               JsonConvert.SerializeObject((result)));
+
+            //Assert           
+            Assert.AreEqual(expected[0].clinicalStudy.studyTitle, actual_result[0].clinicalStudy.studyTitle);
+
+            user.UserRole = Constants.Roles.App_User;
+            method = ClinicalStudyService.SearchTitle(searchParameters, user);
+            method.Wait();
+            result = method.Result;
+
+            Assert.IsEmpty(result);
+
+            _mockClinicalStudyRepository.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParameters>(), user))
+                    .Throws(new Exception("Error"));
+            user.UserRole = Constants.Roles.Org_Admin;
+            method = ClinicalStudyService.SearchTitle(searchParameters, user);           
+            Assert.Throws<AggregateException>(method.Wait);
         }
         #endregion
         #endregion

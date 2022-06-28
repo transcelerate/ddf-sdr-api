@@ -106,6 +106,17 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// <see langword="null"/> If the insert is not done
         /// </returns>
         Task<List<GetStudyDTO>> SearchStudy(SearchParametersDTO searchParametersDTO, LoggedInUser user);
+
+        /// <summary>
+        /// Search Study Elements with search criteria
+        /// </summary>
+        /// <param name="searchParameters">Parameters to search in database</param>
+        /// <param name="user">Logged In User</param>
+        /// <returns>
+        /// A <see cref="List{SearchTitleDTO}"/> which matches serach criteria <br></br> <br></br>
+        /// <see langword="null"/> If the insert is not done
+        /// </returns>
+        Task<List<SearchTitleDTO>> SearchTitle(SearchTitleParametersDTO searchParameters, LoggedInUser user);
         #endregion
         #endregion
 
