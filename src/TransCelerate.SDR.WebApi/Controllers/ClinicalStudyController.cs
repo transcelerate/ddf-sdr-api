@@ -575,7 +575,14 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         }
                         var response = await _clinicalStudyService.SearchTitle(searchparameters, user).ConfigureAwait(false);
 
-                        return Ok(response);
+                        if (response == null || response.Count==0)
+                        {
+                            return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.SearchNotFound)).Value);
+                        }
+                        else
+                        {
+                            return Ok(response);
+                        }
                     }
                     else
                     {
