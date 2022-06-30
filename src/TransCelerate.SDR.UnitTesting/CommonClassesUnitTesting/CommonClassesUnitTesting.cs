@@ -30,11 +30,13 @@ using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using TransCelerate.SDR.Core.DTO.Token;
 using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
 
 namespace TransCelerate.SDR.UnitTesting
 {
     public class CommonClassesUnitTesting
     {
+        private IMapper _mockMapper;
         private Mock<ILoggerFactory> _mockLogger = new Mock<ILoggerFactory>();
         private Mock<ILogger> _mockSDRLogger = new Mock<ILogger>();
         private ILogHelper _mockLogHelper = Mock.Of<ILogHelper>();
@@ -46,6 +48,15 @@ namespace TransCelerate.SDR.UnitTesting
         //private IWebHostEnvironment env = Mock.Of<IWebHostEnvironment>();
 
         #region Setup
+        [SetUp]
+        public void Setup()
+        {
+            var mockMapper = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new AutoMapperProfies());
+            });
+            _mockMapper = new Mapper(mockMapper);
+        }
         public StudyEntity GetPostDataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/PostStudyData.json");
@@ -639,6 +650,33 @@ namespace TransCelerate.SDR.UnitTesting
             };
             TokenController tokenController = new TokenController(_mockLogHelper);
             var method = tokenController.GetToken(user);
+            method.Wait();
+
+            //Expected
+            var expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError);
+
+            //Actual
+            var actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
+
+            //Assert          
+            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
+            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual("400", actual_result.statusCode);
+        }
+
+        [Test]
+        public void ReportsControllerUnitTesting()
+        {
+            LoggedInUser user = new LoggedInUser
+            {
+                UserName = "",
+                UserRole = ""
+            };
+            ReportsController reportsController = new ReportsController(_mockLogHelper,_mockMapper);
+            var method = reportsController.GetUsageReport(1,20,10);
             method.Wait();
 
             //Expected

@@ -41,6 +41,9 @@
         public const string PostUserToGroups = "usergroups/postuser";
         #endregion
 
+        #region Reports
+        public const string SystemUsageReport = "reports/usage";
+        #endregion
         public const string Token = "auth/token";
     }
 }

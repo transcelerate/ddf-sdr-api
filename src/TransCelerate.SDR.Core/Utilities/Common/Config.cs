@@ -15,6 +15,9 @@
         public static string ClientSecret { get; set; }
         public static string Authority { get; set; }
         public static string Scope { get; set; }
+        public static string AppInsightsApiKey { get; set; }
+        public static string AppInsightsAppId { get; set; }
+        public static string AppInsightsRESTApiUrl { get; set; }
         public static bool isGroupFilterEnabled { get; set; }
         public static bool isAuthEnabled { get; set; }
     }
