@@ -51,31 +51,17 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(List<SystemUsageReportDTO>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
-        public async Task<IActionResult> GetUsageReport(int days,int recordNumber,int pageSize)
+        public async Task<IActionResult> GetUsageReport([FromBody] ReportBodyParameters reportBodyParameters)
         {
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(ReportsController)}; Method : {nameof(GetUsageReport)};");
-               
+                if (reportBodyParameters.days == 0)
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ValidationErrorMessage.InValidDays)).Value);
                 HttpClient client = new HttpClient();
                 client.DefaultRequestHeaders.Add(Constants.DefaultHeaders.AppInsightsApiKey, Config.AppInsightsApiKey);
 
-                string url = $"{Config.AppInsightsRESTApiUrl}/{Config.AppInsightsAppId}/query?" +
-                             $"query=" +
-                                 $"requests " +
-                                 $"| join (traces) on operation_Id ,$left.operation_Id == $right.operation_Id " +
-                                 $"| where url has \"apim\" and cloud_RoleName1 has \"apim\"" +
-                                 $"| project {Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.timestamp)}," +
-                                           $"{Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.name)}," +
-                                           $"{Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.customDimensions1)}," +
-                                           $"{Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.client_IP)}," +
-                                           $"{Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.resultCode)}," +
-                                           $"{Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.url)} " +
-                                 $"| order by  {Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.timestamp)} {SortOrder.desc}" +
-                                 $"| serialize Num = row_number() " +                                                                 
-                                 $"| where Num > {recordNumber}" +
-                                 $"| take {pageSize}" +                                 
-                                 $"&timespan=P{days}D";
+                string url = $"{Config.AppInsightsRESTApiUrl}/{Config.AppInsightsAppId}/query?" + UsageReportQueryHelper.FormattedQuery(reportBodyParameters);                     
 
                 var response = await client.GetAsync(url);
                 var responseString = response.Content.ReadAsStringAsync().Result;
@@ -131,7 +117,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             {
                 _logger.LogInformation($"Started Controller : {nameof(ReportsController)}; Method : {nameof(GetUsageReport)};");
             }
-        }
+        }        
         #endregion
     }
 }

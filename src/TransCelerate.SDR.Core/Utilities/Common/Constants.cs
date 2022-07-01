@@ -85,6 +85,8 @@
             public const string EnterValidNumber = "Enter a valid number";
 
             public const string RootElementMissing = "Root Element is missing";
+
+            public const string InValidDays = "Invalid Date Range";
         }
 
         public struct ErrorMessages

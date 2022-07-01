@@ -31,6 +31,7 @@ using Microsoft.AspNetCore.Authorization;
 using TransCelerate.SDR.Core.DTO.Token;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
+using TransCelerate.SDR.Core.DTO.Reports;
 
 namespace TransCelerate.SDR.UnitTesting
 {
@@ -670,13 +671,18 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void ReportsControllerUnitTesting()
         {
-            LoggedInUser user = new LoggedInUser
+            ReportBodyParameters reportBodyParameters = new ReportBodyParameters
             {
-                UserName = "",
-                UserRole = ""
+                days = 10,
+                operation = "GET",
+                pageSize = 10,
+                recordNumber = 1,
+                responseCode = 200,
+                sortBy = "requestdate",
+                sortOrder = "asc"
             };
             ReportsController reportsController = new ReportsController(_mockLogHelper,_mockMapper);
-            var method = reportsController.GetUsageReport(1,20,10);
+            var method = reportsController.GetUsageReport(reportBodyParameters);
             method.Wait();
 
             //Expected
