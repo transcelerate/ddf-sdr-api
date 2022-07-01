@@ -524,7 +524,7 @@ namespace TransCelerate.SDR.Services.Services
                 {
                     "studytitle" => searchParametersDTO.sortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.clinicalStudy.studyTitle).ToList() : searchTitleDTOs.OrderByDescending(x => x.clinicalStudy.studyTitle).ToList(),
                     "tag" => searchParametersDTO.sortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.clinicalStudy.studyTag).ToList() : searchTitleDTOs.OrderByDescending(x => x.clinicalStudy.studyTag).ToList(),
-                    "lastmodifieddate" => searchParametersDTO.sortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.auditTrail.entryDateTime).ToList() : searchTitleDTOs.OrderByDescending(x => x.auditTrail.entryDateTime).ToList(),
+                    "lastmodifieddate" => searchParametersDTO.sortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => DateTime.Parse(x.auditTrail.entryDateTime)).ToList() : searchTitleDTOs.OrderByDescending(x => DateTime.Parse(x.auditTrail.entryDateTime)).ToList(),
                     "version" => searchParametersDTO.sortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.auditTrail.studyVersion).ToList() : searchTitleDTOs.OrderByDescending(x => x.auditTrail.studyVersion).ToList(),
                     _ => searchParametersDTO.sortOrder == SortOrder.desc.ToString() ? searchTitleDTOs.OrderByDescending(x => x.clinicalStudy.studyTitle).ToList() : searchTitleDTOs.OrderBy(x => x.clinicalStudy.studyTitle).ToList(),
                 };

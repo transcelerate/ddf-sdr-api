@@ -41,6 +41,10 @@
         {
             public const string AlphaNumericsWithSpace = @"^[a-zA-Z0-9\s\.]*$";
         }
+        public struct DefaultHeaders
+        {
+            public const string AppInsightsApiKey = "x-api-key";
+        }
         public struct Roles
         {
             public const string Org_Admin = "org.admin";
@@ -81,6 +85,8 @@
             public const string EnterValidNumber = "Enter a valid number";
 
             public const string RootElementMissing = "Root Element is missing";
+
+            public const string InValidDays = "Invalid Date Range";
         }
 
         public struct ErrorMessages
@@ -120,6 +126,8 @@
             public const string InvalidCredentials = "Invalid Credentials";
 
             public const string PostRestricted = "Operation restricted for the user";
+
+            public const string UsageReportNotAvailable = "System Usage Report Not Available";
         }
 
         public struct TokenConstants
