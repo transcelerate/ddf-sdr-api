@@ -25,35 +25,27 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <returns></returns>
         public static async Task<string> Response(HttpContext context,string response)
         {
-            if(String.IsNullOrWhiteSpace(context.Response.Headers["Controller"]) && String.IsNullOrWhiteSpace(context.Response.Headers["InvalidInput"]))
-            {                                             
+            if(!String.IsNullOrWhiteSpace(context.Response.Headers["Content-Type"]))
+            {
                 context.Response.Headers.Add("Content-Type", "application/json");
-                if (context.Response.StatusCode == (int)HttpStatusCode.Forbidden)
-                {                    
-                    response = JsonConvert.SerializeObject(ErrorResponseHelper.Forbidden(Constants.ErrorMessages.Forbidden));
-                    await context.Response.WriteAsync(response);
-                }
-                else if (context.Response.StatusCode == (int)HttpStatusCode.Unauthorized)
-                {
-                   
-                    response = JsonConvert.SerializeObject(ErrorResponseHelper.UnAuthorizedAccess());                    
-                    await context.Response.WriteAsync(response);
-                }
-
-                else if (context.Response.StatusCode == (int)HttpStatusCode.NotFound)
-                {
-                    if (String.IsNullOrWhiteSpace(context.Response.Headers["Controller"]))
-                    {
-                        response = JsonConvert.SerializeObject(ErrorResponseHelper.NotFound());                        
-                        await context.Response.WriteAsync(response);
-                    }
-                }
-                else if (context.Response.StatusCode == (int)HttpStatusCode.MethodNotAllowed)
-                {
-                    response = JsonConvert.SerializeObject(ErrorResponseHelper.MethodNotAllowed());                   
-                    await context.Response.WriteAsync(response);
-                }
+            }          
+            else if (context.Response.StatusCode == (int)HttpStatusCode.Unauthorized)
+            {
+                response = JsonConvert.SerializeObject(ErrorResponseHelper.UnAuthorizedAccess());                
             }
+            if (context.Response.StatusCode == (int)HttpStatusCode.Forbidden)
+            {
+                response = JsonConvert.SerializeObject(ErrorResponseHelper.Forbidden(Constants.ErrorMessages.Forbidden));
+            }
+            else if (context.Response.StatusCode == (int)HttpStatusCode.NotFound)
+            {
+                response = JsonConvert.SerializeObject(ErrorResponseHelper.NotFound());                
+            }
+            else if (context.Response.StatusCode == (int)HttpStatusCode.MethodNotAllowed)
+            {
+                response = JsonConvert.SerializeObject(ErrorResponseHelper.MethodNotAllowed());                
+            }
+            await context.Response.WriteAsync(response);
             return response;
         }
     }

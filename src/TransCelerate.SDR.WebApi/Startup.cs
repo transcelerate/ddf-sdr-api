@@ -31,6 +31,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.Filters;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace TransCelerate.SDR.WebApi
 {
@@ -147,18 +149,23 @@ namespace TransCelerate.SDR.WebApi
                     ValidationProblemDetails problemDetails = new ValidationProblemDetails(context.ModelState);
                     var inputs = ((Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)context).ActionArguments;
                     context.HttpContext.Response.Headers.Add("InvalidInput", "True");
+                    var errorList = JsonConvert.SerializeObject(problemDetails.Errors)
+                                                               .Select((c, index) => new { c, index })
+                                                               .GroupBy(x => x.index / 32000) //since app insights limit is 32768 characters
+                                                               .Select(group => group.Select(elem => elem.c))
+                                                               .Select(chars => new string(chars.ToArray())).ToList();
                     //For Conformance error
                     if ((JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyEmptyError.ToLower()) || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyMissingError.ToLower())
                         || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.SelectAtleastOneGroup.ToLower()) || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.InvalidPermissionValue.ToLower())
                         || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.GroupFilterEmptyError.ToLower())) && !JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.TokenConstants.Username.ToLower()) && !JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.TokenConstants.Password.ToLower()))
                     {
-                        logger.LogError($"Conformance Error  : {JsonConvert.SerializeObject(problemDetails.Errors)} ; Input: {JsonConvert.SerializeObject(inputs)} ;");
+                        errorList.ForEach(error => logger.LogError($"Conformance Error {errorList.IndexOf(error)+1}: {error}"));
                         return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(problemDetails.Errors));
                     }
                     //Other errors
                     else
                     {
-                        logger.LogError($"Input Error : {JsonConvert.SerializeObject(problemDetails.Errors)} ; Input: {JsonConvert.SerializeObject(inputs)} ;");
+                        errorList.ForEach(error => logger.LogError($"Input Error {errorList.IndexOf(error)+1}: {error}"));
                         return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(problemDetails.Errors,"Invalid Input"));
                     }
                 };               
@@ -200,39 +207,45 @@ namespace TransCelerate.SDR.WebApi
             {
                 try
                 {
-                    await next();
                     string request = string.Empty;
                     string response = string.Empty;
-                    response = await HttpContextResponseHelper.Response(context, response);
-
-                    if (String.IsNullOrWhiteSpace(context.Response.Headers["Controller"]) && String.IsNullOrWhiteSpace(context.Response.Headers["InvalidInput"]))
-                    {
-                        var AuthToken = context.Request.Headers["Authorization"];
-                        using (StreamReader reader = new StreamReader(context.Request.Body))
+                    context.Request.EnableBuffering();
+                    using (StreamReader reader = new StreamReader(context.Request.Body))
+                    {                        
+                        List<string> inputArray = new List<string>();
+                        if(!context.Request.Path.Value.Contains(Route.Token))
                         {
                             var text = await reader.ReadToEndAsync();
                             if (text != null)
                                 request = text.ToString();
-                        }
-                        logger.LogInformation($"Status Code: {context.Response.StatusCode}; URL: {context.Request.Path}; requestBody : {request}; responseBody : {response};AuthToken: {AuthToken}");
+                            context.Request.Body.Position = 0;
+                            inputArray = request.Select((c, index) => new { c, index })
+                                                .GroupBy(x => x.index / 32000) //since app insights limit is 32768 characters
+                                                .Select(group => group.Select(elem => elem.c))
+                                                .Select(chars => new string(chars.ToArray())).ToList();                                                     
+                        }                        
+                        var logTask = Task.Run(() => inputArray.ForEach(input => logger.LogInformation($"Request Body {inputArray.IndexOf(input)+1}: {input}")));
+                        var actionTask = Task.Run(() => next()); 
+                        await Task.WhenAll(actionTask, logTask); // Adding request logging as Task to execute in parallel along with request
+                        //await next();
+                    }                    
+                                        
+                    if (String.IsNullOrWhiteSpace(context.Response.Headers["Controller"]) && String.IsNullOrWhiteSpace(context.Response.Headers["InvalidInput"]))
+                    {
+                        response = await HttpContextResponseHelper.Response(context, response);
+                        var AuthToken = context.Request.Headers["Authorization"];                        
+                        logger.LogInformation($"Status Code: {context.Response.StatusCode}; URL: {context.Request.Path}; AuthToken: {AuthToken}");
                     }                 
                 }
                 catch (Exception ex)
                 {
                     if (String.IsNullOrWhiteSpace(context.Response.Headers["Content-Type"]))
-                        context.Response.Headers.Add("Content-Type", "application/json");
-                    string request= string.Empty;
-                    var AuthToken = context.Request.Headers["Authorization"];
-                    using (StreamReader reader = new StreamReader(context.Request.Body))
-                    {
-                        var text = await reader.ReadToEndAsync();
-                        if (text != null)
-                            request = text.ToString();
-                    }
+                        context.Response.Headers.Add("Content-Type", "application/json");              
+                    var AuthToken = context.Request.Headers["Authorization"];                   
                     var response = JsonConvert.SerializeObject(ErrorResponseHelper.ErrorResponseModel(ex));
                     context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     logger.LogError($"Exception Occurred: {ex.Message}");
-                    logger.LogInformation($"Status Code: {context.Response.StatusCode}; URL: {context.Request.Path}; requestBody : {request}; responseBody : {response};AuthToken: {AuthToken}");      
+                    logger.LogInformation($"Status Code: {context.Response.StatusCode}; URL: {context.Request.Path}; AuthToken: {AuthToken}");      
                     await context.Response.WriteAsync(response);
                 }
             });
