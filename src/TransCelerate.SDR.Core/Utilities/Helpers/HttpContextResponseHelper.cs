@@ -25,7 +25,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <returns></returns>
         public static async Task<string> Response(HttpContext context,string response)
         {
-            if(!String.IsNullOrWhiteSpace(context.Response.Headers["Content-Type"]))
+            if(String.IsNullOrWhiteSpace(context.Response.Headers["Content-Type"]))
             {
                 context.Response.Headers.Add("Content-Type", "application/json");
             }          
