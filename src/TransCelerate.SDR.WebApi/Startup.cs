@@ -159,13 +159,15 @@ namespace TransCelerate.SDR.WebApi
                         || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.SelectAtleastOneGroup.ToLower()) || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.InvalidPermissionValue.ToLower())
                         || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.GroupFilterEmptyError.ToLower())) && !JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.TokenConstants.Username.ToLower()) && !JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.TokenConstants.Password.ToLower()))
                     {
-                        errorList.ForEach(error => logger.LogError($"Conformance Error {errorList.IndexOf(error)+1}: {error}"));
+                        //errorList.ForEach(error => logger.LogError($"Conformance Error {errorList.IndexOf(error)+1}: {error}"));
+                        Task.Run(() => errorList.ForEach(error => logger.LogError($"Conformance Error {errorList.IndexOf(error) + 1}: {error}")));
                         return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(problemDetails.Errors));
                     }
                     //Other errors
                     else
                     {
-                        errorList.ForEach(error => logger.LogError($"Input Error {errorList.IndexOf(error)+1}: {error}"));
+                        //errorList.ForEach(error => logger.LogError($"Input Error {errorList.IndexOf(error)+1}: {error}"));
+                        Task.Run(() => errorList.ForEach(error => logger.LogError($"Input Error {errorList.IndexOf(error) + 1}: {error}")));
                         return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(problemDetails.Errors,"Invalid Input"));
                     }
                 };               
