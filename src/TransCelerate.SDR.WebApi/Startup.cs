@@ -39,12 +39,13 @@ namespace TransCelerate.SDR.WebApi
     public class Startup
     {
         private readonly IWebHostEnvironment _env;
+        public List<string> invalidErrorResponse =  new List<string>();
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
-            _env = env;
-            //Assign Values from appsettings.json at runtime
+            _env = env;            
+            //Assign Values from appsettings.json at runtime           
             StartupLib.SetConstants(configuration);
-            Configuration = configuration;
+            Configuration = configuration;        
         }
 
         public IConfiguration Configuration { get; }
@@ -52,18 +53,18 @@ namespace TransCelerate.SDR.WebApi
         /// <summary>
         ///  This method gets called by the runtime. Use this method to add services to the container.
         /// </summary>
-        /// <param name="services"></param>
+        /// <param name="services"></param>        
         public void ConfigureServices(IServiceCollection services)
         {           
             // Application Insights for logs
             services.AddApplicationInsightsTelemetry(Config.InstrumentationKey);
 
             #region Only for Logging in Startup
-            var loggerFactory = LoggerFactory.Create(builder =>
-                {                    
-                    builder.AddApplicationInsights(Config.InstrumentationKey);
-                });
-            ILogger logger = loggerFactory.CreateLogger<Startup>();
+            //var loggerFactory = LoggerFactory.Create(builder =>
+            //    {                    
+            //        builder.AddApplicationInsights(Config.InstrumentationKey);
+            //    });
+            //ILogger logger = loggerFactory.CreateLogger<Startup>();
             #endregion            
 
             //Swagger
@@ -153,19 +154,21 @@ namespace TransCelerate.SDR.WebApi
                                                                .Select((c, index) => new { c, index })
                                                                .GroupBy(x => x.index / 32000) //since app insights limit is 32768 characters
                                                                .Select(group => group.Select(elem => elem.c))
-                                                               .Select(chars => new string(chars.ToArray())).ToList();
+                                                               .Select(chars => new string(chars.ToArray())).ToList();                    
                     //For Conformance error
                     if ((JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyEmptyError.ToLower()) || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyMissingError.ToLower())
                         || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.SelectAtleastOneGroup.ToLower()) || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.InvalidPermissionValue.ToLower())
                         || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.GroupFilterEmptyError.ToLower())) && !JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.TokenConstants.Username.ToLower()) && !JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.TokenConstants.Password.ToLower()))
                     {
-                        errorList.ForEach(error => logger.LogError($"Conformance Error {errorList.IndexOf(error)+1}: {error}"));
+                        //errorList.ForEach(error => logger.LogError($"Conformance Error {errorList.IndexOf(error)+1}: {error}"));
+                        errorList.ForEach(e => invalidErrorResponse.Add($"Conformance Error {errorList.IndexOf(e) + 1}: {e}"));
                         return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(problemDetails.Errors));
                     }
                     //Other errors
                     else
                     {
-                        errorList.ForEach(error => logger.LogError($"Input Error {errorList.IndexOf(error)+1}: {error}"));
+                        //errorList.ForEach(error => logger.LogError($"Input Error {errorList.IndexOf(error)+1}: {error}"));
+                        errorList.ForEach(e => invalidErrorResponse.Add($"Invalid Input {errorList.IndexOf(e) + 1}: {e}"));                        
                         return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(problemDetails.Errors,"Invalid Input"));
                     }
                 };               
@@ -228,8 +231,12 @@ namespace TransCelerate.SDR.WebApi
                         var actionTask = Task.Run(() => next()); 
                         await Task.WhenAll(actionTask, logTask); // Adding request logging as Task to execute in parallel along with request
                         //await next();
-                    }                    
-                                        
+                    }
+                    if (!String.IsNullOrWhiteSpace(context.Response.Headers["InvalidInput"]) && context.Response.Headers["InvalidInput"] == "True")
+                    {
+                        invalidErrorResponse.ForEach(error => logger.LogError(error));
+                    }
+
                     if (String.IsNullOrWhiteSpace(context.Response.Headers["Controller"]) && String.IsNullOrWhiteSpace(context.Response.Headers["InvalidInput"]))
                     {
                         response = await HttpContextResponseHelper.Response(context, response);
