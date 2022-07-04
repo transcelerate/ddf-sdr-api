@@ -154,7 +154,8 @@ namespace TransCelerate.SDR.WebApi
                                                                .Select((c, index) => new { c, index })
                                                                .GroupBy(x => x.index / 32000) //since app insights limit is 32768 characters
                                                                .Select(group => group.Select(elem => elem.c))
-                                                               .Select(chars => new string(chars.ToArray())).ToList();                    
+                                                               .Select(chars => new string(chars.ToArray())).ToList();
+                    invalidErrorResponse = new List<string>();
                     //For Conformance error
                     if ((JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyEmptyError.ToLower()) || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyMissingError.ToLower())
                         || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.SelectAtleastOneGroup.ToLower()) || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.InvalidPermissionValue.ToLower())
