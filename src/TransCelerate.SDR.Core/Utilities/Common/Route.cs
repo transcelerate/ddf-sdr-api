@@ -4,7 +4,7 @@
     /// This class holds list of routes for all the endpoints
     /// </summary>
     public static class Route
-    {
+    {        
         #region Study Routes
         #region GET Method Routes        
         public const string Study = "study/{studyId}";
@@ -22,6 +22,16 @@
         public const string SearchElements = "search";
 
         public const string SearchTitle = "searchstudytitle";
+        #endregion
+        #endregion
+
+        #region Study V1 Routes
+        #region GET Method Routes        
+        public const string StudyV1 = "v1/studydefinitions/{studyId}";
+        #endregion
+
+        #region POST Method Routes
+        public const string PostElementsV1 = "v1/studydefinitions";
         #endregion
         #endregion
 
@@ -44,6 +54,9 @@
         #region Reports
         public const string SystemUsageReport = "reports/usage";
         #endregion
+
+        #region Token
         public const string Token = "auth/token";
+        #endregion
     }
 }

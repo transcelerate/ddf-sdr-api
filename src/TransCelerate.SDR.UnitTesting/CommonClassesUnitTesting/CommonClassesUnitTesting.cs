@@ -1,37 +1,30 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using TransCelerate.SDR.Core.Utilities;
-using Microsoft.Extensions.Configuration;
-using TransCelerate.SDR.Core.Utilities.Common;
-using Microsoft.Extensions.Logging;
-using TransCelerate.SDR.Core.AppSettings;
-using NUnit.Framework;
-using System.Text;
-using Moq;
-using TransCelerate.SDR.Core.Utilities.Helpers;
-using System.IO;
-using Newtonsoft.Json;
-using TransCelerate.SDR.WebApi.Controllers;
-using TransCelerate.SDR.Core.Entities.Study;
-using TransCelerate.SDR.Core.ErrorModels;
-using TransCelerate.SDR.RuleEngine;
-using Microsoft.Extensions.DependencyInjection;
-using TransCelerate.SDR.Core.DTO;
-using TransCelerate.SDR.WebApi;
-using TransCelerate.SDR.WebApi.Mappers;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using TransCelerate.SDR.Core.DTO.Study;
-using TransCelerate.SDR.Core.DTO.UserGroups;
-using TransCelerate.SDR.Core.Entities.UserGroups;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
-using System.Net;
-using Microsoft.AspNetCore.Authorization;
-using TransCelerate.SDR.Core.DTO.Token;
 using Microsoft.AspNetCore.Mvc;
-using AutoMapper;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Moq;
+using Newtonsoft.Json;
+using NUnit.Framework;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using TransCelerate.SDR.Core.AppSettings;
+using TransCelerate.SDR.Core.DTO;
 using TransCelerate.SDR.Core.DTO.Reports;
+using TransCelerate.SDR.Core.DTO.Study;
+using TransCelerate.SDR.Core.DTO.Token;
+using TransCelerate.SDR.Core.DTO.UserGroups;
+using TransCelerate.SDR.Core.Entities.Study;
+using TransCelerate.SDR.Core.Entities.UserGroups;
+using TransCelerate.SDR.Core.ErrorModels;
+using TransCelerate.SDR.Core.Utilities;
+using TransCelerate.SDR.Core.Utilities.Common;
+using TransCelerate.SDR.Core.Utilities.Helpers;
+using TransCelerate.SDR.RuleEngine;
+using TransCelerate.SDR.WebApi.Controllers;
+using TransCelerate.SDR.WebApi.Mappers;
 
 namespace TransCelerate.SDR.UnitTesting
 {
@@ -58,6 +51,11 @@ namespace TransCelerate.SDR.UnitTesting
             });
             _mockMapper = new Mapper(mockMapper);
         }
+        LoggedInUser user = new LoggedInUser
+        {
+            UserName = "user1@SDR.com",
+            UserRole = Constants.Roles.Org_Admin
+        };
         public StudyEntity GetPostDataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/PostStudyData.json");
@@ -640,7 +638,16 @@ namespace TransCelerate.SDR.UnitTesting
         }
         #endregion
 
-        #region
+       
+        #region Spit String Helper
+        [Test]
+        public void SplitStringIntoArrayHelperUnitTesting()
+        {
+            var splitStringList = SplitStringIntoArrayHelper.SplitString(JsonConvert.SerializeObject(PostAGroupDto()), 100);
+            Assert.IsNotEmpty(splitStringList);
+        }
+        #endregion
+        #region Token Controller
         [Test]
         public void TokenControllerUnitTesting()
         {
@@ -698,6 +705,15 @@ namespace TransCelerate.SDR.UnitTesting
 
             Assert.AreEqual(expected.message, actual_result.message);
             Assert.AreEqual("400", actual_result.statusCode);
+        }
+        #endregion
+
+        #region DataFilters
+        [Test]
+        public void DataFiltersUnitTesting()
+        {
+            var filter = DataAccess.Filters.DataFilters.GetFiltersForGetStudy("1", 1);
+            Assert.IsNotNull(filter);   
         }
         #endregion
     }
