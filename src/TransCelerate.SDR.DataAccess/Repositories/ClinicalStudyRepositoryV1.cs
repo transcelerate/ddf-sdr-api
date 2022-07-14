@@ -154,15 +154,23 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
         public async Task<List<SDRGroupsEntity>> GetGroupsOfUser(LoggedInUser user)
         {
-            var groupsCollection = _database.GetCollection<UserGroupMappingEntity>(Constants.Collections.SDRGrouping);
+            try
+            {
+                var groupsCollection = _database.GetCollection<UserGroupMappingEntity>(Constants.Collections.SDRGrouping);
 
-            return await groupsCollection.Find(_ => true)
-                                             .Project(x => x.SDRGroups
-                                                           .Where(x => x.groupEnabled == true)
-                                                           .Where(x => x.users != null)
-                                                           .Where(x => x.users.Any(x => (x.email == user.UserName && x.isActive == true)))
-                                                           .ToList())
-                                             .FirstOrDefaultAsync().ConfigureAwait(false);
+                var data = await groupsCollection.Find(_ => true).FirstOrDefaultAsync();
+                return await groupsCollection.Find(_ => true)
+                                                 .Project(x => x.SDRGroups
+                                                               .Where(x => x.groupEnabled == true)
+                                                               .Where(x => x.users != null)
+                                                               .Where(x => x.users.Any(x => (x.email == user.UserName && x.isActive == true)))
+                                                               .ToList())
+                                                 .FirstOrDefaultAsync().ConfigureAwait(false);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         #endregion
     }

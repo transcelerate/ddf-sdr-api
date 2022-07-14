@@ -161,7 +161,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                         x.ObjectiveEndpoints.ForEach(y =>
                         {
                             y.Uuid = IdGenerator.GenerateId();
-                            y.EndpointLevel.ForEach(z => z.Uuid = IdGenerator.GenerateId());
+                            if(y.EndpointLevel is not null && y.EndpointLevel.Any())
+                                y.EndpointLevel.ForEach(z => z.Uuid = IdGenerator.GenerateId());
                         });
                     }
                 });
@@ -274,7 +275,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                     if (x.Treatment is not null)
                     {
                         x.Treatment.Uuid = IdGenerator.GenerateId();
-                        x.Treatment.Codes.ForEach(y => y.Uuid = IdGenerator.GenerateId());
+                        if(x.Treatment.Codes is not null && x.Treatment.Codes.Any())
+                            x.Treatment.Codes.ForEach(y => y.Uuid = IdGenerator.GenerateId());
                     }                       
 
                     if (x.AnalysisPopulation is not null)
@@ -458,7 +460,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                         x.ObjectiveEndpoints.ForEach(y =>
                         {
                             y.Uuid = null;
-                            y.EndpointLevel.ForEach(z => z.Uuid = null);
+                            if(y.EndpointLevel is not null && y.EndpointLevel.Any())
+                                y.EndpointLevel.ForEach(z => z.Uuid = null);
                         });
                     }
                 });
@@ -571,7 +574,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                     if (x.Treatment is not null)
                     {
                         x.Treatment.Uuid = null;
-                        x.Treatment.Codes.ForEach(y => y.Uuid = null);
+                        if (x.Treatment.Codes is not null && x.Treatment.Codes.Any())
+                            x.Treatment.Codes.ForEach(y => y.Uuid = null);
                     }    
 
                     if (x.AnalysisPopulation is not null)
