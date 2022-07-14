@@ -74,7 +74,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         {
             var mockMapper = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new AutoMapperProfies());
+                cfg.AddProfile(new SharedAutoMapperProfiles());
             });
             _mockMapper = new Mapper(mockMapper);
         }
