@@ -188,7 +188,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                     if (x.StudyEpoch is not null)
                     {
                         x.StudyEpoch.Uuid = IdGenerator.GenerateId();
-                        if (x.StudyEpoch.StudyEpochType is not null && x.StudyArm.StudyArmType.Any())
+                        if (x.StudyEpoch.StudyEpochType is not null && x.StudyEpoch.StudyEpochType.Any())
                             x.StudyEpoch.StudyEpochType.ForEach(y => y.Uuid = IdGenerator.GenerateId());
                     }
                     if (x.StudyElements is not null && x.StudyElements.Any())
@@ -487,7 +487,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                     if (x.StudyEpoch is not null)
                     {
                         x.StudyEpoch.Uuid = null;
-                        if (x.StudyEpoch.StudyEpochType is not null && x.StudyArm.StudyArmType.Any())
+                        if (x.StudyEpoch.StudyEpochType is not null && x.StudyEpoch.StudyEpochType.Any())
                             x.StudyEpoch.StudyEpochType.ForEach(y => y.Uuid = null);
                     }
                     if (x.StudyElements is not null && x.StudyElements.Any())
@@ -896,7 +896,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             else if (incomingObjectives is not null && existingObjectives is null)
             {
-                incomingObjectives.ForEach(x => x.Uuid = IdGenerator.GenerateId());
+                incomingObjectives = GenerateIdForStudyObjectives(incomingObjectives);
             }
             return incomingObjectives;
         }
@@ -917,7 +917,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                     else
                     {
                         x.Uuid = IdGenerator.GenerateId();
-                        x.EndpointLevel.ForEach(x => x.Uuid = IdGenerator.GenerateId());
+                        if (x.EndpointLevel is not null && x.EndpointLevel.Any())
+                            x.EndpointLevel.ForEach(x => x.Uuid = IdGenerator.GenerateId());
                         studyEndpoints.Add(x);
                     }
                 });
@@ -928,7 +929,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                 incomingEndpoints.ForEach(x =>
                 {
                     x.Uuid = IdGenerator.GenerateId();
-                    x.EndpointLevel.ForEach(x => x.Uuid = IdGenerator.GenerateId());
+                    if(x.EndpointLevel is not null && x.EndpointLevel.Any())
+                        x.EndpointLevel.ForEach(x => x.Uuid = IdGenerator.GenerateId());
                 });
             }
             return incomingEndpoints;
@@ -978,7 +980,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             else if (incomingStudyCells is not null && existingStudyCells is null)
             {
-                incomingStudyCells.ForEach(x => x.Uuid = IdGenerator.GenerateId());
+                incomingStudyCells = GenerateIdForStudyCells(incomingStudyCells);
             }
             return incomingStudyCells;
         }
@@ -1025,7 +1027,14 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             else if (incomingStudyElements is not null && existingStudyElements is null)
             {
-                incomingStudyElements.ForEach(x => x.Uuid = IdGenerator.GenerateId());
+                incomingStudyElements.ForEach(x => 
+                {
+                    x.Uuid = IdGenerator.GenerateId();
+                    if (x.TransitionEndRule is not null)
+                        x.TransitionEndRule.Uuid = IdGenerator.GenerateId();
+                    if (x.TransitionStartRule is not null)
+                        x.TransitionStartRule.Uuid = IdGenerator.GenerateId();
+                });
             }
             return incomingStudyElements;
         }
@@ -1305,7 +1314,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             else if (incomingEstimands is not null && existingEstimands is null)
             {
-                incomingEstimands.ForEach(x => x.Uuid = IdGenerator.GenerateId());
+                incomingEstimands = GenerateIdForStudyEstimand(incomingEstimands);
             }
             return incomingEstimands;
         }
@@ -1325,7 +1334,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                     else
                     {
                         x.Uuid = IdGenerator.GenerateId();
-                        x.Strategy.ForEach(y => y.Uuid = IdGenerator.GenerateId());
+                        if (x.Strategy is not null && x.Strategy.Any())
+                            x.Strategy.ForEach(y => y.Uuid = IdGenerator.GenerateId());
                         interCurrentEvents.Add(x);
                     }
                 });
@@ -1336,7 +1346,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                 incomingInterCurrentEvents.ForEach(x =>
                 {
                     x.Uuid = IdGenerator.GenerateId();
-                    x.Strategy.ForEach(y => y.Uuid = IdGenerator.GenerateId());
+                    if(x.Strategy is not null && x.Strategy.Any())
+                      x.Strategy.ForEach(y => y.Uuid = IdGenerator.GenerateId());
                 });
             }
             return incomingInterCurrentEvents;
