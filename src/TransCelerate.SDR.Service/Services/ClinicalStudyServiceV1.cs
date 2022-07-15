@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.StudyV1;
@@ -7,6 +8,7 @@ using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities.StudyV1;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
+using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1;
 using TransCelerate.SDR.DataAccess.Interfaces;
 using TransCelerate.SDR.Services.Interfaces;
@@ -58,9 +60,9 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {
-                    //var checkStudy = await CheckAccessForAStudy(study, user);
-                    //if (checkStudy == null)
-                    //    return Constants.ErrorMessages.Forbidden;
+                    StudyEntity checkStudy = await CheckAccessForAStudy(study, user);
+                    if (checkStudy == null)
+                        return Constants.ErrorMessages.Forbidden;
                     var studyDTO = _mapper.Map<StudyDto>(study);  //Mapping Entity to Dto                                                  
                     return studyDTO;
                 }
@@ -146,11 +148,68 @@ namespace TransCelerate.SDR.Services.Services
         #endregion
 
         #region UserGroups
+        /// <summary>
+        /// Check access for the study
+        /// </summary>
+        /// <param name="study">Study for which user access have to be checked</param>   
+        /// <param name="user">Logged In User</param>
+        /// <returns>
+        /// A <see cref="StudyEntity"/> if the user have access <br></br> <br></br>
+        /// <see langword="null"/> If user doesn't have access to the study
+        /// </returns>
+        public async Task<StudyEntity> CheckAccessForAStudy(StudyEntity study, LoggedInUser user)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(CheckAccessForAStudy)};");
+
+                if (user.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+                {
+                    var groups = await _clinicalStudyRepository.GetGroupsOfUser(user).ConfigureAwait(false);
+
+                    if (groups != null && groups.Count > 0)
+                    {
+                        Tuple<List<string>, List<string>> groupFilters = GroupFilters.GetGroupFilters(groups);
+                        if (groupFilters.Item2.Contains(study.ClinicalStudy.Uuid))
+                            return study;
+                        else if (groupFilters.Item1.Contains(study.ClinicalStudy.StudyType?.Decode?.ToLower()))
+                            return study;
+                        else
+                            return null;
+                    }
+                    else
+                    {
+                        // Filter should not give any results
+                        return null;
+                    }
+                }
+                else
+                    return study;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(CheckAccessForAStudy)};");
+            }
+        }
+
+
+        /// <summary>
+        /// Check READ_WRITE Permission for a user
+        /// </summary>    
+        /// <param name="user">Logged In User</param>
+        /// <returns>
+        /// <see langword="true"/> If the user have READ_WRITE access in any of the groups <br></br> <br></br>
+        /// <see langword="false"/> If the user does not have READ_WRITE access in any of the groups
+        /// </returns>
         public async Task<bool> CheckPermissionForAUser(LoggedInUser user)
         {
             try
             {
-                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyService)}; Method : {nameof(CheckPermissionForAUser)};");
+                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(CheckPermissionForAUser)};");
 
                 if (user.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
                 {
@@ -177,7 +236,7 @@ namespace TransCelerate.SDR.Services.Services
             }
             finally
             {
-                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyService)}; Method : {nameof(CheckPermissionForAUser)};");
+                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(CheckPermissionForAUser)};");
             }
         }
         #endregion
