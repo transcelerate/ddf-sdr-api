@@ -6,7 +6,7 @@
       "code": "C98388",
       "codeSystem": "http://www.cdisc.org",
       "codeSystemVersion": "2022-03-25",
-      "decode": "Interventional Study",
+      "decode": "INTERVENTIONAL",
       "uuid": "96e40885-1ea9-41e7-ad55-67771703db05"
     },
     "studyIdentifiers": [
