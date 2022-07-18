@@ -1127,10 +1127,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                                 x.WorkflowItemEncounter.EncounterContactMode = CheckForCodeSection(x.WorkflowItemEncounter.EncounterContactMode, existingWorkflowItems.Find(y => y.Uuid == x.Uuid).WorkflowItemEncounter.EncounterContactMode);
                                 x.WorkflowItemEncounter.EncounterEnvironmentalSetting = CheckForCodeSection(x.WorkflowItemEncounter.EncounterEnvironmentalSetting, existingWorkflowItems.Find(y => y.Uuid == x.Uuid).WorkflowItemEncounter.EncounterEnvironmentalSetting);
                                 x.WorkflowItemEncounter.EncounterType = CheckForCodeSection(x.WorkflowItemEncounter.EncounterType, existingWorkflowItems.Find(y => y.Uuid == x.Uuid).WorkflowItemEncounter.EncounterType);
-                                if (x.WorkflowItemEncounter.StartRule is not null && existingWorkflowItems.Find(y => y.Uuid == x.Uuid).WorkflowItemEncounter.StartRule is null)
-                                    x.WorkflowItemEncounter.StartRule.Uuid = IdGenerator.GenerateId();
-                                if (x.WorkflowItemEncounter.EndRule is not null && existingWorkflowItems.Find(y => y.Uuid == x.Uuid).WorkflowItemEncounter.StartRule is null)
-                                    x.WorkflowItemEncounter.EndRule.Uuid = IdGenerator.GenerateId();
+                                if (x.WorkflowItemEncounter.StartRule is not null)
+                                    x.WorkflowItemEncounter.StartRule.Uuid = String.IsNullOrWhiteSpace(x.WorkflowItemEncounter.StartRule.Uuid) ? IdGenerator.GenerateId(): x.WorkflowItemEncounter.StartRule.Uuid;
+                                if (x.WorkflowItemEncounter.EndRule is not null)
+                                    x.WorkflowItemEncounter.EndRule.Uuid = String.IsNullOrWhiteSpace(x.WorkflowItemEncounter.EndRule.Uuid) ? IdGenerator.GenerateId() : x.WorkflowItemEncounter.EndRule.Uuid;
                             }
                         }
                         else if (x.WorkflowItemEncounter is not null && existingWorkflowItems.Find(y => y.Uuid == x.Uuid).WorkflowItemEncounter is null)
@@ -1308,17 +1308,24 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                     {
                         if (x.Treatment is not null && existingEstimands.Find(y => y.Uuid == x.Uuid).Treatment is not null)
                         {
-                            x.Treatment.Uuid = String.IsNullOrWhiteSpace(x.Treatment.Uuid) ? IdGenerator.GenerateId() : x.Treatment.Uuid;
-                            x.Treatment.Codes = CheckForCodeSection(x.Treatment.Codes, existingEstimands.Find(y => y.Uuid == x.Uuid).Treatment.Codes);
+                            if(String.IsNullOrWhiteSpace(x.Treatment.Uuid))
+                            {
+                                x.Treatment.Uuid = IdGenerator.GenerateId();
+                                x.Treatment.Codes?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
+                            }
+                            else
+                            {                                
+                                x.Treatment.Codes = CheckForCodeSection(x.Treatment.Codes, existingEstimands.Find(y => y.Uuid == x.Uuid).Treatment.Codes);
+                            }
                         }
                         else if (x.Treatment is not null && existingEstimands.Find(y => y.Uuid == x.Uuid).Treatment is null)
                         {
                             x.Treatment.Uuid = IdGenerator.GenerateId();
                             x.Treatment.Codes?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
                         }
-                        if (x.AnalysisPopulation is not null && existingEstimands.Find(y => y.Uuid == x.Uuid).AnalysisPopulation is null)
+                        if (x.AnalysisPopulation is not null)
                         {
-                            x.AnalysisPopulation.Uuid = IdGenerator.GenerateId();
+                            x.AnalysisPopulation.Uuid = String.IsNullOrWhiteSpace(x.AnalysisPopulation.Uuid) ? IdGenerator.GenerateId() : x.AnalysisPopulation.Uuid; 
                         }
                         if (x.VariableOfInterest is not null && existingEstimands.Find(y => y.Uuid == x.Uuid).VariableOfInterest is not null)
                         {                           
@@ -1338,10 +1345,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                                 x.VariableOfInterest.EncounterContactMode = CheckForCodeSection(x.VariableOfInterest.EncounterContactMode, existingEstimands.Find(y => y.Uuid == x.Uuid).VariableOfInterest.EncounterContactMode);
                                 x.VariableOfInterest.EncounterEnvironmentalSetting = CheckForCodeSection(x.VariableOfInterest.EncounterEnvironmentalSetting, existingEstimands.Find(y => y.Uuid == x.Uuid).VariableOfInterest.EncounterEnvironmentalSetting);
                                 x.VariableOfInterest.EncounterType = CheckForCodeSection(x.VariableOfInterest.EncounterType, existingEstimands.Find(y => y.Uuid == x.Uuid).VariableOfInterest.EncounterType);
-                                if (x.VariableOfInterest.StartRule is not null && existingEstimands.Find(y => y.Uuid == x.Uuid).VariableOfInterest.StartRule is null)
-                                    x.VariableOfInterest.StartRule.Uuid = IdGenerator.GenerateId();
-                                if (x.VariableOfInterest.EndRule is not null && existingEstimands.Find(y => y.Uuid == x.Uuid).VariableOfInterest.StartRule is null)
-                                    x.VariableOfInterest.EndRule.Uuid = IdGenerator.GenerateId();
+                                if (x.VariableOfInterest.StartRule is not null)
+                                    x.VariableOfInterest.StartRule.Uuid = String.IsNullOrWhiteSpace(x.VariableOfInterest.StartRule.Uuid) ? IdGenerator.GenerateId() : x.VariableOfInterest.StartRule.Uuid;
+                                if (x.VariableOfInterest.EndRule is not null)
+                                    x.VariableOfInterest.EndRule.Uuid = String.IsNullOrWhiteSpace(x.VariableOfInterest.EndRule.Uuid) ? IdGenerator.GenerateId() : x.VariableOfInterest.EndRule.Uuid;
                             }
                         }
                         else if (x.VariableOfInterest is not null && existingEstimands.Find(y => y.Uuid == x.Uuid).VariableOfInterest is null)
