@@ -682,6 +682,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                 {
                     if (existingStudyIdentifiers.Any(y => y.Uuid == x.Uuid))
                     {
+                        if(x.StudyIdentifierScope is not null)
+                        {
+                            x.StudyIdentifierScope.Uuid = String.IsNullOrEmpty(x.StudyIdentifierScope.Uuid) ? IdGenerator.GenerateId() : x.StudyIdentifierScope.Uuid;
+                            if (x.StudyIdentifierScope.OrganisationType is not null)
+                                x.StudyIdentifierScope.OrganisationType.Uuid = String.IsNullOrWhiteSpace(x.StudyIdentifierScope.OrganisationType.Uuid) ? IdGenerator.GenerateId() : x.StudyIdentifierScope.OrganisationType.Uuid;
+                        }
                         studyIdentifiers.Add(x);
                         existingStudyIdentifiers.RemoveAll(y => y.Uuid == x.Uuid);
                     }
