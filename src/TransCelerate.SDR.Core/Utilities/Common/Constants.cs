@@ -20,7 +20,7 @@
         {
             public const string Study = "Study";
             public const string SDRGrouping = "Groups";
-            public const string StudyV1 = "StudyDefinitonsV1";
+            public const string StudyV1 = "StudyDefinitionsV1";
         }       
 
         public struct IdType
