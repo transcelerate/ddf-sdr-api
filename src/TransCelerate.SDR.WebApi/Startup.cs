@@ -230,7 +230,7 @@ namespace TransCelerate.SDR.WebApi
                     if (String.IsNullOrWhiteSpace(context.Response.Headers["Content-Type"]))
                         context.Response.Headers.Add("Content-Type", "application/json");                                                 
                     context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                    logger.LogError($"Exception Occurred: {ex.Message}");
+                    logger.LogError($"Exception Occurred: {ex}");
                     logger.LogInformation($"Status Code: {context.Response.StatusCode}; URL: {context.Request.Path}; AuthToken: {context.Request.Headers["Authorization"]}");      
                     await context.Response.WriteAsync(JsonConvert.SerializeObject(ErrorResponseHelper.ErrorResponseModel(ex)));
                 }

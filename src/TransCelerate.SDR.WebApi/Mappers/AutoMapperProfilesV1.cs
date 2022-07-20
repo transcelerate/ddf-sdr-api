@@ -15,9 +15,8 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<StudyEntity, StudyDto>().ReverseMap();
             CreateMap<ActivityDto, ActivityEntity>().ReverseMap();
             CreateMap<AnalysisPopulationDto, AnalysisPopulationEntity>().ReverseMap();
-            CreateMap<AuditTrailEntity, AuditTrailDto>()
-                .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.SDRUploadVersion))
-                .ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.EntryDateTime.ToString(Constants.DateFormats.DateFormatForAuditResponse).ToUpper()))
+            CreateMap<AuditTrailEntity, AuditTrailDto>()                
+                //.ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.EntryDateTime.ToString(Constants.DateFormats.DateFormatForAuditResponse).ToUpper()))
                 .ReverseMap();
             CreateMap<ClinicalStudyDto, ClinicalStudyEntity>().ReverseMap();
             CreateMap<CodeDto, CodeEntity>().ReverseMap();
