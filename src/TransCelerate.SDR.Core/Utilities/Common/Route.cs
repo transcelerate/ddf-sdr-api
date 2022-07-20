@@ -32,6 +32,8 @@
 
         #region POST Method Routes
         public const string PostElementsV1 = "v1/studydefinitions";
+
+        public const string SearchElementsV1 = "v1/search";
         #endregion
         #endregion
 

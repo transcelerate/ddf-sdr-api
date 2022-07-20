@@ -75,7 +75,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Exception occured. Exception : {ex.Message}");
+                _logger.LogError($"Exception occured. Exception : {ex}");
                 return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
             }
             finally
