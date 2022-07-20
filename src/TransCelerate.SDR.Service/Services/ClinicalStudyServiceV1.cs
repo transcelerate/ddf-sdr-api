@@ -187,8 +187,7 @@ namespace TransCelerate.SDR.Services.Services
                     };
 
                     studyDtos[studies.IndexOf(study)].ClinicalStudy.StudyDesigns = studyDesigns;
-                });
-
+                });                
                 return studyDtos;
 
             }
