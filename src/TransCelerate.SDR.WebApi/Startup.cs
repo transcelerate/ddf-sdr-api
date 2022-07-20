@@ -22,6 +22,7 @@ using TransCelerate.SDR.Core.Filters;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.RuleEngine;
+using TransCelerate.SDR.RuleEngineV1;
 using TransCelerate.SDR.WebApi.DependencyInjection;
 using TransCelerate.SDR.WebApi.Mappers;
 
@@ -129,8 +130,9 @@ namespace TransCelerate.SDR.WebApi
             services.AddAutoMapper(typeof(SharedAutoMapperProfiles).Assembly);   
             
             //API to use MVC with validation handling and JSON response
-            services.AddMvc().AddNewtonsoftJson();
+            services.AddMvc().AddNewtonsoftJson();            
             services.AddValidationDependencies();
+            services.AddValidationDependenciesV1();
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.InvalidModelStateResponseFactory = context =>

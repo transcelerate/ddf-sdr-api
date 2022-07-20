@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -147,6 +148,61 @@ namespace TransCelerate.SDR.Services.Services
         }
         #endregion
 
+        #region Search
+        /// <summary>
+        /// Search Study Elements with search criteria
+        /// </summary>
+        /// <param name="searchParametersDto">Parameters to search in database</param>
+        /// <param name="user">Logged In User</param>
+        /// <returns>
+        /// A <see cref="List{StudyDto}"/> which matches serach criteria <br></br> <br></br>
+        /// <see langword="null"/> If the insert is not done
+        /// </returns>
+        public async Task<List<StudyDto>> SearchStudy(SearchParametersDto searchParametersDto, LoggedInUser user)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyService)}; Method : {nameof(SearchStudy)};");
+                _logger.LogInformation($"Search Parameters : {JsonConvert.SerializeObject(searchParametersDto)}");
+
+                var searchParameters = _mapper.Map<SearchParameters>(searchParametersDto);
+
+                List<SearchResponseEntity> studies = await _clinicalStudyRepository.SearchStudy(searchParameters, user);
+
+                if(studies is null || !studies.Any())
+                {
+                    return null;
+                }
+
+                List<StudyDto> studyDtos = _mapper.Map<List<StudyDto>>(studies);
+
+                studies.ForEach(study =>
+                {                   
+                    List<CodeDto> interventionModel = _mapper.Map<List<CodeDto>>(study.InterventionModel?.Where(x => x != null && x.Any()).SelectMany(x => x).ToList());
+                    List<IndicationDto> studyIndication = _mapper.Map<List<IndicationDto>>(study.StudyIndications?.Where(x => x != null && x.Any()).SelectMany(x => x).ToList());
+
+                    List<StudyDesignDto> studyDesigns = new()
+                    {
+                        new StudyDesignDto {StudyIndications = studyIndication, InterventionModel = interventionModel}
+                    };
+
+                    studyDtos[studies.IndexOf(study)].ClinicalStudy.StudyDesigns = studyDesigns;
+                });
+
+                return studyDtos;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(SearchStudy)};");
+            }
+        }
+
+        #endregion
         #region UserGroups
         /// <summary>
         /// Check access for the study

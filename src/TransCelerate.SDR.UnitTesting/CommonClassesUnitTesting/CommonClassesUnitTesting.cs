@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -708,13 +709,5 @@ namespace TransCelerate.SDR.UnitTesting
         }
         #endregion
 
-        #region DataFilters
-        [Test]
-        public void DataFiltersUnitTesting()
-        {
-            var filter = DataAccess.Filters.DataFilters.GetFiltersForGetStudy("1", 1);
-            Assert.IsNotNull(filter);   
-        }
-        #endregion
     }
 }

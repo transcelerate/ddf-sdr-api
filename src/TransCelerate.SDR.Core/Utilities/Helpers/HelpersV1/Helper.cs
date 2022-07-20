@@ -882,8 +882,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                 {
                     if (existingObjectives.Any(y => y.Uuid == x.Uuid))
                     {
-                        x.ObjectiveLevel = CheckForCodeSection(x.ObjectiveLevel, existingObjectives.Find(x => x.Uuid == x.Uuid).ObjectiveLevel);
-                        x.ObjectiveEndpoints = CheckForStudyObjectivesEndpointsSection(x.ObjectiveEndpoints, existingObjectives.Find(x => x.Uuid == x.Uuid).ObjectiveEndpoints);
+                        x.ObjectiveLevel = CheckForCodeSection(x.ObjectiveLevel, existingObjectives.Find(y => y.Uuid == x.Uuid).ObjectiveLevel);
+                        x.ObjectiveEndpoints = CheckForStudyObjectivesEndpointsSection(x.ObjectiveEndpoints, existingObjectives.Find(y => y.Uuid == x.Uuid).ObjectiveEndpoints);
                         studyObjectives.Add(x);
                         existingObjectives.RemoveAll(y => y.Uuid == x.Uuid);
                     }
@@ -910,7 +910,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                 {
                     if (existingEndpoints.Any(y => y.Uuid == x.Uuid))
                     {
-                        x.EndpointLevel = CheckForCodeSection(x.EndpointLevel, existingEndpoints.Find(x => x.Uuid == x.Uuid).EndpointLevel);
+                        x.EndpointLevel = CheckForCodeSection(x.EndpointLevel, existingEndpoints.Find(y => y.Uuid == x.Uuid).EndpointLevel);
                         studyEndpoints.Add(x);
                         existingEndpoints.RemoveAll(y => y.Uuid == x.Uuid);
                     }

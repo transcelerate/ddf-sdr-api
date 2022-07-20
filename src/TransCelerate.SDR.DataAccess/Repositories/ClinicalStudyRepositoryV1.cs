@@ -12,6 +12,7 @@ using TransCelerate.SDR.DataAccess.Interfaces;
 using TransCelerate.SDR.DataAccess.Filters;
 using TransCelerate.SDR.Core.Entities.UserGroups;
 using TransCelerate.SDR.Core.DTO.Token;
+using TransCelerate.SDR.Core.Utilities.Helpers;
 
 namespace TransCelerate.SDR.DataAccess.Repositories
 {
@@ -147,6 +148,148 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         }
         #endregion
 
+        #region Search
+        /// <summary>
+        /// Search the collection based on search criteria
+        /// </summary>
+        /// <param name="searchParameters">Parameters to search in database</param>
+        /// <param name="user">Logged In User</param>
+        /// <returns>
+        /// A <see cref="List{SearchResponseEntity}"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        public async Task<List<SearchResponseEntity>> SearchStudy(SearchParameters searchParameters, LoggedInUser user)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(SearchStudy)};");
+                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
+                
+                List<SearchResponseEntity> studies = await collection.Aggregate()
+                                              .Match(DataFilters.GetFiltersForSearchStudy(searchParameters))
+                                              .Project(x => new SearchResponseEntity
+                                              {
+                                                  Uuid = x.ClinicalStudy.Uuid,
+                                                  StudyTitle = x.ClinicalStudy.StudyTitle,
+                                                  StudyType = x.ClinicalStudy.StudyType,
+                                                  StudyPhase = x.ClinicalStudy.StudyPhase,
+                                                  StudyIdentifiers = x.ClinicalStudy.StudyIdentifiers,
+                                                  InterventionModel = x.ClinicalStudy.StudyDesigns.Select(y=>y.InterventionModel) ?? null,
+                                                  StudyIndications = x.ClinicalStudy.StudyDesigns.Select(y=>y.StudyIndications) ?? null,
+                                                  EntryDateTime = x.AuditTrail.EntryDateTime,
+                                                  SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+                                              })                                              
+                                              .ToListAsync()
+                                              .ConfigureAwait(false);
+                List<SearchResponseEntity> studiesAfterGroupFilter = await GroupFilterForSearch(studies, user);
+
+                List<SearchResponseEntity> sortedResults = SortSearchResults(studiesAfterGroupFilter,searchParameters.Header,searchParameters.Asc) // Sort the data based on input
+                                                            .Skip((searchParameters.PageNumber - 1) * searchParameters.PageSize) //page number
+                                                            .Take(searchParameters.PageSize) //Number of documents per page
+                                                            .ToList();
+
+                return sortedResults;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(SearchStudy)};");
+            }
+        }
+
+        public IEnumerable<SearchResponseEntity> SortSearchResults(List<SearchResponseEntity> searchResponses, string property, bool asc)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Method : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(SortSearchResults)};");
+
+                if (!String.IsNullOrWhiteSpace(property))
+                {
+                    return property.ToLower() switch
+                    {
+                        //Sort by studyTitle
+                        "studytitle" => asc ? searchResponses.OrderBy(s => s.StudyTitle) : searchResponses.OrderByDescending(s => s.StudyTitle),
+
+                        //Sort by studyIdentifier: orgCode
+                        "sponsorid" => asc ? searchResponses.OrderBy(s => s.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1).Count() != 0 ? s.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1).StudyIdentifierScope.OrganisationIdentifier ?? "" : "")
+                                                                                        : searchResponses.OrderByDescending(s => s.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1).Count() != 0 ? s.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1).StudyIdentifierScope.OrganisationIdentifier ?? "" : ""),
+
+                        //Sort by studyIndication: description
+                        "indication" => asc ? searchResponses.OrderBy(s => (s.StudyIndications != null && s.StudyIndications.Any()) ? s.StudyIndications.First().Any() ? s.StudyIndications.First().First().IndicationDesc ?? "" : "" : "")
+                                                                                        : searchResponses.OrderByDescending(s => (s.StudyIndications != null && s.StudyIndications.Any()) ? s.StudyIndications.First().Any() ? s.StudyIndications.First().First().IndicationDesc ?? "" : "" : ""),
+
+                        //Sort by studyDesign: Intervention Model
+                        "interventionmodel" => asc ? searchResponses.OrderBy(s => (s.InterventionModel != null && s.InterventionModel.Any()) ? s.InterventionModel.First().Any() ? s.InterventionModel.First().First().Decode ?? "" : "" : "" )
+                                                               : searchResponses.OrderByDescending(s => (s.InterventionModel != null && s.InterventionModel.Any()) ? s.InterventionModel.First().Any() ? s.InterventionModel.First().First().Decode ?? "" : "" : ""),
+
+                        //Sort by studyPhase
+                        "phase" => asc ? searchResponses.OrderBy(s => s.StudyPhase != null ? s.StudyPhase.Decode ?? "" : "") : searchResponses.OrderByDescending(s => s.StudyPhase != null ? s.StudyPhase.Decode ?? "" : ""),
+                       
+                        //Sort by SDR version
+                        "sdrversion" => asc ? searchResponses.OrderBy(s => s.SDRUploadVersion) : searchResponses.OrderByDescending(s => s.SDRUploadVersion),                        
+
+                        //Sort by entryDateTime
+                        "lastmodifieddate" => asc ? searchResponses.OrderBy(s => s.EntryDateTime) : searchResponses.OrderByDescending(s => s.EntryDateTime),
+
+                        //Sort by entrySystem Descending by default
+                        _ => asc ? searchResponses.OrderBy(s => s.EntryDateTime) : searchResponses.OrderByDescending(s => s.EntryDateTime),
+                    };
+                }
+                else
+                {
+                    return asc ? searchResponses.OrderBy(s => s.EntryDateTime) : searchResponses.OrderByDescending(s => s.EntryDateTime);
+                }
+
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Method : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(SortSearchResults)};");
+            }
+        }
+
+        public async Task<List<SearchResponseEntity>> GroupFilterForSearch(List<SearchResponseEntity> searchResponses, LoggedInUser user)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Method : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(GroupFilterForSearch)};");
+
+                if (user.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+                {
+                    List<SDRGroupsEntity> groups = await GetGroupsOfUser(user);
+                    
+                    if (groups != null && groups.Count > 0)
+                    {
+                        Tuple<List<string>, List<string>> groupFilters = GroupFilters.GetGroupFilters(groups);
+
+                        searchResponses = searchResponses.Where(x => groupFilters.Item1.Contains(x.StudyType?.Decode?.ToLower()) || groupFilters.Item2.Contains(x.Uuid)).ToList();                        
+                    }
+                    else
+                    {
+                        // Filter should not give any results
+                        searchResponses = searchResponses.Where(x => 1 == 0).ToList();
+                    }
+                }
+
+
+                return searchResponses;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Method : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(GroupFilterForSearch)};");
+            }
+        }
         #endregion
 
 
@@ -157,8 +300,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             try
             {
                 var groupsCollection = _database.GetCollection<UserGroupMappingEntity>(Constants.Collections.SDRGrouping);
-
-                var data = await groupsCollection.Find(_ => true).FirstOrDefaultAsync();
+                
                 return await groupsCollection.Find(_ => true)
                                                  .Project(x => x.SDRGroups
                                                                .Where(x => x.groupEnabled == true)
@@ -172,6 +314,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 throw;
             }
         }
+        #endregion
+
         #endregion
     }
 }

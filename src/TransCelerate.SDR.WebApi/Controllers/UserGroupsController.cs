@@ -70,12 +70,12 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Exception occured. Exception : {ex.Message}");
+                _logger.LogError($"Exception occured. Exception : {ex}");
                 return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
             }
             finally
             {
-                _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(GetUserGroups)};");
+                _logger.LogInformation($"Ended Controller : {nameof(UserGroupsController)}; Method : {nameof(GetUserGroups)};");
             }            
         }
 
@@ -107,12 +107,12 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Exception occured. Exception : {ex.Message}");
+                _logger.LogError($"Exception occured. Exception : {ex}");
                 return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
             }
             finally
             {
-                _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(GetUsersList)};");
+                _logger.LogInformation($"Ended Controller : {nameof(UserGroupsController)}; Method : {nameof(GetUsersList)};");
             }
         }
 
@@ -137,12 +137,12 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Exception occured. Exception : {ex.Message}");
+                _logger.LogError($"Exception occured. Exception : {ex}");
                 return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
             }
             finally
             {
-                _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(GetGroupList)};");
+                _logger.LogInformation($"Ended Controller : {nameof(UserGroupsController)}; Method : {nameof(GetGroupList)};");
             }
         }
 
@@ -188,12 +188,12 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Exception occured. Exception : {ex.Message}");
+                _logger.LogError($"Exception occured. Exception : {ex}");
                 return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
             }
             finally
             {
-                _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(GetUserList)};");
+                _logger.LogInformation($"Ended Controller : {nameof(UserGroupsController)}; Method : {nameof(GetUserList)};");
             }
         }
 
@@ -225,12 +225,12 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Exception occured. Exception : {ex.Message}");
+                _logger.LogError($"Exception occured. Exception : {ex}");
                 return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
             }
             finally
             {
-                _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(CheckGroupName)};");
+                _logger.LogInformation($"Ended Controller : {nameof(UserGroupsController)}; Method : {nameof(CheckGroupName)};");
             }
         }
         #endregion
@@ -285,12 +285,12 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Exception occured. Exception : {ex.Message}");
+                _logger.LogError($"Exception occured. Exception : {ex}");
                 return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
             }
             finally
             {
-                _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(PostGroup)};");
+                _logger.LogInformation($"Ended Controller : {nameof(UserGroupsController)}; Method : {nameof(PostGroup)};");
             }
         }
 
@@ -335,12 +335,12 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Exception occured. Exception : {ex.Message}");
+                _logger.LogError($"Exception occured. Exception : {ex}");
                 return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
             }
             finally
             {
-                _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(PostGroup)};");
+                _logger.LogInformation($"Ended Controller : {nameof(UserGroupsController)}; Method : {nameof(PostGroup)};");
             }
         }
         #endregion
