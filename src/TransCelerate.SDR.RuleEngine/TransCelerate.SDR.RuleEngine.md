@@ -32,7 +32,9 @@
 - [RuleValidator](#T-TransCelerate-SDR-RuleEngine-RuleValidator 'TransCelerate.SDR.RuleEngine.RuleValidator')
   - [#ctor()](#M-TransCelerate-SDR-RuleEngine-RuleValidator-#ctor 'TransCelerate.SDR.RuleEngine.RuleValidator.#ctor')
 - [SearchParametersValidator](#T-TransCelerate-SDR-RuleEngine-SearchParametersValidator 'TransCelerate.SDR.RuleEngine.SearchParametersValidator')
+- [SearchParametersValidator](#T-TransCelerate-SDR-RuleEngineV1-SearchParametersValidator 'TransCelerate.SDR.RuleEngineV1.SearchParametersValidator')
   - [#ctor()](#M-TransCelerate-SDR-RuleEngine-SearchParametersValidator-#ctor 'TransCelerate.SDR.RuleEngine.SearchParametersValidator.#ctor')
+  - [#ctor()](#M-TransCelerate-SDR-RuleEngineV1-SearchParametersValidator-#ctor 'TransCelerate.SDR.RuleEngineV1.SearchParametersValidator.#ctor')
 - [StudyArmValidator](#T-TransCelerate-SDR-RuleEngine-StudyArmValidator 'TransCelerate.SDR.RuleEngine.StudyArmValidator')
   - [#ctor()](#M-TransCelerate-SDR-RuleEngine-StudyArmValidator-#ctor 'TransCelerate.SDR.RuleEngine.StudyArmValidator.#ctor')
 - [StudyCellsValidator](#T-TransCelerate-SDR-RuleEngine-StudyCellsValidator 'TransCelerate.SDR.RuleEngine.StudyCellsValidator')
@@ -55,6 +57,8 @@
   - [#ctor()](#M-TransCelerate-SDR-RuleEngine-StudyProtocolValidator-#ctor 'TransCelerate.SDR.RuleEngine.StudyProtocolValidator.#ctor')
 - [ValidationDependencies](#T-TransCelerate-SDR-RuleEngine-ValidationDependencies 'TransCelerate.SDR.RuleEngine.ValidationDependencies')
   - [AddValidationDependencies(services)](#M-TransCelerate-SDR-RuleEngine-ValidationDependencies-AddValidationDependencies-Microsoft-Extensions-DependencyInjection-IServiceCollection- 'TransCelerate.SDR.RuleEngine.ValidationDependencies.AddValidationDependencies(Microsoft.Extensions.DependencyInjection.IServiceCollection)')
+- [ValidationDependenciesV1](#T-TransCelerate-SDR-RuleEngineV1-ValidationDependenciesV1 'TransCelerate.SDR.RuleEngineV1.ValidationDependenciesV1')
+  - [AddValidationDependenciesV1(services)](#M-TransCelerate-SDR-RuleEngineV1-ValidationDependenciesV1-AddValidationDependenciesV1-Microsoft-Extensions-DependencyInjection-IServiceCollection- 'TransCelerate.SDR.RuleEngineV1.ValidationDependenciesV1.AddValidationDependenciesV1(Microsoft.Extensions.DependencyInjection.IServiceCollection)')
 - [WorkFlowItemMatrixValidator](#T-TransCelerate-SDR-RuleEngine-WorkFlowItemMatrixValidator 'TransCelerate.SDR.RuleEngine.WorkFlowItemMatrixValidator')
   - [#ctor()](#M-TransCelerate-SDR-RuleEngine-WorkFlowItemMatrixValidator-#ctor 'TransCelerate.SDR.RuleEngine.WorkFlowItemMatrixValidator.#ctor')
 
@@ -317,7 +321,25 @@ This constructor has no parameters.
 
 TransCelerate.SDR.RuleEngine
 
+<a name='T-TransCelerate-SDR-RuleEngineV1-SearchParametersValidator'></a>
+## SearchParametersValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV1
+
 <a name='M-TransCelerate-SDR-RuleEngine-SearchParametersValidator-#ctor'></a>
+### #ctor() `constructor`
+
+##### Summary
+
+Validator for SearchParameters
+
+##### Parameters
+
+This constructor has no parameters.
+
+<a name='M-TransCelerate-SDR-RuleEngineV1-SearchParametersValidator-#ctor'></a>
 ### #ctor() `constructor`
 
 ##### Summary
@@ -517,6 +539,30 @@ TransCelerate.SDR.RuleEngine
 
 <a name='M-TransCelerate-SDR-RuleEngine-ValidationDependencies-AddValidationDependencies-Microsoft-Extensions-DependencyInjection-IServiceCollection-'></a>
 ### AddValidationDependencies(services) `method`
+
+##### Summary
+
+Add all the dependencies for validations
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| services | [Microsoft.Extensions.DependencyInjection.IServiceCollection](#T-Microsoft-Extensions-DependencyInjection-IServiceCollection 'Microsoft.Extensions.DependencyInjection.IServiceCollection') |  |
+
+<a name='T-TransCelerate-SDR-RuleEngineV1-ValidationDependenciesV1'></a>
+## ValidationDependenciesV1 `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV1
+
+<a name='M-TransCelerate-SDR-RuleEngineV1-ValidationDependenciesV1-AddValidationDependenciesV1-Microsoft-Extensions-DependencyInjection-IServiceCollection-'></a>
+### AddValidationDependenciesV1(services) `method`
 
 ##### Summary
 

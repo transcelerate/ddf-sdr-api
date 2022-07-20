@@ -38,6 +38,19 @@ namespace TransCelerate.SDR.Services.Interfaces
         Task<object> PostAllElements(StudyDto studyDTO, LoggedInUser user);
         #endregion
 
+        #region Search
+        /// <summary>
+        /// Search Study Elements with search criteria
+        /// </summary>
+        /// <param name="searchParametersDto">Parameters to search in database</param>
+        /// <param name="user">Logged In User</param>
+        /// <returns>
+        /// A <see cref="List{StudyDto}"/> which matches serach criteria <br></br> <br></br>
+        /// <see langword="null"/> If the insert is not done
+        /// </returns>
+        Task<List<StudyDto>> SearchStudy(SearchParametersDto searchParametersDto, LoggedInUser user);
+        #endregion
+
 
 
     }

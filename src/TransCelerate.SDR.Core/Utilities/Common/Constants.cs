@@ -20,12 +20,13 @@
         {
             public const string Study = "Study";
             public const string SDRGrouping = "Groups";
-            public const string StudyV1 = "SDRV1";
+            public const string StudyV1 = "StudyDefinitonsV1";
         }       
 
         public struct IdType
         {
             public const string SPONSOR_ID = "SPONSOR_ID";
+            public const string SPONSOR_ID_V1 = "Clinical Study Sponsor";
         }
 
         public struct LogConstant

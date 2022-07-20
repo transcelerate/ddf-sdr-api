@@ -42,6 +42,17 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// </returns>
         Task<string> UpdateStudyItemsAsync(StudyEntity study);
 
+        /// <summary>
+        /// Search the collection based on search criteria
+        /// </summary>
+        /// <param name="searchParameters">Parameters to search in database</param>
+        /// <param name="user">Logged In User</param>
+        /// <returns>
+        /// A <see cref="List{SearchResponseEntity}"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        Task<List<SearchResponseEntity>> SearchStudy(SearchParameters searchParameters, LoggedInUser user);
+
         Task<List<SDRGroupsEntity>> GetGroupsOfUser(LoggedInUser user);
     }
 }

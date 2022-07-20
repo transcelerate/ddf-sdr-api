@@ -43,6 +43,22 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<WorkflowDto, WorkflowEntity>().ReverseMap();
             CreateMap<WorkflowItemDto, WorkFlowItemEntity>().ReverseMap();
 
+            //Mapper for Search method request body
+            CreateMap<SearchParametersDto, SearchParameters>();
+
+
+            //Mapper for Search Response
+            CreateMap<StudyDto, SearchResponseEntity>()
+                .ForMember(dest => dest.Uuid, opt => opt.MapFrom(src => src.ClinicalStudy.Uuid))
+                .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.ClinicalStudy.StudyTitle))
+                .ForMember(dest => dest.StudyIdentifiers, opt => opt.MapFrom(src => src.ClinicalStudy.StudyIdentifiers))                
+                .ForMember(dest => dest.StudyType, opt => opt.MapFrom(src => src.ClinicalStudy.StudyType))
+                .ForMember(dest => dest.StudyPhase, opt => opt.MapFrom(src => src.ClinicalStudy.StudyPhase))
+                .ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.AuditTrail.EntryDateTime))
+                .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))
+                .ReverseMap();
+
+
 
         }
     }

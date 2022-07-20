@@ -3,7 +3,9 @@ using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.StudyV1;
 using TransCelerate.SDR.Core.DTO.Token;
@@ -319,6 +321,73 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
 
             Assert.Throws<AggregateException>(method.Wait);
+        }
+        #endregion
+
+        #region Search Study
+        [Test]
+        public void SearchStudyUnitTesting()
+        {
+            StudyDto study = GetDtoDataFromStaticJson();
+            List<StudyDto> studyList = new() { study };
+            StudyEntity studyEntity = GetEntityDataFromStaticJson();
+            SearchResponseEntity searchResponseEntity = new()
+            {
+                EntryDateTime = DateTime.Now,
+                SDRUploadVersion = 2,
+                InterventionModel = studyEntity.ClinicalStudy.StudyDesigns.Select(x=>x.InterventionModel),
+                StudyIdentifiers = studyEntity.ClinicalStudy.StudyIdentifiers,
+                StudyIndications = studyEntity.ClinicalStudy.StudyDesigns.Select(x=>x.StudyIndications),
+                StudyPhase = studyEntity.ClinicalStudy.StudyPhase,
+                StudyTitle = studyEntity.ClinicalStudy.StudyTitle,
+                StudyType = studyEntity.ClinicalStudy.StudyType,
+                Uuid = studyEntity.ClinicalStudy.Uuid
+            };
+            _mockClinicalStudyRepository.Setup(x => x.SearchStudy(It.IsAny<SearchParameters>(), It.IsAny<LoggedInUser>()))
+                  .Returns(Task.FromResult(new List<SearchResponseEntity>() { searchResponseEntity }));
+
+            SearchParametersDto searchParameters = new()
+            {
+                Indication = "Bile",
+                InterventionModel = "CROSS_OVER",
+                StudyTitle = "Umbrella",
+                PageNumber = 1,
+                PageSize = 25,
+                Phase = "PHASE_1_TRAIL",
+                StudyId = "100",
+                FromDate = DateTime.Now.AddDays(-5).ToString(),
+                ToDate = DateTime.Now.ToString(),
+                Asc = true,
+                Header  = "sdrversion"
+            };
+
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
+
+            var method = ClinicalStudyService.SearchStudy(searchParameters, user);
+            method.Wait();
+            var result = method.Result;
+
+            //Actual            
+            var actual_result = JsonConvert.DeserializeObject<List<StudyDto>>(
+                JsonConvert.SerializeObject(result));
+
+            //Assert          
+            Assert.IsNotNull(actual_result);
+            Assert.IsNotEmpty(actual_result);
+
+            _mockClinicalStudyRepository.Setup(x => x.SearchStudy(It.IsAny<SearchParameters>(), It.IsAny<LoggedInUser>()))
+                .Throws(new Exception("Error"));            
+
+            method = ClinicalStudyService.SearchStudy(searchParameters, user);
+            Assert.Throws<AggregateException>(method.Wait);
+
+            _mockClinicalStudyRepository.Setup(x => x.SearchStudy(It.IsAny<SearchParameters>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(null as List<SearchResponseEntity>));
+
+            method = ClinicalStudyService.SearchStudy(searchParameters, user);
+            method.Wait();
+            result = method.Result;
+            Assert.IsNull(result);
         }
         #endregion
         #endregion
