@@ -16,7 +16,7 @@
   - [SearchTitle(searchParameters,user)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-SearchTitle-TransCelerate-SDR-Core-Entities-Study-SearchTitleParameters,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepository.SearchTitle(TransCelerate.SDR.Core.Entities.Study.SearchTitleParameters,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
   - [UpdateStudyItemsAsync(study)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-UpdateStudyItemsAsync-TransCelerate-SDR-Core-Entities-Study-StudyEntity- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepository.UpdateStudyItemsAsync(TransCelerate.SDR.Core.Entities.Study.StudyEntity)')
 - [ClinicalStudyRepositoryV1](#T-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV1 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV1')
-  - [GetStudyItemsAsync(studyId,version)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV1-GetStudyItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV1.GetStudyItemsAsync(System.String,System.Int32)')
+  - [GetStudyItemsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV1-GetStudyItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV1.GetStudyItemsAsync(System.String,System.Int32)')
   - [PostStudyItemsAsync(study)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV1-PostStudyItemsAsync-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV1.PostStudyItemsAsync(TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity)')
   - [SearchStudy(searchParameters,user)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV1-SearchStudy-TransCelerate-SDR-Core-Entities-StudyV1-SearchParameters,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV1.SearchStudy(TransCelerate.SDR.Core.Entities.StudyV1.SearchParameters,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
   - [UpdateStudyItemsAsync(study)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV1-UpdateStudyItemsAsync-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV1.UpdateStudyItemsAsync(TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity)')
@@ -31,7 +31,7 @@
   - [SearchTitle(searchParameters,user)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-SearchTitle-TransCelerate-SDR-Core-Entities-Study-SearchTitleParameters,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepository.SearchTitle(TransCelerate.SDR.Core.Entities.Study.SearchTitleParameters,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
   - [UpdateStudyItemsAsync(study)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-UpdateStudyItemsAsync-TransCelerate-SDR-Core-Entities-Study-StudyEntity- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepository.UpdateStudyItemsAsync(TransCelerate.SDR.Core.Entities.Study.StudyEntity)')
 - [IClinicalStudyRepositoryV1](#T-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV1 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV1')
-  - [GetStudyItemsAsync(studyId,version)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV1-GetStudyItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV1.GetStudyItemsAsync(System.String,System.Int32)')
+  - [GetStudyItemsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV1-GetStudyItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV1.GetStudyItemsAsync(System.String,System.Int32)')
   - [PostStudyItemsAsync(study)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV1-PostStudyItemsAsync-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV1.PostStudyItemsAsync(TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity)')
   - [SearchStudy(searchParameters,user)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV1-SearchStudy-TransCelerate-SDR-Core-Entities-StudyV1-SearchParameters,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV1.SearchStudy(TransCelerate.SDR.Core.Entities.StudyV1.SearchParameters,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
   - [UpdateStudyItemsAsync(study)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV1-UpdateStudyItemsAsync-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV1.UpdateStudyItemsAsync(TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity)')
@@ -268,7 +268,7 @@ A studyId which was inserted
 TransCelerate.SDR.DataAccess.Repositories
 
 <a name='M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV1-GetStudyItemsAsync-System-String,System-Int32-'></a>
-### GetStudyItemsAsync(studyId,version) `method`
+### GetStudyItemsAsync(studyId,sdruploadversion) `method`
 
 ##### Summary
 
@@ -283,7 +283,7 @@ A [StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity 'TransCel
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
-| version | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
+| sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
 
 <a name='M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV1-PostStudyItemsAsync-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity-'></a>
 ### PostStudyItemsAsync(study) `method`
@@ -515,7 +515,7 @@ A studyId which was inserted
 TransCelerate.SDR.DataAccess.Interfaces
 
 <a name='M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV1-GetStudyItemsAsync-System-String,System-Int32-'></a>
-### GetStudyItemsAsync(studyId,version) `method`
+### GetStudyItemsAsync(studyId,sdruploadversion) `method`
 
 ##### Summary
 
@@ -530,7 +530,7 @@ A [StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity 'TransCel
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
-| version | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
+| sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
 
 <a name='M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV1-PostStudyItemsAsync-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity-'></a>
 ### PostStudyItemsAsync(study) `method`

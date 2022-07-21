@@ -40,20 +40,20 @@ namespace TransCelerate.SDR.Services.Services
         /// GET All Elements For a Study
         /// </summary>
         /// <param name="studyId">Study ID</param>
-        /// <param name="version">Version of study</param>
+        /// <param name="sdruploadversion">Version of study</param>
         /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<object> GetStudy(string studyId, int version, LoggedInUser user)
+        public async Task<object> GetStudy(string studyId, int sdruploadversion, LoggedInUser user)
         {
             try
             {
                 _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(GetStudy)};");
                 studyId = studyId.Trim();
 
-                StudyEntity study = study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: studyId, version: version).ConfigureAwait(false);
+                StudyEntity study = study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: studyId, sdruploadversion: sdruploadversion).ConfigureAwait(false);
 
                 if (study == null)
                 {
