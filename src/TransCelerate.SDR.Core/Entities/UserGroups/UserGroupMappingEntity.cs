@@ -10,7 +10,8 @@ namespace TransCelerate.SDR.Core.Entities.UserGroups
     [BsonIgnoreExtraElements]
     public class UserGroupMappingEntity
     {
-        //public Object _id { get; set; }
+        // public Object _id { get; set; }
+        [BsonElement("SDRGroups")]
         public List<SDRGroupsEntity> SDRGroups { get; set; }
     }
 }

@@ -11,21 +11,17 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
     public static class GroupFilters
     {
         public static Tuple<List<string>,List<string>> GetGroupFilters(List<SDRGroupsEntity> groups)
-        {
-            List<string> studyTypeFilterValues = new List<string>();
-            List<string> studyIdFilterValues = new List<string>();
-            studyTypeFilterValues.AddRange(groups.SelectMany(x => x.groupFilter)
-                                                            .Where(x => x.groupFieldName == GroupFieldNames.studyType.ToString())
-                                                            .SelectMany(x => x.groupFilterValues)
-                                                            .Select(x => x.groupFilterValueId.ToLower())
-                                                            .ToList());
-            studyIdFilterValues.AddRange(groups.SelectMany(x => x.groupFilter)
-                                                 .Where(x => x.groupFieldName == GroupFieldNames.study.ToString())
-                                                 .SelectMany(x => x.groupFilterValues)
-                                                 .Select(x => x.groupFilterValueId)
-                                                 .ToList());
+        {           
+            return Tuple.Create(GetFilterValues(groups, GroupFieldNames.studyType.ToString()), GetFilterValues(groups, GroupFieldNames.study.ToString()));
+        }
 
-            return Tuple.Create(studyTypeFilterValues, studyIdFilterValues);
+        public static List<string> GetFilterValues(List<SDRGroupsEntity> groups, string field)
+        {
+            return groups.SelectMany(x => x.groupFilter)
+                         .Where(x => x.groupFieldName == field)
+                         .SelectMany(x => x.groupFilterValues)
+                         .Select(x => field == GroupFieldNames.study.ToString() ? x.groupFilterValueId : x.groupFilterValueId.ToLower())
+                         .ToList();
         }
     }
 }
