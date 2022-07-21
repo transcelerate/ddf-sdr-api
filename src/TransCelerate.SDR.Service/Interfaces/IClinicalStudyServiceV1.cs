@@ -15,13 +15,13 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// GET All Elements For a Study
         /// </summary>
         /// <param name="studyId">Study ID</param>
-        /// <param name="version">Version of study</param>
+        /// <param name="sdruploadversion">Version of study</param>
         /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        Task<object> GetStudy(string studyId, int version, LoggedInUser user);
+        Task<object> GetStudy(string studyId, int sdruploadversion, LoggedInUser user);
         #endregion
 
 

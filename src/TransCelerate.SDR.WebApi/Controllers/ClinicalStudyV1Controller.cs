@@ -42,7 +42,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// GET All Elements For a Study
         /// </summary>
         /// <param name="studyId">Study ID</param>
-        /// <param name="version">Version of study</param>
+        /// <param name="sdruploadversion">Version of study</param>
         /// <response code="200">Returns Study</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>
@@ -52,7 +52,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetStudy(string studyId, int version)
+        public async Task<IActionResult> GetStudy(string studyId, int sdruploadversion)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
-                    var study = await _clinicalStudyService.GetStudy(studyId, version, user).ConfigureAwait(false);
+                    var study = await _clinicalStudyService.GetStudy(studyId, sdruploadversion, user).ConfigureAwait(false);
 
                     if (study == null)
                     {

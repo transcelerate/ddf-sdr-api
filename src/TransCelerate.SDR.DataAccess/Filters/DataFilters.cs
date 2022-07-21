@@ -8,14 +8,14 @@ namespace TransCelerate.SDR.DataAccess.Filters
 {
     public static class DataFilters
     {
-        public static FilterDefinition<StudyEntity> GetFiltersForGetStudy(string studyId, int version)
+        public static FilterDefinition<StudyEntity> GetFiltersForGetStudy(string studyId, int sdruploadversion)
         {
             FilterDefinitionBuilder<StudyEntity> builder = Builders<StudyEntity>.Filter;
             FilterDefinition<StudyEntity> filter = builder.Empty;
             filter &= builder.Where(s => s.ClinicalStudy.Uuid == studyId);
 
-            if (version != 0)
-                filter &= builder.Where(x => x.AuditTrail.SDRUploadVersion == version);           
+            if (sdruploadversion != 0)
+                filter &= builder.Where(x => x.AuditTrail.SDRUploadVersion == sdruploadversion);           
 
             return filter;
         }
