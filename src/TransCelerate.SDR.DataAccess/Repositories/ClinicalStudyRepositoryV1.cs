@@ -45,12 +45,12 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// GET a Study for a study ID with version filter
         /// </summary>
         /// <param name="studyId">Study ID</param>
-        /// <param name="version">Version of study</param>
+        /// <param name="sdruploadversion">Version of study</param>
         /// <returns>
         /// A <see cref="StudyEntity"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<StudyEntity> GetStudyItemsAsync(string studyId, int version)
+        public async Task<StudyEntity> GetStudyItemsAsync(string studyId, int sdruploadversion)
         {
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(GetStudyItemsAsync)};");
             try
@@ -58,7 +58,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
                 
 
-                StudyEntity study = await collection.Find(DataFilters.GetFiltersForGetStudy(studyId,version))
+                StudyEntity study = await collection.Find(DataFilters.GetFiltersForGetStudy(studyId, sdruploadversion))
                                                      .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
                                                      .Limit(1)                  //Taking top 1 result
                                                      .SingleOrDefaultAsync().ConfigureAwait(false);                
@@ -300,7 +300,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             try
             {
                 var groupsCollection = _database.GetCollection<UserGroupMappingEntity>(Constants.Collections.SDRGrouping);
-                
+
                 return await groupsCollection.Find(_ => true)
                                                  .Project(x => x.SDRGroups
                                                                .Where(x => x.groupEnabled == true)

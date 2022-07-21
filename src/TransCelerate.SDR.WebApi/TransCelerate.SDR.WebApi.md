@@ -13,7 +13,7 @@
   - [SearchStudy(searchparameters)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyController-SearchStudy-TransCelerate-SDR-Core-DTO-Study-SearchParametersDTO- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyController.SearchStudy(TransCelerate.SDR.Core.DTO.Study.SearchParametersDTO)')
   - [SearchTitle(searchparameters)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyController-SearchTitle-TransCelerate-SDR-Core-DTO-Study-SearchTitleParametersDTO- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyController.SearchTitle(TransCelerate.SDR.Core.DTO.Study.SearchTitleParametersDTO)')
 - [ClinicalStudyV1Controller](#T-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV1Controller')
-  - [GetStudy(studyId,version)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller-GetStudy-System-String,System-Int32- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV1Controller.GetStudy(System.String,System.Int32)')
+  - [GetStudy(studyId,sdruploadversion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller-GetStudy-System-String,System-Int32- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV1Controller.GetStudy(System.String,System.Int32)')
   - [PostAllElements(studyDTO)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV1-StudyDto- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV1Controller.PostAllElements(TransCelerate.SDR.Core.DTO.StudyV1.StudyDto)')
   - [SearchStudy(searchparameters)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller-SearchStudy-TransCelerate-SDR-Core-DTO-StudyV1-SearchParametersDto- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV1Controller.SearchStudy(TransCelerate.SDR.Core.DTO.StudyV1.SearchParametersDto)')
 - [ReportsController](#T-TransCelerate-SDR-WebApi-Controllers-ReportsController 'TransCelerate.SDR.WebApi.Controllers.ReportsController')
@@ -161,7 +161,7 @@ Search For a Study
 TransCelerate.SDR.WebApi.Controllers
 
 <a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller-GetStudy-System-String,System-Int32-'></a>
-### GetStudy(studyId,version) `method`
+### GetStudy(studyId,sdruploadversion) `method`
 
 ##### Summary
 
@@ -172,7 +172,7 @@ GET All Elements For a Study
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
-| version | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
+| sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
 
 <a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV1-StudyDto-'></a>
 ### PostAllElements(studyDTO) `method`
