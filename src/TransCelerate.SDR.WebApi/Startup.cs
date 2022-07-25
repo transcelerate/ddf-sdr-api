@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -114,7 +115,7 @@ namespace TransCelerate.SDR.WebApi
                 fv.DisableDataAnnotationsValidation = true;
                 fv.ImplicitlyValidateChildProperties = true;
                 fv.ImplicitlyValidateRootCollectionElements = true;
-
+                
                 fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             });           
 
@@ -127,37 +128,41 @@ namespace TransCelerate.SDR.WebApi
             //AutoMapper Profile
             services.AddAutoMapper(typeof(AutoMapperProfies).Assembly);   
             services.AddAutoMapper(typeof(AutoMapperProfilesV1).Assembly);   
-            services.AddAutoMapper(typeof(SharedAutoMapperProfiles).Assembly);   
-            
+            services.AddAutoMapper(typeof(SharedAutoMapperProfiles).Assembly);
+
             //API to use MVC with validation handling and JSON response
-            services.AddMvc().AddNewtonsoftJson();            
+            services.AddMvc().AddNewtonsoftJson();             
             services.AddValidationDependencies();
             services.AddValidationDependenciesV1();
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.InvalidModelStateResponseFactory = context =>
                 {
-                    ValidationProblemDetails problemDetails = new ValidationProblemDetails(context.ModelState);
-                    var inputs = ((Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)context).ActionArguments;
+                    //ValidationProblemDetails problemDetails = new ValidationProblemDetails(context.ModelState);
+                    var errors = context.ModelState.ToDictionary(
+                            kvp => string.Join(".",kvp.Key.Split(".").Select(key => key.Substring(0,1).ToLower()+key.Substring(1))),
+                            kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+                        );
+                    //var inputs = ((Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)context).ActionArguments;
                     context.HttpContext.Response.Headers.Add("InvalidInput", "True");
-                    var errorList = SplitStringIntoArrayHelper.SplitString(JsonConvert.SerializeObject(problemDetails.Errors), 32000);//since app insights limit is 32768 characters                                                              
-
+                    var errorList = SplitStringIntoArrayHelper.SplitString(JsonConvert.SerializeObject(errors), 32000);//since app insights limit is 32768 characters                                                              
+                    
                     invalidErrorResponse = new List<string>();
                     //For Conformance error
-                    if ((JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyEmptyError.ToLower()) || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyMissingError.ToLower())
-                        || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.SelectAtleastOneGroup.ToLower()) || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.InvalidPermissionValue.ToLower())
-                        || JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.ValidationErrorMessage.GroupFilterEmptyError.ToLower())) && !JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.TokenConstants.Username.ToLower()) && !JsonConvert.SerializeObject(problemDetails.Errors).ToLower().Contains(Constants.TokenConstants.Password.ToLower()))
+                    if ((JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyEmptyError.ToLower()) || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyMissingError.ToLower())
+                        || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.SelectAtleastOneGroup.ToLower()) || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.InvalidPermissionValue.ToLower())
+                        || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.GroupFilterEmptyError.ToLower())) && !JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.TokenConstants.Username.ToLower()) && !JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.TokenConstants.Password.ToLower()))
                     {
                         //errorList.ForEach(error => logger.LogError($"Conformance Error {errorList.IndexOf(error)+1}: {error}"));
                         errorList.ForEach(e => invalidErrorResponse.Add($"Conformance Error {errorList.IndexOf(e) + 1}: {e}"));
-                        return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(problemDetails.Errors));
+                        return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(errors));
                     }
                     //Other errors
                     else
                     {
                         //errorList.ForEach(error => logger.LogError($"Input Error {errorList.IndexOf(error)+1}: {error}"));
                         errorList.ForEach(e => invalidErrorResponse.Add($"Invalid Input {errorList.IndexOf(e) + 1}: {e}"));                        
-                        return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(problemDetails.Errors,"Invalid Input"));
+                        return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(errors, "Invalid Input"));
                     }
                 };               
             });
