@@ -55,6 +55,8 @@
   - [#ctor()](#M-TransCelerate-SDR-RuleEngine-StudyPopulationValidator-#ctor 'TransCelerate.SDR.RuleEngine.StudyPopulationValidator.#ctor')
 - [StudyProtocolValidator](#T-TransCelerate-SDR-RuleEngine-StudyProtocolValidator 'TransCelerate.SDR.RuleEngine.StudyProtocolValidator')
   - [#ctor()](#M-TransCelerate-SDR-RuleEngine-StudyProtocolValidator-#ctor 'TransCelerate.SDR.RuleEngine.StudyProtocolValidator.#ctor')
+- [StudyValidator](#T-TransCelerate-SDR-RuleEngineV1-StudyValidator 'TransCelerate.SDR.RuleEngineV1.StudyValidator')
+  - [#ctor()](#M-TransCelerate-SDR-RuleEngineV1-StudyValidator-#ctor 'TransCelerate.SDR.RuleEngineV1.StudyValidator.#ctor')
 - [ValidationDependencies](#T-TransCelerate-SDR-RuleEngine-ValidationDependencies 'TransCelerate.SDR.RuleEngine.ValidationDependencies')
   - [AddValidationDependencies(services)](#M-TransCelerate-SDR-RuleEngine-ValidationDependencies-AddValidationDependencies-Microsoft-Extensions-DependencyInjection-IServiceCollection- 'TransCelerate.SDR.RuleEngine.ValidationDependencies.AddValidationDependencies(Microsoft.Extensions.DependencyInjection.IServiceCollection)')
 - [ValidationDependenciesV1](#T-TransCelerate-SDR-RuleEngineV1-ValidationDependenciesV1 'TransCelerate.SDR.RuleEngineV1.ValidationDependenciesV1')
@@ -525,6 +527,24 @@ TransCelerate.SDR.RuleEngine
 ##### Summary
 
 Validator for studyProtocol
+
+##### Parameters
+
+This constructor has no parameters.
+
+<a name='T-TransCelerate-SDR-RuleEngineV1-StudyValidator'></a>
+## StudyValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV1
+
+<a name='M-TransCelerate-SDR-RuleEngineV1-StudyValidator-#ctor'></a>
+### #ctor() `constructor`
+
+##### Summary
+
+Validator for SearchParameters
 
 ##### Parameters
 
