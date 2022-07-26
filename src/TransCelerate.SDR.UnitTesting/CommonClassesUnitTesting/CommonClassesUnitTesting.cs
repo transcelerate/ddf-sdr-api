@@ -22,6 +22,7 @@ using TransCelerate.SDR.Core.Entities.UserGroups;
 using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
+using TransCelerate.SDR.Core.Utilities.Enums;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.RuleEngine;
 using TransCelerate.SDR.WebApi.Controllers;
@@ -674,6 +675,12 @@ namespace TransCelerate.SDR.UnitTesting
 
             Assert.AreEqual(expected.message, actual_result.message);
             Assert.AreEqual("400", actual_result.statusCode);
+
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/TokenRawResponse.json");
+            var responseObject = JsonConvert.DeserializeObject<TokenSuccessResponseDTO>(jsonData);
+            var tokenResponse = new { token = $"{responseObject.token_type} {responseObject.access_token}" };
+
+            Assert.NotNull(tokenResponse);
         }
 
         [Test]
@@ -706,6 +713,58 @@ namespace TransCelerate.SDR.UnitTesting
 
             Assert.AreEqual(expected.message, actual_result.message);
             Assert.AreEqual("400", actual_result.statusCode);
+
+            reportBodyParameters.pageSize = 0;
+            reportBodyParameters.sortBy = "operation";
+            method = reportsController.GetUsageReport(reportBodyParameters);
+            method.Wait();
+
+            reportBodyParameters.sortBy = "api";
+            method = reportsController.GetUsageReport(reportBodyParameters);
+            method.Wait();
+
+            reportBodyParameters.sortBy = "callerip";
+            method = reportsController.GetUsageReport(reportBodyParameters);
+            method.Wait();
+
+            reportBodyParameters.sortBy = "responsecode";
+            method = reportsController.GetUsageReport(reportBodyParameters);
+            method.Wait();
+
+            reportBodyParameters.sortBy = "operationas";
+            method = reportsController.GetUsageReport(reportBodyParameters);
+            method.Wait();
+
+            reportBodyParameters.sortBy = "";
+            method = reportsController.GetUsageReport(reportBodyParameters);
+            method.Wait();
+
+
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ReportsRawData.json");
+            var rawReport = JsonConvert.DeserializeObject<SystemUsageRawReport>(jsonData);
+            List<SystemUsageReportDTO> usageReport = new List<SystemUsageReportDTO>();
+            rawReport.Tables[0].Rows.ForEach(rows => usageReport.Add(new SystemUsageReportDTO
+            {
+                RequestDate = rows[(int)UsageReportFields.timestamp],
+
+                Api = rows[(int)UsageReportFields.name].Split(" ")[1],
+
+                EmailId = JsonConvert.DeserializeObject<CustomDimension>(rows[(int)UsageReportFields.customDimensions1]).EmailAddress,
+
+                UserName = JsonConvert.DeserializeObject<CustomDimension>(rows[(int)UsageReportFields.customDimensions1]).UserName,
+
+                CallerIpAddress = rows[(int)UsageReportFields.client_IP],
+
+                ResponseCode = rows[(int)UsageReportFields.resultCode],
+
+                Operation = rows[(int)UsageReportFields.name].Split(" ")[0],
+
+                ResponseCodeDescription = int.TryParse(rows[(int)UsageReportFields.resultCode], out int code) == true ?
+                                                     Enum.IsDefined(typeof(HttpStatusCode), code) == true ?
+                                                     $"{code} - {Enum.GetName(typeof(HttpStatusCode), code)}"
+                                                     : null : null
+            }));
+            Assert.IsNotEmpty(usageReport);
         }
         #endregion
 

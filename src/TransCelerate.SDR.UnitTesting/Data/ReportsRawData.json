@@ -1,0 +1,66 @@
+{
+  "tables": [
+    {
+      "name": "PrimaryResult",
+      "columns": [
+        {
+          "name": "timestamp",
+          "type": "datetime"
+        },
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "customDimensions1",
+          "type": "dynamic"
+        },
+        {
+          "name": "client_IP",
+          "type": "string"
+        },
+        {
+          "name": "resultCode",
+          "type": "string"
+        },
+        {
+          "name": "url",
+          "type": "string"
+        },
+        {
+          "name": "Num",
+          "type": "long"
+        }
+      ],
+      "rows": [
+        [
+          "2022-07-22T09:05:01.332Z",
+          "GET /studydefinitionrepository/v1/study/36f70fec-88e8-4313-a528-c94744a9328c",
+          "{\"Service ID\":\"apim-sdr-dev-eastus\",\"Region\":\"East US\",\"EmailAddress\":\"testuser@acp200520a.onmicrosoft.com\",\"UserName\":\"Nagarajan, Yuvarani\",\"Service Name\":\"apim-sdr-dev-eastus.azure-api.net\",\"Service Type\":\"API Management\"}",
+          "183.82.25.6",
+          "200",
+          "https://apim-sdr-dev-eastus.azure-api.net/studydefinitionrepository/v1/study/36f70fec-88e8-4313-a528-c94744a9328c?version=1",
+          2
+        ],
+        [
+          "2022-07-22T09:05:18.214Z",
+          "GET /studydefinitionrepository/v1/study/9624ec1c-cb8f-4382-93fb-4a03f01a7490",
+          "{\"Service ID\":\"apim-sdr-dev-eastus\",\"Region\":\"East US\",\"EmailAddress\":\"testuser@acp200520a.onmicrosoft.com\",\"UserName\":\"Nagarajan, Yuvarani\",\"Service Name\":\"apim-sdr-dev-eastus.azure-api.net\",\"Service Type\":\"API Management\"}",
+          "183.82.25.6",
+          "200",
+          "https://apim-sdr-dev-eastus.azure-api.net/studydefinitionrepository/v1/study/9624ec1c-cb8f-4382-93fb-4a03f01a7490?version=1",
+          3
+        ],
+        [
+          "2022-07-22T09:05:19.995Z",
+          "GET /studydefinitionrepository/v1/audittrail/9624ec1c-cb8f-4382-93fb-4a03f01a7490",
+          "{\"Service ID\":\"apim-sdr-dev-eastus\",\"Region\":\"East US\",\"EmailAddress\":\"testuser@acp200520a.onmicrosoft.com\",\"UserName\":\"Nagarajan, Yuvarani\",\"Service Name\":\"apim-sdr-dev-eastus.azure-api.net\",\"Service Type\":\"API Management\"}",
+          "183.82.25.6",
+          "200",
+          "https://apim-sdr-dev-eastus.azure-api.net/studydefinitionrepository/v1/audittrail/9624ec1c-cb8f-4382-93fb-4a03f01a7490",
+          4
+        ]
+      ]
+    }
+  ]
+}
