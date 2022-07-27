@@ -52,13 +52,7 @@ namespace TransCelerate.SDR.WebApi
             // Application Insights for logs
             services.AddApplicationInsightsTelemetry(Config.InstrumentationKey);
 
-            #region Only for Logging in Startup
-            var loggerFactory = LoggerFactory.Create(builder =>
-                {
-                    builder.AddApplicationInsights(Config.InstrumentationKey);
-                });
-            ILogger logger = loggerFactory.CreateLogger<Startup>();
-            #endregion            
+                    
 
             //Swagger           
             services.AddSwaggerGen(c =>
@@ -139,6 +133,13 @@ namespace TransCelerate.SDR.WebApi
                 options.InvalidModelStateResponseFactory = context =>
                 {
                     //ValidationProblemDetails problemDetails = new ValidationProblemDetails(context.ModelState);
+                    #region Only for Logging in Startup
+                    var loggerFactory = LoggerFactory.Create(builder =>
+                    {
+                        builder.AddApplicationInsights(Config.InstrumentationKey);
+                    });
+                    ILogger logger = loggerFactory.CreateLogger<Startup>();
+                    #endregion
                     var errors = context.ModelState.ToDictionary(
                             kvp => string.Join(".",kvp.Key.Split(".").Select(key => key.Substring(0,1).ToLower()+key.Substring(1))),
                             kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
