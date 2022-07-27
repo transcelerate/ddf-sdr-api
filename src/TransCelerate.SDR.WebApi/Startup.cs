@@ -32,7 +32,7 @@ namespace TransCelerate.SDR.WebApi
     public class Startup
     {
         private readonly IWebHostEnvironment _env;
-        private List<string> invalidErrorResponse =  new();
+        //private List<string> invalidErrorResponse =  new();
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             _env = env;            
@@ -53,11 +53,11 @@ namespace TransCelerate.SDR.WebApi
             services.AddApplicationInsightsTelemetry(Config.InstrumentationKey);
 
             #region Only for Logging in Startup
-            //var loggerFactory = LoggerFactory.Create(builder =>
-            //    {                    
-            //        builder.AddApplicationInsights(Config.InstrumentationKey);
-            //    });
-            //ILogger logger = loggerFactory.CreateLogger<Startup>();
+            var loggerFactory = LoggerFactory.Create(builder =>
+                {
+                    builder.AddApplicationInsights(Config.InstrumentationKey);
+                });
+            ILogger logger = loggerFactory.CreateLogger<Startup>();
             #endregion            
 
             //Swagger           
@@ -147,21 +147,23 @@ namespace TransCelerate.SDR.WebApi
                     context.HttpContext.Response.Headers.Add("InvalidInput", "True");
                     var errorList = SplitStringIntoArrayHelper.SplitString(JsonConvert.SerializeObject(errors), 32000);//since app insights limit is 32768 characters                                                              
                     
-                    invalidErrorResponse = new List<string>();
+                    //invalidErrorResponse = new List<string>();
                     //For Conformance error
                     if ((JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyEmptyError.ToLower()) || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyMissingError.ToLower())
                         || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.SelectAtleastOneGroup.ToLower()) || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.InvalidPermissionValue.ToLower())
                         || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.GroupFilterEmptyError.ToLower())) && !JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.TokenConstants.Username.ToLower()) && !JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.TokenConstants.Password.ToLower()))
                     {
                         //errorList.ForEach(error => logger.LogError($"Conformance Error {errorList.IndexOf(error)+1}: {error}"));
-                        errorList.ForEach(e => invalidErrorResponse.Add($"Conformance Error {errorList.IndexOf(e) + 1}: {e}"));
+                        //errorList.ForEach(e => invalidErrorResponse.Add($"Conformance Error {errorList.IndexOf(e) + 1}: {e}"));
+                        errorList.ForEach(e => logger.LogError($"Conformance Error {errorList.IndexOf(e) + 1}: {e}"));
                         return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(errors));
                     }
                     //Other errors
                     else
                     {
                         //errorList.ForEach(error => logger.LogError($"Input Error {errorList.IndexOf(error)+1}: {error}"));
-                        errorList.ForEach(e => invalidErrorResponse.Add($"Invalid Input {errorList.IndexOf(e) + 1}: {e}"));                        
+                        //errorList.ForEach(e => invalidErrorResponse.Add($"Invalid Input {errorList.IndexOf(e) + 1}: {e}"));
+                        errorList.ForEach(e => logger.LogError($"Invalid Input {errorList.IndexOf(e) + 1}: {e}"));
                         return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(errors, "Invalid Input"));
                     }
                 };               
@@ -224,11 +226,11 @@ namespace TransCelerate.SDR.WebApi
                         var AuthToken = context.Request.Headers["Authorization"];
                         logger.LogInformation($"Status Code: {context.Response.StatusCode}; URL: {context.Request.Path}; AuthToken: {AuthToken}");
                     }
-                    else if (!String.IsNullOrWhiteSpace(context.Response.Headers["InvalidInput"]) && context.Response.Headers["InvalidInput"] == "True")
-                    {
-                        invalidErrorResponse.ForEach(error => logger.LogError(error));
-                        invalidErrorResponse = new List<string>();
-                    }                                     
+                    //else if (!String.IsNullOrWhiteSpace(context.Response.Headers["InvalidInput"]) && context.Response.Headers["InvalidInput"] == "True")
+                    //{
+                    //    invalidErrorResponse.ForEach(error => logger.LogError(error));
+                    //    invalidErrorResponse = new List<string>();
+                    //}                                     
                 }
                 catch (Exception ex)
                 {
