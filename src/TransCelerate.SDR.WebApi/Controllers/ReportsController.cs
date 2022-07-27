@@ -115,7 +115,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Started Controller : {nameof(ReportsController)}; Method : {nameof(GetUsageReport)};");
+                _logger.LogInformation($"Ended Controller : {nameof(ReportsController)}; Method : {nameof(GetUsageReport)};");
             }
         }        
         #endregion
