@@ -28,12 +28,18 @@
         #region Study V1 Routes
         #region GET Method Routes        
         public const string StudyV1 = "v1/studydefinitions/{studyId}";
+
+        public const string AuditTrailV1 = "v1/audittrail/{studyId}";
+
+        public const string StudyHistoryV1 = "v1/studyhistory";
         #endregion
 
         #region POST Method Routes
         public const string PostElementsV1 = "v1/studydefinitions";
 
         public const string SearchElementsV1 = "v1/search";
+
+        public const string SearchTitleV1 = "v1/searchstudytitle";
         #endregion
         #endregion
 
