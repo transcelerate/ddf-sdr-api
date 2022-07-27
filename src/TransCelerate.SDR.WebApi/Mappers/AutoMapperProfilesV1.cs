@@ -44,6 +44,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
 
             //Mapper for Search method request body
             CreateMap<SearchParametersDto, SearchParameters>();
+            CreateMap<SearchTitleParametersDto, SearchTitleParameters>();
 
 
             //Mapper for Search Response
@@ -57,7 +58,22 @@ namespace TransCelerate.SDR.WebApi.Mappers
                 .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))
                 .ReverseMap();
 
+            //Mapper for Search Title
+            CreateMap<SearchTitleResponseDto, SearchResponseEntity>()
+               .ForMember(dest => dest.Uuid, opt => opt.MapFrom(src => src.ClinicalStudy.Uuid))
+               .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.ClinicalStudy.StudyTitle))
+               .ForMember(dest => dest.StudyIdentifiers, opt => opt.MapFrom(src => src.ClinicalStudy.StudyIdentifiers))               
+               .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))
+               .ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.AuditTrail.EntryDateTime)).ReverseMap();
 
+            //Mapper for Study History
+            CreateMap<StudyHistoryResponseEntity, UploadVersionDto>()
+                 .ForMember(dest => dest.UploadVersion, opt => opt.MapFrom(src => src.SDRUploadVersion))
+                 .ForMember(dest => dest.ProtocolVersions, opt => opt.MapFrom(src => src.ProtocolVersions))
+                .ReverseMap();
+
+            //Mapper for AuditTrail
+            CreateMap<AuditTrailDto, AuditTrailResponseEntity>().ReverseMap();
 
         }
     }

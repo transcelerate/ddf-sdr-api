@@ -94,6 +94,129 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudy)};");
             }
         }
+
+        /// <summary>
+        /// GET Audit Trail of a study
+        /// </summary>
+        /// <param name="fromDate">Start Date for Date Filter</param>
+        /// <param name="toDate">End Date for Date Filter</param>
+        /// <param name="studyId">Study ID</param>
+        /// <response code="200">Returns a list of Audit Trail of a study</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">The Audit trail for the study is Not Found</response>
+        [HttpGet]
+        [Route(Route.AuditTrailV1)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IEnumerable<AudiTrailResponseDto>))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> GetAuditTrail(string studyId, DateTime fromDate, DateTime toDate)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetAuditTrail)};");
+                LoggedInUser user = new LoggedInUser
+                {
+                    UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                    UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
+                };
+                _logger.LogInformation($"Inputs: FromDate: {fromDate}; ToDate: {toDate}; Study: {studyId ?? "<null>"};");
+
+                Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(fromDate, toDate, 0);
+
+                fromDate = fromAndToDate.Item1;
+                toDate = fromAndToDate.Item2;
+                if (fromDate <= toDate)
+                {
+                    var studyAuditResponse = await _clinicalStudyService.GetAuditTrail(studyId, fromDate, toDate, user);
+                    if (studyAuditResponse == null)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
+                    }
+                    else if (studyAuditResponse.ToString() == Constants.ErrorMessages.Forbidden)
+                    {
+                        return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
+                    }
+                    else
+                    {
+                        return Ok(studyAuditResponse);
+                    }
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetAuditTrail)};");
+            }
+        }
+
+        /// <summary>
+        /// Get All StudyId's in the database
+        /// </summary>
+        /// <param name="fromDate">Start Date for Date Filter</param>
+        /// <param name="toDate">End Date for Date Filter</param>
+        /// <param name="studyTitle">Study Title Filter</param>
+        /// <response code="200">Returns All Study Id's</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">There is no study</response>
+        [HttpGet]
+        [Route(Route.StudyHistoryV1)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyHistoryResponseDto))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> GetStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudyHistory)};");
+                LoggedInUser user = new LoggedInUser
+                {
+                    UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                    UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
+                };
+                _logger.LogInformation($"Inputs: FromDate: {fromDate}; ToDate: {toDate}; DateRange from Key Vault :{Config.DateRange}");
+
+                Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(fromDate, toDate, Convert.ToInt32(Config.DateRange));
+
+                fromDate = fromAndToDate.Item1;
+                toDate = fromAndToDate.Item2;
+
+                if (fromDate <= toDate)
+                {
+                    var studyHistoryResponse = await _clinicalStudyService.GetStudyHistory(fromDate, toDate, studyTitle, user);
+                    if (studyHistoryResponse == null)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
+                    }
+                    else
+                    {
+                        return Ok(studyHistoryResponse);
+                    }
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudyHistory)};");
+            }
+        }
         #endregion
 
         #region POST Methods
@@ -112,7 +235,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(PostAllElements)};");                
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");                
                 if (studyDTO != null)
                 {
                     LoggedInUser user = new LoggedInUser
@@ -151,7 +274,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyController)}; Method : {nameof(PostAllElements)};");
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");
             }
         }
 
@@ -188,22 +311,12 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     {
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ValidationErrorMessage.AnyOneFieldError)).Value);
                     }
-                    if (String.IsNullOrWhiteSpace(searchparameters.ToDate))
-                    {
-                        searchparameters.ToDate = DateTime.UtcNow.Date.AddHours(23).AddMinutes(59).AddSeconds(59).ToString();
-                    }
-                    else
-                    {
-                        searchparameters.ToDate = Convert.ToDateTime(searchparameters.ToDate).Date.AddHours(23).AddMinutes(59).AddSeconds(59).ToString();
-                    }
-                    if (String.IsNullOrWhiteSpace(searchparameters.FromDate))
-                    {
-                        searchparameters.FromDate = DateTime.MinValue.ToString();
-                    }
-                    else
-                    {
-                        searchparameters.FromDate = Convert.ToDateTime(searchparameters.FromDate).ToString();
-                    }
+                    Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(String.IsNullOrWhiteSpace(searchparameters.FromDate) ? DateTime.MinValue : Convert.ToDateTime(searchparameters.FromDate),
+                                                                        String.IsNullOrWhiteSpace(searchparameters.ToDate) ? DateTime.MinValue : Convert.ToDateTime(searchparameters.ToDate), 0);
+
+                    searchparameters.FromDate = fromAndToDate.Item1.ToString();
+                    searchparameters.ToDate = fromAndToDate.Item2.ToString();
+                   
                     if ((!String.IsNullOrWhiteSpace(searchparameters.FromDate)) && (!String.IsNullOrWhiteSpace(searchparameters.ToDate)))
                     {
                         if (Convert.ToDateTime(searchparameters.FromDate) > Convert.ToDateTime(searchparameters.ToDate))
@@ -235,6 +348,82 @@ namespace TransCelerate.SDR.WebApi.Controllers
             finally
             {
                 _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(SearchStudy)};");
+            }
+        }
+
+        /// <summary>
+        /// Search For a Study 
+        /// </summary>
+        /// <param name="searchparameters">Parameters to search in database</param>
+        /// <response code="200">Returns All Study that matches the search criteria</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">There is no study that matches the search criteria</response>
+        [HttpPost]
+        [Route(Route.SearchTitleV1)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IEnumerable<StudyDto>))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> SearchTitle([FromBody] SearchTitleParametersDto searchparameters)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(SearchTitle)};");
+                if (ModelState.IsValid)
+                {
+                    LoggedInUser user = new LoggedInUser
+                    {
+                        UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                        UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
+                    };
+                    if (searchparameters != null)
+                    {
+                        if (String.IsNullOrWhiteSpace(searchparameters.StudyTitle)
+                           && String.IsNullOrWhiteSpace(searchparameters.FromDate) && String.IsNullOrWhiteSpace(searchparameters.ToDate))
+                        {
+                            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ValidationErrorMessage.AnyOneFieldError)).Value);
+                        }
+                        Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(String.IsNullOrWhiteSpace(searchparameters.FromDate) ? DateTime.MinValue : Convert.ToDateTime(searchparameters.FromDate),
+                                                                      String.IsNullOrWhiteSpace(searchparameters.ToDate) ? DateTime.MinValue : Convert.ToDateTime(searchparameters.ToDate), 0);
+
+                        searchparameters.FromDate = fromAndToDate.Item1.ToString();
+                        searchparameters.ToDate = fromAndToDate.Item2.ToString();
+                        if ((!String.IsNullOrWhiteSpace(searchparameters.FromDate)) && (!String.IsNullOrWhiteSpace(searchparameters.ToDate)))
+                        {
+                            if (Convert.ToDateTime(searchparameters.FromDate) > Convert.ToDateTime(searchparameters.ToDate))
+                            {
+                                return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError)).Value);
+                            }
+                        }
+                        var response = await _clinicalStudyService.SearchTitle(searchparameters, user).ConfigureAwait(false);
+
+                        if (response == null || response.Count == 0)
+                        {
+                            return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.SearchNotFound)).Value);
+                        }
+                        else
+                        {
+                            return Ok(response);
+                        }
+                    }
+                    else
+                    {
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
+                    }
+                }
+                else
+                {
+                    return ValidationProblem();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(SearchTitle)};");
             }
         }
         #endregion
