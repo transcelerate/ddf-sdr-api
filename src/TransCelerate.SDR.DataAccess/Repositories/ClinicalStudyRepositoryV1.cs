@@ -82,6 +82,130 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(GetStudyItemsAsync)};");
             }
         }
+
+        /// <summary>
+        /// GET List of study for a study ID
+        /// </summary>
+        /// <param name="fromDate">Start Date for Date Filter</param>
+        /// <param name="toDate">End Date for Date Filter</param>
+        /// <param name="studyId">Study ID</param>
+        /// <returns>
+        /// A <see cref="List{StudyEntity}"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        public async Task<List<AuditTrailResponseEntity>> GetAuditTrail(string studyId, DateTime fromDate, DateTime toDate)
+        {
+            _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(GetAuditTrail)};");
+            try
+            {
+                var collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
+                List<AuditTrailResponseEntity> auditTrails = new List<AuditTrailResponseEntity>();
+                auditTrails = await collection.Find(DataFilters.GetFiltersForGetAudTrail(studyId,fromDate,toDate)) // Condition for matching studyId and date range
+                                                  .Project(x=> new AuditTrailResponseEntity
+                                                  {
+                                                      StudyType = x.ClinicalStudy.StudyType,
+                                                      EntryDateTime = x.AuditTrail.EntryDateTime,
+                                                      SDRUploadVersion = x.AuditTrail.SDRUploadVersion
+                                                  })
+                                                  .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
+                                                  .ToListAsync().ConfigureAwait(false);
+
+                if (auditTrails.Count == 0)
+                {
+                    _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.StudyV1} Collection");
+                    return null;
+                }
+                else
+                {
+                    return auditTrails;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(GetAuditTrail)};");
+            }
+        }
+
+        /// <summary>
+        /// Get List of all studyId 
+        /// </summary>
+        /// <param name="fromDate">Start Date for Date Filter</param>
+        /// <param name="toDate">End Date for Date Filter</param>
+        /// <param name="studyTitle">Study Title Filter</param>
+        /// <param name="user">Logged In User</param>
+        /// <returns>
+        /// A <see cref="List{StudyHistoryEntity}"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        public async Task<List<StudyHistoryResponseEntity>> GetStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle, LoggedInUser user)
+        {
+            _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(GetStudyHistory)};");
+            try
+            {
+                var collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);               
+
+                List<StudyHistoryResponseEntity> studyHistories = await collection.Aggregate()
+                                                        .Match(DataFilters.GetFiltersForStudyHistory(fromDate,toDate,studyTitle)) // Condition for matching date range
+                                                        .Project(x =>
+                                                                new StudyHistoryResponseEntity
+                                                                {
+                                                                    Uuid = x.ClinicalStudy.Uuid,
+                                                                    StudyTitle = x.ClinicalStudy.StudyTitle,
+                                                                    SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+                                                                    StudyIdentifiers = x.ClinicalStudy.StudyIdentifiers,
+                                                                    EntryDateTime = x.AuditTrail.EntryDateTime,
+                                                                    StudyType = x.ClinicalStudy.StudyType,
+                                                                    ProtocolVersions = x.ClinicalStudy.StudyProtocolVersions.Select(x=>x.ProtocolVersion)
+                                                                })  //Project only the required fields                                                        
+                                                        .ToListAsync().ConfigureAwait(false);
+
+                studyHistories = GroupFilterForStudyHistory(studyHistories, user);
+
+                if (studyHistories.Count() == 0)
+                {
+                    _logger.LogWarning($"There are no Study in {Constants.Collections.StudyV1} Collection");
+                    return null;
+                }
+                else
+                {
+                    return studyHistories;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(GetStudyHistory)};");
+            }
+        }
+        public List<StudyHistoryResponseEntity> GroupFilterForStudyHistory(List<StudyHistoryResponseEntity> studyHistoryEntities, LoggedInUser user)
+        {
+            if (user.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+            {
+                var groups = GetGroupsOfUser(user).Result;
+
+                if (groups != null && groups.Count > 0)
+                {
+                    Tuple<List<string>, List<string>> groupFilters = GroupFilters.GetGroupFilters(groups);
+
+
+                    studyHistoryEntities = studyHistoryEntities.Where(x => groupFilters.Item1.Contains(x.StudyType?.Decode?.ToLower()) || groupFilters.Item2.Contains(x.Uuid)).ToList();
+                }
+                else
+                {
+                    // Filter should not give any results
+                    studyHistoryEntities = studyHistoryEntities.Where(x => 1 == 0).ToList();
+                }
+            }
+            return studyHistoryEntities;
+        }
+
         #endregion
 
         #region POST Data  
@@ -288,6 +412,50 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             finally
             {
                 _logger.LogInformation($"Ended Method : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(GroupFilterForSearch)};");
+            }
+        }
+
+
+        /// <summary>
+        /// Search the collection based on search criteria
+        /// </summary>
+        /// <param name="searchParameters">Parameters to search in database</param>
+        /// <param name="user">Logged In User</param>
+        /// <returns>
+        /// A <see cref="List{SearchResponseEntity}"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        public async Task<List<SearchResponseEntity>> SearchTitle(SearchTitleParameters searchParameters, LoggedInUser user)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(SearchTitle)};");
+                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
+
+                List<SearchResponseEntity> studies = await collection.Aggregate()
+                                              .Match(DataFilters.GetFiltersForSearchTitle(searchParameters))
+                                              .Project(x => new SearchResponseEntity
+                                              {
+                                                  Uuid = x.ClinicalStudy.Uuid,
+                                                  StudyTitle = x.ClinicalStudy.StudyTitle,
+                                                  StudyType = x.ClinicalStudy.StudyType,                                                  
+                                                  StudyIdentifiers = x.ClinicalStudy.StudyIdentifiers,                                                 
+                                                  EntryDateTime = x.AuditTrail.EntryDateTime,
+                                                  SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+                                              })
+                                              .ToListAsync()
+                                              .ConfigureAwait(false);
+                List<SearchResponseEntity> studiesAfterGroupFilter = await GroupFilterForSearch(studies, user);
+
+                return studiesAfterGroupFilter;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(SearchTitle)};");
             }
         }
         #endregion

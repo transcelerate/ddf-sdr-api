@@ -20,6 +20,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.AppSettings;
 using TransCelerate.SDR.Core.Filters;
+using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.RuleEngine;
@@ -52,13 +53,7 @@ namespace TransCelerate.SDR.WebApi
             // Application Insights for logs
             services.AddApplicationInsightsTelemetry(Config.InstrumentationKey);
 
-            #region Only for Logging in Startup
-            var loggerFactory = LoggerFactory.Create(builder =>
-                {
-                    builder.AddApplicationInsights(Config.InstrumentationKey);
-                });
-            ILogger logger = loggerFactory.CreateLogger<Startup>();
-            #endregion            
+                    
 
             //Swagger           
             services.AddSwaggerGen(c =>
@@ -138,34 +133,9 @@ namespace TransCelerate.SDR.WebApi
             {
                 options.InvalidModelStateResponseFactory = context =>
                 {
-                    //ValidationProblemDetails problemDetails = new ValidationProblemDetails(context.ModelState);
-                    var errors = context.ModelState.ToDictionary(
-                            kvp => string.Join(".",kvp.Key.Split(".").Select(key => key.Substring(0,1).ToLower()+key.Substring(1))),
-                            kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
-                        );
-                    //var inputs = ((Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)context).ActionArguments;
-                    context.HttpContext.Response.Headers.Add("InvalidInput", "True");
-                    var errorList = SplitStringIntoArrayHelper.SplitString(JsonConvert.SerializeObject(errors), 32000);//since app insights limit is 32768 characters                                                              
-                    
-                    //invalidErrorResponse = new List<string>();
-                    //For Conformance error
-                    if ((JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyEmptyError.ToLower()) || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyMissingError.ToLower())
-                        || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.SelectAtleastOneGroup.ToLower()) || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.InvalidPermissionValue.ToLower())
-                        || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.GroupFilterEmptyError.ToLower())) && !JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.TokenConstants.Username.ToLower()) && !JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.TokenConstants.Password.ToLower()))
-                    {
-                        //errorList.ForEach(error => logger.LogError($"Conformance Error {errorList.IndexOf(error)+1}: {error}"));
-                        //errorList.ForEach(e => invalidErrorResponse.Add($"Conformance Error {errorList.IndexOf(e) + 1}: {e}"));
-                        errorList.ForEach(e => logger.LogError($"Conformance Error {errorList.IndexOf(e) + 1}: {e}"));
-                        return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(errors));
-                    }
-                    //Other errors
-                    else
-                    {
-                        //errorList.ForEach(error => logger.LogError($"Input Error {errorList.IndexOf(error)+1}: {error}"));
-                        //errorList.ForEach(e => invalidErrorResponse.Add($"Invalid Input {errorList.IndexOf(e) + 1}: {e}"));
-                        errorList.ForEach(e => logger.LogError($"Invalid Input {errorList.IndexOf(e) + 1}: {e}"));
-                        return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(errors, "Invalid Input"));
-                    }
+                    var logger = (ILogHelper)context.HttpContext.RequestServices.GetService(typeof(ILogHelper));
+                    ApiBehaviourOptionsHelper apiBehaviourOptionsHelper = new ApiBehaviourOptionsHelper(logger);
+                    return apiBehaviourOptionsHelper.ModelStateResponse(context);
                 };               
             });
         }
