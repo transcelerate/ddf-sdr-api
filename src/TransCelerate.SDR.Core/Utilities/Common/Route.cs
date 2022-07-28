@@ -9,7 +9,7 @@
         #region GET Method Routes        
         public const string Study = "study/{studyId}";
 
-        public const string StudyDesign = "{studyId}/studydesign/{studyDesignId}";
+        public const string StudyDesign = "{studyId}/studydesign/{studyDesignId}";        
 
         public const string AuditTrail = "audittrail/{studyId}";
 
@@ -29,9 +29,11 @@
         #region GET Method Routes        
         public const string StudyV1 = "v1/studydefinitions/{studyId}";
 
+        public const string StudyDesignV1 = "/v1/studydesigns";
+
         public const string AuditTrailV1 = "v1/audittrail/{studyId}";
 
-        public const string StudyHistoryV1 = "v1/studyhistory";
+        public const string StudyHistoryV1 = "/v1/studydefinitions/history";
         #endregion
 
         #region POST Method Routes

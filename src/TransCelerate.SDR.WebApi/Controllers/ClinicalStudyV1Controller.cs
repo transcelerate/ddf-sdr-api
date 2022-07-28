@@ -59,6 +59,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudy)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
+                    _logger.LogInformation($"Inputs : studyId = {studyId}; sdruploadversion = {sdruploadversion}");
                     LoggedInUser user = new LoggedInUser
                     {
                         UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
@@ -96,6 +97,63 @@ namespace TransCelerate.SDR.WebApi.Controllers
         }
 
         /// <summary>
+        /// GET Study Designs of a Study
+        /// </summary>
+        /// <param name="study_uuid">Study ID</param>
+        /// <param name="sdruploadversion">Version of study</param>
+        /// <response code="200">Returns Study</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">The Study for the studyId is Not Found</response>
+        [HttpGet]
+        [Route(Route.StudyDesignV1)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDto))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> GetStudyDesigns(string study_uuid, int sdruploadversion)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudyDesigns)};");
+                if (!String.IsNullOrWhiteSpace(study_uuid))
+                {
+                    _logger.LogInformation($"Inputs : study_uuid = {study_uuid}; sdruploadversion = {sdruploadversion}");
+                    LoggedInUser user = new LoggedInUser
+                    {
+                        UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                        UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
+                    };
+                    var study = await _clinicalStudyService.GetStudyDesigns(study_uuid, sdruploadversion, user).ConfigureAwait(false);
+
+                    if (study == null)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
+                    }
+                    else if (study.ToString() == Constants.ErrorMessages.Forbidden)
+                    {
+                        return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
+                    }
+                    else
+                    {
+                        return Ok(study);
+                    }
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudyDesigns)};");
+            }
+        }
+        /// <summary>
         /// GET Audit Trail of a study
         /// </summary>
         /// <param name="fromDate">Start Date for Date Filter</param>
@@ -115,36 +173,44 @@ namespace TransCelerate.SDR.WebApi.Controllers
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetAuditTrail)};");
-                LoggedInUser user = new LoggedInUser
+                if (!String.IsNullOrWhiteSpace(studyId))
                 {
-                    UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
-                    UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
-                };
-                _logger.LogInformation($"Inputs: FromDate: {fromDate}; ToDate: {toDate}; Study: {studyId ?? "<null>"};");
-
-                Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(fromDate, toDate, 0);
-
-                fromDate = fromAndToDate.Item1;
-                toDate = fromAndToDate.Item2;
-                if (fromDate <= toDate)
-                {
-                    var studyAuditResponse = await _clinicalStudyService.GetAuditTrail(studyId, fromDate, toDate, user);
-                    if (studyAuditResponse == null)
+                    _logger.LogInformation($"Inputs : studyId = {studyId}; fromDate = {fromDate}; toDate = {toDate}");
+                    LoggedInUser user = new LoggedInUser
                     {
-                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
-                    }
-                    else if (studyAuditResponse.ToString() == Constants.ErrorMessages.Forbidden)
+                        UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                        UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
+                    };
+                    _logger.LogInformation($"Inputs: FromDate: {fromDate}; ToDate: {toDate}; Study: {studyId ?? "<null>"};");
+
+                    Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(fromDate, toDate, 0);
+
+                    fromDate = fromAndToDate.Item1;
+                    toDate = fromAndToDate.Item2;
+                    if (fromDate <= toDate)
                     {
-                        return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
+                        var studyAuditResponse = await _clinicalStudyService.GetAuditTrail(studyId, fromDate, toDate, user);
+                        if (studyAuditResponse == null)
+                        {
+                            return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
+                        }
+                        else if (studyAuditResponse.ToString() == Constants.ErrorMessages.Forbidden)
+                        {
+                            return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
+                        }
+                        else
+                        {
+                            return Ok(studyAuditResponse);
+                        }
                     }
                     else
                     {
-                        return Ok(studyAuditResponse);
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError)).Value);
                     }
                 }
                 else
                 {
-                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError)).Value);
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
                 }
             }
             catch (Exception ex)
@@ -369,51 +435,44 @@ namespace TransCelerate.SDR.WebApi.Controllers
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(SearchTitle)};");
-                if (ModelState.IsValid)
+                LoggedInUser user = new LoggedInUser
                 {
-                    LoggedInUser user = new LoggedInUser
+                    UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                    UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
+                };
+                if (searchparameters != null)
+                {
+                    if (String.IsNullOrWhiteSpace(searchparameters.StudyTitle) && String.IsNullOrWhiteSpace(searchparameters.StudyId)
+                       && String.IsNullOrWhiteSpace(searchparameters.FromDate) && String.IsNullOrWhiteSpace(searchparameters.ToDate))
                     {
-                        UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
-                        UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
-                    };
-                    if (searchparameters != null)
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ValidationErrorMessage.AnyOneFieldError)).Value);
+                    }
+                    Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(String.IsNullOrWhiteSpace(searchparameters.FromDate) ? DateTime.MinValue : Convert.ToDateTime(searchparameters.FromDate),
+                                                                  String.IsNullOrWhiteSpace(searchparameters.ToDate) ? DateTime.MinValue : Convert.ToDateTime(searchparameters.ToDate), 0);
+
+                    searchparameters.FromDate = fromAndToDate.Item1.ToString();
+                    searchparameters.ToDate = fromAndToDate.Item2.ToString();
+                    if ((!String.IsNullOrWhiteSpace(searchparameters.FromDate)) && (!String.IsNullOrWhiteSpace(searchparameters.ToDate)))
                     {
-                        if (String.IsNullOrWhiteSpace(searchparameters.StudyTitle)
-                           && String.IsNullOrWhiteSpace(searchparameters.FromDate) && String.IsNullOrWhiteSpace(searchparameters.ToDate))
+                        if (Convert.ToDateTime(searchparameters.FromDate) > Convert.ToDateTime(searchparameters.ToDate))
                         {
-                            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ValidationErrorMessage.AnyOneFieldError)).Value);
+                            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError)).Value);
                         }
-                        Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(String.IsNullOrWhiteSpace(searchparameters.FromDate) ? DateTime.MinValue : Convert.ToDateTime(searchparameters.FromDate),
-                                                                      String.IsNullOrWhiteSpace(searchparameters.ToDate) ? DateTime.MinValue : Convert.ToDateTime(searchparameters.ToDate), 0);
+                    }
+                    var response = await _clinicalStudyService.SearchTitle(searchparameters, user).ConfigureAwait(false);
 
-                        searchparameters.FromDate = fromAndToDate.Item1.ToString();
-                        searchparameters.ToDate = fromAndToDate.Item2.ToString();
-                        if ((!String.IsNullOrWhiteSpace(searchparameters.FromDate)) && (!String.IsNullOrWhiteSpace(searchparameters.ToDate)))
-                        {
-                            if (Convert.ToDateTime(searchparameters.FromDate) > Convert.ToDateTime(searchparameters.ToDate))
-                            {
-                                return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError)).Value);
-                            }
-                        }
-                        var response = await _clinicalStudyService.SearchTitle(searchparameters, user).ConfigureAwait(false);
-
-                        if (response == null || response.Count == 0)
-                        {
-                            return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.SearchNotFound)).Value);
-                        }
-                        else
-                        {
-                            return Ok(response);
-                        }
+                    if (response == null || response.Count == 0)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.SearchNotFound)).Value);
                     }
                     else
                     {
-                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
+                        return Ok(response);
                     }
                 }
                 else
                 {
-                    return ValidationProblem();
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
                 }
             }
             catch (Exception ex)
