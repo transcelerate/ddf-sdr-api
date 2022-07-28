@@ -106,7 +106,12 @@ namespace TransCelerate.SDR.Services.Services
                     StudyEntity checkStudy = await CheckAccessForAStudy(study, user);
                     if (checkStudy == null)
                         return Constants.ErrorMessages.Forbidden;
-                    var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy?.ClinicalStudy?.StudyDesigns);  //Mapping Entity to Dto                                                  
+
+                    var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy?.ClinicalStudy?.StudyDesigns);  //Mapping Entity to Dto
+
+                    if (studyDesigns is not null && studyDesigns.Any())
+                        return Constants.ErrorMessages.StudyDesignNotFound;
+
                     return studyDesigns;
                 }
             }
