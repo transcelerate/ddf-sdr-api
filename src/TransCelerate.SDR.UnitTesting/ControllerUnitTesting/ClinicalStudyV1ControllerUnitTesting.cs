@@ -707,6 +707,213 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         }
         #endregion
 
+        #region GET StudyHistory
+        [Test]
+        public void GetStudyHistorySuccessUnitTesting()
+        {
+            StudyDto study = GetDtoDataFromStaticJson();
+            List<StudyHistoryResponseDto> studyHistories = new()
+            {
+                new StudyHistoryResponseDto { StudyId = study.ClinicalStudy.Uuid, SDRUploadVersion = new List<UploadVersionDto>() { new UploadVersionDto
+                {
+                    ProtocolVersions = new List<string>(){"1","2"},
+                    StudyIdentifiers = study.ClinicalStudy.StudyIdentifiers,
+                    StudyTitle = study.ClinicalStudy.StudyTitle,
+                    UploadVersion = 1,
+                    StudyVersion = study.ClinicalStudy.StudyVersion
+                } } }
+            };
+            Config.DateRange = "20";
+            _mockClinicalStudyService.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(studyHistories));
+            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger);
+
+            var method = clinicalStudyV1Controller.GetStudyHistory(DateTime.MinValue, DateTime.MinValue, "sd");
+            method.Wait();
+            var result = method.Result;
+
+            //Expected
+            var expected = studyHistories;
+
+            //Actual            
+            var actual_result = JsonConvert.DeserializeObject<List<StudyHistoryResponseDto>>(
+                 JsonConvert.SerializeObject((result as OkObjectResult).Value));
+
+            Assert.AreEqual(expected[0].StudyId, actual_result[0].StudyId);
+            Assert.IsInstanceOf(typeof(OkObjectResult), result);
+        }
+
+        [Test]
+        public void GetStudyHistoryFailureUnitTesting()
+        {
+            Config.DateRange = "20";
+            StudyDto study = GetDtoDataFromStaticJson();
+            List<StudyHistoryResponseDto> studyHistory = null;
+            _mockClinicalStudyService.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+               .Returns(Task.FromResult(studyHistory));
+            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger);
+
+            var method = clinicalStudyV1Controller.GetStudyHistory(DateTime.MinValue, DateTime.MinValue, "sd");
+            method.Wait();
+            var result = method.Result;
+
+            //Expected
+            var expected = new ErrorModel { message = Constants.ErrorMessages.StudyNotFound, statusCode = "400" };
+
+            //Actual            
+            var actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(NotFoundObjectResult), result);
+
+
+            _mockClinicalStudyService.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+               .Throws(new Exception(""));
+
+            method = clinicalStudyV1Controller.GetStudyHistory(DateTime.MinValue, DateTime.MinValue, "sd");
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.GenericError, statusCode = "400" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+            
+
+            method = clinicalStudyV1Controller.GetStudyHistory(DateTime.MinValue.AddDays(2), DateTime.MinValue.AddDays(1), "sd");
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.DateError, statusCode = "400" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+        }
+        #endregion
+
+        #region GET StudyDesigns
+        [Test]
+        public void GetStudyDesignsSuccessUnitTesting()
+        {
+            StudyDto study = GetDtoDataFromStaticJson();
+
+            _mockClinicalStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(study.ClinicalStudy.StudyDesigns as object));
+            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger);
+
+            var method = clinicalStudyV1Controller.GetStudyDesigns("sd", 1);
+            method.Wait();
+            var result = method.Result;
+
+            //Expected
+            var expected = study.ClinicalStudy.StudyDesigns;
+
+            //Actual            
+            var actual_result = JsonConvert.DeserializeObject<List<StudyDesignDto>>(
+                 JsonConvert.SerializeObject((result as OkObjectResult).Value));
+
+            Assert.AreEqual(expected[0].Uuid, actual_result[0].Uuid);
+            Assert.IsInstanceOf(typeof(OkObjectResult), result);
+        }
+
+        [Test]
+        public void GetStudyDesignsFailureUnitTesting()
+        {
+            StudyDto study = GetDtoDataFromStaticJson();
+
+            _mockClinicalStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(null as object));
+            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger);
+
+            var method = clinicalStudyV1Controller.GetStudyDesigns("sd", 1);
+            method.Wait();
+            var result = method.Result;
+
+            //Expected
+            var expected = new ErrorModel { message = Constants.ErrorMessages.StudyNotFound, statusCode = "400" };
+
+            //Actual            
+            var actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(NotFoundObjectResult), result);
+
+            _mockClinicalStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+               .Returns(Task.FromResult(Constants.ErrorMessages.Forbidden as object));
+
+            method = clinicalStudyV1Controller.GetStudyDesigns("sd", 1);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.Forbidden, statusCode = "403" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(403, (result as ObjectResult).StatusCode);
+
+            _mockClinicalStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+               .Returns(Task.FromResult(Constants.ErrorMessages.StudyDesignNotFound as object));
+
+            method = clinicalStudyV1Controller.GetStudyDesigns("sd", 1);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.StudyDesignNotFound, statusCode = "404" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(404, (result as ObjectResult).StatusCode);
+
+            _mockClinicalStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+               .Throws(new Exception(""));
+
+            method = clinicalStudyV1Controller.GetStudyDesigns("sd", 1);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.GenericError, statusCode = "400" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+
+            method = clinicalStudyV1Controller.GetStudyDesigns("", 1);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.StudyInputError, statusCode = "400" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+        }
+        #endregion
         #endregion
     }
 }

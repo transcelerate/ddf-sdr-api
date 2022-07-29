@@ -14,6 +14,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV1
     {
         public int UploadVersion { get; set; }
         public string StudyTitle { get; set; }
+        public string StudyVersion { get; set; }
         public List<StudyIdentifierDto> StudyIdentifiers { get; set; }
         public List<string> ProtocolVersions { get; set; }
     }
