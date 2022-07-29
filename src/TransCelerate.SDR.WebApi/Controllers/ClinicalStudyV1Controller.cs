@@ -133,6 +133,10 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     {
                         return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
                     }
+                    else if (study.ToString() == Constants.ErrorMessages.StudyDesignNotFound)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyDesignNotFound)).Value);
+                    }
                     else
                     {
                         return Ok(study);

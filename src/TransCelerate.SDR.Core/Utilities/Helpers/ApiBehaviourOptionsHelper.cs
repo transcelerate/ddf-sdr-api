@@ -22,7 +22,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     kvp => string.Join(".", kvp.Key.Split(".").Select(key => key.Substring(0, 1).ToLower() + key.Substring(1))),
                     kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
                 );
-            context.HttpContext.Response.Headers.Add("InvalidInput", "True");
+            context.HttpContext?.Response?.Headers?.Add("InvalidInput", "True");
             var errorList = SplitStringIntoArrayHelper.SplitString(JsonConvert.SerializeObject(errors), 32000);//since app insights limit is 32768 characters                                                              
 
             //For Conformance error
