@@ -46,27 +46,27 @@
         #endregion
 
         #region User Group Routes
-        public const string GetGroups = "usergroups/getgroups";
+        public const string GetGroups = "v1/usergroups/getgroups";
 
-        public const string GetUsers = "usergroups/getusers";
+        public const string GetUsers = "v1/usergroups/getusers";
 
-        public const string GetGroupList = "usergroups/getgrouplist";
+        public const string GetGroupList = "v1/usergroups/getgrouplist";
 
-        public const string GetUsersFromAD = "usergroups/listusers";
+        public const string GetUsersFromAD = "v1/usergroups/listusers";
 
-        public const string CheckGroupName = "usergroups/checkgroupname";
+        public const string CheckGroupName = "v1/usergroups/checkgroupname";
 
-        public const string PostAGroup = "usergroups/postgroup";
+        public const string PostAGroup = "v1/usergroups/postgroup";
 
-        public const string PostUserToGroups = "usergroups/postuser";
+        public const string PostUserToGroups = "v1/usergroups/postuser";
         #endregion
 
         #region Reports
-        public const string SystemUsageReport = "reports/usage";
+        public const string SystemUsageReport = "v1/reports/usage";
         #endregion
 
         #region Token
-        public const string Token = "auth/token";
+        public const string Token = "v1/auth/token";
         #endregion
     }
 }
