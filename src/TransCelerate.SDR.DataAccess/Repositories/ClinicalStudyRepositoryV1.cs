@@ -159,7 +159,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                                     StudyIdentifiers = x.ClinicalStudy.StudyIdentifiers,
                                                                     EntryDateTime = x.AuditTrail.EntryDateTime,
                                                                     StudyType = x.ClinicalStudy.StudyType,
-                                                                    ProtocolVersions = x.ClinicalStudy.StudyProtocolVersions.Select(x=>x.ProtocolVersion)
+                                                                    ProtocolVersions = x.ClinicalStudy.StudyProtocolVersions.Select(x=>x.ProtocolVersion),
+                                                                    StudyVersion = x.ClinicalStudy.StudyVersion
                                                                 })  //Project only the required fields                                                        
                                                         .ToListAsync().ConfigureAwait(false);
 

@@ -106,8 +106,13 @@ namespace TransCelerate.SDR.Services.Services
                     StudyEntity checkStudy = await CheckAccessForAStudy(study, user);
                     if (checkStudy == null)
                         return Constants.ErrorMessages.Forbidden;
-                    var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy?.ClinicalStudy?.StudyDesigns);  //Mapping Entity to Dto                                                  
-                    return studyDesigns;
+
+                    var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy?.ClinicalStudy?.StudyDesigns);  //Mapping Entity to Dto
+
+                    if (studyDesigns is not null && studyDesigns.Any())
+                        return studyDesigns;
+
+                    return Constants.ErrorMessages.StudyDesignNotFound;
                 }
             }
             catch (Exception)
@@ -136,7 +141,7 @@ namespace TransCelerate.SDR.Services.Services
             try
             {
                 _logger.LogInformation($"Started Service : {nameof(ClinicalStudyService)}; Method : {nameof(GetAuditTrail)};");
-                var studies = await _clinicalStudyRepository.GetAuditTrail(studyId,fromDate, toDate);
+                List<AuditTrailResponseEntity> studies = await _clinicalStudyRepository.GetAuditTrail(studyId,fromDate, toDate);
                 if (studies == null)
                 {
                     return null;

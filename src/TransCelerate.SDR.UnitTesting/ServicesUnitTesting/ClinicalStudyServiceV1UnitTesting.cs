@@ -390,6 +390,263 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             Assert.IsNull(result);
         }
         #endregion
+
+        #region GET Study Audit
+        [Test]
+        public void GetStudyAudit_UnitTesting()
+        {
+            Config.isGroupFilterEnabled = true;
+            user.UserRole = Constants.Roles.Org_Admin;
+            user.UserName = "user1@SDR.com";
+            StudyDto studyDto = GetDtoDataFromStaticJson();
+            StudyEntity studyEntity = GetEntityDataFromStaticJson();
+            studyEntity.ClinicalStudy.StudyType.Decode = "OBSERVATIONAL";
+            List<AuditTrailResponseEntity> auditTrailResponseEntities = new()
+            {
+                new AuditTrailResponseEntity
+                {
+                    EntryDateTime = DateTime.Now,
+                    SDRUploadVersion = 1,
+                    StudyType = studyEntity.ClinicalStudy.StudyType
+                },
+                new AuditTrailResponseEntity
+                {
+                    EntryDateTime = DateTime.Now.AddDays(1),
+                    SDRUploadVersion = 2,
+                    StudyType = studyEntity.ClinicalStudy.StudyType
+                }
+            };
+            _mockClinicalStudyRepository.Setup(x => x.GetAuditTrail(It.IsAny<string>(), It.IsAny<DateTime>(),It.IsAny<DateTime>()))
+                   .Returns(Task.FromResult(auditTrailResponseEntities));
+            _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(user))
+                   .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
+
+            var method = ClinicalStudyService.GetAuditTrail("1", DateTime.MinValue,DateTime.MinValue, user);
+            method.Wait();
+            var result = method.Result;
+
+            //Actual            
+            var actual_result = JsonConvert.DeserializeObject<AuditTrailResponseEntity>(
+                JsonConvert.SerializeObject(result));
+
+            //Assert          
+            Assert.IsNotNull(actual_result);
+
+            user.UserRole = Constants.Roles.App_User;
+            method = ClinicalStudyService.GetAuditTrail("1", DateTime.MinValue, DateTime.MinValue, user);
+            method.Wait();
+
+            Assert.AreEqual(method.Result.ToString(), Constants.ErrorMessages.Forbidden);
+
+            _mockClinicalStudyRepository.Setup(x => x.GetAuditTrail(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+                  .Throws(new Exception("Error"));
+
+            method = ClinicalStudyService.GetAuditTrail("1", DateTime.MinValue, DateTime.MinValue, user); 
+
+
+            Assert.Throws<AggregateException>(method.Wait);
+
+            auditTrailResponseEntities = null;
+            _mockClinicalStudyRepository.Setup(x => x.GetAuditTrail(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+                  .Returns(Task.FromResult(auditTrailResponseEntities));
+
+            method = ClinicalStudyService.GetAuditTrail("1", DateTime.MinValue, DateTime.MinValue, user);
+            method.Wait();
+
+            Assert.IsNull(method.Result);
+
+        }
+        [Test]
+        public void CheckAccessForAStudyAudit_UnitTesting()
+        {
+            Config.isGroupFilterEnabled = true;
+            user.UserRole = Constants.Roles.App_User;
+            user.UserName = "user1@SDR.com";           
+            StudyEntity studyEntity = GetEntityDataFromStaticJson();
+            //studyEntity.ClinicalStudy.StudyType.Decode = "OBSERVATIONAL";
+            List<AuditTrailResponseEntity> auditTrailResponseEntities = new()
+            {
+                new AuditTrailResponseEntity
+                {
+                    EntryDateTime = DateTime.Now,
+                    SDRUploadVersion = 1,
+                    StudyType = studyEntity.ClinicalStudy.StudyType
+                },
+                new AuditTrailResponseEntity
+                {
+                    EntryDateTime = DateTime.Now.AddDays(1),
+                    SDRUploadVersion = 2,
+                    StudyType = studyEntity.ClinicalStudy.StudyType
+                }
+            };
+            _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(It.IsAny<LoggedInUser>()))
+                   .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
+
+            var method = ClinicalStudyService.CheckAccessForStudyAudit(studyEntity.ClinicalStudy.Uuid, auditTrailResponseEntities, user);
+            method.Wait();
+
+            var expected = auditTrailResponseEntities;
+
+            Assert.AreEqual(expected[0].SDRUploadVersion, method.Result[0].SDRUploadVersion);
+
+            studyEntity.ClinicalStudy.Uuid = "studyId1";
+            method = ClinicalStudyService.CheckAccessForStudyAudit(studyEntity.ClinicalStudy.Uuid, auditTrailResponseEntities, user);
+            method.Wait();
+
+
+            Assert.IsNotNull(method.Result);
+
+            studyEntity.ClinicalStudy.Uuid = "studyId5";
+            auditTrailResponseEntities.ForEach(x => x.StudyType.Decode = "Observational");
+            method = ClinicalStudyService.CheckAccessForStudyAudit(studyEntity.ClinicalStudy.Uuid, auditTrailResponseEntities, user);
+            method.Wait();
+
+            Assert.IsNull(method.Result);
+
+            auditTrailResponseEntities.ForEach(x => x.StudyType.Decode = "Interventional");
+            Config.isGroupFilterEnabled = false;
+            method = ClinicalStudyService.CheckAccessForStudyAudit(studyEntity.ClinicalStudy.Uuid, auditTrailResponseEntities, user);
+            method.Wait();
+
+            Assert.IsNotNull(method.Result);
+
+            var noGroups = GetUserDataFromStaticJson().SDRGroups;
+            noGroups.Clear();
+            Config.isGroupFilterEnabled = true;
+            _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(user))
+                   .Returns(Task.FromResult(noGroups));
+            ClinicalStudyServiceV1 ClinicalStudyService1 = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
+            method = ClinicalStudyService1.CheckAccessForStudyAudit(studyEntity.ClinicalStudy.Uuid, auditTrailResponseEntities, user);
+            method.Wait();
+
+            Assert.IsNull(method.Result);
+
+            _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(user))
+                  .Throws(new Exception("Error"));
+
+            method = ClinicalStudyService.CheckAccessForStudyAudit(studyEntity.ClinicalStudy.Uuid, auditTrailResponseEntities, user);
+
+
+            Assert.Throws<AggregateException>(method.Wait);
+        }
+        #endregion
+
+        #region GET StudyDesign
+        [Test]
+        public void GetStudyDesign_UnitTesting()
+        {
+            Config.isGroupFilterEnabled = true;
+            user.UserRole = Constants.Roles.Org_Admin;
+            user.UserName = "user1@SDR.com";
+            StudyDto studyDto = GetDtoDataFromStaticJson();
+            StudyEntity studyEntity = GetEntityDataFromStaticJson();
+            studyEntity.ClinicalStudy.StudyType.Decode = "OBSERVATIONAL";
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
+                   .Returns(Task.FromResult(studyEntity));
+            _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(user))
+                   .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
+
+            var method = ClinicalStudyService.GetStudyDesigns("1", 0, user);
+            method.Wait();
+            var result = method.Result;
+
+            //Actual            
+            var actual_result = JsonConvert.DeserializeObject<List<StudyDesignDto>>(
+                JsonConvert.SerializeObject(result));
+
+            //Assert          
+            Assert.IsNotNull(actual_result);
+
+            studyEntity.ClinicalStudy.StudyDesigns = null;
+           _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
+                   .Returns(Task.FromResult(studyEntity));
+            method = ClinicalStudyService.GetStudyDesigns("1", 0, user);
+            method.Wait();
+
+            Assert.AreEqual(method.Result.ToString(), Constants.ErrorMessages.StudyDesignNotFound);
+
+            user.UserRole = Constants.Roles.App_User;
+            method = ClinicalStudyService.GetStudyDesigns("1", 0, user);
+            method.Wait();
+
+            Assert.AreEqual(method.Result.ToString(), Constants.ErrorMessages.Forbidden);
+
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
+                  .Throws(new Exception("Error"));
+
+            method = ClinicalStudyService.GetStudyDesigns("1", 0, user);
+
+
+            Assert.Throws<AggregateException>(method.Wait);
+
+            studyEntity = null;
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
+                  .Returns(Task.FromResult(studyEntity));
+
+            method = ClinicalStudyService.GetStudyDesigns("1", 0, user);
+            method.Wait();
+
+            Assert.IsNull(method.Result);
+
+        }
+        #endregion
+
+        #region GET Study History
+        [Test]
+        public void GetStudyHistory_UnitTesting()
+        {            
+            StudyEntity studyEntity = GetEntityDataFromStaticJson();
+            List<StudyHistoryResponseEntity> studyHistories = new()
+            {
+                new StudyHistoryResponseEntity
+                {
+                    Uuid = studyEntity.ClinicalStudy.Uuid,
+                    ProtocolVersions = new List<string>() { "1", "2" },
+                    StudyIdentifiers = studyEntity.ClinicalStudy.StudyIdentifiers,
+                    StudyTitle = studyEntity.ClinicalStudy.StudyTitle,
+                    EntryDateTime = DateTime.Now,
+                    StudyVersion = studyEntity.ClinicalStudy.StudyVersion,
+                    SDRUploadVersion = 1,
+                    StudyType = studyEntity.ClinicalStudy.StudyType
+                }
+            };
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(),It.IsAny<string>(),It.IsAny<LoggedInUser>()))
+                   .Returns(Task.FromResult(studyHistories));
+            
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
+
+            var method = ClinicalStudyService.GetStudyHistory(DateTime.Now,DateTime.MinValue, "", user);
+            method.Wait();
+            var result = method.Result;
+
+            //Actual            
+            var actual_result = JsonConvert.DeserializeObject<List<StudyHistoryResponseDto>>(
+                JsonConvert.SerializeObject(result));
+
+            //Assert          
+            Assert.IsNotNull(actual_result);
+
+            studyHistories = null;
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+                    .Returns(Task.FromResult(studyHistories));
+            method = ClinicalStudyService.GetStudyHistory(DateTime.Now, DateTime.MinValue, "", user);
+            method.Wait();
+
+            Assert.IsNull(method.Result);       
+
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+                  .Throws(new Exception("Error"));
+
+            method = ClinicalStudyService.GetStudyHistory(DateTime.Now, DateTime.MinValue, "", user);
+
+
+            Assert.Throws<AggregateException>(method.Wait);
+
+        }
+        #endregion
         #endregion
     }
 }

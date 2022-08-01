@@ -133,6 +133,10 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     {
                         return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
                     }
+                    else if (study.ToString() == Constants.ErrorMessages.StudyDesignNotFound)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyDesignNotFound)).Value);
+                    }
                     else
                     {
                         return Ok(study);
@@ -180,8 +184,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     {
                         UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
-                    };
-                    _logger.LogInformation($"Inputs: FromDate: {fromDate}; ToDate: {toDate}; Study: {studyId ?? "<null>"};");
+                    };                    
 
                     Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(fromDate, toDate, 0);
 

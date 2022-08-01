@@ -17,6 +17,11 @@ using TransCelerate.SDR.RuleEngineV1;
 using TransCelerate.SDR.Core.DTO.StudyV1;
 using TransCelerate.SDR.WebApi.DependencyInjection;
 using FluentValidation;
+using TransCelerate.SDR.Core.Utilities;
+using TransCelerate.SDR.Core.Utilities.Helpers;
+using TransCelerate.SDR.Services.Interfaces;
+using TransCelerate.SDR.WebApi.Controllers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace TransCelerate.SDR.UnitTesting
 {
@@ -24,6 +29,8 @@ namespace TransCelerate.SDR.UnitTesting
     {
         #region Variables
         private IServiceCollection serviceDescriptors = Mock.Of<IServiceCollection>();
+        private ILogHelper _mockLogger = Mock.Of<ILogHelper>();
+        private IClinicalStudyServiceV1 _mockClinicalStudyService = Mock.Of<IClinicalStudyServiceV1>();
         #endregion
         #region Setup
         LoggedInUser user = new LoggedInUser
@@ -66,6 +73,30 @@ namespace TransCelerate.SDR.UnitTesting
 
             studyEntity = helper.CheckForSections(studyEntity1, studyEntity2);
         }
+
+        [Test]
+        public void ApiBehaviourOptionsHelper()
+        {
+            ApiBehaviourOptionsHelper apiBehaviourOptionsHelper = new ApiBehaviourOptionsHelper(_mockLogger);            
+            ActionContext  context = new ActionContext();            
+            var studyDto = GetDtoDataFromStaticJson();
+            studyDto.ClinicalStudy = null;
+            StudyValidator studyValidator = new StudyValidator();
+            var errors = studyValidator.Validate(studyDto).Errors;
+            context.ModelState.AddModelError("clinicalStudy", errors[0].ErrorMessage);            
+            var response = apiBehaviourOptionsHelper.ModelStateResponse(context);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), response);
+
+
+            context.ModelState.Clear();
+            studyDto = GetDtoDataFromStaticJson();
+            studyDto.ClinicalStudy.StudyTitle = null;
+            ClinicalStudyValidator clinicalStudyValidator = new ClinicalStudyValidator();
+            errors = clinicalStudyValidator.Validate(studyDto.ClinicalStudy).Errors;
+            context.ModelState.AddModelError("Conformance", errors[0].ErrorMessage);
+            response = apiBehaviourOptionsHelper.ModelStateResponse(context);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), response);
+        }
         #endregion
 
         #region DataFilters
@@ -91,6 +122,22 @@ namespace TransCelerate.SDR.UnitTesting
             };
             filter = DataFilters.GetFiltersForSearchStudy(searchParameters);
             Assert.IsNotNull(filter);
+            SearchTitleParameters searchParameters1 = new()
+            {               
+                StudyTitle = "Umbrella",
+                PageNumber = 1,
+                PageSize = 25,              
+                StudyId = "100",
+                FromDate = DateTime.Now.AddDays(-5),
+                ToDate = DateTime.Now,
+                SortOrder = "asc",
+                SortBy = "version"
+            };            
+            Assert.IsNotNull(DataFilters.GetFiltersForSearchTitle(searchParameters1));
+
+            Assert.IsNotNull(DataFilters.GetFiltersForGetAudTrail("sd",DateTime.Now.AddDays(-1),DateTime.Now.AddDays(1)));
+
+            Assert.IsNotNull(DataFilters.GetFiltersForStudyHistory(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1),"sd"));
         }
         #endregion
         #region Validation Classes
