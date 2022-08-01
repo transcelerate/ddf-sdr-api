@@ -33,7 +33,7 @@ namespace TransCelerate.SDR.WebApi
     public class Startup
     {
         private readonly IWebHostEnvironment _env;
-        //private List<string> invalidErrorResponse =  new();
+        
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             _env = env;            
@@ -195,12 +195,7 @@ namespace TransCelerate.SDR.WebApi
                         response = await HttpContextResponseHelper.Response(context, response);
                         var AuthToken = context.Request.Headers["Authorization"];
                         logger.LogInformation($"Status Code: {context.Response.StatusCode}; URL: {context.Request.Path}; AuthToken: {AuthToken}");
-                    }
-                    //else if (!String.IsNullOrWhiteSpace(context.Response.Headers["InvalidInput"]) && context.Response.Headers["InvalidInput"] == "True")
-                    //{
-                    //    invalidErrorResponse.ForEach(error => logger.LogError(error));
-                    //    invalidErrorResponse = new List<string>();
-                    //}                                     
+                    }                                                        
                 }
                 catch (Exception ex)
                 {
