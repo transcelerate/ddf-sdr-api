@@ -184,8 +184,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     {
                         UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
-                    };
-                    _logger.LogInformation($"Inputs: FromDate: {fromDate}; ToDate: {toDate}; Study: {studyId ?? "<null>"};");
+                    };                    
 
                     Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(fromDate, toDate, 0);
 
