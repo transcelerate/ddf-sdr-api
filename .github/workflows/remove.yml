@@ -3,8 +3,9 @@ name: 'Delete old artifacts'
 on:
   push:
     branches:
-      - master
+      - release
       - develop
+      - main
   pull_request:
     branches:
       - release
