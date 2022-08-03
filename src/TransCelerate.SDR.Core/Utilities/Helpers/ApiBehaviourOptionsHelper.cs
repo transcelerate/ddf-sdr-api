@@ -20,7 +20,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         public ObjectResult ModelStateResponse(ActionContext context)
         {            
             var errors = context.ModelState.ToDictionary(
-                    kvp => string.Join(".", kvp.Key?.Length>2 ? kvp.Key?.Split(".").Select(key => key?.Substring(0, 1)?.ToLower() + key?.Substring(1)) : kvp.Key),
+                    kvp => kvp.Key?.Length > 2 ? string.Join(".",  kvp.Key?.Split(".").Select(key => key?.Substring(0, 1)?.ToLower() + key?.Substring(1))) : kvp.Key,
                     kvp => kvp.Value?.Errors?.Select(e => e.ErrorMessage).ToArray()
                 );
             context.HttpContext?.Response?.Headers?.Add("InvalidInput", "True");
