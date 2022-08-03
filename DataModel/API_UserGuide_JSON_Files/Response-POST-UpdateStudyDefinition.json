@@ -1,0 +1,70 @@
+{
+  "clinicalStudy": {
+    "studyId": "1b6793e2-be58-4157-a889-66086eea5748",
+    "studyTitle": "Study for Insomnia",
+    "studyType": "INTERVENTIONAL",
+    "studyPhase": "PHASE_1_TRIAL",
+    "studyStatus": "Study Created for testing studyHistory Automation one",
+    "studyTag": "1.0Draft",
+    "studyIdentifiers": [
+      {
+        "id": "0fb07c66-936d-42ba-97e4-6a47600d6678",
+        "orgCode": "2.16.840.1.113883.3.1077",
+        "name": "ClinicalTrials.gov",
+        "idType": "REGISTRY_STUDY"
+      },
+      {
+        "id": "f0431024-cab4-44be-88c5-1eaa33a9c11b",
+        "orgCode": "2.16.840.1.113883.3.1077",
+        "name": "ClinicalTrials.gov",
+        "idType": "SPONSOR_ID"
+      },
+      {
+        "id": "ad7a5966-25b6-4145-a480-0e391f9830c6",
+        "orgCode": "2.16.842.1.113844.3.1088",
+        "name": "ClinicalTrials.gov",
+        "idType": "SPONSOR_ID"
+      }
+    ],
+    "studyProtocolReferences": [
+      {
+        "studyProtocolId": "81988ee1-cfd4-4a62-8f8f-d9985d3ca5db",
+        "studyProtocolVersion": "1.0"
+      }
+    ],
+    "currentSections": [         
+      {
+        "id": "082ca01c-69d3-403b-8f95-cb3148dc0e7b",
+        "sectionType": "OBJECTIVES",
+        "objectives": [
+          {
+            "description": "Example trial objective",
+            "id": "30a27997-0199-47c1-ad3a-2939150d8a08",
+            "level": "PRIMARY",
+            "endpoints": [
+              {
+                "description": "Cumulative incidence of virus detection in sputum samples among participants up to...",
+                "purpose": "EFFICACY",
+                "id": "09b1b665-57e9-4991-89cc-f59a8ae44502",
+                "outcomeLevel": "PRIMARY"
+              }
+            ]
+          },
+          {
+            "description": "Example trial objective",
+            "id": "88aaf559-956b-49cd-abea-e3bfabf7b5cb",
+            "level": "PRIMARY",
+            "endpoints": [
+              {
+                "description": "Cumulative incidence of virus detection in sputum samples among participants up to...",
+                "purpose": "EFFICACY",
+                "id": "863684e2-9cb1-4737-9a43-5dc485ad3710",
+                "outcomeLevel": "PRIMARY"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
