@@ -186,7 +186,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };                    
 
-                    Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(fromDate, toDate, 0);
+                    Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(fromDate, toDate, -1);
 
                     fromDate = fromAndToDate.Item1;
                     toDate = fromAndToDate.Item2;
@@ -381,7 +381,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ValidationErrorMessage.AnyOneFieldError)).Value);
                     }
                     Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(String.IsNullOrWhiteSpace(searchparameters.FromDate) ? DateTime.MinValue : Convert.ToDateTime(searchparameters.FromDate),
-                                                                        String.IsNullOrWhiteSpace(searchparameters.ToDate) ? DateTime.MinValue : Convert.ToDateTime(searchparameters.ToDate), 0);
+                                                                        String.IsNullOrWhiteSpace(searchparameters.ToDate) ? DateTime.MinValue : Convert.ToDateTime(searchparameters.ToDate), -1);
 
                     searchparameters.FromDate = fromAndToDate.Item1.ToString();
                     searchparameters.ToDate = fromAndToDate.Item2.ToString();
@@ -451,7 +451,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ValidationErrorMessage.AnyOneFieldError)).Value);
                     }
                     Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(String.IsNullOrWhiteSpace(searchparameters.FromDate) ? DateTime.MinValue : Convert.ToDateTime(searchparameters.FromDate),
-                                                                  String.IsNullOrWhiteSpace(searchparameters.ToDate) ? DateTime.MinValue : Convert.ToDateTime(searchparameters.ToDate), 0);
+                                                                  String.IsNullOrWhiteSpace(searchparameters.ToDate) ? DateTime.MinValue : Convert.ToDateTime(searchparameters.ToDate), -1);
 
                     searchparameters.FromDate = fromAndToDate.Item1.ToString();
                     searchparameters.ToDate = fromAndToDate.Item2.ToString();

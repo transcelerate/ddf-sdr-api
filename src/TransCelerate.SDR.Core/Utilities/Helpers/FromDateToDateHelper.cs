@@ -10,19 +10,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
     {
         public static Tuple<DateTime,DateTime> GetFromAndToDate(DateTime fromDate, DateTime toDate, int range)
         {
-            if (toDate == DateTime.MinValue)
-            {
-                toDate = DateTime.UtcNow;
-            }
-            if (toDate != DateTime.MinValue)
-            {
-                toDate = toDate.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
-            }
             if (fromDate != DateTime.MinValue)
             {
                 fromDate = fromDate.Date;
             }
-            else if(range != 0)
+            else if (range != -1 && toDate == DateTime.MinValue)
             {
                 fromDate = DateTime.UtcNow.AddDays(-range).Date;
             }
@@ -30,6 +22,16 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             {
                 fromDate = DateTime.MinValue.Date;
             }
+
+            if (toDate == DateTime.MinValue)
+            {
+                toDate = DateTime.UtcNow;
+            }
+
+            if (toDate != DateTime.MinValue)
+            {
+                toDate = toDate.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
+            }            
 
             return Tuple.Create(fromDate, toDate);
         }
