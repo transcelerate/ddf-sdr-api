@@ -58,26 +58,22 @@ git clone "repo_url"
 
 1. For running the code locally, take a copy of appsettings.json file and rename the copied file to appsettings.Development.json file in the root folder of TransCelerate.SDR.WebApi project.
 
-2. Edit the appsettings.Development.json and replace the values of the keys with values of the target environment.
+2. Edit the appsettings.Development.json and add the values for below mentioned settings.
 
 ```
-"KeyVault": {
-    "Vault": "keyvault-url-here",
-    "ClientId": "ClientId of the app-registration associated with WebApi",
-    "ClientSecret": "ClientSecret of the app-registration associated with WebApi"
-  }
+"ConnectionStrings": {
+    "ServerName": "Connection String for the database (Azure Cosmos DB API for Mongo DB) here",
+    "DatabaseName": "Database Name here"
+ },
+"StudyHistory": {
+    "DateRange": "Date Range for study history API. Add '-1' for to fetch all study history data"
+ },
+ "isAuthEnabled": true  // false to disable authorization for running code locally
 ```
 
-3. The below values must be added in Microsoft Azure KeyVault to get the values at runtime.
-```
-ApplicationInsights--InstrumentationKey
-ConnectionStrings--DatabaseName
-ConnectionStrings--ServerName
-```
+3. Then, In the Visual Studio IDE, on clicking the IIS Express Icon or on pressing F5, WebApi solution will start running locally.
 
-4. Then, In the Visual Studio IDE, on clicking the IIS Express Icon or on pressing F5, WebApi solution will start running locally.
-
-5. The browser will automatically open the Swagger UI having the SDR API specifications.
+4. The browser will automatically open the Swagger UI having the SDR API specifications.
 
 
 # Base solution structure
@@ -91,40 +87,54 @@ The solution has the following structure:
       │   ├── DTO
       │   ├── Entities
       │   ├── ErrorModels
-      │   └── Utilities
-      ├── TransCelerate.SDR.Repository
+      │   ├── Filters
+      │   ├── Utilities
+      │   └── TransCelerate.SDR.Core.md
+      ├── TransCelerate.SDR.DataAccess
+      │   ├── Filters
       │   ├── Interfaces
-      │   └── Repositories       
+      │   ├── Repositories
+      │   └── TransCelerate.SDR.DataAccess.md
       ├── TransCelerate.SDR.RuleEngine
       │   ├── StudyRules
-      │   └── ValidationDependencies.cs     
-      ├── TransCelerate.SDR.Services
+      │   ├── StudyV1Rules
+      │   ├── Token
+      │   ├── UserGroupMappingRules
+      │   ├── ValidationDependencies.cs
+      │   ├── ValidationDependenciesV1.cs   
+      │   └── TransCelerate.SDR.RuleEngine.md
+      ├── TransCelerate.SDR.Service
       │   ├── Interfaces
-      │   └── Services   
+      │   ├── Services
+      │   └── TransCelerate.SDR.Service.md  
       ├── TransCelerate.SDR.UnitTesting
+      │   ├── CommonClassesUnitTesting
       │   ├── ControllerUnitTesting
       │   ├── Data
-      │   └── ServicesUnitTesting 
+      │   ├── ServicesUnitTesting
+      │   └── TransCelerate.SDR.UnitTesting.md
       └── TransCelerate.SDR.WebApi
           ├── Properties
+          ├── DependencyInjection
           ├── Controllers
           ├── Mappers
           ├── appsettings.json
           ├── Program.cs
-          └── Startup.cs
+          ├── Startup.cs
+          └── TransCelerate.SDR.WebApi.md
 
 ```
-**TransCelerate.SDR.Core** - contains entities, DTO's and helper classes.
+**[TransCelerate.SDR.Core](src/TransCelerate.SDR.Core/TransCelerate.SDR.Core.md)** - contains entities, DTO's and helper classes.
 
-**TransCelerate.SDR.Repository** - contains code for communicating with database (Azure Cosmos DB API for Mongo DB).
+**[TransCelerate.SDR.DataAccess](src/TransCelerate.SDR.DataAccess/TransCelerate.SDR.DataAccess.md)** - contains code for communicating with database (Azure Cosmos DB API for Mongo DB).
 
-**TransCelerate.SDR.RuleEngine** - contains code for model validations based on data conformance rules.
+**[TransCelerate.SDR.RuleEngine](src/TransCelerate.SDR.RuleEngine/TransCelerate.SDR.RuleEngine.md)** - contains code for model validations based on data conformance rules.
 
-**TransCelerate.SDR.Services** - contains code for service layer which is a bridge between API controller and repository.
+**[TransCelerate.SDR.Service](src/TransCelerate.SDR.Service/TransCelerate.SDR.Services.md)** - contains code for service layer which is a bridge between API controller and repository.
 
-**TransCelerate.SDR.UnitTesting** - contains code for unit testing (NUnit).
+**[TransCelerate.SDR.UnitTesting](src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.md)** - contains code for unit testing (NUnit).
 
-**TransCelerate.SDR.WebApi** - contains controllers, mappers and the startup for the application.
+**[TransCelerate.SDR.WebApi](src/TransCelerate.SDR.WebApi/TransCelerate.SDR.WebApi.md)** - contains controllers, mappers and the startup for the application.
 
 # Commit changes to repository
 1. After doing the necessary changes, once build the solution.
@@ -142,45 +152,43 @@ git push
 
 # List of Endpoints
 
+**POST Endpoints**
+The below endpoint can be used to generate authentication token to access API's.
+```
+/v1/auth/token
+```
+The below endpoint can be used to Create a new study document.
+```
+/v1/studydefinitions
+```
+
 **GET Endpoints**
 
-The below endpoint can be used to fetch all the elements for a StudyId or a specific section for a study also can be fetched.
+The below endpoint can be used to fetch all the elements for a StudyId for a specific SDRUploadVersion.
 
 ```
-/study​/{studyId}
+/v1/studydefinitions/{studyId}
 ```
 
-The below endpoint can be used to fetch the sections of study design for a specific StudyId and a specific StudyDesignId.
+The below endpoint can be used to fetch the sections of study design for a specific StudyId for a specific SDRUploadVersion.
 
 ```
-​/{studyId}​/studydesign​/{studyDesignId}
+​/v1​/studydesign​s?study_uuid={studyId}
 ```
 
 
 The below endpoint can be used to fetch the audit trail for a StudyId.
 
 ```
-​/audittrail​/{studyId}
+/v1​/audittrail​/{studyId}
 ```
 
-The below endpoint can be used to fetch basic details of all study definitions in SDR
+The below endpoint can be used to fetch basic details of all study definitions in SDR.
 
 ```
-/studyhistory
+/v1/studydefinitions/studyhistory
 ```
 
-
-**POST Endpoints**
-
-The below endpoint can be used to Create a new study document.
-
-```
-​/study
-```
-The below endpoint can be used to fetch all the study which matches the search criteria which was added in the request body.
-```
-/​search
-```
 To view the API specifications and to run the endpoints locally, the below swagger url can be used.
 
 ```
