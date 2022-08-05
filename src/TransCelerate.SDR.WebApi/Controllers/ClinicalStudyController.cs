@@ -21,6 +21,7 @@ using System.Net;
 
 namespace TransCelerate.SDR.WebApi.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize]
     [ApiController]
     public class ClinicalStudyController : ControllerBase
