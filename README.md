@@ -238,3 +238,5 @@ https://localhost:44358/swagger/index.html
 15. **Microsoft.AspNetCore.Mvc.Core** - Contains common action result types, attribute routing, application model conventions, API explorer, application parts, filters, formatters, model binding, and more.
 
 16. **Microsoft.AspNetCore.Authorization** - Used for API Authorization
+
+17. **Vsxmd** - Used for Converting xml comments into markdown file
