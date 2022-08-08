@@ -45,7 +45,7 @@ For those looking to evaluate the USDM with a sample data set, please see the fo
 
 1. Install [Visual Studio 2022](https://visualstudio.microsoft.com/) with default options to run the solution.
 
-2. Create a Mongo DB (Azure Cosmos DB API for Mongo DB or any Mongo DB client) with the below collection names.
+2. Create a Mongo DB(or equivalent) with two collections with names mentioned below.
 ```
 StudyDefinitionsV1
 Groups
@@ -76,7 +76,8 @@ git clone "repo_url"
 	// Keep this value as "-1" to disable this restriction.
     "DateRange": "No. of days"
  },
- "isAuthEnabled": true  // false to disable authorization for running code locally
+ "isGroupFilterEnabled": true  // change value to false to disable user based data filtering,
+ "isAuthEnabled": true  // change value to false to disable authorization
 ```
 
 3. Then, In the Visual Studio IDE, on clicking the IIS Express Icon or on pressing F5, WebApi solution will start running locally.
