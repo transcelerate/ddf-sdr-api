@@ -9,6 +9,9 @@ using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.RuleEngine
 {
+    /// <summary>
+    /// This Class is the validator for Group Filter
+    /// </summary>
     public class GroupFilterValidator : AbstractValidator<GroupFilterDTO>
     {
         public GroupFilterValidator()

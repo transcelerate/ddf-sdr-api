@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.DTO.StudyV1
 {
+    /// <summary>
+    /// This class is a DTO for response of GET Study History Endpoint
+    /// </summary>
     public class StudyHistoryResponseDto
     {
         public string StudyId { get; set; }

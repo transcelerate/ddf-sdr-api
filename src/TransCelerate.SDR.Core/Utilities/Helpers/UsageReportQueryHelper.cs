@@ -8,8 +8,16 @@ using TransCelerate.SDR.Core.Utilities.Enums;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
 {
+    /// <summary>
+    /// This is a helper class to format the KQL query
+    /// </summary>
     public static class UsageReportQueryHelper
     {
+        /// <summary>
+        /// This method helps to format the KQL query for system usage report
+        /// </summary>
+        /// <param name="reportBodyParameters">Body parameters for usage report</param>
+        /// <returns></returns>
         public static string FormattedQuery(ReportBodyParameters reportBodyParameters)
         {
             string query = $"query=" +

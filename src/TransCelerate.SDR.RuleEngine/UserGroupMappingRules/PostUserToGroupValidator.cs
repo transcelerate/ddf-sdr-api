@@ -10,6 +10,9 @@ using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.RuleEngine
 {
+    /// <summary>
+    /// This Class is the validator for POST User Endpoint
+    /// </summary>
     public class PostUserToGroupValidator : AbstractValidator<PostUserToGroupsDTO>
     {
         public PostUserToGroupValidator()

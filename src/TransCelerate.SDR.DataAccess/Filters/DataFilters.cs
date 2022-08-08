@@ -28,7 +28,13 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             return filter;
         }
-
+        /// <summary>
+        /// Get filters for StudyHistory API
+        /// </summary>
+        /// <param name="fromDate"></param>
+        /// <param name="toDate"></param>
+        /// <param name="studyTitle"></param>
+        /// <returns></returns>
         public static FilterDefinition<StudyEntity> GetFiltersForStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle)
         {
             FilterDefinitionBuilder<StudyEntity> builder = Builders<StudyEntity>.Filter;
