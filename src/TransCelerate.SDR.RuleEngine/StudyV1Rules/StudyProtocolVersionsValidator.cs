@@ -5,9 +5,11 @@ using TransCelerate.SDR.Core.Utilities.Helpers;
 
 namespace TransCelerate.SDR.RuleEngineV1
 {
+    /// <summary>
+    /// This Class is the validator for StudyProtocolVersions
+    /// </summary>
     public class StudyProtocolVersionsValidator : AbstractValidator<StudyProtocolVersionDto>
-    {
-       
+    {       
         public StudyProtocolVersionsValidator()
         {
             RuleFor(x => x.BriefTitle)

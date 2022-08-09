@@ -10,6 +10,9 @@ using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.RuleEngine
 {
+    /// <summary>
+    /// This Class is the validator for GET User and Groups Endpoints
+    /// </summary>
     public class UserGroupsQueryParametersValidator : AbstractValidator<UserGroupsQueryParameters>
     {
         public UserGroupsQueryParametersValidator()

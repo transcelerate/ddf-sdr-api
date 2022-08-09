@@ -11,6 +11,9 @@ using TransCelerate.SDR.Core.Utilities.Helpers;
 
 namespace TransCelerate.SDR.RuleEngine
 {
+    /// <summary>
+    /// This Class is the validator for Group Filter Values
+    /// </summary>
     public class GroupFilterValuesValidator : AbstractValidator<GroupFilterValuesDTO>
     {
         public GroupFilterValuesValidator()

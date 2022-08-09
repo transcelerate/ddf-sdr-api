@@ -4,6 +4,9 @@ using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.RuleEngineV1
 {
+    /// <summary>
+    /// This Class is the validator for StudyEstimands
+    /// </summary>
     public class StudyEstimandsValidator : AbstractValidator<EstimandDto>
     {
         public StudyEstimandsValidator()

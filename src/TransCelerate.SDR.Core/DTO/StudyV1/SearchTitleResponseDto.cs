@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.DTO.StudyV1
 {
+    /// <summary>
+    /// This class is a DTO for response of Search StudyTitle Endpoint
+    /// </summary>
     public class SearchTitleResponseDto
     {
         public SearchTitleClinicalStudy ClinicalStudy { get; set; }

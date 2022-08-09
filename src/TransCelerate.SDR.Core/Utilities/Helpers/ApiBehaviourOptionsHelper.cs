@@ -10,6 +10,9 @@ using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
 {
+    /// <summary>
+    /// This class helps to response for the different Api behaviours
+    /// </summary>
     public class ApiBehaviourOptionsHelper
     {
         private readonly ILogHelper _logger;       
@@ -17,6 +20,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             _logger = logger;
         }
+        /// <summary>
+        /// This method helps to format the error response for invalid input and conformance error
+        /// </summary>
+        /// <param name="context">Action Context</param>
+        /// <returns></returns>
         public ObjectResult ModelStateResponse(ActionContext context)
         {            
             var errors = context.ModelState.ToDictionary(

@@ -4,6 +4,9 @@ using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.RuleEngineV1
 {
+    /// <summary>
+    /// This Class is the validator for Procedure
+    /// </summary>
     public class ProcedureValidator : AbstractValidator<DefinedProcedureDto>
     {
         public ProcedureValidator()

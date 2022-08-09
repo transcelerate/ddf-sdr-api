@@ -9,6 +9,9 @@ using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.RuleEngine
 {   
+    /// <summary>
+    /// This Class is the validator for Token Endpoint
+    /// </summary>
     public class UserLoginValidator : AbstractValidator<UserLogin>
     {
         public UserLoginValidator()
