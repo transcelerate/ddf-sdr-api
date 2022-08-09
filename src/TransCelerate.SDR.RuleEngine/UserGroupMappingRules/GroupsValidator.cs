@@ -11,7 +11,10 @@ using TransCelerate.SDR.Core.Utilities.Helpers;
 
 namespace TransCelerate.SDR.RuleEngine
 {
-    public  class GroupsValidator : AbstractValidator<SDRGroupsDTO>
+    /// <summary>
+    /// This Class is the validator for POST Group Endpoint
+    /// </summary>
+    public class GroupsValidator : AbstractValidator<SDRGroupsDTO>
     {
         public GroupsValidator()
         {

@@ -4,6 +4,9 @@ using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.RuleEngineV1
 {
+    /// <summary>
+    /// This Class is the validator for Indication
+    /// </summary>
     public class IndicationValidator : AbstractValidator<IndicationDto>
     {
         public IndicationValidator()

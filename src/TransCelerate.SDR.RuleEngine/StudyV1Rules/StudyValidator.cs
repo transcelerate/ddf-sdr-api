@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace TransCelerate.SDR.RuleEngineV1
 {
+    /// <summary>
+    /// This Class is the validator for Study
+    /// </summary>
     public class StudyValidator : AbstractValidator<StudyDto>
-    {
-        /// <summary>
-        /// Validator for SearchParameters
-        /// </summary>
+    {       
         public StudyValidator()
         {
             RuleFor(x => x.ClinicalStudy)

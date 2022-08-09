@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace TransCelerate.SDR.RuleEngineV1
 {
+    /// <summary>
+    /// This Class is the validator for SearchParameters
+    /// </summary>
     public class SearchParametersValidator : AbstractValidator<SearchParametersDto>
-    {
-        /// <summary>
-        /// Validator for SearchParameters
-        /// </summary>
+    {        
         public SearchParametersValidator()
         {
             RuleFor(x => x.StudyTitle)

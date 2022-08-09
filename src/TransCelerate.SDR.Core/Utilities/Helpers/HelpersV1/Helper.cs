@@ -8,8 +8,16 @@ using TransCelerate.SDR.Core.Entities.StudyV1;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
 {
+    /// <summary>
+    /// This class is used as a helper for different funtionalities
+    /// </summary>
     public class Helper : IHelper
     {
+        /// <summary>
+        /// Get Audit Trail fields for the POST Api
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public AuditTrailEntity GetAuditTrail(string user)
         {
             return new AuditTrailEntity
@@ -20,6 +28,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         }
 
         #region Generate Id for each sections
+        /// <summary>
+        /// Generate uuid for Each section of study
+        /// </summary>
+        /// <param name="study">Study Entity</param>
+        /// <returns></returns>
         public StudyEntity GeneratedSectionId(StudyEntity study)
         {
             study.ClinicalStudy.Uuid = IdGenerator.GenerateId();
@@ -38,7 +51,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
 
             return study;
         }
-
+        /// <summary>
+        /// Generate uuid for Study Identifiers
+        /// </summary>
+        /// <param name="studyIdentifiers"></param>
+        /// <returns></returns>
         public List<StudyIdentifierEntity> GenerateIdForStudyIdentifier(List<StudyIdentifierEntity> studyIdentifiers)
         {
             if (studyIdentifiers is not null && studyIdentifiers.Any())
@@ -56,7 +73,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return studyIdentifiers;
         }
-
+        /// <summary>
+        /// Generate uuid for Study Protocol Versions
+        /// </summary>
+        /// <param name="studyProtocolVersions"></param>
+        /// <returns></returns>
         public List<StudyProtocolVersionEntity> GenerateIdForStudyProtocol(List<StudyProtocolVersionEntity> studyProtocolVersions)
         {
             if (studyProtocolVersions is not null && studyProtocolVersions.Any())
@@ -72,7 +93,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return studyProtocolVersions;
         }
-
+        /// <summary>
+        /// Generate uuid for Study StudyDesigns
+        /// </summary>
+        /// <param name="studyDesigns"></param>
+        /// <returns></returns>
         public List<StudyDesignEntity> GenerateIdForStudyDesign(List<StudyDesignEntity> studyDesigns)
         {
             if (studyDesigns is not null && studyDesigns.Any())
@@ -113,7 +138,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return studyDesigns;
         }
-
+        /// <summary>
+        /// Generate uuid for Study Indications
+        /// </summary>
+        /// <param name="indications"></param>
+        /// <returns></returns>
         public List<IndicationEntity> GenerateIdForStudyIndications(List<IndicationEntity> indications)
         {
             if (indications is not null && indications.Any())
@@ -129,6 +158,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return indications;
         }
+        /// <summary>
+        /// Generate uuid for Study Investigational Interventions
+        /// </summary>
+        /// <param name="investigationalInterventions"></param>
+        /// <returns></returns>
         public List<InvestigationalInterventionEntity> GenerateIdForInvestigationalInterventions(List<InvestigationalInterventionEntity> investigationalInterventions)
         {
             if (investigationalInterventions is not null && investigationalInterventions.Any())
@@ -144,7 +178,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return investigationalInterventions;
         }
-
+        /// <summary>
+        /// Generate uuid for Study Objectives
+        /// </summary>
+        /// <param name="objectives"></param>
+        /// <returns></returns>
         public List<ObjectiveEntity> GenerateIdForStudyObjectives(List<ObjectiveEntity> objectives)
         {
             if (objectives is not null && objectives.Any())
@@ -169,7 +207,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return objectives;
         }
-
+        /// <summary>
+        /// Generate uuid for Study Cells
+        /// </summary>
+        /// <param name="studyCells"></param>
+        /// <returns></returns>
         public List<StudyCellEntity> GenerateIdForStudyCells(List<StudyCellEntity> studyCells)
         {
             if (studyCells is not null && studyCells.Any())
@@ -208,6 +250,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             return studyCells;
         }
 
+        /// <summary>
+        /// Generate uuid for Study Workflows
+        /// </summary>
+        /// <param name="workflows"></param>
+        /// <returns></returns>
         public List<WorkflowEntity> GenerateIdForStudyWorkflow(List<WorkflowEntity> workflows)
         {
             if (workflows is not null && workflows.Any())
@@ -265,6 +312,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return workflows;
         }
+        /// <summary>
+        /// Generate uuid for Study Estimands
+        /// </summary>
+        /// <param name="estimands"></param>
+        /// <returns></returns>
         public List<EstimandEntity> GenerateIdForStudyEstimand(List<EstimandEntity> estimands)
         {
             if (estimands is not null && estimands.Any())
@@ -319,6 +371,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         #endregion
 
         #region Remove Id for Each section
+        /// <summary>
+        /// Remode uuid for Study
+        /// </summary>
+        /// <param name="study"></param>
+        /// <returns></returns>
         public StudyEntity RemovedSectionId(StudyEntity study)
         {
             study.ClinicalStudy.Uuid = null;
@@ -337,7 +394,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
 
             return study;
         }
-
+        /// <summary>
+        /// Remove uuid for Study Identifier
+        /// </summary>
+        /// <param name="studyIdentifiers"></param>
+        /// <returns></returns>
         public List<StudyIdentifierEntity> RemoveIdForStudyIdentifier(List<StudyIdentifierEntity> studyIdentifiers)
         {
             if (studyIdentifiers is not null && studyIdentifiers.Any())
@@ -355,7 +416,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return studyIdentifiers;
         }
-
+        /// <summary>
+        /// Remove uuid for Study Protocol Versions
+        /// </summary>
+        /// <param name="studyProtocolVersions"></param>
+        /// <returns></returns>
         public List<StudyProtocolVersionEntity> RemoveIdForStudyProtocol(List<StudyProtocolVersionEntity> studyProtocolVersions)
         {
             if (studyProtocolVersions is not null && studyProtocolVersions.Any())
@@ -371,7 +436,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return studyProtocolVersions;
         }
-
+        /// <summary>
+        /// Remove uuid for Study Designs
+        /// </summary>
+        /// <param name="studyDesigns"></param>
+        /// <returns></returns>
         public List<StudyDesignEntity> RemoveIdForStudyDesign(List<StudyDesignEntity> studyDesigns)
         {
             if (studyDesigns is not null && studyDesigns.Any())
@@ -412,7 +481,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return studyDesigns;
         }
-
+        /// <summary>
+        /// Remove uuid for Study Indications
+        /// </summary>
+        /// <param name="indications"></param>
+        /// <returns></returns>
         public List<IndicationEntity> RemoveIdForStudyIndications(List<IndicationEntity> indications)
         {
             if (indications is not null && indications.Any())
@@ -428,6 +501,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return indications;
         }
+        /// <summary>
+        /// Remove uuid for Study Investigational Interventions
+        /// </summary>
+        /// <param name="investigationalInterventions"></param>
+        /// <returns></returns>
         public List<InvestigationalInterventionEntity> RemoveIdForInvestigationalInterventions(List<InvestigationalInterventionEntity> investigationalInterventions)
         {
             if (investigationalInterventions is not null && investigationalInterventions.Any())
@@ -443,7 +521,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return investigationalInterventions;
         }
-
+        /// <summary>
+        /// Remove uuid for Study Objectives
+        /// </summary>
+        /// <param name="objectives"></param>
+        /// <returns></returns>
         public List<ObjectiveEntity> RemoveIdForStudyObjectives(List<ObjectiveEntity> objectives)
         {
             if (objectives is not null && objectives.Any())
@@ -468,7 +550,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return objectives;
         }
-
+        /// <summary>
+        /// Remove uuid for Study Cells
+        /// </summary>
+        /// <param name="studyCells"></param>
+        /// <returns></returns>
         public List<StudyCellEntity> RemoveIdForStudyCells(List<StudyCellEntity> studyCells)
         {
             if (studyCells is not null && studyCells.Any())
@@ -506,7 +592,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return studyCells;
         }
-
+        /// <summary>
+        /// Remove uuid for Study Workflows
+        /// </summary>
+        /// <param name="workflows"></param>
+        /// <returns></returns>
         public List<WorkflowEntity> RemoveIdForStudyWorkflow(List<WorkflowEntity> workflows)
         {
             if (workflows is not null && workflows.Any())
@@ -564,6 +654,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return workflows;
         }
+        /// <summary>
+        /// Remove uuid for Study Estimands
+        /// </summary>
+        /// <param name="estimands"></param>
+        /// <returns></returns>
         public List<EstimandEntity> RemoveIdForStudyEstimand(List<EstimandEntity> estimands)
         {
             if (estimands is not null && estimands.Any())
@@ -618,6 +713,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         #endregion
 
         #region Check whole study
+        /// <summary>
+        /// Compare Full Study
+        /// </summary>
+        /// <param name="incoming"></param>
+        /// <param name="existing"></param>
+        /// <returns></returns>
         public bool IsSameStudy(StudyEntity incoming, StudyEntity existing)
         {
             try
@@ -635,6 +736,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                 throw;
             }
         }
+        /// <summary>
+        /// Deep compare of existing and incoming study
+        /// </summary>
+        /// <param name="incoming"></param>
+        /// <param name="existing"></param>
+        /// <returns></returns>
         public bool JsonObjectCheck(object incoming, object existing)
         {
             try
@@ -650,6 +757,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         #endregion
 
         #region Check for each sections
+        /// <summary>
+        /// Comparison between existing and incoming study
+        /// </summary>
+        /// <param name="incoming"></param>
+        /// <param name="existing"></param>
+        /// <returns></returns>
         public StudyEntity CheckForSections(StudyEntity incoming, StudyEntity existing)
         {
             //For StudyType
@@ -673,6 +786,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
 
             return incoming;
         }
+        /// <summary>
+        /// Comparison between existing and incoming Study Identifiers
+        /// </summary>
+        /// <param name="incomingStudyIdentifiers"></param>
+        /// <param name="existingStudyIdentifiers"></param>
+        /// <returns></returns>
         public List<StudyIdentifierEntity> CheckForStudyIdentifierSection(List<StudyIdentifierEntity> incomingStudyIdentifiers, List<StudyIdentifierEntity> existingStudyIdentifiers)
         {
             if (incomingStudyIdentifiers is not null && existingStudyIdentifiers is not null)
@@ -704,7 +823,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return incomingStudyIdentifiers;
         }
-
+        /// <summary>
+        /// Comparison between existing and incoming Study ProtocolVersions
+        /// </summary>
+        /// <param name="incomingStudyProtocolVersions"></param>
+        /// <param name="existingStudyProtocolVersions"></param>
+        /// <returns></returns>
         public List<StudyProtocolVersionEntity> CheckForStudyProtocolSection(List<StudyProtocolVersionEntity> incomingStudyProtocolVersions, List<StudyProtocolVersionEntity> existingStudyProtocolVersions)
         {
             if (incomingStudyProtocolVersions is not null && existingStudyProtocolVersions is not null)
@@ -731,7 +855,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return incomingStudyProtocolVersions;
         }
-
+        /// <summary>
+        /// Comparison between existing and incoming Code
+        /// </summary>
+        /// <param name="incomingCodes"></param>
+        /// <param name="existingCodes"></param>
+        /// <returns></returns>
         public List<CodeEntity> CheckForCodeSection(List<CodeEntity> incomingCodes, List<CodeEntity> existingCodes)
         {
             if (incomingCodes is not null && existingCodes is not null)
@@ -758,6 +887,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return incomingCodes;
         }
+        /// <summary>
+        /// Comparison between existing and incoming Study Designs
+        /// </summary>
+        /// <param name="incomingStudyDesigns"></param>
+        /// <param name="existingStudyDesigns"></param>
+        /// <returns></returns>
         public List<StudyDesignEntity> CheckForStudyDesignSection(List<StudyDesignEntity> incomingStudyDesigns, List<StudyDesignEntity> existingStudyDesigns)
         {
             if (incomingStudyDesigns is not null && existingStudyDesigns is not null)
@@ -799,7 +934,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return incomingStudyDesigns;
         }
-
+        /// <summary>
+        /// Comparison between existing and incoming Study Indications
+        /// </summary>
+        /// <param name="incomingIndications"></param>
+        /// <param name="exisitingIndications"></param>
+        /// <returns></returns>
         public List<IndicationEntity> CheckForStudyIndicationsSection(List<IndicationEntity> incomingIndications, List<IndicationEntity> exisitingIndications)
         {
             if (incomingIndications is not null && exisitingIndications is not null)
@@ -826,6 +966,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return incomingIndications;
         }
+        /// <summary>
+        /// Comparison between existing and incoming Study Investigational Interventions
+        /// </summary>
+        /// <param name="incomingInvestigationalInterventions"></param>
+        /// <param name="existingInvestigationalInterventions"></param>
+        /// <returns></returns>
         public List<InvestigationalInterventionEntity> CheckForInvestigationalInterventionsSection(List<InvestigationalInterventionEntity> incomingInvestigationalInterventions, List<InvestigationalInterventionEntity> existingInvestigationalInterventions)
         {
             if (incomingInvestigationalInterventions is not null && existingInvestigationalInterventions is not null)
@@ -852,6 +998,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return incomingInvestigationalInterventions;
         }
+        /// <summary>
+        /// Comparison between existing and incoming Study Design Population
+        /// </summary>
+        /// <param name="incomingStudyDesignPopulations"></param>
+        /// <param name="existingStudyDesignPopulations"></param>
+        /// <returns></returns>
         public List<StudyDesignPopulationEntity> CheckForStudyDesignPopulationsSection(List<StudyDesignPopulationEntity> incomingStudyDesignPopulations, List<StudyDesignPopulationEntity> existingStudyDesignPopulations)
         {
             if (incomingStudyDesignPopulations is not null && existingStudyDesignPopulations is not null)
@@ -878,7 +1030,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return incomingStudyDesignPopulations;
         }
-
+        /// <summary>
+        /// Comparison between existing and incoming Study Objectives
+        /// </summary>
+        /// <param name="incomingObjectives"></param>
+        /// <param name="existingObjectives"></param>
+        /// <returns></returns>
         public List<ObjectiveEntity> CheckForStudyObjectivesSection(List<ObjectiveEntity> incomingObjectives, List<ObjectiveEntity> existingObjectives)
         {
             if (incomingObjectives is not null && existingObjectives is not null)
@@ -906,7 +1063,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return incomingObjectives;
         }
-
+        /// <summary>
+        /// Comparison between existing and incoming Study Objective Endpoints
+        /// </summary>
+        /// <param name="incomingEndpoints"></param>
+        /// <param name="existingEndpoints"></param>
+        /// <returns></returns>
         public List<EndpointEntity> CheckForStudyObjectivesEndpointsSection(List<EndpointEntity> incomingEndpoints, List<EndpointEntity> existingEndpoints)
         {
             if (incomingEndpoints is not null && existingEndpoints is not null)
@@ -941,7 +1103,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return incomingEndpoints;
         }
-
+        /// <summary>
+        /// Comparison between existing and incoming Study Cells
+        /// </summary>
+        /// <param name="incomingStudyCells"></param>
+        /// <param name="existingStudyCells"></param>
+        /// <returns></returns>
         public List<StudyCellEntity> CheckForStudyCellsSection(List<StudyCellEntity> incomingStudyCells, List<StudyCellEntity> existingStudyCells)
         {
             if (incomingStudyCells is not null && existingStudyCells is not null)
@@ -1008,7 +1175,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                 incomingStudyCells = GenerateIdForStudyCells(incomingStudyCells);
             }
             return incomingStudyCells;
-        }        
+        }
+        /// <summary>
+        /// Comparison between existing and incoming Study Elements
+        /// </summary>
+        /// <param name="incomingStudyElements"></param>
+        /// <param name="existingStudyElements"></param>
+        /// <returns></returns>
         public List<StudyElementEntity> CheckForStudyElementsSection(List<StudyElementEntity> incomingStudyElements, List<StudyElementEntity> existingStudyElements)
         {
             if (incomingStudyElements is not null && existingStudyElements is not null)
@@ -1052,6 +1225,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return incomingStudyElements;
         }
+        /// <summary>
+        /// Comparison between existing and incoming Study Data Collections
+        /// </summary>
+        /// <param name="incomingStudyDataCollections"></param>
+        /// <param name="existingStudyDataCollections"></param>
+        /// <returns></returns>
         public List<StudyDataCollectionEntity> CheckForStudyDataCollectionSection(List<StudyDataCollectionEntity> incomingStudyDataCollections, List<StudyDataCollectionEntity> existingStudyDataCollections)
         {
             if (incomingStudyDataCollections is not null && existingStudyDataCollections is not null)
@@ -1078,7 +1257,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return incomingStudyDataCollections;
         }
-
+        /// <summary>
+        /// Comparison between existing and incoming Study WorkFlows
+        /// </summary>
+        /// <param name="incomingWorkflows"></param>
+        /// <param name="existingWorkflows"></param>
+        /// <returns></returns>
         public List<WorkflowEntity> CheckForStudyWorkflowSection(List<WorkflowEntity> incomingWorkflows, List<WorkflowEntity> existingWorkflows)
         {
             if (incomingWorkflows is not null && existingWorkflows is not null)
@@ -1106,6 +1290,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
 
             return incomingWorkflows;
         }
+        /// <summary>
+        /// Comparison between existing and incoming Study WorkFlow Items
+        /// </summary>
+        /// <param name="incomingWorkflowItems"></param>
+        /// <param name="existingWorkflowItems"></param>
+        /// <returns></returns>
         public List<WorkFlowItemEntity> CheckForStudyWorkflowItemsSection(List<WorkFlowItemEntity> incomingWorkflowItems, List<WorkFlowItemEntity> existingWorkflowItems)
         {
             if (incomingWorkflowItems is not null && existingWorkflowItems is not null)
@@ -1270,6 +1460,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
 
             return incomingWorkflowItems;
         }
+        /// <summary>
+        /// Comparison between existing and incoming Defined Procedures
+        /// </summary>
+        /// <param name="incomingDefinedProcedures"></param>
+        /// <param name="exisitingDefinedProcedures"></param>
+        /// <returns></returns>
         public List<DefinedProcedureEntity> CheckForDefinedProceduresSection(List<DefinedProcedureEntity> incomingDefinedProcedures, List<DefinedProcedureEntity> exisitingDefinedProcedures)
         {
             if (incomingDefinedProcedures is not null && exisitingDefinedProcedures is not null)
@@ -1302,7 +1498,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return incomingDefinedProcedures;
         }
-
+        /// <summary>
+        /// Comparison between existing and incoming Study Estimands
+        /// </summary>
+        /// <param name="incomingEstimands"></param>
+        /// <param name="existingEstimands"></param>
+        /// <returns></returns>
         public List<EstimandEntity> CheckForStudyEstimandSection(List<EstimandEntity> incomingEstimands, List<EstimandEntity> existingEstimands)
         {
             if (incomingEstimands is not null && existingEstimands is not null)
@@ -1385,6 +1586,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return incomingEstimands;
         }
+        /// <summary>
+        /// Comparison between existing and incoming Intercurrent events
+        /// </summary>
+        /// <param name="incomingInterCurrentEvents"></param>
+        /// <param name="exisitingInterCurrentEvents"></param>
+        /// <returns></returns>
         public List<InterCurrentEventEntity> CheckForIntercurrentEventsSection(List<InterCurrentEventEntity> incomingInterCurrentEvents, List<InterCurrentEventEntity> exisitingInterCurrentEvents)
         {
             if (incomingInterCurrentEvents is not null && exisitingInterCurrentEvents is not null)

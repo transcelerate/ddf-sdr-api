@@ -4,6 +4,9 @@ using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.RuleEngineV1
 {
+    /// <summary>
+    /// This Class is the validator for Activity
+    /// </summary>
     public class ActivityValidator : AbstractValidator<ActivityDto>
     {
         public ActivityValidator()

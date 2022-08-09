@@ -4,6 +4,9 @@ using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.RuleEngineV1
 {
+    /// <summary>
+    /// This Class is the validator for InterCurrent Events
+    /// </summary>
     public class InterCurrentEventsValidator : AbstractValidator<InterCurrentEventDto>
     {
         public InterCurrentEventsValidator()
