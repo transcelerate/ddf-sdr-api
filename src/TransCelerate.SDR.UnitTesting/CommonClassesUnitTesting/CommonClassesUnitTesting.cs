@@ -1,35 +1,42 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using TransCelerate.SDR.Core.Utilities;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using TransCelerate.SDR.Core.Utilities.Common;
-using Microsoft.Extensions.Logging;
-using TransCelerate.SDR.Core.AppSettings;
-using NUnit.Framework;
-using System.Text;
-using Moq;
-using TransCelerate.SDR.Core.Utilities.Helpers;
-using System.IO;
-using Newtonsoft.Json;
-using TransCelerate.SDR.Core.Entities.Study;
-using TransCelerate.SDR.Core.ErrorModels;
-using TransCelerate.SDR.RuleEngine;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Moq;
+using Newtonsoft.Json;
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using TransCelerate.SDR.Core.AppSettings;
 using TransCelerate.SDR.Core.DTO;
-using TransCelerate.SDR.WebApi;
-using TransCelerate.SDR.WebApi.Mappers;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
+using TransCelerate.SDR.Core.DTO.Reports;
 using TransCelerate.SDR.Core.DTO.Study;
+using TransCelerate.SDR.Core.DTO.Token;
+using TransCelerate.SDR.Core.DTO.UserGroups;
+using TransCelerate.SDR.Core.Entities.Study;
+using TransCelerate.SDR.Core.Entities.UserGroups;
+using TransCelerate.SDR.Core.ErrorModels;
+using TransCelerate.SDR.Core.Utilities;
+using TransCelerate.SDR.Core.Utilities.Common;
+using TransCelerate.SDR.Core.Utilities.Enums;
+using TransCelerate.SDR.Core.Utilities.Helpers;
+using TransCelerate.SDR.RuleEngine;
+using TransCelerate.SDR.WebApi.Controllers;
+using TransCelerate.SDR.WebApi.Mappers;
 
 namespace TransCelerate.SDR.UnitTesting
 {
     public class CommonClassesUnitTesting
     {
+        private IMapper _mockMapper;
         private Mock<ILoggerFactory> _mockLogger = new Mock<ILoggerFactory>();
         private Mock<ILogger> _mockSDRLogger = new Mock<ILogger>();
-        private Mock<ILogger> _mockErrorSDRLogger = new Mock <ILogger>(MockBehavior.Strict);
+        private ILogHelper _mockLogHelper = Mock.Of<ILogHelper>();
+        private Mock<ILogger> _mockErrorSDRLogger = new Mock<ILogger>(MockBehavior.Strict);
         private Mock<IConfiguration> _mockConfig = new Mock<IConfiguration>();
         //private IConfiguration _mockConfiguration = Mock.Of<IConfiguration>();
         private IServiceCollection serviceDescriptors = Mock.Of<IServiceCollection>();
@@ -37,15 +44,110 @@ namespace TransCelerate.SDR.UnitTesting
         //private IWebHostEnvironment env = Mock.Of<IWebHostEnvironment>();
 
         #region Setup
+        [SetUp]
+        public void Setup()
+        {
+            var mockMapper = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new AutoMapperProfies());
+            });
+            _mockMapper = new Mapper(mockMapper);
+        }
+        LoggedInUser user = new LoggedInUser
+        {
+            UserName = "user1@SDR.com",
+            UserRole = Constants.Roles.Org_Admin
+        };
         public StudyEntity GetPostDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/PostStudyData.json");            
-            return JsonConvert.DeserializeObject<StudyEntity>(jsonData); 
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/PostStudyData.json");
+            return JsonConvert.DeserializeObject<StudyEntity>(jsonData);
         }
         public PostStudyDTO PostDataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/PostStudyData.json");
-            return JsonConvert.DeserializeObject<PostStudyDTO>(jsonData);            
+            return JsonConvert.DeserializeObject<PostStudyDTO>(jsonData);
+        }
+        public SDRGroupsDTO PostAGroupDto()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/UserGroupMappingData.json");
+            var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingDTO>(jsonData);
+            var groupDetails = JsonConvert.DeserializeObject<SDRGroupsDTO>(JsonConvert.SerializeObject(userGrouppMapping.SDRGroups[0]));
+            return groupDetails;
+        }
+        public IEnumerable<GroupDetailsEntity> GetGroupDetails()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/UserGroupMappingData.json");
+            var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingEntity>(jsonData);
+            var groupDetails = JsonConvert.DeserializeObject<IEnumerable<GroupDetailsEntity>>(JsonConvert.SerializeObject(userGrouppMapping.SDRGroups));
+            return groupDetails;
+        }
+        public PostUserToGroupsDTO PostUser()
+        {
+            List<GroupsTaggedToUser> groupList = new List<GroupsTaggedToUser>();
+            GroupsTaggedToUser groupsTaggedToUser = new GroupsTaggedToUser
+            {
+                groupId = "0193a357-8519-4488-90e4-522f701658b9",
+                groupName = "OncologyRead",
+                isActive = true
+            };
+            GroupsTaggedToUser groupsTaggedToUser2 = new GroupsTaggedToUser
+            {
+                groupId = "c50ccb41-db9b-4b97-b132-cbbfaa68af5a",
+                groupName = "AmnesiaReadWrite",
+                isActive = true
+            }; GroupsTaggedToUser groupsTaggedToUser3 = new GroupsTaggedToUser
+            {
+                groupId = "83864612-ffbd-463f-90ce-3e8819c5d132",
+                groupName = "AmnesiaReadWrite",
+                isActive = true
+            };
+            groupList.Add(groupsTaggedToUser);
+            groupList.Add(groupsTaggedToUser2);
+            groupList.Add(groupsTaggedToUser3);
+            PostUserToGroupsDTO postUserToGroupsDTO = new PostUserToGroupsDTO
+            {
+                email = "user1@SDR.com",
+                oid = "aw2dq254wfdsf",
+                groups = groupList
+            };
+            
+            return postUserToGroupsDTO;
+        }
+        public IEnumerable<PostUserToGroupsDTO> UserList()
+        {
+            List<GroupsTaggedToUser> groupList = new List<GroupsTaggedToUser>();
+            GroupsTaggedToUser groupsTaggedToUser = new GroupsTaggedToUser
+            {
+                groupId = "0193a357-8519-4488-90e4-522f701658b9",
+                groupName = "OncologyRead",
+                isActive = true
+            };
+            GroupsTaggedToUser groupsTaggedToUser2 = new GroupsTaggedToUser
+            {
+                groupId = "c50ccb41-db9b-4b97-b132-cbbfaa68af5a",
+                groupName = "AmnesiaReadWrite",
+                isActive = true
+            }; GroupsTaggedToUser groupsTaggedToUser3 = new GroupsTaggedToUser
+            {
+                groupId = "83864612-ffbd-463f-90ce-3e8819c5d132",
+                groupName = "AmnesiaReadWrite",
+                isActive = true
+            };
+            groupList.Add(groupsTaggedToUser);
+            groupList.Add(groupsTaggedToUser2);
+            groupList.Add(groupsTaggedToUser3);
+            PostUserToGroupsDTO postUserToGroupsDTO = new PostUserToGroupsDTO
+            {
+                email = "user1@SDR.com",
+                oid = "aw2dq254wfdsf",
+                groups = groupList
+            };
+            List<PostUserToGroupsDTO> postUserToGroups = new List<PostUserToGroupsDTO>();
+            postUserToGroups.Add(postUserToGroupsDTO);
+            IEnumerable<PostUserToGroupsDTO> postUserToGroupsIenum = JsonConvert.DeserializeObject<IEnumerable<PostUserToGroupsDTO>>(
+                                                                    JsonConvert.SerializeObject(postUserToGroups));
+            return postUserToGroupsIenum;
         }
         #endregion
 
@@ -164,11 +266,18 @@ namespace TransCelerate.SDR.UnitTesting
         public void Startup_Library_UnitTesting()
         {
             _mockConfig.Setup(x => x.GetSection(It.IsAny<string>()).Value)
-                .Returns("Value");
+                .Returns("true");
             StartupLib.SetConstants(_mockConfig.Object);       
-            Assert.AreEqual(Config.connectionString, "Value");
-            Assert.AreEqual(Config.databaseName, "Value");
-            Assert.AreEqual(Config.instrumentationKey, "Value");    
+            Assert.AreEqual(Config.ConnectionString, "true");
+            Assert.AreEqual(Config.DatabaseName, "true");
+            Assert.AreEqual(Config.InstrumentationKey, "true");    
+            Assert.AreEqual(Config.DateRange, "true");    
+            Assert.AreEqual(Config.Audience, "true");    
+            Assert.AreEqual(Config.Scope, "true");    
+            Assert.AreEqual(Config.TenantID, "true");    
+            Assert.AreEqual(Config.Authority, "true");               
+            Assert.AreEqual(Config.isAuthEnabled, true);               
+            Assert.AreEqual(Config.isGroupFilterEnabled, true);               
         }
         #endregion
 
@@ -336,12 +445,15 @@ namespace TransCelerate.SDR.UnitTesting
 
         #region FluentValidation Unit Testing
         [Test]
-        public void ClinicalStudyValidation_UnitTesting()
+        public void FluentValidation_UnitTesting()
         {            
             ValidationDependencies.AddValidationDependencies(serviceDescriptors);
             var incomingpostStudyDTO = PostDataFromStaticJson();
+            PostStudyValidator postStudyValidator = new PostStudyValidator();
+            Assert.IsTrue(postStudyValidator.Validate(incomingpostStudyDTO).IsValid);
+
             ClinicalStudyValidator clinicalStudyRules = new ClinicalStudyValidator();
-            var result= clinicalStudyRules.Validate(incomingpostStudyDTO);
+            var result= clinicalStudyRules.Validate(incomingpostStudyDTO.clinicalStudy);
             Assert.IsTrue(result.IsValid);
 
             StudyIdentifiersValidator studyIdentifiersValidator = new StudyIdentifiersValidator();            
@@ -428,8 +540,233 @@ namespace TransCelerate.SDR.UnitTesting
             SearchParametersValidator searchParametersValidator = new SearchParametersValidator();
             var res = searchParametersValidator.Validate(searchParameters);
             Assert.IsTrue(searchParametersValidator.Validate(searchParameters).IsValid);
+
+            UserGroupsQueryParameters userGroupsQueryParameters = new UserGroupsQueryParameters
+            {
+                sortBy = "email",
+                sortOrder = "desc",
+                pageNumber = 1,
+                pageSize = 20
+            };
+            UserGroupsQueryParametersValidator userGroupsQueryParametersValidator = new UserGroupsQueryParametersValidator();
+            Assert.IsTrue(userGroupsQueryParametersValidator.Validate(userGroupsQueryParameters).IsValid);
+
+            GroupsValidator groupsValidator = new GroupsValidator();
+            Assert.IsTrue(groupsValidator.Validate(PostAGroupDto()).IsValid);
+
+            PostUserToGroupValidator usersValidator = new PostUserToGroupValidator();
+            Assert.IsTrue(usersValidator.Validate(PostUser()).IsValid);
+
+            GroupFilterValidator groupFilterValidator = new GroupFilterValidator();
+            Assert.IsTrue(groupFilterValidator.Validate(PostAGroupDto().groupFilter[0]).IsValid);
+
+            GroupFilterValuesValidator groupFilterValuesValidator = new GroupFilterValuesValidator();
+            Assert.IsTrue(groupFilterValuesValidator.Validate(PostAGroupDto().groupFilter[0].groupFilterValues[0]).IsValid);
+
+            UserLogin user = new UserLogin
+            {
+                username="user",password="password"
+            };
+            UserLoginValidator userLoginValidator = new UserLoginValidator();
+            Assert.IsTrue(userLoginValidator.Validate(user).IsValid);
         }
         #endregion
-        
+
+        #region UserGroup Sorting Unit Testing
+        [Test]
+        public void UserGroupSortingHelper_UnitTesting()
+        {
+            UserGroupsQueryParameters userGroupsQueryParameters = new UserGroupsQueryParameters
+            {
+                sortBy = "email",
+                sortOrder = "desc",
+                pageNumber = 1,
+                pageSize = 20
+            };
+            for (int i = 0; i < 7; i++)
+            {
+                if (i == 0)
+                    userGroupsQueryParameters.sortBy = "email";
+                if (i == 1)
+                    userGroupsQueryParameters.sortBy = "modifiedon";
+                if (i == 2)
+                    userGroupsQueryParameters.sortBy = "modifiedby";
+                if (i == 3)
+                    userGroupsQueryParameters.sortBy = "createdby";
+                if (i == 4)
+                    userGroupsQueryParameters.sortBy = "createdon";
+                if (i == 5)
+                    userGroupsQueryParameters.sortBy = "name";
+                if (i == 6)
+                    userGroupsQueryParameters.sortBy = "";
+                UserGroupSortingHelper.OrderGroups(GetGroupDetails(), userGroupsQueryParameters);
+                UserGroupSortingHelper.OrderUsers(UserList(), userGroupsQueryParameters);
+            }
+
+        }
+        #endregion
+
+
+        #region HttpContext Response Helper UnitTesting
+        [Test]
+        public void HttpContextResponseHelper_UnitTesting()
+        {
+            //var mockHttpContext = Mock.Of<HttpContext>();
+            var mockHttpContext = new DefaultHttpContext();
+            string response = string.Empty;
+            mockHttpContext.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+            var method = HttpContextResponseHelper.Response(mockHttpContext, response);
+            method.Wait();
+            response = method.Result;
+            Assert.IsTrue(response.Contains(((int)HttpStatusCode.Forbidden).ToString()));
+            mockHttpContext.Response.Headers.Remove("Content-Type");
+            mockHttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            method = HttpContextResponseHelper.Response(mockHttpContext, response);
+            method.Wait();
+            response = method.Result;
+            Assert.IsTrue(response.Contains(((int)HttpStatusCode.Unauthorized).ToString()));
+            mockHttpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
+            mockHttpContext.Response.Headers.Remove("Content-Type");
+            method = HttpContextResponseHelper.Response(mockHttpContext, response);
+            method.Wait();
+            response = method.Result;
+            Assert.IsTrue(response.Contains(((int)HttpStatusCode.NotFound).ToString()));
+            mockHttpContext.Response.StatusCode = (int)HttpStatusCode.MethodNotAllowed;
+            mockHttpContext.Response.Headers.Remove("Content-Type");
+            method = HttpContextResponseHelper.Response(mockHttpContext, response);
+            method.Wait();
+            response = method.Result;
+            Assert.IsTrue(response.Contains(((int)HttpStatusCode.MethodNotAllowed).ToString()));
+        }
+        #endregion
+
+       
+        #region Spit String Helper
+        [Test]
+        public void SplitStringIntoArrayHelperUnitTesting()
+        {
+            var splitStringList = SplitStringIntoArrayHelper.SplitString(JsonConvert.SerializeObject(PostAGroupDto()), 100);
+            Assert.IsNotEmpty(splitStringList);
+        }
+        #endregion
+        #region Token Controller
+        [Test]
+        public void TokenControllerUnitTesting()
+        {
+            UserLogin user = new UserLogin
+            {
+                username = "user",
+                password = "password"
+            };
+            TokenController tokenController = new TokenController(_mockLogHelper);
+            var method = tokenController.GetToken(user);
+            method.Wait();
+
+            //Expected
+            var expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError);
+
+            //Actual
+            var actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
+
+            //Assert          
+            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
+            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual("400", actual_result.statusCode);
+
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/TokenRawResponse.json");
+            var responseObject = JsonConvert.DeserializeObject<TokenSuccessResponseDTO>(jsonData);
+            var tokenResponse = new { token = $"{responseObject.token_type} {responseObject.access_token}" };
+
+            Assert.NotNull(tokenResponse);
+        }
+
+        [Test]
+        public void ReportsControllerUnitTesting()
+        {
+            ReportBodyParameters reportBodyParameters = new ReportBodyParameters
+            {
+                days = 10,
+                operation = "GET",
+                pageSize = 10,
+                recordNumber = 1,
+                responseCode = 200,
+                sortBy = "requestdate",
+                sortOrder = "asc"
+            };
+            ReportsController reportsController = new ReportsController(_mockLogHelper,_mockMapper);
+            var method = reportsController.GetUsageReport(reportBodyParameters);
+            method.Wait();
+
+            //Expected
+            var expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError);
+
+            //Actual
+            var actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
+
+            //Assert          
+            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
+            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual("400", actual_result.statusCode);
+
+            reportBodyParameters.pageSize = 0;
+            reportBodyParameters.sortBy = "operation";
+            method = reportsController.GetUsageReport(reportBodyParameters);
+            method.Wait();
+
+            reportBodyParameters.sortBy = "api";
+            method = reportsController.GetUsageReport(reportBodyParameters);
+            method.Wait();
+
+            reportBodyParameters.sortBy = "callerip";
+            method = reportsController.GetUsageReport(reportBodyParameters);
+            method.Wait();
+
+            reportBodyParameters.sortBy = "responsecode";
+            method = reportsController.GetUsageReport(reportBodyParameters);
+            method.Wait();
+
+            reportBodyParameters.sortBy = "operationas";
+            method = reportsController.GetUsageReport(reportBodyParameters);
+            method.Wait();
+
+            reportBodyParameters.sortBy = "";
+            method = reportsController.GetUsageReport(reportBodyParameters);
+            method.Wait();
+
+
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ReportsRawData.json");
+            var rawReport = JsonConvert.DeserializeObject<SystemUsageRawReport>(jsonData);
+            List<SystemUsageReportDTO> usageReport = new List<SystemUsageReportDTO>();
+            rawReport.Tables[0].Rows.ForEach(rows => usageReport.Add(new SystemUsageReportDTO
+            {
+                RequestDate = rows[(int)UsageReportFields.timestamp],
+
+                Api = rows[(int)UsageReportFields.name].Split(" ")[1],
+
+                EmailId = JsonConvert.DeserializeObject<CustomDimension>(rows[(int)UsageReportFields.customDimensions1]).EmailAddress,
+
+                UserName = JsonConvert.DeserializeObject<CustomDimension>(rows[(int)UsageReportFields.customDimensions1]).UserName,
+
+                CallerIpAddress = rows[(int)UsageReportFields.client_IP],
+
+                ResponseCode = rows[(int)UsageReportFields.resultCode],
+
+                Operation = rows[(int)UsageReportFields.name].Split(" ")[0],
+
+                ResponseCodeDescription = int.TryParse(rows[(int)UsageReportFields.resultCode], out int code) == true ?
+                                                     Enum.IsDefined(typeof(HttpStatusCode), code) == true ?
+                                                     $"{code} - {Enum.GetName(typeof(HttpStatusCode), code)}"
+                                                     : null : null
+            }));
+            Assert.IsNotEmpty(usageReport);
+        }
+        #endregion
+
     }
 }

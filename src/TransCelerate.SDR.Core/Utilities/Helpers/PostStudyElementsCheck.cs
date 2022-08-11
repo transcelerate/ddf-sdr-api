@@ -14,15 +14,15 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// This method is used to check whether the incoming study and existing study are same
         /// </summary>
-        /// <param name="incoming"></param>
-        /// <param name="existing"></param>
+        /// <param name="incoming">Incoming study defenitions</param>
+        /// <param name="existing">Existing study defenitions</param>
         /// <returns>        
         /// <see langword="true"/> If incoming and existing study entities are identical
         /// </returns>
         public static bool StudyComparison(StudyEntity incoming, StudyEntity existing)
         {
             try
-            {                          
+            {
                 RemoveId(incoming);
                 RemoveId(existing);
 
@@ -36,8 +36,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// This method will check whether two Json objects are same or not
         /// </summary>
-        /// <param name="incoming"></param>
-        /// <param name="existing"></param>
+        /// <param name="incoming">Object of Incoming study defenitions</param>
+        /// <param name="existing">Object of Existing study defenitions</param>
         /// <returns>        
         /// <see langword="true"/> If incoming and existing study entities are identical
         /// </returns>
@@ -56,7 +56,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// This method will remove all the id fields in the study
         /// </summary>
-        /// <param name="studyEntity"></param>
+        /// <param name="studyEntity">Study defenitions for which Id fields must be removed</param>
         /// <returns>
         /// A <see cref="StudyEntity"/> after removing all ID fields        
         /// </returns>
@@ -81,7 +81,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     }
 
                     //Remove Id for each section
-                                           
+
                     //ObjectiveId
                     studyEntity.clinicalStudy.currentSections
                                             .FindAll(x => x.objectives != null)
@@ -99,15 +99,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     studyEntity.clinicalStudy.currentSections
                                             .FindAll(x => x.studyIndications != null)
                                             .ForEach(x => x.studyIndications
-                                            .ForEach(y => y.studyIndicationId = null));
-
-                    //Removed StudyProtocol Section
-                    //protocolId
-                    //if (studyEntity.clinicalStudy.currentSections.Any(x => x.studyProtocol != null))
-                    //{
-                    //    studyEntity.clinicalStudy.currentSections.Find(x => x.studyProtocol != null)
-                    //                                         .studyProtocol.protocolId = null;
-                    //}
+                                            .ForEach(y => y.studyIndicationId = null));                   
 
                     //studyDesignId
                     studyEntity.clinicalStudy.currentSections
@@ -154,12 +146,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                                 if (i.workflowItemMatrix != null)
                                                 {
                                                     i.workflowItemMatrix.workFlowItemMatrixId = null;
-                                                    if (i.workflowItemMatrix.matrix!=null)
-                                                    {                                                       
+                                                    if (i.workflowItemMatrix.matrix != null)
+                                                    {
                                                         i.workflowItemMatrix.matrix.FindAll(x => x != null).ForEach(m =>
                                                         {
                                                             m.matrixId = null;
-                                                            if(m.items!=null)
+                                                            if (m.items != null)
                                                             {
                                                                 m.items.FindAll(x => x != null).ForEach(item =>
                                                                 {
@@ -173,8 +165,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                                                     if (item.activity != null)
                                                                     {
                                                                         item.activity.activityId = null;
-                                                                        if(item.activity.studyDataCollection != null)
-                                                                            item.activity.studyDataCollection.FindAll(x => x != null).ForEach(sdc => sdc.studyDataCollectionId = null); 
+                                                                        if (item.activity.studyDataCollection != null)
+                                                                            item.activity.studyDataCollection.FindAll(x => x != null).ForEach(sdc => sdc.studyDataCollectionId = null);
                                                                     }
                                                                     if (item.encounter != null)
                                                                     {
@@ -211,14 +203,15 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                                 if (i.studyEpoch != null)
                                                     i.studyEpoch.studyEpochId = null;
 
-                                                if(i.studyElements!=null)
+                                                if (i.studyElements != null)
                                                 {
                                                     i.studyElements.FindAll(x => x != null).ForEach(e => {
                                                         e.studyElementId = null;
                                                         if (e.startRule != null)
-                                                        e.startRule.RuleId = null;
+                                                            e.startRule.RuleId = null;
+
                                                         if (e.endRule != null)
-                                                        e.endRule.RuleId = null;
+                                                            e.endRule.RuleId = null;
                                                     });
                                                 }
                                             }))));
@@ -236,8 +229,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Section Level Study comparison for sectional POST
         /// </summary>
-        /// <param name="incoming"></param>
-        /// <param name="existing"></param>
+        /// <param name="incoming">Incoming Study Defenitions</param>
+        /// <param name="existing">Existing Study Defenitions</param>
         /// <returns>
         /// A <see cref="StudyEntity"/> after checking the section for Posting the data to the database       
         /// </returns>
@@ -247,7 +240,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             {
                 existing.clinicalStudy.studyType = incoming.clinicalStudy.studyType;
                 existing.clinicalStudy.studyTitle = incoming.clinicalStudy.studyTitle;
-                existing.clinicalStudy.studyPhase = incoming.clinicalStudy.studyPhase ?? existing.clinicalStudy.studyPhase;                
+                existing.clinicalStudy.studyPhase = incoming.clinicalStudy.studyPhase ?? existing.clinicalStudy.studyPhase;
                 existing.clinicalStudy.studyTag = incoming.clinicalStudy.studyTag ?? existing.clinicalStudy.studyTag;
                 existing.clinicalStudy.studyStatus = incoming.clinicalStudy.studyStatus ?? existing.clinicalStudy.studyStatus;
                 if (incoming.clinicalStudy.studyProtocolReferences != null)
@@ -260,9 +253,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
 
                 //For studyIdentifiers
                 var studyIdentifiersList = new List<StudyIdentifierEntity>();
-                foreach(var studyIdentifier in incoming.clinicalStudy.studyIdentifiers)
+                foreach (var studyIdentifier in incoming.clinicalStudy.studyIdentifiers)
                 {
-                    if(existing.clinicalStudy.studyIdentifiers.Any(x=>x.studyIdentifierId==studyIdentifier.studyIdentifierId))
+                    if (existing.clinicalStudy.studyIdentifiers.Any(x => x.studyIdentifierId == studyIdentifier.studyIdentifierId))
                     {
                         studyIdentifiersList.Add(studyIdentifier);
                         existing.clinicalStudy.studyIdentifiers.RemoveAll(x => x.studyIdentifierId == studyIdentifier.studyIdentifierId);
@@ -271,7 +264,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     {
                         studyIdentifier.studyIdentifierId = IdGenerator.GenerateId();
                         studyIdentifiersList.Add(studyIdentifier);
-                    }                    
+                    }
                 }
                 existing.clinicalStudy.studyIdentifiers = studyIdentifiersList;
 
@@ -284,24 +277,24 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 else if (incoming.clinicalStudy.currentSections != null && existing.clinicalStudy.currentSections != null)
                 {
 
-                    List<StudyObjectiveEntity> existingStudyObjectivesEntities = existing.clinicalStudy.currentSections.FindAll(x => x.objectives != null).Count()!=0 ? existing.clinicalStudy.currentSections.Find(x => x.objectives != null).objectives: new List<StudyObjectiveEntity>();
-                    List<StudyObjectiveEntity> incomingStudyObjectivesEntities = incoming.clinicalStudy.currentSections.FindAll(x => x.objectives != null).Count() !=0 ? incoming.clinicalStudy.currentSections.Find(x => x.objectives != null).objectives: new List<StudyObjectiveEntity>();
+                    List<StudyObjectiveEntity> existingStudyObjectivesEntities = existing.clinicalStudy.currentSections.FindAll(x => x.objectives != null).Count() != 0 ? existing.clinicalStudy.currentSections.Find(x => x.objectives != null).objectives : new List<StudyObjectiveEntity>();
+                    List<StudyObjectiveEntity> incomingStudyObjectivesEntities = incoming.clinicalStudy.currentSections.FindAll(x => x.objectives != null).Count() != 0 ? incoming.clinicalStudy.currentSections.Find(x => x.objectives != null).objectives : new List<StudyObjectiveEntity>();
 
-                    List<StudyIndicationEntity> existingStudyIndicationEntities = existing.clinicalStudy.currentSections.FindAll(x => x.studyIndications != null).Count()!=0? existing.clinicalStudy.currentSections.Find(x => x.studyIndications != null).studyIndications:new List<StudyIndicationEntity>();
-                    List<StudyIndicationEntity> incomingStudyIndicationEntities = incoming.clinicalStudy.currentSections.FindAll(x => x.studyIndications != null).Count() != 0 ? incoming.clinicalStudy.currentSections.Find(x => x.studyIndications != null).studyIndications : new List<StudyIndicationEntity>();                   
+                    List<StudyIndicationEntity> existingStudyIndicationEntities = existing.clinicalStudy.currentSections.FindAll(x => x.studyIndications != null).Count() != 0 ? existing.clinicalStudy.currentSections.Find(x => x.studyIndications != null).studyIndications : new List<StudyIndicationEntity>();
+                    List<StudyIndicationEntity> incomingStudyIndicationEntities = incoming.clinicalStudy.currentSections.FindAll(x => x.studyIndications != null).Count() != 0 ? incoming.clinicalStudy.currentSections.Find(x => x.studyIndications != null).studyIndications : new List<StudyIndicationEntity>();
 
-                    List<StudyDesignEntity> existingStudyDesignEntities = existing.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).Count()!=0? existing.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns: new List<StudyDesignEntity>();
-                    List<StudyDesignEntity> incomingStudyDesignEntities = incoming.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).Count() != 0 ? incoming.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns : new List<StudyDesignEntity>();                                      
+                    List<StudyDesignEntity> existingStudyDesignEntities = existing.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).Count() != 0 ? existing.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns : new List<StudyDesignEntity>();
+                    List<StudyDesignEntity> incomingStudyDesignEntities = incoming.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).Count() != 0 ? incoming.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns : new List<StudyDesignEntity>();
 
                     Parallel.Invoke(
                                 //Study Objectives Section
-                                ()=>StudyObjectivesSectionCheck(existing, existingStudyObjectivesEntities, incomingStudyObjectivesEntities),
+                                () => StudyObjectivesSectionCheck(existing, existingStudyObjectivesEntities, incomingStudyObjectivesEntities),
                                 //Study Indications Section
                                 () => StudyIndicationSectionCheck(existing, existingStudyIndicationEntities, incomingStudyIndicationEntities),
                                 //Study Design Section
                                 () => StudyDesignSectionCheck(existing, existingStudyDesignEntities, incomingStudyDesignEntities)
                             );
-                }                
+                }
                 return existing;
             }
             catch (Exception)
@@ -314,9 +307,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Check for Study Objectives section 
         /// </summary>
-        /// <param name="existing"></param>
-        /// <param name="existingStudyObjectivesEntities"></param>
-        /// <param name="incomingStudyObjectivesEntities"></param>
+        /// <param name="existing">Existing Study Defenitions</param>
+        /// <param name="existingStudyObjectivesEntities">Existing Study Objectives</param>
+        /// <param name="incomingStudyObjectivesEntities">Incoming Study Objectives</param>
         public static void StudyObjectivesSectionCheck(StudyEntity existing, List<StudyObjectiveEntity> existingStudyObjectivesEntities, List<StudyObjectiveEntity> incomingStudyObjectivesEntities)
         {
             try
@@ -345,7 +338,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     {
                         if (existingStudyObjectivesEntities.Any(x => x.objectiveId == item.objectiveId))
                         {
-                            if(item.endpoints!=null)
+                            if (item.endpoints != null)
                             {
                                 var endPointList = new List<EndpointsEntity>();
                                 foreach (var endpoint in item.endpoints)
@@ -355,10 +348,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                     {
                                         if (existingStudyObjectivesEntities.Find(x => x.objectiveId == item.objectiveId)
                                         .endpoints.Any(x => x.endPointsId == endpoint.endPointsId))
-                                    {
-                                        endPointList.Add(endpoint);
-                                        existingStudyObjectivesEntities.Find(x => x.objectiveId == item.objectiveId)
-                                        .endpoints.RemoveAll(x => x.endPointsId == endpoint.endPointsId);
+                                        {
+                                            endPointList.Add(endpoint);
+                                            existingStudyObjectivesEntities.Find(x => x.objectiveId == item.objectiveId)
+                                            .endpoints.RemoveAll(x => x.endPointsId == endpoint.endPointsId);
                                         }
                                         else
                                         {
@@ -373,7 +366,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                     }
                                 }
                                 item.endpoints = endPointList;
-                            }                            
+                            }
                             studyObjectivesList.Add(item);
                             existing.clinicalStudy.currentSections.Find(x => x.objectives != null).objectives.RemoveAll(x => x.objectiveId == item.objectiveId);
                         }
@@ -381,7 +374,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                         {
                             var studyObjective = SectionIdGenerator.StudyObjectivesIdGenerator(item);
                             studyObjectivesList.Add(studyObjective);
-                        }                        
+                        }
                     }
                     existing.clinicalStudy.currentSections.FindAll(x => x.objectives != null).ForEach(x => x.objectives = studyObjectivesList);
                 }
@@ -395,9 +388,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Check for Study Indication section 
         /// </summary>
-        /// <param name="existing"></param>
-        /// <param name="existingStudyIndicationEntities"></param>
-        /// <param name="incomingStudyIndicationEntities"></param>
+        /// <param name="existing">Existing Study Defenitions</param>
+        /// <param name="existingStudyIndicationEntities">Existing Study Indications</param>
+        /// <param name="incomingStudyIndicationEntities">Incoming Study Indications</param>
         public static void StudyIndicationSectionCheck(StudyEntity existing, List<StudyIndicationEntity> existingStudyIndicationEntities, List<StudyIndicationEntity> incomingStudyIndicationEntities)
         {
             try
@@ -428,7 +421,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                         {
                             item.studyIndicationId = IdGenerator.GenerateId();
                             studyIndicationList.Add(item);
-                        }                        
+                        }
                     }
                     existing.clinicalStudy.currentSections.FindAll(x => x.studyIndications != null).ForEach(x => x.studyIndications = studyIndicationList);
                 }
@@ -442,10 +435,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Check for Study Design section 
         /// </summary>
-        /// <param name="existing"></param>
-        /// <param name="existingStudyDesignEntities"></param>
-        /// <param name="incomingStudyDesignEntities"></param>
-        public static void StudyDesignSectionCheck(StudyEntity existing, List<StudyDesignEntity> existingStudyDesignEntities,List<StudyDesignEntity> incomingStudyDesignEntities)
+        /// <param name="existing">Existing Study Defenitions</param>
+        /// <param name="existingStudyDesignEntities">Existing Study Designs</param>
+        /// <param name="incomingStudyDesignEntities">Existing Study Designs</param>
+        public static void StudyDesignSectionCheck(StudyEntity existing, List<StudyDesignEntity> existingStudyDesignEntities, List<StudyDesignEntity> incomingStudyDesignEntities)
         {
             try
             {
@@ -471,9 +464,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     foreach (var item in incomingStudyDesignEntities)
                     {
                         if (existingStudyDesignEntities.Any(x => x.studyDesignId == item.studyDesignId))
-                        {                            
+                        {
                             existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId).trialIntentType = item.trialIntentType;
                             existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId).trialType = item.trialType;
+
                             if (existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId).currentSections == null)
                             {
                                 existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId).currentSections = new List<CurrentSectionsEntity>();
@@ -512,17 +506,17 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                             List<InvestigationalInterventionEntity> incomingInvestigationalInterventionEntities = incomingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId).currentSections
                                                                                                                      .FindAll(x => x.investigationalInterventions != null).Count() != 0 ?
                                                                                           incomingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId).currentSections
-                                                                                                                     .Find(x => x.investigationalInterventions != null).investigationalInterventions : new List<InvestigationalInterventionEntity>();                          
+                                                                                                                     .Find(x => x.investigationalInterventions != null).investigationalInterventions : new List<InvestigationalInterventionEntity>();
 
                             Parallel.Invoke(
                                     //Study Populations Section
-                                    ()=>StudyPopulationsSectionCheck(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId), existingStudyPopulationsEntities, incomingStudyPopulationsEntities),
+                                    () => StudyPopulationsSectionCheck(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId), existingStudyPopulationsEntities, incomingStudyPopulationsEntities),
                                     //Study Cells Section
-                                    ()=>StudyCellsSectionCheck(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId), existingStudyCellEntities, incomingStudyCellEntities),
+                                    () => StudyCellsSectionCheck(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId), existingStudyCellEntities, incomingStudyCellEntities),
                                     //Planned WorkFlow Section
-                                    ()=>StudyPlannedWorkFlowSectionCheck(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId), existingPlannedWorkFlowEntities, incomingPlannedWorkFlowEntities),
+                                    () => StudyPlannedWorkFlowSectionCheck(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId), existingPlannedWorkFlowEntities, incomingPlannedWorkFlowEntities),
                                     //Investigational Intervention Section
-                                    ()=>InvestigationalInvestigationSectionCheck(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId), existingInvestigationalInterventionEntities, incomingInvestigationalInterventionEntities)
+                                    () => InvestigationalInvestigationSectionCheck(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId), existingInvestigationalInterventionEntities, incomingInvestigationalInterventionEntities)
                                 );
 
                             studyDesignList.Add(existingStudyDesignEntities.Find(x => x.studyDesignId == item.studyDesignId));
@@ -532,8 +526,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                         {
                             var studyDesign = SectionIdGenerator.StudyDesignIdGenerator(item);
                             studyDesignList.Add(studyDesign);
-                        }                        
-                    }                    
+                        }
+                    }
                     existing.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).ForEach(x => x.studyDesigns = studyDesignList);
                 }
 
@@ -553,9 +547,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Check for Investigational Intervention section 
         /// </summary>
-        /// <param name="existingStudyDesign"></param>
-        /// <param name="existingInvestigationalInterventionEntities"></param>
-        /// <param name="incomingInvestigationalInterventionEntities"></param>
+        /// <param name="existingStudyDesign">Existing Study Design</param>
+        /// <param name="existingInvestigationalInterventionEntities">Existing InvestigationalIntervention</param>
+        /// <param name="incomingInvestigationalInterventionEntities">Incoming InvestigationalIntervention</param>
         public static void InvestigationalInvestigationSectionCheck(StudyDesignEntity existingStudyDesign, List<InvestigationalInterventionEntity> existingInvestigationalInterventionEntities, List<InvestigationalInterventionEntity> incomingInvestigationalInterventionEntities)
         {
             try
@@ -600,9 +594,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Check for Study Population section 
         /// </summary>
-        /// <param name="existingStudyDesign"></param>
-        /// <param name="existingStudyPopulationEntities"></param>
-        /// <param name="incomingStudyPopulationEntities"></param>
+        /// <param name="existingStudyDesign">Existing Study Design</param>
+        /// <param name="existingStudyPopulationEntities">Existing Study Populations</param>
+        /// <param name="incomingStudyPopulationEntities">Incoming Study Populations</param>
         public static void StudyPopulationsSectionCheck(StudyDesignEntity existingStudyDesign, List<StudyPopulationEntity> existingStudyPopulationEntities, List<StudyPopulationEntity> incomingStudyPopulationEntities)
         {
             try
@@ -630,7 +624,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                             existingStudyDesign.currentSections.Find(x => x.studyPopulations != null).studyPopulations.RemoveAll(x => x.studyPopulationId == item.studyPopulationId);
                         }
                         else
-                        {                            
+                        {
                             item.studyPopulationId = IdGenerator.GenerateId();
                             studyPopulationList.Add(item);
                         }
@@ -648,9 +642,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Check for Study Planned WorkFlow section 
         /// </summary>
-        /// <param name="existingStudyDesign"></param>
-        /// <param name="existingPlannedWorkFlowsEntities"></param>
-        /// <param name="incomingPlannedWorkFlowsEntities"></param>
+        /// <param name="existingStudyDesign">Existing Study Design</param>
+        /// <param name="existingPlannedWorkFlowsEntities">Existing PlannedWorkflows</param>
+        /// <param name="incomingPlannedWorkFlowsEntities">Incoming PlannedWorkflows</param>
         public static void StudyPlannedWorkFlowSectionCheck(StudyDesignEntity existingStudyDesign, List<PlannedWorkFlowEntity> existingPlannedWorkFlowsEntities, List<PlannedWorkFlowEntity> incomingPlannedWorkFlowsEntities)
         {
             try
@@ -678,11 +672,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     foreach (var item in incomingPlannedWorkFlowsEntities)
                     {
                         if (existingPlannedWorkFlowsEntities.Any(x => x.plannedWorkFlowId == item.plannedWorkFlowId))
-                        {                            
-                            PointInTimeSectionCheck(existingPlannedWorkFlowsEntities.Find(x => x.plannedWorkFlowId == item.plannedWorkFlowId).startPoint,item.startPoint);
-                            PointInTimeSectionCheck(existingPlannedWorkFlowsEntities.Find(x => x.plannedWorkFlowId == item.plannedWorkFlowId).endPoint,item.endPoint);
-                            WorkFlowItemMatrixSectionCheck(existingPlannedWorkFlowsEntities.Find(x => x.plannedWorkFlowId == item.plannedWorkFlowId).workflowItemMatrix,item.workflowItemMatrix);
-                            //TransitionSectionCheck(existingPlannedWorkFlowsEntities.Find(x => x.plannedWorkFlowId == item.plannedWorkFlowId).transitions,item.transitions);
+                        {
+                            PointInTimeSectionCheck(existingPlannedWorkFlowsEntities.Find(x => x.plannedWorkFlowId == item.plannedWorkFlowId).startPoint, item.startPoint);
+                            PointInTimeSectionCheck(existingPlannedWorkFlowsEntities.Find(x => x.plannedWorkFlowId == item.plannedWorkFlowId).endPoint, item.endPoint);
+                            WorkFlowItemMatrixSectionCheck(existingPlannedWorkFlowsEntities.Find(x => x.plannedWorkFlowId == item.plannedWorkFlowId).workflowItemMatrix, item.workflowItemMatrix);
                             plannedWorkFlowsList.Add(item);
                             existingStudyDesign.currentSections.Find(x => x.plannedWorkflows != null).plannedWorkflows.RemoveAll(x => x.plannedWorkFlowId == item.plannedWorkFlowId);
                         }
@@ -704,8 +697,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Check for PointInTime section 
         /// </summary>
-        /// <param name="existingPointInTime"></param>
-        /// <param name="incomingPointInTime"></param>
+        /// <param name="existingPointInTime">Existing PointInTime</param>
+        /// <param name="incomingPointInTime">Incoming PointInTime</param>
         public static void PointInTimeSectionCheck(PointInTimeEntity existingPointInTime, PointInTimeEntity incomingPointInTime)
         {
             try
@@ -713,14 +706,14 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 if (incomingPointInTime != null)
                 {                    
                     if (existingPointInTime == null || (existingPointInTime.pointInTimeId == null && incomingPointInTime.pointInTimeId != null))
-                {
-                    incomingPointInTime.pointInTimeId = IdGenerator.GenerateId();
-                    existingPointInTime = incomingPointInTime;
-                }
+                    {
+                        incomingPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                        existingPointInTime = incomingPointInTime;
+                    }
                     else if (existingPointInTime == null || (existingPointInTime.pointInTimeId != incomingPointInTime.pointInTimeId))
-                {
-                    incomingPointInTime.pointInTimeId = IdGenerator.GenerateId();
-                    existingPointInTime = incomingPointInTime;
+                    {
+                        incomingPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                        existingPointInTime = incomingPointInTime;
                     }
                 }
             }
@@ -733,9 +726,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Check for WorkFlowItemMatrix section 
         /// </summary>
-        /// <param name="existingWorkFlowItemMatrixEntity"></param>
-        /// <param name="incomingWorkFlowItemMatrixEntity"></param>
-        public static void WorkFlowItemMatrixSectionCheck(WorkFlowItemMatrixEntity existingWorkFlowItemMatrixEntity,WorkFlowItemMatrixEntity incomingWorkFlowItemMatrixEntity)
+        /// <param name="existingWorkFlowItemMatrixEntity">Existing WorkFlowItemMatrix</param>
+        /// <param name="incomingWorkFlowItemMatrixEntity">Incoming WorkFlowItemMatrix</param>
+        public static void WorkFlowItemMatrixSectionCheck(WorkFlowItemMatrixEntity existingWorkFlowItemMatrixEntity, WorkFlowItemMatrixEntity incomingWorkFlowItemMatrixEntity)
         {
             try
             {
@@ -743,45 +736,45 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 {
                     if ((existingWorkFlowItemMatrixEntity == null) || ((existingWorkFlowItemMatrixEntity.workFlowItemMatrixId == null && incomingWorkFlowItemMatrixEntity.workFlowItemMatrixId != null)
                     || (existingWorkFlowItemMatrixEntity.workFlowItemMatrixId != incomingWorkFlowItemMatrixEntity.workFlowItemMatrixId)))
-                {
-                    incomingWorkFlowItemMatrixEntity.workFlowItemMatrixId = IdGenerator.GenerateId();
-                    incomingWorkFlowItemMatrixEntity.matrix.ForEach(m =>
                     {
-                        m.matrixId = IdGenerator.GenerateId();
+                        incomingWorkFlowItemMatrixEntity.workFlowItemMatrixId = IdGenerator.GenerateId();
+                        incomingWorkFlowItemMatrixEntity.matrix.ForEach(m =>
+                        {
+                            m.matrixId = IdGenerator.GenerateId();
                             if(m.items!=null)
                             {
-                        m.items.ForEach(item =>
-                        {
-                            item.itemId = IdGenerator.GenerateId();
+                                m.items.ForEach(item =>
+                                {
+                                    item.itemId = IdGenerator.GenerateId();
                                     if (item.fromPointInTime != null)
-                            item.fromPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                                        item.fromPointInTime.pointInTimeId = IdGenerator.GenerateId();
                                     if (item.toPointInTime != null)
-                            item.toPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                                        item.toPointInTime.pointInTimeId = IdGenerator.GenerateId();
                                     if (item.activity != null)
                                     {
-                            item.activity.activityId = IdGenerator.GenerateId();
+                                        item.activity.activityId = IdGenerator.GenerateId();
                                         if (item.activity.studyDataCollection != null)
-                            item.activity.studyDataCollection.ForEach(sdc => sdc.studyDataCollectionId = IdGenerator.GenerateId());
+                                            item.activity.studyDataCollection.ForEach(sdc => sdc.studyDataCollectionId = IdGenerator.GenerateId());
                                     }
                                     if (item.encounter != null)
                                     {
-                            item.encounter.encounterId = IdGenerator.GenerateId();
+                                        item.encounter.encounterId = IdGenerator.GenerateId();
                                         if (item.encounter.startRule != null)
-                            item.encounter.startRule.RuleId = IdGenerator.GenerateId();
+                                            item.encounter.startRule.RuleId = IdGenerator.GenerateId();
                                         if (item.encounter.endRule != null)
-                            item.encounter.endRule.RuleId = IdGenerator.GenerateId();
+                                            item.encounter.endRule.RuleId = IdGenerator.GenerateId();
                                         if (item.encounter.epoch != null)
-                            item.encounter.epoch.epochId = IdGenerator.GenerateId();
+                                            item.encounter.epoch.epochId = IdGenerator.GenerateId();
                                     }
-                        });
+                                });
                             }
-                    });
-                    existingWorkFlowItemMatrixEntity = incomingWorkFlowItemMatrixEntity;
-                }                
+                        });
+                        existingWorkFlowItemMatrixEntity = incomingWorkFlowItemMatrixEntity;
+                    }
                     else if (existingWorkFlowItemMatrixEntity != null && existingWorkFlowItemMatrixEntity.workFlowItemMatrixId == incomingWorkFlowItemMatrixEntity.workFlowItemMatrixId)
-                {
-                    MatrixSectionCheck(existingWorkFlowItemMatrixEntity.matrix, incomingWorkFlowItemMatrixEntity.matrix);
-                    existingWorkFlowItemMatrixEntity = incomingWorkFlowItemMatrixEntity;
+                    {
+                        MatrixSectionCheck(existingWorkFlowItemMatrixEntity.matrix, incomingWorkFlowItemMatrixEntity.matrix);
+                        existingWorkFlowItemMatrixEntity = incomingWorkFlowItemMatrixEntity;
                     }
                 }
             }
@@ -794,8 +787,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Check for Matrix section 
         /// </summary>
-        /// <param name="existingMatrixEntities"></param>
-        /// <param name="incomingMatrixEntities"></param>
+        /// <param name="existingMatrixEntities">Existing Matrix</param>
+        /// <param name="incomingMatrixEntities">Incoming Matrix</param>
         public static void MatrixSectionCheck(List<MatrixEntity> existingMatrixEntities, List<MatrixEntity> incomingMatrixEntities)
         {
             try
@@ -803,46 +796,46 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 var matrixList = new List<MatrixEntity>();
                 if (incomingMatrixEntities != null)
                 {
-                foreach (var iterator in incomingMatrixEntities)
-                {
+                    foreach (var iterator in incomingMatrixEntities)
+                    {
                         if (existingMatrixEntities != null && existingMatrixEntities.Any(x => x.matrixId == iterator.matrixId))
-                    {
-                        ItemSectionCheck(existingMatrixEntities.Find(x => x.matrixId == iterator.matrixId).items, iterator.items);                        
-                        matrixList.Add(iterator);
-                        existingMatrixEntities.RemoveAll(x => x.matrixId == iterator.matrixId);
-                    }
-                    else
-                    {
-                        iterator.matrixId = IdGenerator.GenerateId();
+                        {
+                            ItemSectionCheck(existingMatrixEntities.Find(x => x.matrixId == iterator.matrixId).items, iterator.items);
+                            matrixList.Add(iterator);
+                            existingMatrixEntities.RemoveAll(x => x.matrixId == iterator.matrixId);
+                        }
+                        else
+                        {
+                            iterator.matrixId = IdGenerator.GenerateId();
                             if(iterator.items != null)
                             {
-                        iterator.items.ForEach(item =>
-                        {
-                            item.itemId = IdGenerator.GenerateId();
+                                iterator.items.ForEach(item =>
+                                {
+                                    item.itemId = IdGenerator.GenerateId();
                                     if (item.fromPointInTime != null)
-                            item.fromPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                                        item.fromPointInTime.pointInTimeId = IdGenerator.GenerateId();
                                     if (item.toPointInTime != null)
-                            item.toPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                                        item.toPointInTime.pointInTimeId = IdGenerator.GenerateId();
                                     if (item.activity != null)
                                     {
-                            item.activity.activityId = IdGenerator.GenerateId();
+                                        item.activity.activityId = IdGenerator.GenerateId();
                                         if (item.activity.studyDataCollection != null)
-                            item.activity.studyDataCollection.ForEach(sdc => sdc.studyDataCollectionId = IdGenerator.GenerateId());
+                                            item.activity.studyDataCollection.ForEach(sdc => sdc.studyDataCollectionId = IdGenerator.GenerateId());
                                     }
                                     if (item.encounter != null)
                                     {
-                            item.encounter.encounterId = IdGenerator.GenerateId();
+                                        item.encounter.encounterId = IdGenerator.GenerateId();
                                         if (item.encounter.startRule != null)
-                            item.encounter.startRule.RuleId = IdGenerator.GenerateId();
+                                            item.encounter.startRule.RuleId = IdGenerator.GenerateId();
                                         if (item.encounter.endRule != null)
-                            item.encounter.endRule.RuleId = IdGenerator.GenerateId();
+                                            item.encounter.endRule.RuleId = IdGenerator.GenerateId();
                                         if (item.encounter.epoch != null)
-                            item.encounter.epoch.epochId = IdGenerator.GenerateId();
+                                            item.encounter.epoch.epochId = IdGenerator.GenerateId();
                                     }
-                        });
+                                });
                             }
-                        matrixList.Add(iterator);
-                    }
+                            matrixList.Add(iterator);
+                        }
 
                     }
                 }
@@ -857,8 +850,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Check for Items section 
         /// </summary>
-        /// <param name="existingItemEntities"></param>
-        /// <param name="incomingItemEntities"></param>
+        /// <param name="existingItemEntities">Existing Items</param>
+        /// <param name="incomingItemEntities">Incoming Items</param>
         public static void ItemSectionCheck(List<ItemEntity> existingItemEntities, List<ItemEntity> incomingItemEntities)
         {
             try
@@ -866,49 +859,49 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 var itemList = new List<ItemEntity>();
                 if (incomingItemEntities != null)
                 {
-                foreach (var iterator in incomingItemEntities)
-                {
+                    foreach (var iterator in incomingItemEntities)
+                    {
                         if (existingItemEntities != null && existingItemEntities.Any(x => x.itemId == iterator.itemId))
-                    {
-                        PointInTimeSectionCheck(existingItemEntities.Find(x => x.itemId == iterator.itemId).fromPointInTime, iterator.fromPointInTime);
-                        PointInTimeSectionCheck(existingItemEntities.Find(x => x.itemId == iterator.itemId).toPointInTime, iterator.toPointInTime);
-                        ActivitySectionCheck(existingItemEntities.Find(x => x.itemId == iterator.itemId).activity, iterator.activity);
-                        EncounterSectionCheck(existingItemEntities.Find(x => x.itemId == iterator.itemId).encounter, iterator.encounter);
-                        iterator.nextItemsInSequence = new List<string>();
-                        iterator.previousItemsInSequence = new List<string>();
-                        itemList.Add(iterator);
-                        existingItemEntities.RemoveAll(x => x.itemId == iterator.itemId);
-                    }
-                    else
-                    {
-                        iterator.itemId = IdGenerator.GenerateId();
+                        {
+                            PointInTimeSectionCheck(existingItemEntities.Find(x => x.itemId == iterator.itemId).fromPointInTime, iterator.fromPointInTime);
+                            PointInTimeSectionCheck(existingItemEntities.Find(x => x.itemId == iterator.itemId).toPointInTime, iterator.toPointInTime);
+                            ActivitySectionCheck(existingItemEntities.Find(x => x.itemId == iterator.itemId).activity, iterator.activity);
+                            EncounterSectionCheck(existingItemEntities.Find(x => x.itemId == iterator.itemId).encounter, iterator.encounter);
+                            iterator.nextItemsInSequence = new List<string>();
+                            iterator.previousItemsInSequence = new List<string>();
+                            itemList.Add(iterator);
+                            existingItemEntities.RemoveAll(x => x.itemId == iterator.itemId);
+                        }
+                        else
+                        {
+                            iterator.itemId = IdGenerator.GenerateId();
                             if (iterator.fromPointInTime != null)
-                        iterator.fromPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                                iterator.fromPointInTime.pointInTimeId = IdGenerator.GenerateId();
                             if (iterator.toPointInTime != null)
-                        iterator.toPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                                iterator.toPointInTime.pointInTimeId = IdGenerator.GenerateId();
                             if (iterator.activity != null)
                             {
-                        iterator.activity.activityId = IdGenerator.GenerateId();
+                                iterator.activity.activityId = IdGenerator.GenerateId();
                                 if (iterator.activity.studyDataCollection != null)
-                        iterator.activity.studyDataCollection.ForEach(sdc => sdc.studyDataCollectionId = IdGenerator.GenerateId());
+                                    iterator.activity.studyDataCollection.ForEach(sdc => sdc.studyDataCollectionId = IdGenerator.GenerateId());
                             }
                             if (iterator.encounter != null)
                             {
-                        iterator.encounter.encounterId = IdGenerator.GenerateId();
+                                iterator.encounter.encounterId = IdGenerator.GenerateId();
                                 if (iterator.encounter.startRule != null)
-                        iterator.encounter.startRule.RuleId = IdGenerator.GenerateId();
+                                    iterator.encounter.startRule.RuleId = IdGenerator.GenerateId();
                                 if (iterator.encounter.endRule != null)
-                        iterator.encounter.endRule.RuleId = IdGenerator.GenerateId();
+                                    iterator.encounter.endRule.RuleId = IdGenerator.GenerateId();
                                 if (iterator.encounter.epoch != null)
-                        iterator.encounter.epoch.epochId = IdGenerator.GenerateId();
+                                    iterator.encounter.epoch.epochId = IdGenerator.GenerateId();
                             }
-                        iterator.nextItemsInSequence = new List<string>();                        
-                        iterator.previousItemsInSequence = new List<string>();                        
-                        itemList.Add(iterator);
-                    }
+                            iterator.nextItemsInSequence = new List<string>();
+                            iterator.previousItemsInSequence = new List<string>();
+                            itemList.Add(iterator);
+                        }
 
                     }
-                }                
+                }
                 incomingItemEntities = itemList;
             }
             catch (Exception)
@@ -920,8 +913,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Check for Activity section 
         /// </summary>
-        /// <param name="existingActivityEntity"></param>
-        /// <param name="incomingActivityEntity"></param>
+        /// <param name="existingActivityEntity">Existing Activity</param>
+        /// <param name="incomingActivityEntity">Incoming Activity</param>
         public static void ActivitySectionCheck(ActivityEntity existingActivityEntity, ActivityEntity incomingActivityEntity)
         {
             try
@@ -930,16 +923,16 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 {
                     if ((existingActivityEntity == null) || ((existingActivityEntity.activityId == null && incomingActivityEntity.activityId != null)
                     || (existingActivityEntity.activityId != incomingActivityEntity.activityId)))
-                {
-                    incomingActivityEntity.activityId = IdGenerator.GenerateId();
+                    {
+                        incomingActivityEntity.activityId = IdGenerator.GenerateId();
                         if(incomingActivityEntity.studyDataCollection!=null)
                         {
-                    incomingActivityEntity.studyDataCollection.ForEach(sdc => sdc.studyDataCollectionId = IdGenerator.GenerateId());                    
-                }
+                            incomingActivityEntity.studyDataCollection.ForEach(sdc => sdc.studyDataCollectionId = IdGenerator.GenerateId());
+                        }
                     }
                     else if (existingActivityEntity != null && existingActivityEntity.activityId == incomingActivityEntity.activityId)
-                {
-                    StudyDataCollectionSectionCheck(existingActivityEntity.studyDataCollection, incomingActivityEntity.studyDataCollection);
+                    {
+                        StudyDataCollectionSectionCheck(existingActivityEntity.studyDataCollection, incomingActivityEntity.studyDataCollection);
                     }
                 }
             }
@@ -952,8 +945,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Check for StudyDataCollection section 
         /// </summary>
-        /// <param name="existingStudyDataCollectionEntities"></param>
-        /// <param name="incomingStudyDataCollectionEntities"></param>
+        /// <param name="existingStudyDataCollectionEntities">Existing StudyDataCollection</param>
+        /// <param name="incomingStudyDataCollectionEntities">Incoming StudyDataCollection</param>
         public static void StudyDataCollectionSectionCheck(List<StudyDataCollectionEntity> existingStudyDataCollectionEntities, List<StudyDataCollectionEntity> incomingStudyDataCollectionEntities)
         {
             try
@@ -961,20 +954,20 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 var studyDataCollectionList = new List<StudyDataCollectionEntity>();
                 if (incomingStudyDataCollectionEntities != null)
                 {
-                foreach (var iterator in incomingStudyDataCollectionEntities)
-                {
+                    foreach (var iterator in incomingStudyDataCollectionEntities)
+                    {
                         if (existingStudyDataCollectionEntities != null && existingStudyDataCollectionEntities.Any(x => x.studyDataCollectionId == iterator.studyDataCollectionId))
-                    {
-                        studyDataCollectionList.Add(iterator);
-                        existingStudyDataCollectionEntities.RemoveAll(x => x.studyDataCollectionId == iterator.studyDataCollectionId);
-                    }
-                    else
-                    {
-                        iterator.studyDataCollectionId = IdGenerator.GenerateId();
-                        studyDataCollectionList.Add(iterator);
-                    }
+                        {
+                            studyDataCollectionList.Add(iterator);
+                            existingStudyDataCollectionEntities.RemoveAll(x => x.studyDataCollectionId == iterator.studyDataCollectionId);
+                        }
+                        else
+                        {
+                            iterator.studyDataCollectionId = IdGenerator.GenerateId();
+                            studyDataCollectionList.Add(iterator);
+                        }
 
-                }
+                    }
                 }
                 incomingStudyDataCollectionEntities = studyDataCollectionList;
             }
@@ -987,8 +980,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Check for Encounter section 
         /// </summary>
-        /// <param name="existingEncounterEntity"></param>
-        /// <param name="incomingEncounterEntity"></param>
+        /// <param name="existingEncounterEntity">Existing Encounter</param>
+        /// <param name="incomingEncounterEntity">Incoming Encounter</param>
         public static void EncounterSectionCheck(EncounterEntity existingEncounterEntity, EncounterEntity incomingEncounterEntity)
         {
             try
@@ -997,20 +990,20 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 {
                     if ((existingEncounterEntity != null) && ((existingEncounterEntity.encounterId == null && incomingEncounterEntity.encounterId != null)
                     || (existingEncounterEntity.encounterId != incomingEncounterEntity.encounterId)))
-                {
-                    incomingEncounterEntity.encounterId = IdGenerator.GenerateId();
+                    {
+                        incomingEncounterEntity.encounterId = IdGenerator.GenerateId();
                         if (incomingEncounterEntity.startRule != null)
-                    incomingEncounterEntity.startRule.RuleId = IdGenerator.GenerateId();
+                            incomingEncounterEntity.startRule.RuleId = IdGenerator.GenerateId();
                         if (incomingEncounterEntity.endRule != null)
-                    incomingEncounterEntity.endRule.RuleId = IdGenerator.GenerateId();
+                            incomingEncounterEntity.endRule.RuleId = IdGenerator.GenerateId();
                         if (incomingEncounterEntity.epoch != null)
-                    incomingEncounterEntity.epoch.epochId = IdGenerator.GenerateId();
-                }
+                            incomingEncounterEntity.epoch.epochId = IdGenerator.GenerateId();
+                    }
                     else if (existingEncounterEntity != null && existingEncounterEntity.encounterId == incomingEncounterEntity.encounterId)
-                {
-                    RuleSectionCheck(existingEncounterEntity.startRule, incomingEncounterEntity.startRule);
-                    RuleSectionCheck(existingEncounterEntity.endRule, incomingEncounterEntity.endRule);
-                    EpochSectionCheck(existingEncounterEntity.epoch, incomingEncounterEntity.epoch);
+                    {
+                        RuleSectionCheck(existingEncounterEntity.startRule, incomingEncounterEntity.startRule);
+                        RuleSectionCheck(existingEncounterEntity.endRule, incomingEncounterEntity.endRule);
+                        EpochSectionCheck(existingEncounterEntity.epoch, incomingEncounterEntity.epoch);
                     }
                     else if(existingEncounterEntity == null)
                     {
@@ -1033,8 +1026,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Check for Epoch section 
         /// </summary>
-        /// <param name="existingEpochEntity"></param>
-        /// <param name="incomingEpochEntity"></param>
+        /// <param name="existingEpochEntity">Existing Epoch</param>
+        /// <param name="incomingEpochEntity">Incoming Epoch</param>
         public static void EpochSectionCheck(EpochEntity existingEpochEntity, EpochEntity incomingEpochEntity)
         {
             try
@@ -1043,14 +1036,14 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 {
                     if ((existingEpochEntity != null) && ((existingEpochEntity.epochId == null && incomingEpochEntity.epochId != null)
                     || (existingEpochEntity.epochId != incomingEpochEntity.epochId)))
-                {
-                    incomingEpochEntity.epochId = IdGenerator.GenerateId();                    
+                    {
+                        incomingEpochEntity.epochId = IdGenerator.GenerateId();
                     }
                     else if(existingEpochEntity == null)
                     {
                         incomingEpochEntity.epochId = IdGenerator.GenerateId();
                     }
-                }               
+                }
             }
             catch (Exception)
             {
@@ -1063,9 +1056,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Check for StudyCells section 
         /// </summary>
-        /// <param name="existingStudyDesign"></param>
-        /// <param name="existingStudyCellsEntities"></param>
-        /// <param name="incomingStudyCellsEntities"></param>
+        /// <param name="existingStudyDesign">Existing Study Design</param>
+        /// <param name="existingStudyCellsEntities">Existing Study Cells</param>
+        /// <param name="incomingStudyCellsEntities">Incoming Study Cells</param>
         public static void StudyCellsSectionCheck(StudyDesignEntity existingStudyDesign, List<StudyCellEntity> existingStudyCellsEntities, List<StudyCellEntity> incomingStudyCellsEntities)
         {
             try
@@ -1118,8 +1111,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Check for StudyElements section 
         /// </summary>
-        /// <param name="existingStudyElementsEntities"></param>
-        /// <param name="incomingStudyElementsEntities"></param>
+        /// <param name="existingStudyElementsEntities">Existing StudyElement</param>
+        /// <param name="incomingStudyElementsEntities">Incoming StudyElement</param>
         public static void StudyElementsSectionCheck(List<StudyElementEntity> existingStudyElementsEntities, List<StudyElementEntity> incomingStudyElementsEntities)
         {
             try
@@ -1127,23 +1120,23 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 var studyElementsList = new List<StudyElementEntity>();
                 if (incomingStudyElementsEntities != null)
                 {
-                foreach (var item in incomingStudyElementsEntities)
-                {
+                    foreach (var item in incomingStudyElementsEntities)
+                    {
                         if (existingStudyElementsEntities != null && existingStudyElementsEntities.Any(x => x.studyElementId == item.studyElementId))
-                    {
-                        RuleSectionCheck(existingStudyElementsEntities.Find(x => x.studyElementId == item.studyElementId).startRule, item.startRule);
-                        RuleSectionCheck(existingStudyElementsEntities.Find(x => x.studyElementId == item.studyElementId).endRule, item.endRule);
-                        studyElementsList.Add(item);
-                        existingStudyElementsEntities.RemoveAll(x => x.studyElementId == item.studyElementId);
-                    }
-                    else
-                    {
-                        item.studyElementId = IdGenerator.GenerateId();
+                        {
+                            RuleSectionCheck(existingStudyElementsEntities.Find(x => x.studyElementId == item.studyElementId).startRule, item.startRule);
+                            RuleSectionCheck(existingStudyElementsEntities.Find(x => x.studyElementId == item.studyElementId).endRule, item.endRule);
+                            studyElementsList.Add(item);
+                            existingStudyElementsEntities.RemoveAll(x => x.studyElementId == item.studyElementId);
+                        }
+                        else
+                        {
+                            item.studyElementId = IdGenerator.GenerateId();
                             if(item.startRule!=null)
-                        item.startRule.RuleId = IdGenerator.GenerateId();
+                                item.startRule.RuleId = IdGenerator.GenerateId();
                             if(item.endRule!=null)
-                        item.endRule.RuleId = IdGenerator.GenerateId();
-                        studyElementsList.Add(item);
+                                item.endRule.RuleId = IdGenerator.GenerateId();
+                            studyElementsList.Add(item);
                         }
                     }
                 }
@@ -1158,8 +1151,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Check for Rule section 
         /// </summary>
-        /// <param name="existingRuleEntity"></param>
-        /// <param name="incomingRuleEntity"></param>
+        /// <param name="existingRuleEntity">Existing Rule</param>
+        /// <param name="incomingRuleEntity">Incoming Rule</param>
         public static void RuleSectionCheck(RuleEntity existingRuleEntity, RuleEntity incomingRuleEntity)
         {
             try
@@ -1167,12 +1160,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 if (incomingRuleEntity != null)
                 {
                     if (existingRuleEntity != null && existingRuleEntity.RuleId == null && incomingRuleEntity.RuleId != null)
-                {
-                    incomingRuleEntity.RuleId = IdGenerator.GenerateId();
-                }
+                    {
+                        incomingRuleEntity.RuleId = IdGenerator.GenerateId();
+                    }
                     else if (existingRuleEntity != null && existingRuleEntity.RuleId != incomingRuleEntity.RuleId)
-                {
-                    incomingRuleEntity.RuleId = IdGenerator.GenerateId();
+                    {
+                        incomingRuleEntity.RuleId = IdGenerator.GenerateId();
                     }
                     else if(existingRuleEntity == null)
                     {
@@ -1189,21 +1182,21 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Check for StudyArm section 
         /// </summary>
-        /// <param name="existingStudyArm"></param>
-        /// <param name="incomingStudyArm"></param>
-        public static void StudyArmSectionCheck(StudyArmEntity existingStudyArm,StudyArmEntity incomingStudyArm)
+        /// <param name="existingStudyArm">Existing StudyArm</param>
+        /// <param name="incomingStudyArm">Incoming StudyArm</param>
+        public static void StudyArmSectionCheck(StudyArmEntity existingStudyArm, StudyArmEntity incomingStudyArm)
         {
             try
             {
                 if (incomingStudyArm != null)
                 {
                     if (existingStudyArm != null && existingStudyArm.studyArmId == null && incomingStudyArm.studyArmId != null)
-                {
-                    incomingStudyArm.studyArmId = IdGenerator.GenerateId();
-                }
+                    {
+                        incomingStudyArm.studyArmId = IdGenerator.GenerateId();
+                    }
                     else if (existingStudyArm != null && existingStudyArm.studyArmId != incomingStudyArm.studyArmId)
-                {
-                    incomingStudyArm.studyArmId = IdGenerator.GenerateId();
+                    {
+                        incomingStudyArm.studyArmId = IdGenerator.GenerateId();
                     }
                     else if(existingStudyArm == null)
                     {
@@ -1220,8 +1213,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Check for StudyEpoch section 
         /// </summary>
-        /// <param name="existingStudyEpoch"></param>
-        /// <param name="incomingStudyEpoch"></param>
+        /// <param name="existingStudyEpoch">Existing StudyEpoch</param>
+        /// <param name="incomingStudyEpoch">Incoming StudyEpoch</param>
         public static void StudyEpochSectionCheck(StudyEpochEntity existingStudyEpoch, StudyEpochEntity incomingStudyEpoch)
         {
             try
@@ -1229,12 +1222,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 if (incomingStudyEpoch != null)
                 {
                     if (existingStudyEpoch != null && existingStudyEpoch.studyEpochId == null && incomingStudyEpoch.studyEpochId != null)
-                {
-                    incomingStudyEpoch.studyEpochId = IdGenerator.GenerateId();
-                }
+                    {
+                        incomingStudyEpoch.studyEpochId = IdGenerator.GenerateId();
+                    }
                     else if (existingStudyEpoch != null && existingStudyEpoch.studyEpochId != incomingStudyEpoch.studyEpochId)
-                {
-                    incomingStudyEpoch.studyEpochId = IdGenerator.GenerateId();
+                    {
+                        incomingStudyEpoch.studyEpochId = IdGenerator.GenerateId();
                     }
                     else if (existingStudyEpoch == null)
                     {

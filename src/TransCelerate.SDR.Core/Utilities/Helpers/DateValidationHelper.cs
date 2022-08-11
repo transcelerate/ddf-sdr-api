@@ -7,7 +7,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Validator for Date
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">Value which needed to be checked for valid date</param>
         /// <returns>        
         /// <see langword="true"/> If passed value is a valid date
         /// </returns>

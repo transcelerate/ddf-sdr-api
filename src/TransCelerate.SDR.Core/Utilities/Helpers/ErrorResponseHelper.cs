@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using TransCelerate.SDR.Core.ErrorModels;
+using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
 {
@@ -12,21 +13,20 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Resposne Helper When there is an exception
         /// </summary>
-        /// <param name="exception"></param>
+        /// <param name="exception">Exception</param>
         /// <returns>
         /// A <see cref="ErrorModel"/> When there is an exception      
         /// </returns>>
         public static ErrorModel ErrorResponseModel(Exception exception)
         {
             string statusCode;
-            if (exception is UnauthorizedAccessException) statusCode = ((int)HttpStatusCode.Forbidden).ToString();
-            else if (exception is TimeoutException) statusCode = ((int)HttpStatusCode.GatewayTimeout).ToString();
+            if (exception is UnauthorizedAccessException) statusCode = ((int)HttpStatusCode.Forbidden).ToString();            
             else statusCode = ((int)HttpStatusCode.BadRequest).ToString();
 
             ErrorModel errorModel = new ErrorModel
             {
                 statusCode = statusCode,
-                message = "An Error Occured"                
+                message = Constants.ErrorMessages.GenericError
             };
             return errorModel;
         }
@@ -37,12 +37,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <returns>
         /// A <see cref="ErrorModel"/> When there is an Unauthorized Access      
         /// </returns>>
-        public static ErrorModel UnAuthorizedAccess()
+        public static ErrorModel UnAuthorizedAccess(string message = null)
         {
             ErrorModel errorModel = new ErrorModel
             {
                 statusCode = ((int)HttpStatusCode.Unauthorized).ToString(),
-                message = "Access Denied"
+                message = message ?? Constants.ErrorMessages.UnAuthorized
             };
             return errorModel;
         }
@@ -50,7 +50,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Resposne Helper When the resource is Not Found
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="message">Message for error response</param>
         /// <returns>
         /// A <see cref="ErrorModel"/> When the resource is Not Found
         /// </returns>>
@@ -83,7 +83,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Resposne Helper When there is Bad Request
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="message">Message for error response</param>
         /// <returns>
         /// A <see cref="ErrorModel"/> When there is Bad Request
         /// </returns>>
@@ -100,8 +100,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Resposne Helper When there is Conformance Error or Invalid Inpt
         /// </summary>
-        /// <param name="validationProblemDetails"></param>
-        /// <param name="message"></param>
+        /// <param name="validationProblemDetails">Object for holding validation errors</param>
+        /// <param name="message">Message for error response</param>
         /// <returns>
         /// A <see cref="ValidationErrorModel"/> When there is Conformance Error or Invalid Inpt
         /// </returns>>
@@ -119,16 +119,48 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Resposne Helper When specific method for an API is not called. Ex: When a GET method is called with a POST request.
         /// </summary>
-        /// <param name="detail"></param>
+        /// <param name="message">Message for error response</param>
         /// <returns>
         /// A <see cref="ErrorModel"/> When specific method for an API is not called
         /// </returns>>
-        public static ErrorModel MethodNotAllowed(string detail = null)
+        public static ErrorModel MethodNotAllowed(string message = null)
         {
             ErrorModel errorModel = new ErrorModel
             {
                 statusCode = ((int)HttpStatusCode.MethodNotAllowed).ToString(),
-                message = detail ?? "Method Not Allowed"
+                message = message ?? "Method Not Allowed"
+            };
+            return errorModel;
+        }
+        /// <summary>
+        /// Resposne Helper When there is a Internal server error
+        /// </summary>
+        /// <param name="message">Message for error response</param>
+        /// <returns>
+        /// A <see cref="ErrorModel"/> 
+        /// </returns>>
+        public static ErrorModel InternalServerError(string message = null)
+        {
+            ErrorModel errorModel = new ErrorModel
+            {
+                statusCode = ((int)HttpStatusCode.InternalServerError).ToString(),
+                message = message ?? "Internal Server Error"
+            };
+            return errorModel;
+        }
+        /// <summary>
+        /// Resposne Helper When the user is accessing a restricted data or APi
+        /// </summary>
+        /// <param name="message">Message for error response</param>
+        /// <returns>
+        /// A <see cref="ErrorModel"/> 
+        /// </returns>>
+        public static ErrorModel Forbidden(string message = null)
+        {
+            ErrorModel errorModel = new ErrorModel
+            {
+                statusCode = ((int)HttpStatusCode.Forbidden).ToString(),
+                message = message ?? Constants.ErrorMessages.Forbidden
             };
             return errorModel;
         }

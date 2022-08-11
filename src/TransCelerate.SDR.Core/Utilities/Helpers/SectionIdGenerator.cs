@@ -13,7 +13,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Generate Id for all the sections
         /// </summary>
-        /// <param name="studyEntity"></param>
+        /// <param name="studyEntity">Study for which Id's to be generated</param>
         /// <returns>
         /// A <see cref="StudyEntity"/> after generating ID for all Sections        
         /// </returns>
@@ -109,7 +109,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Generate Id for Study Objectives
         /// </summary>
-        /// <param name="studyObjectivesEntity"></param>
+        /// <param name="studyObjectivesEntity">Study Objectives for which Id's to be generated</param>
         /// <returns>
         /// A <see cref="StudyObjectiveEntity"/> after generating ID for StudyObjective Section        
         /// </returns>
@@ -133,7 +133,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Generate Id for Study PlannedWorkFlows
         /// </summary>
-        /// <param name="plannedWorkFlowEntity"></param>
+        /// <param name="plannedWorkFlowEntity">Planned workflow for which Id's to be generated</param>
         /// <returns>
         /// A <see cref="PlannedWorkFlowEntity"/> after generating ID for PlannedWorkFlow Section        
         /// </returns>
@@ -204,7 +204,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Generate Id for Study Cells
         /// </summary>
-        /// <param name="studyCellEntity"></param>
+        /// <param name="studyCellEntity">Study Cells for which Id's to be generated</param>
         /// <returns>
         /// A <see cref="StudyCellEntity"/> after generating ID for StudyCell Section        
         /// </returns>
@@ -225,9 +225,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     studyCellEntity.studyElements.FindAll(x => x != null).ForEach(e => {
                         e.studyElementId = IdGenerator.GenerateId();
                         if(e.startRule != null)
-                        e.startRule.RuleId = IdGenerator.GenerateId();
+                            e.startRule.RuleId = IdGenerator.GenerateId();
                         if(e.endRule != null)
-                        e.endRule.RuleId = IdGenerator.GenerateId();
+                            e.endRule.RuleId = IdGenerator.GenerateId();
                     });
                 }
 
@@ -242,7 +242,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// Generate Id for Study Designs
         /// </summary>
-        /// <param name="studyDesignEntity"></param>
+        /// <param name="studyDesignEntity">Study Design for which Id's to be generated</param>
         /// <returns>
         /// A <see cref="StudyDesignEntity"/> after generating ID for StudyDesign Section        
         /// </returns>
@@ -255,6 +255,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
 
                 if (studyDesignEntity.currentSections != null)
                 {
+
                     studyDesignEntity.currentSections.ForEach(x => x.currentSectionsId = IdGenerator.GenerateId());
                     //studyPopulationId
                     studyDesignEntity.currentSections.FindAll(n => n.studyPopulations != null)

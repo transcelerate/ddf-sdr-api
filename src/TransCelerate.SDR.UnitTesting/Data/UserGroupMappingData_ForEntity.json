@@ -1,0 +1,162 @@
+{
+  "SDRGroups": [
+    {
+      "groupId": "0193a357-8519-4488-90e4-522f701658b9",
+      "groupName": "OncologyRead",
+      "groupDescription": "Detailed description of group",
+      "permission": "READONLY",
+      "groupFilter": [
+        {
+          "groupFieldName": "studyType",
+          "groupFilterValues": [
+            {
+             "groupFilterValueId": "INTERVENTIONAL",
+              "title": "INTERVENTIONAL"
+            },
+            {
+             "groupFilterValueId": "EXPANDED_ACCESS",
+              "title": "EXPANDED_ACCESS"
+            }
+          ]
+        },
+        {
+          "groupFieldName": "study",
+          "groupFilterValues": [
+            {
+             "groupFilterValueId": "studyId1",
+              "title": "Study Number Two"
+            },
+            {
+             "groupFilterValueId": "studyId2",
+              "title": "StudyTitle1-Tag3"
+            }            
+          ]
+        }
+      ],
+      "users": [
+        {
+          "oid": "<AzurePortal-OID1>",
+          "email": "user1@SDR.com",
+          "isActive": true
+        },
+        {
+          "oid": "<AzurePortal-OID2>",
+          "email": "user2@SDR.com",
+          "isActive": true
+        }
+      ],
+      "groupCreatedBy": "admin1@SDR.com",
+      "groupCreatedOn":  "2022-05-10T08:43:43.713Z",
+      "groupModifiedBy": "admin2@SDR.com",
+       "groupModifiedOn":  "2022-05-11T08:43:43.713Z",
+      "groupEnabled": true
+    },
+    {
+      "groupId": "83864612-ffbd-463f-90ce-3e8819c5d132",
+      "groupName": "OncologyWrite",
+      "groupDescription": "Detailed description of group",
+      "permission": "READ_WRITE",
+      "groupFilter": [
+        {
+          "groupFieldName": "studyType",
+          "groupFilterValues": [
+            {
+             "groupFilterValueId": "INTERVENTIONAL",
+              "title": "INTERVENTIONAL"
+            },
+            {
+             "groupFilterValueId": "EXPANDED_ACCESS",
+              "title": "EXPANDED_ACCESS"
+            }
+          ]
+        },
+        {
+          "groupFieldName": "study",
+          "groupFilterValues": [
+            {
+             "groupFilterValueId": "studyId1",
+              "title": "Study Number Two"
+            },
+            {
+             "groupFilterValueId": "studyId2",
+              "title": "StudyTitle1-Tag3"
+            }
+          ]
+        }
+      ],
+      "users": [
+        {
+          "oid": "<AzurePortal-OID3>",
+          "email": "user3@SDR.com",
+          "isActive": true
+        },
+        {
+          "oid": "<AzurePortal-OID4>",
+          "email": "user4@SDR.com",
+          "isActive": true
+        }
+      ],
+      "groupCreatedBy": "admin1@SDR.com",
+      "groupCreatedOn":  "2022-05-10T08:43:43.713Z",
+      "groupModifiedBy": "admin2@SDR.com",
+       "groupModifiedOn":  "2022-05-11T08:43:43.713Z",
+      "groupEnabled": true
+    },
+    {
+      "groupId": "b9f848b8-9af7-46c1-9a3c-2663f547cc7a",
+      "groupName": "AlzheimerReadWrite",
+      "groupDescription": "Detailed description of group",
+      "permission": "READ_WRITE",
+      "groupFilter": [
+        {
+          "groupFieldName": "studyType",
+          "groupFilterValues": [
+            {
+             "groupFilterValueId": "INTERVENTIONAL",
+              "title": "INTERVENTIONAL"
+            },
+            {
+             "groupFilterValueId": "EXPANDED_ACCESS",
+              "title": "EXPANDED_ACCESS"
+            }
+          ]
+        },
+        {
+          "groupFieldName": "study",
+          "groupFilterValues": [
+            {
+             "groupFilterValueId": "studyId1",
+              "title": "Study Number Two"
+            },
+            {
+             "groupFilterValueId": "studyId2",
+              "title": "StudyTitle1-Tag3"
+            }
+          ]
+        }
+      ],
+      "users": [
+        {
+          "oid": "<AzurePortal-OID1>",
+          "email": "user1@SDR.com",
+          "isActive": true
+        },
+        {
+          "oid": "<AzurePortal-OID3>",
+          "email": "user3@SDR.com",
+          "isActive": false
+        },
+        {
+          "oid": "<AzurePortal-OID3>",
+          "email": "user6@SDR.com",
+          "isActive": false
+        }
+      ],
+      "groupCreatedBy": "admin1@SDR.com",
+      "groupCreatedOn":  "2022-05-10T08:43:43.713Z",
+      "groupModifiedBy": "",
+       "groupModifiedOn":  "2022-05-11T08:43:43.713Z",    
+      "groupEnabled": true
+    }
+  ]
+}

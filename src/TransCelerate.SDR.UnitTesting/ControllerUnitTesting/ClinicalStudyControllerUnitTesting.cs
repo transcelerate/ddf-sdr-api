@@ -26,6 +26,7 @@ using System.Reflection;
 using TransCelerate.SDR.Core.DTO;
 using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.Core.Entities;
+using TransCelerate.SDR.Core.DTO.Token;
 
 namespace TransCelerate.SDR.UnitTesting
 {
@@ -38,6 +39,11 @@ namespace TransCelerate.SDR.UnitTesting
         private Mock<IClinicalStudyRepository> _mockClinicalStudyRepository = new Mock<IClinicalStudyRepository>(MockBehavior.Loose);
         private Mock<IClinicalStudyService> _mockClinicalStudyService = new Mock<IClinicalStudyService>(MockBehavior.Loose);
 
+        LoggedInUser user = new LoggedInUser
+        {
+            UserName = "user1@SDR.com",
+            UserRole = Constants.Roles.Org_Admin
+        };
         StudyEntity study = new StudyEntity();
         List<StudyEntity> studyList = new List<StudyEntity>();
         GetStudyAuditDTO auditTrail = new GetStudyAuditDTO();
@@ -88,6 +94,16 @@ namespace TransCelerate.SDR.UnitTesting
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/GetSearchStudyData.json");            
             return JsonConvert.DeserializeObject<List<SearchResponse>>(jsonData);
         }
+        public List<SearchTitleEntity> GetListForSearchTitleDataFromStaticJson()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/GetSearchStudyData.json");
+            return JsonConvert.DeserializeObject<List<SearchTitleEntity>>(jsonData);
+        }
+        public List<SearchTitleDTO> GetListForSearchTitleDTODataFromStaticJson()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/GetStudyListData.json");
+            return JsonConvert.DeserializeObject<List<SearchTitleDTO>>(jsonData);
+        }
 
         [SetUp]
         public void SetUp()
@@ -110,8 +126,8 @@ namespace TransCelerate.SDR.UnitTesting
             _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync("1", 1, "1.0Draft"))
                     .Returns(Task.FromResult(GetDataFromStaticJson()));
             ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);
-            _mockClinicalStudyService.Setup(x => x.GetAllElements("1", 1, "1.0Draft"))
-                    .Returns(ClinicalStudyService.GetAllElements("1", 1, "1.0Draft")); 
+            _mockClinicalStudyService.Setup(x => x.GetAllElements("1", 1, "1.0Draft",It.IsAny<LoggedInUser>()))
+                    .Returns(Task.FromResult(GetDataFromStaticJson() as object)); 
             ClinicalStudyController clinicalStudyController = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
             string sections = string.Empty;
 
@@ -143,8 +159,8 @@ namespace TransCelerate.SDR.UnitTesting
             _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync("1", 1, null))
                     .Returns(Task.FromResult(GetDataFromStaticJson()));
             ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);
-            _mockClinicalStudyService.Setup(x => x.GetAllElements("1", 1, null))
-                    .Returns(ClinicalStudyService.GetAllElements("1", 1,null));          
+            _mockClinicalStudyService.Setup(x => x.GetAllElements("1", 1, null,It.IsAny<LoggedInUser>()))
+                    .Returns(ClinicalStudyService.GetAllElements("1", 1,null, It.IsAny<LoggedInUser>()));          
             ClinicalStudyController clinicalStudyController = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
             string sections = string.Empty;
 
@@ -172,8 +188,8 @@ namespace TransCelerate.SDR.UnitTesting
             _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync("1", 1, "1.0Draft"))
                     .Returns(Task.FromResult(GetDataFromStaticJson()));
             ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);
-            _mockClinicalStudyService.Setup(x => x.GetAllElements("1", 1, "1.0Draft"))
-                    .Returns(ClinicalStudyService.GetAllElements("1", 1, "1.0Draft"));
+            _mockClinicalStudyService.Setup(x => x.GetAllElements("1", 1, "1.0Draft", It.IsAny<LoggedInUser>()))
+                    .Returns(ClinicalStudyService.GetAllElements("1", 1, "1.0Draft", It.IsAny<LoggedInUser>()));
             ClinicalStudyController clinicalStudyController = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
             string sections = "study_objectives,studyinvestigational_interventions,study_protocol,study_indications,study_design";
 
@@ -213,8 +229,8 @@ namespace TransCelerate.SDR.UnitTesting
 
             _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync("1", 1, "1.0Draft"))
                      .Throws(new Exception("Error"));
-            _mockClinicalStudyService.Setup(x => x.GetAllElements("1", 1, "1.0Draft"))
-                     .Returns(ClinicalStudyService.GetAllElements("1", 1, "1.0Draft"));
+            _mockClinicalStudyService.Setup(x => x.GetAllElements("1", 1, "1.0Draft", It.IsAny<LoggedInUser>()))
+                     .Returns(ClinicalStudyService.GetAllElements("1", 1, "1.0Draft", It.IsAny<LoggedInUser>()));
             ClinicalStudyController clinicalStudyController1 = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
             sections = string.Empty;
             method = clinicalStudyController1.GetStudy("1", 1, "1.0Draft", sections);
@@ -244,8 +260,8 @@ namespace TransCelerate.SDR.UnitTesting
             _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync("1", 1, "1.0Draft"))
                     .Returns(Task.FromResult(GetDataFromStaticJson()));
             ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);
-            _mockClinicalStudyService.Setup(x => x.GetStudyDesignSections("1", "02ab88b2-b3bd-427d-bb1a-6f9966d7e6dd", 1, "1.0Draft", sectionArray))
-                    .Returns(ClinicalStudyService.GetStudyDesignSections("1", "02ab88b2-b3bd-427d-bb1a-6f9966d7e6dd", 1, "1.0Draft", sectionArray)); 
+            _mockClinicalStudyService.Setup(x => x.GetStudyDesignSections("1", "02ab88b2-b3bd-427d-bb1a-6f9966d7e6dd", 1, "1.0Draft", sectionArray, It.IsAny<LoggedInUser>()))
+                    .Returns(ClinicalStudyService.GetStudyDesignSections("1", "02ab88b2-b3bd-427d-bb1a-6f9966d7e6dd", 1, "1.0Draft", sectionArray, user)); 
             ClinicalStudyController clinicalStudyController = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
             string sections = "study_planned_workflow,study_target_populations,study_cells";
 
@@ -283,8 +299,8 @@ namespace TransCelerate.SDR.UnitTesting
             _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync("1", 1, "1.0Draft"))
                     .Returns(Task.FromResult(GetDataFromStaticJson()));
             ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);
-            _mockClinicalStudyService.Setup(x => x.GetAllElements("1", 1, "1.0Draft"))
-                    .Returns(ClinicalStudyService.GetAllElements("1", 1, "1.0Draft"));          
+            _mockClinicalStudyService.Setup(x => x.GetAllElements("1", 1, "1.0Draft", It.IsAny<LoggedInUser>()))
+                    .Returns(ClinicalStudyService.GetAllElements("1", 1, "1.0Draft", It.IsAny<LoggedInUser>()));          
             ClinicalStudyController clinicalStudyController = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
             string sections = string.Empty;
 
@@ -327,8 +343,8 @@ namespace TransCelerate.SDR.UnitTesting
                     .Throws(new Exception("Error"));
             ClinicalStudyService ClinicalStudyService1 = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);
             string[] section = new string[] { };
-            _mockClinicalStudyService.Setup(x => x.GetStudyDesignSections("1", "1",1, "1.0Draft", section))
-                    .Returns(ClinicalStudyService1.GetStudyDesignSections("1","1", 1, "1.0Draft", section));
+            _mockClinicalStudyService.Setup(x => x.GetStudyDesignSections("1", "1",1, "1.0Draft", section, It.IsAny<LoggedInUser>()))
+                    .Returns(ClinicalStudyService1.GetStudyDesignSections("1","1", 1, "1.0Draft", section, It.IsAny<LoggedInUser>()));
             ClinicalStudyController clinicalStudyController1 = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
             sections = string.Empty;
 
@@ -359,8 +375,8 @@ namespace TransCelerate.SDR.UnitTesting
             _mockClinicalStudyRepository.Setup(x => x.GetAuditTrail(It.IsAny<DateTime>(), It.IsAny<DateTime>(), GetAuditDataFromStaticJson().studyId))
                     .Returns(Task.FromResult(GetListDataFromStaticJson()));
             ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);
-            _mockClinicalStudyService.Setup(x => x.GetAuditTrail(It.IsAny<DateTime>(), It.IsAny<DateTime>(), GetAuditDataFromStaticJson().studyId))
-                    .Returns(ClinicalStudyService.GetAuditTrail(It.IsAny<DateTime>(), It.IsAny<DateTime>(), GetAuditDataFromStaticJson().studyId));
+            _mockClinicalStudyService.Setup(x => x.GetAuditTrail(It.IsAny<DateTime>(), It.IsAny<DateTime>(), GetAuditDataFromStaticJson().studyId, It.IsAny<LoggedInUser>()))
+                    .Returns(ClinicalStudyService.GetAuditTrail(It.IsAny<DateTime>(), It.IsAny<DateTime>(), GetAuditDataFromStaticJson().studyId, user));
             ClinicalStudyController clinicalStudyController = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
 
 
@@ -396,8 +412,8 @@ namespace TransCelerate.SDR.UnitTesting
             _mockClinicalStudyRepository.Setup(x => x.GetAuditTrail(fromDate, toDate, GetAuditDataFromStaticJson().studyId))
                     .Returns(Task.FromResult(GetListDataFromStaticJson()));
             ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);
-            _mockClinicalStudyService.Setup(x => x.GetAuditTrail(fromDate, toDate, GetAuditDataFromStaticJson().studyId))
-                    .Returns(ClinicalStudyService.GetAuditTrail(fromDate, toDate, GetAuditDataFromStaticJson().studyId));
+            _mockClinicalStudyService.Setup(x => x.GetAuditTrail(fromDate, toDate, GetAuditDataFromStaticJson().studyId, It.IsAny<LoggedInUser>()))
+                    .Returns(ClinicalStudyService.GetAuditTrail(fromDate, toDate, GetAuditDataFromStaticJson().studyId, It.IsAny<LoggedInUser>()));
             ClinicalStudyController clinicalStudyController = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
 
 
@@ -439,8 +455,8 @@ namespace TransCelerate.SDR.UnitTesting
             _mockClinicalStudyRepository.Setup(x => x.GetAuditTrail(It.IsAny<DateTime>(), It.IsAny<DateTime>(), GetAuditDataFromStaticJson().studyId))
                     .Throws(new Exception("Error"));
             ClinicalStudyService ClinicalStudyService1 = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);
-            _mockClinicalStudyService.Setup(x => x.GetAuditTrail(It.IsAny<DateTime>(), It.IsAny<DateTime>(), GetAuditDataFromStaticJson().studyId))
-                    .Returns(ClinicalStudyService1.GetAuditTrail(It.IsAny<DateTime>(), It.IsAny<DateTime>(), GetAuditDataFromStaticJson().studyId));
+            _mockClinicalStudyService.Setup(x => x.GetAuditTrail(It.IsAny<DateTime>(), It.IsAny<DateTime>(), GetAuditDataFromStaticJson().studyId, It.IsAny<LoggedInUser>()))
+                    .Returns(ClinicalStudyService1.GetAuditTrail(It.IsAny<DateTime>(), It.IsAny<DateTime>(), GetAuditDataFromStaticJson().studyId, It.IsAny<LoggedInUser>()));
             ClinicalStudyController clinicalStudyController1 = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
 
 
@@ -491,11 +507,11 @@ namespace TransCelerate.SDR.UnitTesting
             studyHistory.studyTitle = studyList[1].clinicalStudy.studyTitle;
             studyHistory.studyVersion = studyList[1].auditTrail.studyVersion;
             studyHistories.Add(studyHistory);
-            _mockClinicalStudyRepository.Setup(x => x.GetAllStudyId(It.IsAny<DateTime>(), It.IsAny<DateTime>(),null))
+            _mockClinicalStudyRepository.Setup(x => x.GetAllStudyId(It.IsAny<DateTime>(), It.IsAny<DateTime>(),null, It.IsAny<LoggedInUser>()))
                     .Returns(Task.FromResult(studyHistories));
             ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);
-            _mockClinicalStudyService.Setup(x => x.GetAllStudyId(It.IsAny<DateTime>(), It.IsAny<DateTime>(),null))
-                    .Returns(ClinicalStudyService.GetAllStudyId(It.IsAny<DateTime>(), It.IsAny<DateTime>(),null));
+            _mockClinicalStudyService.Setup(x => x.GetAllStudyId(It.IsAny<DateTime>(), It.IsAny<DateTime>(),null, It.IsAny<LoggedInUser>()))
+                    .Returns(ClinicalStudyService.GetAllStudyId(It.IsAny<DateTime>(), It.IsAny<DateTime>(),null, It.IsAny<LoggedInUser>()));
             ClinicalStudyController clinicalStudyController = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
 
 
@@ -541,11 +557,11 @@ namespace TransCelerate.SDR.UnitTesting
             studyHistory.studyTitle = studyList[1].clinicalStudy.studyTitle;
             studyHistory.studyVersion = studyList[1].auditTrail.studyVersion;
             studyHistories.Add(studyHistory);
-            _mockClinicalStudyRepository.Setup(x => x.GetAllStudyId(fromDate, toDate, null))
+            _mockClinicalStudyRepository.Setup(x => x.GetAllStudyId(fromDate, toDate, null, It.IsAny<LoggedInUser>()))
                     .Returns(Task.FromResult(studyHistories));
             ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);
-            _mockClinicalStudyService.Setup(x => x.GetAllStudyId(fromDate, toDate, null))
-                    .Returns(ClinicalStudyService.GetAllStudyId(fromDate, toDate, null));
+            _mockClinicalStudyService.Setup(x => x.GetAllStudyId(fromDate, toDate, null, It.IsAny<LoggedInUser>()))
+                    .Returns(ClinicalStudyService.GetAllStudyId(fromDate, toDate, null, It.IsAny<LoggedInUser>()));
             ClinicalStudyController clinicalStudyController = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
 
 
@@ -584,11 +600,11 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.AreEqual(expected.message, actual_result.message);
             Assert.AreEqual("400", actual_result.statusCode);
 
-            _mockClinicalStudyRepository.Setup(x => x.GetAllStudyId(It.IsAny<DateTime>(), It.IsAny<DateTime>(),null))
+            _mockClinicalStudyRepository.Setup(x => x.GetAllStudyId(It.IsAny<DateTime>(), It.IsAny<DateTime>(),null, It.IsAny<LoggedInUser>()))
                     .Throws(new Exception("Error"));
             ClinicalStudyService ClinicalStudyService1 = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);
-            _mockClinicalStudyService.Setup(x => x.GetAllStudyId(It.IsAny<DateTime>(), It.IsAny<DateTime>(),null))
-                    .Returns(ClinicalStudyService1.GetAllStudyId(It.IsAny<DateTime>(), It.IsAny<DateTime>(),null));
+            _mockClinicalStudyService.Setup(x => x.GetAllStudyId(It.IsAny<DateTime>(), It.IsAny<DateTime>(),null, It.IsAny<LoggedInUser>()))
+                    .Returns(ClinicalStudyService1.GetAllStudyId(It.IsAny<DateTime>(), It.IsAny<DateTime>(),null, It.IsAny<LoggedInUser>()));
             ClinicalStudyController clinicalStudyController1 = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
 
 
@@ -617,12 +633,12 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void PostAllElments_UnitTest_SuccessResponse()
         {
-            PostStudyResponseDTO postStudyResponseDTO = new PostStudyResponseDTO { studyId = GetDataFromStaticJson().clinicalStudy.studyId };
+            PostStudyDTO postStudyResponseDTO = new PostStudyDTO { clinicalStudy = PostDataFromStaticJson().clinicalStudy, };
 
             _mockClinicalStudyRepository.Setup(x => x.PostStudyItemsAsync(It.IsAny<StudyEntity>()))
                     .Returns(Task.FromResult(GetDataFromStaticJson().clinicalStudy.studyId));
             ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);
-            _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<PostStudyDTO>(), null))
+            _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<PostStudyDTO>(), null, It.IsAny<LoggedInUser>()))
                     //.Returns(ClinicalStudyService.PostAllElements(PostDataFromStaticJson(), null, null));
                     .Returns(Task.FromResult(postStudyResponseDTO as object));
             ClinicalStudyController clinicalStudyController = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);            
@@ -635,7 +651,7 @@ namespace TransCelerate.SDR.UnitTesting
             var expected = GetDataFromStaticJson().clinicalStudy.studyId;
 
             //Actual            
-            var actual_result = JsonConvert.DeserializeObject<PostStudyResponseDTO>(
+            var actual_result = JsonConvert.DeserializeObject<PostStudyDTO>(
                  JsonConvert.SerializeObject((result as CreatedResult).Value));
 
             //Assert          
@@ -643,19 +659,19 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.AreEqual(201, (result as CreatedResult).StatusCode);
             Assert.IsInstanceOf(typeof(CreatedResult), result);
 
-            Assert.AreEqual(expected, actual_result.studyId);
+            Assert.AreEqual(expected, actual_result.clinicalStudy.studyId);
         }
         [Test]
         public void PostAllElments_UnitTest_FailureResponse()
         {
-            PostStudyResponseDTO postStudyResponseDTO = new PostStudyResponseDTO { studyId = GetDataFromStaticJson().clinicalStudy.studyId };
+            PostStudyDTO postStudyResponseDTO = new PostStudyDTO { clinicalStudy = PostDataFromStaticJson().clinicalStudy };
 
             _mockClinicalStudyRepository.Setup(x => x.PostStudyItemsAsync(It.IsAny<StudyEntity>()))
                     .Throws(new Exception("Error"));
             ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);
-            _mockClinicalStudyService.Setup(x => x.PostAllElements(PostDataFromStaticJson(), null))
+            _mockClinicalStudyService.Setup(x => x.PostAllElements(PostDataFromStaticJson(), null, It.IsAny<LoggedInUser>()))
                     //.Returns(ClinicalStudyService.PostAllElements(PostDataFromStaticJson(), null, null));
-                    .Returns(ClinicalStudyService.PostAllElements(PostDataFromStaticJson(), null));
+                    .Returns(ClinicalStudyService.PostAllElements(PostDataFromStaticJson(), null, It.IsAny<LoggedInUser>()));
             ClinicalStudyController clinicalStudyController = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
 
             var method = clinicalStudyController.PostAllElements(PostDataFromStaticJson(), null);
@@ -683,7 +699,7 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void SearchStudy_UnitTest_SuccessResponse()
         {
-            _mockClinicalStudyRepository.Setup(x => x.SearchStudy(It.IsAny<SearchParameters>()))
+            _mockClinicalStudyRepository.Setup(x => x.SearchStudy(It.IsAny<SearchParameters>(), It.IsAny<LoggedInUser>()))
                     .Returns(Task.FromResult(GetListForSearchDataFromStaticJson()));
             SearchParametersDTO searchParameters = new SearchParametersDTO
             {        
@@ -698,8 +714,8 @@ namespace TransCelerate.SDR.UnitTesting
                 toDate = DateTime.Now.ToString()
             };
             ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);
-            _mockClinicalStudyService.Setup(x => x.SearchStudy(searchParameters))
-                    .Returns(ClinicalStudyService.SearchStudy(searchParameters));
+            _mockClinicalStudyService.Setup(x => x.SearchStudy(searchParameters, It.IsAny<LoggedInUser>()))
+                    .Returns(ClinicalStudyService.SearchStudy(searchParameters, It.IsAny<LoggedInUser>()));
             ClinicalStudyController clinicalStudyController = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
 
 
@@ -726,7 +742,7 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void SearchStudy_UnitTest_FailureResponse()
         {
-            _mockClinicalStudyRepository.Setup(x => x.SearchStudy(It.IsAny<SearchParameters>()))
+            _mockClinicalStudyRepository.Setup(x => x.SearchStudy(It.IsAny<SearchParameters>(), It.IsAny<LoggedInUser>()))
                     .Returns(Task.FromResult(GetListForSearchDataFromStaticJson()));
             SearchParametersDTO searchParameters = new SearchParametersDTO
             {       
@@ -741,8 +757,8 @@ namespace TransCelerate.SDR.UnitTesting
                 toDate = DateTime.Now.ToString()
             };
             ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);
-            _mockClinicalStudyService.Setup(x => x.SearchStudy(searchParameters))
-                    .Returns(ClinicalStudyService.SearchStudy(searchParameters));
+            _mockClinicalStudyService.Setup(x => x.SearchStudy(searchParameters,It.IsAny<LoggedInUser>()))
+                    .Returns(ClinicalStudyService.SearchStudy(searchParameters, It.IsAny<LoggedInUser>()));
             ClinicalStudyController clinicalStudyController = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
 
             SearchParametersDTO searchParametersChanged = new SearchParametersDTO
@@ -793,11 +809,11 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.AreEqual(expected.message, actual_result.message);
             Assert.AreEqual("400", actual_result.statusCode);
 
-            _mockClinicalStudyRepository.Setup(x => x.SearchStudy(It.IsAny<SearchParameters>()))
+            _mockClinicalStudyRepository.Setup(x => x.SearchStudy(It.IsAny<SearchParameters>(), It.IsAny<LoggedInUser>()))
                     .Throws(new Exception("Error"));
             ClinicalStudyService ClinicalStudyService1 = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);
-            _mockClinicalStudyService.Setup(x => x.SearchStudy(It.IsAny<SearchParametersDTO>()))
-                    .Returns(ClinicalStudyService1.SearchStudy(It.IsAny<SearchParametersDTO>()));
+            _mockClinicalStudyService.Setup(x => x.SearchStudy(It.IsAny<SearchParametersDTO>(), It.IsAny<LoggedInUser>()))
+                    .Returns(ClinicalStudyService1.SearchStudy(It.IsAny<SearchParametersDTO>(), It.IsAny<LoggedInUser>()));
             ClinicalStudyController clinicalStudyController1 = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
             searchParameters.fromDate = null;
             searchParameters.toDate = null;
@@ -817,6 +833,126 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
 
             Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual("400", actual_result.statusCode);
+
+        }
+        #endregion
+
+        #region Search Study Title Unit Testing
+        [Test]
+        public void SearchStudyTitle_UnitTest_SuccessResponse()
+        {            
+            SearchTitleParametersDTO searchParameters = new SearchTitleParametersDTO
+            {
+                studyTitle = "Umbrella",
+                pageNumber = 1,
+                pageSize = 25,
+                fromDate = DateTime.Now.AddDays(-5).ToString(),
+                toDate = DateTime.Now.ToString(),
+                groupByStudyId = true
+            };            
+            _mockClinicalStudyService.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersDTO>(), It.IsAny<LoggedInUser>()))
+                    .Returns(Task.FromResult(GetListForSearchTitleDTODataFromStaticJson()));
+            ClinicalStudyController clinicalStudyController = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
+
+
+            var method = clinicalStudyController.SearchTitle(searchParameters);
+            method.Wait();
+            var result = method.Result;
+
+            //Expected
+            var expected = GetListForSearchTitleDTODataFromStaticJson();
+
+            //Actual            
+            var actual_result = JsonConvert.DeserializeObject<List<SearchTitleDTO>>(
+               JsonConvert.SerializeObject(((result as OkObjectResult).Value)));
+
+            //Assert          
+            Assert.IsNotNull((result as OkObjectResult).Value);
+            Assert.AreEqual(200, (result as OkObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(OkObjectResult), result);
+
+            Assert.AreEqual(expected[0].clinicalStudy.studyTitle, actual_result[0].clinicalStudy.studyTitle);           
+        }
+
+        [Test]
+        public void SearchStudyTitle_UnitTest_FailureResponse()
+        {
+            SearchTitleParametersDTO searchParameters = new SearchTitleParametersDTO
+            {
+                studyTitle = "Umbrella",
+                pageNumber = 1,
+                pageSize = 25,
+                fromDate = "",
+                toDate = "",
+                groupByStudyId = true
+            };
+            _mockClinicalStudyService.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersDTO>(), It.IsAny<LoggedInUser>()))
+                    .Returns(Task.FromResult(GetListForSearchTitleDTODataFromStaticJson()));
+            ClinicalStudyController clinicalStudyController = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
+
+            SearchTitleParametersDTO searchParametersChanged = new SearchTitleParametersDTO
+            {
+                studyTitle = "",
+                pageNumber = 1,
+                pageSize = 25,
+                fromDate = "",
+                toDate = "",
+                groupByStudyId = true
+            };
+            var method = clinicalStudyController.SearchTitle(searchParametersChanged);
+            method.Wait();
+            var result = method.Result;
+
+            //Expected
+            var expected = Constants.ValidationErrorMessage.AnyOneFieldError;
+            //Actual            
+            var actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
+
+            //Assert          
+            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
+            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
+
+            Assert.AreEqual(expected, actual_result.message);
+            Assert.AreEqual("400", actual_result.statusCode);
+           
+            _mockClinicalStudyService.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersDTO>(), It.IsAny<LoggedInUser>()))
+                    .Throws(new Exception("Error"));
+         
+
+            method = clinicalStudyController.SearchTitle(searchParameters);
+            method.Wait();
+
+            //Expected
+            var expected_error = ErrorResponseHelper.BadRequest("An Error Occured");
+
+            //Actual
+            actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
+
+            //Assert          
+            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
+            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
+
+            Assert.AreEqual(expected_error.message, actual_result.message);
+            Assert.AreEqual("400", actual_result.statusCode);
+
+            method = clinicalStudyController.SearchTitle(null);
+            method.Wait();
+
+            //Expected
+            expected_error = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError);
+
+            //Actual
+            actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
+
+            //Assert          
+            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
+            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
+
+            Assert.AreEqual(expected_error.message, actual_result.message);
             Assert.AreEqual("400", actual_result.statusCode);
 
         }

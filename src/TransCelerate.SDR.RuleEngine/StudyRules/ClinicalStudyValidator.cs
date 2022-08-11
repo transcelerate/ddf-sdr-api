@@ -9,7 +9,7 @@ using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.RuleEngine
 {
-    public class ClinicalStudyValidator : AbstractValidator<PostStudyDTO>
+    public class ClinicalStudyValidator : AbstractValidator<ClinicalStudyDTO>
     {
         /// <summary>
         /// Validator for ClinicalStudy
@@ -17,25 +17,25 @@ namespace TransCelerate.SDR.RuleEngine
         public ClinicalStudyValidator()
         {
 
-            RuleFor(x => x.clinicalStudy.studyTitle)
+            RuleFor(x => x.studyTitle)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
 
-            RuleFor(x => x.clinicalStudy.studyType)
+            RuleFor(x => x.studyType)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
 
-            RuleFor(x => x.clinicalStudy.studyIdentifiers)
+            RuleFor(x => x.studyIdentifiers)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-            RuleFor(x => x.clinicalStudy.studyPhase)
+            RuleFor(x => x.studyPhase)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-            RuleFor(x => x.clinicalStudy.studyStatus)
+            RuleFor(x => x.studyStatus)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);

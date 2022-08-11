@@ -10,7 +10,13 @@ namespace TransCelerate.SDR.Core.DTO
     /// </summary>
     public class PostStudyDTO
     {
+        /// <summary>
+        /// This property holds the ClinicalStudy Component of the Study for POST Method
+        /// </summary>
         public ClinicalStudyDTO clinicalStudy { get; set; }
-        //public AuditTrailDTO auditTrailDTO { get; set; }
+        /// <summary>
+        /// This property holds the Audit Trail Component of the Study for POST Method
+        /// </summary>
+        public AuditTrailDTO auditTrail { get; set; }
     }
 }

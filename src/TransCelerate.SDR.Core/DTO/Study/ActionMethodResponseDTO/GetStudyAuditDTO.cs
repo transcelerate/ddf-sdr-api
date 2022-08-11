@@ -6,8 +6,14 @@ namespace TransCelerate.SDR.Core.DTO.Study
     /// This class is a DTO for GET Method for AuditTrail of a study
     /// </summary>
     public class GetStudyAuditDTO
-    {    
-        public string studyId { get; set; }     
+    {
+        /// <summary>
+        /// This property holds the value of Study ID
+        /// </summary>
+        public string studyId { get; set; }
+        /// <summary>
+        /// This property holds the List of Audit Trail for specific <see cref="studyId"/>
+        /// </summary>
         public List<AuditTrailEndpointResponseDTO> auditTrail { get; set; }
     }
 

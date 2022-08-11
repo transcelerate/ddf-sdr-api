@@ -6,7 +6,10 @@ namespace TransCelerate.SDR.Core.DTO.Study
     /// This class is a DTO for GET Method for all study Id
     /// </summary>
     public class GetStudyHistoryResponseDTO
-    {        
+    {
+        /// <summary>
+        /// This property holds the Study History details
+        /// </summary>
         public List<StudyHistoryDTO> study { get; set; }
     }  
     

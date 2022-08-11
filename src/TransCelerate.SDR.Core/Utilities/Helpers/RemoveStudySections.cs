@@ -2,7 +2,9 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
+using TransCelerate.SDR.Core.DTO;
 using TransCelerate.SDR.Core.DTO.Study;
+using TransCelerate.SDR.Core.Entities.Study;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
 {
@@ -14,8 +16,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// This method is for removing study level sections
         /// </summary>
-        /// <param name="sections"></param>
-        /// <param name="getStudySectionsDTO"></param>
+        /// <param name="sections">Study Sections array</param>
+        /// <param name="getStudySectionsDTO">Study defenitions from Database</param>
         /// <returns>
         /// A <see cref="object"/> After removing sections which are not in the sections array        
         /// </returns>
@@ -56,8 +58,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <summary>
         /// This method is for removing study design level sections
         /// </summary>
-        /// <param name="sections"></param>
-        /// <param name="getStudySectionsDTO"></param>
+        /// <param name="sections">Study Design Sections array</param>
+        /// <param name="getStudySectionsDTO">Study defenitions from Database</param>
         /// <returns>
         /// A <see cref="object"/> After removing sections which are not in the sections array           
         /// </returns>
@@ -105,6 +107,91 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             {
                 throw;
             }
+        }
+
+        /// <summary>
+        /// This method is for formatting study definitions to POST request format
+        /// </summary>
+        /// <param name="studyEntity">Study for formatting the response</param>
+        /// <returns>
+        /// A <see cref="object"/> After formating the JSON to the POST request format      
+        /// </returns>
+        public static object PostResponseRemoveSections(PostStudyDTO studyEntity)
+        {
+            var clinicalStudyJsonObject = JObject.Parse(JsonConvert.SerializeObject(studyEntity.clinicalStudy));
+            JArray currentSectionArray = new JArray();
+            clinicalStudyJsonObject.Property(nameof(ClinicalStudyDTO.currentSections)).Remove();
+
+            if(studyEntity.clinicalStudy.currentSections !=null)
+            {
+                if(studyEntity.clinicalStudy.currentSections.Count > 0)
+                {
+                    foreach (var currentSections in studyEntity.clinicalStudy.currentSections)
+                    {
+                        var currentsSectionsJobject = JObject.Parse(JsonConvert.SerializeObject(currentSections));
+                        switch (currentSections.sectionType)
+                        {
+                            case "STUDY_INDICATIONS":
+                                currentsSectionsJobject.Properties().Where(attr => attr.Name != nameof(CurrentSectionsDTO.studyIndications) && attr.Name != nameof(CurrentSectionsDTO.id) && attr.Name != nameof(CurrentSectionsDTO.sectionType)).ToList().ForEach(x => x.Remove());
+                                break;
+                            case "OBJECTIVES":
+                                currentsSectionsJobject.Properties().Where(attr => attr.Name != nameof(CurrentSectionsDTO.objectives) && attr.Name != nameof(CurrentSectionsDTO.id) && attr.Name != nameof(CurrentSectionsDTO.sectionType)).ToList().ForEach(x => x.Remove());
+                                break;
+                            case "STUDY_DESIGNS":
+                                currentsSectionsJobject.Properties().Where(attr => attr.Name != nameof(CurrentSectionsDTO.id) && attr.Name != nameof(CurrentSectionsDTO.sectionType)).ToList().ForEach(x => x.Remove());
+                                JArray studyDesignsJArray = new JArray();
+                                foreach (var item in currentSections.studyDesigns)
+                                {
+                                    var studyDesignJobject = JObject.Parse(JsonConvert.SerializeObject(item));
+                                    JArray currentSectionOfStudyDesignArray = new JArray();
+                                    studyDesignJobject.Property(nameof(ClinicalStudyDTO.currentSections)).Remove();
+                                    if(item.currentSections != null)
+                                    {
+                                        if(item.currentSections.Count>0)
+                                        {
+                                            foreach (var currSection in item.currentSections)
+                                            {
+                                                var currentSectionOfStudyDesignJobject = JObject.Parse(JsonConvert.SerializeObject(currSection));
+                                                switch (currSection.sectionType)
+                                                {
+                                                    case "PLANNED_WORKFLOWS":
+                                                        currentSectionOfStudyDesignJobject.Properties().Where(attr => attr.Name != nameof(CurrentSectionsDTO.plannedWorkflows) && attr.Name != nameof(CurrentSectionsDTO.id) && attr.Name != nameof(CurrentSectionsDTO.sectionType)).ToList().ForEach(x => x.Remove());
+                                                        break;
+                                                    case "STUDY_POPULATIONS":
+                                                        currentSectionOfStudyDesignJobject.Properties().Where(attr => attr.Name != nameof(CurrentSectionsDTO.studyPopulations) && attr.Name != nameof(CurrentSectionsDTO.id) && attr.Name != nameof(CurrentSectionsDTO.sectionType)).ToList().ForEach(x => x.Remove());
+                                                        break;
+                                                    case "STUDY_CELLS":
+                                                        currentSectionOfStudyDesignJobject.Properties().Where(attr => attr.Name != nameof(CurrentSectionsDTO.studyCells) && attr.Name != nameof(CurrentSectionsDTO.id) && attr.Name != nameof(CurrentSectionsDTO.sectionType)).ToList().ForEach(x => x.Remove());
+                                                        break;
+                                                    case "INVESTIGATIONAL_INTERVENTIONS":
+                                                        currentSectionOfStudyDesignJobject.Properties().Where(attr => attr.Name != nameof(CurrentSectionsDTO.investigationalInterventions) && attr.Name != nameof(CurrentSectionsDTO.id) && attr.Name != nameof(CurrentSectionsDTO.sectionType)).ToList().ForEach(x => x.Remove());
+                                                        break;
+                                                    default:
+                                                        break;
+                                                }
+                                                currentSectionOfStudyDesignArray.Add(currentSectionOfStudyDesignJobject);
+                                            }
+                                        }
+                                    }
+                                    studyDesignJobject.Add(nameof(ClinicalStudyDTO.currentSections), currentSectionOfStudyDesignArray);
+                                    studyDesignsJArray.Add(studyDesignJobject);
+                                }
+                                currentsSectionsJobject.Add(nameof(CurrentSectionsDTO.studyDesigns), studyDesignsJArray);
+                                break;
+                            default:
+                                break;
+                        }
+                        currentSectionArray.Add(currentsSectionsJobject);
+                    }
+                    
+                }
+            }
+            clinicalStudyJsonObject.Add(nameof(ClinicalStudyDTO.currentSections), currentSectionArray);
+
+            JObject returnJsonObject = new JObject();
+            returnJsonObject.Add(nameof(PostStudyDTO.clinicalStudy), clinicalStudyJsonObject);
+            returnJsonObject.Add(nameof(PostStudyDTO.auditTrail), JObject.Parse(JsonConvert.SerializeObject(studyEntity.auditTrail)));
+            return returnJsonObject;
         }
     }
 }
