@@ -36,7 +36,6 @@ NOTE: Keep a copy for your records.
 
 # Sample Data
 For those looking to evaluate the USDM with a sample data set, please see the following to files in the Data Model folder:
-#- [Sample Data via Excel](https://github.com/transcelerate/ddf-sdr-api/blob/main/DataModel/SDR%20Study%20Sample-JSON.xlsx)
 - [Sample Data via JSON](https://github.com/transcelerate/ddf-sdr-api/blob/main/DataModel/API_UserGuide_JSON_Files/Request-POST-AddStudyDefinitionV1.json)
 
 
