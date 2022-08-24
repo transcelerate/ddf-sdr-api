@@ -573,9 +573,11 @@ namespace TransCelerate.SDR.Services.Services
                                                              .ToList());
                         if (studyIdFilterValues.Contains(study.clinicalStudy.studyId))
                             return study;
-                        else if(studyTypeFilterValues.Contains(study.clinicalStudy.studyType.ToLower()))
+                        else if (studyTypeFilterValues.Contains(Constants.StudyType.ALL.ToLower()))
                             return study;
-                        else 
+                        else if (studyTypeFilterValues.Contains(study.clinicalStudy.studyType.ToLower()))
+                            return study;
+                        else
                             return null;
                     }
                     else
@@ -632,6 +634,8 @@ namespace TransCelerate.SDR.Services.Services
                                                              .ToList());
                         var studyListAfterFiltering = new List<StudyEntity>();
                         if (studyIdFilterValues.Contains(studyList[0].clinicalStudy.studyId))
+                            return studyList;
+                        else if (studyIdFilterValues.Contains(Constants.StudyType.ALL.ToLower()))
                             return studyList;
                         else
                         {

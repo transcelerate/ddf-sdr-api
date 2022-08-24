@@ -177,13 +177,19 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 }
                 else
                 {
-                    var userList = users.Select(x => new
-                                                {
-                                                    x.Id,
-                                                    x.DisplayName,
-                                                    x.Mail
-                                                }).ToList();
-                    return Ok(userList);
+                    var userList = users.CurrentPage.ToList();
+                    while (users.NextPageRequest != null)
+                    {
+                        users = await users.NextPageRequest.GetAsync();
+                        userList.AddRange(users.CurrentPage);
+                    }
+                    var userListResponse = userList.Select(x => new 
+                    {
+                        x.Id,
+                        x.DisplayName,
+                        x.Mail
+                    }).ToList();
+                    return Ok(userListResponse);
                 }
             }
             catch (Exception ex)
@@ -255,7 +261,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(PostGroup)};");
                 LoggedInUser user = new LoggedInUser
                 {
-                    UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                    UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                     UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                 };
                 if (groupDTO == null)
@@ -313,7 +319,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(PostGroup)};");
                 LoggedInUser user = new LoggedInUser
                 {
-                    UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                    UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                     UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                 };
                 if (userToGroupsDTO == null)
