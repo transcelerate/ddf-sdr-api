@@ -42,14 +42,14 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             {
 
                 errorList.ForEach(e => _logger.LogError($"Conformance Error {errorList.IndexOf(e) + 1}: {e}"));
-                _logger.LogInformation($"Status Code: {400}; UserName : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Name)?.Value}; UserRole : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Role)?.Value} URL: {context?.HttpContext?.Request?.Path}; AuthToken: {AuthToken}");
+                _logger.LogInformation($"Status Code: {400}; UserName : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Email)?.Value}; UserRole : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Role)?.Value} URL: {context?.HttpContext?.Request?.Path}; AuthToken: {AuthToken}");
                 return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(errors));
             }
             //Other errors
             else
             {
                 errorList.ForEach(e => _logger.LogError($"Invalid Input {errorList.IndexOf(e) + 1}: {e}"));
-                _logger.LogInformation($"Status Code: {400}; UserName : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Name)?.Value}; UserRole : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Role)?.Value} URL: {context?.HttpContext?.Request?.Path}; AuthToken: {AuthToken}");
+                _logger.LogInformation($"Status Code: {400}; UserName : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Email)?.Value}; UserRole : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Role)?.Value} URL: {context?.HttpContext?.Request?.Path}; AuthToken: {AuthToken}");
                 return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(errors, "Invalid Input"));
             }
         }

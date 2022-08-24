@@ -57,7 +57,7 @@ namespace TransCelerate.SDR.Core.Filters
                     var AuthToken = context.HttpContext.Request.Headers["Authorization"];
                     context.HttpContext.Response.Headers.Add("Controller", "True");
                     //Logging Request and Response parameters
-                    _logger.LogInformation($"Status Code: {statusCode}; UserName : {context.HttpContext.User?.FindFirst(ClaimTypes.Name)?.Value}; UserRole : {context.HttpContext.User?.FindFirst(ClaimTypes.Role)?.Value} URL: {context.HttpContext.Request.Path}; AuthToken: {AuthToken}");
+                    _logger.LogInformation($"Status Code: {statusCode}; UserName : {context.HttpContext.User?.FindFirst(ClaimTypes.Email)?.Value}; UserRole : {context.HttpContext.User?.FindFirst(ClaimTypes.Role)?.Value} URL: {context.HttpContext.Request.Path}; AuthToken: {AuthToken}");
                 }
             }
             catch (Exception ex)
