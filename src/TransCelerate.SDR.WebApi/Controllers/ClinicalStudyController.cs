@@ -68,7 +68,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 {
                     LoggedInUser user = new LoggedInUser
                     {
-                        UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                        UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
                     _logger.LogInformation($"Inputs: StudyId: {studyId}; Version: {version}; Status: {tag ?? "<null>"}; Sections: {sections ?? "<null>"}");
@@ -151,7 +151,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 {
                     LoggedInUser user = new LoggedInUser
                     {
-                        UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                        UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
                     _logger.LogInformation($"Inputs: StudyId: {studyId}; StudyDesignId: {studyDesignId}; Version: {version}; Status: {tag ?? "<null>"}; Sections: {sections ?? "<null>"}");
@@ -235,7 +235,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(GetAuditTrail)};");
                 LoggedInUser user = new LoggedInUser
                 {
-                    UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                    UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                     UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                 };
                 _logger.LogInformation($"Inputs: FromDate: {fromDate}; ToDate: {toDate}; Study: {studyId ?? "<null>"};");
@@ -306,7 +306,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(GetAllStudyId)};");
                 LoggedInUser user = new LoggedInUser
                 {
-                    UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                    UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                     UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                 };
                 _logger.LogInformation($"Inputs: FromDate: {fromDate}; ToDate: {toDate}; DateRange from Key Vault :{Config.DateRange}");
@@ -381,7 +381,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     {
                         LoggedInUser user = new LoggedInUser
                         {
-                            UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                            UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                             UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                         };
                         var response = await _clinicalStudyService.PostAllElements(studyDTO, entrySystem: entrySystem,user: user)
@@ -450,7 +450,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 {
                     LoggedInUser user = new LoggedInUser
                     {
-                        UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                        UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
                     if (searchparameters != null)
@@ -541,7 +541,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 {
                     LoggedInUser user = new LoggedInUser
                     {
-                        UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                        UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
                     if (searchparameters != null)

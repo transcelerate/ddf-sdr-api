@@ -438,6 +438,8 @@ namespace TransCelerate.SDR.Services.Services
                         Tuple<List<string>, List<string>> groupFilters = GroupFilters.GetGroupFilters(groups);
                         if (groupFilters.Item2.Contains(study.ClinicalStudy.Uuid))
                             return study;
+                        else if (groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
+                            return study;
                         else if (groupFilters.Item1.Contains(study.ClinicalStudy.StudyType?.Decode?.ToLower()))
                             return study;
                         else
@@ -486,6 +488,8 @@ namespace TransCelerate.SDR.Services.Services
                     {
                         Tuple<List<string>, List<string>> groupFilters = GroupFilters.GetGroupFilters(groups);
                         if (groupFilters.Item2.Contains(studyId))
+                            return studies;
+                        else if (groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
                             return studies;
                         else 
                         {
