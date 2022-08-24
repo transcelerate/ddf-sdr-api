@@ -635,7 +635,7 @@ namespace TransCelerate.SDR.Services.Services
                         var studyListAfterFiltering = new List<StudyEntity>();
                         if (studyIdFilterValues.Contains(studyList[0].clinicalStudy.studyId))
                             return studyList;
-                        else if (studyIdFilterValues.Contains(Constants.StudyType.ALL.ToLower()))
+                        else if (studyTypeFilterValues.Contains(Constants.StudyType.ALL.ToLower()))
                             return studyList;
                         else
                         {
