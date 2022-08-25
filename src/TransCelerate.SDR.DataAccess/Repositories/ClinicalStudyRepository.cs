@@ -387,7 +387,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                          .SelectMany(x => x.groupFilterValues)
                                                          .Select(x => x.groupFilterValueId)
                                                          .ToList());
-
+                    if (studyTypeFilterValues.Contains(Constants.StudyType.ALL.ToLower()))
+                        return searchResults;
                     searchResults = searchResults.Where(x => studyTypeFilterValues.Contains(x.studyType.ToLower()) || studyIdFilterValues.Contains(x.studyId)).ToList();
                 }
                 else
@@ -628,7 +629,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                          .Select(x => x.groupFilterValueId)
                                                          .ToList());
 
-
+                    if (studyTypeFilterValues.Contains(Constants.StudyType.ALL.ToLower()))
+                        return studyHistoryEntities;
                     studyHistoryEntities = studyHistoryEntities.Where(x => studyTypeFilterValues.Contains(x.studyType.ToLower()) || studyIdFilterValues.Contains(x.studyId)).ToList();
                 }
                 else
@@ -660,7 +662,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                          .Select(x => x.groupFilterValueId)
                                                          .ToList());
 
-
+                    if (studyTypeFilterValues.Contains(Constants.StudyType.ALL.ToLower()))
+                        return searchTitleEntities;
                     searchTitleEntities = searchTitleEntities.Where(x => studyTypeFilterValues.Contains(x.studyType.ToLower()) || studyIdFilterValues.Contains(x.studyId)).ToList();
                 }
                 else

@@ -62,7 +62,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     _logger.LogInformation($"Inputs : studyId = {studyId}; sdruploadversion = {sdruploadversion}");
                     LoggedInUser user = new LoggedInUser
                     {
-                        UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                        UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
                     var study = await _clinicalStudyService.GetStudy(studyId, sdruploadversion, user).ConfigureAwait(false);
@@ -120,7 +120,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     _logger.LogInformation($"Inputs : study_uuid = {study_uuid}; sdruploadversion = {sdruploadversion}");
                     LoggedInUser user = new LoggedInUser
                     {
-                        UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                        UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
                     var study = await _clinicalStudyService.GetStudyDesigns(study_uuid, sdruploadversion, user).ConfigureAwait(false);
@@ -182,7 +182,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     _logger.LogInformation($"Inputs : studyId = {studyId}; fromDate = {fromDate}; toDate = {toDate}");
                     LoggedInUser user = new LoggedInUser
                     {
-                        UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                        UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };                    
 
@@ -249,7 +249,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudyHistory)};");
                 LoggedInUser user = new LoggedInUser
                 {
-                    UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                    UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                     UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                 };
                 _logger.LogInformation($"Inputs: FromDate: {fromDate}; ToDate: {toDate}; DateRange from Key Vault :{Config.DateRange}");
@@ -309,7 +309,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 {
                     LoggedInUser user = new LoggedInUser
                     {
-                        UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                        UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
                     var response = await _clinicalStudyService.PostAllElements(studyDTO, user)
@@ -368,7 +368,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(SearchStudy)};");
                 LoggedInUser user = new LoggedInUser
                 {
-                    UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                    UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                     UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                 };
                 if (searchparameters != null)
@@ -440,7 +440,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(SearchTitle)};");
                 LoggedInUser user = new LoggedInUser
                 {
-                    UserName = User?.FindFirst(ClaimTypes.Name)?.Value,
+                    UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                     UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                 };
                 if (searchparameters != null)

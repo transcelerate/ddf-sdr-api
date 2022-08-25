@@ -54,6 +54,11 @@
             public const string Seperator = ",";
         }
 
+        public struct StudyType
+        {
+            public const string ALL = "ALL";
+        }
+
         public struct ValidationErrorMessage
         {
             public const string ConformanceError = "Field is missing or empty";

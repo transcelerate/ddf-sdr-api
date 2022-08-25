@@ -195,6 +195,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 {
                     Tuple<List<string>, List<string>> groupFilters = GroupFilters.GetGroupFilters(groups);
 
+                    if (groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
+                        return studyHistoryEntities;
 
                     studyHistoryEntities = studyHistoryEntities.Where(x => groupFilters.Item1.Contains(x.StudyType?.Decode?.ToLower()) || groupFilters.Item2.Contains(x.Uuid)).ToList();
                 }
@@ -393,7 +395,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                     if (groups != null && groups.Count > 0)
                     {
                         Tuple<List<string>, List<string>> groupFilters = GroupFilters.GetGroupFilters(groups);
-
+                        if (groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
+                            return searchResponses;  
                         searchResponses = searchResponses.Where(x => groupFilters.Item1.Contains(x.StudyType?.Decode?.ToLower()) || groupFilters.Item2.Contains(x.Uuid)).ToList();                        
                     }
                     else
