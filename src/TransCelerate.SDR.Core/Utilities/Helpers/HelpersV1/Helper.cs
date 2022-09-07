@@ -232,6 +232,30 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                         x.StudyEpoch.Uuid = IdGenerator.GenerateId();
                         if (x.StudyEpoch.StudyEpochType is not null && x.StudyEpoch.StudyEpochType.Any())
                             x.StudyEpoch.StudyEpochType.ForEach(y => y.Uuid = IdGenerator.GenerateId());
+
+                        if (x.StudyEpoch.Encounters is not null && x.StudyEpoch.Encounters.Any())
+                        {
+                            x.StudyEpoch.Encounters.ForEach(y =>
+                            {
+                                y.Uuid = IdGenerator.GenerateId();
+                                if (y.EncounterContactMode is not null && y.EncounterContactMode.Any())
+                                {
+                                    y.EncounterContactMode.ForEach(procedure => procedure.Uuid = IdGenerator.GenerateId());
+                                }
+                                if (y.EncounterEnvironmentalSetting is not null && y.EncounterEnvironmentalSetting.Any())
+                                {
+                                    y.EncounterEnvironmentalSetting.ForEach(procedure => procedure.Uuid = IdGenerator.GenerateId());
+                                }
+                                if (y.EncounterType is not null && y.EncounterType.Any())
+                                {
+                                    y.EncounterType.ForEach(procedure => procedure.Uuid = IdGenerator.GenerateId());
+                                }
+                                if (y.TransitionStartRule is not null)
+                                    y.TransitionStartRule.Uuid = IdGenerator.GenerateId();
+                                if (y.TransitionEndRule is not null)
+                                    y.TransitionEndRule.Uuid = IdGenerator.GenerateId();
+                            });
+                        }
                     }
                     if (x.StudyElements is not null && x.StudyElements.Any())
                     {
@@ -300,10 +324,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                                 {
                                     y.WorkflowItemEncounter.EncounterType.ForEach(procedure => procedure.Uuid = IdGenerator.GenerateId());
                                 }
-                                if (y.WorkflowItemEncounter.StartRule is not null)
-                                    y.WorkflowItemEncounter.StartRule.Uuid = IdGenerator.GenerateId();
-                                if (y.WorkflowItemEncounter.EndRule is not null)
-                                    y.WorkflowItemEncounter.EndRule.Uuid = IdGenerator.GenerateId();
+                                if (y.WorkflowItemEncounter.TransitionStartRule is not null)
+                                    y.WorkflowItemEncounter.TransitionStartRule.Uuid = IdGenerator.GenerateId();
+                                if (y.WorkflowItemEncounter.TransitionEndRule is not null)
+                                    y.WorkflowItemEncounter.TransitionEndRule.Uuid = IdGenerator.GenerateId();
                             }
 
                         });
@@ -334,34 +358,18 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                     if (x.AnalysisPopulation is not null)
                         x.AnalysisPopulation.Uuid = IdGenerator.GenerateId();
 
-                    if (x.VariableOfInterest is not null)
+                    if(x.VariableOfInterest is not null)
                     {
                         x.VariableOfInterest.Uuid = IdGenerator.GenerateId();
-                        if (x.VariableOfInterest.EncounterContactMode is not null && x.VariableOfInterest.EncounterContactMode.Any())
-                        {
-                            x.VariableOfInterest.EncounterContactMode.ForEach(procedure => procedure.Uuid = IdGenerator.GenerateId());
-                        }
-                        if (x.VariableOfInterest.EncounterEnvironmentalSetting is not null && x.VariableOfInterest.EncounterEnvironmentalSetting.Any())
-                        {
-                            x.VariableOfInterest.EncounterEnvironmentalSetting.ForEach(procedure => procedure.Uuid = IdGenerator.GenerateId());
-                        }
-                        if (x.VariableOfInterest.EncounterType is not null && x.VariableOfInterest.EncounterType.Any())
-                        {
-                            x.VariableOfInterest.EncounterType.ForEach(procedure => procedure.Uuid = IdGenerator.GenerateId());
-                        }
-                        if (x.VariableOfInterest.StartRule is not null)
-                            x.VariableOfInterest.StartRule.Uuid = IdGenerator.GenerateId();
-                        if (x.VariableOfInterest.EndRule is not null)
-                            x.VariableOfInterest.EndRule.Uuid = IdGenerator.GenerateId();
+                        if (x.VariableOfInterest.EndpointLevel is not null && x.VariableOfInterest.EndpointLevel.Any())
+                            x.VariableOfInterest.EndpointLevel.ForEach(z => z.Uuid = IdGenerator.GenerateId());
                     }
 
-                    if (x.InterCurrentEvents is not null && x.InterCurrentEvents.Any())
+                    if (x.IntercurrentEvents is not null && x.IntercurrentEvents.Any())
                     {
-                        x.InterCurrentEvents.ForEach(y =>
+                        x.IntercurrentEvents.ForEach(y =>
                         {
-                            y.Uuid = IdGenerator.GenerateId();
-                            if (y.Strategy is not null && y.Strategy.Any())
-                                y.Strategy.ForEach(x => x.Uuid = IdGenerator.GenerateId());
+                            y.Uuid = IdGenerator.GenerateId();                            
                         });
                     }
                 });
@@ -575,6 +583,30 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                         x.StudyEpoch.Uuid = null;
                         if (x.StudyEpoch.StudyEpochType is not null && x.StudyEpoch.StudyEpochType.Any())
                             x.StudyEpoch.StudyEpochType.ForEach(y => y.Uuid = null);
+
+                        if (x.StudyEpoch.Encounters is not null && x.StudyEpoch.Encounters.Any())
+                        {
+                            x.StudyEpoch.Encounters.ForEach(y =>
+                            {
+                                y.Uuid = null;
+                                if (y.EncounterContactMode is not null && y.EncounterContactMode.Any())
+                                {
+                                    y.EncounterContactMode.ForEach(procedure => procedure.Uuid = null);
+                                }
+                                if (y.EncounterEnvironmentalSetting is not null && y.EncounterEnvironmentalSetting.Any())
+                                {
+                                    y.EncounterEnvironmentalSetting.ForEach(procedure => procedure.Uuid = null);
+                                }
+                                if (y.EncounterType is not null && y.EncounterType.Any())
+                                {
+                                    y.EncounterType.ForEach(procedure => procedure.Uuid = null);
+                                }
+                                if (y.TransitionStartRule is not null)
+                                    y.TransitionStartRule.Uuid = null;
+                                if (y.TransitionEndRule is not null)
+                                    y.TransitionEndRule.Uuid = null;
+                            });
+                        }
                     }
                     if (x.StudyElements is not null && x.StudyElements.Any())
                     {
@@ -642,10 +674,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                                 {
                                     y.WorkflowItemEncounter.EncounterType.ForEach(procedure => procedure.Uuid = null);
                                 }
-                                if (y.WorkflowItemEncounter.StartRule is not null)
-                                    y.WorkflowItemEncounter.StartRule.Uuid = null;
-                                if (y.WorkflowItemEncounter.EndRule is not null)
-                                    y.WorkflowItemEncounter.EndRule.Uuid = null;
+                                if (y.WorkflowItemEncounter.TransitionStartRule is not null)
+                                    y.WorkflowItemEncounter.TransitionStartRule.Uuid = null;
+                                if (y.WorkflowItemEncounter.TransitionEndRule is not null)
+                                    y.WorkflowItemEncounter.TransitionEndRule.Uuid = null;
                             }
 
                         });
@@ -679,31 +711,15 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                     if (x.VariableOfInterest is not null)
                     {
                         x.VariableOfInterest.Uuid = null;
-                        if (x.VariableOfInterest.EncounterContactMode is not null && x.VariableOfInterest.EncounterContactMode.Any())
-                        {
-                            x.VariableOfInterest.EncounterContactMode.ForEach(procedure => procedure.Uuid = null);
-                        }
-                        if (x.VariableOfInterest.EncounterEnvironmentalSetting is not null && x.VariableOfInterest.EncounterEnvironmentalSetting.Any())
-                        {
-                            x.VariableOfInterest.EncounterEnvironmentalSetting.ForEach(procedure => procedure.Uuid = null);
-                        }
-                        if (x.VariableOfInterest.EncounterType is not null && x.VariableOfInterest.EncounterType.Any())
-                        {
-                            x.VariableOfInterest.EncounterType.ForEach(procedure => procedure.Uuid = null);
-                        }
-                        if (x.VariableOfInterest.StartRule is not null)
-                            x.VariableOfInterest.StartRule.Uuid = null;
-                        if (x.VariableOfInterest.EndRule is not null)
-                            x.VariableOfInterest.EndRule.Uuid = null;
+                        if (x.VariableOfInterest.EndpointLevel is not null && x.VariableOfInterest.EndpointLevel.Any())
+                            x.VariableOfInterest.EndpointLevel.ForEach(z => z.Uuid = null);
                     }
 
-                    if (x.InterCurrentEvents is not null && x.InterCurrentEvents.Any())
+                    if (x.IntercurrentEvents is not null && x.IntercurrentEvents.Any())
                     {
-                        x.InterCurrentEvents.ForEach(y =>
+                        x.IntercurrentEvents.ForEach(y =>
                         {
                             y.Uuid = null;
-                            if (y.Strategy is not null && y.Strategy.Any())
-                                y.Strategy.ForEach(x => x.Uuid = null);
                         });
                     }
                 });
@@ -1145,21 +1161,69 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                             x.StudyEpoch.Uuid = IdGenerator.GenerateId();
                             if(x.StudyEpoch.StudyEpochType is not null && x.StudyEpoch.StudyEpochType.Any())
                                 x.StudyEpoch.StudyEpochType.ForEach(y => y.Uuid = IdGenerator.GenerateId());
+                            if (x.StudyEpoch.Encounters is not null && x.StudyEpoch.Encounters.Any())
+                            {
+                                x.StudyEpoch.Encounters.ForEach(y =>
+                                {
+                                    y.Uuid = IdGenerator.GenerateId();
+                                    if (y.EncounterContactMode is not null && y.EncounterContactMode.Any())
+                                    {
+                                        y.EncounterContactMode.ForEach(procedure => procedure.Uuid = IdGenerator.GenerateId());
+                                    }
+                                    if (y.EncounterEnvironmentalSetting is not null && y.EncounterEnvironmentalSetting.Any())
+                                    {
+                                        y.EncounterEnvironmentalSetting.ForEach(procedure => procedure.Uuid = IdGenerator.GenerateId());
+                                    }
+                                    if (y.EncounterType is not null && y.EncounterType.Any())
+                                    {
+                                        y.EncounterType.ForEach(procedure => procedure.Uuid = IdGenerator.GenerateId());
+                                    }
+                                    if (y.TransitionStartRule is not null)
+                                        y.TransitionStartRule.Uuid = IdGenerator.GenerateId();
+                                    if (y.TransitionEndRule is not null)
+                                        y.TransitionEndRule.Uuid = IdGenerator.GenerateId();
+                                });
+                            }
+
                         }
                         else if (x.StudyEpoch is not null && existingStudyCells.Find(y => y.Uuid == x.Uuid).StudyEpoch is not null)
                         {
                             if(String.IsNullOrWhiteSpace(x.StudyEpoch.Uuid))
                             {
                                 x.StudyEpoch.Uuid = IdGenerator.GenerateId();
-                                x.StudyEpoch.StudyEpochType?.ForEach(y => y.Uuid = IdGenerator.GenerateId()); 
+                                x.StudyEpoch.StudyEpochType?.ForEach(y => y.Uuid = IdGenerator.GenerateId());
+                                if (x.StudyEpoch.Encounters is not null && x.StudyEpoch.Encounters.Any())
+                                {
+                                    x.StudyEpoch.Encounters.ForEach(y =>
+                                    {
+                                        y.Uuid = IdGenerator.GenerateId();
+                                        if (y.EncounterContactMode is not null && y.EncounterContactMode.Any())
+                                        {
+                                            y.EncounterContactMode.ForEach(procedure => procedure.Uuid = IdGenerator.GenerateId());
+                                        }
+                                        if (y.EncounterEnvironmentalSetting is not null && y.EncounterEnvironmentalSetting.Any())
+                                        {
+                                            y.EncounterEnvironmentalSetting.ForEach(procedure => procedure.Uuid = IdGenerator.GenerateId());
+                                        }
+                                        if (y.EncounterType is not null && y.EncounterType.Any())
+                                        {
+                                            y.EncounterType.ForEach(procedure => procedure.Uuid = IdGenerator.GenerateId());
+                                        }
+                                        if (y.TransitionStartRule is not null)
+                                            y.TransitionStartRule.Uuid = IdGenerator.GenerateId();
+                                        if (y.TransitionEndRule is not null)
+                                            y.TransitionEndRule.Uuid = IdGenerator.GenerateId();
+                                    });
+                                }
                             }
                             else
                             {
                                 x.StudyEpoch.StudyEpochType = CheckForCodeSection(x.StudyEpoch.StudyEpochType, existingStudyCells.Find(y => y.Uuid == x.Uuid).StudyEpoch.StudyEpochType);
+                                x.StudyEpoch.Encounters = CheckForEncounterListSection(x.StudyEpoch.Encounters, existingStudyCells.Find(y => y.Uuid == x.Uuid).StudyEpoch.Encounters);
                             }
                             
                         }
-                        x.StudyElements = CheckForStudyElementsSection(x.StudyElements, existingStudyCells.Find(y => y.Uuid == x.Uuid).StudyElements);
+                        x.StudyElements = CheckForStudyElementsSection(x.StudyElements, existingStudyCells.Find(y => y.Uuid == x.Uuid).StudyElements);                        
                         studyCells.Add(x);
                         existingStudyCells.RemoveAll(y => y.Uuid == x.Uuid);
                     }
@@ -1176,6 +1240,64 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             return incomingStudyCells;
         }
+        /// <summary>
+        /// Comparison between existing and incoming Encounters
+        /// </summary>
+        /// <param name="incomingEncounters"></param>
+        /// <param name="existingEncounters"></param>
+        /// <returns></returns>
+        public List<EncounterEntity> CheckForEncounterListSection(List<EncounterEntity> incomingEncounters, List<EncounterEntity> existingEncounters)
+        {
+            if (incomingEncounters is not null && existingEncounters is not null)
+            {
+                List<EncounterEntity> encounters = new List<EncounterEntity>();
+                incomingEncounters.ForEach(x =>
+                {
+                    if (existingEncounters.Any(y => y.Uuid == x.Uuid))
+                    {
+                        x.EncounterContactMode = CheckForCodeSection(x.EncounterContactMode, existingEncounters.Find(y => y.Uuid == x.Uuid).EncounterContactMode);
+                        x.EncounterEnvironmentalSetting = CheckForCodeSection(x.EncounterEnvironmentalSetting, existingEncounters.Find(y => y.Uuid == x.Uuid).EncounterEnvironmentalSetting);
+                        x.EncounterType = CheckForCodeSection(x.EncounterType, existingEncounters.Find(y => y.Uuid == x.Uuid).EncounterType);
+                        if (x.TransitionStartRule is not null)
+                            x.TransitionStartRule.Uuid = String.IsNullOrWhiteSpace(x.TransitionStartRule.Uuid) ? IdGenerator.GenerateId() : x.TransitionStartRule.Uuid;
+                        if (x.TransitionEndRule is not null)
+                            x.TransitionEndRule.Uuid = String.IsNullOrWhiteSpace(x.TransitionEndRule.Uuid) ? IdGenerator.GenerateId() : x.TransitionEndRule.Uuid;
+
+                        encounters.Add(x);
+                        existingEncounters.RemoveAll(y => y.Uuid == x.Uuid);
+                    }
+                    else
+                    {
+                        x.Uuid = IdGenerator.GenerateId();
+                        x.EncounterContactMode?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
+                        x.EncounterEnvironmentalSetting?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
+                        x.EncounterType?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
+                        if (x.TransitionStartRule is not null)
+                            x.TransitionStartRule.Uuid = IdGenerator.GenerateId();
+                        if (x.TransitionEndRule is not null)
+                            x.TransitionEndRule.Uuid = IdGenerator.GenerateId();
+                        encounters.Add(x);
+                    }
+                });
+                incomingEncounters = encounters;
+            }
+            else if (incomingEncounters is not null && existingEncounters is null)
+            {
+                incomingEncounters.ForEach(x =>
+                {
+                    x.Uuid = IdGenerator.GenerateId();
+                    x.EncounterContactMode?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
+                    x.EncounterEnvironmentalSetting?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
+                    x.EncounterType?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
+                    if (x.TransitionStartRule is not null)
+                        x.TransitionStartRule.Uuid = IdGenerator.GenerateId();
+                    if (x.TransitionEndRule is not null)
+                        x.TransitionEndRule.Uuid = IdGenerator.GenerateId();
+                });
+            }
+            return incomingEncounters;
+        }
+
         /// <summary>
         /// Comparison between existing and incoming Study Elements
         /// </summary>
@@ -1313,20 +1435,20 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                                 x.WorkflowItemEncounter.EncounterContactMode?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
                                 x.WorkflowItemEncounter.EncounterEnvironmentalSetting?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
                                 x.WorkflowItemEncounter.EncounterType?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
-                                if (x.WorkflowItemEncounter.StartRule is not null)
-                                    x.WorkflowItemEncounter.StartRule.Uuid = IdGenerator.GenerateId();
-                                if (x.WorkflowItemEncounter.EndRule is not null)
-                                    x.WorkflowItemEncounter.EndRule.Uuid = IdGenerator.GenerateId();
+                                if (x.WorkflowItemEncounter.TransitionStartRule is not null)
+                                    x.WorkflowItemEncounter.TransitionStartRule.Uuid = IdGenerator.GenerateId();
+                                if (x.WorkflowItemEncounter.TransitionEndRule is not null)
+                                    x.WorkflowItemEncounter.TransitionEndRule.Uuid = IdGenerator.GenerateId();
                             }
                             else
                             {
                                 x.WorkflowItemEncounter.EncounterContactMode = CheckForCodeSection(x.WorkflowItemEncounter.EncounterContactMode, existingWorkflowItems.Find(y => y.Uuid == x.Uuid).WorkflowItemEncounter.EncounterContactMode);
                                 x.WorkflowItemEncounter.EncounterEnvironmentalSetting = CheckForCodeSection(x.WorkflowItemEncounter.EncounterEnvironmentalSetting, existingWorkflowItems.Find(y => y.Uuid == x.Uuid).WorkflowItemEncounter.EncounterEnvironmentalSetting);
                                 x.WorkflowItemEncounter.EncounterType = CheckForCodeSection(x.WorkflowItemEncounter.EncounterType, existingWorkflowItems.Find(y => y.Uuid == x.Uuid).WorkflowItemEncounter.EncounterType);
-                                if (x.WorkflowItemEncounter.StartRule is not null)
-                                    x.WorkflowItemEncounter.StartRule.Uuid = String.IsNullOrWhiteSpace(x.WorkflowItemEncounter.StartRule.Uuid) ? IdGenerator.GenerateId(): x.WorkflowItemEncounter.StartRule.Uuid;
-                                if (x.WorkflowItemEncounter.EndRule is not null)
-                                    x.WorkflowItemEncounter.EndRule.Uuid = String.IsNullOrWhiteSpace(x.WorkflowItemEncounter.EndRule.Uuid) ? IdGenerator.GenerateId() : x.WorkflowItemEncounter.EndRule.Uuid;
+                                if (x.WorkflowItemEncounter.TransitionStartRule is not null)
+                                    x.WorkflowItemEncounter.TransitionStartRule.Uuid = String.IsNullOrWhiteSpace(x.WorkflowItemEncounter.TransitionStartRule.Uuid) ? IdGenerator.GenerateId(): x.WorkflowItemEncounter.TransitionStartRule.Uuid;
+                                if (x.WorkflowItemEncounter.TransitionEndRule is not null)
+                                    x.WorkflowItemEncounter.TransitionEndRule.Uuid = String.IsNullOrWhiteSpace(x.WorkflowItemEncounter.TransitionEndRule.Uuid) ? IdGenerator.GenerateId() : x.WorkflowItemEncounter.TransitionEndRule.Uuid;
                             }
                         }
                         else if (x.WorkflowItemEncounter is not null && existingWorkflowItems.Find(y => y.Uuid == x.Uuid).WorkflowItemEncounter is null)
@@ -1335,10 +1457,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                             x.WorkflowItemEncounter.EncounterContactMode?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
                             x.WorkflowItemEncounter.EncounterEnvironmentalSetting?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
                             x.WorkflowItemEncounter.EncounterType?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
-                            if (x.WorkflowItemEncounter.StartRule is not null)
-                                x.WorkflowItemEncounter.StartRule.Uuid = IdGenerator.GenerateId();
-                            if (x.WorkflowItemEncounter.EndRule is not null)
-                                x.WorkflowItemEncounter.EndRule.Uuid = IdGenerator.GenerateId();
+                            if (x.WorkflowItemEncounter.TransitionStartRule is not null)
+                                x.WorkflowItemEncounter.TransitionStartRule.Uuid = IdGenerator.GenerateId();
+                            if (x.WorkflowItemEncounter.TransitionEndRule is not null)
+                                x.WorkflowItemEncounter.TransitionEndRule.Uuid = IdGenerator.GenerateId();
                         }
                         if (x.WorkflowItemActivity is not null && existingWorkflowItems.Find(y => y.Uuid == x.Uuid).WorkflowItemActivity is not null)
                         {
@@ -1395,10 +1517,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                             x.WorkflowItemEncounter.EncounterContactMode?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
                             x.WorkflowItemEncounter.EncounterEnvironmentalSetting?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
                             x.WorkflowItemEncounter.EncounterType?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
-                            if (x.WorkflowItemEncounter.StartRule is not null)
-                                x.WorkflowItemEncounter.StartRule.Uuid = IdGenerator.GenerateId();
-                            if (x.WorkflowItemEncounter.EndRule is not null)
-                                x.WorkflowItemEncounter.EndRule.Uuid = IdGenerator.GenerateId();
+                            if (x.WorkflowItemEncounter.TransitionStartRule is not null)
+                                x.WorkflowItemEncounter.TransitionStartRule.Uuid = IdGenerator.GenerateId();
+                            if (x.WorkflowItemEncounter.TransitionEndRule is not null)
+                                x.WorkflowItemEncounter.TransitionEndRule.Uuid = IdGenerator.GenerateId();
                         }
                         if (x.WorkflowItemActivity is not null)
                         {
@@ -1433,10 +1555,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                         x.WorkflowItemEncounter.EncounterContactMode?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
                         x.WorkflowItemEncounter.EncounterEnvironmentalSetting?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
                         x.WorkflowItemEncounter.EncounterType?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
-                        if (x.WorkflowItemEncounter.StartRule is not null)
-                            x.WorkflowItemEncounter.StartRule.Uuid = IdGenerator.GenerateId();
-                        if (x.WorkflowItemEncounter.EndRule is not null)
-                            x.WorkflowItemEncounter.EndRule.Uuid = IdGenerator.GenerateId();
+                        if (x.WorkflowItemEncounter.TransitionStartRule is not null)
+                            x.WorkflowItemEncounter.TransitionStartRule.Uuid = IdGenerator.GenerateId();
+                        if (x.WorkflowItemEncounter.TransitionEndRule is not null)
+                            x.WorkflowItemEncounter.TransitionEndRule.Uuid = IdGenerator.GenerateId();
                     }
                     if (x.WorkflowItemActivity is not null)
                     {
@@ -1539,37 +1661,22 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                             if(String.IsNullOrWhiteSpace(x.VariableOfInterest.Uuid))
                             {
                                 x.VariableOfInterest.Uuid =  IdGenerator.GenerateId();
-                                x.VariableOfInterest.EncounterContactMode?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
-                                x.VariableOfInterest.EncounterEnvironmentalSetting?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
-                                x.VariableOfInterest.EncounterType?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
-                                if (x.VariableOfInterest.StartRule is not null)
-                                    x.VariableOfInterest.StartRule.Uuid = IdGenerator.GenerateId();
-                                if (x.VariableOfInterest.EndRule is not null)
-                                    x.VariableOfInterest.EndRule.Uuid = IdGenerator.GenerateId();
+                                if (x.VariableOfInterest.EndpointLevel is not null && x.VariableOfInterest.EndpointLevel.Any())
+                                    x.VariableOfInterest.EndpointLevel.ForEach(z => z.Uuid = IdGenerator.GenerateId());                             
                             }
                             else
                             {
-                                x.VariableOfInterest.EncounterContactMode = CheckForCodeSection(x.VariableOfInterest.EncounterContactMode, existingEstimands.Find(y => y.Uuid == x.Uuid).VariableOfInterest.EncounterContactMode);
-                                x.VariableOfInterest.EncounterEnvironmentalSetting = CheckForCodeSection(x.VariableOfInterest.EncounterEnvironmentalSetting, existingEstimands.Find(y => y.Uuid == x.Uuid).VariableOfInterest.EncounterEnvironmentalSetting);
-                                x.VariableOfInterest.EncounterType = CheckForCodeSection(x.VariableOfInterest.EncounterType, existingEstimands.Find(y => y.Uuid == x.Uuid).VariableOfInterest.EncounterType);
-                                if (x.VariableOfInterest.StartRule is not null)
-                                    x.VariableOfInterest.StartRule.Uuid = String.IsNullOrWhiteSpace(x.VariableOfInterest.StartRule.Uuid) ? IdGenerator.GenerateId() : x.VariableOfInterest.StartRule.Uuid;
-                                if (x.VariableOfInterest.EndRule is not null)
-                                    x.VariableOfInterest.EndRule.Uuid = String.IsNullOrWhiteSpace(x.VariableOfInterest.EndRule.Uuid) ? IdGenerator.GenerateId() : x.VariableOfInterest.EndRule.Uuid;
+                                if (x.VariableOfInterest.EndpointLevel is not null && x.VariableOfInterest.EndpointLevel.Any())
+                                    x.VariableOfInterest.EndpointLevel.ForEach(z => z.Uuid = String.IsNullOrWhiteSpace(z.Uuid) ? IdGenerator.GenerateId() : z.Uuid);
                             }
                         }
                         else if (x.VariableOfInterest is not null && existingEstimands.Find(y => y.Uuid == x.Uuid).VariableOfInterest is null)
                         {
                             x.VariableOfInterest.Uuid = IdGenerator.GenerateId();
-                            x.VariableOfInterest.EncounterContactMode?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
-                            x.VariableOfInterest.EncounterEnvironmentalSetting?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
-                            x.VariableOfInterest.EncounterType?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
-                            if (x.VariableOfInterest.StartRule is not null)
-                                x.VariableOfInterest.StartRule.Uuid = IdGenerator.GenerateId();
-                            if (x.VariableOfInterest.EndRule is not null)
-                                x.VariableOfInterest.EndRule.Uuid = IdGenerator.GenerateId();
+                            if (x.VariableOfInterest.EndpointLevel is not null && x.VariableOfInterest.EndpointLevel.Any())
+                                x.VariableOfInterest.EndpointLevel.ForEach(z => z.Uuid = IdGenerator.GenerateId());
                         }
-                        x.InterCurrentEvents = CheckForIntercurrentEventsSection(x.InterCurrentEvents, existingEstimands.Find(y => y.Uuid == x.Uuid).InterCurrentEvents);
+                        x.IntercurrentEvents = CheckForIntercurrentEventsSection(x.IntercurrentEvents, existingEstimands.Find(y => y.Uuid == x.Uuid).IntercurrentEvents);
                         estimands.Add(x);
                         existingEstimands.RemoveAll(y => y.Uuid == x.Uuid);
                     }
@@ -1600,16 +1707,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                 incomingInterCurrentEvents.ForEach(x =>
                 {
                     if (exisitingInterCurrentEvents.Any(y => y.Uuid == x.Uuid))
-                    {
-                        x.Strategy = CheckForCodeSection(x.Strategy, exisitingInterCurrentEvents.Find(y => y.Uuid == x.Uuid).Strategy);
+                    {                        
                         interCurrentEvents.Add(x);
                         exisitingInterCurrentEvents.RemoveAll(y => y.Uuid == x.Uuid);
                     }
                     else
                     {
                         x.Uuid = IdGenerator.GenerateId();
-                        if (x.Strategy is not null && x.Strategy.Any())
-                            x.Strategy.ForEach(y => y.Uuid = IdGenerator.GenerateId());
                         interCurrentEvents.Add(x);
                     }
                 });
@@ -1620,8 +1724,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                 incomingInterCurrentEvents.ForEach(x =>
                 {
                     x.Uuid = IdGenerator.GenerateId();
-                    if(x.Strategy is not null && x.Strategy.Any())
-                      x.Strategy.ForEach(y => y.Uuid = IdGenerator.GenerateId());
                 });
             }
             return incomingInterCurrentEvents;
