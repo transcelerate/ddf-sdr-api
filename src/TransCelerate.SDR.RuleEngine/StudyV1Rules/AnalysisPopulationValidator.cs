@@ -11,7 +11,7 @@ namespace TransCelerate.SDR.RuleEngineV1
     {
         public AnalysisPopulationValidator()
         {
-            RuleFor(x => x.Population_desc)
+            RuleFor(x => x.PopulationDesc)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);    

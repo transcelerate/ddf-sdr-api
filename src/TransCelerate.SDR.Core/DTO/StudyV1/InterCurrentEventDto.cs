@@ -5,8 +5,8 @@ namespace TransCelerate.SDR.Core.DTO.StudyV1
     public class InterCurrentEventDto
     {
         public string Uuid { get; set; }
-        public string InterCurrentEventDesc { get; set; }
-        public string InterCurrentEventName { get; set; }
-        public List<CodeDto> Strategy { get; set; }
+        public string IntercurrentEventDesc { get; set; }
+        public string IntercurrentEventName { get; set; }
+        public string IntercurrentEventStrategy { get; set; }
     }
 }
