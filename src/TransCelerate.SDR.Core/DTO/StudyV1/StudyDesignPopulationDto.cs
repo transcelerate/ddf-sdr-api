@@ -3,6 +3,6 @@
     public class StudyDesignPopulationDto
     {
         public string Uuid { get; set; }
-        public string Population_desc { get; set; }
+        public string PopulationDesc { get; set; }
     }
 }

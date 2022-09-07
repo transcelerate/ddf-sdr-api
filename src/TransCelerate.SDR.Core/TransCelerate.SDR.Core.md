@@ -65,6 +65,7 @@
 - [Helper](#T-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-Helper 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.Helper')
   - [CheckForCodeSection(incomingCodes,existingCodes)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-Helper-CheckForCodeSection-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-CodeEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-CodeEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.Helper.CheckForCodeSection(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.CodeEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.CodeEntity})')
   - [CheckForDefinedProceduresSection(incomingDefinedProcedures,exisitingDefinedProcedures)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-Helper-CheckForDefinedProceduresSection-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-DefinedProcedureEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-DefinedProcedureEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.Helper.CheckForDefinedProceduresSection(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.DefinedProcedureEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.DefinedProcedureEntity})')
+  - [CheckForEncounterListSection(incomingEncounters,existingEncounters)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-Helper-CheckForEncounterListSection-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-EncounterEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-EncounterEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.Helper.CheckForEncounterListSection(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.EncounterEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.EncounterEntity})')
   - [CheckForIntercurrentEventsSection(incomingInterCurrentEvents,exisitingInterCurrentEvents)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-Helper-CheckForIntercurrentEventsSection-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-InterCurrentEventEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-InterCurrentEventEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.Helper.CheckForIntercurrentEventsSection(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.InterCurrentEventEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.InterCurrentEventEntity})')
   - [CheckForInvestigationalInterventionsSection(incomingInvestigationalInterventions,existingInvestigationalInterventions)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-Helper-CheckForInvestigationalInterventionsSection-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-InvestigationalInterventionEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-InvestigationalInterventionEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.Helper.CheckForInvestigationalInterventionsSection(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.InvestigationalInterventionEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.InvestigationalInterventionEntity})')
   - [CheckForSections(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-Helper-CheckForSections-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity,TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.Helper.CheckForSections(TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity,TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity)')
@@ -879,6 +880,24 @@ Comparison between existing and incoming Defined Procedures
 | ---- | ---- | ----------- |
 | incomingDefinedProcedures | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.DefinedProcedureEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.DefinedProcedureEntity}') |  |
 | exisitingDefinedProcedures | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.DefinedProcedureEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.DefinedProcedureEntity}') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-Helper-CheckForEncounterListSection-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-EncounterEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-EncounterEntity}-'></a>
+### CheckForEncounterListSection(incomingEncounters,existingEncounters) `method`
+
+##### Summary
+
+Comparison between existing and incoming Encounters
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| incomingEncounters | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.EncounterEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.EncounterEntity}') |  |
+| existingEncounters | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.EncounterEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.EncounterEntity}') |  |
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-Helper-CheckForIntercurrentEventsSection-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-InterCurrentEventEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-InterCurrentEventEntity}-'></a>
 ### CheckForIntercurrentEventsSection(incomingInterCurrentEvents,exisitingInterCurrentEvents) `method`

@@ -8,7 +8,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV1
         public InvestigationalInterventionEntity Treatment { get; set; }
         public string SummaryMeasure { get; set; }
         public AnalysisPopulationEntity AnalysisPopulation { get; set; }
-        public EncounterEntity VariableOfInterest { get; set; }
-        public List<InterCurrentEventEntity> InterCurrentEvents { get; set; }
+        public EndpointEntity VariableOfInterest { get; set; }
+        public List<InterCurrentEventEntity> IntercurrentEvents { get; set; }
     }
 }

@@ -31,7 +31,7 @@ namespace TransCelerate.SDR.RuleEngineV1
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
 
-            RuleFor(x => x.InterCurrentEvents)
+            RuleFor(x => x.IntercurrentEvents)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);

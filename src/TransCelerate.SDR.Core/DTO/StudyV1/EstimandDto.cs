@@ -8,7 +8,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV1
         public InvestigationalInterventionDto Treatment { get; set; }
         public string SummaryMeasure { get; set; }
         public AnalysisPopulationDto AnalysisPopulation { get; set; }
-        public EncounterDto VariableOfInterest { get; set; }
-        public List<InterCurrentEventDto> InterCurrentEvents { get; set; }
+        public EndpointDto VariableOfInterest { get; set; }
+        public List<InterCurrentEventDto> IntercurrentEvents { get; set; }
     }
 }

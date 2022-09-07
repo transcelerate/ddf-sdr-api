@@ -11,17 +11,17 @@ namespace TransCelerate.SDR.RuleEngineV1
     {
         public InterCurrentEventsValidator()
         {
-            RuleFor(x => x.InterCurrentEventDesc)
+            RuleFor(x => x.IntercurrentEventDesc)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
 
-            RuleFor(x => x.InterCurrentEventName)
+            RuleFor(x => x.IntercurrentEventName)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
 
-            RuleFor(x => x.Strategy)
+            RuleFor(x => x.IntercurrentEventStrategy)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);           

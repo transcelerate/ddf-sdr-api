@@ -176,7 +176,7 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsTrue(Validator<EncounterDto>(new EncounterValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemEncounter));
             Assert.IsTrue(Validator<EndpointDto>(new EndpointValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyObjectives[0].ObjectiveEndpoints[0]));
             Assert.IsTrue(Validator<IndicationDto>(new IndicationValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyIndications[0]));
-            Assert.IsTrue(Validator<InterCurrentEventDto>(new InterCurrentEventsValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyEstimands[0].InterCurrentEvents[0]));
+            Assert.IsTrue(Validator<InterCurrentEventDto>(new InterCurrentEventsValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyEstimands[0].IntercurrentEvents[0]));
             Assert.IsTrue(Validator<InvestigationalInterventionDto>(new InvestigationalInterventionValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyInvestigationalInterventions[0]));
             Assert.IsTrue(Validator<DefinedProcedureDto>(new ProcedureValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.DefinedProcedures[0]));
             Assert.IsTrue(Validator<StudyArmDto>(new StudyArmValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyArm));
@@ -192,7 +192,7 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsTrue(Validator<ObjectiveDto>(new StudyObjectiveValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyObjectives[0]));
             Assert.IsTrue(Validator<StudyProtocolVersionDto>(new StudyProtocolVersionsValidator(), studyDto.ClinicalStudy.StudyProtocolVersions[0]));
             Assert.IsTrue(Validator<StudyDto>(new StudyValidator(), studyDto));
-            Assert.IsTrue(Validator<TransitionRuleDto>(new TransitionRuleValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemEncounter.StartRule));
+            Assert.IsTrue(Validator<TransitionRuleDto>(new TransitionRuleValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemEncounter.TransitionStartRule));
             Assert.IsTrue(Validator<WorkflowDto>(new WorkflowValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0]));
             Assert.IsTrue(Validator<WorkflowItemDto>(new WorkflowItemValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0]));
         }
