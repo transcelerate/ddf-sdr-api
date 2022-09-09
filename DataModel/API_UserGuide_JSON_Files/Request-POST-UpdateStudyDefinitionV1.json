@@ -228,8 +228,8 @@
             },
             "studyEpoch": {
               "uuid": "706c30b3-f95f-48fe-bdd1-65abbcaa826a",
-              "nextEpochId": "c0d6b66e-0831-4f7d-94a2-1e12b6b58500",
-              "previousEpochId": "c0d6b66e-0831-4f7d-94a2-1e12b6b58501",
+              "nextStudyEpochId": "c0d6b66e-0831-4f7d-94a2-1e12b6b58500",
+              "previousStudyEpochId": "c0d6b66e-0831-4f7d-94a2-1e12b6b58501",
               "studyEpochDesc": "The run in",
               "studyEpochName": "Run In",
               "studyEpochType": [
@@ -305,7 +305,7 @@
         ],
         "studyWorkflows": [
           {
-            "workflowId": "280fd097-f577-4425-a256-70b1bdfeb23d",
+            "uuid": "280fd097-f577-4425-a256-70b1bdfeb23d",
             "workflowDesc": "SampleDesc",
             "workflowItems": [
               {
