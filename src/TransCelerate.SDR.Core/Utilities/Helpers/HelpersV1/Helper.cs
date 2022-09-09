@@ -285,7 +285,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             {
                 workflows.ForEach(x =>
                 {
-                    x.WorkflowId = IdGenerator.GenerateId();
+                    x.Uuid = IdGenerator.GenerateId();
 
                     if (x.WorkflowItems is not null && x.WorkflowItems.Any())
                     {
@@ -635,7 +635,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             {
                 workflows.ForEach(x =>
                 {
-                    x.WorkflowId = null;
+                    x.Uuid = null;
 
                     if (x.WorkflowItems is not null && x.WorkflowItems.Any())
                     {
@@ -1392,11 +1392,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                 List<WorkflowEntity> workflows = new List<WorkflowEntity>();
                 incomingWorkflows.ForEach(x =>
                 {
-                    if (existingWorkflows.Any(y => y.WorkflowId == x.WorkflowId))
+                    if (existingWorkflows.Any(y => y.Uuid == x.Uuid))
                     {
-                        x.WorkflowItems = CheckForStudyWorkflowItemsSection(x.WorkflowItems, existingWorkflows.Find(y => y.WorkflowId == x.WorkflowId).WorkflowItems);
+                        x.WorkflowItems = CheckForStudyWorkflowItemsSection(x.WorkflowItems, existingWorkflows.Find(y => y.Uuid == x.Uuid).WorkflowItems);
                         workflows.Add(x);
-                        existingWorkflows.RemoveAll(y => y.WorkflowId == x.WorkflowId);
+                        existingWorkflows.RemoveAll(y => y.Uuid == x.Uuid);
                     }
                     else
                     {
