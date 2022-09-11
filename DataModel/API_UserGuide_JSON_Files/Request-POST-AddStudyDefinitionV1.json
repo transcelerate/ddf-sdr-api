@@ -167,7 +167,7 @@
         "studyPopulations": [
           {
             "uuid": "",
-            "population_desc": "Population 1"
+            "populationDesc": "Population 1"
           }
         ],
         "studyCells": [
@@ -211,6 +211,50 @@
                   "codeSystemVersion": "2022-03-25",
                   "decode": "Run-in Period"
                 }
+              ],
+              "encounters": [
+                {
+                  "uuid": "",
+                  "encounterContactMode": [
+                    {
+                      "uuid": "",
+                      "code": "C1755745",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "2022-03-25",
+                      "decode": "In Person"
+                    }
+                  ],
+                  "encounterDesc": "desc",
+                  "encounterEnvironmentalSetting": [
+                    {
+                      "uuid": "",
+                      "code": "C51282",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "2022-03-25",
+                      "decode": "Clinic"
+                    }
+                  ],
+                  "encounterName": "Encounter 1",
+                  "encounterType": [
+                    {
+                      "uuid": "",
+                      "code": "C7652x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "SITE VISIT"
+                    }
+                  ],
+                  "transitionStartRule": {
+                    "uuid": "",
+                    "transitionRuleDesc": "Start Rule"
+                  },
+                  "transitionEndRule": {
+                    "uuid": "",
+                    "transitionRuleDesc": "End Rule"
+                  },
+                  "nextEncounterId": "c0d6b66e-0831-4f7d-94a2-1e12b6b58500",
+                  "previousEncounterId": "c0d6b66e-0831-4f7d-94a2-1e12b6b58501"
+                }
               ]
             },
             "studyElements": [
@@ -232,7 +276,7 @@
         ],
         "studyWorkflows": [
           {
-            "workflowId": "",
+            "uuid": "",
             "workflowDesc": "SampleDesc",
             "workflowItems": [
               {
@@ -299,19 +343,19 @@
                       "decode": "SITE VISIT"
                     }
                   ],
-                  "startRule": {
+                  "transitionStartRule": {
                     "uuid": "",
                     "transitionRuleDesc": "Start Rule"
                   },
-                  "endRule": {
+                  "transitionEndRule": {
                     "uuid": "",
                     "transitionRuleDesc": "End Rule"
                   },
                   "nextEncounterId": "c0d6b66e-0831-4f7d-94a2-1e12b6b58500",
                   "previousEncounterId": "c0d6b66e-0831-4f7d-94a2-1e12b6b58501"
                 },
-                "nextWorkflowItemId": "c0d6b66e-0831-4f7d-94a2-1e12b6b58500",
-                "previousWorkflowItemId": "c0d6b66e-0831-4f7d-94a2-1e12b6b58501"
+                "nextWorkflowItemId": "",
+                "previousWorkflowItemId": ""
               }
             ]
           }
@@ -335,64 +379,28 @@
             "summaryMeasure": "TEST",
             "analysisPopulation": {
               "uuid": "",
-              "population_desc": "Population 1"
+              "populationDesc": "Population 1"
             },
             "variableOfInterest": {
               "uuid": "",
-              "encounterContactMode": [
+              "endpointDesc": "Endpoint 1",
+              "endpointPurposeDesc": "level description",
+              "endpointLevel": [
                 {
                   "uuid": "",
-                  "code": "C175574",
-                  "codeSystem": "http:www.cdisc.org",
-                  "codeSystemVersion": "2022-03-25",
-                  "decode": "In Person"
-                }
-              ],
-              "encounterDesc": "desc",
-              "encounterEnvironmentalSetting": [
-                {
-                  "uuid": "",
-                  "code": "C51282",
-                  "codeSystem": "http:www.cdisc.org",
-                  "codeSystemVersion": "2022-03-25",
-                  "decode": "Clinic"
-                }
-              ],
-              "encounterName": "Encounter 1",
-              "encounterType": [
-                {
-                  "uuid": "",
-                  "code": "C7652x",
+                  "code": "C9834x",
                   "codeSystem": "http:www.cdisc.org",
                   "codeSystemVersion": "1",
-                  "decode": "SITE VISIT"
+                  "decode": "PURPOSE"
                 }
-              ],
-              "startRule": {
-                "uuid": "",
-                "transitionRuleDesc": "Start Rule"
-              },
-              "endRule": {
-                "uuid": "",
-                "transitionRuleDesc": "End Rule"
-              },
-              "nextEncounterId": "c0d6b66e-0831-4f7d-94a2-1e12b6b58500",
-              "previousEncounterId": "c0d6b66e-0831-4f7d-94a2-1e12b6b58501"
+              ]
             },
-            "interCurrentEvents": [
+            "intercurrentEvents": [
               {
                 "uuid": "",
-                "interCurrentEventDesc": "Event 1 Desc",
-                "interCurrentEventName": "Event 1 Name",
-                "strategy": [
-                  {
-                    "uuid": "",
-                    "code": "Cxxxx",
-                    "codeSystem": "http:www.cdisc.org",
-                    "codeSystemVersion": "2022-03-25",
-                    "decode": "Sample Strategy"
-                  }
-                ]
+                "intercurrentEventDesc": "Event 1 Desc",
+                "intercurrentEventName": "Event 1 Name",
+                "intercurrentEventStrategy": "Strategy"
               }
             ]
           }
