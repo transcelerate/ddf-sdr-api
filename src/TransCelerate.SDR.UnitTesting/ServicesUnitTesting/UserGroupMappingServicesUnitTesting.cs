@@ -348,7 +348,14 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             //Assert          
             Assert.IsNotNull(actual_result1);
-            Assert.IsNotNull(actual_result1.groupId);            
+            Assert.IsNotNull(actual_result1.groupId);
+
+            //Exception
+            _mockUserGroupMappingRepository.Setup(x => x.GetGroupList())
+                .Throws(new Exception());
+
+            var error = userGroupMappingService1.PostGroup(postDataDto, user);
+            Assert.Throws<AggregateException>(error.Wait);
         }
 
         [Test]
@@ -357,13 +364,15 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             List<GroupsTaggedToUser> groupList = new List<GroupsTaggedToUser>();
             GroupsTaggedToUser groupsTaggedToUser = new GroupsTaggedToUser
             {
-                groupId = "0193a357-8519-4488-90e4-522f701658b9",groupName = "OncologyRead", isActive=true
+                groupId = "0193a357-8519-4488-90e4-522f701658b9",
+                groupName = "OncologyRead", isActive=true
             };
             GroupsTaggedToUser groupsTaggedToUser2 = new GroupsTaggedToUser
             {
                 groupId = "c50ccb41-db9b-4b97-b132-cbbfaa68af5a",
                 groupName = "AmnesiaReadWrite", isActive=true
-            };GroupsTaggedToUser groupsTaggedToUser3 = new GroupsTaggedToUser
+            };
+            GroupsTaggedToUser groupsTaggedToUser3 = new GroupsTaggedToUser
             {
                 groupId = "83864612-ffbd-463f-90ce-3e8819c5d132",
                 groupName = "AmnesiaReadWrite", isActive=true
@@ -390,8 +399,40 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 JsonConvert.SerializeObject(result));
 
             //Assert          
-            Assert.IsNotNull(actual_result);            
+            Assert.IsNotNull(actual_result);    
+            
+            var dataFromDatabase= GetDataFromStaticJson();
+            dataFromDatabase.SDRGroups.ForEach(x =>
+            {
+                if (x.groupId == "b9f848b8-9af7-46c1-9a3c-2663f547cc7a")
+                    x.users = null;
+            });
+            GroupsTaggedToUser groupsTaggedToUser4 = new GroupsTaggedToUser
+            {
+                groupId = "b9f848b8-9af7-46c1-9a3c-2663f547cc7a",
+                groupName = "OncologyRead",
+                isActive = true
+            };
+            groupList.Add(groupsTaggedToUser4);
+            postUserToGroupsDTO.groups=groupList;
+
+            _mockUserGroupMappingRepository.Setup(x => x.GetAllUserGroups())
+                    .Returns(Task.FromResult(dataFromDatabase));
+
+            method = userGroupMappingService.PostUserToGroups(postUserToGroupsDTO, user);
+            method.Wait();
+            result = method.Result;
+
+            //Exception
+            _mockUserGroupMappingRepository.Setup(x => x.GetAllUserGroups())
+                                    .Throws(new Exception());
+
+            var error = userGroupMappingService.PostUserToGroups(postUserToGroupsDTO, user);
+            Assert.Throws<AggregateException>(error.Wait);
+
         }
+
+
         #endregion
 
         #endregion
