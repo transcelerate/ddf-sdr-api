@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TransCelerate.SDR.Core.DTO.StudyV1;
 using TransCelerate.SDR.Core.Entities.StudyV1;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
@@ -202,6 +203,23 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         /// <param name="user"></param>
         /// <returns></returns>
         AuditTrailEntity GetAuditTrail(string user);
+
+        #region Partial Study Elements
+        /// <summary>
+        /// Check whether the the input list of elements are valid or not
+        /// </summary>
+        /// <param name="listofelements"></param>
+        /// <returns></returns>
+        bool AreValidStudyElements(string listofelements);
+
+        /// <summary>
+        /// Remove the study elemets which are not requested
+        /// </summary>
+        /// <param name="sections"></param>
+        /// <param name="studyDTO"></param>
+        /// <returns></returns>
+        object RemoveStudyElements(string[] sections, StudyDto studyDTO);
+        #endregion
         #region Check whole study
         /// <summary>
         /// Compare Full Study

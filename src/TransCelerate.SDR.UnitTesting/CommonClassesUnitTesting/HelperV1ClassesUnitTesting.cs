@@ -138,6 +138,29 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsNotNull(DataFilters.GetFiltersForGetAudTrail("sd",DateTime.Now.AddDays(-1),DateTime.Now.AddDays(1)));
 
             Assert.IsNotNull(DataFilters.GetFiltersForStudyHistory(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1),"sd"));
+
+            Assert.IsNotNull(DataFilters.GetProjectionForPartialStudyElements(Constants.ClinicalStudyElements.Select(x=>x.ToLower()).ToArray()));
+        }
+        #endregion
+
+        #region Partial Study Elements
+        [Test]
+        public void AreValidStudyElementsUnitTesting()
+        {
+            Helper helper = new Helper();
+            var listofelements = string.Join(",", Constants.ClinicalStudyElements);
+            Assert.IsTrue(helper.AreValidStudyElements(listofelements));
+            Assert.IsFalse(helper.AreValidStudyElements("a,b"));
+        }
+        [Test]
+        public void RemoveStudyElementsUnitTesting()
+        {
+            Helper helper = new Helper();
+            var stringArray = Constants.ClinicalStudyElements.Where(x => x.StartsWith("s")).ToArray();
+
+            Assert.IsNotNull(helper.RemoveStudyElements(stringArray, GetDtoDataFromStaticJson()));
+            stringArray = Constants.ClinicalStudyElements.Where(x => !x.StartsWith("s")).ToArray();
+            Assert.IsNotNull(helper.RemoveStudyElements(stringArray, GetDtoDataFromStaticJson()));
         }
         #endregion
         #region Validation Classes

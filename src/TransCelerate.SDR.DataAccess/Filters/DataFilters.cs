@@ -134,5 +134,38 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             return filter;
         }
+
+        /// <summary>
+        /// Get projectio definition for partial study elements
+        /// </summary>
+        /// <param name="listofelementsArray">list of study elements</param>
+        /// <returns></returns>
+        public static ProjectionDefinition<StudyEntity> GetProjectionForPartialStudyElements(string[] listofelementsArray)
+        {
+            ProjectionDefinitionBuilder<StudyEntity> projection = Builders<StudyEntity>.Projection;
+            ProjectionDefinition<StudyEntity> projector = projection.Include(x => x.ClinicalStudy.Uuid);
+            projector = projector.Include(x => x.ClinicalStudy.StudyType);
+            projector = projector.Exclude(x => x._id);
+
+            listofelementsArray.ToList().ForEach(elements =>
+            {
+                if (elements is not null)
+                {
+                    if (elements.ToLower().Equals(nameof(ClinicalStudyEntity.StudyTitle).ToLower()))
+                        projector = projector.Include(x => x.ClinicalStudy.StudyTitle);
+                    else if (elements.ToLower().Equals(nameof(ClinicalStudyEntity.StudyPhase).ToLower()))
+                        projector = projector.Include(x => x.ClinicalStudy.StudyPhase);
+                    else if (elements.ToLower().Equals(nameof(ClinicalStudyEntity.StudyVersion).ToLower()))
+                        projector = projector.Include(x => x.ClinicalStudy.StudyVersion);
+                    else if (elements.ToLower().Equals(nameof(ClinicalStudyEntity.StudyProtocolVersions).ToLower()))
+                        projector = projector.Include(x => x.ClinicalStudy.StudyProtocolVersions);
+                    else if (elements.ToLower().Equals(nameof(ClinicalStudyEntity.StudyIdentifiers).ToLower()))
+                        projector = projector.Include(x => x.ClinicalStudy.StudyIdentifiers);
+                    else if (elements.ToLower().Equals(nameof(ClinicalStudyEntity.StudyDesigns).ToLower()))
+                        projector = projector.Include(x => x.ClinicalStudy.StudyDesigns);
+                }
+            });
+            return projector;
+        }
     }
 }
