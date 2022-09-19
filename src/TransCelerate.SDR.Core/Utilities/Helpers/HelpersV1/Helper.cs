@@ -1,10 +1,13 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TransCelerate.SDR.Core.DTO.StudyV1;
 using TransCelerate.SDR.Core.Entities.StudyV1;
+using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
 {
@@ -26,6 +29,85 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                 CreatedBy = user,
             };
         }
+
+        public JsonSerializerSettings GetSerializerSettingsForCamelCasing()
+        {
+            return new JsonSerializerSettings
+            {
+                ContractResolver = new DefaultContractResolver()
+                {
+                    NamingStrategy = new CamelCaseNamingStrategy()
+                },
+                Formatting = Formatting.Indented
+
+            };
+        }
+
+        #region Partial StudyElements
+        /// <summary>
+        /// Check whether the the input list of elements are valid or not
+        /// </summary>
+        /// <param name="listofelements"></param>
+        /// <returns></returns>
+        public bool AreValidStudyElements(string listofelements)
+        {
+            bool isValid = true;
+            if (listofelements is not null)
+            {
+                string[] listofElementsArray = listofelements?.Split(Constants.Roles.Seperator);
+
+                if (listofElementsArray is not null)
+                {
+                    foreach (string element in listofElementsArray)
+                    {
+                        if (!Constants.ClinicalStudyElements.Select(x=>x.ToLower()).Contains(element.ToLower()))
+                        {
+                            isValid = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            return isValid;
+        }
+
+        /// <summary>
+        /// Remove the study elemets which are not requested
+        /// </summary>
+        /// <param name="sections"></param>
+        /// <param name="studyDTO"></param>
+        /// <returns></returns>
+        public object RemoveStudyElements(string[] sections, StudyDto studyDTO)
+        {
+            var serializer = GetSerializerSettingsForCamelCasing();
+            var jsonObject = JObject.Parse(JsonConvert.SerializeObject(studyDTO, serializer));
+            jsonObject.Property((nameof(StudyEntity.AuditTrail).Substring(0, 1).ToLower() + (nameof(StudyEntity.AuditTrail).Substring(1)))).Remove();
+            foreach (var item in Constants.ClinicalStudyElements.Select(x => x.ToLower()))
+            {
+                sections = sections.Select(t => t.Trim().ToLower()).ToArray();
+                if (!sections.Contains(item))
+                {
+                    if (item == nameof(ClinicalStudyDto.StudyTitle).ToLower())
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(ClinicalStudyDto.StudyTitle).Substring(0, 1).ToLower() + (nameof(ClinicalStudyDto.StudyTitle).Substring(1)))).ToList().ForEach(x => x.Remove());
+                    else if (item == nameof(ClinicalStudyDto.StudyPhase).ToLower())
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(ClinicalStudyDto.StudyPhase).Substring(0, 1).ToLower() + (nameof(ClinicalStudyDto.StudyPhase).Substring(1)))).ToList().ForEach(x => x.Remove());
+                    else if (item == nameof(ClinicalStudyDto.StudyType).ToLower())
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(ClinicalStudyDto.StudyType).Substring(0, 1).ToLower() + (nameof(ClinicalStudyDto.StudyType).Substring(1)))).ToList().ForEach(x => x.Remove());
+                    else if (item == nameof(ClinicalStudyDto.StudyIdentifiers).ToLower())
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(ClinicalStudyDto.StudyIdentifiers).Substring(0, 1).ToLower() + (nameof(ClinicalStudyDto.StudyIdentifiers).Substring(1)))).ToList().ForEach(x => x.Remove());
+                    else if (item == nameof(ClinicalStudyDto.StudyDesigns).ToLower())
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(ClinicalStudyDto.StudyDesigns).Substring(0, 1).ToLower() + (nameof(ClinicalStudyDto.StudyDesigns).Substring(1)))).ToList().ForEach(x => x.Remove());
+                    else if (item == nameof(ClinicalStudyDto.StudyProtocolVersions).ToLower())
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(ClinicalStudyDto.StudyProtocolVersions).Substring(0, 1).ToLower() + (nameof(ClinicalStudyDto.StudyProtocolVersions).Substring(1)))).ToList().ForEach(x => x.Remove());
+                    else if (item == nameof(ClinicalStudyDto.StudyVersion).ToLower())
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(ClinicalStudyDto.StudyVersion).Substring(0, 1).ToLower() + (nameof(ClinicalStudyDto.StudyVersion).Substring(1)))).ToList().ForEach(x => x.Remove());
+                }
+            }
+
+            return jsonObject;
+        }
+
+        #endregion
 
         #region Generate Id for each sections
         /// <summary>
