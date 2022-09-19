@@ -15,6 +15,7 @@ using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
+using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1;
 
 namespace TransCelerate.SDR.WebApi.Controllers
 {
@@ -25,13 +26,15 @@ namespace TransCelerate.SDR.WebApi.Controllers
         #region Variables        
         private readonly ILogHelper _logger;        
         private readonly IClinicalStudyServiceV1 _clinicalStudyService;
+        private readonly IHelper _helper;
         #endregion
 
         #region Constructor
-        public ClinicalStudyV1Controller(IClinicalStudyServiceV1 clinicalStudyService, ILogHelper logger)
+        public ClinicalStudyV1Controller(IClinicalStudyServiceV1 clinicalStudyService, ILogHelper logger, IHelper helper)
         {            
             _logger = logger;            
             _clinicalStudyService = clinicalStudyService;
+            _helper = helper;
         }
         #endregion
 
@@ -42,7 +45,8 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// GET All Elements For a Study
         /// </summary>
         /// <param name="studyId">Study ID</param>
-        /// <param name="sdruploadversion">Version of study</param>
+        /// <param name="sdruploadversion">Version of study</param> 
+        /// <param name="listofelements">List of elements with comma separated values</param>
         /// <response code="200">Returns Study</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>
@@ -52,20 +56,25 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetStudy(string studyId, int sdruploadversion)
+        public async Task<IActionResult> GetStudy(string studyId, int sdruploadversion, string listofelements)
         {
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudy)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
-                    _logger.LogInformation($"Inputs : studyId = {studyId}; sdruploadversion = {sdruploadversion}");
+                    _logger.LogInformation($"Inputs : studyId = {studyId}; sdruploadversion = {sdruploadversion}; listofelements: {listofelements}");
+                    string[] listofelementsArray = listofelements?.Split(Constants.Roles.Seperator);
+                    if (!_helper.AreValidStudyElements(listofelements))
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyElementNotValid)).Value);
+                    
                     LoggedInUser user = new LoggedInUser
                     {
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
-                    var study = await _clinicalStudyService.GetStudy(studyId, sdruploadversion, user).ConfigureAwait(false);
+                    var study = listofelementsArray == null ? await _clinicalStudyService.GetStudy(studyId, sdruploadversion, user).ConfigureAwait(false)
+                                                            : await _clinicalStudyService.GetPartialStudyElements(studyId, sdruploadversion, user, listofelementsArray).ConfigureAwait(false);
 
                     if (study == null)
                     {

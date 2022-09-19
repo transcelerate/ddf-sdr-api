@@ -1,4 +1,6 @@
-﻿namespace TransCelerate.SDR.Core.Utilities.Common
+﻿using TransCelerate.SDR.Core.DTO.StudyV1;
+
+namespace TransCelerate.SDR.Core.Utilities.Common
 {
     /// <summary>
     /// This class holds all the constant strings used in the application
@@ -112,6 +114,8 @@
 
             public const string SectionNotValid = "Kindly provide a valid section";
 
+            public const string StudyElementNotValid = "Kindly provide a valid study element";
+
             public const string NotValidStudyId = "The provided studyId is not valid";
 
             public const string GroupsNotFound = "There are no user groups available";
@@ -147,5 +151,15 @@
             public const string Scope = "scope";
             public const string Client_Secret = "client_secret";
         }
+
+        public static readonly string[] ClinicalStudyElements = {            
+            nameof(ClinicalStudyDto.StudyTitle),
+            nameof(ClinicalStudyDto.StudyIdentifiers),
+            nameof(ClinicalStudyDto.StudyProtocolVersions),
+            nameof(ClinicalStudyDto.StudyVersion),
+            nameof(ClinicalStudyDto.StudyPhase),
+            nameof(ClinicalStudyDto.StudyType),
+            nameof(ClinicalStudyDto.StudyDesigns),
+        };
     }
 }
