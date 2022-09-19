@@ -147,10 +147,13 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             _mockUserGroupMappingRepository.Setup(x => x.GetGroups(userGroupsQueryParameters))
                     .Throws(new Exception("Error"));
             var error  = userGroupMappingService.GetUserGroups(userGroupsQueryParameters);
-
-            
+    
             Assert.Throws<AggregateException>(error.Wait);
+
+
         }
+
+        
         #endregion
 
         #region GetUsersList UnitTesting
@@ -161,8 +164,8 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             {
                 sortBy = "name",
                 sortOrder = "desc",
-                pageNumber = 1,
-                pageSize = 20
+                pageNumber = 0,
+                pageSize = 0
             };
             _mockUserGroupMappingRepository.Setup(x => x.GetAllUserGroups())
                     .Returns(Task.FromResult(GetDataFromStaticJson()));
@@ -184,7 +187,19 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             Assert.IsTrue(expected.SDRGroups.Select(x=>x.users).Any(x=>x.Any(x=>x.email== actual_result[2].email)));
             Assert.IsTrue(expected.SDRGroups.Select(x=>x.users).Any(x=>x.Any(x=>x.email== actual_result[3].email)));
             Assert.IsTrue(expected.SDRGroups.Any(x=>x.groupName==actual_result[0].groups[0].groupName));
-           
+
+            var nullObject = GetDataFromStaticJson();
+            nullObject = null;
+            _mockUserGroupMappingRepository.Setup(x => x.GetAllUserGroups())
+                   .Returns(Task.FromResult(nullObject));
+
+            method = userGroupMappingService.GetUsersList(userGroupsQueryParameters);
+
+            method.Wait();
+            result = method.Result;
+
+
+
         }
 
         [Test]
@@ -356,7 +371,19 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             var error = userGroupMappingService1.PostGroup(postDataDto, user);
             Assert.Throws<AggregateException>(error.Wait);
+
+
+            List<GroupListEntity> nullObject = null;
+            _mockUserGroupMappingRepository.Setup(x => x.GetGroupList())
+                   .Returns(Task.FromResult(nullObject));
+            _mockUserGroupMappingRepository.Setup(x => x.AddAGroup(It.IsAny<SDRGroupsEntity>()))
+                   .Returns(Task.FromResult(postDataEntity));
+            method = userGroupMappingService1.PostGroup(postDataDto, user);
+            method.Wait();
+            result = method.Result;
         }
+
+
 
         [Test]
         public void PostUsersToGroups_UnitTest_SuccessResponse()
