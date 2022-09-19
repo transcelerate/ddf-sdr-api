@@ -84,6 +84,50 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         }
 
         /// <summary>
+        /// GET a Study for a study ID with version filter
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="sdruploadversion">Version of study</param>
+        /// <param name="listofelementsArray">Array of study elements</param>
+        /// <returns>
+        /// A <see cref="StudyEntity"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        public async Task<StudyEntity> GetPartialStudyItemsAsync(string studyId, int sdruploadversion, string[] listofelementsArray)
+        {
+            _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(GetPartialStudyItemsAsync)};");
+            try
+            {
+                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
+
+
+                StudyEntity study = await collection.Find(DataFilters.GetFiltersForGetStudy(studyId, sdruploadversion))
+                                                     .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
+                                                     .Limit(1)                  //Taking top 1 result
+                                                     .Project<StudyEntity>(DataFilters.GetProjectionForPartialStudyElements(listofelementsArray))
+                                                     .SingleOrDefaultAsync().ConfigureAwait(false);
+
+                if (study == null)
+                {
+                    _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.Study} Collection");
+                    return null;
+                }
+                else
+                {
+                    return study;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(GetPartialStudyItemsAsync)};");
+            }
+        }
+
+        /// <summary>
         /// GET List of study for a study ID
         /// </summary>
         /// <param name="fromDate">Start Date for Date Filter</param>

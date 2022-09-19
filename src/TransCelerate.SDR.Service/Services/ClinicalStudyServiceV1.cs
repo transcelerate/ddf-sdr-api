@@ -79,6 +79,49 @@ namespace TransCelerate.SDR.Services.Services
         }
 
         /// <summary>
+        /// GET Partial Elements For a Study
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="sdruploadversion">Version of study</param>
+        /// <param name="listofelements">List of elements with comma separated values</param>
+        /// <param name="user">Logged In User</param>
+        /// <returns>
+        /// A <see cref="object"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        public async Task<object> GetPartialStudyElements(string studyId, int sdruploadversion, LoggedInUser user,string[] listofelements)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(GetPartialStudyElements)};");
+                studyId = studyId.Trim();
+
+                StudyEntity study = await _clinicalStudyRepository.GetPartialStudyItemsAsync(studyId, sdruploadversion, listofelements).ConfigureAwait(false);
+
+                if (study == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    StudyEntity checkStudy = await CheckAccessForAStudy(study, user);
+                    if (checkStudy == null)
+                        return Constants.ErrorMessages.Forbidden;
+                    var studyDTO = _mapper.Map<StudyDto>(study);  //Mapping Entity to Dto 
+                    return _helper.RemoveStudyElements(listofelements, studyDTO);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(GetPartialStudyElements)};");
+            }
+        }
+
+        /// <summary>
         /// GET Study Designs of a Study
         /// </summary>
         /// <param name="studyId">Study ID</param>

@@ -24,6 +24,19 @@ namespace TransCelerate.SDR.Services.Interfaces
         Task<object> GetStudy(string studyId, int sdruploadversion, LoggedInUser user);
 
         /// <summary>
+        /// GET Partial Elements For a Study
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="sdruploadversion">Version of study</param>
+        /// <param name="listofelements">List of elements with comma separated values</param>
+        /// <param name="user">Logged In User</param>
+        /// <returns>
+        /// A <see cref="object"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        Task<object> GetPartialStudyElements(string studyId, int sdruploadversion, LoggedInUser user, string[] listofelements);
+
+        /// <summary>
         /// GET Study Designs of a Study
         /// </summary>
         /// <param name="studyId">Study ID</param>
