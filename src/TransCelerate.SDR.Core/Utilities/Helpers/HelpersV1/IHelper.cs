@@ -213,12 +213,26 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         bool AreValidStudyElements(string listofelements);
 
         /// <summary>
+        /// Check whether the the input list of study design elements are valid or not
+        /// </summary>
+        /// <param name="listofelements"></param>
+        /// <returns></returns>
+        bool AreValidStudyDesignElements(string listofelements);
+        /// <summary>
         /// Remove the study elemets which are not requested
         /// </summary>
         /// <param name="sections"></param>
         /// <param name="studyDTO"></param>
         /// <returns></returns>
         object RemoveStudyElements(string[] sections, StudyDto studyDTO);
+        /// <summary>
+        /// Remove studyDesign elements which are not requested
+        /// </summary>
+        /// <param name="sections"></param>
+        /// <param name="studyDTO"></param>
+        /// <param name="study_uuid"></param>
+        /// <returns></returns>
+        object RemoveStudyDesignElements(string[] sections, List<StudyDesignDto> studyDTO, string study_uuid);
         #endregion
         #region Check whole study
         /// <summary>

@@ -128,6 +128,45 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         }
 
         /// <summary>
+        /// GET Study Designs for a Study Id
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="sdruploadversion">Version of study</param>
+        /// <returns></returns>
+        public async Task<StudyEntity> GetPartialStudyDesignItemsAsync(string studyId, int sdruploadversion)
+        {
+            _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(GetPartialStudyDesignItemsAsync)};");
+            try
+            {
+                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
+
+
+                StudyEntity study = await collection.Find(DataFilters.GetFiltersForGetStudy(studyId, sdruploadversion))
+                                                     .Project<StudyEntity>(DataFilters.GetProjectionForPartialStudyDesignElementsFullStudy())
+                                                     .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
+                                                     .Limit(1)                  //Taking top 1 result                                                     
+                                                     .FirstOrDefaultAsync().ConfigureAwait(false);
+
+                if (study == null)
+                {
+                    _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.Study} Collection");
+                    return null;
+                }
+                else
+                {
+                    return study;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(GetPartialStudyDesignItemsAsync)};");
+            }
+        }
+        /// <summary>
         /// GET List of study for a study ID
         /// </summary>
         /// <param name="fromDate">Start Date for Date Filter</param>

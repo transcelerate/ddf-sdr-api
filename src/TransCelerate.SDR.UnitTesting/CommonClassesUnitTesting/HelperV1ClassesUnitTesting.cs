@@ -153,6 +153,14 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsFalse(helper.AreValidStudyElements("a,b"));
         }
         [Test]
+        public void AreValidStudyDesignElementsUnitTesting()
+        {
+            Helper helper = new Helper();
+            var listofelements = string.Join(",", Constants.StudyDesignElements);
+            Assert.IsTrue(helper.AreValidStudyDesignElements(listofelements));
+            Assert.IsFalse(helper.AreValidStudyDesignElements("a,b"));
+        }
+        [Test]
         public void RemoveStudyElementsUnitTesting()
         {
             Helper helper = new Helper();
@@ -161,6 +169,16 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsNotNull(helper.RemoveStudyElements(stringArray, GetDtoDataFromStaticJson()));
             stringArray = Constants.ClinicalStudyElements.Where(x => !x.StartsWith("s")).ToArray();
             Assert.IsNotNull(helper.RemoveStudyElements(stringArray, GetDtoDataFromStaticJson()));
+        }
+        [Test]
+        public void RemoveStudyDesignElementsUnitTesting()
+        {
+            Helper helper = new Helper();
+            var stringArray = Constants.ClinicalStudyElements.Where(x => x.StartsWith("s")).ToArray();
+
+            Assert.IsNotNull(helper.RemoveStudyDesignElements(stringArray, GetDtoDataFromStaticJson().ClinicalStudy.StudyDesigns,"a"));
+            stringArray = Constants.ClinicalStudyElements.Where(x => !x.StartsWith("s")).ToArray();
+            Assert.IsNotNull(helper.RemoveStudyDesignElements(stringArray, GetDtoDataFromStaticJson().ClinicalStudy.StudyDesigns, "a"));
         }
         #endregion
         #region Validation Classes

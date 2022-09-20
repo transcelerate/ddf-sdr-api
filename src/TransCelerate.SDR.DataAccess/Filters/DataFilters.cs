@@ -167,5 +167,20 @@ namespace TransCelerate.SDR.DataAccess.Filters
             });
             return projector;
         }
+
+        /// <summary>
+        /// Get Study Design Projection Definition
+        /// </summary>
+        /// <returns></returns>
+        public static ProjectionDefinition<StudyEntity> GetProjectionForPartialStudyDesignElementsFullStudy()
+        {
+            ProjectionDefinitionBuilder<StudyEntity> projection = Builders<StudyEntity>.Projection;
+            ProjectionDefinition<StudyEntity> projector = projection.Include(x => x.ClinicalStudy.Uuid);
+            projector = projector.Include(x => x.ClinicalStudy.StudyType);
+            projector = projector.Include(x => x.ClinicalStudy.StudyDesigns);
+            projector = projector.Exclude(x => x._id);
+
+            return projector;
+        }
     }
 }
