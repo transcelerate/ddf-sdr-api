@@ -109,7 +109,9 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// GET Study Designs of a Study
         /// </summary>
         /// <param name="study_uuid">Study ID</param>
+        /// <param name="studydesign_uuid">Study Design ID</param>
         /// <param name="sdruploadversion">Version of study</param>
+        /// <param name="listofelements">List of study design elements with comma separated values</param>
         /// <response code="200">Returns Study</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>
@@ -119,20 +121,24 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetStudyDesigns(string study_uuid, int sdruploadversion)
+        public async Task<IActionResult> GetStudyDesigns(string study_uuid, int sdruploadversion,string studydesign_uuid,string listofelements)
         {
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudyDesigns)};");
                 if (!String.IsNullOrWhiteSpace(study_uuid))
                 {
-                    _logger.LogInformation($"Inputs : study_uuid = {study_uuid}; sdruploadversion = {sdruploadversion}");
+                    _logger.LogInformation($"Inputs : study_uuid = {study_uuid}; sdruploadversion = {sdruploadversion}; listofelements: {listofelements}; studydesign_uuid: {studydesign_uuid}");
+                    string[] listofelementsArray = listofelements?.Split(Constants.Roles.Seperator);
+                    if (!_helper.AreValidStudyDesignElements(listofelements))
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyDesignElementNotValid)).Value);
+
                     LoggedInUser user = new LoggedInUser
                     {
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
-                    var study = await _clinicalStudyService.GetStudyDesigns(study_uuid, sdruploadversion, user).ConfigureAwait(false);
+                    var study = await _clinicalStudyService.GetStudyDesigns(study_uuid,studydesign_uuid, sdruploadversion, user,listofelementsArray).ConfigureAwait(false);
 
                     if (study == null)
                     {

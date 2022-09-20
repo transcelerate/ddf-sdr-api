@@ -116,6 +116,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string StudyElementNotValid = "Kindly provide a valid study element";
 
+            public const string StudyDesignElementNotValid = "Kindly provide a valid study design element";
+
             public const string NotValidStudyId = "The provided studyId is not valid";
 
             public const string GroupsNotFound = "There are no user groups available";
@@ -160,6 +162,21 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(ClinicalStudyDto.StudyPhase),
             nameof(ClinicalStudyDto.StudyType),
             nameof(ClinicalStudyDto.StudyDesigns),
+        };
+
+        public static readonly string[] StudyDesignElements = {
+            nameof(StudyDesignDto.Uuid),
+            nameof(ClinicalStudyDto.StudyTitle),
+            nameof(StudyDesignDto.TrialType),
+            nameof(StudyDesignDto.StudyInvestigationalInterventions),
+            nameof(StudyDesignDto.TrialIntentType),
+            nameof(StudyDesignDto.InterventionModel),
+            nameof(StudyDesignDto.StudyIndications),
+            nameof(StudyDesignDto.StudyPopulations),
+            nameof(StudyDesignDto.StudyObjectives),
+            nameof(StudyDesignDto.StudyCells),
+            nameof(StudyDesignDto.StudyWorkflows),
+            nameof(StudyDesignDto.StudyEstimands),
         };
     }
 }
