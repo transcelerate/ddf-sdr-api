@@ -45,7 +45,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
 
         #region Partial StudyElements
         /// <summary>
-        /// Check whether the the input list of elements are valid or not
+        /// Check whether the the input list of study elements are valid or not
         /// </summary>
         /// <param name="listofelements"></param>
         /// <returns></returns>
@@ -61,6 +61,32 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                     foreach (string element in listofElementsArray)
                     {
                         if (!Constants.ClinicalStudyElements.Select(x=>x.ToLower()).Contains(element.ToLower()))
+                        {
+                            isValid = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            return isValid;
+        }
+        /// <summary>
+        /// Check whether the the input list of study design elements are valid or not
+        /// </summary>
+        /// <param name="listofelements"></param>
+        /// <returns></returns>
+        public bool AreValidStudyDesignElements(string listofelements)
+        {
+            bool isValid = true;
+            if (listofelements is not null)
+            {
+                string[] listofElementsArray = listofelements?.Split(Constants.Roles.Seperator);
+
+                if (listofElementsArray is not null)
+                {
+                    foreach (string element in listofElementsArray)
+                    {
+                        if (!Constants.StudyDesignElements.Select(x=>x.ToLower()).Contains(element.ToLower()))
                         {
                             isValid = false;
                             break;
@@ -105,6 +131,79 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
 
             return jsonObject;
+        }
+        /// <summary>
+        /// Remove the study design elemets which are not requested
+        /// </summary>
+        /// <param name="sections"></param>
+        /// <param name="studyDesigns"></param>
+        /// <param name="study_uuid"></param>
+        /// <returns></returns>
+        public object RemoveStudyDesignElements(string[] sections, List<StudyDesignDto> studyDesigns, string study_uuid)
+        {
+            try
+            {
+                var serializer = new JsonSerializerSettings
+                {
+                    ContractResolver = new DefaultContractResolver()
+                    {
+                        NamingStrategy = new CamelCaseNamingStrategy()
+                    },
+                    Formatting = Formatting.Indented
+
+                };
+                var studyDesingsJArray = new JArray();
+
+
+                foreach (var studyDesign in studyDesigns)
+                {
+                    var jsonObject = JObject.Parse(JsonConvert.SerializeObject(studyDesign, serializer));
+                    foreach (var item in Constants.StudyDesignElements.Select(x => x.ToLower()))
+                    {
+                        if (sections != null && sections.Any())
+                        {
+                            sections = sections.Select(t => t.Trim().ToLower()).ToArray();
+                            if (!sections.Contains(item))
+                            {
+                                if (item == nameof(StudyDesignDto.InterventionModel).ToLower())
+                                    jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.InterventionModel).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.InterventionModel).Substring(1)))).ToList().ForEach(x => x.Remove());
+                                else if (item == nameof(StudyDesignDto.TrialIntentType).ToLower())
+                                    jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.TrialIntentType).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.TrialIntentType).Substring(1)))).ToList().ForEach(x => x.Remove());
+                                else if (item == nameof(StudyDesignDto.TrialType).ToLower())
+                                    jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.TrialType).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.TrialType).Substring(1)))).ToList().ForEach(x => x.Remove());
+                                else if (item == nameof(StudyDesignDto.StudyInvestigationalInterventions).ToLower())
+                                    jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.StudyInvestigationalInterventions).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.StudyInvestigationalInterventions).Substring(1)))).ToList().ForEach(x => x.Remove());
+                                else if (item == nameof(StudyDesignDto.StudyIndications).ToLower())
+                                    jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.StudyIndications).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.StudyIndications).Substring(1)))).ToList().ForEach(x => x.Remove());
+                                else if (item == nameof(StudyDesignDto.StudyPopulations).ToLower())
+                                    jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.StudyPopulations).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.StudyPopulations).Substring(1)))).ToList().ForEach(x => x.Remove());
+                                else if (item == nameof(StudyDesignDto.StudyObjectives).ToLower())
+                                    jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.StudyObjectives).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.StudyObjectives).Substring(1)))).ToList().ForEach(x => x.Remove());
+                                else if (item == nameof(StudyDesignDto.StudyCells).ToLower())
+                                    jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.StudyCells).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.StudyCells).Substring(1)))).ToList().ForEach(x => x.Remove());
+                                else if (item == nameof(StudyDesignDto.StudyWorkflows).ToLower())
+                                    jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.StudyWorkflows).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.StudyWorkflows).Substring(1)))).ToList().ForEach(x => x.Remove());
+                                else if (item == nameof(StudyDesignDto.StudyEstimands).ToLower())
+                                    jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.StudyEstimands).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.StudyEstimands).Substring(1)))).ToList().ForEach(x => x.Remove());
+                            }
+                        }
+                    }
+                    studyDesingsJArray.Add(jsonObject);
+                }
+
+                JObject studyJobject = new JObject();
+                JObject clinicalStudyJobject = new JObject();
+                clinicalStudyJobject.Add(nameof(ClinicalStudyDto.Uuid).Substring(0, 1).ToLower() + nameof(ClinicalStudyDto.Uuid).Substring(1), study_uuid);
+                clinicalStudyJobject.Add(nameof(ClinicalStudyDto.StudyDesigns).Substring(0, 1).ToLower() + nameof(ClinicalStudyDto.StudyDesigns).Substring(1), studyDesingsJArray);
+
+                studyJobject.Add(nameof(StudyDto.ClinicalStudy).Substring(0, 1).ToLower() + nameof(StudyDto.ClinicalStudy).Substring(1), clinicalStudyJobject);
+
+                return studyJobject;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         #endregion

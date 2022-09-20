@@ -1,0 +1,350 @@
+{
+  "clinicalStudy": {
+    "studyId": "",
+    "studyTitle": "Study On Alzheimer's disease",
+    "studyType": "INTERVENTIONAL",
+    "studyPhase": "PHASE_1_TRIAL",
+    "studyStatus": "Draft",
+    "studyTag": "2.0Draft",
+    "studyIdentifiers": [
+      {
+        "id": "",
+        "orgCode": "2.16.840.1.113883.3.1982",
+        "name": "ClinicalTrials.gov",
+        "idType": "REGISTRY_STUDY"
+      },
+      {
+        "id": "",
+        "orgCode": "2.16.840.1.113883.3.1152",
+        "name": "ClinicalTrials.gov",
+        "idType": "SPONSOR_ID"
+      }
+    ],
+    "studyProtocolReferences": [
+      {
+        "studyProtocolId": "81988ee1-cfd4-4a62-8f8f-d9985d3ca5db",
+        "studyProtocolVersion": "1.0"
+      }
+    ],
+    "currentSections": [
+      {
+        "id": "",
+        "sectionType": "STUDY_INDICATIONS",
+        "studyIndications": [
+          {
+            "id": "",
+            "description": "Alzheimer's disease",
+            "coding": [
+              {
+                "code": "26929004",
+                "codeSystem": "SNOMED-CT",
+                "codeSystemVersion": "4.0.6.4",
+                "decode": "Alzheimer's disease (disorder)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "",
+        "sectionType": "STUDY_DESIGNS",
+        "studyDesigns": [
+          {
+            "studyDesignId": "",
+            "trialIntentType": "TrialIntentType1",
+            "trialType": "TrialType1",
+            "currentSections": [
+              {
+                "id": "",
+                "sectionType": "STUDY_POPULATIONS",
+                "studyPopulations": [
+                  {
+                    "id": "",
+                    "description": "healthy volunteers of age between 18 and 65"
+                  }
+                ]
+              },
+              {
+                "id": "",
+                "sectionType": "PLANNED_WORKFLOWS",
+                "plannedWorkflows": [
+                  {
+                    "id": "",
+                    "description": "Planned Workflow for DeprecatedStudy ACME001",
+                    "startPoint": {
+                      "id": "",
+                      "type": "SCREENING",
+                      "subjectStatusGrouping": "In Screening",
+                      "startDate": "2022-JAN-01",
+                      "endDate": "2022-JAN-31"
+                    },
+                    "endPoint": {
+                      "id": "",
+                      "type": "SCREENING",
+                      "subjectStatusGrouping": "In Screening",
+                      "startDate": "2022-JAN-01",
+                      "endDate": "2022-JAN-31"
+                    },
+                    "workflowItemMatrix": {
+                      "id": "",
+                      "matrix": [
+                        {
+                          "items": [
+                            {
+                              "id": "",
+                              "description": "go to next when subject has systolic blood pressure below 130mmHg",
+                              "fromPointInTime": {
+                                "id": "",
+                                "type": "SCREENING",
+                                "subjectStatusGrouping": "In Screening",
+                                "startDate": "2022-JAN-01",
+                                "endDate": "2022-JAN-31"
+                              },
+                              "toPointInTime": {
+                                "id": "",
+                                "type": "SCREENING",
+                                "subjectStatusGrouping": "In Screening",
+                                "startDate": "2022-JAN-01",
+                                "endDate": "2022-JAN-31"
+                              },
+                              "activity": {
+                                "id": "",
+                                "description": "Some common activity",
+                                "definedProcedures": [
+                                  {
+                                    "procedureCode": "testCode"
+                                  }
+                                ],
+                                "studyDataCollection": [
+                                  {
+                                    "id": "",
+                                    "name": "Systolic Blood Pressure",
+                                    "description": "Measurement of systolic blood pressure in sitting position in either mm or cm Mercury column",
+                                    "eCRFLink": "https://library.cdisc.org/api/mdr/cdashig/2-1/domains/VS"
+                                  }
+                                ]
+                              },
+                              "encounter": {
+                                "id": "",
+                                "name": "test visit",
+                                "description": "visit description",
+                                "contactMode": "IN_PERSON",
+                                "environmentalSetting": "CLINIC",
+                                "startRule": {
+                                  "id": "311f6542-ee97-40d1-8b51-a1885976d2d8",
+                                  "description": "start rule",
+                                  "coding": [
+                                    {
+                                      "code": "xyz",
+                                      "codeSystem": "test system",
+                                      "codeSystemVersion": "1.0",
+                                      "decode": "the decode string"
+                                    }
+                                  ]
+                                },
+                                "endRule": {
+                                  "id": "",
+                                  "description": "end rule",
+                                  "coding": [
+                                    {
+                                      "code": "xyz",
+                                      "codeSystem": "test system",
+                                      "codeSystemVersion": "1.0",
+                                      "decode": "the decode string"
+                                    }
+                                  ]
+                                },
+                                "epoch": {
+                                  "id": "",
+                                  "epochType": "SCREENING",
+                                  "name": "First treatment epoch",
+                                  "description": "First treatment epoch with low dose",
+                                  "sequenceInStudy": 1
+                                }
+                              },
+                              "previousItemsInSequence": [],
+                              "nextItemsInSequence": []
+                            },
+                            {
+                              "id": "",
+                              "description": "go to next when subject has systolic blood pressure below 130mmHg",
+                              "fromPointInTime": {
+                                "id": "",
+                                "type": "SCREENING",
+                                "subjectStatusGrouping": "In Screening",
+                                "startDate": "2022-JAN-01",
+                                "endDate": "2022-JAN-31"
+                              },
+                              "toPointInTime": {
+                                "id": "",
+                                "type": "SCREENING",
+                                "subjectStatusGrouping": "In Screening",
+                                "startDate": "2022-JAN-01",
+                                "endDate": "2022-JAN-31"
+                              },
+                              "activity": {
+                                "id": "",
+                                "description": "Some common activity",
+                                "definedProcedures": [
+                                  {
+                                    "procedureCode": "testCode"
+                                  }
+                                ],
+                                "studyDataCollection": [
+                                  {
+                                    "id": "",
+                                    "name": "Systolic Blood Pressure",
+                                    "description": "Measurement of systolic blood pressure in sitting position in either mm or cm Mercury column",
+                                    "eCRFLink": "https://library.cdisc.org/api/mdr/cdashig/2-1/domains/VS"
+                                  }
+                                ]
+                              },
+                              "encounter": {
+                                "id": "",
+                                "name": "test visit",
+                                "description": "visit description",
+                                "startRule": {
+                                  "id": "",
+                                  "description": "start rule",
+                                  "coding": [
+                                    {
+                                      "code": "xyz",
+                                      "codeSystem": "test system",
+                                      "codeSystemVersion": "1.0",
+                                      "decode": "the decode string"
+                                    }
+                                  ]
+                                },
+                                "endRule": {
+                                  "id": "",
+                                  "description": "end rule",
+                                  "coding": [
+                                    {
+                                      "code": "xyz",
+                                      "codeSystem": "test system",
+                                      "codeSystemVersion": "1.0",
+                                      "decode": "the decode string"
+                                    }
+                                  ]
+                                },
+                                "epoch": {
+                                  "id": "",
+                                  "epochType": "SCREENING",
+                                  "name": "First treatment epoch",
+                                  "description": "First treatment epoch with low dose",
+                                  "sequenceInStudy": 1
+                                },
+                                "contactMode": "IN_PERSON",
+                                "environmentalSetting": "CLINIC"
+                              },
+                              "previousItemsInSequence": [],
+                              "nextItemsInSequence": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "",
+                "sectionType": "STUDY_CELLS",
+                "studyCells": [
+                  {
+                    "id": "",
+                    "studyElements": [
+                      {
+                        "id": "",
+                        "name": "washout after treatment element",
+                        "description": "This element is for washout after treatment with either active ingredient or placebo",
+                        "startRule": {
+                          "id": "",
+                          "description": "Textual description of the rule",
+                          "coding": [
+                            {
+                              "code": "test transition rule in Python",
+                              "codeSystem": "Python",
+                              "codeSystemVersion": "1.0",
+                              "decode": "decode"
+                            }
+                          ]
+                        },
+                        "endRule": {
+                          "id": "",
+                          "description": "Textual description of the rule",
+                          "coding": [
+                            {
+                              "code": "test transition rule in Perl",
+                              "codeSystem": "Perl",
+                              "codeSystemVersion": "1.0",
+                              "decode": "decode"
+                            }
+                          ]
+                        }
+                      }
+                    ],
+                    "studyArm": {
+                      "id": "",
+                      "description": "200mg Ibuprofen active comparator arm",
+                      "studyArmType": "ACTIVE_COMPARATOR_ARM",
+                      "studyOriginType": "INTERNAL",
+                      "studyArmOrigin": "HISTORICAL",
+                      "name": "My Comparator Arm"
+                    },
+                    "studyEpoch": {
+                      "id": "",
+                      "epochType": "SCREENING",
+                      "name": "First treatment epoch",
+                      "description": "First treatment epoch with low dose",
+                      "sequenceInStudy": 2
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "",
+                "sectionType": "INVESTIGATIONAL_INTERVENTIONS",
+                "investigationalInterventions": [
+                  {
+                    "id": "",
+                    "description": "Ibuprofen 200mg",
+                    "interventionModel": "SEQUENTIAL",
+                    "status": "A Status",
+                    "coding": [
+                      {
+                        "code": "26929004",
+                        "codeSystem": "SNOMED-CT",
+                        "codeSystemVersion": "4.0.6.4",
+                        "decode": "Alzheimer's disease (disorder)"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "",
+        "sectionType": "OBJECTIVES",
+        "objectives": [
+          {
+            "id": "",
+            "description": "Example trial objective",
+            "level": "PRIMARY",
+            "endpoints": [
+              {
+                "id": "",
+                "description": "Cumulative incidence of virus detection in sputum samples among participants upto...",
+                "purpose": "EFFICACY",
+                "outcomeLevel": "PRIMARY"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

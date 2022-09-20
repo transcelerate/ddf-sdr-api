@@ -51,6 +51,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockMapper = new Mapper(mockMapper);
             _mockHelper.Setup(x => x.AreValidStudyElements(It.IsAny<string>()))
                 .Returns(true);
+            _mockHelper.Setup(x => x.AreValidStudyDesignElements(It.IsAny<string>()))
+                .Returns(true);
         }
         #endregion
 
@@ -828,11 +830,11 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         {
             StudyDto study = GetDtoDataFromStaticJson();
 
-            _mockClinicalStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+            _mockClinicalStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(),It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>(), It.IsAny<string[]>()))
                 .Returns(Task.FromResult(study.ClinicalStudy.StudyDesigns as object));
             ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger,_mockHelper.Object);
 
-            var method = clinicalStudyV1Controller.GetStudyDesigns("sd", 1);
+            var method = clinicalStudyV1Controller.GetStudyDesigns("sd",1,"des", "list");
             method.Wait();
             var result = method.Result;
 
@@ -852,11 +854,11 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         {
             StudyDto study = GetDtoDataFromStaticJson();
 
-            _mockClinicalStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+            _mockClinicalStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(),It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>(), It.IsAny<string[]>()))
                 .Returns(Task.FromResult(null as object));
             ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger,_mockHelper.Object);
 
-            var method = clinicalStudyV1Controller.GetStudyDesigns("sd", 1);
+            var method = clinicalStudyV1Controller.GetStudyDesigns("sd", 1, "des", "list");
             method.Wait();
             var result = method.Result;
 
@@ -869,10 +871,10 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual(expected.message, actual_result.message);
             Assert.IsInstanceOf(typeof(NotFoundObjectResult), result);
 
-            _mockClinicalStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+            _mockClinicalStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(),It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>(), It.IsAny<string[]>()))
                .Returns(Task.FromResult(Constants.ErrorMessages.Forbidden as object));
 
-            method = clinicalStudyV1Controller.GetStudyDesigns("sd", 1);
+            method = clinicalStudyV1Controller.GetStudyDesigns("sd", 1, "des", "list");
             method.Wait();
             result = method.Result;
 
@@ -886,10 +888,10 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(403, (result as ObjectResult).StatusCode);
 
-            _mockClinicalStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+            _mockClinicalStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(),It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>(), It.IsAny<string[]>()))
                .Returns(Task.FromResult(Constants.ErrorMessages.StudyDesignNotFound as object));
 
-            method = clinicalStudyV1Controller.GetStudyDesigns("sd", 1);
+            method = clinicalStudyV1Controller.GetStudyDesigns("sd", 1, "des", "list");
             method.Wait();
             result = method.Result;
 
@@ -903,10 +905,10 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(404, (result as ObjectResult).StatusCode);
 
-            _mockClinicalStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+            _mockClinicalStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(),It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>(), It.IsAny<string[]>()))
                .Throws(new Exception(""));
 
-            method = clinicalStudyV1Controller.GetStudyDesigns("sd", 1);
+            method = clinicalStudyV1Controller.GetStudyDesigns("sd", 1, "des", "list");
             method.Wait();
             result = method.Result;
 
@@ -920,7 +922,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
-            method = clinicalStudyV1Controller.GetStudyDesigns("", 1);
+            method = clinicalStudyV1Controller.GetStudyDesigns("", 1, "des", "list");
             method.Wait();
             result = method.Result;
 
