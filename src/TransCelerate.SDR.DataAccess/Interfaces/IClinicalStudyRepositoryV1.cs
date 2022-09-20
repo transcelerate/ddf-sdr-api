@@ -36,6 +36,14 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         Task<StudyEntity> GetPartialStudyItemsAsync(string studyId, int sdruploadversion, string[] listofelementsArray);
 
         /// <summary>
+        /// GET Study Designs for a Study Id
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="sdruploadversion">Version of study</param>
+        /// <returns></returns>
+        Task<StudyEntity> GetPartialStudyDesignItemsAsync(string studyId, int sdruploadversion);
+
+        /// <summary>
         /// GET List of study for a study ID
         /// </summary>
         /// <param name="fromDate">Start Date for Date Filter</param>

@@ -83,7 +83,7 @@ namespace TransCelerate.SDR.Services.Services
         /// </summary>
         /// <param name="studyId">Study ID</param>
         /// <param name="sdruploadversion">Version of study</param>
-        /// <param name="listofelements">List of elements with comma separated values</param>
+        /// <param name="listofelements">List of elements</param>
         /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
@@ -125,20 +125,78 @@ namespace TransCelerate.SDR.Services.Services
         /// GET Study Designs of a Study
         /// </summary>
         /// <param name="studyId">Study ID</param>
+        /// <param name="studyDesignId">Study Design ID</param>
         /// <param name="sdruploadversion">Version of study</param>
+        /// <param name="listofelements">List of elements</param>
         /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<object> GetStudyDesigns(string studyId, int sdruploadversion, LoggedInUser user)
+        public async Task<object> GetStudyDesigns(string studyId, string studyDesignId, int sdruploadversion, LoggedInUser user, string[] listofelements)
         {
             try
             {
                 _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(GetStudy)};");
+                if (!String.IsNullOrWhiteSpace(studyDesignId) || (listofelements is not null && listofelements.Any()))
+                {
+                    return await GetPartialStudyDesigns(studyId, studyDesignId, sdruploadversion, user, listofelements);
+                }
+                else
+                {
+                    studyId = studyId.Trim();
+
+                    StudyEntity study = await _clinicalStudyRepository.GetPartialStudyDesignItemsAsync(studyId: studyId, sdruploadversion: sdruploadversion).ConfigureAwait(false);
+
+                    if (study == null)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        StudyEntity checkStudy = await CheckAccessForAStudy(study, user);
+                        if (checkStudy == null)
+                            return Constants.ErrorMessages.Forbidden;
+
+                        var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy?.ClinicalStudy?.StudyDesigns);  //Mapping Entity to Dto
+
+                        if (studyDesigns is not null && studyDesigns.Any())
+                            return studyDesigns;
+
+                        return Constants.ErrorMessages.StudyDesignNotFound;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(GetStudy)};");
+            }
+        }
+
+        /// <summary>
+        /// GET Study Designs Elements of a Study
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="sdruploadversion">Version of study</param>
+        /// <param name="studyDesignId">StudyDesign Id </param>
+        /// <param name="listofelements">List of study design elements</param>
+        /// <param name="user">Logged In User</param>
+        /// <returns>
+        /// A <see cref="object"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        public async Task<object> GetPartialStudyDesigns(string studyId, string studyDesignId, int sdruploadversion, LoggedInUser user, string[] listofelements)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(GetPartialStudyDesigns)};");
                 studyId = studyId.Trim();
 
-                StudyEntity study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: studyId, sdruploadversion: sdruploadversion).ConfigureAwait(false);
+                var study = await _clinicalStudyRepository.GetPartialStudyDesignItemsAsync(studyId, sdruploadversion).ConfigureAwait(false);
 
                 if (study == null)
                 {
@@ -149,13 +207,20 @@ namespace TransCelerate.SDR.Services.Services
                     StudyEntity checkStudy = await CheckAccessForAStudy(study, user);
                     if (checkStudy == null)
                         return Constants.ErrorMessages.Forbidden;
-
-                    var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy?.ClinicalStudy?.StudyDesigns);  //Mapping Entity to Dto
-
-                    if (studyDesigns is not null && studyDesigns.Any())
-                        return studyDesigns;
-
-                    return Constants.ErrorMessages.StudyDesignNotFound;
+                    if (!String.IsNullOrWhiteSpace(studyDesignId))
+                    {
+                        if (study.ClinicalStudy.StudyDesigns is not null && study.ClinicalStudy.StudyDesigns.Any(x => x.Uuid == studyDesignId))
+                        {
+                            var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy.ClinicalStudy.StudyDesigns.Where(x => x.Uuid == studyDesignId).ToList());
+                            return _helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId);
+                        }
+                        return Constants.ErrorMessages.StudyDesignNotFound;
+                    }
+                    else
+                    {
+                        var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy.ClinicalStudy.StudyDesigns);
+                        return _helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId);
+                    }
                 }
             }
             catch (Exception)
@@ -164,7 +229,7 @@ namespace TransCelerate.SDR.Services.Services
             }
             finally
             {
-                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(GetStudy)};");
+                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(GetPartialStudyDesigns)};");
             }
         }
 

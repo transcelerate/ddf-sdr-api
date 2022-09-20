@@ -41,13 +41,27 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// </summary>
         /// <param name="studyId">Study ID</param>
         /// <param name="sdruploadversion">Version of study</param>
+        /// <param name="listofelements">List of study design elements</param>
+        /// <param name="studyDesignId">study design Id</param>
         /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        Task<object> GetStudyDesigns(string studyId, int sdruploadversion, LoggedInUser user);
-
+        Task<object> GetStudyDesigns(string studyId, string studyDesignId, int sdruploadversion, LoggedInUser user, string[] listofelements);
+        /// <summary>
+        /// GET Study Designs of a Study
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="sdruploadversion">Version of study</param>
+        /// <param name="listofelements">List of study design elements</param>
+        /// <param name="studyDesignId">study design Id</param>
+        /// <param name="user">Logged In User</param>
+        /// <returns>
+        /// A <see cref="object"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        Task<object> GetPartialStudyDesigns(string studyId, string studyDesignId, int sdruploadversion, LoggedInUser user, string[] listofelements);
         /// <summary>
         /// GET Audit Trial
         /// </summary>
