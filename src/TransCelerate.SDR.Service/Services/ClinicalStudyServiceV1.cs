@@ -161,7 +161,7 @@ namespace TransCelerate.SDR.Services.Services
                         var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy?.ClinicalStudy?.StudyDesigns);  //Mapping Entity to Dto
 
                         if (studyDesigns is not null && studyDesigns.Any())
-                            return studyDesigns;
+                            return _helper.RemoveStudyDesignElements(Constants.StudyDesignElements, studyDesigns, studyId);
 
                         return Constants.ErrorMessages.StudyDesignNotFound;
                     }
@@ -219,7 +219,8 @@ namespace TransCelerate.SDR.Services.Services
                     else
                     {
                         var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy.ClinicalStudy.StudyDesigns);
-                        return _helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId);
+                        return study.ClinicalStudy.StudyDesigns is not null && study.ClinicalStudy.StudyDesigns.Any() ?
+                            _helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId) : Constants.ErrorMessages.StudyDesignNotFound;
                     }
                 }
             }
