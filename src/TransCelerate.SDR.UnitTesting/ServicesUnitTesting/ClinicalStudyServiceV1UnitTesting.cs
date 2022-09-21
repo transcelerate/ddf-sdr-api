@@ -60,6 +60,10 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 cfg.AddProfile(new AutoMapperProfilesV1());
             });
             _mockMapper = new Mapper(mockMapper);
+            _mockHelper.Setup(x => x.RemoveStudyElements(It.IsAny<string[]>(), It.IsAny<StudyDto>()))
+                .Returns(Task.FromResult(GetDtoDataFromStaticJson()));
+            _mockHelper.Setup(x => x.RemoveStudyDesignElements(It.IsAny<string[]>(), It.IsAny<List<StudyDesignDto>>(),It.IsAny<string>()))
+                .Returns(Task.FromResult(GetDtoDataFromStaticJson()));
         }
         #endregion
 
@@ -554,7 +558,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             var result = method.Result;
 
             //Actual            
-            var actual_result = JsonConvert.DeserializeObject<List<StudyDesignDto>>(
+            var actual_result = JsonConvert.DeserializeObject<StudyDto>(
                 JsonConvert.SerializeObject(result));
 
             //Assert          
@@ -644,6 +648,96 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
 
             Assert.Throws<AggregateException>(method.Wait);
+
+        }
+        #endregion
+
+        #region Search Study Title
+        [Test]
+        public void SearchStudyTitleUnitTesting()
+        {
+            user.UserRole = Constants.Roles.Org_Admin;
+            StudyDto study = GetDtoDataFromStaticJson();
+            List<StudyDto> studyList = new() { study };
+            StudyEntity studyEntity = GetEntityDataFromStaticJson();
+            SearchResponseEntity searchResponseEntity = new()
+            {
+                EntryDateTime = DateTime.Now,
+                SDRUploadVersion = 2,               
+                StudyIdentifiers = studyEntity.ClinicalStudy.StudyIdentifiers,                
+                StudyPhase = studyEntity.ClinicalStudy.StudyPhase,
+                StudyTitle = studyEntity.ClinicalStudy.StudyTitle,
+                StudyType = studyEntity.ClinicalStudy.StudyType,
+                Uuid = studyEntity.ClinicalStudy.Uuid
+            };
+            _mockClinicalStudyRepository.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParameters>(), It.IsAny<LoggedInUser>()))
+                  .Returns(Task.FromResult(new List<SearchResponseEntity>() { searchResponseEntity }));
+
+            SearchTitleParametersDto searchParameters = new()
+            {
+                StudyTitle = "Umbrella",
+                PageNumber = 1,
+                PageSize = 25,
+                StudyId = "100",
+                FromDate = DateTime.Now.AddDays(-5).ToString(),
+                ToDate = DateTime.Now.ToString(),
+            };
+
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
+
+            var method = ClinicalStudyService.SearchTitle(searchParameters, user);
+            method.Wait();
+            var result = method.Result;
+
+            //Actual            
+            var actual_result = JsonConvert.DeserializeObject<List<SearchTitleResponseDto>>(
+                JsonConvert.SerializeObject(result));
+
+            //Assert          
+            Assert.IsNotNull(actual_result);
+            Assert.IsNotEmpty(actual_result);
+
+            _mockClinicalStudyRepository.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParameters>(), It.IsAny<LoggedInUser>()))
+                .Throws(new Exception("Error"));
+
+            method = ClinicalStudyService.SearchTitle(searchParameters, user);
+            Assert.Throws<AggregateException>(method.Wait);
+
+            _mockClinicalStudyRepository.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParameters>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(null as List<SearchResponseEntity>));
+
+            method = ClinicalStudyService.SearchTitle(searchParameters, user);
+            method.Wait();
+            result = method.Result;
+            Assert.IsEmpty(result);
+
+            _mockClinicalStudyRepository.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParameters>(), It.IsAny<LoggedInUser>()))
+                 .Returns(Task.FromResult(new List<SearchResponseEntity>() { searchResponseEntity }));
+            searchParameters.GroupByStudyId = true;
+            method = ClinicalStudyService.SearchTitle(searchParameters, user);
+            method.Wait();
+            result = method.Result;
+            Assert.IsNotEmpty(result);
+
+            string[] sortByFields = { "studytitle", "sponsorid", "lastmodifieddate", "version", "" };
+            string[] sortOrder = { "asc","desc" };
+            sortOrder.ToList().ForEach(sortOrderItem =>
+            {
+                sortByFields.ToList().ForEach(sortByField =>
+                {
+                    searchParameters.SortOrder = sortOrderItem;
+                    searchParameters.SortBy = sortByField;
+                    var method_sort = ClinicalStudyService.SortStudyTitle(result, searchParameters);
+                    Assert.IsNotEmpty(method_sort);
+                });
+            });            
+
+            user.UserRole = Constants.Roles.App_User;
+            method = ClinicalStudyService.SearchTitle(searchParameters, user);
+            method.Wait();
+            result = method.Result;
+            Assert.IsEmpty(result);
+            user.UserRole = Constants.Roles.Org_Admin;
 
         }
         #endregion
