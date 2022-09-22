@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -108,5 +109,18 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         Task<List<SearchResponseEntity>> SearchTitle(SearchTitleParameters searchParameters, LoggedInUser user);
 
         Task<List<SDRGroupsEntity>> GetGroupsOfUser(LoggedInUser user);
+        /// <summary>
+        /// Delete all version of a study
+        /// </summary>
+        /// <param name="study_uuid">Study Id</param>
+        /// <returns></returns>
+        Task<DeleteResult> DeleteStudyAsync(string study_uuid);
+
+        /// <summary>
+        /// Count Documents
+        /// </summary>
+        /// <param name="study_uuid"> Study Id</param>
+        /// <returns></returns>
+        Task<long> CountAsync(string study_uuid);
     }
 }

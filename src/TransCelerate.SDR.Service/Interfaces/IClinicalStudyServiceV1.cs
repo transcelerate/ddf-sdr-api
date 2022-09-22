@@ -127,7 +127,15 @@ namespace TransCelerate.SDR.Services.Interfaces
         Task<List<SearchTitleResponseDto>> SearchTitle(SearchTitleParametersDto searchParameters, LoggedInUser user);
         #endregion
 
-
+        #region Delete Study
+        /// <summary>
+        /// Delete all versions of Study
+        /// </summary>
+        /// <param name="studyId">Study Id</param>
+        /// <param name="user">LoggedIn User</param>
+        /// <returns></returns>
+        Task<object> DeleteStudy(string studyId, LoggedInUser user);
+        #endregion
 
     }
 }
