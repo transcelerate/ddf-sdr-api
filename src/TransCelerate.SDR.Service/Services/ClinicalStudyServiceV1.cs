@@ -668,5 +668,48 @@ namespace TransCelerate.SDR.Services.Services
             }
         }
         #endregion
+
+        #region Delete Method
+        /// <summary>
+        /// GET All Elements For a Study
+        /// </summary>
+        /// <param name="studyId">Study ID</param>        
+        /// <param name="user">Logged In User</param>
+        /// <returns>
+        /// A <see cref="object"/> Delete Object
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        public async Task<object> DeleteStudy(string studyId, LoggedInUser user)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(DeleteStudy)};");
+                studyId = studyId.Trim();
+
+                long count = await _clinicalStudyRepository.CountAsync(studyId).ConfigureAwait(false);
+
+                if (count == 0)
+                {
+                    return Constants.ErrorMessages.NotValidStudyId;
+                }
+                else
+                {
+                    _logger.LogCriitical($"Delete Request; study_uuid = {studyId} ; Requested By: {user.UserName} ; Requester Role: {user.UserRole}; Count: {count}");
+                    var deleteResponse = await _clinicalStudyRepository.DeleteStudyAsync(studyId).ConfigureAwait(false);
+                    _logger.LogInformation($"Delete Completed: {deleteResponse.IsAcknowledged} ; Deleted Count : {deleteResponse.DeletedCount}");
+                    return deleteResponse;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(DeleteStudy)};");
+            }
+        }
+
+        #endregion
     }
 }

@@ -937,6 +937,99 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
         }
         #endregion
+
+        #region Delete StudyDefinitions
+        [Test]
+        public void DeleteStudySuccessUnitTesting()
+        {
+            object deleteResult = "Delete Success";
+            _mockClinicalStudyService.Setup(x => x.DeleteStudy(It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(deleteResult));
+            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
+
+            var method = clinicalStudyV1Controller.DeleteStudy("sd");
+            method.Wait();
+            var result = method.Result;
+            
+            Assert.IsInstanceOf(typeof(OkObjectResult), result);
+        }
+
+        [Test]
+        public void DeleteStudyFailureUnitTesting()
+        {            
+            _mockClinicalStudyService.Setup(x => x.DeleteStudy(It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(Constants.ErrorMessages.NotValidStudyId as object));
+            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
+
+            var method = clinicalStudyV1Controller.DeleteStudy("sd");
+            method.Wait();
+            var result = method.Result;
+
+            _mockClinicalStudyService.Setup(x => x.DeleteStudy(It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(Constants.ErrorMessages.NotValidStudyId as object));
+
+            method = clinicalStudyV1Controller.DeleteStudy("");
+            method.Wait();
+            result = method.Result;
+            //Expected
+            var expected = new ErrorModel { message = Constants.ErrorMessages.StudyInputError, statusCode = "400" };
+
+            //Actual            
+            var actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), result);
+
+            _mockClinicalStudyService.Setup(x => x.DeleteStudy(It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+           .Returns(Task.FromResult(Constants.ErrorMessages.Forbidden as object));
+            method = clinicalStudyV1Controller.DeleteStudy("sd");
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.Forbidden, statusCode = "403" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(403, (result as ObjectResult).StatusCode);
+
+
+            _mockClinicalStudyService.Setup(x => x.DeleteStudy(It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(null as object));
+
+            method = clinicalStudyV1Controller.DeleteStudy("sd");
+            method.Wait();
+            result = method.Result;
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.GenericError, statusCode = "400" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), result);
+
+            _mockClinicalStudyService.Setup(x => x.DeleteStudy(It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+              .Throws(new Exception(""));
+
+            method = clinicalStudyV1Controller.DeleteStudy("sd");
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.GenericError, statusCode = "400" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+        }
+        #endregion
         #endregion
     }
 }

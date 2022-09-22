@@ -505,6 +505,71 @@ namespace TransCelerate.SDR.WebApi.Controllers
         }
         #endregion
 
+        #region DELETE Method
+
+        #endregion
+        /// <summary>
+        /// Delete a Study
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <response code="200">Deleted all versions of Study with the mentioned studyId</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">The Study for the studyId is Not Found</response>
+        [HttpDelete]
+        [Authorize(Roles = Constants.Roles.Org_Admin)]
+        [Route(Route.StudyV1)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDto))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> DeleteStudy(string studyId)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudy)};");
+                if (!String.IsNullOrWhiteSpace(studyId))
+                {
+                    _logger.LogInformation($"Inputs : studyId = {studyId};");                   
+
+                    LoggedInUser user = new LoggedInUser
+                    {
+                        UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
+                        UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
+                    };
+                    var response = await _clinicalStudyService.DeleteStudy(studyId,user).ConfigureAwait(false);
+
+                    if (response == null)
+                    {
+                        return BadRequest(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.GenericError)).Value);
+                    }
+                    else if (response?.ToString() == Constants.ErrorMessages.NotValidStudyId)
+                    {
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.NotValidStudyId)).Value);
+                    }
+                    else if (response?.ToString() == Constants.ErrorMessages.Forbidden)
+                    {
+                        return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
+                    }
+                    else
+                    {
+                        return Ok(new {statusCode = ((int)HttpStatusCode.OK).ToString() , message = $"All versions of study definition with uuid : '{studyId}' are deleted" });
+                    }
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudy)};");
+            }
+        }
         #endregion
     }
 }
