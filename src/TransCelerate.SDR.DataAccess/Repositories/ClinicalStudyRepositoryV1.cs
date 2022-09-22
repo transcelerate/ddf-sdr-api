@@ -571,6 +571,60 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         }
         #endregion
 
+        #region DELETE Study
+        /// <summary>
+        /// Delete all versions of a study
+        /// </summary>
+        /// <param name="study_uuid"> Study Id</param>
+        /// <returns></returns>
+        public async Task<DeleteResult> DeleteStudyAsync(string study_uuid)
+        {
+            _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(DeleteStudyAsync)};");
+            try
+            {
+                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
+                var builder = Builders<StudyEntity>.Filter.Eq(x => x.ClinicalStudy.Uuid, study_uuid);
+                
+                var deleteResult = await collection.DeleteManyAsync(builder).ConfigureAwait(false);
+
+                return deleteResult;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(DeleteStudyAsync)};");
+            }
+        }
+        /// <summary>
+        /// Count Documents
+        /// </summary>
+        /// <param name="study_uuid"> Study Id</param>
+        /// <returns></returns>
+        public async Task<long> CountAsync(string study_uuid)
+        {
+            _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(CountAsync)};");
+            try
+            {
+                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
+                var builder = Builders<StudyEntity>.Filter.Eq(x => x.ClinicalStudy.Uuid, study_uuid);
+                long count = await collection.CountDocumentsAsync(builder).ConfigureAwait(false);
+
+                return count;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(CountAsync)};");
+            }
+        }
+        #endregion
+
         #endregion
     }
 }

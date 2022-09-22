@@ -841,6 +841,47 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             Assert.Throws<AggregateException>(method.Wait);
         }
         #endregion
+
+        #region GET Study
+        [Test]
+        public void DeleteStudy_UnitTesting()
+        {
+            long count = 1;
+
+            var deletResultAcknowledge = new MongoDB.Driver.DeleteResult.Acknowledged(1);
+            Mock<MongoDB.Driver.DeleteResult> deleteResult = new Mock<MongoDB.Driver.DeleteResult>();
+
+
+            _mockClinicalStudyRepository.Setup(x => x.CountAsync(It.IsAny<string>()))
+                   .Returns(Task.FromResult(count));
+            _mockClinicalStudyRepository.Setup(x => x.DeleteStudyAsync(It.IsAny<string>()))
+                   .Returns(Task.FromResult(deleteResult.Object));
+
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
+
+            var method = ClinicalStudyService.DeleteStudy("1",user);
+            method.Wait();
+            var result = method.Result;
+
+            count = 0;
+
+            _mockClinicalStudyRepository.Setup(x => x.CountAsync(It.IsAny<string>()))
+                   .Returns(Task.FromResult(count));
+            method = ClinicalStudyService.DeleteStudy("1", user);
+            method.Wait();
+
+            Assert.AreEqual(method.Result.ToString(), Constants.ErrorMessages.NotValidStudyId);
+
+            _mockClinicalStudyRepository.Setup(x => x.CountAsync(It.IsAny<string>()))
+                  .Throws(new Exception("Error"));
+
+            method = ClinicalStudyService.DeleteStudy("1", user);
+
+
+            Assert.Throws<AggregateException>(method.Wait);            
+
+        }       
+        #endregion
         #endregion
     }
 }

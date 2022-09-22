@@ -13,6 +13,7 @@
   - [SearchStudy(searchparameters)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyController-SearchStudy-TransCelerate-SDR-Core-DTO-Study-SearchParametersDTO- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyController.SearchStudy(TransCelerate.SDR.Core.DTO.Study.SearchParametersDTO)')
   - [SearchTitle(searchparameters)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyController-SearchTitle-TransCelerate-SDR-Core-DTO-Study-SearchTitleParametersDTO- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyController.SearchTitle(TransCelerate.SDR.Core.DTO.Study.SearchTitleParametersDTO)')
 - [ClinicalStudyV1Controller](#T-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV1Controller')
+  - [DeleteStudy(studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller-DeleteStudy-System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV1Controller.DeleteStudy(System.String)')
   - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller-GetAuditTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV1Controller.GetAuditTrail(System.String,System.DateTime,System.DateTime)')
   - [GetStudy(studyId,sdruploadversion,listofelements)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller-GetStudy-System-String,System-Int32,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV1Controller.GetStudy(System.String,System.Int32,System.String)')
   - [GetStudyDesigns(study_uuid,studydesign_uuid,sdruploadversion,listofelements)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller-GetStudyDesigns-System-String,System-Int32,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV1Controller.GetStudyDesigns(System.String,System.Int32,System.String,System.String)')
@@ -163,6 +164,19 @@ Search For a Study
 ##### Namespace
 
 TransCelerate.SDR.WebApi.Controllers
+
+<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller-DeleteStudy-System-String-'></a>
+### DeleteStudy(studyId) `method`
+
+##### Summary
+
+Delete a Study
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
 
 <a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller-GetAuditTrail-System-String,System-DateTime,System-DateTime-'></a>
 ### GetAuditTrail(fromDate,toDate,studyId) `method`
