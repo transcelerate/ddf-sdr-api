@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.StudyV1;
 using TransCelerate.SDR.Core.Entities.StudyV1;
 
@@ -311,6 +312,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         /// <param name="workflows"></param>
         /// <returns></returns>
         List<WorkflowEntity> RemoveIdForStudyWorkflow(List<WorkflowEntity> workflows);
+        #endregion
+
+        #region Azure ServiceBus
+        Task PushMessageToServiceBus(ServiceBusMessageDto serviceBusMessageDto);
         #endregion
     }
 }

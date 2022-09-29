@@ -73,7 +73,8 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         [Test]
         public void PostAllElementsUnitTesting()
         {
-            
+            Config.AzureServiceBusConnectionString = "ASB-ConnString";
+            Config.AzureServiceBusQueueName = "testqueue";
             StudyEntity studyEntity = GetEntityDataFromStaticJson();
             StudyEntity entity = null;
             StudyDto studyDto = GetDtoDataFromStaticJson();
@@ -92,6 +93,8 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     .Returns(true);
             _mockHelper.Setup(x => x.GetAuditTrail(It.IsAny<string>()))
                     .Returns(new AuditTrailEntity { CreatedBy = user.UserName,EntryDateTime = DateTime.Now, SDRUploadVersion = 1});
+            _mockHelper.Setup(x => x.PushMessageToServiceBus(It.IsAny<ServiceBusMessageDto>()))
+                .Returns(Task.CompletedTask);
             ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object);
             
 

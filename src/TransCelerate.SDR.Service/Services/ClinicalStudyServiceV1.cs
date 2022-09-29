@@ -383,6 +383,7 @@ namespace TransCelerate.SDR.Services.Services
                         incomingStudyEntity.AuditTrail.SDRUploadVersion = existingStudyEntity.AuditTrail.SDRUploadVersion + 1;
                         await _clinicalStudyRepository.PostStudyItemsAsync(incomingStudyEntity);
                         studyDTO = _mapper.Map<StudyDto>(incomingStudyEntity);
+                        await _helper.PushMessageToServiceBus(new ServiceBusMessageDto { Study_uuid = incomingStudyEntity.ClinicalStudy.Uuid, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
                     }
                 }                
 
@@ -396,7 +397,7 @@ namespace TransCelerate.SDR.Services.Services
             {
                 _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(PostAllElements)};");
             }
-        }
+        }        
         #endregion
 
         #region Search
