@@ -67,7 +67,13 @@ jobs:
       # Zip the build artifact publish folder
       run: |
           Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net6.0/publish/**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
-     
+
+      
+    - name: Zip publish files
+      shell: pwsh
+      # Zip the build artifact publish folder
+      run: |
+          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net6.0/publish/**" -DestinationPath "${{ github.workspace }}\FunAppPublish.zip" -Force   
      
     - name: 'Publish Artifact: Artifact'
       uses: actions/upload-artifact@v2
@@ -75,6 +81,13 @@ jobs:
       with:
         path: '${{ github.workspace }}/Publish.zip'
         name: Build-Artifact
+
+    - name: 'Publish Function App Artifact: Artifact'
+      uses: actions/upload-artifact@v2
+      # Publish the Function App Build artifact in github
+      with:
+        path: '${{ github.workspace }}/FunAppPublish.zip'
+        name: FunctionAppBuild-Artifact
         
     ###############################---------------NUnit Test Cases-----------------------#############################
         
