@@ -313,9 +313,5 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         /// <returns></returns>
         List<WorkflowEntity> RemoveIdForStudyWorkflow(List<WorkflowEntity> workflows);
         #endregion
-
-        #region Azure ServiceBus
-        Task PushMessageToServiceBus(ServiceBusMessageDto serviceBusMessageDto);
-        #endregion
     }
 }

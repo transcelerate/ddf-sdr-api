@@ -1905,21 +1905,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             return incomingInterCurrentEvents;
         }
 
-        #endregion
-
-        #region Azure ServiceBus
-        public async Task PushMessageToServiceBus(ServiceBusMessageDto serviceBusMessageDto)
-        {
-            await using (ServiceBusClient client = new ServiceBusClient(Config.AzureServiceBusConnectionString))
-            {
-                ServiceBusSender sender = client.CreateSender(Config.AzureServiceBusQueueName);
-
-                string jsonMessageString = JsonConvert.SerializeObject(serviceBusMessageDto);
-                ServiceBusMessage serializedMessage = new ServiceBusMessage(jsonMessageString);
-                await sender.SendMessageAsync(serializedMessage);
-            }
-        }
-        #endregion
+        #endregion       
     }
 
 }
