@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Messaging.ServiceBus;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -23,15 +24,17 @@ namespace TransCelerate.SDR.Services.Services
         private readonly IMapper _mapper;
         private readonly ILogHelper _logger;
         private readonly IHelper _helper;
+        private readonly ServiceBusClient _serviceBusClient;
         #endregion
 
         #region Constructor
-        public ClinicalStudyServiceV1(IClinicalStudyRepositoryV1 clinicalStudyRepository, IMapper mapper, ILogHelper logger,IHelper helper)
+        public ClinicalStudyServiceV1(IClinicalStudyRepositoryV1 clinicalStudyRepository, IMapper mapper, ILogHelper logger,IHelper helper,ServiceBusClient serviceBusClient)
         {
             _clinicalStudyRepository = clinicalStudyRepository;
             _mapper = mapper;
             _logger = logger;
             _helper = helper;
+            _serviceBusClient = serviceBusClient;
         }
         #endregion
 
@@ -383,6 +386,7 @@ namespace TransCelerate.SDR.Services.Services
                         incomingStudyEntity.AuditTrail.SDRUploadVersion = existingStudyEntity.AuditTrail.SDRUploadVersion + 1;
                         await _clinicalStudyRepository.PostStudyItemsAsync(incomingStudyEntity);
                         studyDTO = _mapper.Map<StudyDto>(incomingStudyEntity);
+                        await PushMessageToServiceBus(new ServiceBusMessageDto { Study_uuid = incomingStudyEntity.ClinicalStudy.Uuid, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
                     }
                 }                
 
@@ -397,6 +401,16 @@ namespace TransCelerate.SDR.Services.Services
                 _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(PostAllElements)};");
             }
         }
+        #region Azure ServiceBus
+        private async Task PushMessageToServiceBus(ServiceBusMessageDto serviceBusMessageDto)
+        {
+            ServiceBusSender sender = _serviceBusClient.CreateSender(Config.AzureServiceBusQueueName);
+
+            string jsonMessageString = JsonConvert.SerializeObject(serviceBusMessageDto);
+            ServiceBusMessage serializedMessage = new ServiceBusMessage(jsonMessageString);
+            await sender.SendMessageAsync(serializedMessage);
+        }
+        #endregion
         #endregion
 
         #region Search

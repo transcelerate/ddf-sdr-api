@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Azure;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using System;
@@ -137,6 +138,10 @@ namespace TransCelerate.SDR.WebApi
                     ApiBehaviourOptionsHelper apiBehaviourOptionsHelper = new ApiBehaviourOptionsHelper(logger);
                     return apiBehaviourOptionsHelper.ModelStateResponse(context);
                 };               
+            });
+            services.AddAzureClients(clients =>
+            {
+                clients.AddServiceBusClient(Config.AzureServiceBusConnectionString);
             });
         }
 

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Messaging.ServiceBus;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -25,6 +26,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         #region Variables
         private ILogHelper _mockLogger = Mock.Of<ILogHelper>();
         private Mock<IHelper> _mockHelper = new Mock<IHelper>(MockBehavior.Loose);
+        private Mock<ServiceBusClient> _mockServiceBusClient = new Mock<ServiceBusClient>(MockBehavior.Loose);
         private Mock<IClinicalStudyRepositoryV1> _mockClinicalStudyRepository = new Mock<IClinicalStudyRepositoryV1>(MockBehavior.Loose);
         private IMapper _mockMapper;
         #endregion
@@ -72,8 +74,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         #region POST All Elements Unit Testing
         [Test]
         public void PostAllElementsUnitTesting()
-        {
-            
+        {            
             StudyEntity studyEntity = GetEntityDataFromStaticJson();
             StudyEntity entity = null;
             StudyDto studyDto = GetDtoDataFromStaticJson();
@@ -92,7 +93,12 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     .Returns(true);
             _mockHelper.Setup(x => x.GetAuditTrail(It.IsAny<string>()))
                     .Returns(new AuditTrailEntity { CreatedBy = user.UserName,EntryDateTime = DateTime.Now, SDRUploadVersion = 1});
-            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object);
+            ServiceBusSender serviceBusSender = Mock.Of<ServiceBusSender>();
+            
+            _mockServiceBusClient.Setup(x => x.CreateSender(It.IsAny<string>()))
+                .Returns(serviceBusSender);
+            
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object,_mockServiceBusClient.Object);
             
 
             var method = ClinicalStudyService.PostAllElements(studyDto, user);
@@ -185,7 +191,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             user.UserName = "user1@SDR.com";
             _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(user))
                    .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
-            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object,_mockServiceBusClient.Object);
 
             var method = ClinicalStudyService.CheckPermissionForAUser(user);
             method.Wait();
@@ -232,7 +238,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                    .Returns(Task.FromResult(studyEntity));
             _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(user))
                    .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
-            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object,_mockServiceBusClient.Object);
 
             var method = ClinicalStudyService.GetStudy("1",0,user);
             method.Wait();
@@ -278,7 +284,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             var study = GetEntityDataFromStaticJson();
             _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(It.IsAny<LoggedInUser>()))
                    .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
-            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object,_mockServiceBusClient.Object);
 
             var method = ClinicalStudyService.CheckAccessForAStudy(study, user);
             method.Wait();
@@ -312,7 +318,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             Config.isGroupFilterEnabled = true;
             _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(user))
                    .Returns(Task.FromResult(noGroups));
-            ClinicalStudyServiceV1 ClinicalStudyService1 = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
+            ClinicalStudyServiceV1 ClinicalStudyService1 = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object,_mockServiceBusClient.Object);
             method = ClinicalStudyService1.CheckAccessForAStudy(study, user);
             method.Wait();
 
@@ -365,7 +371,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 Header  = "sdrversion"
             };
 
-            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object,_mockServiceBusClient.Object);
 
             var method = ClinicalStudyService.SearchStudy(searchParameters, user);
             method.Wait();
@@ -424,7 +430,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                    .Returns(Task.FromResult(auditTrailResponseEntities));
             _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(user))
                    .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
-            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object,_mockServiceBusClient.Object);
 
             var method = ClinicalStudyService.GetAuditTrail("1", DateTime.MinValue,DateTime.MinValue, user);
             method.Wait();
@@ -486,7 +492,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             };
             _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(It.IsAny<LoggedInUser>()))
                    .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
-            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object,_mockServiceBusClient.Object);
 
             var method = ClinicalStudyService.CheckAccessForStudyAudit(studyEntity.ClinicalStudy.Uuid, auditTrailResponseEntities, user);
             method.Wait();
@@ -521,7 +527,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             Config.isGroupFilterEnabled = true;
             _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(user))
                    .Returns(Task.FromResult(noGroups));
-            ClinicalStudyServiceV1 ClinicalStudyService1 = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
+            ClinicalStudyServiceV1 ClinicalStudyService1 = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object,_mockServiceBusClient.Object);
             method = ClinicalStudyService1.CheckAccessForStudyAudit(studyEntity.ClinicalStudy.Uuid, auditTrailResponseEntities, user);
             method.Wait();
 
@@ -551,7 +557,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                    .Returns(Task.FromResult(studyEntity));
             _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(user))
                    .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
-            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object,_mockServiceBusClient.Object);
             
             var method = ClinicalStudyService.GetStudyDesigns("1",null, 0, user,null);
             method.Wait();
@@ -620,7 +626,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             _mockClinicalStudyRepository.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(),It.IsAny<string>(),It.IsAny<LoggedInUser>()))
                    .Returns(Task.FromResult(studyHistories));
             
-            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object,_mockServiceBusClient.Object);
 
             var method = ClinicalStudyService.GetStudyHistory(DateTime.Now,DateTime.MinValue, "", user);
             method.Wait();
@@ -683,7 +689,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 ToDate = DateTime.Now.ToString(),
             };
 
-            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object,_mockServiceBusClient.Object);
 
             var method = ClinicalStudyService.SearchTitle(searchParameters, user);
             method.Wait();
@@ -756,7 +762,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                    .Returns(Task.FromResult(studyEntity));
             _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(user))
                    .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
-            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object,_mockServiceBusClient.Object);
 
             var method = ClinicalStudyService.GetPartialStudyElements("1", 0, user,Constants.ClinicalStudyElements);
             method.Wait();
@@ -798,7 +804,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                    .Returns(Task.FromResult(studyEntity));
             _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(user))
                    .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
-            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object,_mockServiceBusClient.Object);
 
             var method = ClinicalStudyService.GetPartialStudyDesigns("1","b", 0, user, Constants.StudyDesignElements);
             method.Wait();
@@ -857,7 +863,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             _mockClinicalStudyRepository.Setup(x => x.DeleteStudyAsync(It.IsAny<string>()))
                    .Returns(Task.FromResult(deleteResult.Object));
 
-            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object,_mockServiceBusClient.Object);
 
             var method = ClinicalStudyService.DeleteStudy("1",user);
             method.Wait();
