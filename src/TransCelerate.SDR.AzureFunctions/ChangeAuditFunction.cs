@@ -2,15 +2,37 @@ using System;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
+using TransCelerate.SDR.Core.Utilities;
+using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.AzureFunctions
 {
     public class ChangeAuditFunction
     {
-        [FunctionName("ChangeAuditFunction")]
-        public void Run([ServiceBusTrigger("testqueue", Connection = "AzureServiceBusConnectionString")]string myQueueItem, ILogger log)
+        private readonly IMessageProcessor _messageProcessor;
+        private readonly ILogHelper _logger;
+
+        public ChangeAuditFunction(IMessageProcessor messageProcessor,ILogHelper logger)
         {
-            log.LogInformation($"C# ServiceBus queue trigger function processed message from deployed code: {myQueueItem}");
+            _messageProcessor = messageProcessor;
+            _logger = logger;
+        }
+
+        [FunctionName(Constants.FunctionAppConstants.ChangeAuditFunction)]
+        public void Run([ServiceBusTrigger(Constants.FunctionAppConstants.AzureServiceBusQueueName,
+            Connection = Constants.FunctionAppConstants.AzureServiceBusConnectionString)]string myQueueItem)
+        {
+            try
+            {
+                _logger.LogInformation($"C# ServiceBus queue trigger function message : {myQueueItem}");
+                _messageProcessor.ProcessMessage(myQueueItem);
+                _logger.LogInformation($"C# ServiceBus queue trigger function has processed the message : {myQueueItem}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An Exception Occured: {ex}");
+                throw;
+            }
         }
     }
 }
