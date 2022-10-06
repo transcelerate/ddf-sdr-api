@@ -27,6 +27,8 @@ namespace TransCelerate.SDR.Core.AppSettings
             Config.DateRange = Convert.ToString(config.GetSection("StudyHistory:DateRange").Value);
             Config.isGroupFilterEnabled = Convert.ToBoolean(config.GetSection("isGroupFilterEnabled").Value);
             Config.isAuthEnabled = Convert.ToBoolean(config.GetSection("isAuthEnabled").Value);
+            Config.AzureServiceBusConnectionString = Convert.ToString(config.GetSection("AzureServiceBusConnectionString").Value);
+            Config.AzureServiceBusQueueName = Convert.ToString(config.GetSection("AzureServiceBusQueueName").Value);
         }
     }
 }

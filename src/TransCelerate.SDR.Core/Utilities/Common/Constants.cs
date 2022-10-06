@@ -1,4 +1,5 @@
 ﻿using TransCelerate.SDR.Core.DTO.StudyV1;
+using TransCelerate.SDR.Core.Entities.StudyV1;
 
 namespace TransCelerate.SDR.Core.Utilities.Common
 {
@@ -23,6 +24,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string Study = "Study";
             public const string SDRGrouping = "Groups";
             public const string StudyV1 = "StudyDefinitionsV1";
+            public const string ChangeAudit = "ChangeAudit";
         }       
 
         public struct IdType
@@ -60,7 +62,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         {
             public const string ALL = "ALL";
         }
-
+        
         public struct ValidationErrorMessage
         {
             public const string ConformanceError = "Field is missing or empty";
@@ -177,6 +179,26 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(StudyDesignDto.StudyCells),
             nameof(StudyDesignDto.StudyWorkflows),
             nameof(StudyDesignDto.StudyEstimands),
+        };
+
+        public struct FunctionAppConstants
+        {
+            public const string ChangeAuditFunction = "ChangeAuditFunction";
+            public const string AzureServiceBusQueueName = "%AzureServiceBusQueueName%";
+            public const string AzureServiceBusConnectionString = "AzureServiceBusConnectionString";
+        }
+
+        public static readonly string[] CharactersToBeRemovedForAudit =
+        {
+            nameof(CodeEntity.CodeSystemVersion),
+            nameof(CodeEntity.CodeSystem),           
+            nameof(CodeEntity.Decode),
+            nameof(CodeEntity.Code),            
+        };
+        public static readonly string[] ParanthesisToBeRemovedForAudit =
+        {
+            "[",
+            "]"
         };
     }
 }
