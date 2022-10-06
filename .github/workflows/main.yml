@@ -88,7 +88,7 @@ jobs:
       with:
         path: '${{ github.workspace }}/FunAppPublish.zip'
         name: FunctionAppBuild-Artifact
-                
+
     ###############################---------------NUnit Test Cases-----------------------#############################
         
     - name: Dotnet Test
@@ -193,7 +193,7 @@ jobs:
       uses: Azure/functions-action@v1.4.7
       with:
     # Name of the Azure Function App
-        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}  # Replace with Function app name
+        app-name: ${{ secrets.AZURE_FUNCTIONAPP_NAME }}  # Replace with Function app name
     # Path to package or folder. *.zip or a folder to deploy
         package: '${{ github.workspace }}/FunAppPublish.zip'
 
