@@ -68,14 +68,26 @@ jobs:
       run: |
           Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net6.0/publish/**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
      
-     
+    - name: Zip publish files
+      shell: pwsh
+      # Zip the Function App build artifact publish folder
+      run: |
+          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net6.0/publish/**" -DestinationPath "${{ github.workspace }}\FunAppPublish.zip" -Force
+
     - name: 'Publish Artifact: Artifact'
       uses: actions/upload-artifact@v2
       # Publish the Build artifact in github
       with:
         path: '${{ github.workspace }}/Publish.zip'
         name: Build-Artifact
-        
+
+    - name: 'Publish Function App Artifact: Artifact'
+      uses: actions/upload-artifact@v2
+      # Publish the Function App Build artifact in github
+      with:
+        path: '${{ github.workspace }}/FunAppPublish.zip'
+        name: FunctionAppBuild-Artifact
+
     ###############################---------------NUnit Test Cases-----------------------#############################
         
     - name: Dotnet Test
@@ -175,6 +187,14 @@ jobs:
       with: 
         app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+
+    - name: Azure Functions Action
+      uses: Azure/functions-action@v1.4.7
+      with:
+    # Name of the Azure Function App
+        app-name: 'funapp-sdr-dev-eastus'
+    # Path to package or folder. *.zip or a folder to deploy
+        package: '${{ github.workspace }}/FunAppPublish.zip'
 
 
         
