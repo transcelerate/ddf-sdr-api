@@ -192,7 +192,7 @@ jobs:
       uses: Azure/functions-action@v1.4.7
       with:
     # Name of the Azure Function App
-        app-name: 'funapp-sdr-dev-eastus'
+        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}  # Replace with Function app name
     # Path to package or folder. *.zip or a folder to deploy
         package: '${{ github.workspace }}/FunAppPublish.zip'
 
