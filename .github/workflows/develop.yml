@@ -181,7 +181,7 @@ jobs:
         # AZURE_WEBAPP_NAME is getting fetched from secrets
         # AZURE_WEBAPP_PACKAGE_PATH is declared from build path
         AZURE_WEBAPP_NAME: ${{ secrets.AZURE_WEBAPP_NAME }}    # set this to your application's name
-        AZURE_WEBAPP_PACKAGE_PATH: '${{ github.workspace }}/**.zip'      # set this to the path to your web app project, defaults to the repository root
+        AZURE_WEBAPP_PACKAGE_PATH: '${{ github.workspace }}/Publish.zip'      # set this to the path to your web app project, defaults to the repository root
       uses: azure/webapps-deploy@v2
       # Deploy to target machine and path
       with: 
