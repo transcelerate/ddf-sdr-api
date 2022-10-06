@@ -1,4 +1,5 @@
 ﻿using TransCelerate.SDR.Core.DTO.StudyV1;
+using TransCelerate.SDR.Core.Entities.StudyV1;
 
 namespace TransCelerate.SDR.Core.Utilities.Common
 {
@@ -186,5 +187,18 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string AzureServiceBusQueueName = "%AzureServiceBusQueueName%";
             public const string AzureServiceBusConnectionString = "AzureServiceBusConnectionString";
         }
+
+        public static readonly string[] CharactersToBeRemovedForAudit =
+        {
+            nameof(CodeEntity.CodeSystemVersion),
+            nameof(CodeEntity.CodeSystem),           
+            nameof(CodeEntity.Decode),
+            nameof(CodeEntity.Code),            
+        };
+        public static readonly string[] ParanthesisToBeRemovedForAudit =
+        {
+            "[",
+            "]"
+        };
     }
 }
