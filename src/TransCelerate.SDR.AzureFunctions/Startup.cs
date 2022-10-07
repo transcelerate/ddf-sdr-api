@@ -14,12 +14,20 @@ using TransCelerate.SDR.AzureFunctions.DataAccess;
 using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.WebJobs;
+using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1;
 
 [assembly: FunctionsStartup(typeof(TransCelerate.SDR.AzureFunctions.Startup))]
 namespace TransCelerate.SDR.AzureFunctions
 {
+    /// <summary>
+    /// Startup for Azure Function App
+    /// </summary>
     public class Startup : FunctionsStartup
     {
+        /// <summary>
+        /// Add depenedncies for Azure Function App
+        /// </summary>
+        /// <param name="builder"></param>
         public override void Configure(IFunctionsHostBuilder builder)
         {
 
@@ -36,6 +44,7 @@ namespace TransCelerate.SDR.AzureFunctions
 
             builder.Services.AddTransient<IMessageProcessor, MessageProcessor>();
             builder.Services.AddTransient<ILogHelper, LogHelper>();
+            builder.Services.AddTransient<IHelper, Helper>();
             builder.Services.AddTransient<IChangeAuditReposotory, ChangeAuditReposotory>();
             builder.Services.AddTransient<IMongoClient, MongoClient>(db => new MongoClient(Config.ConnectionString));
         }

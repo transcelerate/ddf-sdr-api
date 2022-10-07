@@ -7,6 +7,7 @@ using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.AzureFunctions
 {
+
     public class ChangeAuditFunction
     {
         private readonly IMessageProcessor _messageProcessor;
@@ -18,6 +19,11 @@ namespace TransCelerate.SDR.AzureFunctions
             _logger = logger;
         }
 
+        /// <summary>
+        /// Azure Service Bus Trigger for Change Audit
+        /// </summary>
+        /// <param name="myQueueItem">Queue Message</param>
+        
         [FunctionName(Constants.FunctionAppConstants.ChangeAuditFunction)]
         public void Run([ServiceBusTrigger(Constants.FunctionAppConstants.AzureServiceBusQueueName,
             Connection = Constants.FunctionAppConstants.AzureServiceBusConnectionString)]string myQueueItem)
