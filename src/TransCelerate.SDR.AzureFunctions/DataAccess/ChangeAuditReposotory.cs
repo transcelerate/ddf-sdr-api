@@ -34,6 +34,14 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
         #endregion
 
         #region DB Operations
+        /// <summary>
+        /// Get Current and previous version of study for study Id
+        /// </summary>
+        /// <param name="studyId">Study UUID</param>
+        /// <param name="sdruploadversion">current version</param>
+        /// <returns> A <see cref="List{StudyEntity}"/> with matching studyId
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
         public List<StudyEntity> GetStudyItemsAsync(string studyId, int sdruploadversion)
         {
             _logger.LogInformation($"Started Repository : {nameof(ChangeAuditReposotory)}; Method : {nameof(GetStudyItemsAsync)};");
@@ -50,7 +58,7 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
 
                 if (studies == null)
                 {
-                    _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.Study} Collection");
+                    _logger.LogWarning($"There are no studies with StudyId : {studyId} in {Constants.Collections.StudyV1} Collection");
                     return null;
                 }
                 else
@@ -67,6 +75,14 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
                 _logger.LogInformation($"Ended Repository : {nameof(ChangeAuditReposotory)}; Method : {nameof(GetStudyItemsAsync)};");
             }
         }
+        /// <summary>
+        /// Get Audit Details for a Study Id from Change Audit Collections
+        /// </summary>
+        /// <param name="studyId">Study UUID</param>
+        /// <returns> A <see cref="ChangeAuditEntity"/> with matching studyId
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+
         public ChangeAuditEntity GetChangeAuditAsync(string studyId)
         {
             _logger.LogInformation($"Started Repository : {nameof(ChangeAuditReposotory)}; Method : {nameof(GetChangeAuditAsync)};");
@@ -80,7 +96,7 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
 
                 if (changeAudit == null)
                 {
-                    _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.Study} Collection");
+                    _logger.LogWarning($"There is no Audit Details for the study with StudyId : {studyId} in {Constants.Collections.ChangeAudit} Collection");
                     return null;
                 }
                 else
@@ -97,6 +113,10 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
                 _logger.LogInformation($"Ended Repository : {nameof(ChangeAuditReposotory)}; Method : {nameof(GetChangeAuditAsync)};");
             }
         }
+        /// <summary>
+        /// Insert a Change Audit for a study
+        /// </summary>
+        /// <param name="changeAudit"></param>
         public void InsertChangeAudit(ChangeAuditEntity changeAudit)
         {
             _logger.LogInformation($"Started Repository : {nameof(ChangeAuditReposotory)}; Method : {nameof(InsertChangeAudit)};");
@@ -114,6 +134,10 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
                 _logger.LogInformation($"Ended Repository : {nameof(ChangeAuditReposotory)}; Method : {nameof(InsertChangeAudit)};");
             }
         }
+        /// <summary>
+        /// Update existing change audit
+        /// </summary>
+        /// <param name="changeAudit"></param>
         public void UpdateChangeAudit(ChangeAuditEntity changeAudit)
         {
             _logger.LogInformation($"Started Repository : {nameof(ChangeAuditReposotory)}; Method : {nameof(UpdateChangeAudit)};");
