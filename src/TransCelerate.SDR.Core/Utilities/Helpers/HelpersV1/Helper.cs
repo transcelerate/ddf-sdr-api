@@ -1980,54 +1980,26 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
 
         public List<string> GetDifferenceForStudyIdentifiers(List<StudyIdentifierEntity> currentVersion, List<StudyIdentifierEntity> previousVersion)
         {
-            List<string> changedValues = new List<string>();
-            List<string> formattedChangedValues = new List<string>();
-            if (CheckForNumberOfElementsMismatch<StudyIdentifierEntity>(currentVersion, previousVersion).Any())
+            var tempList = new List<string>();
+            if (currentVersion?.Count != previousVersion?.Count)
+                tempList.Add($"{nameof(ClinicalStudyEntity.StudyIdentifiers)}");
+            GetDifferenceForAList<StudyIdentifierEntity>(currentVersion, previousVersion).ForEach(x =>
             {
-                changedValues.AddRange(CheckForNumberOfElementsMismatch<StudyIdentifierEntity>(currentVersion, previousVersion));
-            }
-            else
-            {
-                if (currentVersion.Count != previousVersion.Count)
-                    formattedChangedValues.Add($"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.StudyIdentifiers)}");
-                changedValues.AddRange(GetDifferenceForAList<StudyIdentifierEntity>(currentVersion, previousVersion));
-            }
-
-            if (changedValues.Any())
-            {
-                changedValues.ForEach(x =>
-                {
-                    string addRootPath = $"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.StudyIdentifiers)}.{x}";
-                    formattedChangedValues.Add(addRootPath);
-                });
-            }
-            return formattedChangedValues;
+                tempList.Add($"{nameof(ClinicalStudyEntity.StudyIdentifiers)}.{x}");
+            });
+            return tempList;
         }
 
         public List<string> GetDifferenceForStudyProtocolVersions(List<StudyProtocolVersionEntity> currentVersion, List<StudyProtocolVersionEntity> previousVersion)
         {
-            List<string> changedValues = new List<string>();
-            List<string> formattedChangedValues = new List<string>();
-            if (CheckForNumberOfElementsMismatch<StudyProtocolVersionEntity>(currentVersion, previousVersion).Any())
+            var tempList = new List<string>();
+            if (currentVersion?.Count != previousVersion?.Count)
+                tempList.Add($"{nameof(ClinicalStudyEntity.StudyProtocolVersions)}");
+            GetDifferenceForAList<StudyProtocolVersionEntity>(currentVersion, previousVersion).ForEach(x =>
             {
-                changedValues.AddRange(CheckForNumberOfElementsMismatch<StudyProtocolVersionEntity>(currentVersion, previousVersion));
-            }
-            else
-            {
-                if (currentVersion.Count != previousVersion.Count)
-                    formattedChangedValues.Add($"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.StudyProtocolVersions)}");
-                changedValues.AddRange(GetDifferenceForAList<StudyProtocolVersionEntity>(currentVersion, previousVersion));
-            }
-
-            if (changedValues.Any())
-            {
-                changedValues.ForEach(x =>
-                {
-                    string addRootPath = $"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.StudyProtocolVersions)}.{x}";
-                    formattedChangedValues.Add(addRootPath);
-                });
-            }
-            return formattedChangedValues;
+                tempList.Add($"{nameof(ClinicalStudyEntity.StudyProtocolVersions)}.{x}");
+            });
+            return tempList;
         }
 
         public List<string> GetDifferenceForStudyDesigns(List<StudyDesignEntity> currentVersion, List<StudyDesignEntity> previousVersion)
