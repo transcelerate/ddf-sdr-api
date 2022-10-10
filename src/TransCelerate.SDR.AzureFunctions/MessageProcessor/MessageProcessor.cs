@@ -109,7 +109,8 @@ namespace TransCelerate.SDR.AzureFunctions
                 changeAuditEntity.Changes = new List<ChangesEntity>();              
                 changeAuditEntity.Changes.Add(change);
 
-                changeAuditStudyEntity.ChangeAudit = changeAuditEntity;
+
+                changeAuditStudyEntity = new ChangeAuditStudyEntity { ChangeAudit = changeAuditEntity };
 
                 _changeAuditReposotory.InsertChangeAudit(changeAuditStudyEntity);
             }
