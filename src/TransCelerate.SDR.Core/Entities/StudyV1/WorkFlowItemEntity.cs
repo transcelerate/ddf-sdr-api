@@ -1,6 +1,6 @@
 ﻿namespace TransCelerate.SDR.Core.Entities.StudyV1
 {
-    public class WorkFlowItemEntity
+    public class WorkFlowItemEntity : IUuid
     {
         public string Uuid { get; set; }
         public string WorkflowItemDesc { get; set; }

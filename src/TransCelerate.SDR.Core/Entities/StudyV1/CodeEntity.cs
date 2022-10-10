@@ -1,6 +1,6 @@
 ﻿namespace TransCelerate.SDR.Core.Entities.StudyV1
 {
-    public class CodeEntity
+    public class CodeEntity : IUuid
     {
         public string Uuid { get; set; }
         public string Code { get; set; }

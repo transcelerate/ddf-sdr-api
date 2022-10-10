@@ -13,7 +13,7 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
         /// <returns> A <see cref="ChangeAuditEntity"/> with matching studyId
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        ChangeAuditEntity GetChangeAuditAsync(string studyId);
+        ChangeAuditStudyEntity GetChangeAuditAsync(string studyId);
         /// <summary>
         /// Get Current and previous version of study for study Id
         /// </summary>
@@ -27,11 +27,11 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
         /// Insert a Change Audit for a study
         /// </summary>
         /// <param name="changeAudit"></param>
-        void InsertChangeAudit(ChangeAuditEntity changeAudit);
+        void InsertChangeAudit(ChangeAuditStudyEntity changeAudit);
         /// <summary>
         /// Update existing change audit
         /// </summary>
         /// <param name="changeAudit"></param>
-        void UpdateChangeAudit(ChangeAuditEntity changeAudit);
+        void UpdateChangeAudit(ChangeAuditStudyEntity changeAudit);
     }
 }

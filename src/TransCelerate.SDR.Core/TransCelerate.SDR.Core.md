@@ -95,6 +95,7 @@
   - [GenerateIdForStudyWorkflow(workflows)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-Helper-GenerateIdForStudyWorkflow-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-WorkflowEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.Helper.GenerateIdForStudyWorkflow(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.WorkflowEntity})')
   - [GeneratedSectionId(study)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-Helper-GeneratedSectionId-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.Helper.GeneratedSectionId(TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity)')
   - [GetAuditTrail(user)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-Helper-GetAuditTrail-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.Helper.GetAuditTrail(System.String)')
+  - [GetChangedValues(currentStudyVersion,previousStudyVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-Helper-GetChangedValues-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity,TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.Helper.GetChangedValues(TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity,TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity)')
   - [IsSameStudy(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-Helper-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity,TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.Helper.IsSameStudy(TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity,TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity)')
   - [JsonObjectCheck(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-Helper-JsonObjectCheck-System-Object,System-Object- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.Helper.JsonObjectCheck(System.Object,System.Object)')
   - [RemoveIdForInvestigationalInterventions(investigationalInterventions)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-Helper-RemoveIdForInvestigationalInterventions-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-InvestigationalInterventionEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.Helper.RemoveIdForInvestigationalInterventions(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.InvestigationalInterventionEntity})')
@@ -1415,6 +1416,24 @@ Get Audit Trail fields for the POST Api
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | user | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-Helper-GetChangedValues-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity,TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity-'></a>
+### GetChangedValues(currentStudyVersion,previousStudyVersion) `method`
+
+##### Summary
+
+Get the differences between two studies
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| currentStudyVersion | [TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity') | Current study version |
+| previousStudyVersion | [TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity') | Previous study version |
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-Helper-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity,TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity-'></a>
 ### IsSameStudy(incoming,existing) `method`

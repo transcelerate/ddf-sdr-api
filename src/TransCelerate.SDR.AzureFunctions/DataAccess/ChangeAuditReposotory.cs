@@ -83,15 +83,15 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
 
-        public ChangeAuditEntity GetChangeAuditAsync(string studyId)
+        public ChangeAuditStudyEntity GetChangeAuditAsync(string studyId)
         {
             _logger.LogInformation($"Started Repository : {nameof(ChangeAuditReposotory)}; Method : {nameof(GetChangeAuditAsync)};");
             try
             {
-                IMongoCollection<ChangeAuditEntity> collection = _database.GetCollection<ChangeAuditEntity>(Constants.Collections.ChangeAudit);
+                IMongoCollection<ChangeAuditStudyEntity> collection = _database.GetCollection<ChangeAuditStudyEntity>(Constants.Collections.ChangeAudit);
 
 
-                ChangeAuditEntity changeAudit = collection.Find(x => x.Study_uuid == studyId)
+                ChangeAuditStudyEntity changeAudit = collection.Find(x => x.ChangeAudit.Study_uuid == studyId)
                                                      .FirstOrDefault();
 
                 if (changeAudit == null)
@@ -117,12 +117,12 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
         /// Insert a Change Audit for a study
         /// </summary>
         /// <param name="changeAudit"></param>
-        public void InsertChangeAudit(ChangeAuditEntity changeAudit)
+        public void InsertChangeAudit(ChangeAuditStudyEntity changeAudit)
         {
             _logger.LogInformation($"Started Repository : {nameof(ChangeAuditReposotory)}; Method : {nameof(InsertChangeAudit)};");
             try
             {
-                IMongoCollection<ChangeAuditEntity> collection = _database.GetCollection<ChangeAuditEntity>(Constants.Collections.ChangeAudit);
+                IMongoCollection<ChangeAuditStudyEntity> collection = _database.GetCollection<ChangeAuditStudyEntity>(Constants.Collections.ChangeAudit);
                 collection.InsertOne(changeAudit); //Insert One Document               
             }
             catch (Exception)
@@ -138,15 +138,15 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
         /// Update existing change audit
         /// </summary>
         /// <param name="changeAudit"></param>
-        public void UpdateChangeAudit(ChangeAuditEntity changeAudit)
+        public void UpdateChangeAudit(ChangeAuditStudyEntity changeAudit)
         {
             _logger.LogInformation($"Started Repository : {nameof(ChangeAuditReposotory)}; Method : {nameof(UpdateChangeAudit)};");
             try
             {
-                IMongoCollection<ChangeAuditEntity> collection = _database.GetCollection<ChangeAuditEntity>(Constants.Collections.ChangeAudit);
-                UpdateDefinition<ChangeAuditEntity> updateDefinition = Builders<ChangeAuditEntity>.Update
-                                    .Set(s => s.Changes, changeAudit.Changes);
-                collection.UpdateOne(x => x.Study_uuid == changeAudit.Study_uuid,
+                IMongoCollection<ChangeAuditStudyEntity> collection = _database.GetCollection<ChangeAuditStudyEntity>(Constants.Collections.ChangeAudit);
+                UpdateDefinition<ChangeAuditStudyEntity> updateDefinition = Builders<ChangeAuditStudyEntity>.Update
+                                    .Set(s => s.ChangeAudit.Changes, changeAudit.ChangeAudit.Changes);
+                collection.UpdateOne(x => x.ChangeAudit.Study_uuid == changeAudit.ChangeAudit.Study_uuid,
                                                    updateDefinition); // Update clinicalStudy and auditTrail           
             }
             catch (Exception)

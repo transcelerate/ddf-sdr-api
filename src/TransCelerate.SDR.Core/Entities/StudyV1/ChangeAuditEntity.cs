@@ -9,4 +9,10 @@ namespace TransCelerate.SDR.Core.Entities.StudyV1
 
         public List<ChangesEntity> Changes { get; set; }
     }
+
+    [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
+    public class ChangeAuditStudyEntity
+    {
+        public ChangeAuditEntity ChangeAudit { get; set; }
+    }
 }
