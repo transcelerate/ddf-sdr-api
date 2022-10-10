@@ -1,16 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TransCelerate.SDR.Core.Utilities;
-using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1;
-using Newtonsoft.Json;
-using TransCelerate.SDR.Core.Entities.StudyV1;
-using TransCelerate.SDR.AzureFunctions.DataAccess;
-using ObjectsComparer;
 using System.Text.RegularExpressions;
+using TransCelerate.SDR.AzureFunctions.DataAccess;
+using TransCelerate.SDR.Core.Entities.StudyV1;
+using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
+using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1;
 
 namespace TransCelerate.SDR.AzureFunctions
 {
@@ -45,33 +41,17 @@ namespace TransCelerate.SDR.AzureFunctions
             StudyEntity currentStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion).FirstOrDefault();
             StudyEntity previousStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion - 1).FirstOrDefault();
 
-            //Remove Id before comparison
-            currentStudyVersion = _helper.RemovedSectionId(currentStudyVersion);
-            previousStudyVersion = _helper.RemovedSectionId(previousStudyVersion);
-
             //Get the changes between current and previous version
-            List<string> changedValues = GetChangedValues(currentStudyVersion, previousStudyVersion);
+            List<string> changedValues = _helper.GetChangedValues(currentStudyVersion, previousStudyVersion);
             changedValues = FormatChangeAuditElements(changedValues);
 
             //Get the change audit data for studyId
-            ChangeAuditEntity changeAuditEntity = _changeAuditReposotory.GetChangeAuditAsync(serviceBusMessageEntity.Study_uuid);
+            ChangeAuditStudyEntity changeAuditEntity = _changeAuditReposotory.GetChangeAuditAsync(serviceBusMessageEntity.Study_uuid);
 
             //Update changeAudit if exist/ create changeAudit if new
             AddChangeAuditInDatabase(changeAuditEntity, serviceBusMessageEntity, changedValues, currentStudyVersion);
         }
-        /// <summary>
-        /// Get the differences between two studies
-        /// </summary>
-        /// <param name="currentStudyVersion">Current study version</param>
-        /// <param name="previousStudyVersion">Previous study version</param>
-        /// <returns></returns>
-        private List<string> GetChangedValues(StudyEntity currentStudyVersion, StudyEntity previousStudyVersion)
-        {
-            var comparer = new ObjectsComparer.Comparer<ClinicalStudyEntity>();
-            bool isEqual = comparer.Compare(currentStudyVersion.ClinicalStudy, previousStudyVersion.ClinicalStudy, out var differences);
-            var changedValues = differences.Select(x => x.MemberPath).ToList();
-            return changedValues;
-        }
+        
         /// <summary>
         /// Format the changes to store in database
         /// </summary>
@@ -82,24 +62,27 @@ namespace TransCelerate.SDR.AzureFunctions
             List<string> formattedList = new List<string>();
             elements.ForEach(element =>
             {
-                // Remove The index numbers
-                element = Regex.Replace(element, "[0-9]", string.Empty);
-
-                // Remove [] from the element
-                Constants.ParanthesisToBeRemovedForAudit.ToList().ForEach(character =>
+                if(!element.EndsWith($".{nameof(ClinicalStudyEntity.Uuid)}"))
                 {
-                    element = element.Replace(character, string.Empty);
-                });
+                    // Remove The index numbers
+                    element = Regex.Replace(element, "[0-9]", string.Empty);
 
-                //Remove Code
-                var stringSegments = element.Split(".");
-                if (Constants.CharactersToBeRemovedForAudit.ToList().Any(x => x == stringSegments.Last()))
-                    stringSegments = stringSegments.SkipLast(1).ToArray();
-                element = string.Join(".", stringSegments);
+                    // Remove [] from the element
+                    Constants.ParanthesisToBeRemovedForAudit.ToList().ForEach(character =>
+                    {
+                        element = element.Replace(character, string.Empty);
+                    });
 
-                //Change to camel case
-                element = string.Join(".", element?.Split(".").Select(key => key?.Substring(0, 1)?.ToLower() + key?.Substring(1)));
-                formattedList.Add(element);
+                    //Remove Code
+                    var stringSegments = element.Split(".");
+                    if (Constants.CharactersToBeRemovedForAudit.ToList().Any(x => x == stringSegments.Last()))
+                        stringSegments = stringSegments.SkipLast(1).ToArray();
+                    element = string.Join(".", stringSegments);
+
+                    //Change to camel case
+                    element = string.Join(".", element?.Split(".").Select(key => key?.Substring(0, 1)?.ToLower() + key?.Substring(1)));
+                    formattedList.Add(element);
+                }
             });
             return formattedList.Distinct().ToList();
         }
@@ -107,40 +90,34 @@ namespace TransCelerate.SDR.AzureFunctions
         /// <summary>
         /// Add or update the changes in change audit collection
         /// </summary>
-        /// <param name="changeAuditEntity">Change Audit Entity from database if exist</param>
+        /// <param name="changeAuditStudyEntity">Change Audit Entity from database if exist</param>
         /// <param name="serviceBusMessageEntity">Service bus message after deserialization</param>
         /// <param name="changedValues">Changed values list</param>
         /// <param name="currentStudyVersion">Current study version</param>
-        private void AddChangeAuditInDatabase(ChangeAuditEntity changeAuditEntity, ServiceBusMessageEntity serviceBusMessageEntity, List<string> changedValues, StudyEntity currentStudyVersion)
+        private void AddChangeAuditInDatabase(ChangeAuditStudyEntity changeAuditStudyEntity, ServiceBusMessageEntity serviceBusMessageEntity, List<string> changedValues, StudyEntity currentStudyVersion)
         {
-            if (changeAuditEntity is null)
+            ChangesEntity change = new ChangesEntity
             {
-                changeAuditEntity = new ChangeAuditEntity();
+                Elements = changedValues,
+                EntryDateTime = currentStudyVersion.AuditTrail.EntryDateTime,
+                SDRUploadVersion = currentStudyVersion.AuditTrail.SDRUploadVersion
+            };
+            if (changeAuditStudyEntity is null)
+            {
+                var changeAuditEntity = new ChangeAuditEntity();
                 changeAuditEntity.Study_uuid = serviceBusMessageEntity.Study_uuid;
-                changeAuditEntity.Changes = new List<ChangesEntity>();
-
-                ChangesEntity change = new ChangesEntity
-                {
-                    Elements = changedValues,
-                    EntryDateTime = currentStudyVersion.AuditTrail.EntryDateTime,
-                    SDRUploadVersion = currentStudyVersion.AuditTrail.SDRUploadVersion
-                };
-
+                changeAuditEntity.Changes = new List<ChangesEntity>();              
                 changeAuditEntity.Changes.Add(change);
 
-                _changeAuditReposotory.InsertChangeAudit(changeAuditEntity);
+                changeAuditStudyEntity.ChangeAudit = changeAuditEntity;
+
+                _changeAuditReposotory.InsertChangeAudit(changeAuditStudyEntity);
             }
             else
-            {
-                ChangesEntity change = new ChangesEntity
-                {
-                    Elements = changedValues,
-                    EntryDateTime = currentStudyVersion.AuditTrail.EntryDateTime,
-                    SDRUploadVersion = currentStudyVersion.AuditTrail.SDRUploadVersion
-                };
-
-                changeAuditEntity.Changes.Add(change);
-                _changeAuditReposotory.UpdateChangeAudit(changeAuditEntity);
+            {                
+                changeAuditStudyEntity.ChangeAudit.Changes.Add(change);
+               
+                _changeAuditReposotory.UpdateChangeAudit(changeAuditStudyEntity);
             }
         } 
         #endregion

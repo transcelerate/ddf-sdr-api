@@ -2,7 +2,7 @@
 
 namespace TransCelerate.SDR.Core.Entities.StudyV1
 {
-    public class DefinedProcedureEntity
+    public class DefinedProcedureEntity : IUuid
     {
         public string Uuid { get; set; }
         public List<CodeEntity> ProcedureCode { get; set; }

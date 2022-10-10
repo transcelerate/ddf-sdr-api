@@ -8,19 +8,18 @@
 - [ChangeAuditReposotory](#T-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditReposotory 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditReposotory')
   - [GetChangeAuditAsync(studyId)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditReposotory-GetChangeAuditAsync-System-String- 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditReposotory.GetChangeAuditAsync(System.String)')
   - [GetStudyItemsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditReposotory-GetStudyItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditReposotory.GetStudyItemsAsync(System.String,System.Int32)')
-  - [InsertChangeAudit(changeAudit)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditReposotory-InsertChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditEntity- 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditReposotory.InsertChangeAudit(TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditEntity)')
-  - [UpdateChangeAudit(changeAudit)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditReposotory-UpdateChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditEntity- 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditReposotory.UpdateChangeAudit(TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditEntity)')
+  - [InsertChangeAudit(changeAudit)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditReposotory-InsertChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity- 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditReposotory.InsertChangeAudit(TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity)')
+  - [UpdateChangeAudit(changeAudit)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditReposotory-UpdateChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity- 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditReposotory.UpdateChangeAudit(TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity)')
 - [IChangeAuditReposotory](#T-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditReposotory 'TransCelerate.SDR.AzureFunctions.DataAccess.IChangeAuditReposotory')
   - [GetChangeAuditAsync(studyId)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditReposotory-GetChangeAuditAsync-System-String- 'TransCelerate.SDR.AzureFunctions.DataAccess.IChangeAuditReposotory.GetChangeAuditAsync(System.String)')
   - [GetStudyItemsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditReposotory-GetStudyItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.AzureFunctions.DataAccess.IChangeAuditReposotory.GetStudyItemsAsync(System.String,System.Int32)')
-  - [InsertChangeAudit(changeAudit)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditReposotory-InsertChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditEntity- 'TransCelerate.SDR.AzureFunctions.DataAccess.IChangeAuditReposotory.InsertChangeAudit(TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditEntity)')
-  - [UpdateChangeAudit(changeAudit)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditReposotory-UpdateChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditEntity- 'TransCelerate.SDR.AzureFunctions.DataAccess.IChangeAuditReposotory.UpdateChangeAudit(TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditEntity)')
+  - [InsertChangeAudit(changeAudit)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditReposotory-InsertChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity- 'TransCelerate.SDR.AzureFunctions.DataAccess.IChangeAuditReposotory.InsertChangeAudit(TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity)')
+  - [UpdateChangeAudit(changeAudit)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditReposotory-UpdateChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity- 'TransCelerate.SDR.AzureFunctions.DataAccess.IChangeAuditReposotory.UpdateChangeAudit(TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity)')
 - [IMessageProcessor](#T-TransCelerate-SDR-AzureFunctions-IMessageProcessor 'TransCelerate.SDR.AzureFunctions.IMessageProcessor')
   - [ProcessMessage(message)](#M-TransCelerate-SDR-AzureFunctions-IMessageProcessor-ProcessMessage-System-String- 'TransCelerate.SDR.AzureFunctions.IMessageProcessor.ProcessMessage(System.String)')
 - [MessageProcessor](#T-TransCelerate-SDR-AzureFunctions-MessageProcessor 'TransCelerate.SDR.AzureFunctions.MessageProcessor')
-  - [AddChangeAuditInDatabase(changeAuditEntity,serviceBusMessageEntity,changedValues,currentStudyVersion)](#M-TransCelerate-SDR-AzureFunctions-MessageProcessor-AddChangeAuditInDatabase-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditEntity,TransCelerate-SDR-Core-Entities-StudyV1-ServiceBusMessageEntity,System-Collections-Generic-List{System-String},TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity- 'TransCelerate.SDR.AzureFunctions.MessageProcessor.AddChangeAuditInDatabase(TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditEntity,TransCelerate.SDR.Core.Entities.StudyV1.ServiceBusMessageEntity,System.Collections.Generic.List{System.String},TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity)')
+  - [AddChangeAuditInDatabase(changeAuditStudyEntity,serviceBusMessageEntity,changedValues,currentStudyVersion)](#M-TransCelerate-SDR-AzureFunctions-MessageProcessor-AddChangeAuditInDatabase-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity,TransCelerate-SDR-Core-Entities-StudyV1-ServiceBusMessageEntity,System-Collections-Generic-List{System-String},TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity- 'TransCelerate.SDR.AzureFunctions.MessageProcessor.AddChangeAuditInDatabase(TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity,TransCelerate.SDR.Core.Entities.StudyV1.ServiceBusMessageEntity,System.Collections.Generic.List{System.String},TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity)')
   - [FormatChangeAuditElements(elements)](#M-TransCelerate-SDR-AzureFunctions-MessageProcessor-FormatChangeAuditElements-System-Collections-Generic-List{System-String}- 'TransCelerate.SDR.AzureFunctions.MessageProcessor.FormatChangeAuditElements(System.Collections.Generic.List{System.String})')
-  - [GetChangedValues(currentStudyVersion,previousStudyVersion)](#M-TransCelerate-SDR-AzureFunctions-MessageProcessor-GetChangedValues-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity,TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity- 'TransCelerate.SDR.AzureFunctions.MessageProcessor.GetChangedValues(TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity,TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity)')
   - [ProcessMessage(message)](#M-TransCelerate-SDR-AzureFunctions-MessageProcessor-ProcessMessage-System-String- 'TransCelerate.SDR.AzureFunctions.MessageProcessor.ProcessMessage(System.String)')
 - [Startup](#T-TransCelerate-SDR-AzureFunctions-Startup 'TransCelerate.SDR.AzureFunctions.Startup')
   - [Configure(builder)](#M-TransCelerate-SDR-AzureFunctions-Startup-Configure-Microsoft-Azure-Functions-Extensions-DependencyInjection-IFunctionsHostBuilder- 'TransCelerate.SDR.AzureFunctions.Startup.Configure(Microsoft.Azure.Functions.Extensions.DependencyInjection.IFunctionsHostBuilder)')
@@ -89,7 +88,7 @@ A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study UUID |
 | sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | current version |
 
-<a name='M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditReposotory-InsertChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditEntity-'></a>
+<a name='M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditReposotory-InsertChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity-'></a>
 ### InsertChangeAudit(changeAudit) `method`
 
 ##### Summary
@@ -100,9 +99,9 @@ Insert a Change Audit for a study
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| changeAudit | [TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditEntity 'TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditEntity') |  |
+| changeAudit | [TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity 'TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity') |  |
 
-<a name='M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditReposotory-UpdateChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditEntity-'></a>
+<a name='M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditReposotory-UpdateChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity-'></a>
 ### UpdateChangeAudit(changeAudit) `method`
 
 ##### Summary
@@ -113,7 +112,7 @@ Update existing change audit
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| changeAudit | [TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditEntity 'TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditEntity') |  |
+| changeAudit | [TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity 'TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity') |  |
 
 <a name='T-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditReposotory'></a>
 ## IChangeAuditReposotory `type`
@@ -159,7 +158,7 @@ A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study UUID |
 | sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | current version |
 
-<a name='M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditReposotory-InsertChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditEntity-'></a>
+<a name='M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditReposotory-InsertChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity-'></a>
 ### InsertChangeAudit(changeAudit) `method`
 
 ##### Summary
@@ -170,9 +169,9 @@ Insert a Change Audit for a study
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| changeAudit | [TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditEntity 'TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditEntity') |  |
+| changeAudit | [TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity 'TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity') |  |
 
-<a name='M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditReposotory-UpdateChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditEntity-'></a>
+<a name='M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditReposotory-UpdateChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity-'></a>
 ### UpdateChangeAudit(changeAudit) `method`
 
 ##### Summary
@@ -183,7 +182,7 @@ Update existing change audit
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| changeAudit | [TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditEntity 'TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditEntity') |  |
+| changeAudit | [TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity 'TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity') |  |
 
 <a name='T-TransCelerate-SDR-AzureFunctions-IMessageProcessor'></a>
 ## IMessageProcessor `type`
@@ -212,8 +211,8 @@ Process the Message for Change Audit
 
 TransCelerate.SDR.AzureFunctions
 
-<a name='M-TransCelerate-SDR-AzureFunctions-MessageProcessor-AddChangeAuditInDatabase-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditEntity,TransCelerate-SDR-Core-Entities-StudyV1-ServiceBusMessageEntity,System-Collections-Generic-List{System-String},TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity-'></a>
-### AddChangeAuditInDatabase(changeAuditEntity,serviceBusMessageEntity,changedValues,currentStudyVersion) `method`
+<a name='M-TransCelerate-SDR-AzureFunctions-MessageProcessor-AddChangeAuditInDatabase-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity,TransCelerate-SDR-Core-Entities-StudyV1-ServiceBusMessageEntity,System-Collections-Generic-List{System-String},TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity-'></a>
+### AddChangeAuditInDatabase(changeAuditStudyEntity,serviceBusMessageEntity,changedValues,currentStudyVersion) `method`
 
 ##### Summary
 
@@ -223,7 +222,7 @@ Add or update the changes in change audit collection
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| changeAuditEntity | [TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditEntity 'TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditEntity') | Change Audit Entity from database if exist |
+| changeAuditStudyEntity | [TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity 'TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity') | Change Audit Entity from database if exist |
 | serviceBusMessageEntity | [TransCelerate.SDR.Core.Entities.StudyV1.ServiceBusMessageEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-ServiceBusMessageEntity 'TransCelerate.SDR.Core.Entities.StudyV1.ServiceBusMessageEntity') | Service bus message after deserialization |
 | changedValues | [System.Collections.Generic.List{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{System.String}') | Changed values list |
 | currentStudyVersion | [TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity') | Current study version |
@@ -244,24 +243,6 @@ Format the changes to store in database
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | elements | [System.Collections.Generic.List{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{System.String}') | List of changes |
-
-<a name='M-TransCelerate-SDR-AzureFunctions-MessageProcessor-GetChangedValues-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity,TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity-'></a>
-### GetChangedValues(currentStudyVersion,previousStudyVersion) `method`
-
-##### Summary
-
-Get the differences between two studies
-
-##### Returns
-
-
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| currentStudyVersion | [TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity') | Current study version |
-| previousStudyVersion | [TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity') | Previous study version |
 
 <a name='M-TransCelerate-SDR-AzureFunctions-MessageProcessor-ProcessMessage-System-String-'></a>
 ### ProcessMessage(message) `method`

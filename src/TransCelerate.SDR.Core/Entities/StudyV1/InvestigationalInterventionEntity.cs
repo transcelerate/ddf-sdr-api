@@ -2,7 +2,7 @@
 
 namespace TransCelerate.SDR.Core.Entities.StudyV1
 {
-    public class InvestigationalInterventionEntity
+    public class InvestigationalInterventionEntity : IUuid
     {
         public string Uuid { get; set; }
         public string InterventionDesc { get; set; }
