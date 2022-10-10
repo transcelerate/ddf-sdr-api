@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV1
 {
-    public class AnalysisPopulationEntity : IUuid
+    public interface IUuid
     {
         public string Uuid { get; set; }
-        public string PopulationDesc { get; set; }
     }
 }

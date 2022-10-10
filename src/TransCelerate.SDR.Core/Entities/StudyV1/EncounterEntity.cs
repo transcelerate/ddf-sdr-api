@@ -2,7 +2,7 @@
 
 namespace TransCelerate.SDR.Core.Entities.StudyV1
 {
-    public class EncounterEntity
+    public class EncounterEntity : IUuid
     {
         public string Uuid { get; set; }
         public List<CodeEntity> EncounterContactMode { get; set; }

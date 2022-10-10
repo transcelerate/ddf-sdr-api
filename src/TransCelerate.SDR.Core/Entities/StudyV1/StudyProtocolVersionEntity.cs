@@ -2,7 +2,7 @@
 
 namespace TransCelerate.SDR.Core.Entities.StudyV1
 {
-    public class StudyProtocolVersionEntity
+    public class StudyProtocolVersionEntity : IUuid
     {
         public string Uuid { get; set; }
         public string BriefTitle { get; set; }

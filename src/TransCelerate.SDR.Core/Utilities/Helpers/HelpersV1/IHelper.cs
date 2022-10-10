@@ -313,5 +313,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         /// <returns></returns>
         List<WorkflowEntity> RemoveIdForStudyWorkflow(List<WorkflowEntity> workflows);
         #endregion
+
+        #region Get Difference
+        List<string> GetChangedValues(StudyEntity currentStudyVersion, StudyEntity previousStudyVersion);
+        #endregion
     }
 }

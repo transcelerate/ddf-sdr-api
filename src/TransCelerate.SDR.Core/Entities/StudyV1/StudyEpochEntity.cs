@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace TransCelerate.SDR.Core.Entities.StudyV1
 {
     [BsonIgnoreExtraElements]
-    public class StudyEpochEntity
+    public class StudyEpochEntity : IUuid
     {
         public string Uuid { get; set; }
         public string NextStudyEpochId { get; set; }

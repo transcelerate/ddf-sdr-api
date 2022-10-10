@@ -1,6 +1,6 @@
 ﻿namespace TransCelerate.SDR.Core.Entities.StudyV1
 {
-    public class StudyIdentifierScopeEntity
+    public class StudyIdentifierScopeEntity : IUuid
     {
         public string Uuid { get; set; }
         public string OrganisationIdentifier { get; set; }
