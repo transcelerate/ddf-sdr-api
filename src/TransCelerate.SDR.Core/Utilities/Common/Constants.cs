@@ -193,7 +193,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(CodeEntity.CodeSystemVersion),
             nameof(CodeEntity.CodeSystem),           
             nameof(CodeEntity.Decode),
-            nameof(CodeEntity.Code),            
+            nameof(CodeEntity.Code), 
+            "T"
         };
         public static readonly string[] ParanthesisToBeRemovedForAudit =
         {
