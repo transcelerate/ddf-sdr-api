@@ -1954,10 +1954,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             if (currentVersion != null && currentVersion.Any())
             {
                 currentVersion.ForEach(currentItem =>
-                {
+                {                    
                     if (previousVersion != null && previousVersion.Any(x => x.Uuid == currentItem.Uuid))
                     {
                         changedValues.AddRange(GetDifferences<T>(currentItem, previousVersion.Find(x => x.Uuid == currentItem.Uuid)));
+                        if(currentVersion.IndexOf(currentItem) != previousVersion.IndexOf(previousVersion.Find(x => x.Uuid == currentItem.Uuid)))
+                            changedValues.Add(nameof(T));
                     }
                     else if(currentVersion?.Count == previousVersion?.Count && previousVersion != null && !previousVersion.Any(x => x.Uuid == currentItem.Uuid))
                     {
@@ -1983,7 +1985,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         }
 
         public List<string> GetDifferenceForStudyIdentifiers(List<StudyIdentifierEntity> currentVersion, List<StudyIdentifierEntity> previousVersion)
-        {
+        {            
             var tempList = new List<string>();
             if (currentVersion?.Count != previousVersion?.Count)
                 tempList.Add($"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.StudyIdentifiers)}");
@@ -2073,7 +2075,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
 
                     else if (currentVersion?.Count == previousVersion?.Count && previousVersion != null && !previousVersion.Any(x => x.Uuid == currentStudyDesign.Uuid))
                     {
-                        changedValues.Add($"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.StudyDesigns)}");
+                        changedValues.Add("T");
                     }
                 });
             }
@@ -2122,6 +2124,14 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                             {
                                 if (previousObjective.ObjectiveEndpoints != null && !previousObjective.ObjectiveEndpoints.Any(x => x.Uuid == y.Uuid))
                                     tempList.Add($"{nameof(StudyDesignEntity.StudyObjectives)}.{nameof(ObjectiveEntity.ObjectiveEndpoints)}");
+
+                                else if (previousObjective.ObjectiveEndpoints != null && previousObjective.ObjectiveEndpoints.Any(x => x.Uuid == y.Uuid))
+                                {
+                                    if(currentObjective.ObjectiveEndpoints.IndexOf(y) != previousObjective.ObjectiveEndpoints.IndexOf(previousObjective.ObjectiveEndpoints.Find(x => x.Uuid == y.Uuid)))
+                                    {
+                                        tempList.Add($"{nameof(StudyDesignEntity.StudyObjectives)}.{nameof(ObjectiveEntity.ObjectiveEndpoints)}");
+                                    }
+                                }
                             });
                         }
                     }
@@ -2183,6 +2193,14 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                             {
                                 if(previousEstimand.IntercurrentEvents != null && !previousEstimand.IntercurrentEvents.Any(x => x.Uuid == y.Uuid))
                                     tempList.Add($"{nameof(StudyDesignEntity.StudyEstimands)}.{nameof(EstimandEntity.IntercurrentEvents)}");
+
+                                else if (previousEstimand.IntercurrentEvents != null && previousEstimand.IntercurrentEvents.Any(x => x.Uuid == y.Uuid))
+                                {
+                                    if (currentEstimand.IntercurrentEvents.IndexOf(y) != previousEstimand.IntercurrentEvents.IndexOf(previousEstimand.IntercurrentEvents.Find(x => x.Uuid == y.Uuid)))
+                                    {
+                                        tempList.Add($"{nameof(StudyDesignEntity.StudyEstimands)}.{nameof(EstimandEntity.IntercurrentEvents)}");
+                                    }
+                                }
                             });
                         }
                     }
@@ -2220,6 +2238,14 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                             {
                                 if (previousStudyCell.StudyElements != null && !previousStudyCell.StudyElements.Any(x => x.Uuid == y.Uuid))
                                     tempList.Add($"{nameof(StudyDesignEntity.StudyCells)}.{nameof(StudyCellEntity.StudyElements)}");
+
+                                else if (previousStudyCell.StudyElements != null && previousStudyCell.StudyElements.Any(x => x.Uuid == y.Uuid))
+                                {
+                                    if (currentStudyCell.StudyElements.IndexOf(y) != previousStudyCell.StudyElements.IndexOf(previousStudyCell.StudyElements.Find(x => x.Uuid == y.Uuid)))
+                                    {
+                                        tempList.Add($"{nameof(StudyDesignEntity.StudyCells)}.{nameof(StudyCellEntity.StudyElements)}");
+                                    }
+                                }
                             });
                         }
                     }
@@ -2238,7 +2264,16 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                             {
                                 if (previousStudyCell.StudyEpoch.Encounters != null && !previousStudyCell.StudyEpoch.Encounters.Any(x => x.Uuid == y.Uuid))
                                     tempList.Add($"{nameof(StudyDesignEntity.StudyCells)}.{nameof(StudyCellEntity.StudyEpoch)}.{nameof(StudyEpochEntity.Encounters)}");
+
+                                else if (previousStudyCell.StudyEpoch.Encounters != null && previousStudyCell.StudyEpoch.Encounters.Any(x => x.Uuid == y.Uuid))
+                                {
+                                    if (currentStudyCell.StudyEpoch.Encounters.IndexOf(y) != previousStudyCell.StudyEpoch.Encounters.IndexOf(previousStudyCell.StudyEpoch.Encounters.Find(x => x.Uuid == y.Uuid)))
+                                    {
+                                        tempList.Add($"{nameof(StudyDesignEntity.StudyCells)}.{nameof(StudyCellEntity.StudyEpoch)}.{nameof(StudyEpochEntity.Encounters)}");
+                                    }
+                                }
                             });
+
                         }
                     }
                 }
@@ -2275,6 +2310,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                             {
                                 if (previousStudyWorkflows.WorkflowItems != null && !previousStudyWorkflows.WorkflowItems.Any(x => x.Uuid == y.Uuid))
                                     tempList.Add($"{nameof(StudyDesignEntity.StudyWorkflows)}.{nameof(WorkflowEntity.WorkflowItems)}");
+                                else if (previousStudyWorkflows.WorkflowItems != null && previousStudyWorkflows.WorkflowItems.Any(x => x.Uuid == y.Uuid))
+                                {
+                                    if (currentStudyWorkflows.WorkflowItems.IndexOf(y) != previousStudyWorkflows.WorkflowItems.IndexOf(previousStudyWorkflows.WorkflowItems.Find(x => x.Uuid == y.Uuid)))
+                                    {
+                                        tempList.Add($"{nameof(StudyDesignEntity.StudyWorkflows)}.{nameof(WorkflowEntity.WorkflowItems)}");
+                                    }
+                                }
                             });                            
                         }
                         currentStudyWorkflows?.WorkflowItems?.ForEach(currentWorkflowItem =>
@@ -2297,6 +2339,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                                         {
                                             if (previousWorkflowItem.WorkflowItemActivity.DefinedProcedures != null && !previousWorkflowItem.WorkflowItemActivity.DefinedProcedures.Any(x => x.Uuid == y.Uuid))
                                                 tempList.Add($"{nameof(StudyDesignEntity.StudyWorkflows)}.{nameof(WorkflowEntity.WorkflowItems)}.{nameof(WorkFlowItemEntity.WorkflowItemActivity)}.{nameof(ActivityEntity.DefinedProcedures)}");
+                                            else if (previousWorkflowItem.WorkflowItemActivity.DefinedProcedures != null && previousWorkflowItem.WorkflowItemActivity.DefinedProcedures.Any(x => x.Uuid == y.Uuid))
+                                            {
+                                                if (currentWorkflowItem.WorkflowItemActivity.DefinedProcedures.IndexOf(y) != previousWorkflowItem.WorkflowItemActivity.DefinedProcedures.IndexOf(previousWorkflowItem.WorkflowItemActivity.DefinedProcedures.Find(x => x.Uuid == y.Uuid)))
+                                                {
+                                                    tempList.Add($"{nameof(StudyDesignEntity.StudyWorkflows)}.{nameof(WorkflowEntity.WorkflowItems)}.{nameof(WorkFlowItemEntity.WorkflowItemActivity)}.{nameof(ActivityEntity.DefinedProcedures)}");
+                                                }
+                                            }
                                         });
                                     }
                                     if (currentWorkflowItem.WorkflowItemActivity.StudyDataCollection?.Count != previousWorkflowItem.WorkflowItemActivity.StudyDataCollection?.Count)
@@ -2312,6 +2361,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                                         {
                                             if (previousWorkflowItem.WorkflowItemActivity.StudyDataCollection != null && !previousWorkflowItem.WorkflowItemActivity.StudyDataCollection.Any(x => x.Uuid == y.Uuid))
                                                 tempList.Add($"{nameof(StudyDesignEntity.StudyWorkflows)}.{nameof(WorkflowEntity.WorkflowItems)}.{nameof(WorkFlowItemEntity.WorkflowItemActivity)}.{nameof(ActivityEntity.StudyDataCollection)}");
+                                            else if (previousWorkflowItem.WorkflowItemActivity.StudyDataCollection != null && previousWorkflowItem.WorkflowItemActivity.StudyDataCollection.Any(x => x.Uuid == y.Uuid))
+                                            {
+                                                if (currentWorkflowItem.WorkflowItemActivity.StudyDataCollection.IndexOf(y) != previousWorkflowItem.WorkflowItemActivity.StudyDataCollection.IndexOf(previousWorkflowItem.WorkflowItemActivity.StudyDataCollection.Find(x => x.Uuid == y.Uuid)))
+                                                {
+                                                    tempList.Add($"{nameof(StudyDesignEntity.StudyWorkflows)}.{nameof(WorkflowEntity.WorkflowItems)}.{nameof(WorkFlowItemEntity.WorkflowItemActivity)}.{nameof(ActivityEntity.StudyDataCollection)}");
+                                                }
+                                            }
                                         });
                                     }
                                 }
