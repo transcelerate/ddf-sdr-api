@@ -2223,6 +2223,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             {
                 tempList.Add($"{nameof(StudyDesignEntity.StudyWorkflows)}.{x}");
             });
+            tempList.RemoveAll(x => x.Contains($"{nameof(ActivityEntity.DefinedProcedures)}"));
+            tempList.RemoveAll(x => x.Contains($"{nameof(ActivityEntity.StudyDataCollection)}"));
             tempList.RemoveAll(x => x.Contains($"{nameof(WorkflowEntity.WorkflowItems)}"));
             currentStudyDesign.StudyWorkflows?.ForEach(currentStudyWorkflows =>
             {
@@ -2230,12 +2232,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                 if (previousStudyDesign.StudyWorkflows != null && previousStudyDesign.StudyWorkflows.Any(x => x.Uuid == currentStudyWorkflows.Uuid))
                 {
                     var previousStudyWorkflows = previousStudyDesign.StudyWorkflows.Find(x => x.Uuid == currentStudyWorkflows.Uuid);
-                    if (currentStudyWorkflows.WorkflowItems != null && previousStudyWorkflows.WorkflowItems != null)
+                    GetDifferenceForAList<WorkFlowItemEntity>(currentStudyWorkflows.WorkflowItems, previousStudyWorkflows.WorkflowItems).ForEach(x =>
                     {
-                        GetDifferenceForAList<WorkFlowItemEntity>(currentStudyWorkflows.WorkflowItems, previousStudyWorkflows.WorkflowItems).ForEach(x =>
-                        {
-                            workFlowItemChangeList.Add($"{nameof(StudyDesignEntity.StudyWorkflows)}.{nameof(WorkflowEntity.WorkflowItems)}.{x}");
-                        });
+                        workFlowItemChangeList.Add($"{nameof(StudyDesignEntity.StudyWorkflows)}.{nameof(WorkflowEntity.WorkflowItems)}.{x}");
+                    });
+                    if (currentStudyWorkflows.WorkflowItems != null && previousStudyWorkflows.WorkflowItems != null)
+                    {                        
                         workFlowItemChangeList.RemoveAll(x => x.Contains($"{nameof(ActivityEntity.DefinedProcedures)}"));
                         workFlowItemChangeList.RemoveAll(x => x.Contains($"{nameof(ActivityEntity.StudyDataCollection)}"));
                         currentStudyWorkflows?.WorkflowItems?.ForEach(currentWorkflowItem =>
