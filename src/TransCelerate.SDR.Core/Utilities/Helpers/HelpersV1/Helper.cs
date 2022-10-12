@@ -2200,11 +2200,15 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                     {
                         tempList.Add($"{nameof(StudyDesignEntity.StudyCells)}.{nameof(StudyCellEntity.StudyElements)}.{x}");
                     });
-                    GetDifferenceForAList<EncounterEntity>(currentStudyCell.StudyEpoch?.Encounters, previousStudyCell.StudyEpoch?.Encounters).ForEach(x =>
+
+                    if (currentStudyCell.StudyEpoch is not null && previousStudyCell.StudyEpoch is not null)
                     {
-                        tempList.Add($"{nameof(StudyDesignEntity.StudyCells)}.{nameof(StudyCellEntity.StudyEpoch)}.{nameof(StudyEpochEntity.Encounters)}.{x}");
-                    });
-                    
+                        GetDifferenceForAList<EncounterEntity>(currentStudyCell.StudyEpoch?.Encounters, previousStudyCell.StudyEpoch?.Encounters).ForEach(x =>
+                        {
+                            tempList.Add($"{nameof(StudyDesignEntity.StudyCells)}.{nameof(StudyCellEntity.StudyEpoch)}.{nameof(StudyEpochEntity.Encounters)}.{x}");
+                        });
+                    }
+
                 }
             });
             return tempList;
@@ -2239,14 +2243,18 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                             if (previousStudyWorkflows.WorkflowItems != null && previousStudyWorkflows.WorkflowItems.Any(x => x.Uuid == currentWorkflowItem.Uuid))
                             {
                                 var previousWorkflowItem = previousStudyWorkflows.WorkflowItems.Find(x => x.Uuid == currentWorkflowItem.Uuid);
-                                GetDifferenceForAList<DefinedProcedureEntity>(currentWorkflowItem.WorkflowItemActivity?.DefinedProcedures, previousWorkflowItem.WorkflowItemActivity?.DefinedProcedures).ForEach(x =>
+
+                                if(currentWorkflowItem.WorkflowItemActivity is not null && previousWorkflowItem.WorkflowItemActivity is not null)
                                 {
-                                    workFlowItemChangeList.Add($"{nameof(StudyDesignEntity.StudyWorkflows)}.{nameof(WorkflowEntity.WorkflowItems)}.{nameof(WorkFlowItemEntity.WorkflowItemActivity)}.{nameof(ActivityEntity.DefinedProcedures)}.{x}");
-                                });
-                                GetDifferenceForAList<StudyDataCollectionEntity>(currentWorkflowItem.WorkflowItemActivity?.StudyDataCollection, previousWorkflowItem.WorkflowItemActivity?.StudyDataCollection).ForEach(x =>
-                                {
-                                    workFlowItemChangeList.Add($"{nameof(StudyDesignEntity.StudyWorkflows)}.{nameof(WorkflowEntity.WorkflowItems)}.{nameof(WorkFlowItemEntity.WorkflowItemActivity)}.{nameof(ActivityEntity.StudyDataCollection)}.{x}");
-                                });
+                                    GetDifferenceForAList<DefinedProcedureEntity>(currentWorkflowItem.WorkflowItemActivity?.DefinedProcedures, previousWorkflowItem.WorkflowItemActivity?.DefinedProcedures).ForEach(x =>
+                                    {
+                                        workFlowItemChangeList.Add($"{nameof(StudyDesignEntity.StudyWorkflows)}.{nameof(WorkflowEntity.WorkflowItems)}.{nameof(WorkFlowItemEntity.WorkflowItemActivity)}.{nameof(ActivityEntity.DefinedProcedures)}.{x}");
+                                    });
+                                    GetDifferenceForAList<StudyDataCollectionEntity>(currentWorkflowItem.WorkflowItemActivity?.StudyDataCollection, previousWorkflowItem.WorkflowItemActivity?.StudyDataCollection).ForEach(x =>
+                                    {
+                                        workFlowItemChangeList.Add($"{nameof(StudyDesignEntity.StudyWorkflows)}.{nameof(WorkflowEntity.WorkflowItems)}.{nameof(WorkFlowItemEntity.WorkflowItemActivity)}.{nameof(ActivityEntity.StudyDataCollection)}.{x}");
+                                    });
+                                }
                             }
                         });
                     }
