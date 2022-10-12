@@ -79,6 +79,7 @@ namespace TransCelerate.SDR.UnitTesting
            
 
             studyEntity = helper.CheckForSections(studyEntity1, studyEntity2);
+       
         }
 
         [Test]
@@ -604,6 +605,8 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsNotNull(DataFilters.GetFiltersForStudyHistory(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1),"sd"));
 
             Assert.IsNotNull(DataFilters.GetProjectionForPartialStudyElements(Constants.ClinicalStudyElements.Select(x=>x.ToLower()).ToArray()));
+
+            Assert.IsNotNull(DataFilters.GetProjectionForPartialStudyDesignElementsFullStudy());
         }
         #endregion
 

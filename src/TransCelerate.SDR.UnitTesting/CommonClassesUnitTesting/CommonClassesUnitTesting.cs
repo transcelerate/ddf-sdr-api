@@ -308,6 +308,10 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.AreEqual("Conformance Error", validationErrorModel.message);
             Assert.AreEqual("Validation Error", validationErrorModel.error);
             Assert.AreEqual("400", validationErrorModel.statusCode);
+
+            errorModel = ErrorResponseHelper.InternalServerError();
+            Assert.AreEqual("500", errorModel.statusCode);
+            Assert.AreEqual("Internal Server Error", errorModel.message);
         }
         #endregion
 
