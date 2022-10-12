@@ -166,6 +166,22 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.NotNull(actual_result[0].permission);
             Assert.AreEqual(expected[0].groupId, actual_result[0].groupId);
         }
+        [Test]
+        public void GetUserList_Exception()
+        {
+
+            UserGroupsController userGroupMappingController = new UserGroupsController(_mockUserGroupMappingService.Object, _mockLogger);
+
+            var method = userGroupMappingController.GetUserList();
+            method.Wait();
+
+            var error = method.Result;
+
+            Assert.IsNotNull((error as BadRequestObjectResult).Value);
+            Assert.AreEqual(400, (error as BadRequestObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), error);
+
+        }
 
         [Test]
         public void GetUserGroups_UnitTest_FailureResponse()
