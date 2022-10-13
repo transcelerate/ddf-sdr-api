@@ -1,30 +1,40 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Abstractions;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Moq;
+using System.Linq;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using TransCelerate.SDR.Core.AppSettings;
 using TransCelerate.SDR.Core.DTO;
 using TransCelerate.SDR.Core.DTO.Reports;
 using TransCelerate.SDR.Core.DTO.Study;
+using TransCelerate.SDR.Core.DTO.StudyV1;
 using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.DTO.UserGroups;
 using TransCelerate.SDR.Core.Entities.Study;
 using TransCelerate.SDR.Core.Entities.UserGroups;
 using TransCelerate.SDR.Core.ErrorModels;
+using TransCelerate.SDR.Core.Filters;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Enums;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.RuleEngine;
+using TransCelerate.SDR.Services.Interfaces;
 using TransCelerate.SDR.WebApi.Controllers;
 using TransCelerate.SDR.WebApi.Mappers;
 
@@ -40,6 +50,7 @@ namespace TransCelerate.SDR.UnitTesting
         private Mock<IConfiguration> _mockConfig = new Mock<IConfiguration>();
         //private IConfiguration _mockConfiguration = Mock.Of<IConfiguration>();
         private IServiceCollection serviceDescriptors = Mock.Of<IServiceCollection>();
+        private Mock<IChangeAuditService> _mockChangeAuditService = new Mock<IChangeAuditService>(MockBehavior.Loose);
         //private IApplicationBuilder app = Mock.Of<IApplicationBuilder>();
         //private IWebHostEnvironment env = Mock.Of<IWebHostEnvironment>();
 
@@ -58,6 +69,11 @@ namespace TransCelerate.SDR.UnitTesting
             UserName = "user1@SDR.com",
             UserRole = Constants.Roles.Org_Admin
         };
+        public ChangeAuditStudyDto GetChangeAuditDtoDataFromStaticJson()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ChangeAuditData.json");
+            return JsonConvert.DeserializeObject<ChangeAuditStudyDto>(jsonData);
+        }
         public StudyEntity GetPostDataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/PostStudyData.json");
@@ -770,6 +786,56 @@ namespace TransCelerate.SDR.UnitTesting
             }));
             Assert.IsNotEmpty(usageReport);
         }
+        #endregion
+
+        #region ActionFilter
+        [Test]
+        public void ActionFilter_UnitTesting()
+        {
+            ActionFilter actionFilter = new ActionFilter(_mockLogHelper);
+
+            Mock<ActionExecutionDelegate> actionExecutionDelegate = new Mock<ActionExecutionDelegate>();
+
+            ChangeAuditStudyDto study = GetChangeAuditDtoDataFromStaticJson();
+
+            _mockChangeAuditService.Setup(x => x.GetChangeAudit(It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(study as object));
+            ChangeAuditController changeAuditController = new ChangeAuditController(_mockChangeAuditService.Object, _mockLogHelper);
+            var method = changeAuditController.GetChangeAudit("sd");
+            method.Wait();
+            var result = method.Result;
+
+            var actionContext = new ActionContext(
+                Mock.Of<HttpContext>(),
+                Mock.Of<RouteData>(),
+                Mock.Of<ActionDescriptor>(),
+                changeAuditController.ModelState
+            );
+            var actionExecutedContext = new ActionExecutedContext(
+                actionContext,
+                new List<IFilterMetadata>(),
+                changeAuditController);
+            var actionExecutingContext = new ActionExecutingContext(
+                actionContext,
+                new List<IFilterMetadata>(),
+                new Dictionary<string, object>(),
+                changeAuditController
+            );
+
+            actionExecutionDelegate.Setup(x => x())
+                .Returns(Task.FromResult(actionExecutedContext));
+
+            var method1 = actionFilter.OnActionExecutionAsync(actionExecutingContext, actionExecutionDelegate.Object);
+            method1.Wait();
+            var res = method.GetAwaiter();
+
+            ActionExecutionDelegate actionExecutionDelegate1 = Mock.Of<ActionExecutionDelegate>();
+            actionExecutionDelegate.Setup(x => x())
+             .Throws(new Exception());
+            method1 = actionFilter.OnActionExecutionAsync(actionExecutingContext, actionExecutionDelegate.Object);
+            //Assert.Throws<NullReferenceException>(()=>method1.Wait());
+            Assert.Throws(Is.InstanceOf<AggregateException>(), () => method1.Wait());
+        }      
         #endregion
 
     }

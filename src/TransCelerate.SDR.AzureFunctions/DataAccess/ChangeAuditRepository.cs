@@ -11,7 +11,7 @@ using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.AzureFunctions.DataAccess
 {
-    public class ChangeAuditReposotory : IChangeAuditReposotory
+    public class ChangeAuditRepository : IChangeAuditRepository
     {
         #region Variables     
         private readonly string _databaseName = Config.DatabaseName;
@@ -22,7 +22,7 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
         #endregion
 
         #region Constructor      
-        public ChangeAuditReposotory(IMongoClient client, ILogHelper logger)
+        public ChangeAuditRepository(IMongoClient client, ILogHelper logger)
         {
             _client = client;
             _database = _client.GetDatabase(_databaseName);
@@ -44,7 +44,7 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
         /// </returns>
         public List<StudyEntity> GetStudyItemsAsync(string studyId, int sdruploadversion)
         {
-            _logger.LogInformation($"Started Repository : {nameof(ChangeAuditReposotory)}; Method : {nameof(GetStudyItemsAsync)};");
+            _logger.LogInformation($"Started Repository : {nameof(ChangeAuditRepository)}; Method : {nameof(GetStudyItemsAsync)};");
             try
             {
                 IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
@@ -72,7 +72,7 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(ChangeAuditReposotory)}; Method : {nameof(GetStudyItemsAsync)};");
+                _logger.LogInformation($"Ended Repository : {nameof(ChangeAuditRepository)}; Method : {nameof(GetStudyItemsAsync)};");
             }
         }
         /// <summary>
@@ -85,7 +85,7 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
 
         public ChangeAuditStudyEntity GetChangeAuditAsync(string studyId)
         {
-            _logger.LogInformation($"Started Repository : {nameof(ChangeAuditReposotory)}; Method : {nameof(GetChangeAuditAsync)};");
+            _logger.LogInformation($"Started Repository : {nameof(ChangeAuditRepository)}; Method : {nameof(GetChangeAuditAsync)};");
             try
             {
                 IMongoCollection<ChangeAuditStudyEntity> collection = _database.GetCollection<ChangeAuditStudyEntity>(Constants.Collections.ChangeAudit);
@@ -110,7 +110,7 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(ChangeAuditReposotory)}; Method : {nameof(GetChangeAuditAsync)};");
+                _logger.LogInformation($"Ended Repository : {nameof(ChangeAuditRepository)}; Method : {nameof(GetChangeAuditAsync)};");
             }
         }
         /// <summary>
@@ -119,7 +119,7 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
         /// <param name="changeAudit"></param>
         public void InsertChangeAudit(ChangeAuditStudyEntity changeAudit)
         {
-            _logger.LogInformation($"Started Repository : {nameof(ChangeAuditReposotory)}; Method : {nameof(InsertChangeAudit)};");
+            _logger.LogInformation($"Started Repository : {nameof(ChangeAuditRepository)}; Method : {nameof(InsertChangeAudit)};");
             try
             {
                 IMongoCollection<ChangeAuditStudyEntity> collection = _database.GetCollection<ChangeAuditStudyEntity>(Constants.Collections.ChangeAudit);
@@ -131,7 +131,7 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(ChangeAuditReposotory)}; Method : {nameof(InsertChangeAudit)};");
+                _logger.LogInformation($"Ended Repository : {nameof(ChangeAuditRepository)}; Method : {nameof(InsertChangeAudit)};");
             }
         }
         /// <summary>
@@ -140,7 +140,7 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
         /// <param name="changeAudit"></param>
         public void UpdateChangeAudit(ChangeAuditStudyEntity changeAudit)
         {
-            _logger.LogInformation($"Started Repository : {nameof(ChangeAuditReposotory)}; Method : {nameof(UpdateChangeAudit)};");
+            _logger.LogInformation($"Started Repository : {nameof(ChangeAuditRepository)}; Method : {nameof(UpdateChangeAudit)};");
             try
             {
                 IMongoCollection<ChangeAuditStudyEntity> collection = _database.GetCollection<ChangeAuditStudyEntity>(Constants.Collections.ChangeAudit);
@@ -155,7 +155,7 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(ChangeAuditReposotory)}; Method : {nameof(UpdateChangeAudit)};");
+                _logger.LogInformation($"Ended Repository : {nameof(ChangeAuditRepository)}; Method : {nameof(UpdateChangeAudit)};");
             }
         }
         #endregion

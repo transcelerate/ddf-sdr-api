@@ -122,5 +122,7 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// <param name="study_uuid"> Study Id</param>
         /// <returns></returns>
         Task<long> CountAsync(string study_uuid);
+
+        Task<StudyEntity> GetStudyItemsForCheckingAccessAsync(string studyId, int sdruploadversion);
     }
 }

@@ -28,6 +28,14 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             return filter;
         }
+        public static FilterDefinition<ChangeAuditStudyEntity> GetFiltersForChangeAudit(string studyId)
+        {
+            FilterDefinitionBuilder<ChangeAuditStudyEntity> builder = Builders<ChangeAuditStudyEntity>.Filter;
+            FilterDefinition<ChangeAuditStudyEntity> filter = builder.Empty;
+            filter &= builder.Where(s => s.ChangeAudit.Study_uuid == studyId);
+
+            return filter;
+        }
         /// <summary>
         /// Get filters for StudyHistory API
         /// </summary>
@@ -178,6 +186,16 @@ namespace TransCelerate.SDR.DataAccess.Filters
             ProjectionDefinition<StudyEntity> projector = projection.Include(x => x.ClinicalStudy.Uuid);
             projector = projector.Include(x => x.ClinicalStudy.StudyType);
             projector = projector.Include(x => x.ClinicalStudy.StudyDesigns);
+            projector = projector.Exclude(x => x._id);
+
+            return projector;
+        }
+
+        public static ProjectionDefinition<StudyEntity> GetProjectionForCheckAccessForAStudy()
+        {
+            ProjectionDefinitionBuilder<StudyEntity> projection = Builders<StudyEntity>.Projection;
+            ProjectionDefinition<StudyEntity> projector = projection.Include(x => x.ClinicalStudy.Uuid);
+            projector = projector.Include(x => x.ClinicalStudy.StudyType);            
             projector = projector.Exclude(x => x._id);
 
             return projector;

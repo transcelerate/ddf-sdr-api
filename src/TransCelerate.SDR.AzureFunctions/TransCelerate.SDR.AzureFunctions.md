@@ -5,16 +5,16 @@
 
 - [ChangeAuditFunction](#T-TransCelerate-SDR-AzureFunctions-ChangeAuditFunction 'TransCelerate.SDR.AzureFunctions.ChangeAuditFunction')
   - [Run(myQueueItem)](#M-TransCelerate-SDR-AzureFunctions-ChangeAuditFunction-Run-System-String- 'TransCelerate.SDR.AzureFunctions.ChangeAuditFunction.Run(System.String)')
-- [ChangeAuditReposotory](#T-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditReposotory 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditReposotory')
-  - [GetChangeAuditAsync(studyId)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditReposotory-GetChangeAuditAsync-System-String- 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditReposotory.GetChangeAuditAsync(System.String)')
-  - [GetStudyItemsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditReposotory-GetStudyItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditReposotory.GetStudyItemsAsync(System.String,System.Int32)')
-  - [InsertChangeAudit(changeAudit)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditReposotory-InsertChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity- 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditReposotory.InsertChangeAudit(TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity)')
-  - [UpdateChangeAudit(changeAudit)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditReposotory-UpdateChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity- 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditReposotory.UpdateChangeAudit(TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity)')
-- [IChangeAuditReposotory](#T-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditReposotory 'TransCelerate.SDR.AzureFunctions.DataAccess.IChangeAuditReposotory')
-  - [GetChangeAuditAsync(studyId)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditReposotory-GetChangeAuditAsync-System-String- 'TransCelerate.SDR.AzureFunctions.DataAccess.IChangeAuditReposotory.GetChangeAuditAsync(System.String)')
-  - [GetStudyItemsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditReposotory-GetStudyItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.AzureFunctions.DataAccess.IChangeAuditReposotory.GetStudyItemsAsync(System.String,System.Int32)')
-  - [InsertChangeAudit(changeAudit)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditReposotory-InsertChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity- 'TransCelerate.SDR.AzureFunctions.DataAccess.IChangeAuditReposotory.InsertChangeAudit(TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity)')
-  - [UpdateChangeAudit(changeAudit)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditReposotory-UpdateChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity- 'TransCelerate.SDR.AzureFunctions.DataAccess.IChangeAuditReposotory.UpdateChangeAudit(TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity)')
+- [ChangeAuditRepository](#T-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditRepository 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditRepository')
+  - [GetChangeAuditAsync(studyId)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditRepository-GetChangeAuditAsync-System-String- 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditRepository.GetChangeAuditAsync(System.String)')
+  - [GetStudyItemsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditRepository-GetStudyItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditRepository.GetStudyItemsAsync(System.String,System.Int32)')
+  - [InsertChangeAudit(changeAudit)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditRepository-InsertChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity- 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditRepository.InsertChangeAudit(TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity)')
+  - [UpdateChangeAudit(changeAudit)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditRepository-UpdateChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity- 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditRepository.UpdateChangeAudit(TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity)')
+- [IChangeAuditRepository](#T-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditRepository 'TransCelerate.SDR.AzureFunctions.DataAccess.IChangeAuditRepository')
+  - [GetChangeAuditAsync(studyId)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditRepository-GetChangeAuditAsync-System-String- 'TransCelerate.SDR.AzureFunctions.DataAccess.IChangeAuditRepository.GetChangeAuditAsync(System.String)')
+  - [GetStudyItemsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditRepository-GetStudyItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.AzureFunctions.DataAccess.IChangeAuditRepository.GetStudyItemsAsync(System.String,System.Int32)')
+  - [InsertChangeAudit(changeAudit)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditRepository-InsertChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity- 'TransCelerate.SDR.AzureFunctions.DataAccess.IChangeAuditRepository.InsertChangeAudit(TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity)')
+  - [UpdateChangeAudit(changeAudit)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditRepository-UpdateChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity- 'TransCelerate.SDR.AzureFunctions.DataAccess.IChangeAuditRepository.UpdateChangeAudit(TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity)')
 - [IMessageProcessor](#T-TransCelerate-SDR-AzureFunctions-IMessageProcessor 'TransCelerate.SDR.AzureFunctions.IMessageProcessor')
   - [ProcessMessage(message)](#M-TransCelerate-SDR-AzureFunctions-IMessageProcessor-ProcessMessage-System-String- 'TransCelerate.SDR.AzureFunctions.IMessageProcessor.ProcessMessage(System.String)')
 - [MessageProcessor](#T-TransCelerate-SDR-AzureFunctions-MessageProcessor 'TransCelerate.SDR.AzureFunctions.MessageProcessor')
@@ -44,14 +44,14 @@ Azure Service Bus Trigger for Change Audit
 | ---- | ---- | ----------- |
 | myQueueItem | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Queue Message |
 
-<a name='T-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditReposotory'></a>
-## ChangeAuditReposotory `type`
+<a name='T-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditRepository'></a>
+## ChangeAuditRepository `type`
 
 ##### Namespace
 
 TransCelerate.SDR.AzureFunctions.DataAccess
 
-<a name='M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditReposotory-GetChangeAuditAsync-System-String-'></a>
+<a name='M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditRepository-GetChangeAuditAsync-System-String-'></a>
 ### GetChangeAuditAsync(studyId) `method`
 
 ##### Summary
@@ -69,7 +69,7 @@ A [ChangeAuditEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditEnti
 | ---- | ---- | ----------- |
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study UUID |
 
-<a name='M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditReposotory-GetStudyItemsAsync-System-String,System-Int32-'></a>
+<a name='M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditRepository-GetStudyItemsAsync-System-String,System-Int32-'></a>
 ### GetStudyItemsAsync(studyId,sdruploadversion) `method`
 
 ##### Summary
@@ -88,7 +88,7 @@ A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study UUID |
 | sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | current version |
 
-<a name='M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditReposotory-InsertChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity-'></a>
+<a name='M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditRepository-InsertChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity-'></a>
 ### InsertChangeAudit(changeAudit) `method`
 
 ##### Summary
@@ -101,7 +101,7 @@ Insert a Change Audit for a study
 | ---- | ---- | ----------- |
 | changeAudit | [TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity 'TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity') |  |
 
-<a name='M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditReposotory-UpdateChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity-'></a>
+<a name='M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditRepository-UpdateChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity-'></a>
 ### UpdateChangeAudit(changeAudit) `method`
 
 ##### Summary
@@ -114,14 +114,14 @@ Update existing change audit
 | ---- | ---- | ----------- |
 | changeAudit | [TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity 'TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity') |  |
 
-<a name='T-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditReposotory'></a>
-## IChangeAuditReposotory `type`
+<a name='T-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditRepository'></a>
+## IChangeAuditRepository `type`
 
 ##### Namespace
 
 TransCelerate.SDR.AzureFunctions.DataAccess
 
-<a name='M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditReposotory-GetChangeAuditAsync-System-String-'></a>
+<a name='M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditRepository-GetChangeAuditAsync-System-String-'></a>
 ### GetChangeAuditAsync(studyId) `method`
 
 ##### Summary
@@ -139,7 +139,7 @@ A [ChangeAuditEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditEnti
 | ---- | ---- | ----------- |
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study UUID |
 
-<a name='M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditReposotory-GetStudyItemsAsync-System-String,System-Int32-'></a>
+<a name='M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditRepository-GetStudyItemsAsync-System-String,System-Int32-'></a>
 ### GetStudyItemsAsync(studyId,sdruploadversion) `method`
 
 ##### Summary
@@ -158,7 +158,7 @@ A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study UUID |
 | sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | current version |
 
-<a name='M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditReposotory-InsertChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity-'></a>
+<a name='M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditRepository-InsertChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity-'></a>
 ### InsertChangeAudit(changeAudit) `method`
 
 ##### Summary
@@ -171,7 +171,7 @@ Insert a Change Audit for a study
 | ---- | ---- | ----------- |
 | changeAudit | [TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity 'TransCelerate.SDR.Core.Entities.StudyV1.ChangeAuditStudyEntity') |  |
 
-<a name='M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditReposotory-UpdateChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity-'></a>
+<a name='M-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditRepository-UpdateChangeAudit-TransCelerate-SDR-Core-Entities-StudyV1-ChangeAuditStudyEntity-'></a>
 ### UpdateChangeAudit(changeAudit) `method`
 
 ##### Summary

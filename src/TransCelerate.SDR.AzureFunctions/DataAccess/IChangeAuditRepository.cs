@@ -4,7 +4,7 @@ using TransCelerate.SDR.Core.Entities.StudyV1;
 
 namespace TransCelerate.SDR.AzureFunctions.DataAccess
 {
-    public interface IChangeAuditReposotory
+    public interface IChangeAuditRepository
     {
         /// <summary>
         /// Get Audit Details for a Study Id from Change Audit Collections
