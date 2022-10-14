@@ -75,6 +75,10 @@ namespace TransCelerate.SDR.WebApi.Mappers
             //Mapper for AuditTrail
             CreateMap<AuditTrailDto, AuditTrailResponseEntity>().ReverseMap();
 
+            //ChangeAudit
+            CreateMap<ChangeAuditStudyDto, ChangeAuditStudyEntity>().ReverseMap();
+            CreateMap<ChangeAuditDto,ChangeAuditEntity>().ReverseMap();
+            CreateMap<ChangesDto, ChangesEntity>().ReverseMap();
         }
     }
 }

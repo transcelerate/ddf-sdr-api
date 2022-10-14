@@ -137,5 +137,15 @@ namespace TransCelerate.SDR.Services.Interfaces
         Task<object> DeleteStudy(string studyId, LoggedInUser user);
         #endregion
 
+        #region Check Access For A study
+        /// <summary>
+        /// Check Access for a study
+        /// </summary>
+        /// <param name="studyId"></param>
+        /// <param name="sdruploadversion"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        Task<bool> GetAccessForAStudy(string studyId, int sdruploadversion, LoggedInUser user);
+        #endregion
     }
 }

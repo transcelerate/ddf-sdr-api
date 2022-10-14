@@ -56,7 +56,7 @@ namespace TransCelerate.SDR.Services.Services
                 _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(GetStudy)};");
                 studyId = studyId.Trim();
 
-                StudyEntity study = study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: studyId, sdruploadversion: sdruploadversion).ConfigureAwait(false);
+                StudyEntity study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: studyId, sdruploadversion: sdruploadversion).ConfigureAwait(false);
 
                 if (study == null)
                 {
@@ -724,6 +724,33 @@ namespace TransCelerate.SDR.Services.Services
             }
         }
 
+        #endregion
+
+        #region Check Access For A Study
+        public async Task<bool> GetAccessForAStudy(string studyId, int sdruploadversion, LoggedInUser user)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(GetAccessForAStudy)};");
+                studyId = studyId.Trim();
+
+                StudyEntity study = study = await _clinicalStudyRepository.GetStudyItemsForCheckingAccessAsync(studyId: studyId, 0).ConfigureAwait(false);
+
+                StudyEntity checkStudy = await CheckAccessForAStudy(study, user);
+                if (checkStudy == null)
+                    return false;
+
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(GetAccessForAStudy)};");
+            }
+        }
         #endregion
     }
 }

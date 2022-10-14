@@ -23,7 +23,7 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
 
         private ILogHelper _mockLogger = Mock.Of<ILogHelper>();
         private Mock<IHelper> _mockHelper = new Mock<IHelper>(MockBehavior.Loose);
-        private Mock<IChangeAuditReposotory> _mockChangeAuditRepository = new Mock<IChangeAuditReposotory>(MockBehavior.Loose);
+        private Mock<IChangeAuditRepository> _mockChangeAuditRepository = new Mock<IChangeAuditRepository>(MockBehavior.Loose);
         private ILogHelper _mockLogger1 = Mock.Of<ILogHelper>();
         private Mock<IMessageProcessor> _messageProcessor = new Mock<IMessageProcessor>(MockBehavior.Loose);
 

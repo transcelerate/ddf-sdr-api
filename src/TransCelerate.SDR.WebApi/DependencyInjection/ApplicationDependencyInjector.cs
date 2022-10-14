@@ -22,6 +22,8 @@ namespace TransCelerate.SDR.WebApi.DependencyInjection
             services.AddTransient<IHelper, Helper >();
             services.AddTransient<IClinicalStudyRepositoryV1, ClinicalStudyRepositoryV1>();
             services.AddTransient<IClinicalStudyServiceV1, ClinicalStudyServiceV1 >();
+            services.AddTransient<IChangeAuditRepository, ChangeAuditRepository >();
+            services.AddTransient<IChangeAuditService, ChangeAuditService >();
             services.AddTransient<IMongoClient, MongoClient>(db => new MongoClient(Config.ConnectionString));            
 
             return services;
