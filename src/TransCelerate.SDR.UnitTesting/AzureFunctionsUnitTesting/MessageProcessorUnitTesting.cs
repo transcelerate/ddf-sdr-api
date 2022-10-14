@@ -15,6 +15,7 @@ using NUnit.Framework;
 using System.Net.WebSockets;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using ObjectsComparer;
+using MongoDB.Driver;
 
 namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
 {
@@ -188,6 +189,38 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
 
             currentVersion.ClinicalStudy.StudyProtocolVersions[0].BriefTitle = "tests";
             Assert.IsNotEmpty(helper.CheckForNumberOfElementsMismatch<StudyProtocolVersionEntity>(currentVersion.ClinicalStudy.StudyProtocolVersions, previousVersion.ClinicalStudy.StudyProtocolVersions));
+
+        }
+        [Test]
+        public void ChangeAuditRepo_UnitTesting()
+        {
+            Mock<IMongoDatabase> mongoDatabase = new Mock<IMongoDatabase>(MockBehavior.Loose);
+            Mock<IMongoClient> mongoClient = new Mock<IMongoClient>(MockBehavior.Loose);
+            Mock<IMongoCollection<StudyEntity>> mongoCollectionStudy = new Mock<IMongoCollection<StudyEntity>>(MockBehavior.Strict);
+            Mock<IMongoCollection<ChangeAuditStudyEntity>> mongoCollectionChangeAudit = new Mock<IMongoCollection<ChangeAuditStudyEntity>>(MockBehavior.Strict);
+            Mock<IClientSessionHandle> mongoClientSessionHandle = new Mock<IClientSessionHandle>(MockBehavior.Loose);
+            Mock<IFindFluent<ChangeAuditStudyEntity, ChangeAuditStudyEntity>> _fakeCollectionResult = new Mock<IFindFluent<ChangeAuditStudyEntity, ChangeAuditStudyEntity>>();
+            var asyncCursor = new Mock<IAsyncCursor<ChangeAuditStudyEntity>>();
+
+            mongoClient.Setup(x => x.GetDatabase(It.IsAny<string>(), null))
+                .Returns(mongoDatabase.Object);
+
+            mongoDatabase.Setup(x => x.GetCollection<ChangeAuditStudyEntity>(It.IsAny<string>(), null))
+                .Returns(mongoCollectionChangeAudit.Object);
+
+            mongoDatabase.Setup(x => x.GetCollection<StudyEntity>(It.IsAny<string>(), null))
+                .Returns(mongoCollectionStudy.Object);
+
+            string study_uuid = "aaed3efe-7d70-4c9e-90e2-3446e936c291";
+
+
+
+            ChangeAuditRepository changeAuditRepository = new ChangeAuditRepository(mongoClient.Object, _mockLogger);
+
+            Assert.Throws<Moq.MockException>(() => changeAuditRepository.GetChangeAuditAsync(study_uuid));
+            Assert.Throws<Moq.MockException>(() => changeAuditRepository.GetStudyItemsAsync(study_uuid, 1));
+            Assert.Throws<Moq.MockException>(() => changeAuditRepository.InsertChangeAudit(GetChangeAuditDataFromStaticJson()));
+            Assert.Throws<Moq.MockException>(() => changeAuditRepository.UpdateChangeAudit(GetChangeAuditDataFromStaticJson()));
 
         }
 
