@@ -603,24 +603,29 @@ namespace TransCelerate.SDR.UnitTesting
                 pageNumber = 1,
                 pageSize = 20
             };
-            for (int i = 0; i < 7; i++)
+            string[] sortOrders = { SortOrder.asc.ToString(), SortOrder.desc.ToString() };
+            foreach (var sortOrder in sortOrders)
             {
-                if (i == 0)
-                    userGroupsQueryParameters.sortBy = "email";
-                if (i == 1)
-                    userGroupsQueryParameters.sortBy = "modifiedon";
-                if (i == 2)
-                    userGroupsQueryParameters.sortBy = "modifiedby";
-                if (i == 3)
-                    userGroupsQueryParameters.sortBy = "createdby";
-                if (i == 4)
-                    userGroupsQueryParameters.sortBy = "createdon";
-                if (i == 5)
-                    userGroupsQueryParameters.sortBy = "name";
-                if (i == 6)
-                    userGroupsQueryParameters.sortBy = "";
-                UserGroupSortingHelper.OrderGroups(GetGroupDetails(), userGroupsQueryParameters);
-                UserGroupSortingHelper.OrderUsers(UserList(), userGroupsQueryParameters);
+                userGroupsQueryParameters.sortOrder = sortOrder;
+                for (int i = 0; i < 7; i++)
+                {
+                    if (i == 0)
+                        userGroupsQueryParameters.sortBy = "email";
+                    if (i == 1)
+                        userGroupsQueryParameters.sortBy = "modifiedon";
+                    if (i == 2)
+                        userGroupsQueryParameters.sortBy = "modifiedby";
+                    if (i == 3)
+                        userGroupsQueryParameters.sortBy = "createdby";
+                    if (i == 4)
+                        userGroupsQueryParameters.sortBy = "createdon";
+                    if (i == 5)
+                        userGroupsQueryParameters.sortBy = "name";
+                    if (i == 6)
+                        userGroupsQueryParameters.sortBy = "";
+                    UserGroupSortingHelper.OrderGroups(GetGroupDetails(), userGroupsQueryParameters);
+                    UserGroupSortingHelper.OrderUsers(UserList(), userGroupsQueryParameters);
+                }
             }
 
         }
