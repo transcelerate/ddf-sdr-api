@@ -848,7 +848,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         }
         #endregion
 
-        #region GET Study
+        #region Delete Study
         [Test]
         public void DeleteStudy_UnitTesting()
         {
@@ -886,8 +886,49 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             Assert.Throws<AggregateException>(method.Wait);            
 
-        }       
+        }
         #endregion
+
+        #region GetAccess For A Study
+        [Test]
+        public void GetAccessForAStudy_UnitTesting()
+        {
+            Config.isGroupFilterEnabled = true;
+            user.UserRole = Constants.Roles.Org_Admin;
+            user.UserName = "user1@SDR.com";
+            StudyDto studyDto = GetDtoDataFromStaticJson();
+            StudyEntity studyEntity = GetEntityDataFromStaticJson();
+            studyEntity.ClinicalStudy.StudyType.Decode = "OBSERVATIONAL";
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsForCheckingAccessAsync(It.IsAny<string>(), It.IsAny<int>()))
+                   .Returns(Task.FromResult(studyEntity));
+            _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(user))
+                   .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockServiceBusClient.Object);
+
+            var method = ClinicalStudyService.GetAccessForAStudy("1", 0, user);
+            method.Wait();
+            var result = method.Result;
+
+            Assert.IsTrue(result);
+
+            user.UserRole = Constants.Roles.App_User;
+
+            method = ClinicalStudyService.GetAccessForAStudy("1", 0, user);
+            method.Wait();
+            result = method.Result;
+
+            Assert.IsFalse(result);
+
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsForCheckingAccessAsync(It.IsAny<string>(), It.IsAny<int>()))
+                  .Throws(new Exception("Error"));
+
+            method = ClinicalStudyService.GetAccessForAStudy("1", 0, user);
+
+
+            Assert.Throws<AggregateException>(method.Wait);
+        }
+        #endregion
+
         #endregion
     }
 }

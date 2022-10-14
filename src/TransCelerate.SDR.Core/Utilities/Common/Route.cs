@@ -68,5 +68,9 @@
         #region Token
         public const string Token = "v1/auth/token";
         #endregion
+
+        #region ChangeAudit
+        public const string ChangeAudit = "v1/changeaudit/{study_uuid}";
+        #endregion
     }
 }

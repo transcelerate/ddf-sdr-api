@@ -104,6 +104,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         {
             public const string StudyNotFound = "The requested study document not found";
 
+            public const string ChangeAuditNotFound = "The requested change audit is not found for the study with uuid :";
+
             public const string GenericError = "An Error Occured";
 
             public const string StudyDesignNotFound = "The requested study design not found";

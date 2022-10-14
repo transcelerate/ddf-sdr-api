@@ -397,6 +397,7 @@ namespace TransCelerate.SDR.UnitTesting
             studyList = GetListDataFromStaticJson();
             StudyHistoryEntity studyHistory = new StudyHistoryEntity();
             studyHistory.studyId = studyList[0].clinicalStudy.studyId;
+            studyHistory.studyType = studyList[0].clinicalStudy.studyType;
             studyHistory.studyTitle = studyList[0].clinicalStudy.studyTitle;
             studyHistory.studyVersion = studyList[0].auditTrail.studyVersion;
             studyHistories.Add(studyHistory);
@@ -468,6 +469,8 @@ namespace TransCelerate.SDR.UnitTesting
             
             _mockClinicalStudyRepository.Setup(x => x.PostStudyItemsAsync(It.IsAny<StudyEntity>()))
                     .Returns(Task.FromResult(GetPostDataFromStaticJson().clinicalStudy.studyId));
+            _mockClinicalStudyRepository.Setup(x => x.UpdateStudyItemsAsync(It.IsAny<StudyEntity>()))
+                    .Returns(Task.FromResult(GetPostDataFromStaticJson().clinicalStudy.studyId));
             ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);
             var studyDTO = JsonConvert.DeserializeObject<PostStudyDTO>(
                 JsonConvert.SerializeObject(GetPostDataFromStaticJson()));
@@ -500,6 +503,38 @@ namespace TransCelerate.SDR.UnitTesting
             //Assert          
             Assert.IsNotNull(actual_result);
             Assert.AreEqual(expected, newActual_result);
+
+           
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(),It.IsAny<int>()))
+                   .Returns(Task.FromResult(GetDataFromStaticJson()));
+            newStudyDTO = JsonConvert.DeserializeObject<PostStudyDTO>(
+                JsonConvert.SerializeObject(GetPostDataFromStaticJson()));
+            newStudyDTO.clinicalStudy.studyId = GetDataFromStaticJson().clinicalStudy.studyId;
+            newStudyDTO.clinicalStudy.studyTitle = "A";
+
+            method = ClinicalStudyService.PostAllElements(newStudyDTO, null, user);
+            method.Wait();            
+
+            //Actual            
+            newActual_result = method.Result;
+
+            //Assert          
+            Assert.IsNotNull(newActual_result);
+
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
+                   .Returns(Task.FromResult(GetDataFromStaticJson()));
+            newStudyDTO = JsonConvert.DeserializeObject<PostStudyDTO>(
+                JsonConvert.SerializeObject(GetDataFromStaticJson()));
+            newStudyDTO.clinicalStudy.studyId = GetDataFromStaticJson().clinicalStudy.studyId;            
+
+            method = ClinicalStudyService.PostAllElements(newStudyDTO, null, user);
+            method.Wait();
+
+            //Actual            
+            newActual_result = method.Result;
+
+            //Assert          
+            Assert.IsNotNull(newActual_result);
         }
         #endregion
 

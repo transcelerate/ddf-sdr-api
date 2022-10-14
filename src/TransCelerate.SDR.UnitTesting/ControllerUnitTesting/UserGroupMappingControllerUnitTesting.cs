@@ -484,6 +484,22 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsNotNull((error as BadRequestObjectResult).Value);
             Assert.AreEqual(400, (error as BadRequestObjectResult).StatusCode);
             Assert.IsInstanceOf(typeof(BadRequestObjectResult), error);
+
+            _mockUserGroupMappingService.Setup(x => x.PostGroup(postDataDto, It.IsAny<LoggedInUser>()))
+                     .Returns(Task.FromResult(Constants.ErrorMessages.GroupIdError as object));
+            method = userGroupMappingController.PostGroup(postDataDto);
+            error = method.Result;
+
+            Assert.IsNotNull((error as BadRequestObjectResult).Value);
+            Assert.AreEqual(400, (error as BadRequestObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), error);
+
+            method = userGroupMappingController.PostGroup(null);
+            error = method.Result;
+
+            Assert.IsNotNull((error as BadRequestObjectResult).Value);
+            Assert.AreEqual(400, (error as BadRequestObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), error);
         }
 
         [Test]

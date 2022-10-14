@@ -834,7 +834,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 .Returns(Task.FromResult(study.ClinicalStudy.StudyDesigns as object));
             ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger,_mockHelper.Object);
 
-            var method = clinicalStudyV1Controller.GetStudyDesigns("sd",1,"des", "list");
+            var listofelements = string.Join(",", Constants.StudyDesignElements);
+            var method = clinicalStudyV1Controller.GetStudyDesigns("sd",1,"des", listofelements);
             method.Wait();
             var result = method.Result;
 
@@ -928,6 +929,22 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             //Expected
             expected = new ErrorModel { message = Constants.ErrorMessages.StudyInputError, statusCode = "400" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+
+            _mockHelper.Setup(x => x.AreValidStudyDesignElements(It.IsAny<string>()))
+                .Returns(false);
+            method = clinicalStudyV1Controller.GetStudyDesigns("sd", 1, "des", "list");
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.StudyDesignElementNotValid, statusCode = "400" };
 
             //Actual            
             actual_result = (result as ObjectResult).Value as ErrorModel;

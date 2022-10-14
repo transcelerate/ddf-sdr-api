@@ -597,7 +597,11 @@ namespace TransCelerate.SDR.UnitTesting
                 ToDate = DateTime.Now,
                 SortOrder = "asc",
                 SortBy = "version"
-            };            
+            };
+            Assert.IsNotNull(DataFilters.GetProjectionForCheckAccessForAStudy());
+
+            Assert.IsNotNull(DataFilters.GetFiltersForChangeAudit("sd"));
+
             Assert.IsNotNull(DataFilters.GetFiltersForSearchTitle(searchParameters1));
 
             Assert.IsNotNull(DataFilters.GetFiltersForGetAudTrail("sd",DateTime.Now.AddDays(-1),DateTime.Now.AddDays(1)));
