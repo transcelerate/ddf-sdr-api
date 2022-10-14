@@ -397,6 +397,7 @@ namespace TransCelerate.SDR.UnitTesting
             studyList = GetListDataFromStaticJson();
             StudyHistoryEntity studyHistory = new StudyHistoryEntity();
             studyHistory.studyId = studyList[0].clinicalStudy.studyId;
+            studyHistory.studyType = studyList[0].clinicalStudy.studyType;
             studyHistory.studyTitle = studyList[0].clinicalStudy.studyTitle;
             studyHistory.studyVersion = studyList[0].auditTrail.studyVersion;
             studyHistories.Add(studyHistory);
