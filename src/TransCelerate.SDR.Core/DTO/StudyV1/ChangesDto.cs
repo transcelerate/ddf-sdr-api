@@ -1,4 +1,4 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -8,7 +8,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV1
     {
         public DateTime EntryDateTime { get; set; }
 
-        [BsonElement("SDRUploadVersion")]
+        [JsonProperty("SDRUploadVersion")]
         public int SDRUploadVersion { get; set; }
 
         public List<string> Elements { get; set; }
