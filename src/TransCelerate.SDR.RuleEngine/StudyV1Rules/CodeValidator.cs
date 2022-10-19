@@ -11,6 +11,12 @@ namespace TransCelerate.SDR.RuleEngineV1
     {
         public CodeValidator()
         {
+            RuleFor(x => x.Uuid)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+
+
             RuleFor(x => x.Code)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
