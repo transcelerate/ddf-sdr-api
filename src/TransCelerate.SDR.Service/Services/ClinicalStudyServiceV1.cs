@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.StudyV1;
 using TransCelerate.SDR.Core.DTO.Token;
@@ -339,11 +340,12 @@ namespace TransCelerate.SDR.Services.Services
         /// </summary>
         /// <param name="studyDTO">Study for Inserting/Updating in Database</param>        
         /// <param name="user">Logged In User</param>
+        /// <param name="method">POST/PUT</param>
         /// <returns>
         /// A <see cref="object"/> which has study ID and study design ID's <br></br> <br></br>
         /// <see langword="null"/> If the insert is not done
         /// </returns>
-        public async Task<object> PostAllElements(StudyDto studyDTO, LoggedInUser user)
+        public async Task<object> PostAllElements(StudyDto studyDTO, LoggedInUser user,string method)
         {
             try
             {
@@ -359,33 +361,32 @@ namespace TransCelerate.SDR.Services.Services
 
                 if(String.IsNullOrWhiteSpace(incomingStudyEntity.ClinicalStudy.Uuid))
                 {
-                    incomingStudyEntity = _helper.GeneratedSectionId(incomingStudyEntity);
-                    incomingStudyEntity.AuditTrail.SDRUploadVersion = 1;
-                    await _clinicalStudyRepository.PostStudyItemsAsync(incomingStudyEntity);
-                    studyDTO = _mapper.Map<StudyDto>(incomingStudyEntity);
+                    studyDTO = await CreateNewStudy(incomingStudyEntity).ConfigureAwait(false);
                 }
                 else
                 {
                     StudyEntity existingStudyEntity = await _clinicalStudyRepository.GetStudyItemsAsync(incomingStudyEntity.ClinicalStudy.Uuid, 0);
 
-                    if(existingStudyEntity is null)
+                    if(existingStudyEntity is null && method == HttpMethod.Put.Method) // If PUT Endpoint and study_uuid is not valid, return not valid study
                     {
-                        return Constants.ErrorMessages.NotValidStudyId;
-                    }                    
+                        return Constants.ErrorMessages.StudyIdNotFound;
+                    }
+                    else if (existingStudyEntity is null && method == HttpMethod.Post.Method) // If POST Endpoint and StudyId is not valid, create new study with new study_uuid
+                    {
+                        return await CreateNewStudy(incomingStudyEntity).ConfigureAwait(false);
+                    }
+                    else if (existingStudyEntity is not null && method == HttpMethod.Post.Method) // If POST Endpoint and StudyId is valid, return to use PUT endpoint
+                    {
+                        return Constants.ErrorMessages.UsePutEndpoint;
+                    }
 
                     if (_helper.IsSameStudy(incomingStudyEntity, existingStudyEntity))
                     {
-                        
-                        existingStudyEntity.AuditTrail.EntryDateTime = incomingStudyEntity.AuditTrail.EntryDateTime;
-                        await _clinicalStudyRepository.UpdateStudyItemsAsync(existingStudyEntity);
-                        studyDTO = _mapper.Map<StudyDto>(existingStudyEntity);
+                        studyDTO = await UpdateExistingStudy(incomingStudyEntity, existingStudyEntity).ConfigureAwait(false);
                     }
                     else
-                    {
-                        incomingStudyEntity = _helper.CheckForSections(incomingStudyEntity,existingStudyEntity);
-                        incomingStudyEntity.AuditTrail.SDRUploadVersion = existingStudyEntity.AuditTrail.SDRUploadVersion + 1;
-                        await _clinicalStudyRepository.PostStudyItemsAsync(incomingStudyEntity);
-                        studyDTO = _mapper.Map<StudyDto>(incomingStudyEntity);
+                    {                        
+                        studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity,existingStudyEntity).ConfigureAwait(false);
                         await PushMessageToServiceBus(new ServiceBusMessageDto { Study_uuid = incomingStudyEntity.ClinicalStudy.Uuid, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
                     }
                 }                
@@ -401,6 +402,31 @@ namespace TransCelerate.SDR.Services.Services
                 _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(PostAllElements)};");
             }
         }
+
+        public async Task<StudyDto> CreateNewStudy(StudyEntity studyEntity)
+        {
+            //studyEntity = _helper.GeneratedSectionId(studyEntity);
+            studyEntity.ClinicalStudy.Uuid = IdGenerator.GenerateId();
+            studyEntity.AuditTrail.SDRUploadVersion = 1;
+            await _clinicalStudyRepository.PostStudyItemsAsync(studyEntity);
+            return _mapper.Map<StudyDto>(studyEntity);
+        }
+        
+        public async Task<StudyDto> UpdateExistingStudy(StudyEntity incomingStudyEntity, StudyEntity existingStudyEntity)
+        {
+            existingStudyEntity.AuditTrail.EntryDateTime = incomingStudyEntity.AuditTrail.EntryDateTime;
+            await _clinicalStudyRepository.UpdateStudyItemsAsync(existingStudyEntity);
+            return _mapper.Map<StudyDto>(existingStudyEntity);            
+        }
+
+        public async Task<StudyDto> CreateNewVersionForAStudy(StudyEntity incomingStudyEntity, StudyEntity existingStudyEntity)
+        {
+            //incomingStudyEntity = _helper.CheckForSections(incomingStudyEntity, existingStudyEntity);
+            incomingStudyEntity.AuditTrail.SDRUploadVersion = existingStudyEntity.AuditTrail.SDRUploadVersion + 1;
+            await _clinicalStudyRepository.PostStudyItemsAsync(incomingStudyEntity);            
+            return _mapper.Map<StudyDto>(existingStudyEntity);
+        }
+
         #region Azure ServiceBus
         private async Task PushMessageToServiceBus(ServiceBusMessageDto serviceBusMessageDto)
         {

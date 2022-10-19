@@ -18,6 +18,7 @@ using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1;
 using TransCelerate.SDR.DataAccess.Interfaces;
 using TransCelerate.SDR.Services.Services;
 using TransCelerate.SDR.WebApi.Mappers;
+using System.Net.Http;
 
 namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 {
@@ -79,6 +80,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             StudyEntity entity = null;
             StudyDto studyDto = GetDtoDataFromStaticJson();
             studyDto.ClinicalStudy.StudyTitle = "New";
+            studyDto.ClinicalStudy.Uuid = "";
             studyEntity.AuditTrail = new AuditTrailEntity { CreatedBy = user.UserName, EntryDateTime = DateTime.Now , SDRUploadVersion = 0 };
             studyDto.AuditTrail = new AuditTrailDto { EntryDateTime = DateTime.Now,SDRUploadVersion = 1 };
             _mockClinicalStudyRepository.Setup(x => x.PostStudyItemsAsync(It.IsAny<StudyEntity>()))
@@ -101,7 +103,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object,_mockServiceBusClient.Object);
             
 
-            var method = ClinicalStudyService.PostAllElements(studyDto, user);
+            var method = ClinicalStudyService.PostAllElements(studyDto, user,HttpMethod.Post.Method);
             method.Wait();
             var result = method.Result;
 
@@ -119,7 +121,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             _mockHelper.Setup(x => x.CheckForSections(It.IsAny<StudyEntity>(), It.IsAny<StudyEntity>()))
                     .Returns(studyEntity);
 
-            method = ClinicalStudyService.PostAllElements(studyDto, user);
+            method = ClinicalStudyService.PostAllElements(studyDto, user,HttpMethod.Post.Method);
             method.Wait();
             result = method.Result;
 
@@ -130,24 +132,24 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             //Assert          
             Assert.IsNotNull(actual_result);
 
+            studyDto.ClinicalStudy.Uuid = "New";
             _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), 0))
                     .Returns(Task.FromResult(entity));
 
-            method = ClinicalStudyService.PostAllElements(studyDto, user);
+            method = ClinicalStudyService.PostAllElements(studyDto, user,HttpMethod.Post.Method);
             method.Wait();
             result = method.Result;
 
-            //Actual            
-            var actual_result1 = result.ToString();
+
 
             //Assert          
-            Assert.AreEqual(actual_result1.ToString(), Constants.ErrorMessages.NotValidStudyId);
+            Assert.IsNotNull(actual_result);
 
             _mockHelper.Setup(x => x.GeneratedSectionId(It.IsAny<StudyEntity>()))
                     .Returns(studyEntity);
             studyDto.ClinicalStudy.Uuid = null;
 
-            method = ClinicalStudyService.PostAllElements(studyDto, user);
+            method = ClinicalStudyService.PostAllElements(studyDto, user,HttpMethod.Post.Method);
             method.Wait();
             result = method.Result;
 
@@ -164,13 +166,13 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                    .Returns(Task.FromResult(groups.SDRGroups));
             user.UserRole = Constants.Roles.App_User;
             Config.isGroupFilterEnabled = true;
-            method = ClinicalStudyService.PostAllElements(studyDto, user);
+            method = ClinicalStudyService.PostAllElements(studyDto, user,HttpMethod.Post.Method);
             method.Wait();
             result = method.Result;
             Config.isGroupFilterEnabled = false;
 
             //Actual            
-            actual_result1 = result.ToString();
+            var actual_result1 = result.ToString();
 
             //Assert          
             Assert.AreEqual(actual_result1.ToString(), Constants.ErrorMessages.PostRestricted);
@@ -178,7 +180,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             _mockHelper.Setup(x => x.GetAuditTrail(user.UserName))
                  .Throws(new Exception("Error"));
 
-            method = ClinicalStudyService.PostAllElements(studyDto, user);
+            method = ClinicalStudyService.PostAllElements(studyDto, user,HttpMethod.Post.Method);
             
             Assert.Throws<AggregateException>(method.Wait);
 

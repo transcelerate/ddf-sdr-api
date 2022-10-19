@@ -321,13 +321,13 @@ namespace TransCelerate.SDR.WebApi.Controllers
             {
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");                
                 if (studyDTO != null)
-                {
+                {                    
                     LoggedInUser user = new LoggedInUser
                     {
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
-                    var response = await _clinicalStudyService.PostAllElements(studyDTO, user)
+                    var response = await _clinicalStudyService.PostAllElements(studyDTO, user,HttpMethods.Post)
                                                               .ConfigureAwait(false);
 
                     if (response?.ToString() == Constants.ErrorMessages.PostRestricted)
@@ -336,9 +336,13 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     }
                     else
                     {
-                        if (response?.ToString() == Constants.ErrorMessages.NotValidStudyId)
+                        if (response?.ToString() == Constants.ErrorMessages.StudyIdNotFound)
                         {
-                            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.NotValidStudyId)).Value);
+                            return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyIdNotFound)).Value);
+                        }
+                        else if (response?.ToString() == Constants.ErrorMessages.UsePutEndpoint)
+                        {
+                            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.UsePutEndpoint)).Value);
                         }
                         else
                         {

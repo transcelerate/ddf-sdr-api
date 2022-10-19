@@ -6,6 +6,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.StudyV1;
 using TransCelerate.SDR.Core.DTO.Token;
@@ -64,7 +65,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         {
             StudyDto study = GetDtoDataFromStaticJson();
 
-            _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDto>(), It.IsAny<LoggedInUser>()))
+            _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDto>(), It.IsAny<LoggedInUser>(),HttpMethod.Post.Method))
                 .Returns(Task.FromResult(study as object));
             ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger,_mockHelper.Object);
 
@@ -88,7 +89,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             StudyDto study = GetDtoDataFromStaticJson();
 
             /////Restricted
-            _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDto>(), It.IsAny<LoggedInUser>()))
+            _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDto>(), It.IsAny<LoggedInUser>(),HttpMethod.Post.Method))
                 .Returns(Task.FromResult(Constants.ErrorMessages.PostRestricted as object));
             ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger,_mockHelper.Object);
 
@@ -106,8 +107,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual(401, (result as ObjectResult).StatusCode);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
 
-            _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDto>(), It.IsAny<LoggedInUser>()))
-                .Returns(Task.FromResult(Constants.ErrorMessages.NotValidStudyId as object));            
+            _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDto>(), It.IsAny<LoggedInUser>(),HttpMethod.Post.Method))
+                .Returns(Task.FromResult(Constants.ErrorMessages.StudyIdNotFound as object));            
 
             method = clinicalStudyV1Controller.PostAllElements(study);
             method.Wait();
@@ -120,7 +121,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             actual_result = JsonConvert.DeserializeObject<ErrorModel>(
                  JsonConvert.SerializeObject((result as ObjectResult).Value));
 
-            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+            Assert.AreEqual(404, (result as ObjectResult).StatusCode);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
 
             method = clinicalStudyV1Controller.PostAllElements(null);
@@ -139,7 +140,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
 
             ////Error BadRequest
-            _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDto>(), It.IsAny<LoggedInUser>()))
+            _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDto>(), It.IsAny<LoggedInUser>(),HttpMethod.Post.Method))
                         .Throws(new Exception("Error"));
 
             method = clinicalStudyV1Controller.PostAllElements(study);
