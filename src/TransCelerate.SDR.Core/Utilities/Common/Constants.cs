@@ -126,9 +126,9 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string StudyIdNotFound = "The provided studyId is not found";
 
-            public const string UsePutEndpoint = "Kindly use PUT endpoint to update study definitions";
+            public const string UsePutEndpoint = "Kindly use PUT Study Definitions endpoint to update study definitions";
 
-            public const string UsePostEndpoint = "Kindly use POST endpoint to create new study definitions";
+            public const string UsePostEndpoint = "Kindly use POST Study Definitions endpoint to create new study definitions";
 
             public const string GroupsNotFound = "There are no user groups available";
 

@@ -124,6 +124,23 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual(404, (result as ObjectResult).StatusCode);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
 
+            _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDto>(), It.IsAny<LoggedInUser>(), HttpMethod.Post.Method))
+               .Returns(Task.FromResult(Constants.ErrorMessages.UsePutEndpoint as object));
+
+            method = clinicalStudyV1Controller.PostAllElements(study);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = study;
+
+            //Actual            
+            actual_result = JsonConvert.DeserializeObject<ErrorModel>(
+                 JsonConvert.SerializeObject((result as ObjectResult).Value));
+
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+
             method = clinicalStudyV1Controller.PostAllElements(null);
             method.Wait();
             result = method.Result;
@@ -149,6 +166,125 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             //Expected
             var expected1= ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError);
+
+            //Actual            
+            var actual_result1 = (method.Result as BadRequestObjectResult).Value as ErrorModel;
+
+            //Assert
+            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
+            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
+
+            Assert.AreEqual(expected1.message, actual_result1.message);
+            Assert.AreEqual("400", actual_result.statusCode);
+        }
+        #endregion
+
+        #region PUT All Elements Unit Testing
+        [Test]
+        public void CreateNewVersionForAStudy_SuccessUnitTesting()
+        {
+            StudyDto study = GetDtoDataFromStaticJson();
+
+            _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDto>(), It.IsAny<LoggedInUser>(), HttpMethod.Put.Method))
+                .Returns(Task.FromResult(study as object));
+            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
+
+            var method = clinicalStudyV1Controller.CreateNewVersionForAStudy(study);
+            method.Wait();
+            var result = method.Result;
+
+            //Expected
+            var expected = study;
+
+            //Actual            
+            var actual_result = JsonConvert.DeserializeObject<StudyDto>(
+                 JsonConvert.SerializeObject((result as CreatedResult).Value));
+
+            Assert.AreEqual(expected.ClinicalStudy.Uuid, actual_result.ClinicalStudy.Uuid);
+            Assert.IsInstanceOf(typeof(CreatedResult), result);
+        }
+        [Test]
+        public void CreateNewVersionForAStudy_FailureUnitTesting()
+        {
+            StudyDto study = GetDtoDataFromStaticJson();
+
+            /////Restricted
+            _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDto>(), It.IsAny<LoggedInUser>(), HttpMethod.Put.Method))
+                .Returns(Task.FromResult(Constants.ErrorMessages.PostRestricted as object));
+            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
+
+            var method = clinicalStudyV1Controller.CreateNewVersionForAStudy(study);
+            method.Wait();
+            var result = method.Result;
+
+            //Expected
+            var expected = study;
+
+            //Actual            
+            var actual_result = JsonConvert.DeserializeObject<ErrorModel>(
+                 JsonConvert.SerializeObject((result as ObjectResult).Value));
+
+            Assert.AreEqual(401, (result as ObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+
+            _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDto>(), It.IsAny<LoggedInUser>(), HttpMethod.Put.Method))
+                .Returns(Task.FromResult(Constants.ErrorMessages.StudyIdNotFound as object));
+
+            method = clinicalStudyV1Controller.CreateNewVersionForAStudy(study);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = study;
+
+            //Actual            
+            actual_result = JsonConvert.DeserializeObject<ErrorModel>(
+                 JsonConvert.SerializeObject((result as ObjectResult).Value));
+
+            Assert.AreEqual(404, (result as ObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+
+            method = clinicalStudyV1Controller.CreateNewVersionForAStudy(null);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = study;
+
+            //Actual            
+            actual_result = JsonConvert.DeserializeObject<ErrorModel>(
+                 JsonConvert.SerializeObject((result as ObjectResult).Value));
+
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+
+            study.ClinicalStudy.Uuid = null;
+            method = clinicalStudyV1Controller.CreateNewVersionForAStudy(study);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = study;
+
+            //Actual            
+            actual_result = JsonConvert.DeserializeObject<ErrorModel>(
+                 JsonConvert.SerializeObject((result as ObjectResult).Value));
+
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+
+            ////Error BadRequest
+            _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDto>(), It.IsAny<LoggedInUser>(), HttpMethod.Put.Method))
+                        .Throws(new Exception("Error"));
+
+            study.ClinicalStudy.Uuid = "123";
+            method = clinicalStudyV1Controller.CreateNewVersionForAStudy(study);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            var expected1 = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError);
 
             //Actual            
             var actual_result1 = (method.Result as BadRequestObjectResult).Value as ErrorModel;

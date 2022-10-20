@@ -380,6 +380,7 @@ namespace TransCelerate.SDR.Services.Services
                         return Constants.ErrorMessages.UsePutEndpoint;
                     }
 
+                    //else PUT Endpoint Create New Version for the study
                     if (_helper.IsSameStudy(incomingStudyEntity, existingStudyEntity))
                     {
                         studyDTO = await UpdateExistingStudy(incomingStudyEntity, existingStudyEntity).ConfigureAwait(false);
@@ -424,7 +425,7 @@ namespace TransCelerate.SDR.Services.Services
             //incomingStudyEntity = _helper.CheckForSections(incomingStudyEntity, existingStudyEntity);
             incomingStudyEntity.AuditTrail.SDRUploadVersion = existingStudyEntity.AuditTrail.SDRUploadVersion + 1;
             await _clinicalStudyRepository.PostStudyItemsAsync(incomingStudyEntity);            
-            return _mapper.Map<StudyDto>(existingStudyEntity);
+            return _mapper.Map<StudyDto>(incomingStudyEntity);
         }
 
         #region Azure ServiceBus
