@@ -299,7 +299,8 @@ This endpoint allows user to add and/or update a study definition in SDR that co
 |GET|/api/v1/changeaudit/{studyId}|
 	  
 #### REQUEST PARAMETERS
-
+| Type     | Params     | Values |Mandatory|Sample|
+| ------------- |-------------|------------|------------|------------|
   # Testing the API Endpoint
   
    ## Postman REST client Setup
