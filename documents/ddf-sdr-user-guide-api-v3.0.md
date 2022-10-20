@@ -16,6 +16,7 @@
     - [Post Study](#post-study)
     - [POST - Add Study Definition](#post---add-study-definition)
     - [POST - Update Study Definition](#post---update-study-definition)
+    - [Get Change Audit](#get-change-audit)
   - [Testing the API Endpoint](#testing-the-api-endpoint)
     - [Postman REST client Setup](#postman-rest-client-setup)
     - [Accessing the GET API](#accessing-the-get-api)
@@ -289,6 +290,15 @@ This endpoint allows user to add and/or update a study definition in SDR that co
 |403|Forbidden|Invalid Client Certificate|
 |404|Resource Not Found|When the request URL is not valid.|
 |500|Internal Server Error|Web server/Web API down|
+	  
+## Get Change Audit
+ This endpoint allows user to retrieve the change audit for a particular study.
+
+ | Method     |   URL     |
+| ------------- |-------------| 
+|GET|/api/v1/changeaudit/{studyId}|
+	  
+#### REQUEST PARAMETERS
 
   # Testing the API Endpoint
   
