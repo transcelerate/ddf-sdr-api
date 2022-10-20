@@ -301,6 +301,19 @@ This endpoint allows user to add and/or update a study definition in SDR that co
 #### REQUEST PARAMETERS
 | Type     | Params     | Values |Mandatory|Sample|
 | ------------- |-------------|------------|------------|------------|
+|Path |studyId| String| Yes| 25f58eb5-bda8-4c85-8a27-685af9f6743d|
+|Header |Authorization| String |Yes|<br>&nbsp;&nbsp;&nbsp;Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1S.....<br>|
+
+#### RESPONSE
+| Staus Code     |   Response     | Comments |
+| ------------- |-------------|------------|
+|200|{<br>&nbsp;&nbsp;&nbsp;"changeAudit": {,<br>&nbsp;&nbsp;&nbsp;"study_uuid": "8059cf15-57e9-45e3-a64b-5681896a0ffe",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"changes": [,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"entryDateTime": "2022-10-19T10:32:17.673Z",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"SDRUploadVersion": 2,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"elements": [<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"clinicalStudy.studyType",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"clinicalStudy.studyPhase"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}||
+|400|{<br>&nbsp;&nbsp;&nbsp;"statusCode": "400",<br>&nbsp;&nbsp;&nbsp;"message": "An error occurred"<br>}|Application Exception| 
+|401|{<br>&nbsp;&nbsp;&nbsp;"statusCode": "401",<br>&nbsp;&nbsp;&nbsp;"message": "Access Denied"<br>}|When the API is invoked without access token <br>or an expired access token, <br>then the API will give an unauthorized response.|
+|403|Forbidden|Invalid Client Certificate|
+|404|{<br>&nbsp;&nbsp;&nbsp;"statusCode": "404",<br>&nbsp;&nbsp;&nbsp;"message": "The requested study document not found"<br>}|Requested Study Id is not found, <br>or the request URL path <br>is not valid|
+|500|Internal Server Error|Web server/Web API down|
+	  
   # Testing the API Endpoint
   
    ## Postman REST client Setup
