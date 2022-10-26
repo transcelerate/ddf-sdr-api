@@ -162,15 +162,6 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             //Assert          
             Assert.IsNotNull(actual_result);
 
-            studyDto.ClinicalStudy.Uuid = "112233";
-            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), 0))
-                    .Returns(Task.FromResult(studyEntity));
-            method = ClinicalStudyService.PostAllElements(studyDto, user, HttpMethod.Post.Method);
-            method.Wait();
-            result = method.Result;
-
-            //Assert          
-            Assert.AreEqual(result.ToString(), Constants.ErrorMessages.UsePutEndpoint);
             #endregion
 
 

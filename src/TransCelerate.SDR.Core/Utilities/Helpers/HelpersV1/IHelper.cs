@@ -317,5 +317,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         #region Get Difference
         List<string> GetChangedValues(StudyEntity currentStudyVersion, StudyEntity previousStudyVersion);
         #endregion
+
+        #region GET Conformance For ClinicalStudy.UUID
+        object CheckForUUIDConformance(string uuid);     
+        #endregion
     }
 }

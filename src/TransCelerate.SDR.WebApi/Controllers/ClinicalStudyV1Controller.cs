@@ -336,18 +336,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     }
                     else
                     {
-                        if (response?.ToString() == Constants.ErrorMessages.StudyIdNotFound)
-                        {
-                            return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyIdNotFound)).Value);
-                        }
-                        else if (response?.ToString() == Constants.ErrorMessages.UsePutEndpoint)
-                        {
-                            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.UsePutEndpoint)).Value);
-                        }
-                        else
-                        {
-                            return Created($"study/{studyDTO.ClinicalStudy.Uuid}", new JsonResult(response).Value);
-                        }
+                        return Created($"study/{studyDTO.ClinicalStudy.Uuid}", new JsonResult(response).Value);
                     }
                 }
                 else
@@ -529,7 +518,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 if (studyDTO != null)
                 {
                     if(String.IsNullOrWhiteSpace(studyDTO.ClinicalStudy.Uuid))
-                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.UsePostEndpoint)).Value);
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(_helper.CheckForUUIDConformance(studyDTO.ClinicalStudy.Uuid))).Value);
                     LoggedInUser user = new LoggedInUser
                     {
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,

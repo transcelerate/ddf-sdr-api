@@ -359,28 +359,20 @@ namespace TransCelerate.SDR.Services.Services
                     _id = MongoDB.Bson.ObjectId.GenerateNewId()
                 };
 
-                if(String.IsNullOrWhiteSpace(incomingStudyEntity.ClinicalStudy.Uuid))
+                if(method == HttpMethod.Post.Method) //POST Endpoint to create new study
                 {
                     studyDTO = await CreateNewStudy(incomingStudyEntity).ConfigureAwait(false);
                 }
-                else
+                else //PUT Endpoint Create New Version for the study
                 {
                     StudyEntity existingStudyEntity = await _clinicalStudyRepository.GetStudyItemsAsync(incomingStudyEntity.ClinicalStudy.Uuid, 0);
 
                     if(existingStudyEntity is null && method == HttpMethod.Put.Method) // If PUT Endpoint and study_uuid is not valid, return not valid study
                     {
                         return Constants.ErrorMessages.StudyIdNotFound;
-                    }
-                    else if (existingStudyEntity is null && method == HttpMethod.Post.Method) // If POST Endpoint and StudyId is not valid, create new study with new study_uuid
-                    {
-                        return await CreateNewStudy(incomingStudyEntity).ConfigureAwait(false);
-                    }
-                    else if (existingStudyEntity is not null && method == HttpMethod.Post.Method) // If POST Endpoint and StudyId is valid, return to use PUT endpoint
-                    {
-                        return Constants.ErrorMessages.UsePutEndpoint;
-                    }
+                    }                    
 
-                    //else PUT Endpoint Create New Version for the study
+                    
                     if (_helper.IsSameStudy(incomingStudyEntity, existingStudyEntity))
                     {
                         studyDTO = await UpdateExistingStudy(incomingStudyEntity, existingStudyEntity).ConfigureAwait(false);

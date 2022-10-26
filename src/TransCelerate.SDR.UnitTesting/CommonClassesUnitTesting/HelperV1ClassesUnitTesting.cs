@@ -715,6 +715,21 @@ namespace TransCelerate.SDR.UnitTesting
         }
 
         #endregion
+
+        #region GET Conformance For ClinicalStudy.UUID
+        [Test]
+        public void CheckForUUIDConformance_UnitTesting()
+        {
+            Helper helper = new Helper();
+            var result = helper.CheckForUUIDConformance(null);
+
+            Assert.IsNotNull(result);
+
+            result = helper.CheckForUUIDConformance("");
+
+            Assert.IsNotNull(result);
+        }
+        #endregion
         #endregion
     }
 }

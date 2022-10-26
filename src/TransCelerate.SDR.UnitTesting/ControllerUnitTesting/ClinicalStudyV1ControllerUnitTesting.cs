@@ -107,40 +107,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual(401, (result as ObjectResult).StatusCode);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
 
-            _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDto>(), It.IsAny<LoggedInUser>(),HttpMethod.Post.Method))
-                .Returns(Task.FromResult(Constants.ErrorMessages.StudyIdNotFound as object));            
-
-            method = clinicalStudyV1Controller.PostAllElements(study);
-            method.Wait();
-            result = method.Result;
-
-            //Expected
-            expected = study;
-
-            //Actual            
-            actual_result = JsonConvert.DeserializeObject<ErrorModel>(
-                 JsonConvert.SerializeObject((result as ObjectResult).Value));
-
-            Assert.AreEqual(404, (result as ObjectResult).StatusCode);
-            Assert.IsInstanceOf(typeof(ObjectResult), result);
-
-            _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDto>(), It.IsAny<LoggedInUser>(), HttpMethod.Post.Method))
-               .Returns(Task.FromResult(Constants.ErrorMessages.UsePutEndpoint as object));
-
-            method = clinicalStudyV1Controller.PostAllElements(study);
-            method.Wait();
-            result = method.Result;
-
-            //Expected
-            expected = study;
-
-            //Actual            
-            actual_result = JsonConvert.DeserializeObject<ErrorModel>(
-                 JsonConvert.SerializeObject((result as ObjectResult).Value));
-
-            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
-            Assert.IsInstanceOf(typeof(ObjectResult), result);
-
+            
             method = clinicalStudyV1Controller.PostAllElements(null);
             method.Wait();
             result = method.Result;
