@@ -23,6 +23,7 @@ using TransCelerate.SDR.Services.Interfaces;
 using TransCelerate.SDR.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Connections;
+using Microsoft.AspNetCore.Http;
 
 namespace TransCelerate.SDR.UnitTesting
 {
@@ -99,7 +100,8 @@ namespace TransCelerate.SDR.UnitTesting
             context.ModelState.Clear();
             studyDto = GetDtoDataFromStaticJson();
             studyDto.ClinicalStudy.StudyTitle = null;
-            ClinicalStudyValidator clinicalStudyValidator = new ClinicalStudyValidator();
+            IHttpContextAccessor httpContextAccessor = Mock.Of<IHttpContextAccessor>();
+            ClinicalStudyValidator clinicalStudyValidator = new ClinicalStudyValidator(httpContextAccessor);
             errors = clinicalStudyValidator.Validate(studyDto.ClinicalStudy).Errors;
             context.ModelState.AddModelError("Conformance", errors[0].ErrorMessage);
             response = apiBehaviourOptionsHelper.ModelStateResponse(context);
@@ -678,12 +680,13 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void ConformanceV1UnitTesting()
         {
+            IHttpContextAccessor httpContextAccessor = Mock.Of<IHttpContextAccessor>();
             ValidationDependenciesV1.AddValidationDependenciesV1(serviceDescriptors);
             var studyDto = GetDtoDataFromStaticJson();
 
             Assert.IsTrue(Validator<ActivityDto>(new ActivityValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity));
             Assert.IsTrue(Validator<AnalysisPopulationDto>(new AnalysisPopulationValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyEstimands[0].AnalysisPopulation));
-            Assert.IsTrue(Validator<ClinicalStudyDto>(new ClinicalStudyValidator(), studyDto.ClinicalStudy));
+            Assert.IsTrue(Validator<ClinicalStudyDto>(new ClinicalStudyValidator(httpContextAccessor), studyDto.ClinicalStudy));
             Assert.IsTrue(Validator<CodeDto>(new CodeValidator(), studyDto.ClinicalStudy.StudyPhase));
             Assert.IsTrue(Validator<EncounterDto>(new EncounterValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemEncounter));
             Assert.IsTrue(Validator<EndpointDto>(new EndpointValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyObjectives[0].ObjectiveEndpoints[0]));
@@ -714,6 +717,19 @@ namespace TransCelerate.SDR.UnitTesting
             return validator.Validate(value).IsValid;
         }
 
+        #endregion
+
+        #region UUID Conformance Helper
+        [Test]
+        public void UUIDConformanceValidationHelper_UnitTesting()
+        {
+            Assert.IsTrue(UUIDConformanceValidationHelper.CheckForUUIDConformance("123", "POST"));
+            Assert.IsTrue(UUIDConformanceValidationHelper.CheckForUUIDConformance("123", "PUT"));
+            Assert.IsFalse(UUIDConformanceValidationHelper.CheckForUUIDConformance("", "PUT"));
+            Assert.IsFalse(UUIDConformanceValidationHelper.CheckForUUIDConformance(null, "PUT"));
+            Assert.AreEqual(UUIDConformanceValidationHelper.GetMessageForUUIDConformance(""), Constants.ValidationErrorMessage.PropertyEmptyError);
+            Assert.IsNotEmpty(UUIDConformanceValidationHelper.GetMessageForUUIDConformance(null), Constants.ValidationErrorMessage.PropertyMissingError);
+        }
         #endregion
         #endregion
     }

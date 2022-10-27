@@ -321,13 +321,13 @@ namespace TransCelerate.SDR.WebApi.Controllers
             {
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");                
                 if (studyDTO != null)
-                {
+                {                    
                     LoggedInUser user = new LoggedInUser
                     {
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
-                    var response = await _clinicalStudyService.PostAllElements(studyDTO, user)
+                    var response = await _clinicalStudyService.PostAllElements(studyDTO, user,HttpMethods.Post)
                                                               .ConfigureAwait(false);
 
                     if (response?.ToString() == Constants.ErrorMessages.PostRestricted)
@@ -336,14 +336,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     }
                     else
                     {
-                        if (response?.ToString() == Constants.ErrorMessages.NotValidStudyId)
-                        {
-                            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.NotValidStudyId)).Value);
-                        }
-                        else
-                        {
-                            return Created($"study/{studyDTO.ClinicalStudy.Uuid}", new JsonResult(response).Value);
-                        }
+                        return Created($"study/{studyDTO.ClinicalStudy.Uuid}", new JsonResult(response).Value);
                     }
                 }
                 else
@@ -501,6 +494,66 @@ namespace TransCelerate.SDR.WebApi.Controllers
             finally
             {
                 _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(SearchTitle)};");
+            }
+        }
+        #endregion
+
+        #region PUT Method
+        /// <summary>
+        /// Create New Version for a study 
+        /// </summary>        
+        /// <param name="studyDTO">Study for Inserting/Updating in Database</param>        
+        /// <response code="201">Study Created</response>
+        /// <response code="400">Bad Request</response>       
+        [HttpPut]
+        [Route(Route.PostElementsV1)]
+        [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDto))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> CreateNewVersionForAStudy([FromBody] StudyDto studyDTO)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");
+                if (studyDTO != null)
+                {
+                    LoggedInUser user = new LoggedInUser
+                    {
+                        UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
+                        UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
+                    };
+                    var response = await _clinicalStudyService.PostAllElements(studyDTO, user, HttpMethods.Put)
+                                                              .ConfigureAwait(false);
+
+                    if (response?.ToString() == Constants.ErrorMessages.PostRestricted)
+                    {
+                        return StatusCode(((int)HttpStatusCode.Unauthorized), new JsonResult(ErrorResponseHelper.UnAuthorizedAccess(Constants.ErrorMessages.PostRestricted)).Value);
+                    }
+                    else
+                    {
+                        if (response?.ToString() == Constants.ErrorMessages.StudyIdNotFound)
+                        {
+                            return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyIdNotFound)).Value);
+                        }
+                        else
+                        {
+                            return Created($"study/{studyDTO.ClinicalStudy.Uuid}", new JsonResult(response).Value);
+                        }
+                    }
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");
             }
         }
         #endregion

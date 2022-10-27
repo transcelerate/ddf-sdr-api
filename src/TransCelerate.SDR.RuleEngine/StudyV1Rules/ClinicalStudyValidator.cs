@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Http;
 using TransCelerate.SDR.Core.DTO.StudyV1;
 using TransCelerate.SDR.Core.Utilities.Common;
+using TransCelerate.SDR.Core.Utilities.Helpers;
 
 namespace TransCelerate.SDR.RuleEngineV1
 {
@@ -8,9 +10,16 @@ namespace TransCelerate.SDR.RuleEngineV1
     /// This Class is the validator for ClinicalStudy
     /// </summary>
     public class ClinicalStudyValidator : AbstractValidator<ClinicalStudyDto>
-    {       
-        public ClinicalStudyValidator()
+    {
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public ClinicalStudyValidator(IHttpContextAccessor httpContextAccessor)
         {
+            _httpContextAccessor = httpContextAccessor;
+
+            RuleFor(x => x.Uuid)
+                .Must(x => UUIDConformanceValidationHelper.CheckForUUIDConformance(x, httpContextAccessor?.HttpContext?.Request?.Method))
+                .WithMessage(x => UUIDConformanceValidationHelper.GetMessageForUUIDConformance(x.Uuid));
+
             RuleFor(x => x.StudyTitle)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)

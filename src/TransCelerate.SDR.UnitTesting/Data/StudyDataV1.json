@@ -276,7 +276,7 @@
         ],
         "studyWorkflows": [
           {
-            "workflowId": "da60cd25-2582-4f3f-b497-41301ed5ddf6",
+            "uuid": "da60cd25-2582-4f3f-b497-41301ed5ddf6",
             "workflowDesc": "SampleDesc",
             "workflowItems": [
               {

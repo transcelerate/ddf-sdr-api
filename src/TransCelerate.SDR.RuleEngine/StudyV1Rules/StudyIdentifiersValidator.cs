@@ -11,6 +11,11 @@ namespace TransCelerate.SDR.RuleEngineV1
     {
         public StudyIdentifiersValidator()
         {
+            RuleFor(x => x.Uuid)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+
             RuleFor(x => x.StudyIdentifier)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)

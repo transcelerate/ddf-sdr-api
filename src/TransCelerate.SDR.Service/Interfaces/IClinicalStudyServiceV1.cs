@@ -96,11 +96,12 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// </summary>
         /// <param name="studyDTO">Study for Inserting/Updating in Database</param>        
         /// <param name="user">Logged In User</param>
+        /// <param name="method">POST/PUT</param>
         /// <returns>
         /// A <see cref="object"/> which has study ID and study design ID's <br></br> <br></br>
         /// <see langword="null"/> If the insert is not done
         /// </returns>
-        Task<object> PostAllElements(StudyDto studyDTO, LoggedInUser user);
+        Task<object> PostAllElements(StudyDto studyDTO, LoggedInUser user,string method);
         #endregion
 
         #region Search
