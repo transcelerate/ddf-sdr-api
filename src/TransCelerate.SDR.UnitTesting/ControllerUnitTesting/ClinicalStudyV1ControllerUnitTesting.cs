@@ -224,22 +224,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                  JsonConvert.SerializeObject((result as ObjectResult).Value));
 
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
-            Assert.IsInstanceOf(typeof(ObjectResult), result);
-
-            study.ClinicalStudy.Uuid = null;
-            method = clinicalStudyV1Controller.CreateNewVersionForAStudy(study);
-            method.Wait();
-            result = method.Result;
-
-            //Expected
-            expected = study;
-
-            //Actual            
-            actual_result = JsonConvert.DeserializeObject<ErrorModel>(
-                 JsonConvert.SerializeObject((result as ObjectResult).Value));
-
-            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
-            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);            
 
             ////Error BadRequest
             _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDto>(), It.IsAny<LoggedInUser>(), HttpMethod.Put.Method))

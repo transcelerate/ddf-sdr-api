@@ -517,8 +517,6 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");
                 if (studyDTO != null)
                 {
-                    if(String.IsNullOrWhiteSpace(studyDTO.ClinicalStudy.Uuid))
-                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(_helper.CheckForUUIDConformance(studyDTO.ClinicalStudy.Uuid))).Value);
                     LoggedInUser user = new LoggedInUser
                     {
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,

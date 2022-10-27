@@ -2267,21 +2267,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             return tempList;
         }
         #endregion
-
-        #region GET Conformance For ClinicalStudy.UUID
-        public object CheckForUUIDConformance(string uuid)
-        {
-            string errorMessage = uuid == null ? Constants.ValidationErrorMessage.PropertyMissingError : Constants.ValidationErrorMessage.PropertyEmptyError;
-            string[] error = { errorMessage };
-            Dictionary<string,string[]> uuidConformanceError = new Dictionary<string, string[]>
-            {
-                {$"{(nameof(StudyDto.ClinicalStudy)).Substring(0,1).ToLower()+(nameof(StudyDto.ClinicalStudy)).Substring(1)}." +
-                $" {(nameof(ClinicalStudyDto.Uuid)).Substring(0,1).ToLower()+(nameof(ClinicalStudyDto.Uuid)).Substring(1)}", error }
-            };
-
-            return uuidConformanceError;
-        }
-        #endregion
     }
 
 }
