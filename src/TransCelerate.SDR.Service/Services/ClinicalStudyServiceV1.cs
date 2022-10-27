@@ -408,8 +408,9 @@ namespace TransCelerate.SDR.Services.Services
         public async Task<StudyDto> UpdateExistingStudy(StudyEntity incomingStudyEntity, StudyEntity existingStudyEntity)
         {
             existingStudyEntity.AuditTrail.EntryDateTime = incomingStudyEntity.AuditTrail.EntryDateTime;
-            await _clinicalStudyRepository.UpdateStudyItemsAsync(existingStudyEntity);
-            return _mapper.Map<StudyDto>(existingStudyEntity);            
+            incomingStudyEntity.AuditTrail.SDRUploadVersion = existingStudyEntity.AuditTrail.SDRUploadVersion;
+            await _clinicalStudyRepository.UpdateStudyItemsAsync(incomingStudyEntity);
+            return _mapper.Map<StudyDto>(incomingStudyEntity);            
         }
 
         public async Task<StudyDto> CreateNewVersionForAStudy(StudyEntity incomingStudyEntity, StudyEntity existingStudyEntity)
