@@ -10,6 +10,7 @@ using TransCelerate.SDR.Core.DTO.StudyV1;
 using TransCelerate.SDR.Core.Entities.StudyV1;
 using TransCelerate.SDR.Core.Utilities.Common;
 using ObjectsComparer;
+using TransCelerate.SDR.Core.Utilities.Helpers;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
 {

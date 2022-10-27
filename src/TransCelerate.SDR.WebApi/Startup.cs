@@ -99,10 +99,11 @@ namespace TransCelerate.SDR.WebApi
                         {
                             o.Audience = Config.Audience;
                             o.Authority = Config.Authority;                            
-                        });            
+                        });
             #endregion
 
             //Mapping EndPoints and overriding Data Annotations validation
+            services.AddHttpContextAccessor();
             services.AddControllers(config =>
             {
                 config.Filters.Add<ActionFilter>();

@@ -12,6 +12,11 @@ namespace TransCelerate.SDR.RuleEngineV1
     {       
         public StudyProtocolVersionsValidator()
         {
+            RuleFor(x => x.Uuid)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+
             RuleFor(x => x.BriefTitle)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)

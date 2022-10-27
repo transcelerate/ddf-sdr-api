@@ -26,7 +26,7 @@
   - [GetStudy(studyId,sdruploadversion,user)](#M-TransCelerate-SDR-Services-Services-ClinicalStudyServiceV1-GetStudy-System-String,System-Int32,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.Services.Services.ClinicalStudyServiceV1.GetStudy(System.String,System.Int32,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
   - [GetStudyDesigns(studyId,studyDesignId,sdruploadversion,listofelements,user)](#M-TransCelerate-SDR-Services-Services-ClinicalStudyServiceV1-GetStudyDesigns-System-String,System-String,System-Int32,TransCelerate-SDR-Core-DTO-Token-LoggedInUser,System-String[]- 'TransCelerate.SDR.Services.Services.ClinicalStudyServiceV1.GetStudyDesigns(System.String,System.String,System.Int32,TransCelerate.SDR.Core.DTO.Token.LoggedInUser,System.String[])')
   - [GetStudyHistory(fromDate,toDate,studyTitle,user)](#M-TransCelerate-SDR-Services-Services-ClinicalStudyServiceV1-GetStudyHistory-System-DateTime,System-DateTime,System-String,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.Services.Services.ClinicalStudyServiceV1.GetStudyHistory(System.DateTime,System.DateTime,System.String,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
-  - [PostAllElements(studyDTO,user)](#M-TransCelerate-SDR-Services-Services-ClinicalStudyServiceV1-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV1-StudyDto,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.Services.Services.ClinicalStudyServiceV1.PostAllElements(TransCelerate.SDR.Core.DTO.StudyV1.StudyDto,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
+  - [PostAllElements(studyDTO,user,method)](#M-TransCelerate-SDR-Services-Services-ClinicalStudyServiceV1-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV1-StudyDto,TransCelerate-SDR-Core-DTO-Token-LoggedInUser,System-String- 'TransCelerate.SDR.Services.Services.ClinicalStudyServiceV1.PostAllElements(TransCelerate.SDR.Core.DTO.StudyV1.StudyDto,TransCelerate.SDR.Core.DTO.Token.LoggedInUser,System.String)')
   - [SearchStudy(searchParametersDto,user)](#M-TransCelerate-SDR-Services-Services-ClinicalStudyServiceV1-SearchStudy-TransCelerate-SDR-Core-DTO-StudyV1-SearchParametersDto,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.Services.Services.ClinicalStudyServiceV1.SearchStudy(TransCelerate.SDR.Core.DTO.StudyV1.SearchParametersDto,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
   - [SearchTitle(searchParametersDTO,user)](#M-TransCelerate-SDR-Services-Services-ClinicalStudyServiceV1-SearchTitle-TransCelerate-SDR-Core-DTO-StudyV1-SearchTitleParametersDto,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.Services.Services.ClinicalStudyServiceV1.SearchTitle(TransCelerate.SDR.Core.DTO.StudyV1.SearchTitleParametersDto,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
 - [IChangeAuditService](#T-TransCelerate-SDR-Services-Interfaces-IChangeAuditService 'TransCelerate.SDR.Services.Interfaces.IChangeAuditService')
@@ -51,7 +51,7 @@
   - [GetStudy(studyId,sdruploadversion,user)](#M-TransCelerate-SDR-Services-Interfaces-IClinicalStudyServiceV1-GetStudy-System-String,System-Int32,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.Services.Interfaces.IClinicalStudyServiceV1.GetStudy(System.String,System.Int32,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
   - [GetStudyDesigns(studyId,sdruploadversion,listofelements,studyDesignId,user)](#M-TransCelerate-SDR-Services-Interfaces-IClinicalStudyServiceV1-GetStudyDesigns-System-String,System-String,System-Int32,TransCelerate-SDR-Core-DTO-Token-LoggedInUser,System-String[]- 'TransCelerate.SDR.Services.Interfaces.IClinicalStudyServiceV1.GetStudyDesigns(System.String,System.String,System.Int32,TransCelerate.SDR.Core.DTO.Token.LoggedInUser,System.String[])')
   - [GetStudyHistory(fromDate,toDate,studyTitle,user)](#M-TransCelerate-SDR-Services-Interfaces-IClinicalStudyServiceV1-GetStudyHistory-System-DateTime,System-DateTime,System-String,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.Services.Interfaces.IClinicalStudyServiceV1.GetStudyHistory(System.DateTime,System.DateTime,System.String,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
-  - [PostAllElements(studyDTO,user)](#M-TransCelerate-SDR-Services-Interfaces-IClinicalStudyServiceV1-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV1-StudyDto,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.Services.Interfaces.IClinicalStudyServiceV1.PostAllElements(TransCelerate.SDR.Core.DTO.StudyV1.StudyDto,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
+  - [PostAllElements(studyDTO,user,method)](#M-TransCelerate-SDR-Services-Interfaces-IClinicalStudyServiceV1-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV1-StudyDto,TransCelerate-SDR-Core-DTO-Token-LoggedInUser,System-String- 'TransCelerate.SDR.Services.Interfaces.IClinicalStudyServiceV1.PostAllElements(TransCelerate.SDR.Core.DTO.StudyV1.StudyDto,TransCelerate.SDR.Core.DTO.Token.LoggedInUser,System.String)')
   - [SearchStudy(searchParametersDto,user)](#M-TransCelerate-SDR-Services-Interfaces-IClinicalStudyServiceV1-SearchStudy-TransCelerate-SDR-Core-DTO-StudyV1-SearchParametersDto,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.Services.Interfaces.IClinicalStudyServiceV1.SearchStudy(TransCelerate.SDR.Core.DTO.StudyV1.SearchParametersDto,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
   - [SearchTitle(searchParameters,user)](#M-TransCelerate-SDR-Services-Interfaces-IClinicalStudyServiceV1-SearchTitle-TransCelerate-SDR-Core-DTO-StudyV1-SearchTitleParametersDto,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.Services.Interfaces.IClinicalStudyServiceV1.SearchTitle(TransCelerate.SDR.Core.DTO.StudyV1.SearchTitleParametersDto,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
 - [IUserGroupMappingService](#T-TransCelerate-SDR-Services-Interfaces-IUserGroupMappingService 'TransCelerate.SDR.Services.Interfaces.IUserGroupMappingService')
@@ -488,8 +488,8 @@ A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US
 | studyTitle | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study Title Filter |
 | user | [TransCelerate.SDR.Core.DTO.Token.LoggedInUser](#T-TransCelerate-SDR-Core-DTO-Token-LoggedInUser 'TransCelerate.SDR.Core.DTO.Token.LoggedInUser') | Logged In User |
 
-<a name='M-TransCelerate-SDR-Services-Services-ClinicalStudyServiceV1-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV1-StudyDto,TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
-### PostAllElements(studyDTO,user) `method`
+<a name='M-TransCelerate-SDR-Services-Services-ClinicalStudyServiceV1-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV1-StudyDto,TransCelerate-SDR-Core-DTO-Token-LoggedInUser,System-String-'></a>
+### PostAllElements(studyDTO,user,method) `method`
 
 ##### Summary
 
@@ -505,6 +505,7 @@ A [Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&
 | ---- | ---- | ----------- |
 | studyDTO | [TransCelerate.SDR.Core.DTO.StudyV1.StudyDto](#T-TransCelerate-SDR-Core-DTO-StudyV1-StudyDto 'TransCelerate.SDR.Core.DTO.StudyV1.StudyDto') | Study for Inserting/Updating in Database |
 | user | [TransCelerate.SDR.Core.DTO.Token.LoggedInUser](#T-TransCelerate-SDR-Core-DTO-Token-LoggedInUser 'TransCelerate.SDR.Core.DTO.Token.LoggedInUser') | Logged In User |
+| method | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | POST/PUT |
 
 <a name='M-TransCelerate-SDR-Services-Services-ClinicalStudyServiceV1-SearchStudy-TransCelerate-SDR-Core-DTO-StudyV1-SearchParametersDto,TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
 ### SearchStudy(searchParametersDto,user) `method`
@@ -932,8 +933,8 @@ A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US
 | studyTitle | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study Title Filter |
 | user | [TransCelerate.SDR.Core.DTO.Token.LoggedInUser](#T-TransCelerate-SDR-Core-DTO-Token-LoggedInUser 'TransCelerate.SDR.Core.DTO.Token.LoggedInUser') | Logged In User |
 
-<a name='M-TransCelerate-SDR-Services-Interfaces-IClinicalStudyServiceV1-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV1-StudyDto,TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
-### PostAllElements(studyDTO,user) `method`
+<a name='M-TransCelerate-SDR-Services-Interfaces-IClinicalStudyServiceV1-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV1-StudyDto,TransCelerate-SDR-Core-DTO-Token-LoggedInUser,System-String-'></a>
+### PostAllElements(studyDTO,user,method) `method`
 
 ##### Summary
 
@@ -949,6 +950,7 @@ A [Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&
 | ---- | ---- | ----------- |
 | studyDTO | [TransCelerate.SDR.Core.DTO.StudyV1.StudyDto](#T-TransCelerate-SDR-Core-DTO-StudyV1-StudyDto 'TransCelerate.SDR.Core.DTO.StudyV1.StudyDto') | Study for Inserting/Updating in Database |
 | user | [TransCelerate.SDR.Core.DTO.Token.LoggedInUser](#T-TransCelerate-SDR-Core-DTO-Token-LoggedInUser 'TransCelerate.SDR.Core.DTO.Token.LoggedInUser') | Logged In User |
+| method | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | POST/PUT |
 
 <a name='M-TransCelerate-SDR-Services-Interfaces-IClinicalStudyServiceV1-SearchStudy-TransCelerate-SDR-Core-DTO-StudyV1-SearchParametersDto,TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
 ### SearchStudy(searchParametersDto,user) `method`

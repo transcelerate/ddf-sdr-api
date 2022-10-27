@@ -317,5 +317,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         #region Get Difference
         List<string> GetChangedValues(StudyEntity currentStudyVersion, StudyEntity previousStudyVersion);
         #endregion
+
     }
 }

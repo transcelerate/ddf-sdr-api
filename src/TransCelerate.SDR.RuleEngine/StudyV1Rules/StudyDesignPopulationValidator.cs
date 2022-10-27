@@ -11,6 +11,11 @@ namespace TransCelerate.SDR.RuleEngineV1
     {
         public StudyDesignPopulationValidator()
         {
+            RuleFor(x => x.Uuid)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+
             RuleFor(x => x.PopulationDesc)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
