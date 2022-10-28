@@ -2,7 +2,7 @@
 
 namespace TransCelerate.SDR.Core.DTO.StudyV1
 {
-    public class ObjectiveDto
+    public class ObjectiveDto : IUuid
     {
         public string Uuid { get; set; }
         public string ObjectiveDesc { get; set; }

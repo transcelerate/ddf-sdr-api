@@ -1,6 +1,6 @@
 ﻿namespace TransCelerate.SDR.Core.DTO.StudyV1
 {
-    public class StudyDataCollectionDto
+    public class StudyDataCollectionDto : IUuid
     {
         public string Uuid { get; set; }
         public string StudyDataName { get; set; }
