@@ -1949,7 +1949,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             return differences.Select(x => x.MemberPath).ToList();
         }
 
-        public List<string> GetDifferenceForAList<T>(List<T> currentVersion, List<T> previousVersion) where T : class, IUuid
+        public List<string> GetDifferenceForAList<T>(List<T> currentVersion, List<T> previousVersion) where T : class, Entities.StudyV1.IUuid
         {
             List<string> changedValues = new List<string>();
             if (currentVersion != null && currentVersion.Any())
@@ -1974,7 +1974,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                 changedValues.Add(nameof(T));
             return changedValues;
         }
-        public List<string> CheckForNumberOfElementsMismatch<T>(List<T> currentVersion, List<T> previousVersion) where T : class, IUuid
+        public List<string> CheckForNumberOfElementsMismatch<T>(List<T> currentVersion, List<T> previousVersion) where T : class, Entities.StudyV1.IUuid
         {
             var differences = CheckDifferences<List<T>>(currentVersion, previousVersion);
             if (differences.Any(x => x.DifferenceType == DifferenceTypes.NumberOfElementsMismatch))

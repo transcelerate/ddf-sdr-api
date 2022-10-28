@@ -731,6 +731,19 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsNotEmpty(UUIDConformanceValidationHelper.GetMessageForUUIDConformance(null), Constants.ValidationErrorMessage.PropertyMissingError);
         }
         #endregion
+
+        #region UUID Conformance Helper
+        [Test]
+        public void UniquenessValidationHelper_UnitTesting()
+        {
+            var studyDto = GetDtoDataFromStaticJson();
+            Assert.IsTrue(UniquenessArrayValidator.ValidateArray(studyDto.ClinicalStudy.StudyIdentifiers));
+            studyDto.ClinicalStudy.StudyIdentifiers.Add(studyDto.ClinicalStudy.StudyIdentifiers[0]);
+            Assert.IsFalse(UniquenessArrayValidator.ValidateArray(studyDto.ClinicalStudy.StudyIdentifiers));
+            studyDto.ClinicalStudy.StudyIdentifiers = null;
+            Assert.IsTrue(UniquenessArrayValidator.ValidateArray(studyDto.ClinicalStudy.StudyIdentifiers));
+        }
+        #endregion
         #endregion
     }
 }
