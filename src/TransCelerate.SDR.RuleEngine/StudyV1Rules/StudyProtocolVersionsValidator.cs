@@ -25,18 +25,19 @@ namespace TransCelerate.SDR.RuleEngineV1
             RuleFor(x => x.OfficialTitle)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);                
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
 
             RuleFor(x => x.ProtocolEffectiveDate)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .Must(x => DateValidationHelper.IsValid(x)).WithMessage(Constants.ValidationErrorMessage.ValidDateError);
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+                //.Must(x => DateValidationHelper.IsValid(x)).WithMessage(Constants.ValidationErrorMessage.ValidDateError);
 
             RuleFor(x => x.ProtocolStatus)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);                
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .Must(x => UniquenessArrayValidator.ValidateArray(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
             RuleFor(x => x.ProtocolVersion)
                 .Cascade(CascadeMode.Stop)

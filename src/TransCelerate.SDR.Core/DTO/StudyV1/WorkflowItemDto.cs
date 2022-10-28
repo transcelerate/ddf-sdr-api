@@ -1,6 +1,6 @@
 ﻿namespace TransCelerate.SDR.Core.DTO.StudyV1
 {
-    public class WorkflowItemDto
+    public class WorkflowItemDto : IUuid
     {
         public string Uuid { get; set; }
         public string WorkflowItemDesc { get; set; }
