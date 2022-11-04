@@ -744,6 +744,69 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsTrue(UniquenessArrayValidator.ValidateArray(studyDto.ClinicalStudy.StudyIdentifiers));
         }
         #endregion
+
+        #region ReferenceIntegrity
+        [Test]
+        public void RefernceIntegrity_UnitTesting()
+        {
+            var studyDto = GetDtoDataFromStaticJson();
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Encounters.Add(JsonConvert.DeserializeObject<EncounterDto>(JsonConvert.SerializeObject(studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Encounters[0])));
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Encounters[0].Uuid = "123";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Encounters[0].PreviousEncounterId = "123";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Encounters[0].NextEncounterId = "123";
+
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Encounters[1].Uuid = "456";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Encounters[1].PreviousEncounterId = "123";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Encounters[1].NextEncounterId = "123";
+
+
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems.Add(JsonConvert.DeserializeObject<WorkflowItemDto>(JsonConvert.SerializeObject(studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0])));
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].Uuid = "677";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].NextWorkflowItemId = "678";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].PreviousWorkflowItemId = "123";
+
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].Uuid = "678";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].NextWorkflowItemId = "123";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].PreviousWorkflowItemId = "677";
+
+
+         
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.Uuid = "777";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.NextActivityId = "778";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.PreviousActivityId = "123";
+
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].WorkflowItemActivity.Uuid = "778";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].WorkflowItemActivity.NextActivityId = "678";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].WorkflowItemActivity.PreviousActivityId = "777";
+
+         
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemEncounter.Uuid = "888";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemEncounter.NextEncounterId = "889";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemEncounter.PreviousEncounterId = "123";
+
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].WorkflowItemEncounter.Uuid = "889";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].WorkflowItemEncounter.NextEncounterId = "778";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].WorkflowItemEncounter.PreviousEncounterId = "888";
+
+
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyCells.Add(JsonConvert.DeserializeObject<StudyCellDto>(JsonConvert.SerializeObject(studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0])));
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Uuid = "998";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.NextStudyEpochId = "999";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.PreviousStudyEpochId = "888";
+
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[1].StudyEpoch.Uuid = "999";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[1].StudyEpoch.NextStudyEpochId = "888";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[1].StudyEpoch.PreviousStudyEpochId = "998";
+
+
+
+
+            Helper helper = new Helper();
+            var result = helper.ReferenceIntegrityValidation(studyDto, out object referenceErrors);
+            Assert.IsTrue(result);
+
+        }
+        #endregion
         #endregion
     }
 }

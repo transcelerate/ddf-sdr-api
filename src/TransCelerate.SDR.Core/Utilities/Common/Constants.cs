@@ -153,6 +153,10 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string PostRestricted = "Operation restricted for the user";
 
             public const string UsageReportNotAvailable = "System Usage Report Not Available";
+
+            public const string ErrorMessageForReferenceIntegrityInResponse = "Reference Integrity Error";
+
+            public const string ErrorMessageForReferenceIntegrity = "Reference Integrity Failed";
         }
 
         public struct TokenConstants
