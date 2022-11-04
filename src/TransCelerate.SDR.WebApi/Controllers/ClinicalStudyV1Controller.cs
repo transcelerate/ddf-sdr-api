@@ -321,7 +321,11 @@ namespace TransCelerate.SDR.WebApi.Controllers
             {
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");                
                 if (studyDTO != null)
-                {                    
+                {
+                    bool isInValidReferenceIntegrity = _helper.ReferenceIntegrityValidation(studyDTO, out var errors);
+                    if (isInValidReferenceIntegrity)
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(errors, Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse)).Value);
+
                     LoggedInUser user = new LoggedInUser
                     {
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
@@ -517,6 +521,10 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");
                 if (studyDTO != null)
                 {
+                    bool isInValidReferenceIntegrity = _helper.ReferenceIntegrityValidation(studyDTO, out var errors);
+                    if (isInValidReferenceIntegrity)
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(errors, Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse)).Value);
+
                     LoggedInUser user = new LoggedInUser
                     {
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,

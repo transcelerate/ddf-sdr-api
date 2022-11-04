@@ -318,5 +318,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         List<string> GetChangedValues(StudyEntity currentStudyVersion, StudyEntity previousStudyVersion);
         #endregion
 
+        #region RefernceIntegrityCheck
+        bool ReferenceIntegrityValidation(StudyDto study, out object referenceErrors);
+
+        #endregion
+
     }
 }
