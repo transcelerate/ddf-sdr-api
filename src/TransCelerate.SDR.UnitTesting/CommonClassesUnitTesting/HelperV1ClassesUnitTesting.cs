@@ -59,7 +59,7 @@ namespace TransCelerate.SDR.UnitTesting
         public void HelpersUnitTesting()
         {
             ApplicationDependencyInjector.AddApplicationDependencies(serviceDescriptors);
-            Helper helper = new Helper();
+            HelperV1 helper = new HelperV1();
             AuditTrailEntity auditTrailEntity = helper.GetAuditTrail(user.UserName);
             Assert.IsInstanceOf(typeof(DateTime), auditTrailEntity.EntryDateTime);
 
@@ -122,7 +122,7 @@ namespace TransCelerate.SDR.UnitTesting
             mockCodeFromDatabase = JsonConvert.DeserializeObject<List<CodeEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].InterventionModel));
 
             mockCodefromSomeRequest.Add(studyEntity.ClinicalStudy.StudyType);
-            Helper helper = new Helper();
+            HelperV1 helper = new HelperV1();
             var result = helper.CheckForCodeSection(mockCodefromSomeRequest, mockCodeFromDatabase);
 
             Assert.AreEqual(2, result.Count);
@@ -148,7 +148,7 @@ namespace TransCelerate.SDR.UnitTesting
             mockfromdatabase = JsonConvert.DeserializeObject<List<StudyIdentifierEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyIdentifiers));
 
             mockFromRequest.AddRange(JsonConvert.DeserializeObject<List<StudyIdentifierEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyIdentifiers)));
-            Helper helper = new Helper();
+            HelperV1 helper = new HelperV1();
             var result = helper.CheckForStudyIdentifierSection(mockFromRequest, mockfromdatabase);
 
 
@@ -171,7 +171,7 @@ namespace TransCelerate.SDR.UnitTesting
 
             mockCodeFromRequest.AddRange(JsonConvert.DeserializeObject<List<StudyProtocolVersionEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyProtocolVersions)));
 
-            Helper helper = new Helper();
+            HelperV1 helper = new HelperV1();
             var result = helper.CheckForStudyProtocolSection(mockCodeFromRequest, mockcodeFromDatabase);
 
             mockcodeFromDatabase = null;
@@ -195,7 +195,7 @@ namespace TransCelerate.SDR.UnitTesting
 
             mockCodeFromRequest.AddRange(JsonConvert.DeserializeObject<List<StudyDesignEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns)));
 
-            Helper helper = new Helper();
+            HelperV1 helper = new HelperV1();
             var result = helper.CheckForStudyDesignSection(mockCodeFromRequest, mockCodeFromDatabase);
 
             mockCodeFromDatabase = null;
@@ -218,7 +218,7 @@ namespace TransCelerate.SDR.UnitTesting
 
             mockCodeFromRequest.AddRange(JsonConvert.DeserializeObject<List<IndicationEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyIndications)));
 
-            Helper helper = new Helper();
+            HelperV1 helper = new HelperV1();
             var result = helper.CheckForStudyIndicationsSection(mockCodeFromRequest, mockCodeFromDatabase);
 
             mockCodeFromDatabase = null;
@@ -241,7 +241,7 @@ namespace TransCelerate.SDR.UnitTesting
 
             mockCodeFromRequest.AddRange(JsonConvert.DeserializeObject<List<InvestigationalInterventionEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyInvestigationalInterventions)));
 
-            Helper helper = new Helper();
+            HelperV1 helper = new HelperV1();
             var result = helper.CheckForInvestigationalInterventionsSection(mockCodeFromRequest, mockCodeFromDatabase);
 
             mockCodeFromDatabase = null;
@@ -263,7 +263,7 @@ namespace TransCelerate.SDR.UnitTesting
             fromDatabase = JsonConvert.DeserializeObject<List<StudyDesignPopulationEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyPopulations));
 
             fromRequest.AddRange(JsonConvert.DeserializeObject<List<StudyDesignPopulationEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyPopulations)));
-            Helper helper = new Helper();
+            HelperV1 helper = new HelperV1();
             var result = helper.CheckForStudyDesignPopulationsSection(fromRequest, fromDatabase);
 
             fromDatabase = null;
@@ -285,7 +285,7 @@ namespace TransCelerate.SDR.UnitTesting
             mockCodeFromDatabase = JsonConvert.DeserializeObject<List<ObjectiveEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyObjectives));
 
             mockCodeFromRequest.AddRange(JsonConvert.DeserializeObject<List<ObjectiveEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyObjectives)));
-            Helper helper = new Helper();
+            HelperV1 helper = new HelperV1();
             var result = helper.CheckForStudyObjectivesSection(mockCodeFromRequest, mockCodeFromDatabase);
 
             mockCodeFromDatabase = null;
@@ -308,7 +308,7 @@ namespace TransCelerate.SDR.UnitTesting
 
             mockCodeFromRequest.AddRange(JsonConvert.DeserializeObject<List<EndpointEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyObjectives[0].ObjectiveEndpoints)));
 
-            Helper helper = new Helper();
+            HelperV1 helper = new HelperV1();
             var result = helper.CheckForStudyObjectivesEndpointsSection(mockCodeFromRequest, mockCodeFromDatabase);
 
             mockCodeFromDatabase = null;
@@ -331,7 +331,7 @@ namespace TransCelerate.SDR.UnitTesting
 
             mockCodeFromRequest.AddRange(JsonConvert.DeserializeObject<List<StudyCellEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyCells)));
 
-            Helper helper = new Helper();
+            HelperV1 helper = new HelperV1();
             var result = helper.CheckForStudyCellsSection(mockCodeFromRequest, mockCodeFromDatabase);
 
             mockCodeFromDatabase = null;
@@ -369,7 +369,7 @@ namespace TransCelerate.SDR.UnitTesting
 
             mockCodeFromRequest.AddRange(JsonConvert.DeserializeObject<List<StudyElementEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyElements)));
 
-            Helper helper = new Helper();
+            HelperV1 helper = new HelperV1();
             var result = helper.CheckForStudyElementsSection(mockCodeFromRequest, mockCodeFromDatabase);
 
             mockCodeFromDatabase = null;
@@ -391,7 +391,7 @@ namespace TransCelerate.SDR.UnitTesting
 
             mockCodeFromRequest.AddRange(JsonConvert.DeserializeObject<List<StudyDataCollectionEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.StudyDataCollection)));
 
-            Helper helper = new Helper();
+            HelperV1 helper = new HelperV1();
             var result = helper.CheckForStudyDataCollectionSection(mockCodeFromRequest, mockCodeFromDatabase);
 
             mockCodeFromDatabase = null;
@@ -413,7 +413,7 @@ namespace TransCelerate.SDR.UnitTesting
 
             mockCodeFromRequest.AddRange(JsonConvert.DeserializeObject<List<WorkflowEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyWorkflows)));
 
-            Helper helper = new Helper();
+            HelperV1 helper = new HelperV1();
             var result = helper.CheckForStudyWorkflowSection(mockCodeFromRequest, mockCodeFromDatabase);
 
             mockCodeFromDatabase = null;
@@ -435,7 +435,7 @@ namespace TransCelerate.SDR.UnitTesting
 
             mockCodeFromRequest.AddRange(JsonConvert.DeserializeObject<List<WorkFlowItemEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems)));
 
-            Helper helper = new Helper();
+            HelperV1 helper = new HelperV1();
             var result = helper.CheckForStudyWorkflowItemsSection(mockCodeFromRequest, mockCodeFromDatabase);
 
             mockCodeFromDatabase = null;
@@ -474,7 +474,7 @@ namespace TransCelerate.SDR.UnitTesting
 
             mockCodeFromRequest.AddRange(JsonConvert.DeserializeObject<List<DefinedProcedureEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.DefinedProcedures)));
 
-            Helper helper = new Helper();
+            HelperV1 helper = new HelperV1();
             var result = helper.CheckForDefinedProceduresSection(mockCodeFromRequest, mockCodeFromDatabase);
 
             mockCodeFromDatabase = null;
@@ -498,7 +498,7 @@ namespace TransCelerate.SDR.UnitTesting
             mockFromTheDatabse = JsonConvert.DeserializeObject<List<EstimandEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyEstimands));
 
             mockcodefromRequest.AddRange(JsonConvert.DeserializeObject<List<EstimandEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyEstimands)));
-            Helper helper = new Helper();
+            HelperV1 helper = new HelperV1();
             var result = helper.CheckForStudyEstimandSection(mockcodefromRequest, mockFromTheDatabse);
 
 
@@ -524,7 +524,7 @@ namespace TransCelerate.SDR.UnitTesting
 
             mockfromRequest.AddRange(JsonConvert.DeserializeObject<List<InterCurrentEventEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyEstimands[0].IntercurrentEvents)));
 
-            Helper helper = new Helper();
+            HelperV1 helper = new HelperV1();
             var result = helper.CheckForIntercurrentEventsSection(mockfromRequest, mockfromDatabase);
 
             mockfromDatabase = null;
@@ -545,7 +545,7 @@ namespace TransCelerate.SDR.UnitTesting
 
             mockCodeFromRequest.AddRange(JsonConvert.DeserializeObject<List<EncounterEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Encounters)));
 
-            Helper helper = new Helper();
+            HelperV1 helper = new HelperV1();
             var result = helper.CheckForEncounterListSection(mockCodeFromRequest, mockCodeFromDatabase);
 
             mockCodeFromDatabase = null;
@@ -570,7 +570,7 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void DataFiltersUnitTesting()
         {
-            var filter = DataFilters.GetFiltersForGetStudy("1", 1);
+            var filter = DataFiltersV1.GetFiltersForGetStudy("1", 1);
             Assert.IsNotNull(filter);
 
             SearchParameters searchParameters = new()
@@ -587,7 +587,7 @@ namespace TransCelerate.SDR.UnitTesting
                 Asc = true,
                 Header = "sdrversion"
             };
-            filter = DataFilters.GetFiltersForSearchStudy(searchParameters);
+            filter = DataFiltersV1.GetFiltersForSearchStudy(searchParameters);
             Assert.IsNotNull(filter);
             SearchTitleParameters searchParameters1 = new()
             {               
@@ -600,19 +600,19 @@ namespace TransCelerate.SDR.UnitTesting
                 SortOrder = "asc",
                 SortBy = "version"
             };
-            Assert.IsNotNull(DataFilters.GetProjectionForCheckAccessForAStudy());
+            Assert.IsNotNull(DataFiltersV1.GetProjectionForCheckAccessForAStudy());
 
-            Assert.IsNotNull(DataFilters.GetFiltersForChangeAudit("sd"));
+            Assert.IsNotNull(DataFiltersV1.GetFiltersForChangeAudit("sd"));
 
-            Assert.IsNotNull(DataFilters.GetFiltersForSearchTitle(searchParameters1));
+            Assert.IsNotNull(DataFiltersV1.GetFiltersForSearchTitle(searchParameters1));
 
-            Assert.IsNotNull(DataFilters.GetFiltersForGetAudTrail("sd",DateTime.Now.AddDays(-1),DateTime.Now.AddDays(1)));
+            Assert.IsNotNull(DataFiltersV1.GetFiltersForGetAudTrail("sd",DateTime.Now.AddDays(-1),DateTime.Now.AddDays(1)));
 
-            Assert.IsNotNull(DataFilters.GetFiltersForStudyHistory(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1),"sd"));
+            Assert.IsNotNull(DataFiltersV1.GetFiltersForStudyHistory(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1),"sd"));
 
-            Assert.IsNotNull(DataFilters.GetProjectionForPartialStudyElements(Constants.ClinicalStudyElements.Select(x=>x.ToLower()).ToArray()));
+            Assert.IsNotNull(DataFiltersV1.GetProjectionForPartialStudyElements(Constants.ClinicalStudyElements.Select(x=>x.ToLower()).ToArray()));
 
-            Assert.IsNotNull(DataFilters.GetProjectionForPartialStudyDesignElementsFullStudy());
+            Assert.IsNotNull(DataFiltersV1.GetProjectionForPartialStudyDesignElementsFullStudy());
         }
         #endregion
 
@@ -620,7 +620,7 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void AreValidStudyElementsUnitTesting()
         {
-            Helper helper = new Helper();
+            HelperV1 helper = new HelperV1();
             var listofelements = string.Join(",", Constants.ClinicalStudyElements);
             Assert.IsTrue(helper.AreValidStudyElements(listofelements));
             Assert.IsFalse(helper.AreValidStudyElements("a,b"));
@@ -628,7 +628,7 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void AreValidStudyDesignElementsUnitTesting()
         {
-            Helper helper = new Helper();
+            HelperV1 helper = new HelperV1();
             var listofelements = string.Join(",", Constants.StudyDesignElements);
             Assert.IsTrue(helper.AreValidStudyDesignElements(listofelements));
             Assert.IsFalse(helper.AreValidStudyDesignElements("a,b"));
@@ -636,7 +636,7 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void RemoveStudyElementsUnitTesting()
         {
-            Helper helper = new Helper();
+            HelperV1 helper = new HelperV1();
             var stringArray = Constants.ClinicalStudyElements.Where(x => x.StartsWith("s")).ToArray();
 
             Assert.IsNotNull(helper.RemoveStudyElements(stringArray, GetDtoDataFromStaticJson()));
@@ -646,7 +646,7 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void RemoveStudyDesignElementsUnitTesting()
         {
-            Helper helper = new Helper();
+            HelperV1 helper = new HelperV1();
             var stringArray = Constants.ClinicalStudyElements.Where(x => x.StartsWith("s")).ToArray();
 
             Assert.IsNotNull(helper.RemoveStudyDesignElements(stringArray, GetDtoDataFromStaticJson().ClinicalStudy.StudyDesigns,"a"));
@@ -737,11 +737,11 @@ namespace TransCelerate.SDR.UnitTesting
         public void UniquenessValidationHelper_UnitTesting()
         {
             var studyDto = GetDtoDataFromStaticJson();
-            Assert.IsTrue(UniquenessArrayValidator.ValidateArray(studyDto.ClinicalStudy.StudyIdentifiers));
+            Assert.IsTrue(UniquenessArrayValidator.ValidateArrayV1(studyDto.ClinicalStudy.StudyIdentifiers));
             studyDto.ClinicalStudy.StudyIdentifiers.Add(studyDto.ClinicalStudy.StudyIdentifiers[0]);
-            Assert.IsFalse(UniquenessArrayValidator.ValidateArray(studyDto.ClinicalStudy.StudyIdentifiers));
+            Assert.IsFalse(UniquenessArrayValidator.ValidateArrayV1(studyDto.ClinicalStudy.StudyIdentifiers));
             studyDto.ClinicalStudy.StudyIdentifiers = null;
-            Assert.IsTrue(UniquenessArrayValidator.ValidateArray(studyDto.ClinicalStudy.StudyIdentifiers));
+            Assert.IsTrue(UniquenessArrayValidator.ValidateArrayV1(studyDto.ClinicalStudy.StudyIdentifiers));
         }
         #endregion
 
@@ -801,7 +801,7 @@ namespace TransCelerate.SDR.UnitTesting
 
 
 
-            Helper helper = new Helper();
+            HelperV1 helper = new HelperV1();
             var result = helper.ReferenceIntegrityValidation(studyDto, out object referenceErrors);
             Assert.IsTrue(result);
 

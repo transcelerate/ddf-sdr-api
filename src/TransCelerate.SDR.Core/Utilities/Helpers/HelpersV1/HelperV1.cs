@@ -17,7 +17,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
     /// <summary>
     /// This class is used as a helper for different funtionalities
     /// </summary>
-    public class Helper : IHelper
+    public class HelperV1 : IHelperV1
     {
         /// <summary>
         /// Get Audit Trail fields for the POST Api

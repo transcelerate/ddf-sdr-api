@@ -14,11 +14,11 @@ namespace TransCelerate.SDR.AzureFunctions
     {
         #region Variables
         private readonly ILogHelper _logger;
-        private readonly IHelper _helper;
+        private readonly IHelperV1 _helper;
         private readonly IChangeAuditRepository _changeAuditReposotory;
         #endregion
         #region Constructor
-        public MessageProcessor(ILogHelper logger, IChangeAuditRepository changeAuditReposotory, IHelper helper)
+        public MessageProcessor(ILogHelper logger, IChangeAuditRepository changeAuditReposotory, IHelperV1 helper)
         {
             _logger = logger;
             _changeAuditReposotory = changeAuditReposotory;

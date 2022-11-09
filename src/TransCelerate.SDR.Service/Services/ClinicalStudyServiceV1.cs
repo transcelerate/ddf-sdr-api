@@ -24,12 +24,12 @@ namespace TransCelerate.SDR.Services.Services
         private readonly IClinicalStudyRepositoryV1 _clinicalStudyRepository;
         private readonly IMapper _mapper;
         private readonly ILogHelper _logger;
-        private readonly IHelper _helper;
+        private readonly IHelperV1 _helper;
         private readonly ServiceBusClient _serviceBusClient;
         #endregion
 
         #region Constructor
-        public ClinicalStudyServiceV1(IClinicalStudyRepositoryV1 clinicalStudyRepository, IMapper mapper, ILogHelper logger,IHelper helper,ServiceBusClient serviceBusClient)
+        public ClinicalStudyServiceV1(IClinicalStudyRepositoryV1 clinicalStudyRepository, IMapper mapper, ILogHelper logger,IHelperV1 helper,ServiceBusClient serviceBusClient)
         {
             _clinicalStudyRepository = clinicalStudyRepository;
             _mapper = mapper;

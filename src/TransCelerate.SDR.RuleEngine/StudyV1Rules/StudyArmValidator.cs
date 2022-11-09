@@ -26,7 +26,7 @@ namespace TransCelerate.SDR.RuleEngineV1
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .Must(x => UniquenessArrayValidator.ValidateArray(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+                .Must(x => UniquenessArrayValidator.ValidateArrayV1(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
             RuleFor(x => x.StudyArmDesc)
                 .Cascade(CascadeMode.Stop)
@@ -37,7 +37,7 @@ namespace TransCelerate.SDR.RuleEngineV1
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .Must(x => UniquenessArrayValidator.ValidateArray(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+                .Must(x => UniquenessArrayValidator.ValidateArrayV1(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
             RuleFor(x => x.StudyArmName)
                 .Cascade(CascadeMode.Stop)

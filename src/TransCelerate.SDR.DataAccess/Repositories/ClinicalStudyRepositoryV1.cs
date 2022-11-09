@@ -58,7 +58,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
                 
 
-                StudyEntity study = await collection.Find(DataFilters.GetFiltersForGetStudy(studyId, sdruploadversion))
+                StudyEntity study = await collection.Find(DataFiltersV1.GetFiltersForGetStudy(studyId, sdruploadversion))
                                                      .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
                                                      .Limit(1)                  //Taking top 1 result
                                                      .SingleOrDefaultAsync().ConfigureAwait(false);                
@@ -101,10 +101,10 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
 
 
-                StudyEntity study = await collection.Find(DataFilters.GetFiltersForGetStudy(studyId, sdruploadversion))
+                StudyEntity study = await collection.Find(DataFiltersV1.GetFiltersForGetStudy(studyId, sdruploadversion))
                                                      .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
                                                      .Limit(1)                  //Taking top 1 result
-                                                     .Project<StudyEntity>(DataFilters.GetProjectionForPartialStudyElements(listofelementsArray))
+                                                     .Project<StudyEntity>(DataFiltersV1.GetProjectionForPartialStudyElements(listofelementsArray))
                                                      .SingleOrDefaultAsync().ConfigureAwait(false);
 
                 if (study == null)
@@ -141,8 +141,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
 
 
-                StudyEntity study = await collection.Find(DataFilters.GetFiltersForGetStudy(studyId, sdruploadversion))
-                                                     .Project<StudyEntity>(DataFilters.GetProjectionForPartialStudyDesignElementsFullStudy())
+                StudyEntity study = await collection.Find(DataFiltersV1.GetFiltersForGetStudy(studyId, sdruploadversion))
+                                                     .Project<StudyEntity>(DataFiltersV1.GetProjectionForPartialStudyDesignElementsFullStudy())
                                                      .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
                                                      .Limit(1)                  //Taking top 1 result                                                     
                                                      .FirstOrDefaultAsync().ConfigureAwait(false);
@@ -183,7 +183,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             {
                 var collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
                 List<AuditTrailResponseEntity> auditTrails = new List<AuditTrailResponseEntity>();
-                auditTrails = await collection.Find(DataFilters.GetFiltersForGetAudTrail(studyId,fromDate,toDate)) // Condition for matching studyId and date range
+                auditTrails = await collection.Find(DataFiltersV1.GetFiltersForGetAudTrail(studyId,fromDate,toDate)) // Condition for matching studyId and date range
                                                   .Project(x=> new AuditTrailResponseEntity
                                                   {
                                                       StudyType = x.ClinicalStudy.StudyType,
@@ -232,7 +232,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 var collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);               
 
                 List<StudyHistoryResponseEntity> studyHistories = await collection.Aggregate()
-                                                        .Match(DataFilters.GetFiltersForStudyHistory(fromDate,toDate,studyTitle)) // Condition for matching date range
+                                                        .Match(DataFiltersV1.GetFiltersForStudyHistory(fromDate,toDate,studyTitle)) // Condition for matching date range
                                                         .Project(x =>
                                                                 new StudyHistoryResponseEntity
                                                                 {
@@ -376,7 +376,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
                 
                 List<SearchResponseEntity> studies = await collection.Aggregate()
-                                              .Match(DataFilters.GetFiltersForSearchStudy(searchParameters))
+                                              .Match(DataFiltersV1.GetFiltersForSearchStudy(searchParameters))
                                               .Project(x => new SearchResponseEntity
                                               {
                                                   Uuid = x.ClinicalStudy.Uuid,
@@ -520,7 +520,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
 
                 List<SearchResponseEntity> studies = await collection.Aggregate()
-                                              .Match(DataFilters.GetFiltersForSearchTitle(searchParameters))
+                                              .Match(DataFiltersV1.GetFiltersForSearchTitle(searchParameters))
                                               .Project(x => new SearchResponseEntity
                                               {
                                                   Uuid = x.ClinicalStudy.Uuid,
@@ -634,9 +634,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
 
 
-                StudyEntity study = await collection.Find(DataFilters.GetFiltersForGetStudy(studyId, sdruploadversion))
+                StudyEntity study = await collection.Find(DataFiltersV1.GetFiltersForGetStudy(studyId, sdruploadversion))
                                                      .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
-                                                     .Project<StudyEntity>(DataFilters.GetProjectionForCheckAccessForAStudy())
+                                                     .Project<StudyEntity>(DataFiltersV1.GetProjectionForCheckAccessForAStudy())
                                                      .Limit(1)                  //Taking top 1 result
                                                      .SingleOrDefaultAsync().ConfigureAwait(false);
 

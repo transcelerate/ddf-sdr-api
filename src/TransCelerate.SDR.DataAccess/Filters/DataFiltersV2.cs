@@ -1,7 +1,7 @@
 ﻿using MongoDB.Driver;
 using System;
 using System.Linq;
-using TransCelerate.SDR.Core.Entities.StudyV1;
+using TransCelerate.SDR.Core.Entities.StudyV2;
 using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.DataAccess.Filters
@@ -9,7 +9,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
     /// <summary>
     /// DataFilters for getting data from data base
     /// </summary>
-    public static class DataFilters
+    public static class DataFiltersV2
     {
         /// <summary>
         /// Get filters for GET StudyDefinitons API
@@ -24,7 +24,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
             filter &= builder.Where(s => s.ClinicalStudy.Uuid == studyId);
 
             if (sdruploadversion != 0)
-                filter &= builder.Where(x => x.AuditTrail.SDRUploadVersion == sdruploadversion);           
+                filter &= builder.Where(x => x.AuditTrail.SDRUploadVersion == sdruploadversion);
 
             return filter;
         }
@@ -100,22 +100,22 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             //Filter for OrgCode
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyId))
-                filter &= builder.Where(x => x.ClinicalStudy.StudyIdentifiers.Any(x=> (x.StudyIdentifierScope.OrganisationIdentifier.ToLower().Contains(searchParameters.StudyId.ToLower())) && (x.StudyIdentifierScope.OrganisationType.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower())));
+                filter &= builder.Where(x => x.ClinicalStudy.StudyIdentifiers.Any(x => (x.StudyIdentifierScope.OrganisationIdentifier.ToLower().Contains(searchParameters.StudyId.ToLower())) && (x.StudyIdentifierScope.OrganisationType.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower())));
 
             //Filter for Indication
             if (!String.IsNullOrWhiteSpace(searchParameters.Indication))
-                filter &= builder.Where(x => x.ClinicalStudy.StudyDesigns.Any(x=>x.StudyIndications.Any(y=>y.IndicationDesc.ToLower().Contains(searchParameters.Indication.ToLower()))));
+                filter &= builder.Where(x => x.ClinicalStudy.StudyDesigns.Any(x => x.StudyIndications.Any(y => y.IndicationDesc.ToLower().Contains(searchParameters.Indication.ToLower()))));
 
             //Filter for Intervention Model
             if (!String.IsNullOrWhiteSpace(searchParameters.InterventionModel))
-                filter &= builder.Where(x => x.ClinicalStudy.StudyDesigns.Any(x=>x.InterventionModel.Any(y=>y.Decode.ToLower().Contains(searchParameters.InterventionModel.ToLower()))));
+                filter &= builder.Where(x => x.ClinicalStudy.StudyDesigns.Any(x => x.InterventionModel.Any(y => y.Decode.ToLower().Contains(searchParameters.InterventionModel.ToLower()))));
 
             //Filter for Study Phase
             if (!String.IsNullOrWhiteSpace(searchParameters.Phase))
                 filter &= builder.Where(x => x.ClinicalStudy.StudyPhase.Decode.ToLower().Contains(searchParameters.Phase.ToLower()));
 
 
-            return filter;            
+            return filter;
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             //Filter for OrgCode
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyId))
-                filter &= builder.Where(x => x.ClinicalStudy.StudyIdentifiers.Any(x => (x.StudyIdentifierScope.OrganisationIdentifier.ToLower().Contains(searchParameters.StudyId.ToLower())) && (x.StudyIdentifierScope.OrganisationType.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower())));            
+                filter &= builder.Where(x => x.ClinicalStudy.StudyIdentifiers.Any(x => (x.StudyIdentifierScope.OrganisationIdentifier.ToLower().Contains(searchParameters.StudyId.ToLower())) && (x.StudyIdentifierScope.OrganisationType.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower())));
 
             return filter;
         }
@@ -195,7 +195,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
         {
             ProjectionDefinitionBuilder<StudyEntity> projection = Builders<StudyEntity>.Projection;
             ProjectionDefinition<StudyEntity> projector = projection.Include(x => x.ClinicalStudy.Uuid);
-            projector = projector.Include(x => x.ClinicalStudy.StudyType);            
+            projector = projector.Include(x => x.ClinicalStudy.StudyType);
             projector = projector.Exclude(x => x._id);
 
             return projector;

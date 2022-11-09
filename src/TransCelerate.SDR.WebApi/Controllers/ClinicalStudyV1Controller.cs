@@ -20,17 +20,17 @@ using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1;
 namespace TransCelerate.SDR.WebApi.Controllers
 {
     [Authorize]
-    [ApiController]        
+    [ApiController]
     public class ClinicalStudyV1Controller : ControllerBase
     {
         #region Variables        
         private readonly ILogHelper _logger;        
         private readonly IClinicalStudyServiceV1 _clinicalStudyService;
-        private readonly IHelper _helper;
+        private readonly IHelperV1 _helper;
         #endregion
 
         #region Constructor
-        public ClinicalStudyV1Controller(IClinicalStudyServiceV1 clinicalStudyService, ILogHelper logger, IHelper helper)
+        public ClinicalStudyV1Controller(IClinicalStudyServiceV1 clinicalStudyService, ILogHelper logger, IHelperV1 helper)
         {            
             _logger = logger;            
             _clinicalStudyService = clinicalStudyService;

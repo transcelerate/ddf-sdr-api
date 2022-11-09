@@ -45,6 +45,26 @@
         #endregion
         #endregion
 
+        #region Study V2 Routes
+        #region GET Method Routes        
+        public const string StudyV2 = "v2/studydefinitions/{studyId}";
+
+        public const string StudyDesignV2 = "v2/studydesigns";
+
+        public const string AuditTrailV2 = "v2/audittrail/{studyId}";
+
+        public const string StudyHistoryV2 = "/v2/studydefinitions/history";
+        #endregion
+
+        #region POST Method Routes
+        public const string PostElementsV2 = "v2/studydefinitions";
+
+        public const string SearchElementsV2 = "v2/search";
+
+        public const string SearchTitleV2 = "v2/searchstudytitle";
+        #endregion
+        #endregion
+
         #region User Group Routes
         public const string GetGroups = "v1/usergroups/getgroups";
 

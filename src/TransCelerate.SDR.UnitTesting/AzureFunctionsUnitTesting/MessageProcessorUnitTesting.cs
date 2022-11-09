@@ -23,7 +23,7 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
     {
 
         private ILogHelper _mockLogger = Mock.Of<ILogHelper>();
-        private Mock<IHelper> _mockHelper = new Mock<IHelper>(MockBehavior.Loose);
+        private Mock<IHelperV1> _mockHelper = new Mock<IHelperV1>(MockBehavior.Loose);
         private Mock<IChangeAuditRepository> _mockChangeAuditRepository = new Mock<IChangeAuditRepository>(MockBehavior.Loose);
         private ILogHelper _mockLogger1 = Mock.Of<ILogHelper>();
         private Mock<IMessageProcessor> _messageProcessor = new Mock<IMessageProcessor>(MockBehavior.Loose);
@@ -42,7 +42,7 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
         [Test]
         public void ProcessMessage_UnitTesting()
         {
-            Helper helper =new Helper();
+            HelperV1 helper =new HelperV1();
 
             var currentVersion=GetEntityDataFromStaticJson();
             var previousVersion=GetEntityDataFromStaticJson();
@@ -112,7 +112,7 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
         [Test]
         public void GetChangedValueUnitTesting()
         {
-            Helper helper = new Helper();
+            HelperV1 helper = new HelperV1();
 
             var currentVersion = GetEntityDataFromStaticJson();
             var previousVersion = GetEntityDataFromStaticJson();

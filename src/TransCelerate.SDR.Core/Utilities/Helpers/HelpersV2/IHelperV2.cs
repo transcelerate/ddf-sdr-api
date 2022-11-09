@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using TransCelerate.SDR.Core.DTO.StudyV1;
-using TransCelerate.SDR.Core.Entities.StudyV1;
+using TransCelerate.SDR.Core.DTO.StudyV2;
+using TransCelerate.SDR.Core.Entities.StudyV2;
 
-namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
+namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
 {
-    public interface IHelper
+    public interface IHelperV2
     {
         #region Check for each sections
         /// <summary>

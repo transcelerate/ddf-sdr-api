@@ -26,7 +26,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
     {
         #region Variables
         private ILogHelper _mockLogger = Mock.Of<ILogHelper>();
-        private Mock<IHelper> _mockHelper = new Mock<IHelper>(MockBehavior.Loose);
+        private Mock<IHelperV1> _mockHelper = new Mock<IHelperV1>(MockBehavior.Loose);
         private Mock<IClinicalStudyServiceV1> _mockClinicalStudyService = new Mock<IClinicalStudyServiceV1>(MockBehavior.Loose);
         private IMapper _mockMapper;
         #endregion

@@ -41,7 +41,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 IMongoCollection<ChangeAuditStudyEntity> collection = _database.GetCollection<ChangeAuditStudyEntity>(Constants.Collections.ChangeAudit);
 
 
-                ChangeAuditStudyEntity changeAuditStudyEntity = await collection.Find(DataFilters.GetFiltersForChangeAudit(studyId))
+                ChangeAuditStudyEntity changeAuditStudyEntity = await collection.Find(DataFiltersV1.GetFiltersForChangeAudit(studyId))
                                                                 .SingleOrDefaultAsync().ConfigureAwait(false);
 
                 if (changeAuditStudyEntity == null)

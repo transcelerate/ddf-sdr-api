@@ -44,7 +44,7 @@ namespace TransCelerate.SDR.AzureFunctions
 
             builder.Services.AddTransient<IMessageProcessor, MessageProcessor>();
             builder.Services.AddTransient<ILogHelper, LogHelper>();
-            builder.Services.AddTransient<IHelper, Helper>();
+            builder.Services.AddTransient<IHelperV1, HelperV1>();
             builder.Services.AddTransient<IChangeAuditRepository, ChangeAuditRepository>();
             builder.Services.AddTransient<IMongoClient, MongoClient>(db => new MongoClient(Config.ConnectionString));
         }

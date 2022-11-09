@@ -23,10 +23,10 @@ namespace TransCelerate.SDR.RuleEngineV1
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);    
 
             RuleFor(x => x.ObjectiveLevel)
-               .Must(x => UniquenessArrayValidator.ValidateArray(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+               .Must(x => UniquenessArrayValidator.ValidateArrayV1(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
             
             RuleFor(x => x.ObjectiveEndpoints)
-               .Must(x => UniquenessArrayValidator.ValidateArray(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+               .Must(x => UniquenessArrayValidator.ValidateArrayV1(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
         }
     }
 }
