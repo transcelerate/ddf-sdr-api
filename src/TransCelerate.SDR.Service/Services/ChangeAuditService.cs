@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using System;
 using System.Threading.Tasks;
-using TransCelerate.SDR.Core.DTO.StudyV1;
+using TransCelerate.SDR.Core.DTO.StudyV2;
 using TransCelerate.SDR.Core.DTO.Token;
-using TransCelerate.SDR.Core.Entities.StudyV1;
+using TransCelerate.SDR.Core.Entities.StudyV2;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1;
@@ -16,16 +16,16 @@ namespace TransCelerate.SDR.Services.Services
     {
         #region Variables
         private readonly IChangeAuditRepository _changeAuditRepository;
-        private readonly IClinicalStudyServiceV1 _clinicalStudyServiceV1;
+        private readonly IClinicalStudyServiceV2 _clinicalStudyServiceV2;
         private readonly IMapper _mapper;
         private readonly ILogHelper _logger;
         #endregion
 
         #region Constructor
-        public ChangeAuditService(IChangeAuditRepository changeAuditRepository, IMapper mapper, ILogHelper logger, IClinicalStudyServiceV1 clinicalStudyServiceV1)
+        public ChangeAuditService(IChangeAuditRepository changeAuditRepository, IMapper mapper, ILogHelper logger, IClinicalStudyServiceV2 clinicalStudyServiceV2)
         {
             _changeAuditRepository = changeAuditRepository;
-            _clinicalStudyServiceV1 = clinicalStudyServiceV1;
+            _clinicalStudyServiceV2 = clinicalStudyServiceV2;
             _mapper = mapper;
             _logger = logger;
         }
@@ -47,7 +47,7 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {
-                    bool checkAccessForStudy = await _clinicalStudyServiceV1.GetAccessForAStudy(studyId, 0, user).ConfigureAwait(false);
+                    bool checkAccessForStudy = await _clinicalStudyServiceV2.GetAccessForAStudy(studyId, 0, user).ConfigureAwait(false);
 
                     return checkAccessForStudy ? _mapper.Map<ChangeAuditStudyDto>(changeAudit) : Constants.ErrorMessages.Forbidden;
                 }

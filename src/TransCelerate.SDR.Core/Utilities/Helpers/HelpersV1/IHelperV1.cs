@@ -5,7 +5,7 @@ using TransCelerate.SDR.Core.Entities.StudyV1;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
 {
-    public interface IHelper
+    public interface IHelperV1
     {
         #region Check for each sections
         /// <summary>
@@ -205,36 +205,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         /// <returns></returns>
         AuditTrailEntity GetAuditTrail(string user);
 
-        #region Partial Study Elements
-        /// <summary>
-        /// Check whether the the input list of elements are valid or not
-        /// </summary>
-        /// <param name="listofelements"></param>
-        /// <returns></returns>
-        bool AreValidStudyElements(string listofelements);
-
-        /// <summary>
-        /// Check whether the the input list of study design elements are valid or not
-        /// </summary>
-        /// <param name="listofelements"></param>
-        /// <returns></returns>
-        bool AreValidStudyDesignElements(string listofelements);
-        /// <summary>
-        /// Remove the study elemets which are not requested
-        /// </summary>
-        /// <param name="sections"></param>
-        /// <param name="studyDTO"></param>
-        /// <returns></returns>
-        object RemoveStudyElements(string[] sections, StudyDto studyDTO);
-        /// <summary>
-        /// Remove studyDesign elements which are not requested
-        /// </summary>
-        /// <param name="sections"></param>
-        /// <param name="studyDTO"></param>
-        /// <param name="study_uuid"></param>
-        /// <returns></returns>
-        object RemoveStudyDesignElements(string[] sections, List<StudyDesignDto> studyDTO, string study_uuid);
-        #endregion
         #region Check whole study
         /// <summary>
         /// Compare Full Study
@@ -312,15 +282,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         /// <param name="workflows"></param>
         /// <returns></returns>
         List<WorkflowEntity> RemoveIdForStudyWorkflow(List<WorkflowEntity> workflows);
-        #endregion
-
-        #region Get Difference
-        List<string> GetChangedValues(StudyEntity currentStudyVersion, StudyEntity previousStudyVersion);
-        #endregion
-
-        #region RefernceIntegrityCheck
-        bool ReferenceIntegrityValidation(StudyDto study, out object referenceErrors);
-
         #endregion
 
     }

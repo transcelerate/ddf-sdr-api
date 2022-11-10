@@ -1,0 +1,40 @@
+﻿using FluentValidation;
+using TransCelerate.SDR.Core.DTO.StudyV2;
+using TransCelerate.SDR.Core.Utilities.Common;
+
+namespace TransCelerate.SDR.RuleEngineV2
+{
+    /// <summary>
+    /// This Class is the validator for StudyDataCollection
+    /// </summary>
+    public class StudyDataCollectionValidator : AbstractValidator<StudyDataCollectionDto>
+    {
+        public StudyDataCollectionValidator()
+        {
+            RuleFor(x => x.Uuid)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+
+            RuleFor(x => x.CrfLink)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+
+            RuleFor(x => x.StudyDataName)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+
+            RuleFor(x => x.StudyDataDesc)
+             .Cascade(CascadeMode.Stop)
+             .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+             .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+        }
+    }
+}
+
+
+
+
+

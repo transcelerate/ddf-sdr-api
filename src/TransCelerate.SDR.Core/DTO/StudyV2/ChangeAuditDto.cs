@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TransCelerate.SDR.Core.DTO.StudyV1
+namespace TransCelerate.SDR.Core.DTO.StudyV2
 {
    
     public class ChangeAuditDto

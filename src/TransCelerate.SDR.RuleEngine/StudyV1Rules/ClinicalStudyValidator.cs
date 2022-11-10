@@ -12,15 +12,8 @@ namespace TransCelerate.SDR.RuleEngineV1
     /// </summary>
     public class ClinicalStudyValidator : AbstractValidator<ClinicalStudyDto>
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
         public ClinicalStudyValidator(IHttpContextAccessor httpContextAccessor)
         {
-            _httpContextAccessor = httpContextAccessor;
-
-            RuleFor(x => x.Uuid)
-                .Must(x => UUIDConformanceValidationHelper.CheckForUUIDConformance(x, httpContextAccessor?.HttpContext?.Request?.Method))
-                .WithMessage(x => UUIDConformanceValidationHelper.GetMessageForUUIDConformance(x.Uuid));
-
             RuleFor(x => x.StudyTitle)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
@@ -34,8 +27,7 @@ namespace TransCelerate.SDR.RuleEngineV1
             RuleFor(x => x.StudyIdentifiers)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .Must(x=> UniquenessArrayValidator.ValidateArray(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
 
             RuleFor(x => x.StudyPhase)
                 .Cascade(CascadeMode.Stop)
@@ -46,13 +38,6 @@ namespace TransCelerate.SDR.RuleEngineV1
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-
-            RuleFor(x => x.StudyProtocolVersions)
-                .Must(x => UniquenessArrayValidator.ValidateArray(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
-
-            RuleFor(x=>x.StudyDesigns)
-                .Must(x => UniquenessArrayValidator.ValidateArray(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
-
         }
     }
 }

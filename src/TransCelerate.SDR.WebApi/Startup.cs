@@ -26,8 +26,10 @@ using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.RuleEngine;
 using TransCelerate.SDR.RuleEngineV1;
+using TransCelerate.SDR.RuleEngineV2;
 using TransCelerate.SDR.WebApi.DependencyInjection;
 using TransCelerate.SDR.WebApi.Mappers;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
 namespace TransCelerate.SDR.WebApi
 {
@@ -54,9 +56,9 @@ namespace TransCelerate.SDR.WebApi
             // Application Insights for logs
             services.AddApplicationInsightsTelemetry(Config.InstrumentationKey);
 
-                    
 
-            //Swagger           
+
+            //Swagger          
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Transcelerate SDR", Version = "v1" });                
@@ -85,6 +87,7 @@ namespace TransCelerate.SDR.WebApi
                     Array.Empty<string>()
                 }
                 });
+                c.CustomSchemaIds(type => type.ToString().Replace($"{Assembly.GetAssembly(typeof(Core.ErrorModels.ErrorModel)).GetName().Name}.","").Replace("DTO.", "").Replace("DTO", "").Replace("Dto", ""));
             });
 
             if (_env.IsDevelopment())
@@ -125,12 +128,14 @@ namespace TransCelerate.SDR.WebApi
             //AutoMapper Profile
             services.AddAutoMapper(typeof(AutoMapperProfies).Assembly);   
             services.AddAutoMapper(typeof(AutoMapperProfilesV1).Assembly);   
+            services.AddAutoMapper(typeof(AutoMapperProfilesV2).Assembly);   
             services.AddAutoMapper(typeof(SharedAutoMapperProfiles).Assembly);
 
             //API to use MVC with validation handling and JSON response
             services.AddMvc().AddNewtonsoftJson();             
             services.AddValidationDependencies();
             services.AddValidationDependenciesV1();
+            services.AddValidationDependenciesV2();
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.InvalidModelStateResponseFactory = context =>
@@ -162,9 +167,9 @@ namespace TransCelerate.SDR.WebApi
             //Swagger
             app.UseSwagger();
             app.UseSwaggerUI(c => 
-            {
+            {                
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Transcelerate SDR");               
-                c.DefaultModelsExpandDepth(-1);
+                //c.DefaultModelsExpandDepth(-1);
             });    
 
             //Routing

@@ -1,14 +1,14 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
-namespace TransCelerate.SDR.Core.Entities.StudyV1
+namespace TransCelerate.SDR.Core.DTO.StudyV2
 {
-    public class ChangesEntity
+    public class ChangesDto
     {
         public DateTime EntryDateTime { get; set; }
 
-        [BsonElement("SDRUploadVersion")]
+        [JsonProperty("SDRUploadVersion")]
         public int SDRUploadVersion { get; set; }
 
         public List<string> Elements { get; set; }

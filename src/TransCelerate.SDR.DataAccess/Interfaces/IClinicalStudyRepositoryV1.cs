@@ -25,18 +25,6 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         Task<StudyEntity> GetStudyItemsAsync(string studyId, int sdruploadversion);
 
         /// <summary>
-        /// GET a Study for a study ID with version filter
-        /// </summary>
-        /// <param name="studyId">Study ID</param>
-        /// <param name="sdruploadversion">Version of study</param>
-        /// <param name="listofelementsArray">Array of study elements</param>
-        /// <returns>
-        /// A <see cref="StudyEntity"/> with matching studyId <br></br> <br></br>
-        /// <see langword="null"/> If no study is matching with studyId
-        /// </returns>
-        Task<StudyEntity> GetPartialStudyItemsAsync(string studyId, int sdruploadversion, string[] listofelementsArray);
-
-        /// <summary>
         /// GET Study Designs for a Study Id
         /// </summary>
         /// <param name="studyId">Study ID</param>
@@ -109,19 +97,6 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         Task<List<SearchResponseEntity>> SearchTitle(SearchTitleParameters searchParameters, LoggedInUser user);
 
         Task<List<SDRGroupsEntity>> GetGroupsOfUser(LoggedInUser user);
-        /// <summary>
-        /// Delete all version of a study
-        /// </summary>
-        /// <param name="study_uuid">Study Id</param>
-        /// <returns></returns>
-        Task<DeleteResult> DeleteStudyAsync(string study_uuid);
-
-        /// <summary>
-        /// Count Documents
-        /// </summary>
-        /// <param name="study_uuid"> Study Id</param>
-        /// <returns></returns>
-        Task<long> CountAsync(string study_uuid);
 
         Task<StudyEntity> GetStudyItemsForCheckingAccessAsync(string studyId, int sdruploadversion);
     }

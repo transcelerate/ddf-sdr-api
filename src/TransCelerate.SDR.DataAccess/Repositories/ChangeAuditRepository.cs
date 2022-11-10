@@ -2,7 +2,7 @@
 using MongoDB.Driver;
 using System;
 using System.Threading.Tasks;
-using TransCelerate.SDR.Core.Entities.StudyV1;
+using TransCelerate.SDR.Core.Entities.StudyV2;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.DataAccess.Filters;
@@ -41,7 +41,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 IMongoCollection<ChangeAuditStudyEntity> collection = _database.GetCollection<ChangeAuditStudyEntity>(Constants.Collections.ChangeAudit);
 
 
-                ChangeAuditStudyEntity changeAuditStudyEntity = await collection.Find(DataFilters.GetFiltersForChangeAudit(studyId))
+                ChangeAuditStudyEntity changeAuditStudyEntity = await collection.Find(DataFiltersV2.GetFiltersForChangeAudit(studyId))
                                                                 .SingleOrDefaultAsync().ConfigureAwait(false);
 
                 if (changeAuditStudyEntity == null)
