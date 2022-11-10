@@ -1974,7 +1974,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                 changedValues.Add(nameof(T));
             return changedValues;
         }
-        public List<string> CheckForNumberOfElementsMismatch<T>(List<T> currentVersion, List<T> previousVersion) where T : class, Entities.StudyV1.IUuid
+        public List<string> CheckForNumberOfElementsMismatch<T>(List<T> currentVersion, List<T> previousVersion) where T : class, Entities.StudyV2.IUuid
         {
             var differences = CheckDifferences<List<T>>(currentVersion, previousVersion);
             if (differences.Any(x => x.DifferenceType == DifferenceTypes.NumberOfElementsMismatch))

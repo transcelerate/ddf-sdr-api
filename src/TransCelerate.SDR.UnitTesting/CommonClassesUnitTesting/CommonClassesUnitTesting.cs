@@ -22,7 +22,7 @@ using TransCelerate.SDR.Core.AppSettings;
 using TransCelerate.SDR.Core.DTO;
 using TransCelerate.SDR.Core.DTO.Reports;
 using TransCelerate.SDR.Core.DTO.Study;
-using TransCelerate.SDR.Core.DTO.StudyV1;
+using TransCelerate.SDR.Core.DTO.StudyV2;
 using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.DTO.UserGroups;
 using TransCelerate.SDR.Core.Entities.Study;

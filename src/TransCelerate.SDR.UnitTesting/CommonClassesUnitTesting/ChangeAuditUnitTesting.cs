@@ -6,9 +6,9 @@ using NUnit.Framework;
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using TransCelerate.SDR.Core.DTO.StudyV1;
+using TransCelerate.SDR.Core.DTO.StudyV2;
 using TransCelerate.SDR.Core.DTO.Token;
-using TransCelerate.SDR.Core.Entities.StudyV1;
+using TransCelerate.SDR.Core.Entities.StudyV2;
 using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
@@ -46,9 +46,7 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
         {
             var mockMapper = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new AutoMapperProfies());
-                cfg.AddProfile(new AutoMapperProfilesV1());
-                cfg.AddProfile(new SharedAutoMapperProfiles());
+                cfg.AddProfile(new AutoMapperProfilesV2());
             });
             _mockMapper = new Mapper(mockMapper);
         }

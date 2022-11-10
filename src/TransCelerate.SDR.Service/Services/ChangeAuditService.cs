@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using System;
 using System.Threading.Tasks;
-using TransCelerate.SDR.Core.DTO.StudyV1;
+using TransCelerate.SDR.Core.DTO.StudyV2;
 using TransCelerate.SDR.Core.DTO.Token;
-using TransCelerate.SDR.Core.Entities.StudyV1;
+using TransCelerate.SDR.Core.Entities.StudyV2;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1;

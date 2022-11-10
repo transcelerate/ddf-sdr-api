@@ -24,44 +24,17 @@ namespace TransCelerate.SDR.Services.Interfaces
         Task<object> GetStudy(string studyId, int sdruploadversion, LoggedInUser user);
 
         /// <summary>
-        /// GET Partial Elements For a Study
+        /// GET Study Designs of a Study
         /// </summary>
         /// <param name="studyId">Study ID</param>
         /// <param name="sdruploadversion">Version of study</param>
-        /// <param name="listofelements">List of elements with comma separated values</param>
         /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        Task<object> GetPartialStudyElements(string studyId, int sdruploadversion, LoggedInUser user, string[] listofelements);
+        Task<object> GetStudyDesigns(string studyId, int sdruploadversion, LoggedInUser user);
 
-        /// <summary>
-        /// GET Study Designs of a Study
-        /// </summary>
-        /// <param name="studyId">Study ID</param>
-        /// <param name="sdruploadversion">Version of study</param>
-        /// <param name="listofelements">List of study design elements</param>
-        /// <param name="studyDesignId">study design Id</param>
-        /// <param name="user">Logged In User</param>
-        /// <returns>
-        /// A <see cref="object"/> with matching studyId <br></br> <br></br>
-        /// <see langword="null"/> If no study is matching with studyId
-        /// </returns>
-        Task<object> GetStudyDesigns(string studyId, string studyDesignId, int sdruploadversion, LoggedInUser user, string[] listofelements);
-        /// <summary>
-        /// GET Study Designs of a Study
-        /// </summary>
-        /// <param name="studyId">Study ID</param>
-        /// <param name="sdruploadversion">Version of study</param>
-        /// <param name="listofelements">List of study design elements</param>
-        /// <param name="studyDesignId">study design Id</param>
-        /// <param name="user">Logged In User</param>
-        /// <returns>
-        /// A <see cref="object"/> with matching studyId <br></br> <br></br>
-        /// <see langword="null"/> If no study is matching with studyId
-        /// </returns>
-        Task<object> GetPartialStudyDesigns(string studyId, string studyDesignId, int sdruploadversion, LoggedInUser user, string[] listofelements);
         /// <summary>
         /// GET Audit Trial
         /// </summary>
@@ -95,13 +68,12 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// POST All Elements For a Study
         /// </summary>
         /// <param name="studyDTO">Study for Inserting/Updating in Database</param>        
-        /// <param name="user">Logged In User</param>
-        /// <param name="method">POST/PUT</param>
+        /// <param name="user">Logged In User</param>        
         /// <returns>
         /// A <see cref="object"/> which has study ID and study design ID's <br></br> <br></br>
         /// <see langword="null"/> If the insert is not done
         /// </returns>
-        Task<object> PostAllElements(StudyDto studyDTO, LoggedInUser user,string method);
+        Task<object> PostAllElements(StudyDto studyDTO, LoggedInUser user);
         #endregion
 
         #region Search
@@ -126,16 +98,6 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// <see langword="null"/> If the insert is not done
         /// </returns>
         Task<List<SearchTitleResponseDto>> SearchTitle(SearchTitleParametersDto searchParameters, LoggedInUser user);
-        #endregion
-
-        #region Delete Study
-        /// <summary>
-        /// Delete all versions of Study
-        /// </summary>
-        /// <param name="studyId">Study Id</param>
-        /// <param name="user">LoggedIn User</param>
-        /// <returns></returns>
-        Task<object> DeleteStudy(string studyId, LoggedInUser user);
         #endregion
 
         #region Check Access For A study

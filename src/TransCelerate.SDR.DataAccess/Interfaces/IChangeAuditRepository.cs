@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using TransCelerate.SDR.Core.Entities.StudyV1;
+using TransCelerate.SDR.Core.Entities.StudyV2;
 
 namespace TransCelerate.SDR.DataAccess.Interfaces
 {

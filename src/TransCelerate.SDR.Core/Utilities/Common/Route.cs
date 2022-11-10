@@ -90,7 +90,7 @@
         #endregion
 
         #region ChangeAudit
-        public const string ChangeAudit = "v1/changeaudit/{study_uuid}";
+        public const string ChangeAudit = "v2/changeaudit/{study_uuid}";
         #endregion
     }
 }

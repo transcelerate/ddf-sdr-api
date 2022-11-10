@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using TransCelerate.SDR.AzureFunctions.DataAccess;
-using TransCelerate.SDR.Core.Entities.StudyV1;
+using TransCelerate.SDR.Core.Entities.StudyV2;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
-using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1;
+using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
 
 namespace TransCelerate.SDR.AzureFunctions
 {
@@ -14,11 +14,11 @@ namespace TransCelerate.SDR.AzureFunctions
     {
         #region Variables
         private readonly ILogHelper _logger;
-        private readonly IHelperV1 _helper;
+        private readonly IHelperV2 _helper;
         private readonly IChangeAuditRepository _changeAuditReposotory;
         #endregion
         #region Constructor
-        public MessageProcessor(ILogHelper logger, IChangeAuditRepository changeAuditReposotory, IHelperV1 helper)
+        public MessageProcessor(ILogHelper logger, IChangeAuditRepository changeAuditReposotory, IHelperV2 helper)
         {
             _logger = logger;
             _changeAuditReposotory = changeAuditReposotory;

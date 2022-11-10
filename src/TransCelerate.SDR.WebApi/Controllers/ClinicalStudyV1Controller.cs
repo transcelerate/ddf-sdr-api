@@ -46,7 +46,6 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// </summary>
         /// <param name="studyId">Study ID</param>
         /// <param name="sdruploadversion">Version of study</param> 
-        /// <param name="listofelements">List of elements with comma separated values</param>
         /// <response code="200">Returns Study</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>
@@ -56,25 +55,21 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetStudy(string studyId, int sdruploadversion, string listofelements)
+        public async Task<IActionResult> GetStudy(string studyId, int sdruploadversion)
         {
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudy)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
-                    _logger.LogInformation($"Inputs : studyId = {studyId}; sdruploadversion = {sdruploadversion}; listofelements: {listofelements}");
-                    string[] listofelementsArray = listofelements?.Split(Constants.Roles.Seperator);
-                    if (!_helper.AreValidStudyElements(listofelements))
-                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyElementNotValid)).Value);
+                    _logger.LogInformation($"Inputs : studyId = {studyId}; sdruploadversion = {sdruploadversion};");
                     
                     LoggedInUser user = new LoggedInUser
                     {
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
-                    var study = listofelementsArray == null ? await _clinicalStudyService.GetStudy(studyId, sdruploadversion, user).ConfigureAwait(false)
-                                                            : await _clinicalStudyService.GetPartialStudyElements(studyId, sdruploadversion, user, listofelementsArray).ConfigureAwait(false);
+                    var study = await _clinicalStudyService.GetStudy(studyId, sdruploadversion, user).ConfigureAwait(false);
 
                     if (study == null)
                     {
@@ -109,9 +104,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// GET Study Designs of a Study
         /// </summary>
         /// <param name="study_uuid">Study ID</param>
-        /// <param name="studydesign_uuid">Study Design ID</param>
         /// <param name="sdruploadversion">Version of study</param>
-        /// <param name="listofelements">List of study design elements with comma separated values</param>
         /// <response code="200">Returns Study</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>
@@ -121,24 +114,21 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetStudyDesigns(string study_uuid, int sdruploadversion,string studydesign_uuid,string listofelements)
+        public async Task<IActionResult> GetStudyDesigns(string study_uuid, int sdruploadversion)
         {
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudyDesigns)};");
                 if (!String.IsNullOrWhiteSpace(study_uuid))
                 {
-                    _logger.LogInformation($"Inputs : study_uuid = {study_uuid}; sdruploadversion = {sdruploadversion}; listofelements: {listofelements}; studydesign_uuid: {studydesign_uuid}");
-                    string[] listofelementsArray = listofelements?.Split(Constants.Roles.Seperator);
-                    if (!_helper.AreValidStudyDesignElements(listofelements))
-                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyDesignElementNotValid)).Value);
+                    _logger.LogInformation($"Inputs : study_uuid = {study_uuid}; sdruploadversion = {sdruploadversion};");
 
                     LoggedInUser user = new LoggedInUser
                     {
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
-                    var study = await _clinicalStudyService.GetStudyDesigns(study_uuid,studydesign_uuid, sdruploadversion, user,listofelementsArray).ConfigureAwait(false);
+                    var study = await _clinicalStudyService.GetStudyDesigns(study_uuid, sdruploadversion, user).ConfigureAwait(false);
 
                     if (study == null)
                     {
@@ -321,17 +311,13 @@ namespace TransCelerate.SDR.WebApi.Controllers
             {
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");                
                 if (studyDTO != null)
-                {
-                    bool isInValidReferenceIntegrity = _helper.ReferenceIntegrityValidation(studyDTO, out var errors);
-                    if (isInValidReferenceIntegrity)
-                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(errors, Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse)).Value);
-
+                {                    
                     LoggedInUser user = new LoggedInUser
                     {
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
-                    var response = await _clinicalStudyService.PostAllElements(studyDTO, user,HttpMethods.Post)
+                    var response = await _clinicalStudyService.PostAllElements(studyDTO, user)
                                                               .ConfigureAwait(false);
 
                     if (response?.ToString() == Constants.ErrorMessages.PostRestricted)
@@ -501,136 +487,6 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
         }
         #endregion
-
-        #region PUT Method
-        /// <summary>
-        /// Create New Version for a study 
-        /// </summary>        
-        /// <param name="studyDTO">Study for Inserting/Updating in Database</param>        
-        /// <response code="201">Study Created</response>
-        /// <response code="400">Bad Request</response>       
-        [HttpPut]
-        [Route(Route.PostElementsV1)]
-        [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDto))]
-        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
-        [Produces("application/json")]
-        public async Task<IActionResult> CreateNewVersionForAStudy([FromBody] StudyDto studyDTO)
-        {
-            try
-            {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");
-                if (studyDTO != null)
-                {
-                    bool isInValidReferenceIntegrity = _helper.ReferenceIntegrityValidation(studyDTO, out var errors);
-                    if (isInValidReferenceIntegrity)
-                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(errors, Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse)).Value);
-
-                    LoggedInUser user = new LoggedInUser
-                    {
-                        UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
-                        UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
-                    };
-                    var response = await _clinicalStudyService.PostAllElements(studyDTO, user, HttpMethods.Put)
-                                                              .ConfigureAwait(false);
-
-                    if (response?.ToString() == Constants.ErrorMessages.PostRestricted)
-                    {
-                        return StatusCode(((int)HttpStatusCode.Unauthorized), new JsonResult(ErrorResponseHelper.UnAuthorizedAccess(Constants.ErrorMessages.PostRestricted)).Value);
-                    }
-                    else
-                    {
-                        if (response?.ToString() == Constants.ErrorMessages.StudyIdNotFound)
-                        {
-                            return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyIdNotFound)).Value);
-                        }
-                        else
-                        {
-                            return Created($"study/{studyDTO.ClinicalStudy.Uuid}", new JsonResult(response).Value);
-                        }
-                    }
-                }
-                else
-                {
-                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Exception occured. Exception : {ex}");
-                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
-            }
-            finally
-            {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");
-            }
-        }
-        #endregion
-
-        #region DELETE Method
-
-        #endregion
-        /// <summary>
-        /// Delete a Study
-        /// </summary>
-        /// <param name="studyId">Study ID</param>
-        /// <response code="200">Deleted all versions of Study with the mentioned studyId</response>
-        /// <response code="400">Bad Request</response>
-        /// <response code="404">The Study for the studyId is Not Found</response>
-        [HttpDelete]
-        [Authorize(Roles = Constants.Roles.Org_Admin)]
-        [Route(Route.StudyV1)]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDto))]
-        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
-        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
-        [Produces("application/json")]
-        public async Task<IActionResult> DeleteStudy(string studyId)
-        {
-            try
-            {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudy)};");
-                if (!String.IsNullOrWhiteSpace(studyId))
-                {
-                    _logger.LogInformation($"Inputs : studyId = {studyId};");                   
-
-                    LoggedInUser user = new LoggedInUser
-                    {
-                        UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
-                        UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
-                    };
-                    var response = await _clinicalStudyService.DeleteStudy(studyId,user).ConfigureAwait(false);
-
-                    if (response == null)
-                    {
-                        return BadRequest(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.GenericError)).Value);
-                    }
-                    else if (response?.ToString() == Constants.ErrorMessages.NotValidStudyId)
-                    {
-                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.NotValidStudyId)).Value);
-                    }
-                    else if (response?.ToString() == Constants.ErrorMessages.Forbidden)
-                    {
-                        return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
-                    }
-                    else
-                    {
-                        return Ok(new {statusCode = ((int)HttpStatusCode.OK).ToString() , message = $"All versions of study definition with uuid : '{studyId}' are deleted" });
-                    }
-                }
-                else
-                {
-                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Exception occured. Exception : {ex}");
-                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
-            }
-            finally
-            {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudy)};");
-            }
-        }
         #endregion
     }
 }
