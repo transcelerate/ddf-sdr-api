@@ -12,11 +12,6 @@ namespace TransCelerate.SDR.RuleEngineV1
     {
         public EndpointValidator()
         {
-            RuleFor(x => x.Uuid)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-
             RuleFor(x => x.EndpointDesc)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
@@ -26,9 +21,6 @@ namespace TransCelerate.SDR.RuleEngineV1
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-
-            RuleFor(x => x.EndpointLevel)
-                .Must(x => UniquenessArrayValidator.ValidateArray(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
         }
     }
 }

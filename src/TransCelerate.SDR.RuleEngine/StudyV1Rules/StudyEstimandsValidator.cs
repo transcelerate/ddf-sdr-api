@@ -12,11 +12,6 @@ namespace TransCelerate.SDR.RuleEngineV1
     {
         public StudyEstimandsValidator()
         {
-            RuleFor(x => x.Uuid)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-
             RuleFor(x => x.Treatment)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
@@ -40,8 +35,7 @@ namespace TransCelerate.SDR.RuleEngineV1
             RuleFor(x => x.IntercurrentEvents)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .Must(x => UniquenessArrayValidator.ValidateArray(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
         }
     }
 }

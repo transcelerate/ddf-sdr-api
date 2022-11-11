@@ -6,8 +6,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TransCelerate.SDR.Core.Entities.StudyV1;
-using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1;
+using TransCelerate.SDR.Core.Entities.StudyV2;
+using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.AzureFunctions.DataAccess;
 using TransCelerate.SDR.AzureFunctions;
@@ -23,7 +23,7 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
     {
 
         private ILogHelper _mockLogger = Mock.Of<ILogHelper>();
-        private Mock<IHelper> _mockHelper = new Mock<IHelper>(MockBehavior.Loose);
+        private Mock<IHelperV2> _mockHelper = new Mock<IHelperV2>(MockBehavior.Loose);
         private Mock<IChangeAuditRepository> _mockChangeAuditRepository = new Mock<IChangeAuditRepository>(MockBehavior.Loose);
         private ILogHelper _mockLogger1 = Mock.Of<ILogHelper>();
         private Mock<IMessageProcessor> _messageProcessor = new Mock<IMessageProcessor>(MockBehavior.Loose);
@@ -42,7 +42,7 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
         [Test]
         public void ProcessMessage_UnitTesting()
         {
-            Helper helper =new Helper();
+            HelperV2 helper =new HelperV2();
 
             var currentVersion=GetEntityDataFromStaticJson();
             var previousVersion=GetEntityDataFromStaticJson();
@@ -112,7 +112,7 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
         [Test]
         public void GetChangedValueUnitTesting()
         {
-            Helper helper = new Helper();
+            HelperV2 helper = new HelperV2();
 
             var currentVersion = GetEntityDataFromStaticJson();
             var previousVersion = GetEntityDataFromStaticJson();

@@ -6,7 +6,7 @@ using System;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using TransCelerate.SDR.Core.DTO.StudyV1;
+using TransCelerate.SDR.Core.DTO.StudyV2;
 using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.Core.Utilities;

@@ -12,11 +12,6 @@ namespace TransCelerate.SDR.RuleEngineV1
     {       
         public StudyProtocolVersionsValidator()
         {
-            RuleFor(x => x.Uuid)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-
             RuleFor(x => x.BriefTitle)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
@@ -36,8 +31,7 @@ namespace TransCelerate.SDR.RuleEngineV1
             RuleFor(x => x.ProtocolStatus)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .Must(x => UniquenessArrayValidator.ValidateArray(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
 
             RuleFor(x => x.ProtocolVersion)
                 .Cascade(CascadeMode.Stop)

@@ -14,7 +14,7 @@ using TransCelerate.SDR.AzureFunctions.DataAccess;
 using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.WebJobs;
-using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1;
+using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
 
 [assembly: FunctionsStartup(typeof(TransCelerate.SDR.AzureFunctions.Startup))]
 namespace TransCelerate.SDR.AzureFunctions
@@ -44,7 +44,7 @@ namespace TransCelerate.SDR.AzureFunctions
 
             builder.Services.AddTransient<IMessageProcessor, MessageProcessor>();
             builder.Services.AddTransient<ILogHelper, LogHelper>();
-            builder.Services.AddTransient<IHelper, Helper>();
+            builder.Services.AddTransient<IHelperV2, HelperV2>();
             builder.Services.AddTransient<IChangeAuditRepository, ChangeAuditRepository>();
             builder.Services.AddTransient<IMongoClient, MongoClient>(db => new MongoClient(Config.ConnectionString));
         }

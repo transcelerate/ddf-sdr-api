@@ -6,9 +6,9 @@ using NUnit.Framework;
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using TransCelerate.SDR.Core.DTO.StudyV1;
+using TransCelerate.SDR.Core.DTO.StudyV2;
 using TransCelerate.SDR.Core.DTO.Token;
-using TransCelerate.SDR.Core.Entities.StudyV1;
+using TransCelerate.SDR.Core.Entities.StudyV2;
 using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
@@ -25,7 +25,7 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
         #region Variables
         private Mock<IChangeAuditService> _mockChangeAuditService = new Mock<IChangeAuditService>(MockBehavior.Loose);
         private Mock<IChangeAuditRepository> _mockChangeAuditRepository = new Mock<IChangeAuditRepository>(MockBehavior.Loose);
-        private Mock<IClinicalStudyServiceV1> _mockClinicalStudyServiceV1 = new Mock<IClinicalStudyServiceV1>(MockBehavior.Loose);
+        private Mock<IClinicalStudyServiceV2> _mockClinicalStudyServiceV2 = new Mock<IClinicalStudyServiceV2>(MockBehavior.Loose);
         private ILogHelper _mockLogHelper = Mock.Of<ILogHelper>();
         private IMapper _mockMapper;
         #endregion
@@ -46,9 +46,7 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
         {
             var mockMapper = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new AutoMapperProfies());
-                cfg.AddProfile(new AutoMapperProfilesV1());
-                cfg.AddProfile(new SharedAutoMapperProfiles());
+                cfg.AddProfile(new AutoMapperProfilesV2());
             });
             _mockMapper = new Mapper(mockMapper);
         }
@@ -159,9 +157,9 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
         {
             _mockChangeAuditRepository.Setup(x => x.GetChangeAuditAsync(It.IsAny<string>()))
                 .Returns(Task.FromResult(GetChangeAuditEntityDataFromStaticJson()));
-            _mockClinicalStudyServiceV1.Setup(x => x.GetAccessForAStudy(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+            _mockClinicalStudyServiceV2.Setup(x => x.GetAccessForAStudy(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(true));
-            ChangeAuditService changeAuditService = new ChangeAuditService(_mockChangeAuditRepository.Object, _mockMapper, _mockLogHelper, _mockClinicalStudyServiceV1.Object);
+            ChangeAuditService changeAuditService = new ChangeAuditService(_mockChangeAuditRepository.Object, _mockMapper, _mockLogHelper, _mockClinicalStudyServiceV2.Object);
             var method = changeAuditService.GetChangeAudit("sd", user);
             method.Wait();
             var result = method.Result;
@@ -176,7 +174,7 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
 
             _mockChangeAuditRepository.Setup(x => x.GetChangeAuditAsync(It.IsAny<string>()))
                 .Returns(Task.FromResult(GetChangeAuditEntityDataFromStaticJson()));
-            _mockClinicalStudyServiceV1.Setup(x => x.GetAccessForAStudy(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+            _mockClinicalStudyServiceV2.Setup(x => x.GetAccessForAStudy(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(false));
             
             method = changeAuditService.GetChangeAudit("sd", user);
@@ -187,7 +185,7 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
 
             _mockChangeAuditRepository.Setup(x => x.GetChangeAuditAsync(It.IsAny<string>()))
                .Returns(Task.FromResult(null as ChangeAuditStudyEntity));
-            _mockClinicalStudyServiceV1.Setup(x => x.GetAccessForAStudy(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+            _mockClinicalStudyServiceV2.Setup(x => x.GetAccessForAStudy(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(false));
 
             method = changeAuditService.GetChangeAudit("sd", user);

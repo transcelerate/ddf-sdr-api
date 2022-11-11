@@ -12,18 +12,10 @@ namespace TransCelerate.SDR.RuleEngineV1
     {
         public IndicationValidator()
         {
-            RuleFor(x => x.Uuid)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-
             RuleFor(x => x.IndicationDesc)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-            
-            RuleFor(x => x.Codes)
-                .Must(x => UniquenessArrayValidator.ValidateArray(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
         }
     }

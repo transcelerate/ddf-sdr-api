@@ -12,13 +12,6 @@ namespace TransCelerate.SDR.RuleEngineV1
     {
         public StudyCellsValidator()
         {
-            RuleFor(x => x.Uuid)
-              .Cascade(CascadeMode.Stop)
-              .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-              .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-
-            RuleFor(x => x.StudyElements)
-              .Must(x => UniquenessArrayValidator.ValidateArray(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
         }
     }

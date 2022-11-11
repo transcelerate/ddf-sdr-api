@@ -12,11 +12,6 @@ namespace TransCelerate.SDR.RuleEngineV1
     {
         public EncounterValidator()
         {
-            RuleFor(x => x.Uuid)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-
             RuleFor(x => x.EncounterDesc)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
@@ -27,14 +22,6 @@ namespace TransCelerate.SDR.RuleEngineV1
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
 
-            RuleFor(x => x.EncounterContactMode)
-                .Must(x => UniquenessArrayValidator.ValidateArray(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
-            
-            RuleFor(x => x.EncounterEnvironmentalSetting)
-                .Must(x => UniquenessArrayValidator.ValidateArray(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
-            
-            RuleFor(x => x.EncounterType)
-                .Must(x => UniquenessArrayValidator.ValidateArray(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
         }
     }
 }

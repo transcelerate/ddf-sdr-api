@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TransCelerate.SDR.Core.Entities.StudyV1
+namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
     [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
     public class ChangeAuditEntity

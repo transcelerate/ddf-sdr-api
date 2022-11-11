@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TransCelerate.SDR.Core.Entities.StudyV1;
+using TransCelerate.SDR.Core.Entities.StudyV2;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 

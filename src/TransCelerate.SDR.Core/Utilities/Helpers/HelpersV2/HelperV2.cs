@@ -6,18 +6,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TransCelerate.SDR.Core.DTO.StudyV1;
-using TransCelerate.SDR.Core.Entities.StudyV1;
+using TransCelerate.SDR.Core.DTO.StudyV2;
+using TransCelerate.SDR.Core.Entities.StudyV2;
 using TransCelerate.SDR.Core.Utilities.Common;
 using ObjectsComparer;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 
-namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
+namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
 {
     /// <summary>
     /// This class is used as a helper for different funtionalities
     /// </summary>
-    public class Helper : IHelper
+    public class HelperV2 : IHelperV2
     {
         /// <summary>
         /// Get Audit Trail fields for the POST Api
@@ -1949,7 +1949,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             return differences.Select(x => x.MemberPath).ToList();
         }
 
-        public List<string> GetDifferenceForAList<T>(List<T> currentVersion, List<T> previousVersion) where T : class, Entities.StudyV1.IUuid
+        public List<string> GetDifferenceForAList<T>(List<T> currentVersion, List<T> previousVersion) where T : class, Entities.StudyV2.IUuid
         {
             List<string> changedValues = new List<string>();
             if (currentVersion != null && currentVersion.Any())
@@ -1974,7 +1974,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                 changedValues.Add(nameof(T));
             return changedValues;
         }
-        public List<string> CheckForNumberOfElementsMismatch<T>(List<T> currentVersion, List<T> previousVersion) where T : class, Entities.StudyV1.IUuid
+        public List<string> CheckForNumberOfElementsMismatch<T>(List<T> currentVersion, List<T> previousVersion) where T : class, Entities.StudyV2.IUuid
         {
             var differences = CheckDifferences<List<T>>(currentVersion, previousVersion);
             if (differences.Any(x => x.DifferenceType == DifferenceTypes.NumberOfElementsMismatch))
