@@ -123,6 +123,7 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
             try
             {
                 IMongoCollection<ChangeAuditStudyEntity> collection = _database.GetCollection<ChangeAuditStudyEntity>(Constants.Collections.ChangeAudit);
+                changeAudit._id=MongoDB.Bson.ObjectId.GenerateNewId();
                 collection.InsertOne(changeAudit); //Insert One Document               
             }
             catch (Exception)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
@@ -13,6 +14,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
     [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
     public class ChangeAuditStudyEntity
     {
+        public Object _id { get; set; }
         public ChangeAuditEntity ChangeAudit { get; set; }
     }
 }

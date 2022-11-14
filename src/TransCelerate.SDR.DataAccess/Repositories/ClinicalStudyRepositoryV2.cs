@@ -24,10 +24,11 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
         private readonly IMongoClient _client;
         private readonly IMongoDatabase _database;
+
         #endregion
 
         #region Constructor      
-        public ClinicalStudyRepositoryV2(IMongoClient client, ILogHelper logger)
+        public ClinicalStudyRepositoryV2(IMongoClient client, ILogHelper logger, IChangeAuditRepository changeAuditRepository)
         {
             _client = client;
             _database = _client.GetDatabase(_databaseName);
@@ -308,8 +309,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             try
             {
                 IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
-                await collection.InsertOneAsync(study).ConfigureAwait(false); //Insert One Document
-
+                await collection.InsertOneAsync(study).ConfigureAwait(false); //Insert One Document                
                 return (study.ClinicalStudy.Uuid);
             }
             catch (Exception)

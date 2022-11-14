@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.Entities.StudyV2;
 using TransCelerate.SDR.Core.Utilities;
@@ -63,6 +64,46 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 _logger.LogInformation($"Ended Repository : {nameof(ChangeAuditRepository)}; Method : {nameof(GetChangeAuditAsync)};");
             }
         }
+        public async Task<string> InsertChangeAudit(string study_uuid, int sdruploadversion, DateTime entrydatetime)
+        {
+            _logger.LogInformation($"Started Repository : {nameof(ChangeAuditRepository)}; Method : {nameof(InsertChangeAudit)};");
+            try
+            {
+                IMongoCollection<ChangeAuditStudyEntity> collection = _database.GetCollection<ChangeAuditStudyEntity>(Constants.Collections.ChangeAudit);
+
+                ChangeAuditStudyEntity changeAuditStudyEntity = new ChangeAuditStudyEntity();
+
+                ChangesEntity change = new ChangesEntity
+                {
+                    Elements = new List<string>(),
+                    EntryDateTime = entrydatetime,
+                    SDRUploadVersion = sdruploadversion
+                };
+
+                var changeAuditEntity = new ChangeAuditEntity();
+                changeAuditEntity.Study_uuid = study_uuid;
+                changeAuditEntity.Changes = new List<ChangesEntity>();
+                changeAuditEntity.Changes.Add(change);
+
+
+                changeAuditStudyEntity = new ChangeAuditStudyEntity { ChangeAudit = changeAuditEntity };
+                changeAuditStudyEntity._id = MongoDB.Bson.ObjectId.GenerateNewId();
+
+                await collection.InsertOneAsync(changeAuditStudyEntity);
+                return changeAuditEntity.Study_uuid;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Repository : {nameof(ChangeAuditRepository)}; Method : {nameof(InsertChangeAudit)};");
+            }
+
+        }
+
         #endregion
     }
 

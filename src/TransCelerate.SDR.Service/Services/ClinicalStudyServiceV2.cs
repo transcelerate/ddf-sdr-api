@@ -26,11 +26,13 @@ namespace TransCelerate.SDR.Services.Services
         private readonly ILogHelper _logger;
         private readonly IHelperV2 _helper;
         private readonly ServiceBusClient _serviceBusClient;
+        private readonly IChangeAuditRepository _changeAuditRepositoy;
         #endregion
 
         #region Constructor
-        public ClinicalStudyServiceV2(IClinicalStudyRepositoryV2 clinicalStudyRepository, IMapper mapper, ILogHelper logger, IHelperV2 helper, ServiceBusClient serviceBusClient)
+        public ClinicalStudyServiceV2(IClinicalStudyRepositoryV2 clinicalStudyRepository, IMapper mapper, ILogHelper logger, IHelperV2 helper, ServiceBusClient serviceBusClient, IChangeAuditRepository changeAuditRepository)
         {
+            _changeAuditRepositoy = changeAuditRepository;
             _clinicalStudyRepository = clinicalStudyRepository;
             _mapper = mapper;
             _logger = logger;
@@ -402,6 +404,7 @@ namespace TransCelerate.SDR.Services.Services
             studyEntity.ClinicalStudy.Uuid = IdGenerator.GenerateId();
             studyEntity.AuditTrail.SDRUploadVersion = 1;
             await _clinicalStudyRepository.PostStudyItemsAsync(studyEntity);
+            await _changeAuditRepositoy.InsertChangeAudit(studyEntity.ClinicalStudy.Uuid, studyEntity.AuditTrail.SDRUploadVersion, studyEntity.AuditTrail.EntryDateTime);
             return _mapper.Map<StudyDto>(studyEntity);
         }
 
