@@ -80,7 +80,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             var actual_result = JsonConvert.DeserializeObject<StudyDto>(
                  JsonConvert.SerializeObject((result as CreatedResult).Value));
 
-            Assert.AreEqual(expected.ClinicalStudy.Uuid, actual_result.ClinicalStudy.Uuid);
+            Assert.AreEqual(expected.ClinicalStudy.StudyId, actual_result.ClinicalStudy.StudyId);
             Assert.IsInstanceOf(typeof(CreatedResult), result);
         }
         [Test]
@@ -168,7 +168,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             var actual_result = JsonConvert.DeserializeObject<StudyDto>(
                  JsonConvert.SerializeObject((result as CreatedResult).Value));
 
-            Assert.AreEqual(expected.ClinicalStudy.Uuid, actual_result.ClinicalStudy.Uuid);
+            Assert.AreEqual(expected.ClinicalStudy.StudyId, actual_result.ClinicalStudy.StudyId);
             Assert.IsInstanceOf(typeof(CreatedResult), result);
         }
         [Test]
@@ -230,7 +230,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDto>(), It.IsAny<LoggedInUser>(), HttpMethod.Put.Method))
                         .Throws(new Exception("Error"));
 
-            study.ClinicalStudy.Uuid = "123";
+            study.ClinicalStudy.StudyId = "123";
             method = ClinicalStudyV2Controller.CreateNewVersionForAStudy(study);
             method.Wait();
             result = method.Result;
@@ -272,7 +272,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             var actual_result = JsonConvert.DeserializeObject<StudyDto>(
                  JsonConvert.SerializeObject((result as OkObjectResult).Value));
 
-            Assert.AreEqual(expected.ClinicalStudy.Uuid, actual_result.ClinicalStudy.Uuid);
+            Assert.AreEqual(expected.ClinicalStudy.StudyId, actual_result.ClinicalStudy.StudyId);
             Assert.IsInstanceOf(typeof(OkObjectResult), result);
         }
 
@@ -372,7 +372,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             StudyDto study = GetDtoDataFromStaticJson();
             AudiTrailResponseDto audTrailResponseDto = new AudiTrailResponseDto
             {
-                Uuid = study.ClinicalStudy.Uuid,AuditTrail = new List<AuditTrailDto> { new AuditTrailDto { EntryDateTime = DateTime.Now.AddDays(-1),SDRUploadVersion=1}, new AuditTrailDto { EntryDateTime = DateTime.Now, SDRUploadVersion = 2 } }
+                StudyId = study.ClinicalStudy.StudyId,AuditTrail = new List<AuditTrailDto> { new AuditTrailDto { EntryDateTime = DateTime.Now.AddDays(-1),SDRUploadVersion=1}, new AuditTrailDto { EntryDateTime = DateTime.Now, SDRUploadVersion = 2 } }
             };
 
             _mockClinicalStudyService.Setup(x => x.GetAuditTrail(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<LoggedInUser>()))
@@ -390,7 +390,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             var actual_result = JsonConvert.DeserializeObject<AudiTrailResponseDto>(
                  JsonConvert.SerializeObject((result as OkObjectResult).Value));
 
-            Assert.AreEqual(expected.Uuid, actual_result.Uuid);
+            Assert.AreEqual(expected.StudyId, actual_result.StudyId);
             Assert.IsInstanceOf(typeof(OkObjectResult), result);
         }
 
@@ -487,7 +487,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             StudyDto study = GetDtoDataFromStaticJson();
             List<StudyHistoryResponseDto> studyHistories = new()
             {
-                new StudyHistoryResponseDto { StudyId = study.ClinicalStudy.Uuid, SDRUploadVersion = new List<UploadVersionDto>() { new UploadVersionDto
+                new StudyHistoryResponseDto { StudyId = study.ClinicalStudy.StudyId, SDRUploadVersion = new List<UploadVersionDto>() { new UploadVersionDto
                 {
                     ProtocolVersions = new List<string>(){"1","2"},
                     StudyIdentifiers = study.ClinicalStudy.StudyIdentifiers,
@@ -596,7 +596,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             var actual_result = JsonConvert.DeserializeObject<List<StudyDesignDto>>(
                  JsonConvert.SerializeObject((result as OkObjectResult).Value));
 
-            Assert.AreEqual(expected[0].Uuid, actual_result[0].Uuid);
+            Assert.AreEqual(expected[0].Id, actual_result[0].Id);
             Assert.IsInstanceOf(typeof(OkObjectResult), result);
         }
 

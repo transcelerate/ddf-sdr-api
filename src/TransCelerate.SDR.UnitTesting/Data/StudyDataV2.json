@@ -1,9 +1,9 @@
 {
   "clinicalStudy": {
-    "uuid": "aaed3efe-7d70-4c9e-90e2-3446e936c291",
-    "studyTitle": "Umbrella Study of Cancer",
+    "studyId": "aaed3efe-7d70-4c9e-90e2-3446e936c291",
+    "studyTitle": "Study Of Lung Cancer",
     "studyType": {
-      "uuid": "8b8db340-dfe1-4708-a54d-ee6aa27ebcde",
+      "codeId": "7bbb6fd9-7e43-4dbf-90fa-3de117dc76d2",
       "code": "C98388",
       "codeSystem": "http:www.cdisc.org",
       "codeSystemVersion": "2022-03-25",
@@ -11,15 +11,15 @@
     },
     "studyIdentifiers": [
       {
-        "uuid": "16588e3a-3e58-4741-9b13-2fb912bf74a2",
+        "studyIdentifierId": "c4663375-29be-4b37-9a7d-b2ef927fdf64",
         "studyIdentifier": "CT-GOV-1234",
         "studyIdentifierScope": {
-          "uuid": "1ee4fdca-b9fe-4cb0-8d2c-d293e1b6c869",
+          "organisationId": "96dd6b83-2d34-45ac-9d08-3e647b2c7316",
           "organisationIdentifier": "CT-GOV",
           "organisationIdentifierScheme": "FDA",
           "organisationName": "ClinicalTrials.gov",
           "organisationType": {
-            "uuid": "51efb3b0-142a-49ab-87ea-06020d8cb1cd",
+            "codeId": "8fcecddf-bbe2-4e71-ad97-114cbc3f1cba",
             "code": "C2365x",
             "codeSystem": "http:www.cdisc.org",
             "codeSystemVersion": "1",
@@ -28,15 +28,15 @@
         }
       },
       {
-        "uuid": "9838a787-0db3-4a1c-b278-4aaa2918b26f",
+        "studyIdentifierId": "c3f0bac9-72e4-4df6-98ed-e364d10c8239",
         "studyIdentifier": "CT-GOV-1234",
         "studyIdentifierScope": {
-          "uuid": "812c59a2-61bb-4f55-8d30-76ba24bd3ac8",
+          "organisationId": "502db4f4-3573-444c-b0a1-ac677e46556a",
           "organisationIdentifier": "CT-GOV",
           "organisationIdentifierScheme": "FDA",
           "organisationName": "ClinicalTrials.gov",
           "organisationType": {
-            "uuid": "7ea5e907-2bb5-4dba-8da9-295adb998332",
+            "codeId": "d036ab0b-ce9c-4857-838f-07888180d161",
             "code": "C2365x",
             "codeSystem": "http:www.cdisc.org",
             "codeSystemVersion": "1",
@@ -46,7 +46,7 @@
       }
     ],
     "studyPhase": {
-      "uuid": "1e90d271-ead8-479d-a013-30f2e6e1a357",
+      "codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f613",
       "code": "C49686",
       "codeSystem": "http:www.cdisc.org",
       "codeSystemVersion": "2022-03-25",
@@ -54,14 +54,14 @@
     },
     "studyProtocolVersions": [
       {
-        "uuid": "d658d613-e67f-48c3-b791-da7a319ca898",
+        "studyProtocolVersionId": "72fa3742-1bad-42dc-8fdb-8d1c0379c75f",
         "briefTitle": "Short",
         "officialTitle": "Very Official",
         "protocolAmendment": "Ammendment",
         "protocolEffectiveDate": "2022-01-01",
         "protocolStatus": [
           {
-            "uuid": "54fea39b-0883-4958-a6b1-9610977ae419",
+            "codeId": "ab83b043-178f-4a8c-868a-e474f500888b",
             "code": "C1113x",
             "codeSystem": "http:www.cdisc.org",
             "codeSystemVersion": "1",
@@ -75,7 +75,7 @@
     ],
     "businessTherapeuticAreas": [
       {
-        "uuid": "6b190647-9ac4-4558-a88b-4b5496a2600c",
+        "codeId": "6b190647-9ac4-4558-a88b-4b5496a2600c",
         "code": "C158288",
         "codeSystem": "http:www.cdisc.org",
         "codeSystemVersion": "2022-03-25",
@@ -84,21 +84,21 @@
     ],
     "studyDesigns": [
       {
-        "uuid": "7729e431-f10e-495c-9ae3-cf91ddb53c53",
+        "studyDesignId": "e2b6594a-a077-4645-9cae-a1de19f88c69",
         "studyDesignName": "name",
         "studyDesignDescription": "desc",
         "interventionModel": [
           {
-            "uuid": "263b8b63-a35b-4924-aca5-6e5c6ee6703e",
+            "codeId": "4997ed7c-ce9a-4459-bf5d-19d9a8d5c772",
             "code": "C82639",
             "codeSystem": "http:www.cdisc.org",
             "codeSystemVersion": "2022-03-25",
-            "decode": "Parallel Study"
+            "decode": "Parallel"
           }
         ],
         "trialIntentType": [
           {
-            "uuid": "70b6cb15-6d79-45e0-a8b1-89bc9d7b33d2",
+            "codeId": "9fc53378-ac85-463d-8f9f-587bba5bb605",
             "code": "C15714",
             "codeSystem": "http:www.cdisc.org",
             "codeSystemVersion": "2022-03-25",
@@ -107,7 +107,7 @@
         ],
         "trialType": [
           {
-            "uuid": "6b190647-9ac4-4558-a88b-4b5496a2600c",
+            "codeId": "dc752a27-4afa-48c5-9dc1-1717e6a099ab",
             "code": "C158288",
             "codeSystem": "http:www.cdisc.org",
             "codeSystemVersion": "2022-03-25",
@@ -125,11 +125,11 @@
         ],
         "studyIndications": [
           {
-            "uuid": "76521ab5-96a8-45e4-9c65-b31ecb045c14",
+            "indicationId": "c14a9bd2-938b-490d-ac47-4b4483e304b9",
             "indicationDescription": "Something bad",
             "codes": [
               {
-                "uuid": "28893381-dba9-438d-a058-7b20f2d51df5",
+                "codeId": "a387aa89-c025-438e-91dd-b08281d122d0",
                 "code": "C6666x",
                 "codeSystem": "http:www.cdisc.org",
                 "codeSystemVersion": "1",
@@ -140,11 +140,11 @@
         ],
         "studyInvestigationalInterventions": [
           {
-            "uuid": "09d0feda-ff73-49ff-a7e8-ea4cb98328e4",
+            "investigationalInterventionId": "0f6fbd39-dc2f-4d93-97f8-9d90002b9dcf",
             "interventionDescription": "Intervention 1",
             "codes": [
               {
-                "uuid": "738f1b6b-26cb-4c13-a5e9-9a527462db1a",
+                "codeId": "00ce1a32-2526-4016-9624-28139a929090",
                 "code": "C7639x",
                 "codeSystem": "http:www.cdisc.org",
                 "codeSystemVersion": "1",
@@ -155,11 +155,11 @@
         ],
         "studyObjectives": [
           {
-            "uuid": "cfd7b920-5f43-4edd-8842-08e969b2227a",
+            "objectiveId": "1cedd7c7-65b0-48b4-ac93-cbe046c27e9d",
             "objectiveDescription": "Objective Level 1",
             "objectiveLevel": [
               {
-                "uuid": "a3c4340c-ad71-4d8d-b250-02447ff36049",
+                "codeId": "2ae454b4-b37b-4986-9b3c-d5044bc4aec7",
                 "code": "C9844x",
                 "codeSystem": "http:www.cdisc.org",
                 "codeSystemVersion": "1",
@@ -168,12 +168,12 @@
             ],
             "objectiveEndpoints": [
               {
-                "uuid": "7e952a4d-ff1b-4a2d-ba8c-b5abba93c049",
+                "endpointId": "f0576462-4eb8-4db9-aef4-1334249d8c7f",
                 "endpointDescription": "Endpoint 1",
                 "endpointPurposeDescription": "level description",
                 "endpointLevel": [
                   {
-                    "uuid": "9066ba42-ac50-41df-acd6-59ee6cbffe09",
+                    "codeId": "4601b893-8f90-4fdb-995b-352e71771b9d",
                     "code": "C9834x",
                     "codeSystem": "http:www.cdisc.org",
                     "codeSystemVersion": "1",
@@ -186,19 +186,19 @@
         ],
         "studyPopulations": [
           {
-            "uuid": "ed7ddf71-5b7d-4139-93ed-64238f2e439e",
+            "studyDesignPopulationId": "ef300f84-2479-415b-adf1-d41df6169cd5",
             "populationDescription": "Population 1"
           }
         ],
         "studyCells": [
           {
-            "uuid": "85e97e3a-3bdc-4b77-bca1-81079c0ccc50",
+            "studyCellId": "4614b061-f72c-43e1-aeb2-db1e4d312711",
             "studyArm": {
-              "uuid": "0c0dae85-8b9e-480b-95b5-80e9e36212cf",
+              "studyArmId": "69c12025-5f05-428f-93de-2aa932309683",
               "studyArmDataOriginDescription": "Captured subject data",
               "studyArmDataOriginType": [
                 {
-                  "uuid": "762a1508-1d92-4a08-9374-f1ce5719b99b",
+                  "codeId": "281a3135-5ab6-47c4-a136-92fb88d57f0d",
                   "code": "C6574y",
                   "codeSystem": "http:www.cdisc.org",
                   "codeSystemVersion": "1",
@@ -209,7 +209,7 @@
               "studyArmName": "Placebo",
               "studyArmType": [
                 {
-                  "uuid": "d07b3537-c107-4b6c-bc88-bbf3bb8798bd",
+                  "codeId": "77c714cf-ac76-4843-a4b6-1c68b8be7590",
                   "code": "C174268",
                   "codeSystem": "http:www.cdisc.org",
                   "codeSystemVersion": "2022-03-25",
@@ -218,14 +218,14 @@
               ]
             },
             "studyEpoch": {
-              "uuid": "53da634d-03b4-4234-9283-cc2436abd5cc",
+              "studyEpochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d9",
               "nextStudyEpochId": "",
               "previousStudyEpochId": "",
               "studyEpochDescription": "The run in",
               "studyEpochName": "Run In",
               "studyEpochType": [
                 {
-                  "uuid": "b031e9a1-6e36-402f-98ce-30460f8b32f5",
+                  "codeId": "91603043-8496-4a71-aabc-2d6848bbc87d",
                   "code": "C98779",
                   "codeSystem": "http:www.cdisc.org",
                   "codeSystemVersion": "2022-03-25",
@@ -234,10 +234,10 @@
               ],
               "encounters": [
                 {
-                  "uuid": "f9e16eab-b3c6-4c1b-bda2-0948b6f5c34a",
+                  "encounterId": "91603043-8496-4a71-aabc-2d6848bbc87d",
                   "encounterContactMode": [
                     {
-                      "uuid": "2512152f-5442-425d-80b6-7c53f677ea3f",
+                      "codeId": "d3b65049-39fe-4dc3-a180-b16304f07ef9",
                       "code": "C1755745",
                       "codeSystem": "http:www.cdisc.org",
                       "codeSystemVersion": "2022-03-25",
@@ -247,7 +247,7 @@
                   "encounterDescription": "desc",
                   "encounterEnvironmentalSetting": [
                     {
-                      "uuid": "fec6cf4f-de70-404b-87d9-99d0341b400c",
+                      "codeId": "f07aae83-6592-4614-8c7c-c2437184db3e",
                       "code": "C51282",
                       "codeSystem": "http:www.cdisc.org",
                       "codeSystemVersion": "2022-03-25",
@@ -257,7 +257,7 @@
                   "encounterName": "Encounter 1",
                   "encounterType": [
                     {
-                      "uuid": "1ca9c189-510d-4c86-98cb-a48db292737d",
+                      "codeId": "37cd2f4f-680a-4e3b-8def-82e29b89b778",
                       "code": "C7652x",
                       "codeSystem": "http:www.cdisc.org",
                       "codeSystemVersion": "1",
@@ -267,28 +267,28 @@
                   "nextEncounterId": "",
                   "previousEncounterId": "",
                   "transitionStartRule": {
-                    "uuid": "003f24ee-f09b-447e-8ca4-0ff07a0c3791",
-                    "transitionRuleDesc": "Start Rule"
+                    "transitionRuleId": "fb5cefdf-9308-44bd-898a-6c9ab35174fb",
+                    "transitionRuleDescription": "Start Rule"
                   },
                   "transitionEndRule": {
-                    "uuid": "2f888706-71ba-4925-b563-4798c374de3e",
-                    "transitionRuleDesc": "End Rule"
+                    "transitionRuleId": "a40c1adf-13e8-41da-a555-925a2585ccd3",
+                    "transitionRuleDescription": "End Rule"
                   }
                 }
               ]
             },
             "studyElements": [
               {
-                "uuid": "92747e86-efe7-4b1b-baeb-8f0146461407",
+                "studyElementId": "00ad20fa-bb06-4b93-b237-6bc37a3810e5",
                 "studyElementDescription": "First element",
                 "studyElementName": "Element 1",
                 "transitionStartRule": {
-                  "uuid": "524883e2-0b07-4cc4-a05a-cf1b748d3405",
-                  "transitionRuleDesc": "Start Rule"
+                  "transitionRuleId": "14a6b9fa-f080-415b-83bd-6d6ffe5e4b60",
+                  "transitionRuleDescription": "Start Rule"
                 },
                 "transitionEndRule": {
-                  "uuid": "d7b30354-9fc2-4301-a1ab-52471a30654b",
-                  "transitionRuleDesc": "End Rule"
+                  "transitionRuleId": "ae648ac6-f2c2-49d8-8ee2-64ccadec513e",
+                  "transitionRuleDescription": "End Rule"
                 }
               }
             ]
@@ -296,22 +296,22 @@
         ],
         "studyWorkflows": [
           {
-            "uuid": "da60cd25-2582-4f3f-b497-41301ed5ddf6",
+            "workflowId": "0f8443d3-6780-42a0-aa9f-bcb26e9a5abe",
             "workflowDescription": "SampleDesc",
             "workflowItems": [
               {
-                "uuid": "1bef6d60-5389-4b99-81c8-9d9dcc23b219",
+                "workflowItemId": "ea23f109-ac36-4885-a3b9-73f41103130b",
                 "workflowItemDescription": "Sample Item Desc",
                 "workflowItemActivity": {
-                  "uuid": "17372058-c934-4398-9904-98298bc78233",
+                  "activityId": "4ddbe05b-2787-4ab4-a8a3-4d48b35d1086",
                   "activityDescription": "Activity_1",
                   "activityName": "A1",
                   "definedProcedures": [
                     {
-                      "uuid": "097f2de9-2a35-45d4-8d31-1c1c37bac737",
+                      "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
                       "procedureCode": [
                         {
-                          "uuid": "e30677d7-1df8-46d6-bf0f-fce796c3c8a7",
+                          "codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
                           "code": "767002",
                           "codeSystem": "SNOMED-CT",
                           "codeSystemVersion": "2022-05-31",
@@ -325,7 +325,7 @@
                   "previousActivityId": "",
                   "studyDataCollection": [
                     {
-                      "uuid": "378b5dc2-31c3-4bb8-9e5c-3ff5a12a065d",
+                      "studyDataId": "2b07a24c-6916-4e0c-9646-f1c08e3db438",
                       "studyDataName": "Study Data 1",
                       "studyDataDescription": "Something",
                       "ecrfLink": "Link 1"
@@ -333,10 +333,10 @@
                   ]
                 },
                 "workflowItemEncounter": {
-                  "uuid": "4a288051-f215-432d-9600-497cfc8491db",
+                  "encounterId": "a3b5e535-581d-4e00-880d-f298ae926133",
                   "encounterContactMode": [
                     {
-                      "uuid": "83cd0815-6340-4079-8509-3032e6b2921c",
+                      "codeId": "0e5a51f9-ac39-4c3c-81db-497e000da062",
                       "code": "C175574",
                       "codeSystem": "http:www.cdisc.org",
                       "codeSystemVersion": "2022-03-25",
@@ -346,7 +346,7 @@
                   "encounterDescription": "desc",
                   "encounterEnvironmentalSetting": [
                     {
-                      "uuid": "5d3529fb-a637-4b0c-afb4-74ad3a006bbd",
+                      "codeId": "ef9c3651-b50a-476e-b4b7-bcf0b9356a1d",
                       "code": "C51282",
                       "codeSystem": "http:www.cdisc.org",
                       "codeSystemVersion": "2022-03-25",
@@ -356,7 +356,7 @@
                   "encounterName": "Encounter 1",
                   "encounterType": [
                     {
-                      "uuid": "3092f5af-691f-499f-9c7e-adad372793f1",
+                      "codeId": "bc2b87c7-9d30-4f87-a4fe-5220856385ec",
                       "code": "C7652x",
                       "codeSystem": "http:www.cdisc.org",
                       "codeSystemVersion": "1",
@@ -366,12 +366,12 @@
                   "nextEncounterId": "",
                   "previousEncounterId": "",
                   "transitionStartRule": {
-                    "uuid": "2a59f69e-8a29-4c90-ba03-a9807f98569c",
-                    "transitionRuleDesc": "Start Rule"
+                    "transitionRuleId": "052f50b9-efaf-44e5-9798-8c2e424b1a0a",
+                    "transitionRuleDescription": "Start Rule"
                   },
                   "transitionEndRule": {
-                    "uuid": "289a4241-4dde-4d0e-8ecf-7bb8ba4a4784",
-                    "transitionRuleDesc": "End Rule"
+                    "transitionRuleId": "eb35bcea-b3b6-4b8d-b276-282c16d6ec77",
+                    "transitionRuleDescription": "End Rule"
                   }
                 },
                 "nextWorkflowItemId": "",
@@ -382,13 +382,13 @@
         ],
         "studyEstimands": [
           {
-            "uuid": "bb60037e-435b-4416-aa7a-2f3a7b5a0ac4",
+            "estimandId": "0bc02031-b058-43f8-9888-0f66f59b825f",
             "treatment": {
-              "uuid": "773810cf-7591-4b70-b572-77f5ed01269a",
+              "investigationalInterventionId": "6acf8f0e-9149-4a28-b497-f54acf4bca37",
               "interventionDescription": "Intervention 1",
               "codes": [
                 {
-                  "uuid": "9225a479-4ef0-466f-bcb3-537ead2390da",
+                  "codeId": "9bfdbc18-981e-4b93-b0ab-9a711f5da467",
                   "code": "C7639x",
                   "codeSystem": "http:www.cdisc.org",
                   "codeSystemVersion": "1",
@@ -398,16 +398,16 @@
             },
             "summaryMeasure": "TEST",
             "analysisPopulation": {
-              "uuid": "d57cbf0f-fe99-45e2-a7be-57775ea23b1e",
+              "analysisPopulationId": "77af2751-1707-4edc-a5db-350ebe7233d8",
               "populationDescription": "Population 1"
             },
             "variableOfInterest": {
-              "uuid": "3b71db25-165d-4887-a113-79b51d72b9ac",
+              "endpointId": "b679d8c1-7b43-4307-bc7c-c935681e377b",
               "endpointDescription": "Endpoint 1",
               "endpointPurposeDescription": "level description",
               "endpointLevel": [
                 {
-                  "uuid": "982fdfeb-7103-4afc-9a09-dfc20fb7f7b6",
+                  "codeId": "3448290d-a710-4d41-8ff9-6c277ec489b1",
                   "code": "C9834x",
                   "codeSystem": "http:www.cdisc.org",
                   "codeSystemVersion": "1",
@@ -415,12 +415,12 @@
                 }
               ]
             },
-            "interCurrentEvents": [
+            "intercurrentEvents": [
               {
-                "uuid": "c5342ddb-6d1f-4ac1-88ee-3dac35b3df42",
-                "interCurrentEventDescription": "Event 1 Desc",
-                "interCurrentEventName": "Event 1 Name",
-                "interCurrentEventStrategy": "Strategy"
+                "intercurrentEventId": "1dc5c1e9-7b21-4455-9f37-ff2fadb8ac65",
+                "interCurrentEventDescription": "Event Description",
+                "intercurrentEventName": "Event Name",
+                "intercurrentEventStrategy": "Strategy"
               }
             ]
           }
@@ -430,13 +430,7 @@
     "studyVersion": "1"
   },
   "auditTrail": {
-
-    "entryDateTime": "2022-10-11T09:41:27.529764Z",
-
-    "SDRUploadVersion": 2
-
+    "entryDateTime": "2022-10-18T11:44:11.0529109Z",
+    "SDRUploadVersion": 1
   }
-
 }
-
-

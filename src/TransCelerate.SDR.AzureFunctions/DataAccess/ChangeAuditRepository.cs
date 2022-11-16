@@ -47,10 +47,10 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
             _logger.LogInformation($"Started Repository : {nameof(ChangeAuditRepository)}; Method : {nameof(GetStudyItemsAsync)};");
             try
             {
-                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
+                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
 
 
-                List<StudyEntity> studies = collection.Find(x => (x.ClinicalStudy.Uuid == studyId) &&
+                List<StudyEntity> studies = collection.Find(x => (x.ClinicalStudy.StudyId == studyId) &&
                                                            (x.AuditTrail.SDRUploadVersion == sdruploadversion || x.AuditTrail.SDRUploadVersion == sdruploadversion - 1))
                                                      .SortByDescending(s => s.AuditTrail.EntryDateTime)
                                                      .Limit(2)                 

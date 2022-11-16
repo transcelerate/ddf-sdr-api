@@ -12,10 +12,10 @@ namespace TransCelerate.SDR.RuleEngineV2
     {
         public EndpointValidator()
         {
-            RuleFor(x => x.Uuid)
+            RuleFor(x => x.Id)
                .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+               .NotNull().OverridePropertyName(IdFieldPropertyName.StudyV2.EndpointId).WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().OverridePropertyName(IdFieldPropertyName.StudyV2.EndpointId).WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
 
             RuleFor(x => x.EndpointDescription)
                .Cascade(CascadeMode.Stop)

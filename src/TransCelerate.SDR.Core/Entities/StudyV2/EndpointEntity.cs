@@ -2,9 +2,11 @@
 
 namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
-    public class EndpointEntity : IUuid
+    [MongoDB.Bson.Serialization.Attributes.BsonNoId]
+    public class EndpointEntity : Iid
     {
-        public string Uuid { get; set; }
+        [MongoDB.Bson.Serialization.Attributes.BsonElement(Utilities.Common.IdFieldPropertyName.StudyV2.EndpointId)]
+        public string Id { get; set; }
         public string EndpointDescription { get; set; }
         public string EndpointPurposeDescription { get; set; }
         public List<CodeEntity> EndpointLevel { get; set; }

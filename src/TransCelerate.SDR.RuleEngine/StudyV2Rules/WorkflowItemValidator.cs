@@ -11,10 +11,10 @@ namespace TransCelerate.SDR.RuleEngineV2
     {
         public WorkflowItemValidator()
         {
-            RuleFor(x => x.Uuid)
+            RuleFor(x => x.Id)
                .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+               .NotNull().OverridePropertyName(IdFieldPropertyName.StudyV2.WorkflowId).WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().OverridePropertyName(IdFieldPropertyName.StudyV2.WorkflowId).WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
 
             RuleFor(x => x.WorkflowItemDescription)
                .Cascade(CascadeMode.Stop)
@@ -28,8 +28,6 @@ namespace TransCelerate.SDR.RuleEngineV2
             RuleFor(x => x.PreviousWorkflowItemId)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError);
-
-
 
         }
     }

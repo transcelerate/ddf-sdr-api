@@ -12,10 +12,10 @@ namespace TransCelerate.SDR.RuleEngineV2
     {
         public StudyEpochValidator()
         {
-            RuleFor(x => x.Uuid)
+            RuleFor(x => x.Id)
                .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+               .NotNull().OverridePropertyName(IdFieldPropertyName.StudyV2.StudyEpochId).WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().OverridePropertyName(IdFieldPropertyName.StudyV2.StudyEpochId).WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
 
             RuleFor(x => x.StudyEpochName)
                .Cascade(CascadeMode.Stop)
@@ -46,9 +46,6 @@ namespace TransCelerate.SDR.RuleEngineV2
             RuleFor(x => x.PreviousStudyEpochId)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-
-
-
         }
     }
 }

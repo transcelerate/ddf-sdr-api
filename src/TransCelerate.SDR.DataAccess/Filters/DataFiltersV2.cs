@@ -21,7 +21,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
         {
             FilterDefinitionBuilder<StudyEntity> builder = Builders<StudyEntity>.Filter;
             FilterDefinition<StudyEntity> filter = builder.Empty;
-            filter &= builder.Where(s => s.ClinicalStudy.Uuid == studyId);
+            filter &= builder.Where(s => s.ClinicalStudy.StudyId == studyId);
 
             if (sdruploadversion != 0)
                 filter &= builder.Where(x => x.AuditTrail.SDRUploadVersion == sdruploadversion);
@@ -70,7 +70,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
         {
             FilterDefinitionBuilder<StudyEntity> builder = Builders<StudyEntity>.Filter;
             FilterDefinition<StudyEntity> filter = builder.Empty;
-            filter &= builder.Where(s => s.ClinicalStudy.Uuid == studyId);
+            filter &= builder.Where(s => s.ClinicalStudy.StudyId == studyId);
 
             //Filter for Date Range
             filter &= builder.Where(x => x.AuditTrail.EntryDateTime >= fromDate
@@ -151,7 +151,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
         public static ProjectionDefinition<StudyEntity> GetProjectionForPartialStudyElements(string[] listofelementsArray)
         {
             ProjectionDefinitionBuilder<StudyEntity> projection = Builders<StudyEntity>.Projection;
-            ProjectionDefinition<StudyEntity> projector = projection.Include(x => x.ClinicalStudy.Uuid);
+            ProjectionDefinition<StudyEntity> projector = projection.Include(x => x.ClinicalStudy.StudyId);
             projector = projector.Include(x => x.ClinicalStudy.StudyType);
             projector = projector.Exclude(x => x._id);
 
@@ -183,7 +183,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
         public static ProjectionDefinition<StudyEntity> GetProjectionForPartialStudyDesignElementsFullStudy()
         {
             ProjectionDefinitionBuilder<StudyEntity> projection = Builders<StudyEntity>.Projection;
-            ProjectionDefinition<StudyEntity> projector = projection.Include(x => x.ClinicalStudy.Uuid);
+            ProjectionDefinition<StudyEntity> projector = projection.Include(x => x.ClinicalStudy.StudyId);
             projector = projector.Include(x => x.ClinicalStudy.StudyType);
             projector = projector.Include(x => x.ClinicalStudy.StudyDesigns);
             projector = projector.Exclude(x => x._id);
@@ -194,7 +194,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
         public static ProjectionDefinition<StudyEntity> GetProjectionForCheckAccessForAStudy()
         {
             ProjectionDefinitionBuilder<StudyEntity> projection = Builders<StudyEntity>.Projection;
-            ProjectionDefinition<StudyEntity> projector = projection.Include(x => x.ClinicalStudy.Uuid);
+            ProjectionDefinition<StudyEntity> projector = projection.Include(x => x.ClinicalStudy.StudyId);
             projector = projector.Include(x => x.ClinicalStudy.StudyType);
             projector = projector.Exclude(x => x._id);
 

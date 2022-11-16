@@ -3,9 +3,10 @@ using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.DTO.StudyV2
 {
-    public class StudyDesignDto : IUuid
+    public class StudyDesignDto : Iid
     {
-        public string Uuid { get; set; }
+        [Newtonsoft.Json.JsonProperty(Utilities.Common.IdFieldPropertyName.StudyV2.StudyDesignId)]
+        public string Id { get; set; }
         public string StudyDesignName { get; set; }
         public string StudyDesignDescription { get; set; }
         public List<CodeDto> InterventionModel { get; set; }

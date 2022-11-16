@@ -1,8 +1,9 @@
 ﻿namespace TransCelerate.SDR.Core.DTO.StudyV2
 {
-    public class WorkflowItemDto : IUuid
+    public class WorkflowItemDto : Iid
     {
-        public string Uuid { get; set; }
+        [Newtonsoft.Json.JsonProperty(Utilities.Common.IdFieldPropertyName.StudyV2.WorkflowItemId)]
+        public string Id { get; set; }
         public string WorkflowItemDescription { get; set; }
         public ActivityDto WorkflowItemActivity { get; set; }
         public EncounterDto WorkflowItemEncounter { get; set; }       

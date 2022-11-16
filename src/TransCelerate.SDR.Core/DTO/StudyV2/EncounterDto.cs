@@ -2,9 +2,10 @@
 
 namespace TransCelerate.SDR.Core.DTO.StudyV2
 {
-    public class EncounterDto : IUuid
+    public class EncounterDto : Iid
     {
-        public string Uuid { get; set; }
+        [Newtonsoft.Json.JsonProperty(Utilities.Common.IdFieldPropertyName.StudyV2.EncounterId)]
+        public string Id { get; set; }
         public List<CodeDto> EncounterContactMode { get; set; }
         public string EncounterDescription { get; set; }
         public List<CodeDto> EncounterEnvironmentalSetting { get; set; }

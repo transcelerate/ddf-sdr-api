@@ -7,14 +7,14 @@ namespace TransCelerate.SDR.RuleEngineV2
     /// <summary>
     /// This Class is the validator for StudyIdentifierScope
     /// </summary>
-    public class StudyIdentifierScopeValidator : AbstractValidator<StudyIdentifiersScopeDto>
+    public class OrganisationValidator : AbstractValidator<OrganisationDto>
     {
-        public StudyIdentifierScopeValidator()
+        public OrganisationValidator()
         {
-            RuleFor(x => x.Uuid)
+            RuleFor(x => x.Id)
                .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+               .NotNull().OverridePropertyName(IdFieldPropertyName.StudyV2.OrganisationId).WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().OverridePropertyName(IdFieldPropertyName.StudyV2.OrganisationId).WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
 
             RuleFor(x => x.OrganisationIdentifier)
                .Cascade(CascadeMode.Stop)

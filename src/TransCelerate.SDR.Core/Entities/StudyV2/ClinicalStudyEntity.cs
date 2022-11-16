@@ -1,17 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
-    public class ClinicalStudyEntity : IUuid
+    public class ClinicalStudyEntity
     {
-        public string Uuid { get; set; }
+        public string StudyId { get; set; }
+        public Guid Study_Uuid { get; set; }
         public string StudyTitle { get; set; }
-        public List<CodeEntity> BusinessTherapeuticAreas { get; set; }
+        public string StudyVersion { get; set; }
         public CodeEntity StudyType { get; set; }
         public List<StudyIdentifierEntity> StudyIdentifiers { get; set; }
         public CodeEntity StudyPhase { get; set; }
+        public List<CodeEntity> BusinessTherapeuticAreas { get; set; }
         public List<StudyProtocolVersionEntity> StudyProtocolVersions { get; set; }
         public List<StudyDesignEntity> StudyDesigns { get; set; }
-        public string StudyVersion { get; set; }
+        
     }
 }

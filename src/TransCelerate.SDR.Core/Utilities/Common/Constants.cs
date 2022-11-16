@@ -25,6 +25,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string SDRGrouping = "Groups";
             public const string StudyV1 = "StudyDefinitionsV1";
             public const string ChangeAudit = "ChangeAudit";
+            public const string StudyDefinitions = "StudyDefinitions";
         }       
 
         public struct IdType

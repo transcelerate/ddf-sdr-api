@@ -3,10 +3,11 @@ using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
-    [BsonIgnoreExtraElements]
-    public class StudyEpochEntity : IUuid
+    [MongoDB.Bson.Serialization.Attributes.BsonNoId]    
+    public class StudyEpochEntity : Iid
     {
-        public string Uuid { get; set; }
+        [MongoDB.Bson.Serialization.Attributes.BsonElement(Utilities.Common.IdFieldPropertyName.StudyV2.StudyEpochId)]
+        public string Id { get; set; }
         public string NextStudyEpochId { get; set; }
         public string PreviousStudyEpochId { get; set; }
         public string StudyEpochDescription { get; set; }

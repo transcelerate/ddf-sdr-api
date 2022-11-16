@@ -2,10 +2,11 @@
 
 namespace TransCelerate.SDR.Core.DTO.StudyV2
 {
-    public class InvestigationalInterventionDto : IUuid
+    public class InvestigationalInterventionDto : Iid
     {
-        public string Uuid { get; set; }
-        public string InterventionDescription{ get; set; }
+        [Newtonsoft.Json.JsonProperty(Utilities.Common.IdFieldPropertyName.StudyV2.InvestigationalInterventionId)]
+        public string Id { get; set; }
+        public string InterventionDescription { get; set; }
         public List<CodeDto> Codes { get; set; }
     }
 }

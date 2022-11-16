@@ -62,7 +62,7 @@ namespace TransCelerate.SDR.AzureFunctions
             List<string> formattedList = new List<string>();
             elements.ForEach(element =>
             {
-                if(!element.EndsWith($".{nameof(ClinicalStudyEntity.Uuid)}"))
+                if(!element.EndsWith($".{nameof(StudyIdentifierEntity.Id)}"))
                 {
                     // Remove The index numbers
                     element = Regex.Replace(element, "[0-9]", string.Empty);

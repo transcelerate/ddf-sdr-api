@@ -56,7 +56,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(GetStudyItemsAsync)};");
             try
             {
-                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
+                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
 
 
                 StudyEntity study = await collection.Find(DataFiltersV2.GetFiltersForGetStudy(studyId, sdruploadversion))
@@ -99,7 +99,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(GetPartialStudyItemsAsync)};");
             try
             {
-                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
+                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
 
 
                 StudyEntity study = await collection.Find(DataFiltersV2.GetFiltersForGetStudy(studyId, sdruploadversion))
@@ -139,7 +139,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(GetPartialStudyDesignItemsAsync)};");
             try
             {
-                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
+                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
 
 
                 StudyEntity study = await collection.Find(DataFiltersV2.GetFiltersForGetStudy(studyId, sdruploadversion))
@@ -182,7 +182,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(GetAuditTrail)};");
             try
             {
-                var collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
+                var collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
                 List<AuditTrailResponseEntity> auditTrails = new List<AuditTrailResponseEntity>();
                 auditTrails = await collection.Find(DataFiltersV2.GetFiltersForGetAudTrail(studyId, fromDate, toDate)) // Condition for matching studyId and date range
                                                   .Project(x => new AuditTrailResponseEntity
@@ -196,7 +196,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
                 if (auditTrails.Count == 0)
                 {
-                    _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.StudyV1} Collection");
+                    _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.StudyDefinitions} Collection");
                     return null;
                 }
                 else
@@ -230,14 +230,14 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(GetStudyHistory)};");
             try
             {
-                var collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
+                var collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
 
                 List<StudyHistoryResponseEntity> studyHistories = await collection.Aggregate()
                                                         .Match(DataFiltersV2.GetFiltersForStudyHistory(fromDate, toDate, studyTitle)) // Condition for matching date range
                                                         .Project(x =>
                                                                 new StudyHistoryResponseEntity
                                                                 {
-                                                                    Uuid = x.ClinicalStudy.Uuid,
+                                                                    StudyId = x.ClinicalStudy.StudyId,
                                                                     StudyTitle = x.ClinicalStudy.StudyTitle,
                                                                     SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
                                                                     StudyIdentifiers = x.ClinicalStudy.StudyIdentifiers,
@@ -252,7 +252,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
                 if (studyHistories.Count() == 0)
                 {
-                    _logger.LogWarning($"There are no Study in {Constants.Collections.StudyV1} Collection");
+                    _logger.LogWarning($"There are no Study in {Constants.Collections.StudyDefinitions} Collection");
                     return null;
                 }
                 else
@@ -282,7 +282,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                     if (groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
                         return studyHistoryEntities;
 
-                    studyHistoryEntities = studyHistoryEntities.Where(x => groupFilters.Item1.Contains(x.StudyType?.Decode?.ToLower()) || groupFilters.Item2.Contains(x.Uuid)).ToList();
+                    studyHistoryEntities = studyHistoryEntities.Where(x => groupFilters.Item1.Contains(x.StudyType?.Decode?.ToLower()) || groupFilters.Item2.Contains(x.StudyId)).ToList();
                 }
                 else
                 {
@@ -308,9 +308,10 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(PostStudyItemsAsync)};");
             try
             {
-                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
+                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
+                study.ClinicalStudy.Study_Uuid = Guid.NewGuid();
                 await collection.InsertOneAsync(study).ConfigureAwait(false); //Insert One Document                
-                return (study.ClinicalStudy.Uuid);
+                return (study.ClinicalStudy.StudyId);
             }
             catch (Exception)
             {
@@ -337,15 +338,16 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(UpdateStudyItemsAsync)};");
             try
             {
-                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
+                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
+                study.ClinicalStudy.Study_Uuid = Guid.NewGuid();
                 UpdateDefinition<StudyEntity> updateDefinition = Builders<StudyEntity>.Update
                                     .Set(s => s.ClinicalStudy, study.ClinicalStudy)
                                     .Set(s => s.AuditTrail, study.AuditTrail);
-                await collection.UpdateOneAsync(x => (x.ClinicalStudy.Uuid == study.ClinicalStudy.Uuid
+                await collection.UpdateOneAsync(x => (x.ClinicalStudy.StudyId == study.ClinicalStudy.StudyId
                                                    && x.AuditTrail.SDRUploadVersion == study.AuditTrail.SDRUploadVersion), //Match studyId and studyVersion
                                                    updateDefinition).ConfigureAwait(false); // Update clinicalStudy and auditTrail
 
-                return (study.ClinicalStudy.Uuid);
+                return (study.ClinicalStudy.StudyId);
             }
             catch (Exception)
             {
@@ -392,8 +394,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(DeleteStudyAsync)};");
             try
             {
-                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
-                var builder = Builders<StudyEntity>.Filter.Eq(x => x.ClinicalStudy.Uuid, study_uuid);
+                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
+                var builder = Builders<StudyEntity>.Filter.Eq(x => x.ClinicalStudy.StudyId, study_uuid);
 
                 var deleteResult = await collection.DeleteManyAsync(builder).ConfigureAwait(false);
 
@@ -418,8 +420,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(CountAsync)};");
             try
             {
-                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
-                var builder = Builders<StudyEntity>.Filter.Eq(x => x.ClinicalStudy.Uuid, study_uuid);
+                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
+                var builder = Builders<StudyEntity>.Filter.Eq(x => x.ClinicalStudy.StudyId, study_uuid);
                 long count = await collection.CountDocumentsAsync(builder).ConfigureAwait(false);
 
                 return count;
@@ -441,7 +443,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(GetStudyItemsForCheckingAccessAsync)};");
             try
             {
-                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
+                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
 
 
                 StudyEntity study = await collection.Find(DataFiltersV2.GetFiltersForGetStudy(studyId, sdruploadversion))

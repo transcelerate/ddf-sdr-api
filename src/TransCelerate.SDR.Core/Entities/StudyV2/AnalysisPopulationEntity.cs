@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
-    public class AnalysisPopulationEntity : IUuid
+    [MongoDB.Bson.Serialization.Attributes.BsonNoId]
+    public class AnalysisPopulationEntity : Iid
     {
-        public string Uuid { get; set; }
+        [MongoDB.Bson.Serialization.Attributes.BsonElement(Utilities.Common.IdFieldPropertyName.StudyV2.AnalysisPopulationId)]
+        public string Id { get; set; }
         public string PopulationDescription { get; set; }
     }
 }

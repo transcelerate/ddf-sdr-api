@@ -2,9 +2,10 @@
 
 namespace TransCelerate.SDR.Core.DTO.StudyV2
 {
-    public class StudyProtocolVersionDto : IUuid
+    public class StudyProtocolVersionDto : Iid
     {
-        public string Uuid { get; set; }
+        [Newtonsoft.Json.JsonProperty(Utilities.Common.IdFieldPropertyName.StudyV2.StudyProtocolVersionId)]
+        public string Id { get; set; }
         public string BriefTitle { get; set; }
         public string OfficialTitle { get; set; }
         public string ProtocolAmendment { get; set; }

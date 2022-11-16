@@ -1,8 +1,10 @@
 ﻿namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
-    public class CodeEntity : IUuid
+    [MongoDB.Bson.Serialization.Attributes.BsonNoId]
+    public class CodeEntity : Iid
     {
-        public string Uuid { get; set; }
+        [MongoDB.Bson.Serialization.Attributes.BsonElement(Utilities.Common.IdFieldPropertyName.StudyV2.CodeId)]
+        public string Id { get; set; }
         public string Code { get; set; }
         public string CodeSystem { get; set; }
         public string CodeSystemVersion { get; set; }

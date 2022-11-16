@@ -4,6 +4,5 @@
     {
         public ClinicalStudyDto ClinicalStudy { get; set; }
         public AuditTrailDto AuditTrail { get; set; }
-        
     }
 }

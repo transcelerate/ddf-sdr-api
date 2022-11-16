@@ -2,9 +2,10 @@
 
 namespace TransCelerate.SDR.Core.DTO.StudyV2
 {
-    public class StudyArmDto : IUuid
+    public class StudyArmDto : Iid
     {
-        public string Uuid { get; set; }
+        [Newtonsoft.Json.JsonProperty(Utilities.Common.IdFieldPropertyName.StudyV2.StudyArmId)]
+        public string Id { get; set; }
         public string StudyArmDataOriginDescription { get; set; }
         public List<CodeDto> StudyArmDataOriginType { get; set; }
         public string StudyArmDescription { get; set; }

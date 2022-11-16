@@ -12,10 +12,10 @@ namespace TransCelerate.SDR.RuleEngineV2
     {
         public StudyEstimandsValidator()
         {
-            RuleFor(x => x.Uuid)
+            RuleFor(x => x.Id)
                .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+               .NotNull().OverridePropertyName(IdFieldPropertyName.StudyV2.EstimandId).WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().OverridePropertyName(IdFieldPropertyName.StudyV2.EstimandId).WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);            
 
             RuleFor(x => x.SummaryMeasure)
                 .Cascade(CascadeMode.Stop)
@@ -26,7 +26,7 @@ namespace TransCelerate.SDR.RuleEngineV2
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-
+            
             RuleFor(x => x.IntercurrentEvents)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)

@@ -1,8 +1,10 @@
 ﻿namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
-    public class WorkFlowItemEntity : IUuid
+    [MongoDB.Bson.Serialization.Attributes.BsonNoId]
+    public class WorkFlowItemEntity : Iid
     {
-        public string Uuid { get; set; }
+        [MongoDB.Bson.Serialization.Attributes.BsonElement(Utilities.Common.IdFieldPropertyName.StudyV2.WorkflowItemId)]
+        public string Id { get; set; }
         public string WorkflowItemDescription { get; set; }
         public ActivityEntity WorkflowItemActivity { get; set; }
         public EncounterEntity WorkflowItemEncounter { get; set; }        

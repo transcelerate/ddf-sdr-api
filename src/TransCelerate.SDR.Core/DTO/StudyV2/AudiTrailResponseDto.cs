@@ -11,7 +11,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
     /// </summary>
     public class AudiTrailResponseDto
     {
-        public string Uuid { get; set; }
+        public string StudyId { get; set; }
         
         public List<AuditTrailDto> AuditTrail { get; set; }
     }    
