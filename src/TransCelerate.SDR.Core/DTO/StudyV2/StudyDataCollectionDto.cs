@@ -4,7 +4,7 @@
     {
         public string Uuid { get; set; }
         public string StudyDataName { get; set; }
-        public string StudyDataDesc { get; set; }
-        public string CrfLink { get; set; }
+        public string StudyDataDescription { get; set; }
+        public string EcrfLink { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace TransCelerate.SDR.RuleEngineV2
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
 
-            RuleFor(x => x.EncounterDesc)
+            RuleFor(x => x.EncounterDescription)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
@@ -35,6 +35,14 @@ namespace TransCelerate.SDR.RuleEngineV2
             
             RuleFor(x => x.EncounterType)
                 .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleFor(x => x.PreviousEncounterId)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError);
+
+            RuleFor(x => x.NextEncounterId)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
         }
     }
 }

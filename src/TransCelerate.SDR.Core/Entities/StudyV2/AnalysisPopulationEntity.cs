@@ -9,6 +9,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
     public class AnalysisPopulationEntity : IUuid
     {
         public string Uuid { get; set; }
-        public string PopulationDesc { get; set; }
+        public string PopulationDescription { get; set; }
     }
 }

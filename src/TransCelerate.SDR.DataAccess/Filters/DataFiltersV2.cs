@@ -104,7 +104,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             //Filter for Indication
             if (!String.IsNullOrWhiteSpace(searchParameters.Indication))
-                filter &= builder.Where(x => x.ClinicalStudy.StudyDesigns.Any(x => x.StudyIndications.Any(y => y.IndicationDesc.ToLower().Contains(searchParameters.Indication.ToLower()))));
+                filter &= builder.Where(x => x.ClinicalStudy.StudyDesigns.Any(x => x.StudyIndications.Any(y => y.IndicationDescription.ToLower().Contains(searchParameters.Indication.ToLower()))));
 
             //Filter for Intervention Model
             if (!String.IsNullOrWhiteSpace(searchParameters.InterventionModel))

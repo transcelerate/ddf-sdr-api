@@ -36,12 +36,12 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         #region Setup        
         public StudyEntity GetEntityDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV1.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
             return JsonConvert.DeserializeObject<StudyEntity>(jsonData);
         }
         public StudyDto GetDtoDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV1.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
             return JsonConvert.DeserializeObject<StudyDto>(jsonData);
         }
         public UserGroupMappingEntity GetUserDataFromStaticJson()

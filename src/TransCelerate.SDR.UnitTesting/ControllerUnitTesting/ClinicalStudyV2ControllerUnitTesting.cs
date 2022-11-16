@@ -34,7 +34,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         #region Setup               
         public StudyDto GetDtoDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV1.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
             return JsonConvert.DeserializeObject<StudyDto>(jsonData);
         }
         LoggedInUser user = new LoggedInUser

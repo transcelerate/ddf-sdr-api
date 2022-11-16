@@ -6,7 +6,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
     {
         public string Uuid { get; set; }
         public List<CodeDto> EncounterContactMode { get; set; }
-        public string EncounterDesc { get; set; }
+        public string EncounterDescription { get; set; }
         public List<CodeDto> EncounterEnvironmentalSetting { get; set; }
         public string EncounterName { get; set; }
         public List<CodeDto> EncounterType { get; set; }

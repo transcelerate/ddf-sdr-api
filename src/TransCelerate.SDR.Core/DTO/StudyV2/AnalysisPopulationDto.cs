@@ -9,6 +9,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
     public class AnalysisPopulationDto : IUuid
     {
         public string Uuid { get; set; }
-        public string PopulationDesc { get; set; }
+        public string PopulationDescription { get; set; }
     }
 }

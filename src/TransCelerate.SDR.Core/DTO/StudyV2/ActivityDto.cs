@@ -5,7 +5,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
     public class ActivityDto : IUuid
     {
         public string Uuid { get; set; }
-        public string ActivityDesc { get; set; }
+        public string ActivityDescription { get; set; }
         public string ActivityName { get; set; }
         public List<DefinedProcedureDto> DefinedProcedures { get; set; }
         public string NextActivityId { get; set; }
