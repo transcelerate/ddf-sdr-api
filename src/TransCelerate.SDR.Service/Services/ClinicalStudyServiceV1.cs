@@ -109,7 +109,10 @@ namespace TransCelerate.SDR.Services.Services
 
                     var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy?.ClinicalStudy?.StudyDesigns);  //Mapping Entity to Dto
 
-                    return studyDesigns;
+                    if (studyDesigns is not null && studyDesigns.Any())
+                        return studyDesigns;
+
+                    return Constants.ErrorMessages.StudyDesignNotFound;
                 }
             }
             catch (Exception)
