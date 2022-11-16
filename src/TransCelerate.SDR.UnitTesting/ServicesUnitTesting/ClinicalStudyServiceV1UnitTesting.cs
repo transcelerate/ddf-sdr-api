@@ -572,7 +572,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             method = ClinicalStudyService.GetStudyDesigns("1", 0, user);
             method.Wait();
 
-            Assert.IsEmpty(method.Result as List<StudyDesignDto>);
+            Assert.AreEqual(method.Result.ToString(), Constants.ErrorMessages.StudyDesignNotFound);
 
             user.UserRole = Constants.Roles.App_User;
             method = ClinicalStudyService.GetStudyDesigns("1", 0, user);
