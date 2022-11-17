@@ -62,11 +62,11 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 StudyEntity study = await collection.Find(DataFiltersV2.GetFiltersForGetStudy(studyId, sdruploadversion))
                                                      .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
                                                      .Limit(1)                  //Taking top 1 result
-                                                     .SingleOrDefaultAsync().ConfigureAwait(false);
+                                                     .SingleOrDefaultAsync().ConfigureAwait(false);            
 
                 if (study == null)
                 {
-                    _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.Study} Collection");
+                    _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.StudyDefinitions} Collection");
                     return null;
                 }
                 else
@@ -309,7 +309,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             try
             {
                 IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
-                study.ClinicalStudy.Study_Uuid = Guid.NewGuid();
+                
                 await collection.InsertOneAsync(study).ConfigureAwait(false); //Insert One Document                
                 return (study.ClinicalStudy.StudyId);
             }
@@ -339,7 +339,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             try
             {
                 IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
-                study.ClinicalStudy.Study_Uuid = Guid.NewGuid();
+                
                 UpdateDefinition<StudyEntity> updateDefinition = Builders<StudyEntity>.Update
                                     .Set(s => s.ClinicalStudy, study.ClinicalStudy)
                                     .Set(s => s.AuditTrail, study.AuditTrail);

@@ -8,6 +8,8 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
     {
         [MongoDB.Bson.Serialization.Attributes.BsonElement(Utilities.Common.IdFieldPropertyName.StudyV2.StudyDesignId)]
         public string Id { get; set; }
+        public string StudyDesignName { get; set; }
+        public string StudyDesignDescription { get; set; }
         public List<CodeEntity> InterventionModel { get; set; }
         public List<CodeEntity> TrialIntentType { get; set; }
         public List<CodeEntity> TherapeuticAreas { get; set; }

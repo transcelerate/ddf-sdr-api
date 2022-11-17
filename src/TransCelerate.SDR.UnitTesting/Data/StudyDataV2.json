@@ -116,7 +116,7 @@
         ],
         "therapeuticAreas": [
           {
-            "uuid": "6b190647-9ac4-4558-a88b-4b5496a2600c",
+            "codeId": "6b190647-9ac4-4558-a88b-4b5496a2600c",
             "code": "C158288",
             "codeSystem": "http:www.cdisc.org",
             "codeSystemVersion": "2022-03-25",

@@ -622,16 +622,16 @@ namespace TransCelerate.SDR.UnitTesting
         {
             HelperV2 helper = new HelperV2();
             var listofelements = string.Join(",", Constants.ClinicalStudyElements);
-            Assert.IsTrue(helper.AreValidStudyElements(listofelements));
-            Assert.IsFalse(helper.AreValidStudyElements("a,b"));
+            Assert.IsTrue(helper.AreValidStudyElements(listofelements, out string[] listofelementsArray));
+            Assert.IsFalse(helper.AreValidStudyElements("a,b", out listofelementsArray));
         }
         [Test]
         public void AreValidStudyDesignElementsUnitTesting()
         {
             HelperV2 helper = new HelperV2();
             var listofelements = string.Join(",", Constants.StudyDesignElements);
-            Assert.IsTrue(helper.AreValidStudyDesignElements(listofelements));
-            Assert.IsFalse(helper.AreValidStudyDesignElements("a,b"));
+            Assert.IsTrue(helper.AreValidStudyDesignElements(listofelements, out string[] listofelementsArray));
+            Assert.IsFalse(helper.AreValidStudyDesignElements("a,b", out listofelementsArray));
         }
         [Test]
         public void RemoveStudyElementsUnitTesting()

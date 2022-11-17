@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
+    [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
     public class ClinicalStudyEntity
     {
         public string StudyId { get; set; }
-        public Guid Study_Uuid { get; set; }
         public string StudyTitle { get; set; }
         public string StudyVersion { get; set; }
         public CodeEntity StudyType { get; set; }

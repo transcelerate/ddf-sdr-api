@@ -210,15 +210,17 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
         /// Check whether the the input list of elements are valid or not
         /// </summary>
         /// <param name="listofelements"></param>
+        /// <param name="listofelementsArray"></param>
         /// <returns></returns>
-        bool AreValidStudyElements(string listofelements);
+        bool AreValidStudyElements(string listofelements, out string[] listofelementsArray);
 
         /// <summary>
         /// Check whether the the input list of study design elements are valid or not
         /// </summary>
         /// <param name="listofelements"></param>
+        /// <param name="listofelementsArray"></param>
         /// <returns></returns>
-        bool AreValidStudyDesignElements(string listofelements);
+        bool AreValidStudyDesignElements(string listofelements, out string[] listofelementsArray);
         /// <summary>
         /// Remove the study elemets which are not requested
         /// </summary>

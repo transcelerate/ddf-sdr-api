@@ -64,8 +64,8 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
                     _logger.LogInformation($"Inputs : studyId = {studyId}; sdruploadversion = {sdruploadversion}; listofelements: {listofelements}");
-                    string[] listofelementsArray = listofelements?.Split(Constants.Roles.Seperator);
-                    if (!_helper.AreValidStudyElements(listofelements))
+                   
+                    if (!_helper.AreValidStudyElements(listofelements,out string[] listofelementsArray))
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyElementNotValid)).Value);
 
                     LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
@@ -126,8 +126,8 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 if (!String.IsNullOrWhiteSpace(study_uuid))
                 {
                     _logger.LogInformation($"Inputs : study_uuid = {study_uuid}; sdruploadversion = {sdruploadversion}; listofelements: {listofelements}; studydesign_uuid: {studydesign_uuid}");
-                    string[] listofelementsArray = listofelements?.Split(Constants.Roles.Seperator);
-                    if (!_helper.AreValidStudyDesignElements(listofelements))
+                    
+                    if (!_helper.AreValidStudyDesignElements(listofelements, out string[] listofelementsArray))
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyDesignElementNotValid)).Value);
 
                     LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
@@ -292,14 +292,14 @@ namespace TransCelerate.SDR.WebApi.Controllers
         }
         #endregion
 
-        #region POST Methods
+        #region POST/PUT Methods
         /// <summary>
-        /// POST All Elements For a Study  
+        /// POST/PUT All Elements For a Study  
         /// </summary>        
         /// <param name="studyDTO">Study for Inserting/Updating in Database</param>        
         /// <response code="201">Study Created</response>
         /// <response code="400">Bad Request</response>       
-        [HttpPost]
+        [HttpPost,HttpPut]
         [Route(Route.PostElementsV2)]
         [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
@@ -310,70 +310,16 @@ namespace TransCelerate.SDR.WebApi.Controllers
             {
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");
                 if (studyDTO != null)
-                {
+                {                    
                     bool isInValidReferenceIntegrity = _helper.ReferenceIntegrityValidation(studyDTO, out var errors);
                     if (isInValidReferenceIntegrity)
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(errors, Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse)).Value);
 
                     LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
 
-                    var response = await _clinicalStudyService.PostAllElements(studyDTO, user, HttpMethods.Post)
+                    var response = await _clinicalStudyService.PostAllElements(studyDTO, user, Request?.Method)
                                                               .ConfigureAwait(false);
-
-                    if (response?.ToString() == Constants.ErrorMessages.PostRestricted)
-                    {
-                        return StatusCode(((int)HttpStatusCode.Unauthorized), new JsonResult(ErrorResponseHelper.UnAuthorizedAccess(Constants.ErrorMessages.PostRestricted)).Value);
-                    }
-                    else
-                    {
-                        return Created($"study/{studyDTO.ClinicalStudy.StudyId}", new JsonResult(response).Value);
-                    }
-                }
-                else
-                {
-                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Exception occured. Exception : {ex}");
-                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
-            }
-            finally
-            {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");
-            }
-        }       
-        #endregion
-
-        #region PUT Method
-        /// <summary>
-        /// Create New Version for a study 
-        /// </summary>        
-        /// <param name="studyDTO">Study for Inserting/Updating in Database</param>        
-        /// <response code="201">Study Created</response>
-        /// <response code="400">Bad Request</response>       
-        [HttpPut]
-        [Route(Route.PostElementsV2)]
-        [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDto))]
-        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
-        [Produces("application/json")]
-        public async Task<IActionResult> CreateNewVersionForAStudy([FromBody] StudyDto studyDTO)
-        {
-            try
-            {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");
-                if (studyDTO != null)
-                {
-                    bool isInValidReferenceIntegrity = _helper.ReferenceIntegrityValidation(studyDTO, out var errors);
-                    if (isInValidReferenceIntegrity)
-                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(errors, Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse)).Value);
-
-                    LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
-
-                    var response = await _clinicalStudyService.PostAllElements(studyDTO, user, HttpMethods.Put)
-                                                              .ConfigureAwait(false);
-
+                    
                     if (response?.ToString() == Constants.ErrorMessages.PostRestricted)
                     {
                         return StatusCode(((int)HttpStatusCode.Unauthorized), new JsonResult(ErrorResponseHelper.UnAuthorizedAccess(Constants.ErrorMessages.PostRestricted)).Value);
@@ -404,7 +350,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             {
                 _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");
             }
-        }
+        }       
         #endregion
 
         #region DELETE Method
