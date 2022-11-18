@@ -2,10 +2,12 @@
 
 namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
-    public class IndicationEntity : IUuid
+    [MongoDB.Bson.Serialization.Attributes.BsonNoId]
+    public class IndicationEntity : Iid
     {
-        public string Uuid { get; set; }
-        public string IndicationDesc { get; set; }
+        [MongoDB.Bson.Serialization.Attributes.BsonElement(Utilities.Common.IdFieldPropertyName.StudyV2.IndicationId)]
+        public string Id { get; set; }
+        public string IndicationDescription { get; set; }
         public List<CodeEntity> Codes { get; set; }
     }
 }

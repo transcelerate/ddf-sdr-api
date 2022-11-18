@@ -8,7 +8,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
     public class SearchResponseEntity
     {
-        public string Uuid { get; set; }
+        public string StudyId { get; set; }
         public string StudyTitle { get; set; }
         public CodeEntity StudyType { get; set; }
 

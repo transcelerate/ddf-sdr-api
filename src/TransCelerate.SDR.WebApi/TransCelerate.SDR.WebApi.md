@@ -23,7 +23,6 @@
   - [SearchStudy(searchparameters)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller-SearchStudy-TransCelerate-SDR-Core-DTO-StudyV1-SearchParametersDto- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV1Controller.SearchStudy(TransCelerate.SDR.Core.DTO.StudyV1.SearchParametersDto)')
   - [SearchTitle(searchparameters)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller-SearchTitle-TransCelerate-SDR-Core-DTO-StudyV1-SearchTitleParametersDto- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV1Controller.SearchTitle(TransCelerate.SDR.Core.DTO.StudyV1.SearchTitleParametersDto)')
 - [ClinicalStudyV2Controller](#T-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller')
-  - [CreateNewVersionForAStudy(studyDTO)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-CreateNewVersionForAStudy-TransCelerate-SDR-Core-DTO-StudyV2-StudyDto- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.CreateNewVersionForAStudy(TransCelerate.SDR.Core.DTO.StudyV2.StudyDto)')
   - [DeleteStudy(studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-DeleteStudy-System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.DeleteStudy(System.String)')
   - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetAuditTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetAuditTrail(System.String,System.DateTime,System.DateTime)')
   - [GetStudy(studyId,sdruploadversion,listofelements)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetStudy-System-String,System-Int32,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetStudy(System.String,System.Int32,System.String)')
@@ -298,19 +297,6 @@ Search For a Study
 
 TransCelerate.SDR.WebApi.Controllers
 
-<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-CreateNewVersionForAStudy-TransCelerate-SDR-Core-DTO-StudyV2-StudyDto-'></a>
-### CreateNewVersionForAStudy(studyDTO) `method`
-
-##### Summary
-
-Create New Version for a study
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| studyDTO | [TransCelerate.SDR.Core.DTO.StudyV2.StudyDto](#T-TransCelerate-SDR-Core-DTO-StudyV2-StudyDto 'TransCelerate.SDR.Core.DTO.StudyV2.StudyDto') | Study for Inserting/Updating in Database |
-
 <a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-DeleteStudy-System-String-'></a>
 ### DeleteStudy(studyId) `method`
 
@@ -390,7 +376,7 @@ Get All StudyId's in the database
 
 ##### Summary
 
-POST All Elements For a Study
+POST/PUT All Elements For a Study
 
 ##### Parameters
 

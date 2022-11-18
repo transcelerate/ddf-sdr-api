@@ -2,10 +2,12 @@
 
 namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
-    public class InterCurrentEventEntity : IUuid
+    [MongoDB.Bson.Serialization.Attributes.BsonNoId]
+    public class InterCurrentEventEntity : Iid
     {
-        public string Uuid { get; set; }
-        public string IntercurrentEventDesc { get; set; }
+        [MongoDB.Bson.Serialization.Attributes.BsonElement(Utilities.Common.IdFieldPropertyName.StudyV2.IntercurrentEventId)]
+        public string Id { get; set; }
+        public string IntercurrentEventDescription { get; set; }
         public string IntercurrentEventName { get; set; }
         public string IntercurrentEventStrategy { get; set; }
     }

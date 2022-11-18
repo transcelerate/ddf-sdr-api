@@ -15,7 +15,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
 
     public class SearchTitleClinicalStudy
     {
-        public string Uuid { get; set; }
+        public string StudyId { get; set; }
         public string StudyTitle { get; set; }
         public List<StudyIdentifierDto> StudyIdentifiers { get; set; }
     }

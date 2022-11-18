@@ -2,14 +2,15 @@
 
 namespace TransCelerate.SDR.Core.DTO.StudyV2
 {
-    public class ActivityDto : IUuid
+    public class ActivityDto : Iid
     {
-        public string Uuid { get; set; }
-        public string ActivityDesc { get; set; }
+        [Newtonsoft.Json.JsonProperty(Utilities.Common.IdFieldPropertyName.StudyV2.ActivityId)]
+        public string Id { get; set; }
+        public string ActivityDescription { get; set; }
         public string ActivityName { get; set; }
-        public List<DefinedProcedureDto> DefinedProcedures { get; set; }
+        public List<ProcedureDto> DefinedProcedures { get; set; }
         public string NextActivityId { get; set; }
         public string PreviousActivityId { get; set; }
-        public List<StudyDataCollectionDto> StudyDataCollection { get; set; }
+        public List<StudyDataDto> StudyDataCollection { get; set; }
     }
 }

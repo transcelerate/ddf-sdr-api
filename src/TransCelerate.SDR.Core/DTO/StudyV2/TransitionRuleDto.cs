@@ -1,8 +1,9 @@
 ﻿namespace TransCelerate.SDR.Core.DTO.StudyV2
 {
-    public class TransitionRuleDto : IUuid
+    public class TransitionRuleDto : Iid
     {
-        public string Uuid { get; set; }
-        public string TransitionRuleDesc { get; set; }
+        [Newtonsoft.Json.JsonProperty(Utilities.Common.IdFieldPropertyName.StudyV2.TransitionRuleId)]
+        public string Id { get; set; }
+        public string TransitionRuleDescription { get; set; }
     }
 }

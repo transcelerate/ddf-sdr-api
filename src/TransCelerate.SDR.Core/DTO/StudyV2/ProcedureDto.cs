@@ -2,9 +2,10 @@
 
 namespace TransCelerate.SDR.Core.DTO.StudyV2
 {
-    public class DefinedProcedureDto : IUuid
+    public class ProcedureDto : Iid
     {
-        public string Uuid { get; set; }
+        [Newtonsoft.Json.JsonProperty(Utilities.Common.IdFieldPropertyName.StudyV2.ProcedureId)]
+        public string Id { get; set; }
         public List<CodeDto> ProcedureCode { get; set; }
         public string ProcedureType { get; set; }
     }

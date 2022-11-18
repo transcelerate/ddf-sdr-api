@@ -16,12 +16,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             return true;
         }
 
-        public static bool ValidateArrayV2<T>(List<T> arrayElement) where T : class, Core.DTO.StudyV2.IUuid
+        public static bool ValidateArrayV2<T>(List<T> arrayElement) where T : class, Core.DTO.StudyV2.Iid
         {
             if (arrayElement is not null && arrayElement.Any())
             {
-                arrayElement.RemoveAll(x => String.IsNullOrWhiteSpace(x.Uuid));
-                return arrayElement.Select(x => x.Uuid).ToList().Distinct().Count() == arrayElement.Select(x => x.Uuid).Count();
+                arrayElement.RemoveAll(x => String.IsNullOrWhiteSpace(x.Id));
+                return arrayElement.Select(x => x.Id).ToList().Distinct().Count() == arrayElement.Select(x => x.Id).Count();
             }
             return true;
         }

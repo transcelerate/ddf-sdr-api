@@ -3,11 +3,16 @@ using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
-    public class StudyDesignEntity : IUuid
+    [MongoDB.Bson.Serialization.Attributes.BsonNoId]
+    public class StudyDesignEntity : Iid
     {
-        public string Uuid { get; set; }
+        [MongoDB.Bson.Serialization.Attributes.BsonElement(Utilities.Common.IdFieldPropertyName.StudyV2.StudyDesignId)]
+        public string Id { get; set; }
+        public string StudyDesignName { get; set; }
+        public string StudyDesignDescription { get; set; }
         public List<CodeEntity> InterventionModel { get; set; }
         public List<CodeEntity> TrialIntentType { get; set; }
+        public List<CodeEntity> TherapeuticAreas { get; set; }
         public List<CodeEntity> TrialType { get; set; }
         public List<IndicationEntity> StudyIndications { get; set; }
         public List<InvestigationalInterventionEntity> StudyInvestigationalInterventions { get; set; }

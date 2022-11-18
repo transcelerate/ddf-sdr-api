@@ -1,8 +1,10 @@
 ﻿namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
-    public class StudyDesignPopulationEntity : IUuid
+    [MongoDB.Bson.Serialization.Attributes.BsonNoId]
+    public class StudyDesignPopulationEntity : Iid
     {
-        public string Uuid { get; set; }
-        public string PopulationDesc { get; set; }
+        [MongoDB.Bson.Serialization.Attributes.BsonElement(Utilities.Common.IdFieldPropertyName.StudyV2.StudyDesignPopulationId)]
+        public string Id { get; set; }
+        public string PopulationDescription { get; set; }
     }
 }

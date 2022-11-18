@@ -129,37 +129,37 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
             currentVersion.ClinicalStudy.StudyDesigns[0].TrialType[0].Code = "1";
             currentVersion.ClinicalStudy.StudyDesigns[0].TrialIntentType[0].Code = "1";
         
-            currentVersion.ClinicalStudy.StudyDesigns[0].StudyIndications[0].IndicationDesc = "Everything";
+            currentVersion.ClinicalStudy.StudyDesigns[0].StudyIndications[0].IndicationDescription = "Everything";
          
-            currentVersion.ClinicalStudy.StudyDesigns[0].StudyInvestigationalInterventions[0].InterventionDesc = "intervention2";
+            currentVersion.ClinicalStudy.StudyDesigns[0].StudyInvestigationalInterventions[0].InterventionDescription = "intervention2";
         
         
        
-            currentVersion.ClinicalStudy.StudyDesigns[0].StudyObjectives[0].ObjectiveEndpoints[0].EndpointDesc = "Endpoint3";
+            currentVersion.ClinicalStudy.StudyDesigns[0].StudyObjectives[0].ObjectiveEndpoints[0].EndpointDescription = "Endpoint3";
           
-            currentVersion.ClinicalStudy.StudyDesigns[0].StudyPopulations[0].PopulationDesc = "population 2";
+            currentVersion.ClinicalStudy.StudyDesigns[0].StudyPopulations[0].PopulationDescription = "population 2";
         
         
             currentVersion.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyArm.StudyArmDataOriginType[0].CodeSystem = "8";
             currentVersion.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyArm.StudyArmType[0].Decode = "placebo arm 1";
-            currentVersion.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Encounters[0].EncounterDesc = "desc1";
-            currentVersion.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyElements[0].StudyElementDesc = "Element 3";        
-            currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemDesc = "sample 2";
+            currentVersion.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Encounters[0].EncounterDescription = "desc1";
+            currentVersion.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyElements[0].StudyElementDescription = "Element 3";        
+            currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemDescription = "sample 2";
             currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems.Add(currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0]);
-            currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].Uuid = "1";
+            currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].Id = "1";
             currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.StudyDataCollection.Add(currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.StudyDataCollection[0]);
-            currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.StudyDataCollection[1].Uuid = "4";
+            currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.StudyDataCollection[1].Id = "4";
             currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.DefinedProcedures.Add(currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.DefinedProcedures[0]);
-            currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.DefinedProcedures[1].Uuid = "4";
+            currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.DefinedProcedures[1].Id = "4";
             currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.StudyDataCollection[0].StudyDataName = "study2";
             currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.ActivityName = "A2";
             currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemEncounter.EncounterContactMode[0].Code = "C126876";
             currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemEncounter.EncounterEnvironmentalSetting[0].Decode = "clinic2";
             currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemEncounter.EncounterName = "Encounter 3";
-            currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemEncounter.TransitionEndRule.Uuid = "3";
+            currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemEncounter.TransitionEndRule.Id = "3";
             currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemEncounter.NextEncounterId = "34";
             currentVersion.ClinicalStudy.StudyDesigns[0].StudyEstimands[0].VariableOfInterest.EndpointLevel[0].Decode = "purpose1";
-            currentVersion.ClinicalStudy.StudyDesigns[0].StudyEstimands[0].IntercurrentEvents[0].IntercurrentEventDesc = "Event 1 desc";
+            currentVersion.ClinicalStudy.StudyDesigns[0].StudyEstimands[0].IntercurrentEvents[0].IntercurrentEventDescription = "Event 1 desc";
             currentVersion.ClinicalStudy.StudyDesigns[0].StudyEstimands[0].Treatment.Codes[0].Decode = "model 2";
 
 
