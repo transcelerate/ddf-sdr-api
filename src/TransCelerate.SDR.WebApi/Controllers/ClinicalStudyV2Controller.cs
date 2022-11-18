@@ -60,7 +60,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudy)};");
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudy)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
                     _logger.LogInformation($"Inputs : studyId = {studyId}; sdruploadversion = {sdruploadversion}; listofelements: {listofelements}");
@@ -98,7 +98,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudy)};");
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudy)};");
             }
         }
 
@@ -122,7 +122,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudyDesigns)};");
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudyDesigns)};");
                 if (!String.IsNullOrWhiteSpace(study_uuid))
                 {
                     _logger.LogInformation($"Inputs : study_uuid = {study_uuid}; sdruploadversion = {sdruploadversion}; listofelements: {listofelements}; studydesign_uuid: {studydesign_uuid}");
@@ -163,7 +163,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudyDesigns)};");
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudyDesigns)};");
             }
         }
         /// <summary>
@@ -185,7 +185,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetAuditTrail)};");
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetAuditTrail)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
                     _logger.LogInformation($"Inputs : studyId = {studyId}; fromDate = {fromDate}; toDate = {toDate}");
@@ -229,7 +229,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetAuditTrail)};");
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetAuditTrail)};");
             }
         }
 
@@ -252,7 +252,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudyHistory)};");
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudyHistory)};");
 
                 LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
 
@@ -287,7 +287,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudyHistory)};");
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudyHistory)};");
             }
         }
         #endregion
@@ -308,7 +308,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(PostAllElements)};");
                 if (studyDTO != null)
                 {                    
                     bool isInValidReferenceIntegrity = _helper.ReferenceIntegrityValidation(studyDTO, out var errors);
@@ -348,7 +348,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(PostAllElements)};");
             }
         }       
         #endregion
@@ -372,7 +372,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudy)};");
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudy)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
                     _logger.LogInformation($"Inputs : studyId = {studyId};");
@@ -410,7 +410,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudy)};");
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudy)};");
             }
         }
         #endregion        

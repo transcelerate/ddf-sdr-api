@@ -255,7 +255,7 @@ namespace TransCelerate.SDR.Services.Services
         {
             try
             {
-                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyService)}; Method : {nameof(GetAuditTrail)};");
+                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV2)}; Method : {nameof(GetAuditTrail)};");
                 List<AuditTrailResponseEntity> studies = await _clinicalStudyRepository.GetAuditTrail(studyId, fromDate, toDate);
                 if (studies == null)
                 {
@@ -282,7 +282,7 @@ namespace TransCelerate.SDR.Services.Services
             }
             finally
             {
-                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyService)}; Method : {nameof(GetAuditTrail)};");
+                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV2)}; Method : {nameof(GetAuditTrail)};");
             }
         }
 
