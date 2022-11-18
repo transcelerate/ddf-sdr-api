@@ -215,9 +215,9 @@ namespace TransCelerate.SDR.Services.Services
                         return Constants.ErrorMessages.Forbidden;
                     if (!String.IsNullOrWhiteSpace(studyDesignId))
                     {
-                        if (study.ClinicalStudy.StudyDesigns is not null && study.ClinicalStudy.StudyDesigns.Any(x => x.Uuid == studyDesignId))
+                        if (study.ClinicalStudy.StudyDesigns is not null && study.ClinicalStudy.StudyDesigns.Any(x => x.Id == studyDesignId))
                         {
-                            var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy.ClinicalStudy.StudyDesigns.Where(x => x.Uuid == studyDesignId).ToList());
+                            var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy.ClinicalStudy.StudyDesigns.Where(x => x.Id == studyDesignId).ToList());
                             return _helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId);
                         }
                         return Constants.ErrorMessages.StudyDesignNotFound;
@@ -255,7 +255,7 @@ namespace TransCelerate.SDR.Services.Services
         {
             try
             {
-                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyService)}; Method : {nameof(GetAuditTrail)};");
+                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV2)}; Method : {nameof(GetAuditTrail)};");
                 List<AuditTrailResponseEntity> studies = await _clinicalStudyRepository.GetAuditTrail(studyId, fromDate, toDate);
                 if (studies == null)
                 {
@@ -269,7 +269,7 @@ namespace TransCelerate.SDR.Services.Services
                     var auditTrailDtoList = _mapper.Map<List<AuditTrailDto>>(studies); //Mapping Entity to Dto 
                     AudiTrailResponseDto getStudyAuditDto = new AudiTrailResponseDto
                     {
-                        Uuid = studyId,
+                        StudyId = studyId,
                         AuditTrail = auditTrailDtoList
                     };
 
@@ -282,7 +282,7 @@ namespace TransCelerate.SDR.Services.Services
             }
             finally
             {
-                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyService)}; Method : {nameof(GetAuditTrail)};");
+                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV2)}; Method : {nameof(GetAuditTrail)};");
             }
         }
 
@@ -310,10 +310,10 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {
-                    var groupStudy = studies.GroupBy(x => new { x.Uuid })
+                    var groupStudy = studies.GroupBy(x => new { x.StudyId })
                                             .Select(g => new //StudyHistoryResponseDto
                                             {
-                                                StudyId = g.Key.Uuid,
+                                                StudyId = g.Key.StudyId,
                                                 SDRUploadVersion = _mapper.Map<List<UploadVersionDto>>(g.ToList()),
                                                 Date = g.Max(x => x.EntryDateTime)
                                             }) // Grouping the Id's by studyId
@@ -367,7 +367,7 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else //PUT Endpoint Create New Version for the study
                 {
-                    StudyEntity existingStudyEntity = await _clinicalStudyRepository.GetStudyItemsAsync(incomingStudyEntity.ClinicalStudy.Uuid, 0);
+                    StudyEntity existingStudyEntity = await _clinicalStudyRepository.GetStudyItemsAsync(incomingStudyEntity.ClinicalStudy.StudyId, 0);
 
                     if (existingStudyEntity is null && method == HttpMethod.Put.Method) // If PUT Endpoint and study_uuid is not valid, return not valid study
                     {
@@ -382,7 +382,7 @@ namespace TransCelerate.SDR.Services.Services
                     else
                     {
                         studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity, existingStudyEntity).ConfigureAwait(false);
-                        await PushMessageToServiceBus(new ServiceBusMessageDto { Study_uuid = incomingStudyEntity.ClinicalStudy.Uuid, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
+                        await PushMessageToServiceBus(new ServiceBusMessageDto { Study_uuid = incomingStudyEntity.ClinicalStudy.StudyId, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
                     }
                 }
 
@@ -401,10 +401,10 @@ namespace TransCelerate.SDR.Services.Services
         public async Task<StudyDto> CreateNewStudy(StudyEntity studyEntity)
         {
             //studyEntity = _helper.GeneratedSectionId(studyEntity);
-            studyEntity.ClinicalStudy.Uuid = IdGenerator.GenerateId();
+            studyEntity.ClinicalStudy.StudyId = IdGenerator.GenerateId();
             studyEntity.AuditTrail.SDRUploadVersion = 1;
             await _clinicalStudyRepository.PostStudyItemsAsync(studyEntity);
-            await _changeAuditRepositoy.InsertChangeAudit(studyEntity.ClinicalStudy.Uuid, studyEntity.AuditTrail.SDRUploadVersion, studyEntity.AuditTrail.EntryDateTime);
+            await _changeAuditRepositoy.InsertChangeAudit(studyEntity.ClinicalStudy.StudyId, studyEntity.AuditTrail.SDRUploadVersion, studyEntity.AuditTrail.EntryDateTime);
             return _mapper.Map<StudyDto>(studyEntity);
         }
 
@@ -459,7 +459,7 @@ namespace TransCelerate.SDR.Services.Services
                     if (groups != null && groups.Count > 0)
                     {
                         Tuple<List<string>, List<string>> groupFilters = GroupFilters.GetGroupFilters(groups);
-                        if (groupFilters.Item2.Contains(study.ClinicalStudy.Uuid))
+                        if (groupFilters.Item2.Contains(study.ClinicalStudy.StudyId))
                             return study;
                         else if (groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
                             return study;

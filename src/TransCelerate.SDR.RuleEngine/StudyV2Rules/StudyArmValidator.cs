@@ -12,12 +12,12 @@ namespace TransCelerate.SDR.RuleEngineV2
     {
         public StudyArmValidator()
         {
-            RuleFor(x => x.Uuid)
+            RuleFor(x => x.Id)
                .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+               .NotNull().OverridePropertyName(IdFieldPropertyName.StudyV2.StudyArmId).WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().OverridePropertyName(IdFieldPropertyName.StudyV2.StudyArmId).WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
 
-            RuleFor(x => x.StudyArmDataOriginDesc)
+            RuleFor(x => x.StudyArmDataOriginDescription)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
@@ -28,7 +28,7 @@ namespace TransCelerate.SDR.RuleEngineV2
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
-            RuleFor(x => x.StudyArmDesc)
+            RuleFor(x => x.StudyArmDescription)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);

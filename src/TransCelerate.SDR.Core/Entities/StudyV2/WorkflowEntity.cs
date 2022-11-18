@@ -2,10 +2,12 @@
 
 namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
-    public class WorkflowEntity : IUuid
+    [MongoDB.Bson.Serialization.Attributes.BsonNoId]
+    public class WorkflowEntity : Iid
     {
-        public string Uuid { get; set; }
-        public string WorkflowDesc { get; set; }
+        [MongoDB.Bson.Serialization.Attributes.BsonElement(Utilities.Common.IdFieldPropertyName.StudyV2.WorkflowId)]
+        public string Id { get; set; }
+        public string WorkflowDescription { get; set; }
         public List<WorkFlowItemEntity> WorkflowItems { get; set; }
     }
 }

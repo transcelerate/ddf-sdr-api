@@ -2,9 +2,11 @@
 
 namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
-    public class StudyProtocolVersionEntity : IUuid
+    [MongoDB.Bson.Serialization.Attributes.BsonNoId]
+    public class StudyProtocolVersionEntity : Iid
     {
-        public string Uuid { get; set; }
+        [MongoDB.Bson.Serialization.Attributes.BsonElement(Utilities.Common.IdFieldPropertyName.StudyV2.StudyProtocolVersionId)]
+        public string Id { get; set; }
         public string BriefTitle { get; set; }
         public string OfficialTitle { get; set; }
         public string ProtocolAmendment { get; set; }

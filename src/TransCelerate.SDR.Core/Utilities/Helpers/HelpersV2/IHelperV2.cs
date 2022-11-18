@@ -21,7 +21,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
         /// <param name="incomingDefinedProcedures"></param>
         /// <param name="exisitingDefinedProcedures"></param>
         /// <returns></returns>
-        List<DefinedProcedureEntity> CheckForDefinedProceduresSection(List<DefinedProcedureEntity> incomingDefinedProcedures, List<DefinedProcedureEntity> exisitingDefinedProcedures);
+        List<ProcedureEntity> CheckForDefinedProceduresSection(List<ProcedureEntity> incomingDefinedProcedures, List<ProcedureEntity> exisitingDefinedProcedures);
         /// <summary>
         /// Comparison between existing and incoming Intercurrent events
         /// </summary>
@@ -56,7 +56,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
         /// <param name="incomingStudyDataCollections"></param>
         /// <param name="existingStudyDataCollections"></param>
         /// <returns></returns>
-        List<StudyDataCollectionEntity> CheckForStudyDataCollectionSection(List<StudyDataCollectionEntity> incomingStudyDataCollections, List<StudyDataCollectionEntity> existingStudyDataCollections);
+        List<StudyDataEntity> CheckForStudyDataCollectionSection(List<StudyDataEntity> incomingStudyDataCollections, List<StudyDataEntity> existingStudyDataCollections);
         /// <summary>
         /// Comparison between existing and incoming Study Design Population
         /// </summary>
@@ -210,15 +210,17 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
         /// Check whether the the input list of elements are valid or not
         /// </summary>
         /// <param name="listofelements"></param>
+        /// <param name="listofelementsArray"></param>
         /// <returns></returns>
-        bool AreValidStudyElements(string listofelements);
+        bool AreValidStudyElements(string listofelements, out string[] listofelementsArray);
 
         /// <summary>
         /// Check whether the the input list of study design elements are valid or not
         /// </summary>
         /// <param name="listofelements"></param>
+        /// <param name="listofelementsArray"></param>
         /// <returns></returns>
-        bool AreValidStudyDesignElements(string listofelements);
+        bool AreValidStudyDesignElements(string listofelements, out string[] listofelementsArray);
         /// <summary>
         /// Remove the study elemets which are not requested
         /// </summary>

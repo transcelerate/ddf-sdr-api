@@ -20,7 +20,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
                 .ReverseMap();
             CreateMap<ClinicalStudyDto, ClinicalStudyEntity>().ReverseMap();
             CreateMap<CodeDto, CodeEntity>().ReverseMap();
-            CreateMap<DefinedProcedureDto, DefinedProcedureEntity>().ReverseMap();
+            CreateMap<ProcedureDto, ProcedureEntity>().ReverseMap();
             CreateMap<EncounterDto, EncounterEntity>().ReverseMap();
             CreateMap<EndpointEntity, EndpointDto>().ReverseMap();
             CreateMap<EstimandDto, EstimandEntity>().ReverseMap();
@@ -30,13 +30,13 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<ObjectiveDto, ObjectiveEntity>().ReverseMap();
             CreateMap<StudyArmDto, StudyArmEntity>().ReverseMap();
             CreateMap<StudyCellDto, StudyCellEntity>().ReverseMap();
-            CreateMap<StudyDataCollectionDto, StudyDataCollectionEntity>().ReverseMap();
+            CreateMap<StudyDataDto, StudyDataEntity>().ReverseMap();
             CreateMap<StudyDesignDto, StudyDesignEntity>().ReverseMap();
             CreateMap<StudyDesignPopulationDto, StudyDesignPopulationEntity>().ReverseMap();
             CreateMap<StudyElementDto, StudyElementEntity>().ReverseMap();
             CreateMap<StudyEpochDto, StudyEpochEntity>().ReverseMap();
             CreateMap<StudyIdentifierDto, StudyIdentifierEntity>().ReverseMap();
-            CreateMap<StudyIdentifiersScopeDto, StudyIdentifierScopeEntity>().ReverseMap();                                               
+            CreateMap<OrganisationDto, OrganisationEntity>().ReverseMap();                                               
             CreateMap<StudyProtocolVersionDto, StudyProtocolVersionEntity>().ReverseMap();
             CreateMap<TransitionRuleDto, TransitionRuleEntity>().ReverseMap();
             CreateMap<WorkflowDto, WorkflowEntity>().ReverseMap();
@@ -49,7 +49,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
 
             //Mapper for Search Response
             CreateMap<StudyDto, SearchResponseEntity>()
-                .ForMember(dest => dest.Uuid, opt => opt.MapFrom(src => src.ClinicalStudy.Uuid))
+                .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.ClinicalStudy.StudyId))
                 .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.ClinicalStudy.StudyTitle))
                 .ForMember(dest => dest.StudyIdentifiers, opt => opt.MapFrom(src => src.ClinicalStudy.StudyIdentifiers))                
                 .ForMember(dest => dest.StudyType, opt => opt.MapFrom(src => src.ClinicalStudy.StudyType))
@@ -60,7 +60,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
 
             //Mapper for Search Title
             CreateMap<SearchTitleResponseDto, SearchResponseEntity>()
-               .ForMember(dest => dest.Uuid, opt => opt.MapFrom(src => src.ClinicalStudy.Uuid))
+               .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.ClinicalStudy.StudyId))
                .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.ClinicalStudy.StudyTitle))
                .ForMember(dest => dest.StudyIdentifiers, opt => opt.MapFrom(src => src.ClinicalStudy.StudyIdentifiers))               
                .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))

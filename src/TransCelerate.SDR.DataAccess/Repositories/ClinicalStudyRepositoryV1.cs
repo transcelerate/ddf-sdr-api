@@ -65,7 +65,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
                 if (study == null)
                 {
-                    _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.Study} Collection");
+                    _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.StudyV1} Collection");
                     return null;
                 }
                 else

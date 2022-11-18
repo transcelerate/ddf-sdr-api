@@ -2,11 +2,12 @@
 
 namespace TransCelerate.SDR.Core.DTO.StudyV2
 {
-    public class EndpointDto : IUuid
+    public class EndpointDto : Iid
     {
-        public string Uuid { get; set; }
-        public string EndpointDesc { get; set; }
-        public string EndpointPurposeDesc { get; set; }
+        [Newtonsoft.Json.JsonProperty(Utilities.Common.IdFieldPropertyName.StudyV2.EndpointId)]
+        public string Id { get; set; }
+        public string EndpointDescription { get; set; }
+        public string EndpointPurposeDescription { get; set; }
         public List<CodeDto> EndpointLevel { get; set; }
     }
 }

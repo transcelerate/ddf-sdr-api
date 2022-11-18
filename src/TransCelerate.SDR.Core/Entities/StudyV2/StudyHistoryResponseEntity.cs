@@ -5,7 +5,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
     public class StudyHistoryResponseEntity
     {
-        public string Uuid { get; set; }
+        public string StudyId { get; set; }
         public string StudyTitle { get; set; }
         public string StudyVersion { get; set; }
         public int SDRUploadVersion { get; set; }

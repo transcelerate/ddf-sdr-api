@@ -87,9 +87,9 @@ namespace TransCelerate.SDR.WebApi
                     Array.Empty<string>()
                 }
                 });
-                c.CustomSchemaIds(type => type.ToString().Replace($"{Assembly.GetAssembly(typeof(Core.ErrorModels.ErrorModel)).GetName().Name}.","").Replace("DTO.", "").Replace("DTO", "").Replace("Dto", ""));
+                c.CustomSchemaIds(type => type.ToString().Replace($"{Assembly.GetAssembly(typeof(Core.ErrorModels.ErrorModel)).GetName().Name}.","").Replace("DTO.", "").Replace("DTO", "").Replace("Dto", ""));                
             });
-
+            services.AddSwaggerGenNewtonsoftSupport();
             if (_env.IsDevelopment())
             {
                 if (!Config.isAuthEnabled)
@@ -123,6 +123,10 @@ namespace TransCelerate.SDR.WebApi
             services.AddCors();
 
             //Dependency Injection of interfaces
+            MongoDB.Bson.Serialization.BsonSerializer.RegisterSerializer(new MongoDB.Bson.Serialization.Serializers.GuidSerializer(MongoDB.Bson.GuidRepresentation.Standard));
+            #pragma warning disable CS0618 // Type or member is obsolete
+            MongoDB.Bson.BsonDefaults.GuidRepresentation = MongoDB.Bson.GuidRepresentation.Standard;
+            #pragma warning restore CS0618 // Type or member is obsolete
             services.AddApplicationDependencies();           
 
             //AutoMapper Profile

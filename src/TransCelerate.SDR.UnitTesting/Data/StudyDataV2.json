@@ -1,0 +1,436 @@
+{
+  "clinicalStudy": {
+    "studyId": "aaed3efe-7d70-4c9e-90e2-3446e936c291",
+    "studyTitle": "Study Of Lung Cancer",
+    "studyType": {
+      "codeId": "7bbb6fd9-7e43-4dbf-90fa-3de117dc76d2",
+      "code": "C98388",
+      "codeSystem": "http:www.cdisc.org",
+      "codeSystemVersion": "2022-03-25",
+      "decode": "INTERVENTIONAL"
+    },
+    "studyIdentifiers": [
+      {
+        "studyIdentifierId": "c4663375-29be-4b37-9a7d-b2ef927fdf64",
+        "studyIdentifier": "CT-GOV-1234",
+        "studyIdentifierScope": {
+          "organisationId": "96dd6b83-2d34-45ac-9d08-3e647b2c7316",
+          "organisationIdentifier": "CT-GOV",
+          "organisationIdentifierScheme": "FDA",
+          "organisationName": "ClinicalTrials.gov",
+          "organisationType": {
+            "codeId": "8fcecddf-bbe2-4e71-ad97-114cbc3f1cba",
+            "code": "C2365x",
+            "codeSystem": "http:www.cdisc.org",
+            "codeSystemVersion": "1",
+            "decode": "Clinical Study Sponsor"
+          }
+        }
+      },
+      {
+        "studyIdentifierId": "c3f0bac9-72e4-4df6-98ed-e364d10c8239",
+        "studyIdentifier": "CT-GOV-1234",
+        "studyIdentifierScope": {
+          "organisationId": "502db4f4-3573-444c-b0a1-ac677e46556a",
+          "organisationIdentifier": "CT-GOV",
+          "organisationIdentifierScheme": "FDA",
+          "organisationName": "ClinicalTrials.gov",
+          "organisationType": {
+            "codeId": "d036ab0b-ce9c-4857-838f-07888180d161",
+            "code": "C2365x",
+            "codeSystem": "http:www.cdisc.org",
+            "codeSystemVersion": "1",
+            "decode": "Clinical Study Registry"
+          }
+        }
+      }
+    ],
+    "studyPhase": {
+      "codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f613",
+      "code": "C49686",
+      "codeSystem": "http:www.cdisc.org",
+      "codeSystemVersion": "2022-03-25",
+      "decode": "Phase IIa Trial"
+    },
+    "studyProtocolVersions": [
+      {
+        "studyProtocolVersionId": "72fa3742-1bad-42dc-8fdb-8d1c0379c75f",
+        "briefTitle": "Short",
+        "officialTitle": "Very Official",
+        "protocolAmendment": "Ammendment",
+        "protocolEffectiveDate": "2022-01-01",
+        "protocolStatus": [
+          {
+            "codeId": "ab83b043-178f-4a8c-868a-e474f500888b",
+            "code": "C1113x",
+            "codeSystem": "http:www.cdisc.org",
+            "codeSystemVersion": "1",
+            "decode": "FINAL 1"
+          }
+        ],
+        "protocolVersion": "1",
+        "publicTitle": "Public Voice",
+        "scientificTitle": "Incomprehensible"
+      }
+    ],
+    "businessTherapeuticAreas": [
+      {
+        "codeId": "6b190647-9ac4-4558-a88b-4b5496a2600c",
+        "code": "C158288",
+        "codeSystem": "http:www.cdisc.org",
+        "codeSystemVersion": "2022-03-25",
+        "decode": "Biosimilarity Study"
+      }
+    ],
+    "studyDesigns": [
+      {
+        "studyDesignId": "e2b6594a-a077-4645-9cae-a1de19f88c69",
+        "studyDesignName": "name",
+        "studyDesignDescription": "desc",
+        "interventionModel": [
+          {
+            "codeId": "4997ed7c-ce9a-4459-bf5d-19d9a8d5c772",
+            "code": "C82639",
+            "codeSystem": "http:www.cdisc.org",
+            "codeSystemVersion": "2022-03-25",
+            "decode": "Parallel"
+          }
+        ],
+        "trialIntentType": [
+          {
+            "codeId": "9fc53378-ac85-463d-8f9f-587bba5bb605",
+            "code": "C15714",
+            "codeSystem": "http:www.cdisc.org",
+            "codeSystemVersion": "2022-03-25",
+            "decode": "Basic Research"
+          }
+        ],
+        "trialType": [
+          {
+            "codeId": "dc752a27-4afa-48c5-9dc1-1717e6a099ab",
+            "code": "C158288",
+            "codeSystem": "http:www.cdisc.org",
+            "codeSystemVersion": "2022-03-25",
+            "decode": "Biosimilarity Study"
+          }
+        ],
+        "therapeuticAreas": [
+          {
+            "codeId": "6b190647-9ac4-4558-a88b-4b5496a2600c",
+            "code": "C158288",
+            "codeSystem": "http:www.cdisc.org",
+            "codeSystemVersion": "2022-03-25",
+            "decode": "Biosimilarity Study"
+          }
+        ],
+        "studyIndications": [
+          {
+            "indicationId": "c14a9bd2-938b-490d-ac47-4b4483e304b9",
+            "indicationDescription": "Something bad",
+            "codes": [
+              {
+                "codeId": "a387aa89-c025-438e-91dd-b08281d122d0",
+                "code": "C6666x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "BAD STUFF"
+              }
+            ]
+          }
+        ],
+        "studyInvestigationalInterventions": [
+          {
+            "investigationalInterventionId": "0f6fbd39-dc2f-4d93-97f8-9d90002b9dcf",
+            "interventionDescription": "Intervention 1",
+            "codes": [
+              {
+                "codeId": "00ce1a32-2526-4016-9624-28139a929090",
+                "code": "C7639x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "MODEL 1"
+              }
+            ]
+          }
+        ],
+        "studyObjectives": [
+          {
+            "objectiveId": "1cedd7c7-65b0-48b4-ac93-cbe046c27e9d",
+            "objectiveDescription": "Objective Level 1",
+            "objectiveLevel": [
+              {
+                "codeId": "2ae454b4-b37b-4986-9b3c-d5044bc4aec7",
+                "code": "C9844x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "OBJ LEVEL"
+              }
+            ],
+            "objectiveEndpoints": [
+              {
+                "endpointId": "f0576462-4eb8-4db9-aef4-1334249d8c7f",
+                "endpointDescription": "Endpoint 1",
+                "endpointPurposeDescription": "level description",
+                "endpointLevel": [
+                  {
+                    "codeId": "4601b893-8f90-4fdb-995b-352e71771b9d",
+                    "code": "C9834x",
+                    "codeSystem": "http:www.cdisc.org",
+                    "codeSystemVersion": "1",
+                    "decode": "PURPOSE"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "studyPopulations": [
+          {
+            "studyDesignPopulationId": "ef300f84-2479-415b-adf1-d41df6169cd5",
+            "populationDescription": "Population 1"
+          }
+        ],
+        "studyCells": [
+          {
+            "studyCellId": "4614b061-f72c-43e1-aeb2-db1e4d312711",
+            "studyArm": {
+              "studyArmId": "69c12025-5f05-428f-93de-2aa932309683",
+              "studyArmDataOriginDescription": "Captured subject data",
+              "studyArmDataOriginType": [
+                {
+                  "codeId": "281a3135-5ab6-47c4-a136-92fb88d57f0d",
+                  "code": "C6574y",
+                  "codeSystem": "http:www.cdisc.org",
+                  "codeSystemVersion": "1",
+                  "decode": "SUBJECT DATA"
+                }
+              ],
+              "studyArmDescription": "The Placebo Arm",
+              "studyArmName": "Placebo",
+              "studyArmType": [
+                {
+                  "codeId": "77c714cf-ac76-4843-a4b6-1c68b8be7590",
+                  "code": "C174268",
+                  "codeSystem": "http:www.cdisc.org",
+                  "codeSystemVersion": "2022-03-25",
+                  "decode": "Placebo Control Arm"
+                }
+              ]
+            },
+            "studyEpoch": {
+              "studyEpochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d9",
+              "nextStudyEpochId": "",
+              "previousStudyEpochId": "",
+              "studyEpochDescription": "The run in",
+              "studyEpochName": "Run In",
+              "studyEpochType": [
+                {
+                  "codeId": "91603043-8496-4a71-aabc-2d6848bbc87d",
+                  "code": "C98779",
+                  "codeSystem": "http:www.cdisc.org",
+                  "codeSystemVersion": "2022-03-25",
+                  "decode": "Run-in Period"
+                }
+              ],
+              "encounters": [
+                {
+                  "encounterId": "91603043-8496-4a71-aabc-2d6848bbc87d",
+                  "encounterContactMode": [
+                    {
+                      "codeId": "d3b65049-39fe-4dc3-a180-b16304f07ef9",
+                      "code": "C1755745",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "2022-03-25",
+                      "decode": "In Person"
+                    }
+                  ],
+                  "encounterDescription": "desc",
+                  "encounterEnvironmentalSetting": [
+                    {
+                      "codeId": "f07aae83-6592-4614-8c7c-c2437184db3e",
+                      "code": "C51282",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "2022-03-25",
+                      "decode": "Clinic"
+                    }
+                  ],
+                  "encounterName": "Encounter 1",
+                  "encounterType": [
+                    {
+                      "codeId": "37cd2f4f-680a-4e3b-8def-82e29b89b778",
+                      "code": "C7652x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "SITE VISIT"
+                    }
+                  ],
+                  "nextEncounterId": "",
+                  "previousEncounterId": "",
+                  "transitionStartRule": {
+                    "transitionRuleId": "fb5cefdf-9308-44bd-898a-6c9ab35174fb",
+                    "transitionRuleDescription": "Start Rule"
+                  },
+                  "transitionEndRule": {
+                    "transitionRuleId": "a40c1adf-13e8-41da-a555-925a2585ccd3",
+                    "transitionRuleDescription": "End Rule"
+                  }
+                }
+              ]
+            },
+            "studyElements": [
+              {
+                "studyElementId": "00ad20fa-bb06-4b93-b237-6bc37a3810e5",
+                "studyElementDescription": "First element",
+                "studyElementName": "Element 1",
+                "transitionStartRule": {
+                  "transitionRuleId": "14a6b9fa-f080-415b-83bd-6d6ffe5e4b60",
+                  "transitionRuleDescription": "Start Rule"
+                },
+                "transitionEndRule": {
+                  "transitionRuleId": "ae648ac6-f2c2-49d8-8ee2-64ccadec513e",
+                  "transitionRuleDescription": "End Rule"
+                }
+              }
+            ]
+          }
+        ],
+        "studyWorkflows": [
+          {
+            "workflowId": "0f8443d3-6780-42a0-aa9f-bcb26e9a5abe",
+            "workflowDescription": "SampleDesc",
+            "workflowItems": [
+              {
+                "workflowItemId": "ea23f109-ac36-4885-a3b9-73f41103130b",
+                "workflowItemDescription": "Sample Item Desc",
+                "workflowItemActivity": {
+                  "activityId": "4ddbe05b-2787-4ab4-a8a3-4d48b35d1086",
+                  "activityDescription": "Activity_1",
+                  "activityName": "A1",
+                  "definedProcedures": [
+                    {
+                      "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                      "procedureCode": [
+                        {
+                          "codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+                          "code": "767002",
+                          "codeSystem": "SNOMED-CT",
+                          "codeSystemVersion": "2022-05-31",
+                          "decode": "White blood cell count"
+                        }
+                      ],
+                      "procedureType": "Specimen Collection"
+                    }
+                  ],
+                  "nextActivityId": "",
+                  "previousActivityId": "",
+                  "studyDataCollection": [
+                    {
+                      "studyDataId": "2b07a24c-6916-4e0c-9646-f1c08e3db438",
+                      "studyDataName": "Study Data 1",
+                      "studyDataDescription": "Something",
+                      "ecrfLink": "Link 1"
+                    }
+                  ]
+                },
+                "workflowItemEncounter": {
+                  "encounterId": "a3b5e535-581d-4e00-880d-f298ae926133",
+                  "encounterContactMode": [
+                    {
+                      "codeId": "0e5a51f9-ac39-4c3c-81db-497e000da062",
+                      "code": "C175574",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "2022-03-25",
+                      "decode": "In Person"
+                    }
+                  ],
+                  "encounterDescription": "desc",
+                  "encounterEnvironmentalSetting": [
+                    {
+                      "codeId": "ef9c3651-b50a-476e-b4b7-bcf0b9356a1d",
+                      "code": "C51282",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "2022-03-25",
+                      "decode": "Clinic"
+                    }
+                  ],
+                  "encounterName": "Encounter 1",
+                  "encounterType": [
+                    {
+                      "codeId": "bc2b87c7-9d30-4f87-a4fe-5220856385ec",
+                      "code": "C7652x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "SITE VISIT"
+                    }
+                  ],
+                  "nextEncounterId": "",
+                  "previousEncounterId": "",
+                  "transitionStartRule": {
+                    "transitionRuleId": "052f50b9-efaf-44e5-9798-8c2e424b1a0a",
+                    "transitionRuleDescription": "Start Rule"
+                  },
+                  "transitionEndRule": {
+                    "transitionRuleId": "eb35bcea-b3b6-4b8d-b276-282c16d6ec77",
+                    "transitionRuleDescription": "End Rule"
+                  }
+                },
+                "nextWorkflowItemId": "",
+                "previousWorkflowItemId": ""
+              }
+            ]
+          }
+        ],
+        "studyEstimands": [
+          {
+            "estimandId": "0bc02031-b058-43f8-9888-0f66f59b825f",
+            "treatment": {
+              "investigationalInterventionId": "6acf8f0e-9149-4a28-b497-f54acf4bca37",
+              "interventionDescription": "Intervention 1",
+              "codes": [
+                {
+                  "codeId": "9bfdbc18-981e-4b93-b0ab-9a711f5da467",
+                  "code": "C7639x",
+                  "codeSystem": "http:www.cdisc.org",
+                  "codeSystemVersion": "1",
+                  "decode": "MODEL 1"
+                }
+              ]
+            },
+            "summaryMeasure": "TEST",
+            "analysisPopulation": {
+              "analysisPopulationId": "77af2751-1707-4edc-a5db-350ebe7233d8",
+              "populationDescription": "Population 1"
+            },
+            "variableOfInterest": {
+              "endpointId": "b679d8c1-7b43-4307-bc7c-c935681e377b",
+              "endpointDescription": "Endpoint 1",
+              "endpointPurposeDescription": "level description",
+              "endpointLevel": [
+                {
+                  "codeId": "3448290d-a710-4d41-8ff9-6c277ec489b1",
+                  "code": "C9834x",
+                  "codeSystem": "http:www.cdisc.org",
+                  "codeSystemVersion": "1",
+                  "decode": "PURPOSE"
+                }
+              ]
+            },
+            "intercurrentEvents": [
+              {
+                "intercurrentEventId": "1dc5c1e9-7b21-4455-9f37-ff2fadb8ac65",
+                "interCurrentEventDescription": "Event Description",
+                "intercurrentEventName": "Event Name",
+                "intercurrentEventStrategy": "Strategy"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "studyVersion": "1"
+  },
+  "auditTrail": {
+    "entryDateTime": "2022-10-18T11:44:11.0529109Z",
+    "SDRUploadVersion": 1
+  }
+}

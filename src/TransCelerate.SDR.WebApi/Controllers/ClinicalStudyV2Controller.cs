@@ -60,19 +60,16 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudy)};");
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudy)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
                     _logger.LogInformation($"Inputs : studyId = {studyId}; sdruploadversion = {sdruploadversion}; listofelements: {listofelements}");
-                    string[] listofelementsArray = listofelements?.Split(Constants.Roles.Seperator);
-                    if (!_helper.AreValidStudyElements(listofelements))
+                   
+                    if (!_helper.AreValidStudyElements(listofelements,out string[] listofelementsArray))
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyElementNotValid)).Value);
 
-                    LoggedInUser user = new LoggedInUser
-                    {
-                        UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
-                        UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
-                    };
+                    LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
+
                     var study = listofelementsArray == null ? await _clinicalStudyService.GetStudy(studyId, sdruploadversion, user).ConfigureAwait(false)
                                                             : await _clinicalStudyService.GetPartialStudyElements(studyId, sdruploadversion, user, listofelementsArray).ConfigureAwait(false);
 
@@ -101,7 +98,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudy)};");
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudy)};");
             }
         }
 
@@ -125,19 +122,16 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudyDesigns)};");
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudyDesigns)};");
                 if (!String.IsNullOrWhiteSpace(study_uuid))
                 {
                     _logger.LogInformation($"Inputs : study_uuid = {study_uuid}; sdruploadversion = {sdruploadversion}; listofelements: {listofelements}; studydesign_uuid: {studydesign_uuid}");
-                    string[] listofelementsArray = listofelements?.Split(Constants.Roles.Seperator);
-                    if (!_helper.AreValidStudyDesignElements(listofelements))
+                    
+                    if (!_helper.AreValidStudyDesignElements(listofelements, out string[] listofelementsArray))
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyDesignElementNotValid)).Value);
 
-                    LoggedInUser user = new LoggedInUser
-                    {
-                        UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
-                        UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
-                    };
+                    LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
+
                     var study = await _clinicalStudyService.GetStudyDesigns(study_uuid, studydesign_uuid, sdruploadversion, user, listofelementsArray).ConfigureAwait(false);
 
                     if (study == null)
@@ -169,7 +163,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudyDesigns)};");
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudyDesigns)};");
             }
         }
         /// <summary>
@@ -191,15 +185,12 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetAuditTrail)};");
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetAuditTrail)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
                     _logger.LogInformation($"Inputs : studyId = {studyId}; fromDate = {fromDate}; toDate = {toDate}");
-                    LoggedInUser user = new LoggedInUser
-                    {
-                        UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
-                        UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
-                    };
+
+                    LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
 
                     Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(fromDate, toDate, -1);
 
@@ -238,7 +229,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetAuditTrail)};");
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetAuditTrail)};");
             }
         }
 
@@ -261,12 +252,10 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudyHistory)};");
-                LoggedInUser user = new LoggedInUser
-                {
-                    UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
-                    UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
-                };
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudyHistory)};");
+
+                LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
+
                 _logger.LogInformation($"Inputs: FromDate: {fromDate}; ToDate: {toDate}; DateRange from Key Vault :{Config.DateRange}");
 
                 Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(fromDate, toDate, Convert.ToInt32(Config.DateRange));
@@ -298,19 +287,19 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudyHistory)};");
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudyHistory)};");
             }
         }
         #endregion
 
-        #region POST Methods
+        #region POST/PUT Methods
         /// <summary>
-        /// POST All Elements For a Study  
+        /// POST/PUT All Elements For a Study  
         /// </summary>        
         /// <param name="studyDTO">Study for Inserting/Updating in Database</param>        
         /// <response code="201">Study Created</response>
         /// <response code="400">Bad Request</response>       
-        [HttpPost]
+        [HttpPost,HttpPut]
         [Route(Route.PostElementsV2)]
         [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
@@ -319,78 +308,18 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(PostAllElements)};");
                 if (studyDTO != null)
-                {
+                {                    
                     bool isInValidReferenceIntegrity = _helper.ReferenceIntegrityValidation(studyDTO, out var errors);
                     if (isInValidReferenceIntegrity)
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(errors, Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse)).Value);
 
-                    LoggedInUser user = new LoggedInUser
-                    {
-                        UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
-                        UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
-                    };
-                    var response = await _clinicalStudyService.PostAllElements(studyDTO, user, HttpMethods.Post)
+                    LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
+
+                    var response = await _clinicalStudyService.PostAllElements(studyDTO, user, Request?.Method)
                                                               .ConfigureAwait(false);
-
-                    if (response?.ToString() == Constants.ErrorMessages.PostRestricted)
-                    {
-                        return StatusCode(((int)HttpStatusCode.Unauthorized), new JsonResult(ErrorResponseHelper.UnAuthorizedAccess(Constants.ErrorMessages.PostRestricted)).Value);
-                    }
-                    else
-                    {
-                        return Created($"study/{studyDTO.ClinicalStudy.Uuid}", new JsonResult(response).Value);
-                    }
-                }
-                else
-                {
-                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Exception occured. Exception : {ex}");
-                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
-            }
-            finally
-            {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");
-            }
-        }       
-        #endregion
-
-        #region PUT Method
-        /// <summary>
-        /// Create New Version for a study 
-        /// </summary>        
-        /// <param name="studyDTO">Study for Inserting/Updating in Database</param>        
-        /// <response code="201">Study Created</response>
-        /// <response code="400">Bad Request</response>       
-        [HttpPut]
-        [Route(Route.PostElementsV2)]
-        [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDto))]
-        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
-        [Produces("application/json")]
-        public async Task<IActionResult> CreateNewVersionForAStudy([FromBody] StudyDto studyDTO)
-        {
-            try
-            {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");
-                if (studyDTO != null)
-                {
-                    bool isInValidReferenceIntegrity = _helper.ReferenceIntegrityValidation(studyDTO, out var errors);
-                    if (isInValidReferenceIntegrity)
-                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(errors, Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse)).Value);
-
-                    LoggedInUser user = new LoggedInUser
-                    {
-                        UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
-                        UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
-                    };
-                    var response = await _clinicalStudyService.PostAllElements(studyDTO, user, HttpMethods.Put)
-                                                              .ConfigureAwait(false);
-
+                    
                     if (response?.ToString() == Constants.ErrorMessages.PostRestricted)
                     {
                         return StatusCode(((int)HttpStatusCode.Unauthorized), new JsonResult(ErrorResponseHelper.UnAuthorizedAccess(Constants.ErrorMessages.PostRestricted)).Value);
@@ -403,7 +332,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         }
                         else
                         {
-                            return Created($"study/{studyDTO.ClinicalStudy.Uuid}", new JsonResult(response).Value);
+                            return Created($"study/{studyDTO.ClinicalStudy.StudyId}", new JsonResult(response).Value);
                         }
                     }
                 }
@@ -419,14 +348,12 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(PostAllElements)};");
             }
-        }
+        }       
         #endregion
 
         #region DELETE Method
-
-        #endregion
         /// <summary>
         /// Delete a Study
         /// </summary>
@@ -445,16 +372,13 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudy)};");
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudy)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
                     _logger.LogInformation($"Inputs : studyId = {studyId};");
 
-                    LoggedInUser user = new LoggedInUser
-                    {
-                        UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
-                        UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
-                    };
+                    LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
+
                     var response = await _clinicalStudyService.DeleteStudy(studyId, user).ConfigureAwait(false);
 
                     if (response == null)
@@ -486,9 +410,10 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudy)};");
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudy)};");
             }
         }
+        #endregion        
         #endregion
     }
 }

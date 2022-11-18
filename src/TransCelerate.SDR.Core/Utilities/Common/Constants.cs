@@ -1,5 +1,5 @@
-﻿using TransCelerate.SDR.Core.DTO.StudyV1;
-using TransCelerate.SDR.Core.Entities.StudyV1;
+﻿using TransCelerate.SDR.Core.DTO.StudyV2;
+using TransCelerate.SDR.Core.Entities.StudyV2;
 
 namespace TransCelerate.SDR.Core.Utilities.Common
 {
@@ -25,6 +25,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string SDRGrouping = "Groups";
             public const string StudyV1 = "StudyDefinitionsV1";
             public const string ChangeAudit = "ChangeAudit";
+            public const string StudyDefinitions = "StudyDefinitions";
         }       
 
         public struct IdType
@@ -126,7 +127,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string NotValidStudyId = "The provided studyId is not valid";
 
-            public const string StudyIdNotFound = "The provided clinicalStudy.uuid is not found";
+            public const string StudyIdNotFound = "The provided clinicalStudy.studyId is not found";
 
             public const string UsePutEndpoint = "Kindly use PUT Study Definitions endpoint to update study definitions";
 
@@ -176,13 +177,15 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(ClinicalStudyDto.StudyProtocolVersions),
             nameof(ClinicalStudyDto.StudyVersion),
             nameof(ClinicalStudyDto.StudyPhase),
-            nameof(ClinicalStudyDto.StudyType),
+            nameof(ClinicalStudyDto.StudyType),            
+            nameof(ClinicalStudyDto.BusinessTherapeuticAreas),            
             nameof(ClinicalStudyDto.StudyDesigns),
         };
 
-        public static readonly string[] StudyDesignElements = {
-            nameof(StudyDesignDto.Uuid),
-            nameof(ClinicalStudyDto.StudyTitle),
+        public static readonly string[] StudyDesignElements = {            
+            nameof(StudyDesignDto.StudyDesignName),
+            nameof(StudyDesignDto.StudyDesignDescription),            
+            nameof(StudyDesignDto.TherapeuticAreas),            
             nameof(StudyDesignDto.TrialType),
             nameof(StudyDesignDto.StudyInvestigationalInterventions),
             nameof(StudyDesignDto.TrialIntentType),

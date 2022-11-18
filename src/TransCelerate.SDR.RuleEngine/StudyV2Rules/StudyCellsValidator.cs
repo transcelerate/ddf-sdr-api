@@ -12,10 +12,10 @@ namespace TransCelerate.SDR.RuleEngineV2
     {
         public StudyCellsValidator()
         {
-            RuleFor(x => x.Uuid)
+            RuleFor(x => x.Id)
               .Cascade(CascadeMode.Stop)
-              .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-              .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+              .NotNull().OverridePropertyName(IdFieldPropertyName.StudyV2.StudyCellId).WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+              .NotEmpty().OverridePropertyName(IdFieldPropertyName.StudyV2.StudyCellId).WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
 
             RuleFor(x => x.StudyElements)
               .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);

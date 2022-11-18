@@ -42,13 +42,13 @@ namespace TransCelerate.SDR.UnitTesting
         };
         public StudyEntity GetEntityDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV1.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
             return JsonConvert.DeserializeObject<StudyEntity>(jsonData);
         }
 
         public StudyDto GetDtoDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV1.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
             return JsonConvert.DeserializeObject<StudyDto>(jsonData);
         }
         #endregion
@@ -347,10 +347,10 @@ namespace TransCelerate.SDR.UnitTesting
 
             mockCodeFromRequest = JsonConvert.DeserializeObject<List<StudyCellEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyCells));
             mockCodeFromDatabase = JsonConvert.DeserializeObject<List<StudyCellEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyCells));
-            mockCodeFromDatabase[0].StudyArm.Uuid = null;
-            mockCodeFromDatabase[0].StudyEpoch.Uuid = null;
-            mockCodeFromRequest[0].StudyArm.Uuid = null;
-            mockCodeFromRequest[0].StudyEpoch.Uuid = null;
+            mockCodeFromDatabase[0].StudyArm.Id = null;
+            mockCodeFromDatabase[0].StudyEpoch.Id = null;
+            mockCodeFromRequest[0].StudyArm.Id = null;
+            mockCodeFromRequest[0].StudyEpoch.Id = null;
             result = helper.CheckForStudyCellsSection(mockCodeFromRequest, mockCodeFromDatabase);
         }
 
@@ -383,13 +383,13 @@ namespace TransCelerate.SDR.UnitTesting
         {
             StudyEntity studyEntity = GetEntityDataFromStaticJson();
 
-            List<StudyDataCollectionEntity> mockCodeFromRequest = new List<StudyDataCollectionEntity>();
-            mockCodeFromRequest = JsonConvert.DeserializeObject<List<StudyDataCollectionEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.StudyDataCollection));
+            List<StudyDataEntity> mockCodeFromRequest = new List<StudyDataEntity>();
+            mockCodeFromRequest = JsonConvert.DeserializeObject<List<StudyDataEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.StudyDataCollection));
 
-            List<StudyDataCollectionEntity> mockCodeFromDatabase = new List<StudyDataCollectionEntity>();
-            mockCodeFromDatabase = JsonConvert.DeserializeObject<List<StudyDataCollectionEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.StudyDataCollection));
+            List<StudyDataEntity> mockCodeFromDatabase = new List<StudyDataEntity>();
+            mockCodeFromDatabase = JsonConvert.DeserializeObject<List<StudyDataEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.StudyDataCollection));
 
-            mockCodeFromRequest.AddRange(JsonConvert.DeserializeObject<List<StudyDataCollectionEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.StudyDataCollection)));
+            mockCodeFromRequest.AddRange(JsonConvert.DeserializeObject<List<StudyDataEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.StudyDataCollection)));
 
             HelperV2 helper = new HelperV2();
             var result = helper.CheckForStudyDataCollectionSection(mockCodeFromRequest, mockCodeFromDatabase);
@@ -451,10 +451,10 @@ namespace TransCelerate.SDR.UnitTesting
 
             mockCodeFromRequest = JsonConvert.DeserializeObject<List<WorkFlowItemEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems));
             mockCodeFromDatabase = JsonConvert.DeserializeObject<List<WorkFlowItemEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems));
-            mockCodeFromDatabase[0].WorkflowItemEncounter.Uuid = null;
-            mockCodeFromRequest[0].WorkflowItemActivity.Uuid = null;
-            mockCodeFromDatabase[0].WorkflowItemEncounter.Uuid = null;
-            mockCodeFromRequest[0].WorkflowItemActivity.Uuid = null;
+            mockCodeFromDatabase[0].WorkflowItemEncounter.Id = null;
+            mockCodeFromRequest[0].WorkflowItemActivity.Id = null;
+            mockCodeFromDatabase[0].WorkflowItemEncounter.Id = null;
+            mockCodeFromRequest[0].WorkflowItemActivity.Id = null;
 
             result=helper.CheckForStudyWorkflowItemsSection(mockCodeFromRequest,mockCodeFromDatabase);
 
@@ -466,13 +466,13 @@ namespace TransCelerate.SDR.UnitTesting
         {
             StudyEntity studyEntity = GetEntityDataFromStaticJson();
 
-            List<DefinedProcedureEntity> mockCodeFromRequest = new List<DefinedProcedureEntity>();
-            mockCodeFromRequest = JsonConvert.DeserializeObject<List<DefinedProcedureEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.DefinedProcedures));
+            List<ProcedureEntity> mockCodeFromRequest = new List<ProcedureEntity>();
+            mockCodeFromRequest = JsonConvert.DeserializeObject<List<ProcedureEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.DefinedProcedures));
 
-            List<DefinedProcedureEntity> mockCodeFromDatabase = new List<DefinedProcedureEntity>();
-            mockCodeFromDatabase = JsonConvert.DeserializeObject<List<DefinedProcedureEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.DefinedProcedures));
+            List<ProcedureEntity> mockCodeFromDatabase = new List<ProcedureEntity>();
+            mockCodeFromDatabase = JsonConvert.DeserializeObject<List<ProcedureEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.DefinedProcedures));
 
-            mockCodeFromRequest.AddRange(JsonConvert.DeserializeObject<List<DefinedProcedureEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.DefinedProcedures)));
+            mockCodeFromRequest.AddRange(JsonConvert.DeserializeObject<List<ProcedureEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.DefinedProcedures)));
 
             HelperV2 helper = new HelperV2();
             var result = helper.CheckForDefinedProceduresSection(mockCodeFromRequest, mockCodeFromDatabase);
@@ -622,16 +622,16 @@ namespace TransCelerate.SDR.UnitTesting
         {
             HelperV2 helper = new HelperV2();
             var listofelements = string.Join(",", Constants.ClinicalStudyElements);
-            Assert.IsTrue(helper.AreValidStudyElements(listofelements));
-            Assert.IsFalse(helper.AreValidStudyElements("a,b"));
+            Assert.IsTrue(helper.AreValidStudyElements(listofelements, out string[] listofelementsArray));
+            Assert.IsFalse(helper.AreValidStudyElements("a,b", out listofelementsArray));
         }
         [Test]
         public void AreValidStudyDesignElementsUnitTesting()
         {
             HelperV2 helper = new HelperV2();
             var listofelements = string.Join(",", Constants.StudyDesignElements);
-            Assert.IsTrue(helper.AreValidStudyDesignElements(listofelements));
-            Assert.IsFalse(helper.AreValidStudyDesignElements("a,b"));
+            Assert.IsTrue(helper.AreValidStudyDesignElements(listofelements, out string[] listofelementsArray));
+            Assert.IsFalse(helper.AreValidStudyDesignElements("a,b", out listofelementsArray));
         }
         [Test]
         public void RemoveStudyElementsUnitTesting()
@@ -693,16 +693,16 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsTrue(Validator<IndicationDto>(new IndicationValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyIndications[0]));
             Assert.IsTrue(Validator<InterCurrentEventDto>(new InterCurrentEventsValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyEstimands[0].IntercurrentEvents[0]));
             Assert.IsTrue(Validator<InvestigationalInterventionDto>(new InvestigationalInterventionValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyInvestigationalInterventions[0]));
-            Assert.IsTrue(Validator<DefinedProcedureDto>(new ProcedureValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.DefinedProcedures[0]));
+            Assert.IsTrue(Validator<ProcedureDto>(new ProcedureValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.DefinedProcedures[0]));
             Assert.IsTrue(Validator<StudyArmDto>(new StudyArmValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyArm));
             Assert.IsTrue(Validator<StudyCellDto>(new StudyCellsValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0]));
-            Assert.IsTrue(Validator<StudyDataCollectionDto>(new StudyDataCollectionValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.StudyDataCollection[0]));
+            Assert.IsTrue(Validator<StudyDataDto>(new StudyDataCollectionValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.StudyDataCollection[0]));
             Assert.IsTrue(Validator<StudyDesignPopulationDto>(new StudyDesignPopulationValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyPopulations[0]));
             Assert.IsTrue(Validator<StudyDesignDto>(new StudyDesignValidator(), studyDto.ClinicalStudy.StudyDesigns[0]));
             Assert.IsTrue(Validator<StudyElementDto>(new StudyElementsValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyElements[0]));
             Assert.IsTrue(Validator<StudyEpochDto>(new StudyEpochValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch));
             Assert.IsTrue(Validator<EstimandDto>(new StudyEstimandsValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyEstimands[0]));
-            Assert.IsTrue(Validator<StudyIdentifiersScopeDto>(new StudyIdentifierScopeValidator(), studyDto.ClinicalStudy.StudyIdentifiers[0].StudyIdentifierScope));
+            Assert.IsTrue(Validator<OrganisationDto>(new OrganisationValidator(), studyDto.ClinicalStudy.StudyIdentifiers[0].StudyIdentifierScope));
             Assert.IsTrue(Validator<StudyIdentifierDto>(new StudyIdentifiersValidator(), studyDto.ClinicalStudy.StudyIdentifiers[0]));
             Assert.IsTrue(Validator<ObjectiveDto>(new StudyObjectiveValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyObjectives[0]));
             Assert.IsTrue(Validator<StudyProtocolVersionDto>(new StudyProtocolVersionsValidator(), studyDto.ClinicalStudy.StudyProtocolVersions[0]));
@@ -751,50 +751,50 @@ namespace TransCelerate.SDR.UnitTesting
         {
             var studyDto = GetDtoDataFromStaticJson();
             studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Encounters.Add(JsonConvert.DeserializeObject<EncounterDto>(JsonConvert.SerializeObject(studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Encounters[0])));
-            studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Encounters[0].Uuid = "123";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Encounters[0].Id = "123";
             studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Encounters[0].PreviousEncounterId = "123";
             studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Encounters[0].NextEncounterId = "123";
 
-            studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Encounters[1].Uuid = "456";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Encounters[1].Id = "456";
             studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Encounters[1].PreviousEncounterId = "123";
             studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Encounters[1].NextEncounterId = "123";
 
 
             studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems.Add(JsonConvert.DeserializeObject<WorkflowItemDto>(JsonConvert.SerializeObject(studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0])));
-            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].Uuid = "677";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].Id = "677";
             studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].NextWorkflowItemId = "678";
             studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].PreviousWorkflowItemId = "123";
 
-            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].Uuid = "678";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].Id = "678";
             studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].NextWorkflowItemId = "123";
             studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].PreviousWorkflowItemId = "677";
 
 
          
-            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.Uuid = "777";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.Id = "777";
             studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.NextActivityId = "778";
             studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity.PreviousActivityId = "123";
 
-            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].WorkflowItemActivity.Uuid = "778";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].WorkflowItemActivity.Id = "778";
             studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].WorkflowItemActivity.NextActivityId = "678";
             studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].WorkflowItemActivity.PreviousActivityId = "777";
 
          
-            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemEncounter.Uuid = "888";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemEncounter.Id = "888";
             studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemEncounter.NextEncounterId = "889";
             studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemEncounter.PreviousEncounterId = "123";
 
-            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].WorkflowItemEncounter.Uuid = "889";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].WorkflowItemEncounter.Id = "889";
             studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].WorkflowItemEncounter.NextEncounterId = "778";
             studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].WorkflowItemEncounter.PreviousEncounterId = "888";
 
 
             studyDto.ClinicalStudy.StudyDesigns[0].StudyCells.Add(JsonConvert.DeserializeObject<StudyCellDto>(JsonConvert.SerializeObject(studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0])));
-            studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Uuid = "998";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Id = "998";
             studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.NextStudyEpochId = "999";
             studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.PreviousStudyEpochId = "888";
 
-            studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[1].StudyEpoch.Uuid = "999";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[1].StudyEpoch.Id = "999";
             studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[1].StudyEpoch.NextStudyEpochId = "888";
             studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[1].StudyEpoch.PreviousStudyEpochId = "998";
 

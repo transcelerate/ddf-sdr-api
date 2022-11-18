@@ -2,9 +2,11 @@
 
 namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
-    public class EstimandEntity : IUuid
+    [MongoDB.Bson.Serialization.Attributes.BsonNoId]
+    public class EstimandEntity : Iid
     {
-        public string Uuid { get; set; }
+        [MongoDB.Bson.Serialization.Attributes.BsonElement(Utilities.Common.IdFieldPropertyName.StudyV2.EstimandId)]
+        public string Id { get; set; }
         public InvestigationalInterventionEntity Treatment { get; set; }
         public string SummaryMeasure { get; set; }
         public AnalysisPopulationEntity AnalysisPopulation { get; set; }
