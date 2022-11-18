@@ -326,7 +326,14 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     }
                     else
                     {
-                        return Created($"study/{studyDTO.ClinicalStudy.Uuid}", new JsonResult(response).Value);
+                        if (response?.ToString() == Constants.ErrorMessages.NotValidStudyId)
+                        {
+                            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.NotValidStudyId)).Value);
+                        }
+                        else
+                        {
+                            return Created($"study/{studyDTO.ClinicalStudy.Uuid}", new JsonResult(response).Value);
+                        }
                     }
                 }
                 else
