@@ -115,7 +115,7 @@ namespace TransCelerate.SDR.WebApi
                 fv.DisableDataAnnotationsValidation = true;
                 fv.ImplicitlyValidateChildProperties = true;
                 fv.ImplicitlyValidateRootCollectionElements = true;
-                
+                fv.ValidatorOptions.DisplayNameResolver = (type, memberInfo, expression) => memberInfo.Name.Replace(" ", "").Substring(0, 1)?.ToLower() + memberInfo.Name.Replace(" ", "").Substring(1);
                 fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             });           
 

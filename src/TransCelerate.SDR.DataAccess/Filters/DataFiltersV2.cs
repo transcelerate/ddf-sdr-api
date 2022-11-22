@@ -32,7 +32,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
         {
             FilterDefinitionBuilder<ChangeAuditStudyEntity> builder = Builders<ChangeAuditStudyEntity>.Filter;
             FilterDefinition<ChangeAuditStudyEntity> filter = builder.Empty;
-            filter &= builder.Where(s => s.ChangeAudit.Study_uuid == studyId);
+            filter &= builder.Where(s => s.ChangeAudit.StudyId == studyId);
 
             return filter;
         }

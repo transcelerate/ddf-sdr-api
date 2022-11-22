@@ -91,7 +91,7 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
                 IMongoCollection<ChangeAuditStudyEntity> collection = _database.GetCollection<ChangeAuditStudyEntity>(Constants.Collections.ChangeAudit);
 
 
-                ChangeAuditStudyEntity changeAudit = collection.Find(x => x.ChangeAudit.Study_uuid == studyId)
+                ChangeAuditStudyEntity changeAudit = collection.Find(x => x.ChangeAudit.StudyId == studyId)
                                                      .FirstOrDefault();
 
                 if (changeAudit == null)
@@ -147,7 +147,7 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
                 IMongoCollection<ChangeAuditStudyEntity> collection = _database.GetCollection<ChangeAuditStudyEntity>(Constants.Collections.ChangeAudit);
                 UpdateDefinition<ChangeAuditStudyEntity> updateDefinition = Builders<ChangeAuditStudyEntity>.Update
                                     .Set(s => s.ChangeAudit.Changes, changeAudit.ChangeAudit.Changes);
-                collection.UpdateOne(x => x.ChangeAudit.Study_uuid == changeAudit.ChangeAudit.Study_uuid,
+                collection.UpdateOne(x => x.ChangeAudit.StudyId == changeAudit.ChangeAudit.StudyId,
                                                    updateDefinition); // Update clinicalStudy and auditTrail           
             }
             catch (Exception)
