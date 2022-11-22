@@ -81,7 +81,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 };
 
                 var changeAuditEntity = new ChangeAuditEntity();
-                changeAuditEntity.Study_uuid = study_uuid;
+                changeAuditEntity.StudyId = study_uuid;
                 changeAuditEntity.Changes = new List<ChangesEntity>();
                 changeAuditEntity.Changes.Add(change);
 
@@ -90,7 +90,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 changeAuditStudyEntity._id = MongoDB.Bson.ObjectId.GenerateNewId();
 
                 await collection.InsertOneAsync(changeAuditStudyEntity);
-                return changeAuditEntity.Study_uuid;
+                return changeAuditEntity.StudyId;
 
             }
             catch (Exception)

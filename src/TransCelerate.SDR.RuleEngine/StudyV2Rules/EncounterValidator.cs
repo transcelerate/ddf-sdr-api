@@ -42,7 +42,7 @@ namespace TransCelerate.SDR.RuleEngineV2
 
             RuleFor(x => x.NextEncounterId)
                 .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError);
         }
     }
 }

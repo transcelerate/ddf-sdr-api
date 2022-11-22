@@ -105,7 +105,7 @@ namespace TransCelerate.SDR.AzureFunctions
             if (changeAuditStudyEntity is null)
             {
                 var changeAuditEntity = new ChangeAuditEntity();
-                changeAuditEntity.Study_uuid = serviceBusMessageEntity.Study_uuid;
+                changeAuditEntity.StudyId = serviceBusMessageEntity.Study_uuid;
                 changeAuditEntity.Changes = new List<ChangesEntity>();              
                 changeAuditEntity.Changes.Add(change);
 

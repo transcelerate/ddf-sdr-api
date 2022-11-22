@@ -5,7 +5,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
    
     public class ChangeAuditDto
     {
-        public string Study_uuid { get; set; }
+        public string StudyId { get; set; }
 
         public List<ChangesDto> Changes { get; set; }
     }
