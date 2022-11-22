@@ -82,7 +82,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string PropertyEmptyError = "Field is empty";
 
-            public const string UniquenessArrayError = "The UUIDs are not unique";
+            public const string UniquenessArrayError = "The {PropertyName} Ids are not unique";
 
             public const string NumberError = "Enter a valid number";
 

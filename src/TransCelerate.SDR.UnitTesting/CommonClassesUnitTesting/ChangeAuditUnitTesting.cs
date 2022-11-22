@@ -80,7 +80,7 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
             var actual_result = JsonConvert.DeserializeObject<ChangeAuditStudyDto>(
                  JsonConvert.SerializeObject((result as OkObjectResult).Value));
 
-            Assert.AreEqual(expected.ChangeAudit.Study_uuid, actual_result.ChangeAudit.Study_uuid);
+            Assert.AreEqual(expected.ChangeAudit.StudyId, actual_result.ChangeAudit.StudyId);
             Assert.IsInstanceOf(typeof(OkObjectResult), result);
         }
         [Test]
@@ -170,7 +170,7 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
             //Actual
             var actual = result as ChangeAuditStudyDto;
 
-            Assert.AreEqual(expected.ChangeAudit.Study_uuid,actual.ChangeAudit.Study_uuid);
+            Assert.AreEqual(expected.ChangeAudit.StudyId,actual.ChangeAudit.StudyId);
 
             _mockChangeAuditRepository.Setup(x => x.GetChangeAuditAsync(It.IsAny<string>()))
                 .Returns(Task.FromResult(GetChangeAuditEntityDataFromStaticJson()));
