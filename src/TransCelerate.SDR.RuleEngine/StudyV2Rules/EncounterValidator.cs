@@ -35,14 +35,6 @@ namespace TransCelerate.SDR.RuleEngineV2
             
             RuleFor(x => x.EncounterType)
                 .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
-
-            RuleFor(x => x.PreviousEncounterId)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError);
-
-            RuleFor(x => x.NextEncounterId)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError);
         }
     }
 }
