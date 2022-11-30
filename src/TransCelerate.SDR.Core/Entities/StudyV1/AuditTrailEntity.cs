@@ -3,6 +3,7 @@ using System;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV1
 {
+    [BsonIgnoreExtraElements]
     public class AuditTrailEntity
     {
         public DateTime EntryDateTime { get; set; }

@@ -412,6 +412,7 @@ namespace TransCelerate.SDR.Services.Services
         {
             existingStudyEntity.AuditTrail.EntryDateTime = incomingStudyEntity.AuditTrail.EntryDateTime;
             incomingStudyEntity.AuditTrail.SDRUploadVersion = existingStudyEntity.AuditTrail.SDRUploadVersion;
+            incomingStudyEntity.AuditTrail.UsdmVersion = existingStudyEntity.AuditTrail.UsdmVersion;
             await _clinicalStudyRepository.UpdateStudyItemsAsync(incomingStudyEntity);
             return _mapper.Map<StudyDto>(incomingStudyEntity);
         }
@@ -420,6 +421,7 @@ namespace TransCelerate.SDR.Services.Services
         {
             //incomingStudyEntity = _helper.CheckForSections(incomingStudyEntity, existingStudyEntity);
             incomingStudyEntity.AuditTrail.SDRUploadVersion = existingStudyEntity.AuditTrail.SDRUploadVersion + 1;
+            incomingStudyEntity.AuditTrail.UsdmVersion = existingStudyEntity.AuditTrail.UsdmVersion;
             await _clinicalStudyRepository.PostStudyItemsAsync(incomingStudyEntity);
             return _mapper.Map<StudyDto>(incomingStudyEntity);
         }

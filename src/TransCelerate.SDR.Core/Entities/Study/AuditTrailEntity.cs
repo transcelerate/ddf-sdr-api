@@ -1,9 +1,11 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace TransCelerate.SDR.Core.Entities.Study
 {
+    [BsonIgnoreExtraElements]
     public class AuditTrailEntity
     {
         public DateTime entryDateTime { get; set; }
