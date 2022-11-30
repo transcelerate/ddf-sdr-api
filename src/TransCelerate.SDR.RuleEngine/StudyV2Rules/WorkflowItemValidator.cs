@@ -21,14 +21,6 @@ namespace TransCelerate.SDR.RuleEngineV2
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
 
-            RuleFor(x => x.NextWorkflowItemId)
-                .Cascade(CascadeMode.Stop).
-                NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError);
-
-            RuleFor(x => x.PreviousWorkflowItemId)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError);
-
         }
     }
 }
