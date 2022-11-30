@@ -63,7 +63,12 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         {
             public const string ALL = "ALL";
         }
-        
+        public struct USDMVersions
+        {
+            public const string MVP = "0.1";
+            public const string V1 = "1.0";
+            public const string V2 = "2.0";
+        }
         public struct ValidationErrorMessage
         {
             public const string ConformanceError = "Field is missing or empty";
