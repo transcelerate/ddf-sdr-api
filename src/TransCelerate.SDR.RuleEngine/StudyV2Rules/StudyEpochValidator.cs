@@ -38,13 +38,11 @@ namespace TransCelerate.SDR.RuleEngineV2
 
             RuleFor(x => x.NextStudyEpochId)
                .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError);
 
             RuleFor(x => x.PreviousStudyEpochId)
                 .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError);
         }
     }
 }
