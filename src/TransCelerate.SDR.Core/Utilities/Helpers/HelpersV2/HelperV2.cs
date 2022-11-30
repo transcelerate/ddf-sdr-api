@@ -30,6 +30,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
             {
                 EntryDateTime = DateTime.UtcNow,
                 CreatedBy = user,
+                UsdmVersion = Constants.USDMVersions.V2
             };
         }
 
