@@ -58,7 +58,6 @@
   - [#ctor()](#M-TransCelerate-SDR-RuleEngine-RuleValidator-#ctor 'TransCelerate.SDR.RuleEngine.RuleValidator.#ctor')
 - [SearchParametersValidator](#T-TransCelerate-SDR-RuleEngine-SearchParametersValidator 'TransCelerate.SDR.RuleEngine.SearchParametersValidator')
 - [SearchParametersValidator](#T-TransCelerate-SDR-RuleEngineV1-SearchParametersValidator 'TransCelerate.SDR.RuleEngineV1.SearchParametersValidator')
-- [SearchParametersValidator](#T-TransCelerate-SDR-RuleEngineV2-SearchParametersValidator 'TransCelerate.SDR.RuleEngineV2.SearchParametersValidator')
   - [#ctor()](#M-TransCelerate-SDR-RuleEngine-SearchParametersValidator-#ctor 'TransCelerate.SDR.RuleEngine.SearchParametersValidator.#ctor')
 - [StudyArmValidator](#T-TransCelerate-SDR-RuleEngine-StudyArmValidator 'TransCelerate.SDR.RuleEngine.StudyArmValidator')
 - [StudyArmValidator](#T-TransCelerate-SDR-RuleEngineV1-StudyArmValidator 'TransCelerate.SDR.RuleEngineV1.StudyArmValidator')
@@ -662,17 +661,6 @@ TransCelerate.SDR.RuleEngine
 ##### Namespace
 
 TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for SearchParameters
-
-<a name='T-TransCelerate-SDR-RuleEngineV2-SearchParametersValidator'></a>
-## SearchParametersValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV2
 
 ##### Summary
 

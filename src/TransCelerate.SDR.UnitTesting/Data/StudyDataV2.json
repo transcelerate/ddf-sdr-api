@@ -140,7 +140,7 @@
         ],
         "studyInvestigationalInterventions": [
           {
-            "investigationalInterventionId": "0f6fbd39-dc2f-4d93-97f8-9d90002b9dcf",
+            "investigationalInterventionId": "IN001",
             "interventionDescription": "Intervention 1",
             "codes": [
               {
@@ -173,7 +173,7 @@
                 "endpointPurposeDescription": "level description",
                 "endpointLevel": [
                   {
-                    "codeId": "4601b893-8f90-4fdb-995b-352e71771b9d",
+                    "codeId": "END001",
                     "code": "C9834x",
                     "codeSystem": "http:www.cdisc.org",
                     "codeSystemVersion": "1",
@@ -233,48 +233,8 @@
                 }
               ],
               "encounters": [
-                {
-                  "encounterId": "91603043-8496-4a71-aabc-2d6848bbc87d",
-                  "encounterContactMode": [
-                    {
-                      "codeId": "d3b65049-39fe-4dc3-a180-b16304f07ef9",
-                      "code": "C1755745",
-                      "codeSystem": "http:www.cdisc.org",
-                      "codeSystemVersion": "2022-03-25",
-                      "decode": "In Person"
-                    }
-                  ],
-                  "encounterDescription": "desc",
-                  "encounterEnvironmentalSetting": [
-                    {
-                      "codeId": "f07aae83-6592-4614-8c7c-c2437184db3e",
-                      "code": "C51282",
-                      "codeSystem": "http:www.cdisc.org",
-                      "codeSystemVersion": "2022-03-25",
-                      "decode": "Clinic"
-                    }
-                  ],
-                  "encounterName": "Encounter 1",
-                  "encounterType": [
-                    {
-                      "codeId": "37cd2f4f-680a-4e3b-8def-82e29b89b778",
-                      "code": "C7652x",
-                      "codeSystem": "http:www.cdisc.org",
-                      "codeSystemVersion": "1",
-                      "decode": "SITE VISIT"
-                    }
-                  ],
-                  "nextEncounterId": "",
-                  "previousEncounterId": "",
-                  "transitionStartRule": {
-                    "transitionRuleId": "fb5cefdf-9308-44bd-898a-6c9ab35174fb",
-                    "transitionRuleDescription": "Start Rule"
-                  },
-                  "transitionEndRule": {
-                    "transitionRuleId": "a40c1adf-13e8-41da-a555-925a2585ccd3",
-                    "transitionRuleDescription": "End Rule"
-                  }
-                }
+                "EN001",
+                "EN002"
               ]
             },
             "studyElements": [
@@ -296,86 +256,62 @@
         ],
         "studyWorkflows": [
           {
-            "workflowId": "0f8443d3-6780-42a0-aa9f-bcb26e9a5abe",
+            "workflowId": "WF01",
             "workflowDescription": "SampleDesc",
             "workflowItems": [
               {
-                "workflowItemId": "ea23f109-ac36-4885-a3b9-73f41103130b",
+                "workflowItemId": "WI001",
                 "workflowItemDescription": "Sample Item Desc",
-                "workflowItemActivity": {
-                  "activityId": "4ddbe05b-2787-4ab4-a8a3-4d48b35d1086",
-                  "activityDescription": "Activity_1",
-                  "activityName": "A1",
-                  "definedProcedures": [
-                    {
-                      "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
-                      "procedureCode": [
-                        {
-                          "codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
-                          "code": "767002",
-                          "codeSystem": "SNOMED-CT",
-                          "codeSystemVersion": "2022-05-31",
-                          "decode": "White blood cell count"
-                        }
-                      ],
-                      "procedureType": "Specimen Collection"
-                    }
-                  ],
-                  "nextActivityId": "",
-                  "previousActivityId": "",
-                  "studyDataCollection": [
-                    {
-                      "studyDataId": "2b07a24c-6916-4e0c-9646-f1c08e3db438",
-                      "studyDataName": "Study Data 1",
-                      "studyDataDescription": "Something",
-                      "ecrfLink": "Link 1"
-                    }
-                  ]
-                },
-                "workflowItemEncounter": {
-                  "encounterId": "a3b5e535-581d-4e00-880d-f298ae926133",
-                  "encounterContactMode": [
-                    {
-                      "codeId": "0e5a51f9-ac39-4c3c-81db-497e000da062",
-                      "code": "C175574",
-                      "codeSystem": "http:www.cdisc.org",
-                      "codeSystemVersion": "2022-03-25",
-                      "decode": "In Person"
-                    }
-                  ],
-                  "encounterDescription": "desc",
-                  "encounterEnvironmentalSetting": [
-                    {
-                      "codeId": "ef9c3651-b50a-476e-b4b7-bcf0b9356a1d",
-                      "code": "C51282",
-                      "codeSystem": "http:www.cdisc.org",
-                      "codeSystemVersion": "2022-03-25",
-                      "decode": "Clinic"
-                    }
-                  ],
-                  "encounterName": "Encounter 1",
-                  "encounterType": [
-                    {
-                      "codeId": "bc2b87c7-9d30-4f87-a4fe-5220856385ec",
-                      "code": "C7652x",
-                      "codeSystem": "http:www.cdisc.org",
-                      "codeSystemVersion": "1",
-                      "decode": "SITE VISIT"
-                    }
-                  ],
-                  "nextEncounterId": "",
-                  "previousEncounterId": "",
-                  "transitionStartRule": {
-                    "transitionRuleId": "052f50b9-efaf-44e5-9798-8c2e424b1a0a",
-                    "transitionRuleDescription": "Start Rule"
-                  },
-                  "transitionEndRule": {
-                    "transitionRuleId": "eb35bcea-b3b6-4b8d-b276-282c16d6ec77",
-                    "transitionRuleDescription": "End Rule"
-                  }
-                },
+                "workflowItemActivity": "ACT01",
+                "workflowItemEncounter": "EN001",
                 "nextWorkflowItemId": "",
                 "previousWorkflowItemId": ""
+              },
+              {
+                "workflowItemId": "WI002",
+                "workflowItemDescription": "Sample Item Desc",
+                "workflowItemActivity": "ACT02",
+                "workflowItemEncounter": "EN002",
+                "nextWorkflowItemId": "",
+                "previousWorkflowItemId": ""
+              },
+              {
+                "workflowItemId": "WI003",
+                "workflowItemDescription": "Sample Item Desc",
+                "workflowItemActivity": "ACT01",
+                "workflowItemEncounter": "EN002",
+                "nextWorkflowItemId": "",
+                "previousWorkflowItemId": ""
+              }
+            ]
+          },
+          {
+            "workflowId": "WF02",
+            "workflowDescription": "SampleDesc",
+            "workflowItems": [
+              {
+                "workflowItemId": "WI001",
+                "workflowItemDescription": "Sample Item Desc",
+                "workflowItemActivity": "ACT01",
+                "workflowItemEncounter": "EN001",
+                "nextWorkflowItemId": "WI003",
+                "previousWorkflowItemId": "WI003"
+              },
+              {
+                "workflowItemId": "WI002",
+                "workflowItemDescription": "Sample Item Desc",
+                "workflowItemActivity": "ACT02",
+                "workflowItemEncounter": "EN002",
+                "nextWorkflowItemId": "WI003",
+                "previousWorkflowItemId": "WI003"
+              },
+              {
+                "workflowItemId": "WI003",
+                "workflowItemDescription": "Sample Item Desc",
+                "workflowItemActivity": "ACT01",
+                "workflowItemEncounter": "EN002",
+                "nextWorkflowItemId": "WI001",
+                "previousWorkflowItemId": "WI001"
               }
             ]
           }
@@ -383,44 +319,197 @@
         "studyEstimands": [
           {
             "estimandId": "0bc02031-b058-43f8-9888-0f66f59b825f",
-            "treatment": {
-              "investigationalInterventionId": "6acf8f0e-9149-4a28-b497-f54acf4bca37",
-              "interventionDescription": "Intervention 1",
-              "codes": [
-                {
-                  "codeId": "9bfdbc18-981e-4b93-b0ab-9a711f5da467",
-                  "code": "C7639x",
-                  "codeSystem": "http:www.cdisc.org",
-                  "codeSystemVersion": "1",
-                  "decode": "MODEL 1"
-                }
-              ]
-            },
+            "treatment": "IN001",
             "summaryMeasure": "TEST",
             "analysisPopulation": {
               "analysisPopulationId": "77af2751-1707-4edc-a5db-350ebe7233d8",
               "populationDescription": "Population 1"
             },
-            "variableOfInterest": {
-              "endpointId": "b679d8c1-7b43-4307-bc7c-c935681e377b",
-              "endpointDescription": "Endpoint 1",
-              "endpointPurposeDescription": "level description",
-              "endpointLevel": [
-                {
-                  "codeId": "3448290d-a710-4d41-8ff9-6c277ec489b1",
-                  "code": "C9834x",
-                  "codeSystem": "http:www.cdisc.org",
-                  "codeSystemVersion": "1",
-                  "decode": "PURPOSE"
-                }
-              ]
-            },
+            "variableOfInterest": "END001",
             "intercurrentEvents": [
               {
                 "intercurrentEventId": "1dc5c1e9-7b21-4455-9f37-ff2fadb8ac65",
-                "interCurrentEventDescription": "Event Description",
+                "intercurrentEventDescription": "Event Description",
                 "intercurrentEventName": "Event Name",
-                "intercurrentEventStrategy": "Strategy"
+                "intercurrentEventStrategy": "Strategies"
+              }
+            ]
+          }
+        ],
+        "encounters": [
+          {
+            "encounterId": "EN001",
+            "encounterContactMode": [
+              {
+                "codeId": "d3b65049-39fe-4dc3-a180-b16304f07ef9",
+                "code": "C1755745",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "2022-03-25",
+                "decode": "In Person"
+              }
+            ],
+            "encounterDescription": "desc",
+            "encounterEnvironmentalSetting": [
+              {
+                "codeId": "f07aae83-6592-4614-8c7c-c2437184db3e",
+                "code": "C51282",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "2022-03-25",
+                "decode": "Clinic"
+              }
+            ],
+            "encounterName": "Encounter 1",
+            "encounterType": [
+              {
+                "codeId": "37cd2f4f-680a-4e3b-8def-82e29b89b778",
+                "code": "C7652x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "SITE VISIT"
+              }
+            ],
+            "nextEncounterId": "",
+            "previousEncounterId": "",
+            "transitionStartRule": {
+              "transitionRuleId": "fb5cefdf-9308-44bd-898a-6c9ab35174fb",
+              "transitionRuleDescription": "Start Rule"
+            },
+            "transitionEndRule": {
+              "transitionRuleId": "a40c1adf-13e8-41da-a555-925a2585ccd3",
+              "transitionRuleDescription": "End Rule"
+            }
+          },
+          {
+            "encounterId": "EN002",
+            "encounterContactMode": [
+              {
+                "codeId": "d3b65049-39fe-4dc3-a180-b16304f07ef9",
+                "code": "C1755745",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "2022-03-25",
+                "decode": "In Person"
+              }
+            ],
+            "encounterDescription": "desc",
+            "encounterEnvironmentalSetting": [
+              {
+                "codeId": "f07aae83-6592-4614-8c7c-c2437184db3e",
+                "code": "C51282",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "2022-03-25",
+                "decode": "Clinic"
+              }
+            ],
+            "encounterName": "Encounter 1",
+            "encounterType": [
+              {
+                "codeId": "37cd2f4f-680a-4e3b-8def-82e29b89b778",
+                "code": "C7652x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "SITE VISIT"
+              }
+            ],
+            "nextEncounterId": "",
+            "previousEncounterId": "",
+            "transitionStartRule": {
+              "transitionRuleId": "fb5cefdf-9308-44bd-898a-6c9ab35174fb",
+              "transitionRuleDescription": "Start Rule"
+            },
+            "transitionEndRule": {
+              "transitionRuleId": "a40c1adf-13e8-41da-a555-925a2585ccd3",
+              "transitionRuleDescription": "End Rule"
+            }
+          }
+        ],
+        "activities": [
+          {
+            "activityId": "ACT01",
+            "activityDescription": "Activity_1",
+            "activityName": "Informed Consent",
+            "definedProcedures": [
+              {
+                "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                "procedureCode": [
+                  {
+                    "codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+                    "code": "767002",
+                    "codeSystem": "SNOMED-CT",
+                    "codeSystemVersion": "2022-05-31",
+                    "decode": "White blood cell count"
+                  }
+                ],
+                "procedureType": "Specimen Collection"
+              }
+            ],
+            "nextActivityId": "",
+            "previousActivityId": "",
+            "studyDataCollection": [
+              {
+                "studyDataId": "2b07a24c-6916-4e0c-9646-f1c08e3db438",
+                "studyDataName": "Study Data 1",
+                "studyDataDescription": "Something",
+                "ecrfLink": "Link 1"
+              }
+            ]
+          },
+          {
+            "activityId": "ACT02",
+            "activityDescription": "Activity_1",
+            "activityName": "Eligibility Criteria",
+            "definedProcedures": [
+              {
+                "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                "procedureCode": [
+                  {
+                    "codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+                    "code": "767002",
+                    "codeSystem": "SNOMED-CT",
+                    "codeSystemVersion": "2022-05-31",
+                    "decode": "White blood cell count"
+                  }
+                ],
+                "procedureType": "Specimen Collection"
+              }
+            ],
+            "nextActivityId": "",
+            "previousActivityId": "",
+            "studyDataCollection": [
+              {
+                "studyDataId": "2b07a24c-6916-4e0c-9646-f1c08e3db438",
+                "studyDataName": "Study Data 1",
+                "studyDataDescription": "Something",
+                "ecrfLink": "Link 1"
+              }
+            ]
+          },
+          {
+            "activityId": "ACT03",
+            "activityDescription": "Activity_1",
+            "activityName": "Demography",
+            "definedProcedures": [
+              {
+                "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                "procedureCode": [
+                  {
+                    "codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+                    "code": "767002",
+                    "codeSystem": "SNOMED-CT",
+                    "codeSystemVersion": "2022-05-31",
+                    "decode": "White blood cell count"
+                  }
+                ],
+                "procedureType": "Specimen Collection"
+              }
+            ],
+            "nextActivityId": "",
+            "previousActivityId": "",
+            "studyDataCollection": [
+              {
+                "studyDataId": "2b07a24c-6916-4e0c-9646-f1c08e3db438",
+                "studyDataName": "Study Data 1",
+                "studyDataDescription": "Something",
+                "ecrfLink": "Link 1"
               }
             ]
           }

@@ -21,5 +21,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
         public List<StudyCellEntity> StudyCells { get; set; }
         public List<WorkflowEntity> StudyWorkflows { get; set; }
         public List<EstimandEntity> StudyEstimands { get; set; }
+        public List<ActivityEntity> Activities { get; set; }
+        public List<EncounterEntity> Encounters { get; set; }
     }
 }

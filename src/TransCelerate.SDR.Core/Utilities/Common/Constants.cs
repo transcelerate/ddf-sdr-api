@@ -201,6 +201,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(StudyDesignDto.StudyCells),
             nameof(StudyDesignDto.StudyWorkflows),
             nameof(StudyDesignDto.StudyEstimands),
+            nameof(StudyDesignDto.Activities),
+            nameof(StudyDesignDto.Encounters)
         };
 
         public struct FunctionAppConstants

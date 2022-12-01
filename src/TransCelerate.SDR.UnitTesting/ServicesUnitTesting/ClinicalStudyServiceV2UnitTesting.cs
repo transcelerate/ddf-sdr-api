@@ -123,8 +123,6 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             _mockHelper.Setup(x => x.IsSameStudy(It.IsAny<StudyEntity>(), It.IsAny<StudyEntity>()))
                     .Returns(false);
-            _mockHelper.Setup(x => x.CheckForSections(It.IsAny<StudyEntity>(), It.IsAny<StudyEntity>()))
-                    .Returns(studyEntity);
 
             method = ClinicalStudyService.PostAllElements(studyDto, user, HttpMethod.Post.Method);
             method.Wait();
@@ -150,8 +148,6 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             //Assert          
             Assert.IsNotNull(actual_result);
 
-            _mockHelper.Setup(x => x.GeneratedSectionId(It.IsAny<StudyEntity>()))
-                    .Returns(studyEntity);
             studyDto.ClinicalStudy.StudyId = null;
 
             method = ClinicalStudyService.PostAllElements(studyDto, user, HttpMethod.Post.Method);
@@ -198,8 +194,6 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     .Returns(Task.FromResult(studyEntity));
             _mockHelper.Setup(x => x.IsSameStudy(It.IsAny<StudyEntity>(), It.IsAny<StudyEntity>()))
                    .Returns(false);
-            _mockHelper.Setup(x => x.CheckForSections(It.IsAny<StudyEntity>(), It.IsAny<StudyEntity>()))
-                    .Returns(studyEntity);
 
             method = ClinicalStudyService.PostAllElements(studyDto, user, HttpMethod.Put.Method);
             method.Wait();

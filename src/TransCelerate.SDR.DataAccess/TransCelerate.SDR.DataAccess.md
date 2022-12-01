@@ -45,8 +45,6 @@
 - [DataFiltersV2](#T-TransCelerate-SDR-DataAccess-Filters-DataFiltersV2 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV2')
   - [GetFiltersForGetAudTrail(studyId,fromDate,toDate)](#M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV2-GetFiltersForGetAudTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV2.GetFiltersForGetAudTrail(System.String,System.DateTime,System.DateTime)')
   - [GetFiltersForGetStudy(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV2-GetFiltersForGetStudy-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV2.GetFiltersForGetStudy(System.String,System.Int32)')
-  - [GetFiltersForSearchStudy(searchParameters)](#M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV2-GetFiltersForSearchStudy-TransCelerate-SDR-Core-Entities-StudyV2-SearchParameters- 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV2.GetFiltersForSearchStudy(TransCelerate.SDR.Core.Entities.StudyV2.SearchParameters)')
-  - [GetFiltersForSearchTitle(searchParameters)](#M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV2-GetFiltersForSearchTitle-TransCelerate-SDR-Core-Entities-StudyV2-SearchTitleParameters- 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV2.GetFiltersForSearchTitle(TransCelerate.SDR.Core.Entities.StudyV2.SearchTitleParameters)')
   - [GetFiltersForStudyHistory(fromDate,toDate,studyTitle)](#M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV2-GetFiltersForStudyHistory-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV2.GetFiltersForStudyHistory(System.DateTime,System.DateTime,System.String)')
   - [GetProjectionForPartialStudyDesignElementsFullStudy()](#M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV2-GetProjectionForPartialStudyDesignElementsFullStudy 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV2.GetProjectionForPartialStudyDesignElementsFullStudy')
   - [GetProjectionForPartialStudyElements(listofelementsArray)](#M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV2-GetProjectionForPartialStudyElements-System-String[]- 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV2.GetProjectionForPartialStudyElements(System.String[])')
@@ -805,40 +803,6 @@ Get filters for GET StudyDefinitons API
 | ---- | ---- | ----------- |
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
-
-<a name='M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV2-GetFiltersForSearchStudy-TransCelerate-SDR-Core-Entities-StudyV2-SearchParameters-'></a>
-### GetFiltersForSearchStudy(searchParameters) `method`
-
-##### Summary
-
-Get filters for Search Study API
-
-##### Returns
-
-
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| searchParameters | [TransCelerate.SDR.Core.Entities.StudyV2.SearchParameters](#T-TransCelerate-SDR-Core-Entities-StudyV2-SearchParameters 'TransCelerate.SDR.Core.Entities.StudyV2.SearchParameters') |  |
-
-<a name='M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV2-GetFiltersForSearchTitle-TransCelerate-SDR-Core-Entities-StudyV2-SearchTitleParameters-'></a>
-### GetFiltersForSearchTitle(searchParameters) `method`
-
-##### Summary
-
-Get filters for Search Study Title API
-
-##### Returns
-
-
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| searchParameters | [TransCelerate.SDR.Core.Entities.StudyV2.SearchTitleParameters](#T-TransCelerate-SDR-Core-Entities-StudyV2-SearchTitleParameters 'TransCelerate.SDR.Core.Entities.StudyV2.SearchTitleParameters') |  |
 
 <a name='M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV2-GetFiltersForStudyHistory-System-DateTime,System-DateTime,System-String-'></a>
 ### GetFiltersForStudyHistory(fromDate,toDate,studyTitle) `method`
