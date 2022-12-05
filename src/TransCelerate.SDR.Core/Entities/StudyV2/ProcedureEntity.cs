@@ -9,5 +9,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
         public string Id { get; set; }
         public List<CodeEntity> ProcedureCode { get; set; }
         public string ProcedureType { get; set; }
+        public bool ProcedureIsOptional { get; set; }
     }
 }

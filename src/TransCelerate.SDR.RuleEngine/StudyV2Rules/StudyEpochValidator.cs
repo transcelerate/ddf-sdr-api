@@ -34,7 +34,7 @@ namespace TransCelerate.SDR.RuleEngineV2
                 .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
             RuleFor(x => x.Encounters)
-               .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+               .Must(x => UniquenessArrayValidator.ValidateStringList(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
             RuleFor(x => x.NextStudyEpochId)
                .Cascade(CascadeMode.Stop)

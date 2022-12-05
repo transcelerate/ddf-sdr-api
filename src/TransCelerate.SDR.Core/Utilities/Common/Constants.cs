@@ -106,6 +106,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string RootElementMissing = "Root Element is missing";
 
             public const string InValidDays = "Invalid Date Range";
+
+            public const string BooleanValidationFailed = "Value must be true/false";
         }
 
         public struct ErrorMessages
@@ -201,6 +203,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(StudyDesignDto.StudyCells),
             nameof(StudyDesignDto.StudyWorkflows),
             nameof(StudyDesignDto.StudyEstimands),
+            nameof(StudyDesignDto.Activities),
+            nameof(StudyDesignDto.Encounters)
         };
 
         public struct FunctionAppConstants

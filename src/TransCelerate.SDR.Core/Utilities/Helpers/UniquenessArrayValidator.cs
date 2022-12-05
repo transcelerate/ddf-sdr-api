@@ -25,5 +25,15 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             }
             return true;
         }
+
+        public static bool ValidateStringList(List<string> arrayElement)
+        {
+            if (arrayElement is not null && arrayElement.Any())
+            {
+                arrayElement.RemoveAll(x => String.IsNullOrWhiteSpace(x));
+                return arrayElement.Select(x => x).ToList().Distinct().Count() == arrayElement.Select(x => x).Count();
+            }
+            return true;
+        }
     }
 }
