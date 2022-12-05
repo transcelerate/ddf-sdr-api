@@ -188,6 +188,12 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsTrue(Validator<TransitionRuleDto>(new TransitionRuleValidator(), studyDto.ClinicalStudy.StudyDesigns[0].Encounters[0].TransitionStartRule));
             Assert.IsTrue(Validator<WorkflowDto>(new WorkflowValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0]));
             Assert.IsTrue(Validator<WorkflowItemDto>(new WorkflowItemValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0]));
+            Assert.IsTrue(Validator<ActivityDto>(new ActivityValidator(), studyDto.ClinicalStudy.StudyDesigns[0].Activities[0]));
+            studyDto.ClinicalStudy.StudyDesigns[0].Activities[0].ActivityIsOptional = true;
+            studyDto.ClinicalStudy.StudyDesigns[0].Activities[1].ActivityIsOptional = "entity";
+            studyDto.ClinicalStudy.StudyDesigns[0].Activities[0].DefinedProcedures[0].ProcedureIsOptional= true;
+            studyDto.ClinicalStudy.StudyDesigns[0].Activities[1].DefinedProcedures[0].ProcedureIsOptional = "12";
+            Assert.IsFalse(Validator<ActivityDto>(new ActivityValidator(), studyDto.ClinicalStudy.StudyDesigns[0].Activities[1]));
         }
 
         public bool Validator<T>(AbstractValidator<T> validator,T value)
@@ -220,6 +226,7 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsFalse(UniquenessArrayValidator.ValidateArrayV2(studyDto.ClinicalStudy.StudyIdentifiers));
             studyDto.ClinicalStudy.StudyIdentifiers = null;
             Assert.IsTrue(UniquenessArrayValidator.ValidateArrayV2(studyDto.ClinicalStudy.StudyIdentifiers));
+            Assert.IsTrue(UniquenessArrayValidator.ValidateStringList(new List<string>()));
         }
         #endregion
 

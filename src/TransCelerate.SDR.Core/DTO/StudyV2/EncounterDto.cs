@@ -6,7 +6,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
     {
         [Newtonsoft.Json.JsonProperty(Utilities.Common.IdFieldPropertyName.StudyV2.EncounterId)]
         public string Id { get; set; }
-        public List<CodeDto> EncounterContactMode { get; set; }
+        public List<CodeDto> EncounterContactModes { get; set; }
         public string EncounterDescription { get; set; }
         public List<CodeDto> EncounterEnvironmentalSetting { get; set; }
         public string EncounterName { get; set; }

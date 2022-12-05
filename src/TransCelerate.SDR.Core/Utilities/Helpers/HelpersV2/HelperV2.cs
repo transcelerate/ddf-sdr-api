@@ -502,9 +502,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                 encounters.ForEach(y =>
                 {
                     y.Id = null;
-                    if (y.EncounterContactMode is not null && y.EncounterContactMode.Any())
+                    if (y.EncounterContactModes is not null && y.EncounterContactModes.Any())
                     {
-                        y.EncounterContactMode.ForEach(procedure => procedure.Id = null);
+                        y.EncounterContactModes.ForEach(procedure => procedure.Id = null);
                     }
                     if (y.EncounterEnvironmentalSetting is not null && y.EncounterEnvironmentalSetting.Any())
                     {

@@ -339,7 +339,7 @@
         "encounters": [
           {
             "encounterId": "EN001",
-            "encounterContactMode": [
+            "encounterContactModes": [
               {
                 "codeId": "d3b65049-39fe-4dc3-a180-b16304f07ef9",
                 "code": "C1755745",
@@ -427,9 +427,11 @@
             "activityId": "ACT01",
             "activityDescription": "Activity_1",
             "activityName": "Informed Consent",
+            "activityIsOptional": true,
             "definedProcedures": [
               {
                 "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                "procedureIsOptional": true,
                 "procedureCode": [
                   {
                     "codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
@@ -457,9 +459,11 @@
             "activityId": "ACT02",
             "activityDescription": "Activity_1",
             "activityName": "Eligibility Criteria",
+            "activityIsOptional":false,
             "definedProcedures": [
               {
                 "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                "procedureIsOptional":false,
                 "procedureCode": [
                   {
                     "codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
@@ -485,11 +489,11 @@
           },
           {
             "activityId": "ACT03",
-            "activityDescription": "Activity_1",
+            "activityDescription": "Activity_1",           
             "activityName": "Demography",
             "definedProcedures": [
               {
-                "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",               
                 "procedureCode": [
                   {
                     "codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",

@@ -142,7 +142,7 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
             currentVersion.ClinicalStudy.StudyDesigns[0].Activities[0].DefinedProcedures[1].Id = "4";
             currentVersion.ClinicalStudy.StudyDesigns[0].Activities[0].StudyDataCollection[0].StudyDataName = "study2";
             currentVersion.ClinicalStudy.StudyDesigns[0].Activities[0].ActivityName = "A2";
-            currentVersion.ClinicalStudy.StudyDesigns[0].Encounters[0].EncounterContactMode[0].Code = "C126876";
+            currentVersion.ClinicalStudy.StudyDesigns[0].Encounters[0].EncounterContactModes[0].Code = "C126876";
             currentVersion.ClinicalStudy.StudyDesigns[0].Encounters[0].EncounterEnvironmentalSetting[0].Decode = "clinic2";
             currentVersion.ClinicalStudy.StudyDesigns[0].Encounters[0].EncounterName = "Encounter 3";
             currentVersion.ClinicalStudy.StudyDesigns[0].Encounters[0].TransitionEndRule.Id = "3";
