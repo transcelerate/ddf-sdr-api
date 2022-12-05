@@ -899,8 +899,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
             {
                 tempList.Add($"{nameof(StudyDesignEntity.StudyCells)}.{x}");
             });
-            tempList.RemoveAll(x => x.Contains($"{nameof(StudyCellEntity.StudyElements)}"));
-            tempList.RemoveAll(x => x.Contains($"{nameof(StudyEpochEntity.Encounters)}"));
+            tempList.RemoveAll(x => x.Contains($"{nameof(StudyCellEntity.StudyElements)}"));            
             currentStudyDesign.StudyCells?.ForEach(currentStudyCell =>
             {
                 if (previousStudyDesign.StudyCells != null && previousStudyDesign.StudyCells.Any(x => x.Id == currentStudyCell.Id))
@@ -1009,7 +1008,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                                     cell.StudyEpoch.Encounters.ForEach(encounterId =>
                                     {
                                         List<string> encounterIds = design.Encounters is null ? new List<string>() : design.Encounters.Select(x => x.Id).ToList();
-                                        if (!String.IsNullOrWhiteSpace(cell.StudyEpoch.NextStudyEpochId) && !encounterIds.Contains(cell.StudyEpoch.NextStudyEpochId))
+                                        if (!String.IsNullOrWhiteSpace(encounterId) && !encounterIds.Contains(encounterId))
                                             errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
                                                        $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
                                                        $"{nameof(StudyDesignDto.StudyCells)}[{design.StudyCells.IndexOf(cell)}].{nameof(StudyCellDto.StudyEpoch)}." +
@@ -1102,7 +1101,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                         design.Encounters.ForEach(enc =>
                         {
                             List<string> tempencounterIds = encounterIds.ToList();
-                            encounterIds.RemoveAll(x => x == enc.Id);
+                            tempencounterIds.RemoveAll(x => x == enc.Id);
                             if (!String.IsNullOrWhiteSpace(enc.PreviousEncounterId) && !encounterIds.Contains(enc.PreviousEncounterId))
                                 errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
                                     $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
