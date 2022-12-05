@@ -11,6 +11,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
         public string StudyEpochDescription { get; set; }
         public string StudyEpochName { get; set; }
         public List<CodeDto> StudyEpochType { get; set; }
-        public List<EncounterDto> Encounters { get; set; }
+        public List<string> Encounters { get; set; }
     }
 }

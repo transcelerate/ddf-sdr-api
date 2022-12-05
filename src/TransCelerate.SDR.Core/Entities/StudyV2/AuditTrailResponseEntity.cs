@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
     public class AuditTrailResponseEntity
     {
         public CodeEntity StudyType { get; set; }
+        public string UsdmVersion { get; set; }
         public int SDRUploadVersion { get; set; }
         public DateTime EntryDateTime { get; set; }
     }

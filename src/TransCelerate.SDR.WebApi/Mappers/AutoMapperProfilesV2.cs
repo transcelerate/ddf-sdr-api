@@ -42,30 +42,6 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<WorkflowDto, WorkflowEntity>().ReverseMap();
             CreateMap<WorkflowItemDto, WorkFlowItemEntity>().ReverseMap();
 
-            //Mapper for Search method request body
-            CreateMap<SearchParametersDto, SearchParameters>();
-            CreateMap<SearchTitleParametersDto, SearchTitleParameters>();
-
-
-            //Mapper for Search Response
-            CreateMap<StudyDto, SearchResponseEntity>()
-                .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.ClinicalStudy.StudyId))
-                .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.ClinicalStudy.StudyTitle))
-                .ForMember(dest => dest.StudyIdentifiers, opt => opt.MapFrom(src => src.ClinicalStudy.StudyIdentifiers))                
-                .ForMember(dest => dest.StudyType, opt => opt.MapFrom(src => src.ClinicalStudy.StudyType))
-                .ForMember(dest => dest.StudyPhase, opt => opt.MapFrom(src => src.ClinicalStudy.StudyPhase))
-                .ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.AuditTrail.EntryDateTime))
-                .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))
-                .ReverseMap();
-
-            //Mapper for Search Title
-            CreateMap<SearchTitleResponseDto, SearchResponseEntity>()
-               .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.ClinicalStudy.StudyId))
-               .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.ClinicalStudy.StudyTitle))
-               .ForMember(dest => dest.StudyIdentifiers, opt => opt.MapFrom(src => src.ClinicalStudy.StudyIdentifiers))               
-               .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))
-               .ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.AuditTrail.EntryDateTime)).ReverseMap();
-
             //Mapper for Study History
             CreateMap<StudyHistoryResponseEntity, UploadVersionDto>()
                  .ForMember(dest => dest.UploadVersion, opt => opt.MapFrom(src => src.SDRUploadVersion))

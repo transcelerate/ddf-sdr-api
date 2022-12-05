@@ -189,6 +189,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                   {
                                                       StudyType = x.ClinicalStudy.StudyType,
                                                       EntryDateTime = x.AuditTrail.EntryDateTime,
+                                                      UsdmVersion= x.AuditTrail.UsdmVersion,
                                                       SDRUploadVersion = x.AuditTrail.SDRUploadVersion
                                                   })
                                                   .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime

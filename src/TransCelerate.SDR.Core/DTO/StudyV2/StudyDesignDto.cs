@@ -20,5 +20,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
         public List<StudyCellDto> StudyCells { get; set; }
         public List<WorkflowDto> StudyWorkflows { get; set; }
         public List<EstimandDto> StudyEstimands { get; set; }
+        public List<ActivityDto> Activities { get; set; }
+        public List<EncounterDto> Encounters { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.DTO.StudyV2
 {
@@ -12,5 +13,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
         public string NextActivityId { get; set; }
         public string PreviousActivityId { get; set; }
         public List<StudyDataDto> StudyDataCollection { get; set; }
+        public object ActivityIsOptional { get; set; }
     }
 }

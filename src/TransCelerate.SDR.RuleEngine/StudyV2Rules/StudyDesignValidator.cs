@@ -53,6 +53,12 @@ namespace TransCelerate.SDR.RuleEngineV2
             RuleFor(x => x.TherapeuticAreas)
                 .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
+            RuleFor(x => x.Activities)
+                .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleFor(x => x.Encounters)
+                .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
             RuleFor(x => x.StudyDesignName)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
