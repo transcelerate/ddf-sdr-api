@@ -1008,7 +1008,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                                 {
                                     cell.StudyEpoch.Encounters.ForEach(encounterId =>
                                     {
-                                        List<string> encounterIds = design.Encounters?.Select(x => x.Id).ToList();
+                                        List<string> encounterIds = design.Encounters is null ? new List<string>() : design.Encounters.Select(x => x.Id).ToList();
                                         if (!String.IsNullOrWhiteSpace(cell.StudyEpoch.NextStudyEpochId) && !encounterIds.Contains(cell.StudyEpoch.NextStudyEpochId))
                                             errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
                                                        $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
@@ -1050,8 +1050,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                                             $"{nameof(WorkflowDto.WorkflowItems)}[{workflow.WorkflowItems.IndexOf(workflowItem)}]." +
                                             $"{nameof(WorkflowItemDto.NextWorkflowItemId)}");
 
-                                    List<string> encounterIds = design.Encounters?.Select(x => x.Id).ToList();
-                                    List<string> activityIds = design.Activities?.Select(x => x.Id).ToList();
+                                    List<string> encounterIds = design.Encounters is null ? new List<string>() : design.Encounters.Select(x => x.Id).ToList();
+                                    List<string> activityIds = design.Activities is null ? new List<string>() : design.Activities.Select(x => x.Id).ToList();
 
                                     if (!String.IsNullOrWhiteSpace(workflowItem.WorkflowItemActivityId) && !activityIds.Contains(workflowItem.WorkflowItemActivityId))
                                         errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
@@ -1122,8 +1122,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                     {
                         design.StudyEstimands.ForEach(estimand =>
                         {
-                            List<string> investigationalInterventionIds = design.StudyInvestigationalInterventions?.Select(x => x.Id).ToList();
-                            List<string> endpointIds = design.StudyObjectives?.Select(x => x?.ObjectiveEndpoints).Where(y => y != null).SelectMany(x => x.Select(y => y.Id)).ToList();
+                            List<string> investigationalInterventionIds = design.StudyInvestigationalInterventions is null ? new List<string>() : design.StudyInvestigationalInterventions.Select(x => x.Id).ToList();
+                            List<string> endpointIds = design.StudyObjectives is null ? new List<string>() : design.StudyObjectives.Select(x => x?.ObjectiveEndpoints).Where(y => y != null).SelectMany(x => x.Select(y => y.Id)).ToList();
 
                             if (!String.IsNullOrWhiteSpace(estimand.Treatment) && !investigationalInterventionIds.Contains(estimand.Treatment))
                                 errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
