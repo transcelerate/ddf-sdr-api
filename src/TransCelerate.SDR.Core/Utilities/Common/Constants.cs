@@ -107,7 +107,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string InValidDays = "Invalid Date Range";
 
-            public const string BooleanValidationFailed = "Type must be boolean (true/false)";
+            public const string BooleanValidationFailed = "Field is not boolean";
         }
 
         public struct ErrorMessages
