@@ -254,6 +254,31 @@ namespace TransCelerate.SDR.UnitTesting
             studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[1].StudyEpoch.NextStudyEpochId = "888";
             studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[1].StudyEpoch.PreviousStudyEpochId = "998";
 
+            studyDto.ClinicalStudy.StudyDesigns[0].Activities.Add(JsonConvert.DeserializeObject<ActivityDto>(JsonConvert.SerializeObject(studyDto.ClinicalStudy.StudyDesigns[0].Activities[0])));
+            studyDto.ClinicalStudy.StudyDesigns[0].Activities[0].Id = "123";
+            studyDto.ClinicalStudy.StudyDesigns[0].Activities[0].NextActivityId = "124";
+            studyDto.ClinicalStudy.StudyDesigns[0].Activities[0].PreviousActivityId = "127";
+
+            studyDto.ClinicalStudy.StudyDesigns[0].Activities[1].Id = "124";
+            studyDto.ClinicalStudy.StudyDesigns[0].Activities[1].NextActivityId = "234";
+            studyDto.ClinicalStudy.StudyDesigns[0].Activities[1].PreviousActivityId = "123";
+
+            studyDto.ClinicalStudy.StudyDesigns[0].Encounters.Add(JsonConvert.DeserializeObject<EncounterDto>(JsonConvert.SerializeObject(studyDto.ClinicalStudy.StudyDesigns[0].Encounters[0])));
+            studyDto.ClinicalStudy.StudyDesigns[0].Encounters[0].Id = "123";
+            studyDto.ClinicalStudy.StudyDesigns[0].Encounters[0].NextEncounterId = "124";
+            studyDto.ClinicalStudy.StudyDesigns[0].Encounters[0].PreviousEncounterId = "127";
+
+            studyDto.ClinicalStudy.StudyDesigns[0].Encounters[1].Id = "124";
+            studyDto.ClinicalStudy.StudyDesigns[0].Encounters[1].NextEncounterId = "234";
+            studyDto.ClinicalStudy.StudyDesigns[0].Encounters[1].PreviousEncounterId = "123";
+
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyEstimands.Add(JsonConvert.DeserializeObject<EstimandDto>(JsonConvert.SerializeObject(studyDto.ClinicalStudy.StudyDesigns[0].StudyEstimands[0])));
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyEstimands[0].Id = "123";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyEstimands[0].Treatment = "124";
+
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyEstimands[0].Id = "124";
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyEstimands[0].Treatment = "124";
+
             HelperV2 helper = new HelperV2();
             var result = helper.ReferenceIntegrityValidation(studyDto, out object referenceErrors);
             Assert.IsTrue(result);
