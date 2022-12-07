@@ -1083,13 +1083,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                                 errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
                                     $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
                                     $"{nameof(StudyDesignDto.Activities)}[{design.Activities.IndexOf(act)}]." +
-                                    $"{nameof(StudyDesignDto.Activities)}.{nameof(ActivityDto.PreviousActivityId)}");
+                                    $"{nameof(ActivityDto.PreviousActivityId)}");
 
                             if (!String.IsNullOrWhiteSpace(act.NextActivityId) && !tempActIDs.Contains(act.NextActivityId))
                                 errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
                                   $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
                                   $"{nameof(StudyDesignDto.Activities)}[{design.Activities.IndexOf(act)}]." +
-                                  $"{nameof(StudyDesignDto.Activities)}.{nameof(ActivityDto.NextActivityId)}");
+                                  $"{nameof(ActivityDto.NextActivityId)}");
                         });
                     }
 
@@ -1106,13 +1106,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                                 errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
                                     $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
                                     $"{nameof(StudyDesignDto.Encounters)}[{design.Encounters.IndexOf(enc)}]." +
-                                    $"{nameof(StudyDesignDto.Encounters)}.{nameof(EncounterDto.PreviousEncounterId)}");
+                                    $"{nameof(EncounterDto.PreviousEncounterId)}");
 
                             if (!String.IsNullOrWhiteSpace(enc.NextEncounterId) && !encounterIds.Contains(enc.NextEncounterId))
                                 errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
                                   $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
                                   $"{nameof(StudyDesignDto.Encounters)}[{design.Encounters.IndexOf(enc)}]." +
-                                  $"{nameof(StudyDesignDto.Encounters)}.{nameof(EncounterDto.NextEncounterId)}");
+                                  $"{nameof(EncounterDto.NextEncounterId)}");
                         });
                     }
 
@@ -1127,13 +1127,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                             if (!String.IsNullOrWhiteSpace(estimand.Treatment) && !investigationalInterventionIds.Contains(estimand.Treatment))
                                 errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
                                     $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                    $"{nameof(StudyDesignDto.StudyWorkflows)}[{design.StudyEstimands.IndexOf(estimand)}]." +
+                                    $"{nameof(StudyDesignDto.StudyEstimands)}[{design.StudyEstimands.IndexOf(estimand)}]." +
                                     $"{nameof(EstimandDto.Treatment)}");
 
                             if (!String.IsNullOrWhiteSpace(estimand.VariableOfInterest) && !endpointIds.Contains(estimand.VariableOfInterest))
                                 errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
                                     $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                    $"{nameof(StudyDesignDto.StudyWorkflows)}[{design.StudyEstimands.IndexOf(estimand)}]." +
+                                    $"{nameof(StudyDesignDto.StudyEstimands)}[{design.StudyEstimands.IndexOf(estimand)}]." +
                                     $"{nameof(EstimandDto.VariableOfInterest)}");
                         });
                     }
