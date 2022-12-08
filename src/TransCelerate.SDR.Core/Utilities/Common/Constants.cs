@@ -69,6 +69,11 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string V1 = "1.0";
             public const string V2 = "2.0";
         }
+
+        public struct DbFilter
+        {
+            public const string StudyId = "clinicalStudy.studyId";
+        }
         public struct ValidationErrorMessage
         {
             public const string ConformanceError = "Field is missing or empty";

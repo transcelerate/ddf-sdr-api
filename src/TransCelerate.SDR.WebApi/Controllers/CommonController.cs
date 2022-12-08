@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Schema;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
+using System.Net;
 using System.Threading.Tasks;
+using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
-using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
+using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.Services.Interfaces;
-using TransCelerate.SDR.Services.Services;
 
 namespace TransCelerate.SDR.WebApi.Controllers
 {
@@ -47,14 +47,46 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [Produces("application/json")]
         public async Task<IActionResult> GetRawJson(string studyId,int sdruploadversion)
         {
-            
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(CommonController)}; Method : {nameof(GetRawJson)};");
+                if (!String.IsNullOrWhiteSpace(studyId))
+                {
+                    _logger.LogInformation($"Inputs : studyId = {studyId}; sdruploadversion = {sdruploadversion};");
 
-            return Ok(studyId);
+                    LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
+
+                    var study = await _commonService.GetRawJson(studyId, sdruploadversion,user);
+
+                    if (study == null)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
+                    }
+                    else if (study.ToString() == Constants.ErrorMessages.Forbidden)
+                    {
+                        return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
+                    }
+                    else
+                    {
+                        return Ok(study);
+                    }
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(CommonController)}; Method : {nameof(GetRawJson)};");
+            }
         }
         #endregion
         #endregion
-
-
-
     }
 }

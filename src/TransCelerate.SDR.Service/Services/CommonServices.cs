@@ -1,15 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Token;
-using TransCelerate.SDR.Core.Entities.StudyV2;
 using TransCelerate.SDR.Core.Utilities;
-using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
+using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.DataAccess.Interfaces;
-using TransCelerate.SDR.DataAccess.Repositories;
 using TransCelerate.SDR.Services.Interfaces;
 
 namespace TransCelerate.SDR.Services.Services
@@ -17,15 +13,26 @@ namespace TransCelerate.SDR.Services.Services
     public  class CommonServices:ICommonService
     {
         #region Variable
-        private readonly IClinicalStudyRepositoryV2 _clinicalStudyRepository;
+        private readonly ICommonRepository _commonRepository;
         private readonly ILogHelper _logger;
+        private readonly IMapper _mapper;
+        private readonly IClinicalStudyService _clinicalStudyServiceMVP;
+        private readonly IClinicalStudyServiceV1 _clinicalStudyServiceV1;
+        private readonly IClinicalStudyServiceV2 _clinicalStudyServiceV2;
         #endregion
 
         #region Constructor
-        public CommonServices(IClinicalStudyRepositoryV2 clinicalStudyRepository, ILogHelper logger)
+        public CommonServices(ICommonRepository commonRepository, ILogHelper logger, IMapper mapper, 
+            IClinicalStudyService clinicalStudyServiceMVP, 
+            IClinicalStudyServiceV1 clinicalStudyServiceV1, 
+            IClinicalStudyServiceV2 clinicalStudyServiceV2)
         {
-            _clinicalStudyRepository = clinicalStudyRepository;
+            _commonRepository = commonRepository;
             _logger = logger;
+            _mapper = mapper;
+            _clinicalStudyServiceMVP = clinicalStudyServiceMVP;
+            _clinicalStudyServiceV1 = clinicalStudyServiceV1;
+            _clinicalStudyServiceV2 = clinicalStudyServiceV2;
         }
         #endregion
 
@@ -35,17 +42,65 @@ namespace TransCelerate.SDR.Services.Services
         /// </summary>
         /// <param name="studyId">Study ID</param>
         /// <param name="sdruploadversion">Version of study</param>
+        /// <param name="user">Logged in user</param>
         /// <returns>
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<object> GetRawJson(string studyId, int sdruploadversion)
+        public async Task<object> GetRawJson(string studyId, int sdruploadversion, LoggedInUser user)
         {
-            StudyEntity study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: studyId, sdruploadversion: sdruploadversion).ConfigureAwait(false);
-            return "success";
+            try
+            {
+                _logger.LogInformation($"Started Service : {nameof(CommonServices)}; Method : {nameof(GetRawJson)};");
+                studyId = studyId.Trim();
+
+                var study = await _commonRepository.GetStudyItemsAsync(studyId: studyId, sdruploadversion: sdruploadversion).ConfigureAwait(false);
+
+                if (study == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    if(study.AuditTrail.UsdmVersion == Constants.USDMVersions.MVP)
+                    {
+                        var studyMVP = JsonConvert.DeserializeObject<Core.Entities.Study.StudyEntity>(JsonConvert.SerializeObject(study));
+                        var checkStudy = await _clinicalStudyServiceMVP.CheckAccessForAStudy(studyMVP, user);
+                        if (checkStudy == null)
+                            return _mapper.Map<Core.DTO.Study.GetStudyDTO>(checkStudy);
+                    }
+                    else if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.V1)
+                    {
+                        var studyV1 = JsonConvert.DeserializeObject<Core.Entities.StudyV1.StudyEntity>(JsonConvert.SerializeObject(study));
+                        var checkStudy = await _clinicalStudyServiceV1.CheckAccessForAStudy(studyV1, user);
+                        if (checkStudy == null)
+                            return Constants.ErrorMessages.Forbidden;
+                        else
+                            return _mapper.Map<Core.DTO.StudyV1.StudyDto>(checkStudy);
+                    }
+                    else if(study.AuditTrail.UsdmVersion == Constants.USDMVersions.V2)
+                    {
+                        var studyV2 = JsonConvert.DeserializeObject<Core.Entities.StudyV2.StudyEntity>(JsonConvert.SerializeObject(study));
+                        var checkStudy = await _clinicalStudyServiceV2.CheckAccessForAStudy(studyV2, user);
+                        if (checkStudy == null)
+                            return _mapper.Map<Core.DTO.StudyV2.StudyDto>(checkStudy);                        
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                    return study;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Service : {nameof(CommonServices)}; Method : {nameof(GetRawJson)};");
+            }
         }
         #endregion
-
-
     }
 }

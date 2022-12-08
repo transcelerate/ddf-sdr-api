@@ -34,6 +34,10 @@
   - [GetStudyItemsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV2-GetStudyItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV2.GetStudyItemsAsync(System.String,System.Int32)')
   - [PostStudyItemsAsync(study)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV2-PostStudyItemsAsync-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV2.PostStudyItemsAsync(TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity)')
   - [UpdateStudyItemsAsync(study)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV2-UpdateStudyItemsAsync-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV2.UpdateStudyItemsAsync(TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity)')
+- [CommonRepository](#T-TransCelerate-SDR-DataAccess-Repositories-CommonRepository 'TransCelerate.SDR.DataAccess.Repositories.CommonRepository')
+  - [GetStudyItemsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-GetStudyItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Repositories.CommonRepository.GetStudyItemsAsync(System.String,System.Int32)')
+- [DataFilterCommon](#T-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon')
+  - [GetFiltersForGetStudy(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForGetStudy-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetFiltersForGetStudy(System.String,System.Int32)')
 - [DataFiltersV1](#T-TransCelerate-SDR-DataAccess-Filters-DataFiltersV1 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV1')
   - [GetFiltersForGetAudTrail(studyId,fromDate,toDate)](#M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV1-GetFiltersForGetAudTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV1.GetFiltersForGetAudTrail(System.String,System.DateTime,System.DateTime)')
   - [GetFiltersForGetStudy(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV1-GetFiltersForGetStudy-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV1.GetFiltersForGetStudy(System.String,System.Int32)')
@@ -622,6 +626,56 @@ A studyId which was inserted
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | study | [TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity') | Update study in database |
+
+<a name='T-TransCelerate-SDR-DataAccess-Repositories-CommonRepository'></a>
+## CommonRepository `type`
+
+##### Namespace
+
+TransCelerate.SDR.DataAccess.Repositories
+
+<a name='M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-GetStudyItemsAsync-System-String,System-Int32-'></a>
+### GetStudyItemsAsync(studyId,sdruploadversion) `method`
+
+##### Summary
+
+GET a Study for a study ID with version filter
+
+##### Returns
+
+`null` If no study is matching with studyId
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
+| sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
+
+<a name='T-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon'></a>
+## DataFilterCommon `type`
+
+##### Namespace
+
+TransCelerate.SDR.DataAccess.Filters
+
+<a name='M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForGetStudy-System-String,System-Int32-'></a>
+### GetFiltersForGetStudy(studyId,sdruploadversion) `method`
+
+##### Summary
+
+Get filters for GET StudyDefinitons API
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
 
 <a name='T-TransCelerate-SDR-DataAccess-Filters-DataFiltersV1'></a>
 ## DataFiltersV1 `type`

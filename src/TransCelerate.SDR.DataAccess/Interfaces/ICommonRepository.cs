@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TransCelerate.SDR.Core.Entities.Common;
 
 namespace TransCelerate.SDR.DataAccess.Interfaces
 {
-    internal class ICommonRepository
+    public interface ICommonRepository
     {
+        Task<GetRawJsonEntity> GetStudyItemsAsync(string studyId, int sdruploadversion);
     }
 }
