@@ -92,5 +92,9 @@
         #region ChangeAudit
         public const string ChangeAudit = "v2/changeaudit/{study_uuid}";
         #endregion
+
+        #region Common Routes
+        public const string GetRawJson = "study/raw/{studyId}";
+        #endregion
     }
 }
