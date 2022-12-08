@@ -94,7 +94,7 @@
         #endregion
 
         #region Common Routes
-        public const string GetRawJson = "study/raw/{studyId}";
+        public const string GetRawJson = "studydefinitions/{studyId}/rawdata";
         #endregion
     }
 }

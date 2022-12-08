@@ -1,11 +1,18 @@
-﻿using MongoDB.Bson.Serialization.Conventions;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.IO;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities.Common;
+using TransCelerate.SDR.Core.Entities.UserGroups;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.DataAccess.Filters;
@@ -57,6 +64,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                      .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
                                                      .Limit(1)                  //Taking top 1 result
                                                      .SingleOrDefaultAsync().ConfigureAwait(false);
+
+                
                 if (study == null)
                 {
                     _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.StudyDefinitions} Collection");
@@ -76,6 +85,29 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(GetStudyItemsAsync)};");
             }
         }
+
+        #region UserGroup Mapping
+
+        public async Task<List<SDRGroupsEntity>> GetGroupsOfUser(LoggedInUser user)
+        {
+            try
+            {
+                var groupsCollection = _database.GetCollection<UserGroupMappingEntity>(Constants.Collections.SDRGrouping);
+
+                return await groupsCollection.Find(_ => true)
+                                                 .Project(x => x.SDRGroups
+                                                               .Where(x => x.groupEnabled == true)
+                                                               .Where(x => x.users != null)
+                                                               .Where(x => x.users.Any(x => (x.email == user.UserName && x.isActive == true)))
+                                                               .ToList())
+                                                 .FirstOrDefaultAsync().ConfigureAwait(false);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        #endregion
         #endregion
         #endregion
     }
