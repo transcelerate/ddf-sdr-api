@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using TransCelerate.SDR.Core.DTO.Common;
 using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.Core.Utilities;
@@ -68,7 +70,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     }
                     else
                     {
-                        return Ok(study);
+                        return Ok(new GetRawJsonDto() { StudyDefinitions = JsonConvert.SerializeObject(study)});
                     }
                 }
                 else

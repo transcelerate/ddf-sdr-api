@@ -19,15 +19,13 @@ namespace TransCelerate.SDR.Services.Services
         #region Variable
         private readonly ICommonRepository _commonRepository;
         private readonly ILogHelper _logger;
-        private readonly IMapper _mapper;
         #endregion
 
         #region Constructor
-        public CommonServices(ICommonRepository commonRepository, ILogHelper logger, IMapper mapper)
+        public CommonServices(ICommonRepository commonRepository, ILogHelper logger)
         {
             _commonRepository = commonRepository;
             _logger = logger;
-            _mapper = mapper;
         }
         #endregion
 
@@ -88,7 +86,7 @@ namespace TransCelerate.SDR.Services.Services
             }
         }
 
-        public async Task<bool> CheckAccessForAStudy(string studyId, string studyTye, LoggedInUser user)
+        public async Task<bool> CheckAccessForAStudy(string studyId, string studyType, LoggedInUser user)
         {
             try
             {
@@ -105,7 +103,7 @@ namespace TransCelerate.SDR.Services.Services
                             return true;
                         else if (groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
                             return true;
-                        else if (groupFilters.Item1.Contains(studyTye))
+                        else if (groupFilters.Item1.Contains(studyType.ToLower()))
                             return true;
                         else
                             return false;

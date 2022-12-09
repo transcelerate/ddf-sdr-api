@@ -4,7 +4,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV1
 {
     public class ClinicalStudyEntity : IUuid
     {
-        [Newtonsoft.Json.JsonProperty("studyId")]
         public string Uuid { get; set; }
         public string StudyTitle { get; set; }        
         public CodeEntity StudyType { get; set; }

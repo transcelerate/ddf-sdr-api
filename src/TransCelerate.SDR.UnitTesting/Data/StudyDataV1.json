@@ -410,11 +410,9 @@
     "studyVersion": "1"
   },
   "auditTrail": {
-
     "entryDateTime": "2022-10-11T09:41:27.529764Z",
-
-    "SDRUploadVersion": 2
-
+    "SDRUploadVersion": 2,
+    "usdmVersion": "1.0"
   }
 
 }
