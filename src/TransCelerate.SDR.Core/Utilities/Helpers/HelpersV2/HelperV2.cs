@@ -1102,13 +1102,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                         {
                             List<string> tempencounterIds = encounterIds.ToList();
                             tempencounterIds.RemoveAll(x => x == enc.Id);
-                            if (!String.IsNullOrWhiteSpace(enc.PreviousEncounterId) && !encounterIds.Contains(enc.PreviousEncounterId))
+                            if (!String.IsNullOrWhiteSpace(enc.PreviousEncounterId) && !tempencounterIds.Contains(enc.PreviousEncounterId))
                                 errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
                                     $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
                                     $"{nameof(StudyDesignDto.Encounters)}[{design.Encounters.IndexOf(enc)}]." +
                                     $"{nameof(EncounterDto.PreviousEncounterId)}");
 
-                            if (!String.IsNullOrWhiteSpace(enc.NextEncounterId) && !encounterIds.Contains(enc.NextEncounterId))
+                            if (!String.IsNullOrWhiteSpace(enc.NextEncounterId) && !tempencounterIds.Contains(enc.NextEncounterId))
                                 errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
                                   $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
                                   $"{nameof(StudyDesignDto.Encounters)}[{design.Encounters.IndexOf(enc)}]." +

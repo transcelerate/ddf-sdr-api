@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.StudyV2;
 using TransCelerate.SDR.Core.DTO.Token;
+using TransCelerate.SDR.Core.Entities.StudyV2;
 
 namespace TransCelerate.SDR.Services.Interfaces
 {
@@ -115,6 +116,16 @@ namespace TransCelerate.SDR.Services.Interfaces
         #endregion
 
         #region Check Access For A study
+        /// <summary>
+        /// Check access for the study
+        /// </summary>
+        /// <param name="study">Study for which user access have to be checked</param>   
+        /// <param name="user">Logged In User</param>
+        /// <returns>
+        /// A <see cref="StudyEntity"/> if the user have access <br></br> <br></br>
+        /// <see langword="null"/> If user doesn't have access to the study
+        /// </returns>
+        Task<StudyEntity> CheckAccessForAStudy(StudyEntity study, LoggedInUser user);
         /// <summary>
         /// Check Access for a study
         /// </summary>
