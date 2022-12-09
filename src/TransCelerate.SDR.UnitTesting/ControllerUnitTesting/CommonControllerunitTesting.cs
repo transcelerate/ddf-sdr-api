@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Mvc;
 using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.Core.Entities.Common;
 using TransCelerate.SDR.Core.DTO.Common;
+using Newtonsoft.Json.Serialization;
 
 namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 {
@@ -55,7 +56,13 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             //Expected
             var expected = new GetRawJsonDto()
             {
-                StudyDefinitions = JsonConvert.SerializeObject(data)
+                StudyDefinitions = JsonConvert.SerializeObject(data,new JsonSerializerSettings
+                            {
+                    ContractResolver = new DefaultContractResolver()
+                    {
+                        NamingStrategy = new CamelCaseNamingStrategy()
+                    }
+                })
             };
 
             //Actual            
