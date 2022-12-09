@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Net;
@@ -15,6 +17,7 @@ using TransCelerate.SDR.Services.Interfaces;
 
 namespace TransCelerate.SDR.WebApi.Controllers
 {
+    [Authorize]
     [ApiController]
     public class CommonController : ControllerBase
     {
@@ -70,7 +73,16 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     }
                     else
                     {
-                        return Ok(new GetRawJsonDto() { StudyDefinitions = JsonConvert.SerializeObject(study)});
+                        return Ok(new GetRawJsonDto() 
+                        { 
+                            StudyDefinitions = JsonConvert.SerializeObject(study, new JsonSerializerSettings
+                            {
+                                ContractResolver = new DefaultContractResolver()
+                                {
+                                    NamingStrategy = new CamelCaseNamingStrategy()
+                                }
+                            })
+                        });
                     }
                 }
                 else

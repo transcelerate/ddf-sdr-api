@@ -16,6 +16,7 @@ using TransCelerate.SDR.Core.Utilities.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
+using Newtonsoft.Json;
 
 namespace TransCelerate.SDR.WebApi.Controllers
 {
@@ -313,7 +314,12 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 {                    
                     bool isInValidReferenceIntegrity = _helper.ReferenceIntegrityValidation(studyDTO, out var errors);
                     if (isInValidReferenceIntegrity)
+                    {
+                        var errorList = SplitStringIntoArrayHelper.SplitString(JsonConvert.SerializeObject(errors), 32000);//since app insights limit is 32768 characters   
+                        errorList.ForEach(e => _logger.LogError($"{Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse} {errorList.IndexOf(e) + 1}: {e}"));
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(errors, Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse)).Value);
+                    }
+                        
 
                     LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
 
