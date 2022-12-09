@@ -436,6 +436,7 @@
   "auditTrail": {
     "entryDateTime": "2022-FEB-25",
     "entrySystem": "Test System",
-    "studyVersion": 2
+    "studyVersion": 2,
+    "usdmVersion": "0.1"
   }
 }
