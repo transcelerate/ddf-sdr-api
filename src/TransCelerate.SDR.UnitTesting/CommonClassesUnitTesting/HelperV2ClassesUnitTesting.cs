@@ -163,7 +163,7 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsTrue(Validator<ActivityDto>(new ActivityValidator(), studyDto.ClinicalStudy.StudyDesigns[0].Activities[0]));
             Assert.IsTrue(Validator<AnalysisPopulationDto>(new AnalysisPopulationValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyEstimands[0].AnalysisPopulation));
             Assert.IsTrue(Validator<ClinicalStudyDto>(new ClinicalStudyValidator(httpContextAccessor), studyDto.ClinicalStudy));
-            Assert.IsTrue(Validator<CodeDto>(new CodeValidator(), studyDto.ClinicalStudy.StudyPhase));
+            Assert.IsTrue(Validator<AliasCodeDto>(new AliasCodeValidator(), studyDto.ClinicalStudy.StudyPhase));
             Assert.IsTrue(Validator<EncounterDto>(new EncounterValidator(), studyDto.ClinicalStudy.StudyDesigns[0].Encounters[0]));
             Assert.IsTrue(Validator<EndpointDto>(new EndpointValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyObjectives[0].ObjectiveEndpoints[0]));
             Assert.IsTrue(Validator<IndicationDto>(new IndicationValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyIndications[0]));

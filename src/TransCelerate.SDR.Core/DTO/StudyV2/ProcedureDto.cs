@@ -9,6 +9,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
         public List<CodeDto> ProcedureCode { get; set; }
         public string ProcedureType { get; set; }
         public object ProcedureIsOptional { get; set; }
+        public string ProcedureIsOptionalReason { get; set; }
 
     }
 }
