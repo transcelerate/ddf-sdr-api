@@ -32,6 +32,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string AnalysisPopulationId = "analysisPopulationId";
             public const string IntercurrentEventId = "intercurrentEventId";
             public const string CodeId = "codeId";
+            public const string AliasCodeId = "aliasCodeId";
             public const string TransitionRuleId = "transitionRuleId";
             public const string EncounterId = "encounterId";
         }

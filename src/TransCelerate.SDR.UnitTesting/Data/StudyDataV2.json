@@ -45,13 +45,26 @@
         }
       }
     ],
-    "studyPhase": {
-      "codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f613",
-      "code": "C49686",
-      "codeSystem": "http:www.cdisc.org",
-      "codeSystemVersion": "2022-03-25",
-      "decode": "Phase IIa Trial"
-    },
+    "studyPhase": 
+      {
+        "aliasCodeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f616",
+        "standardCode": {
+          "codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f613",
+          "code": "C49686",
+          "codeSystem": "http:www.cdisc.org",
+          "codeSystemVersion": "2022-03-25",
+          "decode": "Phase IIa Trial"
+        },
+        "standardCodeAliases": [
+          {
+            "codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f613",
+            "code": "C49686",
+            "codeSystem": "http:www.cdisc.org",
+            "codeSystemVersion": "2022-03-25",
+            "decode": "Phase IIa Trial"
+          }
+        ]
+      },
     "studyProtocolVersions": [
       {
         "studyProtocolVersionId": "72fa3742-1bad-42dc-8fdb-8d1c0379c75f",
@@ -428,10 +441,12 @@
             "activityDescription": "Activity_1",
             "activityName": "Informed Consent",
             "activityIsOptional": true,
+            "activityIsOptionalReason":"",
             "definedProcedures": [
               {
                 "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
                 "procedureIsOptional": true,
+                "procedureIsOptionalReason": "",
                 "procedureCode": [
                   {
                     "codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
@@ -459,11 +474,13 @@
             "activityId": "ACT02",
             "activityDescription": "Activity_1",
             "activityName": "Eligibility Criteria",
-            "activityIsOptional":false,
+            "activityIsOptional": false,
+            "activityIsOptionalReason":"",
             "definedProcedures": [
               {
                 "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
-                "procedureIsOptional":false,
+                "procedureIsOptional": false,
+                "procedureIsOptionalReason": "",
                 "procedureCode": [
                   {
                     "codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
@@ -489,11 +506,11 @@
           },
           {
             "activityId": "ACT03",
-            "activityDescription": "Activity_1",           
+            "activityDescription": "Activity_1",
             "activityName": "Demography",
             "definedProcedures": [
               {
-                "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",               
+                "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
                 "procedureCode": [
                   {
                     "codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",

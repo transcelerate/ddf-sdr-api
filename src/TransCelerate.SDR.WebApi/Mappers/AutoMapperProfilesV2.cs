@@ -41,6 +41,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<TransitionRuleDto, TransitionRuleEntity>().ReverseMap();
             CreateMap<WorkflowDto, WorkflowEntity>().ReverseMap();
             CreateMap<WorkflowItemDto, WorkFlowItemEntity>().ReverseMap();
+            CreateMap<AliasCodeDto, AliasCodeEntity>().ReverseMap();
 
             //Mapper for Study History
             CreateMap<StudyHistoryResponseEntity, UploadVersionDto>()

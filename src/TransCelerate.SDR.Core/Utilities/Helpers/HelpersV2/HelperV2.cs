@@ -226,8 +226,14 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
             study.ClinicalStudy.StudyIdentifiers = RemoveIdForStudyIdentifier(study.ClinicalStudy.StudyIdentifiers);
 
             if (study.ClinicalStudy.StudyPhase is not null)
+            {
                 study.ClinicalStudy.StudyPhase.Id = null;
-
+                if (study.ClinicalStudy.StudyPhase.StandardCode is not null)
+                    study.ClinicalStudy.StudyPhase.StandardCode.Id = null;
+                if (study.ClinicalStudy.StudyPhase.StandardCodeAliases is not null && study.ClinicalStudy.StudyPhase.StandardCodeAliases.Any())
+                    study.ClinicalStudy.StudyPhase.StandardCodeAliases.ForEach(x => x.Id = null);
+            }
+            
             study.ClinicalStudy.StudyProtocolVersions = RemoveIdForStudyProtocol(study.ClinicalStudy.StudyProtocolVersions);
 
             study.ClinicalStudy.StudyDesigns = RemoveIdForStudyDesign(study.ClinicalStudy.StudyDesigns);
@@ -615,8 +621,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                 changedValues.Add($"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.StudyVersion)}");
             if (GetDifferences<CodeEntity>(currentStudyVersion.ClinicalStudy.StudyType, previousStudyVersion.ClinicalStudy.StudyType).Any())
                 changedValues.Add($"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.StudyType)}");
-            if (GetDifferences<CodeEntity>(currentStudyVersion.ClinicalStudy.StudyPhase, previousStudyVersion.ClinicalStudy.StudyPhase).Any())
-                changedValues.Add($"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.StudyPhase)}");
+            if (GetDifferences<AliasCodeEntity>(currentStudyVersion.ClinicalStudy.StudyPhase, previousStudyVersion.ClinicalStudy.StudyPhase).Any())
+            {
+                GetDifferences<AliasCodeEntity>(currentStudyVersion.ClinicalStudy.StudyPhase, previousStudyVersion.ClinicalStudy.StudyPhase).ForEach(x =>
+                {
+                    changedValues.Add($"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.StudyPhase)}.{x}");
+                });  
+            }
             //BusinessTherapeuticAreas
             if (GetDifferences<List<CodeEntity>>(currentStudyVersion.ClinicalStudy.BusinessTherapeuticAreas, previousStudyVersion.ClinicalStudy.BusinessTherapeuticAreas).Any())
                 changedValues.Add($"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.BusinessTherapeuticAreas)}");
