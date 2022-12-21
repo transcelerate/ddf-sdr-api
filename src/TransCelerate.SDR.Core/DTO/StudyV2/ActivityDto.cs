@@ -14,5 +14,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
         public string PreviousActivityId { get; set; }
         public List<StudyDataDto> StudyDataCollection { get; set; }
         public object ActivityIsOptional { get; set; }
+        public string ActivityIsOptionalReason { get; set; }
     }
 }

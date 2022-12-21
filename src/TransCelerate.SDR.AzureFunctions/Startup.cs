@@ -39,8 +39,10 @@ namespace TransCelerate.SDR.AzureFunctions
             config.AddAzureKeyVault(vaultName, keyVaultClient, new DefaultKeyVaultSecretManager());
             var buildConfig = config.Build();
 
+
+
             Config.ConnectionString = Convert.ToString(buildConfig["ConnectionStrings:ServerName"]);
-            Config.DatabaseName = Convert.ToString(buildConfig["ConnectionStrings:DatabaseName"]);                       
+            Config.DatabaseName = Convert.ToString(buildConfig["ConnectionStrings:DatabaseName"]);
 
             builder.Services.AddTransient<IMessageProcessor, MessageProcessor>();
             builder.Services.AddTransient<ILogHelper, LogHelper>();
