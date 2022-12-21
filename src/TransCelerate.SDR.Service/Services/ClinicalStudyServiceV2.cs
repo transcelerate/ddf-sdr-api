@@ -184,6 +184,161 @@ namespace TransCelerate.SDR.Services.Services
         }
 
         /// <summary>
+        /// GET Study Designs of a Study
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="sdruploadversion">Version of study</param>
+        /// <param name="studyWorkflowId">workdflowId</param>
+        /// <param name="studyDesignId">study design Id</param>
+        /// <param name="user">Logged In User</param>
+        /// <returns>
+        /// A <see cref="object"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        public async Task<object> GetSOA(string studyId, string studyDesignId, string studyWorkflowId, int sdruploadversion, LoggedInUser user)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV2)}; Method : {nameof(GetSOA)};");
+                studyId = studyId.Trim();
+
+                StudyEntity study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: studyId, sdruploadversion: sdruploadversion).ConfigureAwait(false);
+                if (study == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    StudyEntity checkStudy = await CheckAccessForAStudy(study, user);
+                    if (checkStudy == null)
+                        return Constants.ErrorMessages.Forbidden;
+
+                    var soa = SoA(study.ClinicalStudy.StudyDesigns);
+                    soa.StudyId = study.ClinicalStudy.StudyId;
+                    soa.StudyTitle = study.ClinicalStudy.StudyTitle;
+                    if (!String.IsNullOrWhiteSpace(studyDesignId))
+                    {                        
+                        if (study.ClinicalStudy.StudyDesigns is null || !soa.StudyDesigns.Any(x => x.StudyDesignId == studyDesignId))
+                            return Constants.ErrorMessages.StudyDesignNotFound;
+
+                        if(!String.IsNullOrWhiteSpace(studyWorkflowId))
+                        {
+                            soa.StudyDesigns.RemoveAll(x => x.StudyDesignId != studyDesignId);
+                            if(soa.StudyDesigns.First().StudyWorkflows is null || !soa.StudyDesigns.First().StudyWorkflows.Any(x => x.WorkFlowId == studyWorkflowId))
+                                return Constants.ErrorMessages.WorkFlowNotFound;
+                            soa.StudyDesigns.First().StudyWorkflows.RemoveAll(y => y.WorkFlowId != studyWorkflowId);
+                            return soa;
+                        }
+                        soa.StudyDesigns.RemoveAll(x=> x.StudyDesignId != studyDesignId);
+                        return soa;
+                    }
+                    return study.ClinicalStudy.StudyDesigns is not null && study.ClinicalStudy.StudyDesigns.Any() ? soa : Constants.ErrorMessages.SoANotFound;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV2)}; Method : {nameof(GetSOA)};");
+            }
+        }
+
+        public SoADto SoA(List<StudyDesignEntity> studyDesigns)
+        {
+            SoADto soADto = new SoADto();
+            soADto.StudyDesigns = new List<StudyDesigns>();
+            if (studyDesigns is not null && studyDesigns.Any())
+            {
+                studyDesigns.ForEach(design =>
+                {
+                    StudyDesigns studyDesignSoA = new StudyDesigns();
+                    studyDesignSoA.StudyDesignId = design.Id;
+                    studyDesignSoA.StudyDesignName = design.StudyDesignName;
+                    studyDesignSoA.StudyDesignDescription = design.StudyDesignDescription;
+                    studyDesignSoA.StudyWorkflows = new List<StudyWorkflows>();
+                    List<EncounterEntity> encounters = GetOrderedEncounters(design.Encounters);
+                    List<ActivityEntity> activities = GetOrderedActivities(design.Activities);
+                    if(design.StudyWorkflows != null && design.StudyWorkflows.Any())
+                    {                        
+                        design.StudyWorkflows.ForEach(workFlow =>
+                        {
+                            StudyWorkflows studyWorkflowsA = new StudyWorkflows();
+                            studyWorkflowsA.WorkFlowId = workFlow.Id;
+                            studyWorkflowsA.WorkflowDescription = workFlow.WorkflowDescription;
+                            if (activities != null && activities.Any() && encounters != null && encounters.Any())
+                            {                                
+                                List<WorkFlowItemEntity> workflowItems = workFlow.WorkflowItems;
+                                if (workflowItems != null && workflowItems.Any())
+                                {
+                                    studyWorkflowsA.WorkFlowSoA = new WorkFlowSoA();
+                                    studyWorkflowsA.WorkFlowSoA.SoA = new List<SoA>();
+                                    studyWorkflowsA.WorkFlowSoA.OrderOfActivities = activities.Select(x => x.ActivityName).ToList();
+                                    encounters.ForEach(encounter =>
+                                    {
+                                        SoA soA = new SoA();
+                                        soA.EncounterName = encounter.EncounterName;
+                                        soA.Activities = workflowItems.Where(x => x.WorkflowItemEncounterId == encounter.Id)
+                                                                      .Select(x => activities.Where(y=>y.Id == x.WorkflowItemActivityId).First().ActivityName)
+                                                                      .ToList();
+                                        studyWorkflowsA.WorkFlowSoA.SoA.Add(soA);
+                                    });
+                                }                                
+                            }
+
+                            studyDesignSoA.StudyWorkflows.Add(studyWorkflowsA);
+                        });
+                    }
+                    soADto.StudyDesigns.Add(studyDesignSoA);
+                });
+            }
+
+            return soADto;
+        }
+        public List<EncounterEntity> GetOrderedEncounters(List<EncounterEntity> encounters)
+        {
+            if (encounters != null && encounters.Any())
+            {
+                if (encounters.Count(x => String.IsNullOrWhiteSpace(x.PreviousEncounterId)) == 1 && encounters.Count(x => String.IsNullOrWhiteSpace(x.NextEncounterId)) == 1)
+                {
+                    List<EncounterEntity> encountersLinkedList = new List<EncounterEntity>();
+                    encountersLinkedList.Add(encounters.Where(x => String.IsNullOrWhiteSpace(x.PreviousEncounterId)).FirstOrDefault());
+                    for (int i = 1; i < encounters.Count; i++)
+                    {
+                        if (encounters.Where(x => x.PreviousEncounterId == encountersLinkedList[i-1].Id).Any() && encounters.Where(x => x.PreviousEncounterId == encountersLinkedList[i-1].Id).Count() == 1)                            
+                            encountersLinkedList.Add(encounters.Where(x => x.PreviousEncounterId == encountersLinkedList[i-1].Id).First());
+                        else
+                            break;
+                    }
+                    return encountersLinkedList.Count == encounters.Count ? encountersLinkedList : encounters;
+                }
+            }
+            return encounters;
+        }
+
+        public List<ActivityEntity> GetOrderedActivities(List<ActivityEntity> activities)
+        {
+            if (activities != null && activities.Any())
+            {
+                if (activities.Count(x => String.IsNullOrWhiteSpace(x.PreviousActivityId)) == 1 && activities.Count(x => String.IsNullOrWhiteSpace(x.NextActivityId)) == 1)
+                {
+                    List<ActivityEntity> activityLinkedList = new List<ActivityEntity>();
+                    activityLinkedList.Add(activities.Where(x => String.IsNullOrWhiteSpace(x.PreviousActivityId)).FirstOrDefault());
+                    for (int i = 1; i < activities.Count; i++)
+                    {
+                        if (activities.Where(x => x.PreviousActivityId == activityLinkedList[i - 1].Id).Any() && activities.Where(x => x.PreviousActivityId == activityLinkedList[i - 1].Id).Count() == 1)
+                            activityLinkedList.Add(activities.Where(x => x.PreviousActivityId == activityLinkedList[i - 1].Id).First());
+                        else
+                            break;
+                    }
+                    return activityLinkedList.Count == activities.Count ? activityLinkedList : activities;
+                }
+            }
+            return activities;
+        }
+
+        /// <summary>
         /// GET Study Designs Elements of a Study
         /// </summary>
         /// <param name="studyId">Study ID</param>

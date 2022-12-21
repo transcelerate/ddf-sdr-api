@@ -167,6 +167,74 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudyDesigns)};");
             }
         }
+
+        /// <summary>
+        /// GET SoA For a Study
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="studyDesignId">Study Design ID</param>
+        /// <param name="sdruploadversion">Version of study</param>
+        /// <param name="studyWorkflowId">WorkflowId</param>
+        /// <response code="200">Returns Study</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">The Study for the studyId is Not Found</response>
+        [HttpGet]
+        [Route(Route.SoAV2)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDto))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> GetSOA(string studyId, string studyDesignId, string studyWorkflowId, int sdruploadversion)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudyDesigns)};");
+                if (!String.IsNullOrWhiteSpace(studyId))
+                {
+                    _logger.LogInformation($"Inputs : study_uuid = {studyId}; sdruploadversion = {sdruploadversion}; WorkflowId: {studyWorkflowId}; studydesign_uuid: {studyDesignId}");                  
+                    if(String.IsNullOrWhiteSpace(studyDesignId) && !String.IsNullOrWhiteSpace(studyWorkflowId))
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.EnterDesignIdError)).Value);
+
+                    LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
+
+                    var SoA = await _clinicalStudyService.GetSOA(studyId, studyDesignId,studyWorkflowId, sdruploadversion, user).ConfigureAwait(false);
+
+                    if (SoA == null)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
+                    }
+                    else if (SoA.ToString() == Constants.ErrorMessages.Forbidden)
+                    {
+                        return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
+                    }
+                    else if (SoA.ToString() == Constants.ErrorMessages.StudyDesignNotFound)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyDesignNotFound)).Value);
+                    }
+                    else if (SoA.ToString() == Constants.ErrorMessages.WorkFlowNotFound)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.WorkFlowNotFound)).Value);
+                    }
+                    else
+                    {
+                        return Ok(SoA);
+                    }
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudyDesigns)};");
+            }
+        }
         /// <summary>
         /// GET Audit Trail of a study
         /// </summary>

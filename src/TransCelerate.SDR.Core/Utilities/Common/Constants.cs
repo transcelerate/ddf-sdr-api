@@ -170,6 +170,12 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string ErrorMessageForReferenceIntegrityInResponse = "Reference Integrity Error";
 
             public const string ErrorMessageForReferenceIntegrity = "Reference Integrity Failed";
+                        
+            public const string WorkFlowNotFound = "The requested StudyWorkflow not found";
+
+            public const string EnterDesignIdError = "Kindly provide valid Study Design Id when providing Study WorkFlow Id";
+
+            public const string SoANotFound = "The Schedule Of Activities Not Found";
         }
 
         public struct TokenConstants

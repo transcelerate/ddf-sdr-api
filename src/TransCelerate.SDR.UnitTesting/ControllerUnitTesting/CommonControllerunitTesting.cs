@@ -142,10 +142,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             Assert.AreEqual(expected.message, actual_result.message);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
-            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
-
-
-            #endregion
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);           
         }
+        #endregion
     }
 }
