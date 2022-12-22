@@ -947,7 +947,8 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             method = ClinicalStudyService.GetSOA("1", "", "", 0, user);
             method.Wait();
 
-            Assert.AreEqual(method.Result.ToString(), Constants.ErrorMessages.SoANotFound);
+            Assert.IsNotNull(actual_result);
+            Assert.IsInstanceOf(typeof(SoADto), result);
         }
         #endregion
         #endregion
