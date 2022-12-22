@@ -9,6 +9,8 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
         public string StudyTitle { get; set; }
         public string StudyVersion { get; set; }
         public CodeDto StudyType { get; set; }
+        public string StudyRationale { get; set; }
+        public string StudyAcronym { get; set; }
         public List<StudyIdentifierDto> StudyIdentifiers { get; set; }
         public AliasCodeDto StudyPhase { get; set; }
         public List<CodeDto> BusinessTherapeuticAreas { get; set; }

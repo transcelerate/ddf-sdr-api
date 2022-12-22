@@ -192,6 +192,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(ClinicalStudyDto.StudyType),            
             nameof(ClinicalStudyDto.BusinessTherapeuticAreas),            
             nameof(ClinicalStudyDto.StudyDesigns),
+            nameof(ClinicalStudyDto.StudyAcronym),
+            nameof(ClinicalStudyDto.StudyRationale),
         };
 
         public static readonly string[] StudyDesignElements = {            
@@ -209,7 +211,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(StudyDesignDto.StudyWorkflows),
             nameof(StudyDesignDto.StudyEstimands),
             nameof(StudyDesignDto.Activities),
-            nameof(StudyDesignDto.Encounters)
+            nameof(StudyDesignDto.Encounters),
+            nameof(StudyDesignDto.StudyDesignRationale),
         };
 
         public struct FunctionAppConstants

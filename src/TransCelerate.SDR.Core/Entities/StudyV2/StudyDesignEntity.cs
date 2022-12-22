@@ -23,5 +23,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
         public List<EstimandEntity> StudyEstimands { get; set; }
         public List<ActivityEntity> Activities { get; set; }
         public List<EncounterEntity> Encounters { get; set; }
+        public string StudyDesignRationale { get; set; }
     }
 }
