@@ -51,7 +51,7 @@
 
         public const string StudyDesignV2 = "v2/studydesigns";
 
-        public const string SoAV2 = "v2/study/{studyId}/studydesigns/soa";
+        public const string SoAV2 = "v2/studydefinitions/{studyId}/studydesigns/soa";
 
         public const string AuditTrailV2 = "v2/audittrail/{studyId}";
 
