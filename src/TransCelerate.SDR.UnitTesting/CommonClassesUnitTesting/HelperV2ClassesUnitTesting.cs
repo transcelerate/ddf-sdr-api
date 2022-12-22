@@ -194,6 +194,7 @@ namespace TransCelerate.SDR.UnitTesting
             studyDto.ClinicalStudy.StudyDesigns[0].Activities[0].DefinedProcedures[0].ProcedureIsOptional= true;
             studyDto.ClinicalStudy.StudyDesigns[0].Activities[1].DefinedProcedures[0].ProcedureIsOptional = "12";
             Assert.IsFalse(Validator<ActivityDto>(new ActivityValidator(), studyDto.ClinicalStudy.StudyDesigns[0].Activities[1]));
+            Assert.IsTrue(Validator<AddressDto>(new AddressValidator(), studyDto.ClinicalStudy.StudyIdentifiers[0].StudyIdentifierScope.OrganizationLegalAddress));
         }
 
         public bool Validator<T>(AbstractValidator<T> validator,T value)
