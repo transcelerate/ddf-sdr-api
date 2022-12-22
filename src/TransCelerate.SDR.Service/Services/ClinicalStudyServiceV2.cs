@@ -232,7 +232,7 @@ namespace TransCelerate.SDR.Services.Services
                         soa.StudyDesigns.RemoveAll(x=> x.StudyDesignId != studyDesignId);
                         return soa;
                     }
-                    return study.ClinicalStudy.StudyDesigns is not null && study.ClinicalStudy.StudyDesigns.Any() ? soa : Constants.ErrorMessages.SoANotFound;
+                    return soa;
                 }
             }
             catch (Exception)
