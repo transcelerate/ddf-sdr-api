@@ -170,6 +170,12 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string ErrorMessageForReferenceIntegrityInResponse = "Reference Integrity Error";
 
             public const string ErrorMessageForReferenceIntegrity = "Reference Integrity Failed";
+                        
+            public const string WorkFlowNotFound = "The requested StudyWorkflow not found";
+
+            public const string EnterDesignIdError = "Kindly provide valid Study Design Id when providing Study WorkFlow Id";
+
+            public const string SoANotFound = "The Schedule Of Activities Not Found";
         }
 
         public struct TokenConstants
@@ -192,6 +198,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(ClinicalStudyDto.StudyType),            
             nameof(ClinicalStudyDto.BusinessTherapeuticAreas),            
             nameof(ClinicalStudyDto.StudyDesigns),
+            nameof(ClinicalStudyDto.StudyAcronym),
+            nameof(ClinicalStudyDto.StudyRationale),
         };
 
         public static readonly string[] StudyDesignElements = {            
@@ -209,7 +217,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(StudyDesignDto.StudyWorkflows),
             nameof(StudyDesignDto.StudyEstimands),
             nameof(StudyDesignDto.Activities),
-            nameof(StudyDesignDto.Encounters)
+            nameof(StudyDesignDto.Encounters),
+            nameof(StudyDesignDto.StudyDesignRationale),
         };
 
         public struct FunctionAppConstants

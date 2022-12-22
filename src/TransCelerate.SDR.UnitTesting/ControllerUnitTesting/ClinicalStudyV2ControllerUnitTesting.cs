@@ -39,6 +39,11 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
             return JsonConvert.DeserializeObject<StudyDto>(jsonData);
         }
+        public SoADto GetSoADataFromStaticJson()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/SoASampleData.json");
+            return JsonConvert.DeserializeObject<SoADto>(jsonData);
+        }
         LoggedInUser user = new LoggedInUser
         {
             UserName = "user1@SDR.com",
@@ -732,6 +737,158 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             //Expected
             expected = new ErrorModel { message = Constants.ErrorMessages.GenericError, statusCode = "400" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+        }
+        #endregion
+
+        #region GET SoA
+        [Test]
+        public void GetSoASuccessUnitTesting()
+        {
+            SoADto SoA = GetSoADataFromStaticJson();
+
+            _mockClinicalStudyService.Setup(x => x.GetSOA(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(SoA as object));
+            ClinicalStudyV2Controller ClinicalStudyV2Controller = new ClinicalStudyV2Controller(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
+            
+            var method = ClinicalStudyV2Controller.GetSOA("sd","sd_1", "des",1);
+            method.Wait();
+            var result = method.Result;
+
+            //Expected
+            var expected = SoA;
+
+            //Actual            
+            var actual_result = JsonConvert.DeserializeObject<SoADto>(
+                 JsonConvert.SerializeObject((result as OkObjectResult).Value));
+
+            Assert.AreEqual(SoA.StudyId, SoA.StudyId);
+            Assert.IsInstanceOf(typeof(OkObjectResult), result);
+        }
+
+        [Test]
+        public void GetSoAFailureUnitTesting()
+        {
+            SoADto SoA = GetSoADataFromStaticJson();
+
+            _mockClinicalStudyService.Setup(x => x.GetSOA(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(null as object));
+            ClinicalStudyV2Controller ClinicalStudyV2Controller = new ClinicalStudyV2Controller(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
+
+            var method = ClinicalStudyV2Controller.GetSOA("sd", "sd_1", "des", 1);
+            method.Wait();
+            var result = method.Result;
+
+            //Expected
+            var expected = new ErrorModel { message = Constants.ErrorMessages.StudyNotFound, statusCode = "400" };
+
+            //Actual            
+            var actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(NotFoundObjectResult), result);
+
+            _mockClinicalStudyService.Setup(x => x.GetSOA(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+               .Returns(Task.FromResult(Constants.ErrorMessages.Forbidden as object));
+
+            method = ClinicalStudyV2Controller.GetSOA("sd", "sd_1", "des", 1);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.Forbidden, statusCode = "403" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(403, (result as ObjectResult).StatusCode);
+
+            _mockClinicalStudyService.Setup(x => x.GetSOA(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+               .Returns(Task.FromResult(Constants.ErrorMessages.StudyDesignNotFound as object));
+
+            method = ClinicalStudyV2Controller.GetSOA("sd", "sd_1", "des", 1);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.StudyDesignNotFound, statusCode = "404" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(404, (result as ObjectResult).StatusCode);
+
+            _mockClinicalStudyService.Setup(x => x.GetSOA(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+              .Throws(new Exception(""));
+
+            method = ClinicalStudyV2Controller.GetSOA("sd", "sd_1", "des", 1);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.GenericError, statusCode = "400" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+
+            method = ClinicalStudyV2Controller.GetSOA("", "sd_1", "des", 1);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.StudyInputError, statusCode = "400" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            _mockClinicalStudyService.Setup(x => x.GetSOA(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+               .Returns(Task.FromResult(Constants.ErrorMessages.WorkFlowNotFound as object));
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+
+
+            method = ClinicalStudyV2Controller.GetSOA("sd", "sd_1", "des", 1);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.WorkFlowNotFound, statusCode = "404" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(404, (result as ObjectResult).StatusCode);
+
+            _mockClinicalStudyService.Setup(x => x.GetSOA(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+               .Returns(Task.FromResult(Constants.ErrorMessages.WorkFlowNotFound as object));
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(404, (result as ObjectResult).StatusCode);
+
+
+            method = ClinicalStudyV2Controller.GetSOA("sd", "", "WF1", 1);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.EnterDesignIdError, statusCode = "400" };
 
             //Actual            
             actual_result = (result as ObjectResult).Value as ErrorModel;

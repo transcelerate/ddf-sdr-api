@@ -50,6 +50,26 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingEntity>(jsonData);
             return userGrouppMapping;
         }
+        public SoADto GetSoADataFromStaticJson()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/SoASampleData.json");
+            return JsonConvert.DeserializeObject<SoADto>(jsonData);
+        }
+        public List<ActivityEntity> GetActivitiesForSoADataFromStaticJson()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/SoASampleData.json");
+            return JsonConvert.DeserializeObject<StudyDesignEntity>(jsonData).Activities;
+        }
+        public List<EncounterEntity> GetEncountersForSoADataFromStaticJson()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/SoASampleData.json");
+            return JsonConvert.DeserializeObject<StudyDesignEntity>(jsonData).Encounters;
+        }
+        public List<WorkFlowItemEntity> GetWorkflowItemsForSoADataFromStaticJson()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/SoASampleData.json");
+            return JsonConvert.DeserializeObject<WorkflowEntity>(jsonData).WorkflowItems;
+        }
         LoggedInUser user = new LoggedInUser
         {
             UserName = "user1@SDR.com",
@@ -840,6 +860,97 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         }
         #endregion
 
+        #region GET SoA
+        [Test]
+        public void GetSoA_UnitTesting()
+        {
+            Config.isGroupFilterEnabled = true;
+            user.UserRole = Constants.Roles.Org_Admin;
+            user.UserName = "user1@SDR.com";
+
+            StudyEntity studyEntity = GetEntityDataFromStaticJson();
+            SoADto SoA = GetSoADataFromStaticJson();
+            studyEntity.ClinicalStudy.StudyType.Decode = "OBSERVATIONAL";
+            studyEntity.ClinicalStudy.StudyDesigns[0].Id = "Sd_1";
+            studyEntity.ClinicalStudy.StudyDesigns[0].Encounters = GetEncountersForSoADataFromStaticJson();
+            studyEntity.ClinicalStudy.StudyDesigns[0].Activities = GetActivitiesForSoADataFromStaticJson();
+            studyEntity.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems = GetWorkflowItemsForSoADataFromStaticJson();
+            studyEntity.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].Id = "Wf_1";
+
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
+                   .Returns(Task.FromResult(studyEntity));
+
+            ClinicalStudyServiceV2 ClinicalStudyService = new ClinicalStudyServiceV2(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockServiceBusClient.Object, _mockChangeAuditRepository.Object);
+
+            var method = ClinicalStudyService.GetSOA("1", studyEntity.ClinicalStudy.StudyDesigns[0].Id, studyEntity.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].Id, 0, user);
+            method.Wait();
+            var result = method.Result;
+
+            //Actual            
+            var actual_result = JsonConvert.DeserializeObject<SoADto>(
+                JsonConvert.SerializeObject(result));
+
+            //Assert          
+            Assert.IsNotNull(actual_result);
+            Assert.IsInstanceOf(typeof(SoADto), result);
+
+            method = ClinicalStudyService.GetSOA("1", studyEntity.ClinicalStudy.StudyDesigns[0].Id, "", 0, user);
+            method.Wait();
+            result = method.Result;
+
+            //Actual            
+            actual_result = JsonConvert.DeserializeObject<SoADto>(
+                JsonConvert.SerializeObject(result));
+
+            //Assert          
+            Assert.IsNotNull(actual_result);
+            Assert.IsInstanceOf(typeof(SoADto), result);
+
+            method = ClinicalStudyService.GetSOA("1", "Sd", "", 0, user);
+            method.Wait();
+
+            Assert.AreEqual(method.Result.ToString(), Constants.ErrorMessages.StudyDesignNotFound);
+
+            method = ClinicalStudyService.GetSOA("1", studyEntity.ClinicalStudy.StudyDesigns[0].Id, "Wf1", 0, user);
+            method.Wait();
+
+            Assert.AreEqual(method.Result.ToString(), Constants.ErrorMessages.WorkFlowNotFound);
+
+            user.UserRole = Constants.Roles.App_User;
+            method = ClinicalStudyService.GetSOA("1", "Sd_1", "Wf1", 0, user);
+            method.Wait();
+
+            Assert.AreEqual(method.Result.ToString(), Constants.ErrorMessages.Forbidden);
+
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
+                 .Throws(new Exception("Error"));
+
+            method = ClinicalStudyService.GetSOA("1", "Sd_1", "Wf1", 0, user);
+
+
+            Assert.Throws<AggregateException>(method.Wait);
+
+            StudyEntity study = null;
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
+                 .Returns(Task.FromResult(study));
+
+            method = ClinicalStudyService.GetSOA("1", "Sd_1", "Wf1", 0, user);
+            method.Wait();
+
+            Assert.IsNull(method.Result);
+
+            user.UserRole = Constants.Roles.Org_Admin;
+            studyEntity.ClinicalStudy.StudyDesigns = null;
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
+                 .Returns(Task.FromResult(studyEntity));
+
+            method = ClinicalStudyService.GetSOA("1", "", "", 0, user);
+            method.Wait();
+
+            Assert.IsNotNull(actual_result);
+            Assert.IsInstanceOf(typeof(SoADto), result);
+        }
+        #endregion
         #endregion
     }
 }

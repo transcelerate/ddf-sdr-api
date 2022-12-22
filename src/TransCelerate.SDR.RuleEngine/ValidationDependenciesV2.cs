@@ -41,6 +41,7 @@ namespace TransCelerate.SDR.RuleEngineV2
             services.AddTransient<IValidator<WorkflowDto>, WorkflowValidator>();
             services.AddTransient<IValidator<WorkflowItemDto>, WorkflowItemValidator>();
             services.AddTransient<IValidator<AliasCodeDto>, AliasCodeValidator>();
+            services.AddTransient<IValidator<AddressDto>, AddressValidator>();
 
             return services;
         }

@@ -133,6 +133,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                         jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(ClinicalStudyDto.StudyVersion).Substring(0, 1).ToLower() + (nameof(ClinicalStudyDto.StudyVersion).Substring(1)))).ToList().ForEach(x => x.Remove());
                     else if (item == nameof(ClinicalStudyDto.BusinessTherapeuticAreas).ToLower())
                         jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(ClinicalStudyDto.BusinessTherapeuticAreas).Substring(0, 1).ToLower() + (nameof(ClinicalStudyDto.BusinessTherapeuticAreas).Substring(1)))).ToList().ForEach(x => x.Remove());
+                    else if (item == nameof(ClinicalStudyDto.StudyAcronym).ToLower())
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(ClinicalStudyDto.StudyAcronym).Substring(0, 1).ToLower() + (nameof(ClinicalStudyDto.StudyAcronym).Substring(1)))).ToList().ForEach(x => x.Remove());
+                    else if (item == nameof(ClinicalStudyDto.StudyRationale).ToLower())
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(ClinicalStudyDto.StudyRationale).Substring(0, 1).ToLower() + (nameof(ClinicalStudyDto.StudyRationale).Substring(1)))).ToList().ForEach(x => x.Remove());
                 }
             }
 
@@ -191,6 +195,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.Activities).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.Activities).Substring(1)))).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Encounters).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.Encounters).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.Encounters).Substring(1)))).ToList().ForEach(x => x.Remove());
+                            else if (item == nameof(StudyDesignDto.StudyDesignRationale).ToLower())
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.StudyDesignRationale).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.StudyDesignRationale).Substring(1)))).ToList().ForEach(x => x.Remove());
                         }
                     }
                 }
@@ -611,23 +617,22 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
         /// <returns></returns>
         public List<string> GetChangedValues(StudyEntity currentStudyVersion, StudyEntity previousStudyVersion)
         {
-            var comparer = new ObjectsComparer.Comparer<ClinicalStudyEntity>();
-            bool isEqual = comparer.Compare(currentStudyVersion.ClinicalStudy, previousStudyVersion.ClinicalStudy, out var differences);
             List<string> changedValues = new List<string>();
 
             if (currentStudyVersion.ClinicalStudy.StudyTitle != previousStudyVersion.ClinicalStudy.StudyTitle)
                 changedValues.Add($"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.StudyTitle)}");
             if (currentStudyVersion.ClinicalStudy.StudyVersion != previousStudyVersion.ClinicalStudy.StudyVersion)
                 changedValues.Add($"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.StudyVersion)}");
+            if (currentStudyVersion.ClinicalStudy.StudyRationale != previousStudyVersion.ClinicalStudy.StudyRationale)
+                changedValues.Add($"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.StudyRationale)}");
+            if (currentStudyVersion.ClinicalStudy.StudyAcronym != previousStudyVersion.ClinicalStudy.StudyAcronym)
+                changedValues.Add($"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.StudyAcronym)}");
             if (GetDifferences<CodeEntity>(currentStudyVersion.ClinicalStudy.StudyType, previousStudyVersion.ClinicalStudy.StudyType).Any())
                 changedValues.Add($"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.StudyType)}");
-            if (GetDifferences<AliasCodeEntity>(currentStudyVersion.ClinicalStudy.StudyPhase, previousStudyVersion.ClinicalStudy.StudyPhase).Any())
-            {
-                GetDifferences<AliasCodeEntity>(currentStudyVersion.ClinicalStudy.StudyPhase, previousStudyVersion.ClinicalStudy.StudyPhase).ForEach(x =>
-                {
-                    changedValues.Add($"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.StudyPhase)}.{x}");
-                });  
-            }
+            
+            //StudyPhase
+            changedValues.AddRange(GetDifferenceForStudyPhase(currentStudyVersion.ClinicalStudy.StudyPhase, previousStudyVersion.ClinicalStudy.StudyPhase));
+
             //BusinessTherapeuticAreas
             if (GetDifferences<List<CodeEntity>>(currentStudyVersion.ClinicalStudy.BusinessTherapeuticAreas, previousStudyVersion.ClinicalStudy.BusinessTherapeuticAreas).Any())
                 changedValues.Add($"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.BusinessTherapeuticAreas)}");
@@ -705,6 +710,22 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
             return tempList;
         }
 
+        public List<string> GetDifferenceForStudyPhase(AliasCodeEntity currentVersion, AliasCodeEntity previousVersion)
+        {
+            var tempList = new List<string>();
+            if (currentVersion.Id != previousVersion.Id)
+            {
+                tempList.Add($"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.StudyPhase)}");
+                return tempList;
+            }
+            if (GetDifferences<CodeEntity>(currentVersion.StandardCode, previousVersion.StandardCode).Any())
+                tempList.Add($"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.StudyPhase)}.{nameof(AliasCodeEntity.StandardCode)}");
+
+            if (GetDifferences<List<CodeEntity>>(currentVersion.StandardCodeAliases, previousVersion.StandardCodeAliases).Any())
+                tempList.Add($"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.StudyPhase)}.{nameof(AliasCodeEntity.StandardCodeAliases)}");
+            return tempList;
+        }
+
         public List<string> GetDifferenceForStudyProtocolVersions(List<StudyProtocolVersionEntity> currentVersion, List<StudyProtocolVersionEntity> previousVersion)
         {
             var tempList = new List<string>();
@@ -758,6 +779,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                         
                         if (currentStudyDesign.StudyDesignDescription != previousStudyDesign.StudyDesignDescription)
                             changedValues.Add($"{nameof(StudyDesignEntity.StudyDesignDescription)}");
+
+                        //StudyRationale
+                        if (currentStudyDesign.StudyDesignRationale != previousStudyDesign.StudyDesignRationale)
+                            changedValues.Add($"{nameof(StudyDesignEntity.StudyDesignRationale)}");
 
                         //Intervention Model
                         if (GetDifferences<List<CodeEntity>>(currentStudyDesign.InterventionModel, previousStudyDesign.InterventionModel).Any())
@@ -935,8 +960,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
             {
                 tempList.Add($"{nameof(StudyDesignEntity.StudyWorkflows)}.{x}");
             });
-            tempList.RemoveAll(x => x.Contains($"{nameof(ActivityEntity.DefinedProcedures)}"));
-            tempList.RemoveAll(x => x.Contains($"{nameof(ActivityEntity.StudyDataCollection)}"));
             tempList.RemoveAll(x => x.Contains($"{nameof(WorkflowEntity.WorkflowItems)}"));
             currentStudyDesign.StudyWorkflows?.ForEach(currentStudyWorkflows =>
             {
@@ -963,6 +986,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
             {
                 tempList.Add($"{nameof(StudyDesignEntity.Activities)}.{x}");
             });
+            tempList.RemoveAll(x => x.Contains($"{nameof(ActivityEntity.DefinedProcedures)}"));
+            tempList.RemoveAll(x => x.Contains($"{nameof(ActivityEntity.StudyDataCollection)}"));
             currentStudyDesign.Activities?.ForEach(currentActivitiy =>
             {
                 if (previousStudyDesign.Activities != null && previousStudyDesign.Activities.Any(x => x.Id == currentActivitiy.Id))

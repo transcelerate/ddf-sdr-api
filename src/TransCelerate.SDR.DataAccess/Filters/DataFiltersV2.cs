@@ -112,6 +112,10 @@ namespace TransCelerate.SDR.DataAccess.Filters
                         projector = projector.Include(x => x.ClinicalStudy.StudyDesigns);
                     else if (elements.ToLower().Equals(nameof(ClinicalStudyEntity.BusinessTherapeuticAreas).ToLower()))
                         projector = projector.Include(x => x.ClinicalStudy.BusinessTherapeuticAreas);
+                    else if (elements.ToLower().Equals(nameof(ClinicalStudyEntity.StudyRationale).ToLower()))
+                        projector = projector.Include(x => x.ClinicalStudy.StudyRationale);
+                    else if (elements.ToLower().Equals(nameof(ClinicalStudyEntity.StudyAcronym).ToLower()))
+                        projector = projector.Include(x => x.ClinicalStudy.StudyAcronym);
                 }
             });
             return projector;

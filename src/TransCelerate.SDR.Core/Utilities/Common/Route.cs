@@ -51,6 +51,8 @@
 
         public const string StudyDesignV2 = "v2/studydesigns";
 
+        public const string SoAV2 = "v2/studydefinitions/{studyId}/studydesigns/soa";
+
         public const string AuditTrailV2 = "v2/audittrail/{studyId}";
 
         public const string StudyHistoryV2 = "/v2/studydefinitions/history";
@@ -79,6 +81,8 @@
         public const string PostAGroup = "v1/usergroups/postgroup";
 
         public const string PostUserToGroups = "v1/usergroups/postuser";
+
+        public const string RemoveInActiveUsers = "v1/usergroups/removeinactiveusers";
         #endregion
 
         #region Reports

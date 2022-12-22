@@ -2,6 +2,8 @@
   "clinicalStudy": {
     "studyId": "aaed3efe-7d70-4c9e-90e2-3446e936c291",
     "studyTitle": "Study Of Lung Cancer",
+    "studyRationale": "Rational",
+    "studyAcronym": "Acronym",
     "studyType": {
       "codeId": "7bbb6fd9-7e43-4dbf-90fa-3de117dc76d2",
       "code": "C98388",
@@ -24,6 +26,15 @@
             "codeSystem": "http:www.cdisc.org",
             "codeSystemVersion": "1",
             "decode": "Clinical Study Sponsor"
+          },
+          "organizationLegalAddress": {
+            "text": "text",
+            "line": " line2",
+            "city": " city",
+            "district": "district ",
+            "state": "state ",
+            "postalCode": " postalCode",
+            "country": "country "
           }
         }
       },
@@ -41,30 +52,39 @@
             "codeSystem": "http:www.cdisc.org",
             "codeSystemVersion": "1",
             "decode": "Clinical Study Registry"
+          },
+          "organizationLegalAddress": {
+            "text": "text",
+            "line": " line2",
+            "city": " city",
+            "district": "district ",
+            "state": "state ",
+            "postalCode": " postalCode",
+            "country": "country "
           }
+
         }
       }
     ],
-    "studyPhase": 
-      {
-        "aliasCodeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f616",
-        "standardCode": {
-          "codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f613",
+    "studyPhase": {
+      "aliasCodeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f616",
+      "standardCode": {
+        "codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f613",
+        "code": "C49686",
+        "codeSystem": "http:www.cdisc.org",
+        "codeSystemVersion": "2022-03-25",
+        "decode": "Phase IIa Trial"
+      },
+      "standardCodeAliases": [
+        {
+          "codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f614",
           "code": "C49686",
           "codeSystem": "http:www.cdisc.org",
           "codeSystemVersion": "2022-03-25",
           "decode": "Phase IIa Trial"
-        },
-        "standardCodeAliases": [
-          {
-            "codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f613",
-            "code": "C49686",
-            "codeSystem": "http:www.cdisc.org",
-            "codeSystemVersion": "2022-03-25",
-            "decode": "Phase IIa Trial"
-          }
-        ]
-      },
+        }
+      ]
+    },
     "studyProtocolVersions": [
       {
         "studyProtocolVersionId": "72fa3742-1bad-42dc-8fdb-8d1c0379c75f",
@@ -200,7 +220,19 @@
         "studyPopulations": [
           {
             "studyDesignPopulationId": "ef300f84-2479-415b-adf1-d41df6169cd5",
-            "populationDescription": "Population 1"
+            "populationDescription": "Population 1",
+            "plannedNumberOfParticipants": 2,
+            "plannedMaximumAgeOfParticipants": "max ",
+            "plannedMinimumAgeOfParticipants": "min",
+            "plannedSexOfParticipants": [
+              {
+                "codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f614",
+                "code": "C49686",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "2022-03-25",
+                "decode": "Phase IIa Trial"
+              }
+            ]
           }
         ],
         "studyCells": [
@@ -441,7 +473,7 @@
             "activityDescription": "Activity_1",
             "activityName": "Informed Consent",
             "activityIsOptional": true,
-            "activityIsOptionalReason":"",
+            "activityIsOptionalReason": "",
             "definedProcedures": [
               {
                 "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
@@ -475,7 +507,7 @@
             "activityDescription": "Activity_1",
             "activityName": "Eligibility Criteria",
             "activityIsOptional": false,
-            "activityIsOptionalReason":"",
+            "activityIsOptionalReason": "",
             "definedProcedures": [
               {
                 "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
@@ -534,7 +566,8 @@
               }
             ]
           }
-        ]
+        ],
+        "studyDesignRationale": "Rationale "
       }
     ],
     "studyVersion": "1"
@@ -542,6 +575,6 @@
   "auditTrail": {
     "entryDateTime": "2022-10-18T11:44:11.0529109Z",
     "SDRUploadVersion": 1,
-    "usdmVersion": "2.0"
+    "usdm-version": "2.0"
   }
 }

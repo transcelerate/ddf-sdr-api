@@ -42,6 +42,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<WorkflowDto, WorkflowEntity>().ReverseMap();
             CreateMap<WorkflowItemDto, WorkFlowItemEntity>().ReverseMap();
             CreateMap<AliasCodeDto, AliasCodeEntity>().ReverseMap();
+            CreateMap<AddressDto, AddressEntity>().ReverseMap();
 
             //Mapper for Study History
             CreateMap<StudyHistoryResponseEntity, UploadVersionDto>()
