@@ -611,8 +611,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
         /// <returns></returns>
         public List<string> GetChangedValues(StudyEntity currentStudyVersion, StudyEntity previousStudyVersion)
         {
-            var comparer = new ObjectsComparer.Comparer<ClinicalStudyEntity>();
-            bool isEqual = comparer.Compare(currentStudyVersion.ClinicalStudy, previousStudyVersion.ClinicalStudy, out var differences);
             List<string> changedValues = new List<string>();
 
             if (currentStudyVersion.ClinicalStudy.StudyTitle != previousStudyVersion.ClinicalStudy.StudyTitle)
@@ -935,8 +933,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
             {
                 tempList.Add($"{nameof(StudyDesignEntity.StudyWorkflows)}.{x}");
             });
-            tempList.RemoveAll(x => x.Contains($"{nameof(ActivityEntity.DefinedProcedures)}"));
-            tempList.RemoveAll(x => x.Contains($"{nameof(ActivityEntity.StudyDataCollection)}"));
             tempList.RemoveAll(x => x.Contains($"{nameof(WorkflowEntity.WorkflowItems)}"));
             currentStudyDesign.StudyWorkflows?.ForEach(currentStudyWorkflows =>
             {
@@ -963,6 +959,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
             {
                 tempList.Add($"{nameof(StudyDesignEntity.Activities)}.{x}");
             });
+            tempList.RemoveAll(x => x.Contains($"{nameof(ActivityEntity.DefinedProcedures)}"));
+            tempList.RemoveAll(x => x.Contains($"{nameof(ActivityEntity.StudyDataCollection)}"));
             currentStudyDesign.Activities?.ForEach(currentActivitiy =>
             {
                 if (previousStudyDesign.Activities != null && previousStudyDesign.Activities.Any(x => x.Id == currentActivitiy.Id))

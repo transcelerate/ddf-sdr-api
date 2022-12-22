@@ -50,6 +50,20 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
         Task<object> GetStudyDesigns(string studyId, string studyDesignId, int sdruploadversion, LoggedInUser user, string[] listofelements);
+
+        /// <summary>
+        /// GET SoA
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="sdruploadversion">Version of study</param>
+        /// <param name="studyWorkflowId">workdflowId</param>
+        /// <param name="studyDesignId">study design Id</param>
+        /// <param name="user">Logged In User</param>
+        /// <returns>
+        /// A <see cref="object"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        Task<object> GetSOA(string studyId, string studyDesignId, string studyWorkflowId, int sdruploadversion, LoggedInUser user);
         /// <summary>
         /// GET Study Designs of a Study
         /// </summary>

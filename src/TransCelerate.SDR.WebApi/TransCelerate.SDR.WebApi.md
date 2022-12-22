@@ -25,6 +25,7 @@
 - [ClinicalStudyV2Controller](#T-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller')
   - [DeleteStudy(studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-DeleteStudy-System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.DeleteStudy(System.String)')
   - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetAuditTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetAuditTrail(System.String,System.DateTime,System.DateTime)')
+  - [GetSOA(studyId,studyDesignId,sdruploadversion,studyWorkflowId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetSOA-System-String,System-String,System-String,System-Int32- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetSOA(System.String,System.String,System.String,System.Int32)')
   - [GetStudy(studyId,sdruploadversion,listofelements)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetStudy-System-String,System-Int32,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetStudy(System.String,System.Int32,System.String)')
   - [GetStudyDesigns(study_uuid,studydesign_uuid,sdruploadversion,listofelements)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetStudyDesigns-System-String,System-Int32,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetStudyDesigns(System.String,System.Int32,System.String,System.String)')
   - [GetStudyHistory(fromDate,toDate,studyTitle)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetStudyHistory-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetStudyHistory(System.DateTime,System.DateTime,System.String)')
@@ -46,6 +47,7 @@
   - [GetUsersList()](#M-TransCelerate-SDR-WebApi-Controllers-UserGroupsController-GetUsersList-TransCelerate-SDR-Core-DTO-UserGroups-UserGroupsQueryParameters- 'TransCelerate.SDR.WebApi.Controllers.UserGroupsController.GetUsersList(TransCelerate.SDR.Core.DTO.UserGroups.UserGroupsQueryParameters)')
   - [PostGroup(groupDTO)](#M-TransCelerate-SDR-WebApi-Controllers-UserGroupsController-PostGroup-TransCelerate-SDR-Core-DTO-UserGroups-SDRGroupsDTO- 'TransCelerate.SDR.WebApi.Controllers.UserGroupsController.PostGroup(TransCelerate.SDR.Core.DTO.UserGroups.SDRGroupsDTO)')
   - [PostUserToGroups(userToGroupsDTO)](#M-TransCelerate-SDR-WebApi-Controllers-UserGroupsController-PostUserToGroups-TransCelerate-SDR-Core-DTO-UserGroups-PostUserToGroupsDTO- 'TransCelerate.SDR.WebApi.Controllers.UserGroupsController.PostUserToGroups(TransCelerate.SDR.Core.DTO.UserGroups.PostUserToGroupsDTO)')
+  - [RemoveInActiveUsers()](#M-TransCelerate-SDR-WebApi-Controllers-UserGroupsController-RemoveInActiveUsers 'TransCelerate.SDR.WebApi.Controllers.UserGroupsController.RemoveInActiveUsers')
 
 <a name='T-TransCelerate-SDR-WebApi-Mappers-AutoMapperProfies'></a>
 ## AutoMapperProfies `type`
@@ -327,6 +329,22 @@ GET Audit Trail of a study
 | toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | End Date for Date Filter |
 | studyId | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | Study ID |
 
+<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetSOA-System-String,System-String,System-String,System-Int32-'></a>
+### GetSOA(studyId,studyDesignId,sdruploadversion,studyWorkflowId) `method`
+
+##### Summary
+
+GET SoA For a Study
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
+| studyDesignId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study Design ID |
+| sdruploadversion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Version of study |
+| studyWorkflowId | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | WorkflowId |
+
 <a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetStudy-System-String,System-Int32,System-String-'></a>
 ### GetStudy(studyId,sdruploadversion,listofelements) `method`
 
@@ -567,3 +585,14 @@ POST a user to groups
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | userToGroupsDTO | [TransCelerate.SDR.Core.DTO.UserGroups.PostUserToGroupsDTO](#T-TransCelerate-SDR-Core-DTO-UserGroups-PostUserToGroupsDTO 'TransCelerate.SDR.Core.DTO.UserGroups.PostUserToGroupsDTO') | User which needs to be added/modified to groups |
+
+<a name='M-TransCelerate-SDR-WebApi-Controllers-UserGroupsController-RemoveInActiveUsers'></a>
+### RemoveInActiveUsers() `method`
+
+##### Summary
+
+Remove InActive Users
+
+##### Parameters
+
+This method has no parameters.

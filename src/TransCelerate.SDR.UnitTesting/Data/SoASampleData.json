@@ -1,0 +1,1034 @@
+{
+  "activities": [
+    {
+      "activityId": "ACT001",
+      "activityDescription": "Informed consent",
+      "activityName": "Informed consent",
+      "definedProcedures": null,
+      "nextActivityId": "ACT002",
+      "previousActivityId": null,
+      "studyDataCollection": null,
+      "activityIsOptional": false
+    },
+    {
+      "activityId": "ACT002",
+      "activityDescription": "Informed consent",
+      "activityName": "Eligibility criteria",
+      "definedProcedures": null,
+      "nextActivityId": "ACT003",
+      "previousActivityId": "ACT001",
+      "studyDataCollection": null,
+      "activityIsOptional": false
+    },
+    {
+      "activityId": "ACT003",
+      "activityDescription": "Informed consent",
+      "activityName": "Demography",
+      "definedProcedures": null,
+      "nextActivityId": "ACT004",
+      "previousActivityId": "ACT002",
+      "studyDataCollection": null,
+      "activityIsOptional": false
+    },
+    {
+      "activityId": "ACT004",
+      "activityDescription": "Informed consent",
+      "activityName": "Medical history",
+      "definedProcedures": null,
+      "nextActivityId": "ACT005",
+      "previousActivityId": "ACT003",
+      "studyDataCollection": null,
+      "activityIsOptional": false
+    },
+    {
+      "activityId": "ACT005",
+      "activityDescription": "Informed consent",
+      "activityName": "Disease characteristics",
+      "definedProcedures": null,
+      "nextActivityId": "ACT006",
+      "previousActivityId": "ACT004",
+      "studyDataCollection": null,
+      "activityIsOptional": false
+    },
+    {
+      "activityId": "ACT006",
+      "activityDescription": "Informed consent",
+      "activityName": "Physical exam",
+      "definedProcedures": null,
+      "nextActivityId": "ACT007",
+      "previousActivityId": "ACT005",
+      "studyDataCollection": null,
+      "activityIsOptional": false
+    },
+    {
+      "activityId": "ACT007",
+      "activityDescription": "Informed consent",
+      "activityName": "Height",
+      "definedProcedures": null,
+      "nextActivityId": "ACT008",
+      "previousActivityId": "ACT006",
+      "studyDataCollection": null,
+      "activityIsOptional": false
+    },
+    {
+      "activityId": "ACT008",
+      "activityDescription": "Informed consent",
+      "activityName": "12-lead ECG",
+      "definedProcedures": null,
+      "nextActivityId": "ACT009",
+      "previousActivityId": "ACT007",
+      "studyDataCollection": null,
+      "activityIsOptional": false
+    },
+    {
+      "activityId": "ACT009",
+      "activityDescription": "Informed consent",
+      "activityName": "Hematology (predose)",
+      "definedProcedures": null,
+      "nextActivityId": "ACT010",
+      "previousActivityId": "ACT008",
+      "studyDataCollection": null,
+      "activityIsOptional": false
+    },
+    {
+      "activityId": "ACT010",
+      "activityDescription": "Informed consent",
+      "activityName": "Chemistry (predose)",
+      "definedProcedures": null,
+      "nextActivityId": "ACT011",
+      "previousActivityId": "ACT009",
+      "studyDataCollection": null,
+      "activityIsOptional": false
+    },
+    {
+      "activityId": "ACT011",
+      "activityDescription": "Informed consent",
+      "activityName": "Serology",
+      "definedProcedures": null,
+      "nextActivityId": "ACT012",
+      "previousActivityId": "ACT010",
+      "studyDataCollection": null,
+      "activityIsOptional": false
+    },
+    {
+      "activityId": "ACT012",
+      "activityDescription": "Informed consent",
+      "activityName": "Urinalysis",
+      "definedProcedures": null,
+      "nextActivityId": "ACT013",
+      "previousActivityId": "ACT011",
+      "studyDataCollection": null,
+      "activityIsOptional": false
+    },
+    {
+      "activityId": "ACT013",
+      "activityDescription": "Informed consent",
+      "activityName": "Pregnancy test",
+      "definedProcedures": null,
+      "nextActivityId": "ACT014",
+      "previousActivityId": "ACT012",
+      "studyDataCollection": null,
+      "activityIsOptional": false
+    },
+    {
+      "activityId": "ACT014",
+      "activityDescription": "Informed consent",
+      "activityName": "Ensure availability of medication X",
+      "definedProcedures": null,
+      "nextActivityId": "ACT015",
+      "previousActivityId": "ACT013",
+      "studyDataCollection": null,
+      "activityIsOptional": false
+    },
+    {
+      "activityId": "ACT015",
+      "activityDescription": "Informed consent",
+      "activityName": "Hospitalization",
+      "definedProcedures": null,
+      "nextActivityId": "ACT016",
+      "previousActivityId": "ACT014",
+      "studyDataCollection": null,
+      "activityIsOptional": false
+    },
+    {
+      "activityId": "ACT016",
+      "activityDescription": "Informed consent",
+      "activityName": "Weight",
+      "definedProcedures": null,
+      "nextActivityId": "ACT017",
+      "previousActivityId": "ACT015",
+      "studyDataCollection": null,
+      "activityIsOptional": false
+    },
+    {
+      "activityId": "ACT017",
+      "activityDescription": "Informed consent",
+      "activityName": "Vital signs",
+      "definedProcedures": null,
+      "nextActivityId": "ACT018",
+      "previousActivityId": "ACT016",
+      "studyDataCollection": null,
+      "activityIsOptional": false
+    },
+    {
+      "activityId": "ACT018",
+      "activityDescription": "Informed consent",
+      "activityName": "adverse events",
+      "definedProcedures": null,
+      "nextActivityId": "ACT019",
+      "previousActivityId": "ACT017",
+      "studyDataCollection": null,
+      "activityIsOptional": false
+    },
+    {
+      "activityId": "ACT019",
+      "activityDescription": "Informed consent",
+      "activityName": "Concomitant medications",
+      "definedProcedures": null,
+      "nextActivityId": null,
+      "previousActivityId": "ACT018",
+      "studyDataCollection": null,
+      "activityIsOptional": false
+    }
+  ],
+  "encounters": [
+    {
+      "encounterId": "VIS11",
+      "encounterContactModes": null,
+      "encounterDescription": "PLANNED VISIT",
+      "encounterEnvironmentalSetting": null,
+      "encounterName": "SCREENING VISIT",
+      "encounterType": null,
+      "nextEncounterId": "VIS12",
+      "previousEncounterId": null,
+      "transitionStartRule": null,
+      "transitionEndRule": null
+    },
+    {
+      "encounterId": "VIS12",
+      "encounterContactModes": null,
+      "encounterDescription": "PLANNED VISIT",
+      "encounterEnvironmentalSetting": null,
+      "encounterName": "RUN-IN VISIT 1",
+      "encounterType": null,
+      "nextEncounterId": "VIS13",
+      "previousEncounterId": "VIS11",
+      "transitionStartRule": null,
+      "transitionEndRule": null
+    },
+    {
+      "encounterId": "VIS13",
+      "encounterContactModes": null,
+      "encounterDescription": "PLANNED VISIT",
+      "encounterEnvironmentalSetting": null,
+      "encounterName": "RUN-IN VISIT 2",
+      "encounterType": null,
+      "nextEncounterId": "VIS14",
+      "previousEncounterId": "VIS12",
+      "transitionStartRule": null,
+      "transitionEndRule": null
+    },
+    {
+      "encounterId": "VIS14",
+      "encounterContactModes": null,
+      "encounterDescription": "PLANNED VISIT",
+      "encounterEnvironmentalSetting": null,
+      "encounterName": "RUN-IN VISIT 3",
+      "encounterType": null,
+      "nextEncounterId": "VIS15",
+      "previousEncounterId": "VIS13",
+      "transitionStartRule": null,
+      "transitionEndRule": null
+    },
+    {
+      "encounterId": "VIS15",
+      "encounterContactModes": null,
+      "encounterDescription": "PLANNED VISIT",
+      "encounterEnvironmentalSetting": null,
+      "encounterName": "CYCLE 1, TREATMENT DAY 1",
+      "encounterType": null,
+      "nextEncounterId": "VIS16",
+      "previousEncounterId": "VIS14",
+      "transitionStartRule": null,
+      "transitionEndRule": null
+    },
+    {
+      "encounterId": "VIS16",
+      "encounterContactModes": null,
+      "encounterDescription": "PLANNED VISIT",
+      "encounterEnvironmentalSetting": null,
+      "encounterName": "CYCLE 1, TREATMENT DAY 3",
+      "encounterType": null,
+      "nextEncounterId": "VIS17",
+      "previousEncounterId": "VIS15",
+      "transitionStartRule": null,
+      "transitionEndRule": null
+    },
+    {
+      "encounterId": "VIS17",
+      "encounterContactModes": null,
+      "encounterDescription": "PLANNED VISIT",
+      "encounterEnvironmentalSetting": null,
+      "encounterName": "CYCLE 1, TREATMENT DAY 5",
+      "encounterType": null,
+      "nextEncounterId": "VIS18",
+      "previousEncounterId": "VIS16",
+      "transitionStartRule": null,
+      "transitionEndRule": null
+    },
+    {
+      "encounterId": "VIS18",
+      "encounterContactModes": null,
+      "encounterDescription": "PLANNED VISIT",
+      "encounterEnvironmentalSetting": null,
+      "encounterName": "CYCLE 2, TREATMENT DAY 1",
+      "encounterType": null,
+      "nextEncounterId": "VIS19",
+      "previousEncounterId": "VIS17",
+      "transitionStartRule": null,
+      "transitionEndRule": null
+    },
+    {
+      "encounterId": "VIS19",
+      "encounterContactModes": null,
+      "encounterDescription": "PLANNED VISIT",
+      "encounterEnvironmentalSetting": null,
+      "encounterName": "CYCLE 2, TREATMENT DAY 3",
+      "encounterType": null,
+      "nextEncounterId": "VIS20",
+      "previousEncounterId": "VIS18",
+      "transitionStartRule": null,
+      "transitionEndRule": null
+    },
+    {
+      "encounterId": "VIS20",
+      "encounterContactModes": null,
+      "encounterDescription": "PLANNED VISIT",
+      "encounterEnvironmentalSetting": null,
+      "encounterName": "CYCLE X, TREATMENT DAY 1",
+      "encounterType": null,
+      "nextEncounterId": "VIS21",
+      "previousEncounterId": "VIS19",
+      "transitionStartRule": null,
+      "transitionEndRule": null
+    },
+    {
+      "encounterId": "VIS21",
+      "encounterContactModes": null,
+      "encounterDescription": "PLANNED VISIT",
+      "encounterEnvironmentalSetting": null,
+      "encounterName": "CYCLE X, TREATMENT DAY 4",
+      "encounterType": null,
+      "nextEncounterId": "VIS22",
+      "previousEncounterId": "VIS20",
+      "transitionStartRule": null,
+      "transitionEndRule": null
+    },
+    {
+      "encounterId": "VIS22",
+      "encounterContactModes": null,
+      "encounterDescription": "PLANNED VISIT",
+      "encounterEnvironmentalSetting": null,
+      "encounterName": "FU 1",
+      "encounterType": null,
+      "nextEncounterId": "VIS23",
+      "previousEncounterId": "VIS21",
+      "transitionStartRule": null,
+      "transitionEndRule": null
+    },
+    {
+      "encounterId": "VIS23",
+      "encounterContactModes": null,
+      "encounterDescription": "VIRTUAL VISIT",
+      "encounterEnvironmentalSetting": null,
+      "encounterName": "FU 2",
+      "encounterType": null,
+      "nextEncounterId": null,
+      "previousEncounterId": "VIS22",
+      "transitionStartRule": null,
+      "transitionEndRule": null
+    }
+  ],
+  "WorkflowItems": [
+    {
+      "workflowItemId": "WI001",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT001",
+      "workflowItemEncounterId": "VIS11",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI002",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT002",
+      "workflowItemEncounterId": "VIS11",
+      "nextWorkflowItemId": "WI003",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI003",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT003",
+      "workflowItemEncounterId": "VIS11",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI004",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT004",
+      "workflowItemEncounterId": "VIS11",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI005",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT005",
+      "workflowItemEncounterId": "VIS11",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI006",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT006",
+      "workflowItemEncounterId": "VIS11",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI007",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT006",
+      "workflowItemEncounterId": "VIS13",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI008",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT006",
+      "workflowItemEncounterId": "VIS22",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI009",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT007",
+      "workflowItemEncounterId": "VIS11",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI010",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT008",
+      "workflowItemEncounterId": "VIS11",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI011",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT008",
+      "workflowItemEncounterId": "VIS12",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI012",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT008",
+      "workflowItemEncounterId": "VIS13",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI013",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT008",
+      "workflowItemEncounterId": "VIS14",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI014",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT008",
+      "workflowItemEncounterId": "VIS22",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI015",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT009",
+      "workflowItemEncounterId": "VIS11",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI016",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT009",
+      "workflowItemEncounterId": "VIS14",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI017",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT009",
+      "workflowItemEncounterId": "VIS22",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI018",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT010",
+      "workflowItemEncounterId": "VIS11",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI019",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT010",
+      "workflowItemEncounterId": "VIS14",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI020",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT010",
+      "workflowItemEncounterId": "VIS22",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI021",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT011",
+      "workflowItemEncounterId": "VIS11",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI022",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT011",
+      "workflowItemEncounterId": "VIS12",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI023",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT011",
+      "workflowItemEncounterId": "VIS13",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI024",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT011",
+      "workflowItemEncounterId": "VIS14",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI025",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT011",
+      "workflowItemEncounterId": "VIS15",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI026",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT011",
+      "workflowItemEncounterId": "VIS18",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI027",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT011",
+      "workflowItemEncounterId": "VIS20",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI028",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT011",
+      "workflowItemEncounterId": "VIS22",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI029",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT012",
+      "workflowItemEncounterId": "VIS11",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI030",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT012",
+      "workflowItemEncounterId": "VIS14",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI031",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT012",
+      "workflowItemEncounterId": "VIS22",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI032",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT013",
+      "workflowItemEncounterId": "VIS11",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI033",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT013",
+      "workflowItemEncounterId": "VIS14",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI034",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT014",
+      "workflowItemEncounterId": "VIS15",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI035",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT014",
+      "workflowItemEncounterId": "VIS18",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI036",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT014",
+      "workflowItemEncounterId": "VIS20",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI037",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT015",
+      "workflowItemEncounterId": "VIS12",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI038",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT015",
+      "workflowItemEncounterId": "VIS15",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI039",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT015",
+      "workflowItemEncounterId": "VIS18",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI040",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT015",
+      "workflowItemEncounterId": "VIS20",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI041",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT016",
+      "workflowItemEncounterId": "VIS11",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI042",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT016",
+      "workflowItemEncounterId": "VIS15",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI043",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT016",
+      "workflowItemEncounterId": "VIS18",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI044",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT016",
+      "workflowItemEncounterId": "VIS22",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI045",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT017",
+      "workflowItemEncounterId": "VIS11",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI046",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT017",
+      "workflowItemEncounterId": "VIS12",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI047",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT017",
+      "workflowItemEncounterId": "VIS13",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI048",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT017",
+      "workflowItemEncounterId": "VIS14",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI049",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT017",
+      "workflowItemEncounterId": "VIS15",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI050",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT017",
+      "workflowItemEncounterId": "VIS16",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI051",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT017",
+      "workflowItemEncounterId": "VIS17",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI052",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT017",
+      "workflowItemEncounterId": "VIS18",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI053",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT017",
+      "workflowItemEncounterId": "VIS19",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI054",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT017",
+      "workflowItemEncounterId": "VIS20",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    },
+    {
+      "workflowItemId": "WI055",
+      "workflowItemDescription": "Sample Item Desc",
+      "workflowItemActivityId": "ACT017",
+      "workflowItemEncounterId": "VIS21",
+      "nextWorkflowItemId": "WI002",
+      "previousWorkflowItemId": ""
+    }
+  ],
+  "studyId": "14ccafdb-ef1d-448b-92b5-1f0b60d1dcbb",
+  "studyTitle": "Study Of Lung Cancer",
+  "studyDesigns": [
+    {
+      "studyDesignId": "SD_1",
+      "studyDesignName": "name",
+      "studyDesignDescription": "desc",
+      "studyWorkflows": [
+        {
+          "workFlowId": "WF01",
+          "workflowDescription": "SampleDesc",
+          "workFlowSoA": {
+            "orderOfActivities": [
+              "Informed consent",
+              "Eligibility criteria",
+              "Demography",
+              "Medical history",
+              "Disease characteristics",
+              "Physical exam",
+              "Height",
+              "12-lead ECG",
+              "Hematology (predose)",
+              "Chemistry (predose)",
+              "Serology",
+              "Urinalysis",
+              "Pregnancy test",
+              "Ensure availability of medication X",
+              "Hospitalization",
+              "Weight",
+              "Vital signs",
+              "adverse events",
+              "Concomitant medications"
+            ],
+            "SoA": [
+              {
+                "encounterName": "SCREENING VISIT",
+                "activities": [
+                  "Informed consent",
+                  "Eligibility criteria",
+                  "Demography",
+                  "Medical history",
+                  "Disease characteristics",
+                  "Physical exam",
+                  "Height",
+                  "12-lead ECG",
+                  "Hematology (predose)",
+                  "Chemistry (predose)",
+                  "Serology",
+                  "Urinalysis",
+                  "Pregnancy test",
+                  "Weight",
+                  "Vital signs"
+                ]
+              },
+              {
+                "encounterName": "RUN-IN VISIT 1",
+                "activities": [
+                  "12-lead ECG",
+                  "Serology",
+                  "Hospitalization",
+                  "Vital signs"
+                ]
+              },
+              {
+                "encounterName": "RUN-IN VISIT 2",
+                "activities": [
+                  "Physical exam",
+                  "12-lead ECG",
+                  "Serology",
+                  "Vital signs"
+                ]
+              },
+              {
+                "encounterName": "RUN-IN VISIT 3",
+                "activities": [
+                  "12-lead ECG",
+                  "Hematology (predose)",
+                  "Chemistry (predose)",
+                  "Serology",
+                  "Urinalysis",
+                  "Pregnancy test",
+                  "Vital signs"
+                ]
+              },
+              {
+                "encounterName": "CYCLE 1, TREATMENT DAY 1",
+                "activities": [
+                  "Serology",
+                  "Ensure availability of medication X",
+                  "Hospitalization",
+                  "Weight",
+                  "Vital signs"
+                ]
+              },
+              {
+                "encounterName": "CYCLE 1, TREATMENT DAY 3",
+                "activities": [
+                  "Vital signs"
+                ]
+              },
+              {
+                "encounterName": "CYCLE 1, TREATMENT DAY 5",
+                "activities": [
+                  "Vital signs"
+                ]
+              },
+              {
+                "encounterName": "CYCLE 2, TREATMENT DAY 1",
+                "activities": [
+                  "Serology",
+                  "Ensure availability of medication X",
+                  "Hospitalization",
+                  "Weight",
+                  "Vital signs"
+                ]
+              },
+              {
+                "encounterName": "CYCLE 2, TREATMENT DAY 3",
+                "activities": [
+                  "Vital signs"
+                ]
+              },
+              {
+                "encounterName": "CYCLE X, TREATMENT DAY 1",
+                "activities": [
+                  "Serology",
+                  "Ensure availability of medication X",
+                  "Hospitalization",
+                  "Vital signs"
+                ]
+              },
+              {
+                "encounterName": "CYCLE X, TREATMENT DAY 4",
+                "activities": [
+                  "Vital signs"
+                ]
+              },
+              {
+                "encounterName": "FU 1",
+                "activities": [
+                  "Physical exam",
+                  "12-lead ECG",
+                  "Hematology (predose)",
+                  "Chemistry (predose)",
+                  "Serology",
+                  "Urinalysis",
+                  "Weight"
+                ]
+              },
+              {
+                "encounterName": "FU 2",
+                "activities": []
+              }
+            ]
+          }
+        },
+        {
+          "workFlowId": "WF02",
+          "workflowDescription": "SampleDesc",
+          "workFlowSoA": {
+            "orderOfActivities": [
+              "Informed consent",
+              "Eligibility criteria",
+              "Demography",
+              "Medical history",
+              "Disease characteristics",
+              "Physical exam",
+              "Height",
+              "12-lead ECG",
+              "Hematology (predose)",
+              "Chemistry (predose)",
+              "Serology",
+              "Urinalysis",
+              "Pregnancy test",
+              "Ensure availability of medication X",
+              "Hospitalization",
+              "Weight",
+              "Vital signs",
+              "adverse events",
+              "Concomitant medications"
+            ],
+            "SoA": [
+              {
+                "encounterName": "SCREENING VISIT",
+                "activities": []
+              },
+              {
+                "encounterName": "RUN-IN VISIT 1",
+                "activities": []
+              },
+              {
+                "encounterName": "RUN-IN VISIT 2",
+                "activities": []
+              },
+              {
+                "encounterName": "RUN-IN VISIT 3",
+                "activities": []
+              },
+              {
+                "encounterName": "CYCLE 1, TREATMENT DAY 1",
+                "activities": []
+              },
+              {
+                "encounterName": "CYCLE 1, TREATMENT DAY 3",
+                "activities": []
+              },
+              {
+                "encounterName": "CYCLE 1, TREATMENT DAY 5",
+                "activities": []
+              },
+              {
+                "encounterName": "CYCLE 2, TREATMENT DAY 1",
+                "activities": []
+              },
+              {
+                "encounterName": "CYCLE 2, TREATMENT DAY 3",
+                "activities": []
+              },
+              {
+                "encounterName": "CYCLE X, TREATMENT DAY 1",
+                "activities": []
+              },
+              {
+                "encounterName": "CYCLE X, TREATMENT DAY 4",
+                "activities": []
+              },
+              {
+                "encounterName": "FU 1",
+                "activities": []
+              },
+              {
+                "encounterName": "FU 2",
+                "activities": []
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

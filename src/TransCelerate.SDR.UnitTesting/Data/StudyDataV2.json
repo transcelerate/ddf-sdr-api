@@ -542,6 +542,6 @@
   "auditTrail": {
     "entryDateTime": "2022-10-18T11:44:11.0529109Z",
     "SDRUploadVersion": 1,
-    "usdmVersion": "2.0"
+    "usdm-version": "2.0"
   }
 }
