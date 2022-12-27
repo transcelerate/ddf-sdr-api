@@ -286,6 +286,7 @@ namespace TransCelerate.SDR.Services.Services
             studyEntity = _helper.GeneratedSectionId(studyEntity);
             studyEntity.ClinicalStudy.Uuid = IdGenerator.GenerateId();
             studyEntity.AuditTrail.SDRUploadVersion = 1;
+            studyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V1;
             await _clinicalStudyRepository.PostStudyItemsAsync(studyEntity);
             return _mapper.Map<StudyDto>(studyEntity);
         }
@@ -294,6 +295,7 @@ namespace TransCelerate.SDR.Services.Services
         {
             existingStudyEntity.AuditTrail.EntryDateTime = incomingStudyEntity.AuditTrail.EntryDateTime;
             incomingStudyEntity.AuditTrail.SDRUploadVersion = existingStudyEntity.AuditTrail.SDRUploadVersion;
+            existingStudyEntity.AuditTrail.UsdmVersion= Constants.USDMVersions.V1;
             await _clinicalStudyRepository.UpdateStudyItemsAsync(existingStudyEntity);
             return _mapper.Map<StudyDto>(existingStudyEntity);            
         }
@@ -302,6 +304,7 @@ namespace TransCelerate.SDR.Services.Services
         {
             incomingStudyEntity = _helper.CheckForSections(incomingStudyEntity, existingStudyEntity);
             incomingStudyEntity.AuditTrail.SDRUploadVersion = existingStudyEntity.AuditTrail.SDRUploadVersion + 1;
+            incomingStudyEntity.AuditTrail.UsdmVersion= Constants.USDMVersions.V1;
             await _clinicalStudyRepository.PostStudyItemsAsync(incomingStudyEntity);            
             return _mapper.Map<StudyDto>(incomingStudyEntity);
         }
