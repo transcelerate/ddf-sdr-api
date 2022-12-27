@@ -280,7 +280,8 @@ namespace TransCelerate.SDR.Services.Services
                                         SoA soA = new SoA();
                                         soA.EncounterName = encounter.EncounterName;
                                         soA.Activities = workflowItems.Where(x => x.WorkflowItemEncounterId == encounter.Id)
-                                                                      .Select(x => activities.Where(y=>y.Id == x.WorkflowItemActivityId).First().ActivityName)
+                                                                      .Where(x => activities.Where(y => y.Id == x.WorkflowItemActivityId).Any())
+                                                                      .Select(x => activities.Where(y => y.Id == x.WorkflowItemActivityId).First().ActivityName)
                                                                       .ToList();
                                         studyWorkflowsA.WorkFlowSoA.SoA.Add(soA);
                                     });
