@@ -273,19 +273,27 @@ namespace TransCelerate.SDR.Services.Services
                 else
                 {                    
                     var groupStudy = studies.GroupBy(x => new { x.studyId })
-                                            .Select(g => new
+                                            .Select(g => new 
                                             {
                                                 studyId = g.Key.studyId,
                                                 studyTitle = g.Select(x => x).Where(x => x.studyVersion == g.Max(x => x.studyVersion)).FirstOrDefault().studyTitle,
                                                 studyVersion = g.Select(x => x.studyVersion).OrderBy(x => x).ToArray(),
-                                                date = g.Select(x => x).Where(x => x.studyVersion == g.Max(x => x.studyVersion)).FirstOrDefault().entryDateTime
+                                                date = g.Select(x => x).Where(x => x.studyVersion == g.Max(x => x.studyVersion)).FirstOrDefault().entryDateTime,
+                                                UsdmVersion= g.Select(x => x).Where(x => x.studyVersion == g.Max(x => x.studyVersion)).FirstOrDefault().UsdmVersion,
                                             }) // Grouping the Id's by studyId
                                             .OrderByDescending(x => x.date)
+                                            .Select(x=> new StudyHistoryDTO
+                                            {
+                                                studyId=x.studyId,
+                                                studyTitle=x.studyTitle,
+                                                studyVersion=x.studyVersion,
+                                                UsdmVersion=x.UsdmVersion
+                                            })
                                             .ToList();
 
                     GetStudyHistoryResponseDTO allStudyIdResponseDTO = new GetStudyHistoryResponseDTO() //Mapping Group to Study History ResponseDto 
                     {
-                        study = JsonConvert.DeserializeObject<List<StudyHistoryDTO>>(JsonConvert.SerializeObject(groupStudy))
+                        study = groupStudy
                     };
 
                     return allStudyIdResponseDTO;
@@ -344,6 +352,7 @@ namespace TransCelerate.SDR.Services.Services
                     PreviousItemNextItemHelper.PreviousItemsNextItemsWraper(incomingstudyEntity);
                     #endregion
 
+                    incomingstudyEntity.auditTrail.UsdmVersion = Constants.USDMVersions.MVP;
                     _logger.LogInformation($"entrySystem: {entrySystem??"<null>"}; Study Input : {JsonConvert.SerializeObject(incomingstudyEntity)}");
                     await _clinicalStudyRepository.PostStudyItemsAsync(incomingstudyEntity).ConfigureAwait(false);
                     studyDTO = _mapper.Map<PostStudyDTO>(incomingstudyEntity);
@@ -369,6 +378,7 @@ namespace TransCelerate.SDR.Services.Services
 
                         if (PostStudyElementsCheck.StudyComparison(duplicateIncomingStudy, duplicateExistingStudy)) //If the data in existing and incoming are same
                         {
+                            existingStudyEntity.auditTrail.UsdmVersion = Constants.USDMVersions.MVP;
                             _logger.LogInformation($"Study Input : {JsonConvert.SerializeObject(existingStudyEntity)}");
                             await _clinicalStudyRepository.UpdateStudyItemsAsync(existingStudyEntity); //update the existing latest version
                             studyDTO = _mapper.Map<PostStudyDTO>(existingStudyEntity);
@@ -382,6 +392,7 @@ namespace TransCelerate.SDR.Services.Services
 
                             _logger.LogInformation($"Study Input : {JsonConvert.SerializeObject(existingStudyEntity)}");
                             existingStudyEntity._id = ObjectId.GenerateNewId();
+                            existingStudyEntity.auditTrail.UsdmVersion = Constants.USDMVersions.MVP;
                             await _clinicalStudyRepository.PostStudyItemsAsync(existingStudyEntity).ConfigureAwait(false);
                             studyDTO = _mapper.Map<PostStudyDTO>(existingStudyEntity);
                             responseObject = RemoveStudySections.PostResponseRemoveSections(studyDTO);                            

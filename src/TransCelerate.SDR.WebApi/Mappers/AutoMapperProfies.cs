@@ -35,6 +35,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
                .ForMember(dest=>dest.studyIdentifiers,opt=>opt.MapFrom(src=>src.clinicalStudy.studyIdentifiers))
                .ForMember(dest=>dest.entrySystem,opt=>opt.MapFrom(src=>src.auditTrail.entrySystem))
                .ForMember(dest=>dest.studyVersion,opt=>opt.MapFrom(src=>src.auditTrail.studyVersion))
+               .ForMember(dest => dest.UsdmVersion, opt => opt.MapFrom(src => src.auditTrail.UsdmVersion))
                .ForMember(dest => dest.entryDateTime, opt => opt.MapFrom(src => src.auditTrail.entryDateTime)).ReverseMap();
 
             CreateMap<SearchTitleDTO, SearchTitleEntity>()
@@ -42,6 +43,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
                .ForMember(dest => dest.studyTitle, opt => opt.MapFrom(src => src.clinicalStudy.studyTitle))               
                .ForMember(dest => dest.studyTag, opt => opt.MapFrom(src => src.clinicalStudy.studyTag))         
                .ForMember(dest => dest.studyVersion, opt => opt.MapFrom(src => src.auditTrail.studyVersion))
+               .ForMember(dest => dest.UsdmVersion, opt => opt.MapFrom(src => src.auditTrail.UsdmVersion))
                .ForMember(dest => dest.entryDateTime, opt => opt.MapFrom(src => src.auditTrail.entryDateTime)).ReverseMap();
 
             //Mappers for GET Methods
@@ -64,6 +66,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
                 .ForMember(dest => dest.entryDateTime, opt => opt.MapFrom(src => src.auditTrail.entryDateTime.ToString(Constants.DateFormats.DateFormatForAuditResponse).ToUpper()))
                 .ForMember(dest => dest.entrySystem, opt => opt.MapFrom(src => src.auditTrail.entrySystem))
                 .ForMember(dest => dest.studyVersion, opt => opt.MapFrom(src => src.auditTrail.studyVersion))
+                .ForMember(dest => dest.UsdmVersion, opt => opt.MapFrom(src => src.auditTrail.UsdmVersion))
                 .ForMember(dest => dest.studyTag, opt => opt.MapFrom(src => src.clinicalStudy.studyTag))
                 .ForMember(dest => dest.studyStatus, opt => opt.MapFrom(src => src.clinicalStudy.studyStatus));
 

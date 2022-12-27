@@ -144,7 +144,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                   {
                                                       StudyType = x.ClinicalStudy.StudyType,
                                                       EntryDateTime = x.AuditTrail.EntryDateTime,
-                                                      SDRUploadVersion = x.AuditTrail.SDRUploadVersion
+                                                      SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+                                                      UsdmVersion = x.AuditTrail.UsdmVersion
                                                   })
                                                   .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
                                                   .ToListAsync().ConfigureAwait(false);
@@ -199,7 +200,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                                     EntryDateTime = x.AuditTrail.EntryDateTime,
                                                                     StudyType = x.ClinicalStudy.StudyType,
                                                                     ProtocolVersions = x.ClinicalStudy.StudyProtocolVersions.Select(x=>x.ProtocolVersion),
-                                                                    StudyVersion = x.ClinicalStudy.StudyVersion
+                                                                    StudyVersion = x.ClinicalStudy.StudyVersion,
+                                                                    UsdmVersion = x.AuditTrail.UsdmVersion
                                                                 })  //Project only the required fields                                                        
                                                         .ToListAsync().ConfigureAwait(false);
 
@@ -344,6 +346,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                   StudyIndications = x.ClinicalStudy.StudyDesigns.Select(y=>y.StudyIndications) ?? null,
                                                   EntryDateTime = x.AuditTrail.EntryDateTime,
                                                   SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+                                                  UsdmVersion = x.AuditTrail.UsdmVersion
                                               })                                                 
                                               .ToListAsync()
                                               .ConfigureAwait(false);
@@ -485,6 +488,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                   StudyIdentifiers = x.ClinicalStudy.StudyIdentifiers,                                                 
                                                   EntryDateTime = x.AuditTrail.EntryDateTime,
                                                   SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+                                                  UsdmVersion = x.AuditTrail.UsdmVersion
                                               })
                                               .ToListAsync()
                                               .ConfigureAwait(false);
