@@ -56,6 +56,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
                 .ForMember(dest => dest.StudyPhase, opt => opt.MapFrom(src => src.ClinicalStudy.StudyPhase))
                 .ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.AuditTrail.EntryDateTime))
                 .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))
+                .ForMember(dest => dest.UsdmVersion, opt => opt.MapFrom(src => src.AuditTrail.UsdmVersion))
                 .ReverseMap();
 
             //Mapper for Search Title
@@ -64,6 +65,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
                .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.ClinicalStudy.StudyTitle))
                .ForMember(dest => dest.StudyIdentifiers, opt => opt.MapFrom(src => src.ClinicalStudy.StudyIdentifiers))               
                .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))
+               .ForMember(dest => dest.UsdmVersion, opt => opt.MapFrom(src => src.AuditTrail.UsdmVersion))
                .ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.AuditTrail.EntryDateTime)).ReverseMap();
 
             //Mapper for Study History

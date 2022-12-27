@@ -65,7 +65,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         }
         public struct USDMVersions
         {
-            public const string MVP = "0.1";
+            public const string MVP = "mvp";
             public const string V1 = "1.0";
             public const string V2 = "2.0";
         }

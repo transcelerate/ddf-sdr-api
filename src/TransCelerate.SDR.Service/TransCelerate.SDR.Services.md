@@ -1300,7 +1300,7 @@ A [Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&
 
 ##### Summary
 
-GET Study Designs of a Study
+GET SoA
 
 ##### Returns
 

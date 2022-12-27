@@ -47,7 +47,6 @@
   - [GetUsersList()](#M-TransCelerate-SDR-WebApi-Controllers-UserGroupsController-GetUsersList-TransCelerate-SDR-Core-DTO-UserGroups-UserGroupsQueryParameters- 'TransCelerate.SDR.WebApi.Controllers.UserGroupsController.GetUsersList(TransCelerate.SDR.Core.DTO.UserGroups.UserGroupsQueryParameters)')
   - [PostGroup(groupDTO)](#M-TransCelerate-SDR-WebApi-Controllers-UserGroupsController-PostGroup-TransCelerate-SDR-Core-DTO-UserGroups-SDRGroupsDTO- 'TransCelerate.SDR.WebApi.Controllers.UserGroupsController.PostGroup(TransCelerate.SDR.Core.DTO.UserGroups.SDRGroupsDTO)')
   - [PostUserToGroups(userToGroupsDTO)](#M-TransCelerate-SDR-WebApi-Controllers-UserGroupsController-PostUserToGroups-TransCelerate-SDR-Core-DTO-UserGroups-PostUserToGroupsDTO- 'TransCelerate.SDR.WebApi.Controllers.UserGroupsController.PostUserToGroups(TransCelerate.SDR.Core.DTO.UserGroups.PostUserToGroupsDTO)')
-  - [RemoveInActiveUsers()](#M-TransCelerate-SDR-WebApi-Controllers-UserGroupsController-RemoveInActiveUsers 'TransCelerate.SDR.WebApi.Controllers.UserGroupsController.RemoveInActiveUsers')
 
 <a name='T-TransCelerate-SDR-WebApi-Mappers-AutoMapperProfies'></a>
 ## AutoMapperProfies `type`
@@ -585,14 +584,3 @@ POST a user to groups
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | userToGroupsDTO | [TransCelerate.SDR.Core.DTO.UserGroups.PostUserToGroupsDTO](#T-TransCelerate-SDR-Core-DTO-UserGroups-PostUserToGroupsDTO 'TransCelerate.SDR.Core.DTO.UserGroups.PostUserToGroupsDTO') | User which needs to be added/modified to groups |
-
-<a name='M-TransCelerate-SDR-WebApi-Controllers-UserGroupsController-RemoveInActiveUsers'></a>
-### RemoveInActiveUsers() `method`
-
-##### Summary
-
-Remove InActive Users
-
-##### Parameters
-
-This method has no parameters.

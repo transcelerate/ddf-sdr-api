@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV1
@@ -13,5 +14,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV1
         public DateTime EntryDateTime { get; set; }
         public CodeEntity StudyType { get; set; }
         public IEnumerable<string> ProtocolVersions { get; set; }
+        [BsonElement("usdm-version")]
+        public string UsdmVersion { get; set; }
     }
 }

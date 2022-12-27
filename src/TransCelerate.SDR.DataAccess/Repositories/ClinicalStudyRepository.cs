@@ -231,7 +231,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                                     studyTitle = x.clinicalStudy.studyTitle, 
                                                                     studyVersion = x.auditTrail.studyVersion, 
                                                                     entryDateTime = x.auditTrail.entryDateTime,
-                                                                    studyType = x.clinicalStudy.studyType
+                                                                    studyType = x.clinicalStudy.studyType,
+                                                                    UsdmVersion=x.auditTrail.UsdmVersion
                                                                 })  //Project only the required fields
                                                         .SortByDescending(s => s.auditTrail.entryDateTime)  // Sort by descending on entryDateTime
                                                         .ToListAsync().ConfigureAwait(false);   
@@ -295,6 +296,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                      entryDateTime = x.auditTrail.entryDateTime,
                                                      entrySystem = x.auditTrail.entrySystem ?? null,
                                                      studyVersion = x.auditTrail.studyVersion,
+                                                     UsdmVersion=x.auditTrail.UsdmVersion
                                                  })
                                                  .ToListAsync().ConfigureAwait(false);
 
@@ -527,6 +529,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                      studyTitle = x.clinicalStudy.studyTitle ?? null,                                                                                                         
                                                      entryDateTime = x.auditTrail.entryDateTime,                                                     
                                                      studyVersion = x.auditTrail.studyVersion,
+                                                     UsdmVersion = x.auditTrail.UsdmVersion
                                                  })
                                                  .ToListAsync().ConfigureAwait(false);
 
