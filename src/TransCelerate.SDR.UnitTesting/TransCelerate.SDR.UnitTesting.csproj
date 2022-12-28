@@ -34,6 +34,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Data\ApiUsdmVersionMapping.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\ChangeAuditData.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

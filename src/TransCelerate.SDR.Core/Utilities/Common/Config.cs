@@ -22,5 +22,6 @@
         public static bool isAuthEnabled { get; set; }
         public static string AzureServiceBusConnectionString { get; set; }
         public static string AzureServiceBusQueueName { get; set; }
+        public static string ApiVersionUsdmVersionMapping { get; set; }
     }
 }

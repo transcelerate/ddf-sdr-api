@@ -31,6 +31,7 @@
   - [GetStudyHistory(fromDate,toDate,studyTitle)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetStudyHistory-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetStudyHistory(System.DateTime,System.DateTime,System.String)')
   - [PostAllElements(studyDTO)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV2-StudyDto- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.PostAllElements(TransCelerate.SDR.Core.DTO.StudyV2.StudyDto)')
 - [CommonController](#T-TransCelerate-SDR-WebApi-Controllers-CommonController 'TransCelerate.SDR.WebApi.Controllers.CommonController')
+  - [GetApiUsdmMapping()](#M-TransCelerate-SDR-WebApi-Controllers-CommonController-GetApiUsdmMapping 'TransCelerate.SDR.WebApi.Controllers.CommonController.GetApiUsdmMapping')
   - [GetRawJson(studyId,sdruploadversion)](#M-TransCelerate-SDR-WebApi-Controllers-CommonController-GetRawJson-System-String,System-Int32- 'TransCelerate.SDR.WebApi.Controllers.CommonController.GetRawJson(System.String,System.Int32)')
 - [ReportsController](#T-TransCelerate-SDR-WebApi-Controllers-ReportsController 'TransCelerate.SDR.WebApi.Controllers.ReportsController')
   - [GetUsageReport()](#M-TransCelerate-SDR-WebApi-Controllers-ReportsController-GetUsageReport-TransCelerate-SDR-Core-DTO-Reports-ReportBodyParameters- 'TransCelerate.SDR.WebApi.Controllers.ReportsController.GetUsageReport(TransCelerate.SDR.Core.DTO.Reports.ReportBodyParameters)')
@@ -409,6 +410,17 @@ POST/PUT All Elements For a Study
 ##### Namespace
 
 TransCelerate.SDR.WebApi.Controllers
+
+<a name='M-TransCelerate-SDR-WebApi-Controllers-CommonController-GetApiUsdmMapping'></a>
+### GetApiUsdmMapping() `method`
+
+##### Summary
+
+GET API -> USDM Version Mapping
+
+##### Parameters
+
+This method has no parameters.
 
 <a name='M-TransCelerate-SDR-WebApi-Controllers-CommonController-GetRawJson-System-String,System-Int32-'></a>
 ### GetRawJson(studyId,sdruploadversion) `method`

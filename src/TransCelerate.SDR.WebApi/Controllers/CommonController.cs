@@ -36,7 +36,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
 
         #region Action Methods
 
-        #region Get Method
+        #region Get Methods
         /// <summary>
         /// GET All Elements For a Study
         /// </summary>
@@ -98,6 +98,39 @@ namespace TransCelerate.SDR.WebApi.Controllers
             finally
             {
                 _logger.LogInformation($"Ended Controller : {nameof(CommonController)}; Method : {nameof(GetRawJson)};");
+            }
+        }
+
+        /// <summary>
+        /// GET API -> USDM Version Mapping
+        /// </summary>
+        /// <response code="200">API -> USDM Version Mapping</response>
+        /// <response code="400">Bad Request</response>
+        [HttpGet]
+        [Route(Route.GetApiUsdmMapping)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ApiUsdmVersionMapping))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public IActionResult GetApiUsdmMapping()
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(CommonController)}; Method : {nameof(GetApiUsdmMapping)};");
+                ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping = new ApiUsdmVersionMapping_NonStatic
+                {
+                    SDRVersions = ApiUsdmVersionMapping.SDRVersions
+                };
+                return Ok(apiUsdmVersionMapping);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(CommonController)}; Method : {nameof(GetApiUsdmMapping)};");
             }
         }
         #endregion

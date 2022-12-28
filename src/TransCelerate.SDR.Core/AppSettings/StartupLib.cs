@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.Core.AppSettings
@@ -29,6 +31,10 @@ namespace TransCelerate.SDR.Core.AppSettings
             Config.isAuthEnabled = Convert.ToBoolean(config.GetSection("isAuthEnabled").Value);
             Config.AzureServiceBusConnectionString = Convert.ToString(config.GetSection("AzureServiceBusConnectionString").Value);
             Config.AzureServiceBusQueueName = Convert.ToString(config.GetSection("AzureServiceBusQueueName").Value);
+            Config.ApiVersionUsdmVersionMapping = Convert.ToString(config.GetSection("ApiVersionUsdmVersionMapping").Value);
+
+            ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(Config.ApiVersionUsdmVersionMapping);
+            ApiUsdmVersionMapping.SDRVersions = apiUsdmVersionMapping_NonStatic.SDRVersions;
         }
     }
 }

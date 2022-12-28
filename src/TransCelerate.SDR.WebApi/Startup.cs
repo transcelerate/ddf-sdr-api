@@ -123,10 +123,6 @@ namespace TransCelerate.SDR.WebApi
             services.AddCors();
 
             //Dependency Injection of interfaces
-            MongoDB.Bson.Serialization.BsonSerializer.RegisterSerializer(new MongoDB.Bson.Serialization.Serializers.GuidSerializer(MongoDB.Bson.GuidRepresentation.Standard));
-            #pragma warning disable CS0618 // Type or member is obsolete
-            MongoDB.Bson.BsonDefaults.GuidRepresentation = MongoDB.Bson.GuidRepresentation.Standard;
-            #pragma warning restore CS0618 // Type or member is obsolete
             services.AddApplicationDependencies();           
 
             //AutoMapper Profile
