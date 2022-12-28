@@ -145,5 +145,34 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);           
         }
         #endregion
+
+        #region Get API -> USDM Version Mapping
+        [Test]
+        public void GetApiUsdmVersionMappingUnitTesting()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ApiUsdmVersionMapping.json");            
+            ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(jsonData);
+            ApiUsdmVersionMapping.SDRVersions = apiUsdmVersionMapping_NonStatic.SDRVersions;
+            CommonController commonController = new CommonController(_mockCommonService.Object, _mockLogger);
+
+            var method = commonController.GetApiUsdmMapping();
+
+            var result = (method as OkObjectResult).Value;
+
+            //Expected
+            var expected = apiUsdmVersionMapping_NonStatic;
+            
+            //Actual            
+            var actual_result = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(JsonConvert.SerializeObject(result));
+
+            Assert.AreEqual(expected.SDRVersions.Count, actual_result.SDRVersions.Count);
+
+            Mock<ILogHelper> _mockLogg = new Mock<ILogHelper>(MockBehavior.Loose);
+            _mockLogg.Setup(x => x.LogInformation(It.IsAny<string>())).Throws(new Exception("Error"));
+
+            CommonController commonController1 = new CommonController(_mockCommonService.Object, _mockLogg.Object);
+            Assert.Throws<System.Exception>(() => commonController1.GetApiUsdmMapping());
+        }
+        #endregion
     }
 }
