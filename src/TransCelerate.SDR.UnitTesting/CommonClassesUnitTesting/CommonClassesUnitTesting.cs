@@ -283,6 +283,8 @@ namespace TransCelerate.SDR.UnitTesting
         {
             _mockConfig.Setup(x => x.GetSection(It.IsAny<string>()).Value)
                 .Returns("true");
+            _mockConfig.Setup(x => x.GetSection("ApiVersionUsdmVersionMapping").Value)
+               .Returns(File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ApiUsdmVersionMapping.json"));
             StartupLib.SetConstants(_mockConfig.Object);       
             Assert.AreEqual(Config.ConnectionString, "true");
             Assert.AreEqual(Config.DatabaseName, "true");
@@ -293,7 +295,9 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.AreEqual(Config.TenantID, "true");    
             Assert.AreEqual(Config.Authority, "true");               
             Assert.AreEqual(Config.isAuthEnabled, true);               
-            Assert.AreEqual(Config.isGroupFilterEnabled, true);               
+            Assert.AreEqual(Config.isGroupFilterEnabled, true);
+            ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ApiUsdmVersionMapping.json"));
+            Assert.AreEqual(apiUsdmVersionMapping_NonStatic.SDRVersions.Count, ApiUsdmVersionMapping.SDRVersions.Count);
         }
         #endregion
 

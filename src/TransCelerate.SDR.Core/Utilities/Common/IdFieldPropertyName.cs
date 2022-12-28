@@ -36,5 +36,13 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string TransitionRuleId = "transitionRuleId";
             public const string EncounterId = "encounterId";
         }
+
+        public struct Common
+        {
+            public const string UsdmVersion = "usdm-version";
+            public const string UsdmVersions = "usdm-versions";
+            public const string ApiVersion = "api-version";
+            public const string SDRVersions = "SDRVersions";
+        }
     }
 }
