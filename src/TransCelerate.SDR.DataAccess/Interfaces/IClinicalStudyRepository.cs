@@ -106,5 +106,16 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// A studyId which was inserted <br></br> <br></br>        
         /// </returns>
         Task<string> UpdateStudyItemsAsync(StudyEntity study);
+
+        /// <summary>
+        /// GET a Study for a study ID with version filter
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="version">Version of study</param>
+        /// <returns>
+        /// A <see cref="AuditTrailEntity"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        Task<AuditTrailEntity> GetUsdmVersionAsync(string studyId, int version);
     }
 }

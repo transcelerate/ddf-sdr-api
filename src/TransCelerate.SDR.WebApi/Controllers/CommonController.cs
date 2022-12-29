@@ -18,6 +18,7 @@ using TransCelerate.SDR.Services.Interfaces;
 namespace TransCelerate.SDR.WebApi.Controllers
 {
     [Authorize]
+    [ApiVersionNeutral]
     [ApiController]
     public class CommonController : ControllerBase
     {

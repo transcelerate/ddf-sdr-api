@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace TransCelerate.SDR.WebApi.Controllers
 {
@@ -48,16 +49,19 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <param name="studyId">Study ID</param>
         /// <param name="sdruploadversion">Version of study</param> 
         /// <param name="listofelements">List of elements with comma separated values</param>
+        /// <param name="usdmVersion">usdm-vreison header</param>
         /// <response code="200">Returns Study</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>
         [HttpGet]
+        [ApiVersion(Constants.USDMVersions.V2)]
         [Route(Route.StudyV2)]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetStudy(string studyId, int sdruploadversion, string listofelements)
+        public async Task<IActionResult> GetStudy(string studyId, int sdruploadversion, string listofelements,
+                                                  [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
         {
             try
             {
@@ -110,16 +114,19 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <param name="studydesign_uuid">Study Design ID</param>
         /// <param name="sdruploadversion">Version of study</param>
         /// <param name="listofelements">List of study design elements with comma separated values</param>
+        /// <param name="usdmVersion">usdm-version</param>
         /// <response code="200">Returns Study</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>
         [HttpGet]
         [Route(Route.StudyDesignV2)]
+        [ApiVersion(Constants.USDMVersions.V2)]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetStudyDesigns(string study_uuid, int sdruploadversion, string studydesign_uuid, string listofelements)
+        public async Task<IActionResult> GetStudyDesigns(string study_uuid, int sdruploadversion, string studydesign_uuid, string listofelements,
+                                                  [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
         {
             try
             {
@@ -180,6 +187,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="404">The Study for the studyId is Not Found</response>
         [HttpGet]
         [Route(Route.SoAV2)]
+        [ApiVersionNeutral]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
@@ -246,6 +254,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="404">The Audit trail for the study is Not Found</response>
         [HttpGet]
         [Route(Route.AuditTrailV2)]
+        [ApiVersionNeutral]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IEnumerable<AudiTrailResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
@@ -313,6 +322,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="404">There is no study</response>
         [HttpGet]
         [Route(Route.StudyHistoryV2)]
+        [ApiVersionNeutral]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyHistoryResponseDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
@@ -366,14 +376,16 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// POST/PUT All Elements For a Study  
         /// </summary>        
         /// <param name="studyDTO">Study for Inserting/Updating in Database</param>        
+        /// <param name="usdmVersion">usdm-version</param>        
         /// <response code="201">Study Created</response>
         /// <response code="400">Bad Request</response>       
         [HttpPost,HttpPut]
+        [ApiVersion(Constants.USDMVersions.V2)]
         [Route(Route.PostElementsV2)]
         [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> PostAllElements([FromBody] StudyDto studyDTO)
+        public async Task<IActionResult> PostAllElements([FromBody] StudyDto studyDTO,[FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
         {
             try
             {
@@ -437,6 +449,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="404">The Study for the studyId is Not Found</response>
         [HttpDelete]
         [Authorize(Roles = Constants.Roles.Org_Admin)]
+        [ApiVersionNeutral]
         [Route(Route.StudyV2)]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]

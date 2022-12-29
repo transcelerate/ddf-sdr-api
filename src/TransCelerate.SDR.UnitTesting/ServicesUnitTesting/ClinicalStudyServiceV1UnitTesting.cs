@@ -76,14 +76,17 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             StudyEntity entity = null;
             StudyDto studyDto = GetDtoDataFromStaticJson();
             studyDto.ClinicalStudy.StudyTitle = "New";
-            studyEntity.AuditTrail = new AuditTrailEntity { CreatedBy = user.UserName, EntryDateTime = DateTime.Now, SDRUploadVersion = 0 };
-            studyDto.AuditTrail = new AuditTrailDto { EntryDateTime = DateTime.Now, SDRUploadVersion = 1 };
+            studyEntity.AuditTrail = new AuditTrailEntity { CreatedBy = user.UserName, EntryDateTime = DateTime.Now, SDRUploadVersion = 0, UsdmVersion = "1.0" };
+            studyDto.AuditTrail = new AuditTrailDto { EntryDateTime = DateTime.Now, SDRUploadVersion = 1 , UsdmVersion = "1.0"};
             _mockClinicalStudyRepository.Setup(x => x.PostStudyItemsAsync(It.IsAny<StudyEntity>()))
                     .Returns(Task.FromResult(studyDto.ClinicalStudy.Uuid));
             _mockClinicalStudyRepository.Setup(x => x.UpdateStudyItemsAsync(It.IsAny<StudyEntity>()))
                     .Returns(Task.FromResult(studyDto.ClinicalStudy.Uuid));
             _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), 0))
                     .Returns(Task.FromResult(studyEntity));
+            StudyEntity studyEntity1 = GetEntityDataFromStaticJson(); studyEntity1.AuditTrail.SDRUploadVersion = 1; studyEntity1.AuditTrail.UsdmVersion = "1.0";
+            _mockClinicalStudyRepository.Setup(x => x.GetUsdmVersionAsync(It.IsAny<string>(), It.IsAny<int>()))
+                   .Returns(Task.FromResult(studyEntity1.AuditTrail));
             _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(user))
                    .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
             _mockHelper.Setup(x => x.IsSameStudy(It.IsAny<StudyEntity>(), It.IsAny<StudyEntity>()))
@@ -124,6 +127,8 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), 0))
                     .Returns(Task.FromResult(entity));
+            _mockClinicalStudyRepository.Setup(x => x.GetUsdmVersionAsync(It.IsAny<string>(), It.IsAny<int>()))
+                    .Returns(Task.FromResult(null as AuditTrailEntity));
 
             method = ClinicalStudyService.PostAllElements(studyDto, user);
             method.Wait();
@@ -133,7 +138,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             var actual_result1 = result.ToString();
 
             //Assert          
-            Assert.AreEqual(actual_result1.ToString(), Constants.ErrorMessages.NotValidStudyId);
+            Assert.AreEqual(actual_result1.ToString(), Constants.ErrorMessages.StudyIdNotFound);
 
             _mockHelper.Setup(x => x.GeneratedSectionId(It.IsAny<StudyEntity>()))
                     .Returns(studyEntity);

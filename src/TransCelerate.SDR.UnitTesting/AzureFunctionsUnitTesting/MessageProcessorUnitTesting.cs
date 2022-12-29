@@ -59,6 +59,8 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
             
             _mockChangeAuditRepository.Setup(x=>x.GetChangeAuditAsync(It.IsAny<string>()))
                 .Returns(GetChangeAuditDataFromStaticJson());
+            _mockChangeAuditRepository.Setup(x => x.GetAuditTrailsAsync(It.IsAny<string>(),It.IsAny<int>()))
+                .Returns(studyEntities.Select(z=>z.AuditTrail).ToList());
             _mockChangeAuditRepository.Setup(x => x.InsertChangeAudit(It.IsAny<ChangeAuditStudyEntity>()));
             _mockChangeAuditRepository.Setup(x => x.UpdateChangeAudit(It.IsAny<ChangeAuditStudyEntity>()));
 
@@ -164,7 +166,9 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
             var difference = helper.GetChangedValues(currentVersion, previousVersion);
             _mockChangeAuditRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(studyEntities);
-
+            
+            _mockChangeAuditRepository.Setup(x => x.GetAuditTrailsAsync(It.IsAny<string>(), It.IsAny<int>()))
+                   .Returns((studyEntities.Select(x => x.AuditTrail).ToList()));
             _mockChangeAuditRepository.Setup(x => x.GetChangeAuditAsync(It.IsAny<string>()))
                 .Returns(GetChangeAuditDataFromStaticJson());
             _mockChangeAuditRepository.Setup(x => x.InsertChangeAudit(It.IsAny<ChangeAuditStudyEntity>()));

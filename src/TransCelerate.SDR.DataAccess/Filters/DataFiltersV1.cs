@@ -21,10 +21,29 @@ namespace TransCelerate.SDR.DataAccess.Filters
         {
             FilterDefinitionBuilder<StudyEntity> builder = Builders<StudyEntity>.Filter;
             FilterDefinition<StudyEntity> filter = builder.Empty;
-            filter &= builder.Where(s => s.ClinicalStudy.Uuid == studyId);
+            filter &= builder.Where(s => s.AuditTrail.UsdmVersion == Constants.USDMVersions.V1);
+            filter &= builder.Where(s => s.ClinicalStudy.Uuid == studyId);            
 
             if (sdruploadversion != 0)
                 filter &= builder.Where(x => x.AuditTrail.SDRUploadVersion == sdruploadversion);           
+
+            return filter;
+        }
+
+        /// <summary>
+        /// Get filters for AuditTrail 
+        /// </summary>
+        /// <param name="studyId"></param>
+        /// <param name="sdruploadversion"></param>
+        /// <returns></returns>
+        public static FilterDefinition<StudyEntity> GetFiltersForGetAuditTrailOfAStudy(string studyId, int sdruploadversion)
+        {
+            FilterDefinitionBuilder<StudyEntity> builder = Builders<StudyEntity>.Filter;
+            FilterDefinition<StudyEntity> filter = builder.Empty;
+            filter &= builder.Where(s => s.ClinicalStudy.Uuid == studyId);
+
+            if (sdruploadversion != 0)
+                filter &= builder.Where(x => x.AuditTrail.SDRUploadVersion == sdruploadversion);
 
             return filter;
         }

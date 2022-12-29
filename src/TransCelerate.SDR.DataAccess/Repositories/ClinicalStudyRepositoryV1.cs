@@ -55,7 +55,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(GetStudyItemsAsync)};");
             try
             {
-                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
+                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
                 
 
                 StudyEntity study = await collection.Find(DataFiltersV1.GetFiltersForGetStudy(studyId, sdruploadversion))
@@ -65,7 +65,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
                 if (study == null)
                 {
-                    _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.StudyV1} Collection");
+                    _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.StudyDefinitions} Collection");
                     return null;
                 }
                 else
@@ -94,7 +94,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(GetPartialStudyDesignItemsAsync)};");
             try
             {
-                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
+                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
 
 
                 StudyEntity study = await collection.Find(DataFiltersV1.GetFiltersForGetStudy(studyId, sdruploadversion))
@@ -105,7 +105,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
                 if (study == null)
                 {
-                    _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.Study} Collection");
+                    _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.StudyDefinitions} Collection");
                     return null;
                 }
                 else
@@ -265,7 +265,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(PostStudyItemsAsync)};");
             try
             {
-                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);                
+                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);                
                 await collection.InsertOneAsync(study).ConfigureAwait(false); //Insert One Document
 
                 return (study.ClinicalStudy.Uuid);
@@ -295,7 +295,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(UpdateStudyItemsAsync)};");
             try
             {
-                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
+                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
                 UpdateDefinition<StudyEntity> updateDefinition = Builders<StudyEntity>.Update
                                     .Set(s => s.ClinicalStudy, study.ClinicalStudy)
                                     .Set(s => s.AuditTrail, study.AuditTrail);
@@ -563,6 +563,51 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             finally
             {
                 _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(GetStudyItemsForCheckingAccessAsync)};");
+            }
+        }
+        #endregion
+
+        #region GET USDM Version Of a StudyId
+        /// <summary>
+        /// GET a Study for a study ID with version filter
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="sdruploadversion">Version of study</param>
+        /// <returns>
+        /// A <see cref="AuditTrailEntity"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        public async Task<AuditTrailEntity> GetUsdmVersionAsync(string studyId, int sdruploadversion)
+        {
+            _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(GetUsdmVersionAsync)};");
+            try
+            {
+                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
+
+
+                AuditTrailEntity auditTrail = await collection.Find(DataFiltersV1.GetFiltersForGetAuditTrailOfAStudy(studyId, sdruploadversion))
+                                                     .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
+                                                     .Limit(1)                  //Taking top 1 result
+                                                     .Project(x => x.AuditTrail)
+                                                     .SingleOrDefaultAsync().ConfigureAwait(false);
+
+                if (auditTrail == null)
+                {
+                    _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.StudyDefinitions} Collection");
+                    return null;
+                }
+                else
+                {
+                    return auditTrail;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(GetUsdmVersionAsync)};");
             }
         }
         #endregion

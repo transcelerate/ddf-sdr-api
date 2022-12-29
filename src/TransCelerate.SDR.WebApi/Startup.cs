@@ -30,6 +30,7 @@ using TransCelerate.SDR.RuleEngineV2;
 using TransCelerate.SDR.WebApi.DependencyInjection;
 using TransCelerate.SDR.WebApi.Mappers;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.AspNetCore.Mvc.Versioning;
 
 namespace TransCelerate.SDR.WebApi
 {
@@ -56,7 +57,16 @@ namespace TransCelerate.SDR.WebApi
             // Application Insights for logs
             services.AddApplicationInsightsTelemetry(Config.InstrumentationKey);
 
-
+            //Api Versioning
+            services.AddApiVersioning(o =>
+            {
+                o.AssumeDefaultVersionWhenUnspecified = false;
+                o.ErrorResponses = new VersioningErrorResponseHelper();
+                o.ApiVersionReader = ApiVersionReader.Combine(
+                 //   new UrlSegmentApiVersionReader(),
+                 //new QueryStringApiVersionReader("usdm-version"),
+                 new HeaderApiVersionReader("usdm-version"));                
+            });
 
             //Swagger          
             services.AddSwaggerGen(c =>
@@ -189,6 +199,14 @@ namespace TransCelerate.SDR.WebApi
                     string request = string.Empty;
                     string response = string.Empty;
                     context.Request.EnableBuffering();
+                    string usdmVersionValidationErrors = HeaderValidationHelper.ValidateUsdmVersionHeaderMvp(context, null);
+                    if(usdmVersionValidationErrors != null)
+                    {
+                        if (String.IsNullOrWhiteSpace(context.Response.Headers["Content-Type"]))
+                             context.Response.Headers.Add("Content-Type", "application/json");
+                        await context.Response.WriteAsync(JsonConvert.SerializeObject(ErrorResponseHelper.BadRequest(usdmVersionValidationErrors)));
+                        return;
+                    }
                     using (StreamReader reader = new StreamReader(context.Request.Body))
                     {                                                
                         if(!context.Request.Path.Value.Contains(Route.Token))
