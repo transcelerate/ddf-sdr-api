@@ -337,7 +337,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                               .Match(DataFiltersV1.GetFiltersForSearchStudy(searchParameters))
                                               .Project(x => new SearchResponseEntity
                                               {
-                                                  Uuid = x.ClinicalStudy.Uuid,
+                                                  Uuid = x.ClinicalStudy.StudyId,
                                                   StudyTitle = x.ClinicalStudy.StudyTitle,
                                                   StudyType = x.ClinicalStudy.StudyType,
                                                   StudyPhase = x.ClinicalStudy.StudyPhase,
@@ -482,7 +482,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                               .Match(DataFiltersV1.GetFiltersForSearchTitle(searchParameters))
                                               .Project(x => new SearchResponseEntity
                                               {
-                                                  Uuid = x.ClinicalStudy.Uuid,
+                                                  Uuid = x.ClinicalStudy.StudyId,
                                                   StudyTitle = x.ClinicalStudy.StudyTitle,
                                                   StudyType = x.ClinicalStudy.StudyType,                                                  
                                                   StudyIdentifiers = x.ClinicalStudy.StudyIdentifiers,                                                 
