@@ -55,11 +55,11 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(GetStudyItemsAsync)};");
             try
             {
-                var collection = _database.GetCollection<StudyEntity>(Constants.Collections.Study);
+                var collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
                 StudyEntity _study;
                 if (version == 0)
                 {
-                    _study = await collection.Find(s => s.clinicalStudy.studyId == studyId)  // Condition for matching studyId
+                    _study = await collection.Find(s => s.clinicalStudy.studyId == studyId && s.auditTrail.UsdmVersion == Constants.USDMVersions.MVP)  // Condition for matching studyId
                                              .SortByDescending(s => s.auditTrail.entryDateTime) // Sort by descending on entryDateTime
                                              .Limit(1)                  //Taking top 1 result
                                              .SingleOrDefaultAsync().ConfigureAwait(false);
@@ -69,7 +69,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 {
                     _study = await collection.Find(s =>
                                                 (s.clinicalStudy.studyId == studyId
-                                                 && s.auditTrail.studyVersion == version)) // Condition for matching studyId and version
+                                                 && s.auditTrail.studyVersion == version && s.auditTrail.UsdmVersion == Constants.USDMVersions.MVP)) // Condition for matching studyId and version
                                              .SortByDescending(s => s.auditTrail.entryDateTime)  // Sort by descending on entryDateTime
                                              .Limit(1)                  //Taking top 1 result
                                              .SingleOrDefaultAsync().ConfigureAwait(false);
@@ -77,7 +77,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
                 if (_study == null)
                 {
-                    _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.Study} Collection");
+                    _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.StudyDefinitions} Collection");
                     return null;
                 }
                 else
@@ -111,13 +111,13 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(GetStudyItemsAsync)};");
             try
             {
-                var collection = _database.GetCollection<StudyEntity>(Constants.Collections.Study);
+                var collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
                 StudyEntity study = new StudyEntity();
                 if (version == 0)
                 {
                     study = await collection.Find(s =>
                                                 (s.clinicalStudy.studyId == studyId)
-                                                && s.clinicalStudy.studyTag == tag)   // Condition for matching studyId and studyTag
+                                                && s.clinicalStudy.studyTag == tag && s.auditTrail.UsdmVersion == Constants.USDMVersions.MVP)   // Condition for matching studyId and studyTag
                                              .SortByDescending(s => s.auditTrail.entryDateTime) // Sort by descending on entryDateTime
                                              .Limit(1)                  //Taking top 1 result
                                              .SingleOrDefaultAsync().ConfigureAwait(false);
@@ -127,7 +127,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                     study = await collection.Find(s =>
                                                 (s.clinicalStudy.studyId == studyId
                                                  && s.clinicalStudy.studyTag == tag
-                                                 && s.auditTrail.studyVersion == version)) // Condition for matching studyId, version and studyTag
+                                                 && s.auditTrail.studyVersion == version && s.auditTrail.UsdmVersion == Constants.USDMVersions.MVP)) // Condition for matching studyId, version and studyTag
                                              .SortByDescending(s => s.auditTrail.entryDateTime) // Sort by descending on entryDateTime
                                              .Limit(1)               //Taking top 1 result    
                                              .SingleOrDefaultAsync().ConfigureAwait(false);
@@ -136,7 +136,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
                 if (study == null)
                 {
-                    _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.Study} Collection");
+                    _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.StudyDefinitions} Collection");
                     return null;
                 }
                 else
@@ -705,7 +705,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(PostStudyItemsAsync)};");
             try
             {
-                var collection = _database.GetCollection<StudyEntity>(Constants.Collections.Study);
+                var collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
                 await collection.InsertOneAsync(study).ConfigureAwait(false); //Insert One Document
 
                 return (study.clinicalStudy.studyId);
@@ -735,7 +735,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(UpdateStudyItemsAsync)};");
             try
             {
-                var collection = _database.GetCollection<StudyEntity>(Constants.Collections.Study);
+                var collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
                 var updateDefinition = Builders<StudyEntity>.Update
                                     .Set(s => s.clinicalStudy, study.clinicalStudy)
                                     .Set(s => s.auditTrail, study.auditTrail);
@@ -755,6 +755,47 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
         }
         #endregion
+
+        /// <summary>
+        /// GET a Study for a study ID with version filter
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="version">Version of study</param>
+        /// <returns>
+        /// A <see cref="AuditTrailEntity"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        public async Task<AuditTrailEntity> GetUsdmVersionAsync(string studyId, int version)
+        {
+            _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(GetUsdmVersionAsync)};");
+            try
+            {
+                var collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
+                AuditTrailEntity auditTrail = await collection.Find(s => s.clinicalStudy.studyId == studyId)  // Condition for matching studyId
+                                             .SortByDescending(s => s.auditTrail.entryDateTime) // Sort by descending on entryDateTime
+                                             .Limit(1)                  //Taking top 1 result
+                                             .Project(x => x.auditTrail)
+                                             .SingleOrDefaultAsync().ConfigureAwait(false);
+
+                if (auditTrail == null)
+                {
+                    _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.StudyDefinitions} Collection");
+                    return null;
+                }
+                else
+                {
+                    return auditTrail;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(GetUsdmVersionAsync)};");
+            }
+        }
         #endregion       
     }
 }

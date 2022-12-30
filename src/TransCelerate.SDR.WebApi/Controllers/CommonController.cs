@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Common;
@@ -18,6 +19,7 @@ using TransCelerate.SDR.Services.Interfaces;
 namespace TransCelerate.SDR.WebApi.Controllers
 {
     [Authorize]
+    [ApiVersionNeutral]
     [ApiController]
     public class CommonController : ControllerBase
     {
@@ -131,6 +133,72 @@ namespace TransCelerate.SDR.WebApi.Controllers
             finally
             {
                 _logger.LogInformation($"Ended Controller : {nameof(CommonController)}; Method : {nameof(GetApiUsdmMapping)};");
+            }
+        }
+
+        /// <summary>
+        /// GET Audit Trail of a study
+        /// </summary>
+        /// <param name="fromDate">Start Date for Date Filter</param>
+        /// <param name="toDate">End Date for Date Filter</param>
+        /// <param name="studyId">Study ID</param>
+        /// <response code="200">Returns a list of Audit Trail of a study</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">The Audit trail for the study is Not Found</response>
+        [HttpGet]
+        [Route(Route.GetAudiTrail)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IEnumerable<AuditTrailResponseDto>))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> GetAuditTrail(string studyId, DateTime fromDate, DateTime toDate)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(CommonController)}; Method : {nameof(GetAuditTrail)};");
+                if (!String.IsNullOrWhiteSpace(studyId))
+                {
+                    _logger.LogInformation($"Inputs : studyId = {studyId}; fromDate = {fromDate}; toDate = {toDate}");
+                    LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
+
+                    Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(fromDate, toDate, -1);
+
+                    fromDate = fromAndToDate.Item1;
+                    toDate = fromAndToDate.Item2;
+                    if (fromDate <= toDate)
+                    {
+                        var studyAuditResponse = await _commonService.GetAuditTrail(studyId, fromDate, toDate, user);
+                        if (studyAuditResponse == null)
+                        {
+                            return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
+                        }
+                        else if (studyAuditResponse.ToString() == Constants.ErrorMessages.Forbidden)
+                        {
+                            return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
+                        }
+                        else
+                        {
+                            return Ok(studyAuditResponse);
+                        }
+                    }
+                    else
+                    {
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError)).Value);
+                    }
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(CommonController)}; Method : {nameof(GetAuditTrail)};");
             }
         }
         #endregion

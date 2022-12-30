@@ -20,6 +20,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
 {
     [Authorize(Roles = Constants.Roles.Org_Admin)]
     [ApiController]
+    [ApiVersionNeutral]
     public class UserGroupsController : ControllerBase
     {
         #region Variables

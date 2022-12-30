@@ -90,6 +90,8 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 .Returns(Task.FromResult(GetDtoDataFromStaticJson()));
             _mockChangeAuditRepository.Setup(x => x.InsertChangeAudit(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<DateTime>()))
                 .Returns(Task.FromResult(GetDtoDataFromStaticJson().ClinicalStudy.StudyId));
+            _mockClinicalStudyRepository.Setup(x => x.GetUsdmVersionAsync(It.IsAny<string>(), 0))
+                .Returns(Task.FromResult(GetEntityDataFromStaticJson().AuditTrail));
         }
         #endregion
 
@@ -118,6 +120,9 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     .Returns(true);
             _mockHelper.Setup(x => x.GetAuditTrail(It.IsAny<string>()))
                     .Returns(new AuditTrailEntity { CreatedBy = user.UserName,EntryDateTime = DateTime.Now, SDRUploadVersion = 1});
+            StudyEntity studyEntity1 = GetEntityDataFromStaticJson(); studyEntity1.AuditTrail.SDRUploadVersion = 1; studyEntity1.AuditTrail.UsdmVersion = "2.0";
+            _mockClinicalStudyRepository.Setup(x => x.GetUsdmVersionAsync(It.IsAny<string>(), It.IsAny<int>()))
+                   .Returns(Task.FromResult(studyEntity1.AuditTrail));
             ServiceBusSender serviceBusSender = Mock.Of<ServiceBusSender>();
             
             _mockServiceBusClient.Setup(x => x.CreateSender(It.IsAny<string>()))
@@ -203,6 +208,8 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             studyDto.ClinicalStudy.StudyId = "112233";
             _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), 0))
                     .Returns(Task.FromResult(entity));
+            _mockClinicalStudyRepository.Setup(x => x.GetUsdmVersionAsync(It.IsAny<string>(), It.IsAny<int>()))
+                    .Returns(Task.FromResult(null as AuditTrailEntity));
             method = ClinicalStudyService.PostAllElements(studyDto, user, HttpMethod.Put.Method);
             method.Wait();
             result = method.Result;
@@ -212,6 +219,8 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), 0))
                     .Returns(Task.FromResult(studyEntity));
+            _mockClinicalStudyRepository.Setup(x => x.GetUsdmVersionAsync(It.IsAny<string>(), It.IsAny<int>()))
+                   .Returns(Task.FromResult(studyEntity1.AuditTrail));
             _mockHelper.Setup(x => x.IsSameStudy(It.IsAny<StudyEntity>(), It.IsAny<StudyEntity>()))
                    .Returns(false);
 

@@ -23,7 +23,8 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
     {
         #region Variables
         private ILogHelper _mockLogger = Mock.Of<ILogHelper>();
-        private Mock<ICommonRepository> _mockCommonRepository = new Mock<ICommonRepository>(MockBehavior.Loose);        
+        private Mock<ICommonRepository> _mockCommonRepository = new Mock<ICommonRepository>(MockBehavior.Loose);
+        private IMapper _mockMapper;
         #endregion
 
         #region Setup
@@ -41,6 +42,11 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         [SetUp]
         public void SetUp()
         {
+            var mockMapper = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new SharedAutoMapperProfiles());
+            });
+            _mockMapper = new Mapper(mockMapper);
             Config.isGroupFilterEnabled = false;
         }
         #endregion
@@ -52,7 +58,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
                    .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
 
-            CommonServices commonServices = new CommonServices(_mockCommonRepository.Object, _mockLogger);
+            CommonServices commonServices = new CommonServices(_mockCommonRepository.Object, _mockLogger,_mockMapper);
 
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
             var data =  JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
@@ -149,7 +155,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
                    .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
 
-            CommonServices commonServices = new CommonServices(_mockCommonRepository.Object, _mockLogger);
+            CommonServices commonServices = new CommonServices(_mockCommonRepository.Object, _mockLogger, _mockMapper);
             var method = commonServices.CheckAccessForAStudy("a", "INTERVENTIONAL", user);
             method.Wait();
             var result = method.Result;

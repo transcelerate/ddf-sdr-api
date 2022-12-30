@@ -360,16 +360,19 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else //If there is a studyId in the input
                 {
-                    StudyEntity existingStudyEntity = _clinicalStudyRepository.GetStudyItemsAsync(incomingstudyEntity.clinicalStudy.studyId, 0).Result;                  
-                    
-                    if(existingStudyEntity == null)  
+                    AuditTrailEntity previousAuditTrailEntity = await _clinicalStudyRepository.GetUsdmVersionAsync(incomingstudyEntity.clinicalStudy.studyId, 0).ConfigureAwait(false);
+
+                    if (previousAuditTrailEntity is null)
                     {
                         return Constants.ErrorMessages.NotValidStudyId;
                     }
-                    else
+                    
+                    if (previousAuditTrailEntity.UsdmVersion == Constants.USDMVersions.MVP)
                     {
+                        StudyEntity existingStudyEntity = _clinicalStudyRepository.GetStudyItemsAsync(incomingstudyEntity.clinicalStudy.studyId, 0).Result;
+
                         existingStudyEntity.auditTrail.entryDateTime = incomingstudyEntity.auditTrail.entryDateTime;
-                        existingStudyEntity.auditTrail.entrySystem = incomingstudyEntity.auditTrail.entrySystem;                        
+                        existingStudyEntity.auditTrail.entrySystem = incomingstudyEntity.auditTrail.entrySystem;
                         incomingstudyEntity._id = existingStudyEntity._id;
                         incomingstudyEntity.auditTrail.studyVersion = existingStudyEntity.auditTrail.studyVersion;
 
@@ -382,12 +385,12 @@ namespace TransCelerate.SDR.Services.Services
                             _logger.LogInformation($"Study Input : {JsonConvert.SerializeObject(existingStudyEntity)}");
                             await _clinicalStudyRepository.UpdateStudyItemsAsync(existingStudyEntity); //update the existing latest version
                             studyDTO = _mapper.Map<PostStudyDTO>(existingStudyEntity);
-                            responseObject = RemoveStudySections.PostResponseRemoveSections(studyDTO);                         
+                            responseObject = RemoveStudySections.PostResponseRemoveSections(studyDTO);
                         }
                         else
                         {
                             incomingstudyEntity._id = ObjectId.GenerateNewId();
-                            existingStudyEntity.auditTrail.studyVersion += 1;                            
+                            existingStudyEntity.auditTrail.studyVersion += 1;
                             PostStudyElementsCheck.SectionCheck(incomingstudyEntity, existingStudyEntity);
 
                             _logger.LogInformation($"Study Input : {JsonConvert.SerializeObject(existingStudyEntity)}");
@@ -395,8 +398,12 @@ namespace TransCelerate.SDR.Services.Services
                             existingStudyEntity.auditTrail.UsdmVersion = Constants.USDMVersions.MVP;
                             await _clinicalStudyRepository.PostStudyItemsAsync(existingStudyEntity).ConfigureAwait(false);
                             studyDTO = _mapper.Map<PostStudyDTO>(existingStudyEntity);
-                            responseObject = RemoveStudySections.PostResponseRemoveSections(studyDTO);                            
-                        }                       
+                            responseObject = RemoveStudySections.PostResponseRemoveSections(studyDTO);
+                        }
+                    }
+                    else
+                    {
+                        return Constants.ErrorMessages.DowngradeError;
                     }
                 }
                 return responseObject;

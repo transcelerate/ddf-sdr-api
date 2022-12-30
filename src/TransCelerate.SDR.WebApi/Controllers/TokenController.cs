@@ -12,6 +12,7 @@ using TransCelerate.SDR.Core.Utilities.Helpers;
 namespace TransCelerate.SDR.WebApi.Controllers
 {
     [ApiController]
+    [ApiVersionNeutral]
     public class TokenController : ControllerBase
     {
         #region Variables

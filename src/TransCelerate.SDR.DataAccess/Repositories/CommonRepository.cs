@@ -86,6 +86,55 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
         }
 
+        /// <summary>
+        /// GET List of study for a study ID
+        /// </summary>
+        /// <param name="fromDate">Start Date for Date Filter</param>
+        /// <param name="toDate">End Date for Date Filter</param>
+        /// <param name="studyId">Study ID</param>
+        /// <returns>
+        /// A <see cref="List{AuditTrailResponseEntity}"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        public async Task<List<AuditTrailResponseEntity>> GetAuditTrail(string studyId, DateTime fromDate, DateTime toDate)
+        {
+            _logger.LogInformation($"Started Repository : {nameof(CommonRepository)}; Method : {nameof(GetAuditTrail)};");
+            try
+            {
+                var collection = _database.GetCollection<CommonStudyEntity>(Constants.Collections.StudyDefinitions);
+                List<AuditTrailResponseEntity> auditTrails = new List<AuditTrailResponseEntity>();
+                auditTrails = await collection.Find(DataFilterCommon.GetFiltersForGetAudTrail(studyId, fromDate, toDate)) // Condition for matching studyId and date range
+                                                  .Project(x => new AuditTrailResponseEntity
+                                                  {
+                                                      StudyType = x.ClinicalStudy.StudyType,
+                                                      EntryDateTime = x.AuditTrail.EntryDateTime,
+                                                      SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+                                                      UsdmVersion = x.AuditTrail.UsdmVersion,
+                                                      HasAccess = true
+                                                  })
+                                                  .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
+                                                  .ToListAsync().ConfigureAwait(false);
+
+                if (auditTrails.Count == 0)
+                {
+                    _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.StudyV1} Collection");
+                    return null;
+                }
+                else
+                {
+                    return auditTrails;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Repository : {nameof(CommonRepository)}; Method : {nameof(GetAuditTrail)};");
+            }
+        }
+
         #region UserGroup Mapping
 
         public async Task<List<SDRGroupsEntity>> GetGroupsOfUser(LoggedInUser user)

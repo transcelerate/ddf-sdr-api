@@ -473,6 +473,51 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
         }
         #endregion
+
+        #region GET USDM Version Of a StudyId
+        /// <summary>
+        /// GET a Study for a study ID with version filter
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="sdruploadversion">Version of study</param>
+        /// <returns>
+        /// A <see cref="AuditTrailEntity"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        public async Task<AuditTrailEntity> GetUsdmVersionAsync(string studyId, int sdruploadversion)
+        {
+            _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(GetUsdmVersionAsync)};");
+            try
+            {
+                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
+
+
+                AuditTrailEntity auditTrail = await collection.Find(DataFiltersV2.GetFiltersForGetAuditTrailOfAStudy(studyId, sdruploadversion))
+                                                     .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
+                                                     .Limit(1)                  //Taking top 1 result
+                                                     .Project(x=>x.AuditTrail)
+                                                     .SingleOrDefaultAsync().ConfigureAwait(false);
+
+                if (auditTrail == null)
+                {
+                    _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.StudyDefinitions} Collection");
+                    return null;
+                }
+                else
+                {
+                    return auditTrail;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(GetUsdmVersionAsync)};");
+            }
+        }
+        #endregion
         #endregion
     }
 }

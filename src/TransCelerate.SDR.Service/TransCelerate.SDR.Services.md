@@ -40,6 +40,8 @@
   - [GetStudyHistory(fromDate,toDate,studyTitle,user)](#M-TransCelerate-SDR-Services-Services-ClinicalStudyServiceV2-GetStudyHistory-System-DateTime,System-DateTime,System-String,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.Services.Services.ClinicalStudyServiceV2.GetStudyHistory(System.DateTime,System.DateTime,System.String,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
   - [PostAllElements(studyDTO,user,method)](#M-TransCelerate-SDR-Services-Services-ClinicalStudyServiceV2-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV2-StudyDto,TransCelerate-SDR-Core-DTO-Token-LoggedInUser,System-String- 'TransCelerate.SDR.Services.Services.ClinicalStudyServiceV2.PostAllElements(TransCelerate.SDR.Core.DTO.StudyV2.StudyDto,TransCelerate.SDR.Core.DTO.Token.LoggedInUser,System.String)')
 - [CommonServices](#T-TransCelerate-SDR-Services-Services-CommonServices 'TransCelerate.SDR.Services.Services.CommonServices')
+  - [CheckAccessForStudyAudit(studyId,studies,user)](#M-TransCelerate-SDR-Services-Services-CommonServices-CheckAccessForStudyAudit-System-String,System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Common-AuditTrailResponseEntity},TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.Services.Services.CommonServices.CheckAccessForStudyAudit(System.String,System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Common.AuditTrailResponseEntity},TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
+  - [GetAuditTrail(fromDate,toDate,studyId,user)](#M-TransCelerate-SDR-Services-Services-CommonServices-GetAuditTrail-System-String,System-DateTime,System-DateTime,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.Services.Services.CommonServices.GetAuditTrail(System.String,System.DateTime,System.DateTime,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
   - [GetRawJson(studyId,sdruploadversion,user)](#M-TransCelerate-SDR-Services-Services-CommonServices-GetRawJson-System-String,System-Int32,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.Services.Services.CommonServices.GetRawJson(System.String,System.Int32,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
 - [IChangeAuditService](#T-TransCelerate-SDR-Services-Interfaces-IChangeAuditService 'TransCelerate.SDR.Services.Interfaces.IChangeAuditService')
   - [GetChangeAudit(studyId,user)](#M-TransCelerate-SDR-Services-Interfaces-IChangeAuditService-GetChangeAudit-System-String,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.Services.Interfaces.IChangeAuditService.GetChangeAudit(System.String,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
@@ -77,6 +79,7 @@
   - [GetStudyHistory(fromDate,toDate,studyTitle,user)](#M-TransCelerate-SDR-Services-Interfaces-IClinicalStudyServiceV2-GetStudyHistory-System-DateTime,System-DateTime,System-String,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.Services.Interfaces.IClinicalStudyServiceV2.GetStudyHistory(System.DateTime,System.DateTime,System.String,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
   - [PostAllElements(studyDTO,user,method)](#M-TransCelerate-SDR-Services-Interfaces-IClinicalStudyServiceV2-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV2-StudyDto,TransCelerate-SDR-Core-DTO-Token-LoggedInUser,System-String- 'TransCelerate.SDR.Services.Interfaces.IClinicalStudyServiceV2.PostAllElements(TransCelerate.SDR.Core.DTO.StudyV2.StudyDto,TransCelerate.SDR.Core.DTO.Token.LoggedInUser,System.String)')
 - [ICommonService](#T-TransCelerate-SDR-Services-Interfaces-ICommonService 'TransCelerate.SDR.Services.Interfaces.ICommonService')
+  - [GetAuditTrail(fromDate,toDate,studyId,user)](#M-TransCelerate-SDR-Services-Interfaces-ICommonService-GetAuditTrail-System-String,System-DateTime,System-DateTime,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.Services.Interfaces.ICommonService.GetAuditTrail(System.String,System.DateTime,System.DateTime,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
   - [GetRawJson(studyId,sdruploadversion,user)](#M-TransCelerate-SDR-Services-Interfaces-ICommonService-GetRawJson-System-String,System-Int32,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.Services.Interfaces.ICommonService.GetRawJson(System.String,System.Int32,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
 - [IUserGroupMappingService](#T-TransCelerate-SDR-Services-Interfaces-IUserGroupMappingService 'TransCelerate.SDR.Services.Interfaces.IUserGroupMappingService')
   - [CheckGroupName()](#M-TransCelerate-SDR-Services-Interfaces-IUserGroupMappingService-CheckGroupName-System-String- 'TransCelerate.SDR.Services.Interfaces.IUserGroupMappingService.CheckGroupName(System.String)')
@@ -752,6 +755,45 @@ A [Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&
 
 TransCelerate.SDR.Services.Services
 
+<a name='M-TransCelerate-SDR-Services-Services-CommonServices-CheckAccessForStudyAudit-System-String,System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Common-AuditTrailResponseEntity},TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
+### CheckAccessForStudyAudit(studyId,studies,user) `method`
+
+##### Summary
+
+Check access for the Study Aduit
+
+##### Returns
+
+A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') if the user have access `null` If user doesn't have access to the study
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | StudyId of the study |
+| studies | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Common.AuditTrailResponseEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Common.AuditTrailResponseEntity}') | Study List for which user access have to be checked |
+| user | [TransCelerate.SDR.Core.DTO.Token.LoggedInUser](#T-TransCelerate-SDR-Core-DTO-Token-LoggedInUser 'TransCelerate.SDR.Core.DTO.Token.LoggedInUser') | Logged In User |
+
+<a name='M-TransCelerate-SDR-Services-Services-CommonServices-GetAuditTrail-System-String,System-DateTime,System-DateTime,TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
+### GetAuditTrail(fromDate,toDate,studyId,user) `method`
+
+##### Summary
+
+GET Audit Trial
+
+##### Returns
+
+A [Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') with matching studyId `null` If no study is matching with studyId
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| fromDate | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Start Date for Date Filter |
+| toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | End Date for Date Filter |
+| studyId | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | Study ID |
+| user | [TransCelerate.SDR.Core.DTO.Token.LoggedInUser](#T-TransCelerate-SDR-Core-DTO-Token-LoggedInUser 'TransCelerate.SDR.Core.DTO.Token.LoggedInUser') | Logged In User |
+
 <a name='M-TransCelerate-SDR-Services-Services-CommonServices-GetRawJson-System-String,System-Int32,TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
 ### GetRawJson(studyId,sdruploadversion,user) `method`
 
@@ -1401,6 +1443,26 @@ A [Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&
 ##### Namespace
 
 TransCelerate.SDR.Services.Interfaces
+
+<a name='M-TransCelerate-SDR-Services-Interfaces-ICommonService-GetAuditTrail-System-String,System-DateTime,System-DateTime,TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
+### GetAuditTrail(fromDate,toDate,studyId,user) `method`
+
+##### Summary
+
+GET Audit Trial
+
+##### Returns
+
+A [Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') with matching studyId `null` If no study is matching with studyId
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| fromDate | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Start Date for Date Filter |
+| toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | End Date for Date Filter |
+| studyId | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | Study ID |
+| user | [TransCelerate.SDR.Core.DTO.Token.LoggedInUser](#T-TransCelerate-SDR-Core-DTO-Token-LoggedInUser 'TransCelerate.SDR.Core.DTO.Token.LoggedInUser') | Logged In User |
 
 <a name='M-TransCelerate-SDR-Services-Interfaces-ICommonService-GetRawJson-System-String,System-Int32,TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
 ### GetRawJson(studyId,sdruploadversion,user) `method`

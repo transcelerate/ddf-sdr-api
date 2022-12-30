@@ -36,6 +36,10 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string TransitionRuleId = "transitionRuleId";
             public const string EncounterId = "encounterId";
         }
+        public struct StudyV1
+        {
+            public const string StudyId = "studyId";
+        }
 
         public struct Common
         {

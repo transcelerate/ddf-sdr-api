@@ -113,6 +113,8 @@ namespace TransCelerate.SDR.UnitTesting
                 cfg.AddProfile(new AutoMapperProfies());
             });
             _mockMapper = new Mapper(mockMapper);
+            ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ApiUsdmVersionMapping.json"));
+            ApiUsdmVersionMapping.SDRVersions = apiUsdmVersionMapping_NonStatic.SDRVersions;
         }
         #endregion
 
@@ -131,7 +133,7 @@ namespace TransCelerate.SDR.UnitTesting
             ClinicalStudyController clinicalStudyController = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
             string sections = string.Empty;
 
-            var method = clinicalStudyController.GetStudy("1", 1, "1.0Draft",null);
+            var method = clinicalStudyController.GetStudy("1", 1, "1.0Draft",null,"mvp");
             method.Wait();
             var result = method.Result;
 
@@ -164,7 +166,7 @@ namespace TransCelerate.SDR.UnitTesting
             ClinicalStudyController clinicalStudyController = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
             string sections = string.Empty;
 
-            var method = clinicalStudyController.GetStudy("2", 1, null, sections);
+            var method = clinicalStudyController.GetStudy("2", 1, null, sections, "mvp");
             method.Wait();
 
             //Expected
@@ -193,7 +195,7 @@ namespace TransCelerate.SDR.UnitTesting
             ClinicalStudyController clinicalStudyController = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
             string sections = "study_objectives,studyinvestigational_interventions,study_protocol,study_indications,study_design";
 
-            var method = clinicalStudyController.GetStudy("2", 1, "New", sections);
+            var method = clinicalStudyController.GetStudy("2", 1, "New", sections, "mvp");
             method.Wait();
 
             //Expected
@@ -210,7 +212,7 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.AreEqual(expected.message, actual_result.message);
             Assert.AreEqual("400", actual_result.statusCode);
 
-            method = clinicalStudyController.GetStudy(null, 1, "New", sections);
+            method = clinicalStudyController.GetStudy(null, 1, "New", sections, "mvp");
             method.Wait();
 
             //Expected
@@ -233,11 +235,45 @@ namespace TransCelerate.SDR.UnitTesting
                      .Returns(ClinicalStudyService.GetAllElements("1", 1, "1.0Draft", It.IsAny<LoggedInUser>()));
             ClinicalStudyController clinicalStudyController1 = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
             sections = string.Empty;
-            method = clinicalStudyController1.GetStudy("1", 1, "1.0Draft", sections);
+            method = clinicalStudyController1.GetStudy("1", 1, "1.0Draft", sections, "mvp");
             method.Wait();
 
             //Expected
             expected = ErrorResponseHelper.BadRequest("An Error Occured");
+
+            //Actual
+            actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
+
+            //Assert          
+            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
+            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual("400", actual_result.statusCode);
+
+            method = clinicalStudyController1.GetStudy("1", 1, "1.0Draft", sections, "");
+            method.Wait();
+
+            //Expected
+            expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.UsdmVersionMissing);
+
+            //Actual
+            actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
+
+            //Assert          
+            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
+            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual("400", actual_result.statusCode);
+
+            method = clinicalStudyController1.GetStudy("1", 1, "1.0Draft", sections, "1.0");
+            method.Wait();
+
+            //Expected
+            expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.UsdmVersionMapError);
 
             //Actual
             actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
@@ -265,7 +301,7 @@ namespace TransCelerate.SDR.UnitTesting
             ClinicalStudyController clinicalStudyController = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
             string sections = "study_planned_workflow,study_target_populations,study_cells";
 
-            var method = clinicalStudyController.GetStudyDesignSections("1", "02ab88b2-b3bd-427d-bb1a-6f9966d7e6dd", 1, "1.0Draft", sections);
+            var method = clinicalStudyController.GetStudyDesignSections("1", "02ab88b2-b3bd-427d-bb1a-6f9966d7e6dd", 1, "1.0Draft", sections, "mvp");
             method.Wait();
             var result = method.Result;
 
@@ -304,7 +340,7 @@ namespace TransCelerate.SDR.UnitTesting
             ClinicalStudyController clinicalStudyController = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
             string sections = string.Empty;
 
-            var method = clinicalStudyController.GetStudyDesignSections("2","1", 1, "New", sections);
+            var method = clinicalStudyController.GetStudyDesignSections("2","1", 1, "New", sections, "mvp");
             method.Wait();
 
             //Expected
@@ -321,7 +357,7 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.AreEqual(expected.message, actual_result.message);     
             Assert.AreEqual("404", actual_result.statusCode);
 
-            method = clinicalStudyController.GetStudy(null, 1, "New", sections);
+            method = clinicalStudyController.GetStudy(null, 1, "New", sections, "mvp");
             method.Wait();
 
             //Expected
@@ -348,10 +384,41 @@ namespace TransCelerate.SDR.UnitTesting
             ClinicalStudyController clinicalStudyController1 = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
             sections = string.Empty;
 
-            method = clinicalStudyController1.GetStudyDesignSections("1", "1", 1, "1.0Draft", sections);
+            method = clinicalStudyController1.GetStudyDesignSections("1", "1", 1, "1.0Draft", sections, "mvp");
             method.Wait();
             //Expected
             expected = ErrorResponseHelper.BadRequest("An Error Occured");
+
+            //Actual
+            actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
+
+            //Assert          
+            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
+            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual("400", actual_result.statusCode);
+
+            method = clinicalStudyController1.GetStudyDesignSections("1", "1", 1, "1.0Draft", sections, "1.0");
+            method.Wait();
+            //Expected
+            expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.UsdmVersionMapError);
+
+            //Actual
+            actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
+
+            //Assert          
+            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
+            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual("400", actual_result.statusCode);
+            method = clinicalStudyController1.GetStudyDesignSections("1", "1", 1, "1.0Draft", sections, "1.0");
+            method.Wait();
+            //Expected
+            expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.UsdmVersionMapError);
 
             //Actual
             actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
@@ -643,7 +710,7 @@ namespace TransCelerate.SDR.UnitTesting
                     .Returns(Task.FromResult(postStudyResponseDTO as object));
             ClinicalStudyController clinicalStudyController = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);            
 
-            var method = clinicalStudyController.PostAllElements(PostDataFromStaticJson(), null);
+            var method = clinicalStudyController.PostAllElements(PostDataFromStaticJson(), null,"mvp");
             method.Wait();
             var result = method.Result;
 
@@ -674,7 +741,7 @@ namespace TransCelerate.SDR.UnitTesting
                     .Returns(ClinicalStudyService.PostAllElements(PostDataFromStaticJson(), null, It.IsAny<LoggedInUser>()));
             ClinicalStudyController clinicalStudyController = new ClinicalStudyController(_mockClinicalStudyService.Object, _mockControllerLogger);
 
-            var method = clinicalStudyController.PostAllElements(PostDataFromStaticJson(), null);
+            var method = clinicalStudyController.PostAllElements(PostDataFromStaticJson(), null, "mvp");
             method.Wait();
             var result = method.Result;
 

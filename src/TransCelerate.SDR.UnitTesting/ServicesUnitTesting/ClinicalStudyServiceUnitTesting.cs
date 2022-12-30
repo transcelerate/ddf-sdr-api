@@ -112,6 +112,8 @@ namespace TransCelerate.SDR.UnitTesting
             _mockMapper = new Mapper(mockMapper);
             user.UserName = "user1@SDR.com";
             user.UserRole = Constants.Roles.Org_Admin;
+            _mockClinicalStudyRepository.Setup(x => x.GetUsdmVersionAsync(It.IsAny<string>(), 0))
+                .Returns(Task.FromResult(GetDataFromStaticJson().auditTrail));
         }
         #endregion
 
@@ -471,6 +473,9 @@ namespace TransCelerate.SDR.UnitTesting
                     .Returns(Task.FromResult(GetPostDataFromStaticJson().clinicalStudy.studyId));
             _mockClinicalStudyRepository.Setup(x => x.UpdateStudyItemsAsync(It.IsAny<StudyEntity>()))
                     .Returns(Task.FromResult(GetPostDataFromStaticJson().clinicalStudy.studyId));
+            StudyEntity studyEntity1 = GetPostDataFromStaticJson(); studyEntity1.auditTrail.studyVersion = 1; studyEntity1.auditTrail.UsdmVersion = "mvp";
+            _mockClinicalStudyRepository.Setup(x => x.GetUsdmVersionAsync(It.IsAny<string>(), It.IsAny<int>()))
+                   .Returns(Task.FromResult(studyEntity1.auditTrail));
             ClinicalStudyService ClinicalStudyService = new ClinicalStudyService(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger);
             var studyDTO = JsonConvert.DeserializeObject<PostStudyDTO>(
                 JsonConvert.SerializeObject(GetPostDataFromStaticJson()));
@@ -486,8 +491,10 @@ namespace TransCelerate.SDR.UnitTesting
                 JsonConvert.SerializeObject(result));
 
             //Assert          
-            Assert.IsNotNull(actual_result);         
+            Assert.IsNotNull(actual_result);
 
+            _mockClinicalStudyRepository.Setup(x => x.GetUsdmVersionAsync(It.IsAny<string>(), It.IsAny<int>()))
+                    .Returns(Task.FromResult(null as AuditTrailEntity));
             var newStudyDTO = JsonConvert.DeserializeObject<PostStudyDTO>(
                 JsonConvert.SerializeObject(GetPostDataFromStaticJson()));
 
