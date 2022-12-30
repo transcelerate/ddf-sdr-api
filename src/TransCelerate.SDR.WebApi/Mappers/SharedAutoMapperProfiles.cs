@@ -10,6 +10,8 @@ using System.Globalization;
 using TransCelerate.SDR.Core.DTO;
 using TransCelerate.SDR.Core.DTO.UserGroups;
 using TransCelerate.SDR.Core.Entities.UserGroups;
+using TransCelerate.SDR.Core.DTO.Common;
+using TransCelerate.SDR.Core.Entities.Common;
 
 namespace TransCelerate.SDR.WebApi.Mappers
 {
@@ -45,6 +47,8 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<GroupFilterValuesEntity, GroupFilterValuesDTO>()
                 .ForMember(dest => dest.id, opt => opt.MapFrom(src => src.groupFilterValueId))
                 .ReverseMap();
+            //Mapper for AuditTrail
+            CreateMap<AuditTrailDto, AuditTrailResponseEntity>().ReverseMap();
         }
     }
 }

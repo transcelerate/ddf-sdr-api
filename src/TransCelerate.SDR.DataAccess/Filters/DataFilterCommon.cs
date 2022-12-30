@@ -28,5 +28,26 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             return filter;
         }
+
+        /// <summary>
+        /// Get filters for AuditTrail API
+        /// </summary>
+        /// <param name="studyId"></param>
+        /// <param name="fromDate"></param>
+        /// <param name="toDate"></param>
+        /// <returns></returns>
+        public static FilterDefinition<CommonStudyEntity> GetFiltersForGetAudTrail(string studyId, DateTime fromDate, DateTime toDate)
+        {
+            FilterDefinitionBuilder<CommonStudyEntity> builder = Builders<CommonStudyEntity>.Filter;
+            FilterDefinition<CommonStudyEntity> filter = builder.Empty;
+            filter &= builder.Where(s => s.ClinicalStudy.StudyId == studyId);
+
+            //Filter for Date Range
+            filter &= builder.Where(x => x.AuditTrail.EntryDateTime >= fromDate
+                                         && x.AuditTrail.EntryDateTime <= toDate);
+
+
+            return filter;
+        }
     }
 }

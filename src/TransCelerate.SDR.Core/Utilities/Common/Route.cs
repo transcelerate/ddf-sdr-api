@@ -100,6 +100,7 @@
         #region Common Routes
         public const string GetRawJson = "studydefinitions/{studyId}/rawdata";
         public const string GetApiUsdmMapping = "versions";
+        public const string GetAudiTrail = "studydefinitions/{studyId}/audittrail";
         #endregion
     }
 }
