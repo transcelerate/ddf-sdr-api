@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -211,20 +212,26 @@ namespace TransCelerate.SDR.Services.Services
                         {
                             studies.ForEach(study =>
                             {
-                                var jsonObject = JObject.Parse(JsonConvert.SerializeObject(study));
+                                var jsonObject = JObject.Parse(JsonConvert.SerializeObject(study, new JsonSerializerSettings
+                                {
+                                    ContractResolver = new DefaultContractResolver()
+                                    {
+                                        NamingStrategy = new CamelCaseNamingStrategy()
+                                    }                                  
+                                }));
                                 if (study.UsdmVersion == Constants.USDMVersions.MVP)
                                 {
-                                    if (!groupFilters.Item1.Contains((string)jsonObject["studyType"]))
+                                    if (!groupFilters.Item1.Contains((string)jsonObject["studyType"].ToString().ToLower()))
                                         study.HasAccess = false;
                                 }
                                 else if (study.UsdmVersion == Constants.USDMVersions.V1)
                                 {
-                                    if (!groupFilters.Item1.Contains((string)jsonObject["studyType"]["decode"]))
+                                    if (!groupFilters.Item1.Contains((string)jsonObject["studyType"]["decode"].ToString().ToLower()))
                                         study.HasAccess = false;
                                 }
                                 else if (study.UsdmVersion == Constants.USDMVersions.V2)
                                 {
-                                    if (!groupFilters.Item1.Contains((string)jsonObject["studyType"]["decode"]))
+                                    if (!groupFilters.Item1.Contains((string)jsonObject["studyType"]["decode"].ToString().ToLower()))
                                         study.HasAccess = false;
                                 }
                             });
