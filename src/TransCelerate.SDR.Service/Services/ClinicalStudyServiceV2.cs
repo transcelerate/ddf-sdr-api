@@ -525,7 +525,7 @@ namespace TransCelerate.SDR.Services.Services
                 {
                     AuditTrailEntity existingAuditTrail = await _clinicalStudyRepository.GetUsdmVersionAsync(incomingStudyEntity.ClinicalStudy.StudyId, 0);                    
 
-                    if (existingAuditTrail is null && method == HttpMethod.Put.Method) // If PUT Endpoint and study_uuid is not valid, return not valid study
+                    if (existingAuditTrail is null) // If PUT Endpoint and study_uuid is not valid, return not valid study
                     {
                         return Constants.ErrorMessages.StudyIdNotFound;
                     }
