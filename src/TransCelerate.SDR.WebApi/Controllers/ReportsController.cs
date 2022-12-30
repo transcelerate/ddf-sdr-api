@@ -23,6 +23,7 @@ using TransCelerate.SDR.Core.Utilities.Enums;
 namespace TransCelerate.SDR.WebApi.Controllers
 {
     [Authorize(Roles = Constants.Roles.Org_Admin)]
+    [ApiVersionNeutral]
     [ApiController]
     public class ReportsController : ControllerBase
     {

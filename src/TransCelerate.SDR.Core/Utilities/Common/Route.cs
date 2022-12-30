@@ -17,7 +17,7 @@
         #endregion
 
         #region POST Method Routes
-        public const string PostElements = "study";
+        public const string PostElements = "/study";
 
         public const string SearchElements = "search";
 
@@ -37,7 +37,7 @@
         #endregion
 
         #region POST Method Routes
-        public const string PostElementsV1 = "v1/studydefinitions";
+        public const string PostElementsV1 = "/v1/studydefinitions";
 
         public const string SearchElementsV1 = "v1/search";
 
@@ -59,7 +59,7 @@
         #endregion
 
         #region POST Method Routes
-        public const string PostElementsV2 = "v2/studydefinitions";
+        public const string PostElementsV2 = "/v2/studydefinitions";
 
         public const string SearchElementsV2 = "v2/search";
 
@@ -100,6 +100,7 @@
         #region Common Routes
         public const string GetRawJson = "studydefinitions/{studyId}/rawdata";
         public const string GetApiUsdmMapping = "versions";
+        public const string GetAudiTrail = "studydefinitions/{studyId}/audittrail";
         #endregion
     }
 }

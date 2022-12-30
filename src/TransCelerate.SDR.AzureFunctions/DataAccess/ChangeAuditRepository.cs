@@ -76,6 +76,48 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
             }
         }
         /// <summary>
+        /// Get Current and previous version of study for study Id
+        /// </summary>
+        /// <param name="studyId">Study UUID</param>
+        /// <param name="sdruploadversion">current version</param>
+        /// <returns> A <see cref="List{StudyEntity}"/> with matching studyId
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        public List<AuditTrailEntity> GetAuditTrailsAsync(string studyId, int sdruploadversion)
+        {
+            _logger.LogInformation($"Started Repository : {nameof(ChangeAuditRepository)}; Method : {nameof(GetAuditTrailsAsync)};");
+            try
+            {
+                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
+
+
+                List<AuditTrailEntity> auditTrails = collection.Find(x => (x.ClinicalStudy.StudyId == studyId) &&
+                                                           (x.AuditTrail.SDRUploadVersion == sdruploadversion || x.AuditTrail.SDRUploadVersion == sdruploadversion - 1))
+                                                     .SortByDescending(s => s.AuditTrail.EntryDateTime)
+                                                     .Limit(2)
+                                                     .Project(x=>x.AuditTrail)
+                                                     .ToList();
+
+                if (auditTrails == null)
+                {
+                    _logger.LogWarning($"There are no studies with StudyId : {studyId} in {Constants.Collections.StudyV1} Collection");
+                    return null;
+                }
+                else
+                {
+                    return auditTrails;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Repository : {nameof(ChangeAuditRepository)}; Method : {nameof(GetAuditTrailsAsync)};");
+            }
+        }
+        /// <summary>
         /// Get Audit Details for a Study Id from Change Audit Collections
         /// </summary>
         /// <param name="studyId">Study UUID</param>

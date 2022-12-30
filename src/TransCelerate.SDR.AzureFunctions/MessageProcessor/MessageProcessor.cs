@@ -35,21 +35,39 @@ namespace TransCelerate.SDR.AzureFunctions
             //Deserialize the message
             ServiceBusMessageEntity serviceBusMessageEntity = JsonConvert.DeserializeObject<ServiceBusMessageEntity>(message);
 
-            //Get the studies with current and previous version
-            List<StudyEntity> studyEntities = _changeAuditReposotory.GetStudyItemsAsync(serviceBusMessageEntity.Study_uuid, serviceBusMessageEntity.CurrentVersion);
+            //Check The AuditTrails
+            List<AuditTrailEntity> auditTrailEntities = _changeAuditReposotory.GetAuditTrailsAsync(serviceBusMessageEntity.Study_uuid, serviceBusMessageEntity.CurrentVersion);
+            string currentUsdmVersion = auditTrailEntities.Where(x => x.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion).FirstOrDefault().UsdmVersion;
+            string previousUsdmVersion = auditTrailEntities.Where(x => x.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion - 1).FirstOrDefault().UsdmVersion;            
 
-            StudyEntity currentStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion).FirstOrDefault();
-            StudyEntity previousStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion - 1).FirstOrDefault();
+            if (currentUsdmVersion != previousUsdmVersion)
+            {
+                //Get the change audit data for studyId
+                ChangeAuditStudyEntity changeAuditEntity = _changeAuditReposotory.GetChangeAuditAsync(serviceBusMessageEntity.Study_uuid);
 
-            //Get the changes between current and previous version
-            List<string> changedValues = _helper.GetChangedValues(currentStudyVersion, previousStudyVersion);
-            changedValues = FormatChangeAuditElements(changedValues);
+                List<string> changedValues = new List<string> { $"The usdm-version have been changed from {previousUsdmVersion} to {currentUsdmVersion}" };
 
-            //Get the change audit data for studyId
-            ChangeAuditStudyEntity changeAuditEntity = _changeAuditReposotory.GetChangeAuditAsync(serviceBusMessageEntity.Study_uuid);
+                //Update changeAudit if exist/ create changeAudit if new
+                AddChangeAuditInDatabase(changeAuditEntity, serviceBusMessageEntity, changedValues, auditTrailEntities.Where(x => x.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion).FirstOrDefault());
+            }
+            else
+            {
+                //Get the studies with current and previous version
+                List<StudyEntity> studyEntities = _changeAuditReposotory.GetStudyItemsAsync(serviceBusMessageEntity.Study_uuid, serviceBusMessageEntity.CurrentVersion);
 
-            //Update changeAudit if exist/ create changeAudit if new
-            AddChangeAuditInDatabase(changeAuditEntity, serviceBusMessageEntity, changedValues, currentStudyVersion);
+                StudyEntity currentStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion).FirstOrDefault();
+                StudyEntity previousStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion - 1).FirstOrDefault();
+
+                //Get the changes between current and previous version
+                List<string> changedValues = _helper.GetChangedValues(currentStudyVersion, previousStudyVersion);
+                changedValues = FormatChangeAuditElements(changedValues);
+
+                //Get the change audit data for studyId
+                ChangeAuditStudyEntity changeAuditEntity = _changeAuditReposotory.GetChangeAuditAsync(serviceBusMessageEntity.Study_uuid);
+
+                //Update changeAudit if exist/ create changeAudit if new
+                AddChangeAuditInDatabase(changeAuditEntity, serviceBusMessageEntity, changedValues, currentStudyVersion.AuditTrail);
+            }
         }
         
         /// <summary>
@@ -93,14 +111,14 @@ namespace TransCelerate.SDR.AzureFunctions
         /// <param name="changeAuditStudyEntity">Change Audit Entity from database if exist</param>
         /// <param name="serviceBusMessageEntity">Service bus message after deserialization</param>
         /// <param name="changedValues">Changed values list</param>
-        /// <param name="currentStudyVersion">Current study version</param>
-        private void AddChangeAuditInDatabase(ChangeAuditStudyEntity changeAuditStudyEntity, ServiceBusMessageEntity serviceBusMessageEntity, List<string> changedValues, StudyEntity currentStudyVersion)
+        /// <param name="currentVersionAudiTrail">Current auditTrail version</param>
+        private void AddChangeAuditInDatabase(ChangeAuditStudyEntity changeAuditStudyEntity, ServiceBusMessageEntity serviceBusMessageEntity, List<string> changedValues, AuditTrailEntity currentVersionAudiTrail)
         {
             ChangesEntity change = new ChangesEntity
             {
                 Elements = changedValues,
-                EntryDateTime = currentStudyVersion.AuditTrail.EntryDateTime,
-                SDRUploadVersion = currentStudyVersion.AuditTrail.SDRUploadVersion
+                EntryDateTime = currentVersionAudiTrail.EntryDateTime,
+                SDRUploadVersion = currentVersionAudiTrail.SDRUploadVersion
             };
             if (changeAuditStudyEntity is null)
             {

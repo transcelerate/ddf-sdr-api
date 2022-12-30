@@ -22,6 +22,19 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
         Task<object> GetRawJson(string studyId, int sdruploadversion, LoggedInUser user);
+
+        /// <summary>
+        /// GET Audit Trial
+        /// </summary>
+        /// <param name="fromDate">Start Date for Date Filter</param>
+        /// <param name="toDate">End Date for Date Filter</param>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="user">Logged In User</param>
+        /// <returns>
+        /// A <see cref="object"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        Task<object> GetAuditTrail(string studyId, DateTime fromDate, DateTime toDate, LoggedInUser user);
         #endregion
     }
 }

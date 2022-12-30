@@ -251,21 +251,32 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else // create new version for study
                 {
-                    StudyEntity existingStudyEntity = await _clinicalStudyRepository.GetStudyItemsAsync(incomingStudyEntity.ClinicalStudy.Uuid, 0);
+                    AuditTrailEntity existingAuditTrail = await _clinicalStudyRepository.GetUsdmVersionAsync(incomingStudyEntity.ClinicalStudy.Uuid, 0);
 
-                    if(existingStudyEntity is null)
+                    if (existingAuditTrail is null) // If PUT Endpoint and study_uuid is not valid, return not valid study
                     {
-                        return Constants.ErrorMessages.NotValidStudyId;
-                    }                    
-
-                    
-                    if (_helper.IsSameStudy(incomingStudyEntity, existingStudyEntity))
-                    {
-                        studyDTO = await UpdateExistingStudy(incomingStudyEntity, existingStudyEntity).ConfigureAwait(false);
+                        return Constants.ErrorMessages.StudyIdNotFound;
                     }
+                    if (existingAuditTrail.UsdmVersion == Constants.USDMVersions.V1) // If previus USDM version is same as incoming
+                    {
+                        StudyEntity existingStudyEntity = await _clinicalStudyRepository.GetStudyItemsAsync(incomingStudyEntity.ClinicalStudy.Uuid, 0);
+
+                        if (_helper.IsSameStudy(incomingStudyEntity, existingStudyEntity))
+                        {
+                            studyDTO = await UpdateExistingStudy(incomingStudyEntity, existingStudyEntity).ConfigureAwait(false);
+                        }
+                        else
+                        {
+                            studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity, existingStudyEntity).ConfigureAwait(false);
+                        }
+                    }
+                    else if(existingAuditTrail.UsdmVersion == Constants.USDMVersions.MVP)// If previus USDM version is different from incoming
+                    {
+                        studyDTO = await CreateNewVersionForAStudyWithoutCheck(incomingStudyEntity, existingAuditTrail, incomingStudyEntity.ClinicalStudy.Uuid).ConfigureAwait(false);
+                    }    
                     else
-                    {                        
-                        studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity,existingStudyEntity).ConfigureAwait(false);                        
+                    {
+                        return Constants.ErrorMessages.DowngradeError;
                     }
                 }                
 
@@ -306,6 +317,15 @@ namespace TransCelerate.SDR.Services.Services
             incomingStudyEntity.AuditTrail.SDRUploadVersion = existingStudyEntity.AuditTrail.SDRUploadVersion + 1;
             incomingStudyEntity.AuditTrail.UsdmVersion= Constants.USDMVersions.V1;
             await _clinicalStudyRepository.PostStudyItemsAsync(incomingStudyEntity);            
+            return _mapper.Map<StudyDto>(incomingStudyEntity);
+        }
+        public async Task<StudyDto> CreateNewVersionForAStudyWithoutCheck(StudyEntity incomingStudyEntity, AuditTrailEntity existingAuditTrailEntity,string studyId)
+        {
+            incomingStudyEntity = _helper.GeneratedSectionId(incomingStudyEntity);
+            incomingStudyEntity.ClinicalStudy.Uuid = studyId;
+            incomingStudyEntity.AuditTrail.SDRUploadVersion = existingAuditTrailEntity.SDRUploadVersion + 1;
+            incomingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V1;
+            await _clinicalStudyRepository.PostStudyItemsAsync(incomingStudyEntity);
             return _mapper.Map<StudyDto>(incomingStudyEntity);
         }
         #endregion

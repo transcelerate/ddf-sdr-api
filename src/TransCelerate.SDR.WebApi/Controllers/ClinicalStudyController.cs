@@ -18,11 +18,13 @@ using TransCelerate.SDR.Core.Filters;
 using TransCelerate.SDR.Services.Interfaces;
 using TransCelerate.SDR.Core.DTO.Token;
 using System.Net;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace TransCelerate.SDR.WebApi.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize]
+    [ApiVersionNeutral]
     [ApiController]
     public class ClinicalStudyController : ControllerBase
     {
@@ -50,6 +52,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <param name="version">Version of study</param>
         /// <param name="tag">Tag of a study</param>
         /// <param name="sections">Study sections which have to be fetched</param> 
+        /// <param name="usdmVersion">usdm-version</param> 
         /// <response code="200">Returns Study</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>
@@ -59,7 +62,8 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetStudy(string studyId, int version, string tag, [FromQuery] string sections)
+        public async Task<IActionResult> GetStudy(string studyId, int version, string tag, [FromQuery] string sections,
+                                            [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)] string usdmVersion)
         {
             try
             {                                   
@@ -71,7 +75,11 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
-                    _logger.LogInformation($"Inputs: StudyId: {studyId}; Version: {version}; Status: {tag ?? "<null>"}; Sections: {sections ?? "<null>"}");
+                    _logger.LogInformation($"Inputs: StudyId: {studyId}; Version: {version}; Status: {tag ?? "<null>"}; Sections: {sections ?? "<null>"};Usdm-Version: {usdmVersion}");
+                    if(String.IsNullOrWhiteSpace(usdmVersion))
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.UsdmVersionMissing)).Value);
+                    if (!ValidateApiUsdmVersionMapping.IsValidMapping(Constants.USDMVersions.MVP, usdmVersion))
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.UsdmVersionMapError)).Value);
                     string[] sectionArray = new string[] { };
                     if (!String.IsNullOrWhiteSpace(sections))
                     {
@@ -133,6 +141,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <param name="version">Version of study</param>
         /// <param name="tag">Tag of a study</param>        
         /// <param name="sections">Study Design sections which have to be fetched</param>  
+        /// <param name="usdmVersion">usdm-version</param> 
         /// <response code="200">Returns a list of StudyDesigns</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">The StudyDesigns for the study is Not Found</response>
@@ -142,7 +151,8 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetStudyDesignSections(string studyId, string studyDesignId, int version, string tag, [FromQuery] string sections)
+        public async Task<IActionResult> GetStudyDesignSections(string studyId, string studyDesignId, int version, string tag, [FromQuery] string sections,
+                                            [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)] string usdmVersion)
         {
             try
             {
@@ -154,6 +164,10 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
+                    if (String.IsNullOrWhiteSpace(usdmVersion))
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.UsdmVersionMissing)).Value);
+                    if (!ValidateApiUsdmVersionMapping.IsValidMapping(Constants.USDMVersions.MVP, usdmVersion))
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.UsdmVersionMapError)).Value);
                     _logger.LogInformation($"Inputs: StudyId: {studyId}; StudyDesignId: {studyDesignId}; Version: {version}; Status: {tag ?? "<null>"}; Sections: {sections ?? "<null>"}");
                     string[] sectionArray = new string[] { };
                     if (!String.IsNullOrWhiteSpace(sections))
@@ -362,6 +376,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// POST All Elements For a Study  
         /// </summary>        
         /// <param name="studyDTO">Study for Inserting/Updating in Database</param>
+        /// <param name="usdmVersion">usdm-version</param> 
         /// <param name="entrySystem">System which made the request</param> 
         /// <response code="201">Study Created</response>
         /// <response code="400">Bad Request</response>       
@@ -370,7 +385,8 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(PostStudyDTO))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> PostAllElements([FromBody] PostStudyDTO studyDTO, [FromHeader] string entrySystem)
+        public async Task<IActionResult> PostAllElements([FromBody] PostStudyDTO studyDTO, [FromHeader] string entrySystem,
+                                            [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)] string usdmVersion)
         {
             try
             {

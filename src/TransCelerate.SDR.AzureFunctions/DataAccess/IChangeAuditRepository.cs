@@ -33,5 +33,15 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
         /// </summary>
         /// <param name="changeAudit"></param>
         void UpdateChangeAudit(ChangeAuditStudyEntity changeAudit);
+
+        /// <summary>
+        /// Get Current and previous version of study for study Id
+        /// </summary>
+        /// <param name="studyId">Study UUID</param>
+        /// <param name="sdruploadversion">current version</param>
+        /// <returns> A <see cref="List{AuditTrailEntity}"/> with matching studyId
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        List<AuditTrailEntity> GetAuditTrailsAsync(string studyId, int sdruploadversion);
     }
 }

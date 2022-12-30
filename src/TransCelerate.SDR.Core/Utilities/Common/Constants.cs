@@ -139,6 +139,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string NotValidStudyId = "The provided studyId is not valid";
 
+            public const string DowngradeError = "The usdm-version cannot be downgraded";
+
             public const string StudyIdNotFound = "The provided clinicalStudy.studyId is not found";
 
             public const string UsePutEndpoint = "Kindly use PUT Study Definitions endpoint to update study definitions";
@@ -176,6 +178,12 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string EnterDesignIdError = "Kindly provide valid Study Design Id when providing Study WorkFlow Id";
 
             public const string SoANotFound = "The Schedule Of Activities Not Found";
+
+            public const string UsdmVersionMissing = "The 'usdm-version' header is missing";
+
+            public const string UsdmVersionAmbiguous = "The 'usdm-version' is ambiguous";
+
+            public const string UsdmVersionMapError = "The usdm-version is not compactible with the API version. Kindly refer /versions endpoint for api-version -> usdm-version mapping ";
         }
 
         public struct TokenConstants
@@ -241,5 +249,12 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             "[",
             "]"
         };
+        public struct ApiVersionErrorCodes 
+        {
+            public const string ApiVersionUnspecified = "ApiVersionUnspecified";
+            public const string UnsupportedApiVersion = "UnsupportedApiVersion";
+            public const string InvalidApiVersion = "InvalidApiVersion";
+            public const string AmbiguousApiVersion = "AmbiguousApiVersion";
+        }
     }
 }
