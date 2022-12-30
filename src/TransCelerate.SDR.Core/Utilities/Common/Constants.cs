@@ -183,7 +183,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string UsdmVersionAmbiguous = "The 'usdm-version' is ambiguous";
 
-            public const string UsdmVersionMapError = "The usdm-version is not compactible with the API version. Kindly refer /versions endpoint for api-version -> usdm-version mapping ";
+            public const string UsdmVersionMapError = "The usdm-version is not compactible with the api-version. Kindly refer /versions endpoint for api-version -> usdm-version mapping ";
         }
 
         public struct TokenConstants
