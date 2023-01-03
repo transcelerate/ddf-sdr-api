@@ -234,6 +234,7 @@
   - [RemoveSections(sections,getStudySectionsDTO)](#M-TransCelerate-SDR-Core-Utilities-Helpers-RemoveStudySections-RemoveSections-System-String[],TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO- 'TransCelerate.SDR.Core.Utilities.Helpers.RemoveStudySections.RemoveSections(System.String[],TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO)')
   - [RemoveSectionsForStudyDesign(sections,getStudySectionsDTO)](#M-TransCelerate-SDR-Core-Utilities-Helpers-RemoveStudySections-RemoveSectionsForStudyDesign-System-String[],TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO- 'TransCelerate.SDR.Core.Utilities.Helpers.RemoveStudySections.RemoveSectionsForStudyDesign(System.String[],TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO)')
 - [Route](#T-TransCelerate-SDR-Core-Utilities-Common-Route 'TransCelerate.SDR.Core.Utilities.Common.Route')
+- [SearchTitleResponseDto](#T-TransCelerate-SDR-Core-DTO-Common-SearchTitleResponseDto 'TransCelerate.SDR.Core.DTO.Common.SearchTitleResponseDto')
 - [SearchTitleResponseDto](#T-TransCelerate-SDR-Core-DTO-StudyV1-SearchTitleResponseDto 'TransCelerate.SDR.Core.DTO.StudyV1.SearchTitleResponseDto')
 - [SectionIdGenerator](#T-TransCelerate-SDR-Core-Utilities-Helpers-SectionIdGenerator 'TransCelerate.SDR.Core.Utilities.Helpers.SectionIdGenerator')
   - [GenerateSectionId(studyEntity)](#M-TransCelerate-SDR-Core-Utilities-Helpers-SectionIdGenerator-GenerateSectionId-TransCelerate-SDR-Core-Entities-Study-StudyEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.SectionIdGenerator.GenerateSectionId(TransCelerate.SDR.Core.Entities.Study.StudyEntity)')
@@ -247,6 +248,7 @@
 - [StartupLib](#T-TransCelerate-SDR-Core-AppSettings-StartupLib 'TransCelerate.SDR.Core.AppSettings.StartupLib')
   - [SetConstants(config)](#M-TransCelerate-SDR-Core-AppSettings-StartupLib-SetConstants-Microsoft-Extensions-Configuration-IConfiguration- 'TransCelerate.SDR.Core.AppSettings.StartupLib.SetConstants(Microsoft.Extensions.Configuration.IConfiguration)')
 - [StudyDesignSections](#T-TransCelerate-SDR-Core-Utilities-StudyDesignSections 'TransCelerate.SDR.Core.Utilities.StudyDesignSections')
+- [StudyHistoryResponseDto](#T-TransCelerate-SDR-Core-DTO-Common-StudyHistoryResponseDto 'TransCelerate.SDR.Core.DTO.Common.StudyHistoryResponseDto')
 - [StudyHistoryResponseDto](#T-TransCelerate-SDR-Core-DTO-StudyV1-StudyHistoryResponseDto 'TransCelerate.SDR.Core.DTO.StudyV1.StudyHistoryResponseDto')
 - [StudyHistoryResponseDto](#T-TransCelerate-SDR-Core-DTO-StudyV2-StudyHistoryResponseDto 'TransCelerate.SDR.Core.DTO.StudyV2.StudyHistoryResponseDto')
 - [StudySectionTypes](#T-TransCelerate-SDR-Core-Utilities-StudySectionTypes 'TransCelerate.SDR.Core.Utilities.StudySectionTypes')
@@ -3661,6 +3663,17 @@ TransCelerate.SDR.Core.Utilities.Common
 
 This class holds list of routes for all the endpoints
 
+<a name='T-TransCelerate-SDR-Core-DTO-Common-SearchTitleResponseDto'></a>
+## SearchTitleResponseDto `type`
+
+##### Namespace
+
+TransCelerate.SDR.Core.DTO.Common
+
+##### Summary
+
+This class is a DTO for response of Search StudyTitle Endpoint
+
 <a name='T-TransCelerate-SDR-Core-DTO-StudyV1-SearchTitleResponseDto'></a>
 ## SearchTitleResponseDto `type`
 
@@ -3834,6 +3847,17 @@ TransCelerate.SDR.Core.Utilities
 ##### Summary
 
 Enums for StudyDesign Sections
+
+<a name='T-TransCelerate-SDR-Core-DTO-Common-StudyHistoryResponseDto'></a>
+## StudyHistoryResponseDto `type`
+
+##### Namespace
+
+TransCelerate.SDR.Core.DTO.Common
+
+##### Summary
+
+This class is a DTO for response of GET Study History Endpoint
 
 <a name='T-TransCelerate-SDR-Core-DTO-StudyV1-StudyHistoryResponseDto'></a>
 ## StudyHistoryResponseDto `type`

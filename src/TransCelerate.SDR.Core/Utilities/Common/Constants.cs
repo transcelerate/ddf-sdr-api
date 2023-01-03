@@ -73,6 +73,10 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         public struct DbFilter
         {
             public const string StudyId = "clinicalStudy.studyId";
+            public const string StudyIdentifier = "clinicalStudy.studyIdentifiers.studyIdentifierScope.organisationIdentifier";
+            public const string StudyIdentifierDecode = "clinicalStudy.studyIdentifiers.studyIdentifierScope.organisationType.decode";
+            public const string StudyIdentifierMVP = "clinicalStudy.studyIdentifiers.idType";
+            public const string StudyIdentifierOrgCode = "clinicalStudy.studyIdentifiers.orgCode";
         }
         public struct ValidationErrorMessage
         {
@@ -183,7 +187,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string UsdmVersionAmbiguous = "The 'usdm-version' is ambiguous";
 
-            public const string UsdmVersionMapError = "The usdm-version is not compactible with the api-version. Kindly refer /versions endpoint for api-version -> usdm-version mapping ";
+            public const string UsdmVersionMapError = "The usdm-version is not compatible with the api-version. Kindly refer versions endpoint for api-version -> usdm-version mapping ";
         }
 
         public struct TokenConstants

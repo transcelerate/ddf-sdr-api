@@ -1,17 +1,9 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TransCelerate.SDR.Core.Entities.Study;
-using TransCelerate.SDR.Core.Utilities.Common;
-using TransCelerate.SDR.Core.DTO.Study;
-using System.Globalization;
-using TransCelerate.SDR.Core.DTO;
-using TransCelerate.SDR.Core.DTO.UserGroups;
-using TransCelerate.SDR.Core.Entities.UserGroups;
 using TransCelerate.SDR.Core.DTO.Common;
+using TransCelerate.SDR.Core.DTO.UserGroups;
 using TransCelerate.SDR.Core.Entities.Common;
+using TransCelerate.SDR.Core.Entities.UserGroups;
+using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.WebApi.Mappers
 {
@@ -47,8 +39,25 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<GroupFilterValuesEntity, GroupFilterValuesDTO>()
                 .ForMember(dest => dest.id, opt => opt.MapFrom(src => src.groupFilterValueId))
                 .ReverseMap();
+
             //Mapper for AuditTrail
             CreateMap<AuditTrailDto, AuditTrailResponseEntity>().ReverseMap();
+
+            //Mapper for Search Titke
+            CreateMap<SearchTitleParametersDto, SearchTitleParametersEntity>();            
+            CreateMap<SearchTitleResponseDto, SearchTitleResponseEntity>()
+               .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.ClinicalStudy.StudyId))
+               .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.ClinicalStudy.StudyTitle))
+               .ForMember(dest => dest.StudyIdentifiers, opt => opt.MapFrom(src => src.ClinicalStudy.StudyIdentifiers))
+               .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))
+               .ForMember(dest => dest.UsdmVersion, opt => opt.MapFrom(src => src.AuditTrail.UsdmVersion))
+               .ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.AuditTrail.EntryDateTime)).ReverseMap();
+
+            //Mapper for Study History
+            CreateMap<StudyHistoryResponseEntity, UploadVersionDto>()
+                 .ForMember(dest => dest.UploadVersion, opt => opt.MapFrom(src => src.SDRUploadVersion))
+                 .ForMember(dest => dest.ProtocolVersions, opt => opt.MapFrom(src => src.ProtocolVersions))
+                 .ReverseMap();
         }
     }
 }
