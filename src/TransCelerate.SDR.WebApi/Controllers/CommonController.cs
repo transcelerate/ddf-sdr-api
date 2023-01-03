@@ -201,6 +201,133 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Ended Controller : {nameof(CommonController)}; Method : {nameof(GetAuditTrail)};");
             }
         }
+
+        /// <summary>
+        /// Get All StudyId's in the database
+        /// </summary>
+        /// <param name="fromDate">Start Date for Date Filter</param>
+        /// <param name="toDate">End Date for Date Filter</param>
+        /// <param name="studyTitle">Study Title Filter</param>
+        /// <response code="200">Returns All Study Id's</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">There is no study</response>
+        [HttpGet]
+        [ApiVersionNeutral]
+        [Route(Route.GetStudyHistory)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyHistoryResponseDto))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> GetStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(CommonController)}; Method : {nameof(GetStudyHistory)};");
+
+                LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
+
+                _logger.LogInformation($"Inputs: FromDate: {fromDate}; ToDate: {toDate}; DateRange from Key Vault :{Config.DateRange}");
+
+                Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(fromDate, toDate, Convert.ToInt32(Config.DateRange));
+
+                fromDate = fromAndToDate.Item1;
+                toDate = fromAndToDate.Item2;
+
+                if (fromDate <= toDate)
+                {
+                    var studyHistoryResponse = await _commonService.GetStudyHistory(fromDate, toDate, studyTitle, user);
+                    if (studyHistoryResponse == null)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
+                    }
+                    else
+                    {
+                        return Ok(studyHistoryResponse);
+                    }
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(CommonController)}; Method : {nameof(GetStudyHistory)};");
+            }
+        }
+        #endregion
+
+        #region Search
+        /// <summary>
+        /// Search For a Study 
+        /// </summary>
+        /// <param name="searchparameters">Parameters to search in database</param>
+        /// <response code="200">Returns All Study that matches the search criteria</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">There is no study that matches the search criteria</response>
+        [HttpPost]
+        [ApiVersionNeutral]
+        [Route(Route.SearchStudyTitle)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IEnumerable<SearchTitleResponseDto>))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> SearchTitle([FromBody] SearchTitleParametersDto searchparameters)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(CommonController)}; Method : {nameof(SearchTitle)};");
+                LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
+                if (searchparameters != null)
+                {
+                    if (String.IsNullOrWhiteSpace(searchparameters.StudyTitle) && String.IsNullOrWhiteSpace(searchparameters.StudyId)
+                       && String.IsNullOrWhiteSpace(searchparameters.FromDate) && String.IsNullOrWhiteSpace(searchparameters.ToDate))
+                    {
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ValidationErrorMessage.AnyOneFieldError)).Value);
+                    }
+                    Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(String.IsNullOrWhiteSpace(searchparameters.FromDate) ? DateTime.MinValue : Convert.ToDateTime(searchparameters.FromDate),
+                                                                  String.IsNullOrWhiteSpace(searchparameters.ToDate) ? DateTime.MinValue : Convert.ToDateTime(searchparameters.ToDate), -1);
+
+                    searchparameters.FromDate = fromAndToDate.Item1.ToString();
+                    searchparameters.ToDate = fromAndToDate.Item2.ToString();
+                    if ((!String.IsNullOrWhiteSpace(searchparameters.FromDate)) && (!String.IsNullOrWhiteSpace(searchparameters.ToDate)))
+                    {
+                        if (Convert.ToDateTime(searchparameters.FromDate) > Convert.ToDateTime(searchparameters.ToDate))
+                        {
+                            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError)).Value);
+                        }
+                    }
+                    var response = await _commonService.SearchTitle(searchparameters, user).ConfigureAwait(false);
+
+                    if (response == null || response.Count == 0)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.SearchNotFound)).Value);
+                    }
+                    else
+                    {
+                        return Ok(response);
+                    }
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(CommonController)}; Method : {nameof(SearchTitle)};");
+            }
+        }
         #endregion
         #endregion
     }

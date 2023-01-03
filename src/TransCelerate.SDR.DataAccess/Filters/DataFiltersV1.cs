@@ -81,7 +81,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
         {
             FilterDefinitionBuilder<StudyEntity> builder = Builders<StudyEntity>.Filter;
             FilterDefinition<StudyEntity> filter = builder.Empty;
-            filter &= builder.Where(s => s.ClinicalStudy.Uuid == studyId);
+            filter &= builder.Where(s => s.ClinicalStudy.StudyId == studyId);
 
             //Filter for Date Range
             filter &= builder.Where(x => x.AuditTrail.EntryDateTime >= fromDate

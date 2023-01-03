@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 namespace TransCelerate.SDR.Core.Entities.Common
 {
     [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
@@ -15,8 +17,15 @@ namespace TransCelerate.SDR.Core.Entities.Common
     {
         public string StudyId { get; set; }
         public string StudyTitle { get; set; }
+        public string StudyVersion { get; set; }
         public object StudyType { get; set; }
         public object StudyIdentifiers { get; set; }
-        public object StudyProtocolVersions { get; set; }
+        public List<CommonStudyProtocolVersions> StudyProtocolVersions { get; set; }
+    }
+
+    [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
+    public class CommonStudyProtocolVersions
+    {
+        public string ProtocolVersion { get; set; }
     }
 }
