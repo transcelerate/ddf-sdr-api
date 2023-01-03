@@ -101,6 +101,8 @@
         public const string GetRawJson = "studydefinitions/{studyId}/rawdata";
         public const string GetApiUsdmMapping = "versions";
         public const string GetAudiTrail = "studydefinitions/{studyId}/audittrail";
+        public const string SearchStudyTitle = "studydefinitions/searchstudytitle";
+        public const string GetStudyHistory = "studydefinitions/history";
         #endregion
     }
 }

@@ -187,7 +187,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="404">The Study for the studyId is Not Found</response>
         [HttpGet]
         [Route(Route.SoAV2)]
-        [ApiVersionNeutral]
+        [ApiVersion(Constants.USDMVersions.V2)]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
