@@ -215,12 +215,10 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                                               StudyIdentifiers = x.ClinicalStudy.StudyIdentifiers,
                                                                               EntryDateTime = x.AuditTrail.EntryDateTime,
                                                                               SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
-                                                                              UsdmVersion = x.AuditTrail.UsdmVersion,
-                                                                              HasAccess = true
+                                                                              UsdmVersion = x.AuditTrail.UsdmVersion
                                                                           })
                                                                           .ToListAsync()
-                                                                          .ConfigureAwait(false);                
-
+                                                                          .ConfigureAwait(false);
                 return studies;
             }
             catch (Exception)
