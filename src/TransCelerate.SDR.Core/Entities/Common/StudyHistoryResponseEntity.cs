@@ -13,7 +13,7 @@ namespace TransCelerate.SDR.Core.Entities.Common
         public string StudyTitle { get; set; }
         public string StudyVersion { get; set; }
         public int SDRUploadVersion { get; set; }
-        public object StudyIdentifiers { get; set; }
+        public List<object> StudyIdentifiers { get; set; }
         public DateTime EntryDateTime { get; set; }
         public object StudyType { get; set; }
         public IEnumerable<string> ProtocolVersions { get; set; }
