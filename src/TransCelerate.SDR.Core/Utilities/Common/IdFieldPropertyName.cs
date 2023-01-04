@@ -39,6 +39,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         public struct StudyV1
         {
             public const string StudyId = "studyId";
+            public const string Uuid = "uuid";
         }
 
         public struct Common

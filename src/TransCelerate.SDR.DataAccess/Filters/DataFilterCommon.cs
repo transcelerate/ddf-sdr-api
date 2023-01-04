@@ -108,6 +108,5 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             return filter;
         }
-
     }
 }
