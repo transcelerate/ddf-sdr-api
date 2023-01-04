@@ -213,6 +213,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                                               StudyId = x.ClinicalStudy.StudyId,
                                                                               StudyTitle = x.ClinicalStudy.StudyTitle,
                                                                               StudyIdentifiers = x.ClinicalStudy.StudyIdentifiers,
+                                                                              StudyType = x.ClinicalStudy.StudyType,
                                                                               EntryDateTime = x.AuditTrail.EntryDateTime,
                                                                               SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
                                                                               UsdmVersion = x.AuditTrail.UsdmVersion
