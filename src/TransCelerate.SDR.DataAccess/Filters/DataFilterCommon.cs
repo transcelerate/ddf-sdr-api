@@ -93,16 +93,24 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             //Filter for OrgCode
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyId))
-            {
+            {               
                 filter &= builder.Or(
-                                        builder.And(
-                                                builder.Eq(Constants.DbFilter.StudyIdentifierDecode, Constants.IdType.SPONSOR_ID_V1),
-                                                builder.Regex(Constants.DbFilter.StudyIdentifier, new BsonRegularExpression($"/{searchParameters.StudyId}/i"))
-                                                ),
-                                        builder.And(
-                                                builder.Eq(Constants.DbFilter.StudyIdentifierMVP, Constants.IdType.SPONSOR_ID),
-                                                builder.Regex(Constants.DbFilter.StudyIdentifierOrgCode, new BsonRegularExpression($"/{searchParameters.StudyId}/i"))
-                                                )
+                                     builder.And(                                                
+                                             builder.ElemMatch<BsonDocument>(Constants.DbFilter.StudyIdentifiers, new BsonDocument() 
+                                                     { 
+                                                         { Constants.DbFilter.StudyIdentifierOrganisationIdentifier, new BsonRegularExpression($"/{searchParameters.StudyId}/i") } ,
+                                                         { Constants.DbFilter.StudyIdentifierOrganisationTypeDecode, new BsonRegularExpression($"/{Constants.IdType.SPONSOR_ID_V1}/i")} 
+                                                     }
+                                                 )                                                
+                                             ),
+                                     builder.And(
+                                            builder.ElemMatch<BsonDocument>(Constants.DbFilter.StudyIdentifiers, new BsonDocument()
+                                                     {
+                                                         { Constants.DbFilter.StudyIdentifierOrgCode, new BsonRegularExpression($"/{searchParameters.StudyId}/i") } ,
+                                                         { Constants.DbFilter.StudyIdentifierIdType, new BsonRegularExpression($"/{Constants.IdType.SPONSOR_ID}/i")}
+                                                     }
+                                                 )
+                                             )
                                     );                                
             }
 
