@@ -37,6 +37,8 @@ using TransCelerate.SDR.RuleEngine;
 using TransCelerate.SDR.Services.Interfaces;
 using TransCelerate.SDR.WebApi.Controllers;
 using TransCelerate.SDR.WebApi.Mappers;
+using System.Collections.Specialized;
+using Microsoft.AspNetCore.Mvc.Versioning;
 
 namespace TransCelerate.SDR.UnitTesting
 {
@@ -844,7 +846,94 @@ namespace TransCelerate.SDR.UnitTesting
             method1 = actionFilter.OnActionExecutionAsync(actionExecutingContext, actionExecutionDelegate.Object);
             //Assert.Throws<NullReferenceException>(()=>method1.Wait());
             Assert.Throws(Is.InstanceOf<AggregateException>(), () => method1.Wait());
-        }      
+        }
+        #endregion
+
+        #region Header Validation Helper
+        [Test]
+        public void HeaderValidationHelperUnitTesting()
+        {
+            var httpRequest = new Mock<HttpRequest>();           
+            httpRequest.Setup(x => x.Path).Returns(Core.Utilities.Common.Route.PostElements);
+            var MoqhttpContext = new DefaultHttpContext();
+            MoqhttpContext.Request.Headers["usdm-version"] = "mvp";
+
+            var header = MoqhttpContext.Request.Headers;
+
+            httpRequest.Setup(x => x.Headers).Returns(header);
+            var httpContext = new Mock<HttpContext>();
+            httpContext.Setup(x => x.Request).Returns(httpRequest.Object);
+            ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ApiUsdmVersionMapping.json"));
+            ApiUsdmVersionMapping.SDRVersions = apiUsdmVersionMapping_NonStatic.SDRVersions;
+            var response = HeaderValidationHelper.ValidateUsdmVersionHeaderMvp(httpContext.Object, null);
+            Assert.IsNull(response);
+
+            MoqhttpContext.Request.Headers["usdm-version"] = "v1";
+            response = HeaderValidationHelper.ValidateUsdmVersionHeaderMvp(httpContext.Object, null);
+            Assert.AreEqual(response, Constants.ErrorMessages.UsdmVersionMapError);
+
+            MoqhttpContext.Request.Headers["usdm-version"] = "";
+            response = HeaderValidationHelper.ValidateUsdmVersionHeaderMvp(httpContext.Object, null);
+            Assert.AreEqual(response, Constants.ErrorMessages.UsdmVersionMissing);
+
+        }
+        #endregion
+        #region VersioningErrorResponseHelper
+        [Test]
+        public void VersioningErrorResponseHelperUnitTesting()
+        {
+            var errorResponseContext = new ErrorResponseContext(
+                   new Mock<HttpRequest>().Object,
+                   400,
+                   Constants.ApiVersionErrorCodes.UnsupportedApiVersion,
+                   "",
+                   "");
+            
+            VersioningErrorResponseHelper versioningErrorResponseHelper = new VersioningErrorResponseHelper();
+            var result  = versioningErrorResponseHelper.CreateResponse(errorResponseContext);
+            var actualResult = (result as BadRequestObjectResult).Value;
+            Assert.AreEqual((actualResult as ErrorModel).message, Constants.ErrorMessages.UsdmVersionMapError);
+
+            errorResponseContext = new ErrorResponseContext(
+                   new Mock<HttpRequest>().Object,
+                   400,
+                   Constants.ApiVersionErrorCodes.ApiVersionUnspecified,
+                   "",
+                   "");
+            result = versioningErrorResponseHelper.CreateResponse(errorResponseContext);
+            actualResult = (result as BadRequestObjectResult).Value;
+            Assert.AreEqual((actualResult as ErrorModel).message, Constants.ErrorMessages.UsdmVersionMissing);
+
+            errorResponseContext = new ErrorResponseContext(
+                   new Mock<HttpRequest>().Object,
+                   400,
+                   Constants.ApiVersionErrorCodes.AmbiguousApiVersion,
+                   "",
+                   "");
+            result = versioningErrorResponseHelper.CreateResponse(errorResponseContext);
+            actualResult = (result as BadRequestObjectResult).Value;
+            Assert.AreEqual((actualResult as ErrorModel).message, Constants.ErrorMessages.UsdmVersionAmbiguous);
+
+            errorResponseContext = new ErrorResponseContext(
+                   new Mock<HttpRequest>().Object,
+                   400,
+                   Constants.ApiVersionErrorCodes.InvalidApiVersion,
+                   "",
+                   "");
+            result = versioningErrorResponseHelper.CreateResponse(errorResponseContext);
+            actualResult = (result as BadRequestObjectResult).Value;
+            Assert.AreEqual((actualResult as ErrorModel).message, Constants.ErrorMessages.UsdmVersionMapError);
+
+            errorResponseContext = new ErrorResponseContext(
+                   new Mock<HttpRequest>().Object,
+                   400,
+                   "",
+                   "",
+                   "");
+            result = versioningErrorResponseHelper.CreateResponse(errorResponseContext);
+            actualResult = (result as BadRequestObjectResult).Value;
+            Assert.AreEqual((actualResult as ErrorModel).message, Constants.ErrorMessages.UsdmVersionMapError);
+        }
         #endregion
 
     }
