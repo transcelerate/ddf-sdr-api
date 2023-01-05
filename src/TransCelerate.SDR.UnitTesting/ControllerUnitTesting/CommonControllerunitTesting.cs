@@ -20,6 +20,9 @@ using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.Core.Entities.Common;
 using TransCelerate.SDR.Core.DTO.Common;
 using Newtonsoft.Json.Serialization;
+using TransCelerate.SDR.Core.Utilities.Helpers;
+using TransCelerate.SDR.WebApi.Mappers;
+using TransCelerate.SDR.DataAccess.Interfaces;
 
 namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 {
@@ -28,6 +31,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         #region Variables
         private ILogHelper _mockLogger = Mock.Of<ILogHelper>();
         private Mock<ICommonService> _mockCommonService = new Mock<ICommonService>(MockBehavior.Loose);
+        private IMapper _mockMapper;
+        private Mock<ICommonRepository> _mockCommonRepository = new Mock<ICommonRepository>(MockBehavior.Loose);
         #endregion
 
         #region Setup
@@ -37,6 +42,36 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             UserName = "user1@SDR.com",
             UserRole = Constants.Roles.Org_Admin
         };
+        public CommonStudyEntity GetData(string usdmVersion)
+        {
+            if (usdmVersion == Constants.USDMVersions.MVP)
+            {
+                string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/PostStudyData.json");
+                var mvpData = JsonConvert.DeserializeObject<CommonStudyEntity>(jsonData);
+                return mvpData;
+            }
+            else if (usdmVersion == Constants.USDMVersions.V1)
+            {
+                string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV1.json");
+                var v1 = JsonConvert.DeserializeObject<CommonStudyEntity>(jsonData);
+                return v1;
+            }
+            else
+            {
+                string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
+                var v2 = JsonConvert.DeserializeObject<CommonStudyEntity>(jsonData);
+                return v2;
+            }
+        }
+        [SetUp]
+        public void Setup()
+        {
+            var mockMapper = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new SharedAutoMapperProfiles());
+            });
+            _mockMapper = new Mapper(mockMapper);
+        }
         #endregion
 
         #region Get RawJson
@@ -144,6 +179,412 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);           
         }
+        #endregion
+
+        #region Get AuditTrail
+        [Test]
+        public void GetAuditTrailSuccessUnitTesting()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
+            var data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
+            AuditTrailResponseDto auditTrailResponseDto = new AuditTrailResponseDto
+            {
+                StudyId = data.ClinicalStudy.ToString(),
+                AuditTrail = new List<AuditTrailDto> { new AuditTrailDto { EntryDateTime = DateTime.Now.AddDays(-1), SDRUploadVersion = 1 }, new AuditTrailDto { EntryDateTime = DateTime.Now, SDRUploadVersion = 2 } }
+            };
+
+            _mockCommonService.Setup(x => x.GetAuditTrail(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(auditTrailResponseDto as object));
+            CommonController commonController = new CommonController(_mockCommonService.Object, _mockLogger);
+
+            var method = commonController.GetAuditTrail("sd", DateTime.MinValue, DateTime.MinValue);
+            method.Wait();
+            var result = method.Result;
+
+            //Expected
+            var expected = auditTrailResponseDto;
+
+            //Actual            
+            var actual_result = JsonConvert.DeserializeObject<AuditTrailResponseDto>(
+                 JsonConvert.SerializeObject((result as OkObjectResult).Value));
+
+            Assert.AreEqual(expected.StudyId, actual_result.StudyId);
+            Assert.IsInstanceOf(typeof(OkObjectResult), result);
+        }
+        [Test]
+        public void GetAuditTrailFailureUnitTesting()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
+            var data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
+            _mockCommonService.Setup(x => x.GetAuditTrail(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(null as object));
+            CommonController commonController = new CommonController(_mockCommonService.Object, _mockLogger);
+
+            var method = commonController.GetAuditTrail("sd", DateTime.MinValue, DateTime.MinValue);
+            method.Wait();
+            var result = method.Result;
+
+            //Expected
+            var expected = new ErrorModel { message = Constants.ErrorMessages.StudyNotFound, statusCode = "400" };
+
+            //Actual            
+            var actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(NotFoundObjectResult), result);
+
+            _mockCommonService.Setup(x => x.GetAuditTrail(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<LoggedInUser>()))
+               .Returns(Task.FromResult(Constants.ErrorMessages.Forbidden as object));
+
+            method = commonController.GetAuditTrail("sd", DateTime.MinValue, DateTime.MinValue);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.Forbidden, statusCode = "403" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(403, (result as ObjectResult).StatusCode);
+
+            _mockCommonService.Setup(x => x.GetAuditTrail(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<LoggedInUser>()))
+               .Throws(new Exception(""));
+
+            method = commonController.GetAuditTrail("sd", DateTime.MinValue, DateTime.MinValue);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.GenericError, statusCode = "400" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+
+            method = commonController.GetAuditTrail("", DateTime.MinValue, DateTime.MinValue);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.StudyInputError, statusCode = "400" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+
+            method = commonController.GetAuditTrail("sd", DateTime.MinValue.AddDays(2), DateTime.MinValue.AddDays(1));
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.DateError, statusCode = "400" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+
+        }
+        #endregion
+
+        #region Study History
+        [Test]
+        public void GetStudyHistorySuccessUnitTesting()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
+            var data = JsonConvert.DeserializeObject<StudyHistoryResponseEntity>(jsonData);
+            List<StudyHistoryResponseDto> studyHistories = new()
+            {
+                new StudyHistoryResponseDto { StudyId = data.StudyId, SDRUploadVersion = new List<UploadVersionDto>() { new UploadVersionDto
+                {
+                    ProtocolVersions = new List<string>(){"1","2"},
+                    StudyIdentifiers = data.StudyIdentifiers,
+                    StudyTitle = data.StudyTitle,
+                    UploadVersion = 1,
+                    StudyVersion = data.StudyVersion
+                } } }
+            };
+            Config.DateRange = "20";
+            _mockCommonService.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(studyHistories));
+            CommonController commonController = new CommonController(_mockCommonService.Object, _mockLogger);
+
+            var method = commonController.GetStudyHistory(DateTime.MinValue, DateTime.MinValue, "sd");
+            method.Wait();
+            var result = method.Result;
+
+            //Expected
+            var expected = studyHistories;
+
+            //Actual            
+            var actual_result = JsonConvert.DeserializeObject<List<StudyHistoryResponseDto>>(
+                 JsonConvert.SerializeObject((result as OkObjectResult).Value));
+
+            Assert.AreEqual(expected[0].StudyId, actual_result[0].StudyId);
+            Assert.IsInstanceOf(typeof(OkObjectResult), result);
+        }
+
+        [Test]
+        public void GetStudyHistoryFailureUnitTesting()
+        {
+            Config.DateRange = "20";
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
+            var data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
+            List<StudyHistoryResponseDto> studyHistory = null;
+            _mockCommonService.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+               .Returns(Task.FromResult(studyHistory));
+
+            CommonController commonController = new CommonController(_mockCommonService.Object, _mockLogger);
+
+            var method = commonController.GetStudyHistory(DateTime.MinValue, DateTime.MinValue, "sd");
+            method.Wait();
+            var result = method.Result;
+
+            //Expected
+            var expected = new ErrorModel { message = Constants.ErrorMessages.StudyNotFound, statusCode = "400" };
+
+            //Actual            
+            var actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(NotFoundObjectResult), result);
+
+
+            _mockCommonService.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+               .Throws(new Exception(""));
+
+            method = commonController.GetStudyHistory(DateTime.MinValue, DateTime.MinValue, "sd");
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.GenericError, statusCode = "400" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+
+
+            method = commonController.GetStudyHistory(DateTime.MinValue.AddDays(2), DateTime.MinValue.AddDays(1), "sd");
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.DateError, statusCode = "400" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+        }
+        #endregion
+
+        #region Search Title
+        [Test]
+        public void SearchStudyTitleSuccessUnitTesting()
+        {
+            CommonStudyEntity mvp = GetData(Constants.USDMVersions.MVP);
+            CommonStudyEntity v1 = GetData(Constants.USDMVersions.V1);
+            CommonStudyEntity v2 = GetData(Constants.USDMVersions.V2);
+            List<SearchTitleResponseEntity> studyList = new() { new SearchTitleResponseEntity
+            {
+               StudyIdentifiers=mvp.ClinicalStudy.StudyIdentifiers,
+               StudyId=mvp.ClinicalStudy.StudyId,
+               StudyTitle=mvp.ClinicalStudy.StudyTitle,
+               StudyType=mvp.ClinicalStudy.StudyType,
+               SDRUploadVersion=mvp.AuditTrail.SDRUploadVersion,
+               EntryDateTime=mvp.AuditTrail.EntryDateTime,
+               HasAccess=true,
+               UsdmVersion=mvp.AuditTrail.UsdmVersion,
+            },new SearchTitleResponseEntity
+             {
+               StudyIdentifiers=v1.ClinicalStudy.StudyIdentifiers,
+               StudyId=v1.ClinicalStudy.StudyId,
+               StudyTitle=v1.ClinicalStudy.StudyTitle,
+               StudyType=v1.ClinicalStudy.StudyType,
+               SDRUploadVersion=v1.AuditTrail.SDRUploadVersion,
+               EntryDateTime=v1.AuditTrail.EntryDateTime,
+               HasAccess=true,
+               UsdmVersion=v1.AuditTrail.UsdmVersion,
+            },new SearchTitleResponseEntity
+             {
+               StudyIdentifiers=v2.ClinicalStudy.StudyIdentifiers,
+               StudyId=v2.ClinicalStudy.StudyId,
+               StudyTitle=v2.ClinicalStudy.StudyTitle,
+               StudyType=v2.ClinicalStudy.StudyType,
+               SDRUploadVersion=v2.AuditTrail.SDRUploadVersion,
+               EntryDateTime=v2.AuditTrail.EntryDateTime,
+               HasAccess=true,
+               UsdmVersion=v2.AuditTrail.UsdmVersion,
+            }};
+            var searchTitleDTOList = _mockMapper.Map<List<SearchTitleResponseDto>>(studyList);
+            CommonServices CommonService = new CommonServices(_mockCommonRepository.Object, _mockLogger, _mockMapper);
+            searchTitleDTOList = CommonService.AssignStudyIdentifiers(searchTitleDTOList, studyList);
+
+            _mockCommonService.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersDto>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(searchTitleDTOList));
+            CommonController commonController = new CommonController(_mockCommonService.Object, _mockLogger);
+            SearchTitleParametersDto searchParameters = new()
+            {
+                StudyTitle = "Umbrella",
+                PageNumber = 1,
+                PageSize = 25,
+                StudyId = "100",
+                FromDate = DateTime.Now.AddDays(-5).ToString(),
+                ToDate = DateTime.Now.ToString()
+            };
+
+
+            var method = commonController.SearchTitle(searchParameters);
+            method.Wait();
+
+            var result = method.Result;
+
+            //Expected Result
+            var expected = studyList;
+
+            //Actual Result            
+            var actual_result = JsonConvert.DeserializeObject<List<SearchTitleResponseDto>>(
+                 JsonConvert.SerializeObject((result as ObjectResult).Value));
+
+          //  Assert.AreEqual(expected[0].ClinicalStudy.StudyId, actual_result[0].ClinicalStudy.StudyId);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+        }
+
+        [Test]
+        public void SearchStudyTitleFailureUnitTesting()
+        {
+            var searchTitleDTOList = new List<SearchTitleResponseDto>();
+            _mockCommonService.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersDto>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(searchTitleDTOList));
+
+            CommonController commonController = new CommonController(_mockCommonService.Object, _mockLogger);
+            SearchTitleParametersDto searchParameters = new()
+            {
+                StudyTitle = "",
+                PageNumber = 0,
+                PageSize = 0,
+                StudyId = "",
+                FromDate = "",
+                ToDate = ""
+            };
+
+
+            var method = commonController.SearchTitle(searchParameters);
+            method.Wait();
+
+            var result = method.Result;
+
+            //Expected Result
+            var expected = ErrorResponseHelper.BadRequest(Constants.ValidationErrorMessage.AnyOneFieldError);
+
+            //Actual Result            
+            var actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+
+
+
+            method = commonController.SearchTitle(null);
+            method.Wait();
+
+            result = method.Result;
+
+            //Expected Result
+            expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError);
+
+            //Actual Result            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+
+            SearchTitleParametersDto searchParameters1 = new()
+            {
+                StudyTitle = "",
+                PageNumber = 0,
+                PageSize = 0,
+                StudyId = "",
+                FromDate = DateTime.Now.AddDays(1).ToString(),
+                ToDate = DateTime.Now.ToString()
+            };
+
+            method = commonController.SearchTitle(searchParameters1);
+            method.Wait();
+
+            result = method.Result;
+
+            //Expected Result
+            expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError);
+
+            //Actual Result            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+
+
+            SearchTitleParametersDto searchParameters2 = new()
+            {
+                StudyTitle = "Study",
+                PageNumber = 0,
+                PageSize = 0,
+                StudyId = "",
+                FromDate = "",
+                ToDate = ""
+            };
+            _mockCommonService.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersDto>(), It.IsAny<LoggedInUser>()))
+               .Throws(new Exception("Error"));
+
+            method = commonController.SearchTitle(searchParameters2);
+            method.Wait();
+
+            result = method.Result;
+
+            //Expected Result
+            expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError);
+
+            //Actual Result            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+
+            searchTitleDTOList = null;
+            _mockCommonService.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersDto>(), It.IsAny<LoggedInUser>()))
+              .Returns(Task.FromResult(searchTitleDTOList));
+            method = commonController.SearchTitle(searchParameters2);
+            method.Wait();
+
+            result = method.Result;
+
+            //Expected Result
+            expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.SearchNotFound);
+
+            //Actual Result            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(404, (result as ObjectResult).StatusCode);
+        }
+
         #endregion
 
         #region Get API -> USDM Version Mapping
