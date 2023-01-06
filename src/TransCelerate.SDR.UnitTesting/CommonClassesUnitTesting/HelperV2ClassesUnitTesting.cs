@@ -1,29 +1,25 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TransCelerate.SDR.DataAccess.Filters;
-using TransCelerate.SDR.Core.DTO.Token;
-using TransCelerate.SDR.Core.Entities.StudyV2;
-using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
-using TransCelerate.SDR.Core.Utilities.Common;
-using System.IO;
-using Newtonsoft.Json;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
-using TransCelerate.SDR.RuleEngineV2;
+using Newtonsoft.Json;
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using TransCelerate.SDR.Core.DTO.StudyV2;
-using TransCelerate.SDR.WebApi.DependencyInjection;
-using FluentValidation;
+using TransCelerate.SDR.Core.DTO.Token;
+using TransCelerate.SDR.Core.Entities.StudyV2;
 using TransCelerate.SDR.Core.Utilities;
+using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
+using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
+using TransCelerate.SDR.DataAccess.Filters;
+using TransCelerate.SDR.RuleEngineV2;
 using TransCelerate.SDR.Services.Interfaces;
-using TransCelerate.SDR.WebApi.Controllers;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Connections;
-using Microsoft.AspNetCore.Http;
+using TransCelerate.SDR.WebApi.DependencyInjection;
 
 namespace TransCelerate.SDR.UnitTesting
 {
@@ -152,7 +148,7 @@ namespace TransCelerate.SDR.UnitTesting
         }
         #endregion
 
-        #region Conformance V1 UnitTesting
+        #region Conformance V2 UnitTesting
         [Test]
         public void ConformanceV1UnitTesting()
         {
@@ -163,6 +159,7 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsTrue(Validator<ActivityDto>(new ActivityValidator(), studyDto.ClinicalStudy.StudyDesigns[0].Activities[0]));
             Assert.IsTrue(Validator<AnalysisPopulationDto>(new AnalysisPopulationValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyEstimands[0].AnalysisPopulation));
             Assert.IsTrue(Validator<ClinicalStudyDto>(new ClinicalStudyValidator(httpContextAccessor), studyDto.ClinicalStudy));
+            Assert.IsTrue(Validator<CodeDto>(new CodeValidator(), studyDto.ClinicalStudy.StudyType));
             Assert.IsTrue(Validator<AliasCodeDto>(new AliasCodeValidator(), studyDto.ClinicalStudy.StudyPhase));
             Assert.IsTrue(Validator<EncounterDto>(new EncounterValidator(), studyDto.ClinicalStudy.StudyDesigns[0].Encounters[0]));
             Assert.IsTrue(Validator<EndpointDto>(new EndpointValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyObjectives[0].ObjectiveEndpoints[0]));
