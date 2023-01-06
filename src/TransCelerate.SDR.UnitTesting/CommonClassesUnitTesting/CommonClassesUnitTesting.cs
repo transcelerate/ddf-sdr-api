@@ -39,6 +39,8 @@ using TransCelerate.SDR.WebApi.Controllers;
 using TransCelerate.SDR.WebApi.Mappers;
 using System.Collections.Specialized;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using TransCelerate.SDR.Core.Entities.Common;
+using TransCelerate.SDR.DataAccess.Filters;
 
 namespace TransCelerate.SDR.UnitTesting
 {
@@ -935,6 +937,32 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.AreEqual((actualResult as ErrorModel).message, Constants.ErrorMessages.UsdmVersionMapError);
         }
         #endregion
+        #region DataFilter
+        [Test]
+        public void DataFiltersUnitTesting()
+        {
+            var filter = DataFilterCommon.GetFiltersForGetStudy("1", 1);
+            Assert.IsNotNull(filter);
 
+            SearchTitleParametersEntity searchParameters = new()
+            {
+                StudyTitle = "Umbrella",
+                PageNumber = 1,
+                PageSize = 25,
+                SortBy = "version",
+                SortOrder = "asc",
+                GroupByStudyId = true,
+                StudyId = "100",
+                FromDate = DateTime.Now.AddDays(-5),
+                ToDate = DateTime.Now,
+            };
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchTitle(searchParameters));
+
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForGetAudTrail("sd", DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1)));
+
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForStudyHistory(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1), "sd"));
+        }
+
+        #endregion
     }
 }
