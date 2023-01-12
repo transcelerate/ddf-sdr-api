@@ -51,23 +51,23 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetChangeAudit(string study_uuid)
+        public async Task<IActionResult> GetChangeAudit(string studyId)
         {
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(ChangeAuditController)}; Method : {nameof(GetChangeAudit)};");
-                if (!String.IsNullOrWhiteSpace(study_uuid))
+                if (!String.IsNullOrWhiteSpace(studyId))
                 {
                     LoggedInUser user = new LoggedInUser
                     {
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
-                    var changeAudit = await _changeAuditService.GetChangeAudit(study_uuid, user).ConfigureAwait(false);
+                    var changeAudit = await _changeAuditService.GetChangeAudit(studyId, user).ConfigureAwait(false);
 
                     if (changeAudit == null)
                     {
-                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound($"{Constants.ErrorMessages.ChangeAuditNotFound} {study_uuid}")).Value);
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound($"{Constants.ErrorMessages.ChangeAuditNotFound} {studyId}")).Value);
                     }
                     else if (changeAudit.ToString() == Constants.ErrorMessages.Forbidden)
                     {
