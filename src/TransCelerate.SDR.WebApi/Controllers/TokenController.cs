@@ -34,7 +34,8 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="200">Returns Token</response>
         /// <response code="400">Bad Request</response>        
         [HttpPost]
-        [Route(Route.Token)]        
+        [Route(Route.Token)]
+        [Route(Route.CommonToken)]
         [Produces("application/json")]
         public async Task<IActionResult> GetToken([FromBody] UserLogin user)
         {

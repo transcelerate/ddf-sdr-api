@@ -260,9 +260,129 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Ended Controller : {nameof(CommonController)}; Method : {nameof(GetStudyHistory)};");
             }
         }
+
+        /// <summary>
+        /// GET Links
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="sdruploadversion">Version of study</param> 
+        /// <response code="200">Returns Study</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">The Study for the studyId is Not Found</response>
+        [HttpGet]
+        [Route(Route.GetLinksForAStudy)]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> GetLinks(string studyId, int sdruploadversion)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(CommonController)}; Method : {nameof(GetRawJson)};");
+                if (!String.IsNullOrWhiteSpace(studyId))
+                {
+                    _logger.LogInformation($"Inputs : studyId = {studyId}; sdruploadversion = {sdruploadversion};");
+
+                    LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
+
+                    var study = await _commonService.GetLinks(studyId, sdruploadversion, user);
+
+                    if (study == null)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
+                    }
+                    else
+                    {
+                        return Ok(study);
+                    }
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(CommonController)}; Method : {nameof(GetRawJson)};");
+            }
+        }
         #endregion
 
         #region Search
+        /// <summary>
+        /// Search For a Study 
+        /// </summary>
+        /// <param name="searchparameters">Parameters to search in database</param>
+        /// <response code="200">Returns All Study that matches the search criteria</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">There is no study that matches the search criteria</response>
+        [HttpPost]
+        [ApiVersionNeutral]
+        [Route(Route.CommonSearch)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IEnumerable<SearchResponseDto>))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> SearchStudy([FromBody] SearchParametersDto searchparameters)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(CommonController)}; Method : {nameof(SearchStudy)};");
+                LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
+                if (searchparameters != null)
+                {
+                    if (String.IsNullOrWhiteSpace(searchparameters.Indication)
+                       && String.IsNullOrWhiteSpace(searchparameters.InterventionModel) && String.IsNullOrWhiteSpace(searchparameters.Phase)
+                       && String.IsNullOrWhiteSpace(searchparameters.StudyId) && String.IsNullOrWhiteSpace(searchparameters.StudyTitle)
+                       && String.IsNullOrWhiteSpace(searchparameters.FromDate) && String.IsNullOrWhiteSpace(searchparameters.ToDate))
+                    {
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ValidationErrorMessage.AnyOneFieldError)).Value);
+                    }
+                    Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(String.IsNullOrWhiteSpace(searchparameters.FromDate) ? DateTime.MinValue : Convert.ToDateTime(searchparameters.FromDate),
+                                                                        String.IsNullOrWhiteSpace(searchparameters.ToDate) ? DateTime.MinValue : Convert.ToDateTime(searchparameters.ToDate), -1);
+
+                    searchparameters.FromDate = fromAndToDate.Item1.ToString();
+                    searchparameters.ToDate = fromAndToDate.Item2.ToString();
+
+                    if ((!String.IsNullOrWhiteSpace(searchparameters.FromDate)) && (!String.IsNullOrWhiteSpace(searchparameters.ToDate)))
+                    {
+                        if (Convert.ToDateTime(searchparameters.FromDate) > Convert.ToDateTime(searchparameters.ToDate))
+                        {
+                            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError)).Value);
+                        }
+                    }
+                    var response = await _commonService.SearchStudy(searchparameters, user).ConfigureAwait(false);
+
+                    if (response == null)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.SearchNotFound)).Value);
+                    }
+                    else
+                    {
+                        return Ok(response);
+                    }
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(CommonController)}; Method : {nameof(SearchStudy)};");
+            }
+        }
+
         /// <summary>
         /// Search For a Study 
         /// </summary>
