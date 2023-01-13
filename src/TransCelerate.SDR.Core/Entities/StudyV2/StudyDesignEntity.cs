@@ -10,7 +10,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
         public string Id { get; set; }
         public string StudyDesignName { get; set; }
         public string StudyDesignDescription { get; set; }
-        public List<CodeEntity> InterventionModel { get; set; }
+        public CodeEntity InterventionModel { get; set; }
         public List<CodeEntity> TrialIntentType { get; set; }
         public List<CodeEntity> TherapeuticAreas { get; set; }
         public List<CodeEntity> TrialType { get; set; }

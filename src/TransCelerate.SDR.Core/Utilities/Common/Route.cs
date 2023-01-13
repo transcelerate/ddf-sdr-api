@@ -103,6 +103,7 @@
         public const string GetAudiTrail = "studydefinitions/{studyId}/audittrail";
         public const string SearchStudyTitle = "studydefinitions/searchstudytitle";
         public const string GetStudyHistory = "studydefinitions/history";
+        public const string GeteCPT = "studyDefinitions/{studyId}/studydesigns/eCPT";
         #endregion
     }
 }

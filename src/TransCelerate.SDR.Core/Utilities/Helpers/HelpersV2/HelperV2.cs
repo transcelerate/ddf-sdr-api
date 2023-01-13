@@ -300,8 +300,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                 studyDesigns.ForEach(x =>
                 {
                     x.Id = null;
-                    if (x.InterventionModel is not null && x.InterventionModel.Any())
-                        x.InterventionModel.ForEach(x => x.Id = null);
+                    if (x.InterventionModel is not null )
+                        x.InterventionModel.Id = null;
 
                     if (x.TrialIntentType is not null && x.TrialIntentType.Any())
                         x.TrialIntentType.ForEach(x => x.Id = null);
@@ -785,7 +785,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                             changedValues.Add($"{nameof(StudyDesignEntity.StudyDesignRationale)}");
 
                         //Intervention Model
-                        if (GetDifferences<List<CodeEntity>>(currentStudyDesign.InterventionModel, previousStudyDesign.InterventionModel).Any())
+                        if (GetDifferences<CodeEntity>(currentStudyDesign.InterventionModel, previousStudyDesign.InterventionModel).Any())
                             changedValues.Add($"{nameof(StudyDesignEntity.InterventionModel)}");
 
                         //Trial Type
