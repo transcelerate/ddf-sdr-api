@@ -32,6 +32,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         {
             public const string SPONSOR_ID = "SPONSOR_ID";
             public const string SPONSOR_ID_V1 = "Clinical Study Sponsor";
+            public const string REGULATORY_AGENCY = "Regulatory Agency";
         }
 
         public struct LogConstant
@@ -198,6 +199,10 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string UsdmVersionAmbiguous = "The 'usdm-version' is ambiguous";
 
             public const string UsdmVersionMapError = "The usdm-version is not compatible with the api-version. Kindly refer versions endpoint for api-version -> usdm-version mapping ";
+
+            public const string eCPTError = "CPT export data cannot be generated for this study";
+
+            public const string CPTNotFound = "The requested CPT variables are not available";
         }
 
         public struct TokenConstants
@@ -255,7 +260,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(CodeEntity.CodeSystemVersion),
             nameof(CodeEntity.CodeSystem),           
             nameof(CodeEntity.Decode),
-            nameof(CodeEntity.Code), 
+            nameof(CodeEntity.Code),
             "T"
         };
         public static readonly string[] ParanthesisToBeRemovedForAudit =
@@ -269,6 +274,29 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string UnsupportedApiVersion = "UnsupportedApiVersion";
             public const string InvalidApiVersion = "InvalidApiVersion";
             public const string AmbiguousApiVersion = "AmbiguousApiVersion";
+        }
+        public static readonly string[] Male =
+        { 
+           "m",
+           "male",
+        };
+        public static readonly string[] Female =
+        {
+           "f",
+           "female",
+        };
+        public struct PlannedSexOfParticipants 
+        {
+            public const string Male = "Male";
+            public const string Female = "Female";
+            public const string MaleOrFemale ="Male Or Female";     
+        }
+        public struct SdrCptMasterDataEntities
+        {
+            public const string InterventionModel = "InterventionModel";
+            public const string StudyPhase = "Study Phase";
+            public const string TrialIntentType = "TrialIntentType";
+            public const string ObjectiveLevel = "Objective Level";
         }
     }
 }

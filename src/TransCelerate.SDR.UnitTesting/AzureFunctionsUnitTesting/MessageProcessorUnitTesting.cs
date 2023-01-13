@@ -125,7 +125,7 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
             currentVersion.ClinicalStudy.StudyIdentifiers[0].StudyIdentifier = "1";
             currentVersion.ClinicalStudy.StudyDesigns.Add(currentVersion.ClinicalStudy.StudyDesigns[0]);
 
-            currentVersion.ClinicalStudy.StudyDesigns[0].InterventionModel[0].Code = "1";
+            currentVersion.ClinicalStudy.StudyDesigns[0].InterventionModel.Code = "1";
             currentVersion.ClinicalStudy.StudyDesigns[0].TrialType[0].Code = "1";
             currentVersion.ClinicalStudy.StudyDesigns[0].TrialIntentType[0].Code = "1";
             currentVersion.ClinicalStudy.StudyDesigns[0].StudyIndications[0].IndicationDescription = "Everything";

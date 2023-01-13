@@ -1,0 +1,124 @@
+[
+  {
+    "studyId": "d2a71144-c443-4800-8bad-744870c173ae",
+    "studyTitle": "Study Of Lung Cancer",
+    "studyDesignID": "e2b6594a-a077-4645-9cae-a1de19f88c69",
+    "studyDesignName": "DesignName",
+    "eCPTData": {
+      "titlePage": {
+        "acronym": "acronymSample",
+        "amendmentNumber": "Ammendment",
+        "approvalDate": "2022-01-01",
+        "conditionDisease": "SampleIndicationDescription",
+        "regulatoryAgencyID": "FDA",
+        "regulatoryAgencyNumber": "CT-GOV-1234",
+        "sponsorLegalAddress": "Street, City, Country, Pin",
+        "sponsorName": "ClinicalTrials.gov",
+        "studyPhase": "Phase 1/Phase 2",
+        "protocol": {
+          "protocolShortTitle": "Short Title",
+          "protocolTitle": "Study Of Lung Cancer",
+          "protocolID": "CT-GOV-1234"
+        }
+      },
+      "protocolSummary": {
+        "synopsis": {
+          "interventionModel": "Cross-Over Group",
+          "numberofParticipants": "200",
+          "primaryPurpose": "Device Feasibility, Prevention and Screening",
+          "enrollmentTarget": "DesignPopulationDesc1, DesignPopulationDesc2 and DesignPopulationDesc3"
+        }
+      },
+      "pageHeader": {
+        "versionNumber": "1"
+      },
+      "studyPopulation": {
+        "inclusionCriteria": {
+          "plannedMaximumAgeofSubjects": "45",
+          "plannedMinimumAgeofSubjects": "25",
+          "sexofParticipants": "Male or Female"
+        }
+      },
+      "introduction": {
+        "studyRationale": "TestStudyRationale"
+      },
+      "studyDesign": {
+        "scientificRationaleForStudyDesign": "TestStudyDesignRationale"
+      },
+      "studyInterventionsAndConcomitantTherapy": {
+        "studyInterventionsAdministered": [
+          {
+            "interventionDescription": "Desc1"
+          },
+          {
+            "interventionDescription": "Desc2"
+          },
+          {
+            "interventionDescription": "Desc3"
+          }
+        ],
+        "studyArms": [
+          {
+            "armName": "Name1",
+            "armDescription": "Desc1",
+            "armType": "Type1"
+          },
+          {
+            "armName": "Name2",
+            "armDescription": "Desc2",
+            "armType": "Type2"
+          },
+          {
+            "armName": "Name3",
+            "armDescription": "Desc3",
+            "armType": "Type3"
+          }
+        ]
+      },
+      "statisticalConsiderations": {
+        "populationsForAnalyses": "AnalysisPopulationDesc1, AnalysisPopulationDesc2 and AnalysisPopulationDesc3"
+      },
+      "objectivesEndpointsAndEstimands": {
+        "primaryObjectives": {
+          "objectiveDescription": "Desc1",
+          "objectiveLevel": "Study Primary Objective",
+          "objectiveEndpoints": [
+            {
+              "endpointDescription": "Test",
+              "endpointPurposeDescription": "Test",
+              "endpointLevel": "Primary Endpoint"
+            },
+            {
+              "endpointDescription": "Test",
+              "endpointPurposeDescription": "",
+              "endpointLevel": "Secondary Endpoint"
+            }
+          ]
+        },
+        "secondaryObjectives": {
+          "objectiveDescription": "Desc2",
+          "objectiveLevel": "Study Secondary Objective",
+          "objectiveEndpoints": [
+            {
+              "endpointDescription": "Test",
+              "endpointPurposeDescription": "Test",
+              "endpointLevel": "Primary Endpoint"
+            },
+            {
+              "endpointDescription": "Test",
+              "endpointPurposeDescription": "Test",
+              "endpointLevel": "Secondary Endpoint"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "studyId": "d2a71144-c443-4800-8bad-744870c173ae",
+    "studyTitle": "Study Of Lung Cancer",
+    "studyDesignID": "e2b6594a-a077-4645-9cae-a1de19f88c69",
+    "studyDesignName": "DesignName",
+    "eCPTData": {}
+  }
+]
