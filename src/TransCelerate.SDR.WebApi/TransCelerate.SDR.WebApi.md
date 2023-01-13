@@ -5,7 +5,7 @@
 
 - [AutoMapperProfies](#T-TransCelerate-SDR-WebApi-Mappers-AutoMapperProfies 'TransCelerate.SDR.WebApi.Mappers.AutoMapperProfies')
 - [ChangeAuditController](#T-TransCelerate-SDR-WebApi-Controllers-ChangeAuditController 'TransCelerate.SDR.WebApi.Controllers.ChangeAuditController')
-  - [GetChangeAudit(study_uuid)](#M-TransCelerate-SDR-WebApi-Controllers-ChangeAuditController-GetChangeAudit-System-String- 'TransCelerate.SDR.WebApi.Controllers.ChangeAuditController.GetChangeAudit(System.String)')
+  - [GetChangeAudit(studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ChangeAuditController-GetChangeAudit-System-String- 'TransCelerate.SDR.WebApi.Controllers.ChangeAuditController.GetChangeAudit(System.String)')
 - [ClinicalStudyController](#T-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyController 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyController')
   - [GetAllStudyId(fromDate,toDate,studyTitle)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyController-GetAllStudyId-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyController.GetAllStudyId(System.DateTime,System.DateTime,System.String)')
   - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyController-GetAuditTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyController.GetAuditTrail(System.String,System.DateTime,System.DateTime)')
@@ -36,6 +36,7 @@
   - [GetLinks(studyId,sdruploadversion)](#M-TransCelerate-SDR-WebApi-Controllers-CommonController-GetLinks-System-String,System-Int32- 'TransCelerate.SDR.WebApi.Controllers.CommonController.GetLinks(System.String,System.Int32)')
   - [GetRawJson(studyId,sdruploadversion)](#M-TransCelerate-SDR-WebApi-Controllers-CommonController-GetRawJson-System-String,System-Int32- 'TransCelerate.SDR.WebApi.Controllers.CommonController.GetRawJson(System.String,System.Int32)')
   - [GetStudyHistory(fromDate,toDate,studyTitle)](#M-TransCelerate-SDR-WebApi-Controllers-CommonController-GetStudyHistory-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.WebApi.Controllers.CommonController.GetStudyHistory(System.DateTime,System.DateTime,System.String)')
+  - [GeteCPT(studyId,sdruploadversion,studydesignId)](#M-TransCelerate-SDR-WebApi-Controllers-CommonController-GeteCPT-System-String,System-Int32,System-String- 'TransCelerate.SDR.WebApi.Controllers.CommonController.GeteCPT(System.String,System.Int32,System.String)')
   - [SearchStudy(searchparameters)](#M-TransCelerate-SDR-WebApi-Controllers-CommonController-SearchStudy-TransCelerate-SDR-Core-DTO-Common-SearchParametersDto- 'TransCelerate.SDR.WebApi.Controllers.CommonController.SearchStudy(TransCelerate.SDR.Core.DTO.Common.SearchParametersDto)')
   - [SearchTitle(searchparameters)](#M-TransCelerate-SDR-WebApi-Controllers-CommonController-SearchTitle-TransCelerate-SDR-Core-DTO-Common-SearchTitleParametersDto- 'TransCelerate.SDR.WebApi.Controllers.CommonController.SearchTitle(TransCelerate.SDR.Core.DTO.Common.SearchTitleParametersDto)')
 - [ReportsController](#T-TransCelerate-SDR-WebApi-Controllers-ReportsController 'TransCelerate.SDR.WebApi.Controllers.ReportsController')
@@ -73,7 +74,7 @@ This class is for creating the mappers between DTOs and Entities
 TransCelerate.SDR.WebApi.Controllers
 
 <a name='M-TransCelerate-SDR-WebApi-Controllers-ChangeAuditController-GetChangeAudit-System-String-'></a>
-### GetChangeAudit(study_uuid) `method`
+### GetChangeAudit(studyId) `method`
 
 ##### Summary
 
@@ -83,7 +84,7 @@ GET All Elements For a Study
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| study_uuid | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
 
 <a name='T-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyController'></a>
 ## ClinicalStudyController `type`
@@ -493,6 +494,21 @@ Get All StudyId's in the database
 | fromDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | Start Date for Date Filter |
 | toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | End Date for Date Filter |
 | studyTitle | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study Title Filter |
+
+<a name='M-TransCelerate-SDR-WebApi-Controllers-CommonController-GeteCPT-System-String,System-Int32,System-String-'></a>
+### GeteCPT(studyId,sdruploadversion,studydesignId) `method`
+
+##### Summary
+
+GET All Elements For a Study
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
+| sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
+| studydesignId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | studyDesignId |
 
 <a name='M-TransCelerate-SDR-WebApi-Controllers-CommonController-SearchStudy-TransCelerate-SDR-Core-DTO-Common-SearchParametersDto-'></a>
 ### SearchStudy(searchparameters) `method`

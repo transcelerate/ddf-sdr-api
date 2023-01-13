@@ -40,7 +40,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <summary>
         /// GET All Elements For a Study
         /// </summary>
-        /// <param name="study_uuid">Study ID</param>
+        /// <param name="studyId">Study ID</param>
         /// <response code="200">Returns Change Audit</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>

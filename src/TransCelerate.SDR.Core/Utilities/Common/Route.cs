@@ -106,6 +106,7 @@
         public const string CommonSearch = "studydefinitions/search";
         public const string GetLinksForAStudy = "studydefinitions/{studyId}/links";
         public const string CommonToken = "auth/token";
+        public const string GeteCPT = "studyDefinitions/{studyId}/studydesigns/eCPT";
         #endregion
     }
 }

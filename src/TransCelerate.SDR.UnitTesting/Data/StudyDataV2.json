@@ -120,15 +120,14 @@
         "studyDesignId": "e2b6594a-a077-4645-9cae-a1de19f88c69",
         "studyDesignName": "name",
         "studyDesignDescription": "desc",
-        "interventionModel": [
+        "interventionModel": 
           {
             "codeId": "4997ed7c-ce9a-4459-bf5d-19d9a8d5c772",
             "code": "C82639",
             "codeSystem": "http:www.cdisc.org",
             "codeSystemVersion": "2022-03-25",
             "decode": "Parallel"
-          }
-        ],
+          },
         "trialIntentType": [
           {
             "codeId": "9fc53378-ac85-463d-8f9f-587bba5bb605",
