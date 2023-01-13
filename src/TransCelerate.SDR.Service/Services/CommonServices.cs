@@ -355,6 +355,50 @@ namespace TransCelerate.SDR.Services.Services
                 _logger.LogInformation($"Ended Service : {nameof(CommonServices)}; Method : {nameof(GetStudyHistory)};");
             }
         }
+
+        /// <summary>
+        /// GET Links
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="sdruploadversion">Version of study</param>
+        /// <param name="user">Logged in user</param>
+        /// <returns>
+        /// A <see cref="object"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        public async Task<object> GetLinks(string studyId, int sdruploadversion, LoggedInUser user)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Service : {nameof(CommonServices)}; Method : {nameof(GetRawJson)};");
+                studyId = studyId.Trim();
+
+                var usdmVersion = await _commonRepository.GetUsdmVersion(studyId: studyId, sdruploadversion: sdruploadversion).ConfigureAwait(false);
+
+                if (usdmVersion == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return new LinksResponseDto
+                    {
+                        StudyId = studyId,
+                        UsdmVersion = usdmVersion,
+                        SDRUploadVersion = sdruploadversion,
+                        Links = LinksHelper.GetLinksForEndpoint(studyId, usdmVersion, sdruploadversion)
+                    };
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Service : {nameof(CommonServices)}; Method : {nameof(GetRawJson)};");
+            }
+        }
         #endregion
 
         #region SearchTitle
@@ -473,6 +517,186 @@ namespace TransCelerate.SDR.Services.Services
             else
             {
                 return searchParametersDTO.SortOrder == SortOrder.desc.ToString() ? searchTitleDTOs.OrderByDescending(x => x.ClinicalStudy.StudyTitle).ToList() : searchTitleDTOs.OrderBy(x => x.ClinicalStudy.StudyTitle).ToList();
+            }
+        }
+        #endregion
+
+        #region Search
+        /// <summary>
+        /// Search Study Elements with search criteria
+        /// </summary>
+        /// <param name="searchParametersDto">Parameters to search in database</param>
+        /// <param name="user">Logged In User</param>
+        /// <returns>
+        /// A <see cref="List{StudyDto}"/> which matches serach criteria <br></br> <br></br>
+        /// <see langword="null"/> If the insert is not done
+        /// </returns>
+        public async Task<object> SearchStudy(SearchParametersDto searchParametersDto, LoggedInUser user)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Service : {nameof(CommonServices)}; Method : {nameof(SearchStudy)};");
+                _logger.LogInformation($"Search Parameters : {JsonConvert.SerializeObject(searchParametersDto)}");
+
+                var searchParameters = _mapper.Map<SearchParametersEntity>(searchParametersDto);
+
+                List<SearchResponseEntity> searchResponseEntities = await _commonRepository.SearchStudy(searchParameters);
+
+                if (searchResponseEntities is null || !searchResponseEntities.Any())
+                    return null;
+                searchResponseEntities = await CheckAccessForListOfStudies(searchResponseEntities, user);
+                if (searchResponseEntities is null || !searchResponseEntities.Any())
+                    return null;
+
+                var searchResponseDtos = _mapper.Map<List<SearchResponseDto>>(searchResponseEntities);
+                searchResponseDtos = AssignDynamicValues(searchResponseDtos, searchResponseEntities);
+                searchResponseDtos = SortSearchResults(searchResponseDtos,searchParametersDto)
+                                         .Skip((searchParameters.PageNumber - 1) * searchParameters.PageSize)
+                                         .Take(searchParameters.PageSize) 
+                                         .ToList();
+                return searchResponseDtos;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Service : {nameof(CommonServices)}; Method : {nameof(SearchStudy)};");
+            }
+        }
+
+        public List<SearchResponseDto> AssignDynamicValues(List<SearchResponseDto> searchResponseDtos, List<SearchResponseEntity> searchResponseEntities)
+        {
+            searchResponseDtos.ForEach(searchResponseDto =>
+            {
+                var searchResponseEntity = searchResponseEntities.Where(x => x.StudyId == searchResponseDto.ClinicalStudy.StudyId && x.SDRUploadVersion == searchResponseDto.AuditTrail.SDRUploadVersion).FirstOrDefault();
+                #region StudyIdentifiers
+                if (searchResponseEntity.StudyIdentifiers != null)
+                {
+                    if (searchResponseDto.AuditTrail.UsdmVersion == Constants.USDMVersions.MVP)
+                    {
+                        searchResponseDto.ClinicalStudy.StudyIdentifiers = new List<CommonStudyIdentifiersDto>();
+
+                        searchResponseEntity.StudyIdentifiers.ForEach(identifier =>
+                        {
+                            var jsonObject = JObject.Parse(JsonConvert.SerializeObject(identifier, new JsonSerializerSettings
+                            {
+                                ContractResolver = new DefaultContractResolver()
+                                {
+                                    NamingStrategy = new CamelCaseNamingStrategy()
+                                }
+                            }));
+                            CommonStudyIdentifiersDto studyIdentifier = new CommonStudyIdentifiersDto
+                            {
+                                StudyIdentifierScope = new CommonOrganisationDto
+                                {
+                                    OrganisationIdentifier = (string)jsonObject["orgCode"].ToString(),
+                                    OrganisationType = new CommonCodeDto
+                                    {
+                                        Decode = (string)jsonObject["idType"].ToString()
+                                    }
+                                }
+                            };
+                            searchResponseDto.ClinicalStudy.StudyIdentifiers.Add(studyIdentifier);
+                        });
+                    }
+                    else
+                    {
+                        searchResponseDto.ClinicalStudy.StudyIdentifiers = JsonConvert.DeserializeObject<List<CommonStudyIdentifiersDto>>(JsonConvert.SerializeObject(searchResponseEntity.StudyIdentifiers));
+                    }
+                }
+                #endregion
+                var jsonObject = JObject.Parse(JsonConvert.SerializeObject(searchResponseEntity, new JsonSerializerSettings
+                {
+                    ContractResolver = new DefaultContractResolver()
+                    {
+                        NamingStrategy = new CamelCaseNamingStrategy()
+                    }
+                }));
+                #region Study Type
+                if (searchResponseEntity.StudyType != null)
+                {
+                    if (searchResponseDto.AuditTrail.UsdmVersion == Constants.USDMVersions.MVP)
+                        searchResponseDto.ClinicalStudy.StudyType = new CommonCodeDto { Decode = (string)jsonObject["studyType"].ToString() };
+                    else
+                        searchResponseDto.ClinicalStudy.StudyType = JsonConvert.DeserializeObject<CommonCodeDto>(JsonConvert.SerializeObject(searchResponseEntity.StudyType));
+                }
+                if (searchResponseEntity.StudyPhase != null)
+                {
+                    if (searchResponseDto.AuditTrail.UsdmVersion == Constants.USDMVersions.MVP)
+                        searchResponseDto.ClinicalStudy.StudyPhase = new CommonCodeDto { Decode = (string)jsonObject["studyPhase"].ToString() };
+                    else if (searchResponseDto.AuditTrail.UsdmVersion == Constants.USDMVersions.V1)
+                        searchResponseDto.ClinicalStudy.StudyPhase = JsonConvert.DeserializeObject<CommonCodeDto>(JsonConvert.SerializeObject(jsonObject["studyPhase"]));
+                    else
+                        searchResponseDto.ClinicalStudy.StudyPhase = JsonConvert.DeserializeObject<CommonCodeDto>(JsonConvert.SerializeObject(jsonObject["studyPhase"]["standardCode"]));
+                }
+                #endregion
+                searchResponseDto.ClinicalStudy.StudyDesigns = new List<CommonStudyDesign>();
+                var studyDesign = new CommonStudyDesign();
+                #region Indications
+                if (searchResponseDto.AuditTrail.UsdmVersion == Constants.USDMVersions.MVP && searchResponseEntity.StudyIndicationsMVP != null)
+                {
+                    studyDesign.StudyIndications = new List<Core.DTO.Common.CommonStudyIndication>();
+                    var listOfIndicationDescriptions = searchResponseEntity.StudyIndicationsMVP.Where(x => x != null && x.Count() > 0).SelectMany(x => x).ToList();
+                    listOfIndicationDescriptions.ForEach(ind => studyDesign.StudyIndications.Add(new Core.DTO.Common.CommonStudyIndication { IndicationDescription = ind }));
+                }
+                if (searchResponseDto.AuditTrail.UsdmVersion != Constants.USDMVersions.MVP && searchResponseEntity.StudyIndications != null)
+                {
+                    studyDesign.StudyIndications = new List<Core.DTO.Common.CommonStudyIndication>();
+                    var listOfIndicationDescriptions = searchResponseEntity.StudyIndications.Where(x => x != null && x.Count() > 0).SelectMany(x => x).ToList();
+                    listOfIndicationDescriptions.ForEach(ind => studyDesign.StudyIndications.Add(new Core.DTO.Common.CommonStudyIndication { IndicationDescription = ind }));
+                }
+                #endregion
+
+                #region InterventionModel
+                if (searchResponseDto.AuditTrail.UsdmVersion == Constants.USDMVersions.MVP && searchResponseEntity.InterventionModelMVP != null)
+                {
+                    studyDesign.InterventionModel = new List<CommonCodeDto>();
+                    var listOfInterventionModels = searchResponseEntity.InterventionModelMVP.Where(x => x != null && x.Count() > 0).SelectMany(x => x)
+                                                                                .Where(x => x != null && x.Count() > 0).SelectMany(x => x)
+                                                                                .Where(x => x != null && x.Count() > 0).SelectMany(x => x).ToList();
+                    listOfInterventionModels.ForEach(ind => studyDesign.InterventionModel.Add(new CommonCodeDto { Decode = ind }));
+                }
+                if (searchResponseDto.AuditTrail.UsdmVersion != Constants.USDMVersions.MVP && searchResponseEntity.InterventionModel != null)
+                {
+                    studyDesign.InterventionModel = new List<CommonCodeDto>();
+                    var listOfInterventionModels = searchResponseEntity.InterventionModel.ToList();
+                    listOfInterventionModels.ForEach(ind => studyDesign.InterventionModel.AddRange(JsonConvert.DeserializeObject<List<CommonCodeDto>>(JsonConvert.SerializeObject(ind))));
+                }
+                #endregion
+
+                searchResponseDto.ClinicalStudy.StudyDesigns.Add(studyDesign);
+                var studyDesignIds = searchResponseDto.AuditTrail.UsdmVersion == Constants.USDMVersions.MVP ? searchResponseEntity.StudyDesignIdsMVP?.Where(x => x != null && x.Count() > 0).SelectMany(x => x)?.ToList() : searchResponseEntity.StudyDesignIds?.ToList();
+                searchResponseDto.Links = LinksHelper.GetLinksForUi(searchResponseDto.ClinicalStudy.StudyId,studyDesignIds, searchResponseDto.AuditTrail.UsdmVersion, searchResponseDto.AuditTrail.SDRUploadVersion);
+            });
+            return searchResponseDtos;
+        }
+
+        public List<SearchResponseDto> SortSearchResults(List<SearchResponseDto> searchResponseDtos, SearchParametersDto searchParameters)
+        {
+            if (!String.IsNullOrWhiteSpace(searchParameters.Header))
+            {
+                return searchParameters.Header.ToLower() switch
+                {
+                    "studytitle" => searchParameters.Asc ? searchResponseDtos.OrderBy(x => x.ClinicalStudy.StudyTitle).ToList() : searchResponseDtos.OrderByDescending(x => x.ClinicalStudy.StudyTitle).ToList(),
+                    "studyphase" => searchParameters.Asc ? searchResponseDtos.OrderBy(s => s.ClinicalStudy.StudyPhase != null ? s.ClinicalStudy.StudyPhase.Decode ?? "" : "").ToList() : searchResponseDtos.OrderByDescending(s => s.ClinicalStudy.StudyPhase != null ? s.ClinicalStudy.StudyPhase.Decode ?? "" : "").ToList(),
+                    "sponsorid" => searchParameters.Asc ? searchResponseDtos.OrderBy(s => s.ClinicalStudy.StudyIdentifiers != null ? s.ClinicalStudy.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower() || x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID.ToLower()).Any() ? s.ClinicalStudy.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower() || x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID.ToLower()).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : "").ToList()
+                                                            : searchResponseDtos.OrderByDescending(s => s.ClinicalStudy.StudyIdentifiers != null ? s.ClinicalStudy.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower() || x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID.ToLower()).Any() ? s.ClinicalStudy.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower() || x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID.ToLower()).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : "").ToList(),
+                    "lastmodifieddate" => searchParameters.Asc ? searchResponseDtos.OrderBy(x => x.AuditTrail.EntryDateTime).ToList() : searchResponseDtos.OrderByDescending(x => x.AuditTrail.EntryDateTime).ToList(),
+                    "sdrversion" => searchParameters.Asc ? searchResponseDtos.OrderBy(x => x.AuditTrail.SDRUploadVersion).ToList() : searchResponseDtos.OrderByDescending(x => x.AuditTrail.SDRUploadVersion).ToList(),
+
+                    "interventionmodel" => searchParameters.Asc ? searchResponseDtos.OrderBy(x => x.ClinicalStudy.StudyDesigns!= null && x.ClinicalStudy.StudyDesigns.Any() ? x.ClinicalStudy.StudyDesigns.First().InterventionModel != null && x.ClinicalStudy.StudyDesigns.First().InterventionModel.Any() ? x.ClinicalStudy.StudyDesigns.First().InterventionModel.First().Decode : "" : "").ToList() 
+                                                                : searchResponseDtos.OrderByDescending(x => x.ClinicalStudy.StudyDesigns != null && x.ClinicalStudy.StudyDesigns.Any() ? x.ClinicalStudy.StudyDesigns.First().InterventionModel != null && x.ClinicalStudy.StudyDesigns.First().InterventionModel.Any() ? x.ClinicalStudy.StudyDesigns.First().InterventionModel.First().Decode : "" : "").ToList(),
+
+                    "indication" => searchParameters.Asc ? searchResponseDtos.OrderBy(x => x.ClinicalStudy.StudyDesigns != null && x.ClinicalStudy.StudyDesigns.Any() ? x.ClinicalStudy.StudyDesigns.First().StudyIndications != null && x.ClinicalStudy.StudyDesigns.First().StudyIndications.Any() ? x.ClinicalStudy.StudyDesigns.First().StudyIndications.First().IndicationDescription : "" : "").ToList() 
+                                                                    : searchResponseDtos.OrderByDescending(x => x.ClinicalStudy.StudyDesigns != null && x.ClinicalStudy.StudyDesigns.Any() ? x.ClinicalStudy.StudyDesigns.First().StudyIndications != null && x.ClinicalStudy.StudyDesigns.First().StudyIndications.Any() ? x.ClinicalStudy.StudyDesigns.First().StudyIndications.First().IndicationDescription : "" : "").ToList(),
+                    _ => searchParameters.Asc ? searchResponseDtos.OrderByDescending(x => x.AuditTrail.EntryDateTime).ToList() : searchResponseDtos.OrderBy(x => x.AuditTrail.EntryDateTime).ToList(),
+                };
+            }
+            else
+            {
+                return searchParameters.Asc ? searchResponseDtos.OrderBy(x => x.AuditTrail.EntryDateTime).ToList() : searchResponseDtos.OrderByDescending(x => x.AuditTrail.EntryDateTime).ToList();
             }
         }
         #endregion

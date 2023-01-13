@@ -68,25 +68,25 @@
         #endregion
 
         #region User Group Routes
-        public const string GetGroups = "v1/usergroups/getgroups";
+        public const string GetGroups = "usergroups/getgroups";
 
-        public const string GetUsers = "v1/usergroups/getusers";
+        public const string GetUsers = "usergroups/getusers";
 
-        public const string GetGroupList = "v1/usergroups/getgrouplist";
+        public const string GetGroupList = "usergroups/getgrouplist";
 
-        public const string GetUsersFromAD = "v1/usergroups/listusers";
+        public const string GetUsersFromAD = "usergroups/listusers";
 
-        public const string CheckGroupName = "v1/usergroups/checkgroupname";
+        public const string CheckGroupName = "usergroups/checkgroupname";
 
-        public const string PostAGroup = "v1/usergroups/postgroup";
+        public const string PostAGroup = "usergroups/postgroup";
 
-        public const string PostUserToGroups = "v1/usergroups/postuser";
+        public const string PostUserToGroups = "usergroups/postuser";
 
-        public const string RemoveInActiveUsers = "v1/usergroups/removeinactiveusers";
+        public const string RemoveInActiveUsers = "usergroups/removeinactiveusers";
         #endregion
 
         #region Reports
-        public const string SystemUsageReport = "v1/reports/usage";
+        public const string SystemUsageReport = "reports/usage";
         #endregion
 
         #region Token
@@ -94,7 +94,7 @@
         #endregion
 
         #region ChangeAudit
-        public const string ChangeAudit = "v2/changeaudit/{study_uuid}";
+        public const string ChangeAudit = "studydefinitions/{studyId}/changeaudit";
         #endregion
 
         #region Common Routes
@@ -103,6 +103,9 @@
         public const string GetAudiTrail = "studydefinitions/{studyId}/audittrail";
         public const string SearchStudyTitle = "studydefinitions/searchstudytitle";
         public const string GetStudyHistory = "studydefinitions/history";
+        public const string CommonSearch = "studydefinitions/search";
+        public const string GetLinksForAStudy = "studydefinitions/{studyId}/links";
+        public const string CommonToken = "auth/token";
         public const string GeteCPT = "studyDefinitions/{studyId}/studydesigns/eCPT";
         #endregion
     }
