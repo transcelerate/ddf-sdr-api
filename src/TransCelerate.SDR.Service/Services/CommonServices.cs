@@ -501,7 +501,10 @@ namespace TransCelerate.SDR.Services.Services
                 {
                     studyDesign.InterventionModel = new List<CommonCodeDto>();
                     var listOfInterventionModels = searchResponseEntity.InterventionModel.ToList();
-                    listOfInterventionModels.ForEach(ind => studyDesign.InterventionModel.AddRange(JsonConvert.DeserializeObject<List<CommonCodeDto>>(JsonConvert.SerializeObject(ind))));
+                    if(searchResponseDto.AuditTrail.UsdmVersion == Constants.USDMVersions.V1)
+                        listOfInterventionModels.ForEach(ind => studyDesign.InterventionModel.AddRange(JsonConvert.DeserializeObject<List<CommonCodeDto>>(JsonConvert.SerializeObject(ind))));
+                    else
+                        listOfInterventionModels.ForEach(ind => studyDesign.InterventionModel.Add(JsonConvert.DeserializeObject<CommonCodeDto>(JsonConvert.SerializeObject(ind))));
                 }
                 #endregion
 

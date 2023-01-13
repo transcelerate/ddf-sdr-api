@@ -82,7 +82,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string StudyPhaseDecode = "decode";
             public const string StudyPhaseStandardCodeDecode = "standardCode.decode";
             public const string StudyDesigns = "clinicalStudy.studyDesigns";
-            public const string InterventionModel = "interventionModel";
+            public const string InterventionModel = "interventionModel.decode";
             public const string StudyIndicationsIndicationDescription = "studyIndications.indicationDescription";
             public const string StudyIndicationsIndicationDesc = "studyIndications.indicationDesc";            
             public const string InterventionModelMVP = "clinicalStudy.currentSections.studyDesigns.currentSections.investigationalInterventions.interventionModel";

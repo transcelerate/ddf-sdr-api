@@ -5,7 +5,7 @@
 
 - [AutoMapperProfies](#T-TransCelerate-SDR-WebApi-Mappers-AutoMapperProfies 'TransCelerate.SDR.WebApi.Mappers.AutoMapperProfies')
 - [ChangeAuditController](#T-TransCelerate-SDR-WebApi-Controllers-ChangeAuditController 'TransCelerate.SDR.WebApi.Controllers.ChangeAuditController')
-  - [GetChangeAudit(study_uuid)](#M-TransCelerate-SDR-WebApi-Controllers-ChangeAuditController-GetChangeAudit-System-String- 'TransCelerate.SDR.WebApi.Controllers.ChangeAuditController.GetChangeAudit(System.String)')
+  - [GetChangeAudit(studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ChangeAuditController-GetChangeAudit-System-String- 'TransCelerate.SDR.WebApi.Controllers.ChangeAuditController.GetChangeAudit(System.String)')
 - [ClinicalStudyController](#T-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyController 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyController')
   - [GetAllStudyId(fromDate,toDate,studyTitle)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyController-GetAllStudyId-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyController.GetAllStudyId(System.DateTime,System.DateTime,System.String)')
   - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyController-GetAuditTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyController.GetAuditTrail(System.String,System.DateTime,System.DateTime)')
@@ -73,7 +73,7 @@ This class is for creating the mappers between DTOs and Entities
 TransCelerate.SDR.WebApi.Controllers
 
 <a name='M-TransCelerate-SDR-WebApi-Controllers-ChangeAuditController-GetChangeAudit-System-String-'></a>
-### GetChangeAudit(study_uuid) `method`
+### GetChangeAudit(studyId) `method`
 
 ##### Summary
 
@@ -83,7 +83,7 @@ GET All Elements For a Study
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| study_uuid | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
 
 <a name='T-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyController'></a>
 ## ClinicalStudyController `type`
