@@ -55,7 +55,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// </returns>
         public async Task<GetRawJsonEntity> GetStudyItemsAsync(string studyId, int sdruploadversion)
         {
-            _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(GetStudyItemsAsync)};");
+            _logger.LogInformation($"Started Repository : {nameof(CommonRepository)}; Method : {nameof(GetStudyItemsAsync)};");
             try
             {
                 IMongoCollection<GetRawJsonEntity> collection = _database.GetCollection<GetRawJsonEntity>(Constants.Collections.StudyDefinitions);
@@ -82,7 +82,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(GetStudyItemsAsync)};");
+                _logger.LogInformation($"Ended Repository : {nameof(CommonRepository)}; Method : {nameof(GetStudyItemsAsync)};");
             }
         }
 
@@ -132,6 +132,48 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             finally
             {
                 _logger.LogInformation($"Ended Repository : {nameof(CommonRepository)}; Method : {nameof(GetAuditTrail)};");
+            }
+        }
+
+        /// <summary>
+        /// GET UsdmVersion
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="sdruploadversion">Version of study</param>
+        /// <returns>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        public async Task<string> GetUsdmVersion(string studyId, int sdruploadversion)
+        {
+            _logger.LogInformation($"Started Repository : {nameof(CommonRepository)}; Method : {nameof(GetStudyItemsAsync)};");
+            try
+            {
+                IMongoCollection<GetRawJsonEntity> collection = _database.GetCollection<GetRawJsonEntity>(Constants.Collections.StudyDefinitions);
+
+                string usdmVersion = await collection.Find(DataFilterCommon.GetFiltersForGetStudy(studyId, sdruploadversion))
+                                                     .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
+                                                     .Project(x=>x.AuditTrail.UsdmVersion)
+                                                     .Limit(1)                  //Taking top 1 result
+                                                     .SingleOrDefaultAsync().ConfigureAwait(false);
+
+
+                if (usdmVersion == null)
+                {
+                    _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.StudyDefinitions} Collection");
+                    return null;
+                }
+                else
+                {
+                    return usdmVersion;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Repository : {nameof(CommonRepository)}; Method : {nameof(GetStudyItemsAsync)};");
             }
         }
 
@@ -189,6 +231,58 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(GetStudyHistory)};");
             }
         }
+
+        #region Search
+        /// <summary>
+        /// Search the collection based on search criteria
+        /// </summary>
+        /// <param name="searchParameters">Parameters to search in database</param>        
+        /// <returns>
+        /// A <see cref="List{SearchResponseEntity}"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        public async Task<List<SearchResponseEntity>> SearchStudy(SearchParametersEntity searchParameters)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Repository : {nameof(CommonRepository)}; Method : {nameof(SearchStudy)};");
+                IMongoCollection<CommonStudyEntity> collection = _database.GetCollection<CommonStudyEntity>(Constants.Collections.StudyDefinitions);
+
+                List<SearchResponseEntity> studies = await collection.Aggregate()
+                                              .Match(DataFilterCommon.GetFiltersForSearchStudy(searchParameters))
+                                              .Project(x => new SearchResponseEntity
+                                              {
+                                                  StudyId = x.ClinicalStudy.StudyId,
+                                                  StudyTitle = x.ClinicalStudy.StudyTitle,
+                                                  StudyType = x.ClinicalStudy.StudyType,
+                                                  StudyPhase = x.ClinicalStudy.StudyPhase,
+                                                  StudyIdentifiers = x.ClinicalStudy.StudyIdentifiers,
+                                                  InterventionModel = x.ClinicalStudy.StudyDesigns.Select(y => y.InterventionModel) ?? null,
+                                                  StudyIndications = x.ClinicalStudy.StudyDesigns.Select(y => y.StudyIndications.Select(z=>z.IndicationDescription ?? z.IndicationDesc)) ?? null,
+                                                  StudyIndicationsMVP = x.ClinicalStudy.CurrentSections.Select(x => x.StudyIndications.Select(x=>x.Description)) ?? null,
+                                                  InterventionModelMVP = x.ClinicalStudy.CurrentSections.Select(x => x.StudyDesigns).Select(x => x.Select(x => x.CurrentSections.Select(x => x.InvestigationalInterventions.Select(x=>x.InterventionModel)))) ?? null,
+                                                  EntryDateTime = x.AuditTrail.EntryDateTime,
+                                                  SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+                                                  UsdmVersion = x.AuditTrail.UsdmVersion,
+                                                  StudyDesignIds = x.ClinicalStudy.StudyDesigns.Select(x=>x.StudyDesignId ?? x.Uuid) ?? null,     
+                                                  StudyDesignIdsMVP = x.ClinicalStudy.CurrentSections.Select(x=>x.StudyDesigns.Select(x=>x.StudyDesignId)) ?? null     
+                                              })
+                                              .ToListAsync()
+                                              .ConfigureAwait(false);
+
+
+                return studies;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Repository : {nameof(CommonRepository)}; Method : {nameof(SearchStudy)};");
+            }
+        }
+        #endregion
 
         #region Search Title
         /// <summary>

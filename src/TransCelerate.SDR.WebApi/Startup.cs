@@ -27,6 +27,7 @@ using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.RuleEngine;
 using TransCelerate.SDR.RuleEngineV1;
 using TransCelerate.SDR.RuleEngineV2;
+using TransCelerate.SDR.RuleEngine.Common;
 using TransCelerate.SDR.WebApi.DependencyInjection;
 using TransCelerate.SDR.WebApi.Mappers;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
@@ -146,6 +147,7 @@ namespace TransCelerate.SDR.WebApi
             services.AddValidationDependencies();
             services.AddValidationDependenciesV1();
             services.AddValidationDependenciesV2();
+            services.AddValidationDependenciesCommon();
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.InvalidModelStateResponseFactory = context =>
