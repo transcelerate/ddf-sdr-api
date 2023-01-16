@@ -431,7 +431,8 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     EntryDateTime = DateTime.Now,
                     StudyVersion = mvp.ClinicalStudy.StudyVersion,
                     SDRUploadVersion = 1,
-                    StudyType = mvp.ClinicalStudy.StudyType
+                    StudyType = mvp.ClinicalStudy.StudyType,
+                    UsdmVersion = Constants.USDMVersions.MVP
                 },
                 new StudyHistoryResponseEntity
                 {
@@ -442,7 +443,8 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     EntryDateTime = DateTime.Now,
                     StudyVersion = v1.ClinicalStudy.StudyVersion,
                     SDRUploadVersion = 1,
-                    StudyType = v1.ClinicalStudy.StudyType
+                    StudyType = v1.ClinicalStudy.StudyType,
+                    UsdmVersion = Constants.USDMVersions.V1
                 },
                 new StudyHistoryResponseEntity
                 {
@@ -453,7 +455,8 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     EntryDateTime = DateTime.Now,
                     StudyVersion = v2.ClinicalStudy.StudyVersion,
                     SDRUploadVersion = 1,
-                    StudyType = v2.ClinicalStudy.StudyType
+                    StudyType = v2.ClinicalStudy.StudyType,
+                    UsdmVersion = Constants.USDMVersions.V2
                 }
             };
             _mockCommonRepository.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>()))

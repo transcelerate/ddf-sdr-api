@@ -14,6 +14,7 @@ namespace TransCelerate.SDR.Core.DTO.Common
     {
         public SearchTitleClinicalStudy ClinicalStudy { get; set; }
         public SearchTitleAuditTrail AuditTrail { get; set; }
+        public LinksForUIDto Links { get; set; }
     }
 
     public class SearchTitleClinicalStudy

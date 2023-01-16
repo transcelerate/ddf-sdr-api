@@ -190,7 +190,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             AuditTrailResponseDto auditTrailResponseDto = new AuditTrailResponseDto
             {
                 StudyId = data.ClinicalStudy.ToString(),
-                AuditTrail = new List<AuditTrailDto> { new AuditTrailDto { EntryDateTime = DateTime.Now.AddDays(-1), SDRUploadVersion = 1 }, new AuditTrailDto { EntryDateTime = DateTime.Now, SDRUploadVersion = 2 } }
+                AuditTrail = new List<AuditTrailResponseWithLinksDto> { new AuditTrailResponseWithLinksDto { EntryDateTime = DateTime.Now.AddDays(-1), SDRUploadVersion = 1 }, new AuditTrailResponseWithLinksDto { EntryDateTime = DateTime.Now, SDRUploadVersion = 2 } }
             };
 
             _mockCommonService.Setup(x => x.GetAuditTrail(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<LoggedInUser>()))

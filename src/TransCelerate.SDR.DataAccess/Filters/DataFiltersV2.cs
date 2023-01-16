@@ -110,6 +110,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
             ProjectionDefinitionBuilder<StudyEntity> projection = Builders<StudyEntity>.Projection;
             ProjectionDefinition<StudyEntity> projector = projection.Include(x => x.ClinicalStudy.StudyId);
             projector = projector.Include(x => x.ClinicalStudy.StudyType);
+            projector = projector.Include(x => x.AuditTrail);
             projector = projector.Exclude(x => x._id);
 
             listofelementsArray.ToList().ForEach(elements =>
@@ -149,6 +150,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
             ProjectionDefinition<StudyEntity> projector = projection.Include(x => x.ClinicalStudy.StudyId);
             projector = projector.Include(x => x.ClinicalStudy.StudyType);
             projector = projector.Include(x => x.ClinicalStudy.StudyDesigns);
+            projector = projector.Include(x => x.AuditTrail);
             projector = projector.Exclude(x => x._id);
 
             return projector;

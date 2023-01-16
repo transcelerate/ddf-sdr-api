@@ -64,7 +64,8 @@ namespace TransCelerate.SDR.Services.Services
                     StudyEntity checkStudy = await CheckAccessForAStudy(study, user);
                     if (checkStudy == null)
                         return Constants.ErrorMessages.Forbidden;
-                    var studyDTO = _mapper.Map<StudyDto>(study);  //Mapping Entity to Dto                                                  
+                    var studyDTO = _mapper.Map<StudyDto>(study);  //Mapping Entity to Dto
+                    studyDTO.Links = LinksHelper.GetLinks(study.ClinicalStudy.Uuid, study.ClinicalStudy.StudyDesigns?.Select(x => x.Uuid), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion);
                     return studyDTO;
                 }
             }
@@ -110,8 +111,12 @@ namespace TransCelerate.SDR.Services.Services
                     var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy?.ClinicalStudy?.StudyDesigns);  //Mapping Entity to Dto
 
                     if (studyDesigns is not null && studyDesigns.Any())
-                        return studyDesigns;
-
+                        return new StudyDesignsResposeDto 
+                                   {
+                                       StudyDesigns = studyDesigns, 
+                                       Links = LinksHelper.GetLinks(study.ClinicalStudy.Uuid, study.ClinicalStudy.StudyDesigns?.Select(x => x.Uuid), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion)
+                                    };
+                    
                     return Constants.ErrorMessages.StudyDesignNotFound;
                 }
             }
@@ -279,7 +284,7 @@ namespace TransCelerate.SDR.Services.Services
                         return Constants.ErrorMessages.DowngradeError;
                     }
                 }                
-
+                studyDTO.Links = LinksHelper.GetLinks(studyDTO.ClinicalStudy.Uuid, studyDTO.ClinicalStudy.StudyDesigns?.Select(x => x.Uuid), studyDTO.AuditTrail.UsdmVersion, studyDTO.AuditTrail.SDRUploadVersion);
                 return studyDTO;
             }
             catch (Exception)
