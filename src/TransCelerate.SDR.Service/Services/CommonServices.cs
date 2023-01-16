@@ -303,10 +303,10 @@ namespace TransCelerate.SDR.Services.Services
                     if (studies == null)
                         return Constants.ErrorMessages.Forbidden;
 
-                    var auditTrailDtoList = _mapper.Map<List<AuditTrailDto>>(studies); //Mapping Entity to Dto 
+                    var auditTrailDtoList = _mapper.Map<List<AuditTrailResponseWithLinksDto>>(studies); //Mapping Entity to Dto 
                     AuditTrailResponseDto getStudyAuditDto = new AuditTrailResponseDto
                     {
-                        StudyId= studyId,
+                        StudyId = studyId,
                         AuditTrail = auditTrailDtoList
                     };
 
@@ -518,6 +518,9 @@ namespace TransCelerate.SDR.Services.Services
                         searchTitleDTO.ClinicalStudy.StudyIdentifiers = JsonConvert.DeserializeObject<List<CommonStudyIdentifiersDto>>(JsonConvert.SerializeObject(searchResponse.StudyIdentifiers));
                     }
                 }
+
+                var studyDesignIds = searchResponse.UsdmVersion == Constants.USDMVersions.MVP ? searchResponse.StudyDesignIdsMVP?.Where(x => x != null && x.Count() > 0).SelectMany(x => x)?.ToList() : searchResponse.StudyDesignIds?.ToList();
+                searchTitleDTO.Links = LinksHelper.GetLinksForUi(searchResponse.StudyId, studyDesignIds, searchResponse.UsdmVersion, searchResponse.SDRUploadVersion);
             });
 
             return searchTitleDTOs;

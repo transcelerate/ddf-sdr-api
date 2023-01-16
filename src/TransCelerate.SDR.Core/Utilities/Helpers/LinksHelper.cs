@@ -27,6 +27,23 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             }
             return links;
         }
+        public static LinksDto GetLinks(string studyId, IEnumerable<string> studyDesignIds, string usdmVersion, int sdruploadversion)
+        {
+            LinksDto links = new LinksDto();
+            links.AuditTrail = $"/studydefinitions/{studyId}/audittrail";
+            if (usdmVersion == Constants.USDMVersions.MVP)
+            {
+                links.StudyDefinitions = $"/study/{studyId}?sdruploadversion={sdruploadversion}";
+                links.StudyDesigns = GetDesignLinks(studyId, studyDesignIds?.ToList(), usdmVersion, sdruploadversion);
+            }
+            else
+            {
+                links.StudyDefinitions = $"/{ApiUsdmVersionMapping.SDRVersions.Where(x => x.UsdmVersions.Contains(usdmVersion)).Select(x => x.ApiVersion).First()}" +
+                                         $"/studydefinitions/{studyId}?sdruploadversion={sdruploadversion}";
+                links.StudyDesigns = GetDesignLinks(studyId, studyDesignIds?.ToList(), usdmVersion, sdruploadversion);
+            }
+            return links;
+        }
 
         public static List<StudyDesignLinks> GetDesignLinks(string studyId, List<string> studyDesignIds, string usdmVersion, int sdruploadversion)
         {

@@ -70,7 +70,8 @@ namespace TransCelerate.SDR.Services.Services
                     StudyEntity checkStudy = await CheckAccessForAStudy(study, user);
                     if (checkStudy == null)
                         return Constants.ErrorMessages.Forbidden;
-                    var studyDTO = _mapper.Map<StudyDto>(study);  //Mapping Entity to Dto                                                  
+                    var studyDTO = _mapper.Map<StudyDto>(study);  //Mapping Entity to Dto
+                    studyDTO.Links = LinksHelper.GetLinks(study.ClinicalStudy.StudyId, study.ClinicalStudy.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion);
                     return studyDTO;
                 }
             }
@@ -167,7 +168,11 @@ namespace TransCelerate.SDR.Services.Services
                         var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy?.ClinicalStudy?.StudyDesigns);  //Mapping Entity to Dto
 
                         if (studyDesigns is not null && studyDesigns.Any())
-                            return _helper.RemoveStudyDesignElements(Constants.StudyDesignElements, studyDesigns, studyId);
+                            return new StudyDesignsResponseDto
+                                   {
+                                       StudyDesigns = _helper.RemoveStudyDesignElements(Constants.StudyDesignElements, studyDesigns, studyId),
+                                       Links = LinksHelper.GetLinks(study.ClinicalStudy.StudyId, study.ClinicalStudy.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion)
+                                   };                       
 
                         return Constants.ErrorMessages.StudyDesignNotFound;
                     }
@@ -550,7 +555,7 @@ namespace TransCelerate.SDR.Services.Services
                         await PushMessageToServiceBus(new ServiceBusMessageDto { Study_uuid = incomingStudyEntity.ClinicalStudy.StudyId, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
                     }
                 }
-
+                studyDTO.Links = LinksHelper.GetLinks(studyDTO.ClinicalStudy.StudyId, studyDTO.ClinicalStudy.StudyDesigns?.Select(x => x.Id), studyDTO.AuditTrail.UsdmVersion, studyDTO.AuditTrail.SDRUploadVersion);
                 return studyDTO;
             }
             catch (Exception)

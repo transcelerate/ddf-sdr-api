@@ -18,5 +18,7 @@ namespace TransCelerate.SDR.Core.DTO
         /// This property holds the Audit Trail Component of the Study for POST Method
         /// </summary>
         public AuditTrailDTO auditTrail { get; set; }
+
+        public object Links { get; set; }
     }
 }

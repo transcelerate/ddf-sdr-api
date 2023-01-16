@@ -78,7 +78,8 @@ namespace TransCelerate.SDR.Services.Services
                     var checkStudy = await CheckAccessForAStudy(study, user);
                     if (checkStudy == null)
                         return Constants.ErrorMessages.Forbidden;
-                    var studyDTO = _mapper.Map<GetStudyDTO>(study);  //Mapping Entity to Dto                                                  
+                    var studyDTO = _mapper.Map<GetStudyDTO>(study);  //Mapping Entity to Dto
+                    studyDTO.Links = LinksHelper.GetLinks(studyDTO.clinicalStudy.studyId, studyDTO.clinicalStudy?.studyDesigns?.Select(x => x.studyDesignId), studyDTO.auditTrail.UsdmVersion, studyDTO.auditTrail.studyVersion);                                                                  
                     return studyDTO;                  
                 }
             }
@@ -189,8 +190,9 @@ namespace TransCelerate.SDR.Services.Services
                         return Constants.ErrorMessages.Forbidden;
                     var studySectionDTO = _mapper.Map<GetStudySectionsDTO>(study.clinicalStudy); //Mapping Entity to Dto  
                     studySectionDTO.studyVersion = study.auditTrail.studyVersion;
-                    studySectionDTO.studyDesigns = studySectionDTO.studyDesigns != null? studySectionDTO.studyDesigns.FindAll(x => x.studyDesignId == studyDesignId).Count()!=0 ? studySectionDTO.studyDesigns.FindAll(x => x.studyDesignId == studyDesignId).ToList(): new List<GetStudyDesignsDTO>() : new List<GetStudyDesignsDTO>();                    
-                   
+                    studySectionDTO.studyDesigns = studySectionDTO.studyDesigns != null? studySectionDTO.studyDesigns.FindAll(x => x.studyDesignId == studyDesignId).Count()!=0 ? studySectionDTO.studyDesigns.FindAll(x => x.studyDesignId == studyDesignId).ToList(): new List<GetStudyDesignsDTO>() : new List<GetStudyDesignsDTO>();
+                    studySectionDTO.Links = LinksHelper.GetLinks(studySectionDTO.studyId, studySectionDTO.studyDesigns?.Select(x => x.studyDesignId), study.auditTrail.UsdmVersion, study.auditTrail.studyVersion);
+
                     return RemoveStudySections.RemoveSectionsForStudyDesign(sections, studySectionDTO); //Remove the sections which are not part of sections array
                 }
             }
