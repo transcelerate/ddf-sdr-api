@@ -168,10 +168,10 @@ namespace TransCelerate.SDR.Services.Services
             }
         }
 
-        public List<StudyeCPTDto> GetCPTDataV2(TransCelerate.SDR.Core.DTO.StudyV2.ClinicalStudyDto clinicalStudyDto,AuditTrailEntity auditTrail)
+        public List<StudyeCPTDto> GetCPTDataV2(TransCelerate.SDR.Core.DTO.StudyV2.ClinicalStudyDto clinicalStudyDto, AuditTrailEntity auditTrail)
         {
             List<StudyeCPTDto> studyeCPTDtos = new List<StudyeCPTDto>();
-            if(clinicalStudyDto.StudyDesigns != null && clinicalStudyDto.StudyDesigns.Any())
+            if (clinicalStudyDto.StudyDesigns != null && clinicalStudyDto.StudyDesigns.Any())
             {
                 clinicalStudyDto.StudyDesigns.ForEach(design =>
                 {
@@ -186,64 +186,87 @@ namespace TransCelerate.SDR.Services.Services
                             TitlePage = new TitlePageDto
                             {
                                 Acronym = clinicalStudyDto.StudyAcronym,
-                                AmendmentNumber = clinicalStudyDto.StudyProtocolVersions != null && clinicalStudyDto.StudyProtocolVersions.Any() ? eCPTHelper.GetOrderedStudyProtocols(clinicalStudyDto.StudyProtocolVersions).ProtocolAmendment:null,
+                                AmendmentNumber = clinicalStudyDto.StudyProtocolVersions != null && clinicalStudyDto.StudyProtocolVersions.Any() ? eCPTHelper.GetOrderedStudyProtocols(clinicalStudyDto.StudyProtocolVersions).ProtocolAmendment : null,
                                 ApprovalDate = clinicalStudyDto.StudyProtocolVersions != null && clinicalStudyDto.StudyProtocolVersions.Any() ? eCPTHelper.GetOrderedStudyProtocols(clinicalStudyDto.StudyProtocolVersions).ProtocolEffectiveDate : null,
-                                ConditionDisease = design.StudyIndications!=null && design.StudyIndications.Any() ?
-                                                   design.StudyIndications.Count==1 ? 
+                                ConditionDisease = design.StudyIndications != null && design.StudyIndications.Any() ?
+                                                   design.StudyIndications.Count == 1 ?
                                                    design.StudyIndications.FirstOrDefault().IndicationDescription
-                                                   :$"{String.Join(',', design.StudyIndications.Select(x => x.IndicationDescription).ToArray(),0, design.StudyIndications.Count-1)} and {design.StudyIndications.Select(x => x.IndicationDescription).LastOrDefault()}"
-                                                   : null ,
-                                RegulatoryAgencyId = clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.REGULATORY_AGENCY)).Select(x => x.StudyIdentifierScope.OrganisationIdentifierScheme).FirstOrDefault(),
-                                RegulatoryAgencyNumber = clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.REGULATORY_AGENCY)).Select(x=>x.StudyIdentifier).FirstOrDefault(),
-                                SponsorName = clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.SPONSOR_ID_V1)).Select(x => x.StudyIdentifierScope.OrganisationName).FirstOrDefault(),
-                                SponsorLegalAddress = clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.SPONSOR_ID_V1)).Select(x => x.StudyIdentifierScope.OrganizationLegalAddress).FirstOrDefault() ==null?null
-                                                                : clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.SPONSOR_ID_V1)).Select(x => x.StudyIdentifierScope.OrganizationLegalAddress).Select(x=>$"{x.Text},{x.Line},{x.City},{x.District},{x.State},{x.PostalCode},{x.Country}").FirstOrDefault(),
+                                                   : $"{String.Join(',', design.StudyIndications.Select(x => x.IndicationDescription).ToArray(), 0, design.StudyIndications.Count - 1)} and {design.StudyIndications.Select(x => x.IndicationDescription).LastOrDefault()}"
+                                                   : null,
+                                RegulatoryAgencyId = clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.REGULATORY_AGENCY, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifierScope.OrganisationIdentifierScheme).FirstOrDefault(),
+                                RegulatoryAgencyNumber = clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.REGULATORY_AGENCY, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifier).FirstOrDefault(),
+                                SponsorName = clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifierScope.OrganisationName).FirstOrDefault(),
+                                SponsorLegalAddress = clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifierScope.OrganizationLegalAddress).FirstOrDefault() == null ? null
+                                                                : clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.SPONSOR_ID_V1,StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifierScope.OrganizationLegalAddress).Select(x => $"{x.Text},{x.Line},{x.City},{x.District},{x.State},{x.PostalCode},{x.Country}").FirstOrDefault(),
                                 StudyPhase = eCPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.StudyPhase, clinicalStudyDto.StudyPhase?.StandardCode?.Code) ?? clinicalStudyDto.StudyPhase?.StandardCode?.Decode,
                                 Protocol = new ProtocolDto
                                 {
-                                    ProtocolID = clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.SPONSOR_ID_V1)).Select(x=>x.StudyIdentifierScope.OrganisationIdentifier).FirstOrDefault(),
+                                    ProtocolID = clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifier).FirstOrDefault(),
                                     ProtocolShortTitle = clinicalStudyDto.StudyProtocolVersions != null && clinicalStudyDto.StudyProtocolVersions.Any() ? eCPTHelper.GetOrderedStudyProtocols(clinicalStudyDto.StudyProtocolVersions).BriefTitle : null,
                                     ProtocolTitle = clinicalStudyDto.StudyTitle
                                 }
                             },
-                            ProtocolSummary =new ProtocolSummaryDto
+                            ProtocolSummary = new ProtocolSummaryDto
                             {
-                                Synopsis= new SynopsisDto
+                                Synopsis = new SynopsisDto
                                 {
-                                    NumberofParticipants= design.StudyPopulations?.Sum(x=>x.PlannedNumberOfParticipants).ToString(),
-                                    PrimaryPurpose=design.TrialIntentType!=null && design.TrialIntentType.Any()?
-                                                   design.TrialIntentType.Count==1? eCPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, design.TrialIntentType.FirstOrDefault().Code) ?? design.TrialIntentType.FirstOrDefault().Decode
-                                                   :$"{String.Join(',',design.TrialIntentType.Select(x=>eCPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType,x.Code) ?? x.Decode).ToArray(),0,design.TrialIntentType.Count-1)}" +
+                                    NumberofParticipants = design.StudyPopulations?.Sum(x => x.PlannedNumberOfParticipants).ToString(),
+                                    PrimaryPurpose = design.TrialIntentType != null && design.TrialIntentType.Any() ?
+                                                   design.TrialIntentType.Count == 1 ? eCPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, design.TrialIntentType.FirstOrDefault().Code) ?? design.TrialIntentType.FirstOrDefault().Decode
+                                                   : $"{String.Join(',', design.TrialIntentType.Select(x => eCPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, x.Code) ?? x.Decode).ToArray(), 0, design.TrialIntentType.Count - 1)}" +
                                                    $" and {design.TrialIntentType.Select(x => eCPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, x.Code) ?? x.Decode).LastOrDefault()}"
-                                                   :null,
-                                    EnrollmentTarget= design.StudyPopulations != null && design.StudyPopulations.Any() ?
-                                                      design.StudyPopulations.Count == 1 ? design.StudyPopulations.FirstOrDefault().PopulationDescription 
-                                                      :$"{String.Join(',', design.StudyPopulations.Select(x => x.PopulationDescription).ToArray(), 0, design.StudyPopulations.Count - 1)} and {design.StudyPopulations.Select(x => x.PopulationDescription).LastOrDefault()}" 
-                                                      :null,
-                                    InterventionModel = eCPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.InterventionModel, design?.InterventionModel?.Code)  ?? design?.InterventionModel?.Decode
+                                                   : null,
+                                    EnrollmentTarget = design.StudyPopulations != null && design.StudyPopulations.Any() ?
+                                                      design.StudyPopulations.Count == 1 ? design.StudyPopulations.FirstOrDefault().PopulationDescription
+                                                      : $"{String.Join(',', design.StudyPopulations.Select(x => x.PopulationDescription).ToArray(), 0, design.StudyPopulations.Count - 1)} and {design.StudyPopulations.Select(x => x.PopulationDescription).LastOrDefault()}"
+                                                      : null,
+                                    InterventionModel = eCPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.InterventionModel, design?.InterventionModel?.Code) ?? design?.InterventionModel?.Decode
                                 }
                             },
-                            PageHeader= new PageHeaderDto
+                            PageHeader = new PageHeaderDto
                             {
-                                VersionNumber= clinicalStudyDto.StudyProtocolVersions != null && clinicalStudyDto.StudyProtocolVersions.Any() ? eCPTHelper.GetOrderedStudyProtocols(clinicalStudyDto.StudyProtocolVersions).ProtocolVersion : null,
+                                VersionNumber = clinicalStudyDto.StudyProtocolVersions != null && clinicalStudyDto.StudyProtocolVersions.Any() ? eCPTHelper.GetOrderedStudyProtocols(clinicalStudyDto.StudyProtocolVersions).ProtocolVersion : null,
                             },
-                            StudyPopulation=new StudyPopulationDto
+                            StudyPopulation = new StudyPopulationDto
                             {
-                                InclusionCriteria=new InclusionCriteriaDto
+                                InclusionCriteria = new InclusionCriteriaDto
                                 {
-                                    PlannedMaximumAgeofSubjects= design.StudyPopulations !=null && design.StudyPopulations.Any() ?   
-                                                                        design.StudyPopulations.Where(x=>int.TryParse(x.PlannedMaximumAgeOfParticipants,out int number)).Any() ?
-                                                                        design.StudyPopulations.Where(x => int.TryParse(x.PlannedMaximumAgeOfParticipants, out int number)).Max(x=>int.Parse(x.PlannedMaximumAgeOfParticipants)).ToString() : "": "",
-                                    PlannedMinimumAgeofSubjects= design.StudyPopulations != null && design.StudyPopulations.Any() ?
+                                    PlannedMaximumAgeofSubjects = design.StudyPopulations != null && design.StudyPopulations.Any() ?
+                                                                        design.StudyPopulations.Where(x => int.TryParse(x.PlannedMaximumAgeOfParticipants, out int number)).Any() ?
+                                                                        design.StudyPopulations.Where(x => int.TryParse(x.PlannedMaximumAgeOfParticipants, out int number)).Max(x => int.Parse(x.PlannedMaximumAgeOfParticipants)).ToString() : null : null,
+                                    PlannedMinimumAgeofSubjects = design.StudyPopulations != null && design.StudyPopulations.Any() ?
                                                                         design.StudyPopulations.Where(x => int.TryParse(x.PlannedMinimumAgeOfParticipants, out int number)).Any() ?
-                                                                        design.StudyPopulations.Where(x => int.TryParse(x.PlannedMinimumAgeOfParticipants, out int number)).Min(x => int.Parse(x.PlannedMinimumAgeOfParticipants)).ToString() : "" : "",
-                                   SexofParticipants = design.StudyPopulations != null && design.StudyPopulations.Any() ? eCPTHelper.GetPlannedSexOfParticipants(design.StudyPopulations
+                                                                        design.StudyPopulations.Where(x => int.TryParse(x.PlannedMinimumAgeOfParticipants, out int number)).Min(x => int.Parse(x.PlannedMinimumAgeOfParticipants)).ToString() : null : null,
+                                    SexofParticipants = design.StudyPopulations != null && design.StudyPopulations.Any() ? eCPTHelper.GetPlannedSexOfParticipants(design.StudyPopulations
                                                                                                                                                                        .Select(x => x.PlannedSexOfParticipants.Select(y => y.Decode))
                                                                                                                                                                        .Where(x => x != null && x.Count() > 0).SelectMany(x => x)?.ToList()
                                                                                                                                                                        .Where(x => Constants.Male.Any(y => y == x.ToLower()) || Constants.Female.Any(y => y == x.ToLower()))
-                                                                                                                                                                       .ToList()) : ""               
+                                                                                                                                                                       .ToList()) : ""
                                 }
-                            }
+                            },
+                            //Introduction=new IntroductionDto
+                            //{
+                            //    StudyRationale=clinicalStudyDto.StudyRationale
+                            //},
+                            //StudyDesign=new StudyDesignCptDto
+                            //{
+                            //    ScientificRationaleForStudyDesign=design?.StudyDesignRationale,
+                            //},
+                            //StatisticalConsiderations=new StatisticalConsiderationsDto
+                            //{
+                            //    PopulationsForAnalyses= design.StudyEstimands != null && design.StudyEstimands.Any() ?
+                            //                       design.StudyEstimands.Count == 1 ?
+                            //                       design.StudyEstimands.FirstOrDefault().AnalysisPopulation.PopulationDescription
+                            //                       : $"{String.Join(',', design.StudyEstimands.Select(x => x.AnalysisPopulation.PopulationDescription).ToArray(), 0, design.StudyEstimands.Count - 1)} and {design.StudyEstimands.Select(x => x.AnalysisPopulation.PopulationDescription).LastOrDefault()}"
+                            //                       : null,
+                            //},
+                            //ObjectivesEndpointsAndEstimands=new ObjectivesEndpointsAndEstimandsDto
+                            //{
+                            //    PrimaryObjectives=new PrimaryObjectivesDto
+                            //    {
+                            //        ObjectiveEndpoints=
+                            //    }
+                            //}           
                         }
                     };
                     studyeCPTDtos.Add(studyeCPTDto);
