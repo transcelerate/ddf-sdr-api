@@ -379,7 +379,12 @@ namespace TransCelerate.SDR.Services.Services
                         if (study.ClinicalStudy.StudyDesigns is not null && study.ClinicalStudy.StudyDesigns.Any(x => x.Id == studyDesignId))
                         {
                             var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy.ClinicalStudy.StudyDesigns.Where(x => x.Id == studyDesignId).ToList());
-                            return _helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId);
+                            return new StudyDesignsResponseDto
+                            {
+                                StudyDesigns = _helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId),
+                                Links = LinksHelper.GetLinks(study.ClinicalStudy.StudyId, study.ClinicalStudy.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion)
+                            };
+                            
                         }
                         return Constants.ErrorMessages.StudyDesignNotFound;
                     }
@@ -387,7 +392,11 @@ namespace TransCelerate.SDR.Services.Services
                     {
                         var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy.ClinicalStudy.StudyDesigns);
                         return study.ClinicalStudy.StudyDesigns is not null && study.ClinicalStudy.StudyDesigns.Any() ?
-                            _helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId) : Constants.ErrorMessages.StudyDesignNotFound;
+                            new StudyDesignsResponseDto
+                            {
+                                StudyDesigns = _helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId),
+                                Links = LinksHelper.GetLinks(study.ClinicalStudy.StudyId, study.ClinicalStudy.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion)
+                            } : Constants.ErrorMessages.StudyDesignNotFound;
                     }
                 }
             }
