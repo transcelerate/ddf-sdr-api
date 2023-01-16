@@ -36,12 +36,16 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         public StudyEntity GetEntityDataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV1.json");
-            return JsonConvert.DeserializeObject<StudyEntity>(jsonData);
+            var data = JsonConvert.DeserializeObject<StudyEntity>(jsonData);
+            data.AuditTrail.UsdmVersion = "1.0";
+            return data;
         }
         public StudyDto GetDtoDataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV1.json");
-            return JsonConvert.DeserializeObject<StudyDto>(jsonData);
+            var data = JsonConvert.DeserializeObject<StudyDto>(jsonData);
+            data.AuditTrail.UsdmVersion = "1.0";
+            return data;
         }
         public UserGroupMappingEntity GetUserDataFromStaticJson()
         {
@@ -63,6 +67,8 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 cfg.AddProfile(new AutoMapperProfilesV1());
             });
             _mockMapper = new Mapper(mockMapper);
+            ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ApiUsdmVersionMapping.json"));
+            ApiUsdmVersionMapping.SDRVersions = apiUsdmVersionMapping_NonStatic.SDRVersions;
         }
         #endregion
 
@@ -565,7 +571,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             var result = method.Result;
 
             //Actual            
-            var actual_result = JsonConvert.DeserializeObject<List<StudyDesignDto>>(
+            var actual_result = JsonConvert.DeserializeObject<StudyDesignsResposeDto>(
                 JsonConvert.SerializeObject(result));
 
             //Assert          

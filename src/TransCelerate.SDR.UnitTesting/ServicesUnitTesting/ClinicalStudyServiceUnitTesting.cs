@@ -54,6 +54,7 @@ namespace TransCelerate.SDR.UnitTesting
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/GetStudyData.json");
             study = JsonConvert.DeserializeObject<StudyEntity>(jsonData);
+            study.auditTrail.UsdmVersion = "mvp";
             return study;
         }
         public List<GetStudyDTO> GetDataForSearchFromStaticJson()

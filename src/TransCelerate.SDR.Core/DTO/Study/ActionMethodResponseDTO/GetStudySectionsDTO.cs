@@ -28,6 +28,7 @@ namespace TransCelerate.SDR.Core.DTO.Study
         /// This property holds the List of Study Indications for specific <see cref="studyId"/>
         /// </summary>
         public List<StudyIndicationDTO> studyIndications { get; set; }
-       
+        public TransCelerate.SDR.Core.DTO.Common.LinksDto Links { get; set; }
+
     }
 }

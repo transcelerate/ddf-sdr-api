@@ -19,6 +19,8 @@ namespace TransCelerate.SDR.Core.Entities.Common
         public IEnumerable<string> ProtocolVersions { get; set; }
         [BsonElement("usdm-version")]
         public string UsdmVersion { get; set; }
+        public IEnumerable<IEnumerable<string>> StudyDesignIdsMVP { get; set; }
+        public IEnumerable<string> StudyDesignIds { get; set; }
         public bool HasAccess { get; set; }
     }
 }

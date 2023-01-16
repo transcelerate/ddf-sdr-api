@@ -39,7 +39,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             {
                 var mappings = SdrCptMapping.SdrCptMasterDataMapping.Where(x => x.Entity == entity).FirstOrDefault().Mapping;
                 cptMappingValue = mappings.Where(x => x.Code.ToLower() == code.ToLower()).Any() ?
-                                  mappings.Where(x => x.Code.ToLower() == code.ToLower()).Select(x => !String.IsNullOrWhiteSpace(x.CPT) ? x.CPT : x.CDISC).FirstOrDefault() : "";
+                                  mappings.Where(x => x.Code.ToLower() == code.ToLower()).Select(x => !String.IsNullOrWhiteSpace(x.CPT) ? x.CPT : x.CDISC).FirstOrDefault() : null;
             }
             return cptMappingValue;
         }

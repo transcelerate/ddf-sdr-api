@@ -14,5 +14,6 @@
         /// This property holds the Audit Trail Component of the Study 
         /// </summary>
         public AuditTrailDTO auditTrail { get; set; }
+        public TransCelerate.SDR.Core.DTO.Common.LinksDto Links { get; set; }
     }
 }

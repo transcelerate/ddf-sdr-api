@@ -103,16 +103,20 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             {
                 var collection = _database.GetCollection<CommonStudyEntity>(Constants.Collections.StudyDefinitions);
                 
-                List<AuditTrailResponseEntity> auditTrails = await collection.Find(DataFilterCommon.GetFiltersForGetAudTrail(studyId, fromDate, toDate)) // Condition for matching studyId and date range
+                List<AuditTrailResponseEntity> auditTrails = await collection.Aggregate()
+                                                  .Match(DataFilterCommon.GetFiltersForGetAudTrail(studyId, fromDate, toDate)) // Condition for matching studyId and date range
                                                   .Project(x => new AuditTrailResponseEntity
                                                   {
+                                                      StudyId = x.ClinicalStudy.StudyId,
                                                       StudyType = x.ClinicalStudy.StudyType,
                                                       EntryDateTime = x.AuditTrail.EntryDateTime,
                                                       SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
                                                       UsdmVersion = x.AuditTrail.UsdmVersion,
-                                                      HasAccess = true
+                                                      StudyDesignIds = x.ClinicalStudy.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null,
+                                                      StudyDesignIdsMVP = x.ClinicalStudy.CurrentSections.Select(x => x.StudyDesigns.Select(x => x.StudyDesignId)) ?? null,
+                                                      HasAccess = true                                                      
                                                   })
-                                                  .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
+                                                  .SortByDescending(s => s.EntryDateTime) // Sort by descending on entryDateTime
                                                   .ToListAsync().ConfigureAwait(false);
 
                 if (auditTrails.Count == 0)
@@ -208,7 +212,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                                     ProtocolVersions = x.ClinicalStudy.StudyProtocolVersions.Select(x => x.ProtocolVersion),
                                                                     StudyVersion = x.ClinicalStudy.StudyVersion,
                                                                     UsdmVersion = x.AuditTrail.UsdmVersion,
-                                                                    HasAccess = true
+                                                                    StudyDesignIds = x.ClinicalStudy.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null,
+                                                                    StudyDesignIdsMVP = x.ClinicalStudy.CurrentSections.Select(x => x.StudyDesigns.Select(x => x.StudyDesignId)) ?? null,
+                                                                    HasAccess = true,                                                                    
                                                                 })  //Project only the required fields                                                        
                                                         .ToListAsync().ConfigureAwait(false);                
 
@@ -310,6 +316,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                                               StudyType = x.ClinicalStudy.StudyType,
                                                                               EntryDateTime = x.AuditTrail.EntryDateTime,
                                                                               SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+                                                                              StudyDesignIds = x.ClinicalStudy.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null,
+                                                                              StudyDesignIdsMVP = x.ClinicalStudy.CurrentSections.Select(x => x.StudyDesigns.Select(x => x.StudyDesignId)) ?? null,
                                                                               UsdmVersion = x.AuditTrail.UsdmVersion
                                                                           })
                                                                           .ToListAsync()

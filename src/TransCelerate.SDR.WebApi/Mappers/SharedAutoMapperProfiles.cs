@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using System.Linq;
 using TransCelerate.SDR.Core.DTO.Common;
 using TransCelerate.SDR.Core.DTO.UserGroups;
 using TransCelerate.SDR.Core.Entities.Common;
 using TransCelerate.SDR.Core.Entities.UserGroups;
 using TransCelerate.SDR.Core.Utilities.Common;
+using TransCelerate.SDR.Core.Utilities.Helpers;
 
 namespace TransCelerate.SDR.WebApi.Mappers
 {
@@ -42,6 +44,11 @@ namespace TransCelerate.SDR.WebApi.Mappers
 
             //Mapper for AuditTrail
             CreateMap<AuditTrailDto, AuditTrailResponseEntity>().ReverseMap();
+            CreateMap<AuditTrailResponseEntity, AuditTrailResponseWithLinksDto>()
+                .ForMember(dest => dest.Links, opt => opt.MapFrom(src => LinksHelper.GetLinks(src.StudyId,
+                           src.UsdmVersion == Constants.USDMVersions.MVP ? src.StudyDesignIdsMVP != null ? src.StudyDesignIdsMVP.Where(x => x != null && x.Count() > 0).SelectMany(x => x).ToList() : null : src.StudyDesignIds,
+                           src.UsdmVersion,src.SDRUploadVersion)))
+                .ReverseMap();
 
             //Mapper for Search Titke
             CreateMap<SearchTitleParametersDto, SearchTitleParametersEntity>();            
@@ -56,6 +63,9 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<StudyHistoryResponseEntity, UploadVersionDto>()
                  .ForMember(dest => dest.UploadVersion, opt => opt.MapFrom(src => src.SDRUploadVersion))
                  .ForMember(dest => dest.ProtocolVersions, opt => opt.MapFrom(src => src.ProtocolVersions))
+                 .ForMember(dest => dest.Links, opt => opt.MapFrom(src => LinksHelper.GetLinks(src.StudyId,
+                           src.UsdmVersion == Constants.USDMVersions.MVP ? src.StudyDesignIdsMVP != null ? src.StudyDesignIdsMVP.Where(x => x != null && x.Count() > 0).SelectMany(x => x).ToList() : null : src.StudyDesignIds,
+                           src.UsdmVersion, src.SDRUploadVersion)))
                  .ReverseMap();
 
             //Mapper for Search
