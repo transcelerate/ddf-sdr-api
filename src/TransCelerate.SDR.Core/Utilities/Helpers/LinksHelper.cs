@@ -16,7 +16,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             links.AuditTrail = $"/studydefinitions/{studyId}/audittrail";
             if (usdmVersion == Constants.USDMVersions.MVP)
             {
-                links.StudyDefinitions = $"/study/{studyId}?sdruploadversion={sdruploadversion}";
+                links.StudyDefinitions = $"/study/{studyId}?version={sdruploadversion}";
                 links.StudyDesigns = GetDesignLinks(studyId, studyDesignIds, usdmVersion, sdruploadversion);
             }
             else
@@ -33,7 +33,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             links.AuditTrail = $"/studydefinitions/{studyId}/audittrail";
             if (usdmVersion == Constants.USDMVersions.MVP)
             {
-                links.StudyDefinitions = $"/study/{studyId}?sdruploadversion={sdruploadversion}";
+                links.StudyDefinitions = $"/study/{studyId}?version={sdruploadversion}";
                 links.StudyDesigns = GetDesignLinks(studyId, studyDesignIds?.ToList(), usdmVersion, sdruploadversion);
             }
             else
@@ -57,7 +57,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                         links.Add(new StudyDesignLinks
                         {
                             StudyDesignId = designId,
-                            StudyDesignLink = $"/{studyId}/studydesign/{designId}?sdruploadversion={sdruploadversion}"
+                            StudyDesignLink = $"/{studyId}/studydesign/{designId}?version={sdruploadversion}"
                         });
                     }
                     else
@@ -66,7 +66,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                         {
                             StudyDesignId = designId,
                             StudyDesignLink = $"/{ApiUsdmVersionMapping.SDRVersions.Where(x=>x.UsdmVersions.Contains(usdmVersion)).Select(x=>x.ApiVersion).First()}" +
-                                              $"/studydesigns?study_uuid={studyId}&sdruploadversion={sdruploadversion}"
+                                              $"/studydesigns?study_uuid={studyId}&sdruploadversion={sdruploadversion}&studydesign_uuid={designId}"
                         });
                     }
                 });
@@ -82,7 +82,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             links.AuditTrail = $"/studydefinitions/{studyId}/audittrail";
             if (usdmVersion == Constants.USDMVersions.MVP)
             {
-                links.StudyDefinitions = $"/study/{studyId}?sdruploadversion={sdruploadversion}";
+                links.StudyDefinitions = $"/study/{studyId}?version={sdruploadversion}";
                 links.StudyDesigns = GetDesignLinks(studyId, studyDesignIds, usdmVersion, sdruploadversion);
                 links.SoA = null;
             }
@@ -102,7 +102,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             links.AuditTrail = $"/studydefinitions/{studyId}/audittrail";
             if (usdmVersion == Constants.USDMVersions.MVP)
             {
-                links.StudyDefinitions = $"/study/{studyId}?sdruploadversion={sdruploadversion}";
+                links.StudyDefinitions = $"/study/{studyId}?version={sdruploadversion}";
                 links.SoA = null;
             }
             else
