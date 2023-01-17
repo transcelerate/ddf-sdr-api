@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Linq;
 using TransCelerate.SDR.Core.DTO;
@@ -67,7 +68,15 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             try
             {
-                var jsonObject = JObject.Parse(JsonConvert.SerializeObject(getStudySectionsDTO));
+                var jsonObject = JObject.Parse(JsonConvert.SerializeObject(getStudySectionsDTO, new JsonSerializerSettings
+                {
+                    ContractResolver = new DefaultContractResolver()
+                    {
+                        NamingStrategy = new CamelCaseNamingStrategy()
+                    },
+                    Formatting = Formatting.Indented
+
+                }));
                 jsonObject.Property(nameof(GetStudySectionsDTO.studyIndications)).Remove();
                 jsonObject.Property(nameof(GetStudySectionsDTO.objectives)).Remove();
                 if (getStudySectionsDTO.studyDesigns.Count() != 0)
@@ -191,9 +200,17 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             JObject returnJsonObject = new JObject();
             returnJsonObject.Add(nameof(PostStudyDTO.clinicalStudy), clinicalStudyJsonObject);
             returnJsonObject.Add(nameof(PostStudyDTO.auditTrail), JObject.Parse(JsonConvert.SerializeObject(studyEntity.auditTrail)));
-            returnJsonObject.Add(nameof(PostStudyDTO.Links), JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(studyEntity.clinicalStudy.studyId,
+            returnJsonObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(studyEntity.clinicalStudy.studyId,
                 studyEntity.clinicalStudy.currentSections?.Where(x => x.studyDesigns != null).SelectMany(x => x.studyDesigns)?.Select(x => x.studyDesignId), 
-                studyEntity.auditTrail.UsdmVersion, studyEntity.auditTrail.studyVersion))));
+                studyEntity.auditTrail.UsdmVersion, studyEntity.auditTrail.studyVersion), new JsonSerializerSettings
+                {
+                    ContractResolver = new DefaultContractResolver()
+                    {
+                        NamingStrategy = new CamelCaseNamingStrategy()
+                    },
+                    Formatting = Formatting.Indented
+
+                })));
             return returnJsonObject;
         }
     }
