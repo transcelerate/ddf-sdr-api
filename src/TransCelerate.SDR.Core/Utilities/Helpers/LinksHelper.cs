@@ -16,7 +16,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             links.AuditTrail = $"/studydefinitions/{studyId}/audittrail";
             if (usdmVersion == Constants.USDMVersions.MVP)
             {
-                links.StudyDefinitions = $"/study/{studyId}?version={sdruploadversion}";
+                links.StudyDefinitions = $"/study/{studyId}?sdruploadversion={sdruploadversion}";
                 links.StudyDesigns = GetDesignLinks(studyId, studyDesignIds, usdmVersion, sdruploadversion);
             }
             else
@@ -33,7 +33,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             links.AuditTrail = $"/studydefinitions/{studyId}/audittrail";
             if (usdmVersion == Constants.USDMVersions.MVP)
             {
-                links.StudyDefinitions = $"/study/{studyId}?version={sdruploadversion}";
+                links.StudyDefinitions = $"/study/{studyId}?sdruploadversion={sdruploadversion}";
                 links.StudyDesigns = GetDesignLinks(studyId, studyDesignIds?.ToList(), usdmVersion, sdruploadversion);
             }
             else
@@ -57,7 +57,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                         links.Add(new StudyDesignLinks
                         {
                             StudyDesignId = designId,
-                            StudyDesignLink = $"/{studyId}/studydesign/{designId}?version={sdruploadversion}"
+                            StudyDesignLink = $"/{studyId}/studydesign/{designId}?sdruploadversion={sdruploadversion}"
                         });
                     }
                     else
@@ -82,7 +82,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             links.AuditTrail = $"/studydefinitions/{studyId}/audittrail";
             if (usdmVersion == Constants.USDMVersions.MVP)
             {
-                links.StudyDefinitions = $"/study/{studyId}?version={sdruploadversion}";
+                links.StudyDefinitions = $"/study/{studyId}?sdruploadversion={sdruploadversion}";
                 links.StudyDesigns = GetDesignLinks(studyId, studyDesignIds, usdmVersion, sdruploadversion);
                 links.SoA = null;
             }
@@ -102,7 +102,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             links.AuditTrail = $"/studydefinitions/{studyId}/audittrail";
             if (usdmVersion == Constants.USDMVersions.MVP)
             {
-                links.StudyDefinitions = $"/study/{studyId}?version={sdruploadversion}";
+                links.StudyDefinitions = $"/study/{studyId}?sdruploadversion={sdruploadversion}";
                 links.SoA = null;
             }
             else
