@@ -10,6 +10,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
         public List<CodeDto> StudyArmDataOriginType { get; set; }
         public string StudyArmDescription { get; set; }
         public string StudyArmName { get; set; }
-        public List<CodeDto> StudyArmType { get; set; }
+        public CodeDto StudyArmType { get; set; }
     }
 }

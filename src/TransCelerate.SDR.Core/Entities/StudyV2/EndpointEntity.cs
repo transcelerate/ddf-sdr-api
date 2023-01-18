@@ -9,6 +9,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
         public string Id { get; set; }
         public string EndpointDescription { get; set; }
         public string EndpointPurposeDescription { get; set; }
-        public List<CodeEntity> EndpointLevel { get; set; }
+        public CodeEntity EndpointLevel { get; set; }
     }
 }
