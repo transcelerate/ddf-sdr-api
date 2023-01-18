@@ -189,21 +189,20 @@
           {
             "objectiveId": "1cedd7c7-65b0-48b4-ac93-cbe046c27e9d",
             "objectiveDescription": "Objective Level 1",
-            "objectiveLevel": [
+            "objectiveLevel": 
               {
                 "codeId": "2ae454b4-b37b-4986-9b3c-d5044bc4aec7",
                 "code": "C9844x",
                 "codeSystem": "http:www.cdisc.org",
                 "codeSystemVersion": "1",
                 "decode": "OBJ LEVEL"
-              }
-            ],
+              },
             "objectiveEndpoints": [
               {
                 "endpointId": "f0576462-4eb8-4db9-aef4-1334249d8c7f",
                 "endpointDescription": "Endpoint 1",
                 "endpointPurposeDescription": "level description",
-                "endpointLevel": [
+                "endpointLevel": 
                   {
                     "codeId": "END001",
                     "code": "C9834x",
@@ -211,7 +210,6 @@
                     "codeSystemVersion": "1",
                     "decode": "PURPOSE"
                   }
-                ]
               }
             ]
           }
@@ -251,7 +249,7 @@
               ],
               "studyArmDescription": "The Placebo Arm",
               "studyArmName": "Placebo",
-              "studyArmType": [
+              "studyArmType": 
                 {
                   "codeId": "77c714cf-ac76-4843-a4b6-1c68b8be7590",
                   "code": "C174268",
@@ -259,7 +257,6 @@
                   "codeSystemVersion": "2022-03-25",
                   "decode": "Placebo Control Arm"
                 }
-              ]
             },
             "studyEpoch": {
               "studyEpochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d9",

@@ -7,7 +7,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
         [Newtonsoft.Json.JsonProperty(Utilities.Common.IdFieldPropertyName.StudyV2.ObjectiveId)]
         public string Id { get; set; }
         public string ObjectiveDescription { get; set; }
-        public List<CodeDto> ObjectiveLevel { get; set; }
+        public CodeDto ObjectiveLevel { get; set; }
         public List<EndpointDto> ObjectiveEndpoints { get; set; }
     }
 }

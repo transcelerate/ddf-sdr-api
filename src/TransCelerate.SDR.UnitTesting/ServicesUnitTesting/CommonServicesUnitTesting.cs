@@ -18,6 +18,8 @@ using TransCelerate.SDR.Core.Entities.Common;
 using System.Net.Http;
 using TransCelerate.SDR.Core.Utilities.Enums;
 using TransCelerate.SDR.Core.DTO.Common;
+using TransCelerate.SDR.Core.DTO.eCPT;
+using Microsoft.Azure.Amqp.Framing;
 
 namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 {
@@ -113,6 +115,12 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             });
             _mockMapper = new Mapper(mockMapper);
             Config.isGroupFilterEnabled = false;
+
+            ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ApiUsdmVersionMapping.json"));
+            ApiUsdmVersionMapping.SDRVersions = apiUsdmVersionMapping_NonStatic.SDRVersions;
+
+            SdrCptMapping_NonStatic sdrCptMapping_NonStatic = JsonConvert.DeserializeObject<SdrCptMapping_NonStatic>("{\"SdrCptMasterDataMapping\":[{\"entity\":\"InterventionModel\",\"mapping\":[{\"code\":\"C142568\",\"CDISC\":\"SEQUENTIAL\",\"CPT\":\"Sequential\"},{\"code\":\"C82637\",\"CDISC\":\"CROSS-OVER\",\"CPT\":\"Cross-OverGroup\"},{\"code\":\"C82638\",\"CDISC\":\"FACTORIAL\",\"CPT\":\"Factorial\"},{\"code\":\"C82639\",\"CDISC\":\"PARALLEL\",\"CPT\":\"ParallelGroup\"},{\"code\":\"C82640\",\"CDISC\":\"SINGLEGROUP\",\"CPT\":\"SingleGroup\"}]},{\"entity\":\"Study Phase\",\"mapping\":[{\"code\":\"C48660\",\"CDISC\":\"NOTAPPLICABLE\",\"CPT\":\"\"},{\"code\":\"C54721\",\"CDISC\":\"PHASE0TRIAL\",\"CPT\":\"EarlyPhase1\"},{\"code\":\"C15600\",\"CDISC\":\"PHASEITRIAL\",\"CPT\":\"Phase1\"},{\"code\":\"C15693\",\"CDISC\":\"PHASEI/IITRIAL\",\"CPT\":\"Phase1/Phase2\"},{\"code\":\"C15601\",\"CDISC\":\"PHASEIITRIAL\",\"CPT\":\"Phase2\"},{\"code\":\"C15694\",\"CDISC\":\"PHASEII/IIITRIAL\",\"CPT\":\"Phase2/Phase3\"},{\"code\":\"C49686\",\"CDISC\":\"PHASEIIATRIAL\",\"CPT\":\"Phase2\"},{\"code\":\"C49688\",\"CDISC\":\"PHASEIIBTRIAL\",\"CPT\":\"Phase2\"},{\"code\":\"C15602\",\"CDISC\":\"PHASEIIITRIAL\",\"CPT\":\"Phase3\"},{\"code\":\"C49687\",\"CDISC\":\"PHASEIIIATRIAL\",\"CPT\":\"Phase3\"},{\"code\":\"C49689\",\"CDISC\":\"PHASEIIIBTRIAL\",\"CPT\":\"Phase3\"},{\"code\":\"C15603\",\"CDISC\":\"PHASEIVTRIAL\",\"CPT\":\"Phase4\"},{\"code\":\"C47865\",\"CDISC\":\"PHASEVTRIAL\",\"CPT\":\"Phase5\"}]},{\"entity\":\"TrialIntentType\",\"mapping\":[{\"code\":\"C15714\",\"CDISC\":\"BASICSCIENCE\",\"CPT\":\"BasicScience\"},{\"code\":\"C49654\",\"CDISC\":\"CURE\",\"CPT\":\"\"},{\"code\":\"C139174\",\"CDISC\":\"DEVICEFEASIBILITY\",\"CPT\":\"DeviceFeasibility\"},{\"code\":\"C49653\",\"CDISC\":\"DIAGNOSIS\",\"CPT\":\"Diagnostic\"},{\"code\":\"C170629\",\"CDISC\":\"DISEASEMODIFYING\",\"CPT\":\"\"},{\"code\":\"C15245\",\"CDISC\":\"HEALTHSERVICESRESEARCH\",\"CPT\":\"HealthServicesResearch\"},{\"code\":\"C49655\",\"CDISC\":\"MITIGATION\",\"CPT\":\"\"},{\"code\":\"\",\"CDISC\":\"\",\"CPT\":\"Other\"},{\"code\":\"C49657\",\"CDISC\":\"PREVENTION\",\"CPT\":\"Prevention\"},{\"code\":\"C71485\",\"CDISC\":\"SCREENING\",\"CPT\":\"Screening\"},{\"code\":\"C71486\",\"CDISC\":\"SUPPORTIVECARE\",\"CPT\":\"SupportiveCare\"},{\"code\":\"C49656\",\"CDISC\":\"TREATMENT\",\"CPT\":\"Treatment\"}]},{\"entity\":\"Objective Level\",\"mapping\":[{\"code\":\"C85826\",\"CDISC\":\"Study Primary Objective\",\"CPT\":\"\"},{\"code\":\"C85827\",\"CDISC\":\"Study Secondary Objective\",\"CPT\":\"\"}]}]}");
+            SdrCptMapping.SdrCptMasterDataMapping = sdrCptMapping_NonStatic.SdrCptMasterDataMapping;
         }
         #endregion
 
@@ -210,6 +218,53 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     .Throws(new Exception("Error"));
             method = commonServices.GetRawJson("a", 1, user);
 
+            Assert.Throws<AggregateException>(method.Wait);
+        }
+        [Test]
+        public void GeteCPTUnitTesting()
+        {
+
+            _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
+                 .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
+
+            CommonServices commonServices = new CommonServices(_mockCommonRepository.Object, _mockLogger, _mockMapper);
+
+            var jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
+            var data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
+            data.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
+            _mockCommonRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
+                   .Returns(Task.FromResult(data));
+
+            var method = commonServices.GeteCPT("a", 1,null, user);
+            method.Wait();
+            var result = method.Result;
+            Assert.IsNotNull(result);
+
+            jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/PostStudyData.json");
+            data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
+            _mockCommonRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
+                  .Returns(Task.FromResult(data));
+
+            method = commonServices.GeteCPT("a", 1, "des", user);
+            method.Wait();
+            result = method.Result;
+            Assert.AreEqual(result, Constants.ErrorMessages.eCPTError);
+
+            Config.isGroupFilterEnabled = false;
+
+
+            data = null;
+            _mockCommonRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
+                  .Returns(Task.FromResult(data));
+
+            method = commonServices.GeteCPT("a", 1, "des", user);
+            method.Wait();
+            result = method.Result;
+            Assert.Null(result);
+
+            _mockCommonRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
+                    .Throws(new Exception());
+            method = commonServices.GeteCPT("a", 1, "des", user);
             Assert.Throws<AggregateException>(method.Wait);
         }
 

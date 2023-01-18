@@ -1,9 +1,8 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
+using TransCelerate.SDR.Core.DTO.eCPT;
 using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
@@ -53,6 +52,25 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 return protocolsWithDateAndVersions.FirstOrDefault();
             else
                 return protocolsWithDateAndVersions.OrderByDescending(x => DateTime.Parse(x.ProtocolEffectiveDate)).ThenByDescending(x => decimal.Parse(x.ProtocolVersion)).FirstOrDefault();
+        }
+        public static ObjectivesEndpointsAndEstimandsDto GetObjectivesEndpointsAndEstimandsDto(List<TransCelerate.SDR.Core.DTO.StudyV2.ObjectiveDto> objectives,IMapper mapper)
+        {
+            ObjectivesEndpointsAndEstimandsDto objectivesEndpointsAndEstimandsDto=new ObjectivesEndpointsAndEstimandsDto();
+            if(objectives!=null && objectives.Any())
+            {
+                var objectiveMapping = SdrCptMapping.SdrCptMasterDataMapping.Where(x => x.Entity == Constants.SdrCptMasterDataEntities.ObjectiveLevel).FirstOrDefault().Mapping;
+                var primaryObjective = objectives.Where(x => x.ObjectiveLevel?.Code == objectiveMapping.Where(x => x.CDISC == Constants.IdType.STUDY_PRIMARY_OBJECTIVE).Select(x => x.Code).FirstOrDefault()).FirstOrDefault();
+                var secondaryObjective = objectives.Where(x => x.ObjectiveLevel?.Code == objectiveMapping.Where(x => x.CDISC == Constants.IdType.STUDY_SECONDARY_OBJECTIVE).Select(x => x.Code).FirstOrDefault()).FirstOrDefault();
+                if(primaryObjective!=null )
+                {
+                    objectivesEndpointsAndEstimandsDto.PrimaryObjectives = mapper.Map<ObjectivesDto>(primaryObjective); 
+                }
+                if (secondaryObjective!= null)
+                {
+                    objectivesEndpointsAndEstimandsDto.SecondaryObjectives = mapper.Map<ObjectivesDto>(secondaryObjective);
+                }
+            }
+            return objectivesEndpointsAndEstimandsDto;
         }
     }
 }
