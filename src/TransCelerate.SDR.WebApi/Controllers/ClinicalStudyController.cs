@@ -49,7 +49,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// GET All Elements For a Study
         /// </summary>
         /// <param name="studyId">Study ID</param>
-        /// <param name="version">Version of study</param>
+        /// <param name="sdruploadversion">Version of study</param>
         /// <param name="tag">Tag of a study</param>
         /// <param name="sections">Study sections which have to be fetched</param> 
         /// <param name="usdmVersion">usdm-version</param> 
@@ -62,7 +62,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetStudy(string studyId, int version, string tag, [FromQuery] string sections,
+        public async Task<IActionResult> GetStudy(string studyId, int sdruploadversion, string tag, [FromQuery] string sections,
                                             [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)] string usdmVersion)
         {
             try
@@ -75,7 +75,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
-                    _logger.LogInformation($"Inputs: StudyId: {studyId}; Version: {version}; Status: {tag ?? "<null>"}; Sections: {sections ?? "<null>"};Usdm-Version: {usdmVersion}");
+                    _logger.LogInformation($"Inputs: StudyId: {studyId}; Version: {sdruploadversion}; Status: {tag ?? "<null>"}; Sections: {sections ?? "<null>"};Usdm-Version: {usdmVersion}");
                     if(String.IsNullOrWhiteSpace(usdmVersion))
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.UsdmVersionMissing)).Value);
                     if (!ValidateApiUsdmVersionMapping.IsValidMapping(Constants.USDMVersions.MVP, usdmVersion))
@@ -97,11 +97,11 @@ namespace TransCelerate.SDR.WebApi.Controllers
                                 return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.SectionNotValid)).Value);
                             }
                         }
-                        study = await _clinicalStudyService.GetSections(studyId: studyId, version: version, tag: tag, sections: sectionArray,user:user).ConfigureAwait(false);
+                        study = await _clinicalStudyService.GetSections(studyId: studyId, version: sdruploadversion, tag: tag, sections: sectionArray,user:user).ConfigureAwait(false);
                     }
                     else
                     {
-                        study = await _clinicalStudyService.GetAllElements(studyId: studyId, version: version, tag: tag,user:user).ConfigureAwait(false);
+                        study = await _clinicalStudyService.GetAllElements(studyId: studyId, version: sdruploadversion, tag: tag,user:user).ConfigureAwait(false);
                     }
 
                     if (study == null)
@@ -138,7 +138,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// </summary>
         /// <param name="studyId">Study ID</param>
         /// <param name="studyDesignId">Study Design Id</param>
-        /// <param name="version">Version of study</param>
+        /// <param name="sdruploadversion">Version of study</param>
         /// <param name="tag">Tag of a study</param>        
         /// <param name="sections">Study Design sections which have to be fetched</param>  
         /// <param name="usdmVersion">usdm-version</param> 
@@ -151,7 +151,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetStudyDesignSections(string studyId, string studyDesignId, int version, string tag, [FromQuery] string sections,
+        public async Task<IActionResult> GetStudyDesignSections(string studyId, string studyDesignId, int sdruploadversion, string tag, [FromQuery] string sections,
                                             [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)] string usdmVersion)
         {
             try
@@ -168,7 +168,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.UsdmVersionMissing)).Value);
                     if (!ValidateApiUsdmVersionMapping.IsValidMapping(Constants.USDMVersions.MVP, usdmVersion))
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.UsdmVersionMapError)).Value);
-                    _logger.LogInformation($"Inputs: StudyId: {studyId}; StudyDesignId: {studyDesignId}; Version: {version}; Status: {tag ?? "<null>"}; Sections: {sections ?? "<null>"}");
+                    _logger.LogInformation($"Inputs: StudyId: {studyId}; StudyDesignId: {studyDesignId}; Version: {sdruploadversion}; Status: {tag ?? "<null>"}; Sections: {sections ?? "<null>"}");
                     string[] sectionArray = new string[] { };
                     if (!String.IsNullOrWhiteSpace(sections))
                     {
@@ -187,7 +187,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         }
 
                     }
-                    var study = await _clinicalStudyService.GetStudyDesignSections(studyDesignId: studyDesignId, studyId: studyId, version: version, tag: tag, sections: sectionArray,user:user).ConfigureAwait(false);
+                    var study = await _clinicalStudyService.GetStudyDesignSections(studyDesignId: studyDesignId, studyId: studyId, version: sdruploadversion, tag: tag, sections: sectionArray,user:user).ConfigureAwait(false);
 
                     //If StudyId is not found
                     if (study == null)
