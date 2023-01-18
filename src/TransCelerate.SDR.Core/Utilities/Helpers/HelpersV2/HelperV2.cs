@@ -391,17 +391,17 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                 objectives.ForEach(x =>
                 {
                     x.Id = null;
-                    if (x.ObjectiveLevel is not null && x.ObjectiveLevel.Any())
+                    if (x.ObjectiveLevel is not null)
                     {
-                        x.ObjectiveLevel.ForEach(y => y.Id = null);
+                        x.ObjectiveLevel.Id=null;
                     }
-                    if (x.ObjectiveEndpoints is not null && x.ObjectiveEndpoints.Any())
+                    if (x.ObjectiveEndpoints is not null)
                     {
                         x.ObjectiveEndpoints.ForEach(y =>
                         {
                             y.Id = null;
-                            if(y.EndpointLevel is not null && y.EndpointLevel.Any())
-                                y.EndpointLevel.ForEach(z => z.Id = null);
+                            if(y.EndpointLevel is not null)
+                                y.EndpointLevel.Id=null;
                         });
                     }
                 });
@@ -425,8 +425,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                         x.StudyArm.Id = null;
                         if (x.StudyArm.StudyArmDataOriginType is not null && x.StudyArm.StudyArmDataOriginType.Any())
                             x.StudyArm.StudyArmDataOriginType.ForEach(y => y.Id =null);
-                        if (x.StudyArm.StudyArmType is not null && x.StudyArm.StudyArmType.Any())
-                            x.StudyArm.StudyArmType.ForEach(y => y.Id = null);
+                        if (x.StudyArm.StudyArmType is not null)
+                            x.StudyArm.StudyArmType.Id = null;
                     }
                     if (x.StudyEpoch is not null)
                     {

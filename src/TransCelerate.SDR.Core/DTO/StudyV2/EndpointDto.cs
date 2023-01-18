@@ -8,6 +8,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
         public string Id { get; set; }
         public string EndpointDescription { get; set; }
         public string EndpointPurposeDescription { get; set; }
-        public List<CodeDto> EndpointLevel { get; set; }
+        public CodeDto EndpointLevel { get; set; }
     }
 }

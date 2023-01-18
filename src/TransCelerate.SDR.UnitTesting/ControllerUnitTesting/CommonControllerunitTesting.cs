@@ -23,6 +23,7 @@ using Newtonsoft.Json.Serialization;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.WebApi.Mappers;
 using TransCelerate.SDR.DataAccess.Interfaces;
+using TransCelerate.SDR.Core.DTO.eCPT;
 
 namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 {
@@ -179,6 +180,140 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);           
         }
+        [Test]
+        public void GeteCPTUnitTesting()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/DataeCPT.json");
+            var data = JsonConvert.DeserializeObject<List<StudyeCPTDto>>(jsonData);
+            _mockCommonService.Setup(x => x.GeteCPT(It.IsAny<string>(), It.IsAny<int>(),It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(data as object));
+            CommonController commonController = new CommonController(_mockCommonService.Object, _mockLogger);
+
+            var method = commonController.GeteCPT("sd", 1, "des");
+            method.Wait();
+            var result=method.Result;
+
+            var expected = data;
+
+            var actual_result = JsonConvert.DeserializeObject<List<StudyeCPTDto>>(
+                                JsonConvert.SerializeObject((result as OkObjectResult).Value));
+
+            Assert.AreEqual(expected.Count(), actual_result.Count());
+        }
+        [Test]
+        public void GeteCPTData_FaulureUnitTesting()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/DataeCPT.json");
+            var data = JsonConvert.DeserializeObject<List<StudyeCPTDto>>(jsonData);
+            data = null;
+
+            //Study NotFound Case
+            _mockCommonService.Setup(x => x.GeteCPT(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(data as object));
+            CommonController commonController = new CommonController(_mockCommonService.Object, _mockLogger);
+
+            var method = commonController.GeteCPT("sd", 1, "des");
+            method.Wait();
+            var result = method.Result;
+
+            //Expected
+            var expected = new ErrorModel { message = Constants.ErrorMessages.StudyNotFound, statusCode = "404" };
+
+            //Actual
+            var actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(404, (result as ObjectResult).StatusCode);
+
+
+            //Forbidden  case
+            _mockCommonService.Setup(x => x.GeteCPT(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(Constants.ErrorMessages.Forbidden as object));
+
+            method = commonController.GeteCPT("sd", 1,"des");
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.Forbidden, statusCode = "403" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(403, (result as ObjectResult).StatusCode);
+
+            //eCPT Error
+            _mockCommonService.Setup(x => x.GeteCPT(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+               .Returns(Task.FromResult(Constants.ErrorMessages.eCPTError as object));
+
+            method = commonController.GeteCPT("sd", 1, "des");
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.eCPTError , statusCode="400"};
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+
+
+            //Exception case
+            _mockCommonService.Setup(x => x.GeteCPT(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+               .Throws(new Exception(""));
+
+            method = commonController.GeteCPT("sd", 1,"des");
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.GenericError, statusCode = "400" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+
+            _mockCommonService.Setup(x => x.GeteCPT(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+              .Returns(Task.FromResult(Constants.ErrorMessages.StudyInputError as object));
+            method = commonController.GeteCPT("", 1,"des");
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.StudyInputError, statusCode = "400" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+
+            _mockCommonService.Setup(x => x.GeteCPT(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+             .Returns(Task.FromResult(Constants.ErrorMessages.StudyDesignNotFound as object));
+            method = commonController.GeteCPT("sd", 1, "");
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.StudyDesignNotFound, statusCode = "404" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(404, (result as ObjectResult).StatusCode);
+        }
+
         #endregion
 
         #region Get AuditTrail
