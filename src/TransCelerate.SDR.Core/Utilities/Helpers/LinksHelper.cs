@@ -60,6 +60,15 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                             StudyDesignLink = $"/{studyId}/studydesign/{designId}?sdruploadversion={sdruploadversion}"
                         });
                     }
+                    else if (usdmVersion == Constants.USDMVersions.V1)
+                    {
+                        links.Add(new StudyDesignLinks
+                        {
+                            StudyDesignId = designId,
+                            StudyDesignLink = $"/{ApiUsdmVersionMapping.SDRVersions.Where(x => x.UsdmVersions.Contains(usdmVersion)).Select(x => x.ApiVersion).First()}" +
+                                              $"/studydesigns?study_uuid={studyId}&sdruploadversion={sdruploadversion}"
+                        });
+                    }
                     else
                     {
                         links.Add(new StudyDesignLinks
