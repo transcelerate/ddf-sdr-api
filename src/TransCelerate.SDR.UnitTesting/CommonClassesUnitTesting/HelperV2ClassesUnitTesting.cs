@@ -47,6 +47,13 @@ namespace TransCelerate.SDR.UnitTesting
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
             return JsonConvert.DeserializeObject<StudyDto>(jsonData);
         }
+        [SetUp]
+        public void Setup()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ConformanceRules.json");
+            ConformanceNonStatic conformanceNonStatic = JsonConvert.DeserializeObject<ConformanceNonStatic>(jsonData);
+            Conformance.ConformanceRules = conformanceNonStatic.ConformanceRules;
+        }
         #endregion
 
         #region Test Cases
@@ -69,7 +76,14 @@ namespace TransCelerate.SDR.UnitTesting
             ActionContext  context = new ActionContext();            
             var studyDto = GetDtoDataFromStaticJson();
             studyDto.ClinicalStudy = null;
-            StudyValidator studyValidator = new StudyValidator();
+            var httpContextAccessor = new Mock<IHttpContextAccessor>();
+            var contextAccessor = new DefaultHttpContext();
+            var usdmVersion = "2.0";
+            contextAccessor.Request.Headers["usdm-version"] = usdmVersion;
+            httpContextAccessor.Setup(_ => _.HttpContext).Returns(contextAccessor);
+
+
+            StudyValidator studyValidator = new StudyValidator(httpContextAccessor.Object);
             var errors = studyValidator.Validate(studyDto).Errors;
             context.ModelState.AddModelError("clinicalStudy", errors[0].ErrorMessage);            
             var response = apiBehaviourOptionsHelper.ModelStateResponse(context);
@@ -79,8 +93,8 @@ namespace TransCelerate.SDR.UnitTesting
             context.ModelState.Clear();
             studyDto = GetDtoDataFromStaticJson();
             studyDto.ClinicalStudy.StudyTitle = null;
-            IHttpContextAccessor httpContextAccessor = Mock.Of<IHttpContextAccessor>();
-            ClinicalStudyValidator clinicalStudyValidator = new ClinicalStudyValidator(httpContextAccessor);
+            
+            ClinicalStudyValidator clinicalStudyValidator = new ClinicalStudyValidator(httpContextAccessor.Object);
             errors = clinicalStudyValidator.Validate(studyDto.ClinicalStudy).Errors;
             context.ModelState.AddModelError("Conformance", errors[0].ErrorMessage);
             response = apiBehaviourOptionsHelper.ModelStateResponse(context);
@@ -150,48 +164,52 @@ namespace TransCelerate.SDR.UnitTesting
 
         #region Conformance V2 UnitTesting
         [Test]
-        public void ConformanceV1UnitTesting()
+        public void ConformanceV2UnitTesting()
         {
-            IHttpContextAccessor httpContextAccessor = Mock.Of<IHttpContextAccessor>();
+            var httpContextAccessor = new Mock<IHttpContextAccessor>();
+            var context = new DefaultHttpContext();
+            var usdmVersion = "2.0";
+            context.Request.Headers["usdm-version"] = usdmVersion;
+            httpContextAccessor.Setup(_ => _.HttpContext).Returns(context);
             ValidationDependenciesV2.AddValidationDependenciesV2(serviceDescriptors);
             var studyDto = GetDtoDataFromStaticJson();
 
-            Assert.IsTrue(Validator<ActivityDto>(new ActivityValidator(), studyDto.ClinicalStudy.StudyDesigns[0].Activities[0]));
-            Assert.IsTrue(Validator<AnalysisPopulationDto>(new AnalysisPopulationValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyEstimands[0].AnalysisPopulation));
-            Assert.IsTrue(Validator<ClinicalStudyDto>(new ClinicalStudyValidator(httpContextAccessor), studyDto.ClinicalStudy));
-            Assert.IsTrue(Validator<CodeDto>(new CodeValidator(), studyDto.ClinicalStudy.StudyType));
-            Assert.IsTrue(Validator<AliasCodeDto>(new AliasCodeValidator(), studyDto.ClinicalStudy.StudyPhase));
-            Assert.IsTrue(Validator<EncounterDto>(new EncounterValidator(), studyDto.ClinicalStudy.StudyDesigns[0].Encounters[0]));
-            Assert.IsTrue(Validator<EndpointDto>(new EndpointValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyObjectives[0].ObjectiveEndpoints[0]));
-            Assert.IsTrue(Validator<IndicationDto>(new IndicationValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyIndications[0]));
-            Assert.IsTrue(Validator<InterCurrentEventDto>(new InterCurrentEventsValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyEstimands[0].IntercurrentEvents[0]));
-            Assert.IsTrue(Validator<InvestigationalInterventionDto>(new InvestigationalInterventionValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyInvestigationalInterventions[0]));
-            Assert.IsTrue(Validator<ProcedureDto>(new ProcedureValidator(), studyDto.ClinicalStudy.StudyDesigns[0].Activities[0].DefinedProcedures[0]));
-            Assert.IsTrue(Validator<StudyArmDto>(new StudyArmValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyArm));
-            Assert.IsTrue(Validator<StudyCellDto>(new StudyCellsValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0]));
-            Assert.IsTrue(Validator<StudyDataDto>(new StudyDataCollectionValidator(), studyDto.ClinicalStudy.StudyDesigns[0].Activities[0].StudyDataCollection[0]));
-            Assert.IsTrue(Validator<StudyDesignPopulationDto>(new StudyDesignPopulationValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyPopulations[0]));
-            Assert.IsTrue(Validator<StudyDesignDto>(new StudyDesignValidator(), studyDto.ClinicalStudy.StudyDesigns[0]));
-            Assert.IsTrue(Validator<StudyElementDto>(new StudyElementsValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyElements[0]));
+            Assert.IsTrue(Validator<ActivityDto>(new ActivityValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].Activities[0]));
+            Assert.IsTrue(Validator<AnalysisPopulationDto>(new AnalysisPopulationValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyEstimands[0].AnalysisPopulation));
+            Assert.IsTrue(Validator<ClinicalStudyDto>(new ClinicalStudyValidator(httpContextAccessor.Object), studyDto.ClinicalStudy));
+            Assert.IsTrue(Validator<CodeDto>(new CodeValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyType));
+            Assert.IsTrue(Validator<AliasCodeDto>(new AliasCodeValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyPhase));
+            Assert.IsTrue(Validator<EncounterDto>(new EncounterValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].Encounters[0]));
+            Assert.IsTrue(Validator<EndpointDto>(new EndpointValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyObjectives[0].ObjectiveEndpoints[0]));
+            Assert.IsTrue(Validator<IndicationDto>(new IndicationValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyIndications[0]));
+            Assert.IsTrue(Validator<InterCurrentEventDto>(new InterCurrentEventsValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyEstimands[0].IntercurrentEvents[0]));
+            Assert.IsTrue(Validator<InvestigationalInterventionDto>(new InvestigationalInterventionValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyInvestigationalInterventions[0]));
+            Assert.IsTrue(Validator<ProcedureDto>(new ProcedureValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].Activities[0].DefinedProcedures[0]));
+            Assert.IsTrue(Validator<StudyArmDto>(new StudyArmValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyArm));
+            Assert.IsTrue(Validator<StudyCellDto>(new StudyCellsValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0]));
+            Assert.IsTrue(Validator<StudyDataDto>(new StudyDataCollectionValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].Activities[0].StudyDataCollection[0]));
+            Assert.IsTrue(Validator<StudyDesignPopulationDto>(new StudyDesignPopulationValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyPopulations[0]));
+            Assert.IsTrue(Validator<StudyDesignDto>(new StudyDesignValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0]));
+            Assert.IsTrue(Validator<StudyElementDto>(new StudyElementsValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyElements[0]));
             studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.NextStudyEpochId = "123";
-            studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.PreviousStudyEpochId= "124";
-            Assert.IsTrue(Validator<StudyEpochDto>(new StudyEpochValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch));
-            Assert.IsTrue(Validator<EstimandDto>(new StudyEstimandsValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyEstimands[0]));
-            Assert.IsTrue(Validator<OrganisationDto>(new OrganisationValidator(), studyDto.ClinicalStudy.StudyIdentifiers[0].StudyIdentifierScope));
-            Assert.IsTrue(Validator<StudyIdentifierDto>(new StudyIdentifiersValidator(), studyDto.ClinicalStudy.StudyIdentifiers[0]));
-            Assert.IsTrue(Validator<ObjectiveDto>(new StudyObjectiveValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyObjectives[0]));
-            Assert.IsTrue(Validator<StudyProtocolVersionDto>(new StudyProtocolVersionsValidator(), studyDto.ClinicalStudy.StudyProtocolVersions[0]));
-            Assert.IsTrue(Validator<StudyDto>(new StudyValidator(), studyDto));
-            Assert.IsTrue(Validator<TransitionRuleDto>(new TransitionRuleValidator(), studyDto.ClinicalStudy.StudyDesigns[0].Encounters[0].TransitionStartRule));
-            Assert.IsTrue(Validator<WorkflowDto>(new WorkflowValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0]));
-            Assert.IsTrue(Validator<WorkflowItemDto>(new WorkflowItemValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0]));
-            Assert.IsTrue(Validator<ActivityDto>(new ActivityValidator(), studyDto.ClinicalStudy.StudyDesigns[0].Activities[0]));
+            studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.PreviousStudyEpochId = "124";
+            Assert.IsTrue(Validator<StudyEpochDto>(new StudyEpochValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch));
+            Assert.IsTrue(Validator<EstimandDto>(new StudyEstimandsValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyEstimands[0]));
+            Assert.IsTrue(Validator<OrganisationDto>(new OrganisationValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyIdentifiers[0].StudyIdentifierScope));
+            Assert.IsTrue(Validator<StudyIdentifierDto>(new StudyIdentifiersValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyIdentifiers[0]));
+            Assert.IsTrue(Validator<ObjectiveDto>(new ObjectiveValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyObjectives[0]));
+            Assert.IsTrue(Validator<StudyProtocolVersionDto>(new StudyProtocolVersionsValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyProtocolVersions[0]));
+            Assert.IsTrue(Validator<StudyDto>(new StudyValidator(httpContextAccessor.Object), studyDto));
+            Assert.IsTrue(Validator<TransitionRuleDto>(new TransitionRuleValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].Encounters[0].TransitionStartRule));
+            Assert.IsTrue(Validator<WorkflowDto>(new WorkflowValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0]));
+            Assert.IsTrue(Validator<WorkflowItemDto>(new WorkflowItemValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0]));
+            Assert.IsTrue(Validator<ActivityDto>(new ActivityValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].Activities[0]));
             studyDto.ClinicalStudy.StudyDesigns[0].Activities[0].ActivityIsOptional = true;
             studyDto.ClinicalStudy.StudyDesigns[0].Activities[1].ActivityIsOptional = "entity";
-            studyDto.ClinicalStudy.StudyDesigns[0].Activities[0].DefinedProcedures[0].ProcedureIsOptional= true;
+            studyDto.ClinicalStudy.StudyDesigns[0].Activities[0].DefinedProcedures[0].ProcedureIsOptional = true;
             studyDto.ClinicalStudy.StudyDesigns[0].Activities[1].DefinedProcedures[0].ProcedureIsOptional = "12";
-            Assert.IsFalse(Validator<ActivityDto>(new ActivityValidator(), studyDto.ClinicalStudy.StudyDesigns[0].Activities[1]));
-            Assert.IsTrue(Validator<AddressDto>(new AddressValidator(), studyDto.ClinicalStudy.StudyIdentifiers[0].StudyIdentifierScope.OrganizationLegalAddress));
+            Assert.IsFalse(Validator<ActivityDto>(new ActivityValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].Activities[1]));
+            Assert.IsTrue(Validator<AddressDto>(new AddressValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyIdentifiers[0].StudyIdentifierScope.OrganizationLegalAddress));
         }
 
         public bool Validator<T>(AbstractValidator<T> validator,T value)

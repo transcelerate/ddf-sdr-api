@@ -46,6 +46,7 @@
   - [#ctor()](#M-TransCelerate-SDR-RuleEngine-ItemValidator-#ctor 'TransCelerate.SDR.RuleEngine.ItemValidator.#ctor')
 - [MatrixValidator](#T-TransCelerate-SDR-RuleEngine-MatrixValidator 'TransCelerate.SDR.RuleEngine.MatrixValidator')
   - [#ctor()](#M-TransCelerate-SDR-RuleEngine-MatrixValidator-#ctor 'TransCelerate.SDR.RuleEngine.MatrixValidator.#ctor')
+- [ObjectiveValidator](#T-TransCelerate-SDR-RuleEngineV2-ObjectiveValidator 'TransCelerate.SDR.RuleEngineV2.ObjectiveValidator')
 - [OrganisationValidator](#T-TransCelerate-SDR-RuleEngineV2-OrganisationValidator 'TransCelerate.SDR.RuleEngineV2.OrganisationValidator')
 - [PlannedWorkFlowValidator](#T-TransCelerate-SDR-RuleEngine-PlannedWorkFlowValidator 'TransCelerate.SDR.RuleEngine.PlannedWorkFlowValidator')
   - [#ctor()](#M-TransCelerate-SDR-RuleEngine-PlannedWorkFlowValidator-#ctor 'TransCelerate.SDR.RuleEngine.PlannedWorkFlowValidator.#ctor')
@@ -95,7 +96,6 @@
 - [StudyIndicationValidator](#T-TransCelerate-SDR-RuleEngine-StudyIndicationValidator 'TransCelerate.SDR.RuleEngine.StudyIndicationValidator')
   - [#ctor()](#M-TransCelerate-SDR-RuleEngine-StudyIndicationValidator-#ctor 'TransCelerate.SDR.RuleEngine.StudyIndicationValidator.#ctor')
 - [StudyObjectiveValidator](#T-TransCelerate-SDR-RuleEngineV1-StudyObjectiveValidator 'TransCelerate.SDR.RuleEngineV1.StudyObjectiveValidator')
-- [StudyObjectiveValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyObjectiveValidator 'TransCelerate.SDR.RuleEngineV2.StudyObjectiveValidator')
 - [StudyObjectivesValidator](#T-TransCelerate-SDR-RuleEngine-StudyObjectivesValidator 'TransCelerate.SDR.RuleEngine.StudyObjectivesValidator')
   - [#ctor()](#M-TransCelerate-SDR-RuleEngine-StudyObjectivesValidator-#ctor 'TransCelerate.SDR.RuleEngine.StudyObjectivesValidator.#ctor')
 - [StudyPopulationValidator](#T-TransCelerate-SDR-RuleEngine-StudyPopulationValidator 'TransCelerate.SDR.RuleEngine.StudyPopulationValidator')
@@ -557,6 +557,17 @@ Validator for Matrix
 ##### Parameters
 
 This constructor has no parameters.
+
+<a name='T-TransCelerate-SDR-RuleEngineV2-ObjectiveValidator'></a>
+## ObjectiveValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV2
+
+##### Summary
+
+This Class is the validator for StudyObjectives
 
 <a name='T-TransCelerate-SDR-RuleEngineV2-OrganisationValidator'></a>
 ## OrganisationValidator `type`
@@ -1044,17 +1055,6 @@ This constructor has no parameters.
 ##### Namespace
 
 TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for StudyObjectives
-
-<a name='T-TransCelerate-SDR-RuleEngineV2-StudyObjectiveValidator'></a>
-## StudyObjectiveValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV2
 
 ##### Summary
 

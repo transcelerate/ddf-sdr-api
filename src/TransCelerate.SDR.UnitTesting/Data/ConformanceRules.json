@@ -1,0 +1,254 @@
+{
+  "ConformanceRules": [
+    {
+      "usdm-version": "2.0",
+      "rules": [
+        {
+          "entity": "Activity",
+          "required": [
+            "Id",
+            "ActivityDescription",
+            "ActivityName",
+            "ActivityIsOptional"
+          ]
+        },
+        {
+          "entity": "Address",
+          "required": [
+            "Text",
+            "Line",
+            "City",
+            "District",
+            "State",
+            "PostalCode",
+            "Country"
+          ]
+        },
+        {
+          "entity": "AliasCode",
+          "required": [
+            "Id",
+            "StandardCode"
+          ]
+        },
+        {
+          "entity": "AnalysisPopulation",
+          "required": [
+            "Id",
+            "PopulationDescription"
+          ]
+        },
+        {
+          "entity": "ClinicalStudy",
+          "required": [
+            "StudyTitle",
+            "StudyType",
+            "StudyIdentifiers",
+            "StudyPhase",
+            "StudyVersion",
+            "StudyAcronym",
+            "StudyRationale"
+          ]
+        },
+
+        {
+          "entity": "Code",
+          "required": [
+            "Id",
+            "Code",
+            "Decode",
+            "CodeSystem",
+            "CodeSystemVersion"
+          ]
+        },
+
+        {
+          "entity": "Encounter",
+          "required": [
+            "Id",
+            "EncounterDescription",
+            "EncounterName"
+          ]
+        },
+        {
+          "entity": "Endpoint",
+          "required": [
+            "Id",
+            "EndpointDescription",
+            "EndpointPurposeDescription"
+          ]
+        },
+        {
+          "entity": "Indication",
+          "required": [
+            "Id",
+            "IndicationDescription"
+          ]
+        },
+        {
+          "entity": "InterCurrentEvents",
+          "required": [
+            "Id",
+            "IntercurrentEventDescription",
+            "IntercurrentEventName",
+            "IntercurrentEventStrategy"
+          ]
+        },
+        {
+          "entity": "InvestigationalIntervention",
+          "required": [
+            "Id",
+            "InterventionDescription"
+          ]
+        },
+        {
+          "entity": "Organisation",
+          "required": [
+            "Id",
+            "OrganisationIdentifier",
+            "OrganisationIdentifierScheme",
+            "OrganisationName",
+            "OrganisationType"
+          ]
+        },
+        {
+          "entity": "Procedure",
+          "required": [
+            "Id",
+            "ProcedureType",
+            "ProcedureCode",
+            "ProcedureIsOptional"
+          ]
+        },
+        {
+          "entity": "StudyArm",
+          "required": [
+            "Id",
+            "StudyArmDataOriginDescription",
+            "StudyArmDataOriginType",
+            "StudyArmDescription",
+            "StudyArmType",
+            "StudyArmName"
+          ]
+        },
+        {
+          "entity": "StudyCells",
+          "required": [
+            "Id"
+          ]
+        },
+        {
+          "entity": "StudyDataCollection",
+          "required": [
+            "Id",
+            "EcrfLink",
+            "StudyDataName",
+            "StudyDataDescription"
+          ]
+        },
+        {
+          "entity": "StudyDesignPopulation",
+          "required": [
+            "Id",
+            "PopulationDescription",
+            "PlannedNumberOfParticipants",
+            "PlannedMaximumAgeOfParticipants",
+            "PlannedMinimumAgeOfParticipants"
+          ]
+        },
+        {
+          "entity": "StudyDesign",
+          "required": [
+            "Id",
+            "InterventionModel",
+            "StudyDesignName",
+            "StudyDesignDescription",
+            "StudyDesignRationale"
+          ]
+        },
+        {
+          "entity": "StudyElements",
+          "required": [
+            "Id",
+            "StudyElementDescription",
+            "StudyElementName"
+          ]
+        },
+        {
+          "entity": "StudyEpoch",
+          "required": [
+            "Id",
+            "StudyEpochName",
+            "StudyEpochDescription",
+            "StudyEpochType",
+            "NextStudyEpochId",
+            "PreviousStudyEpochId"
+          ]
+        },
+        {
+          "entity": "StudyEstimands",
+          "required": [
+            "Id",
+            "SummaryMeasure",
+            "AnalysisPopulation"
+          ]
+        },
+        {
+          "entity": "StudyIdentifiers",
+          "required": [
+            "Id",
+            "StudyIdentifier",
+            "StudyIdentifierScope"
+          ]
+        },
+        {
+          "entity": "Objective",
+          "required": [
+            "Id",
+            "ObjectiveDescription"            
+          ]
+        },
+        {
+          "entity": "StudyProtocolVersions",
+          "required": [
+            "Id",
+            "BriefTitle",
+            "OfficialTitle",
+            "ProtocolEffectiveDate",
+            "ProtocolStatus",
+            "ProtocolVersion",
+            "PublicTitle",
+            "ScientificTitle"
+          ]
+        },
+        {
+          "entity": "Study",
+          "required": [
+            "ClinicalStudy"
+          ]
+        },
+        {
+          "entity": "TransitionRule",
+          "required": [
+            "Id",
+            "TransitionRuleDescription"
+          ]
+        },
+        {
+          "entity": "WorkflowItem",
+          "required": [
+            "Id",
+            "WorkflowItemDescription"
+          ]
+        },
+        {
+          "entity": "Workflow",
+          "required": [
+            "Id",
+            "WorkflowDescription"
+          ]
+        }
+      ]
+    }
+  ]
+}

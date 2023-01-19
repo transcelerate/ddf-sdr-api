@@ -8,6 +8,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
     /// </summary>
     public static class Constants
     {
+        public const string UsdmVersion = "usdm-version";
         public struct KeyVault
         {
             public const string Key = "KeyVault:Vault";
