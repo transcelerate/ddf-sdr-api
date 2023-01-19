@@ -381,8 +381,8 @@ namespace TransCelerate.SDR.Services.Services
                         {
                             var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy.ClinicalStudy.StudyDesigns.Where(x => x.Id == studyDesignId).ToList());
                             JObject jObject = new JObject();
-                            jObject.Add(nameof(ClinicalStudyDto.StudyDesigns).Substring(0, 1).ToLower() + nameof(ClinicalStudyDto.StudyDesigns).Substring(1), JObject.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))));
-                            if (listofelements.Any())
+                            jObject.Add(nameof(ClinicalStudyDto.StudyDesigns).Substring(0, 1).ToLower() + nameof(ClinicalStudyDto.StudyDesigns).Substring(1), JArray.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))));
+                            if (listofelements == null)
                                 jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.ClinicalStudy.StudyId, study.ClinicalStudy.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion))));
                             return jObject;                            
                         }
@@ -392,8 +392,8 @@ namespace TransCelerate.SDR.Services.Services
                     {
                         var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy.ClinicalStudy.StudyDesigns);
                         JObject jObject = new JObject();
-                        jObject.Add(nameof(ClinicalStudyDto.StudyDesigns).Substring(0, 1).ToLower() + nameof(ClinicalStudyDto.StudyDesigns).Substring(1), JObject.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))));
-                        if (listofelements.Any())
+                        jObject.Add(nameof(ClinicalStudyDto.StudyDesigns).Substring(0, 1).ToLower() + nameof(ClinicalStudyDto.StudyDesigns).Substring(1), JArray.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))));
+                        if (listofelements == null)
                             jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.ClinicalStudy.StudyId, study.ClinicalStudy.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion))));
                         return study.ClinicalStudy.StudyDesigns is not null && study.ClinicalStudy.StudyDesigns.Any() ?
                             jObject: Constants.ErrorMessages.StudyDesignNotFound;
