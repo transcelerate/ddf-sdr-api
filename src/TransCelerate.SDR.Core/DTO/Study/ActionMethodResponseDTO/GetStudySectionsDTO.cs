@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.DTO.Study
 {
@@ -13,7 +14,8 @@ namespace TransCelerate.SDR.Core.DTO.Study
         public string studyId { get; set; }
         /// <summary>
         /// This property holds the value of version of Study
-        /// </summary>
+        /// </summary>        
+        [JsonProperty("SDRUploadVersion")]
         public int studyVersion { get; set; }
 
         /// <summary>
