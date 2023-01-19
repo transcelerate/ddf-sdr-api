@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Azure.Messaging.ServiceBus;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -379,24 +380,23 @@ namespace TransCelerate.SDR.Services.Services
                         if (study.ClinicalStudy.StudyDesigns is not null && study.ClinicalStudy.StudyDesigns.Any(x => x.Id == studyDesignId))
                         {
                             var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy.ClinicalStudy.StudyDesigns.Where(x => x.Id == studyDesignId).ToList());
-                            return new StudyDesignsResponseDto
-                            {
-                                StudyDesigns = _helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId),
-                                Links = LinksHelper.GetLinks(study.ClinicalStudy.StudyId, study.ClinicalStudy.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion)
-                            };
-                            
+                            JObject jObject = new JObject();
+                            jObject.Add(nameof(ClinicalStudyDto.StudyDesigns).Substring(0, 1).ToLower() + nameof(ClinicalStudyDto.StudyDesigns).Substring(1), JArray.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))));
+                            if (listofelements == null)
+                                jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.ClinicalStudy.StudyId, study.ClinicalStudy.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion))));
+                            return jObject;                            
                         }
                         return Constants.ErrorMessages.StudyDesignNotFound;
                     }
                     else
                     {
                         var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy.ClinicalStudy.StudyDesigns);
+                        JObject jObject = new JObject();
+                        jObject.Add(nameof(ClinicalStudyDto.StudyDesigns).Substring(0, 1).ToLower() + nameof(ClinicalStudyDto.StudyDesigns).Substring(1), JArray.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))));
+                        if (listofelements == null)
+                            jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.ClinicalStudy.StudyId, study.ClinicalStudy.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion))));
                         return study.ClinicalStudy.StudyDesigns is not null && study.ClinicalStudy.StudyDesigns.Any() ?
-                            new StudyDesignsResponseDto
-                            {
-                                StudyDesigns = _helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId),
-                                Links = LinksHelper.GetLinks(study.ClinicalStudy.StudyId, study.ClinicalStudy.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion)
-                            } : Constants.ErrorMessages.StudyDesignNotFound;
+                            jObject: Constants.ErrorMessages.StudyDesignNotFound;
                     }
                 }
             }
