@@ -258,9 +258,10 @@ namespace TransCelerate.SDR.Services.Services
                                 StudyInterventionsAdministered= design.StudyInvestigationalInterventions != null && design.StudyInvestigationalInterventions.Any() ?
                                            _mapper.Map<List<StudyInterventionsAdministeredDto>>(design.StudyInvestigationalInterventions)
                                            : null,
-                                StudyArms = design.StudyCells!=null && design.StudyCells.Any()?
-                                           _mapper.Map<List<StudyArmDto>>(design.StudyCells.Select(x=>x.StudyArm)?.ToList())
-                                           :null
+                                StudyArms = design.StudyCells!=null && design.StudyCells.Any() ?
+                                           design.StudyCells.Where(x=>x.StudyArm!=null).Any() ?
+                                           _mapper.Map<List<StudyArmDto>>(design.StudyCells.Where(x => x.StudyArm != null).Select(x=>x.StudyArm).ToList())
+                                           :null : null
                             }
                            
                         }
