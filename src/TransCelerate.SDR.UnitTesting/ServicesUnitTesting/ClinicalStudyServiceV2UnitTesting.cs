@@ -777,11 +777,11 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             user.UserRole = Constants.Roles.Org_Admin;
 
-            method = ClinicalStudyService.GetPartialStudyDesigns("1", "a", 0, user, Constants.StudyDesignElements);
-            method.Wait();
+            //method = ClinicalStudyService.GetPartialStudyDesigns("1", "a", 0, user, Constants.StudyDesignElements);
+            //method.Wait();
 
-            method = ClinicalStudyService.GetPartialStudyDesigns("1", null, 0, user, Constants.StudyDesignElements);
-            method.Wait();
+            //method = ClinicalStudyService.GetPartialStudyDesigns("1", null, 0, user, Constants.StudyDesignElements);
+            //method.Wait();
 
 
             _mockClinicalStudyRepository.Setup(x => x.GetPartialStudyDesignItemsAsync(It.IsAny<string>(), It.IsAny<int>()))

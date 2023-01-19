@@ -112,6 +112,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
             var serializer = GetSerializerSettingsForCamelCasing();
             var jsonObject = JObject.Parse(JsonConvert.SerializeObject(studyDTO, serializer));
             jsonObject.Property((nameof(StudyEntity.AuditTrail).Substring(0, 1).ToLower() + (nameof(StudyEntity.AuditTrail).Substring(1)))).Remove();
+            jsonObject.Property("links").Remove();
             foreach (var item in Constants.ClinicalStudyElements.Select(x => x.ToLower()))
             {
                 sections = sections.Select(t => t.Trim().ToLower()).ToArray();
@@ -202,15 +203,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                 }
                 studyDesingsJArray.Add(jsonObject);
             }
-
-            //JObject studyJobject = new JObject();
-            //JObject clinicalStudyJobject = new JObject();
-            //clinicalStudyJobject.Add(nameof(ClinicalStudyDto.Id).Substring(0, 1).ToLower() + nameof(ClinicalStudyDto.Id).Substring(1), study_uuid);
-            //clinicalStudyJobject.Add(nameof(ClinicalStudyDto.StudyDesigns).Substring(0, 1).ToLower() + nameof(ClinicalStudyDto.StudyDesigns).Substring(1), studyDesingsJArray);
-
-            //studyJobject.Add(nameof(StudyDto.ClinicalStudy).Substring(0, 1).ToLower() + nameof(StudyDto.ClinicalStudy).Substring(1), clinicalStudyJobject);
-
-            //return studyJobject;
+                                               
             return studyDesingsJArray;
         }
 

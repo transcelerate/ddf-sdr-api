@@ -27,6 +27,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             try
             {
                 var jsonObject = JObject.Parse(JsonConvert.SerializeObject(getStudySectionsDTO));
+                jsonObject.Property("Links").Remove();
                 foreach (var item in Enum.GetNames(typeof(StudySections)))
                 {
                     sections = sections.Select(t => t.Trim().ToLower()).ToArray();
@@ -107,6 +108,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                 }
                             }
                         }
+                        jsonObject.Property("links").Remove();
                     }
                 }
 
