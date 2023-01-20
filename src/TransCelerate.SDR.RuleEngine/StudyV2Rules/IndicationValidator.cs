@@ -2,6 +2,7 @@
 using TransCelerate.SDR.Core.DTO.StudyV2;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
+using Microsoft.AspNetCore.Http;
 
 namespace TransCelerate.SDR.RuleEngineV2
 {
@@ -10,20 +11,28 @@ namespace TransCelerate.SDR.RuleEngineV2
     /// </summary>
     public class IndicationValidator : AbstractValidator<IndicationDto>
     {
-        public IndicationValidator()
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public IndicationValidator(IHttpContextAccessor httpContextAccessor)
         {
+            _httpContextAccessor = httpContextAccessor;
             RuleFor(x => x.Id)
                .Cascade(CascadeMode.Stop)
                .NotNull().OverridePropertyName(IdFieldPropertyName.StudyV2.IndicationId).WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().OverridePropertyName(IdFieldPropertyName.StudyV2.IndicationId).WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+               .NotEmpty().OverridePropertyName(IdFieldPropertyName.StudyV2.IndicationId).WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(IndicationValidator), nameof(IndicationDto.Id)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.IndicationDescription)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(IndicationValidator), nameof(IndicationDto.IndicationDescription)), ApplyConditionTo.AllValidators);
             
             RuleFor(x => x.Codes)
-                .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(IndicationValidator), nameof(IndicationDto.Codes)), ApplyConditionTo.AllValidators)
+               .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
         }
     }

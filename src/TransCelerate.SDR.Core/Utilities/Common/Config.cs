@@ -23,6 +23,7 @@
         public static string AzureServiceBusConnectionString { get; set; }
         public static string AzureServiceBusQueueName { get; set; }
         public static string ApiVersionUsdmVersionMapping { get; set; }
+        public static string ConformanceRules { get; set; }
         public static string SdrCptMasterDataMapping { get; set; }
     }
 }

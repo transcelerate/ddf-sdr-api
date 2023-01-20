@@ -289,6 +289,8 @@ namespace TransCelerate.SDR.UnitTesting
                 .Returns("true");
             _mockConfig.Setup(x => x.GetSection("ApiVersionUsdmVersionMapping").Value)
                .Returns(File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ApiUsdmVersionMapping.json"));
+            _mockConfig.Setup(x => x.GetSection("ConformanceRules").Value)
+               .Returns(File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ConformanceRules.json"));
             var file = "{\"SdrCptMasterDataMapping\":[{\"entity\":\"InterventionModel\",\"mapping\":[{\"code\":\"C142568\",\"CDISC\":\"SEQUENTIAL\",\"CPT\":\"Sequential\"},{\"code\":\"C82637\",\"CDISC\":\"CROSS-OVER\",\"CPT\":\"Cross-OverGroup\"},{\"code\":\"C82638\",\"CDISC\":\"FACTORIAL\",\"CPT\":\"Factorial\"},{\"code\":\"C82639\",\"CDISC\":\"PARALLEL\",\"CPT\":\"ParallelGroup\"},{\"code\":\"C82640\",\"CDISC\":\"SINGLEGROUP\",\"CPT\":\"SingleGroup\"}]},{\"entity\":\"Study Phase\",\"mapping\":[{\"code\":\"C48660\",\"CDISC\":\"NOTAPPLICABLE\",\"CPT\":\"\"},{\"code\":\"C54721\",\"CDISC\":\"PHASE0TRIAL\",\"CPT\":\"EarlyPhase1\"},{\"code\":\"C15600\",\"CDISC\":\"PHASEITRIAL\",\"CPT\":\"Phase1\"},{\"code\":\"C15693\",\"CDISC\":\"PHASEI/IITRIAL\",\"CPT\":\"Phase1/Phase2\"},{\"code\":\"C15601\",\"CDISC\":\"PHASEIITRIAL\",\"CPT\":\"Phase2\"},{\"code\":\"C15694\",\"CDISC\":\"PHASEII/IIITRIAL\",\"CPT\":\"Phase2/Phase3\"},{\"code\":\"C49686\",\"CDISC\":\"PHASEIIATRIAL\",\"CPT\":\"Phase2\"},{\"code\":\"C49688\",\"CDISC\":\"PHASEIIBTRIAL\",\"CPT\":\"Phase2\"},{\"code\":\"C15602\",\"CDISC\":\"PHASEIIITRIAL\",\"CPT\":\"Phase3\"},{\"code\":\"C49687\",\"CDISC\":\"PHASEIIIATRIAL\",\"CPT\":\"Phase3\"},{\"code\":\"C49689\",\"CDISC\":\"PHASEIIIBTRIAL\",\"CPT\":\"Phase3\"},{\"code\":\"C15603\",\"CDISC\":\"PHASEIVTRIAL\",\"CPT\":\"Phase4\"},{\"code\":\"C47865\",\"CDISC\":\"PHASEVTRIAL\",\"CPT\":\"Phase5\"}]},{\"entity\":\"TrialIntentType\",\"mapping\":[{\"code\":\"C15714\",\"CDISC\":\"BASICSCIENCE\",\"CPT\":\"BasicScience\"},{\"code\":\"C49654\",\"CDISC\":\"CURE\",\"CPT\":\"\"},{\"code\":\"C139174\",\"CDISC\":\"DEVICEFEASIBILITY\",\"CPT\":\"DeviceFeasibility\"},{\"code\":\"C49653\",\"CDISC\":\"DIAGNOSIS\",\"CPT\":\"Diagnostic\"},{\"code\":\"C170629\",\"CDISC\":\"DISEASEMODIFYING\",\"CPT\":\"\"},{\"code\":\"C15245\",\"CDISC\":\"HEALTHSERVICESRESEARCH\",\"CPT\":\"HealthServicesResearch\"},{\"code\":\"C49655\",\"CDISC\":\"MITIGATION\",\"CPT\":\"\"},{\"code\":\"\",\"CDISC\":\"\",\"CPT\":\"Other\"},{\"code\":\"C49657\",\"CDISC\":\"PREVENTION\",\"CPT\":\"Prevention\"},{\"code\":\"C71485\",\"CDISC\":\"SCREENING\",\"CPT\":\"Screening\"},{\"code\":\"C71486\",\"CDISC\":\"SUPPORTIVECARE\",\"CPT\":\"SupportiveCare\"},{\"code\":\"C49656\",\"CDISC\":\"TREATMENT\",\"CPT\":\"Treatment\"}]},{\"entity\":\"Objective Level\",\"mapping\":[{\"code\":\"C85826\",\"CDISC\":\"StudyPrimaryObjective\",\"CPT\":\"\"},{\"code\":\"C85827\",\"CDISC\":\"StudySecondaryObjective\",\"CPT\":\"\"}]}]}";
             _mockConfig.Setup(x => x.GetSection("SdrCptMasterDataMapping").Value)
               .Returns(file);
@@ -478,7 +480,7 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void FluentValidation_UnitTesting()
         {            
-            ValidationDependencies.AddValidationDependencies(serviceDescriptors);
+            ValidationDependencies.AddValidationDependencies(serviceDescriptors);            
             var incomingpostStudyDTO = PostDataFromStaticJson();
             PostStudyValidator postStudyValidator = new PostStudyValidator();
             Assert.IsTrue(postStudyValidator.Validate(incomingpostStudyDTO).IsValid);
@@ -600,6 +602,22 @@ namespace TransCelerate.SDR.UnitTesting
             };
             UserLoginValidator userLoginValidator = new UserLoginValidator();
             Assert.IsTrue(userLoginValidator.Validate(user).IsValid);
+
+            TransCelerate.SDR.RuleEngine.Common.ValidationDependenciesCommon.AddValidationDependenciesCommon(serviceDescriptors);
+            TransCelerate.SDR.Core.DTO.Common.SearchParametersDto searchParametersCommon = new TransCelerate.SDR.Core.DTO.Common.SearchParametersDto
+            {
+                Indication = "Bile",
+                InterventionModel = "CROSS_OVER",
+                StudyTitle = "Umbrella",
+                PageNumber = 1,
+                PageSize = 25,
+                Phase = "PHASE_1_TRAIL",
+                StudyId = "100",
+                FromDate = "",
+                ToDate = ""
+            };
+            TransCelerate.SDR.RuleEngine.Common.SearchParametersValidator searchValidator = new RuleEngine.Common.SearchParametersValidator();
+            Assert.IsTrue(searchValidator.Validate(searchParametersCommon).IsValid);
         }
         #endregion
 
@@ -964,6 +982,23 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsNotNull(DataFilterCommon.GetFiltersForGetAudTrail("sd", DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1)));
 
             Assert.IsNotNull(DataFilterCommon.GetFiltersForStudyHistory(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1), "sd"));
+
+            SearchParametersEntity searchParametersEntity = new()
+            {
+                Indication = "Bile",
+                InterventionModel = "CROSS_OVER",
+                StudyTitle = "Umbrella",
+                PageNumber = 1,
+                PageSize = 25,
+                Phase = "PHASE_1_TRAIL",
+                StudyId = "100",
+                FromDate = DateTime.Now.AddDays(-5),
+                ToDate = DateTime.Now,
+                Asc = true,
+                Header = "sdrversion"
+            };
+
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchStudy(searchParametersEntity));
         }
 
         #endregion

@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.Core.AppSettings
@@ -33,14 +34,22 @@ namespace TransCelerate.SDR.Core.AppSettings
             Config.AzureServiceBusQueueName = Convert.ToString(config.GetSection("AzureServiceBusQueueName").Value);
             Config.ApiVersionUsdmVersionMapping = Convert.ToString(config.GetSection("ApiVersionUsdmVersionMapping").Value);
             Config.SdrCptMasterDataMapping = Convert.ToString(config.GetSection("SdrCptMasterDataMapping").Value);
+            Config.ConformanceRules = Convert.ToString(config.GetSection("ConformanceRules").Value);
 
             ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(Config.ApiVersionUsdmVersionMapping);
             ApiUsdmVersionMapping.SDRVersions = apiUsdmVersionMapping_NonStatic.SDRVersions;
-            if (!String.IsNullOrWhiteSpace(Config.SdrCptMasterDataMapping))
-            {
-                SdrCptMapping_NonStatic sdrCptMapping_NonStatic = JsonConvert.DeserializeObject<SdrCptMapping_NonStatic>(Config.SdrCptMasterDataMapping);
-                SdrCptMapping.SdrCptMasterDataMapping = sdrCptMapping_NonStatic.SdrCptMasterDataMapping;
-            }
+
+            if (String.IsNullOrWhiteSpace(Config.ConformanceRules))
+                Config.ConformanceRules = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ConformanceRules.json");
+
+            ConformanceNonStatic conformanceNonStatic = JsonConvert.DeserializeObject<ConformanceNonStatic>(Config.ConformanceRules);
+            Conformance.ConformanceRules = conformanceNonStatic.ConformanceRules;
+
+            if (String.IsNullOrWhiteSpace(Config.SdrCptMasterDataMapping))
+                Config.SdrCptMasterDataMapping = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/SdrCptMasterDataMapping.json");
+
+            SdrCptMapping_NonStatic sdrCptMapping_NonStatic = JsonConvert.DeserializeObject<SdrCptMapping_NonStatic>(Config.SdrCptMasterDataMapping);
+            SdrCptMapping.SdrCptMasterDataMapping = sdrCptMapping_NonStatic.SdrCptMasterDataMapping;
         }
     }
 }

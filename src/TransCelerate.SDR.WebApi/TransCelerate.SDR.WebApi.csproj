@@ -8,6 +8,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Mappers\eCPT\**" />
+    <Content Remove="Mappers\eCPT\**" />
+    <EmbeddedResource Remove="Mappers\eCPT\**" />
+    <None Remove="Mappers\eCPT\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="ConformanceRules.json" />
+    <Content Remove="SdrCptMasterDataMapping.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Data\ConformanceRules.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\SdrCptMasterDataMapping.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Azure.Identity" Version="1.7.0" />
     <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.10.0" />
@@ -41,10 +62,6 @@
     <Content Update="Utilities\Swagger.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Mappers\eCPT\" />
   </ItemGroup>
 
 
