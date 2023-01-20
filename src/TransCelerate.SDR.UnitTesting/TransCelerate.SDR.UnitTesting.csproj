@@ -40,7 +40,7 @@
     <None Update="Data\ChangeAuditData.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Data\ConformanceRules.json">
+    <None Update="Data\ConformanceRules_UnitTesting.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Data\DataeCPT.json">
