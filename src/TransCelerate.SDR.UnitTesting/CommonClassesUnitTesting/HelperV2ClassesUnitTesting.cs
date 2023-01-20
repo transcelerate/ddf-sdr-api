@@ -50,7 +50,7 @@ namespace TransCelerate.SDR.UnitTesting
         [SetUp]
         public void Setup()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ConformanceRules.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ConformanceRules_UnitTesting.json");
             ConformanceNonStatic conformanceNonStatic = JsonConvert.DeserializeObject<ConformanceNonStatic>(jsonData);
             Conformance.ConformanceRules = conformanceNonStatic.ConformanceRules;
         }
