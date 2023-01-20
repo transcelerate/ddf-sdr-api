@@ -480,7 +480,7 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void FluentValidation_UnitTesting()
         {            
-            ValidationDependencies.AddValidationDependencies(serviceDescriptors);
+            ValidationDependencies.AddValidationDependencies(serviceDescriptors);            
             var incomingpostStudyDTO = PostDataFromStaticJson();
             PostStudyValidator postStudyValidator = new PostStudyValidator();
             Assert.IsTrue(postStudyValidator.Validate(incomingpostStudyDTO).IsValid);
@@ -602,6 +602,22 @@ namespace TransCelerate.SDR.UnitTesting
             };
             UserLoginValidator userLoginValidator = new UserLoginValidator();
             Assert.IsTrue(userLoginValidator.Validate(user).IsValid);
+
+            TransCelerate.SDR.RuleEngine.Common.ValidationDependenciesCommon.AddValidationDependenciesCommon(serviceDescriptors);
+            TransCelerate.SDR.Core.DTO.Common.SearchParametersDto searchParametersCommon = new TransCelerate.SDR.Core.DTO.Common.SearchParametersDto
+            {
+                Indication = "Bile",
+                InterventionModel = "CROSS_OVER",
+                StudyTitle = "Umbrella",
+                PageNumber = 1,
+                PageSize = 25,
+                Phase = "PHASE_1_TRAIL",
+                StudyId = "100",
+                FromDate = "",
+                ToDate = ""
+            };
+            TransCelerate.SDR.RuleEngine.Common.SearchParametersValidator searchValidator = new RuleEngine.Common.SearchParametersValidator();
+            Assert.IsTrue(searchValidator.Validate(searchParametersCommon).IsValid);
         }
         #endregion
 
@@ -966,6 +982,23 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsNotNull(DataFilterCommon.GetFiltersForGetAudTrail("sd", DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1)));
 
             Assert.IsNotNull(DataFilterCommon.GetFiltersForStudyHistory(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1), "sd"));
+
+            SearchParametersEntity searchParametersEntity = new()
+            {
+                Indication = "Bile",
+                InterventionModel = "CROSS_OVER",
+                StudyTitle = "Umbrella",
+                PageNumber = 1,
+                PageSize = 25,
+                Phase = "PHASE_1_TRAIL",
+                StudyId = "100",
+                FromDate = DateTime.Now.AddDays(-5),
+                ToDate = DateTime.Now,
+                Asc = true,
+                Header = "sdrversion"
+            };
+
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchStudy(searchParametersEntity));
         }
 
         #endregion
