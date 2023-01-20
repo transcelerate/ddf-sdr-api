@@ -72,6 +72,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 cfg.AddProfile(new SharedAutoMapperProfiles());
             });
             _mockMapper = new Mapper(mockMapper);
+            ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ApiUsdmVersionMapping.json"));
+            ApiUsdmVersionMapping.SDRVersions = apiUsdmVersionMapping_NonStatic.SDRVersions;
         }
         #endregion
 
@@ -748,6 +750,294 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             CommonController commonController1 = new CommonController(_mockCommonService.Object, _mockLogg.Object);
             Assert.Throws<System.Exception>(() => commonController1.GetApiUsdmMapping());
+        }
+        #endregion
+
+        #region Search StudyDefintions
+        [Test]
+        public void SearchStudySuccessUnitTesting()
+        {
+            CommonStudyEntity mvp = GetData(Constants.USDMVersions.MVP);
+            CommonStudyEntity v1 = GetData(Constants.USDMVersions.V1);
+            CommonStudyEntity v2 = GetData(Constants.USDMVersions.V2);
+            List<SearchResponseEntity> studyList = new()
+            {
+                new SearchResponseEntity
+                {
+                    StudyIdentifiers = mvp.ClinicalStudy.StudyIdentifiers,
+                    StudyId = mvp.ClinicalStudy.StudyId,
+                    StudyTitle = mvp.ClinicalStudy.StudyTitle,
+                    StudyType = mvp.ClinicalStudy.StudyType,
+                    SDRUploadVersion = mvp.AuditTrail.SDRUploadVersion,
+                    EntryDateTime = mvp.AuditTrail.EntryDateTime,
+                    HasAccess = true,
+                    UsdmVersion = mvp.AuditTrail.UsdmVersion,
+                },
+                new SearchResponseEntity
+                {
+                    StudyIdentifiers = v1.ClinicalStudy.StudyIdentifiers,
+                    StudyId = v1.ClinicalStudy.StudyId,
+                    StudyTitle = v1.ClinicalStudy.StudyTitle,
+                    StudyType = v1.ClinicalStudy.StudyType,
+                    SDRUploadVersion = v1.AuditTrail.SDRUploadVersion,
+                    EntryDateTime = v1.AuditTrail.EntryDateTime,
+                    HasAccess = true,
+                    UsdmVersion = v1.AuditTrail.UsdmVersion,
+                },
+                new SearchResponseEntity
+                {
+                    StudyIdentifiers = v2.ClinicalStudy.StudyIdentifiers,
+                    StudyId = v2.ClinicalStudy.StudyId,
+                    StudyTitle = v2.ClinicalStudy.StudyTitle,
+                    StudyType = v2.ClinicalStudy.StudyType,
+                    SDRUploadVersion = v2.AuditTrail.SDRUploadVersion,
+                    EntryDateTime = v2.AuditTrail.EntryDateTime,
+                    HasAccess = true,
+                    UsdmVersion = v2.AuditTrail.UsdmVersion,
+                }
+            };
+
+            _mockCommonService.Setup(x => x.SearchStudy(It.IsAny<SearchParametersDto>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(studyList as object));
+            CommonController commonController = new CommonController(_mockCommonService.Object, _mockLogger);
+            SearchParametersDto searchParameters = new()
+            {
+                Indication = "Bile",
+                InterventionModel = "CROSS_OVER",
+                StudyTitle = "Umbrella",
+                PageNumber = 1,
+                PageSize = 25,
+                Phase = "PHASE_1_TRAIL",
+                StudyId = "100",
+                FromDate = DateTime.Now.AddDays(-5).ToString(),
+                ToDate = DateTime.Now.ToString()
+            };
+
+
+            var method = commonController.SearchStudy(searchParameters);
+            method.Wait();
+
+            var result = method.Result;
+
+            //Expected Result
+            var expected = studyList;
+
+            //Actual Result            
+            var actual_result = JsonConvert.DeserializeObject<List<SearchResponseEntity>>(
+                 JsonConvert.SerializeObject((result as ObjectResult).Value));
+
+            Assert.AreEqual(expected[0].StudyId, actual_result[0].StudyId);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+        }
+
+        [Test]
+        public void SearchStudyFailureUnitTesting()
+        {
+            
+
+            _mockCommonService.Setup(x => x.SearchStudy(It.IsAny<SearchParametersDto>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(null as object));
+            CommonController commonController = new CommonController(_mockCommonService.Object, _mockLogger);
+            SearchParametersDto searchParameters = new SearchParametersDto
+            {
+                Indication = "",
+                InterventionModel = "",
+                StudyTitle = "",
+                PageNumber = 0,
+                PageSize = 0,
+                Phase = "",
+                StudyId = "",
+                FromDate = "",
+                ToDate = ""
+            };
+
+
+            var method = commonController.SearchStudy(searchParameters);
+            method.Wait();
+
+            var result = method.Result;
+
+            //Expected Result
+            var expected = ErrorResponseHelper.BadRequest(Constants.ValidationErrorMessage.AnyOneFieldError);
+
+            //Actual Result            
+            var actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+
+
+
+            method = commonController.SearchStudy(null);
+            method.Wait();
+
+            result = method.Result;
+
+            //Expected Result
+            expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError);
+
+            //Actual Result            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+
+            SearchParametersDto searchParameters1 = new SearchParametersDto
+            {
+                Indication = "",
+                InterventionModel = "",
+                StudyTitle = "",
+                PageNumber = 0,
+                PageSize = 0,
+                Phase = "",
+                StudyId = "",
+                FromDate = DateTime.Now.AddDays(1).ToString(),
+                ToDate = DateTime.Now.ToString()
+            };
+
+            method = commonController.SearchStudy(searchParameters1);
+            method.Wait();
+
+            result = method.Result;
+
+            //Expected Result
+            expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError);
+
+            //Actual Result            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+
+
+            SearchParametersDto searchParameters2 = new SearchParametersDto
+            {
+                Indication = "Alzheimer",
+                InterventionModel = "",
+                StudyTitle = "",
+                PageNumber = 0,
+                PageSize = 0,
+                Phase = "",
+                StudyId = "",
+                FromDate = "",
+                ToDate = ""
+            };
+            _mockCommonService.Setup(x => x.SearchStudy(It.IsAny<SearchParametersDto>(), It.IsAny<LoggedInUser>()))
+               .Throws(new Exception("Error"));
+
+            method = commonController.SearchStudy(searchParameters2);
+            method.Wait();
+
+            result = method.Result;
+
+            //Expected Result
+            expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError);
+
+            //Actual Result            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+
+            
+            _mockCommonService.Setup(x => x.SearchStudy(It.IsAny<SearchParametersDto>(), It.IsAny<LoggedInUser>()))
+              .Returns(Task.FromResult(null as object));
+            method = commonController.SearchStudy(searchParameters2);
+            method.Wait();
+
+            result = method.Result;
+
+            //Expected Result
+            expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.SearchNotFound);
+
+            //Actual Result            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(404, (result as ObjectResult).StatusCode);
+        }
+
+        #endregion
+
+        #region Get Links 
+        [Test]
+        public void GetLinksSuccessUnitTesting()
+        {
+            LinksResponseDto links = new LinksResponseDto 
+            { 
+                StudyId = "1", SDRUploadVersion = 1, UsdmVersion = "2.0", 
+                Links = LinksHelper.GetLinksForEndpoint("1", Constants.USDMVersions.V1, 1) 
+            };
+            links.Links = LinksHelper.GetLinksForEndpoint("1", Constants.USDMVersions.MVP, 1);
+            var link = LinksHelper.GetLinks("1",null, Constants.USDMVersions.MVP, 1);
+            _mockCommonService.Setup(x => x.GetLinks(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(links as object));
+            CommonController commonController = new CommonController(_mockCommonService.Object, _mockLogger);
+
+            var method = commonController.GetLinks("sd", 1);
+            method.Wait();
+            var result = method.Result;
+
+            //Expected
+            var expected = links;
+
+            //Actual            
+            var actual_result = JsonConvert.DeserializeObject<LinksResponseDto>(
+                 JsonConvert.SerializeObject((result as OkObjectResult).Value));
+
+            Assert.AreEqual(expected.StudyId, actual_result.StudyId);
+        }
+
+        [Test]
+        public void GetLinksFailureUnitTesting()
+        {
+            _mockCommonService.Setup(x => x.GetLinks(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(null as object));
+            CommonController commonController = new CommonController(_mockCommonService.Object, _mockLogger);
+
+            var method = commonController.GetLinks("sd", 1);
+            method.Wait();
+            var result = method.Result;
+
+            var expected = new ErrorModel { message = Constants.ErrorMessages.StudyNotFound, statusCode = "404" };
+
+            //Actual            
+            var actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(404, (result as ObjectResult).StatusCode);
+
+            _mockCommonService.Setup(x => x.GetLinks(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+               .Throws(new Exception(""));
+
+            method = commonController.GetLinks("sd", 1);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.GenericError, statusCode = "400" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+
+            method = commonController.GetLinks("", 1);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.StudyInputError, statusCode = "400" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
         }
         #endregion
     }
