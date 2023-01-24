@@ -186,7 +186,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         public void GeteCPTUnitTesting()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/DataeCPT.json");
-            var data = JsonConvert.DeserializeObject<List<StudyeCPTDto>>(jsonData);
+            var data = JsonConvert.DeserializeObject<eCPTDto>(jsonData);
             _mockCommonService.Setup(x => x.GeteCPT(It.IsAny<string>(), It.IsAny<int>(),It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(data as object));
             CommonController commonController = new CommonController(_mockCommonService.Object, _mockLogger);
@@ -197,16 +197,16 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             var expected = data;
 
-            var actual_result = JsonConvert.DeserializeObject<List<StudyeCPTDto>>(
+            var actual_result = JsonConvert.DeserializeObject<eCPTDto> (
                                 JsonConvert.SerializeObject((result as OkObjectResult).Value));
 
-            Assert.AreEqual(expected.Count(), actual_result.Count());
+            Assert.AreEqual(expected.StudyDesign, actual_result.StudyDesign);
         }
         [Test]
         public void GeteCPTData_FaulureUnitTesting()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/DataeCPT.json");
-            var data = JsonConvert.DeserializeObject<List<StudyeCPTDto>>(jsonData);
+            var data = JsonConvert.DeserializeObject<eCPTDto>(jsonData);
             data = null;
 
             //Study NotFound Case
@@ -247,6 +247,24 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(403, (result as ObjectResult).StatusCode);
 
+            //StudyDesignNotFound
+            _mockCommonService.Setup(x => x.GeteCPT(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(Constants.ErrorMessages.StudyDesignIdNotFoundCPT as object));
+
+            method = commonController.GeteCPT("sd", 1,"");
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { message = Constants.ErrorMessages.StudyDesignIdNotFoundCPT, statusCode = "404" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(404, (result as ObjectResult).StatusCode);
+
             //eCPT Error
             _mockCommonService.Setup(x => x.GeteCPT(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                .Returns(Task.FromResult(Constants.ErrorMessages.eCPTError as object));
@@ -263,7 +281,6 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             Assert.AreEqual(expected.message, actual_result.message);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
-
 
             //Exception case
             _mockCommonService.Setup(x => x.GeteCPT(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
@@ -300,13 +317,13 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
             _mockCommonService.Setup(x => x.GeteCPT(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
-             .Returns(Task.FromResult(Constants.ErrorMessages.StudyDesignNotFound as object));
+             .Returns(Task.FromResult(Constants.ErrorMessages.StudyDesignNotFoundCPT as object));
             method = commonController.GeteCPT("sd", 1, "");
             method.Wait();
             result = method.Result;
 
             //Expected
-            expected = new ErrorModel { message = Constants.ErrorMessages.StudyDesignNotFound, statusCode = "404" };
+            expected = new ErrorModel { message = Constants.ErrorMessages.StudyDesignNotFoundCPT, statusCode = "404" };
 
             //Actual            
             actual_result = (result as ObjectResult).Value as ErrorModel;

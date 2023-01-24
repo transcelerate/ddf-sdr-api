@@ -212,6 +212,11 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string eCPTError = "CPT export data cannot be generated for this study";
 
             public const string CPTNotFound = "The requested CPT variables are not available";
+
+            public const string StudyDesignIdNotFoundCPT = "The requested study design not found and eCPT data cannot be generated";
+
+            public const string StudyDesignNotFoundCPT = "The study design is not available for the given study and eCPT data cannot be generated";
+
         }
 
         public struct TokenConstants
