@@ -38,9 +38,12 @@ namespace TransCelerate.SDR.AzureFunctions
             //Check The AuditTrails
             List<AuditTrailEntity> auditTrailEntities = _changeAuditReposotory.GetAuditTrailsAsync(serviceBusMessageEntity.Study_uuid, serviceBusMessageEntity.CurrentVersion);
             string currentUsdmVersion = auditTrailEntities.Where(x => x.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion).FirstOrDefault().UsdmVersion;
-            string previousUsdmVersion = auditTrailEntities.Where(x => x.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion - 1).FirstOrDefault().UsdmVersion;            
+            string previousUsdmVersion = auditTrailEntities.Where(x => x.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion - 1).FirstOrDefault().UsdmVersion;
 
-            if (currentUsdmVersion != previousUsdmVersion)
+            string currentApiVersion = ApiUsdmVersionMapping.SDRVersions.Where(x => x.UsdmVersions.Contains(currentUsdmVersion)).Select(x => x.ApiVersion).First();
+            string previousApiVersion = ApiUsdmVersionMapping.SDRVersions.Where(x => x.UsdmVersions.Contains(previousUsdmVersion)).Select(x => x.ApiVersion).First();
+
+            if (currentApiVersion != previousApiVersion)
             {
                 //Get the change audit data for studyId
                 ChangeAuditStudyEntity changeAuditEntity = _changeAuditReposotory.GetChangeAuditAsync(serviceBusMessageEntity.Study_uuid);
@@ -52,21 +55,25 @@ namespace TransCelerate.SDR.AzureFunctions
             }
             else
             {
-                //Get the studies with current and previous version
-                List<StudyEntity> studyEntities = _changeAuditReposotory.GetStudyItemsAsync(serviceBusMessageEntity.Study_uuid, serviceBusMessageEntity.CurrentVersion);
+                List<string> changedValues = new List<string>();
+                if (currentApiVersion == Constants.ApiVersions.V2)
+                {
+                    //Get the studies with current and previous version
+                    List<StudyEntity> studyEntities = _changeAuditReposotory.GetStudyItemsAsync(serviceBusMessageEntity.Study_uuid, serviceBusMessageEntity.CurrentVersion);
 
-                StudyEntity currentStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion).FirstOrDefault();
-                StudyEntity previousStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion - 1).FirstOrDefault();
+                    StudyEntity currentStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion).FirstOrDefault();
+                    StudyEntity previousStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion - 1).FirstOrDefault();
 
-                //Get the changes between current and previous version
-                List<string> changedValues = _helper.GetChangedValues(currentStudyVersion, previousStudyVersion);
-                changedValues = FormatChangeAuditElements(changedValues);
+                    //Get the changes between current and previous version
+                    changedValues = _helper.GetChangedValues(currentStudyVersion, previousStudyVersion);
+                    changedValues = FormatChangeAuditElements(changedValues);                    
+                }
 
                 //Get the change audit data for studyId
                 ChangeAuditStudyEntity changeAuditEntity = _changeAuditReposotory.GetChangeAuditAsync(serviceBusMessageEntity.Study_uuid);
 
                 //Update changeAudit if exist/ create changeAudit if new
-                AddChangeAuditInDatabase(changeAuditEntity, serviceBusMessageEntity, changedValues, currentStudyVersion.AuditTrail);
+                AddChangeAuditInDatabase(changeAuditEntity, serviceBusMessageEntity, changedValues, auditTrailEntities.Where(x => x.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion).FirstOrDefault());
             }
         }
         

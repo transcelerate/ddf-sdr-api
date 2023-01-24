@@ -74,7 +74,12 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string V1 = "1.0";
             public const string V2 = "2.0";
         }
-
+        public struct ApiVersions
+        {
+            public const string MVP = "mvp";
+            public const string V1 = "v1";
+            public const string V2 = "v2";
+        }
         public struct DbFilter
         {
             public const string StudyId = "clinicalStudy.studyId";
