@@ -142,9 +142,13 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     {
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.eCPTError)).Value);
                     }
-                    else if (study.ToString() == Constants.ErrorMessages.StudyDesignNotFound)
+                    else if (study.ToString() == Constants.ErrorMessages.StudyDesignNotFoundCPT)
                     {
-                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyDesignNotFound)).Value);
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyDesignNotFoundCPT)).Value);
+                    }
+                    else if (study.ToString() == Constants.ErrorMessages.StudyDesignIdNotFoundCPT)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyDesignIdNotFoundCPT)).Value);
                     }
                     else
                     {
