@@ -16,6 +16,7 @@ using System.Net.WebSockets;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using ObjectsComparer;
 using MongoDB.Driver;
+using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
 {
@@ -39,6 +40,12 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ChangeAuditData.json");
             return JsonConvert.DeserializeObject<ChangeAuditStudyEntity>(jsonData);
         }
+        [SetUp]
+        public void SetUp()
+        {
+            ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ApiUsdmVersionMapping.json"));
+            ApiUsdmVersionMapping.SDRVersions = apiUsdmVersionMapping_NonStatic.SDRVersions;
+        }
         [Test]
         public void ProcessMessage_UnitTesting()
         {
@@ -47,7 +54,9 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
             var currentVersion=GetEntityDataFromStaticJson();
             var previousVersion=GetEntityDataFromStaticJson();
             currentVersion.AuditTrail.SDRUploadVersion = 2;
+            currentVersion.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
             previousVersion.AuditTrail.SDRUploadVersion = 1;
+            previousVersion.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
             List<StudyEntity> studyEntities = new List<StudyEntity>
             {
                 currentVersion,previousVersion
@@ -95,6 +104,11 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
                 .Returns(studyEntities1);
             _mockHelper.Setup(x => x.GetChangedValues(It.IsAny<StudyEntity>(), It.IsAny<StudyEntity>()))
                 .Returns(difference1);
+            processor.ProcessMessage(message);
+
+            previousVersion.AuditTrail.UsdmVersion = Constants.USDMVersions.MVP;
+            _mockChangeAuditRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
+                .Returns(studyEntities1);
             processor.ProcessMessage(message);
 
         }
@@ -157,7 +171,9 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
 
 
             currentVersion.AuditTrail.SDRUploadVersion = 2;
+            currentVersion.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;            
             previousVersion.AuditTrail.SDRUploadVersion = 1;
+            previousVersion.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
             List<StudyEntity> studyEntities = new List<StudyEntity>
             {
                 currentVersion,previousVersion

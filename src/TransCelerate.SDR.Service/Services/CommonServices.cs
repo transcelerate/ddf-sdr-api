@@ -120,29 +120,26 @@ namespace TransCelerate.SDR.Services.Services
                 else
                 {
                     if (study.AuditTrail.UsdmVersion != Constants.USDMVersions.V2)
-                    {
                             return Constants.ErrorMessages.eCPTError;
-                    }
+
                     var jsonObject = JObject.Parse(JsonConvert.SerializeObject(study.ClinicalStudy));
-
-
                     if (!await CheckAccessForAStudy(studyId, (string)jsonObject["studyType"]["decode"], user))
                         return Constants.ErrorMessages.Forbidden;
 
                     var studyV2 = JsonConvert.DeserializeObject<TransCelerate.SDR.Core.DTO.StudyV2.ClinicalStudyDto>(JsonConvert.SerializeObject(study.ClinicalStudy));
+
                     if(studyV2.StudyDesigns==null || !studyV2.StudyDesigns.Any())
-                        return Constants.ErrorMessages.StudyDesignNotFound;
+                        return Constants.ErrorMessages.StudyDesignNotFoundCPT;
+
                     if (studyDesignId != null)
                     {
                         if (studyV2.StudyDesigns.Any(x => x.Id == studyDesignId))
                             studyV2.StudyDesigns.RemoveAll(x => x.Id != studyDesignId);
                         else
-                            return Constants.ErrorMessages.StudyDesignNotFound;
+                            return Constants.ErrorMessages.StudyDesignIdNotFoundCPT;
                     }
 
                     var eCPT = GetCPTDataV2(studyV2, study.AuditTrail);
-      
-                    
 
                     return eCPT;
                 }
@@ -157,22 +154,33 @@ namespace TransCelerate.SDR.Services.Services
             }
         }
 
-        public List<StudyeCPTDto> GetCPTDataV2(TransCelerate.SDR.Core.DTO.StudyV2.ClinicalStudyDto clinicalStudyDto, AuditTrailEntity auditTrail)
+        public eCPTDto GetCPTDataV2(TransCelerate.SDR.Core.DTO.StudyV2.ClinicalStudyDto clinicalStudyDto, AuditTrailEntity auditTrail)
         {
-            List<StudyeCPTDto> studyeCPTDtos = new List<StudyeCPTDto>();
+            var links = LinksHelper.GetLinks(clinicalStudyDto.StudyId, clinicalStudyDto.StudyDesigns.Select(c => c.Id).ToList(), auditTrail.UsdmVersion, auditTrail.SDRUploadVersion);
+            StudyDetailsDto studyDetailsDto = new StudyDetailsDto
+            {
+                StudyId = clinicalStudyDto.StudyId,
+                StudyTitle = clinicalStudyDto.StudyTitle,
+
+                UsdmVersion = auditTrail.UsdmVersion,
+                SDRUploadVersion = auditTrail.SDRUploadVersion,
+                Links = new
+                {
+                    StudyDefinitions = links.StudyDefinitions,
+                    AuditTrail = links.AuditTrail
+                },
+            };
+            List<StudyDesignDto> studyeCPTDtos = new List<StudyDesignDto>();
             if (clinicalStudyDto.StudyDesigns != null && clinicalStudyDto.StudyDesigns.Any())
             {
+               
                 clinicalStudyDto.StudyDesigns.ForEach(design =>
-                {
-                    StudyeCPTDto studyeCPTDto = new StudyeCPTDto
+                {   
+                    StudyDesignDto studyeCPTDto = new StudyDesignDto
                     {
-                        StudyId = clinicalStudyDto.StudyId,
-                        StudyTitle = clinicalStudyDto.StudyTitle,
-                        StudyDesignId = design.Id,
+                        StudyDesignId=design.Id,
+                        StudyDesignLink=links.StudyDesigns.Find(x=>x.StudyDesignId==design.Id).StudyDesignLink,
                         StudyDesignName = design.StudyDesignName,
-                        UsdmVersion=auditTrail.UsdmVersion,
-                        SDRUploadVersion=auditTrail.SDRUploadVersion,
-                        Links=LinksHelper.GetLinks(clinicalStudyDto.StudyId,new List<string> { design.Id},auditTrail.UsdmVersion,auditTrail.SDRUploadVersion),
                         ECPTData = new eCPTDataDto
                         {
                             TitlePage = new TitlePageDto
@@ -269,7 +277,11 @@ namespace TransCelerate.SDR.Services.Services
                     studyeCPTDtos.Add(studyeCPTDto);
                 });
             }
-            return studyeCPTDtos;
+            return new eCPTDto
+            {
+                StudyDesign = studyeCPTDtos,
+                StudyDetails = studyDetailsDto
+            };    
         }
 
 
