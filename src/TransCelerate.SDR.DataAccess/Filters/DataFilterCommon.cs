@@ -99,7 +99,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
                                              builder.ElemMatch<BsonDocument>(Constants.DbFilter.StudyIdentifiers, new BsonDocument() 
                                                      { 
                                                          { Constants.DbFilter.StudyIdentifierOrganisationIdentifier, new BsonRegularExpression($"/{searchParameters.StudyId}/i") } ,
-                                                         { Constants.DbFilter.StudyIdentifierOrganisationTypeDecode, new BsonRegularExpression($"/{Constants.IdType.SPONSOR_ID_V1}/i")} 
+                                                         { Constants.DbFilter.StudyIdentifierOrganisationTypeDecode, new BsonRegularExpression($"/{Constants.IdType.SPONSOR_ID_V1}$/i")} 
                                                      }
                                                  )                                                
                                              ),
@@ -107,7 +107,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
                                             builder.ElemMatch<BsonDocument>(Constants.DbFilter.StudyIdentifiers, new BsonDocument()
                                                      {
                                                          { Constants.DbFilter.StudyIdentifierOrgCode, new BsonRegularExpression($"/{searchParameters.StudyId}/i") } ,
-                                                         { Constants.DbFilter.StudyIdentifierIdType, new BsonRegularExpression($"/{Constants.IdType.SPONSOR_ID}/i")}
+                                                         { Constants.DbFilter.StudyIdentifierIdType, new BsonRegularExpression($"/{Constants.IdType.SPONSOR_ID}$/i")}
                                                      }
                                                  )
                                              )
@@ -143,7 +143,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
                              builder.ElemMatch<BsonDocument>(Constants.DbFilter.StudyIdentifiers, new BsonDocument()
                                      {
                                                          { Constants.DbFilter.StudyIdentifierOrganisationIdentifier, new BsonRegularExpression($"/{searchParameters.StudyId}/i") } ,
-                                                         { Constants.DbFilter.StudyIdentifierOrganisationTypeDecode, new BsonRegularExpression($"/{Constants.IdType.SPONSOR_ID_V1}/i")}
+                                                         { Constants.DbFilter.StudyIdentifierOrganisationTypeDecode, new BsonRegularExpression($"/{Constants.IdType.SPONSOR_ID_V1}$/i")}
                                      }
                                  )
                              ),
@@ -151,7 +151,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
                             builder.ElemMatch<BsonDocument>(Constants.DbFilter.StudyIdentifiers, new BsonDocument()
                                      {
                                                          { Constants.DbFilter.StudyIdentifierOrgCode, new BsonRegularExpression($"/{searchParameters.StudyId}/i") } ,
-                                                         { Constants.DbFilter.StudyIdentifierIdType, new BsonRegularExpression($"/{Constants.IdType.SPONSOR_ID}/i")}
+                                                         { Constants.DbFilter.StudyIdentifierIdType, new BsonRegularExpression($"/{Constants.IdType.SPONSOR_ID}$/i")}
                                      }
                                  )
                              )

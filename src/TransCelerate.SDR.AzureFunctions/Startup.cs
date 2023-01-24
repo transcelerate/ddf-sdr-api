@@ -15,6 +15,7 @@ using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.WebJobs;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
+using Newtonsoft.Json;
 
 [assembly: FunctionsStartup(typeof(TransCelerate.SDR.AzureFunctions.Startup))]
 namespace TransCelerate.SDR.AzureFunctions
@@ -43,6 +44,10 @@ namespace TransCelerate.SDR.AzureFunctions
 
             Config.ConnectionString = Convert.ToString(buildConfig["ConnectionStrings:ServerName"]);
             Config.DatabaseName = Convert.ToString(buildConfig["ConnectionStrings:DatabaseName"]);
+            Config.ApiVersionUsdmVersionMapping = Convert.ToString(buildConfig["ApiVersionUsdmVersionMapping"]);
+
+            ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(Config.ApiVersionUsdmVersionMapping);
+            ApiUsdmVersionMapping.SDRVersions = apiUsdmVersionMapping_NonStatic.SDRVersions;
 
             builder.Services.AddTransient<IMessageProcessor, MessageProcessor>();
             builder.Services.AddTransient<ILogHelper, LogHelper>();
