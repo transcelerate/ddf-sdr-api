@@ -198,6 +198,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.Encounters).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.Encounters).Substring(1)))).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyDesignRationale).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.StudyDesignRationale).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.StudyDesignRationale).Substring(1)))).ToList().ForEach(x => x.Remove());
+                            else if (item == nameof(StudyDesignDto.StudyDesignBlindingScheme).ToLower())
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.StudyDesignBlindingScheme).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.StudyDesignBlindingScheme).Substring(1)))).ToList().ForEach(x => x.Remove());
                         }
                     }
                 }
@@ -624,7 +626,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                 changedValues.Add($"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.StudyType)}");
             
             //StudyPhase
-            changedValues.AddRange(GetDifferenceForStudyPhase(currentStudyVersion.ClinicalStudy.StudyPhase, previousStudyVersion.ClinicalStudy.StudyPhase));
+            GetDifferenceForAliasCode(currentStudyVersion.ClinicalStudy.StudyPhase, previousStudyVersion.ClinicalStudy.StudyPhase).ForEach(x =>
+            {
+                changedValues.Add($"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.StudyPhase)}.{x}");
+            });
 
             //BusinessTherapeuticAreas
             if (GetDifferences<List<CodeEntity>>(currentStudyVersion.ClinicalStudy.BusinessTherapeuticAreas, previousStudyVersion.ClinicalStudy.BusinessTherapeuticAreas).Any())
@@ -703,19 +708,24 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
             return tempList;
         }
 
-        public List<string> GetDifferenceForStudyPhase(AliasCodeEntity currentVersion, AliasCodeEntity previousVersion)
+        public List<string> GetDifferenceForAliasCode(AliasCodeEntity currentVersion, AliasCodeEntity previousVersion)
         {
             var tempList = new List<string>();
-            if (currentVersion.Id != previousVersion.Id)
+            if ((currentVersion is null && previousVersion is not null) || (currentVersion is not null && previousVersion is null))
             {
-                tempList.Add($"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.StudyPhase)}");
+                tempList.Add("T");
                 return tempList;
             }
-            if (GetDifferences<CodeEntity>(currentVersion.StandardCode, previousVersion.StandardCode).Any())
-                tempList.Add($"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.StudyPhase)}.{nameof(AliasCodeEntity.StandardCode)}");
+            if (currentVersion?.Id != previousVersion?.Id)
+            {
+                tempList.Add("T");
+                return tempList;
+            }
+            if (GetDifferences<CodeEntity>(currentVersion?.StandardCode, previousVersion?.StandardCode).Any())
+                tempList.Add($"{nameof(AliasCodeEntity.StandardCode)}");
 
-            if (GetDifferences<List<CodeEntity>>(currentVersion.StandardCodeAliases, previousVersion.StandardCodeAliases).Any())
-                tempList.Add($"{nameof(StudyEntity.ClinicalStudy)}.{nameof(ClinicalStudyEntity.StudyPhase)}.{nameof(AliasCodeEntity.StandardCodeAliases)}");
+            if (GetDifferences<List<CodeEntity>>(currentVersion?.StandardCodeAliases, previousVersion?.StandardCodeAliases).Any())
+                tempList.Add($"{nameof(AliasCodeEntity.StandardCodeAliases)}");
             return tempList;
         }
 
@@ -812,6 +822,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
 
                         //Workflows                        
                         changedValues.AddRange(GetDifferenceForStudyWorkFlows(currentStudyDesign, previousStudyDesign));
+
+                        //DesignBlindingScheme
+                        GetDifferenceForAliasCode(currentStudyDesign.StudyDesignBlindingScheme, previousStudyDesign.StudyDesignBlindingScheme).ForEach(x =>
+                        {
+                            changedValues.Add($"{nameof(StudyDesignEntity.StudyDesignBlindingScheme)}.{x}");
+                        });
 
 
                         //Encounters

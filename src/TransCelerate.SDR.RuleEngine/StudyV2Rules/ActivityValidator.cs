@@ -45,10 +45,10 @@ namespace TransCelerate.SDR.RuleEngineV2
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.StudyDataCollection)), ApplyConditionTo.AllValidators)
                .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
-            RuleFor(x => x.ActivityIsOptional)
+            RuleFor(x => x.ActivityIsConditional)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.ActivityIsOptional)), ApplyConditionTo.AllValidators)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.ActivityIsConditional)), ApplyConditionTo.AllValidators)
                 .Must(ValidateDatatype.ValidateBoolean).WithMessage(Constants.ValidationErrorMessage.BooleanValidationFailed);
 
             RuleFor(x => x.NextActivityId)
@@ -63,11 +63,11 @@ namespace TransCelerate.SDR.RuleEngineV2
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.PreviousActivityId)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.ActivityIsOptionalReason)
+            RuleFor(x => x.ActivityIsConditionalReason)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.ActivityIsOptionalReason)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.ActivityIsConditionalReason)), ApplyConditionTo.AllValidators);
         }
     }
 }

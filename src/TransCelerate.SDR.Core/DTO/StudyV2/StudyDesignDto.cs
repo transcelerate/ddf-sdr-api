@@ -23,5 +23,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
         public List<ActivityDto> Activities { get; set; }
         public List<EncounterDto> Encounters { get; set; }
         public string StudyDesignRationale { get; set; }
+        public AliasCodeDto StudyDesignBlindingScheme { get; set; }
     }
 }
