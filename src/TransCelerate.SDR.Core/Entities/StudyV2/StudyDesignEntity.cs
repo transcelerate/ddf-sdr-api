@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TransCelerate.SDR.Core.DTO.StudyV2;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
@@ -24,5 +25,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
         public List<ActivityEntity> Activities { get; set; }
         public List<EncounterEntity> Encounters { get; set; }
         public string StudyDesignRationale { get; set; }
+        public AliasCodeEntity StudyDesignBlindingScheme { get; set; }
     }
 }

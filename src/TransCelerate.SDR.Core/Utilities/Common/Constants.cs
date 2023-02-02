@@ -260,6 +260,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(StudyDesignDto.Activities),
             nameof(StudyDesignDto.Encounters),
             nameof(StudyDesignDto.StudyDesignRationale),
+            nameof(StudyDesignDto.StudyDesignBlindingScheme)
         };
 
         public struct FunctionAppConstants

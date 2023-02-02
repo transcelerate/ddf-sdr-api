@@ -34,7 +34,13 @@
             "district": "district ",
             "state": "state ",
             "postalCode": " postalCode",
-            "country": "country "
+            "country": {
+              "codeId": "8fcecddf-bbe2-4e71-ad97-114cbc3f1cbd",
+              "code": "C2365x",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "1",
+              "decode": "Clinical Study Sponsor"
+            }
           }
         }
       },
@@ -60,7 +66,13 @@
             "district": "district ",
             "state": "state ",
             "postalCode": " postalCode",
-            "country": "country "
+            "country": {
+              "codeId": "8fcecddf-bbe2-4e71-ad97-114cbc3f1cbt",
+              "code": "C2365x",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "1",
+              "decode": "Clinical Study Sponsor"
+            }
           }
 
         }
@@ -120,14 +132,13 @@
         "studyDesignId": "e2b6594a-a077-4645-9cae-a1de19f88c69",
         "studyDesignName": "name",
         "studyDesignDescription": "desc",
-        "interventionModel": 
-          {
-            "codeId": "4997ed7c-ce9a-4459-bf5d-19d9a8d5c772",
-            "code": "C82639",
-            "codeSystem": "http:www.cdisc.org",
-            "codeSystemVersion": "2022-03-25",
-            "decode": "Parallel"
-          },
+        "interventionModel": {
+          "codeId": "4997ed7c-ce9a-4459-bf5d-19d9a8d5c772",
+          "code": "C82639",
+          "codeSystem": "http:www.cdisc.org",
+          "codeSystemVersion": "2022-03-25",
+          "decode": "Parallel"
+        },
         "trialIntentType": [
           {
             "codeId": "9fc53378-ac85-463d-8f9f-587bba5bb605",
@@ -189,27 +200,25 @@
           {
             "objectiveId": "1cedd7c7-65b0-48b4-ac93-cbe046c27e9d",
             "objectiveDescription": "Objective Level 1",
-            "objectiveLevel": 
-              {
-                "codeId": "2ae454b4-b37b-4986-9b3c-d5044bc4aec7",
-                "code": "C9844x",
-                "codeSystem": "http:www.cdisc.org",
-                "codeSystemVersion": "1",
-                "decode": "OBJ LEVEL"
-              },
+            "objectiveLevel": {
+              "codeId": "2ae454b4-b37b-4986-9b3c-d5044bc4aec7",
+              "code": "C9844x",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "1",
+              "decode": "OBJ LEVEL"
+            },
             "objectiveEndpoints": [
               {
                 "endpointId": "f0576462-4eb8-4db9-aef4-1334249d8c7f",
                 "endpointDescription": "Endpoint 1",
                 "endpointPurposeDescription": "level description",
-                "endpointLevel": 
-                  {
-                    "codeId": "END001",
-                    "code": "C9834x",
-                    "codeSystem": "http:www.cdisc.org",
-                    "codeSystemVersion": "1",
-                    "decode": "PURPOSE"
-                  }
+                "endpointLevel": {
+                  "codeId": "END001",
+                  "code": "C9834x",
+                  "codeSystem": "http:www.cdisc.org",
+                  "codeSystemVersion": "1",
+                  "decode": "PURPOSE"
+                }
               }
             ]
           }
@@ -249,14 +258,13 @@
               ],
               "studyArmDescription": "The Placebo Arm",
               "studyArmName": "Placebo",
-              "studyArmType": 
-                {
-                  "codeId": "77c714cf-ac76-4843-a4b6-1c68b8be7590",
-                  "code": "C174268",
-                  "codeSystem": "http:www.cdisc.org",
-                  "codeSystemVersion": "2022-03-25",
-                  "decode": "Placebo Control Arm"
-                }
+              "studyArmType": {
+                "codeId": "77c714cf-ac76-4843-a4b6-1c68b8be7590",
+                "code": "C174268",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "2022-03-25",
+                "decode": "Placebo Control Arm"
+              }
             },
             "studyEpoch": {
               "studyEpochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d9",
@@ -468,13 +476,13 @@
             "activityId": "ACT01",
             "activityDescription": "Activity_1",
             "activityName": "Informed Consent",
-            "activityIsOptional": true,
-            "activityIsOptionalReason": "",
+            "activityIsConditional": true,
+            "activityIsConditionalReason": "",
             "definedProcedures": [
               {
                 "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
-                "procedureIsOptional": true,
-                "procedureIsOptionalReason": "",
+                "procedureIsConditional": true,
+                "procedureIsConditionalReason": "",
                 "procedureCode": [
                   {
                     "codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
@@ -502,13 +510,13 @@
             "activityId": "ACT02",
             "activityDescription": "Activity_1",
             "activityName": "Eligibility Criteria",
-            "activityIsOptional": false,
-            "activityIsOptionalReason": "",
+            "activityIsConditional": false,
+            "activityIsConditionalReason": "",
             "definedProcedures": [
               {
                 "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
-                "procedureIsOptional": false,
-                "procedureIsOptionalReason": "",
+                "procedureIsConditional": false,
+                "procedureIsConditionalReason": "",
                 "procedureCode": [
                   {
                     "codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
@@ -563,6 +571,25 @@
             ]
           }
         ],
+        "studyDesignBlindingScheme": {
+          "aliasCodeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f619",
+          "standardCode": {
+            "codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f613",
+            "code": "C49686",
+            "codeSystem": "http:www.cdisc.org",
+            "codeSystemVersion": "2022-03-25",
+            "decode": "Phase IIa Trial"
+          },
+          "standardCodeAliases": [
+            {
+              "codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f619",
+              "code": "C49686",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "2022-03-25",
+              "decode": "Phase IIa Trial"
+            }
+          ]
+        },
         "studyDesignRationale": "Rationale "
       }
     ],
