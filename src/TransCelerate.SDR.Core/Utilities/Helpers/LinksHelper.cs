@@ -100,7 +100,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 string apiVersion = ApiUsdmVersionMapping.SDRVersions.Where(x => x.UsdmVersions.Contains(usdmVersion)).Select(x => x.ApiVersion).First();
                 links.StudyDefinitions = $"/{apiVersion}" +$"/studydefinitions/{studyId}?sdruploadversion={sdruploadversion}";
                 links.StudyDesigns = GetDesignLinks(studyId, studyDesignIds, usdmVersion, sdruploadversion);
-                links.SoA = usdmVersion != Constants.USDMVersions.V1 ? $"/{apiVersion}/studydefinitions/{studyId}/studydesigns/soa?sdruploadversion{sdruploadversion}" : null;
+                links.SoA = usdmVersion != Constants.USDMVersions.V1 ? $"/{apiVersion}/studydefinitions/{studyId}/studydesigns/soa?sdruploadversion={sdruploadversion}" : null;
             }
             return links;
         }
@@ -119,7 +119,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 string apiVersion = ApiUsdmVersionMapping.SDRVersions.Where(x => x.UsdmVersions.Contains(usdmVersion)).Select(x => x.ApiVersion).First();
                 links.StudyDefinitions = $"/{ApiUsdmVersionMapping.SDRVersions.Where(x => x.UsdmVersions.Contains(usdmVersion)).Select(x => x.ApiVersion).First()}" +
                                          $"/studydefinitions/{studyId}?sdruploadversion={sdruploadversion}";
-                links.SoA = usdmVersion != Constants.USDMVersions.V1 ? $"/{apiVersion}/studydefinitions/{studyId}/studydesigns/soa?sdruploadversion{sdruploadversion}" : null;
+                links.SoA = usdmVersion != Constants.USDMVersions.V1 ? $"/{apiVersion}/studydefinitions/{studyId}/studydesigns/soa?sdruploadversion={sdruploadversion}" : null;
             }
             return links;
         }
