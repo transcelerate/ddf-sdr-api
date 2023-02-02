@@ -13,7 +13,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
         public string NextActivityId { get; set; }
         public string PreviousActivityId { get; set; }
         public List<StudyDataEntity> StudyDataCollection { get; set; }
-        public bool ActivityIsOptional { get; set; }
-        public string ActivityIsOptionalReason { get; set; }
+        public bool ActivityIsConditional { get; set; }
+        public string ActivityIsConditionalReason { get; set; }
     }
 }

@@ -204,10 +204,10 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsTrue(Validator<WorkflowDto>(new WorkflowValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0]));
             Assert.IsTrue(Validator<WorkflowItemDto>(new WorkflowItemValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0]));
             Assert.IsTrue(Validator<ActivityDto>(new ActivityValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].Activities[0]));
-            studyDto.ClinicalStudy.StudyDesigns[0].Activities[0].ActivityIsOptional = true;
-            studyDto.ClinicalStudy.StudyDesigns[0].Activities[1].ActivityIsOptional = "entity";
-            studyDto.ClinicalStudy.StudyDesigns[0].Activities[0].DefinedProcedures[0].ProcedureIsOptional = true;
-            studyDto.ClinicalStudy.StudyDesigns[0].Activities[1].DefinedProcedures[0].ProcedureIsOptional = "12";
+            studyDto.ClinicalStudy.StudyDesigns[0].Activities[0].ActivityIsConditional = true;
+            studyDto.ClinicalStudy.StudyDesigns[0].Activities[1].ActivityIsConditional = "entity";
+            studyDto.ClinicalStudy.StudyDesigns[0].Activities[0].DefinedProcedures[0].ProcedureIsConditional = true;
+            studyDto.ClinicalStudy.StudyDesigns[0].Activities[1].DefinedProcedures[0].ProcedureIsConditional = "12";
             Assert.IsFalse(Validator<ActivityDto>(new ActivityValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].Activities[1]));
             Assert.IsTrue(Validator<AddressDto>(new AddressValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyIdentifiers[0].StudyIdentifierScope.OrganizationLegalAddress));
         }
