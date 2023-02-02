@@ -63,10 +63,11 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// Search the collection based on search criteria
         /// </summary>
         /// <param name="searchParameters">Parameters to search in database</param>        
+        /// <param name="user">Loggedin User</param>        
         /// <returns>
         /// A <see cref="List{SearchResponseEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        Task<List<SearchResponseEntity>> SearchStudy(SearchParametersEntity searchParameters);
+        Task<List<SearchResponseEntity>> SearchStudy(SearchParametersEntity searchParameters, LoggedInUser user);
     }
 }

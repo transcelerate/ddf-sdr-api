@@ -873,7 +873,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 }
             };
             CommonCodeEntity commonCode = JsonConvert.DeserializeObject<CommonCodeEntity>(JsonConvert.SerializeObject(v2.ClinicalStudy.StudyType));
-            _mockCommonRepository.Setup(x => x.SearchStudy(It.IsAny<SearchParametersEntity>()))
+            _mockCommonRepository.Setup(x => x.SearchStudy(It.IsAny<SearchParametersEntity>(),user))
                  .Returns(Task.FromResult(studyList));
 
             SearchParametersDto searchParameters = new()
@@ -888,7 +888,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 FromDate = DateTime.Now.AddDays(-5).ToString(),
                 ToDate = DateTime.Now.ToString(),
                 Asc = true,
-                Header = "sdrversion"
+                Header = "studyphase"
             };
 
             CommonServices CommonService = new CommonServices(_mockCommonRepository.Object, _mockLogger, _mockMapper);
@@ -923,19 +923,19 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             user.UserRole = Constants.Roles.App_User;
             Config.isGroupFilterEnabled = true;
-            _mockCommonRepository.Setup(x => x.GetGroupsOfUser(It.IsAny<LoggedInUser>()))
-                .Returns(Task.FromResult(null as List<SDRGroupsEntity>));
-            method = CommonService.SearchStudy(searchParameters, user);
-            method.Wait();
-            result = method.Result;
-            Assert.IsNull(result);
-            _mockCommonRepository.Setup(x => x.SearchStudy(It.IsAny<SearchParametersEntity>()))
+            //_mockCommonRepository.Setup(x => x.GetGroupsOfUser(It.IsAny<LoggedInUser>()))
+            //    .Returns(Task.FromResult(null as List<SDRGroupsEntity>));
+            //method = CommonService.SearchStudy(searchParameters, user);
+            //method.Wait();
+            //result = method.Result;
+            //Assert.IsNull(result);
+            _mockCommonRepository.Setup(x => x.SearchStudy(It.IsAny<SearchParametersEntity>(),user))
                 .Throws(new Exception("Error"));
 
             method = CommonService.SearchStudy(searchParameters, user);
             Assert.Throws<AggregateException>(method.Wait);
 
-            _mockCommonRepository.Setup(x => x.SearchStudy(It.IsAny<SearchParametersEntity>()))
+            _mockCommonRepository.Setup(x => x.SearchStudy(It.IsAny<SearchParametersEntity>(),user))
                 .Returns(Task.FromResult(null as List<SearchResponseEntity>));
 
             method = CommonService.SearchStudy(searchParameters, user);

@@ -59,6 +59,12 @@ namespace TransCelerate.SDR.UnitTesting
         //private IWebHostEnvironment env = Mock.Of<IWebHostEnvironment>();
 
         #region Setup
+        public UserGroupMappingEntity GetUserDataFromStaticJson()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/UserGroupMappingData_ForEntity.json");
+            var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingEntity>(jsonData);
+            return userGrouppMapping;
+        }
         [SetUp]
         public void Setup()
         {
@@ -999,6 +1005,22 @@ namespace TransCelerate.SDR.UnitTesting
             };
 
             Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchStudy(searchParametersEntity));
+            Config.isGroupFilterEnabled = true;
+            user.UserRole = Constants.Roles.App_User;
+            var grps = GetUserDataFromStaticJson().SDRGroups;
+            grps[0].groupFilter[0].groupFieldName = GroupFieldNames.studyType.ToString();
+            grps[0].groupFilter[0].groupFilterValues[0].groupFilterValueId = "ALL";
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchStudy(searchParametersEntity, grps, user));
+            grps[0].groupFilter[0].groupFieldName = GroupFieldNames.studyType.ToString();
+            grps[0].groupFilter[0].groupFilterValues[0].groupFilterValueId = "interventional";
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchStudy(searchParametersEntity, grps, user));
+            Config.isGroupFilterEnabled = false;
+            searchParametersEntity.Header = "studytitle";
+            Assert.IsNotNull(DataFilterCommon.GetSorterForSearchStudy(searchParametersEntity));
+            searchParametersEntity.Header = "sdrversion";
+            Assert.IsNotNull(DataFilterCommon.GetSorterForSearchStudy(searchParametersEntity));
+            searchParametersEntity.Header = "lastmodifieddate";
+            Assert.IsNotNull(DataFilterCommon.GetSorterForSearchStudy(searchParametersEntity));
         }
 
         #endregion
