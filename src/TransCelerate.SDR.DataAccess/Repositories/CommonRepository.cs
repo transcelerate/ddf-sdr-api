@@ -257,7 +257,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
                 List<SearchResponseEntity> studies;
 
-                if (searchParameters.Header == "studyphase" || searchParameters.Header == "sponsorid" || searchParameters.Header == "interventionmodel" || searchParameters.Header == "indication")
+                if (searchParameters.Header?.ToLower() == "phase" || searchParameters.Header?.ToLower() == "sponsorid" || searchParameters.Header?.ToLower() == "interventionmodel" || searchParameters.Header?.ToLower() == "indication")
                 {                    
                     studies = await collection.Aggregate()
                                               .Match(DataFilterCommon.GetFiltersForSearchStudy(searchParameters, GetGroupsOfUser(user).Result,user))
