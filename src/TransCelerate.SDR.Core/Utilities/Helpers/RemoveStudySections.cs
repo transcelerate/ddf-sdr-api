@@ -202,8 +202,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             JObject returnJsonObject = new JObject();
             returnJsonObject.Add(nameof(PostStudyDTO.clinicalStudy), clinicalStudyJsonObject);
             returnJsonObject.Add(nameof(PostStudyDTO.auditTrail), JObject.Parse(JsonConvert.SerializeObject(studyEntity.auditTrail)));
-            returnJsonObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(studyEntity.clinicalStudy.studyId,
-                studyEntity.clinicalStudy.currentSections?.Where(x => x.studyDesigns != null).SelectMany(x => x.studyDesigns)?.Select(x => x.studyDesignId), 
+            returnJsonObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinksForUi(studyEntity.clinicalStudy.studyId,
+                studyEntity.clinicalStudy.currentSections?.Where(x => x.studyDesigns != null).SelectMany(x => x.studyDesigns)?.Select(x => x.studyDesignId)?.ToList(), 
                 studyEntity.auditTrail.UsdmVersion, studyEntity.auditTrail.studyVersion), new JsonSerializerSettings
                 {
                     ContractResolver = new DefaultContractResolver()

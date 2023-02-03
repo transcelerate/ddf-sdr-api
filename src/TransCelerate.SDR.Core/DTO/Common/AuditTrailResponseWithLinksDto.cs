@@ -16,6 +16,6 @@ namespace TransCelerate.SDR.Core.DTO.Common
 
         [JsonProperty("SDRUploadVersion")]
         public int SDRUploadVersion { get; set; }
-        public LinksDto Links { get; set; }
+        public LinksForUIDto Links { get; set; }
     }
 }

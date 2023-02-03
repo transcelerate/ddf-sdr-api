@@ -79,7 +79,7 @@ namespace TransCelerate.SDR.Services.Services
                     if (checkStudy == null)
                         return Constants.ErrorMessages.Forbidden;
                     var studyDTO = _mapper.Map<GetStudyDTO>(study);  //Mapping Entity to Dto
-                    studyDTO.Links = LinksHelper.GetLinks(studyDTO.clinicalStudy.studyId, studyDTO.clinicalStudy?.studyDesigns?.Select(x => x.studyDesignId), studyDTO.auditTrail.UsdmVersion, studyDTO.auditTrail.studyVersion);                                                                  
+                    studyDTO.Links = LinksHelper.GetLinksForUi(studyDTO.clinicalStudy.studyId, studyDTO.clinicalStudy?.studyDesigns?.Select(x => x.studyDesignId).ToList(), studyDTO.auditTrail.UsdmVersion, studyDTO.auditTrail.studyVersion);                                                                  
                     return studyDTO;                  
                 }
             }

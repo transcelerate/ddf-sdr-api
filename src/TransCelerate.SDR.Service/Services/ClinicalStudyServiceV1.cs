@@ -65,7 +65,7 @@ namespace TransCelerate.SDR.Services.Services
                     if (checkStudy == null)
                         return Constants.ErrorMessages.Forbidden;
                     var studyDTO = _mapper.Map<StudyDto>(study);  //Mapping Entity to Dto
-                    studyDTO.Links = LinksHelper.GetLinks(study.ClinicalStudy.Uuid, study.ClinicalStudy.StudyDesigns?.Select(x => x.Uuid), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion);
+                    studyDTO.Links = LinksHelper.GetLinksForUi(study.ClinicalStudy.Uuid, study.ClinicalStudy.StudyDesigns?.Select(x => x.Uuid).ToList(), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion);
                     return studyDTO;
                 }
             }
@@ -284,7 +284,7 @@ namespace TransCelerate.SDR.Services.Services
                         return Constants.ErrorMessages.DowngradeError;
                     }
                 }                
-                studyDTO.Links = LinksHelper.GetLinks(studyDTO.ClinicalStudy.Uuid, studyDTO.ClinicalStudy.StudyDesigns?.Select(x => x.Uuid), studyDTO.AuditTrail.UsdmVersion, studyDTO.AuditTrail.SDRUploadVersion);
+                studyDTO.Links = LinksHelper.GetLinksForUi(studyDTO.ClinicalStudy.Uuid, studyDTO.ClinicalStudy.StudyDesigns?.Select(x => x.Uuid).ToList(), studyDTO.AuditTrail.UsdmVersion, studyDTO.AuditTrail.SDRUploadVersion);
                 return studyDTO;
             }
             catch (Exception)
