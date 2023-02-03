@@ -45,8 +45,8 @@ namespace TransCelerate.SDR.WebApi.Mappers
             //Mapper for AuditTrail
             CreateMap<AuditTrailDto, AuditTrailResponseEntity>().ReverseMap();
             CreateMap<AuditTrailResponseEntity, AuditTrailResponseWithLinksDto>()
-                .ForMember(dest => dest.Links, opt => opt.MapFrom(src => LinksHelper.GetLinks(src.StudyId,
-                           src.UsdmVersion == Constants.USDMVersions.MVP ? src.StudyDesignIdsMVP != null ? src.StudyDesignIdsMVP.Where(x => x != null && x.Count() > 0).SelectMany(x => x).ToList() : null : src.StudyDesignIds,
+                .ForMember(dest => dest.Links, opt => opt.MapFrom(src => LinksHelper.GetLinksForUi(src.StudyId,
+                           src.UsdmVersion == Constants.USDMVersions.MVP ? src.StudyDesignIdsMVP != null ? src.StudyDesignIdsMVP.Where(x => x != null && x.Count() > 0).SelectMany(x => x).ToList() : null :src.StudyDesignIds !=null ?  src.StudyDesignIds.ToList():null,
                            src.UsdmVersion,src.SDRUploadVersion)))
                 .ReverseMap();
 
