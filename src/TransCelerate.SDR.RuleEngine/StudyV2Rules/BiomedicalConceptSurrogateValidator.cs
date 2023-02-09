@@ -17,8 +17,8 @@ namespace TransCelerate.SDR.RuleEngineV2
             _httpContextAccessor = httpContextAccessor;
             RuleFor(x => x.Id)
                .Cascade(CascadeMode.Stop)
-               .NotNull().OverridePropertyName(IdFieldPropertyName.StudyV2.ActivityId).WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().OverridePropertyName(IdFieldPropertyName.StudyV2.ActivityId).WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .NotNull().OverridePropertyName(IdFieldPropertyName.StudyV2.BcSurrogateId).WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().OverridePropertyName(IdFieldPropertyName.StudyV2.BcSurrogateId).WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(BiomedicalConceptSurrogateValidator), nameof(BiomedicalConceptSurrogateDto.Id)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.BcSurrogateName)

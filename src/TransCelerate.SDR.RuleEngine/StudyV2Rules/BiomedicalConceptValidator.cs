@@ -17,8 +17,8 @@ namespace TransCelerate.SDR.RuleEngineV2
             _httpContextAccessor = httpContextAccessor;
             RuleFor(x => x.Id)
                .Cascade(CascadeMode.Stop)
-               .NotNull().OverridePropertyName(IdFieldPropertyName.StudyV2.ActivityId).WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().OverridePropertyName(IdFieldPropertyName.StudyV2.ActivityId).WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .NotNull().OverridePropertyName(IdFieldPropertyName.StudyV2.BiomedicalConceptId).WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().OverridePropertyName(IdFieldPropertyName.StudyV2.BiomedicalConceptId).WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(BiomedicalConceptValidator), nameof(BiomedicalConceptDto.Id)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.BcName)
@@ -50,7 +50,7 @@ namespace TransCelerate.SDR.RuleEngineV2
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(BiomedicalConceptValidator), nameof(BiomedicalConceptDto.BcReference)), ApplyConditionTo.AllValidators);           
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(BiomedicalConceptValidator), nameof(BiomedicalConceptDto.BcConceptCode)), ApplyConditionTo.AllValidators);           
         }
     }
 }
