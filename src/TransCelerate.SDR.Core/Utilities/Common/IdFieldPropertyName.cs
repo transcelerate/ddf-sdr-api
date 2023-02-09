@@ -35,6 +35,11 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string AliasCodeId = "aliasCodeId";
             public const string TransitionRuleId = "transitionRuleId";
             public const string EncounterId = "encounterId";
+            public const string BiomedicalConceptCategoryId = "biomedicalConceptCategoryId";
+            public const string BiomedicalConceptId = "biomedicalConceptId";
+            public const string BcPropertyId = "bcPropertyId";
+            public const string BcSurrogateId = "bcSurrogateId";
+            public const string ResponseCodeId = "responseCodeId";
         }
         public struct StudyV1
         {

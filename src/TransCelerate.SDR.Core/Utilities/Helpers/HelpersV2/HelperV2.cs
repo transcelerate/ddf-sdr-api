@@ -200,6 +200,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.StudyDesignRationale).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.StudyDesignRationale).Substring(1)))).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyDesignBlindingScheme).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.StudyDesignBlindingScheme).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.StudyDesignBlindingScheme).Substring(1)))).ToList().ForEach(x => x.Remove());
+                            else if (item == nameof(StudyDesignDto.BiomedicalConcepts).ToLower())
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.BiomedicalConcepts).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.BiomedicalConcepts).Substring(1)))).ToList().ForEach(x => x.Remove());
+                            else if (item == nameof(StudyDesignDto.BcCategories).ToLower())
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.BcCategories).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.BcCategories).Substring(1)))).ToList().ForEach(x => x.Remove());
+                            else if (item == nameof(StudyDesignDto.BcSurrogates).ToLower())
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.BcSurrogates).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.BcSurrogates).Substring(1)))).ToList().ForEach(x => x.Remove());
                         }
                     }
                 }
@@ -226,15 +232,14 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
 
             study.ClinicalStudy.StudyIdentifiers = RemoveIdForStudyIdentifier(study.ClinicalStudy.StudyIdentifiers);
 
-            if (study.ClinicalStudy.StudyPhase is not null)
+            study.ClinicalStudy.StudyPhase = RemoveIdForAliasCode(study.ClinicalStudy.StudyPhase);
+
+
+            if (study.ClinicalStudy.BusinessTherapeuticAreas is not null && study.ClinicalStudy.BusinessTherapeuticAreas.Any())
             {
-                study.ClinicalStudy.StudyPhase.Id = null;
-                if (study.ClinicalStudy.StudyPhase.StandardCode is not null)
-                    study.ClinicalStudy.StudyPhase.StandardCode.Id = null;
-                if (study.ClinicalStudy.StudyPhase.StandardCodeAliases is not null && study.ClinicalStudy.StudyPhase.StandardCodeAliases.Any())
-                    study.ClinicalStudy.StudyPhase.StandardCodeAliases.ForEach(x => x.Id = null);
+                study.ClinicalStudy.BusinessTherapeuticAreas.ForEach(x => x.Id = null);
             }
-            
+
             study.ClinicalStudy.StudyProtocolVersions = RemoveIdForStudyProtocol(study.ClinicalStudy.StudyProtocolVersions);
 
             study.ClinicalStudy.StudyDesigns = RemoveIdForStudyDesign(study.ClinicalStudy.StudyDesigns);
@@ -330,9 +335,80 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
 
                     if (x.Activities is not null && x.Activities.Any())
                         x.Activities = RemoveIdForActivities(x.Activities);
+
+                    if (x.TherapeuticAreas is not null && x.TherapeuticAreas.Any())
+                        x.TherapeuticAreas.ForEach(x => x.Id = null);
+
+                    if (x.BiomedicalConcepts is not null && x.BiomedicalConcepts.Any())
+                        x.BiomedicalConcepts = RemoveIdForBioMedicalConcepts(x.BiomedicalConcepts);
+
+                    if (x.BcCategories is not null && x.BcCategories.Any())
+                        x.BcCategories.ForEach(y => y.Id = null);
+
+                    if (x.BcSurrogates is not null && x.BcSurrogates.Any())
+                        x.BcSurrogates.ForEach(y => y.Id = null);
+
+                    x.StudyDesignBlindingScheme = RemoveIdForAliasCode(x.StudyDesignBlindingScheme);
                 });
             }
             return studyDesigns;
+        }
+        /// <summary>
+        /// Remove uuid for Biomedical Concepts
+        /// </summary>
+        /// <param name="biomedicalConcepts"></param>
+        /// <returns></returns>
+        public List<BiomedicalConceptEntity> RemoveIdForBioMedicalConcepts(List<BiomedicalConceptEntity> biomedicalConcepts)
+        {
+            if (biomedicalConcepts is not null && biomedicalConcepts.Any())
+            {
+                biomedicalConcepts.ForEach(x =>
+                {
+                    x.Id = null;
+                    if (x.BcConceptCode is not null)
+                    {
+                        x.BcConceptCode.Id = null;
+                        if(x.BcConceptCode.StandardCode is not null)
+                            x.BcConceptCode.StandardCode.Id = null;
+                        x.BcConceptCode.StandardCodeAliases?.ForEach(y => y.Id = null);
+                    }
+                    if (x.BcProperties is not null && x.BcProperties.Any())
+                    {
+                        x.BcProperties.ForEach(y =>
+                        {
+                            y.Id = null;
+                            y.BcPropertyConceptCode = RemoveIdForAliasCode(y.BcPropertyConceptCode);
+
+                            if (y.BcPropertyResponseCodes is not null && y.BcPropertyResponseCodes.Any())
+                            {
+                                y.BcPropertyResponseCodes.ForEach(z =>
+                                {
+                                    z.Id = null;
+                                    if (z.Code is not null)
+                                        z.Code.Id = null;
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+            return biomedicalConcepts;
+        }
+        /// <summary>
+        /// Remove uuid for AliasCode
+        /// </summary>
+        /// <param name="aliasCode"></param>
+        /// <returns></returns>
+        public AliasCodeEntity RemoveIdForAliasCode(AliasCodeEntity aliasCode)
+        {
+            if (aliasCode is not null)
+            {
+                aliasCode.Id = null;
+                if (aliasCode.StandardCode is not null)
+                    aliasCode.StandardCode.Id = null;
+                aliasCode.StandardCodeAliases?.ForEach(z => z.Id = null);
+            }
+            return aliasCode;
         }
         /// <summary>
         /// Remove uuid for Study Indications
@@ -549,10 +625,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                         if (y.DefinedProcedures != null && y.DefinedProcedures.Any())
                             y.DefinedProcedures.ForEach(procedure => procedure.Id = null);
                     }
-                    if (y.StudyDataCollection is not null && y.StudyDataCollection.Any())
-                    {
-                        y.StudyDataCollection.ForEach(data => data.Id = null);
-                    }
+                    //if (y.StudyDataCollection is not null && y.StudyDataCollection.Any())
+                    //{
+                    //    y.StudyDataCollection.ForEach(data => data.Id = null);
+                    //}
                 });
             }
             return activities;
@@ -721,11 +797,16 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                 tempList.Add("T");
                 return tempList;
             }
-            if (GetDifferences<CodeEntity>(currentVersion?.StandardCode, previousVersion?.StandardCode).Any())
-                tempList.Add($"{nameof(AliasCodeEntity.StandardCode)}");
-
-            if (GetDifferences<List<CodeEntity>>(currentVersion?.StandardCodeAliases, previousVersion?.StandardCodeAliases).Any())
-                tempList.Add($"{nameof(AliasCodeEntity.StandardCodeAliases)}");
+            //Changed below two to ignore Id change
+            GetDifferences<CodeEntity>(currentVersion?.StandardCode, previousVersion?.StandardCode).ForEach(x =>
+            {
+                tempList.Add($"{nameof(AliasCodeEntity.StandardCode)}.{x}");
+            });
+            GetDifferences<List<CodeEntity>>(currentVersion?.StandardCodeAliases, previousVersion?.StandardCodeAliases).ForEach(x =>
+            {
+                tempList.Add($"{nameof(AliasCodeEntity.StandardCodeAliases)}.{x}");
+            });
+                
             return tempList;
         }
 
@@ -838,6 +919,21 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
 
                         //Activities
                         changedValues.AddRange(GetDifferenceForActivities(currentStudyDesign, previousStudyDesign));
+
+                        //Biomedical Concept Category
+                        GetDifferenceForAList<BiomedicalConceptCategoryEntity>(currentStudyDesign.BcCategories, previousStudyDesign.BcCategories).ForEach(x =>
+                        {
+                            changedValues.Add($"{nameof(StudyDesignEntity.BcCategories)}.{x}");
+                        });
+
+                        //Biomedical Concept Surrogate
+                        GetDifferenceForAList<BiomedicalConceptSurrogateEntity>(currentStudyDesign.BcSurrogates, previousStudyDesign.BcSurrogates).ForEach(x =>
+                        {
+                            changedValues.Add($"{nameof(StudyDesignEntity.BcSurrogates)}.{x}");
+                        });
+
+                        //Biomedical Concepts
+                        changedValues.AddRange(GetDifferenceForBiomedicalConcepts(currentStudyDesign, previousStudyDesign));
                     }
 
                     else if (currentVersion?.Count == previousVersion?.Count && previousVersion != null && !previousVersion.Any(x => x.Id == currentStudyDesign.Id))
@@ -849,7 +945,42 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
 
             return changedValues;
         }
+        public List<string> GetDifferenceForBiomedicalConcepts(StudyDesignEntity currentStudyDesign, StudyDesignEntity previousStudyDesign)
+        {
+            var tempList = new List<string>();
+            if (currentStudyDesign.BiomedicalConcepts?.Count != previousStudyDesign.BiomedicalConcepts?.Count)
+                tempList.Add($"{nameof(StudyDesignEntity.BiomedicalConcepts)}");
+            GetDifferenceForAList<BiomedicalConceptEntity>(currentStudyDesign.BiomedicalConcepts, previousStudyDesign.BiomedicalConcepts).ForEach(x =>
+            {
+                tempList.Add($"{nameof(StudyDesignEntity.BiomedicalConcepts)}.{x}");
+            });
+            tempList.RemoveAll(x => x.Contains($"{nameof(BiomedicalConceptEntity.BcProperties)}"));
+            currentStudyDesign.BiomedicalConcepts?.ForEach(currentBc =>
+            {
+                if (previousStudyDesign.BiomedicalConcepts != null && previousStudyDesign.BiomedicalConcepts.Any(x => x.Id == currentBc.Id))
+                {
+                    var previousBc = previousStudyDesign.BiomedicalConcepts.Find(x => x.Id == currentBc.Id);                    
+                    GetDifferenceForAList<BiomedicalConceptPropertyEntity>(currentBc.BcProperties, previousBc.BcProperties).ForEach(x =>
+                    {
+                        tempList.Add($"{nameof(StudyDesignEntity.BiomedicalConcepts)}.{nameof(BiomedicalConceptEntity.BcProperties)}.{x}");
+                    });
+                    tempList.RemoveAll(x => x.Contains($"{nameof(BiomedicalConceptPropertyEntity.BcPropertyResponseCodes)}"));
+                    currentBc.BcProperties?.ForEach(currentBcProp =>
+                    {
+                        if (previousBc.BcProperties != null && previousBc.BcProperties.Any(x => x.Id == currentBcProp.Id))
+                        {
+                            var previousBcProp = previousBc.BcProperties.Find(x => x.Id == currentBcProp.Id);
 
+                            GetDifferenceForAList<ResponseCodeEntity>(currentBcProp.BcPropertyResponseCodes, previousBcProp.BcPropertyResponseCodes).ForEach(x =>
+                            {
+                                tempList.Add($"{nameof(StudyDesignEntity.BiomedicalConcepts)}.{nameof(BiomedicalConceptEntity.BcProperties)}.{nameof(BiomedicalConceptPropertyEntity.BcPropertyResponseCodes)}.{x}");
+                            });
+                        }
+                    });
+                }
+            });
+            return tempList;
+        }
         public List<string> GetDifferenceForStudyIndications(StudyDesignEntity currentStudyDesign, StudyDesignEntity previousStudyDesign)
         {
             var tempList = new List<string>();
@@ -996,7 +1127,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                 tempList.Add($"{nameof(StudyDesignEntity.Activities)}.{x}");
             });
             tempList.RemoveAll(x => x.Contains($"{nameof(ActivityEntity.DefinedProcedures)}"));
-            tempList.RemoveAll(x => x.Contains($"{nameof(ActivityEntity.StudyDataCollection)}"));
+            //tempList.RemoveAll(x => x.Contains($"{nameof(ActivityEntity.StudyDataCollection)}"));
             currentStudyDesign.Activities?.ForEach(currentActivitiy =>
             {
                 if (previousStudyDesign.Activities != null && previousStudyDesign.Activities.Any(x => x.Id == currentActivitiy.Id))
@@ -1007,10 +1138,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                     {
                         tempList.Add($"{nameof(StudyDesignEntity.Activities)}.{nameof(ActivityEntity.DefinedProcedures)}.{x}");
                     });
-                    GetDifferenceForAList<StudyDataEntity>(currentActivitiy.StudyDataCollection, previousActivity.StudyDataCollection).ForEach(x =>
-                    {
-                        tempList.Add($"{nameof(StudyDesignEntity.Activities)}.{nameof(ActivityEntity.StudyDataCollection)}.{x}");
-                    });
+                    //GetDifferenceForAList<StudyDataEntity>(currentActivitiy.StudyDataCollection, previousActivity.StudyDataCollection).ForEach(x =>
+                    //{
+                    //    tempList.Add($"{nameof(StudyDesignEntity.Activities)}.{nameof(ActivityEntity.StudyDataCollection)}.{x}");
+                    //});
                 }
             });
             return tempList;
@@ -1116,6 +1247,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                     }
 
                     //Activities 
+                    List<string> biomedicalConceptIds = design.BiomedicalConcepts is null ? new List<string>() : design.BiomedicalConcepts.Select(x => x.Id).ToList();
+                    List<string> bcCategoryIds = design.BcCategories is null ? new List<string>() : design.BcCategories.Select(x => x.Id).ToList();
+                    List<string> bcSurrogateIds = design.BcSurrogates is null ? new List<string>() : design.BcSurrogates.Select(x => x.Id).ToList();
                     if (design.Activities != null && design.Activities.Any())
                     {
                         List<string> activitiesIds = design.Activities.Select(act => act?.Id).ToList();
@@ -1135,6 +1269,40 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                                   $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
                                   $"{nameof(StudyDesignDto.Activities)}[{design.Activities.IndexOf(act)}]." +
                                   $"{nameof(ActivityDto.NextActivityId)}");
+
+                            if (act.BiomedicalConceptIds != null && act.BiomedicalConceptIds.Any())
+                            {
+                                act.BiomedicalConceptIds.ForEach(bc =>
+                                {
+                                    if (!String.IsNullOrWhiteSpace(bc) && !biomedicalConceptIds.Contains(bc))
+                                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                                   $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
+                                                   $"{nameof(StudyDesignDto.Activities)}[{design.Activities.IndexOf(act)}]." +
+                                                   $"{nameof(ActivityDto.BiomedicalConceptIds)}[{act.BiomedicalConceptIds.IndexOf(bc)}]");
+                                });
+                            }
+                            if (act.BcCategoryIds != null && act.BcCategoryIds.Any())
+                            {
+                                act.BcCategoryIds.ForEach(bcCat =>
+                                {
+                                    if (!String.IsNullOrWhiteSpace(bcCat) && !bcCategoryIds.Contains(bcCat))
+                                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                                   $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
+                                                   $"{nameof(StudyDesignDto.Activities)}[{design.Activities.IndexOf(act)}]." +
+                                                   $"{nameof(ActivityDto.BcCategoryIds)}[{act.BcCategoryIds.IndexOf(bcCat)}]");
+                                });
+                            }
+                            if (act.BcSurrogateIds != null && act.BcSurrogateIds.Any())
+                            {
+                                act.BcSurrogateIds.ForEach(bcSurr =>
+                                {
+                                    if (!String.IsNullOrWhiteSpace(bcSurr) && !bcSurrogateIds.Contains(bcSurr))
+                                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                                   $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
+                                                   $"{nameof(StudyDesignDto.Activities)}[{design.Activities.IndexOf(act)}]." +
+                                                   $"{nameof(ActivityDto.BcSurrogateIds)}[{act.BcSurrogateIds.IndexOf(bcSurr)}]");
+                                });
+                            }
                         });
                     }
 
@@ -1180,6 +1348,49 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                                     $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
                                     $"{nameof(StudyDesignDto.StudyEstimands)}[{design.StudyEstimands.IndexOf(estimand)}]." +
                                     $"{nameof(EstimandDto.VariableOfInterest)}");
+                        });
+                    }
+
+                    //BcCategories
+                    if (design.BcCategories != null && design.BcCategories.Any())
+                    {
+                        design.BcCategories.ForEach(bcCat =>
+                        {
+                            var tempCategoryIds = bcCategoryIds.ToList();                            
+                            tempCategoryIds.RemoveAll(x => x == bcCat.Id);                            
+                            if (bcCat.BcCategoryParentIds != null && bcCat.BcCategoryParentIds.Any())
+                            {                                
+                                bcCat.BcCategoryParentIds.ForEach(parent =>
+                                {
+                                    if (!String.IsNullOrWhiteSpace(parent) && !tempCategoryIds.Contains(parent))
+                                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                                   $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
+                                                   $"{nameof(StudyDesignDto.BcCategories)}[{design.BcCategories.IndexOf(bcCat)}]." +
+                                                   $"{nameof(BiomedicalConceptCategoryDto.BcCategoryParentIds)}[{bcCat.BcCategoryParentIds.IndexOf(parent)}]");
+                                });
+                            }
+                            if (bcCat.BcCategoryChildrenIds != null && bcCat.BcCategoryChildrenIds.Any())
+                            {
+                                bcCat.BcCategoryChildrenIds.ForEach(child =>
+                                {
+                                    if (!String.IsNullOrWhiteSpace(child) && !tempCategoryIds.Contains(child))
+                                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                                   $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
+                                                   $"{nameof(StudyDesignDto.BcCategories)}[{design.BcCategories.IndexOf(bcCat)}]." +
+                                                   $"{nameof(BiomedicalConceptCategoryDto.BcCategoryChildrenIds)}[{bcCat.BcCategoryChildrenIds.IndexOf(child)}]");
+                                });
+                            }
+                            if (bcCat.BcCategoryMemberIds != null && bcCat.BcCategoryMemberIds.Any())
+                            {
+                                bcCat.BcCategoryMemberIds.ForEach(member =>
+                                {
+                                    if (!String.IsNullOrWhiteSpace(member) && !biomedicalConceptIds.Contains(member))
+                                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                                   $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
+                                                   $"{nameof(StudyDesignDto.BcCategories)}[{design.BcCategories.IndexOf(bcCat)}]." +
+                                                   $"{nameof(BiomedicalConceptCategoryDto.BcCategoryMemberIds)}[{bcCat.BcCategoryMemberIds.IndexOf(member)}]");
+                                });
+                            }
                         });
                     }
                 });
