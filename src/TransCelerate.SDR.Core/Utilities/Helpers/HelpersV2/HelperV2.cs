@@ -275,9 +275,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                 studyProtocolVersions.ForEach(x =>
                 {
                     x.Id = null;
-                    if (x.ProtocolStatus is not null && x.ProtocolStatus.Any())
+                    if (x.ProtocolStatus is not null)
                     {
-                        x.ProtocolStatus.ForEach(x => x.Id = null);
+                        x.ProtocolStatus.Id = null;
                     }
                 });
             }
@@ -418,16 +418,16 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                     if (x.StudyArm is not null)
                     {
                         x.StudyArm.Id = null;
-                        if (x.StudyArm.StudyArmDataOriginType is not null && x.StudyArm.StudyArmDataOriginType.Any())
-                            x.StudyArm.StudyArmDataOriginType.ForEach(y => y.Id =null);
+                        if (x.StudyArm.StudyArmDataOriginType is not null)
+                            x.StudyArm.StudyArmDataOriginType.Id =null;
                         if (x.StudyArm.StudyArmType is not null)
                             x.StudyArm.StudyArmType.Id = null;
                     }
                     if (x.StudyEpoch is not null)
                     {
                         x.StudyEpoch.Id = null;
-                        if (x.StudyEpoch.StudyEpochType is not null && x.StudyEpoch.StudyEpochType.Any())
-                            x.StudyEpoch.StudyEpochType.ForEach(y => y.Id = null);                        
+                        if (x.StudyEpoch.StudyEpochType is not null)
+                            x.StudyEpoch.StudyEpochType.Id = null;                        
                     }
                     if (x.StudyElements is not null && x.StudyElements.Any())
                     {
@@ -513,13 +513,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                     {
                         y.EncounterContactModes.ForEach(procedure => procedure.Id = null);
                     }
-                    if (y.EncounterEnvironmentalSetting is not null && y.EncounterEnvironmentalSetting.Any())
+                    if (y.EncounterEnvironmentalSetting is not null)
                     {
-                        y.EncounterEnvironmentalSetting.ForEach(procedure => procedure.Id = null);
+                        y.EncounterEnvironmentalSetting.Id = null;
                     }
-                    if (y.EncounterType is not null && y.EncounterType.Any())
+                    if (y.EncounterType is not null)
                     {
-                        y.EncounterType.ForEach(procedure => procedure.Id = null);
+                        y.EncounterType.Id = null;
                     }
                     if (y.TransitionStartRule is not null)
                         y.TransitionStartRule.Id = null;

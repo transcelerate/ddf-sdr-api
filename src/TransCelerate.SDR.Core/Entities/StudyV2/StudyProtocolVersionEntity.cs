@@ -11,7 +11,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
         public string OfficialTitle { get; set; }
         public string ProtocolAmendment { get; set; }
         public string ProtocolEffectiveDate { get; set; }
-        public List<CodeEntity> ProtocolStatus { get; set; }
+        public CodeEntity ProtocolStatus { get; set; }
         public string ProtocolVersion { get; set; }
         public string PublicTitle { get; set; }
         public string ScientificTitle { get; set; }
