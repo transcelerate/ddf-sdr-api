@@ -477,12 +477,12 @@
             "activityDescription": "Activity_1",
             "activityName": "Informed Consent",
             "activityIsConditional": true,
-            "activityIsConditionalReason": "",
+            "activityIsConditionalReason": "reason",
             "definedProcedures": [
               {
                 "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
                 "procedureIsConditional": true,
-                "procedureIsConditionalReason": "",
+                "procedureIsConditionalReason": "reason",
                 "procedureCode": [
                   {
                     "codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
@@ -497,13 +497,15 @@
             ],
             "nextActivityId": "",
             "previousActivityId": "",
-            "studyDataCollection": [
-              {
-                "studyDataId": "2b07a24c-6916-4e0c-9646-f1c08e3db438",
-                "studyDataName": "Study Data 1",
-                "studyDataDescription": "Something",
-                "ecrfLink": "Link 1"
-              }
+            "bcCategoryIds": [
+              "BCC1",
+              "BCC2"
+            ],
+            "bcSurrogateIds": [
+              "BCS1"
+            ],
+            "biomedicalConceptIds": [
+              "BC1"
             ]
           },
           {
@@ -511,12 +513,12 @@
             "activityDescription": "Activity_1",
             "activityName": "Eligibility Criteria",
             "activityIsConditional": false,
-            "activityIsConditionalReason": "",
+            "activityIsConditionalReason": "reason",
             "definedProcedures": [
               {
                 "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
                 "procedureIsConditional": false,
-                "procedureIsConditionalReason": "",
+                "procedureIsConditionalReason": "reason",
                 "procedureCode": [
                   {
                     "codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
@@ -531,13 +533,15 @@
             ],
             "nextActivityId": "",
             "previousActivityId": "",
-            "studyDataCollection": [
-              {
-                "studyDataId": "2b07a24c-6916-4e0c-9646-f1c08e3db438",
-                "studyDataName": "Study Data 1",
-                "studyDataDescription": "Something",
-                "ecrfLink": "Link 1"
-              }
+            "bcCategoryIds": [
+              "BCC1",
+              "BCC2"
+            ],
+            "bcSurrogateIds": [
+              "BCS1"
+            ],
+            "biomedicalConceptIds": [
+              "BC1"
             ]
           },
           {
@@ -561,13 +565,15 @@
             ],
             "nextActivityId": "",
             "previousActivityId": "",
-            "studyDataCollection": [
-              {
-                "studyDataId": "2b07a24c-6916-4e0c-9646-f1c08e3db438",
-                "studyDataName": "Study Data 1",
-                "studyDataDescription": "Something",
-                "ecrfLink": "Link 1"
-              }
+            "bcCategoryIds": [
+              "BCC1",
+              "BCC2"
+            ],
+            "bcSurrogateIds": [
+              "BCS1"
+            ],
+            "biomedicalConceptIds": [
+              "BC1"
             ]
           }
         ],
@@ -590,7 +596,260 @@
             }
           ]
         },
-        "studyDesignRationale": "Rationale "
+        "studyDesignRationale": "Rationale ",
+        "biomedicalConcepts": [
+          {
+            "biomedicalConceptId": "BC1",
+            "bcName": "Diastolic Blood Pressure ",
+            "bcSynonyms": [
+              "DIABP",
+              "DIA BP",
+              "Blood pressure diastolic",
+              "BP dias",
+              "BP diastolic",
+              "DBP",
+              "Dias",
+              "Dias BP",
+              "Diast",
+              "Diastoli "
+            ],
+            "bcReference": "href",
+            "bcProperties": [
+              {
+                "bcPropertyId": "BCPropId1",
+                "bcPropertyName": "Unit of Pressure",
+                "bcPropertyRequired": true,
+                "bcPropertyEnabled": false,
+                "bcPropertyDataType": "strings",
+                "bcPropertyResponseCodes": [
+                  {
+                    "responseCodeId": "responseCodeId",
+                    "responseCodeEnabled": true,
+                    "code": {
+                      "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                      "code": "C49670",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2022-03-25",
+                      "decode": "mmHg"
+                    }
+                  }
+                ],
+                "bcPropertyConceptCode": {
+                  "aliasCodeId": "aliasId",
+                  "standardCode": {
+                    "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                    "code": "C25299",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2022-03-25",
+                    "decode": "Diastolic Blood Pressure"
+                  },
+                  "standardCodeAliases": [
+                    {
+                      "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                      "code": "8462-4",
+                      "codeSystem": "http://loinc.org/",
+                      "codeSystemVersion": "2022-03-25",
+                      "decode": "Diastolic Blood Pressure"
+                    }
+                  ]
+                }
+              },
+              {
+                "bcPropertyId": "BCPropIds",
+                "bcPropertyName": "Unit of Pressure",
+                "bcPropertyRequired": false,
+                "bcPropertyEnabled": true,
+                "bcPropertyDataType": "string",
+                "bcPropertyResponseCodes": [
+                  {
+                    "responseCodeId": "responseCodeId",
+                    "responseCodeEnabled": true,
+                    "code": {
+                      "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                      "code": "C49670",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2022-03-25",
+                      "decode": "mmHg"
+                    }
+                  }
+                ],
+                "bcPropertyConceptCode": {
+                  "aliasCodeId": "aliasId",
+                  "standardCode": {
+                    "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                    "code": "C25299",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2022-03-25",
+                    "decode": "Diastolic Blood Pressure"
+                  },
+                  "standardCodeAliases": [
+                    {
+                      "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                      "code": "8462-4",
+                      "codeSystem": "http://loinc.org/",
+                      "codeSystemVersion": "2022-03-25",
+                      "decode": "Diastolic Blood Pressure"
+                    }
+                  ]
+                }
+              }
+            ],
+            "bcConceptCode": {
+              "aliasCodeId": "aliasId",
+              "standardCode": {
+                "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                "code": "C25299",
+                "codeSystem": "http://www.cdisc.org",
+                "codeSystemVersion": "2022-03-27",
+                "decode": "Diastolic Blood Pressure"
+              },
+              "standardCodeAliases": [
+                {
+                  "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                  "code": "8462-4",
+                  "codeSystem": "http://loinc.org/",
+                  "codeSystemVersion": "2022-03-25",
+                  "decode": "Diastolic Blood Pressure"
+                }
+              ]
+            }
+          },
+          {
+            "biomedicalConceptId": "BC2",
+            "bcName": "Systolic Blood Pressure",
+            "bcSynonyms": [
+              "SYSBP",
+              "SYS BP",
+              "Blood pressure systolic "
+            ],
+            "bcReference": "href",
+            "bcProperties": [
+              {
+                "bcPropertyId": "BCPropId",
+                "bcPropertyName": "Unit of Pressure",
+                "bcPropertyRequired": true,
+                "bcPropertyEnabled": false,
+                "bcPropertyDataType": "string",
+                "bcPropertyResponseCodes": [
+                  {
+                    "responseCodeId": "responseCodeId",
+                    "responseCodeEnabled": true,
+                    "code": {
+                      "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                      "code": "C49670",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2022-03-24",
+                      "decode": "mmHg "
+                    }
+                  }
+                ],
+                "bcPropertyConceptCode": {
+                  "aliasCodeId": "aliasId",
+                  "standardCode": {
+                    "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                    "code": "Cxxxx",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2022-03-25",
+                    "decode": "Systolic Blood Pressure"
+                  },
+                  "standardCodeAliases": [
+                    {
+                      "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                      "code": "8xx-x",
+                      "codeSystem": "http://loinc.org/",
+                      "codeSystemVersion": "2022-03-25",
+                      "decode": "Systolic Blood Pressure "
+                    }
+                  ]
+                }
+              }
+            ],
+            "bcConceptCode": {
+              "aliasCodeId": "aliasId",
+              "standardCode": {
+                "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                "code": "C25299",
+                "codeSystem": "http://www.cdisc.org",
+                "codeSystemVersion": "2022-03-25",
+                "decode": "Diastolic Blood Pressure"
+              },
+              "standardCodeAliases": [
+                {
+                  "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                  "code": "8462-4",
+                  "codeSystem": "http://loinc.org/",
+                  "codeSystemVersion": "2022-03-2",
+                  "decode": "Diastolic Blood Pressure"
+                }
+              ]
+            }
+          }
+        ],
+        "bcCategories": [
+          {
+            "biomedicalConceptCategoryId": "BCC1",
+            "bcCategoryParentIds": [],
+            "bcCategoryChildrenIds": [
+              "BCC10"
+            ],
+            "bcCategoryName": "Blood Pressure",
+            "bcCategoryDescription": "Blood Pressure",
+            "bcCategoryMemberIds": [
+              "BC1",
+              "BC2"
+            ]
+          },
+          {
+            "biomedicalConceptCategoryId": "BCC2",
+            "bcCategoryParentIds": [],
+            "bcCategoryChildrenIds": [
+              "BCC10",
+              "BCC11"
+            ],
+            "bcCategoryName": "Blood Pressure Tests",
+            "bcCategoryDescription": "Blood Pressure Test",
+            "bcCategoryMemberIds": [
+              "BC2",
+              "BC1"
+            ]
+          },
+          {
+            "biomedicalConceptCategoryId": "BCC10",
+            "bcCategoryParentIds": [
+              "BCC1",
+              "BCC2"
+            ],
+            "bcCategoryChildrenIds": [],
+            "bcCategoryName": "Diastolic Blood Pressure",
+            "bcCategoryDescription": "Diastolic Blood Pressure",
+            "bcCategoryMemberIds": [
+              "BC1",
+              "BC2"
+            ]
+          },
+          {
+            "biomedicalConceptCategoryId": "BCC11",
+            "bcCategoryParentIds": [
+              "BCC1",
+              "BCC2"
+            ],
+            "bcCategoryChildrenIds": [],
+            "bcCategoryName": "Systolic Blood Pressure",
+            "bcCategoryDescription": "Systolic Blood Pressure",
+            "bcCategoryMemberIds": [
+              "BC1",
+              "BC2"
+            ]
+          }
+        ],
+        "bcSurrogates": [
+          {
+            "bcSurrogateId": "BCS1",
+            "bcSurrogateName": "Diastolic Blood Pressure",
+            "bcSurrogateDescription": "Diastolic Blood Pressure",
+            "bcSurrogateReference": "href"
+          }
+        ]
       }
     ],
     "studyVersion": "1"

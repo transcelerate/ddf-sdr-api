@@ -37,13 +37,7 @@ namespace TransCelerate.SDR.RuleEngineV2
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.DefinedProcedures)), ApplyConditionTo.AllValidators)
-               .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
-            
-            RuleFor(x=>x.StudyDataCollection).Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.StudyDataCollection)), ApplyConditionTo.AllValidators)
-               .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+               .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);            
 
             RuleFor(x => x.ActivityIsConditional)
                 .Cascade(CascadeMode.Stop)
@@ -68,6 +62,27 @@ namespace TransCelerate.SDR.RuleEngineV2
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.ActivityIsConditionalReason)), ApplyConditionTo.AllValidators);
+                        
+            RuleFor(x => x.BiomedicalConceptIds)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.BiomedicalConceptIds)), ApplyConditionTo.AllValidators)
+                .Must(x => UniquenessArrayValidator.ValidateStringList(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleFor(x => x.BcCategoryIds)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.BcCategoryIds)), ApplyConditionTo.AllValidators)
+                .Must(x => UniquenessArrayValidator.ValidateStringList(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleFor(x => x.BcSurrogateIds)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.BcSurrogateIds)), ApplyConditionTo.AllValidators)
+                .Must(x => UniquenessArrayValidator.ValidateStringList(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
         }
     }
 }
