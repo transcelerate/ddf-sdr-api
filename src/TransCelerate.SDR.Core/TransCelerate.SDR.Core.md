@@ -114,6 +114,8 @@
   - [IsSameStudy(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity,TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.IsSameStudy(TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity,TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity)')
   - [JsonObjectCheck(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-JsonObjectCheck-System-Object,System-Object- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.JsonObjectCheck(System.Object,System.Object)')
   - [RemoveIdForActivities(activities)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-RemoveIdForActivities-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV2-ActivityEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.RemoveIdForActivities(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV2.ActivityEntity})')
+  - [RemoveIdForAliasCode(aliasCode)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-RemoveIdForAliasCode-TransCelerate-SDR-Core-Entities-StudyV2-AliasCodeEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.RemoveIdForAliasCode(TransCelerate.SDR.Core.Entities.StudyV2.AliasCodeEntity)')
+  - [RemoveIdForBioMedicalConcepts(biomedicalConcepts)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-RemoveIdForBioMedicalConcepts-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV2-BiomedicalConceptEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.RemoveIdForBioMedicalConcepts(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV2.BiomedicalConceptEntity})')
   - [RemoveIdForEncounters(encounters)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-RemoveIdForEncounters-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV2-EncounterEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.RemoveIdForEncounters(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV2.EncounterEntity})')
   - [RemoveIdForInvestigationalInterventions(investigationalInterventions)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-RemoveIdForInvestigationalInterventions-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV2-InvestigationalInterventionEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.RemoveIdForInvestigationalInterventions(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV2.InvestigationalInterventionEntity})')
   - [RemoveIdForStudyCells(studyCells)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-RemoveIdForStudyCells-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV2-StudyCellEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.RemoveIdForStudyCells(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV2.StudyCellEntity})')
@@ -1768,6 +1770,40 @@ Remove uuid for Activities
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | activities | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV2.ActivityEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV2.ActivityEntity}') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-RemoveIdForAliasCode-TransCelerate-SDR-Core-Entities-StudyV2-AliasCodeEntity-'></a>
+### RemoveIdForAliasCode(aliasCode) `method`
+
+##### Summary
+
+Remove uuid for AliasCode
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| aliasCode | [TransCelerate.SDR.Core.Entities.StudyV2.AliasCodeEntity](#T-TransCelerate-SDR-Core-Entities-StudyV2-AliasCodeEntity 'TransCelerate.SDR.Core.Entities.StudyV2.AliasCodeEntity') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-RemoveIdForBioMedicalConcepts-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV2-BiomedicalConceptEntity}-'></a>
+### RemoveIdForBioMedicalConcepts(biomedicalConcepts) `method`
+
+##### Summary
+
+Remove uuid for Biomedical Concepts
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| biomedicalConcepts | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV2.BiomedicalConceptEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV2.BiomedicalConceptEntity}') |  |
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-RemoveIdForEncounters-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV2-EncounterEntity}-'></a>
 ### RemoveIdForEncounters(encounters) `method`

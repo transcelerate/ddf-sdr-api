@@ -9,7 +9,8 @@
             "Id",
             "ActivityDescription",
             "ActivityName",
-            "ActivityIsOptional"
+            "ActivityIsConditionalReason",
+            "ActivityIsConditional"
           ]
         },
         {
@@ -39,6 +40,43 @@
           ]
         },
         {
+          "entity": "BiomedicalConcept",
+          "required": [
+            "Id",
+            "BcName",
+            "BcReference",
+            "BcConceptCode"
+          ]
+        },
+        {
+          "entity": "BiomedicalConceptCategory",
+          "required": [
+            "Id",
+            "BcCategoryName",
+            "BcCategoryDescription"
+          ]
+        },
+        {
+          "entity": "BiomedicalConceptSurrogate",
+          "required": [
+            "Id",
+            "BcSurrogateName",
+            "BcSurrogateDescription",
+            "BcSurrogateReference"
+          ]
+        },
+        {
+          "entity": "BiomedicalConceptProperty",
+          "required": [
+            "Id",
+            "BcPropertyName",
+            "BcPropertyRequired",
+            "BcPropertyDataType",
+            "BcPropertyEnabled",
+            "BcPropertyConceptCode"
+          ]
+        },
+        {
           "entity": "ClinicalStudy",
           "required": [
             "StudyTitle",
@@ -50,7 +88,6 @@
             "StudyRationale"
           ]
         },
-
         {
           "entity": "Code",
           "required": [
@@ -117,7 +154,16 @@
             "Id",
             "ProcedureType",
             "ProcedureCode",
-            "ProcedureIsOptional"
+            "ProcedureIsConditionalReason",
+            "ProcedureIsConditional"
+          ]
+        },
+        {
+          "entity": "ResponseCode",
+          "required": [
+            "Id",
+            "Code",
+            "ResponseCodeEnabled"
           ]
         },
         {
@@ -205,7 +251,7 @@
           "entity": "Objective",
           "required": [
             "Id",
-            "ObjectiveDescription"            
+            "ObjectiveDescription"
           ]
         },
         {

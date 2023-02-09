@@ -186,8 +186,7 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsTrue(Validator<InvestigationalInterventionDto>(new InvestigationalInterventionValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyInvestigationalInterventions[0]));
             Assert.IsTrue(Validator<ProcedureDto>(new ProcedureValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].Activities[0].DefinedProcedures[0]));
             Assert.IsTrue(Validator<StudyArmDto>(new StudyArmValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyArm));
-            Assert.IsTrue(Validator<StudyCellDto>(new StudyCellsValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0]));
-            Assert.IsTrue(Validator<StudyDataDto>(new StudyDataCollectionValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].Activities[0].StudyDataCollection[0]));
+            Assert.IsTrue(Validator<StudyCellDto>(new StudyCellsValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0]));            
             Assert.IsTrue(Validator<StudyDesignPopulationDto>(new StudyDesignPopulationValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyPopulations[0]));
             Assert.IsTrue(Validator<StudyDesignDto>(new StudyDesignValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0]));
             Assert.IsTrue(Validator<StudyElementDto>(new StudyElementsValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyElements[0]));
@@ -204,6 +203,11 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsTrue(Validator<WorkflowDto>(new WorkflowValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0]));
             Assert.IsTrue(Validator<WorkflowItemDto>(new WorkflowItemValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0]));
             Assert.IsTrue(Validator<ActivityDto>(new ActivityValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].Activities[0]));
+            Assert.IsTrue(Validator<BiomedicalConceptDto>(new BiomedicalConceptValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].BiomedicalConcepts[0]));
+            Assert.IsTrue(Validator<BiomedicalConceptCategoryDto>(new BiomedicalConceptCategoryValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].BcCategories[0]));
+            Assert.IsTrue(Validator<BiomedicalConceptPropertyDto>(new BiomedicalConceptPropertyValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].BiomedicalConcepts[0].BcProperties[0]));
+            Assert.IsTrue(Validator<BiomedicalConceptSurrogateDto>(new BiomedicalConceptSurrogateValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].BcSurrogates[0]));
+            Assert.IsTrue(Validator<ResponseCodeDto>(new ResponseCodeValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].BiomedicalConcepts[0].BcProperties[0].BcPropertyResponseCodes[0]));                
             studyDto.ClinicalStudy.StudyDesigns[0].Activities[0].ActivityIsConditional = true;
             studyDto.ClinicalStudy.StudyDesigns[0].Activities[1].ActivityIsConditional = "entity";
             studyDto.ClinicalStudy.StudyDesigns[0].Activities[0].DefinedProcedures[0].ProcedureIsConditional = true;
@@ -299,6 +303,17 @@ namespace TransCelerate.SDR.UnitTesting
             var result = helper.ReferenceIntegrityValidation(studyDto, out object referenceErrors);
             Assert.IsTrue(result);
 
+        }
+        #endregion
+
+        #region Make Ids Null UnitTesting
+        [Test]
+        public void RemoveIdsUnitTesting()
+        {
+            var study = GetEntityDataFromStaticJson();
+            HelperV2 helperV2 = new HelperV2();
+            helperV2.RemovedSectionId(study);
+            Assert.IsNull(study.ClinicalStudy.StudyIdentifiers[0].Id);
         }
         #endregion
         #endregion
