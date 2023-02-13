@@ -211,12 +211,19 @@ namespace TransCelerate.SDR.DataAccess.Filters
                     Tuple<List<string>, List<string>> groupFilters = Core.Utilities.Helpers.GroupFilters.GetGroupFilters(groups);
 
                     if (!groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
-                    {
-                        filter &= builder.Or(
-                            builder.Regex("clinicalStudy.studyType", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
-                            builder.Regex($"clinicalStudy.studyType.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
-                            builder.Where(x => groupFilters.Item2.Contains(x.ClinicalStudy.StudyId))
-                            );
+                    {                        
+                        if (groupFilters.Item1.Any())
+                        {
+                            filter &= builder.Or(
+                                        builder.Regex("clinicalStudy.studyType", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
+                                        builder.Regex($"clinicalStudy.studyType.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
+                                        builder.In(x => x.ClinicalStudy.StudyId, groupFilters.Item2)
+                                        );
+                        }
+                        else
+                        {
+                            filter &= builder.In(x => x.ClinicalStudy.StudyId, groupFilters.Item2);
+                        }
                     }
                 }
                 else
