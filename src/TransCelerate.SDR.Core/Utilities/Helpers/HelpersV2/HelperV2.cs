@@ -802,7 +802,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
             {
                 tempList.Add($"{nameof(AliasCodeEntity.StandardCode)}.{x}");
             });
-            GetDifferences<List<CodeEntity>>(currentVersion?.StandardCodeAliases, previousVersion?.StandardCodeAliases).ForEach(x =>
+            GetDifferenceForAList<CodeEntity>(currentVersion?.StandardCodeAliases, previousVersion?.StandardCodeAliases).ForEach(x =>
             {
                 tempList.Add($"{nameof(AliasCodeEntity.StandardCodeAliases)}.{x}");
             });
