@@ -955,16 +955,19 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                 tempList.Add($"{nameof(StudyDesignEntity.BiomedicalConcepts)}.{x}");
             });
             tempList.RemoveAll(x => x.Contains($"{nameof(BiomedicalConceptEntity.BcProperties)}"));
+            tempList.RemoveAll(x => x.Contains($"{nameof(BiomedicalConceptEntity.BcConceptCode)}"));
             currentStudyDesign.BiomedicalConcepts?.ForEach(currentBc =>
             {
+                var currentBcChangedValues = new List<string>();
                 if (previousStudyDesign.BiomedicalConcepts != null && previousStudyDesign.BiomedicalConcepts.Any(x => x.Id == currentBc.Id))
                 {
                     var previousBc = previousStudyDesign.BiomedicalConcepts.Find(x => x.Id == currentBc.Id);                    
                     GetDifferenceForAList<BiomedicalConceptPropertyEntity>(currentBc.BcProperties, previousBc.BcProperties).ForEach(x =>
                     {
-                        tempList.Add($"{nameof(StudyDesignEntity.BiomedicalConcepts)}.{nameof(BiomedicalConceptEntity.BcProperties)}.{x}");
+                        currentBcChangedValues.Add($"{nameof(StudyDesignEntity.BiomedicalConcepts)}.{nameof(BiomedicalConceptEntity.BcProperties)}.{x}");
                     });
-                    tempList.RemoveAll(x => x.Contains($"{nameof(BiomedicalConceptPropertyEntity.BcPropertyResponseCodes)}"));
+                    currentBcChangedValues.RemoveAll(x => x.Contains($"{nameof(BiomedicalConceptPropertyEntity.BcPropertyResponseCodes)}"));
+                    currentBcChangedValues.RemoveAll(x => x.Contains($"{nameof(BiomedicalConceptPropertyEntity.BcPropertyConceptCode)}"));
                     currentBc.BcProperties?.ForEach(currentBcProp =>
                     {
                         if (previousBc.BcProperties != null && previousBc.BcProperties.Any(x => x.Id == currentBcProp.Id))
@@ -973,11 +976,21 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
 
                             GetDifferenceForAList<ResponseCodeEntity>(currentBcProp.BcPropertyResponseCodes, previousBcProp.BcPropertyResponseCodes).ForEach(x =>
                             {
-                                tempList.Add($"{nameof(StudyDesignEntity.BiomedicalConcepts)}.{nameof(BiomedicalConceptEntity.BcProperties)}.{nameof(BiomedicalConceptPropertyEntity.BcPropertyResponseCodes)}.{x}");
+                                currentBcChangedValues.Add($"{nameof(StudyDesignEntity.BiomedicalConcepts)}.{nameof(BiomedicalConceptEntity.BcProperties)}.{nameof(BiomedicalConceptPropertyEntity.BcPropertyResponseCodes)}.{x}");
+                            });
+
+                            GetDifferenceForAliasCode(currentBcProp.BcPropertyConceptCode, previousBcProp.BcPropertyConceptCode).ForEach(x =>
+                            {
+                                currentBcChangedValues.Add($"{nameof(StudyDesignEntity.BiomedicalConcepts)}.{nameof(BiomedicalConceptEntity.BcProperties)}.{nameof(BiomedicalConceptPropertyEntity.BcPropertyConceptCode)}.{x}");
                             });
                         }
                     });
+                    GetDifferenceForAliasCode(currentBc.BcConceptCode, previousBc.BcConceptCode).ForEach(x =>
+                    {
+                        currentBcChangedValues.Add($"{nameof(StudyDesignEntity.BiomedicalConcepts)}.{nameof(BiomedicalConceptEntity.BcConceptCode)}.{x}");
+                    });
                 }
+                tempList.AddRange(currentBcChangedValues);
             });
             return tempList;
         }
@@ -1126,8 +1139,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
             {
                 tempList.Add($"{nameof(StudyDesignEntity.Activities)}.{x}");
             });
-            tempList.RemoveAll(x => x.Contains($"{nameof(ActivityEntity.DefinedProcedures)}"));
-            //tempList.RemoveAll(x => x.Contains($"{nameof(ActivityEntity.StudyDataCollection)}"));
+            tempList.RemoveAll(x => x.Contains($"{nameof(ActivityEntity.DefinedProcedures)}"));            
             currentStudyDesign.Activities?.ForEach(currentActivitiy =>
             {
                 if (previousStudyDesign.Activities != null && previousStudyDesign.Activities.Any(x => x.Id == currentActivitiy.Id))
@@ -1138,10 +1150,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                     {
                         tempList.Add($"{nameof(StudyDesignEntity.Activities)}.{nameof(ActivityEntity.DefinedProcedures)}.{x}");
                     });
-                    //GetDifferenceForAList<StudyDataEntity>(currentActivitiy.StudyDataCollection, previousActivity.StudyDataCollection).ForEach(x =>
-                    //{
-                    //    tempList.Add($"{nameof(StudyDesignEntity.Activities)}.{nameof(ActivityEntity.StudyDataCollection)}.{x}");
-                    //});
                 }
             });
             return tempList;
