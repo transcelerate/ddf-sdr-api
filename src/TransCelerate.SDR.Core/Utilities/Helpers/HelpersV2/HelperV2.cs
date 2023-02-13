@@ -798,15 +798,19 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                 return tempList;
             }
             //Changed below two to ignore Id change
-            GetDifferences<CodeEntity>(currentVersion?.StandardCode, previousVersion?.StandardCode).ForEach(x =>
+            //GetDifferences<CodeEntity>(currentVersion?.StandardCode, previousVersion?.StandardCode).ForEach(x =>
+            //{
+            //    tempList.Add($"{nameof(AliasCodeEntity.StandardCode)}.{x}");
+            //});
+            //GetDifferenceForAList<CodeEntity>(currentVersion?.StandardCodeAliases, previousVersion?.StandardCodeAliases).ForEach(x =>
+            //{
+            //    tempList.Add($"{nameof(AliasCodeEntity.StandardCodeAliases)}.{x}");
+            //});
+
+            GetDifferences<AliasCodeEntity>(currentVersion, previousVersion).ForEach(x =>
             {
                 tempList.Add($"{nameof(AliasCodeEntity.StandardCode)}.{x}");
             });
-            GetDifferenceForAList<CodeEntity>(currentVersion?.StandardCodeAliases, previousVersion?.StandardCodeAliases).ForEach(x =>
-            {
-                tempList.Add($"{nameof(AliasCodeEntity.StandardCodeAliases)}.{x}");
-            });
-                
             return tempList;
         }
 
