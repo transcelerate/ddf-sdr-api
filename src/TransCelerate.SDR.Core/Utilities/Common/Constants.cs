@@ -307,7 +307,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         {
             public const string Male = "Male";
             public const string Female = "Female";
-            public const string MaleOrFemale ="Male Or Female";     
+            public const string MaleOrFemale ="Male or Female";    
         }
         public struct SdrCptMasterDataEntities
         {
@@ -315,6 +315,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string StudyPhase = "Study Phase";
             public const string TrialIntentType = "TrialIntentType";
             public const string ObjectiveLevel = "Objective Level";
+            public const string SexofParticipants = "SexofParticipants";
         }
     }
 }

@@ -179,6 +179,26 @@
           "CPT": ""
         }
       ]
+    },
+    {
+      "entity": "SexofParticipants",
+      "mapping": [
+        {
+          "code": "C49636",
+          "CDISC": "BOTH",
+          "CPT": "Male or Female"
+        },
+        {
+          "code": "C16576",
+          "CDISC": "F",
+          "CPT": "Female"
+        },
+        {
+          "code": "C20197",
+          "CDISC": "M",
+          "CPT": "Male"
+        }
+      ]
     }
   ]
 }
