@@ -307,7 +307,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         {
             public const string Male = "Male";
             public const string Female = "Female";
-            public const string MaleOrFemale ="Male Or Female";     
+            public const string MaleOrFemale ="Male or Female";    
         }
         public struct SdrCptMasterDataEntities
         {
