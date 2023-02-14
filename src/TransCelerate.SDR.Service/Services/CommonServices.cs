@@ -175,11 +175,11 @@ namespace TransCelerate.SDR.Services.Services
             {
                
                 clinicalStudyDto.StudyDesigns.ForEach(design =>
-                {   
+                {
                     StudyDesignDto studyeCPTDto = new StudyDesignDto
                     {
-                        StudyDesignId=design.Id,
-                        StudyDesignLink=links.StudyDesigns.Find(x=>x.StudyDesignId==design.Id).StudyDesignLink,
+                        StudyDesignId = design.Id,
+                        StudyDesignLink = links.StudyDesigns.Find(x => x.StudyDesignId == design.Id).StudyDesignLink,
                         StudyDesignName = design.StudyDesignName,
                         ECPTData = new eCPTDataDto
                         {
@@ -220,7 +220,10 @@ namespace TransCelerate.SDR.Services.Services
                                                       design.StudyPopulations.Count == 1 ? design.StudyPopulations.FirstOrDefault().PopulationDescription
                                                       : $"{String.Join(',', design.StudyPopulations.Select(x => x.PopulationDescription).ToArray(), 0, design.StudyPopulations.Count - 1)} and {design.StudyPopulations.Select(x => x.PopulationDescription).LastOrDefault()}"
                                                       : null,
-                                    InterventionModel = eCPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.InterventionModel, design?.InterventionModel?.Code) ?? design?.InterventionModel?.Decode
+                                    InterventionModel = eCPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.InterventionModel, design?.InterventionModel?.Code) ?? design?.InterventionModel?.Decode,
+                                    NumberofArms = design.StudyCells != null && design.StudyCells.Any() ?
+                                                    design.StudyCells.Where(x => x.StudyArm != null).Any() ?
+                                                    design.StudyCells.Where(x => x.StudyArm != null).Select(x => x.StudyArm.Id).Distinct().Count().ToString() : null : null
                                 }
                             },
                             PageHeader = new PageHeaderDto
@@ -231,17 +234,14 @@ namespace TransCelerate.SDR.Services.Services
                             {
                                 InclusionCriteria = new InclusionCriteriaDto
                                 {
+              
                                     PlannedMaximumAgeofSubjects = design.StudyPopulations != null && design.StudyPopulations.Any() ?
-                                                                        design.StudyPopulations.Where(x => int.TryParse(x.PlannedMaximumAgeOfParticipants, out int number)).Any() ?
-                                                                        design.StudyPopulations.Where(x => int.TryParse(x.PlannedMaximumAgeOfParticipants, out int number)).Max(x => int.Parse(x.PlannedMaximumAgeOfParticipants)).ToString() : null : null,
+                                                                           eCPTHelper.CheckForMaxMin(design.StudyPopulations.Select(x=>x.PlannedMaximumAgeOfParticipants).ToList(),true) :null,
+
                                     PlannedMinimumAgeofSubjects = design.StudyPopulations != null && design.StudyPopulations.Any() ?
-                                                                        design.StudyPopulations.Where(x => int.TryParse(x.PlannedMinimumAgeOfParticipants, out int number)).Any() ?
-                                                                        design.StudyPopulations.Where(x => int.TryParse(x.PlannedMinimumAgeOfParticipants, out int number)).Min(x => int.Parse(x.PlannedMinimumAgeOfParticipants)).ToString() : null : null,
-                                    SexofParticipants = design.StudyPopulations != null && design.StudyPopulations.Any() ? eCPTHelper.GetPlannedSexOfParticipants(design.StudyPopulations
-                                                                                                                                                                       .Select(x => x.PlannedSexOfParticipants.Select(y => y.Decode))
-                                                                                                                                                                       .Where(x => x != null && x.Count() > 0).SelectMany(x => x)?.ToList()
-                                                                                                                                                                       .Where(x => Constants.Male.Any(y => y == x.ToLower()) || Constants.Female.Any(y => y == x.ToLower()))
-                                                                                                                                                                       .ToList()) : ""
+                                                                           eCPTHelper.CheckForMaxMin(design.StudyPopulations.Select(x => x.PlannedMinimumAgeOfParticipants).ToList(), false) : null,
+                                                                                                                                                    
+                                    SexofParticipants = eCPTHelper.GetPlannedSexOfParticipants(design.StudyPopulations)
                                 }
                             },
                             Introduction = new IntroductionDto

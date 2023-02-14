@@ -315,6 +315,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string StudyPhase = "Study Phase";
             public const string TrialIntentType = "TrialIntentType";
             public const string ObjectiveLevel = "Objective Level";
+            public const string SexofParticipants = "SexofParticipants";
         }
     }
 }
