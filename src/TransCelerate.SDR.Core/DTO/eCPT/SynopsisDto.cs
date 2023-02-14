@@ -6,6 +6,7 @@
         public string NumberofParticipants { get; set; }
         public string PrimaryPurpose { get; set; }
         public string EnrollmentTarget { get; set; }
+        public string NumberofArms { get; set; }
 
     }
 }

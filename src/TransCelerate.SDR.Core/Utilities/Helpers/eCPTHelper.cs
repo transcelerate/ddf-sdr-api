@@ -2,33 +2,62 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using TransCelerate.SDR.Core.DTO.eCPT;
 using TransCelerate.SDR.Core.Utilities.Common;
+using static TransCelerate.SDR.Core.Utilities.Common.Constants;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
 {
-    public static class eCPTHelper
+    public  class eCPTHelper
     {
-        public static string GetPlannedSexOfParticipants(List<string> plannedSexOfParticipants)
+        public static string GetPlannedSexOfParticipants(List<TransCelerate.SDR.Core.DTO.StudyV2.StudyDesignPopulationDto> studyDesignPopulations)
         {
-
-            if (plannedSexOfParticipants != null && plannedSexOfParticipants.Any())
+            if (studyDesignPopulations != null && studyDesignPopulations.Any())
             {
-                if (plannedSexOfParticipants.Any(x => Constants.Male.Contains(x.ToLower())) && plannedSexOfParticipants.Any(x => Constants.Female.Contains(x.ToLower())))
+                List<TransCelerate.SDR.Core.DTO.StudyV2.CodeDto> plannedSexofParticipants = studyDesignPopulations.SelectMany(x => x.PlannedSexOfParticipants).ToList();
+                if (plannedSexofParticipants.Any())
                 {
-                    return "Male or Female";
-                }
-                else if (plannedSexOfParticipants.Any(x => Constants.Male.Contains(x.ToLower())))
-                {
-                    return "Male";
-
-                }
-                else if(plannedSexOfParticipants.Any(x=>Constants.Female.Contains(x.ToLower())))
-                {
-                    return "Female";
+                    if (plannedSexofParticipants.Count == 1)
+                    {
+                        return GetCptMappingValue(Constants.SdrCptMasterDataEntities.SexofParticipants, plannedSexofParticipants[0].Code) ?? plannedSexofParticipants[0].Decode;
+                    }
+                    var cptMappingForPlannedSexofParticipants = plannedSexofParticipants.Select(x => new
+                    {
+                        code= x.Code,
+                        decode=x.Decode,
+                        cptValue= GetCptMappingValue(Constants.SdrCptMasterDataEntities.SexofParticipants, x.Code)
+                    });
+                    if ((cptMappingForPlannedSexofParticipants.Any(x =>x.cptValue==Constants.PlannedSexOfParticipants.Male) && cptMappingForPlannedSexofParticipants.Any(x => x.cptValue == Constants.PlannedSexOfParticipants.Female)) || cptMappingForPlannedSexofParticipants.Any(x => x.cptValue == Constants.PlannedSexOfParticipants.MaleOrFemale))
+                    {
+                        return Constants.PlannedSexOfParticipants.MaleOrFemale;
+                    }
+                    else if (cptMappingForPlannedSexofParticipants.Any(x => x.cptValue == Constants.PlannedSexOfParticipants.Male))
+                    {
+                        return Constants.PlannedSexOfParticipants.Male;
+                    }
+                    else if (cptMappingForPlannedSexofParticipants.Any(x => x.cptValue == Constants.PlannedSexOfParticipants.Female))
+                    {
+                        return Constants.PlannedSexOfParticipants.Female;
+                    }
+                    else 
+                        return String.Empty;
                 }
             }
-            return string.Empty;
+            return null;
+        }
+        public static string CheckForMaxMin(List<string> ageOfSubjects, bool isMax)
+        {
+            if (ageOfSubjects.Count == 1)
+            {
+                return ageOfSubjects[0];
+            }
+            if(ageOfSubjects.Where(x=>int.TryParse(x,out int number)).Count()!=ageOfSubjects.Count)
+            {
+                return string.Empty;
+            }
+            return isMax ? ageOfSubjects.Where(x => int.TryParse(x, out int number)).Max(y => int.Parse(y)).ToString() : ageOfSubjects.Where(x => int.TryParse(x, out int number)).Min(y => int.Parse(y)).ToString();
         }
 
         public static string GetCptMappingValue(string entity, string code)
@@ -71,6 +100,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 }
             }
             return objectivesEndpointsAndEstimandsDto;
-        }
+        }     
     }
 }

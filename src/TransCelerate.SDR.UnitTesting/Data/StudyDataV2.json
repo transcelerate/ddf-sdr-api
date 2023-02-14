@@ -233,7 +233,14 @@
             "plannedSexOfParticipants": [
               {
                 "codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f614",
-                "code": "C49686",
+                "code": "C16576",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "2022-03-25",
+                "decode": "Phase IIa Trial"
+              },
+              {
+                "codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f616",
+                "code": "C20197",
                 "codeSystem": "http:www.cdisc.org",
                 "codeSystemVersion": "2022-03-25",
                 "decode": "Phase IIa Trial"
