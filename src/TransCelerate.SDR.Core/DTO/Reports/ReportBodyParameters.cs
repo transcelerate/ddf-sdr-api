@@ -15,5 +15,8 @@ namespace TransCelerate.SDR.Core.DTO.Reports
         public int pageSize { get; set; }
         public string sortBy { get; set; }
         public string sortOrder { get; set; }
+        public bool FilterByTime { get; set; }
+        public DateTime FromDateTime { get; set; }
+        public DateTime ToDateTime { get; set; }
     }
 }

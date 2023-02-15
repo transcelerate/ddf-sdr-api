@@ -799,6 +799,45 @@ namespace TransCelerate.SDR.UnitTesting
             method = reportsController.GetUsageReport(reportBodyParameters);
             method.Wait();
 
+            reportBodyParameters.FilterByTime = true;
+            method = reportsController.GetUsageReport(reportBodyParameters);
+            method.Wait();
+
+            expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateMissingError);
+
+            actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
+
+            //Assert          
+            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
+            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual("400", actual_result.statusCode);
+
+            reportBodyParameters.FilterByTime = true;
+            reportBodyParameters.FromDateTime = DateTime.Now;
+            reportBodyParameters.ToDateTime = DateTime.Now.AddDays(-1);
+            method = reportsController.GetUsageReport(reportBodyParameters);
+            method.Wait();
+
+            expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateErrorForReports);
+
+            actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
+
+            //Assert          
+            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
+            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
+
+            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual("400", actual_result.statusCode);
+
+            reportBodyParameters.FilterByTime = true;
+            reportBodyParameters.FromDateTime = DateTime.Now.AddDays(-1);
+            reportBodyParameters.ToDateTime = DateTime.Now;
+            method = reportsController.GetUsageReport(reportBodyParameters);
+            method.Wait();
 
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ReportsRawData.json");
             var rawReport = JsonConvert.DeserializeObject<SystemUsageRawReport>(jsonData);
