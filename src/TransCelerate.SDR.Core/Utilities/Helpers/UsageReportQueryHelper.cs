@@ -70,19 +70,26 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 query += $"| order by  {Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.timestamp)} ";
                 query += reportBodyParameters.sortOrder == SortOrder.asc.ToString() ? $"{SortOrder.asc}" : $"{SortOrder.desc}";
             }
-            
-            if(reportBodyParameters.pageSize == 0)
+
+            if (reportBodyParameters.pageSize == 0)
             {
                 query += $"| serialize Num = row_number() " +
-                         $"| where Num > {reportBodyParameters.recordNumber}" +                   
-                         $"&timespan=P{reportBodyParameters.days}D";
+                         $"| where Num > {reportBodyParameters.recordNumber}";
             }
             else
             {
                 query += $"| serialize Num = row_number() " +
                          $"| where Num > {reportBodyParameters.recordNumber}" +
-                         $"| take {reportBodyParameters.pageSize}" +
-                         $"&timespan=P{reportBodyParameters.days}D";
+                         $"| take {reportBodyParameters.pageSize}";
+            }
+
+            if (reportBodyParameters.FilterByTime)
+            {
+                query += $"&timespan={reportBodyParameters.FromDateTime:O}/{reportBodyParameters.ToDateTime:O}";
+            }
+            else
+            {
+                query += $"&timespan=P{reportBodyParameters.days}D";
             }
 
             return query;
