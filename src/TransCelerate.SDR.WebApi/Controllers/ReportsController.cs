@@ -57,7 +57,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(ReportsController)}; Method : {nameof(GetUsageReport)};");
-                if (reportBodyParameters.days == 0)
+                if (reportBodyParameters.days == 0 && !reportBodyParameters.FilterByTime)
                     return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ValidationErrorMessage.InValidDays)).Value);
                 HttpClient client = new HttpClient();
                 client.DefaultRequestHeaders.Add(Constants.DefaultHeaders.AppInsightsApiKey, Config.AppInsightsApiKey);
