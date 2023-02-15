@@ -59,6 +59,13 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(ReportsController)}; Method : {nameof(GetUsageReport)};");
                 if (reportBodyParameters.days == 0 && !reportBodyParameters.FilterByTime)
                     return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ValidationErrorMessage.InValidDays)).Value);
+                if (reportBodyParameters.FilterByTime)
+                {                    
+                    if (reportBodyParameters.FromDateTime == DateTime.MinValue || reportBodyParameters.ToDateTime == DateTime.MinValue)
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateMissingError)).Value);
+                    if (reportBodyParameters.FromDateTime >= reportBodyParameters.ToDateTime)
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateErrorForReports)).Value);
+                }
                 HttpClient client = new HttpClient();
                 client.DefaultRequestHeaders.Add(Constants.DefaultHeaders.AppInsightsApiKey, Config.AppInsightsApiKey);
 

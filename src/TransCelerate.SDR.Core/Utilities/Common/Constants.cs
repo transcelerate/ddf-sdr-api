@@ -151,7 +151,11 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string DateError = "ToDate must be greater than or equal to FromDate";
 
+            public const string DateErrorForReports = "ToDate must be greater than FromDate";
+
             public const string StudyInputError = "Kindly provide a valid input";
+
+            public const string DateMissingError = "Kindly provide a date range";
 
             public const string SearchNotFound = "No study matches the search keywords";
 
