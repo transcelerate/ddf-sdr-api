@@ -16,7 +16,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             if (studyDesignPopulations != null && studyDesignPopulations.Any())
             {
-                List<TransCelerate.SDR.Core.DTO.StudyV2.CodeDto> plannedSexofParticipants = studyDesignPopulations.SelectMany(x => x.PlannedSexOfParticipants).ToList();
+                List<TransCelerate.SDR.Core.DTO.StudyV2.CodeDto> plannedSexofParticipants = studyDesignPopulations.Where(x=>x.PlannedSexOfParticipants!=null).SelectMany(x => x.PlannedSexOfParticipants).ToList();
                 if (plannedSexofParticipants.Any())
                 {
                     if (plannedSexofParticipants.Count == 1)

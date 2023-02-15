@@ -223,7 +223,7 @@ namespace TransCelerate.SDR.Services.Services
                                     InterventionModel = eCPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.InterventionModel, design?.InterventionModel?.Code) ?? design?.InterventionModel?.Decode,
                                     NumberofArms = design.StudyCells != null && design.StudyCells.Any() ?
                                                     design.StudyCells.Where(x => x.StudyArm != null).Any() ?
-                                                    design.StudyCells.Where(x => x.StudyArm != null).Select(x => x.StudyArm.Id).Distinct().Count().ToString() : null : null
+                                                    design.StudyCells.Where(x => x.StudyArm != null).Select(x => x.StudyArm.Id).Distinct().Count().ToString() : 0.ToString() : 0.ToString()
                                 }
                             },
                             PageHeader = new PageHeaderDto
