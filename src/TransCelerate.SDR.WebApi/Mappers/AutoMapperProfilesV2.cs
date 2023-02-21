@@ -48,6 +48,11 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<BiomedicalConceptPropertyDto, BiomedicalConceptPropertyEntity>().ReverseMap();
             CreateMap<BiomedicalConceptSurrogateDto, BiomedicalConceptSurrogateEntity>().ReverseMap();
             CreateMap<ResponseCodeDto, ResponseCodeEntity>().ReverseMap();
+            CreateMap<ExitDto, ExitEntity>().ReverseMap();
+            CreateMap<TimepointDto, TimepointEntity>().ReverseMap();
+            CreateMap<TimingDto, TimingEntity>().ReverseMap();
+            CreateMap<TimelineDto, TimelineEntity>().ReverseMap();
+            CreateMap<ConditionDto, ConditionEntity>().ReverseMap();
 
             //Mapper for Study History
             CreateMap<StudyHistoryResponseEntity, UploadVersionDto>()

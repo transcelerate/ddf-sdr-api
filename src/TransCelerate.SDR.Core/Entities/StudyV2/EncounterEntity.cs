@@ -16,6 +16,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
         public TransitionRuleEntity TransitionEndRule { get; set; }
         public string NextEncounterId { get; set; }
         public string PreviousEncounterId { get; set; }
-
+        public string EncounterScheduledAt { get; set; }
     }
 }

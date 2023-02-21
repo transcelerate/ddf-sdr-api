@@ -19,7 +19,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
         public List<InvestigationalInterventionEntity> StudyInvestigationalInterventions { get; set; }
         public List<StudyDesignPopulationEntity> StudyPopulations { get; set; }
         public List<ObjectiveEntity> StudyObjectives { get; set; }
-        public List<WorkflowEntity> StudyWorkflows { get; set; }
+        public List<TimelineEntity> Timelines { get; set; }
         public List<CodeEntity> TherapeuticAreas { get; set; }
         public List<EstimandEntity> StudyEstimands { get; set; }
         public List<EncounterEntity> Encounters { get; set; }

@@ -889,15 +889,13 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             studyEntity.ClinicalStudy.StudyDesigns[0].Id = "Sd_1";
             studyEntity.ClinicalStudy.StudyDesigns[0].Encounters = GetEncountersForSoADataFromStaticJson();
             studyEntity.ClinicalStudy.StudyDesigns[0].Activities = GetActivitiesForSoADataFromStaticJson();
-            studyEntity.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems = GetWorkflowItemsForSoADataFromStaticJson();
-            studyEntity.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].Id = "Wf_1";
 
             _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity));
 
             ClinicalStudyServiceV2 ClinicalStudyService = new ClinicalStudyServiceV2(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockServiceBusClient.Object, _mockChangeAuditRepository.Object);
 
-            var method = ClinicalStudyService.GetSOA("1", studyEntity.ClinicalStudy.StudyDesigns[0].Id, studyEntity.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].Id, 0, user);
+            var method = ClinicalStudyService.GetSOA("1", studyEntity.ClinicalStudy.StudyDesigns[0].Id, studyEntity.ClinicalStudy.StudyDesigns[0].Timelines[0].Id, 0, user);
             method.Wait();
             var result = method.Result;
 

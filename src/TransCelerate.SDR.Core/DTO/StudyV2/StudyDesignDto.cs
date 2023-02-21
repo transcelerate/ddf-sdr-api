@@ -17,7 +17,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
         public List<InvestigationalInterventionDto> StudyInvestigationalInterventions { get; set; }
         public List<StudyDesignPopulationDto> StudyPopulations { get; set; }
         public List<ObjectiveDto> StudyObjectives { get; set; }
-        public List<WorkflowDto> StudyWorkflows { get; set; }
+        public List<TimelineDto> Timelines { get; set; }
         public List<CodeDto> TherapeuticAreas { get; set; }
         public List<EstimandDto> StudyEstimands { get; set; }
         public List<EncounterDto> Encounters { get; set; }

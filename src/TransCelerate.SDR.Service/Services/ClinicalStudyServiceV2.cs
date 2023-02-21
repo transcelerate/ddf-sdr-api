@@ -266,16 +266,16 @@ namespace TransCelerate.SDR.Services.Services
                     studyDesignSoA.StudyWorkflows = new List<StudyWorkflows>();
                     List<EncounterEntity> encounters = GetOrderedEncounters(design.Encounters);
                     List<ActivityEntity> activities = GetOrderedActivities(design.Activities);
-                    if(design.StudyWorkflows != null && design.StudyWorkflows.Any())
+                    if(design.Timelines != null && design.Timelines.Any())
                     {                        
-                        design.StudyWorkflows.ForEach(workFlow =>
+                        design.Timelines.ForEach(workFlow =>
                         {
                             StudyWorkflows studyWorkflowsA = new StudyWorkflows();
                             studyWorkflowsA.WorkFlowId = workFlow.Id;
-                            studyWorkflowsA.WorkflowDescription = workFlow.WorkflowDescription;
+                            studyWorkflowsA.WorkflowDescription = workFlow.TimelineDescription;
                             if (activities != null && activities.Any() && encounters != null && encounters.Any())
                             {                                
-                                List<WorkFlowItemEntity> workflowItems = workFlow.WorkflowItems;
+                                List<TimepointEntity> workflowItems = workFlow.TimelineTimepoints;
                                 if (workflowItems != null && workflowItems.Any())
                                 {
                                     studyWorkflowsA.WorkFlowSoA = new WorkFlowSoA();
@@ -285,9 +285,10 @@ namespace TransCelerate.SDR.Services.Services
                                     {
                                         SoA soA = new SoA();
                                         soA.EncounterName = encounter.EncounterName;
-                                        soA.Activities = workflowItems.Where(x => x.WorkflowItemEncounterId == encounter.Id)
-                                                                      .Where(x => activities.Where(y => y.Id == x.WorkflowItemActivityId).Any())
-                                                                      .Select(x => activities.Where(y => y.Id == x.WorkflowItemActivityId).First().ActivityName)
+                                        soA.Activities = workflowItems.Where(x => x.TimepointEncounterId == encounter.Id)
+                                                                      .SelectMany(x => x.TimepointActivityIds)
+                                                                      .Where(x => activities.Where(y => y.Id == x).Any())
+                                                                      .Select(x => activities.Where(y => y.Id == x).First().ActivityName)
                                                                       .ToList();
                                         studyWorkflowsA.WorkFlowSoA.SoA.Add(soA);
                                     });

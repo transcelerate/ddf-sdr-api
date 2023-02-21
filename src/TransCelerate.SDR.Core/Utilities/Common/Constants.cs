@@ -255,7 +255,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(StudyDesignDto.StudyPopulations),
             nameof(StudyDesignDto.StudyObjectives),
             nameof(StudyDesignDto.StudyCells),
-            nameof(StudyDesignDto.StudyWorkflows),
+            nameof(StudyDesignDto.Timelines),
             nameof(StudyDesignDto.StudyEstimands),
             nameof(StudyDesignDto.Activities),
             nameof(StudyDesignDto.Encounters),

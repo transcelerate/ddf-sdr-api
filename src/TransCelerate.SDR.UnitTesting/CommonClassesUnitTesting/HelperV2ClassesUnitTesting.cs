@@ -199,9 +199,7 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsTrue(Validator<ObjectiveDto>(new ObjectiveValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyObjectives[0]));
             Assert.IsTrue(Validator<StudyProtocolVersionDto>(new StudyProtocolVersionsValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyProtocolVersions[0]));
             Assert.IsTrue(Validator<StudyDto>(new StudyValidator(httpContextAccessor.Object), studyDto));
-            Assert.IsTrue(Validator<TransitionRuleDto>(new TransitionRuleValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].Encounters[0].TransitionStartRule));
-            Assert.IsTrue(Validator<WorkflowDto>(new WorkflowValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0]));
-            Assert.IsTrue(Validator<WorkflowItemDto>(new WorkflowItemValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0]));
+            Assert.IsTrue(Validator<TransitionRuleDto>(new TransitionRuleValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].Encounters[0].TransitionStartRule));            
             Assert.IsTrue(Validator<ActivityDto>(new ActivityValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].Activities[0]));
             Assert.IsTrue(Validator<BiomedicalConceptDto>(new BiomedicalConceptValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].BiomedicalConcepts[0]));
             Assert.IsTrue(Validator<BiomedicalConceptCategoryDto>(new BiomedicalConceptCategoryValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].BcCategories[0]));
@@ -255,15 +253,6 @@ namespace TransCelerate.SDR.UnitTesting
         public void RefernceIntegrity_UnitTesting()
         {
             var studyDto = GetDtoDataFromStaticJson();            
-
-            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems.Add(JsonConvert.DeserializeObject<WorkflowItemDto>(JsonConvert.SerializeObject(studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0])));
-            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].Id = "677";
-            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].NextWorkflowItemId = "678";
-            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].PreviousWorkflowItemId = "123";
-
-            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].Id = "678";
-            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].NextWorkflowItemId = "123";
-            studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].PreviousWorkflowItemId = "677";
 
             studyDto.ClinicalStudy.StudyDesigns[0].StudyCells.Add(JsonConvert.DeserializeObject<StudyCellDto>(JsonConvert.SerializeObject(studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0])));
             studyDto.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Id = "998";

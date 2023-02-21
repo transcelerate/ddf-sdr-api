@@ -18,5 +18,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
         public List<string> BcCategoryIds { get;set; }
         public List<string> BcSurrogateIds { get;set; }
         public List<string> BiomedicalConceptIds { get;set; }
+        public List<string> ActivityEntry { get;set; }
     }
 }
