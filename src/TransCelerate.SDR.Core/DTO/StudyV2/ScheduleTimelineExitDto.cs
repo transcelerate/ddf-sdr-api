@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TransCelerate.SDR.Core.DTO.StudyV2
 {
-    public class ExitDto : Iid
+    public class ScheduleTimelineExitDto : Iid
     {
-        [Newtonsoft.Json.JsonProperty(Utilities.Common.IdFieldPropertyName.StudyV2.ExitId)]
+        [Newtonsoft.Json.JsonProperty(Utilities.Common.IdFieldPropertyName.StudyV2.ScheduleTimelineExitId)]
         public string Id { get; set; }
     }
 }

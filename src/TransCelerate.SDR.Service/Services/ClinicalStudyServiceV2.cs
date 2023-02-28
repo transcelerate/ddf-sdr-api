@@ -266,16 +266,16 @@ namespace TransCelerate.SDR.Services.Services
                     studyDesignSoA.StudyWorkflows = new List<StudyWorkflows>();
                     List<EncounterEntity> encounters = GetOrderedEncounters(design.Encounters);
                     List<ActivityEntity> activities = GetOrderedActivities(design.Activities);
-                    if(design.Timelines != null && design.Timelines.Any())
+                    if(design.StudyScheduleTimelines != null && design.StudyScheduleTimelines.Any())
                     {                        
-                        design.Timelines.ForEach(workFlow =>
+                        design.StudyScheduleTimelines.ForEach(workFlow =>
                         {
                             StudyWorkflows studyWorkflowsA = new StudyWorkflows();
                             studyWorkflowsA.WorkFlowId = workFlow.Id;
-                            studyWorkflowsA.WorkflowDescription = workFlow.TimelineDescription;
+                            studyWorkflowsA.WorkflowDescription = workFlow.ScheduleTimelineDescription;
                             if (activities != null && activities.Any() && encounters != null && encounters.Any())
                             {                                
-                                List<TimepointEntity> workflowItems = workFlow.TimelineTimepoints;
+                                var workflowItems = workFlow.ScheduledTimelineInstances;
                                 if (workflowItems != null && workflowItems.Any())
                                 {
                                     studyWorkflowsA.WorkFlowSoA = new WorkFlowSoA();
@@ -284,11 +284,19 @@ namespace TransCelerate.SDR.Services.Services
                                     encounters.ForEach(encounter =>
                                     {
                                         SoA soA = new SoA();
-                                        soA.EncounterName = encounter.EncounterName;
-                                        soA.Activities = workflowItems.Where(x => x.TimepointEncounterId == encounter.Id)
-                                                                      .SelectMany(x => x.TimepointActivityIds)
+                                        string timingValue = workflowItems.Select(x => (x as ScheduledActivityInstanceEntity))
+                                                                         .Where(x => x != null)
+                                                                         .SelectMany(x => x.ScheduledInstanceTimings)
+                                                                         .Where(x => x.Id == encounter.EncounterScheduledAtTimingId).FirstOrDefault()?.TimingValue;
+                                        string timingValueToBeAddedinSoA = String.IsNullOrWhiteSpace(timingValue) ? string.Empty : $" ({timingValue})";
+                                        soA.EncounterName = encounter.EncounterName + timingValueToBeAddedinSoA;
+                                        soA.Activities = workflowItems.Select(x => (x as ScheduledActivityInstanceEntity))
+                                                                      .Where(x => x != null)
+                                                                      .Where(x => x.ScheduledInstanceEncounterId == encounter.Id)
+                                                                      .Select(x => x.ActivityIds)
+                                                                      .SelectMany(x => x).Distinct()
                                                                       .Where(x => activities.Where(y => y.Id == x).Any())
-                                                                      .Select(x => activities.Where(y => y.Id == x).First().ActivityName)
+                                                                      .Select(x => activities.Where(y => y.Id == x).First()?.ActivityName)
                                                                       .ToList();
                                         studyWorkflowsA.WorkFlowSoA.SoA.Add(soA);
                                     });

@@ -255,7 +255,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(StudyDesignDto.StudyPopulations),
             nameof(StudyDesignDto.StudyObjectives),
             nameof(StudyDesignDto.StudyCells),
-            nameof(StudyDesignDto.Timelines),
+            nameof(StudyDesignDto.StudyScheduleTimelines),
             nameof(StudyDesignDto.StudyEstimands),
             nameof(StudyDesignDto.Activities),
             nameof(StudyDesignDto.Encounters),
@@ -316,6 +316,11 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string TrialIntentType = "TrialIntentType";
             public const string ObjectiveLevel = "Objective Level";
             public const string SexofParticipants = "SexofParticipants";
+        }
+        public struct ScheduledInstanceType
+        {
+            public const string ACTIVITY = "ACTIVITY";
+            public const string DECISION = "DECISION";
         }
     }
 }

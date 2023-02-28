@@ -30,7 +30,6 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<ObjectiveDto, ObjectiveEntity>().ReverseMap();
             CreateMap<StudyArmDto, StudyArmEntity>().ReverseMap();
             CreateMap<StudyCellDto, StudyCellEntity>().ReverseMap();
-            CreateMap<StudyDataDto, StudyDataEntity>().ReverseMap();
             CreateMap<StudyDesignDto, StudyDesignEntity>().ReverseMap();
             CreateMap<StudyDesignPopulationDto, StudyDesignPopulationEntity>().ReverseMap();
             CreateMap<StudyElementDto, StudyElementEntity>().ReverseMap();
@@ -39,8 +38,6 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<OrganisationDto, OrganisationEntity>().ReverseMap();                                               
             CreateMap<StudyProtocolVersionDto, StudyProtocolVersionEntity>().ReverseMap();
             CreateMap<TransitionRuleDto, TransitionRuleEntity>().ReverseMap();
-            CreateMap<WorkflowDto, WorkflowEntity>().ReverseMap();
-            CreateMap<WorkflowItemDto, WorkFlowItemEntity>().ReverseMap();
             CreateMap<AliasCodeDto, AliasCodeEntity>().ReverseMap();
             CreateMap<AddressDto, AddressEntity>().ReverseMap();
             CreateMap<BiomedicalConceptCategoryDto, BiomedicalConceptCategoryEntity>().ReverseMap();
@@ -48,11 +45,16 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<BiomedicalConceptPropertyDto, BiomedicalConceptPropertyEntity>().ReverseMap();
             CreateMap<BiomedicalConceptSurrogateDto, BiomedicalConceptSurrogateEntity>().ReverseMap();
             CreateMap<ResponseCodeDto, ResponseCodeEntity>().ReverseMap();
-            CreateMap<ExitDto, ExitEntity>().ReverseMap();
-            CreateMap<TimepointDto, TimepointEntity>().ReverseMap();
+            CreateMap<ScheduleTimelineExitDto, ScheduleTimelineExitEntity>().ReverseMap();
+            CreateMap<ScheduleTimelineDto, ScheduleTimelineEntity>().ReverseMap();
+            CreateMap<ScheduledInstanceDto, ScheduledInstanceEntity>()
+                //.ForMember(dest => dest.ScheduleInstanceType, opt => opt.MapFrom(src => src.ScheduleInstanceType.ToString()))
+                .Include<ScheduledDecisionInstanceDto, ScheduledDecisionInstanceEntity>()
+                .Include<ScheduledActivityInstanceDto, ScheduledActivityInstanceEntity>()
+                .ReverseMap();
+            CreateMap<ScheduledDecisionInstanceDto, ScheduledDecisionInstanceEntity>().ReverseMap();
+            CreateMap<ScheduledActivityInstanceDto, ScheduledActivityInstanceEntity>().ReverseMap();
             CreateMap<TimingDto, TimingEntity>().ReverseMap();
-            CreateMap<TimelineDto, TimelineEntity>().ReverseMap();
-            CreateMap<ConditionDto, ConditionEntity>().ReverseMap();
 
             //Mapper for Study History
             CreateMap<StudyHistoryResponseEntity, UploadVersionDto>()

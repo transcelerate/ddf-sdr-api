@@ -12,7 +12,9 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
         public string Id { get; set; }
         public CodeDto TimingType { get; set; }
         public string TimingValue { get; set; }
+        public string TimingWindow { get; set; }        
+        public string RelativeToScheduledInstanceId { get; set; }
+        public string RelativeFromScheduledInstanceId { get; set; }
         public CodeDto TimingRelativeToFrom { get; set; }
-        public string TimingWindow { get; set; }
     }
 }

@@ -76,9 +76,13 @@ namespace TransCelerate.SDR.RuleEngineV2
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(EncounterValidator), nameof(EncounterDto.TransitionEndRule)), ApplyConditionTo.AllValidators);                
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(EncounterValidator), nameof(EncounterDto.TransitionEndRule)), ApplyConditionTo.AllValidators);
 
-
+            RuleFor(x => x.EncounterScheduledAtTimingId)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(EncounterValidator), nameof(EncounterDto.EncounterScheduledAtTimingId)), ApplyConditionTo.AllValidators);
         }
     }
 }

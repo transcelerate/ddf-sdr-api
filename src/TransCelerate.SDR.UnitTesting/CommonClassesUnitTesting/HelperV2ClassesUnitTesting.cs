@@ -50,7 +50,7 @@ namespace TransCelerate.SDR.UnitTesting
         [SetUp]
         public void Setup()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ConformanceRules_UnitTesting.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ConformanceRules.json");
             ConformanceNonStatic conformanceNonStatic = JsonConvert.DeserializeObject<ConformanceNonStatic>(jsonData);
             Conformance.ConformanceRules = conformanceNonStatic.ConformanceRules;
         }
@@ -206,6 +206,11 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsTrue(Validator<BiomedicalConceptPropertyDto>(new BiomedicalConceptPropertyValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].BiomedicalConcepts[0].BcProperties[0]));
             Assert.IsTrue(Validator<BiomedicalConceptSurrogateDto>(new BiomedicalConceptSurrogateValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].BcSurrogates[0]));
             Assert.IsTrue(Validator<ResponseCodeDto>(new ResponseCodeValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].BiomedicalConcepts[0].BcProperties[0].BcPropertyResponseCodes[0]));                
+            Assert.IsTrue(Validator<ScheduleTimelineDto>(new ScheduleTimelinesValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyScheduleTimelines[0]));                
+            Assert.IsTrue(Validator<ScheduledInstanceDto>(new ScheduledInstanceValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyScheduleTimelines[0].ScheduledTimelineInstances[0]));                
+            Assert.IsTrue(Validator<ScheduledInstanceDto>(new ScheduledInstanceValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyScheduleTimelines[0].ScheduledTimelineInstances[1]));                
+            Assert.IsTrue(Validator<TimingDto>(new TimingValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyScheduleTimelines[0].ScheduledTimelineInstances[0].ScheduledInstanceTimings[0]));                
+            Assert.IsTrue(Validator<ScheduleTimelineExitDto>(new ScheduleTimelineExitValidator(httpContextAccessor.Object), studyDto.ClinicalStudy.StudyDesigns[0].StudyScheduleTimelines[0].ScheduleTimelineExits[0]));                
             studyDto.ClinicalStudy.StudyDesigns[0].Activities[0].ActivityIsConditional = true;
             studyDto.ClinicalStudy.StudyDesigns[0].Activities[1].ActivityIsConditional = "entity";
             studyDto.ClinicalStudy.StudyDesigns[0].Activities[0].DefinedProcedures[0].ProcedureIsConditional = true;

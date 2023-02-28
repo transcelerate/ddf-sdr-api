@@ -69,11 +69,6 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/SoASampleData.json");
             return JsonConvert.DeserializeObject<StudyDesignEntity>(jsonData).Encounters;
         }
-        public List<WorkFlowItemEntity> GetWorkflowItemsForSoADataFromStaticJson()
-        {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/SoASampleData.json");
-            return JsonConvert.DeserializeObject<WorkflowEntity>(jsonData).WorkflowItems;
-        }
         LoggedInUser user = new LoggedInUser
         {
             UserName = "user1@SDR.com",
@@ -895,7 +890,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             ClinicalStudyServiceV2 ClinicalStudyService = new ClinicalStudyServiceV2(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockServiceBusClient.Object, _mockChangeAuditRepository.Object);
 
-            var method = ClinicalStudyService.GetSOA("1", studyEntity.ClinicalStudy.StudyDesigns[0].Id, studyEntity.ClinicalStudy.StudyDesigns[0].Timelines[0].Id, 0, user);
+            var method = ClinicalStudyService.GetSOA("1", studyEntity.ClinicalStudy.StudyDesigns[0].Id, studyEntity.ClinicalStudy.StudyDesigns[0].StudyScheduleTimelines[0].Id, 0, user);
             method.Wait();
             var result = method.Result;
 

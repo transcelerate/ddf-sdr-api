@@ -83,6 +83,12 @@ namespace TransCelerate.SDR.RuleEngineV2
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.BcSurrogateIds)), ApplyConditionTo.AllValidators)
                 .Must(x => UniquenessArrayValidator.ValidateStringList(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleFor(x => x.ActivityTimelineId)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.ActivityTimelineId)), ApplyConditionTo.AllValidators);                
         }
     }
 }

@@ -182,8 +182,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.StudyObjectives).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.StudyObjectives).Substring(1)))).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyCells).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.StudyCells).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.StudyCells).Substring(1)))).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.Timelines).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.Timelines).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.Timelines).Substring(1)))).ToList().ForEach(x => x.Remove());
+                            else if (item == nameof(StudyDesignDto.StudyScheduleTimelines).ToLower())
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.StudyScheduleTimelines).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.StudyScheduleTimelines).Substring(1)))).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyEstimands).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.StudyEstimands).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.StudyEstimands).Substring(1)))).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyDesignName).ToLower())
@@ -326,8 +326,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
 
                     //if (x.StudyWorkflows is not null && x.StudyWorkflows.Any())
                     //    x.StudyWorkflows = RemoveIdForStudyWorkflow(x.StudyWorkflows);
-                    if (x.Timelines is not null && x.Timelines.Any())
-                        x.Timelines = RemoveIdForTimelines(x.Timelines);
+                    if (x.StudyScheduleTimelines is not null && x.StudyScheduleTimelines.Any())
+                        x.StudyScheduleTimelines = RemoveIdForScheduleTimelines(x.StudyScheduleTimelines);
 
                     if (x.StudyEstimands is not null && x.StudyEstimands.Any())
                         x.StudyEstimands = RemoveIdForStudyEstimand(x.StudyEstimands);
@@ -523,75 +523,48 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
             }
             return studyCells;
         }
+
         /// <summary>
-        /// Remove uuid for Study Workflows
+        /// Remove uuid for Schedule Timelines
         /// </summary>
-        /// <param name="workflows"></param>
+        /// <param name="scheduleTimelines"></param>
         /// <returns></returns>
-        public List<WorkflowEntity> RemoveIdForStudyWorkflow(List<WorkflowEntity> workflows)
+        public List<ScheduleTimelineEntity> RemoveIdForScheduleTimelines(List<ScheduleTimelineEntity> scheduleTimelines)
         {
-            if (workflows is not null && workflows.Any())
+            if (scheduleTimelines is not null && scheduleTimelines.Any())
             {
-                workflows.ForEach(x =>
+                scheduleTimelines.ForEach(x =>
                 {
                     x.Id = null;
 
-                    if (x.WorkflowItems is not null && x.WorkflowItems.Any())
+                    if (x.ScheduleTimelineExits is not null && x.ScheduleTimelineExits.Any())
+                        x.ScheduleTimelineExits.ForEach(y=>y.Id = null);
+
+                    if (x.ScheduledTimelineInstances is not null && x.ScheduleTimelineEntryId.Any())
                     {
-                        x.WorkflowItems.ForEach(y =>
+                        x.ScheduledTimelineInstances.ForEach(y =>
                         {
                             y.Id = null;
-                        });
-                    }
-                });
-            }
-            return workflows;
-        }
-        /// <summary>
-        /// Remove uuid for Timelines
-        /// </summary>
-        /// <param name="timelines"></param>
-        /// <returns></returns>
-        public List<TimelineEntity> RemoveIdForTimelines(List<TimelineEntity> timelines)
-        {
-            if (timelines is not null && timelines.Any())
-            {
-                timelines.ForEach(x =>
-                {
-                    x.Id = null;
-                    if (x.EntryCondition is not null)
-                        x.EntryCondition.Id = null;
 
-                    if (x.TimelineExit is not null)
-                        x.TimelineExit.Id = null;
-
-                    if (x.TimelineTimepoints is not null && x.TimelineTimepoints.Any())
-                    {
-                        x.TimelineTimepoints.ForEach(y =>
-                        {
-                            y.Id = null;
-                            if (y.TimepointType is not null)
-                                y.TimepointType.Id = null;
-
-                            if (y.TimepointCondition is not null)
-                                y.TimepointCondition.Id = null;
-
-                            if (y.TimepointScheduledAt is not null)
+                            if (y.ScheduledInstanceTimings is not null && y.ScheduledInstanceTimings.Any())
                             {
-                                y.TimepointScheduledAt.Id = null;
+                                y.ScheduledInstanceTimings.ForEach(z =>
+                                {
+                                    z.Id = null;
 
-                                if (y.TimepointScheduledAt.TimingType is not null)
-                                    y.TimepointScheduledAt.TimingType.Id = null;
+                                    if (z.TimingType is not null)
+                                        z.TimingType.Id = null;
 
-                                if (y.TimepointScheduledAt.TimingRelativeToFrom is not null)
-                                    y.TimepointScheduledAt.TimingRelativeToFrom.Id = null;
+                                    if (z.TimingRelativeToFrom is not null)
+                                        z.TimingRelativeToFrom.Id = null;
+                                });
                             }
                             
                         });
                     }
                 });
             }
-            return timelines;
+            return scheduleTimelines;
         }
         /// <summary>
         /// Remove uuid for Study Estimands
@@ -1256,20 +1229,20 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                     }
 
                     //Study Workflow Item Id, WorkflowItemActivityId & WorkflowItemEncounterId
-                    if (design.Timelines != null && design.Timelines.Any())
+                    if (design.StudyScheduleTimelines != null && design.StudyScheduleTimelines.Any())
                     {
-                        design.Timelines.ForEach(timeline =>
+                        design.StudyScheduleTimelines.ForEach(scheduleTimeline =>
                         {
-                            if (timeline.TimelineTimepoints != null && timeline.TimelineTimepoints.Any())
+                            if (scheduleTimeline.ScheduledTimelineInstances != null && scheduleTimeline.ScheduledTimelineInstances.Any())
                             {
-                                List<string> timelineTimepointIds = timeline.TimelineTimepoints.Select(x => x.Id).ToList();
-                                timelineTimepointIds.RemoveAll(x => String.IsNullOrWhiteSpace(x));
+                                List<string> scheduledTimelineInstanceIds = scheduleTimeline.ScheduledTimelineInstances.Select(x => x.Id).ToList();
+                                scheduledTimelineInstanceIds.RemoveAll(x => String.IsNullOrWhiteSpace(x));
 
-                                timeline.TimelineTimepoints.ForEach(timelineTimepoint =>
+                                scheduleTimeline.ScheduledTimelineInstances.ForEach(timelineInstance =>
                                 {
-                                    List<string> tempTimelinTimepointIds = timelineTimepointIds.ToList();
+                                    List<string> tempTimelinTimepointIds = scheduledTimelineInstanceIds.ToList();
 
-                                    tempTimelinTimepointIds.RemoveAll(x => x == timelineTimepoint.Id);
+                                    tempTimelinTimepointIds.RemoveAll(x => x == timelineInstance.Id);
 
                                     //if (!String.IsNullOrWhiteSpace(workflowItem.PreviousWorkflowItemId) && !tempworkFlowItemUUIDs.Contains(workflowItem.PreviousWorkflowItemId))
                                     //    errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +

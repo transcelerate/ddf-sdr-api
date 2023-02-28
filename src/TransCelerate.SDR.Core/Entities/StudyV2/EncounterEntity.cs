@@ -2,6 +2,7 @@
 
 namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
+    [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
     [MongoDB.Bson.Serialization.Attributes.BsonNoId]
     public class EncounterEntity : Iid
     {
@@ -16,6 +17,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
         public TransitionRuleEntity TransitionEndRule { get; set; }
         public string NextEncounterId { get; set; }
         public string PreviousEncounterId { get; set; }
-        public string EncounterScheduledAt { get; set; }
+        public string EncounterScheduledAtTimingId { get; set; }
     }
 }
