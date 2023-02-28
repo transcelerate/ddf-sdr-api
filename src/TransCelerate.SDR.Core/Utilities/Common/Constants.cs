@@ -201,7 +201,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string ErrorMessageForReferenceIntegrity = "Reference Integrity Failed";
                         
-            public const string WorkFlowNotFound = "The requested StudyWorkflow not found";
+            public const string WorkFlowNotFound = "The requested StudyScheduleTimeline not found";
 
             public const string EnterDesignIdError = "Kindly provide valid Study Design Id when providing Study WorkFlow Id";
 
@@ -259,7 +259,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(StudyDesignDto.StudyPopulations),
             nameof(StudyDesignDto.StudyObjectives),
             nameof(StudyDesignDto.StudyCells),
-            nameof(StudyDesignDto.StudyWorkflows),
+            nameof(StudyDesignDto.StudyScheduleTimelines),
             nameof(StudyDesignDto.StudyEstimands),
             nameof(StudyDesignDto.Activities),
             nameof(StudyDesignDto.Encounters),
@@ -320,6 +320,11 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string TrialIntentType = "TrialIntentType";
             public const string ObjectiveLevel = "Objective Level";
             public const string SexofParticipants = "SexofParticipants";
+        }
+        public struct ScheduledInstanceType
+        {
+            public const string ACTIVITY = "ACTIVITY";
+            public const string DECISION = "DECISION";
         }
     }
 }

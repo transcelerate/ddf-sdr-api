@@ -182,8 +182,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.StudyObjectives).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.StudyObjectives).Substring(1)))).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyCells).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.StudyCells).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.StudyCells).Substring(1)))).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.StudyWorkflows).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.StudyWorkflows).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.StudyWorkflows).Substring(1)))).ToList().ForEach(x => x.Remove());
+                            else if (item == nameof(StudyDesignDto.StudyScheduleTimelines).ToLower())
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.StudyScheduleTimelines).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.StudyScheduleTimelines).Substring(1)))).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyEstimands).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (nameof(StudyDesignDto.StudyEstimands).Substring(0, 1).ToLower() + (nameof(StudyDesignDto.StudyEstimands).Substring(1)))).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyDesignName).ToLower())
@@ -324,8 +324,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                     if (x.StudyCells is not null && x.StudyCells.Any())
                         x.StudyCells = RemoveIdForStudyCells(x.StudyCells);
 
-                    if (x.StudyWorkflows is not null && x.StudyWorkflows.Any())
-                        x.StudyWorkflows = RemoveIdForStudyWorkflow(x.StudyWorkflows);
+                    //if (x.StudyWorkflows is not null && x.StudyWorkflows.Any())
+                    //    x.StudyWorkflows = RemoveIdForStudyWorkflow(x.StudyWorkflows);
+                    if (x.StudyScheduleTimelines is not null && x.StudyScheduleTimelines.Any())
+                        x.StudyScheduleTimelines = RemoveIdForScheduleTimelines(x.StudyScheduleTimelines);
 
                     if (x.StudyEstimands is not null && x.StudyEstimands.Any())
                         x.StudyEstimands = RemoveIdForStudyEstimand(x.StudyEstimands);
@@ -521,29 +523,48 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
             }
             return studyCells;
         }
+
         /// <summary>
-        /// Remove uuid for Study Workflows
+        /// Remove uuid for Schedule Timelines
         /// </summary>
-        /// <param name="workflows"></param>
+        /// <param name="scheduleTimelines"></param>
         /// <returns></returns>
-        public List<WorkflowEntity> RemoveIdForStudyWorkflow(List<WorkflowEntity> workflows)
+        public List<ScheduleTimelineEntity> RemoveIdForScheduleTimelines(List<ScheduleTimelineEntity> scheduleTimelines)
         {
-            if (workflows is not null && workflows.Any())
+            if (scheduleTimelines is not null && scheduleTimelines.Any())
             {
-                workflows.ForEach(x =>
+                scheduleTimelines.ForEach(x =>
                 {
                     x.Id = null;
 
-                    if (x.WorkflowItems is not null && x.WorkflowItems.Any())
+                    if (x.ScheduleTimelineExits is not null && x.ScheduleTimelineExits.Any())
+                        x.ScheduleTimelineExits.ForEach(y=>y.Id = null);
+
+                    if (x.ScheduledTimelineInstances is not null && x.ScheduleTimelineEntryId.Any())
                     {
-                        x.WorkflowItems.ForEach(y =>
+                        x.ScheduledTimelineInstances.ForEach(y =>
                         {
                             y.Id = null;
+
+                            if (y.ScheduledInstanceTimings is not null && y.ScheduledInstanceTimings.Any())
+                            {
+                                y.ScheduledInstanceTimings.ForEach(z =>
+                                {
+                                    z.Id = null;
+
+                                    if (z.TimingType is not null)
+                                        z.TimingType.Id = null;
+
+                                    if (z.TimingRelativeToFrom is not null)
+                                        z.TimingRelativeToFrom.Id = null;
+                                });
+                            }
+                            
                         });
                     }
                 });
             }
-            return workflows;
+            return scheduleTimelines;
         }
         /// <summary>
         /// Remove uuid for Study Estimands
@@ -1111,26 +1132,26 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
         public List<string> GetDifferenceForStudyWorkFlows(StudyDesignEntity currentStudyDesign, StudyDesignEntity previousStudyDesign)
         {
             var tempList = new List<string>();
-            if (currentStudyDesign.StudyWorkflows?.Count != previousStudyDesign.StudyWorkflows?.Count)
-                tempList.Add($"{nameof(StudyDesignEntity.StudyWorkflows)}");
-            GetDifferenceForAList<WorkflowEntity>(currentStudyDesign.StudyWorkflows, previousStudyDesign.StudyWorkflows).ForEach(x =>
-            {
-                tempList.Add($"{nameof(StudyDesignEntity.StudyWorkflows)}.{x}");
-            });
-            tempList.RemoveAll(x => x.Contains($"{nameof(WorkflowEntity.WorkflowItems)}"));
-            currentStudyDesign.StudyWorkflows?.ForEach(currentStudyWorkflows =>
-            {
-                var workFlowItemChangeList = new List<string>();
-                if (previousStudyDesign.StudyWorkflows != null && previousStudyDesign.StudyWorkflows.Any(x => x.Id == currentStudyWorkflows.Id))
-                {
-                    var previousStudyWorkflows = previousStudyDesign.StudyWorkflows.Find(x => x.Id == currentStudyWorkflows.Id);
-                    GetDifferenceForAList<WorkFlowItemEntity>(currentStudyWorkflows.WorkflowItems, previousStudyWorkflows.WorkflowItems).ForEach(x =>
-                    {
-                        workFlowItemChangeList.Add($"{nameof(StudyDesignEntity.StudyWorkflows)}.{nameof(WorkflowEntity.WorkflowItems)}.{x}");
-                    });                  
-                }
-                tempList.AddRange(workFlowItemChangeList);
-            });
+            //if (currentStudyDesign.StudyWorkflows?.Count != previousStudyDesign.StudyWorkflows?.Count)
+            //    tempList.Add($"{nameof(StudyDesignEntity.StudyWorkflows)}");
+            //GetDifferenceForAList<WorkflowEntity>(currentStudyDesign.StudyWorkflows, previousStudyDesign.StudyWorkflows).ForEach(x =>
+            //{
+            //    tempList.Add($"{nameof(StudyDesignEntity.StudyWorkflows)}.{x}");
+            //});
+            //tempList.RemoveAll(x => x.Contains($"{nameof(WorkflowEntity.WorkflowItems)}"));
+            //currentStudyDesign.StudyWorkflows?.ForEach(currentStudyWorkflows =>
+            //{
+            //    var workFlowItemChangeList = new List<string>();
+            //    if (previousStudyDesign.StudyWorkflows != null && previousStudyDesign.StudyWorkflows.Any(x => x.Id == currentStudyWorkflows.Id))
+            //    {
+            //        var previousStudyWorkflows = previousStudyDesign.StudyWorkflows.Find(x => x.Id == currentStudyWorkflows.Id);
+            //        GetDifferenceForAList<WorkFlowItemEntity>(currentStudyWorkflows.WorkflowItems, previousStudyWorkflows.WorkflowItems).ForEach(x =>
+            //        {
+            //            workFlowItemChangeList.Add($"{nameof(StudyDesignEntity.StudyWorkflows)}.{nameof(WorkflowEntity.WorkflowItems)}.{x}");
+            //        });                  
+            //    }
+            //    tempList.AddRange(workFlowItemChangeList);
+            //});
             return tempList;
         }
 
@@ -1208,51 +1229,51 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                     }
 
                     //Study Workflow Item Id, WorkflowItemActivityId & WorkflowItemEncounterId
-                    if (design.StudyWorkflows != null && design.StudyWorkflows.Any())
+                    if (design.StudyScheduleTimelines != null && design.StudyScheduleTimelines.Any())
                     {
-                        design.StudyWorkflows.ForEach(workflow =>
+                        design.StudyScheduleTimelines.ForEach(scheduleTimeline =>
                         {
-                            if (workflow.WorkflowItems != null && workflow.WorkflowItems.Any())
+                            if (scheduleTimeline.ScheduledTimelineInstances != null && scheduleTimeline.ScheduledTimelineInstances.Any())
                             {
-                                List<string> workFlowItemUUIDs = workflow.WorkflowItems.Select(x => x.Id).ToList();
-                                workFlowItemUUIDs.RemoveAll(x => String.IsNullOrWhiteSpace(x));
+                                List<string> scheduledTimelineInstanceIds = scheduleTimeline.ScheduledTimelineInstances.Select(x => x.Id).ToList();
+                                scheduledTimelineInstanceIds.RemoveAll(x => String.IsNullOrWhiteSpace(x));
 
-                                workflow.WorkflowItems.ForEach(workflowItem =>
+                                scheduleTimeline.ScheduledTimelineInstances.ForEach(timelineInstance =>
                                 {
-                                    List<string> tempworkFlowItemUUIDs = workFlowItemUUIDs.ToList();
+                                    List<string> tempTimelinTimepointIds = scheduledTimelineInstanceIds.ToList();
 
-                                    tempworkFlowItemUUIDs.RemoveAll(x => x == workflowItem.Id);
+                                    tempTimelinTimepointIds.RemoveAll(x => x == timelineInstance.Id);
 
-                                    if (!String.IsNullOrWhiteSpace(workflowItem.PreviousWorkflowItemId) && !tempworkFlowItemUUIDs.Contains(workflowItem.PreviousWorkflowItemId))
-                                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                            $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                            $"{nameof(StudyDesignDto.StudyWorkflows)}[{design.StudyWorkflows.IndexOf(workflow)}]." +
-                                            $"{nameof(WorkflowDto.WorkflowItems)}[{workflow.WorkflowItems.IndexOf(workflowItem)}]." +
-                                            $"{nameof(WorkflowItemDto.PreviousWorkflowItemId)}");
+                                    //if (!String.IsNullOrWhiteSpace(workflowItem.PreviousWorkflowItemId) && !tempworkFlowItemUUIDs.Contains(workflowItem.PreviousWorkflowItemId))
+                                    //    errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                    //        $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
+                                    //        $"{nameof(StudyDesignDto.StudyWorkflows)}[{design.StudyWorkflows.IndexOf(workflow)}]." +
+                                    //        $"{nameof(WorkflowDto.WorkflowItems)}[{workflow.WorkflowItems.IndexOf(workflowItem)}]." +
+                                    //        $"{nameof(WorkflowItemDto.PreviousWorkflowItemId)}");
 
-                                    if (!String.IsNullOrWhiteSpace(workflowItem.NextWorkflowItemId) && !tempworkFlowItemUUIDs.Contains(workflowItem.NextWorkflowItemId))
-                                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                            $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                            $"{nameof(StudyDesignDto.StudyWorkflows)}[{design.StudyWorkflows.IndexOf(workflow)}]." +
-                                            $"{nameof(WorkflowDto.WorkflowItems)}[{workflow.WorkflowItems.IndexOf(workflowItem)}]." +
-                                            $"{nameof(WorkflowItemDto.NextWorkflowItemId)}");
+                                    //if (!String.IsNullOrWhiteSpace(workflowItem.NextWorkflowItemId) && !tempworkFlowItemUUIDs.Contains(workflowItem.NextWorkflowItemId))
+                                    //    errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                    //        $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
+                                    //        $"{nameof(StudyDesignDto.StudyWorkflows)}[{design.StudyWorkflows.IndexOf(workflow)}]." +
+                                    //        $"{nameof(WorkflowDto.WorkflowItems)}[{workflow.WorkflowItems.IndexOf(workflowItem)}]." +
+                                    //        $"{nameof(WorkflowItemDto.NextWorkflowItemId)}");
 
-                                    List<string> encounterIds = design.Encounters is null ? new List<string>() : design.Encounters.Select(x => x.Id).ToList();
-                                    List<string> activityIds = design.Activities is null ? new List<string>() : design.Activities.Select(x => x.Id).ToList();
+                                    //List<string> encounterIds = design.Encounters is null ? new List<string>() : design.Encounters.Select(x => x.Id).ToList();
+                                    //List<string> activityIds = design.Activities is null ? new List<string>() : design.Activities.Select(x => x.Id).ToList();
 
-                                    if (!String.IsNullOrWhiteSpace(workflowItem.WorkflowItemActivityId) && !activityIds.Contains(workflowItem.WorkflowItemActivityId))
-                                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                            $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                            $"{nameof(StudyDesignDto.StudyWorkflows)}[{design.StudyWorkflows.IndexOf(workflow)}]." +
-                                            $"{nameof(WorkflowDto.WorkflowItems)}[{workflow.WorkflowItems.IndexOf(workflowItem)}]." +
-                                            $"{nameof(WorkflowItemDto.WorkflowItemActivityId)}");
+                                    //if (!String.IsNullOrWhiteSpace(workflowItem.WorkflowItemActivityId) && !activityIds.Contains(workflowItem.WorkflowItemActivityId))
+                                    //    errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                    //        $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
+                                    //        $"{nameof(StudyDesignDto.StudyWorkflows)}[{design.StudyWorkflows.IndexOf(workflow)}]." +
+                                    //        $"{nameof(WorkflowDto.WorkflowItems)}[{workflow.WorkflowItems.IndexOf(workflowItem)}]." +
+                                    //        $"{nameof(WorkflowItemDto.WorkflowItemActivityId)}");
 
-                                    if (!String.IsNullOrWhiteSpace(workflowItem.WorkflowItemEncounterId) && !encounterIds.Contains(workflowItem.WorkflowItemEncounterId))
-                                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                            $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                            $"{nameof(StudyDesignDto.StudyWorkflows)}[{design.StudyWorkflows.IndexOf(workflow)}]." +
-                                            $"{nameof(WorkflowDto.WorkflowItems)}[{workflow.WorkflowItems.IndexOf(workflowItem)}]." +
-                                            $"{nameof(WorkflowItemDto.WorkflowItemEncounterId)}");
+                                    //if (!String.IsNullOrWhiteSpace(workflowItem.WorkflowItemEncounterId) && !encounterIds.Contains(workflowItem.WorkflowItemEncounterId))
+                                    //    errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                    //        $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
+                                    //        $"{nameof(StudyDesignDto.StudyWorkflows)}[{design.StudyWorkflows.IndexOf(workflow)}]." +
+                                    //        $"{nameof(WorkflowDto.WorkflowItems)}[{workflow.WorkflowItems.IndexOf(workflowItem)}]." +
+                                    //        $"{nameof(WorkflowItemDto.WorkflowItemEncounterId)}");
                                 });
                             }
                         });

@@ -148,10 +148,7 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
             currentVersion.ClinicalStudy.StudyDesigns[0].StudyPopulations[0].PopulationDescription = "population 2";
             currentVersion.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyArm.StudyArmDataOriginType[0].CodeSystem = "8";
             currentVersion.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyArm.StudyArmType.Decode = "placebo arm 1";
-            currentVersion.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyElements[0].StudyElementDescription = "Element 3";
-            currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemDescription = "sample 2";
-            currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems.Add(currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0]);
-            currentVersion.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[1].Id = "1";            
+            currentVersion.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyElements[0].StudyElementDescription = "Element 3";        
             currentVersion.ClinicalStudy.StudyDesigns[0].Activities[0].DefinedProcedures.Add(currentVersion.ClinicalStudy.StudyDesigns[0].Activities[0].DefinedProcedures[0]);
             currentVersion.ClinicalStudy.StudyDesigns[0].Activities[0].DefinedProcedures[1].Id = "4";            
             currentVersion.ClinicalStudy.StudyDesigns[0].Activities[0].ActivityName = "A2";

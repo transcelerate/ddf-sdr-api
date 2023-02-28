@@ -13,6 +13,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
         public List<CodeDto> EncounterType { get; set; }
         public string NextEncounterId { get; set; }
         public string PreviousEncounterId { get; set; }
+        public string EncounterScheduledAtTimingId { get; set; }
         public TransitionRuleDto TransitionStartRule { get; set; }
         public TransitionRuleDto TransitionEndRule { get; set; }        
     }

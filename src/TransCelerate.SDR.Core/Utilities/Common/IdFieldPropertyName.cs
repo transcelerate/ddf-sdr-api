@@ -40,6 +40,10 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string BcPropertyId = "bcPropertyId";
             public const string BcSurrogateId = "bcSurrogateId";
             public const string ResponseCodeId = "responseCodeId";
+            public const string ScheduleTimelineId = "scheduleTimelineId";
+            public const string ScheduledInstanceId = "scheduledInstanceId";            
+            public const string ScheduleTimelineExitId = "exitId";
+            public const string TimingId = "timingId";
         }
         public struct StudyV1
         {

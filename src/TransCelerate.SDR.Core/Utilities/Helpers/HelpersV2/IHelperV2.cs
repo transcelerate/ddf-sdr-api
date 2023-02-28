@@ -117,12 +117,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
         /// <param name="studyProtocolVersions"></param>
         /// <returns></returns>
         List<StudyProtocolVersionEntity> RemoveIdForStudyProtocol(List<StudyProtocolVersionEntity> studyProtocolVersions);
-        /// <summary>
-        /// Remove uuid for Study Workflows
-        /// </summary>
-        /// <param name="workflows"></param>
-        /// <returns></returns>
-        List<WorkflowEntity> RemoveIdForStudyWorkflow(List<WorkflowEntity> workflows);
         #endregion
 
         #region Get Difference

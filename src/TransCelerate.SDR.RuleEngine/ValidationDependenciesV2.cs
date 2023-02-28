@@ -28,7 +28,6 @@ namespace TransCelerate.SDR.RuleEngineV2
             services.AddTransient<IValidator<ObjectiveDto>, ObjectiveValidator>();            
             services.AddTransient<IValidator<StudyArmDto>, StudyArmValidator>();
             services.AddTransient<IValidator<StudyCellDto>, StudyCellsValidator>();
-            services.AddTransient<IValidator<StudyDataDto>, StudyDataCollectionValidator>();
             services.AddTransient<IValidator<StudyDesignDto>, StudyDesignValidator>();
             services.AddTransient<IValidator<StudyDesignPopulationDto>, StudyDesignPopulationValidator>();
             services.AddTransient<IValidator<StudyDto>, StudyValidator>();
@@ -38,8 +37,6 @@ namespace TransCelerate.SDR.RuleEngineV2
             services.AddTransient<IValidator<OrganisationDto>, OrganisationValidator>();
             services.AddTransient<IValidator<StudyProtocolVersionDto>, StudyProtocolVersionsValidator>();
             services.AddTransient<IValidator<TransitionRuleDto>, TransitionRuleValidator>();
-            services.AddTransient<IValidator<WorkflowDto>, WorkflowValidator>();
-            services.AddTransient<IValidator<WorkflowItemDto>, WorkflowItemValidator>();
             services.AddTransient<IValidator<AliasCodeDto>, AliasCodeValidator>();
             services.AddTransient<IValidator<AddressDto>, AddressValidator>();
             services.AddTransient<IValidator<BiomedicalConceptDto>, BiomedicalConceptValidator>();
@@ -47,6 +44,11 @@ namespace TransCelerate.SDR.RuleEngineV2
             services.AddTransient<IValidator<BiomedicalConceptPropertyDto>, BiomedicalConceptPropertyValidator>();
             services.AddTransient<IValidator<BiomedicalConceptSurrogateDto>, BiomedicalConceptSurrogateValidator>();
             services.AddTransient<IValidator<ResponseCodeDto>, ResponseCodeValidator>();
+            services.AddTransient<IValidator<TimingDto>,TimingValidator>();
+            services.AddTransient<IValidator<ScheduleTimelineDto>, ScheduleTimelinesValidator>();
+            services.AddTransient<IValidator<ScheduledInstanceDto>,ScheduledInstanceValidator>();
+            services.AddTransient<IValidator<ScheduledDecisionInstanceDto>, ScheduledInstanceValidator>();
+            services.AddTransient<IValidator<ScheduledActivityInstanceDto>, ScheduledInstanceValidator>();
 
             return services;
         }
