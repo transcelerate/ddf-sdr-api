@@ -310,64 +310,185 @@
             ]
           }
         ],
-        "studyWorkflows": [
+        "studyScheduleTimelines": [
           {
-            "workflowId": "WF01",
-            "workflowDescription": "SampleDesc",
-            "workflowItems": [
+            "scheduleTimelineId": "TL01",
+            "scheduleTimelineName": "name",
+            "scheduleTimelineEntryId": "ScheduledInstanceId01",
+            "entryCondition": "condition",
+            "scheduleTimelineExits": [
               {
-                "workflowItemId": "WI001",
-                "workflowItemDescription": "Sample Item Desc",
-                "workflowItemActivity": "ACT01",
-                "workflowItemEncounter": "EN001",
-                "nextWorkflowItemId": "",
-                "previousWorkflowItemId": ""
-              },
-              {
-                "workflowItemId": "WI002",
-                "workflowItemDescription": "Sample Item Desc",
-                "workflowItemActivity": "ACT02",
-                "workflowItemEncounter": "EN002",
-                "nextWorkflowItemId": "",
-                "previousWorkflowItemId": ""
-              },
-              {
-                "workflowItemId": "WI003",
-                "workflowItemDescription": "Sample Item Desc",
-                "workflowItemActivity": "ACT01",
-                "workflowItemEncounter": "EN002",
-                "nextWorkflowItemId": "",
-                "previousWorkflowItemId": ""
+                "exitId": "Ex01"
               }
-            ]
-          },
-          {
-            "workflowId": "WF02",
-            "workflowDescription": "SampleDesc",
-            "workflowItems": [
+            ],
+            "scheduleTimelineDescription": "dwsc",
+            "scheduledTimelineInstances": [
               {
-                "workflowItemId": "WI001",
-                "workflowItemDescription": "Sample Item Desc",
-                "workflowItemActivity": "ACT01",
-                "workflowItemEncounter": "EN001",
-                "nextWorkflowItemId": "WI003",
-                "previousWorkflowItemId": "WI003"
+                "scheduledInstanceType": "ACTIVITY",
+                "activityIds": [
+                  "ACT001",
+                  "ACT002"
+                ],
+                "scheduledInstanceId": "INS001",
+                "scheduleTimelineExitId": "Exit01",
+                "scheduledInstanceEncounterId": "VIS11",
+                "scheduledInstanceTimelineId": "Timeline01",
+                "scheduleSeqenceNumber": 1,
+                "scheduledInstanceTimings": [
+                  {
+                    "timingId": "Timing01",
+                    "timingType": {
+                      "codeId": "END001",
+                      "code": "C9834x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "After"
+                    },
+                    "relativeToScheduledInstanceId": "INS001",
+                    "timingValue": "Day 1",
+                    "relativeFromScheduledInstanceId": "INS002",
+                    "timingWindow": "window",
+                    "timingRelativeToFrom": {
+                      "codeId": "END001",
+                      "code": "C9834x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "StartToStart"
+                    }
+                  },
+                  {
+                    "timingId": "Timing02",
+                    "timingType": {
+                      "codeId": "END001",
+                      "code": "C9834x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "Before"
+                    },
+                    "relativeToScheduledInstanceId": "INS002",
+                    "timingValue": "Day 15",
+                    "relativeFromScheduledInstanceId": "INS001",
+                    "timingWindow": "window",
+                    "timingRelativeToFrom": {
+                      "codeId": "END001",
+                      "code": "C9834x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "EndToEnd"
+                    }
+                  }
+                ]
               },
               {
-                "workflowItemId": "WI002",
-                "workflowItemDescription": "Sample Item Desc",
-                "workflowItemActivity": "ACT02",
-                "workflowItemEncounter": "EN002",
-                "nextWorkflowItemId": "WI003",
-                "previousWorkflowItemId": "WI003"
+                "scheduledInstanceType": "DECISION",
+                "conditionAssignments": {
+                  "option": "Must be done"
+                },
+                "scheduledInstanceId": "INS002",
+                "scheduleTimelineExitId": "Exit01",
+                "scheduledInstanceEncounterId": "VIS11",
+                "scheduledInstanceTimelineId": "Timeline01",
+                "scheduleSeqenceNumber": 2,
+                "scheduledInstanceTimings": [
+                  {
+                    "timingId": "Timing01",
+                    "timingType": {
+                      "codeId": "END001",
+                      "code": "C9834x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "After"
+                    },
+                    "relativeToScheduledInstanceId": "INS001",
+                    "timingValue": "Day 1",
+                    "relativeFromScheduledInstanceId": "INS002",
+                    "timingWindow": "window",
+                    "timingRelativeToFrom": {
+                      "codeId": "END001",
+                      "code": "C9834x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "StartToStart"
+                    }
+                  },
+                  {
+                    "timingId": "Timing02",
+                    "timingType": {
+                      "codeId": "END001",
+                      "code": "C9834x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "Before"
+                    },
+                    "relativeToScheduledInstanceId": "INS002",
+                    "timingValue": "Day 15",
+                    "relativeFromScheduledInstanceId": "INS001",
+                    "timingWindow": "window",
+                    "timingRelativeToFrom": {
+                      "codeId": "END001",
+                      "code": "C9834x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "EndToEnd"
+                    }
+                  }
+                ]
               },
               {
-                "workflowItemId": "WI003",
-                "workflowItemDescription": "Sample Item Desc",
-                "workflowItemActivity": "ACT01",
-                "workflowItemEncounter": "EN002",
-                "nextWorkflowItemId": "WI001",
-                "previousWorkflowItemId": "WI001"
+                "scheduledInstanceType": "ACTIVITY",
+                "activityIds": [
+                  "ACT001",
+                  "ACT002"
+                ],
+                "scheduledInstanceId": "INS003",
+                "scheduleTimelineExitId": "Exit01",
+                "scheduledInstanceEncounterId": "VIS11",
+                "scheduledInstanceTimelineId": "Timeline01",
+                "scheduleSeqenceNumber": 3,
+                "scheduledInstanceTimings": [
+                  {
+                    "timingId": "Timing01",
+                    "timingType": {
+                      "codeId": "END001",
+                      "code": "C9834x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "After"
+                    },
+                    "relativeToScheduledInstanceId": "INS001",
+                    "timingValue": "Day 1",
+                    "relativeFromScheduledInstanceId": "INS002",
+                    "timingWindow": "window",
+                    "timingRelativeToFrom": {
+                      "codeId": "END001",
+                      "code": "C9834x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "StartToStart"
+                    }
+                  },
+                  {
+                    "timingId": "Timing02",
+                    "timingType": {
+                      "codeId": "END001",
+                      "code": "C9834x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "Before"
+                    },
+                    "relativeToScheduledInstanceId": "INS002",
+                    "timingValue": "Day 15",
+                    "relativeFromScheduledInstanceId": "INS001",
+                    "timingWindow": "window",
+                    "timingRelativeToFrom": {
+                      "codeId": "END001",
+                      "code": "C9834x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "EndToEnd"
+                    }
+                  }
+                ]
               }
             ]
           }
@@ -426,6 +547,7 @@
             ],
             "nextEncounterId": "",
             "previousEncounterId": "",
+            "encounterScheduledAtTimingId": "Timing01",
             "transitionStartRule": {
               "transitionRuleId": "fb5cefdf-9308-44bd-898a-6c9ab35174fb",
               "transitionRuleDescription": "Start Rule"
@@ -468,6 +590,7 @@
             ],
             "nextEncounterId": "",
             "previousEncounterId": "",
+            "encounterScheduledAtTimingId": "Timing01",
             "transitionStartRule": {
               "transitionRuleId": "fb5cefdf-9308-44bd-898a-6c9ab35174fb",
               "transitionRuleDescription": "Start Rule"
@@ -513,7 +636,8 @@
             ],
             "biomedicalConceptIds": [
               "BC1"
-            ]
+            ],
+            "activityTimelineId": "Timeline01"
           },
           {
             "activityId": "ACT02",
@@ -549,7 +673,8 @@
             ],
             "biomedicalConceptIds": [
               "BC1"
-            ]
+            ],
+            "activityTimelineId": "Timeline01"
           },
           {
             "activityId": "ACT03",
@@ -581,7 +706,8 @@
             ],
             "biomedicalConceptIds": [
               "BC1"
-            ]
+            ],
+            "activityTimelineId": "Timeline01"
           }
         ],
         "studyDesignBlindingScheme": {

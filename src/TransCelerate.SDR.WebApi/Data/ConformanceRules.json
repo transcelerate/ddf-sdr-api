@@ -178,6 +178,65 @@
           ]
         },
         {
+          "entity": "ScheduleTimelineExit",
+          "required": [
+            "Id"
+          ]
+        },
+        {
+          "entity": "ScheduledActivityInstance",
+          "required": [
+            "Id",
+            "ScheduleTimelineExitId",
+            "ScheduledInstanceEncounterId",
+            "ScheduledInstanceTimelineId",
+            "ScheduledInstanceTimingIds",
+            "ScheduleSeqenceNumber",
+            "ScheduledInstanceTimings",
+            "ScheduledInstanceType",
+            "ActivityIds"
+          ]
+        },
+        {
+          "entity": "ScheduledDecisionInstance",
+          "required": [
+            "Id",
+            "ScheduleTimelineExitId",
+            "ScheduledInstanceEncounterId",
+            "ScheduledInstanceTimelineId",
+            "ScheduledInstanceTimingIds",
+            "ScheduleSeqenceNumber",
+            "ScheduledInstanceTimings",
+            "ScheduledInstanceType",
+            "ConditionAssignments"
+          ]
+        },
+        {
+          "entity": "ScheduledInstance",
+          "required": [
+            "Id",
+            "ScheduleTimelineExitId",
+            "ScheduledInstanceEncounterId",
+            "ScheduledInstanceTimelineId",
+            "ScheduledInstanceTimingIds",
+            "ScheduleSeqenceNumber",
+            "ScheduledInstanceTimings",
+            "ScheduledInstanceType"
+          ]
+        },
+        {
+          "entity": "ScheduleTimelines",
+          "required": [
+            "Id",
+            "ScheduleTimelineName",
+            "ScheduleTimelineEntryId",
+            "ScheduleTimelineDescription",
+            "ScheduleTimelineExits",
+            "ScheduledTimelineInstances",
+            "EntryCondition"
+          ]
+        },
+        {
           "entity": "StudyCells",
           "required": [
             "Id"
@@ -251,7 +310,7 @@
           "entity": "Objective",
           "required": [
             "Id",
-            "ObjectiveDescription"            
+            "ObjectiveDescription"
           ]
         },
         {
@@ -271,6 +330,18 @@
           "entity": "Study",
           "required": [
             "ClinicalStudy"
+          ]
+        },
+        {
+          "entity": "Timing",
+          "required": [
+            "Id",
+            "TimingType",
+            "TimingValue",
+            "RelativeFromScheduledInstanceId",
+            "RelativeToScheduledInstanceId",
+            "TimingWindow",
+            "TimingRelativeToFrom"
           ]
         },
         {

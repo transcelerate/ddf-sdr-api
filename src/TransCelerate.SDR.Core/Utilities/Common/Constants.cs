@@ -116,6 +116,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string PropertyEmptyError = "Field is empty";
 
+            public const string ScheduledInstanceTypesError = $"The value must be {nameof(Utilities.ScheduledInstanceType.ACTIVITY)}/{nameof(Utilities.ScheduledInstanceType.DECISION)}";
+
             public const string UniquenessArrayError = "The {PropertyName} Ids are not unique";
 
             public const string NumberError = "Enter a valid number";
@@ -201,7 +203,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string ErrorMessageForReferenceIntegrity = "Reference Integrity Failed";
                         
-            public const string WorkFlowNotFound = "The requested StudyWorkflow not found";
+            public const string WorkFlowNotFound = "The requested StudyScheduleTimeline not found";
 
             public const string EnterDesignIdError = "Kindly provide valid Study Design Id when providing Study WorkFlow Id";
 
@@ -259,7 +261,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(StudyDesignDto.StudyPopulations),
             nameof(StudyDesignDto.StudyObjectives),
             nameof(StudyDesignDto.StudyCells),
-            nameof(StudyDesignDto.StudyWorkflows),
+            nameof(StudyDesignDto.StudyScheduleTimelines),
             nameof(StudyDesignDto.StudyEstimands),
             nameof(StudyDesignDto.Activities),
             nameof(StudyDesignDto.Encounters),

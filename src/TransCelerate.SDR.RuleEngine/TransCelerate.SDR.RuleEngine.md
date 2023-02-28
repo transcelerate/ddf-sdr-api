@@ -77,7 +77,6 @@
   - [#ctor()](#M-TransCelerate-SDR-RuleEngine-StudyCellsValidator-#ctor 'TransCelerate.SDR.RuleEngine.StudyCellsValidator.#ctor')
 - [StudyDataCollectionValidator](#T-TransCelerate-SDR-RuleEngine-StudyDataCollectionValidator 'TransCelerate.SDR.RuleEngine.StudyDataCollectionValidator')
 - [StudyDataCollectionValidator](#T-TransCelerate-SDR-RuleEngineV1-StudyDataCollectionValidator 'TransCelerate.SDR.RuleEngineV1.StudyDataCollectionValidator')
-- [StudyDataCollectionValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyDataCollectionValidator 'TransCelerate.SDR.RuleEngineV2.StudyDataCollectionValidator')
   - [#ctor()](#M-TransCelerate-SDR-RuleEngine-StudyDataCollectionValidator-#ctor 'TransCelerate.SDR.RuleEngine.StudyDataCollectionValidator.#ctor')
 - [StudyDesignPopulationValidator](#T-TransCelerate-SDR-RuleEngineV1-StudyDesignPopulationValidator 'TransCelerate.SDR.RuleEngineV1.StudyDesignPopulationValidator')
 - [StudyDesignPopulationValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyDesignPopulationValidator 'TransCelerate.SDR.RuleEngineV2.StudyDesignPopulationValidator')
@@ -126,9 +125,7 @@
 - [WorkFlowItemMatrixValidator](#T-TransCelerate-SDR-RuleEngine-WorkFlowItemMatrixValidator 'TransCelerate.SDR.RuleEngine.WorkFlowItemMatrixValidator')
   - [#ctor()](#M-TransCelerate-SDR-RuleEngine-WorkFlowItemMatrixValidator-#ctor 'TransCelerate.SDR.RuleEngine.WorkFlowItemMatrixValidator.#ctor')
 - [WorkflowItemValidator](#T-TransCelerate-SDR-RuleEngineV1-WorkflowItemValidator 'TransCelerate.SDR.RuleEngineV1.WorkflowItemValidator')
-- [WorkflowItemValidator](#T-TransCelerate-SDR-RuleEngineV2-WorkflowItemValidator 'TransCelerate.SDR.RuleEngineV2.WorkflowItemValidator')
 - [WorkflowValidator](#T-TransCelerate-SDR-RuleEngineV1-WorkflowValidator 'TransCelerate.SDR.RuleEngineV1.WorkflowValidator')
-- [WorkflowValidator](#T-TransCelerate-SDR-RuleEngineV2-WorkflowValidator 'TransCelerate.SDR.RuleEngineV2.WorkflowValidator')
 
 <a name='T-TransCelerate-SDR-RuleEngine-ActivityValidator'></a>
 ## ActivityValidator `type`
@@ -872,17 +869,6 @@ TransCelerate.SDR.RuleEngineV1
 
 This Class is the validator for StudyDataCollection
 
-<a name='T-TransCelerate-SDR-RuleEngineV2-StudyDataCollectionValidator'></a>
-## StudyDataCollectionValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV2
-
-##### Summary
-
-This Class is the validator for StudyDataCollection
-
 <a name='M-TransCelerate-SDR-RuleEngine-StudyDataCollectionValidator-#ctor'></a>
 ### #ctor() `constructor`
 
@@ -1387,34 +1373,12 @@ TransCelerate.SDR.RuleEngineV1
 
 This Class is the validator for WorkFlowItems
 
-<a name='T-TransCelerate-SDR-RuleEngineV2-WorkflowItemValidator'></a>
-## WorkflowItemValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV2
-
-##### Summary
-
-This Class is the validator for WorkFlowItems
-
 <a name='T-TransCelerate-SDR-RuleEngineV1-WorkflowValidator'></a>
 ## WorkflowValidator `type`
 
 ##### Namespace
 
 TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for WorkFlows
-
-<a name='T-TransCelerate-SDR-RuleEngineV2-WorkflowValidator'></a>
-## WorkflowValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV2
 
 ##### Summary
 

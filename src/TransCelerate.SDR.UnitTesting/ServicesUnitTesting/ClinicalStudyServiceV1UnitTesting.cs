@@ -144,7 +144,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             var actual_result1 = result.ToString();
 
             //Assert          
-            Assert.AreEqual(actual_result1.ToString(), Constants.ErrorMessages.StudyIdNotFound);
+            Assert.AreEqual(actual_result1.ToString(), Constants.ErrorMessages.NotValidStudyId);
 
             _mockHelper.Setup(x => x.GeneratedSectionId(It.IsAny<StudyEntity>()))
                     .Returns(studyEntity);
