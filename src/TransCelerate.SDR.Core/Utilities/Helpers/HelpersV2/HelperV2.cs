@@ -263,6 +263,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                         x.StudyIdentifierScope.Id = null;
                         if (x.StudyIdentifierScope.OrganisationType is not null)
                             x.StudyIdentifierScope.OrganisationType.Id = null;
+                        if (x.StudyIdentifierScope.OrganizationLegalAddress is not null && x.StudyIdentifierScope.OrganizationLegalAddress.Country is not null)
+                            x.StudyIdentifierScope.OrganizationLegalAddress.Country.Id = null;
                     }
                 });
             }
@@ -644,12 +646,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                     {
                         y.PreviousActivityId = null;
                         if (y.DefinedProcedures != null && y.DefinedProcedures.Any())
-                            y.DefinedProcedures.ForEach(procedure => procedure.Id = null);
+                            y.DefinedProcedures.ForEach(procedure =>
+                            {
+                                procedure.Id = null;
+                                if (procedure.ProcedureCode is not null && procedure.ProcedureCode.Any())
+                                    procedure.ProcedureCode.ForEach(code => code.Id = null);
+                            });
                     }
-                    //if (y.StudyDataCollection is not null && y.StudyDataCollection.Any())
-                    //{
-                    //    y.StudyDataCollection.ForEach(data => data.Id = null);
-                    //}
                 });
             }
             return activities;

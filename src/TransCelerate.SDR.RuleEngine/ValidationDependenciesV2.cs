@@ -49,6 +49,7 @@ namespace TransCelerate.SDR.RuleEngineV2
             services.AddTransient<IValidator<ScheduledInstanceDto>,ScheduledInstanceValidator>();
             services.AddTransient<IValidator<ScheduledDecisionInstanceDto>, ScheduledInstanceValidator>();
             services.AddTransient<IValidator<ScheduledActivityInstanceDto>, ScheduledInstanceValidator>();
+            services.AddTransient<IValidator<ScheduleTimelineExitDto>, ScheduleTimelineExitValidator>();
 
             return services;
         }
