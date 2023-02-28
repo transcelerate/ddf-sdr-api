@@ -15,12 +15,49 @@ namespace TransCelerate.SDR.RuleEngineV2
         public ScheduledInstanceValidator(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
+            RuleFor(x => x.Id)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().OverridePropertyName(IdFieldPropertyName.StudyV2.ScheduledInstanceId).WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().OverridePropertyName(IdFieldPropertyName.StudyV2.ScheduledInstanceId).WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(ScheduledInstanceValidator), nameof(ScheduledInstanceDto.Id)), ApplyConditionTo.AllValidators);
+
+            RuleFor(x => x.ScheduleTimelineExitId)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(ScheduledInstanceValidator), nameof(ScheduledInstanceDto.ScheduleTimelineExitId)), ApplyConditionTo.AllValidators);
+
+            RuleFor(x => x.ScheduledInstanceEncounterId)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(ScheduledInstanceValidator), nameof(ScheduledInstanceDto.ScheduledInstanceEncounterId)), ApplyConditionTo.AllValidators);
+
+            RuleFor(x => x.ScheduledInstanceTimelineId)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(ScheduledInstanceValidator), nameof(ScheduledInstanceDto.ScheduledInstanceTimelineId)), ApplyConditionTo.AllValidators);
+
+            RuleFor(x => x.ScheduleSeqenceNumber)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(ScheduledInstanceValidator), nameof(ScheduledInstanceDto.ScheduleSeqenceNumber)), ApplyConditionTo.AllValidators);
+
+            RuleFor(x => x.ScheduledInstanceTimings)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(ScheduledInstanceValidator), nameof(ScheduledInstanceDto.ScheduledInstanceTimings)), ApplyConditionTo.AllValidators)
+               .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
             RuleFor(x => x.ScheduledInstanceType)
               .Cascade(CascadeMode.Stop)
               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-              .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-              .Must(x => Enum.GetNames(typeof(ScheduledInstanceType)).Contains(x))
-              .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(ScheduledInstanceValidator), nameof(ScheduledInstanceDto.ScheduledInstanceType)), ApplyConditionTo.AllValidators);
+              .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)              
+              .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(ScheduledInstanceValidator), nameof(ScheduledInstanceDto.ScheduledInstanceType)), ApplyConditionTo.AllValidators)
+              .Must(x => Enum.GetNames(typeof(ScheduledInstanceType)).Contains(x)).WithMessage(Constants.ValidationErrorMessage.ScheduledInstanceTypesError);
         }
     }
 }

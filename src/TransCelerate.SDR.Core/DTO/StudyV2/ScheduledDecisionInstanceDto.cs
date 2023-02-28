@@ -9,7 +9,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
 {
     public class ScheduledDecisionInstanceDto : ScheduledInstanceDto
     {
-        public override string ScheduledInstanceType { get; set; } = TransCelerate.SDR.Core.Utilities.ScheduledInstanceType.DECISION.ToString();
+        public override string ScheduledInstanceType { get; set; } = nameof(Utilities.ScheduledInstanceType.DECISION);
         public Dictionary<string, string> ConditionAssignments { get; set; }
     }
 }

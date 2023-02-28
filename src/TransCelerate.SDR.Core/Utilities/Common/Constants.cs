@@ -116,6 +116,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string PropertyEmptyError = "Field is empty";
 
+            public const string ScheduledInstanceTypesError = $"The value must be {nameof(Utilities.ScheduledInstanceType.ACTIVITY)}/{nameof(Utilities.ScheduledInstanceType.DECISION)}";
+
             public const string UniquenessArrayError = "The {PropertyName} Ids are not unique";
 
             public const string NumberError = "Enter a valid number";
@@ -320,11 +322,6 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string TrialIntentType = "TrialIntentType";
             public const string ObjectiveLevel = "Objective Level";
             public const string SexofParticipants = "SexofParticipants";
-        }
-        public struct ScheduledInstanceType
-        {
-            public const string ACTIVITY = "ACTIVITY";
-            public const string DECISION = "DECISION";
         }
     }
 }

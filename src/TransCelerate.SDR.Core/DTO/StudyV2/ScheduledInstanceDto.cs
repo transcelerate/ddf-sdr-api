@@ -6,8 +6,8 @@ using TransCelerate.SDR.Core.Utilities.Common;
 namespace TransCelerate.SDR.Core.DTO.StudyV2
 {
     [JsonConverter(typeof(JsonSubtypes), nameof(ScheduledInstanceDto.ScheduledInstanceType))]
-    [JsonSubtypes.KnownSubType(typeof(ScheduledActivityInstanceDto), Constants.ScheduledInstanceType.ACTIVITY)]
-    [JsonSubtypes.KnownSubType(typeof(ScheduledDecisionInstanceDto), Constants.ScheduledInstanceType.DECISION)]
+    [JsonSubtypes.KnownSubType(typeof(ScheduledActivityInstanceDto), nameof(Utilities.ScheduledInstanceType.ACTIVITY))]
+    [JsonSubtypes.KnownSubType(typeof(ScheduledDecisionInstanceDto), nameof(Utilities.ScheduledInstanceType.DECISION))]
     public class ScheduledInstanceDto : Iid
     {
         [Newtonsoft.Json.JsonProperty(Utilities.Common.IdFieldPropertyName.StudyV2.ScheduledInstanceId)]

@@ -10,7 +10,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
     [MongoDB.Bson.Serialization.Attributes.BsonNoId]
     public class ScheduledDecisionInstanceEntity : ScheduledInstanceEntity
     {
-        public override string ScheduleInstanceType { get; set; } = TransCelerate.SDR.Core.Utilities.ScheduledInstanceType.DECISION.ToString();
+        public override string ScheduleInstanceType { get; set; } = nameof(Utilities.ScheduledInstanceType.DECISION);
         public Dictionary<string, string> ConditionAssignments { get; set; }
     }
 }

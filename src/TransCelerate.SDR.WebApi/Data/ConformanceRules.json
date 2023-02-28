@@ -215,6 +215,12 @@
           "entity": "ScheduledInstance",
           "required": [
             "Id",
+            "ScheduleTimelineExitId",
+            "ScheduledInstanceEncounterId",
+            "ScheduledInstanceTimelineId",
+            "ScheduledInstanceTimingIds",
+            "ScheduleSeqenceNumber",
+            "ScheduledInstanceTimings",
             "ScheduledInstanceType"
           ]
         },
@@ -226,7 +232,8 @@
             "ScheduleTimelineEntryId",
             "ScheduleTimelineDescription",
             "ScheduleTimelineExits",
-            "ScheduledTimelineInstances"
+            "ScheduledTimelineInstances",
+            "EntryCondition"
           ]
         },
         {
