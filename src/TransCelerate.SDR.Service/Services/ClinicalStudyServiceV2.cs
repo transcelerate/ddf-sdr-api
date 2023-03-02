@@ -294,7 +294,7 @@ namespace TransCelerate.SDR.Services.Services
                                         string timingValueToBeAddedinSoA = String.IsNullOrWhiteSpace(timingValue) ? string.Empty : $" ({timingValue})";
                                         soA.EncounterName = encounter.EncounterName + timingValueToBeAddedinSoA;
                                         soA.Activities = workflowItems.Where(x => x.ScheduledInstanceEncounterId == encounter.Id)
-                                                                      .Select(x => x.ActivityIds)
+                                                                      .Select(x => x.ActivityIds).Where(x=>x!=null)
                                                                       .SelectMany(x => x).Distinct()
                                                                       .Where(x => activities.Where(y => y.Id == x).Any())
                                                                       .Select(x => activities.Where(y => y.Id == x).First()?.ActivityName)
