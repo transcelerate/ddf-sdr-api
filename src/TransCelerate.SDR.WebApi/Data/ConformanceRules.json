@@ -187,26 +187,15 @@
           "entity": "ScheduledActivityInstance",
           "required": [
             "Id",
-            "ScheduleTimelineExitId",
-            "ScheduledInstanceEncounterId",
-            "ScheduledInstanceTimelineId",
-            "ScheduledInstanceTimingIds",
             "ScheduleSeqenceNumber",
-            "ScheduledInstanceTimings",
-            "ScheduledInstanceType",
-            "ActivityIds"
+            "ScheduledInstanceType"
           ]
         },
         {
           "entity": "ScheduledDecisionInstance",
           "required": [
-            "Id",
-            "ScheduleTimelineExitId",
-            "ScheduledInstanceEncounterId",
-            "ScheduledInstanceTimelineId",
-            "ScheduledInstanceTimingIds",
+            "Id",            
             "ScheduleSeqenceNumber",
-            "ScheduledInstanceTimings",
             "ScheduledInstanceType",
             "ConditionAssignments"
           ]
@@ -215,12 +204,7 @@
           "entity": "ScheduledInstance",
           "required": [
             "Id",
-            "ScheduleTimelineExitId",
-            "ScheduledInstanceEncounterId",
-            "ScheduledInstanceTimelineId",
-            "ScheduledInstanceTimingIds",
             "ScheduleSeqenceNumber",
-            "ScheduledInstanceTimings",
             "ScheduledInstanceType"
           ]
         },
@@ -229,10 +213,7 @@
           "required": [
             "Id",
             "ScheduleTimelineName",
-            "ScheduleTimelineEntryId",
-            "ScheduleTimelineDescription",
-            "ScheduleTimelineExits",
-            "ScheduledTimelineInstances",
+            "ScheduleTimelineDescription",                        
             "EntryCondition"
           ]
         },
