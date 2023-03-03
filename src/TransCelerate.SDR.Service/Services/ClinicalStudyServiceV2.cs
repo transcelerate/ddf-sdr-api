@@ -275,7 +275,7 @@ namespace TransCelerate.SDR.Services.Services
                             studyWorkflowsA.WorkflowDescription = workFlow.ScheduleTimelineDescription;
                             if (activities != null && activities.Any() && encounters != null && encounters.Any())
                             {                                
-                                var workflowItems = workFlow.ScheduledTimelineInstances.Select(x => (x as ScheduledActivityInstanceEntity))
+                                var workflowItems = workFlow.ScheduledTimelineInstances?.Select(x => (x as ScheduledActivityInstanceEntity))
                                                                          .Where(x => x != null).ToList();
                                 if (workflowItems != null && workflowItems.Any())
                                 {
@@ -285,10 +285,8 @@ namespace TransCelerate.SDR.Services.Services
                                     encounters.ForEach(encounter =>
                                     {
                                         SoA soA = new SoA();
-                                        string timingValue = design.StudyScheduleTimelines.SelectMany(x=>x.ScheduledTimelineInstances)
-                                                                         .Where(x => x != null)
-                                                                         .Select(x => (x as ScheduledActivityInstanceEntity))
-                                                                         .Where(x => x != null)
+                                        string timingValue = design.StudyScheduleTimelines.Where(x => x.ScheduledTimelineInstances != null).SelectMany(x=>x.ScheduledTimelineInstances)
+                                                                         .Where(x => x != null)                                                                         
                                                                          .SelectMany(x => x.ScheduledInstanceTimings)
                                                                          .Where(x => x.Id == encounter.EncounterScheduledAtTimingId).FirstOrDefault()?.TimingValue;
                                         string timingValueToBeAddedinSoA = String.IsNullOrWhiteSpace(timingValue) ? string.Empty : $" ({timingValue})";
