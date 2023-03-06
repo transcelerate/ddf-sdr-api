@@ -196,8 +196,7 @@
           "required": [
             "Id",            
             "ScheduleSeqenceNumber",
-            "ScheduledInstanceType",
-            "ConditionAssignments"
+            "ScheduledInstanceType"
           ]
         },
         {
