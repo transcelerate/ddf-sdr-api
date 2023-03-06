@@ -292,6 +292,10 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             "[",
             "]"
         };
+        public struct StringToBeRemovedForChangeAudit
+        {
+            public const string ConditionAssignmentsValue = ".Value";
+        }
         public struct ApiVersionErrorCodes 
         {
             public const string ApiVersionUnspecified = "ApiVersionUnspecified";
