@@ -20,8 +20,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             if (arrayElement is not null && arrayElement.Any())
             {
-                arrayElement.RemoveAll(x => String.IsNullOrWhiteSpace(x.Id));
-                return arrayElement.Select(x => x.Id).ToList().Distinct().Count() == arrayElement.Select(x => x.Id).Count();
+                var ids = arrayElement.Select(x => x.Id).ToList();
+                ids.RemoveAll(x => String.IsNullOrWhiteSpace(x));
+                return ids.Distinct().Count() == ids.Count;
             }
             return true;
         }

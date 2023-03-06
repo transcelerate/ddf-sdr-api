@@ -1159,7 +1159,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                     {
                         scheduleTimelineChangeList.Add($"{nameof(StudyDesignEntity.StudyScheduleTimelines)}.{nameof(ScheduleTimelineEntity.ScheduleTimelineExits)}.{x}");
                     });
-                    GetDifferenceForAList(currentTimeline.ScheduledTimelineInstances, previousTimeline.ScheduledTimelineInstances).ForEach(x =>
+                    GetDifferenceForScheduledInstances(currentTimeline.ScheduledTimelineInstances, previousTimeline.ScheduledTimelineInstances).ForEach(x =>
                     {
                         scheduleTimelineChangeList.Add($"{nameof(StudyDesignEntity.StudyScheduleTimelines)}.{nameof(ScheduleTimelineEntity.ScheduledTimelineInstances)}.{x}");
                     });
@@ -1184,6 +1184,47 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
             return tempList;
         }
 
+        public List<string> GetDifferenceForScheduledInstances<T>(List<T> currentVersion, List<T> previousVersion) where T : Entities.StudyV2.ScheduledInstanceEntity
+        {
+            List<string> changedValues = new List<string>();
+            if (currentVersion != null && currentVersion.Any())
+            {
+                currentVersion.ForEach(currentItem =>
+                {
+                    if (previousVersion != null && previousVersion.Any(x => x.Id == currentItem.Id))
+                    {
+                        var previousItem = previousVersion.Find(x => x.Id == currentItem.Id);
+                        if (previousItem.GetType() != currentItem.GetType())
+                            changedValues.Add(nameof(T));
+
+                        if (previousItem.GetType() == currentItem.GetType())
+                        {
+                            if(currentItem.GetType() == typeof(ScheduledActivityInstanceEntity))
+                                changedValues.AddRange(GetDifferences(currentItem as ScheduledActivityInstanceEntity, previousItem as ScheduledActivityInstanceEntity));
+                            if (currentItem.GetType() == typeof(ScheduledDecisionInstanceEntity))
+                            {
+                                var differences = GetDifferences(currentItem as ScheduledDecisionInstanceEntity, previousItem as ScheduledDecisionInstanceEntity);
+                                if (differences.Any())
+                                {
+                                    differences.ForEach(difference => changedValues.Add(difference.Replace(Constants.StringToBeRemovedForChangeAudit.ConditionAssignmentsValue, "")));
+                                }
+                            }
+                        }                        
+                        if (currentVersion.IndexOf(currentItem) != previousVersion.IndexOf(previousItem))
+                            changedValues.Add(nameof(T));
+                    }
+                    else if (previousVersion != null && currentVersion?.Count == previousVersion?.Count && !previousVersion.Any(x => x.Id == currentItem.Id))
+                    {
+                        changedValues.Add(nameof(T));
+                    }
+                });
+            }
+            else if ((currentVersion is null && previousVersion is not null) || (currentVersion is not null && previousVersion is null))
+                changedValues.Add(nameof(T));
+            if (currentVersion?.Count != previousVersion?.Count)
+                changedValues.Add(nameof(T));
+            return changedValues;
+        }
         public List<string> GetDifferenceForActivities(StudyDesignEntity currentStudyDesign, StudyDesignEntity previousStudyDesign)
         {
             var tempList = new List<string>();
@@ -1263,6 +1304,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                         List<string> scheduledTimelineIds = design.StudyScheduleTimelines.Select(x => x.Id).ToList();                        
                         List<string> encounterIds = design.Encounters is null ? new List<string>() : design.Encounters.Select(x => x.Id).ToList();
                         List<string> allScheduleInstanceIds = design.StudyScheduleTimelines.Where(x => x.ScheduledTimelineInstances != null && x.ScheduledTimelineInstances.Any()).SelectMany(x => x.ScheduledTimelineInstances).Select(x => x.Id).ToList();
+                        List<string> allActivityIds = design.Activities is null ? new List<string>() : design.Activities.Select(x => x.Id).ToList();
                         design.StudyScheduleTimelines.ForEach(scheduleTimeline =>
                         {
                             List<string> scheduledTimelineInstanceIds = scheduleTimeline.ScheduledTimelineInstances is not null && scheduleTimeline.ScheduledTimelineInstances.Any() ? scheduleTimeline.ScheduledTimelineInstances.Select(x => x.Id).ToList() : new List<string>();
@@ -1297,6 +1339,23 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                                             $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}]." +
                                             $"{nameof(ScheduleTimelineDto.ScheduledTimelineInstances)}[{scheduleTimeline.ScheduledTimelineInstances.IndexOf(timelineInstance)}]." +
                                             $"{nameof(ScheduledInstanceDto.ScheduledInstanceTimelineId)}");
+
+                                    if (timelineInstance.GetType() == typeof(ScheduledActivityInstanceDto))
+                                    {
+                                        var activityIds = (timelineInstance as ScheduledActivityInstanceDto).ActivityIds;
+                                        if (activityIds is not null && activityIds.Any())
+                                        {
+                                            activityIds.ForEach(id =>
+                                            {
+                                                if (!String.IsNullOrWhiteSpace(id) && !allActivityIds.Contains(id))
+                                                    errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                                        $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
+                                                        $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}]." +
+                                                        $"{nameof(ScheduleTimelineDto.ScheduledTimelineInstances)}[{scheduleTimeline.ScheduledTimelineInstances.IndexOf(timelineInstance)}]." +
+                                                        $"{nameof(ScheduledActivityInstanceDto.ActivityIds)}[{activityIds.IndexOf(id)}]");
+                                            });
+                                        }
+                                    }
 
                                     if (timelineInstance.ScheduledInstanceTimings is not null && timelineInstance.ScheduledInstanceTimings.Any())
                                     {
