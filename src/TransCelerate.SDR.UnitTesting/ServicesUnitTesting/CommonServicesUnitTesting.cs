@@ -859,7 +859,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 new SearchResponseEntity
                 {
                     StudyIdentifiers = JsonConvert.DeserializeObject<List<object>>(JsonConvert.SerializeObject(v1.ClinicalStudy.StudyIdentifiers)),
-                    StudyId = v1.ClinicalStudy.StudyId,
+                    StudyId = v1.ClinicalStudy.Uuid,
                     StudyTitle = v1.ClinicalStudy.StudyTitle,
                     StudyType = v1.ClinicalStudy.StudyType,
                     StudyPhase = v1.ClinicalStudy.StudyPhase,

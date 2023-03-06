@@ -137,7 +137,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(GetAuditTrail)};");
             try
             {
-                var collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
+                var collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
                 List<AuditTrailResponseEntity> auditTrails = new List<AuditTrailResponseEntity>();
                 auditTrails = await collection.Find(DataFiltersV1.GetFiltersForGetAudTrail(studyId,fromDate,toDate)) // Condition for matching studyId and date range
                                                   .Project(x=> new AuditTrailResponseEntity
@@ -186,7 +186,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(GetStudyHistory)};");
             try
             {
-                var collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);               
+                var collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);               
 
                 List<StudyHistoryResponseEntity> studyHistories = await collection.Aggregate()
                                                         .Match(DataFiltersV1.GetFiltersForStudyHistory(fromDate,toDate,studyTitle)) // Condition for matching date range
@@ -337,7 +337,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                               .Match(DataFiltersV1.GetFiltersForSearchStudy(searchParameters))
                                               .Project(x => new SearchResponseEntity
                                               {
-                                                  Uuid = x.ClinicalStudy.StudyId,
+                                                  Uuid = x.ClinicalStudy.Uuid,
                                                   StudyTitle = x.ClinicalStudy.StudyTitle,
                                                   StudyType = x.ClinicalStudy.StudyType,
                                                   StudyPhase = x.ClinicalStudy.StudyPhase,
@@ -482,7 +482,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                               .Match(DataFiltersV1.GetFiltersForSearchTitle(searchParameters))
                                               .Project(x => new SearchResponseEntity
                                               {
-                                                  Uuid = x.ClinicalStudy.StudyId,
+                                                  Uuid = x.ClinicalStudy.Uuid,
                                                   StudyTitle = x.ClinicalStudy.StudyTitle,
                                                   StudyType = x.ClinicalStudy.StudyType,                                                  
                                                   StudyIdentifiers = x.ClinicalStudy.StudyIdentifiers,                                                 
