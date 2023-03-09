@@ -1,7 +1,7 @@
 {
   "ConformanceRules": [
     {
-      "usdm-version": "2.0",
+      "usdmVersion": "2.0",
       "rules": [
         {
           "entity": "Activity",

@@ -65,8 +65,8 @@ namespace TransCelerate.SDR.WebApi
                 o.ErrorResponses = new VersioningErrorResponseHelper();
                 o.ApiVersionReader = ApiVersionReader.Combine(
                  //   new UrlSegmentApiVersionReader(),
-                 //new QueryStringApiVersionReader("usdm-version"),
-                 new HeaderApiVersionReader("usdm-version"));                
+                 //new QueryStringApiVersionReader(IdFieldPropertyName.Common.UsdmVersion),
+                 new HeaderApiVersionReader(IdFieldPropertyName.Common.UsdmVersion));                
             });
 
             //Swagger          

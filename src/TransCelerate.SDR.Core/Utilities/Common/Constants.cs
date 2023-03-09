@@ -8,7 +8,6 @@ namespace TransCelerate.SDR.Core.Utilities.Common
     /// </summary>
     public static class Constants
     {
-        public const string UsdmVersion = "usdm-version";
         public struct KeyVault
         {
             public const string Key = "KeyVault:Vault";
@@ -169,7 +168,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string NotValidStudyId = "The provided studyId is not valid";
 
-            public const string DowngradeError = "The usdm-version cannot be downgraded";
+            public const string DowngradeError = "The usdmVersion cannot be downgraded";
 
             public const string StudyIdNotFound = "The provided clinicalStudy.studyId is not found";
 
@@ -209,11 +208,11 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string SoANotFound = "The Schedule Of Activities Not Found";
 
-            public const string UsdmVersionMissing = "The 'usdm-version' header is missing";
+            public const string UsdmVersionMissing = "The 'usdmVersion' header is missing";
 
-            public const string UsdmVersionAmbiguous = "The 'usdm-version' is ambiguous";
+            public const string UsdmVersionAmbiguous = "The 'usdmVersion' is ambiguous";
 
-            public const string UsdmVersionMapError = "The usdm-version is not compatible with the api-version. Kindly refer versions endpoint for api-version -> usdm-version mapping ";
+            public const string UsdmVersionMapError = "The usdmVersion is not compatible with the apiVersion. Kindly refer versions endpoint for apiVersion -> usdmVersion mapping ";
 
             public const string eCPTError = "CPT export data cannot be generated for this study";
 

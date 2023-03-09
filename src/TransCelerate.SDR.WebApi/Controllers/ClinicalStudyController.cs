@@ -52,7 +52,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <param name="sdruploadversion">Version of study</param>
         /// <param name="tag">Tag of a study</param>
         /// <param name="sections">Study sections which have to be fetched</param> 
-        /// <param name="usdmVersion">usdm-version</param> 
+        /// <param name="usdmVersion">usdmVersion</param> 
         /// <response code="200">Returns Study</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>
@@ -75,7 +75,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
-                    _logger.LogInformation($"Inputs: StudyId: {studyId}; Version: {sdruploadversion}; Status: {tag ?? "<null>"}; Sections: {sections ?? "<null>"};Usdm-Version: {usdmVersion}");
+                    _logger.LogInformation($"Inputs: StudyId: {studyId}; Version: {sdruploadversion}; Status: {tag ?? "<null>"}; Sections: {sections ?? "<null>"};USDM Version: {usdmVersion}");
                     if(String.IsNullOrWhiteSpace(usdmVersion))
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.UsdmVersionMissing)).Value);
                     if (!ValidateApiUsdmVersionMapping.IsValidMapping(Constants.USDMVersions.MVP, usdmVersion))
@@ -141,7 +141,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <param name="sdruploadversion">Version of study</param>
         /// <param name="tag">Tag of a study</param>        
         /// <param name="sections">Study Design sections which have to be fetched</param>  
-        /// <param name="usdmVersion">usdm-version</param> 
+        /// <param name="usdmVersion">USDM Version</param> 
         /// <response code="200">Returns a list of StudyDesigns</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">The StudyDesigns for the study is Not Found</response>
@@ -376,7 +376,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// POST All Elements For a Study  
         /// </summary>        
         /// <param name="studyDTO">Study for Inserting/Updating in Database</param>
-        /// <param name="usdmVersion">usdm-version</param> 
+        /// <param name="usdmVersion">USDM Version</param> 
         /// <param name="entrySystem">System which made the request</param> 
         /// <response code="201">Study Created</response>
         /// <response code="400">Bad Request</response>       

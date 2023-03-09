@@ -30,7 +30,6 @@ namespace TransCelerate.SDR.Core.DTO.Common
         public DateTime EntryDateTime { get; set; }
         [JsonProperty("SDRUploadVersion")]
         public int SDRUploadVersion { get; set; }
-        [JsonProperty("usdm-version")]
         public string UsdmVersion { get; set; }
     }
 }

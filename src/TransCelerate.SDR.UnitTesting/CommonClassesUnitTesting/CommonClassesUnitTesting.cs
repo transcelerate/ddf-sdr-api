@@ -924,7 +924,7 @@ namespace TransCelerate.SDR.UnitTesting
             var httpRequest = new Mock<HttpRequest>();           
             httpRequest.Setup(x => x.Path).Returns(Core.Utilities.Common.Route.PostElements);
             var MoqhttpContext = new DefaultHttpContext();
-            MoqhttpContext.Request.Headers["usdm-version"] = "mvp";
+            MoqhttpContext.Request.Headers["usdmVersion"] = "mvp";
 
             var header = MoqhttpContext.Request.Headers;
 
@@ -936,11 +936,11 @@ namespace TransCelerate.SDR.UnitTesting
             var response = HeaderValidationHelper.ValidateUsdmVersionHeaderMvp(httpContext.Object, null);
             Assert.IsNull(response);
 
-            MoqhttpContext.Request.Headers["usdm-version"] = "v1";
+            MoqhttpContext.Request.Headers["usdmVersion"] = "v1";
             response = HeaderValidationHelper.ValidateUsdmVersionHeaderMvp(httpContext.Object, null);
             Assert.AreEqual(response, Constants.ErrorMessages.UsdmVersionMapError);
 
-            MoqhttpContext.Request.Headers["usdm-version"] = "";
+            MoqhttpContext.Request.Headers["usdmVersion"] = "";
             response = HeaderValidationHelper.ValidateUsdmVersionHeaderMvp(httpContext.Object, null);
             Assert.AreEqual(response, Constants.ErrorMessages.UsdmVersionMissing);
 
