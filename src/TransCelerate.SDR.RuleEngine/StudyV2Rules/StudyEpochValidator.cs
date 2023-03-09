@@ -37,8 +37,7 @@ namespace TransCelerate.SDR.RuleEngineV2
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(StudyEpochValidator), nameof(StudyEpochDto.StudyEpochType)), ApplyConditionTo.AllValidators)
-                .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[Constants.UsdmVersion], nameof(StudyEpochValidator), nameof(StudyEpochDto.StudyEpochType)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.Encounters)
                 .Cascade(CascadeMode.Stop)
