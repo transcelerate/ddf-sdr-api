@@ -7,7 +7,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
     {
         public DateTime EntryDateTime { get; set; }
 
-        [JsonProperty("usdm-version")]
         public string UsdmVersion {get;set;}
 
         [JsonProperty("SDRUploadVersion")]

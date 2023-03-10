@@ -16,7 +16,6 @@ namespace TransCelerate.SDR.Core.Entities.Common
         public object StudyType { get; set; }
         public DateTime EntryDateTime { get; set; }
         public int SDRUploadVersion { get; set; }
-        [BsonElement("usdm-version")]
         public string UsdmVersion { get; set; }
         public IEnumerable<IEnumerable<string>> StudyDesignIdsMVP { get; set; }
         public IEnumerable<string> StudyDesignIds { get; set; }

@@ -29,7 +29,6 @@ namespace TransCelerate.SDR.Core.Entities.Common
 
         public DateTime EntryDateTime { get; set; }
         public int SDRUploadVersion { get; set; }
-        [BsonElement("usdm-version")]
         public string UsdmVersion { get; set; }
         public bool HasAccess { get; set; }
     }

@@ -18,8 +18,6 @@ namespace TransCelerate.SDR.Core.Entities.Common
         public DateTime EntryDateTime { get; set; }
         public string CreatedBy { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("usdm-version")]
-        [BsonElement("usdm-version")]
         public string UsdmVersion { get; set; }
 
         [Newtonsoft.Json.JsonProperty("SDRUploadVersion")]

@@ -10,8 +10,7 @@ namespace TransCelerate.SDR.Core.DTO.Common
     public class AuditTrailResponseWithLinksDto
     {
         public DateTime EntryDateTime { get; set; }
-
-        [JsonProperty("usdm-version")]
+        
         public string UsdmVersion { get; set; }
 
         [JsonProperty("SDRUploadVersion")]

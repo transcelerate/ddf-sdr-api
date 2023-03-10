@@ -7,9 +7,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
     public class AuditTrailEntity
     {
         public DateTime EntryDateTime { get; set; }
-        public string CreatedBy { get; set; }
-
-        [BsonElement("usdm-version")]        
+        public string CreatedBy { get; set; }   
         public string UsdmVersion { get; set; }
         [BsonElement("SDRUploadVersion")]
         public int SDRUploadVersion { get; set; }

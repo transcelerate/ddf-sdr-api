@@ -15,10 +15,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
     public class SDRVersions
     {
-        [JsonProperty(IdFieldPropertyName.Common.ApiVersion)]
         public string ApiVersion { get; set; }
 
-        [JsonProperty(IdFieldPropertyName.Common.UsdmVersions)]
         public List<string> UsdmVersions { get; set; }
     }
 

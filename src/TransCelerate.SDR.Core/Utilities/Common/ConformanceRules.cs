@@ -14,7 +14,6 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
     public class ConformanceRules
     {
-        [JsonProperty("usdm-version")]
         public string Usdmversion { get; set; }
         public List<Rules> Rules { get; set; }
     }
