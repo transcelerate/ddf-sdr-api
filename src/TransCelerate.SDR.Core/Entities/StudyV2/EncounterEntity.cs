@@ -10,9 +10,9 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
         public string Id { get; set; }
         public List<CodeEntity> EncounterContactModes { get; set; }
         public string EncounterDescription { get; set; }
-        public List<CodeEntity> EncounterEnvironmentalSetting { get; set; }
+        public CodeEntity EncounterEnvironmentalSetting { get; set; }
         public string EncounterName { get; set; }
-        public List<CodeEntity> EncounterType { get; set; }
+        public CodeEntity EncounterType { get; set; }
         public TransitionRuleEntity TransitionStartRule { get; set; }
         public TransitionRuleEntity TransitionEndRule { get; set; }
         public string NextEncounterId { get; set; }

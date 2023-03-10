@@ -97,8 +97,8 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
                 currentVersion,previousVersion
 
             };
-            currentVersion1.ClinicalStudy.StudyProtocolVersions[0].ProtocolStatus.Add(currentVersion1.ClinicalStudy.StudyProtocolVersions[0].ProtocolStatus[0]);
-            currentVersion1.ClinicalStudy.StudyProtocolVersions[0].ProtocolStatus[0].CodeSystemVersion = "10";
+        //    currentVersion1.ClinicalStudy.StudyProtocolVersions[0].ProtocolStatus.Add(currentVersion1.ClinicalStudy.StudyProtocolVersions[0].ProtocolStatus);
+            currentVersion1.ClinicalStudy.StudyProtocolVersions[0].ProtocolStatus.CodeSystemVersion = "10";
             var difference1 = helper.GetChangedValues(currentVersion1, previousVersion1);
             _mockChangeAuditRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(studyEntities1);
@@ -146,14 +146,14 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
             currentVersion.ClinicalStudy.StudyDesigns[0].StudyInvestigationalInterventions[0].InterventionDescription = "intervention2";
             currentVersion.ClinicalStudy.StudyDesigns[0].StudyObjectives[0].ObjectiveEndpoints[0].EndpointDescription = "Endpoint3";
             currentVersion.ClinicalStudy.StudyDesigns[0].StudyPopulations[0].PopulationDescription = "population 2";
-            currentVersion.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyArm.StudyArmDataOriginType[0].CodeSystem = "8";
+            currentVersion.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyArm.StudyArmDataOriginType.CodeSystem = "8";
             currentVersion.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyArm.StudyArmType.Decode = "placebo arm 1";
             currentVersion.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyElements[0].StudyElementDescription = "Element 3";        
             currentVersion.ClinicalStudy.StudyDesigns[0].Activities[0].DefinedProcedures.Add(currentVersion.ClinicalStudy.StudyDesigns[0].Activities[0].DefinedProcedures[0]);
             currentVersion.ClinicalStudy.StudyDesigns[0].Activities[0].DefinedProcedures[1].Id = "4";            
             currentVersion.ClinicalStudy.StudyDesigns[0].Activities[0].ActivityName = "A2";
             currentVersion.ClinicalStudy.StudyDesigns[0].Encounters[0].EncounterContactModes[0].Code = "C126876";
-            currentVersion.ClinicalStudy.StudyDesigns[0].Encounters[0].EncounterEnvironmentalSetting[0].Decode = "clinic2";
+            currentVersion.ClinicalStudy.StudyDesigns[0].Encounters[0].EncounterEnvironmentalSetting.Decode = "clinic2";
             currentVersion.ClinicalStudy.StudyDesigns[0].Encounters[0].EncounterName = "Encounter 3";
             currentVersion.ClinicalStudy.StudyDesigns[0].Encounters[0].TransitionEndRule.Id = "3";
             currentVersion.ClinicalStudy.StudyDesigns[0].Encounters[0].NextEncounterId = "34";
