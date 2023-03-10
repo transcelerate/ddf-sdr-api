@@ -24,7 +24,6 @@ namespace TransCelerate.SDR.Core.DTO.Study
     {
         public string entryDateTime { get; set; }
         public int studyVersion { get; set; }
-        [JsonProperty("usdm-version")]
         public string UsdmVersion { get; set; }
     }
 }

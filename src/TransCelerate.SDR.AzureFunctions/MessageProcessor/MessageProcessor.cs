@@ -48,7 +48,7 @@ namespace TransCelerate.SDR.AzureFunctions
                 //Get the change audit data for studyId
                 ChangeAuditStudyEntity changeAuditEntity = _changeAuditReposotory.GetChangeAuditAsync(serviceBusMessageEntity.Study_uuid);
 
-                List<string> changedValues = new List<string> { $"The usdm-version have been changed from {previousUsdmVersion} to {currentUsdmVersion}" };
+                List<string> changedValues = new List<string> { $"The usdmVersion have been changed from {previousUsdmVersion} to {currentUsdmVersion}" };
 
                 //Update changeAudit if exist/ create changeAudit if new
                 AddChangeAuditInDatabase(changeAuditEntity, serviceBusMessageEntity, changedValues, auditTrailEntities.Where(x => x.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion).FirstOrDefault());

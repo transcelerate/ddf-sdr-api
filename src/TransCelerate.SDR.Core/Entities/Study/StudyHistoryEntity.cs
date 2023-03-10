@@ -13,7 +13,6 @@ namespace TransCelerate.SDR.Core.Entities
         public DateTime entryDateTime { get; set; }
 
         public string studyType { get; set; }
-        [BsonElement("usdm-version")]
         public string UsdmVersion { get; set; }
     }
 }

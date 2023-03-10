@@ -12,7 +12,6 @@ namespace TransCelerate.SDR.Core.Entities.Study
         public string entrySystem { get; set; }
         [BsonElement("SDRUploadVersion")]
         public int studyVersion { get; set; }
-        [BsonElement("usdm-version")]
         public string UsdmVersion { get; set; }
     }
 }

@@ -108,7 +108,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// </summary>
         /// <param name="study_uuid">Study ID</param>
         /// <param name="sdruploadversion">Version of study</param>
-        /// <param name="usdmVersion">usdm-version</param>
+        /// <param name="usdmVersion">USDM Version</param>
         /// <response code="200">Returns Study</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>
@@ -306,7 +306,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// POST All Elements For a Study  
         /// </summary>        
         /// <param name="studyDTO">Study for Inserting/Updating in Database</param>        
-        /// <param name="usdmVersion">usdm-version</param>        
+        /// <param name="usdmVersion">USDM Version</param>        
         /// <response code="201">Study Created</response>
         /// <response code="400">Bad Request</response>       
         [HttpPost]
