@@ -982,7 +982,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         {
             LinksResponseDto links = new LinksResponseDto 
             { 
-                StudyId = "1", SDRUploadVersion = 1, UsdmVersion = "2.0", 
+                StudyId = "1", SDRUploadVersion = 1, UsdmVersion = Constants.USDMVersions.V2, 
                 Links = LinksHelper.GetLinksForEndpoint("1", Constants.USDMVersions.V1, 1) 
             };
             links.Links = LinksHelper.GetLinksForEndpoint("1", Constants.USDMVersions.MVP, 1);
