@@ -78,7 +78,7 @@ namespace TransCelerate.SDR.UnitTesting
             studyDto.ClinicalStudy = null;
             var httpContextAccessor = new Mock<IHttpContextAccessor>();
             var contextAccessor = new DefaultHttpContext();
-            var usdmVersion = "2.0";
+            var usdmVersion = Constants.USDMVersions.V2;
             contextAccessor.Request.Headers["usdmVersion"] = usdmVersion;
             httpContextAccessor.Setup(_ => _.HttpContext).Returns(contextAccessor);
 
@@ -168,7 +168,7 @@ namespace TransCelerate.SDR.UnitTesting
         {
             var httpContextAccessor = new Mock<IHttpContextAccessor>();
             var context = new DefaultHttpContext();
-            var usdmVersion = "2.0";
+            var usdmVersion = Constants.USDMVersions.V2;
             context.Request.Headers["usdmVersion"] = usdmVersion;
             httpContextAccessor.Setup(_ => _.HttpContext).Returns(context);
             ValidationDependenciesV2.AddValidationDependenciesV2(serviceDescriptors);

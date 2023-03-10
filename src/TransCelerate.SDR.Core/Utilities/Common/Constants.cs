@@ -71,7 +71,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         {
             public const string MVP = "mvp";
             public const string V1 = "1.0";
-            public const string V2 = "2.0";
+            public const string V2 = "1.9";
         }
         public struct ApiVersions
         {
