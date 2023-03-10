@@ -7,7 +7,6 @@ namespace TransCelerate.SDR.Core.DTO.eCPT
     {
         public string StudyId { get; set; }
         public string StudyTitle { get; set; }
-        [JsonProperty("usdm-version")]
         public string UsdmVersion { get; set; }
 
         [JsonProperty("SDRUploadVersion")]

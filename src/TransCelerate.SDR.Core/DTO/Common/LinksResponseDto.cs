@@ -9,8 +9,7 @@ namespace TransCelerate.SDR.Core.DTO.Common
 {
     public class LinksResponseDto
     {
-        public string StudyId { get; set; }
-        [JsonProperty("usdm-version")]
+        public string StudyId { get; set; }   
         public string UsdmVersion { get; set; }
         [JsonProperty("SDRUploadVersion")]
         public int SDRUploadVersion { get; set; }

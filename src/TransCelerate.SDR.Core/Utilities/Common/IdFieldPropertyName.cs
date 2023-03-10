@@ -53,9 +53,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
         public struct Common
         {
-            public const string UsdmVersion = "usdm-version";
-            public const string UsdmVersions = "usdm-versions";
-            public const string ApiVersion = "api-version";
+            public const string UsdmVersion = "usdmVersion";
             public const string SDRVersions = "SDRVersions";
         }
     }

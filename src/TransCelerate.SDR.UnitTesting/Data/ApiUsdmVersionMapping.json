@@ -1,20 +1,20 @@
 {
   "SDRVersions": [
     {
-      "api-version": "mvp",
-      "usdm-versions": [
+      "apiVersion": "mvp",
+      "usdmVersions": [
         "mvp"
       ]
     },
     {
-      "api-version": "v1",
-      "usdm-versions": [
+      "apiVersion": "v1",
+      "usdmVersions": [
         "1.0"
       ]
     },
     {
-      "api-version": "v2",
-      "usdm-versions": [
+      "apiVersion": "v2",
+      "usdmVersions": [
         "2.0"
       ]
     }

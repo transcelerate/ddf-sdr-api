@@ -2,7 +2,7 @@
   "studyDetails": {
     "studyId": "0aae2b5b-6a61-4dcb-8e83-a352a0c1b637",
     "studyTitle": "Study Of Lung Cancer",
-    "usdm-version": "2.0",
+    "usdmVersion": "2.0",
     "SDRUploadVersion": 1,
     "links": {
       "studyDefinitions": "/v2/studydefinitions/0aae2b5b-6a61-4dcb-8e83-a352a0c1b637?sdruploadversion=1",

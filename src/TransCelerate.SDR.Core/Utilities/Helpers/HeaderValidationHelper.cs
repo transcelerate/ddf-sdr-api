@@ -15,13 +15,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             if (context.Request.Path.Value.Equals(Route.PostElements))
             {
-                if (String.IsNullOrWhiteSpace(context.Request.Headers["usdm-version"]))
+                if (String.IsNullOrWhiteSpace(context.Request.Headers["usdmVersion"]))
                 {
                     response = Constants.ErrorMessages.UsdmVersionMissing;                                       
                 }
                 else
                 {
-                    var usdmVersion = context.Request.Headers["usdm-version"];
+                    var usdmVersion = context.Request.Headers["usdmVersion"];
                     if (!ApiUsdmVersionMapping.SDRVersions.Where(x => x.ApiVersion == "mvp").Any(x => x.UsdmVersions.Contains(usdmVersion)))
                     {
                         response = Constants.ErrorMessages.UsdmVersionMapError;                       
