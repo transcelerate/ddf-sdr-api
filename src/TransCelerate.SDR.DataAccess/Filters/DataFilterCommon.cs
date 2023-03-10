@@ -309,7 +309,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
                     case "lastmodifieddate":
                         sorter = searchParameters.Asc ? builder.Ascending(x => x.EntryDateTime) : builder.Descending(x => x.EntryDateTime);
                         break;
-                    case "usdmVersion":
+                    case "usdmversion":
                         sorter = searchParameters.Asc ? builder.Ascending(x => x.UsdmVersion) : builder.Descending(x => x.UsdmVersion);
                         break;
                 }
