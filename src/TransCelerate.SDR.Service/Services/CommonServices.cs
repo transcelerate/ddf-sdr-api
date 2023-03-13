@@ -546,7 +546,7 @@ namespace TransCelerate.SDR.Services.Services
                                                                                         : searchTitleDTOs.OrderByDescending(s => s.ClinicalStudy.StudyIdentifiers != null ? s.ClinicalStudy.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1 || x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID).Any() ? s.ClinicalStudy.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1 || x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : "").ToList(),
                     "lastmodifieddate" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.AuditTrail.EntryDateTime).ToList() : searchTitleDTOs.OrderByDescending(x => x.AuditTrail.EntryDateTime).ToList(),
                     "version" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.AuditTrail.SDRUploadVersion).ToList() : searchTitleDTOs.OrderByDescending(x => x.AuditTrail.SDRUploadVersion).ToList(),
-                    "usdmVersion" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.AuditTrail.UsdmVersion).ToList() : searchTitleDTOs.OrderByDescending(x => x.AuditTrail.UsdmVersion).ToList(),
+                    "usdmversion" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.AuditTrail.UsdmVersion).ToList() : searchTitleDTOs.OrderByDescending(x => x.AuditTrail.UsdmVersion).ToList(),
                     _ => searchParametersDTO.SortOrder == SortOrder.desc.ToString() ? searchTitleDTOs.OrderByDescending(x => x.ClinicalStudy.StudyTitle).ToList() : searchTitleDTOs.OrderBy(x => x.ClinicalStudy.StudyTitle).ToList(),
                 };
             }
@@ -810,6 +810,7 @@ namespace TransCelerate.SDR.Services.Services
 
                     if (groups != null && groups.Count > 0)
                     {
+                        studies.ForEach(x => x.HasAccess = true);
                         Tuple<List<string>, List<string>> groupFilters = GroupFilters.GetGroupFilters(groups);
                         if (groupFilters.Item2.Contains(studyId))
                             return studies;
