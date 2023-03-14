@@ -1259,294 +1259,26 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
             {
                 study.ClinicalStudy.StudyDesigns.ForEach(design =>
                 {
-                    //Study Epoch & Encounters
-                    if (design.StudyCells != null && design.StudyCells.Any())
-                    {
-                        List<string> studyEpochUUIDs = design.StudyCells.Select(cell => cell?.StudyEpoch?.Id).ToList();
-                        studyEpochUUIDs.RemoveAll(x => String.IsNullOrWhiteSpace(x));
-                        design.StudyCells.ForEach(cell =>
-                        {
-                            if (cell.StudyEpoch != null)
-                            {
-                                List<string> tempStudyEpochUUIDs = studyEpochUUIDs.ToList();
-                                tempStudyEpochUUIDs.RemoveAll(x => x == cell.StudyEpoch.Id);
-                                if (!String.IsNullOrWhiteSpace(cell.StudyEpoch.PreviousStudyEpochId) && !tempStudyEpochUUIDs.Contains(cell.StudyEpoch.PreviousStudyEpochId))
-                                    errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                        $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                        $"{nameof(StudyDesignDto.StudyCells)}[{design.StudyCells.IndexOf(cell)}]." +
-                                        $"{nameof(StudyCellDto.StudyEpoch)}.{nameof(StudyEpochDto.PreviousStudyEpochId)}");
+                    Parallel.Invoke(
+                        //Study Epoch & Encounters
+                        () => errors.AddRange(ReferenceIntegrityValidationForStudyCells(design, study.ClinicalStudy.StudyDesigns.IndexOf(design))),
 
-                                if (!String.IsNullOrWhiteSpace(cell.StudyEpoch.NextStudyEpochId) && !tempStudyEpochUUIDs.Contains(cell.StudyEpoch.NextStudyEpochId))
-                                    errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                        $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                        $"{nameof(StudyDesignDto.StudyCells)}[{design.StudyCells.IndexOf(cell)}].{nameof(StudyCellDto.StudyEpoch)}." +
-                                        $"{nameof(StudyEpochDto.NextStudyEpochId)}");
+                        //StudyScheduleTimelines
+                        () => errors.AddRange(ReferenceIntegrityValidationForStudyScheduleTimelines(design, study.ClinicalStudy.StudyDesigns.IndexOf(design))),
 
-                                if (cell.StudyEpoch.Encounters != null && cell.StudyEpoch.Encounters.Any())
-                                {
-                                    cell.StudyEpoch.Encounters.ForEach(encounterId =>
-                                    {
-                                        List<string> encounterIds = design.Encounters is null ? new List<string>() : design.Encounters.Select(x => x.Id).ToList();
-                                        if (!String.IsNullOrWhiteSpace(encounterId) && !encounterIds.Contains(encounterId))
-                                            errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                                       $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                                       $"{nameof(StudyDesignDto.StudyCells)}[{design.StudyCells.IndexOf(cell)}].{nameof(StudyCellDto.StudyEpoch)}." +
-                                                       $"{nameof(StudyEpochDto.Encounters)}[{cell.StudyEpoch.Encounters.IndexOf(encounterId)}]");
-                                    });
-                                }
-                            }
-                        });
-                    }
+                        //Activities 
+                        () => errors.AddRange(ReferenceIntegrityValidationForActivities(design, study.ClinicalStudy.StudyDesigns.IndexOf(design))),
 
-                    //StudyScheduleTimelines
-                    if (design.StudyScheduleTimelines != null && design.StudyScheduleTimelines.Any())
-                    {
-                        List<string> scheduledTimelineIds = design.StudyScheduleTimelines.Select(x => x.Id).ToList();                        
-                        List<string> encounterIds = design.Encounters is null ? new List<string>() : design.Encounters.Select(x => x.Id).ToList();
-                        List<string> allScheduleInstanceIds = design.StudyScheduleTimelines.Where(x => x.ScheduledTimelineInstances != null && x.ScheduledTimelineInstances.Any()).SelectMany(x => x.ScheduledTimelineInstances).Select(x => x.Id).ToList();
-                        List<string> allActivityIds = design.Activities is null ? new List<string>() : design.Activities.Select(x => x.Id).ToList();
-                        design.StudyScheduleTimelines.ForEach(scheduleTimeline =>
-                        {
-                            List<string> scheduledTimelineInstanceIds = scheduleTimeline.ScheduledTimelineInstances is not null && scheduleTimeline.ScheduledTimelineInstances.Any() ? scheduleTimeline.ScheduledTimelineInstances.Select(x => x.Id).ToList() : new List<string>();
-                            List<string> scheduleTimelineExitIds = scheduleTimeline.ScheduleTimelineExits is null ? new List<string>() : scheduleTimeline.ScheduleTimelineExits.Select(x => x.Id).ToList();
+                        //Encounters
+                        () => errors.AddRange(ReferenceIntegrityValidationForEncounters(design, study.ClinicalStudy.StudyDesigns.IndexOf(design))),
 
-                            if (!String.IsNullOrWhiteSpace(scheduleTimeline.ScheduleTimelineEntryId) && !scheduledTimelineInstanceIds.Contains(scheduleTimeline.ScheduleTimelineEntryId))
-                                errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                    $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                    $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}].{nameof(ScheduleTimelineDto.ScheduleTimelineEntryId)}");
+                        //Endpoints & InvestigationalIntervention
+                        () => errors.AddRange(ReferenceIntegrityValidationForStudyEstimands(design, study.ClinicalStudy.StudyDesigns.IndexOf(design))),
 
-                            if (scheduleTimeline.ScheduledTimelineInstances != null && scheduleTimeline.ScheduledTimelineInstances.Any())
-                            {                                
-                                scheduleTimeline.ScheduledTimelineInstances.ForEach(timelineInstance =>
-                                {
-                                    if (!String.IsNullOrWhiteSpace(timelineInstance.ScheduleTimelineExitId) && !scheduleTimelineExitIds.Contains(timelineInstance.ScheduleTimelineExitId))
-                                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                            $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                            $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}]." +
-                                            $"{nameof(ScheduleTimelineDto.ScheduledTimelineInstances)}[{scheduleTimeline.ScheduledTimelineInstances.IndexOf(timelineInstance)}]." +
-                                            $"{nameof(ScheduledInstanceDto.ScheduleTimelineExitId)}");
-
-                                    if (!String.IsNullOrWhiteSpace(timelineInstance.ScheduledInstanceEncounterId) && !encounterIds.Contains(timelineInstance.ScheduledInstanceEncounterId))
-                                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                            $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                            $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}]." +
-                                            $"{nameof(ScheduleTimelineDto.ScheduledTimelineInstances)}[{scheduleTimeline.ScheduledTimelineInstances.IndexOf(timelineInstance)}]." +
-                                            $"{nameof(ScheduledInstanceDto.ScheduledInstanceEncounterId)}");
-
-                                    if (!String.IsNullOrWhiteSpace(timelineInstance.ScheduledInstanceTimelineId) && !scheduledTimelineIds.Contains(timelineInstance.ScheduledInstanceTimelineId))
-                                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                            $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                            $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}]." +
-                                            $"{nameof(ScheduleTimelineDto.ScheduledTimelineInstances)}[{scheduleTimeline.ScheduledTimelineInstances.IndexOf(timelineInstance)}]." +
-                                            $"{nameof(ScheduledInstanceDto.ScheduledInstanceTimelineId)}");
-
-                                    if (timelineInstance.GetType() == typeof(ScheduledActivityInstanceDto))
-                                    {
-                                        var activityIds = (timelineInstance as ScheduledActivityInstanceDto).ActivityIds;
-                                        if (activityIds is not null && activityIds.Any())
-                                        {
-                                            activityIds.ForEach(id =>
-                                            {
-                                                if (!String.IsNullOrWhiteSpace(id) && !allActivityIds.Contains(id))
-                                                    errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                                        $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                                        $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}]." +
-                                                        $"{nameof(ScheduleTimelineDto.ScheduledTimelineInstances)}[{scheduleTimeline.ScheduledTimelineInstances.IndexOf(timelineInstance)}]." +
-                                                        $"{nameof(ScheduledActivityInstanceDto.ActivityIds)}[{activityIds.IndexOf(id)}]");
-                                            });
-                                        }
-                                    }
-
-                                    if (timelineInstance.ScheduledInstanceTimings is not null && timelineInstance.ScheduledInstanceTimings.Any())
-                                    {
-                                        timelineInstance.ScheduledInstanceTimings.ForEach(timing =>
-                                        {
-                                            if (!String.IsNullOrWhiteSpace(timing.RelativeFromScheduledInstanceId) && !allScheduleInstanceIds.Contains(timing.RelativeFromScheduledInstanceId))
-                                                errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                                    $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                                    $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}]." +
-                                                    $"{nameof(ScheduleTimelineDto.ScheduledTimelineInstances)}[{scheduleTimeline.ScheduledTimelineInstances.IndexOf(timelineInstance)}]." +
-                                                    $"{nameof(ScheduledInstanceDto.ScheduledInstanceTimings)}[{timelineInstance.ScheduledInstanceTimings.IndexOf(timing)}]." +
-                                                    $"{nameof(TimingDto.RelativeFromScheduledInstanceId)}");
-
-                                            if (!String.IsNullOrWhiteSpace(timing.RelativeToScheduledInstanceId) && !allScheduleInstanceIds.Contains(timing.RelativeToScheduledInstanceId))
-                                                errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                                    $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                                    $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}]." +
-                                                    $"{nameof(ScheduleTimelineDto.ScheduledTimelineInstances)}[{scheduleTimeline.ScheduledTimelineInstances.IndexOf(timelineInstance)}]." +
-                                                    $"{nameof(ScheduledInstanceDto.ScheduledInstanceTimings)}[{timelineInstance.ScheduledInstanceTimings.IndexOf(timing)}]." +
-                                                    $"{nameof(TimingDto.RelativeToScheduledInstanceId)}");
-                                        });
-                                    }
-                                });
-                            }
-                        });
-                    }
-
-                    //Activities 
-                    List<string> biomedicalConceptIds = design.BiomedicalConcepts is null ? new List<string>() : design.BiomedicalConcepts.Select(x => x.Id).ToList();
-                    List<string> bcCategoryIds = design.BcCategories is null ? new List<string>() : design.BcCategories.Select(x => x.Id).ToList();
-                    List<string> bcSurrogateIds = design.BcSurrogates is null ? new List<string>() : design.BcSurrogates.Select(x => x.Id).ToList();
-                    if (design.Activities != null && design.Activities.Any())
-                    {
-                        List<string> activitiesIds = design.Activities.Select(act => act?.Id).ToList();
-                        activitiesIds.RemoveAll(x => String.IsNullOrWhiteSpace(x));
-                        List<string> scheduleTimelineIds = design.StudyScheduleTimelines is not null && design.StudyScheduleTimelines.Any() ? design.StudyScheduleTimelines.Select(x => x.Id).ToList() : new List<string>();
-                        design.Activities.ForEach(act =>
-                        {
-                            List<string> tempActIDs = activitiesIds.ToList();
-                            tempActIDs.RemoveAll(x => x == act.Id);
-                            if (!String.IsNullOrWhiteSpace(act.PreviousActivityId) && !tempActIDs.Contains(act.PreviousActivityId))
-                                errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                    $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                    $"{nameof(StudyDesignDto.Activities)}[{design.Activities.IndexOf(act)}]." +
-                                    $"{nameof(ActivityDto.PreviousActivityId)}");
-
-                            if (!String.IsNullOrWhiteSpace(act.NextActivityId) && !tempActIDs.Contains(act.NextActivityId))
-                                errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                  $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                  $"{nameof(StudyDesignDto.Activities)}[{design.Activities.IndexOf(act)}]." +
-                                  $"{nameof(ActivityDto.NextActivityId)}");
-
-                            if (!String.IsNullOrWhiteSpace(act.ActivityTimelineId) && !scheduleTimelineIds.Contains(act.ActivityTimelineId))
-                                errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                  $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                  $"{nameof(StudyDesignDto.Activities)}[{design.Activities.IndexOf(act)}]." +
-                                  $"{nameof(ActivityDto.ActivityTimelineId)}");
-
-                            if (act.BiomedicalConceptIds != null && act.BiomedicalConceptIds.Any())
-                            {
-                                act.BiomedicalConceptIds.ForEach(bc =>
-                                {
-                                    if (!String.IsNullOrWhiteSpace(bc) && !biomedicalConceptIds.Contains(bc))
-                                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                                   $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                                   $"{nameof(StudyDesignDto.Activities)}[{design.Activities.IndexOf(act)}]." +
-                                                   $"{nameof(ActivityDto.BiomedicalConceptIds)}[{act.BiomedicalConceptIds.IndexOf(bc)}]");
-                                });
-                            }
-                            if (act.BcCategoryIds != null && act.BcCategoryIds.Any())
-                            {
-                                act.BcCategoryIds.ForEach(bcCat =>
-                                {
-                                    if (!String.IsNullOrWhiteSpace(bcCat) && !bcCategoryIds.Contains(bcCat))
-                                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                                   $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                                   $"{nameof(StudyDesignDto.Activities)}[{design.Activities.IndexOf(act)}]." +
-                                                   $"{nameof(ActivityDto.BcCategoryIds)}[{act.BcCategoryIds.IndexOf(bcCat)}]");
-                                });
-                            }
-                            if (act.BcSurrogateIds != null && act.BcSurrogateIds.Any())
-                            {
-                                act.BcSurrogateIds.ForEach(bcSurr =>
-                                {
-                                    if (!String.IsNullOrWhiteSpace(bcSurr) && !bcSurrogateIds.Contains(bcSurr))
-                                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                                   $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                                   $"{nameof(StudyDesignDto.Activities)}[{design.Activities.IndexOf(act)}]." +
-                                                   $"{nameof(ActivityDto.BcSurrogateIds)}[{act.BcSurrogateIds.IndexOf(bcSurr)}]");
-                                });
-                            }
-                        });
-                    }
-
-                    //Encounters
-                    if (design.Encounters != null && design.Encounters.Any())
-                    {
-                        List<string> encounterIds = design.Encounters.Select(enc => enc?.Id).ToList();
-                        encounterIds.RemoveAll(x => String.IsNullOrWhiteSpace(x));
-
-                        List<string> allTimingIds = design.StudyScheduleTimelines is not null && design.StudyScheduleTimelines.Any() ? design.StudyScheduleTimelines.Where(x => x.ScheduledTimelineInstances != null && x.ScheduledTimelineInstances.Any())
-                                                          .SelectMany(x => x.ScheduledTimelineInstances).Where(x => x.ScheduledInstanceTimings != null && x.ScheduledInstanceTimings.Any())
-                                                          .SelectMany(x => x.ScheduledInstanceTimings).Select(x => x.Id).ToList() : new List<string>();
-                        design.Encounters.ForEach(enc =>
-                        {
-                            List<string> tempencounterIds = encounterIds.ToList();
-                            tempencounterIds.RemoveAll(x => x == enc.Id);
-                            if (!String.IsNullOrWhiteSpace(enc.PreviousEncounterId) && !tempencounterIds.Contains(enc.PreviousEncounterId))
-                                errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                    $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                    $"{nameof(StudyDesignDto.Encounters)}[{design.Encounters.IndexOf(enc)}]." +
-                                    $"{nameof(EncounterDto.PreviousEncounterId)}");
-
-                            if (!String.IsNullOrWhiteSpace(enc.NextEncounterId) && !tempencounterIds.Contains(enc.NextEncounterId))
-                                errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                  $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                  $"{nameof(StudyDesignDto.Encounters)}[{design.Encounters.IndexOf(enc)}]." +
-                                  $"{nameof(EncounterDto.NextEncounterId)}");
-
-                            if (!String.IsNullOrWhiteSpace(enc.EncounterScheduledAtTimingId) && !allTimingIds.Contains(enc.EncounterScheduledAtTimingId))
-                                errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                  $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                  $"{nameof(StudyDesignDto.Encounters)}[{design.Encounters.IndexOf(enc)}]." +
-                                  $"{nameof(EncounterDto.EncounterScheduledAtTimingId)}");
-                        });
-                    }
-
-                    //Endpoints & InvestigationalIntervention
-                    if (design.StudyEstimands != null && design.StudyEstimands.Any())
-                    {
-                        design.StudyEstimands.ForEach(estimand =>
-                        {
-                            List<string> investigationalInterventionIds = design.StudyInvestigationalInterventions is null ? new List<string>() : design.StudyInvestigationalInterventions.Select(x => x.Id).ToList();
-                            List<string> endpointIds = design.StudyObjectives is null ? new List<string>() : design.StudyObjectives.Select(x => x?.ObjectiveEndpoints).Where(y => y != null).SelectMany(x => x.Select(y => y.Id)).ToList();
-
-                            if (!String.IsNullOrWhiteSpace(estimand.Treatment) && !investigationalInterventionIds.Contains(estimand.Treatment))
-                                errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                    $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                    $"{nameof(StudyDesignDto.StudyEstimands)}[{design.StudyEstimands.IndexOf(estimand)}]." +
-                                    $"{nameof(EstimandDto.Treatment)}");
-
-                            if (!String.IsNullOrWhiteSpace(estimand.VariableOfInterest) && !endpointIds.Contains(estimand.VariableOfInterest))
-                                errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                    $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                    $"{nameof(StudyDesignDto.StudyEstimands)}[{design.StudyEstimands.IndexOf(estimand)}]." +
-                                    $"{nameof(EstimandDto.VariableOfInterest)}");
-                        });
-                    }
-
-                    //BcCategories
-                    if (design.BcCategories != null && design.BcCategories.Any())
-                    {
-                        design.BcCategories.ForEach(bcCat =>
-                        {
-                            var tempCategoryIds = bcCategoryIds.ToList();                            
-                            tempCategoryIds.RemoveAll(x => x == bcCat.Id);                            
-                            if (bcCat.BcCategoryParentIds != null && bcCat.BcCategoryParentIds.Any())
-                            {                                
-                                bcCat.BcCategoryParentIds.ForEach(parent =>
-                                {
-                                    if (!String.IsNullOrWhiteSpace(parent) && !tempCategoryIds.Contains(parent))
-                                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                                   $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                                   $"{nameof(StudyDesignDto.BcCategories)}[{design.BcCategories.IndexOf(bcCat)}]." +
-                                                   $"{nameof(BiomedicalConceptCategoryDto.BcCategoryParentIds)}[{bcCat.BcCategoryParentIds.IndexOf(parent)}]");
-                                });
-                            }
-                            if (bcCat.BcCategoryChildrenIds != null && bcCat.BcCategoryChildrenIds.Any())
-                            {
-                                bcCat.BcCategoryChildrenIds.ForEach(child =>
-                                {
-                                    if (!String.IsNullOrWhiteSpace(child) && !tempCategoryIds.Contains(child))
-                                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                                   $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                                   $"{nameof(StudyDesignDto.BcCategories)}[{design.BcCategories.IndexOf(bcCat)}]." +
-                                                   $"{nameof(BiomedicalConceptCategoryDto.BcCategoryChildrenIds)}[{bcCat.BcCategoryChildrenIds.IndexOf(child)}]");
-                                });
-                            }
-                            if (bcCat.BcCategoryMemberIds != null && bcCat.BcCategoryMemberIds.Any())
-                            {
-                                bcCat.BcCategoryMemberIds.ForEach(member =>
-                                {
-                                    if (!String.IsNullOrWhiteSpace(member) && !biomedicalConceptIds.Contains(member))
-                                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
-                                                   $"{nameof(ClinicalStudyDto.StudyDesigns)}[{study.ClinicalStudy.StudyDesigns.IndexOf(design)}]." +
-                                                   $"{nameof(StudyDesignDto.BcCategories)}[{design.BcCategories.IndexOf(bcCat)}]." +
-                                                   $"{nameof(BiomedicalConceptCategoryDto.BcCategoryMemberIds)}[{bcCat.BcCategoryMemberIds.IndexOf(member)}]");
-                                });
-                            }
-                        });
-                    }
+                        //BcCategories
+                        () => errors.AddRange(ReferenceIntegrityValidationForBcCategories(design, study.ClinicalStudy.StudyDesigns.IndexOf(design)))
+                     );
+                   
                 });
             }
             List<string> formattedErrors = new List<string>();
@@ -1558,6 +1290,333 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
             return errors.Any();
         }
 
+        public static List<string> ReferenceIntegrityValidationForStudyCells(StudyDesignDto design, int indexOfDesign)
+        {
+            List<String> errors = new();
+
+            if (design.StudyCells != null && design.StudyCells.Any())
+            {
+                List<string> studyEpochUUIDs = design.StudyCells.Select(cell => cell?.StudyEpoch?.Id).ToList();
+                studyEpochUUIDs.RemoveAll(x => String.IsNullOrWhiteSpace(x));
+                design.StudyCells.ForEach(cell =>
+                {
+                    if (cell.StudyEpoch != null)
+                    {
+                        List<string> tempStudyEpochUUIDs = studyEpochUUIDs.ToList();
+                        tempStudyEpochUUIDs.RemoveAll(x => x == cell.StudyEpoch.Id);
+                        if (!String.IsNullOrWhiteSpace(cell.StudyEpoch.PreviousStudyEpochId) && !tempStudyEpochUUIDs.Contains(cell.StudyEpoch.PreviousStudyEpochId))
+                            errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                $"{nameof(ClinicalStudyDto.StudyDesigns)}[{indexOfDesign}]." +
+                                $"{nameof(StudyDesignDto.StudyCells)}[{design.StudyCells.IndexOf(cell)}]." +
+                                $"{nameof(StudyCellDto.StudyEpoch)}.{nameof(StudyEpochDto.PreviousStudyEpochId)}");
+
+                        if (!String.IsNullOrWhiteSpace(cell.StudyEpoch.NextStudyEpochId) && !tempStudyEpochUUIDs.Contains(cell.StudyEpoch.NextStudyEpochId))
+                            errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                $"{nameof(ClinicalStudyDto.StudyDesigns)}[{indexOfDesign}]." +
+                                $"{nameof(StudyDesignDto.StudyCells)}[{design.StudyCells.IndexOf(cell)}].{nameof(StudyCellDto.StudyEpoch)}." +
+                                $"{nameof(StudyEpochDto.NextStudyEpochId)}");
+
+                        if (cell.StudyEpoch.Encounters != null && cell.StudyEpoch.Encounters.Any())
+                        {
+                            cell.StudyEpoch.Encounters.ForEach(encounterId =>
+                            {
+                                List<string> encounterIds = design.Encounters is null ? new List<string>() : design.Encounters.Select(x => x.Id).ToList();
+                                if (!String.IsNullOrWhiteSpace(encounterId) && !encounterIds.Contains(encounterId))
+                                    errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                               $"{nameof(ClinicalStudyDto.StudyDesigns)}[{indexOfDesign}]." +
+                                               $"{nameof(StudyDesignDto.StudyCells)}[{design.StudyCells.IndexOf(cell)}].{nameof(StudyCellDto.StudyEpoch)}." +
+                                               $"{nameof(StudyEpochDto.Encounters)}[{cell.StudyEpoch.Encounters.IndexOf(encounterId)}]");
+                            });
+                        }
+                    }
+                });
+            }
+
+            return errors;
+        }
+
+        public static List<string> ReferenceIntegrityValidationForStudyScheduleTimelines(StudyDesignDto design, int indexOfDesign)
+        {
+            List<String> errors = new();
+
+            if (design.StudyScheduleTimelines != null && design.StudyScheduleTimelines.Any())
+            {
+                List<string> scheduledTimelineIds = design.StudyScheduleTimelines.Select(x => x.Id).ToList();
+                List<string> encounterIds = design.Encounters is null ? new List<string>() : design.Encounters.Select(x => x.Id).ToList();
+                List<string> allScheduleInstanceIds = design.StudyScheduleTimelines.Where(x => x.ScheduledTimelineInstances != null && x.ScheduledTimelineInstances.Any()).SelectMany(x => x.ScheduledTimelineInstances).Select(x => x.Id).ToList();
+                List<string> allActivityIds = design.Activities is null ? new List<string>() : design.Activities.Select(x => x.Id).ToList();
+                design.StudyScheduleTimelines.ForEach(scheduleTimeline =>
+                {
+                    List<string> scheduledTimelineInstanceIds = scheduleTimeline.ScheduledTimelineInstances is not null && scheduleTimeline.ScheduledTimelineInstances.Any() ? scheduleTimeline.ScheduledTimelineInstances.Select(x => x.Id).ToList() : new List<string>();
+                    List<string> scheduleTimelineExitIds = scheduleTimeline.ScheduleTimelineExits is null ? new List<string>() : scheduleTimeline.ScheduleTimelineExits.Select(x => x.Id).ToList();
+
+                    if (!String.IsNullOrWhiteSpace(scheduleTimeline.ScheduleTimelineEntryId) && !scheduledTimelineInstanceIds.Contains(scheduleTimeline.ScheduleTimelineEntryId))
+                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                            $"{nameof(ClinicalStudyDto.StudyDesigns)}[{indexOfDesign}]." +
+                            $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}].{nameof(ScheduleTimelineDto.ScheduleTimelineEntryId)}");
+
+                    if (scheduleTimeline.ScheduledTimelineInstances != null && scheduleTimeline.ScheduledTimelineInstances.Any())
+                    {
+                        scheduleTimeline.ScheduledTimelineInstances.ForEach(timelineInstance =>
+                        {
+                            if (!String.IsNullOrWhiteSpace(timelineInstance.ScheduleTimelineExitId) && !scheduleTimelineExitIds.Contains(timelineInstance.ScheduleTimelineExitId))
+                                errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                    $"{nameof(ClinicalStudyDto.StudyDesigns)}[{indexOfDesign}]." +
+                                    $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}]." +
+                                    $"{nameof(ScheduleTimelineDto.ScheduledTimelineInstances)}[{scheduleTimeline.ScheduledTimelineInstances.IndexOf(timelineInstance)}]." +
+                                    $"{nameof(ScheduledInstanceDto.ScheduleTimelineExitId)}");
+
+                            if (!String.IsNullOrWhiteSpace(timelineInstance.ScheduledInstanceEncounterId) && !encounterIds.Contains(timelineInstance.ScheduledInstanceEncounterId))
+                                errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                    $"{nameof(ClinicalStudyDto.StudyDesigns)}[{indexOfDesign}]." +
+                                    $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}]." +
+                                    $"{nameof(ScheduleTimelineDto.ScheduledTimelineInstances)}[{scheduleTimeline.ScheduledTimelineInstances.IndexOf(timelineInstance)}]." +
+                                    $"{nameof(ScheduledInstanceDto.ScheduledInstanceEncounterId)}");
+
+                            if (!String.IsNullOrWhiteSpace(timelineInstance.ScheduledInstanceTimelineId) && !scheduledTimelineIds.Contains(timelineInstance.ScheduledInstanceTimelineId))
+                                errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                    $"{nameof(ClinicalStudyDto.StudyDesigns)}[{indexOfDesign}]." +
+                                    $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}]." +
+                                    $"{nameof(ScheduleTimelineDto.ScheduledTimelineInstances)}[{scheduleTimeline.ScheduledTimelineInstances.IndexOf(timelineInstance)}]." +
+                                    $"{nameof(ScheduledInstanceDto.ScheduledInstanceTimelineId)}");
+
+                            if (timelineInstance.GetType() == typeof(ScheduledActivityInstanceDto))
+                            {
+                                var activityIds = (timelineInstance as ScheduledActivityInstanceDto).ActivityIds;
+                                if (activityIds is not null && activityIds.Any())
+                                {
+                                    activityIds.ForEach(id =>
+                                    {
+                                        if (!String.IsNullOrWhiteSpace(id) && !allActivityIds.Contains(id))
+                                            errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                                $"{nameof(ClinicalStudyDto.StudyDesigns)}[{indexOfDesign}]." +
+                                                $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}]." +
+                                                $"{nameof(ScheduleTimelineDto.ScheduledTimelineInstances)}[{scheduleTimeline.ScheduledTimelineInstances.IndexOf(timelineInstance)}]." +
+                                                $"{nameof(ScheduledActivityInstanceDto.ActivityIds)}[{activityIds.IndexOf(id)}]");
+                                    });
+                                }
+                            }
+
+                            if (timelineInstance.ScheduledInstanceTimings is not null && timelineInstance.ScheduledInstanceTimings.Any())
+                            {
+                                timelineInstance.ScheduledInstanceTimings.ForEach(timing =>
+                                {
+                                    if (!String.IsNullOrWhiteSpace(timing.RelativeFromScheduledInstanceId) && !allScheduleInstanceIds.Contains(timing.RelativeFromScheduledInstanceId))
+                                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                            $"{nameof(ClinicalStudyDto.StudyDesigns)}[{indexOfDesign}]." +
+                                            $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}]." +
+                                            $"{nameof(ScheduleTimelineDto.ScheduledTimelineInstances)}[{scheduleTimeline.ScheduledTimelineInstances.IndexOf(timelineInstance)}]." +
+                                            $"{nameof(ScheduledInstanceDto.ScheduledInstanceTimings)}[{timelineInstance.ScheduledInstanceTimings.IndexOf(timing)}]." +
+                                            $"{nameof(TimingDto.RelativeFromScheduledInstanceId)}");
+
+                                    if (!String.IsNullOrWhiteSpace(timing.RelativeToScheduledInstanceId) && !allScheduleInstanceIds.Contains(timing.RelativeToScheduledInstanceId))
+                                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                            $"{nameof(ClinicalStudyDto.StudyDesigns)}[{indexOfDesign}]." +
+                                            $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}]." +
+                                            $"{nameof(ScheduleTimelineDto.ScheduledTimelineInstances)}[{scheduleTimeline.ScheduledTimelineInstances.IndexOf(timelineInstance)}]." +
+                                            $"{nameof(ScheduledInstanceDto.ScheduledInstanceTimings)}[{timelineInstance.ScheduledInstanceTimings.IndexOf(timing)}]." +
+                                            $"{nameof(TimingDto.RelativeToScheduledInstanceId)}");
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+
+            return errors;
+        }
+
+        public static List<string> ReferenceIntegrityValidationForActivities(StudyDesignDto design, int indexOfDesign)
+        {
+            List<String> errors = new();
+
+            if (design.Activities != null && design.Activities.Any())
+            {
+                List<string> biomedicalConceptIds = design.BiomedicalConcepts is null ? new List<string>() : design.BiomedicalConcepts.Select(x => x.Id).ToList();
+                List<string> bcCategoryIds = design.BcCategories is null ? new List<string>() : design.BcCategories.Select(x => x.Id).ToList();
+                List<string> bcSurrogateIds = design.BcSurrogates is null ? new List<string>() : design.BcSurrogates.Select(x => x.Id).ToList();
+                List<string> activitiesIds = design.Activities.Select(act => act?.Id).ToList();
+                activitiesIds.RemoveAll(x => String.IsNullOrWhiteSpace(x));
+                List<string> scheduleTimelineIds = design.StudyScheduleTimelines is not null && design.StudyScheduleTimelines.Any() ? design.StudyScheduleTimelines.Select(x => x.Id).ToList() : new List<string>();
+                design.Activities.ForEach(act =>
+                {
+                    List<string> tempActIDs = activitiesIds.ToList();
+                    tempActIDs.RemoveAll(x => x == act.Id);
+                    if (!String.IsNullOrWhiteSpace(act.PreviousActivityId) && !tempActIDs.Contains(act.PreviousActivityId))
+                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                            $"{nameof(ClinicalStudyDto.StudyDesigns)}[{indexOfDesign}]." +
+                            $"{nameof(StudyDesignDto.Activities)}[{design.Activities.IndexOf(act)}]." +
+                            $"{nameof(ActivityDto.PreviousActivityId)}");
+
+                    if (!String.IsNullOrWhiteSpace(act.NextActivityId) && !tempActIDs.Contains(act.NextActivityId))
+                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                          $"{nameof(ClinicalStudyDto.StudyDesigns)}[{indexOfDesign}]." +
+                          $"{nameof(StudyDesignDto.Activities)}[{design.Activities.IndexOf(act)}]." +
+                          $"{nameof(ActivityDto.NextActivityId)}");
+
+                    if (!String.IsNullOrWhiteSpace(act.ActivityTimelineId) && !scheduleTimelineIds.Contains(act.ActivityTimelineId))
+                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                          $"{nameof(ClinicalStudyDto.StudyDesigns)}[{indexOfDesign}]." +
+                          $"{nameof(StudyDesignDto.Activities)}[{design.Activities.IndexOf(act)}]." +
+                          $"{nameof(ActivityDto.ActivityTimelineId)}");
+
+                    if (act.BiomedicalConceptIds != null && act.BiomedicalConceptIds.Any())
+                    {
+                        act.BiomedicalConceptIds.ForEach(bc =>
+                        {
+                            if (!String.IsNullOrWhiteSpace(bc) && !biomedicalConceptIds.Contains(bc))
+                                errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                           $"{nameof(ClinicalStudyDto.StudyDesigns)}[{indexOfDesign}]." +
+                                           $"{nameof(StudyDesignDto.Activities)}[{design.Activities.IndexOf(act)}]." +
+                                           $"{nameof(ActivityDto.BiomedicalConceptIds)}[{act.BiomedicalConceptIds.IndexOf(bc)}]");
+                        });
+                    }
+                    if (act.BcCategoryIds != null && act.BcCategoryIds.Any())
+                    {
+                        act.BcCategoryIds.ForEach(bcCat =>
+                        {
+                            if (!String.IsNullOrWhiteSpace(bcCat) && !bcCategoryIds.Contains(bcCat))
+                                errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                           $"{nameof(ClinicalStudyDto.StudyDesigns)}[{indexOfDesign}]." +
+                                           $"{nameof(StudyDesignDto.Activities)}[{design.Activities.IndexOf(act)}]." +
+                                           $"{nameof(ActivityDto.BcCategoryIds)}[{act.BcCategoryIds.IndexOf(bcCat)}]");
+                        });
+                    }
+                    if (act.BcSurrogateIds != null && act.BcSurrogateIds.Any())
+                    {
+                        act.BcSurrogateIds.ForEach(bcSurr =>
+                        {
+                            if (!String.IsNullOrWhiteSpace(bcSurr) && !bcSurrogateIds.Contains(bcSurr))
+                                errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                           $"{nameof(ClinicalStudyDto.StudyDesigns)}[{indexOfDesign}]." +
+                                           $"{nameof(StudyDesignDto.Activities)}[{design.Activities.IndexOf(act)}]." +
+                                           $"{nameof(ActivityDto.BcSurrogateIds)}[{act.BcSurrogateIds.IndexOf(bcSurr)}]");
+                        });
+                    }
+                });
+            }
+
+            return errors;
+        }
+
+        public static List<string> ReferenceIntegrityValidationForEncounters(StudyDesignDto design, int indexOfDesign)
+        {
+            List<String> errors = new();
+
+            if (design.Encounters != null && design.Encounters.Any())
+            {
+                List<string> encounterIds = design.Encounters.Select(enc => enc?.Id).ToList();
+                encounterIds.RemoveAll(x => String.IsNullOrWhiteSpace(x));
+
+                List<string> allTimingIds = design.StudyScheduleTimelines is not null && design.StudyScheduleTimelines.Any() ? design.StudyScheduleTimelines.Where(x => x.ScheduledTimelineInstances != null && x.ScheduledTimelineInstances.Any())
+                                                  .SelectMany(x => x.ScheduledTimelineInstances).Where(x => x.ScheduledInstanceTimings != null && x.ScheduledInstanceTimings.Any())
+                                                  .SelectMany(x => x.ScheduledInstanceTimings).Select(x => x.Id).ToList() : new List<string>();
+                design.Encounters.ForEach(enc =>
+                {
+                    List<string> tempencounterIds = encounterIds.ToList();
+                    tempencounterIds.RemoveAll(x => x == enc.Id);
+                    if (!String.IsNullOrWhiteSpace(enc.PreviousEncounterId) && !tempencounterIds.Contains(enc.PreviousEncounterId))
+                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                            $"{nameof(ClinicalStudyDto.StudyDesigns)}[{indexOfDesign}]." +
+                            $"{nameof(StudyDesignDto.Encounters)}[{design.Encounters.IndexOf(enc)}]." +
+                            $"{nameof(EncounterDto.PreviousEncounterId)}");
+
+                    if (!String.IsNullOrWhiteSpace(enc.NextEncounterId) && !tempencounterIds.Contains(enc.NextEncounterId))
+                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                          $"{nameof(ClinicalStudyDto.StudyDesigns)}[{indexOfDesign}]." +
+                          $"{nameof(StudyDesignDto.Encounters)}[{design.Encounters.IndexOf(enc)}]." +
+                          $"{nameof(EncounterDto.NextEncounterId)}");
+
+                    if (!String.IsNullOrWhiteSpace(enc.EncounterScheduledAtTimingId) && !allTimingIds.Contains(enc.EncounterScheduledAtTimingId))
+                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                          $"{nameof(ClinicalStudyDto.StudyDesigns)}[{indexOfDesign}]." +
+                          $"{nameof(StudyDesignDto.Encounters)}[{design.Encounters.IndexOf(enc)}]." +
+                          $"{nameof(EncounterDto.EncounterScheduledAtTimingId)}");
+                });
+            }
+
+            return errors;
+        }
+
+        public static List<string> ReferenceIntegrityValidationForStudyEstimands(StudyDesignDto design, int indexOfDesign)
+        {
+            List<String> errors = new();
+
+            if (design.StudyEstimands != null && design.StudyEstimands.Any())
+            {
+                design.StudyEstimands.ForEach(estimand =>
+                {
+                    List<string> investigationalInterventionIds = design.StudyInvestigationalInterventions is null ? new List<string>() : design.StudyInvestigationalInterventions.Select(x => x.Id).ToList();
+                    List<string> endpointIds = design.StudyObjectives is null ? new List<string>() : design.StudyObjectives.Select(x => x?.ObjectiveEndpoints).Where(y => y != null).SelectMany(x => x.Select(y => y.Id)).ToList();
+
+                    if (!String.IsNullOrWhiteSpace(estimand.Treatment) && !investigationalInterventionIds.Contains(estimand.Treatment))
+                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                            $"{nameof(ClinicalStudyDto.StudyDesigns)}[{indexOfDesign}]." +
+                            $"{nameof(StudyDesignDto.StudyEstimands)}[{design.StudyEstimands.IndexOf(estimand)}]." +
+                            $"{nameof(EstimandDto.Treatment)}");
+
+                    if (!String.IsNullOrWhiteSpace(estimand.VariableOfInterest) && !endpointIds.Contains(estimand.VariableOfInterest))
+                        errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                            $"{nameof(ClinicalStudyDto.StudyDesigns)}[{indexOfDesign}]." +
+                            $"{nameof(StudyDesignDto.StudyEstimands)}[{design.StudyEstimands.IndexOf(estimand)}]." +
+                            $"{nameof(EstimandDto.VariableOfInterest)}");
+                });
+            }
+
+            return errors;
+        }
+
+        public static List<string> ReferenceIntegrityValidationForBcCategories(StudyDesignDto design, int indexOfDesign)
+        {
+            List<String> errors = new();
+
+            if (design.BcCategories != null && design.BcCategories.Any())
+            {
+                List<string> biomedicalConceptIds = design.BiomedicalConcepts is null ? new List<string>() : design.BiomedicalConcepts.Select(x => x.Id).ToList();
+                List<string> bcCategoryIds = design.BcCategories is null ? new List<string>() : design.BcCategories.Select(x => x.Id).ToList();
+                List<string> bcSurrogateIds = design.BcSurrogates is null ? new List<string>() : design.BcSurrogates.Select(x => x.Id).ToList();
+                design.BcCategories.ForEach(bcCat =>
+                {
+                    var tempCategoryIds = bcCategoryIds.ToList();
+                    tempCategoryIds.RemoveAll(x => x == bcCat.Id);
+                    if (bcCat.BcCategoryParentIds != null && bcCat.BcCategoryParentIds.Any())
+                    {
+                        bcCat.BcCategoryParentIds.ForEach(parent =>
+                        {
+                            if (!String.IsNullOrWhiteSpace(parent) && !tempCategoryIds.Contains(parent))
+                                errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                           $"{nameof(ClinicalStudyDto.StudyDesigns)}[{indexOfDesign}]." +
+                                           $"{nameof(StudyDesignDto.BcCategories)}[{design.BcCategories.IndexOf(bcCat)}]." +
+                                           $"{nameof(BiomedicalConceptCategoryDto.BcCategoryParentIds)}[{bcCat.BcCategoryParentIds.IndexOf(parent)}]");
+                        });
+                    }
+                    if (bcCat.BcCategoryChildrenIds != null && bcCat.BcCategoryChildrenIds.Any())
+                    {
+                        bcCat.BcCategoryChildrenIds.ForEach(child =>
+                        {
+                            if (!String.IsNullOrWhiteSpace(child) && !tempCategoryIds.Contains(child))
+                                errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                           $"{nameof(ClinicalStudyDto.StudyDesigns)}[{indexOfDesign}]." +
+                                           $"{nameof(StudyDesignDto.BcCategories)}[{design.BcCategories.IndexOf(bcCat)}]." +
+                                           $"{nameof(BiomedicalConceptCategoryDto.BcCategoryChildrenIds)}[{bcCat.BcCategoryChildrenIds.IndexOf(child)}]");
+                        });
+                    }
+                    if (bcCat.BcCategoryMemberIds != null && bcCat.BcCategoryMemberIds.Any())
+                    {
+                        bcCat.BcCategoryMemberIds.ForEach(member =>
+                        {
+                            if (!String.IsNullOrWhiteSpace(member) && !biomedicalConceptIds.Contains(member))
+                                errors.Add($"{nameof(StudyDto.ClinicalStudy)}." +
+                                           $"{nameof(ClinicalStudyDto.StudyDesigns)}[{indexOfDesign}]." +
+                                           $"{nameof(StudyDesignDto.BcCategories)}[{design.BcCategories.IndexOf(bcCat)}]." +
+                                           $"{nameof(BiomedicalConceptCategoryDto.BcCategoryMemberIds)}[{bcCat.BcCategoryMemberIds.IndexOf(member)}]");
+                        });
+                    }
+                });
+            }
+
+            return errors;
+        }
 
         public  object GetErrors(List<string> errorList)
         {
