@@ -327,33 +327,61 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// Search the collection based on search criteria
         /// </summary>
         /// <param name="searchParameters">Parameters to search in database</param>        
+        /// <param name="user">LoggedIn User</param>        
         /// <returns>
         /// A <see cref="List{SearchTitleResponseEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<List<SearchTitleResponseEntity>> SearchTitle(SearchTitleParametersEntity searchParameters)
+        public async Task<List<SearchTitleResponseEntity>> SearchTitle(SearchTitleParametersEntity searchParameters,LoggedInUser user)
         {
             try
             {
                 _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(SearchTitle)};");
                 IMongoCollection<CommonStudyEntity> collection = _database.GetCollection<CommonStudyEntity>(Constants.Collections.StudyDefinitions);
 
-                List<SearchTitleResponseEntity> studies = await collection.Aggregate()
-                                                                          .Match(DataFilterCommon.GetFiltersForSearchTitle(searchParameters))
-                                                                          .Project(x => new SearchTitleResponseEntity
-                                                                          {
-                                                                              StudyId = x.ClinicalStudy.StudyId,
-                                                                              StudyTitle = x.ClinicalStudy.StudyTitle,
-                                                                              StudyIdentifiers = x.ClinicalStudy.StudyIdentifiers,
-                                                                              StudyType = x.ClinicalStudy.StudyType,
-                                                                              EntryDateTime = x.AuditTrail.EntryDateTime,
-                                                                              SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
-                                                                              StudyDesignIds = x.ClinicalStudy.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null,
-                                                                              StudyDesignIdsMVP = x.ClinicalStudy.CurrentSections.Select(x => x.StudyDesigns.Select(x => x.StudyDesignId)) ?? null,
-                                                                              UsdmVersion = x.AuditTrail.UsdmVersion
-                                                                          })
-                                                                          .ToListAsync()
-                                                                          .ConfigureAwait(false);
+                List<SearchTitleResponseEntity> studies = new();
+
+                if (searchParameters.SortBy?.ToLower() == "sponsorid")
+                {
+                    studies = await collection.Aggregate()
+                                              .Match(DataFilterCommon.GetFiltersForSearchTitle(searchParameters, GetGroupsOfUser(user).Result, user))
+                                              .Project(x => new SearchTitleResponseEntity
+                                              {
+                                                  StudyId = x.ClinicalStudy.StudyId,
+                                                  StudyTitle = x.ClinicalStudy.StudyTitle,
+                                                  StudyIdentifiers = x.ClinicalStudy.StudyIdentifiers,
+                                                  StudyType = x.ClinicalStudy.StudyType,
+                                                  EntryDateTime = x.AuditTrail.EntryDateTime,
+                                                  SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+                                                  StudyDesignIds = x.ClinicalStudy.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null,
+                                                  StudyDesignIdsMVP = x.ClinicalStudy.CurrentSections.Select(x => x.StudyDesigns.Select(x => x.StudyDesignId)) ?? null,
+                                                  UsdmVersion = x.AuditTrail.UsdmVersion
+                                              })
+                                              .ToListAsync()
+                                              .ConfigureAwait(false);
+                }
+                else
+                {
+                    studies = await collection.Aggregate()
+                                             .Match(DataFilterCommon.GetFiltersForSearchTitle(searchParameters, GetGroupsOfUser(user).Result, user))
+                                             .Project(x => new SearchTitleResponseEntity
+                                             {
+                                                 StudyId = x.ClinicalStudy.StudyId,
+                                                 StudyTitle = x.ClinicalStudy.StudyTitle,
+                                                 StudyIdentifiers = x.ClinicalStudy.StudyIdentifiers,
+                                                 StudyType = x.ClinicalStudy.StudyType,
+                                                 EntryDateTime = x.AuditTrail.EntryDateTime,
+                                                 SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+                                                 StudyDesignIds = x.ClinicalStudy.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null,
+                                                 StudyDesignIdsMVP = x.ClinicalStudy.CurrentSections.Select(x => x.StudyDesigns.Select(x => x.StudyDesignId)) ?? null,
+                                                 UsdmVersion = x.AuditTrail.UsdmVersion
+                                             })
+                                             .Sort(DataFilterCommon.GetSorterForSearchStudyTitle(searchParameters))
+                                             .Skip((searchParameters.PageNumber - 1) * searchParameters.PageSize)
+                                             .Limit(searchParameters.PageSize)
+                                             .ToListAsync()
+                                             .ConfigureAwait(false);
+                }
                 return studies;
             }
             catch (Exception)

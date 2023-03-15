@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities.Common;
 using TransCelerate.SDR.Core.Entities.UserGroups;
+using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.DataAccess.Filters
@@ -79,8 +80,10 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// Get filters for Search Study Title API
         /// </summary>
         /// <param name="searchParameters"></param>
+        /// <param name="groups"></param>
+        /// <param name="user"></param>
         /// <returns></returns>
-        public static FilterDefinition<CommonStudyEntity> GetFiltersForSearchTitle(SearchTitleParametersEntity searchParameters)
+        public static FilterDefinition<CommonStudyEntity> GetFiltersForSearchTitle(SearchTitleParametersEntity searchParameters, List<SDRGroupsEntity> groups, LoggedInUser user)
         {
             FilterDefinitionBuilder<CommonStudyEntity> builder = Builders<CommonStudyEntity>.Filter;
             FilterDefinition<CommonStudyEntity> filter = builder.Empty;
@@ -114,6 +117,33 @@ namespace TransCelerate.SDR.DataAccess.Filters
                                                  )
                                              )
                                     );
+            }
+
+            //For Data Segmentation
+            if (user.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+            {
+                if (groups != null && groups.Any())
+                {
+                    Tuple<List<string>, List<string>> groupFilters = Core.Utilities.Helpers.GroupFilters.GetGroupFilters(groups);
+
+                    if (!groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
+                    {
+                        if (groupFilters.Item1.Any())
+                        {
+                            filter &= builder.Or(
+                                        builder.Regex(Constants.DbFilter.StudyType, new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
+                                        builder.Regex($"{Constants.DbFilter.StudyType}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
+                                        builder.In(x => x.ClinicalStudy.StudyId, groupFilters.Item2)
+                                        );
+                        }
+                        else
+                        {
+                            filter &= builder.In(x => x.ClinicalStudy.StudyId, groupFilters.Item2);
+                        }
+                    }
+                }
+                else
+                    filter &= builder.Where(x => x.ClinicalStudy == null); //if there are no groups assigned for the user
             }
 
             return filter;
@@ -215,8 +245,8 @@ namespace TransCelerate.SDR.DataAccess.Filters
                         if (groupFilters.Item1.Any())
                         {
                             filter &= builder.Or(
-                                        builder.Regex("clinicalStudy.studyType", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
-                                        builder.Regex($"clinicalStudy.studyType.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
+                                        builder.Regex(Constants.DbFilter.StudyType, new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
+                                        builder.Regex($"{Constants.DbFilter.StudyType}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
                                         builder.In(x => x.ClinicalStudy.StudyId, groupFilters.Item2)
                                         );
                         }
@@ -311,6 +341,33 @@ namespace TransCelerate.SDR.DataAccess.Filters
                         break;
                     case "usdmversion":
                         sorter = searchParameters.Asc ? builder.Ascending(x => x.UsdmVersion) : builder.Descending(x => x.UsdmVersion);
+                        break;
+                }
+            }
+
+            return sorter;
+        }
+
+        public static SortDefinition<SearchTitleResponseEntity> GetSorterForSearchStudyTitle(SearchTitleParametersEntity searchParameters)
+        {
+            SortDefinitionBuilder<SearchTitleResponseEntity> builder = Builders<SearchTitleResponseEntity>.Sort;
+            SortDefinition<SearchTitleResponseEntity> sorter = builder.Descending(x => x.EntryDateTime);
+
+            if (!String.IsNullOrWhiteSpace(searchParameters.SortBy))
+            {
+                switch (searchParameters.SortBy.ToLower())
+                {
+                    case "studytitle":
+                        sorter = searchParameters.SortOrder == SortOrder.asc.ToString() ? builder.Ascending(x => x.StudyTitle) : builder.Descending(x => x.StudyTitle);
+                        break;
+                    case "sdrversion":
+                        sorter = searchParameters.SortOrder == SortOrder.asc.ToString() ? builder.Ascending(x => x.SDRUploadVersion) : builder.Descending(x => x.SDRUploadVersion);
+                        break;
+                    case "lastmodifieddate":
+                        sorter = searchParameters.SortOrder == SortOrder.asc.ToString() ? builder.Ascending(x => x.EntryDateTime) : builder.Descending(x => x.EntryDateTime);
+                        break;
+                    case "usdmversion":
+                        sorter = searchParameters.SortOrder == SortOrder.asc.ToString() ? builder.Ascending(x => x.UsdmVersion) : builder.Descending(x => x.UsdmVersion);
                         break;
                 }
             }
