@@ -158,7 +158,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual("400", actual_result.statusCode);
             
             _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDto>(), It.IsAny<LoggedInUser>(), It.IsAny<string>()))
-               .Returns(Task.FromResult(Constants.ErrorMessages.StudyIdNotFound as object));
+               .Returns(Task.FromResult(Constants.ErrorMessages.NotValidStudyId as object));
 
             method = ClinicalStudyV2Controller.PostAllElements(study, Constants.USDMVersions.V2);
             method.Wait();
@@ -179,6 +179,133 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                .Returns(true);
 
             method = ClinicalStudyV2Controller.PostAllElements(study, Constants.USDMVersions.V2);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = study;
+
+            //Actual            
+            actual_result = JsonConvert.DeserializeObject<ErrorModel>(
+                 JsonConvert.SerializeObject((result as ObjectResult).Value));
+
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            _mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDto>(), out errors))
+               .Returns(false);
+        }
+        #endregion
+
+        #region PUT All Elements Unit Testing
+        [Test]
+        public void PutStudySuccessUnitTesting()
+        {
+            StudyDto study = GetDtoDataFromStaticJson();
+
+            _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDto>(), It.IsAny<LoggedInUser>(), It.IsAny<string>()))
+                .Returns(Task.FromResult(study as object));
+
+            ClinicalStudyV2Controller ClinicalStudyV2Controller = new ClinicalStudyV2Controller(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
+
+            var method = ClinicalStudyV2Controller.PutStudy(study,study.ClinicalStudy.StudyId ,Constants.USDMVersions.V2);
+            method.Wait();
+            var result = method.Result;
+
+            //Expected
+            var expected = study;
+
+            //Actual            
+            var actual_result = JsonConvert.DeserializeObject<StudyDto>(
+                 JsonConvert.SerializeObject((result as CreatedResult).Value));
+
+            Assert.AreEqual(expected.ClinicalStudy.StudyId, actual_result.ClinicalStudy.StudyId);
+            Assert.IsInstanceOf(typeof(CreatedResult), result);
+        }
+        [Test]
+        public void PutStudyFailureUnitTesting()
+        {
+            StudyDto study = GetDtoDataFromStaticJson();
+
+            /////Restricted
+            _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDto>(), It.IsAny<LoggedInUser>(), It.IsAny<string>()))
+                .Returns(Task.FromResult(Constants.ErrorMessages.PostRestricted as object));
+
+            ClinicalStudyV2Controller ClinicalStudyV2Controller = new ClinicalStudyV2Controller(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
+
+            var method = ClinicalStudyV2Controller.PutStudy(study, study.ClinicalStudy.StudyId, Constants.USDMVersions.V2);
+            method.Wait();
+            var result = method.Result;
+
+            //Expected
+            var expected = study;
+
+            //Actual            
+            var actual_result = JsonConvert.DeserializeObject<ErrorModel>(
+                 JsonConvert.SerializeObject((result as ObjectResult).Value));
+
+            Assert.AreEqual(401, (result as ObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+
+
+            method = ClinicalStudyV2Controller.PutStudy(null, study.ClinicalStudy.StudyId, Constants.USDMVersions.V2);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = study;
+
+            //Actual            
+            actual_result = JsonConvert.DeserializeObject<ErrorModel>(
+                 JsonConvert.SerializeObject((result as ObjectResult).Value));
+
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+
+
+            ////Error BadRequest
+            _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDto>(), It.IsAny<LoggedInUser>(), It.IsAny<string>()))
+                        .Throws(new Exception("Error"));
+
+            method = ClinicalStudyV2Controller.PutStudy(study, study.ClinicalStudy.StudyId, Constants.USDMVersions.V2);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            var expected1 = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError);
+
+            //Actual            
+            var actual_result1 = (method.Result as BadRequestObjectResult).Value as ErrorModel;
+
+            //Assert
+            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
+            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
+
+            Assert.AreEqual(expected1.message, actual_result1.message);
+            Assert.AreEqual("400", actual_result.statusCode);
+
+            _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDto>(), It.IsAny<LoggedInUser>(), It.IsAny<string>()))
+               .Returns(Task.FromResult(Constants.ErrorMessages.NotValidStudyId as object));
+
+            method = ClinicalStudyV2Controller.PutStudy(study, study.ClinicalStudy.StudyId, Constants.USDMVersions.V2);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = study;
+
+            //Actual            
+            actual_result = JsonConvert.DeserializeObject<ErrorModel>(
+                 JsonConvert.SerializeObject((result as ObjectResult).Value));
+
+            Assert.AreEqual(404, (result as ObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+
+            object errors = null;
+            _mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDto>(), out errors))
+               .Returns(true);
+
+            method = ClinicalStudyV2Controller.PutStudy(study, study.ClinicalStudy.StudyId, Constants.USDMVersions.V2);
             method.Wait();
             result = method.Result;
 

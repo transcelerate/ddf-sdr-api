@@ -166,7 +166,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string StudyDesignElementNotValid = "Kindly provide a valid study design element";
 
-            public const string NotValidStudyId = "The provided studyId is not valid";
+            public const string NotValidStudyId = "The provided studyId is not found";
 
             public const string DowngradeError = "The usdmVersion cannot be downgraded";
 

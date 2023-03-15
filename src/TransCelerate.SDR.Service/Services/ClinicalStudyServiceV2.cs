@@ -549,7 +549,7 @@ namespace TransCelerate.SDR.Services.Services
 
                     if (existingAuditTrail is null) // If PUT Endpoint and study_uuid is not valid, return not valid study
                     {
-                        return Constants.ErrorMessages.StudyIdNotFound;
+                        return Constants.ErrorMessages.NotValidStudyId;
                     }
 
                     if (existingAuditTrail.UsdmVersion == Constants.USDMVersions.V2) // If previus USDM version is same as incoming

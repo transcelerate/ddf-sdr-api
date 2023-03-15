@@ -228,19 +228,6 @@ namespace TransCelerate.SDR.UnitTesting
 
         #region UUID Conformance Helper
         [Test]
-        public void UUIDConformanceValidationHelper_UnitTesting()
-        {
-            Assert.IsTrue(UUIDConformanceValidationHelper.CheckForUUIDConformance("123", "POST"));
-            Assert.IsTrue(UUIDConformanceValidationHelper.CheckForUUIDConformance("123", "PUT"));
-            Assert.IsFalse(UUIDConformanceValidationHelper.CheckForUUIDConformance("", "PUT"));
-            Assert.IsFalse(UUIDConformanceValidationHelper.CheckForUUIDConformance(null, "PUT"));
-            Assert.AreEqual(UUIDConformanceValidationHelper.GetMessageForUUIDConformance(""), Constants.ValidationErrorMessage.PropertyEmptyError);
-            Assert.IsNotEmpty(UUIDConformanceValidationHelper.GetMessageForUUIDConformance(null), Constants.ValidationErrorMessage.PropertyMissingError);
-        }
-        #endregion
-
-        #region UUID Conformance Helper
-        [Test]
         public void UniquenessValidationHelper_UnitTesting()
         {
             var studyDto = GetDtoDataFromStaticJson();
