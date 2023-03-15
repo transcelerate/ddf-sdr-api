@@ -1065,7 +1065,7 @@ namespace TransCelerate.SDR.UnitTesting
 
             searchParameters.SortBy = "studytitle";
             Assert.IsNotNull(DataFilterCommon.GetSorterForSearchStudyTitle(searchParameters));
-            searchParameters.SortBy = "sdrversion";
+            searchParameters.SortBy = "version";
             Assert.IsNotNull(DataFilterCommon.GetSorterForSearchStudyTitle(searchParameters));
             searchParameters.SortBy = "lastmodifieddate";
             Assert.IsNotNull(DataFilterCommon.GetSorterForSearchStudyTitle(searchParameters));

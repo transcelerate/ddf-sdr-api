@@ -360,7 +360,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
                     case "studytitle":
                         sorter = searchParameters.SortOrder == SortOrder.asc.ToString() ? builder.Ascending(x => x.StudyTitle) : builder.Descending(x => x.StudyTitle);
                         break;
-                    case "sdrversion":
+                    case "version":
                         sorter = searchParameters.SortOrder == SortOrder.asc.ToString() ? builder.Ascending(x => x.SDRUploadVersion) : builder.Descending(x => x.SDRUploadVersion);
                         break;
                     case "lastmodifieddate":
