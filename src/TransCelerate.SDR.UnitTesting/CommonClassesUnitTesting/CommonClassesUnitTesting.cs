@@ -1022,7 +1022,7 @@ namespace TransCelerate.SDR.UnitTesting
                 FromDate = DateTime.Now.AddDays(-5),
                 ToDate = DateTime.Now,
             };
-            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchTitle(searchParameters));
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchTitle(searchParameters, GetUserDataFromStaticJson().SDRGroups,user));
 
             Assert.IsNotNull(DataFilterCommon.GetFiltersForGetAudTrail("sd", DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1)));
 
@@ -1060,6 +1060,17 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsNotNull(DataFilterCommon.GetSorterForSearchStudy(searchParametersEntity));
             searchParametersEntity.Header = "lastmodifieddate";
             Assert.IsNotNull(DataFilterCommon.GetSorterForSearchStudy(searchParametersEntity));
+            searchParametersEntity.Header = "usdmversion";
+            Assert.IsNotNull(DataFilterCommon.GetSorterForSearchStudy(searchParametersEntity));
+
+            searchParameters.SortBy = "studytitle";
+            Assert.IsNotNull(DataFilterCommon.GetSorterForSearchStudyTitle(searchParameters));
+            searchParameters.SortBy = "sdrversion";
+            Assert.IsNotNull(DataFilterCommon.GetSorterForSearchStudyTitle(searchParameters));
+            searchParameters.SortBy = "lastmodifieddate";
+            Assert.IsNotNull(DataFilterCommon.GetSorterForSearchStudyTitle(searchParameters));
+            searchParameters.SortBy = "usdmversion";
+            Assert.IsNotNull(DataFilterCommon.GetSorterForSearchStudyTitle(searchParameters));
         }
 
         #endregion

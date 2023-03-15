@@ -82,6 +82,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         public struct DbFilter
         {
             public const string StudyId = "clinicalStudy.studyId";
+            public const string StudyType = "clinicalStudy.studyType";
             public const string StudyIdentifiers = "clinicalStudy.studyIdentifiers";            
             public const string StudyIdentifierOrganisationIdentifier = "studyIdentifierScope.organisationIdentifier";
             public const string StudyIdentifierOrganisationTypeDecode = "studyIdentifierScope.organisationType.decode";
