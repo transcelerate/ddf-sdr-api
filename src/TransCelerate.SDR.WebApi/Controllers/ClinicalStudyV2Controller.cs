@@ -412,9 +412,9 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     }
                     else
                     {
-                        if (response?.ToString() == Constants.ErrorMessages.StudyIdNotFound)
+                        if (response?.ToString() == Constants.ErrorMessages.NotValidStudyId)
                         {
-                            return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyIdNotFound)).Value);
+                            return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.NotValidStudyId)).Value);
                         }
                         else
                         {
@@ -447,7 +447,6 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="400">Bad Request</response>       
         [HttpPut]
         [ApiVersion(Constants.USDMVersions.V2)]
-        [Route(Route.PostElementsV2)]
         [Route(Route.StudyV2)]
         [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
