@@ -624,7 +624,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     UsdmVersion = v2.AuditTrail.UsdmVersion,
                 }
             };
-            _mockCommonRepository.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersEntity>()))
+            _mockCommonRepository.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersEntity>(),user))
                  .Returns(Task.FromResult(studyList));
             SearchTitleParametersDto searchParameters = new()
             {
@@ -650,13 +650,13 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             Assert.IsNotNull(actual_result);
             Assert.IsNotEmpty(actual_result);
 
-            _mockCommonRepository.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersEntity>()))
+            _mockCommonRepository.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersEntity>(), user))
                 .Throws(new Exception("Error"));
 
             method = CommonService.SearchTitle(searchParameters, user);
             Assert.Throws<AggregateException>(method.Wait);
 
-            _mockCommonRepository.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersEntity>()))
+            _mockCommonRepository.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersEntity>(), user))
                 .Returns(Task.FromResult(null as List<SearchTitleResponseEntity>));
 
             method = CommonService.SearchTitle(searchParameters, user);
@@ -664,7 +664,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             result = method.Result;
             Assert.IsEmpty(result);
 
-            _mockCommonRepository.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersEntity>()))
+            _mockCommonRepository.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersEntity>(), user))
                  .Returns(Task.FromResult(studyList));
             searchParameters.GroupByStudyId = true;
             method = CommonService.SearchTitle(searchParameters, user);

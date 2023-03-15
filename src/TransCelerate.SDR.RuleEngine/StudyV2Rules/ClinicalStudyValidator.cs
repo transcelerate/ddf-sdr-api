@@ -15,11 +15,7 @@ namespace TransCelerate.SDR.RuleEngineV2
         private readonly IHttpContextAccessor _httpContextAccessor;
         public ClinicalStudyValidator(IHttpContextAccessor httpContextAccessor)
         {
-            _httpContextAccessor = httpContextAccessor;
-
-            RuleFor(x => x.StudyId)
-                .Must(x => UUIDConformanceValidationHelper.CheckForUUIDConformance(x, httpContextAccessor?.HttpContext?.Request?.Method))
-                .WithMessage(x => UUIDConformanceValidationHelper.GetMessageForUUIDConformance(x.StudyId));
+            _httpContextAccessor = httpContextAccessor;            
 
             RuleFor(x => x.StudyTitle)
                .Cascade(CascadeMode.Stop)

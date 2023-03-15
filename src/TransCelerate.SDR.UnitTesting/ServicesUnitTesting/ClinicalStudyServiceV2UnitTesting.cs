@@ -216,7 +216,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             result = method.Result;
 
             //Assert          
-            Assert.AreEqual(result.ToString(), Constants.ErrorMessages.StudyIdNotFound);
+            Assert.AreEqual(result.ToString(), Constants.ErrorMessages.NotValidStudyId);
 
             _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), 0))
                     .Returns(Task.FromResult(studyEntity));
