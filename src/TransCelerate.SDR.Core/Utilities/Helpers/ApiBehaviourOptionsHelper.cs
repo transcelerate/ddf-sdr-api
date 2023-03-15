@@ -26,8 +26,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <param name="context">Action Context</param>
         /// <returns></returns>
         public ObjectResult ModelStateResponse(ActionContext context)
-        {            
-            var errors = context.ModelState.ToDictionary(
+        {
+            var modelState = context.ModelState.ToList();
+            modelState.RemoveAll(x => x.Value.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid);
+            var errors = modelState.ToDictionary(
                     kvp => kvp.Key?.Length > 2 ? string.Join(".",  kvp.Key?.Split(".").Select(key => key?.Substring(0, 1)?.ToLower() + key?.Substring(1))) : kvp.Key,
                     kvp => kvp.Value?.Errors?.Select(e => e.ErrorMessage).ToArray()
                 );

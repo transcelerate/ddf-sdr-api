@@ -11,9 +11,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
 {
     public static class UUIDConformanceValidationHelper
     {
-        public static bool CheckForUUIDConformance(string uuid,string method)
+        public static bool CheckForUUIDConformance(string uuid,string method,string path)
         {
-            if(method == HttpMethod.Put.Method)
+            if(method == HttpMethod.Put.Method && path == Route.PostElementsV2)
             {
                 if (string.IsNullOrWhiteSpace(uuid))
                     return false;

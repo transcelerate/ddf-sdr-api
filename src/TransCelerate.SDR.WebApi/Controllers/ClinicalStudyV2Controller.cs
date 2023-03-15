@@ -379,7 +379,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <param name="usdmVersion">USDM Version</param>        
         /// <response code="201">Study Created</response>
         /// <response code="400">Bad Request</response>       
-        [HttpPost,HttpPut]
+        [HttpPost]
         [ApiVersion(Constants.USDMVersions.V2)]
         [Route(Route.PostElementsV2)]
         [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDto))]
@@ -436,7 +436,74 @@ namespace TransCelerate.SDR.WebApi.Controllers
             {
                 _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(PostAllElements)};");
             }
-        }       
+        }
+        /// <summary>
+        /// POST/PUT All Elements For a Study  
+        /// </summary>        
+        /// <param name="studyDTO">Study for Inserting/Updating in Database</param>        
+        /// <param name="usdmVersion">USDM Version</param>        
+        /// <param name="studyId">USDM Version</param>        
+        /// <response code="201">Study Created</response>
+        /// <response code="400">Bad Request</response>       
+        [HttpPut]
+        [ApiVersion(Constants.USDMVersions.V2)]
+        [Route(Route.PostElementsV2)]
+        [Route(Route.StudyV2)]
+        [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDto))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> PutStudy([FromBody] StudyDto studyDTO,string studyId, [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(PostAllElements)};");
+                if (studyDTO != null)
+                {
+                    bool isInValidReferenceIntegrity = _helper.ReferenceIntegrityValidation(studyDTO, out var errors);
+                    if (isInValidReferenceIntegrity)
+                    {
+                        var errorList = SplitStringIntoArrayHelper.SplitString(JsonConvert.SerializeObject(errors), 32000);//since app insights limit is 32768 characters   
+                        errorList.ForEach(e => _logger.LogError($"{Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse} {errorList.IndexOf(e) + 1}: {e}"));
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(errors, Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse)).Value);
+                    }
+                    studyDTO.ClinicalStudy.StudyId = string.IsNullOrWhiteSpace(studyId) ? studyDTO.ClinicalStudy.StudyId : studyId;
+
+                    LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
+
+                    var response = await _clinicalStudyService.PostAllElements(studyDTO, user, Request?.Method)
+                                                              .ConfigureAwait(false);
+
+                    if (response?.ToString() == Constants.ErrorMessages.PostRestricted)
+                    {
+                        return StatusCode(((int)HttpStatusCode.Unauthorized), new JsonResult(ErrorResponseHelper.UnAuthorizedAccess(Constants.ErrorMessages.PostRestricted)).Value);
+                    }
+                    else
+                    {
+                        if (response?.ToString() == Constants.ErrorMessages.NotValidStudyId)
+                        {
+                            return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.NotValidStudyId)).Value);
+                        }
+                        else
+                        {
+                            return Created($"study/{studyDTO.ClinicalStudy.StudyId}", new JsonResult(response).Value);
+                        }
+                    }
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(PostAllElements)};");
+            }
+        }
         #endregion
 
         #region DELETE Method

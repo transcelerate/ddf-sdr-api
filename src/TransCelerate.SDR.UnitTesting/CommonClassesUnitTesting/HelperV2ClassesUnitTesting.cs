@@ -230,10 +230,10 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void UUIDConformanceValidationHelper_UnitTesting()
         {
-            Assert.IsTrue(UUIDConformanceValidationHelper.CheckForUUIDConformance("123", "POST"));
-            Assert.IsTrue(UUIDConformanceValidationHelper.CheckForUUIDConformance("123", "PUT"));
-            Assert.IsFalse(UUIDConformanceValidationHelper.CheckForUUIDConformance("", "PUT"));
-            Assert.IsFalse(UUIDConformanceValidationHelper.CheckForUUIDConformance(null, "PUT"));
+            Assert.IsTrue(UUIDConformanceValidationHelper.CheckForUUIDConformance("123", "POST",Route.PostElementsV2));
+            Assert.IsTrue(UUIDConformanceValidationHelper.CheckForUUIDConformance("123", "PUT", Route.PostElementsV2));
+            Assert.IsFalse(UUIDConformanceValidationHelper.CheckForUUIDConformance("", "PUT", Route.PostElementsV2));
+            Assert.IsFalse(UUIDConformanceValidationHelper.CheckForUUIDConformance(null, "PUT", Route.PostElementsV2));
             Assert.AreEqual(UUIDConformanceValidationHelper.GetMessageForUUIDConformance(""), Constants.ValidationErrorMessage.PropertyEmptyError);
             Assert.IsNotEmpty(UUIDConformanceValidationHelper.GetMessageForUUIDConformance(null), Constants.ValidationErrorMessage.PropertyMissingError);
         }

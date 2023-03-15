@@ -18,7 +18,7 @@ namespace TransCelerate.SDR.RuleEngineV2
             _httpContextAccessor = httpContextAccessor;
 
             RuleFor(x => x.StudyId)
-                .Must(x => UUIDConformanceValidationHelper.CheckForUUIDConformance(x, httpContextAccessor?.HttpContext?.Request?.Method))
+                .Must(x => UUIDConformanceValidationHelper.CheckForUUIDConformance(x, httpContextAccessor?.HttpContext?.Request?.Method, httpContextAccessor?.HttpContext?.Request?.Path))
                 .WithMessage(x => UUIDConformanceValidationHelper.GetMessageForUUIDConformance(x.StudyId));
 
             RuleFor(x => x.StudyTitle)
