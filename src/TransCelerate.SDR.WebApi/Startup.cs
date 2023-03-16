@@ -122,8 +122,7 @@ namespace TransCelerate.SDR.WebApi
             services.AddControllers(config =>
             {
                 config.Filters.Add<ActionFilter>();
-            })
-                .AddFluentValidation(fv =>
+            }).AddFluentValidation(fv =>
             {
                 fv.DisableDataAnnotationsValidation = true;
                 fv.ImplicitlyValidateChildProperties = true;
