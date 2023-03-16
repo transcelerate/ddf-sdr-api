@@ -43,12 +43,12 @@
   - [GetStudyItemsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-GetStudyItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Repositories.CommonRepository.GetStudyItemsAsync(System.String,System.Int32)')
   - [GetUsdmVersion(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-GetUsdmVersion-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Repositories.CommonRepository.GetUsdmVersion(System.String,System.Int32)')
   - [SearchStudy(searchParameters,user)](#M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-SearchStudy-TransCelerate-SDR-Core-Entities-Common-SearchParametersEntity,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Repositories.CommonRepository.SearchStudy(TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
-  - [SearchTitle(searchParameters)](#M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-SearchTitle-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity- 'TransCelerate.SDR.DataAccess.Repositories.CommonRepository.SearchTitle(TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity)')
+  - [SearchTitle(searchParameters,user)](#M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-SearchTitle-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Repositories.CommonRepository.SearchTitle(TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
 - [DataFilterCommon](#T-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon')
   - [GetFiltersForGetAudTrail(studyId,fromDate,toDate)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForGetAudTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetFiltersForGetAudTrail(System.String,System.DateTime,System.DateTime)')
   - [GetFiltersForGetStudy(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForGetStudy-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetFiltersForGetStudy(System.String,System.Int32)')
   - [GetFiltersForSearchStudy(searchParameters)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForSearchStudy-TransCelerate-SDR-Core-Entities-Common-SearchParametersEntity- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetFiltersForSearchStudy(TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity)')
-  - [GetFiltersForSearchTitle(searchParameters)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForSearchTitle-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetFiltersForSearchTitle(TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity)')
+  - [GetFiltersForSearchTitle(searchParameters,groups,user)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForSearchTitle-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity,System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-UserGroups-SDRGroupsEntity},TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetFiltersForSearchTitle(TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity,System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.UserGroups.SDRGroupsEntity},TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
   - [GetFiltersForStudyHistory(fromDate,toDate,studyTitle)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForStudyHistory-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetFiltersForStudyHistory(System.DateTime,System.DateTime,System.String)')
 - [DataFiltersV1](#T-TransCelerate-SDR-DataAccess-Filters-DataFiltersV1 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV1')
   - [GetFiltersForGetAudTrail(studyId,fromDate,toDate)](#M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV1-GetFiltersForGetAudTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV1.GetFiltersForGetAudTrail(System.String,System.DateTime,System.DateTime)')
@@ -103,7 +103,7 @@
   - [GetStudyHistory(fromDate,toDate,studyTitle)](#M-TransCelerate-SDR-DataAccess-Interfaces-ICommonRepository-GetStudyHistory-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.DataAccess.Interfaces.ICommonRepository.GetStudyHistory(System.DateTime,System.DateTime,System.String)')
   - [GetUsdmVersion(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Interfaces-ICommonRepository-GetUsdmVersion-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Interfaces.ICommonRepository.GetUsdmVersion(System.String,System.Int32)')
   - [SearchStudy(searchParameters,user)](#M-TransCelerate-SDR-DataAccess-Interfaces-ICommonRepository-SearchStudy-TransCelerate-SDR-Core-Entities-Common-SearchParametersEntity,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Interfaces.ICommonRepository.SearchStudy(TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
-  - [SearchTitle(searchParameters)](#M-TransCelerate-SDR-DataAccess-Interfaces-ICommonRepository-SearchTitle-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity- 'TransCelerate.SDR.DataAccess.Interfaces.ICommonRepository.SearchTitle(TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity)')
+  - [SearchTitle(searchParameters,user)](#M-TransCelerate-SDR-DataAccess-Interfaces-ICommonRepository-SearchTitle-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Interfaces.ICommonRepository.SearchTitle(TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
 - [IUserGroupMappingRepository](#T-TransCelerate-SDR-DataAccess-Interfaces-IUserGroupMappingRepository 'TransCelerate.SDR.DataAccess.Interfaces.IUserGroupMappingRepository')
   - [AddAGroup(group)](#M-TransCelerate-SDR-DataAccess-Interfaces-IUserGroupMappingRepository-AddAGroup-TransCelerate-SDR-Core-Entities-UserGroups-SDRGroupsEntity- 'TransCelerate.SDR.DataAccess.Interfaces.IUserGroupMappingRepository.AddAGroup(TransCelerate.SDR.Core.Entities.UserGroups.SDRGroupsEntity)')
   - [GetAGroupById()](#M-TransCelerate-SDR-DataAccess-Interfaces-IUserGroupMappingRepository-GetAGroupById-System-String- 'TransCelerate.SDR.DataAccess.Interfaces.IUserGroupMappingRepository.GetAGroupById(System.String)')
@@ -803,8 +803,8 @@ A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US
 | searchParameters | [TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity](#T-TransCelerate-SDR-Core-Entities-Common-SearchParametersEntity 'TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity') | Parameters to search in database |
 | user | [TransCelerate.SDR.Core.DTO.Token.LoggedInUser](#T-TransCelerate-SDR-Core-DTO-Token-LoggedInUser 'TransCelerate.SDR.Core.DTO.Token.LoggedInUser') | Loggedin User |
 
-<a name='M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-SearchTitle-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity-'></a>
-### SearchTitle(searchParameters) `method`
+<a name='M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-SearchTitle-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity,TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
+### SearchTitle(searchParameters,user) `method`
 
 ##### Summary
 
@@ -819,6 +819,7 @@ A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | searchParameters | [TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity](#T-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity 'TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity') | Parameters to search in database |
+| user | [TransCelerate.SDR.Core.DTO.Token.LoggedInUser](#T-TransCelerate-SDR-Core-DTO-Token-LoggedInUser 'TransCelerate.SDR.Core.DTO.Token.LoggedInUser') | LoggedIn User |
 
 <a name='T-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon'></a>
 ## DataFilterCommon `type`
@@ -881,8 +882,8 @@ Get filters for Search Study API
 | ---- | ---- | ----------- |
 | searchParameters | [TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity](#T-TransCelerate-SDR-Core-Entities-Common-SearchParametersEntity 'TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity') |  |
 
-<a name='M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForSearchTitle-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity-'></a>
-### GetFiltersForSearchTitle(searchParameters) `method`
+<a name='M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForSearchTitle-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity,System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-UserGroups-SDRGroupsEntity},TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
+### GetFiltersForSearchTitle(searchParameters,groups,user) `method`
 
 ##### Summary
 
@@ -897,6 +898,8 @@ Get filters for Search Study Title API
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | searchParameters | [TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity](#T-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity 'TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity') |  |
+| groups | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.UserGroups.SDRGroupsEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.UserGroups.SDRGroupsEntity}') |  |
+| user | [TransCelerate.SDR.Core.DTO.Token.LoggedInUser](#T-TransCelerate-SDR-Core-DTO-Token-LoggedInUser 'TransCelerate.SDR.Core.DTO.Token.LoggedInUser') |  |
 
 <a name='M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForStudyHistory-System-DateTime,System-DateTime,System-String-'></a>
 ### GetFiltersForStudyHistory(fromDate,toDate,studyTitle) `method`
@@ -1811,8 +1814,8 @@ A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US
 | searchParameters | [TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity](#T-TransCelerate-SDR-Core-Entities-Common-SearchParametersEntity 'TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity') | Parameters to search in database |
 | user | [TransCelerate.SDR.Core.DTO.Token.LoggedInUser](#T-TransCelerate-SDR-Core-DTO-Token-LoggedInUser 'TransCelerate.SDR.Core.DTO.Token.LoggedInUser') | Loggedin User |
 
-<a name='M-TransCelerate-SDR-DataAccess-Interfaces-ICommonRepository-SearchTitle-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity-'></a>
-### SearchTitle(searchParameters) `method`
+<a name='M-TransCelerate-SDR-DataAccess-Interfaces-ICommonRepository-SearchTitle-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity,TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
+### SearchTitle(searchParameters,user) `method`
 
 ##### Summary
 
@@ -1827,6 +1830,7 @@ A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | searchParameters | [TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity](#T-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity 'TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity') | Parameters to search in database |
+| user | [TransCelerate.SDR.Core.DTO.Token.LoggedInUser](#T-TransCelerate-SDR-Core-DTO-Token-LoggedInUser 'TransCelerate.SDR.Core.DTO.Token.LoggedInUser') | LoggedIn User |
 
 <a name='T-TransCelerate-SDR-DataAccess-Interfaces-IUserGroupMappingRepository'></a>
 ## IUserGroupMappingRepository `type`

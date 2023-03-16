@@ -366,14 +366,14 @@ namespace TransCelerate.SDR.Services.Services
                                                   Date = g.Max(x => x.EntryDateTime)
                                               }) // Grouping the Id's by studyId
                                               .OrderByDescending(x => x.Date)
-                                              .Select(x=> new StudyHistoryResponseDto
+                                              .Select(x => new StudyHistoryResponseDto
                                               {
                                                   StudyId = x.StudyId,
-                                                  SDRUploadVersion = x.SDRUploadVersion                                                
+                                                  SDRUploadVersion = x.SDRUploadVersion
                                               })
                                               .ToList();
 
-                    //List<StudyHistoryResponseDto> studyHistory = JsonConvert.DeserializeObject<List<StudyHistoryResponseDto>>(JsonConvert.SerializeObject(groupStudy));
+                    //List<StudyHistoryResponseDto> studyHistoryResponse = JsonConvert.DeserializeObject<List<StudyHistoryResponseDto>>(JsonConvert.SerializeObject(studyHistory));
 
                     return studyHistory;
                 }
@@ -454,10 +454,10 @@ namespace TransCelerate.SDR.Services.Services
                     return new List<SearchTitleResponseDto>();
                 var searchParameters = _mapper.Map<SearchTitleParametersEntity>(searchParametersDTO);
 
-                var searchResponse = await _commonRepository.SearchTitle(searchParameters);
-                searchResponse = await CheckAccessForListOfStudies(searchResponse, user);
-                if (searchResponse == null)
-                    return new List<SearchTitleResponseDto>();
+                var searchResponse = await _commonRepository.SearchTitle(searchParameters, user);
+                //searchResponse = await CheckAccessForListOfStudies(searchResponse, user);
+                //if (searchResponse == null)
+                //    return new List<SearchTitleResponseDto>();
                 var searchTitleDTOList = _mapper.Map<List<SearchTitleResponseDto>>(searchResponse);
 
                 if (searchParameters.GroupByStudyId)
@@ -471,10 +471,13 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 searchTitleDTOList = AssignStudyIdentifiers(searchTitleDTOList, searchResponse);
 
-                searchTitleDTOList = SortStudyTitle(searchTitleDTOList, searchParametersDTO)
+                if (searchParameters.SortBy?.ToLower() == "sponsorid")
+                {
+                    searchTitleDTOList = SortStudyTitle(searchTitleDTOList, searchParametersDTO)
                                            .Skip((searchParametersDTO.PageNumber - 1) * searchParametersDTO.PageSize)
                                            .Take(searchParametersDTO.PageSize)
                                            .ToList();
+                }
 
                 return searchTitleDTOList;
             }
@@ -541,12 +544,12 @@ namespace TransCelerate.SDR.Services.Services
             {
                 return searchParametersDTO.SortBy.ToLower() switch
                 {
-                    "studytitle" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.ClinicalStudy.StudyTitle).ToList() : searchTitleDTOs.OrderByDescending(x => x.ClinicalStudy.StudyTitle).ToList(),
+                    //"studytitle" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.ClinicalStudy.StudyTitle).ToList() : searchTitleDTOs.OrderByDescending(x => x.ClinicalStudy.StudyTitle).ToList(),
                    "sponsorid" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(s => s.ClinicalStudy.StudyIdentifiers != null ? s.ClinicalStudy.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1 || x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID).Any() ? s.ClinicalStudy.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1 || x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : "").ToList()
                                                                                         : searchTitleDTOs.OrderByDescending(s => s.ClinicalStudy.StudyIdentifiers != null ? s.ClinicalStudy.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1 || x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID).Any() ? s.ClinicalStudy.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1 || x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : "").ToList(),
-                    "lastmodifieddate" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.AuditTrail.EntryDateTime).ToList() : searchTitleDTOs.OrderByDescending(x => x.AuditTrail.EntryDateTime).ToList(),
-                    "version" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.AuditTrail.SDRUploadVersion).ToList() : searchTitleDTOs.OrderByDescending(x => x.AuditTrail.SDRUploadVersion).ToList(),
-                    "usdmversion" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.AuditTrail.UsdmVersion).ToList() : searchTitleDTOs.OrderByDescending(x => x.AuditTrail.UsdmVersion).ToList(),
+                    //"lastmodifieddate" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.AuditTrail.EntryDateTime).ToList() : searchTitleDTOs.OrderByDescending(x => x.AuditTrail.EntryDateTime).ToList(),
+                    //"version" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.AuditTrail.SDRUploadVersion).ToList() : searchTitleDTOs.OrderByDescending(x => x.AuditTrail.SDRUploadVersion).ToList(),
+                    //"usdmversion" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.AuditTrail.UsdmVersion).ToList() : searchTitleDTOs.OrderByDescending(x => x.AuditTrail.UsdmVersion).ToList(),
                     _ => searchParametersDTO.SortOrder == SortOrder.desc.ToString() ? searchTitleDTOs.OrderByDescending(x => x.ClinicalStudy.StudyTitle).ToList() : searchTitleDTOs.OrderBy(x => x.ClinicalStudy.StudyTitle).ToList(),
                 };
             }
