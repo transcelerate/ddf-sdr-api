@@ -1,8 +1,8 @@
+using Azure.Extensions.AspNetCore.Configuration.Secrets;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Azure.KeyVault;
-using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.AzureKeyVault;
 using Microsoft.Extensions.Hosting;
 using System;
 using TransCelerate.SDR.Core.Utilities.Common;
@@ -33,11 +33,9 @@ namespace TransCelerate.SDR.WebApi
                     {
                         //For deployed code
                         if (!String.IsNullOrEmpty(vaultName))
-                        {
-                            var azureTokenProvider = new AzureServiceTokenProvider();
-                            var keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback
-                                                     (azureTokenProvider.KeyVaultTokenCallback));
-                            config.AddAzureKeyVault(vaultName, keyVaultClient, new DefaultKeyVaultSecretManager());
+                        {                            
+                            var client = new SecretClient(new Uri(vaultName), new DefaultAzureCredential());
+                            config.AddAzureKeyVault(client: client, new KeyVaultSecretManager());
                         }
                     }                    
                     else
