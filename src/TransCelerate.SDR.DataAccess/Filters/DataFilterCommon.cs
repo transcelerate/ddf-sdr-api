@@ -33,6 +33,31 @@ namespace TransCelerate.SDR.DataAccess.Filters
             return filter;
         }
 
+        public static FilterDefinition<BsonDocument> GetFiltersForGetStudyBsonDocument(string studyId, int sdruploadversion)
+        {
+            FilterDefinitionBuilder<BsonDocument> builder = Builders<BsonDocument>.Filter;
+            FilterDefinition<BsonDocument> filter = builder.Empty;
+            filter &= builder.Eq(Constants.DbFilter.StudyId, studyId);
+
+            if (sdruploadversion != 0)
+                filter &= builder.Eq("auditTrail.SDRUploadVersion", sdruploadversion);
+
+            return filter;
+        }
+        public static SortDefinition<BsonDocument> GetSorterForBsonDocument()
+        {
+            SortDefinitionBuilder<BsonDocument> builder = Builders<BsonDocument>.Sort;
+            SortDefinition<BsonDocument> sorter = builder.Descending("auditTrail.entryDateTime");            
+
+            return sorter;
+        }
+        public static ProjectionDefinition<BsonDocument> GetProjectorForBsonDocument()
+        {
+            ProjectionDefinitionBuilder<BsonDocument> builder = Builders<BsonDocument>.Projection;
+            ProjectionDefinition<BsonDocument> projector = builder.Exclude("_id");
+
+            return projector;
+        }
         /// <summary>
         /// Get filters for AuditTrail API
         /// </summary>
