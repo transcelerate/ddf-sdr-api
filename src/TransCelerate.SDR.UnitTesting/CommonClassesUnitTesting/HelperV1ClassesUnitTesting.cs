@@ -58,7 +58,7 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void HelpersUnitTesting()
         {
-            ApplicationDependencyInjector.AddApplicationDependencies(serviceDescriptors);
+            //ApplicationDependencyInjector.AddApplicationDependencies(serviceDescriptors);
             HelperV1 helper = new HelperV1();
             AuditTrailEntity auditTrailEntity = helper.GetAuditTrail(user.UserName);
             Assert.IsInstanceOf(typeof(DateTime), auditTrailEntity.EntryDateTime);
