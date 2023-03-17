@@ -32,6 +32,7 @@ using TransCelerate.SDR.WebApi.DependencyInjection;
 using TransCelerate.SDR.WebApi.Mappers;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 
 namespace TransCelerate.SDR.WebApi
 {
@@ -54,9 +55,9 @@ namespace TransCelerate.SDR.WebApi
         /// </summary>
         /// <param name="services"></param>        
         public void ConfigureServices(IServiceCollection services)
-        {           
+        {
             // Application Insights for logs
-            services.AddApplicationInsightsTelemetry(Config.InstrumentationKey);
+            services.AddApplicationInsightsTelemetry(options: new ApplicationInsightsServiceOptions { ConnectionString = Config.InstrumentationKey });
 
             //Api Versioning
             services.AddApiVersioning(o =>

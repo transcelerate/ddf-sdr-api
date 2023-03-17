@@ -1,21 +1,16 @@
-﻿using Microsoft.Azure.Functions.Extensions.DependencyInjection;
+﻿using Azure.Extensions.AspNetCore.Configuration.Secrets;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
+using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.AzureKeyVault;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TransCelerate.SDR.AzureFunctions.DataAccess;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
-using TransCelerate.SDR.AzureFunctions.DataAccess;
-using Microsoft.Azure.Services.AppAuthentication;
-using Microsoft.Azure.KeyVault;
-using Microsoft.Azure.WebJobs;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
-using Newtonsoft.Json;
 
 [assembly: FunctionsStartup(typeof(TransCelerate.SDR.AzureFunctions.Startup))]
 namespace TransCelerate.SDR.AzureFunctions
@@ -34,10 +29,8 @@ namespace TransCelerate.SDR.AzureFunctions
 
             var vaultName = System.Environment.GetEnvironmentVariable("KeyVaultName");
             var config = new ConfigurationBuilder().AddEnvironmentVariables();
-            var azureTokenProvider = new AzureServiceTokenProvider();
-            var keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback
-                                     (azureTokenProvider.KeyVaultTokenCallback));
-            config.AddAzureKeyVault(vaultName, keyVaultClient, new DefaultKeyVaultSecretManager());
+            var client = new SecretClient(new Uri(vaultName), new DefaultAzureCredential());
+            config.AddAzureKeyVault(client: client, new KeyVaultSecretManager());
             var buildConfig = config.Build();
 
 
