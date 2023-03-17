@@ -5,6 +5,7 @@ using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using Newtonsoft.Json;
 using System;
 using TransCelerate.SDR.AzureFunctions.DataAccess;
@@ -46,7 +47,11 @@ namespace TransCelerate.SDR.AzureFunctions
             builder.Services.AddTransient<ILogHelper, LogHelper>();
             builder.Services.AddTransient<IHelperV2, HelperV2>();
             builder.Services.AddTransient<IChangeAuditRepository, ChangeAuditRepository>();
-            builder.Services.AddTransient<IMongoClient, MongoClient>(db => new MongoClient(Config.ConnectionString));
+            // Added because MongoDB 2.19 version by default supports LinqProvider.V3
+            var clientSettings = MongoClientSettings.FromConnectionString(Config.ConnectionString);
+            clientSettings.LinqProvider = LinqProvider.V2;
+            // Added because MongoDB 2.19 version by default supports LinqProvider.V3
+            builder.Services.AddTransient<IMongoClient, MongoClient>(db => new MongoClient(clientSettings));
         }
     }
 }
