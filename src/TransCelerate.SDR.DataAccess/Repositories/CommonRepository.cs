@@ -37,8 +37,10 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _client = client;
             _database = _client.GetDatabase(_databaseName);
             _logger = logger;
-            var conventionPack = new ConventionPack();
-            conventionPack.Add(new CamelCaseElementNameConvention());
+            var conventionPack = new ConventionPack
+            {
+                new CamelCaseElementNameConvention()
+            };
             ConventionRegistry.Register("camelCase", conventionPack, t => true);
         }
         #endregion
@@ -58,21 +60,31 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _logger.LogInformation($"Started Repository : {nameof(CommonRepository)}; Method : {nameof(GetStudyItemsAsync)};");
             try
             {
-                IMongoCollection<GetRawJsonEntity> collection = _database.GetCollection<GetRawJsonEntity>(Constants.Collections.StudyDefinitions);
+                IMongoCollection<BsonDocument> collection = _database.GetCollection<BsonDocument>(Constants.Collections.StudyDefinitions);
 
-                GetRawJsonEntity study = await collection.Find(DataFilterCommon.GetFiltersForGetStudy(studyId, sdruploadversion))
-                                                     .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
+                GetRawJsonEntity study=new();
+                var studyData = await collection.Find(DataFilterCommon.GetFiltersForGetStudyBsonDocument(studyId, sdruploadversion))
+                                                     .Sort(DataFilterCommon.GetSorterForBsonDocument()) // Sort by descending on entryDateTime
                                                      .Limit(1)                  //Taking top 1 result
-                                                     .SingleOrDefaultAsync().ConfigureAwait(false);
+                                                     .Project(DataFilterCommon.GetProjectorForBsonDocument())
+                                                     .SingleOrDefaultAsync().ConfigureAwait(false);                
 
-               
-                if (study == null)
+                if (studyData == null)
                 {
                     _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.StudyDefinitions} Collection");
                     return null;
                 }
                 else
-                {
+                {                    
+                    study.AuditTrail = BsonSerializer.Deserialize<AuditTrailEntity>(studyData[Constants.DbFilter.AuditTrail].AsBsonDocument);
+                    if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.V2)
+                    {
+                        study.ClinicalStudy = Newtonsoft.Json.JsonConvert.DeserializeObject<object>(studyData[Constants.DbFilter.ClinicalStudy].ToString());
+                    }
+                    else
+                    {
+                        study.ClinicalStudy = BsonSerializer.Deserialize<object>(studyData[Constants.DbFilter.ClinicalStudy].AsBsonDocument);
+                    }
                     return study;
                 }
             }
@@ -218,7 +230,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                                 })  //Project only the required fields                                                        
                                                         .ToListAsync().ConfigureAwait(false);                
 
-                if (studyHistories.Count() == 0)
+                if (studyHistories.Count == 0)
                 {
                     _logger.LogWarning($"There are no Study in {Constants.Collections.StudyDefinitions} Collection");
                     return null;
