@@ -43,19 +43,16 @@ namespace TransCelerate.SDR.UnitTesting
     public class CommonClassesUnitTesting
     {
         private IMapper _mockMapper;
-        private Mock<ILoggerFactory> _mockLogger = new Mock<ILoggerFactory>();
-        private Mock<ILogger> _mockSDRLogger = new Mock<ILogger>();
-        private ILogHelper _mockLogHelper = Mock.Of<ILogHelper>();
-        private Mock<ILogger> _mockErrorSDRLogger = new Mock<ILogger>(MockBehavior.Strict);
-        private Mock<IConfiguration> _mockConfig = new Mock<IConfiguration>();
-        //private IConfiguration _mockConfiguration = Mock.Of<IConfiguration>();
-        private IServiceCollection serviceDescriptors = Mock.Of<IServiceCollection>();
-        private Mock<IChangeAuditService> _mockChangeAuditService = new Mock<IChangeAuditService>(MockBehavior.Loose);
-        //private IApplicationBuilder app = Mock.Of<IApplicationBuilder>();
-        //private IWebHostEnvironment env = Mock.Of<IWebHostEnvironment>();
+        private readonly Mock<ILoggerFactory> _mockLogger = new ();
+        private readonly Mock<ILogger> _mockSDRLogger = new ();
+        private readonly ILogHelper _mockLogHelper = Mock.Of<ILogHelper>();
+        private readonly Mock<ILogger> _mockErrorSDRLogger = new (MockBehavior.Strict);
+        private readonly Mock<IConfiguration> _mockConfig = new ();
+        private readonly IServiceCollection serviceDescriptors = Mock.Of<IServiceCollection>();
+        private readonly Mock<IChangeAuditService> _mockChangeAuditService = new (MockBehavior.Loose);
 
         #region Setup
-        public UserGroupMappingEntity GetUserDataFromStaticJson()
+        public static UserGroupMappingEntity GetUserDataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/UserGroupMappingData_ForEntity.json");
             var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingEntity>(jsonData);
@@ -70,55 +67,55 @@ namespace TransCelerate.SDR.UnitTesting
             });
             _mockMapper = new Mapper(mockMapper);
         }
-        LoggedInUser user = new LoggedInUser
+        readonly LoggedInUser user = new ()
         {
             UserName = "user1@SDR.com",
             UserRole = Constants.Roles.Org_Admin
         };
-        public ChangeAuditStudyDto GetChangeAuditDtoDataFromStaticJson()
+        public static ChangeAuditStudyDto GetChangeAuditDtoDataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ChangeAuditData.json");
             return JsonConvert.DeserializeObject<ChangeAuditStudyDto>(jsonData);
         }
-        public StudyEntity GetPostDataFromStaticJson()
+        public static StudyEntity GetPostDataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/PostStudyData.json");
             return JsonConvert.DeserializeObject<StudyEntity>(jsonData);
         }
-        public PostStudyDTO PostDataFromStaticJson()
+        public static PostStudyDTO PostDataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/PostStudyData.json");
             return JsonConvert.DeserializeObject<PostStudyDTO>(jsonData);
         }
-        public SDRGroupsDTO PostAGroupDto()
+        public static SDRGroupsDTO PostAGroupDto()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/UserGroupMappingData.json");
             var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingDTO>(jsonData);
             var groupDetails = JsonConvert.DeserializeObject<SDRGroupsDTO>(JsonConvert.SerializeObject(userGrouppMapping.SDRGroups[0]));
             return groupDetails;
         }
-        public IEnumerable<GroupDetailsEntity> GetGroupDetails()
+        public static IEnumerable<GroupDetailsEntity> GetGroupDetails()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/UserGroupMappingData.json");
             var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingEntity>(jsonData);
             var groupDetails = JsonConvert.DeserializeObject<IEnumerable<GroupDetailsEntity>>(JsonConvert.SerializeObject(userGrouppMapping.SDRGroups));
             return groupDetails;
         }
-        public PostUserToGroupsDTO PostUser()
+        public static PostUserToGroupsDTO PostUser()
         {
-            List<GroupsTaggedToUser> groupList = new List<GroupsTaggedToUser>();
-            GroupsTaggedToUser groupsTaggedToUser = new GroupsTaggedToUser
+            List<GroupsTaggedToUser> groupList = new ();
+            GroupsTaggedToUser groupsTaggedToUser = new ()
             {
                 GroupId = "0193a357-8519-4488-90e4-522f701658b9",
                 GroupName = "OncologyRead",
                 IsActive = true
             };
-            GroupsTaggedToUser groupsTaggedToUser2 = new GroupsTaggedToUser
+            GroupsTaggedToUser groupsTaggedToUser2 = new ()
             {
                 GroupId = "c50ccb41-db9b-4b97-b132-cbbfaa68af5a",
                 GroupName = "AmnesiaReadWrite",
                 IsActive = true
-            }; GroupsTaggedToUser groupsTaggedToUser3 = new GroupsTaggedToUser
+            }; GroupsTaggedToUser groupsTaggedToUser3 = new ()
             {
                 GroupId = "83864612-ffbd-463f-90ce-3e8819c5d132",
                 GroupName = "AmnesiaReadWrite",
@@ -127,7 +124,7 @@ namespace TransCelerate.SDR.UnitTesting
             groupList.Add(groupsTaggedToUser);
             groupList.Add(groupsTaggedToUser2);
             groupList.Add(groupsTaggedToUser3);
-            PostUserToGroupsDTO postUserToGroupsDTO = new PostUserToGroupsDTO
+            PostUserToGroupsDTO postUserToGroupsDTO = new ()
             {
                 Email = "user1@SDR.com",
                 Oid = "aw2dq254wfdsf",
@@ -136,21 +133,21 @@ namespace TransCelerate.SDR.UnitTesting
 
             return postUserToGroupsDTO;
         }
-        public IEnumerable<PostUserToGroupsDTO> UserList()
+        public static IEnumerable<PostUserToGroupsDTO> UserList()
         {
-            List<GroupsTaggedToUser> groupList = new List<GroupsTaggedToUser>();
-            GroupsTaggedToUser groupsTaggedToUser = new GroupsTaggedToUser
+            List<GroupsTaggedToUser> groupList = new ();
+            GroupsTaggedToUser groupsTaggedToUser = new ()
             {
                 GroupId = "0193a357-8519-4488-90e4-522f701658b9",
                 GroupName = "OncologyRead",
                 IsActive = true
             };
-            GroupsTaggedToUser groupsTaggedToUser2 = new GroupsTaggedToUser
+            GroupsTaggedToUser groupsTaggedToUser2 = new ()
             {
                 GroupId = "c50ccb41-db9b-4b97-b132-cbbfaa68af5a",
                 GroupName = "AmnesiaReadWrite",
                 IsActive = true
-            }; GroupsTaggedToUser groupsTaggedToUser3 = new GroupsTaggedToUser
+            }; GroupsTaggedToUser groupsTaggedToUser3 = new ()
             {
                 GroupId = "83864612-ffbd-463f-90ce-3e8819c5d132",
                 GroupName = "AmnesiaReadWrite",
@@ -159,13 +156,13 @@ namespace TransCelerate.SDR.UnitTesting
             groupList.Add(groupsTaggedToUser);
             groupList.Add(groupsTaggedToUser2);
             groupList.Add(groupsTaggedToUser3);
-            PostUserToGroupsDTO postUserToGroupsDTO = new PostUserToGroupsDTO
+            PostUserToGroupsDTO postUserToGroupsDTO = new ()
             {
                 Email = "user1@SDR.com",
                 Oid = "aw2dq254wfdsf",
                 Groups = groupList
             };
-            List<PostUserToGroupsDTO> postUserToGroups = new List<PostUserToGroupsDTO>();
+            List<PostUserToGroupsDTO> postUserToGroups = new ();
             postUserToGroups.Add(postUserToGroupsDTO);
             IEnumerable<PostUserToGroupsDTO> postUserToGroupsIenum = JsonConvert.DeserializeObject<IEnumerable<PostUserToGroupsDTO>>(
                                                                     JsonConvert.SerializeObject(postUserToGroups));
@@ -179,13 +176,13 @@ namespace TransCelerate.SDR.UnitTesting
         {
             _mockLogger.Setup(x => x.CreateLogger(Constants.LogConstant.Application))
                        .Returns(_mockSDRLogger.Object);
-            LogHelper logHelper = new LogHelper(_mockLogger.Object);
+            LogHelper logHelper = new (_mockLogger.Object);
             logHelper.LogInformation("This is Information");
 
             _mockLogger.Setup(x => x.CreateLogger(Constants.LogConstant.Application))
                        .Returns(_mockErrorSDRLogger.Object);
 
-            LogHelper logHelper2 = new LogHelper(_mockLogger.Object);
+            LogHelper logHelper2 = new (_mockLogger.Object);
             Assert.Throws<Moq.MockException>(() => logHelper2.LogInformation(""));
         }
         [Test]
@@ -193,13 +190,13 @@ namespace TransCelerate.SDR.UnitTesting
         {
             _mockLogger.Setup(x => x.CreateLogger(Constants.LogConstant.Application))
                        .Returns(_mockSDRLogger.Object);
-            LogHelper logHelper = new LogHelper(_mockLogger.Object);
+            LogHelper logHelper = new (_mockLogger.Object);
             logHelper.LogWarning("This is Warning");
 
             _mockLogger.Setup(x => x.CreateLogger(Constants.LogConstant.Application))
                        .Returns(_mockErrorSDRLogger.Object);
 
-            LogHelper logHelper2 = new LogHelper(_mockLogger.Object);
+            LogHelper logHelper2 = new (_mockLogger.Object);
             Assert.Throws<Moq.MockException>(() => logHelper2.LogWarning(""));
         }
         [Test]
@@ -207,13 +204,13 @@ namespace TransCelerate.SDR.UnitTesting
         {
             _mockLogger.Setup(x => x.CreateLogger(Constants.LogConstant.Application))
                        .Returns(_mockSDRLogger.Object);
-            LogHelper logHelper = new LogHelper(_mockLogger.Object);
+            LogHelper logHelper = new (_mockLogger.Object);
             logHelper.LogError("This is Error");
 
             _mockLogger.Setup(x => x.CreateLogger(Constants.LogConstant.Application))
                        .Returns(_mockErrorSDRLogger.Object);
 
-            LogHelper logHelper2 = new LogHelper(_mockLogger.Object);
+            LogHelper logHelper2 = new (_mockLogger.Object);
             Assert.Throws<Moq.MockException>(() => logHelper2.LogError(""));
         }
         [Test]
@@ -221,13 +218,13 @@ namespace TransCelerate.SDR.UnitTesting
         {
             _mockLogger.Setup(x => x.CreateLogger(Constants.LogConstant.Application))
                        .Returns(_mockSDRLogger.Object);
-            LogHelper logHelper = new LogHelper(_mockLogger.Object);
+            LogHelper logHelper = new (_mockLogger.Object);
             logHelper.LogCriitical("This is Critical");
 
             _mockLogger.Setup(x => x.CreateLogger(Constants.LogConstant.Application))
                        .Returns(_mockErrorSDRLogger.Object);
 
-            LogHelper logHelper2 = new LogHelper(_mockLogger.Object);
+            LogHelper logHelper2 = new (_mockLogger.Object);
             Assert.Throws<Moq.MockException>(() => logHelper2.LogCriitical(""));
         }
         [Test]
@@ -235,13 +232,13 @@ namespace TransCelerate.SDR.UnitTesting
         {
             _mockLogger.Setup(x => x.CreateLogger(Constants.LogConstant.Application))
                        .Returns(_mockSDRLogger.Object);
-            LogHelper logHelper = new LogHelper(_mockLogger.Object);
+            LogHelper logHelper = new (_mockLogger.Object);
             logHelper.LogDebug("This is Debug");
 
             _mockLogger.Setup(x => x.CreateLogger(Constants.LogConstant.Application))
                        .Returns(_mockErrorSDRLogger.Object);
 
-            LogHelper logHelper2 = new LogHelper(_mockLogger.Object);
+            LogHelper logHelper2 = new (_mockLogger.Object);
             Assert.Throws<Moq.MockException>(() => logHelper2.LogDebug(""));
         }
         [Test]
@@ -249,13 +246,13 @@ namespace TransCelerate.SDR.UnitTesting
         {
             _mockLogger.Setup(x => x.CreateLogger(Constants.LogConstant.Application))
                        .Returns(_mockSDRLogger.Object);
-            LogHelper logHelper = new LogHelper(_mockLogger.Object);
+            LogHelper logHelper = new (_mockLogger.Object);
             logHelper.LogTrace("This is Trace");
 
             _mockLogger.Setup(x => x.CreateLogger(Constants.LogConstant.Application))
                        .Returns(_mockErrorSDRLogger.Object);
 
-            LogHelper logHelper2 = new LogHelper(_mockLogger.Object);
+            LogHelper logHelper2 = new (_mockLogger.Object);
             Assert.Throws<Moq.MockException>(() => logHelper2.LogTrace(""));
         }
         #endregion
@@ -316,9 +313,7 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void ErrorResponse_Helper_UnitTestng()
         {
-            ErrorModel errorModel = new ErrorModel();
-
-            errorModel = ErrorResponseHelper.UnAuthorizedAccess();
+            ErrorModel errorModel = ErrorResponseHelper.UnAuthorizedAccess();            
 
             Assert.AreEqual("401", errorModel.StatusCode);
             Assert.AreEqual("Access Denied", errorModel.Message);
@@ -332,10 +327,9 @@ namespace TransCelerate.SDR.UnitTesting
 
             Assert.AreEqual("500", errorModel.StatusCode);
             Assert.AreEqual("Internal Server Error", errorModel.Message);
+             
 
-            ValidationErrorModel validationErrorModel = new ValidationErrorModel();
-
-            validationErrorModel = ErrorResponseHelper.BadRequest("Validation Error", "Conformance Error");
+            ValidationErrorModel validationErrorModel = ErrorResponseHelper.BadRequest("Validation Error", "Conformance Error");
             Assert.AreEqual("Conformance Error", validationErrorModel.Message);
             Assert.AreEqual("Validation Error", validationErrorModel.Error);
             Assert.AreEqual("400", validationErrorModel.StatusCode);
@@ -484,83 +478,83 @@ namespace TransCelerate.SDR.UnitTesting
         {
             ValidationDependencies.AddValidationDependencies(serviceDescriptors);
             var incomingpostStudyDTO = PostDataFromStaticJson();
-            PostStudyValidator postStudyValidator = new PostStudyValidator();
+            PostStudyValidator postStudyValidator = new ();
             Assert.IsTrue(postStudyValidator.Validate(incomingpostStudyDTO).IsValid);
 
-            ClinicalStudyValidator clinicalStudyRules = new ClinicalStudyValidator();
+            ClinicalStudyValidator clinicalStudyRules = new ();
             var result = clinicalStudyRules.Validate(incomingpostStudyDTO.ClinicalStudy);
             Assert.IsTrue(result.IsValid);
 
-            StudyIdentifiersValidator studyIdentifiersValidator = new StudyIdentifiersValidator();
+            StudyIdentifiersValidator studyIdentifiersValidator = new ();
             Assert.IsTrue(studyIdentifiersValidator.Validate(incomingpostStudyDTO.ClinicalStudy.StudyIdentifiers[0]).IsValid);
 
-            StudyObjectivesValidator studyObjectivesValidator = new StudyObjectivesValidator();
+            StudyObjectivesValidator studyObjectivesValidator = new ();
             Assert.IsTrue(studyObjectivesValidator.Validate(incomingpostStudyDTO.ClinicalStudy.CurrentSections.Find(x => x.Objectives != null).Objectives[0]).IsValid);
 
-            EndpointsValidator endpointsValidator = new EndpointsValidator();
+            EndpointsValidator endpointsValidator = new ();
             Assert.IsTrue(endpointsValidator.Validate(incomingpostStudyDTO.ClinicalStudy.CurrentSections.Find(x => x.Objectives != null).Objectives[0].Endpoints[0]).IsValid);
 
-            StudyIndicationValidator studyIndicationValidator = new StudyIndicationValidator();
+            StudyIndicationValidator studyIndicationValidator = new ();
             Assert.IsTrue(studyIndicationValidator.Validate(incomingpostStudyDTO.ClinicalStudy.CurrentSections.Find(x => x.StudyIndications != null).StudyIndications[0]).IsValid);
 
-            StudyPopulationValidator studyPopulationValidator = new StudyPopulationValidator();
+            StudyPopulationValidator studyPopulationValidator = new ();
             Assert.IsTrue(studyPopulationValidator.Validate(incomingpostStudyDTO.ClinicalStudy.CurrentSections.Find(x => x.StudyDesigns != null).StudyDesigns[0].CurrentSections.Find(x => x.StudyPopulations != null).StudyPopulations[0]).IsValid);
 
-            StudyCellsValidator studyCellsValidator = new StudyCellsValidator();
+            StudyCellsValidator studyCellsValidator = new ();
             Assert.IsTrue(studyCellsValidator.Validate(incomingpostStudyDTO.ClinicalStudy.CurrentSections.Find(x => x.StudyDesigns != null).StudyDesigns[0].CurrentSections.Find(x => x.StudyCells != null).StudyCells[0]).IsValid);
 
-            PlannedWorkFlowValidator plannedWorkFlowValidator = new PlannedWorkFlowValidator();
+            PlannedWorkFlowValidator plannedWorkFlowValidator = new ();
             Assert.IsTrue(plannedWorkFlowValidator.Validate(incomingpostStudyDTO.ClinicalStudy.CurrentSections.Find(x => x.StudyDesigns != null).StudyDesigns[0].CurrentSections.Find(x => x.PlannedWorkflows != null).PlannedWorkflows[0]).IsValid);
 
-            InvestigationalInterventionValidatior investigationalInterventionValidatior = new InvestigationalInterventionValidatior();
+            InvestigationalInterventionValidatior investigationalInterventionValidatior = new ();
             Assert.IsTrue(investigationalInterventionValidatior.Validate(incomingpostStudyDTO.ClinicalStudy.CurrentSections.Find(x => x.StudyDesigns != null).StudyDesigns[0].CurrentSections.Find(x => x.InvestigationalInterventions != null).InvestigationalInterventions[0]).IsValid);
 
-            CodingValidator codingValidator = new CodingValidator();
+            CodingValidator codingValidator = new ();
             Assert.IsTrue(codingValidator.Validate(incomingpostStudyDTO.ClinicalStudy.CurrentSections.Find(x => x.StudyDesigns != null).StudyDesigns[0].CurrentSections.Find(x => x.InvestigationalInterventions != null).InvestigationalInterventions[0].Coding[0]).IsValid);
 
-            PointInTimeValidator pointInTimeValidator = new PointInTimeValidator();
+            PointInTimeValidator pointInTimeValidator = new ();
             Assert.IsTrue(pointInTimeValidator.Validate(incomingpostStudyDTO.ClinicalStudy.CurrentSections.Find(x => x.StudyDesigns != null).StudyDesigns[0].CurrentSections.Find(x => x.PlannedWorkflows != null).PlannedWorkflows[0].StartPoint).IsValid);
 
-            StudyElementsValidator studyElementsValidator = new StudyElementsValidator();
+            StudyElementsValidator studyElementsValidator = new ();
             Assert.IsTrue(studyElementsValidator.Validate(incomingpostStudyDTO.ClinicalStudy.CurrentSections.Find(x => x.StudyDesigns != null).StudyDesigns[0].CurrentSections.Find(x => x.StudyCells != null).StudyCells[0].StudyElements[0]).IsValid);
 
-            RuleValidator ruleValidator = new RuleValidator();
+            RuleValidator ruleValidator = new ();
             Assert.IsTrue(ruleValidator.Validate(incomingpostStudyDTO.ClinicalStudy.CurrentSections.Find(x => x.StudyDesigns != null).StudyDesigns[0].CurrentSections.Find(x => x.StudyCells != null).StudyCells[0].StudyElements[0].EndRule).IsValid);
 
-            StudyArmValidator studyArmValidator = new StudyArmValidator();
+            StudyArmValidator studyArmValidator = new ();
             Assert.IsTrue(studyArmValidator.Validate(incomingpostStudyDTO.ClinicalStudy.CurrentSections.Find(x => x.StudyDesigns != null).StudyDesigns[0].CurrentSections.Find(x => x.StudyCells != null).StudyCells[0].StudyArm).IsValid);
 
-            StudyEpochValidator studyEpochValidator = new StudyEpochValidator();
+            StudyEpochValidator studyEpochValidator = new ();
             Assert.IsTrue(studyEpochValidator.Validate(incomingpostStudyDTO.ClinicalStudy.CurrentSections.Find(x => x.StudyDesigns != null).StudyDesigns[0].CurrentSections.Find(x => x.StudyCells != null).StudyCells[0].StudyEpoch).IsValid);
 
-            StudyProtocolValidator studyProtocolValidator = new StudyProtocolValidator();
+            StudyProtocolValidator studyProtocolValidator = new ();
             Assert.IsTrue(studyProtocolValidator.Validate(incomingpostStudyDTO.ClinicalStudy.StudyProtocolReferences[0]).IsValid);
 
-            WorkFlowItemMatrixValidator workFlowItemMatrixValidator = new WorkFlowItemMatrixValidator();
+            WorkFlowItemMatrixValidator workFlowItemMatrixValidator = new ();
             Assert.IsTrue(workFlowItemMatrixValidator.Validate(incomingpostStudyDTO.ClinicalStudy.CurrentSections.Find(x => x.StudyDesigns != null).StudyDesigns[0].CurrentSections.Find(x => x.PlannedWorkflows != null).PlannedWorkflows[0].WorkflowItemMatrix).IsValid);
 
-            MatrixValidator matrixValidator = new MatrixValidator();
+            MatrixValidator matrixValidator = new ();
             Assert.IsTrue(matrixValidator.Validate(incomingpostStudyDTO.ClinicalStudy.CurrentSections.Find(x => x.StudyDesigns != null).StudyDesigns[0].CurrentSections.Find(x => x.PlannedWorkflows != null).PlannedWorkflows[0].WorkflowItemMatrix.Matrix[0]).IsValid);
 
-            ItemValidator itemValidator = new ItemValidator();
+            ItemValidator itemValidator = new ();
             Assert.IsTrue(itemValidator.Validate(incomingpostStudyDTO.ClinicalStudy.CurrentSections.Find(x => x.StudyDesigns != null).StudyDesigns[0].CurrentSections.Find(x => x.PlannedWorkflows != null).PlannedWorkflows[0].WorkflowItemMatrix.Matrix[0].Items[0]).IsValid);
 
-            ActivityValidator activityValidator = new ActivityValidator();
+            ActivityValidator activityValidator = new ();
             Assert.IsTrue(activityValidator.Validate(incomingpostStudyDTO.ClinicalStudy.CurrentSections.Find(x => x.StudyDesigns != null).StudyDesigns[0].CurrentSections.Find(x => x.PlannedWorkflows != null).PlannedWorkflows[0].WorkflowItemMatrix.Matrix[0].Items[0].Activity).IsValid);
 
-            StudyDataCollectionValidator studyDataCollectionValidator = new StudyDataCollectionValidator();
+            StudyDataCollectionValidator studyDataCollectionValidator = new ();
             Assert.IsTrue(studyDataCollectionValidator.Validate(incomingpostStudyDTO.ClinicalStudy.CurrentSections.Find(x => x.StudyDesigns != null).StudyDesigns[0].CurrentSections.Find(x => x.PlannedWorkflows != null).PlannedWorkflows[0].WorkflowItemMatrix.Matrix[0].Items[0].Activity.StudyDataCollection[0]).IsValid);
 
-            DefinedProcedureValidator definedProcedureValidator = new DefinedProcedureValidator();
+            DefinedProcedureValidator definedProcedureValidator = new ();
             Assert.IsTrue(definedProcedureValidator.Validate(incomingpostStudyDTO.ClinicalStudy.CurrentSections.Find(x => x.StudyDesigns != null).StudyDesigns[0].CurrentSections.Find(x => x.PlannedWorkflows != null).PlannedWorkflows[0].WorkflowItemMatrix.Matrix[0].Items[0].Activity.DefinedProcedures[0]).IsValid);
 
-            EncounterValidator encounterValidator = new EncounterValidator();
+            EncounterValidator encounterValidator = new ();
             Assert.IsTrue(encounterValidator.Validate(incomingpostStudyDTO.ClinicalStudy.CurrentSections.Find(x => x.StudyDesigns != null).StudyDesigns[0].CurrentSections.Find(x => x.PlannedWorkflows != null).PlannedWorkflows[0].WorkflowItemMatrix.Matrix[0].Items[0].Encounter).IsValid);
 
-            EpochValidator epochValidator = new EpochValidator();
+            EpochValidator epochValidator = new ();
             Assert.IsTrue(epochValidator.Validate(incomingpostStudyDTO.ClinicalStudy.CurrentSections.Find(x => x.StudyDesigns != null).StudyDesigns[0].CurrentSections.Find(x => x.PlannedWorkflows != null).PlannedWorkflows[0].WorkflowItemMatrix.Matrix[0].Items[0].Encounter.Epoch).IsValid);
 
-            SearchParametersDTO searchParameters = new SearchParametersDTO
+            SearchParametersDTO searchParameters = new ()
             {
                 Indication = "Bile",
                 InterventionModel = "CROSS_OVER",
@@ -572,42 +566,42 @@ namespace TransCelerate.SDR.UnitTesting
                 FromDate = "",
                 ToDate = ""
             };
-            SearchParametersValidator searchParametersValidator = new SearchParametersValidator();
+            SearchParametersValidator searchParametersValidator = new ();
             var res = searchParametersValidator.Validate(searchParameters);
             Assert.IsTrue(searchParametersValidator.Validate(searchParameters).IsValid);
 
-            UserGroupsQueryParameters userGroupsQueryParameters = new UserGroupsQueryParameters
+            UserGroupsQueryParameters userGroupsQueryParameters = new ()
             {
                 SortBy = "email",
                 SortOrder = "desc",
                 PageNumber = 1,
                 PageSize = 20
             };
-            UserGroupsQueryParametersValidator userGroupsQueryParametersValidator = new UserGroupsQueryParametersValidator();
+            UserGroupsQueryParametersValidator userGroupsQueryParametersValidator = new ();
             Assert.IsTrue(userGroupsQueryParametersValidator.Validate(userGroupsQueryParameters).IsValid);
 
-            GroupsValidator groupsValidator = new GroupsValidator();
+            GroupsValidator groupsValidator = new ();
             Assert.IsTrue(groupsValidator.Validate(PostAGroupDto()).IsValid);
 
-            PostUserToGroupValidator usersValidator = new PostUserToGroupValidator();
+            PostUserToGroupValidator usersValidator = new ();
             Assert.IsTrue(usersValidator.Validate(PostUser()).IsValid);
 
-            GroupFilterValidator groupFilterValidator = new GroupFilterValidator();
+            GroupFilterValidator groupFilterValidator = new ();
             Assert.IsTrue(groupFilterValidator.Validate(PostAGroupDto().GroupFilter[0]).IsValid);
 
-            GroupFilterValuesValidator groupFilterValuesValidator = new GroupFilterValuesValidator();
+            GroupFilterValuesValidator groupFilterValuesValidator = new ();
             Assert.IsTrue(groupFilterValuesValidator.Validate(PostAGroupDto().GroupFilter[0].GroupFilterValues[0]).IsValid);
 
-            UserLogin user = new UserLogin
+            UserLogin user = new ()
             {
                 Username = "user",
                 Password = "password"
             };
-            UserLoginValidator userLoginValidator = new UserLoginValidator();
+            UserLoginValidator userLoginValidator = new ();
             Assert.IsTrue(userLoginValidator.Validate(user).IsValid);
 
             TransCelerate.SDR.RuleEngine.Common.ValidationDependenciesCommon.AddValidationDependenciesCommon(serviceDescriptors);
-            TransCelerate.SDR.Core.DTO.Common.SearchParametersDto searchParametersCommon = new TransCelerate.SDR.Core.DTO.Common.SearchParametersDto
+            TransCelerate.SDR.Core.DTO.Common.SearchParametersDto searchParametersCommon = new ()
             {
                 Indication = "Bile",
                 InterventionModel = "CROSS_OVER",
@@ -619,7 +613,7 @@ namespace TransCelerate.SDR.UnitTesting
                 FromDate = "",
                 ToDate = ""
             };
-            TransCelerate.SDR.RuleEngine.Common.SearchParametersValidator searchValidator = new RuleEngine.Common.SearchParametersValidator();
+            TransCelerate.SDR.RuleEngine.Common.SearchParametersValidator searchValidator = new ();
             Assert.IsTrue(searchValidator.Validate(searchParametersCommon).IsValid);
         }
         #endregion
@@ -628,7 +622,7 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void UserGroupSortingHelper_UnitTesting()
         {
-            UserGroupsQueryParameters userGroupsQueryParameters = new UserGroupsQueryParameters
+            UserGroupsQueryParameters userGroupsQueryParameters = new ()
             {
                 SortBy = "email",
                 SortOrder = "desc",
@@ -710,12 +704,12 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void TokenControllerUnitTesting()
         {
-            UserLogin user = new UserLogin
+            UserLogin user = new ()
             {
                 Username = "user",
                 Password = "password"
             };
-            TokenController tokenController = new TokenController(_mockLogHelper);
+            TokenController tokenController = new (_mockLogHelper);
             var method = tokenController.GetToken(user);
             method.Wait();
 
@@ -743,7 +737,7 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void ReportsControllerUnitTesting()
         {
-            ReportBodyParameters reportBodyParameters = new ReportBodyParameters
+            ReportBodyParameters reportBodyParameters = new ()
             {
                 Days = 10,
                 Operation = "GET",
@@ -753,7 +747,7 @@ namespace TransCelerate.SDR.UnitTesting
                 SortBy = "requestdate",
                 SortOrder = "asc"
             };
-            ReportsController reportsController = new ReportsController(_mockLogHelper, _mockMapper);
+            ReportsController reportsController = new (_mockLogHelper, _mockMapper);
             var method = reportsController.GetUsageReport(reportBodyParameters);
             method.Wait();
 
@@ -838,7 +832,7 @@ namespace TransCelerate.SDR.UnitTesting
 
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ReportsRawData.json");
             var rawReport = JsonConvert.DeserializeObject<SystemUsageRawReport>(jsonData);
-            List<SystemUsageReportDTO> usageReport = new List<SystemUsageReportDTO>();
+            List<SystemUsageReportDTO> usageReport = new ();
             rawReport.Tables[0].Rows.ForEach(rows => usageReport.Add(new SystemUsageReportDTO
             {
                 RequestDate = rows[(int)UsageReportFields.timestamp],
@@ -868,15 +862,15 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void ActionFilter_UnitTesting()
         {
-            ActionFilter actionFilter = new ActionFilter(_mockLogHelper);
+            ActionFilter actionFilter = new (_mockLogHelper);
 
-            Mock<ActionExecutionDelegate> actionExecutionDelegate = new Mock<ActionExecutionDelegate>();
+            Mock<ActionExecutionDelegate> actionExecutionDelegate = new ();
 
             ChangeAuditStudyDto study = GetChangeAuditDtoDataFromStaticJson();
 
             _mockChangeAuditService.Setup(x => x.GetChangeAudit(It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(study as object));
-            ChangeAuditController changeAuditController = new ChangeAuditController(_mockChangeAuditService.Object, _mockLogHelper);
+            ChangeAuditController changeAuditController = new (_mockChangeAuditService.Object, _mockLogHelper);
             var method = changeAuditController.GetChangeAudit("sd");
             method.Wait();
             var result = method.Result;
@@ -954,7 +948,7 @@ namespace TransCelerate.SDR.UnitTesting
                    "",
                    "");
 
-            VersioningErrorResponseHelper versioningErrorResponseHelper = new VersioningErrorResponseHelper();
+            VersioningErrorResponseHelper versioningErrorResponseHelper = new ();
             var result = versioningErrorResponseHelper.CreateResponse(errorResponseContext);
             var actualResult = (result as BadRequestObjectResult).Value;
             Assert.AreEqual((actualResult as ErrorModel).Message, Constants.ErrorMessages.UsdmVersionMapError);

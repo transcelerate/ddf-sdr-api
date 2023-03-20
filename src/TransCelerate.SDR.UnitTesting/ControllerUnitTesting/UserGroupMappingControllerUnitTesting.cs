@@ -22,32 +22,25 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 {
     public class UserGroupMappingControllerUnitTesting
     {
-        #region Variables
-        private IMapper _mockMapper;
-        private ILogHelper _mockLogger = Mock.Of<ILogHelper>();
-        private Mock<IUserGroupMappingRepository> _mockUserGroupMappingRepository = new Mock<IUserGroupMappingRepository>(MockBehavior.Loose);
-        private Mock<IUserGroupMappingService> _mockUserGroupMappingService = new Mock<IUserGroupMappingService>(MockBehavior.Loose);
+        #region Variables        
+        private readonly ILogHelper _mockLogger = Mock.Of<ILogHelper>();        
+        private readonly Mock<IUserGroupMappingService> _mockUserGroupMappingService = new (MockBehavior.Loose);
         #endregion
 
-        LoggedInUser user = new LoggedInUser
-        {
-            UserName = "user1@SDR.com",
-            UserRole = Constants.Roles.Org_Admin
-        };
-        public UserGroupMappingEntity GetDataFromStaticJson()
+        public static UserGroupMappingEntity GetDataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/UserGroupMappingData.json");
             var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingEntity>(jsonData);
             return userGrouppMapping;
         }
-        public List<GroupDetailsEntity> GetGroupDetails()
+        public static List<GroupDetailsEntity> GetGroupDetails()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/UserGroupMappingData.json");
             var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingEntity>(jsonData);
             var groupDetails = JsonConvert.DeserializeObject<List<GroupDetailsEntity>>(JsonConvert.SerializeObject(userGrouppMapping.SDRGroups));
             return groupDetails;
         }
-        public List<GroupDetailsDTO> GetGroupDetailsDTO()
+        public static List<GroupDetailsDTO> GetGroupDetailsDTO()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/UserGroupMappingData.json");
             var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingEntity>(jsonData);
@@ -55,42 +48,42 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             return groupDetails;
         }
 
-        public List<GroupDetailsDTO> GetListGroups()
+        public static List<GroupDetailsDTO> GetListGroups()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/UserGroupMappingData.json");
             var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingEntity>(jsonData);
             var groupDetails = JsonConvert.DeserializeObject<List<GroupDetailsDTO>>(JsonConvert.SerializeObject(userGrouppMapping.SDRGroups));
             return groupDetails;
         }
-        public SDRGroupsDTO PostAGroupDto()
+        public static SDRGroupsDTO PostAGroupDto()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/UserGroupMappingData.json");
             var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingEntity>(jsonData);
             var groupDetails = JsonConvert.DeserializeObject<SDRGroupsDTO>(JsonConvert.SerializeObject(userGrouppMapping.SDRGroups[0]));
             return groupDetails;
         }
-        public SDRGroupsEntity PostAGroupEntity()
+        public static SDRGroupsEntity PostAGroupEntity()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/UserGroupMappingData.json");
             var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingEntity>(jsonData);
             var groupDetails = JsonConvert.DeserializeObject<SDRGroupsEntity>(JsonConvert.SerializeObject(userGrouppMapping.SDRGroups[0]));
             return groupDetails;
         }
-        public IEnumerable<PostUserToGroupsDTO> UserList()
+        public static IEnumerable<PostUserToGroupsDTO> UserList()
         {
-            List<GroupsTaggedToUser> groupList = new List<GroupsTaggedToUser>();
-            GroupsTaggedToUser groupsTaggedToUser = new GroupsTaggedToUser
+            List<GroupsTaggedToUser> groupList = new ();
+            GroupsTaggedToUser groupsTaggedToUser = new()
             {
                 GroupId = "0193a357-8519-4488-90e4-522f701658b9",
                 GroupName = "OncologyRead",
                 IsActive = true
             };
-            GroupsTaggedToUser groupsTaggedToUser2 = new GroupsTaggedToUser
+            GroupsTaggedToUser groupsTaggedToUser2 = new()
             {
                 GroupId = "c50ccb41-db9b-4b97-b132-cbbfaa68af5a",
                 GroupName = "AmnesiaReadWrite",
                 IsActive = true
-            }; GroupsTaggedToUser groupsTaggedToUser3 = new GroupsTaggedToUser
+            }; GroupsTaggedToUser groupsTaggedToUser3 = new()
             {
                 GroupId = "83864612-ffbd-463f-90ce-3e8819c5d132",
                 GroupName = "AmnesiaReadWrite",
@@ -99,13 +92,13 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             groupList.Add(groupsTaggedToUser);
             groupList.Add(groupsTaggedToUser2);
             groupList.Add(groupsTaggedToUser3);
-            PostUserToGroupsDTO postUserToGroupsDTO = new PostUserToGroupsDTO
+            PostUserToGroupsDTO postUserToGroupsDTO = new()
             {
                 Email = "user1@SDR.com",
                 Oid = "aw2dq254wfdsf",
                 Groups = groupList
             };
-            List<PostUserToGroupsDTO> postUserToGroups = new List<PostUserToGroupsDTO>();
+            List<PostUserToGroupsDTO> postUserToGroups = new();
             postUserToGroups.Add(postUserToGroupsDTO);
             IEnumerable<PostUserToGroupsDTO> postUserToGroupsIenum = JsonConvert.DeserializeObject<IEnumerable<PostUserToGroupsDTO>>(
                                                                     JsonConvert.SerializeObject(postUserToGroups));
@@ -118,8 +111,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             var mockMapper = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new AutoMapperProfies());
-            });
-            _mockMapper = new Mapper(mockMapper);
+            });            
         }
         #endregion
 
@@ -131,7 +123,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         [Test]
         public void GetUserGroups_UnitTest_SuccessResponse()
         {
-            UserGroupsQueryParameters userGroupsQueryParameters = new UserGroupsQueryParameters
+            UserGroupsQueryParameters userGroupsQueryParameters = new()
             {
                 SortBy = "email",
                 SortOrder = "desc",
@@ -140,7 +132,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             };
             _mockUserGroupMappingService.Setup(x => x.GetUserGroups(userGroupsQueryParameters))
                 .Returns(Task.FromResult(GetGroupDetailsDTO()));
-            UserGroupsController userGroupMappingController = new UserGroupsController(_mockUserGroupMappingService.Object, _mockLogger);
+            UserGroupsController userGroupMappingController = new (_mockUserGroupMappingService.Object, _mockLogger);
 
             var method = userGroupMappingController.GetUserGroups(userGroupsQueryParameters);
             method.Wait();
@@ -167,7 +159,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         public void GetUserList_Exception()
         {
 
-            UserGroupsController userGroupMappingController = new UserGroupsController(_mockUserGroupMappingService.Object, _mockLogger);
+            UserGroupsController userGroupMappingController = new (_mockUserGroupMappingService.Object, _mockLogger);
 
             var method = userGroupMappingController.GetUserList();
             method.Wait();
@@ -184,7 +176,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         public void GetUserGroups_UnitTest_FailureResponse()
         {
 
-            UserGroupsQueryParameters userGroupsQueryParameters = new UserGroupsQueryParameters
+            UserGroupsQueryParameters userGroupsQueryParameters = new()
             {
                 SortBy = "email",
                 SortOrder = "desc",
@@ -193,9 +185,9 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             };
             _mockUserGroupMappingService.Setup(x => x.GetUserGroups(userGroupsQueryParameters))
                 .Returns(Task.FromResult(GetGroupDetailsDTO()));
-            UserGroupsController userGroupMappingController = new UserGroupsController(_mockUserGroupMappingService.Object, _mockLogger);
+            UserGroupsController userGroupMappingController = new (_mockUserGroupMappingService.Object, _mockLogger);
 
-            UserGroupsQueryParameters userGroupsQueryParameters1 = new UserGroupsQueryParameters
+            UserGroupsQueryParameters userGroupsQueryParameters1 = new()
             {
                 SortBy = "name",
                 SortOrder = "desc",
@@ -213,10 +205,10 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual(404, (result as NotFoundObjectResult).StatusCode);
             Assert.IsInstanceOf(typeof(NotFoundObjectResult), result);
 
-            List<GroupDetailsDTO> groupDetailsDTOs = new List<GroupDetailsDTO>();
+            List<GroupDetailsDTO> groupDetailsDTOs = new ();
             _mockUserGroupMappingService.Setup(x => x.GetUserGroups(userGroupsQueryParameters))
                 .Returns(Task.FromResult(groupDetailsDTOs));
-            UserGroupsController userGroupMappingController1 = new UserGroupsController(_mockUserGroupMappingService.Object, _mockLogger);
+            UserGroupsController userGroupMappingController1 = new (_mockUserGroupMappingService.Object, _mockLogger);
             method = userGroupMappingController1.GetUserGroups(userGroupsQueryParameters);
             method.Wait();
 
@@ -244,7 +236,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         [Test]
         public void GetUsersList_UnitTest_SuccessResponse()
         {
-            UserGroupsQueryParameters userGroupsQueryParameters = new UserGroupsQueryParameters
+            UserGroupsQueryParameters userGroupsQueryParameters = new()
             {
                 SortBy = "email",
                 SortOrder = "desc",
@@ -253,7 +245,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             };
             _mockUserGroupMappingService.Setup(x => x.GetUsersList(userGroupsQueryParameters))
                 .Returns(Task.FromResult(UserList() as object));
-            UserGroupsController userGroupMappingController = new UserGroupsController(_mockUserGroupMappingService.Object, _mockLogger);
+            UserGroupsController userGroupMappingController = new (_mockUserGroupMappingService.Object, _mockLogger);
 
             var method = userGroupMappingController.GetUsersList(userGroupsQueryParameters);
             method.Wait();
@@ -279,7 +271,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         [Test]
         public void GetUsersList_UnitTest_FailureResponse()
         {
-            UserGroupsQueryParameters userGroupsQueryParameters = new UserGroupsQueryParameters
+            UserGroupsQueryParameters userGroupsQueryParameters = new()
             {
                 SortBy = "email",
                 SortOrder = "desc",
@@ -288,9 +280,9 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             };
             _mockUserGroupMappingService.Setup(x => x.GetUsersList(userGroupsQueryParameters))
                 .Returns(Task.FromResult(UserList() as object));
-            UserGroupsController userGroupMappingController = new UserGroupsController(_mockUserGroupMappingService.Object, _mockLogger);
+            UserGroupsController userGroupMappingController = new (_mockUserGroupMappingService.Object, _mockLogger);
 
-            UserGroupsQueryParameters userGroupsQueryParameters1 = new UserGroupsQueryParameters
+            UserGroupsQueryParameters userGroupsQueryParameters1 = new()
             {
                 SortBy = "name",
                 SortOrder = "desc",
@@ -327,7 +319,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         {
             _mockUserGroupMappingService.Setup(x => x.ListGroups())
                     .Returns(Task.FromResult(JsonConvert.DeserializeObject<List<GroupListDTO>>(JsonConvert.SerializeObject(GetListGroups()))));
-            UserGroupsController userGroupMappingController = new UserGroupsController(_mockUserGroupMappingService.Object, _mockLogger);
+            UserGroupsController userGroupMappingController = new (_mockUserGroupMappingService.Object, _mockLogger);
 
             var method = userGroupMappingController.GetGroupList();
             method.Wait();
@@ -355,7 +347,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         {
             _mockUserGroupMappingService.Setup(x => x.ListGroups())
                  .Throws(new Exception("Error"));
-            UserGroupsController userGroupMappingController = new UserGroupsController(_mockUserGroupMappingService.Object, _mockLogger);
+            UserGroupsController userGroupMappingController = new (_mockUserGroupMappingService.Object, _mockLogger);
 
             var method = userGroupMappingController.GetGroupList();
             method.Wait();
@@ -373,7 +365,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         {
             _mockUserGroupMappingService.Setup(x => x.CheckGroupName(It.IsAny<string>()))
                     .Returns(Task.FromResult(GetDataFromStaticJson().SDRGroups[0] as object));
-            UserGroupsController userGroupMappingController = new UserGroupsController(_mockUserGroupMappingService.Object, _mockLogger);
+            UserGroupsController userGroupMappingController = new (_mockUserGroupMappingService.Object, _mockLogger);
 
             var method = userGroupMappingController.CheckGroupName("A");
             method.Wait();
@@ -424,7 +416,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             var postDataEntity = PostAGroupEntity();
             _mockUserGroupMappingService.Setup(x => x.PostGroup(postDataDto, It.IsAny<LoggedInUser>()))
                     .Returns(Task.FromResult(postDataDto as object));
-            UserGroupsController userGroupMappingController = new UserGroupsController(_mockUserGroupMappingService.Object, _mockLogger);
+            UserGroupsController userGroupMappingController = new (_mockUserGroupMappingService.Object, _mockLogger);
 
             var method = userGroupMappingController.PostGroup(postDataDto);
             method.Wait();
@@ -502,19 +494,19 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         [Test]
         public void PostUsersToGroups_UnitTest_SuccessResponse()
         {
-            List<GroupsTaggedToUser> groupList = new List<GroupsTaggedToUser>();
-            GroupsTaggedToUser groupsTaggedToUser = new GroupsTaggedToUser
+            List<GroupsTaggedToUser> groupList = new();
+            GroupsTaggedToUser groupsTaggedToUser = new()
             {
                 GroupId = "0193a357-8519-4488-90e4-522f701658b9",
                 GroupName = "OncologyRead",
                 IsActive = true
             };
-            GroupsTaggedToUser groupsTaggedToUser2 = new GroupsTaggedToUser
+            GroupsTaggedToUser groupsTaggedToUser2 = new()
             {
                 GroupId = "c50ccb41-db9b-4b97-b132-cbbfaa68af5a",
                 GroupName = "AmnesiaReadWrite",
                 IsActive = true
-            }; GroupsTaggedToUser groupsTaggedToUser3 = new GroupsTaggedToUser
+            }; GroupsTaggedToUser groupsTaggedToUser3 = new()
             {
                 GroupId = "83864612-ffbd-463f-90ce-3e8819c5d132",
                 GroupName = "AmnesiaReadWrite",
@@ -523,7 +515,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             groupList.Add(groupsTaggedToUser);
             groupList.Add(groupsTaggedToUser2);
             groupList.Add(groupsTaggedToUser3);
-            PostUserToGroupsDTO postUserToGroupsDTO = new PostUserToGroupsDTO
+            PostUserToGroupsDTO postUserToGroupsDTO = new()
             {
                 Email = "user1@SDR.com",
                 Oid = "aw2dq254wfdsf",
@@ -531,7 +523,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             };
             _mockUserGroupMappingService.Setup(x => x.PostUserToGroups(postUserToGroupsDTO, It.IsAny<LoggedInUser>()))
                     .Returns(Task.FromResult(postUserToGroupsDTO as object));
-            UserGroupsController userGroupMappingController = new UserGroupsController(_mockUserGroupMappingService.Object, _mockLogger);
+            UserGroupsController userGroupMappingController = new (_mockUserGroupMappingService.Object, _mockLogger);
 
             var method = userGroupMappingController.PostUserToGroups(postUserToGroupsDTO);
             method.Wait();

@@ -24,19 +24,19 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
     public class CommonServicesUnitTesting
     {
         #region Variables
-        private ILogHelper _mockLogger = Mock.Of<ILogHelper>();
-        private Mock<ICommonRepository> _mockCommonRepository = new Mock<ICommonRepository>(MockBehavior.Loose);
+        private readonly ILogHelper _mockLogger = Mock.Of<ILogHelper>();
+        private readonly Mock<ICommonRepository> _mockCommonRepository = new (MockBehavior.Loose);
         private IMapper _mockMapper;
         #endregion
 
         #region Setup
-        public UserGroupMappingEntity GetUserDataFromStaticJson()
+        public static UserGroupMappingEntity GetUserDataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/UserGroupMappingData_ForEntity.json");
             var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingEntity>(jsonData);
             return userGrouppMapping;
         }
-        public List<SearchTitleResponseEntity> GetSearchResponse()
+        public static List<SearchTitleResponseEntity> GetSearchResponse()
         {
             CommonStudyEntity mvp = GetData(Constants.USDMVersions.MVP);
             CommonStudyEntity v1 = GetData(Constants.USDMVersions.V1);
@@ -78,7 +78,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 }
             };
         }
-        public CommonStudyEntity GetData(string usdmVersion)
+        public static CommonStudyEntity GetData(string usdmVersion)
         {
             if (usdmVersion == Constants.USDMVersions.MVP)
             {
@@ -99,7 +99,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 return v2;
             }
         }
-        LoggedInUser user = new LoggedInUser
+        readonly LoggedInUser user = new ()
         {
             UserName = "user1@SDR.com",
             UserRole = Constants.Roles.Org_Admin
@@ -130,7 +130,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
                    .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
 
-            CommonServices commonServices = new CommonServices(_mockCommonRepository.Object, _mockLogger, _mockMapper);
+            CommonServices commonServices = new (_mockCommonRepository.Object, _mockLogger, _mockMapper);
 
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
             var data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
@@ -225,7 +225,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
                  .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
 
-            CommonServices commonServices = new CommonServices(_mockCommonRepository.Object, _mockLogger, _mockMapper);
+            CommonServices commonServices = new (_mockCommonRepository.Object, _mockLogger, _mockMapper);
 
             var jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
             var data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
@@ -288,7 +288,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
                    .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
 
-            CommonServices commonServices = new CommonServices(_mockCommonRepository.Object, _mockLogger, _mockMapper);
+            CommonServices commonServices = new (_mockCommonRepository.Object, _mockLogger, _mockMapper);
             var method = commonServices.CheckAccessForAStudy("a", "INTERVENTIONAL", user);
             method.Wait();
             var result = method.Result;
@@ -382,7 +382,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             });
             _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
                    .Returns(Task.FromResult(grps));
-            CommonServices CommonService = new CommonServices(_mockCommonRepository.Object, _mockLogger, _mockMapper);
+            CommonServices CommonService = new (_mockCommonRepository.Object, _mockLogger, _mockMapper);
 
             var method = CommonService.GetAuditTrail("1", DateTime.MinValue, DateTime.MinValue, user);
             method.Wait();
@@ -412,7 +412,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             Assert.Throws<AggregateException>(method.Wait);
 
             //Null Response
-            List<AuditTrailResponseEntity> nullAuditTrailResponseEntities = new List<AuditTrailResponseEntity>();
+            List<AuditTrailResponseEntity> nullAuditTrailResponseEntities = new ();
             nullAuditTrailResponseEntities = null;
             _mockCommonRepository.Setup(x => x.GetAuditTrail(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>()))
                   .Returns(Task.FromResult(nullAuditTrailResponseEntities));
@@ -529,7 +529,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             _mockCommonRepository.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>()))
                    .Returns(Task.FromResult(studyHistories));
 
-            CommonServices CommonService = new CommonServices(_mockCommonRepository.Object, _mockLogger, _mockMapper);
+            CommonServices CommonService = new (_mockCommonRepository.Object, _mockLogger, _mockMapper);
 
             var method = CommonService.GetStudyHistory(DateTime.Now, DateTime.MinValue, "", user);
             method.Wait();
@@ -633,7 +633,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 ToDate = DateTime.Now.ToString(),
             };
 
-            CommonServices CommonService = new CommonServices(_mockCommonRepository.Object, _mockLogger, _mockMapper);
+            CommonServices CommonService = new (_mockCommonRepository.Object, _mockLogger, _mockMapper);
 
             var method = CommonService.SearchTitle(searchParameters, user);
             method.Wait();
@@ -724,7 +724,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             });
             _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
                    .Returns(Task.FromResult(grps));
-            CommonServices CommonService = new CommonServices(_mockCommonRepository.Object, _mockLogger, _mockMapper);
+            CommonServices CommonService = new (_mockCommonRepository.Object, _mockLogger, _mockMapper);
 
             var searchTitleDTOList = _mockMapper.Map<List<SearchTitleResponseDto>>(searchTitleResponseEntity);
             searchTitleDTOList = CommonServices.AssignStudyIdentifiers(searchTitleDTOList, searchTitleResponseEntity);
@@ -909,7 +909,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 Header = "studyphase"
             };
 
-            CommonServices CommonService = new CommonServices(_mockCommonRepository.Object, _mockLogger, _mockMapper);
+            CommonServices CommonService = new (_mockCommonRepository.Object, _mockLogger, _mockMapper);
 
             var method = CommonService.SearchStudy(searchParameters, user);
             method.Wait();
@@ -971,7 +971,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         {
             _mockCommonRepository.Setup(x => x.GetUsdmVersion(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(Constants.USDMVersions.V2));
-            CommonServices commonServices = new CommonServices(_mockCommonRepository.Object, _mockLogger, _mockMapper);
+            CommonServices commonServices = new (_mockCommonRepository.Object, _mockLogger, _mockMapper);
 
             var method = commonServices.GetLinks("a", 1, user);
             method.Wait();
