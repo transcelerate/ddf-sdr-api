@@ -23,9 +23,9 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
     public class ChangeAuditUnitTesting
     {
         #region Variables
-        private readonly Mock<IChangeAuditService> _mockChangeAuditService = new (MockBehavior.Loose);
-        private readonly Mock<IChangeAuditRepository> _mockChangeAuditRepository = new (MockBehavior.Loose);
-        private readonly Mock<IClinicalStudyServiceV2> _mockClinicalStudyServiceV2 = new (MockBehavior.Loose);
+        private readonly Mock<IChangeAuditService> _mockChangeAuditService = new(MockBehavior.Loose);
+        private readonly Mock<IChangeAuditRepository> _mockChangeAuditRepository = new(MockBehavior.Loose);
+        private readonly Mock<IClinicalStudyServiceV2> _mockClinicalStudyServiceV2 = new(MockBehavior.Loose);
         private readonly ILogHelper _mockLogHelper = Mock.Of<ILogHelper>();
         private IMapper _mockMapper;
         #endregion
@@ -50,7 +50,7 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
             });
             _mockMapper = new Mapper(mockMapper);
         }
-        readonly LoggedInUser user = new ()
+        readonly LoggedInUser user = new()
         {
             UserName = "user1@SDR.com",
             UserRole = Constants.Roles.Org_Admin
@@ -67,7 +67,7 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
 
             _mockChangeAuditService.Setup(x => x.GetChangeAudit(It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(study as object));
-            ChangeAuditController changeAuditController = new (_mockChangeAuditService.Object, _mockLogHelper);
+            ChangeAuditController changeAuditController = new(_mockChangeAuditService.Object, _mockLogHelper);
 
             var method = changeAuditController.GetChangeAudit("sd");
             method.Wait();
@@ -90,7 +90,7 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
 
             _mockChangeAuditService.Setup(x => x.GetChangeAudit(It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(null as object));
-            ChangeAuditController changeAuditController = new (_mockChangeAuditService.Object, _mockLogHelper);
+            ChangeAuditController changeAuditController = new(_mockChangeAuditService.Object, _mockLogHelper);
 
             var method = changeAuditController.GetChangeAudit("sd");
             method.Wait();
@@ -159,7 +159,7 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
                 .Returns(Task.FromResult(GetChangeAuditEntityDataFromStaticJson()));
             _mockClinicalStudyServiceV2.Setup(x => x.GetAccessForAStudy(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(true));
-            ChangeAuditService changeAuditService = new (_mockChangeAuditRepository.Object, _mockMapper, _mockLogHelper, _mockClinicalStudyServiceV2.Object);
+            ChangeAuditService changeAuditService = new(_mockChangeAuditRepository.Object, _mockMapper, _mockLogHelper, _mockClinicalStudyServiceV2.Object);
             var method = changeAuditService.GetChangeAudit("sd", user);
             method.Wait();
             var result = method.Result;

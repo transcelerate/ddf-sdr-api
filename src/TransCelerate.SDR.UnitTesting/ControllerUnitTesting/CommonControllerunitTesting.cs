@@ -28,9 +28,9 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
     {
         #region Variables
         private readonly ILogHelper _mockLogger = Mock.Of<ILogHelper>();
-        private readonly Mock<ICommonService> _mockCommonService = new (MockBehavior.Loose);
+        private readonly Mock<ICommonService> _mockCommonService = new(MockBehavior.Loose);
         private IMapper _mockMapper;
-        private readonly Mock<ICommonRepository> _mockCommonRepository = new (MockBehavior.Loose);
+        private readonly Mock<ICommonRepository> _mockCommonRepository = new(MockBehavior.Loose);
         #endregion
 
         #region Setup
@@ -77,7 +77,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             var data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
             _mockCommonService.Setup(x => x.GetRawJson(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(data as object));
-            CommonController commonController = new (_mockCommonService.Object, _mockLogger);
+            CommonController commonController = new(_mockCommonService.Object, _mockLogger);
 
             var method = commonController.GetRawJson("sd", 1);
             method.Wait();
@@ -110,7 +110,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockCommonService.Setup(x => x.GetRawJson(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
              .Returns(Task.FromResult(Constants.ErrorMessages.Forbidden as object));
-            CommonController commonController = new (_mockCommonService.Object, _mockLogger);
+            CommonController commonController = new(_mockCommonService.Object, _mockLogger);
 
             var method = commonController.GetRawJson("sd", 1);
             method.Wait();
@@ -181,7 +181,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             var data = JsonConvert.DeserializeObject<ECPTDto>(jsonData);
             _mockCommonService.Setup(x => x.GeteCPT(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(data as object));
-            CommonController commonController = new (_mockCommonService.Object, _mockLogger);
+            CommonController commonController = new(_mockCommonService.Object, _mockLogger);
 
             var method = commonController.GeteCPT("sd", 1, "des");
             method.Wait();
@@ -204,7 +204,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             //Study NotFound Case
             _mockCommonService.Setup(x => x.GeteCPT(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(data as object));
-            CommonController commonController = new (_mockCommonService.Object, _mockLogger);
+            CommonController commonController = new(_mockCommonService.Object, _mockLogger);
 
             var method = commonController.GeteCPT("sd", 1, "des");
             method.Wait();
@@ -333,7 +333,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
             var data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
-            AuditTrailResponseDto auditTrailResponseDto = new ()
+            AuditTrailResponseDto auditTrailResponseDto = new()
             {
                 StudyId = data.ClinicalStudy.ToString(),
                 AuditTrail = new List<AuditTrailResponseWithLinksDto> { new AuditTrailResponseWithLinksDto { EntryDateTime = DateTime.Now.AddDays(-1), SDRUploadVersion = 1 }, new AuditTrailResponseWithLinksDto { EntryDateTime = DateTime.Now, SDRUploadVersion = 2 } }
@@ -341,7 +341,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockCommonService.Setup(x => x.GetAuditTrail(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(auditTrailResponseDto as object));
-            CommonController commonController = new (_mockCommonService.Object, _mockLogger);
+            CommonController commonController = new(_mockCommonService.Object, _mockLogger);
 
             var method = commonController.GetAuditTrail("sd", DateTime.MinValue, DateTime.MinValue);
             method.Wait();
@@ -364,7 +364,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             var data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
             _mockCommonService.Setup(x => x.GetAuditTrail(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(null as object));
-            CommonController commonController = new (_mockCommonService.Object, _mockLogger);
+            CommonController commonController = new(_mockCommonService.Object, _mockLogger);
 
             var method = commonController.GetAuditTrail("sd", DateTime.MinValue, DateTime.MinValue);
             method.Wait();
@@ -468,7 +468,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Config.DateRange = "20";
             _mockCommonService.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(studyHistories));
-            CommonController commonController = new (_mockCommonService.Object, _mockLogger);
+            CommonController commonController = new(_mockCommonService.Object, _mockLogger);
 
             var method = commonController.GetStudyHistory(DateTime.MinValue, DateTime.MinValue, "sd");
             method.Wait();
@@ -495,7 +495,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockCommonService.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                .Returns(Task.FromResult(studyHistory));
 
-            CommonController commonController = new (_mockCommonService.Object, _mockLogger);
+            CommonController commonController = new(_mockCommonService.Object, _mockLogger);
 
             var method = commonController.GetStudyHistory(DateTime.MinValue, DateTime.MinValue, "sd");
             method.Wait();
@@ -589,12 +589,12 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 }
             };
             var searchTitleDTOList = _mockMapper.Map<List<SearchTitleResponseDto>>(studyList);
-            CommonServices CommonService = new (_mockCommonRepository.Object, _mockLogger, _mockMapper);
+            CommonServices CommonService = new(_mockCommonRepository.Object, _mockLogger, _mockMapper);
             searchTitleDTOList = CommonServices.AssignStudyIdentifiers(searchTitleDTOList, studyList);
 
             _mockCommonService.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersDto>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(searchTitleDTOList));
-            CommonController commonController = new (_mockCommonService.Object, _mockLogger);
+            CommonController commonController = new(_mockCommonService.Object, _mockLogger);
             SearchTitleParametersDto searchParameters = new()
             {
                 StudyTitle = "Umbrella",
@@ -629,7 +629,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockCommonService.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersDto>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(searchTitleDTOList));
 
-            CommonController commonController = new (_mockCommonService.Object, _mockLogger);
+            CommonController commonController = new(_mockCommonService.Object, _mockLogger);
             SearchTitleParametersDto searchParameters = new()
             {
                 StudyTitle = "",
@@ -749,7 +749,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ApiUsdmVersionMapping.json");
             ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(jsonData);
             ApiUsdmVersionMapping.SDRVersions = apiUsdmVersionMapping_NonStatic.SDRVersions;
-            CommonController commonController = new (_mockCommonService.Object, _mockLogger);
+            CommonController commonController = new(_mockCommonService.Object, _mockLogger);
 
             var method = commonController.GetApiUsdmMapping();
 
@@ -763,10 +763,10 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             Assert.AreEqual(expected.SDRVersions.Count, actual_result.SDRVersions.Count);
 
-            Mock<ILogHelper> _mockLogg = new (MockBehavior.Loose);
+            Mock<ILogHelper> _mockLogg = new(MockBehavior.Loose);
             _mockLogg.Setup(x => x.LogInformation(It.IsAny<string>())).Throws(new Exception("Error"));
 
-            CommonController commonController1 = new (_mockCommonService.Object, _mockLogg.Object);
+            CommonController commonController1 = new(_mockCommonService.Object, _mockLogg.Object);
             Assert.Throws<System.Exception>(() => commonController1.GetApiUsdmMapping());
         }
         #endregion
@@ -817,7 +817,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockCommonService.Setup(x => x.SearchStudy(It.IsAny<SearchParametersDto>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(studyList as object));
-            CommonController commonController = new (_mockCommonService.Object, _mockLogger);
+            CommonController commonController = new(_mockCommonService.Object, _mockLogger);
             SearchParametersDto searchParameters = new()
             {
                 Indication = "Bile",
@@ -855,8 +855,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockCommonService.Setup(x => x.SearchStudy(It.IsAny<SearchParametersDto>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(null as object));
-            CommonController commonController = new (_mockCommonService.Object, _mockLogger);
-            SearchParametersDto searchParameters = new ()
+            CommonController commonController = new(_mockCommonService.Object, _mockLogger);
+            SearchParametersDto searchParameters = new()
             {
                 Indication = "",
                 InterventionModel = "",
@@ -900,7 +900,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
-            SearchParametersDto searchParameters1 = new ()
+            SearchParametersDto searchParameters1 = new()
             {
                 Indication = "",
                 InterventionModel = "",
@@ -928,7 +928,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
 
-            SearchParametersDto searchParameters2 = new ()
+            SearchParametersDto searchParameters2 = new()
             {
                 Indication = "Alzheimer",
                 InterventionModel = "",
@@ -981,7 +981,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         [Test]
         public void GetLinksSuccessUnitTesting()
         {
-            LinksResponseDto links = new ()
+            LinksResponseDto links = new()
             {
                 StudyId = "1",
                 SDRUploadVersion = 1,
@@ -992,7 +992,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             var link = LinksHelper.GetLinks("1", null, Constants.USDMVersions.MVP, 1);
             _mockCommonService.Setup(x => x.GetLinks(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(links as object));
-            CommonController commonController = new (_mockCommonService.Object, _mockLogger);
+            CommonController commonController = new(_mockCommonService.Object, _mockLogger);
 
             var method = commonController.GetLinks("sd", 1);
             method.Wait();
@@ -1013,7 +1013,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         {
             _mockCommonService.Setup(x => x.GetLinks(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(null as object));
-            CommonController commonController = new (_mockCommonService.Object, _mockLogger);
+            CommonController commonController = new(_mockCommonService.Object, _mockLogger);
 
             var method = commonController.GetLinks("sd", 1);
             method.Wait();

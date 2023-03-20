@@ -19,10 +19,10 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
     {
 
         private readonly ILogHelper _mockLogger = Mock.Of<ILogHelper>();
-        private readonly Mock<IHelperV2> _mockHelper = new (MockBehavior.Loose);
-        private readonly Mock<IChangeAuditRepository> _mockChangeAuditRepository = new (MockBehavior.Loose);
+        private readonly Mock<IHelperV2> _mockHelper = new(MockBehavior.Loose);
+        private readonly Mock<IChangeAuditRepository> _mockChangeAuditRepository = new(MockBehavior.Loose);
         private readonly ILogHelper _mockLogger1 = Mock.Of<ILogHelper>();
-        private readonly Mock<IMessageProcessor> _messageProcessor = new (MockBehavior.Loose);
+        private readonly Mock<IMessageProcessor> _messageProcessor = new(MockBehavior.Loose);
 
         public static StudyEntity GetEntityDataFromStaticJson()
         {
@@ -44,7 +44,7 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
         [Test]
         public void ProcessMessage_UnitTesting()
         {
-            HelperV2 helper = new ();
+            HelperV2 helper = new();
 
             var currentVersion = GetEntityDataFromStaticJson();
             var previousVersion = GetEntityDataFromStaticJson();
@@ -54,7 +54,8 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
             previousVersion.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
             List<StudyEntity> studyEntities = new()
             {
-                currentVersion,previousVersion
+                currentVersion,
+                previousVersion
 
             };
             var difference = helper.GetChangedValues(currentVersion, previousVersion);
@@ -72,7 +73,7 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
                 .Returns(difference);
 
 
-            MessageProcessor processor = new (_mockChangeAuditRepository.Object, _mockHelper.Object);
+            MessageProcessor processor = new(_mockChangeAuditRepository.Object, _mockHelper.Object);
 
             string message = "{\"Study_uuid\":\"aaed3efe-7d70-4c9e-90e2-3446e936c291\",\"CurrentVersion\":2}";
 
@@ -89,7 +90,8 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
             var previousVersion1 = GetEntityDataFromStaticJson();
             List<StudyEntity> studyEntities1 = new()
             {
-                currentVersion,previousVersion
+                currentVersion,
+                previousVersion
 
             };
             //    currentVersion1.ClinicalStudy.StudyProtocolVersions[0].ProtocolStatus.Add(currentVersion1.ClinicalStudy.StudyProtocolVersions[0].ProtocolStatus);
@@ -111,7 +113,7 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
         [Test]
         public void ChangeAuditFunction_UnitTesting()
         {
-            ChangeAuditFunction changeAuditFunction = new (_messageProcessor.Object, _mockLogger1);
+            ChangeAuditFunction changeAuditFunction = new(_messageProcessor.Object, _mockLogger1);
             _messageProcessor.Setup(x => x.ProcessMessage(It.IsAny<string>()));
 
             changeAuditFunction.Run("unit test");
@@ -125,7 +127,7 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
         [Test]
         public void GetChangedValueUnitTesting()
         {
-            HelperV2 helper = new ();
+            HelperV2 helper = new();
 
             var currentVersion = GetEntityDataFromStaticJson();
             var previousVersion = GetEntityDataFromStaticJson();
@@ -165,7 +167,8 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
             previousVersion.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
             List<StudyEntity> studyEntities = new()
             {
-                currentVersion,previousVersion
+                currentVersion,
+                previousVersion
 
             };
             var difference = helper.GetChangedValues(currentVersion, previousVersion);
@@ -183,7 +186,7 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
                 .Returns(difference);
 
 
-            MessageProcessor processor = new (_mockChangeAuditRepository.Object, _mockHelper.Object);
+            MessageProcessor processor = new(_mockChangeAuditRepository.Object, _mockHelper.Object);
 
             string message = "{\"Study_uuid\":\"aaed3efe-7d70-4c9e-90e2-3446e936c291\",\"CurrentVersion\":2}";
 
@@ -199,12 +202,12 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
         [Test]
         public void ChangeAuditRepo_UnitTesting()
         {
-            Mock<IMongoDatabase> mongoDatabase = new (MockBehavior.Loose);
+            Mock<IMongoDatabase> mongoDatabase = new(MockBehavior.Loose);
             Mock<IMongoClient> mongoClient = new(MockBehavior.Loose);
-            Mock<IMongoCollection<StudyEntity>> mongoCollectionStudy = new (MockBehavior.Strict);
-            Mock<IMongoCollection<ChangeAuditStudyEntity>> mongoCollectionChangeAudit = new (MockBehavior.Strict);
-            Mock<IClientSessionHandle> mongoClientSessionHandle = new (MockBehavior.Loose);
-            Mock<IFindFluent<ChangeAuditStudyEntity, ChangeAuditStudyEntity>> _fakeCollectionResult = new ();
+            Mock<IMongoCollection<StudyEntity>> mongoCollectionStudy = new(MockBehavior.Strict);
+            Mock<IMongoCollection<ChangeAuditStudyEntity>> mongoCollectionChangeAudit = new(MockBehavior.Strict);
+            Mock<IClientSessionHandle> mongoClientSessionHandle = new(MockBehavior.Loose);
+            Mock<IFindFluent<ChangeAuditStudyEntity, ChangeAuditStudyEntity>> _fakeCollectionResult = new();
             var asyncCursor = new Mock<IAsyncCursor<ChangeAuditStudyEntity>>();
 
             mongoClient.Setup(x => x.GetDatabase(It.IsAny<string>(), null))
@@ -220,7 +223,7 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
 
 
 
-            ChangeAuditRepository changeAuditRepository = new (mongoClient.Object, _mockLogger);
+            ChangeAuditRepository changeAuditRepository = new(mongoClient.Object, _mockLogger);
 
             Assert.Throws<Moq.MockException>(() => changeAuditRepository.GetChangeAuditAsync(study_uuid));
             Assert.Throws<Moq.MockException>(() => changeAuditRepository.GetStudyItemsAsync(study_uuid, 1));

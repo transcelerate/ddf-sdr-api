@@ -18,7 +18,6 @@ using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
 using TransCelerate.SDR.DataAccess.Filters;
 using TransCelerate.SDR.RuleEngineV2;
-using TransCelerate.SDR.Services.Interfaces;
 
 namespace TransCelerate.SDR.UnitTesting
 {
@@ -26,7 +25,7 @@ namespace TransCelerate.SDR.UnitTesting
     {
         #region Variables
         private readonly IServiceCollection serviceDescriptors = Mock.Of<IServiceCollection>();
-        private readonly ILogHelper _mockLogger = Mock.Of<ILogHelper>();        
+        private readonly ILogHelper _mockLogger = Mock.Of<ILogHelper>();
         #endregion
         #region Setup
         readonly LoggedInUser user = new()
@@ -59,16 +58,16 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void HelpersUnitTesting()
         {
-            HelperV2 helper = new ();
+            HelperV2 helper = new();
             AuditTrailEntity auditTrailEntity = helper.GetAuditTrail(user.UserName);
-            Assert.IsInstanceOf(typeof(DateTime), auditTrailEntity.EntryDateTime);            
+            Assert.IsInstanceOf(typeof(DateTime), auditTrailEntity.EntryDateTime);
         }
 
         [Test]
         public void ApiBehaviourOptionsHelper()
         {
-            ApiBehaviourOptionsHelper apiBehaviourOptionsHelper = new (_mockLogger);
-            ActionContext context = new ();
+            ApiBehaviourOptionsHelper apiBehaviourOptionsHelper = new(_mockLogger);
+            ActionContext context = new();
             var studyDto = GetDtoDataFromStaticJson();
             studyDto.ClinicalStudy = null;
             var httpContextAccessor = new Mock<IHttpContextAccessor>();
@@ -78,7 +77,7 @@ namespace TransCelerate.SDR.UnitTesting
             httpContextAccessor.Setup(_ => _.HttpContext).Returns(contextAccessor);
 
 
-            StudyValidator studyValidator = new (httpContextAccessor.Object);
+            StudyValidator studyValidator = new(httpContextAccessor.Object);
             var errors = studyValidator.Validate(studyDto).Errors;
             context.ModelState.AddModelError("clinicalStudy", errors[0].ErrorMessage);
             var response = apiBehaviourOptionsHelper.ModelStateResponse(context);
@@ -89,7 +88,7 @@ namespace TransCelerate.SDR.UnitTesting
             studyDto = GetDtoDataFromStaticJson();
             studyDto.ClinicalStudy.StudyTitle = null;
 
-            ClinicalStudyValidator clinicalStudyValidator = new (httpContextAccessor.Object);
+            ClinicalStudyValidator clinicalStudyValidator = new(httpContextAccessor.Object);
             errors = clinicalStudyValidator.Validate(studyDto.ClinicalStudy).Errors;
             context.ModelState.AddModelError("Conformance", errors[0].ErrorMessage);
             response = apiBehaviourOptionsHelper.ModelStateResponse(context);
@@ -122,7 +121,7 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void AreValidStudyElementsUnitTesting()
         {
-            HelperV2 helper = new ();
+            HelperV2 helper = new();
             var listofelements = string.Join(",", Constants.ClinicalStudyElements);
             Assert.IsTrue(helper.AreValidStudyElements(listofelements, out string[] _));
             Assert.IsFalse(helper.AreValidStudyElements("a,b", out _));
@@ -130,7 +129,7 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void AreValidStudyDesignElementsUnitTesting()
         {
-            HelperV2 helper = new ();
+            HelperV2 helper = new();
             var listofelements = string.Join(",", Constants.StudyDesignElements);
             Assert.IsTrue(helper.AreValidStudyDesignElements(listofelements, out string[] _));
             Assert.IsFalse(helper.AreValidStudyDesignElements("a,b", out _));
@@ -138,7 +137,7 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void RemoveStudyElementsUnitTesting()
         {
-            HelperV2 helper = new ();
+            HelperV2 helper = new();
             var stringArray = Constants.ClinicalStudyElements.Where(x => x.StartsWith("s")).ToArray();
 
             Assert.IsNotNull(helper.RemoveStudyElements(stringArray, GetDtoDataFromStaticJson()));
@@ -148,7 +147,7 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void RemoveStudyDesignElementsUnitTesting()
         {
-            HelperV2 helper = new ();
+            HelperV2 helper = new();
             var stringArray = Constants.ClinicalStudyElements.Where(x => x.StartsWith("s")).ToArray();
 
             Assert.IsNotNull(helper.RemoveStudyDesignElements(stringArray, GetDtoDataFromStaticJson().ClinicalStudy.StudyDesigns, "a"));
@@ -275,7 +274,7 @@ namespace TransCelerate.SDR.UnitTesting
             studyDto.ClinicalStudy.StudyDesigns[0].StudyEstimands[0].Id = "124";
             studyDto.ClinicalStudy.StudyDesigns[0].StudyEstimands[0].Treatment = "124";
 
-            HelperV2 helper = new ();
+            HelperV2 helper = new();
             var result = helper.ReferenceIntegrityValidation(studyDto, out object _);
             Assert.IsTrue(result);
 
@@ -287,7 +286,7 @@ namespace TransCelerate.SDR.UnitTesting
         public void RemoveIdsUnitTesting()
         {
             var study = GetEntityDataFromStaticJson();
-            HelperV2 helperV2 = new ();
+            HelperV2 helperV2 = new();
             helperV2.RemovedSectionId(study);
             Assert.IsNull(study.ClinicalStudy.StudyIdentifiers[0].Id);
         }
