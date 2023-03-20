@@ -42,7 +42,7 @@ namespace TransCelerate.SDR.Core.Entities.Common
     }
     [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
     public class CommonCodeEntity
-    {        
+    {
         public string Id { get; set; }
         public string Code { get; set; }
         public string CodeSystem { get; set; }

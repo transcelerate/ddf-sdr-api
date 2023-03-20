@@ -1,15 +1,14 @@
 ﻿using Newtonsoft.Json;
-using TransCelerate.SDR.Core.DTO.Common;
 
 namespace TransCelerate.SDR.Core.DTO.eCPT
 {
-    public  class StudyDetailsDto
+    public class StudyDetailsDto
     {
         public string StudyId { get; set; }
         public string StudyTitle { get; set; }
         public string UsdmVersion { get; set; }
 
-        [JsonProperty("SDRUploadVersion")]
+        [JsonProperty(nameof(SDRUploadVersion))]
         public int SDRUploadVersion { get; set; }
         public object Links { get; set; }
     }

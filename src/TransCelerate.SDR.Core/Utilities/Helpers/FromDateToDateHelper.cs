@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
 {
@@ -18,7 +14,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <param name="toDate">To Date</param>
         /// <param name="range">Date Range for which the from date have to be formatted (used for studyHistory endpoint).</param>
         /// <returns></returns>
-        public static Tuple<DateTime,DateTime> GetFromAndToDate(DateTime fromDate, DateTime toDate, int range)
+        public static Tuple<DateTime, DateTime> GetFromAndToDate(DateTime fromDate, DateTime toDate, int range)
         {
             if (fromDate != DateTime.MinValue)
             {
@@ -41,7 +37,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             if (toDate != DateTime.MinValue)
             {
                 toDate = toDate.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
-            }            
+            }
 
             return Tuple.Create(fromDate, toDate);
         }

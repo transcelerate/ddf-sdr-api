@@ -3,16 +3,15 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities.StudyV2;
+using TransCelerate.SDR.Core.Entities.UserGroups;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
-using TransCelerate.SDR.DataAccess.Interfaces;
-using TransCelerate.SDR.DataAccess.Filters;
-using TransCelerate.SDR.Core.Entities.UserGroups;
-using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Utilities.Helpers;
+using TransCelerate.SDR.DataAccess.Filters;
+using TransCelerate.SDR.DataAccess.Interfaces;
 
 namespace TransCelerate.SDR.DataAccess.Repositories
 {
@@ -28,13 +27,15 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         #endregion
 
         #region Constructor      
-        public ClinicalStudyRepositoryV2(IMongoClient client, ILogHelper logger, IChangeAuditRepository changeAuditRepository)
+        public ClinicalStudyRepositoryV2(IMongoClient client, ILogHelper logger)
         {
             _client = client;
             _database = _client.GetDatabase(_databaseName);
             _logger = logger;
-            var conventionPack = new ConventionPack();
-            conventionPack.Add(new CamelCaseElementNameConvention());
+            var conventionPack = new ConventionPack
+            {
+                new CamelCaseElementNameConvention()
+            };
             ConventionRegistry.Register("camelCase", conventionPack, t => true);
         }
         #endregion
@@ -62,7 +63,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 StudyEntity study = await collection.Find(DataFiltersV2.GetFiltersForGetStudy(studyId, sdruploadversion))
                                                      .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
                                                      .Limit(1)                  //Taking top 1 result
-                                                     .SingleOrDefaultAsync().ConfigureAwait(false);            
+                                                     .SingleOrDefaultAsync().ConfigureAwait(false);
 
                 if (study == null)
                 {
@@ -183,13 +184,13 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             try
             {
                 var collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
-                List<AuditTrailResponseEntity> auditTrails = new List<AuditTrailResponseEntity>();
+                List<AuditTrailResponseEntity> auditTrails = new();
                 auditTrails = await collection.Find(DataFiltersV2.GetFiltersForGetAudTrail(studyId, fromDate, toDate)) // Condition for matching studyId and date range
                                                   .Project(x => new AuditTrailResponseEntity
                                                   {
                                                       StudyType = x.ClinicalStudy.StudyType,
                                                       EntryDateTime = x.AuditTrail.EntryDateTime,
-                                                      UsdmVersion= x.AuditTrail.UsdmVersion,
+                                                      UsdmVersion = x.AuditTrail.UsdmVersion,
                                                       SDRUploadVersion = x.AuditTrail.SDRUploadVersion
                                                   })
                                                   .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
@@ -251,7 +252,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
                 studyHistories = GroupFilterForStudyHistory(studyHistories, user);
 
-                if (studyHistories.Count() == 0)
+                if (studyHistories.Count == 0)
                 {
                     _logger.LogWarning($"There are no Study in {Constants.Collections.StudyDefinitions} Collection");
                     return null;
@@ -272,7 +273,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         }
         public List<StudyHistoryResponseEntity> GroupFilterForStudyHistory(List<StudyHistoryResponseEntity> studyHistoryEntities, LoggedInUser user)
         {
-            if (user.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+            if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
             {
                 var groups = GetGroupsOfUser(user).Result;
 
@@ -310,7 +311,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             try
             {
                 IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
-                
+
                 await collection.InsertOneAsync(study).ConfigureAwait(false); //Insert One Document                
                 return (study.ClinicalStudy.StudyId);
             }
@@ -340,7 +341,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             try
             {
                 IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
-                
+
                 UpdateDefinition<StudyEntity> updateDefinition = Builders<StudyEntity>.Update
                                     .Set(s => s.ClinicalStudy, study.ClinicalStudy)
                                     .Set(s => s.AuditTrail, study.AuditTrail);
@@ -371,9 +372,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
                 return await groupsCollection.Find(_ => true)
                                                  .Project(x => x.SDRGroups
-                                                               .Where(x => x.groupEnabled == true)
-                                                               .Where(x => x.users != null)
-                                                               .Where(x => x.users.Any(x => (x.email == user.UserName && x.isActive == true)))
+                                                               .Where(x => x.GroupEnabled == true)
+                                                               .Where(x => x.Users != null)
+                                                               .Where(x => x.Users.Any(x => (x.Email == user.UserName && x.IsActive == true)))
                                                                .ToList())
                                                  .FirstOrDefaultAsync().ConfigureAwait(false);
             }
@@ -495,7 +496,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 AuditTrailEntity auditTrail = await collection.Find(DataFiltersV2.GetFiltersForGetAuditTrailOfAStudy(studyId, sdruploadversion))
                                                      .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
                                                      .Limit(1)                  //Taking top 1 result
-                                                     .Project(x=>x.AuditTrail)
+                                                     .Project(x => x.AuditTrail)
                                                      .SingleOrDefaultAsync().ConfigureAwait(false);
 
                 if (auditTrail == null)

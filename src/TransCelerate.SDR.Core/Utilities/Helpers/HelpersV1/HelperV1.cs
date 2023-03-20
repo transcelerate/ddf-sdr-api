@@ -1,16 +1,10 @@
-﻿using Azure.Messaging.ServiceBus;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TransCelerate.SDR.Core.DTO.StudyV1;
 using TransCelerate.SDR.Core.Entities.StudyV1;
-using TransCelerate.SDR.Core.Utilities.Common;
-using ObjectsComparer;
-using TransCelerate.SDR.Core.Utilities.Helpers;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
 {
@@ -205,7 +199,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                         x.ObjectiveEndpoints.ForEach(y =>
                         {
                             y.Uuid = IdGenerator.GenerateId();
-                            if(y.EndpointLevel is not null && y.EndpointLevel.Any())
+                            if (y.EndpointLevel is not null && y.EndpointLevel.Any())
                                 y.EndpointLevel.ForEach(z => z.Uuid = IdGenerator.GenerateId());
                         });
                     }
@@ -306,8 +300,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                                     y.WorkflowItemActivity.DefinedProcedures.ForEach(procedure =>
                                     {
                                         procedure.Uuid = IdGenerator.GenerateId();
-                                        if(procedure.ProcedureCode is not null)
-                                            procedure.ProcedureCode.ForEach(y=>y.Uuid=IdGenerator.GenerateId());
+                                        if (procedure.ProcedureCode is not null)
+                                            procedure.ProcedureCode.ForEach(y => y.Uuid = IdGenerator.GenerateId());
                                     });
                                 }
                                 if (y.WorkflowItemActivity.StudyDataCollection is not null && y.WorkflowItemActivity.StudyDataCollection.Any())
@@ -357,14 +351,14 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                     if (x.Treatment is not null)
                     {
                         x.Treatment.Uuid = IdGenerator.GenerateId();
-                        if(x.Treatment.Codes is not null && x.Treatment.Codes.Any())
+                        if (x.Treatment.Codes is not null && x.Treatment.Codes.Any())
                             x.Treatment.Codes.ForEach(y => y.Uuid = IdGenerator.GenerateId());
-                    }                       
+                    }
 
                     if (x.AnalysisPopulation is not null)
                         x.AnalysisPopulation.Uuid = IdGenerator.GenerateId();
 
-                    if(x.VariableOfInterest is not null)
+                    if (x.VariableOfInterest is not null)
                     {
                         x.VariableOfInterest.Uuid = IdGenerator.GenerateId();
                         if (x.VariableOfInterest.EndpointLevel is not null && x.VariableOfInterest.EndpointLevel.Any())
@@ -375,7 +369,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                     {
                         x.IntercurrentEvents.ForEach(y =>
                         {
-                            y.Uuid = IdGenerator.GenerateId();                            
+                            y.Uuid = IdGenerator.GenerateId();
                         });
                     }
                 });
@@ -556,7 +550,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                         x.ObjectiveEndpoints.ForEach(y =>
                         {
                             y.Uuid = null;
-                            if(y.EndpointLevel is not null && y.EndpointLevel.Any())
+                            if (y.EndpointLevel is not null && y.EndpointLevel.Any())
                                 y.EndpointLevel.ForEach(z => z.Uuid = null);
                         });
                     }
@@ -580,7 +574,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                     {
                         x.StudyArm.Uuid = null;
                         if (x.StudyArm.StudyArmDataOriginType is not null && x.StudyArm.StudyArmDataOriginType.Any())
-                            x.StudyArm.StudyArmDataOriginType.ForEach(y => y.Uuid =null);
+                            x.StudyArm.StudyArmDataOriginType.ForEach(y => y.Uuid = null);
                         if (x.StudyArm.StudyArmType is not null && x.StudyArm.StudyArmType.Any())
                             x.StudyArm.StudyArmType.ForEach(y => y.Uuid = null);
                     }
@@ -653,11 +647,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                                 y.WorkflowItemActivity.Uuid = null;
                                 if (y.WorkflowItemActivity.DefinedProcedures is not null && y.WorkflowItemActivity.DefinedProcedures.Any())
                                 {
-                                    y.WorkflowItemActivity.DefinedProcedures.ForEach(procedure => { 
-                                        
+                                    y.WorkflowItemActivity.DefinedProcedures.ForEach(procedure =>
+                                    {
+
                                         procedure.Uuid = null;
                                         if (procedure.ProcedureCode is not null)
-                                            procedure.ProcedureCode.ForEach(y => y.Uuid =null);
+                                            procedure.ProcedureCode.ForEach(y => y.Uuid = null);
                                     });
                                 }
                                 if (y.WorkflowItemActivity.StudyDataCollection is not null && y.WorkflowItemActivity.StudyDataCollection.Any())
@@ -709,7 +704,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                         x.Treatment.Uuid = null;
                         if (x.Treatment.Codes is not null && x.Treatment.Codes.Any())
                             x.Treatment.Codes.ForEach(y => y.Uuid = null);
-                    }    
+                    }
 
                     if (x.AnalysisPopulation is not null)
                         x.AnalysisPopulation.Uuid = null;
@@ -749,7 +744,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                 var duplicateIncomingStudy = JsonConvert.DeserializeObject<StudyEntity>(JsonConvert.SerializeObject(incoming)); // Creating duplicates for incoming entity
 
                 duplicateIncomingStudy.AuditTrail = duplicateExistingStudy.AuditTrail = null;
-                duplicateIncomingStudy._id = duplicateExistingStudy._id = null;
+                duplicateIncomingStudy.Id = duplicateExistingStudy.Id = null;
 
                 return JsonObjectCheck(RemovedSectionId(duplicateIncomingStudy), RemovedSectionId(duplicateExistingStudy));
             }
@@ -798,7 +793,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                 incoming.ClinicalStudy.StudyPhase.Uuid = IdGenerator.GenerateId();
             else if (existing.ClinicalStudy.StudyPhase is not null && incoming.ClinicalStudy.StudyPhase is not null)
                 incoming.ClinicalStudy.StudyPhase.Uuid = String.IsNullOrWhiteSpace(incoming.ClinicalStudy.StudyPhase.Uuid) ? IdGenerator.GenerateId() : incoming.ClinicalStudy.StudyPhase.Uuid;
-            
+
             incoming.ClinicalStudy.StudyIdentifiers = CheckForStudyIdentifierSection(incoming.ClinicalStudy.StudyIdentifiers,
                                                                                      existing.ClinicalStudy.StudyIdentifiers);
 
@@ -818,12 +813,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         {
             if (incomingStudyIdentifiers is not null && existingStudyIdentifiers is not null)
             {
-                List<StudyIdentifierEntity> studyIdentifiers = new List<StudyIdentifierEntity>();
+                List<StudyIdentifierEntity> studyIdentifiers = new();
                 incomingStudyIdentifiers.ForEach(x =>
                 {
                     if (existingStudyIdentifiers.Any(y => y.Uuid == x.Uuid))
                     {
-                        if(x.StudyIdentifierScope is not null)
+                        if (x.StudyIdentifierScope is not null)
                         {
                             x.StudyIdentifierScope.Uuid = String.IsNullOrEmpty(x.StudyIdentifierScope.Uuid) ? IdGenerator.GenerateId() : x.StudyIdentifierScope.Uuid;
                             if (x.StudyIdentifierScope.OrganisationType is not null)
@@ -855,7 +850,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         {
             if (incomingStudyProtocolVersions is not null && existingStudyProtocolVersions is not null)
             {
-                List<StudyProtocolVersionEntity> studyProtocols = new List<StudyProtocolVersionEntity>();
+                List<StudyProtocolVersionEntity> studyProtocols = new();
                 incomingStudyProtocolVersions.ForEach(x =>
                 {
                     if (existingStudyProtocolVersions.Any(y => y.Uuid == x.Uuid))
@@ -887,7 +882,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         {
             if (incomingCodes is not null && existingCodes is not null)
             {
-                List<CodeEntity> codes = new List<CodeEntity>();
+                List<CodeEntity> codes = new();
                 incomingCodes.ForEach(x =>
                 {
                     if (existingCodes.Any(y => y.Uuid == x.Uuid))
@@ -919,12 +914,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         {
             if (incomingStudyDesigns is not null && existingStudyDesigns is not null)
             {
-                List<StudyDesignEntity> studyDesigns = new List<StudyDesignEntity>();
+                List<StudyDesignEntity> studyDesigns = new();
                 incomingStudyDesigns.ForEach(x =>
                 {
                     if (existingStudyDesigns.Any(y => y.Uuid == x.Uuid))
                     {
-                        ParallelOptions parallelOptions = new ParallelOptions
+                        ParallelOptions parallelOptions = new()
                         {
                             MaxDegreeOfParallelism = 4
                         };
@@ -966,7 +961,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         {
             if (incomingIndications is not null && exisitingIndications is not null)
             {
-                List<IndicationEntity> indications = new List<IndicationEntity>();
+                List<IndicationEntity> indications = new();
                 incomingIndications.ForEach(x =>
                 {
                     if (exisitingIndications.Any(y => y.Uuid == x.Uuid))
@@ -998,7 +993,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         {
             if (incomingInvestigationalInterventions is not null && existingInvestigationalInterventions is not null)
             {
-                List<InvestigationalInterventionEntity> investigationalInterventions = new List<InvestigationalInterventionEntity>();
+                List<InvestigationalInterventionEntity> investigationalInterventions = new();
                 incomingInvestigationalInterventions.ForEach(x =>
                 {
                     if (existingInvestigationalInterventions.Any(y => y.Uuid == x.Uuid))
@@ -1030,7 +1025,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         {
             if (incomingStudyDesignPopulations is not null && existingStudyDesignPopulations is not null)
             {
-                List<StudyDesignPopulationEntity> studyDesignPopulations = new List<StudyDesignPopulationEntity>();
+                List<StudyDesignPopulationEntity> studyDesignPopulations = new();
                 incomingStudyDesignPopulations.ForEach(x =>
                 {
                     if (existingStudyDesignPopulations.Any(y => y.Uuid == x.Uuid))
@@ -1062,7 +1057,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         {
             if (incomingObjectives is not null && existingObjectives is not null)
             {
-                List<ObjectiveEntity> studyObjectives = new List<ObjectiveEntity>();
+                List<ObjectiveEntity> studyObjectives = new();
                 incomingObjectives.ForEach(x =>
                 {
                     if (existingObjectives.Any(y => y.Uuid == x.Uuid))
@@ -1095,7 +1090,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         {
             if (incomingEndpoints is not null && existingEndpoints is not null)
             {
-                List<EndpointEntity> studyEndpoints = new List<EndpointEntity>();
+                List<EndpointEntity> studyEndpoints = new();
                 incomingEndpoints.ForEach(x =>
                 {
                     if (existingEndpoints.Any(y => y.Uuid == x.Uuid))
@@ -1119,7 +1114,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                 incomingEndpoints.ForEach(x =>
                 {
                     x.Uuid = IdGenerator.GenerateId();
-                    if(x.EndpointLevel is not null && x.EndpointLevel.Any())
+                    if (x.EndpointLevel is not null && x.EndpointLevel.Any())
                         x.EndpointLevel.ForEach(x => x.Uuid = IdGenerator.GenerateId());
                 });
             }
@@ -1135,7 +1130,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         {
             if (incomingStudyCells is not null && existingStudyCells is not null)
             {
-                List<StudyCellEntity> studyCells = new List<StudyCellEntity>();
+                List<StudyCellEntity> studyCells = new();
                 incomingStudyCells.ForEach(x =>
                 {
                     if (existingStudyCells.Any(y => y.Uuid == x.Uuid))
@@ -1143,21 +1138,21 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                         if (x.StudyArm is not null && existingStudyCells.Find(y => y.Uuid == x.Uuid).StudyArm is null)
                         {
                             x.StudyArm.Uuid = IdGenerator.GenerateId();
-                            if(x.StudyArm.StudyArmDataOriginType is not null && x.StudyArm.StudyArmDataOriginType.Any())
+                            if (x.StudyArm.StudyArmDataOriginType is not null && x.StudyArm.StudyArmDataOriginType.Any())
                                 x.StudyArm.StudyArmDataOriginType.ForEach(y => y.Uuid = IdGenerator.GenerateId());
-                            if(x.StudyArm.StudyArmType is not null && x.StudyArm.StudyArmType.Any())
+                            if (x.StudyArm.StudyArmType is not null && x.StudyArm.StudyArmType.Any())
                                 x.StudyArm.StudyArmType.ForEach(y => y.Uuid = IdGenerator.GenerateId());
                         }
                         else if (x.StudyArm is not null && existingStudyCells.Find(y => y.Uuid == x.Uuid).StudyArm is not null)
                         {
-                            if(String.IsNullOrWhiteSpace(x.StudyArm.Uuid))
+                            if (String.IsNullOrWhiteSpace(x.StudyArm.Uuid))
                             {
                                 x.StudyArm.Uuid = IdGenerator.GenerateId();
                                 x.StudyArm.StudyArmDataOriginType?.ForEach(y => y.Uuid = IdGenerator.GenerateId());
                                 x.StudyArm.StudyArmType?.ForEach(y => y.Uuid = IdGenerator.GenerateId());
                             }
                             else
-                            {                                
+                            {
                                 x.StudyArm.StudyArmDataOriginType = CheckForCodeSection(x.StudyArm.StudyArmDataOriginType, existingStudyCells.Find(y => y.Uuid == x.Uuid).StudyArm.StudyArmDataOriginType);
                                 x.StudyArm.StudyArmType = CheckForCodeSection(x.StudyArm.StudyArmType, existingStudyCells.Find(y => y.Uuid == x.Uuid).StudyArm.StudyArmType);
                             }
@@ -1165,7 +1160,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                         if (x.StudyEpoch is not null && existingStudyCells.Find(y => y.Uuid == x.Uuid).StudyEpoch is null)
                         {
                             x.StudyEpoch.Uuid = IdGenerator.GenerateId();
-                            if(x.StudyEpoch.StudyEpochType is not null && x.StudyEpoch.StudyEpochType.Any())
+                            if (x.StudyEpoch.StudyEpochType is not null && x.StudyEpoch.StudyEpochType.Any())
                                 x.StudyEpoch.StudyEpochType.ForEach(y => y.Uuid = IdGenerator.GenerateId());
                             if (x.StudyEpoch.Encounters is not null && x.StudyEpoch.Encounters.Any())
                             {
@@ -1194,7 +1189,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                         }
                         else if (x.StudyEpoch is not null && existingStudyCells.Find(y => y.Uuid == x.Uuid).StudyEpoch is not null)
                         {
-                            if(String.IsNullOrWhiteSpace(x.StudyEpoch.Uuid))
+                            if (String.IsNullOrWhiteSpace(x.StudyEpoch.Uuid))
                             {
                                 x.StudyEpoch.Uuid = IdGenerator.GenerateId();
                                 x.StudyEpoch.StudyEpochType?.ForEach(y => y.Uuid = IdGenerator.GenerateId());
@@ -1227,9 +1222,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                                 x.StudyEpoch.StudyEpochType = CheckForCodeSection(x.StudyEpoch.StudyEpochType, existingStudyCells.Find(y => y.Uuid == x.Uuid).StudyEpoch.StudyEpochType);
                                 x.StudyEpoch.Encounters = CheckForEncounterListSection(x.StudyEpoch.Encounters, existingStudyCells.Find(y => y.Uuid == x.Uuid).StudyEpoch.Encounters);
                             }
-                            
+
                         }
-                        x.StudyElements = CheckForStudyElementsSection(x.StudyElements, existingStudyCells.Find(y => y.Uuid == x.Uuid).StudyElements);                        
+                        x.StudyElements = CheckForStudyElementsSection(x.StudyElements, existingStudyCells.Find(y => y.Uuid == x.Uuid).StudyElements);
                         studyCells.Add(x);
                         existingStudyCells.RemoveAll(y => y.Uuid == x.Uuid);
                     }
@@ -1256,7 +1251,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         {
             if (incomingEncounters is not null && existingEncounters is not null)
             {
-                List<EncounterEntity> encounters = new List<EncounterEntity>();
+                List<EncounterEntity> encounters = new();
                 incomingEncounters.ForEach(x =>
                 {
                     if (existingEncounters.Any(y => y.Uuid == x.Uuid))
@@ -1314,7 +1309,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         {
             if (incomingStudyElements is not null && existingStudyElements is not null)
             {
-                List<StudyElementEntity> studyElements = new List<StudyElementEntity>();
+                List<StudyElementEntity> studyElements = new();
                 incomingStudyElements.ForEach(x =>
                 {
                     if (existingStudyElements.Any(y => y.Uuid == x.Uuid))
@@ -1323,7 +1318,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                             x.TransitionEndRule.Uuid = String.IsNullOrWhiteSpace(x.TransitionEndRule.Uuid) ? IdGenerator.GenerateId() : x.TransitionEndRule.Uuid;
 
                         if (x.TransitionStartRule is not null)
-                            x.TransitionStartRule.Uuid = String.IsNullOrWhiteSpace(x.TransitionStartRule.Uuid) ? IdGenerator.GenerateId() : x.TransitionStartRule.Uuid;                        
+                            x.TransitionStartRule.Uuid = String.IsNullOrWhiteSpace(x.TransitionStartRule.Uuid) ? IdGenerator.GenerateId() : x.TransitionStartRule.Uuid;
 
                         studyElements.Add(x);
                         existingStudyElements.RemoveAll(y => y.Uuid == x.Uuid);
@@ -1342,7 +1337,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
             }
             else if (incomingStudyElements is not null && existingStudyElements is null)
             {
-                incomingStudyElements.ForEach(x => 
+                incomingStudyElements.ForEach(x =>
                 {
                     x.Uuid = IdGenerator.GenerateId();
                     if (x.TransitionEndRule is not null)
@@ -1363,7 +1358,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         {
             if (incomingStudyDataCollections is not null && existingStudyDataCollections is not null)
             {
-                List<StudyDataCollectionEntity> studyDataCollections = new List<StudyDataCollectionEntity>();
+                List<StudyDataCollectionEntity> studyDataCollections = new();
                 incomingStudyDataCollections.ForEach(x =>
                 {
                     if (existingStudyDataCollections.Any(y => y.Uuid == x.Uuid))
@@ -1395,7 +1390,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         {
             if (incomingWorkflows is not null && existingWorkflows is not null)
             {
-                List<WorkflowEntity> workflows = new List<WorkflowEntity>();
+                List<WorkflowEntity> workflows = new();
                 incomingWorkflows.ForEach(x =>
                 {
                     if (existingWorkflows.Any(y => y.Uuid == x.Uuid))
@@ -1428,14 +1423,14 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         {
             if (incomingWorkflowItems is not null && existingWorkflowItems is not null)
             {
-                List<WorkFlowItemEntity> workFlowItems = new List<WorkFlowItemEntity>();
+                List<WorkFlowItemEntity> workFlowItems = new();
                 incomingWorkflowItems.ForEach(x =>
                 {
                     if (existingWorkflowItems.Any(y => y.Uuid == x.Uuid))
                     {
                         if (x.WorkflowItemEncounter is not null && existingWorkflowItems.Find(y => y.Uuid == x.Uuid).WorkflowItemEncounter is not null)
                         {
-                            if(String.IsNullOrWhiteSpace(x.WorkflowItemEncounter.Uuid))
+                            if (String.IsNullOrWhiteSpace(x.WorkflowItemEncounter.Uuid))
                             {
                                 x.WorkflowItemEncounter.Uuid = IdGenerator.GenerateId();
                                 x.WorkflowItemEncounter.EncounterContactMode?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
@@ -1452,7 +1447,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                                 x.WorkflowItemEncounter.EncounterEnvironmentalSetting = CheckForCodeSection(x.WorkflowItemEncounter.EncounterEnvironmentalSetting, existingWorkflowItems.Find(y => y.Uuid == x.Uuid).WorkflowItemEncounter.EncounterEnvironmentalSetting);
                                 x.WorkflowItemEncounter.EncounterType = CheckForCodeSection(x.WorkflowItemEncounter.EncounterType, existingWorkflowItems.Find(y => y.Uuid == x.Uuid).WorkflowItemEncounter.EncounterType);
                                 if (x.WorkflowItemEncounter.TransitionStartRule is not null)
-                                    x.WorkflowItemEncounter.TransitionStartRule.Uuid = String.IsNullOrWhiteSpace(x.WorkflowItemEncounter.TransitionStartRule.Uuid) ? IdGenerator.GenerateId(): x.WorkflowItemEncounter.TransitionStartRule.Uuid;
+                                    x.WorkflowItemEncounter.TransitionStartRule.Uuid = String.IsNullOrWhiteSpace(x.WorkflowItemEncounter.TransitionStartRule.Uuid) ? IdGenerator.GenerateId() : x.WorkflowItemEncounter.TransitionStartRule.Uuid;
                                 if (x.WorkflowItemEncounter.TransitionEndRule is not null)
                                     x.WorkflowItemEncounter.TransitionEndRule.Uuid = String.IsNullOrWhiteSpace(x.WorkflowItemEncounter.TransitionEndRule.Uuid) ? IdGenerator.GenerateId() : x.WorkflowItemEncounter.TransitionEndRule.Uuid;
                             }
@@ -1470,7 +1465,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                         }
                         if (x.WorkflowItemActivity is not null && existingWorkflowItems.Find(y => y.Uuid == x.Uuid).WorkflowItemActivity is not null)
                         {
-                            if(String.IsNullOrWhiteSpace(x.WorkflowItemActivity.Uuid))
+                            if (String.IsNullOrWhiteSpace(x.WorkflowItemActivity.Uuid))
                             {
                                 x.WorkflowItemActivity.Uuid = IdGenerator.GenerateId();
                                 if (x.WorkflowItemActivity.DefinedProcedures is not null && x.WorkflowItemActivity.DefinedProcedures.Any())
@@ -1489,7 +1484,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                             }
                             else
                             {
-                                
+
                                 x.WorkflowItemActivity.DefinedProcedures = CheckForDefinedProceduresSection(x.WorkflowItemActivity.DefinedProcedures, existingWorkflowItems.Find(y => y.Uuid == x.Uuid).WorkflowItemActivity.DefinedProcedures);
                                 x.WorkflowItemActivity.StudyDataCollection = CheckForStudyDataCollectionSection(x.WorkflowItemActivity.StudyDataCollection, existingWorkflowItems.Find(y => y.Uuid == x.Uuid).WorkflowItemActivity.StudyDataCollection);
                             }
@@ -1598,7 +1593,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         {
             if (incomingDefinedProcedures is not null && exisitingDefinedProcedures is not null)
             {
-                List<DefinedProcedureEntity> definedProcedures = new List<DefinedProcedureEntity>();
+                List<DefinedProcedureEntity> definedProcedures = new();
                 incomingDefinedProcedures.ForEach(x =>
                 {
                     if (exisitingDefinedProcedures.Any(y => y.Uuid == x.Uuid))
@@ -1636,20 +1631,20 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         {
             if (incomingEstimands is not null && existingEstimands is not null)
             {
-                List<EstimandEntity> estimands = new List<EstimandEntity>();
+                List<EstimandEntity> estimands = new();
                 incomingEstimands.ForEach(x =>
                 {
                     if (existingEstimands.Any(y => y.Uuid == x.Uuid))
                     {
                         if (x.Treatment is not null && existingEstimands.Find(y => y.Uuid == x.Uuid).Treatment is not null)
                         {
-                            if(String.IsNullOrWhiteSpace(x.Treatment.Uuid))
+                            if (String.IsNullOrWhiteSpace(x.Treatment.Uuid))
                             {
                                 x.Treatment.Uuid = IdGenerator.GenerateId();
                                 x.Treatment.Codes?.ForEach(x => x.Uuid = IdGenerator.GenerateId());
                             }
                             else
-                            {                                
+                            {
                                 x.Treatment.Codes = CheckForCodeSection(x.Treatment.Codes, existingEstimands.Find(y => y.Uuid == x.Uuid).Treatment.Codes);
                             }
                         }
@@ -1660,15 +1655,15 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                         }
                         if (x.AnalysisPopulation is not null)
                         {
-                            x.AnalysisPopulation.Uuid = String.IsNullOrWhiteSpace(x.AnalysisPopulation.Uuid) ? IdGenerator.GenerateId() : x.AnalysisPopulation.Uuid; 
+                            x.AnalysisPopulation.Uuid = String.IsNullOrWhiteSpace(x.AnalysisPopulation.Uuid) ? IdGenerator.GenerateId() : x.AnalysisPopulation.Uuid;
                         }
                         if (x.VariableOfInterest is not null && existingEstimands.Find(y => y.Uuid == x.Uuid).VariableOfInterest is not null)
-                        {                           
-                            if(String.IsNullOrWhiteSpace(x.VariableOfInterest.Uuid))
+                        {
+                            if (String.IsNullOrWhiteSpace(x.VariableOfInterest.Uuid))
                             {
-                                x.VariableOfInterest.Uuid =  IdGenerator.GenerateId();
+                                x.VariableOfInterest.Uuid = IdGenerator.GenerateId();
                                 if (x.VariableOfInterest.EndpointLevel is not null && x.VariableOfInterest.EndpointLevel.Any())
-                                    x.VariableOfInterest.EndpointLevel.ForEach(z => z.Uuid = IdGenerator.GenerateId());                             
+                                    x.VariableOfInterest.EndpointLevel.ForEach(z => z.Uuid = IdGenerator.GenerateId());
                             }
                             else
                             {
@@ -1709,11 +1704,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         {
             if (incomingInterCurrentEvents is not null && exisitingInterCurrentEvents is not null)
             {
-                List<InterCurrentEventEntity> interCurrentEvents = new List<InterCurrentEventEntity>();
+                List<InterCurrentEventEntity> interCurrentEvents = new();
                 incomingInterCurrentEvents.ForEach(x =>
                 {
                     if (exisitingInterCurrentEvents.Any(y => y.Uuid == x.Uuid))
-                    {                        
+                    {
                         interCurrentEvents.Add(x);
                         exisitingInterCurrentEvents.RemoveAll(y => y.Uuid == x.Uuid);
                     }

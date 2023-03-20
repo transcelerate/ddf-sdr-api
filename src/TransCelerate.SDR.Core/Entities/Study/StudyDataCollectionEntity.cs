@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization.Attributes;
 
 namespace TransCelerate.SDR.Core.Entities.Study
 {
     public class StudyDataCollectionEntity
     {
-        [BsonElement("id")]
-        public string studyDataCollectionId { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public string eCRFLink { get; set; }
+        [BsonElement(Utilities.Common.IdFieldPropertyName.MVP.Id)]
+        public string StudyDataCollectionId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string ECRFLink { get; set; }
     }
 }

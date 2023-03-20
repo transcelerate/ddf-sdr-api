@@ -1,9 +1,6 @@
-﻿using Microsoft.Azure.Amqp;
-using Newtonsoft.Json;
-
-namespace TransCelerate.SDR.Core.DTO.eCPT
+﻿namespace TransCelerate.SDR.Core.DTO.eCPT
 {
-    public  class TitlePageDto
+    public class TitlePageDto
     {
         public string Acronym { get; set; }
         public string AmendmentNumber { get; set; }

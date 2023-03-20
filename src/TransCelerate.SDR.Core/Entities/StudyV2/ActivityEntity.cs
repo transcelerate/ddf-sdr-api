@@ -4,7 +4,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
     [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
     [MongoDB.Bson.Serialization.Attributes.BsonNoId]
-    public class ActivityEntity : Iid
+    public class ActivityEntity : IId
     {
         [MongoDB.Bson.Serialization.Attributes.BsonElement(Utilities.Common.IdFieldPropertyName.StudyV2.ActivityId)]
         public string Id { get; set; }
@@ -15,9 +15,9 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
         public string PreviousActivityId { get; set; }
         public bool ActivityIsConditional { get; set; }
         public string ActivityIsConditionalReason { get; set; }
-        public List<string> BcCategoryIds { get;set; }
-        public List<string> BcSurrogateIds { get;set; }
-        public List<string> BiomedicalConceptIds { get;set; }
-        public string ActivityTimelineId { get;set; }
+        public List<string> BcCategoryIds { get; set; }
+        public List<string> BcSurrogateIds { get; set; }
+        public List<string> BiomedicalConceptIds { get; set; }
+        public string ActivityTimelineId { get; set; }
     }
 }

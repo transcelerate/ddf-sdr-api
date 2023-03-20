@@ -1,10 +1,9 @@
-﻿using MongoDB.Bson;
+﻿using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities;
@@ -34,6 +33,11 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _client = client;
             _database = _client.GetDatabase(_databaseName);
             _logger = logger;
+            var conventionPack = new ConventionPack
+            {
+                new CamelCaseElementNameConvention()
+            };
+            ConventionRegistry.Register("camelCase", conventionPack, t => true);
         }
         #endregion
 
@@ -59,8 +63,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 StudyEntity _study;
                 if (version == 0)
                 {
-                    _study = await collection.Find(s => s.clinicalStudy.studyId == studyId && s.auditTrail.UsdmVersion == Constants.USDMVersions.MVP)  // Condition for matching studyId
-                                             .SortByDescending(s => s.auditTrail.entryDateTime) // Sort by descending on entryDateTime
+                    _study = await collection.Find(s => s.ClinicalStudy.StudyId == studyId && s.AuditTrail.UsdmVersion == Constants.USDMVersions.MVP)  // Condition for matching studyId
+                                             .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
                                              .Limit(1)                  //Taking top 1 result
                                              .SingleOrDefaultAsync().ConfigureAwait(false);
 
@@ -68,9 +72,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 else
                 {
                     _study = await collection.Find(s =>
-                                                (s.clinicalStudy.studyId == studyId
-                                                 && s.auditTrail.studyVersion == version && s.auditTrail.UsdmVersion == Constants.USDMVersions.MVP)) // Condition for matching studyId and version
-                                             .SortByDescending(s => s.auditTrail.entryDateTime)  // Sort by descending on entryDateTime
+                                                (s.ClinicalStudy.StudyId == studyId
+                                                 && s.AuditTrail.StudyVersion == version && s.AuditTrail.UsdmVersion == Constants.USDMVersions.MVP)) // Condition for matching studyId and version
+                                             .SortByDescending(s => s.AuditTrail.EntryDateTime)  // Sort by descending on entryDateTime
                                              .Limit(1)                  //Taking top 1 result
                                              .SingleOrDefaultAsync().ConfigureAwait(false);
                 }
@@ -112,23 +116,23 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             try
             {
                 var collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
-                StudyEntity study = new StudyEntity();
+                StudyEntity study = new();
                 if (version == 0)
                 {
                     study = await collection.Find(s =>
-                                                (s.clinicalStudy.studyId == studyId)
-                                                && s.clinicalStudy.studyTag == tag && s.auditTrail.UsdmVersion == Constants.USDMVersions.MVP)   // Condition for matching studyId and studyTag
-                                             .SortByDescending(s => s.auditTrail.entryDateTime) // Sort by descending on entryDateTime
+                                                (s.ClinicalStudy.StudyId == studyId)
+                                                && s.ClinicalStudy.StudyTag == tag && s.AuditTrail.UsdmVersion == Constants.USDMVersions.MVP)   // Condition for matching studyId and studyTag
+                                             .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
                                              .Limit(1)                  //Taking top 1 result
                                              .SingleOrDefaultAsync().ConfigureAwait(false);
                 }
                 else
                 {
                     study = await collection.Find(s =>
-                                                (s.clinicalStudy.studyId == studyId
-                                                 && s.clinicalStudy.studyTag == tag
-                                                 && s.auditTrail.studyVersion == version && s.auditTrail.UsdmVersion == Constants.USDMVersions.MVP)) // Condition for matching studyId, version and studyTag
-                                             .SortByDescending(s => s.auditTrail.entryDateTime) // Sort by descending on entryDateTime
+                                                (s.ClinicalStudy.StudyId == studyId
+                                                 && s.ClinicalStudy.StudyTag == tag
+                                                 && s.AuditTrail.StudyVersion == version && s.AuditTrail.UsdmVersion == Constants.USDMVersions.MVP)) // Condition for matching studyId, version and studyTag
+                                             .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
                                              .Limit(1)               //Taking top 1 result    
                                              .SingleOrDefaultAsync().ConfigureAwait(false);
 
@@ -170,12 +174,12 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             try
             {
                 var collection = _database.GetCollection<StudyEntity>(Constants.Collections.Study);
-                List<StudyEntity> studies = new List<StudyEntity>();
+                List<StudyEntity> studies = new();
                 studies = await collection.Find(s =>
-                                                  (s.clinicalStudy.studyId == studyId)
-                                                  && s.auditTrail.entryDateTime >= fromDate
-                                                  && s.auditTrail.entryDateTime <= toDate) // Condition for matching studyId and date range
-                                                  .SortByDescending(s => s.auditTrail.entryDateTime) // Sort by descending on entryDateTime
+                                                  (s.ClinicalStudy.StudyId == studyId)
+                                                  && s.AuditTrail.EntryDateTime >= fromDate
+                                                  && s.AuditTrail.EntryDateTime <= toDate) // Condition for matching studyId and date range
+                                                  .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
                                                   .ToListAsync().ConfigureAwait(false);
 
                 if (studies.Count == 0)
@@ -209,7 +213,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// A <see cref="List{StudyHistoryEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<List<StudyHistoryEntity>> GetAllStudyId(DateTime fromDate, DateTime toDate, string studyTitle,LoggedInUser user)
+        public async Task<List<StudyHistoryEntity>> GetAllStudyId(DateTime fromDate, DateTime toDate, string studyTitle, LoggedInUser user)
         {
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(GetAllStudyId)};");
             try
@@ -217,29 +221,29 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 var collection = _database.GetCollection<StudyEntity>(Constants.Collections.Study);
                 var builder = Builders<StudyEntity>.Filter;
                 var filter = builder.Empty;
-                filter &= builder.Where(x => x.auditTrail.entryDateTime >= fromDate
-                                         && x.auditTrail.entryDateTime <= toDate);
+                filter &= builder.Where(x => x.AuditTrail.EntryDateTime >= fromDate
+                                         && x.AuditTrail.EntryDateTime <= toDate);
                 if (!String.IsNullOrEmpty(studyTitle))
-                    filter &= builder.Where(x => x.clinicalStudy.studyTitle.ToLower().Contains(studyTitle.ToLower()));                
+                    filter &= builder.Where(x => x.ClinicalStudy.StudyTitle.ToLower().Contains(studyTitle.ToLower()));
 
                 List<StudyHistoryEntity> studyHistories = await collection
                                                         .Find(filter) // Condition for matching date range
-                                                        .Project(x => 
-                                                                new StudyHistoryEntity 
-                                                                { 
-                                                                    studyId = x.clinicalStudy.studyId, 
-                                                                    studyTitle = x.clinicalStudy.studyTitle, 
-                                                                    studyVersion = x.auditTrail.studyVersion, 
-                                                                    entryDateTime = x.auditTrail.entryDateTime,
-                                                                    studyType = x.clinicalStudy.studyType,
-                                                                    UsdmVersion=x.auditTrail.UsdmVersion
+                                                        .Project(x =>
+                                                                new StudyHistoryEntity
+                                                                {
+                                                                    StudyId = x.ClinicalStudy.StudyId,
+                                                                    StudyTitle = x.ClinicalStudy.StudyTitle,
+                                                                    StudyVersion = x.AuditTrail.StudyVersion,
+                                                                    EntryDateTime = x.AuditTrail.EntryDateTime,
+                                                                    StudyType = x.ClinicalStudy.StudyType,
+                                                                    UsdmVersion = x.AuditTrail.UsdmVersion
                                                                 })  //Project only the required fields
-                                                        .SortByDescending(s => s.auditTrail.entryDateTime)  // Sort by descending on entryDateTime
-                                                        .ToListAsync().ConfigureAwait(false);   
-                
-                studyHistories = GroupFilterForStudyHistory(studyHistories,user);
+                                                        .SortByDescending(s => s.AuditTrail.EntryDateTime)  // Sort by descending on entryDateTime
+                                                        .ToListAsync().ConfigureAwait(false);
 
-                if (studyHistories.Count() == 0)
+                studyHistories = GroupFilterForStudyHistory(studyHistories, user);
+
+                if (studyHistories.Count == 0)
                 {
                     _logger.LogWarning($"There are no Study in {Constants.Collections.Study} Collection");
                     return null;
@@ -276,48 +280,48 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         {
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(SearchStudy)};");
             try
-            {                
+            {
                 var collection = _database.GetCollection<StudyEntity>(Constants.Collections.Study);
 
                 var filteredResult = await collection
                                                  .Aggregate()
-                                                 .Match(Filter(searchParameters))                                                 
+                                                 .Match(Filter(searchParameters))
                                                  .Project(x => new SearchResponse
                                                  {
-                                                     studyId = x.clinicalStudy.studyId ?? null,
-                                                     studyTag = x.clinicalStudy.studyTag ?? null,
-                                                     studyType = x.clinicalStudy.studyType ?? null,
-                                                     studyPhase = x.clinicalStudy.studyPhase ?? null,
-                                                     studyTitle = x.clinicalStudy.studyTitle ?? null,
-                                                     studyStatus = x.clinicalStudy.studyStatus ?? null,
-                                                     studyIdentifiers = x.clinicalStudy.studyIdentifiers ?? null,
-                                                     studyIndications = x.clinicalStudy.currentSections.Select(x => x.studyIndications) ?? null,
-                                                     investigationalInterventions = x.clinicalStudy.currentSections.Select(x => x.studyDesigns).Select(x => x.Select(x => x.currentSections.Select(x => x.investigationalInterventions))) ?? null,
-                                                     entryDateTime = x.auditTrail.entryDateTime,
-                                                     entrySystem = x.auditTrail.entrySystem ?? null,
-                                                     studyVersion = x.auditTrail.studyVersion,
-                                                     UsdmVersion=x.auditTrail.UsdmVersion
+                                                     StudyId = x.ClinicalStudy.StudyId ?? null,
+                                                     StudyTag = x.ClinicalStudy.StudyTag ?? null,
+                                                     StudyType = x.ClinicalStudy.StudyType ?? null,
+                                                     StudyPhase = x.ClinicalStudy.StudyPhase ?? null,
+                                                     StudyTitle = x.ClinicalStudy.StudyTitle ?? null,
+                                                     StudyStatus = x.ClinicalStudy.StudyStatus ?? null,
+                                                     StudyIdentifiers = x.ClinicalStudy.StudyIdentifiers ?? null,
+                                                     StudyIndications = x.ClinicalStudy.CurrentSections.Select(x => x.StudyIndications) ?? null,
+                                                     InvestigationalInterventions = x.ClinicalStudy.CurrentSections.Select(x => x.StudyDesigns).Select(x => x.Select(x => x.CurrentSections.Select(x => x.InvestigationalInterventions))) ?? null,
+                                                     EntryDateTime = x.AuditTrail.EntryDateTime,
+                                                     EntrySystem = x.AuditTrail.EntrySystem ?? null,
+                                                     StudyVersion = x.AuditTrail.StudyVersion,
+                                                     UsdmVersion = x.AuditTrail.UsdmVersion
                                                  })
                                                  .ToListAsync().ConfigureAwait(false);
 
-                var groupResult = filteredResult.GroupBy(x => new { x.studyId, x.studyTag })
+                var groupResult = filteredResult.GroupBy(x => new { x.StudyId, x.StudyTag })
                                                 .Select(g => new
                                                 {
-                                                    studyId = g.Key.studyId,
-                                                    studyTag = g.Key.studyTag,
-                                                    studyVersion = g.Max(x => x.studyVersion)
+                                                    g.Key.StudyId,
+                                                    g.Key.StudyTag,
+                                                    studyVersion = g.Max(x => x.StudyVersion)
                                                 }).ToList();
                 var finalGroupResult = (from filter in filteredResult
                                         join grp in groupResult
-                                        on (filter.studyId, filter.studyVersion) equals (grp.studyId, grp.studyVersion)
+                                        on (filter.StudyId, filter.StudyVersion) equals (grp.StudyId, grp.studyVersion)
                                         select filter)
                             .ToList();
 
-                var searchResults = LinqFilter(finalGroupResult, searchParameters,user);
+                var searchResults = LinqFilter(finalGroupResult, searchParameters, user);
 
-                var sortedList = ApplyOrderBy(searchResults, searchParameters.header, searchParameters.asc) // Sort the data based on input
-                                           .Skip((searchParameters.pageNumber - 1) * searchParameters.pageSize) //page number
-                                           .Take(searchParameters.pageSize) //Number of documents per page
+                var sortedList = ApplyOrderBy(searchResults, searchParameters.Header, searchParameters.Asc) // Sort the data based on input
+                                           .Skip((searchParameters.PageNumber - 1) * searchParameters.PageSize) //page number
+                                           .Take(searchParameters.PageSize) //Number of documents per page
                                            .ToList();
 
 
@@ -344,54 +348,54 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         public List<SearchResponse> LinqFilter(List<SearchResponse> searchResults, SearchParameters searchParameters, LoggedInUser user)
         {
             #region StudyFilters
-            if (!String.IsNullOrWhiteSpace(searchParameters.studyId))
+            if (!String.IsNullOrWhiteSpace(searchParameters.StudyId))
             {
-                searchResults = searchResults.Where(x => x.studyIdentifiers.Any(x => x.orgCode.ToLower().Contains(searchParameters.studyId.ToLower()))).ToList();
+                searchResults = searchResults.Where(x => x.StudyIdentifiers.Any(x => x.OrgCode.ToLower().Contains(searchParameters.StudyId.ToLower()))).ToList();
             }
             //Filter for studyTitle
-            if (!String.IsNullOrWhiteSpace(searchParameters.studyTitle))
+            if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
             {
-                searchResults = searchResults.Where(x => x.studyTitle.ToLower().Contains(searchParameters.studyTitle.ToLower())).ToList();
+                searchResults = searchResults.Where(x => x.StudyTitle.ToLower().Contains(searchParameters.StudyTitle.ToLower())).ToList();
             }
             //Filter for studyIndication: description
-            if (!String.IsNullOrWhiteSpace(searchParameters.indication))
+            if (!String.IsNullOrWhiteSpace(searchParameters.Indication))
             {
-                searchResults = searchResults.Where(x => x.studyIndications != null && x.studyIndications.Count() > 0 ? x.studyIndications.Any(x => x.Any(x => x.description!=null? x.description.ToLower().Contains(searchParameters.indication.ToLower()) : 1 == 0)) : 1 == 0).ToList();
+                searchResults = searchResults.Where(x => x.StudyIndications != null && x.StudyIndications.Any() && x.StudyIndications.Any(x => x.Any(x => x.Description != null && x.Description.ToLower().Contains(searchParameters.Indication.ToLower())))).ToList();
             }
             //Filter for studyDesign: InvestigationalIntervention: Intervention Model
-            if (!String.IsNullOrWhiteSpace(searchParameters.interventionModel))
+            if (!String.IsNullOrWhiteSpace(searchParameters.InterventionModel))
             {
-                searchResults = searchResults.Where(x => x.investigationalInterventions != null && x.investigationalInterventions.Count() > 0 ? x.investigationalInterventions.Any(x => x.Any(x => x.Any(x => x.Any(x => x.interventionModel!=null? x.interventionModel.ToLower().Contains(searchParameters.interventionModel.ToLower()):1==0)))) : 1 == 0).ToList();
+                searchResults = searchResults.Where(x => x.InvestigationalInterventions != null && x.InvestigationalInterventions.Any() && x.InvestigationalInterventions.Any(x => x.Any(x => x.Any(x => x.Any(x => x.InterventionModel != null && x.InterventionModel.ToLower().Contains(searchParameters.InterventionModel.ToLower())))))).ToList();
             }
             //Filter for studyPhase
-            if (!String.IsNullOrWhiteSpace(searchParameters.phase))
+            if (!String.IsNullOrWhiteSpace(searchParameters.Phase))
             {
-                searchResults = searchResults.Where(x => x.studyPhase.ToLower().Contains(searchParameters.phase.ToLower())).ToList();
+                searchResults = searchResults.Where(x => x.StudyPhase.ToLower().Contains(searchParameters.Phase.ToLower())).ToList();
             }
             #endregion
 
             #region GroupFilters
-            if (user.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+            if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
             {
                 var groups = GetGroupsOfUser(user).Result;
 
                 if (groups != null && groups.Count > 0)
                 {
-                    List<string> studyTypeFilterValues = new List<string>();
-                    List<string> studyIdFilterValues = new List<string>();
-                    studyTypeFilterValues.AddRange(groups.SelectMany(x => x.groupFilter)
-                                                         .Where(x => x.groupFieldName == GroupFieldNames.studyType.ToString())
-                                                         .SelectMany(x => x.groupFilterValues)
-                                                         .Select(x => x.groupFilterValueId.ToLower())
+                    List<string> studyTypeFilterValues = new();
+                    List<string> studyIdFilterValues = new();
+                    studyTypeFilterValues.AddRange(groups.SelectMany(x => x.GroupFilter)
+                                                         .Where(x => x.GroupFieldName == GroupFieldNames.studyType.ToString())
+                                                         .SelectMany(x => x.GroupFilterValues)
+                                                         .Select(x => x.GroupFilterValueId.ToLower())
                                                          .ToList());
-                    studyIdFilterValues.AddRange(groups.SelectMany(x => x.groupFilter)
-                                                         .Where(x => x.groupFieldName == GroupFieldNames.study.ToString())
-                                                         .SelectMany(x => x.groupFilterValues)
-                                                         .Select(x => x.groupFilterValueId)
+                    studyIdFilterValues.AddRange(groups.SelectMany(x => x.GroupFilter)
+                                                         .Where(x => x.GroupFieldName == GroupFieldNames.study.ToString())
+                                                         .SelectMany(x => x.GroupFilterValues)
+                                                         .Select(x => x.GroupFilterValueId)
                                                          .ToList());
                     if (studyTypeFilterValues.Contains(Constants.StudyType.ALL.ToLower()))
                         return searchResults;
-                    searchResults = searchResults.Where(x => studyTypeFilterValues.Contains(x.studyType.ToLower()) || studyIdFilterValues.Contains(x.studyId)).ToList();
+                    searchResults = searchResults.Where(x => studyTypeFilterValues.Contains(x.StudyType.ToLower()) || studyIdFilterValues.Contains(x.StudyId)).ToList();
                 }
                 else
                 {
@@ -408,42 +412,51 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             try
             {
                 var builder = Builders<SearchResponse>.Sort;
-                
+
                 _logger.LogInformation($"Entered : {nameof(ClinicalStudyRepository)}; Method : {nameof(SortSearchResult)};");
                 if (!String.IsNullOrWhiteSpace(property))
                 {
-                    switch (property.ToLower())
+                    return property.ToLower() switch
                     {
-                        case "studytitle": //Sort by studyTitle
-                            return asc ? builder.Ascending(s => s.studyTitle) : builder.Descending(s => s.studyTitle);
-                        case "sponsorid": //Sort by studyIdentifier: orgCode
-                            return asc ? builder.Ascending(s => s.studyIdentifiers.Any(x => x.idType == Constants.IdType.SPONSOR_ID) ? s.studyIdentifiers.Where(x => x.idType == Constants.IdType.SPONSOR_ID).First().orgCode ?? "" : "")
-                                                                : builder.Descending(s => s.studyIdentifiers.Any(x => x.idType == Constants.IdType.SPONSOR_ID) ? s.studyIdentifiers.Where(x => x.idType == Constants.IdType.SPONSOR_ID).First().orgCode ?? "" : "");
-                        case "indication": //Sort by studyIndication: description
-                            return asc ? builder.Ascending(s => s.studyIndications.Count() > 0 ? s.studyIndications.First().Count() > 0 ? s.studyIndications.First().First().description ?? "" : "" : "")
-                                                                : builder.Descending(s => s.studyIndications.Count() > 0 ? s.studyIndications.First().Count() > 0 ? s.studyIndications.First().First().description ?? "" : "" : "");
-                        case "interventionmodel":
-                            return asc ? builder.Ascending(s =>  s.investigationalInterventions.First().First().First().First().interventionModel)
-                                                                : builder.Descending(s => s.investigationalInterventions.First().First().First().First().interventionModel);                
-                        case "phase": //Sort by studyPhase
-                            return asc ? builder.Ascending(s => s.studyPhase ?? "") : builder.Descending(s => s.studyPhase ?? "");
-                        case "lastmodifiedbysystem": //Sort by entrySystem
-                            return asc ? builder.Ascending(s => s.entrySystem ?? "") : builder.Descending(s => s.entrySystem ?? "");
-                        case "tag": //Sort by studyTag
-                            return asc ? builder.Ascending(s => s.studyTag ?? "") : builder.Descending(s => s.studyTag ?? "");
-                        case "sdrversion": //Sort by SDR version
-                            return asc ? builder.Ascending(s => s.studyVersion) : builder.Descending(s => s.studyVersion);
-                        case "status": //Sort by studyStatus
-                            return asc ? builder.Ascending(s => s.studyStatus ?? "") : builder.Descending(s => s.studyStatus ?? "");
-                        case "lastmodifieddate": //Sort by entryDateTime
-                            return asc ? builder.Ascending(s => s.entryDateTime) : builder.Descending(s => s.entryDateTime);
-                        default: //Sort by entrySystem Descending by 
-                            return asc ? builder.Ascending(s => s.entryDateTime) : builder.Descending(s => s.entryDateTime);
-                    }
+                        //Sort by studyTitle
+                        "studytitle" => asc ? builder.Ascending(s => s.StudyTitle) : builder.Descending(s => s.StudyTitle),
+
+                        //Sort by studyIdentifier: orgCode
+                        "sponsorid" => asc ? builder.Ascending(s => s.StudyIdentifiers.Any(x => x.IdType == Constants.IdType.SPONSOR_ID) ? s.StudyIdentifiers.Where(x => x.IdType == Constants.IdType.SPONSOR_ID).First().OrgCode ?? "" : "")
+                                                                                        : builder.Descending(s => s.StudyIdentifiers.Any(x => x.IdType == Constants.IdType.SPONSOR_ID) ? s.StudyIdentifiers.Where(x => x.IdType == Constants.IdType.SPONSOR_ID).First().OrgCode ?? "" : ""),
+
+                        //Sort by studyIndication: description
+                        "indication" => asc ? builder.Ascending(s => s.StudyIndications.Any() ? s.StudyIndications.First().Count > 0 ? s.StudyIndications.First().First().Description ?? "" : "" : "")
+                                                                                        : builder.Descending(s => s.StudyIndications.Any() ? s.StudyIndications.First().Count > 0 ? s.StudyIndications.First().First().Description ?? "" : "" : ""),
+
+                        "interventionmodel" => asc ? builder.Ascending(s => s.InvestigationalInterventions.First().First().First().First().InterventionModel)
+                                                        : builder.Descending(s => s.InvestigationalInterventions.First().First().First().First().InterventionModel),
+
+                        //Sort by studyPhase
+                        "phase" => asc ? builder.Ascending(s => s.StudyPhase ?? "") : builder.Descending(s => s.StudyPhase ?? ""),
+
+                        //Sort by entrySystem
+                        "lastmodifiedbysystem" => asc ? builder.Ascending(s => s.EntrySystem ?? "") : builder.Descending(s => s.EntrySystem ?? ""),
+
+                        //Sort by studyTag
+                        "tag" => asc ? builder.Ascending(s => s.StudyTag ?? "") : builder.Descending(s => s.StudyTag ?? ""),
+
+                        //Sort by SDR version
+                        "sdrversion" => asc ? builder.Ascending(s => s.StudyVersion) : builder.Descending(s => s.StudyVersion),
+
+                        //Sort by studyStatus
+                        "status" => asc ? builder.Ascending(s => s.StudyStatus ?? "") : builder.Descending(s => s.StudyStatus ?? ""),
+
+                        //Sort by entryDateTime
+                        "lastmodifieddate" => asc ? builder.Ascending(s => s.EntryDateTime) : builder.Descending(s => s.EntryDateTime),
+
+                        //Sort by entrySystem Descending by 
+                        _ => asc ? builder.Ascending(s => s.EntryDateTime) : builder.Descending(s => s.EntryDateTime),
+                    };
                 }
                 else
                 {
-                    return asc? builder.Ascending(s => s.entryDateTime) : builder.Descending(s => s.entryDateTime);
+                    return asc ? builder.Ascending(s => s.EntryDateTime) : builder.Descending(s => s.EntryDateTime);
                 }
             }
             catch (Exception)
@@ -465,14 +478,14 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// A <see cref="FilterDefinition{StudyEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public FilterDefinition<StudyEntity> Filter(SearchParameters searchParameters)
+        public static FilterDefinition<StudyEntity> Filter(SearchParameters searchParameters)
         {
             var builder = Builders<StudyEntity>.Filter;
             var filter = builder.Empty;
 
             //Filter for Date Range
-            filter &= builder.Where(x => x.auditTrail.entryDateTime >= searchParameters.fromDate
-                                         && x.auditTrail.entryDateTime <= searchParameters.toDate);
+            filter &= builder.Where(x => x.AuditTrail.EntryDateTime >= searchParameters.FromDate
+                                         && x.AuditTrail.EntryDateTime <= searchParameters.ToDate);
             return filter;
         }
 
@@ -484,17 +497,17 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// A <see cref="FilterDefinition{StudyEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public FilterDefinition<StudyEntity> Filter(SearchTitleParameters searchParameters)
+        public static FilterDefinition<StudyEntity> Filter(SearchTitleParameters searchParameters)
         {
             var builder = Builders<StudyEntity>.Filter;
             var filter = builder.Empty;
 
             //Filter for Date Range
-            filter &= builder.Where(x => x.auditTrail.entryDateTime >= searchParameters.fromDate
-                                         && x.auditTrail.entryDateTime <= searchParameters.toDate);
+            filter &= builder.Where(x => x.AuditTrail.EntryDateTime >= searchParameters.FromDate
+                                         && x.AuditTrail.EntryDateTime <= searchParameters.ToDate);
 
-            if (!String.IsNullOrWhiteSpace(searchParameters.studyTitle))
-                filter &= builder.Where(x => x.clinicalStudy.studyTitle.ToLower().Contains(searchParameters.studyTitle.ToLower()));
+            if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
+                filter &= builder.Where(x => x.ClinicalStudy.StudyTitle.ToLower().Contains(searchParameters.StudyTitle.ToLower()));
 
             return filter;
         }
@@ -523,13 +536,13 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                  .Match(Filter(searchParameters))
                                                  .Project(x => new SearchTitleEntity
                                                  {
-                                                     studyId = x.clinicalStudy.studyId ?? null,
-                                                     studyTag = x.clinicalStudy.studyTag ?? null,
-                                                     studyType = x.clinicalStudy.studyType ?? null,                                                    
-                                                     studyTitle = x.clinicalStudy.studyTitle ?? null,                                                                                                         
-                                                     entryDateTime = x.auditTrail.entryDateTime,                                                     
-                                                     studyVersion = x.auditTrail.studyVersion,
-                                                     UsdmVersion = x.auditTrail.UsdmVersion
+                                                     StudyId = x.ClinicalStudy.StudyId ?? null,
+                                                     StudyTag = x.ClinicalStudy.StudyTag ?? null,
+                                                     StudyType = x.ClinicalStudy.StudyType ?? null,
+                                                     StudyTitle = x.ClinicalStudy.StudyTitle ?? null,
+                                                     EntryDateTime = x.AuditTrail.EntryDateTime,
+                                                     StudyVersion = x.AuditTrail.StudyVersion,
+                                                     UsdmVersion = x.AuditTrail.UsdmVersion
                                                  })
                                                  .ToListAsync().ConfigureAwait(false);
 
@@ -564,38 +577,38 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 _logger.LogInformation($"Entered : {nameof(ClinicalStudyRepository)}; Method : {nameof(ApplyOrderBy)};");
                 if (!String.IsNullOrWhiteSpace(property))
                 {
-                    switch (property.ToLower())
+                    return property.ToLower() switch
                     {
-                        case "studytitle": //Sort by studyTitle
-                            return asc ? filteredResult.OrderBy(s => s.studyTitle) : filteredResult.OrderByDescending(s => s.studyTitle);
-                        case "sponsorid": //Sort by studyIdentifier: orgCode
-                            return asc ? filteredResult.OrderBy(s => s.studyIdentifiers.FindAll(x => x.idType == Constants.IdType.SPONSOR_ID).Count() != 0 ? s.studyIdentifiers.Find(x => x.idType == Constants.IdType.SPONSOR_ID).orgCode ?? "" : "")
-                                                                : filteredResult.OrderByDescending(s => s.studyIdentifiers.FindAll(x => x.idType == Constants.IdType.SPONSOR_ID).Count() != 0 ? s.studyIdentifiers.Find(x => x.idType == Constants.IdType.SPONSOR_ID).orgCode ?? "" : "");
-                        case "indication": //Sort by studyIndication: description
-                            return asc ? filteredResult.OrderBy(s => s.studyIndications!=null ? s.studyIndications.Count() > 0 ? s.studyIndications.First().Count() > 0 ? s.studyIndications.First().First().description ?? "" : "" : "" : "")
-                                                                : filteredResult.OrderByDescending(s => s.studyIndications != null ? s.studyIndications.Count() > 0 ? s.studyIndications.First().Count() > 0 ? s.studyIndications.First().First().description ?? "" : "" : "" : "");
-                        case "interventionmodel": //Sort by studyDesign: InvestigationalIntervention: Intervention Model
-                            return asc ? filteredResult.OrderBy(s => s.investigationalInterventions!=null ? s.investigationalInterventions.Count() > 0 ? s.investigationalInterventions.First().Count() > 0 ? s.investigationalInterventions.First().First().Count() > 0 ? s.investigationalInterventions.First().First().First().Count() > 0 ? s.investigationalInterventions.First().First().First().Count() > 0 ? s.investigationalInterventions.First().First().First().First().interventionModel ?? "" : "" : "" : "" : "" : "" :"")
-                                       : filteredResult.OrderByDescending(s => s.investigationalInterventions != null ? s.investigationalInterventions.Count() > 0 ? s.investigationalInterventions.First().Count() > 0 ? s.investigationalInterventions.First().First().Count() > 0 ? s.investigationalInterventions.First().First().First().Count() > 0 ? s.investigationalInterventions.First().First().First().Count() > 0 ? s.investigationalInterventions.First().First().First().First().interventionModel ?? "" : "" : "" : "" : "" : "" : "");
-                        case "phase": //Sort by studyPhase
-                            return asc ? filteredResult.OrderBy(s => s.studyPhase ?? "") : filteredResult.OrderByDescending(s => s.studyPhase ?? "");
-                        case "lastmodifiedbysystem": //Sort by entrySystem
-                            return asc ? filteredResult.OrderBy(s => s.entrySystem ?? "") : filteredResult.OrderByDescending(s => s.entrySystem ?? "");
-                        case "tag": //Sort by studyTag
-                            return asc ? filteredResult.OrderBy(s => s.studyTag ?? "") : filteredResult.OrderByDescending(s => s.studyTag ?? "");
-                        case "sdrversion": //Sort by SDR version
-                            return asc ? filteredResult.OrderBy(s => s.studyVersion) : filteredResult.OrderByDescending(s => s.studyVersion);
-                        case "status": //Sort by studyStatus
-                            return asc ? filteredResult.OrderBy(s => s.studyStatus ?? "") : filteredResult.OrderByDescending(s => s.studyStatus ?? "");
-                        case "lastmodifieddate": //Sort by entryDateTime
-                            return asc ? filteredResult.OrderBy(s => s.entryDateTime) : filteredResult.OrderByDescending(s => s.entryDateTime);
-                        default: //Sort by entrySystem Descending by default
-                            return filteredResult.OrderByDescending(s => s.entryDateTime);
-                    }
+                        //Sort by studyTitle
+                        "studytitle" => asc ? filteredResult.OrderBy(s => s.StudyTitle) : filteredResult.OrderByDescending(s => s.StudyTitle),
+                        //Sort by studyIdentifier: orgCode
+                        "sponsorid" => asc ? filteredResult.OrderBy(s => s.StudyIdentifiers.FindAll(x => x.IdType == Constants.IdType.SPONSOR_ID).Count != 0 ? s.StudyIdentifiers.Find(x => x.IdType == Constants.IdType.SPONSOR_ID).OrgCode ?? "" : "")
+                                                                                        : filteredResult.OrderByDescending(s => s.StudyIdentifiers.FindAll(x => x.IdType == Constants.IdType.SPONSOR_ID).Count != 0 ? s.StudyIdentifiers.Find(x => x.IdType == Constants.IdType.SPONSOR_ID).OrgCode ?? "" : ""),
+                        //Sort by studyIndication: description
+                        "indication" => asc ? filteredResult.OrderBy(s => s.StudyIndications != null ? s.StudyIndications.Any() ? s.StudyIndications.First().Count > 0 ? s.StudyIndications.First().First().Description ?? "" : "" : "" : "")
+                                                                                        : filteredResult.OrderByDescending(s => s.StudyIndications != null ? s.StudyIndications.Any() ? s.StudyIndications.First().Count > 0 ? s.StudyIndications.First().First().Description ?? "" : "" : "" : ""),
+                        //Sort by studyDesign: InvestigationalIntervention: Intervention Model
+                        "interventionmodel" => asc ? filteredResult.OrderBy(s => s.InvestigationalInterventions != null ? s.InvestigationalInterventions.Any() ? s.InvestigationalInterventions.First().Any() ? s.InvestigationalInterventions.First().First().Any() ? s.InvestigationalInterventions.First().First().First().Count > 0 ? s.InvestigationalInterventions.First().First().First().Count > 0 ? s.InvestigationalInterventions.First().First().First().First().InterventionModel ?? "" : "" : "" : "" : "" : "" : "")
+                                                               : filteredResult.OrderByDescending(s => s.InvestigationalInterventions != null ? s.InvestigationalInterventions.Any() ? s.InvestigationalInterventions.First().Any() ? s.InvestigationalInterventions.First().First().Any() ? s.InvestigationalInterventions.First().First().First().Count > 0 ? s.InvestigationalInterventions.First().First().First().Count > 0 ? s.InvestigationalInterventions.First().First().First().First().InterventionModel ?? "" : "" : "" : "" : "" : "" : ""),
+                        //Sort by studyPhase
+                        "phase" => asc ? filteredResult.OrderBy(s => s.StudyPhase ?? "") : filteredResult.OrderByDescending(s => s.StudyPhase ?? ""),
+                        //Sort by entrySystem
+                        "lastmodifiedbysystem" => asc ? filteredResult.OrderBy(s => s.EntrySystem ?? "") : filteredResult.OrderByDescending(s => s.EntrySystem ?? ""),
+                        //Sort by studyTag
+                        "tag" => asc ? filteredResult.OrderBy(s => s.StudyTag ?? "") : filteredResult.OrderByDescending(s => s.StudyTag ?? ""),
+                        //Sort by SDR version
+                        "sdrversion" => asc ? filteredResult.OrderBy(s => s.StudyVersion) : filteredResult.OrderByDescending(s => s.StudyVersion),
+                        //Sort by studyStatus
+                        "status" => asc ? filteredResult.OrderBy(s => s.StudyStatus ?? "") : filteredResult.OrderByDescending(s => s.StudyStatus ?? ""),
+                        //Sort by entryDateTime
+                        "lastmodifieddate" => asc ? filteredResult.OrderBy(s => s.EntryDateTime) : filteredResult.OrderByDescending(s => s.EntryDateTime),
+                        //Sort by entrySystem Descending by default
+                        _ => filteredResult.OrderByDescending(s => s.EntryDateTime),
+                    };
                 }
                 else
                 {
-                    return filteredResult.OrderByDescending(s => s.entryDateTime);
+                    return filteredResult.OrderByDescending(s => s.EntryDateTime);
                 }
             }
             catch (Exception)
@@ -610,31 +623,31 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         #endregion
 
         #region Data Filtering based on groups    
-        
+
         public List<StudyHistoryEntity> GroupFilterForStudyHistory(List<StudyHistoryEntity> studyHistoryEntities, LoggedInUser user)
         {
-            if (user.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+            if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
             {
                 var groups = GetGroupsOfUser(user).Result;
 
                 if (groups != null && groups.Count > 0)
                 {
-                    List<string> studyTypeFilterValues = new List<string>();
-                    List<string> studyIdFilterValues = new List<string>();
-                    studyTypeFilterValues.AddRange(groups.SelectMany(x => x.groupFilter)
-                                                         .Where(x => x.groupFieldName == GroupFieldNames.studyType.ToString())
-                                                         .SelectMany(x => x.groupFilterValues)
-                                                         .Select(x => x.groupFilterValueId.ToLower())
+                    List<string> studyTypeFilterValues = new();
+                    List<string> studyIdFilterValues = new();
+                    studyTypeFilterValues.AddRange(groups.SelectMany(x => x.GroupFilter)
+                                                         .Where(x => x.GroupFieldName == GroupFieldNames.studyType.ToString())
+                                                         .SelectMany(x => x.GroupFilterValues)
+                                                         .Select(x => x.GroupFilterValueId.ToLower())
                                                          .ToList());
-                    studyIdFilterValues.AddRange(groups.SelectMany(x => x.groupFilter)
-                                                         .Where(x => x.groupFieldName == GroupFieldNames.study.ToString())
-                                                         .SelectMany(x => x.groupFilterValues)
-                                                         .Select(x => x.groupFilterValueId)
+                    studyIdFilterValues.AddRange(groups.SelectMany(x => x.GroupFilter)
+                                                         .Where(x => x.GroupFieldName == GroupFieldNames.study.ToString())
+                                                         .SelectMany(x => x.GroupFilterValues)
+                                                         .Select(x => x.GroupFilterValueId)
                                                          .ToList());
 
                     if (studyTypeFilterValues.Contains(Constants.StudyType.ALL.ToLower()))
                         return studyHistoryEntities;
-                    studyHistoryEntities = studyHistoryEntities.Where(x => studyTypeFilterValues.Contains(x.studyType.ToLower()) || studyIdFilterValues.Contains(x.studyId)).ToList();
+                    studyHistoryEntities = studyHistoryEntities.Where(x => studyTypeFilterValues.Contains(x.StudyType.ToLower()) || studyIdFilterValues.Contains(x.StudyId)).ToList();
                 }
                 else
                 {
@@ -646,28 +659,28 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         }
         public List<SearchTitleEntity> GroupFilterForSearchTitle(List<SearchTitleEntity> searchTitleEntities, LoggedInUser user)
         {
-            if (user.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+            if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
             {
                 var groups = GetGroupsOfUser(user).Result;
 
                 if (groups != null && groups.Count > 0)
                 {
-                    List<string> studyTypeFilterValues = new List<string>();
-                    List<string> studyIdFilterValues = new List<string>();
-                    studyTypeFilterValues.AddRange(groups.SelectMany(x => x.groupFilter)
-                                                         .Where(x => x.groupFieldName == GroupFieldNames.studyType.ToString())
-                                                         .SelectMany(x => x.groupFilterValues)
-                                                         .Select(x => x.groupFilterValueId.ToLower())
+                    List<string> studyTypeFilterValues = new();
+                    List<string> studyIdFilterValues = new();
+                    studyTypeFilterValues.AddRange(groups.SelectMany(x => x.GroupFilter)
+                                                         .Where(x => x.GroupFieldName == GroupFieldNames.studyType.ToString())
+                                                         .SelectMany(x => x.GroupFilterValues)
+                                                         .Select(x => x.GroupFilterValueId.ToLower())
                                                          .ToList());
-                    studyIdFilterValues.AddRange(groups.SelectMany(x => x.groupFilter)
-                                                         .Where(x => x.groupFieldName == GroupFieldNames.study.ToString())
-                                                         .SelectMany(x => x.groupFilterValues)
-                                                         .Select(x => x.groupFilterValueId)
+                    studyIdFilterValues.AddRange(groups.SelectMany(x => x.GroupFilter)
+                                                         .Where(x => x.GroupFieldName == GroupFieldNames.study.ToString())
+                                                         .SelectMany(x => x.GroupFilterValues)
+                                                         .Select(x => x.GroupFilterValueId)
                                                          .ToList());
 
                     if (studyTypeFilterValues.Contains(Constants.StudyType.ALL.ToLower()))
                         return searchTitleEntities;
-                    searchTitleEntities = searchTitleEntities.Where(x => studyTypeFilterValues.Contains(x.studyType.ToLower()) || studyIdFilterValues.Contains(x.studyId)).ToList();
+                    searchTitleEntities = searchTitleEntities.Where(x => studyTypeFilterValues.Contains(x.StudyType.ToLower()) || studyIdFilterValues.Contains(x.StudyId)).ToList();
                 }
                 else
                 {
@@ -684,9 +697,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
             return await groupsCollection.Find(_ => true)
                                              .Project(x => x.SDRGroups
-                                                           .Where(x => x.groupEnabled == true)
-                                                           .Where(x => x.users != null)
-                                                           .Where(x => x.users.Any(x => (x.email == user.UserName && x.isActive == true)))                                                           
+                                                           .Where(x => x.GroupEnabled == true)
+                                                           .Where(x => x.Users != null)
+                                                           .Where(x => x.Users.Any(x => (x.Email == user.UserName && x.IsActive == true)))
                                                            .ToList())
                                              .FirstOrDefaultAsync().ConfigureAwait(false);
         }
@@ -708,7 +721,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 var collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
                 await collection.InsertOneAsync(study).ConfigureAwait(false); //Insert One Document
 
-                return (study.clinicalStudy.studyId);
+                return (study.ClinicalStudy.StudyId);
             }
             catch (Exception)
             {
@@ -737,13 +750,13 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             {
                 var collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
                 var updateDefinition = Builders<StudyEntity>.Update
-                                    .Set(s => s.clinicalStudy, study.clinicalStudy)
-                                    .Set(s => s.auditTrail, study.auditTrail);
-                await collection.UpdateOneAsync(x => (x.clinicalStudy.studyId == study.clinicalStudy.studyId
-                                                   && x.auditTrail.studyVersion == study.auditTrail.studyVersion), //Match studyId and studyVersion
+                                    .Set(s => s.ClinicalStudy, study.ClinicalStudy)
+                                    .Set(s => s.AuditTrail, study.AuditTrail);
+                await collection.UpdateOneAsync(x => (x.ClinicalStudy.StudyId == study.ClinicalStudy.StudyId
+                                                   && x.AuditTrail.StudyVersion == study.AuditTrail.StudyVersion), //Match studyId and studyVersion
                                                    updateDefinition).ConfigureAwait(false); // Update clinicalStudy and auditTrail
 
-                return (study.clinicalStudy.studyId);
+                return (study.ClinicalStudy.StudyId);
             }
             catch (Exception)
             {
@@ -771,10 +784,10 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             try
             {
                 var collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
-                AuditTrailEntity auditTrail = await collection.Find(s => s.clinicalStudy.studyId == studyId)  // Condition for matching studyId
-                                             .SortByDescending(s => s.auditTrail.entryDateTime) // Sort by descending on entryDateTime
+                AuditTrailEntity auditTrail = await collection.Find(s => s.ClinicalStudy.StudyId == studyId)  // Condition for matching studyId
+                                             .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
                                              .Limit(1)                  //Taking top 1 result
-                                             .Project(x => x.auditTrail)
+                                             .Project(x => x.AuditTrail)
                                              .SingleOrDefaultAsync().ConfigureAwait(false);
 
                 if (auditTrail == null)

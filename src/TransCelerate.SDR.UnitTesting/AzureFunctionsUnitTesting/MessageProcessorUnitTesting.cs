@@ -1,22 +1,17 @@
-﻿using Moq;
+﻿using MongoDB.Driver;
+using Moq;
 using Newtonsoft.Json;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TransCelerate.SDR.Core.Entities.StudyV2;
-using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
-using TransCelerate.SDR.Core.Utilities;
-using TransCelerate.SDR.AzureFunctions.DataAccess;
 using TransCelerate.SDR.AzureFunctions;
-using NUnit.Framework;
-using System.Net.WebSockets;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using ObjectsComparer;
-using MongoDB.Driver;
+using TransCelerate.SDR.AzureFunctions.DataAccess;
+using TransCelerate.SDR.Core.Entities.StudyV2;
+using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
+using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
 
 namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
 {
@@ -35,7 +30,7 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
             return JsonConvert.DeserializeObject<StudyEntity>(jsonData);
         }
 
-        public ChangeAuditStudyEntity  GetChangeAuditDataFromStaticJson()
+        public ChangeAuditStudyEntity GetChangeAuditDataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ChangeAuditData.json");
             return JsonConvert.DeserializeObject<ChangeAuditStudyEntity>(jsonData);
@@ -49,10 +44,10 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
         [Test]
         public void ProcessMessage_UnitTesting()
         {
-            HelperV2 helper =new HelperV2();
+            HelperV2 helper = new HelperV2();
 
-            var currentVersion=GetEntityDataFromStaticJson();
-            var previousVersion=GetEntityDataFromStaticJson();
+            var currentVersion = GetEntityDataFromStaticJson();
+            var previousVersion = GetEntityDataFromStaticJson();
             currentVersion.AuditTrail.SDRUploadVersion = 2;
             currentVersion.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
             previousVersion.AuditTrail.SDRUploadVersion = 1;
@@ -65,11 +60,11 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
             var difference = helper.GetChangedValues(currentVersion, previousVersion);
             _mockChangeAuditRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(studyEntities);
-            
-            _mockChangeAuditRepository.Setup(x=>x.GetChangeAuditAsync(It.IsAny<string>()))
+
+            _mockChangeAuditRepository.Setup(x => x.GetChangeAuditAsync(It.IsAny<string>()))
                 .Returns(GetChangeAuditDataFromStaticJson());
-            _mockChangeAuditRepository.Setup(x => x.GetAuditTrailsAsync(It.IsAny<string>(),It.IsAny<int>()))
-                .Returns(studyEntities.Select(z=>z.AuditTrail).ToList());
+            _mockChangeAuditRepository.Setup(x => x.GetAuditTrailsAsync(It.IsAny<string>(), It.IsAny<int>()))
+                .Returns(studyEntities.Select(z => z.AuditTrail).ToList());
             _mockChangeAuditRepository.Setup(x => x.InsertChangeAudit(It.IsAny<ChangeAuditStudyEntity>()));
             _mockChangeAuditRepository.Setup(x => x.UpdateChangeAudit(It.IsAny<ChangeAuditStudyEntity>()));
 
@@ -77,7 +72,7 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
                 .Returns(difference);
 
 
-            MessageProcessor processor = new MessageProcessor(_mockLogger,_mockChangeAuditRepository.Object,_mockHelper.Object);
+            MessageProcessor processor = new MessageProcessor(_mockChangeAuditRepository.Object, _mockHelper.Object);
 
             string message = "{\"Study_uuid\":\"aaed3efe-7d70-4c9e-90e2-3446e936c291\",\"CurrentVersion\":2}";
 
@@ -97,7 +92,7 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
                 currentVersion,previousVersion
 
             };
-        //    currentVersion1.ClinicalStudy.StudyProtocolVersions[0].ProtocolStatus.Add(currentVersion1.ClinicalStudy.StudyProtocolVersions[0].ProtocolStatus);
+            //    currentVersion1.ClinicalStudy.StudyProtocolVersions[0].ProtocolStatus.Add(currentVersion1.ClinicalStudy.StudyProtocolVersions[0].ProtocolStatus);
             currentVersion1.ClinicalStudy.StudyProtocolVersions[0].ProtocolStatus.CodeSystemVersion = "10";
             var difference1 = helper.GetChangedValues(currentVersion1, previousVersion1);
             _mockChangeAuditRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
@@ -148,9 +143,9 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
             currentVersion.ClinicalStudy.StudyDesigns[0].StudyPopulations[0].PopulationDescription = "population 2";
             currentVersion.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyArm.StudyArmDataOriginType.CodeSystem = "8";
             currentVersion.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyArm.StudyArmType.Decode = "placebo arm 1";
-            currentVersion.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyElements[0].StudyElementDescription = "Element 3";        
+            currentVersion.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyElements[0].StudyElementDescription = "Element 3";
             currentVersion.ClinicalStudy.StudyDesigns[0].Activities[0].DefinedProcedures.Add(currentVersion.ClinicalStudy.StudyDesigns[0].Activities[0].DefinedProcedures[0]);
-            currentVersion.ClinicalStudy.StudyDesigns[0].Activities[0].DefinedProcedures[1].Id = "4";            
+            currentVersion.ClinicalStudy.StudyDesigns[0].Activities[0].DefinedProcedures[1].Id = "4";
             currentVersion.ClinicalStudy.StudyDesigns[0].Activities[0].ActivityName = "A2";
             currentVersion.ClinicalStudy.StudyDesigns[0].Encounters[0].EncounterContactModes[0].Code = "C126876";
             currentVersion.ClinicalStudy.StudyDesigns[0].Encounters[0].EncounterEnvironmentalSetting.Decode = "clinic2";
@@ -165,7 +160,7 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
 
 
             currentVersion.AuditTrail.SDRUploadVersion = 2;
-            currentVersion.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;            
+            currentVersion.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
             previousVersion.AuditTrail.SDRUploadVersion = 1;
             previousVersion.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
             List<StudyEntity> studyEntities = new List<StudyEntity>
@@ -176,7 +171,7 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
             var difference = helper.GetChangedValues(currentVersion, previousVersion);
             _mockChangeAuditRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(studyEntities);
-            
+
             _mockChangeAuditRepository.Setup(x => x.GetAuditTrailsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns((studyEntities.Select(x => x.AuditTrail).ToList()));
             _mockChangeAuditRepository.Setup(x => x.GetChangeAuditAsync(It.IsAny<string>()))
@@ -188,17 +183,17 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
                 .Returns(difference);
 
 
-            MessageProcessor processor = new MessageProcessor(_mockLogger, _mockChangeAuditRepository.Object, _mockHelper.Object);
+            MessageProcessor processor = new MessageProcessor(_mockChangeAuditRepository.Object, _mockHelper.Object);
 
             string message = "{\"Study_uuid\":\"aaed3efe-7d70-4c9e-90e2-3446e936c291\",\"CurrentVersion\":2}";
 
             processor.ProcessMessage(message);
 
-            Assert.IsNotEmpty(helper.CheckDifferences<ClinicalStudyEntity>(currentVersion.ClinicalStudy, previousVersion.ClinicalStudy));
-            Assert.IsEmpty(helper.CheckForNumberOfElementsMismatch<StudyIdentifierEntity>(currentVersion.ClinicalStudy.StudyIdentifiers, previousVersion.ClinicalStudy.StudyIdentifiers));
+            Assert.IsNotEmpty(HelperV2.CheckDifferences<ClinicalStudyEntity>(currentVersion.ClinicalStudy, previousVersion.ClinicalStudy));
+            Assert.IsEmpty(HelperV2.CheckForNumberOfElementsMismatch<StudyIdentifierEntity>(currentVersion.ClinicalStudy.StudyIdentifiers, previousVersion.ClinicalStudy.StudyIdentifiers));
 
             currentVersion.ClinicalStudy.StudyProtocolVersions[0].BriefTitle = "tests";
-            Assert.IsNotEmpty(helper.CheckForNumberOfElementsMismatch<StudyProtocolVersionEntity>(currentVersion.ClinicalStudy.StudyProtocolVersions, previousVersion.ClinicalStudy.StudyProtocolVersions));
+            Assert.IsNotEmpty(HelperV2.CheckForNumberOfElementsMismatch<StudyProtocolVersionEntity>(currentVersion.ClinicalStudy.StudyProtocolVersions, previousVersion.ClinicalStudy.StudyProtocolVersions));
 
         }
         [Test]

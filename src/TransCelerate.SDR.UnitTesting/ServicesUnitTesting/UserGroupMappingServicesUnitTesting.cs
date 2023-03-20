@@ -1,26 +1,24 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Text;
-using NUnit.Framework;
-using TransCelerate.SDR.DataAccess.Interfaces;
-using TransCelerate.SDR.Services.Services;
-using TransCelerate.SDR.Core.Entities.UserGroups;
-using TransCelerate.SDR.Core.DTO.UserGroups;
-using Newtonsoft.Json;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Moq;
-using TransCelerate.SDR.WebApi.Mappers;
-using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using TransCelerate.SDR.Core.DTO.Token;
+using TransCelerate.SDR.Core.DTO.UserGroups;
+using TransCelerate.SDR.Core.Entities.UserGroups;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
-using System.Linq;
-using TransCelerate.SDR.Core.DTO.Token;
+using TransCelerate.SDR.DataAccess.Interfaces;
+using TransCelerate.SDR.Services.Services;
+using TransCelerate.SDR.WebApi.Mappers;
 
 namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 {
-    public  class UserGroupMappingServicesUnitTesting
+    public class UserGroupMappingServicesUnitTesting
     {
         #region Variables
         private IMapper _mockMapper;
@@ -90,7 +88,10 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         {
             UserGroupsQueryParameters userGroupsQueryParameters = new UserGroupsQueryParameters
             {
-                sortBy = "email",sortOrder = "desc",pageNumber = 1,pageSize=20
+                SortBy = "email",
+                SortOrder = "desc",
+                PageNumber = 1,
+                PageSize = 20
             };
             _mockUserGroupMappingRepository.Setup(x => x.GetGroups(userGroupsQueryParameters))
                     .Returns(Task.FromResult(GetGroupDetails()));
@@ -107,11 +108,11 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             var actual_result = result;
 
             //Assert          
-            Assert.AreEqual(expected[0].groupId, actual_result[0].groupId);
-            Assert.AreEqual(expected[0].groupName, actual_result[0].groupName);
-            Assert.NotNull(actual_result[0].groupFilter);
-            Assert.NotNull(actual_result[0].permission);            
-            Assert.AreEqual(expected[0].groupId, actual_result[0].groupId);
+            Assert.AreEqual(expected[0].GroupId, actual_result[0].GroupId);
+            Assert.AreEqual(expected[0].GroupName, actual_result[0].GroupName);
+            Assert.NotNull(actual_result[0].GroupFilter);
+            Assert.NotNull(actual_result[0].Permission);
+            Assert.AreEqual(expected[0].GroupId, actual_result[0].GroupId);
         }
 
         [Test]
@@ -119,10 +120,10 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         {
             UserGroupsQueryParameters userGroupsQueryParameters = new UserGroupsQueryParameters
             {
-                sortBy = "name",
-                sortOrder = "desc",
-                pageNumber = 1,
-                pageSize = 20
+                SortBy = "name",
+                SortOrder = "desc",
+                PageNumber = 1,
+                PageSize = 20
             };
             _mockUserGroupMappingRepository.Setup(x => x.GetGroups(userGroupsQueryParameters))
                     .Returns(Task.FromResult(GetGroupDetails()));
@@ -130,10 +131,10 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             UserGroupsQueryParameters userGroupsQueryParameters1 = new UserGroupsQueryParameters
             {
-                sortBy = "name",
-                sortOrder = "desc",
-                pageNumber = 1,
-                pageSize = 10
+                SortBy = "name",
+                SortOrder = "desc",
+                PageNumber = 1,
+                PageSize = 10
             };
             var method = userGroupMappingService.GetUserGroups(userGroupsQueryParameters1);
             method.Wait();
@@ -146,14 +147,14 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             _mockUserGroupMappingRepository.Setup(x => x.GetGroups(userGroupsQueryParameters))
                     .Throws(new Exception("Error"));
-            var error  = userGroupMappingService.GetUserGroups(userGroupsQueryParameters);
-    
+            var error = userGroupMappingService.GetUserGroups(userGroupsQueryParameters);
+
             Assert.Throws<AggregateException>(error.Wait);
 
 
         }
 
-        
+
         #endregion
 
         #region GetUsersList UnitTesting
@@ -162,10 +163,10 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         {
             UserGroupsQueryParameters userGroupsQueryParameters = new UserGroupsQueryParameters
             {
-                sortBy = "name",
-                sortOrder = "desc",
-                pageNumber = 0,
-                pageSize = 0
+                SortBy = "name",
+                SortOrder = "desc",
+                PageNumber = 0,
+                PageSize = 0
             };
             _mockUserGroupMappingRepository.Setup(x => x.GetAllUserGroups())
                     .Returns(Task.FromResult(GetDataFromStaticJson()));
@@ -182,11 +183,11 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             var actual_result = JsonConvert.DeserializeObject<IEnumerable<PostUserToGroupsDTO>>(JsonConvert.SerializeObject(result)).ToList();
 
             //Assert          
-            Assert.IsTrue(expected.SDRGroups.Select(x=>x.users).Any(x=>x.Any(x=>x.email== actual_result[0].email)));
-            Assert.IsTrue(expected.SDRGroups.Select(x=>x.users).Any(x=>x.Any(x=>x.email== actual_result[1].email)));
-            Assert.IsTrue(expected.SDRGroups.Select(x=>x.users).Any(x=>x.Any(x=>x.email== actual_result[2].email)));
-            Assert.IsTrue(expected.SDRGroups.Select(x=>x.users).Any(x=>x.Any(x=>x.email== actual_result[3].email)));
-            Assert.IsTrue(expected.SDRGroups.Any(x=>x.groupName==actual_result[0].groups[0].groupName));
+            Assert.IsTrue(expected.SDRGroups.Select(x => x.Users).Any(x => x.Any(x => x.Email == actual_result[0].Email)));
+            Assert.IsTrue(expected.SDRGroups.Select(x => x.Users).Any(x => x.Any(x => x.Email == actual_result[1].Email)));
+            Assert.IsTrue(expected.SDRGroups.Select(x => x.Users).Any(x => x.Any(x => x.Email == actual_result[2].Email)));
+            Assert.IsTrue(expected.SDRGroups.Select(x => x.Users).Any(x => x.Any(x => x.Email == actual_result[3].Email)));
+            Assert.IsTrue(expected.SDRGroups.Any(x => x.GroupName == actual_result[0].Groups[0].GroupName));
 
             var nullObject = GetDataFromStaticJson();
             nullObject = null;
@@ -207,10 +208,10 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         {
             UserGroupsQueryParameters userGroupsQueryParameters = new UserGroupsQueryParameters
             {
-                sortBy = "name",
-                sortOrder = "desc",
-                pageNumber = 1,
-                pageSize = 20
+                SortBy = "name",
+                SortOrder = "desc",
+                PageNumber = 1,
+                PageSize = 20
             };
             _mockUserGroupMappingRepository.Setup(x => x.GetAllUserGroups())
                    .Returns(Task.FromResult(GetDataFromStaticJson()));
@@ -218,10 +219,10 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             UserGroupsQueryParameters userGroupsQueryParameters1 = new UserGroupsQueryParameters
             {
-                sortBy = "name",
-                sortOrder = "desc",
-                pageNumber = 10,
-                pageSize = 10
+                SortBy = "name",
+                SortOrder = "desc",
+                PageNumber = 10,
+                PageSize = 10
             };
             var method = userGroupMappingService.GetUsersList(userGroupsQueryParameters1);
             method.Wait();
@@ -244,7 +245,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         #region ListGroups UnitTesting
         [Test]
         public void ListGroups_UnitTest_SuccessResponse()
-        {            
+        {
             _mockUserGroupMappingRepository.Setup(x => x.GetGroupList())
                     .Returns(Task.FromResult(GetListGroups()));
             UserGroupMappingService userGroupMappingService = new UserGroupMappingService(_mockUserGroupMappingRepository.Object, _mockMapper, _mockLogger);
@@ -260,18 +261,18 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             var actual_result = JsonConvert.DeserializeObject<List<GroupListEntity>>(JsonConvert.SerializeObject(result)).ToList();
 
             //Assert          
-            Assert.IsTrue(expected.Any(x=>x.groupName==actual_result[0].groupName));
-            Assert.IsTrue(expected.Any(x=>x.groupName==actual_result[1].groupName));
-            Assert.IsTrue(expected.Any(x=>x.groupName==actual_result[2].groupName));                     
+            Assert.IsTrue(expected.Any(x => x.GroupName == actual_result[0].GroupName));
+            Assert.IsTrue(expected.Any(x => x.GroupName == actual_result[1].GroupName));
+            Assert.IsTrue(expected.Any(x => x.GroupName == actual_result[2].GroupName));
         }
 
         [Test]
         public void ListGroups_UnitTest_FailureResponse()
-        {          
+        {
             _mockUserGroupMappingRepository.Setup(x => x.GetGroupList())
                    .Returns(Task.FromResult(new List<GroupListEntity>()));
             UserGroupMappingService userGroupMappingService = new UserGroupMappingService(_mockUserGroupMappingRepository.Object, _mockMapper, _mockLogger);
-          
+
             var method = userGroupMappingService.ListGroups();
             method.Wait();
 
@@ -333,10 +334,10 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             var postDataEntity = PostAGroupEntity();
             _mockUserGroupMappingRepository.Setup(x => x.UpdateAGroup(It.IsAny<SDRGroupsEntity>()))
                     .Returns(Task.FromResult(postDataEntity));
-            _mockUserGroupMappingRepository.Setup(x => x.GetAGroupById(postDataEntity.groupId))
+            _mockUserGroupMappingRepository.Setup(x => x.GetAGroupById(postDataEntity.GroupId))
                     .Returns(Task.FromResult(postDataEntity));
             UserGroupMappingService userGroupMappingService = new UserGroupMappingService(_mockUserGroupMappingRepository.Object, _mockMapper, _mockLogger);
-           
+
             var method = userGroupMappingService.PostGroup(postDataDto, user);
             method.Wait();
             var result = method.Result;
@@ -347,12 +348,12 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             //Assert          
             Assert.IsNotNull(actual_result);
-            Assert.AreEqual(postDataDto.groupId,actual_result.groupId);
+            Assert.AreEqual(postDataDto.GroupId, actual_result.GroupId);
 
             _mockUserGroupMappingRepository.Setup(x => x.AddAGroup(It.IsAny<SDRGroupsEntity>()))
                    .Returns(Task.FromResult(postDataEntity));
             UserGroupMappingService userGroupMappingService1 = new UserGroupMappingService(_mockUserGroupMappingRepository.Object, _mockMapper, _mockLogger);
-            postDataDto.groupId = null;
+            postDataDto.GroupId = null;
             var method1 = userGroupMappingService1.PostGroup(postDataDto, user);
             method.Wait();
             var result1 = method.Result;
@@ -363,7 +364,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             //Assert          
             Assert.IsNotNull(actual_result1);
-            Assert.IsNotNull(actual_result1.groupId);
+            Assert.IsNotNull(actual_result1.GroupId);
 
             //Exception
             _mockUserGroupMappingRepository.Setup(x => x.GetGroupList())
@@ -391,25 +392,30 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             List<GroupsTaggedToUser> groupList = new List<GroupsTaggedToUser>();
             GroupsTaggedToUser groupsTaggedToUser = new GroupsTaggedToUser
             {
-                groupId = "0193a357-8519-4488-90e4-522f701658b9",
-                groupName = "OncologyRead", isActive=true
+                GroupId = "0193a357-8519-4488-90e4-522f701658b9",
+                GroupName = "OncologyRead",
+                IsActive = true
             };
             GroupsTaggedToUser groupsTaggedToUser2 = new GroupsTaggedToUser
             {
-                groupId = "c50ccb41-db9b-4b97-b132-cbbfaa68af5a",
-                groupName = "AmnesiaReadWrite", isActive=true
+                GroupId = "c50ccb41-db9b-4b97-b132-cbbfaa68af5a",
+                GroupName = "AmnesiaReadWrite",
+                IsActive = true
             };
             GroupsTaggedToUser groupsTaggedToUser3 = new GroupsTaggedToUser
             {
-                groupId = "83864612-ffbd-463f-90ce-3e8819c5d132",
-                groupName = "AmnesiaReadWrite", isActive=true
+                GroupId = "83864612-ffbd-463f-90ce-3e8819c5d132",
+                GroupName = "AmnesiaReadWrite",
+                IsActive = true
             };
             groupList.Add(groupsTaggedToUser);
             groupList.Add(groupsTaggedToUser2);
             groupList.Add(groupsTaggedToUser3);
             PostUserToGroupsDTO postUserToGroupsDTO = new PostUserToGroupsDTO
             {
-                email = "user1@SDR.com",oid = "aw2dq254wfdsf",groups = groupList
+                Email = "user1@SDR.com",
+                Oid = "aw2dq254wfdsf",
+                Groups = groupList
             };
             _mockUserGroupMappingRepository.Setup(x => x.GetAllUserGroups())
                     .Returns(Task.FromResult(GetDataFromStaticJson()));
@@ -426,22 +432,22 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 JsonConvert.SerializeObject(result));
 
             //Assert          
-            Assert.IsNotNull(actual_result);    
-            
-            var dataFromDatabase= GetDataFromStaticJson();
+            Assert.IsNotNull(actual_result);
+
+            var dataFromDatabase = GetDataFromStaticJson();
             dataFromDatabase.SDRGroups.ForEach(x =>
             {
-                if (x.groupId == "b9f848b8-9af7-46c1-9a3c-2663f547cc7a")
-                    x.users = null;
+                if (x.GroupId == "b9f848b8-9af7-46c1-9a3c-2663f547cc7a")
+                    x.Users = null;
             });
             GroupsTaggedToUser groupsTaggedToUser4 = new GroupsTaggedToUser
             {
-                groupId = "b9f848b8-9af7-46c1-9a3c-2663f547cc7a",
-                groupName = "OncologyRead",
-                isActive = true
+                GroupId = "b9f848b8-9af7-46c1-9a3c-2663f547cc7a",
+                GroupName = "OncologyRead",
+                IsActive = true
             };
             groupList.Add(groupsTaggedToUser4);
-            postUserToGroupsDTO.groups=groupList;
+            postUserToGroupsDTO.Groups = groupList;
 
             _mockUserGroupMappingRepository.Setup(x => x.GetAllUserGroups())
                     .Returns(Task.FromResult(dataFromDatabase));

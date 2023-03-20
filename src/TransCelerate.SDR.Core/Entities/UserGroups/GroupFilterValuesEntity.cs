@@ -1,17 +1,12 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TransCelerate.SDR.Core.Entities.UserGroups
 {
-    public  class GroupFilterValuesEntity
+    public class GroupFilterValuesEntity
     {
-        [BsonElement("id")]
-        public string groupFilterValueId { get; set; }
+        [BsonElement(Utilities.Common.IdFieldPropertyName.MVP.Id)]
+        public string GroupFilterValueId { get; set; }
 
-        public string title { get; set; }
+        public string Title { get; set; }
     }
 }

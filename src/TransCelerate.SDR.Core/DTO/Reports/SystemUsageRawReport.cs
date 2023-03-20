@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.DTO.Reports
 {
@@ -15,13 +11,13 @@ namespace TransCelerate.SDR.Core.DTO.Reports
     {
         public string Name { get; set; }
         public List<Columns> Columns { get; set; }
-        public List<List<string>>  Rows { get; set; }
+        public List<List<string>> Rows { get; set; }
     }
 
     public class Columns
     {
-        public string name { get; set; }
-        public string type { get; set; }
+        public string Name { get; set; }
+        public string Type { get; set; }
     }
 
     public class CustomDimension

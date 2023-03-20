@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization.Attributes;
 
 namespace TransCelerate.SDR.Core.Entities.Study
 {
-   
+
     [BsonIgnoreExtraElements]
     public class StudyProtocolEntity
-    {        
-        public string studyProtocolId { get; set; }
-        public string studyProtocolVersion { get; set; }       
+    {
+        public string StudyProtocolId { get; set; }
+        public string StudyProtocolVersion { get; set; }
     }
 }

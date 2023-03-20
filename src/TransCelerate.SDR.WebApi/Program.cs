@@ -10,7 +10,7 @@ using TransCelerate.SDR.Core.Utilities.Common;
 namespace TransCelerate.SDR.WebApi
 {
     public class Program
-    {   
+    {
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
@@ -20,7 +20,7 @@ namespace TransCelerate.SDR.WebApi
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();                    
+                    webBuilder.UseStartup<Startup>();
                 })
                 .ConfigureAppConfiguration((context, config) =>
                 {
@@ -33,11 +33,11 @@ namespace TransCelerate.SDR.WebApi
                     {
                         //For deployed code
                         if (!String.IsNullOrEmpty(vaultName))
-                        {                            
+                        {
                             var client = new SecretClient(new Uri(vaultName), new DefaultAzureCredential());
                             config.AddAzureKeyVault(client: client, new KeyVaultSecretManager());
                         }
-                    }                    
+                    }
                     else
                     {
                         //For getting key vault values when running the code in local:

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using TransCelerate.SDR.Core.Utilities.Common;
 
@@ -28,8 +27,8 @@ namespace TransCelerate.SDR.Core.AppSettings
             Config.AppInsightsAppId = Convert.ToString(config.GetSection("AppInsights-AppId").Value);
             Config.AppInsightsRESTApiUrl = Convert.ToString(config.GetSection("AppInsights-RESTApiUrl").Value);
             Config.DateRange = Convert.ToString(config.GetSection("StudyHistory:DateRange").Value);
-            Config.isGroupFilterEnabled = Convert.ToBoolean(config.GetSection("isGroupFilterEnabled").Value);
-            Config.isAuthEnabled = Convert.ToBoolean(config.GetSection("isAuthEnabled").Value);
+            Config.IsGroupFilterEnabled = Convert.ToBoolean(config.GetSection("isGroupFilterEnabled").Value);
+            Config.IsAuthEnabled = Convert.ToBoolean(config.GetSection("isAuthEnabled").Value);
             Config.AzureServiceBusConnectionString = Convert.ToString(config.GetSection("AzureServiceBusConnectionString").Value);
             Config.AzureServiceBusQueueName = Convert.ToString(config.GetSection("AzureServiceBusQueueName").Value);
             Config.ApiVersionUsdmVersionMapping = Convert.ToString(config.GetSection("ApiVersionUsdmVersionMapping").Value);

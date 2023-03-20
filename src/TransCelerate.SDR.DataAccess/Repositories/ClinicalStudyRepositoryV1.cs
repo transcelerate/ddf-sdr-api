@@ -3,16 +3,15 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities.StudyV1;
+using TransCelerate.SDR.Core.Entities.UserGroups;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
-using TransCelerate.SDR.DataAccess.Interfaces;
-using TransCelerate.SDR.DataAccess.Filters;
-using TransCelerate.SDR.Core.Entities.UserGroups;
-using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Utilities.Helpers;
+using TransCelerate.SDR.DataAccess.Filters;
+using TransCelerate.SDR.DataAccess.Interfaces;
 
 namespace TransCelerate.SDR.DataAccess.Repositories
 {
@@ -32,8 +31,10 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _client = client;
             _database = _client.GetDatabase(_databaseName);
             _logger = logger;
-            var conventionPack = new ConventionPack();
-            conventionPack.Add(new CamelCaseElementNameConvention());
+            var conventionPack = new ConventionPack
+            {
+                new CamelCaseElementNameConvention()
+            };
             ConventionRegistry.Register("camelCase", conventionPack, t => true);
         }
         #endregion
@@ -56,12 +57,12 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             try
             {
                 IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
-                
+
 
                 StudyEntity study = await collection.Find(DataFiltersV1.GetFiltersForGetStudy(studyId, sdruploadversion))
                                                      .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
                                                      .Limit(1)                  //Taking top 1 result
-                                                     .SingleOrDefaultAsync().ConfigureAwait(false);                
+                                                     .SingleOrDefaultAsync().ConfigureAwait(false);
 
                 if (study == null)
                 {
@@ -138,9 +139,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             try
             {
                 var collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
-                List<AuditTrailResponseEntity> auditTrails = new List<AuditTrailResponseEntity>();
-                auditTrails = await collection.Find(DataFiltersV1.GetFiltersForGetAudTrail(studyId,fromDate,toDate)) // Condition for matching studyId and date range
-                                                  .Project(x=> new AuditTrailResponseEntity
+                List<AuditTrailResponseEntity> auditTrails = new();
+                auditTrails = await collection.Find(DataFiltersV1.GetFiltersForGetAudTrail(studyId, fromDate, toDate)) // Condition for matching studyId and date range
+                                                  .Project(x => new AuditTrailResponseEntity
                                                   {
                                                       StudyType = x.ClinicalStudy.StudyType,
                                                       EntryDateTime = x.AuditTrail.EntryDateTime,
@@ -186,10 +187,10 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(GetStudyHistory)};");
             try
             {
-                var collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);               
+                var collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
 
                 List<StudyHistoryResponseEntity> studyHistories = await collection.Aggregate()
-                                                        .Match(DataFiltersV1.GetFiltersForStudyHistory(fromDate,toDate,studyTitle)) // Condition for matching date range
+                                                        .Match(DataFiltersV1.GetFiltersForStudyHistory(fromDate, toDate, studyTitle)) // Condition for matching date range
                                                         .Project(x =>
                                                                 new StudyHistoryResponseEntity
                                                                 {
@@ -199,7 +200,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                                     StudyIdentifiers = x.ClinicalStudy.StudyIdentifiers,
                                                                     EntryDateTime = x.AuditTrail.EntryDateTime,
                                                                     StudyType = x.ClinicalStudy.StudyType,
-                                                                    ProtocolVersions = x.ClinicalStudy.StudyProtocolVersions.Select(x=>x.ProtocolVersion),
+                                                                    ProtocolVersions = x.ClinicalStudy.StudyProtocolVersions.Select(x => x.ProtocolVersion),
                                                                     StudyVersion = x.ClinicalStudy.StudyVersion,
                                                                     UsdmVersion = x.AuditTrail.UsdmVersion
                                                                 })  //Project only the required fields                                                        
@@ -207,7 +208,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
                 studyHistories = GroupFilterForStudyHistory(studyHistories, user);
 
-                if (studyHistories.Count() == 0)
+                if (studyHistories.Count == 0)
                 {
                     _logger.LogWarning($"There are no Study in {Constants.Collections.StudyV1} Collection");
                     return null;
@@ -228,7 +229,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         }
         public List<StudyHistoryResponseEntity> GroupFilterForStudyHistory(List<StudyHistoryResponseEntity> studyHistoryEntities, LoggedInUser user)
         {
-            if (user.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+            if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
             {
                 var groups = GetGroupsOfUser(user).Result;
 
@@ -265,7 +266,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(PostStudyItemsAsync)};");
             try
             {
-                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);                
+                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
                 await collection.InsertOneAsync(study).ConfigureAwait(false); //Insert One Document
 
                 return (study.ClinicalStudy.Uuid);
@@ -332,7 +333,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             {
                 _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(SearchStudy)};");
                 IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyV1);
-                
+
                 List<SearchResponseEntity> studies = await collection.Aggregate()
                                               .Match(DataFiltersV1.GetFiltersForSearchStudy(searchParameters))
                                               .Project(x => new SearchResponseEntity
@@ -342,17 +343,17 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                   StudyType = x.ClinicalStudy.StudyType,
                                                   StudyPhase = x.ClinicalStudy.StudyPhase,
                                                   StudyIdentifiers = x.ClinicalStudy.StudyIdentifiers,
-                                                  InterventionModel = x.ClinicalStudy.StudyDesigns.Select(y=>y.InterventionModel) ?? null,
-                                                  StudyIndications = x.ClinicalStudy.StudyDesigns.Select(y=>y.StudyIndications) ?? null,
+                                                  InterventionModel = x.ClinicalStudy.StudyDesigns.Select(y => y.InterventionModel) ?? null,
+                                                  StudyIndications = x.ClinicalStudy.StudyDesigns.Select(y => y.StudyIndications) ?? null,
                                                   EntryDateTime = x.AuditTrail.EntryDateTime,
                                                   SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
                                                   UsdmVersion = x.AuditTrail.UsdmVersion
-                                              })                                                 
+                                              })
                                               .ToListAsync()
                                               .ConfigureAwait(false);
                 List<SearchResponseEntity> studiesAfterGroupFilter = await GroupFilterForSearch(studies, user);
 
-                List<SearchResponseEntity> sortedResults = SortSearchResults(studiesAfterGroupFilter,searchParameters.Header,searchParameters.Asc) // Sort the data based on input
+                List<SearchResponseEntity> sortedResults = SortSearchResults(studiesAfterGroupFilter, searchParameters.Header, searchParameters.Asc) // Sort the data based on input
                                                             .Skip((searchParameters.PageNumber - 1) * searchParameters.PageSize) //page number
                                                             .Take(searchParameters.PageSize) //Number of documents per page
                                                             .ToList();
@@ -396,9 +397,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
                         //Sort by studyPhase
                         "phase" => asc ? searchResponses.OrderBy(s => s.StudyPhase != null ? s.StudyPhase.Decode ?? "" : "") : searchResponses.OrderByDescending(s => s.StudyPhase != null ? s.StudyPhase.Decode ?? "" : ""),
-                       
+
                         //Sort by SDR version
-                        "sdrversion" => asc ? searchResponses.OrderBy(s => s.SDRUploadVersion) : searchResponses.OrderByDescending(s => s.SDRUploadVersion),                        
+                        "sdrversion" => asc ? searchResponses.OrderBy(s => s.SDRUploadVersion) : searchResponses.OrderByDescending(s => s.SDRUploadVersion),
 
                         //Sort by entryDateTime
                         "lastmodifieddate" => asc ? searchResponses.OrderBy(s => s.EntryDateTime) : searchResponses.OrderByDescending(s => s.EntryDateTime),
@@ -430,16 +431,16 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             {
                 _logger.LogInformation($"Started Method : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(GroupFilterForSearch)};");
 
-                if (user.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+                if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
                 {
                     List<SDRGroupsEntity> groups = await GetGroupsOfUser(user);
-                    
+
                     if (groups != null && groups.Count > 0)
                     {
                         Tuple<List<string>, List<string>> groupFilters = GroupFilters.GetGroupFilters(groups);
                         if (groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
-                            return searchResponses;  
-                        searchResponses = searchResponses.Where(x => groupFilters.Item1.Contains(x.StudyType?.Decode?.ToLower()) || groupFilters.Item2.Contains(x.Uuid)).ToList();                        
+                            return searchResponses;
+                        searchResponses = searchResponses.Where(x => groupFilters.Item1.Contains(x.StudyType?.Decode?.ToLower()) || groupFilters.Item2.Contains(x.Uuid)).ToList();
                     }
                     else
                     {
@@ -484,8 +485,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                               {
                                                   Uuid = x.ClinicalStudy.Uuid,
                                                   StudyTitle = x.ClinicalStudy.StudyTitle,
-                                                  StudyType = x.ClinicalStudy.StudyType,                                                  
-                                                  StudyIdentifiers = x.ClinicalStudy.StudyIdentifiers,                                                 
+                                                  StudyType = x.ClinicalStudy.StudyType,
+                                                  StudyIdentifiers = x.ClinicalStudy.StudyIdentifiers,
                                                   EntryDateTime = x.AuditTrail.EntryDateTime,
                                                   SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
                                                   UsdmVersion = x.AuditTrail.UsdmVersion
@@ -518,9 +519,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
                 return await groupsCollection.Find(_ => true)
                                                  .Project(x => x.SDRGroups
-                                                               .Where(x => x.groupEnabled == true)
-                                                               .Where(x => x.users != null)
-                                                               .Where(x => x.users.Any(x => (x.email == user.UserName && x.isActive == true)))
+                                                               .Where(x => x.GroupEnabled == true)
+                                                               .Where(x => x.Users != null)
+                                                               .Where(x => x.Users.Any(x => (x.Email == user.UserName && x.IsActive == true)))
                                                                .ToList())
                                                  .FirstOrDefaultAsync().ConfigureAwait(false);
             }

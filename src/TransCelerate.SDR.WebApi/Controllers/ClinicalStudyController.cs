@@ -5,20 +5,17 @@ using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
-
 using TransCelerate.SDR.Core.DTO;
 using TransCelerate.SDR.Core.DTO.Study;
+using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
-using TransCelerate.SDR.Core.Filters;
 using TransCelerate.SDR.Services.Interfaces;
-using TransCelerate.SDR.Core.DTO.Token;
-using System.Net;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace TransCelerate.SDR.WebApi.Controllers
 {
@@ -66,28 +63,28 @@ namespace TransCelerate.SDR.WebApi.Controllers
                                             [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)] string usdmVersion)
         {
             try
-            {                                   
+            {
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(GetStudy)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
-                    LoggedInUser user = new LoggedInUser
+                    LoggedInUser user = new()
                     {
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
                     _logger.LogInformation($"Inputs: StudyId: {studyId}; Version: {sdruploadversion}; Status: {tag ?? "<null>"}; Sections: {sections ?? "<null>"};USDM Version: {usdmVersion}");
-                    if(String.IsNullOrWhiteSpace(usdmVersion))
+                    if (String.IsNullOrWhiteSpace(usdmVersion))
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.UsdmVersionMissing)).Value);
                     if (!ValidateApiUsdmVersionMapping.IsValidMapping(Constants.USDMVersions.MVP, usdmVersion))
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.UsdmVersionMapError)).Value);
-                    string[] sectionArray = new string[] { };
+                    string[] sectionArray = Array.Empty<string>();
                     if (!String.IsNullOrWhiteSpace(sections))
                     {
                         sectionArray = sections.Split(',');
                     }
                     bool isValidSection = true;
                     object study;
-                    if (sectionArray.Count() != 0)
+                    if (sectionArray.Length != 0)
                     {
                         foreach (var item in sectionArray)
                         {
@@ -97,18 +94,18 @@ namespace TransCelerate.SDR.WebApi.Controllers
                                 return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.SectionNotValid)).Value);
                             }
                         }
-                        study = await _clinicalStudyService.GetSections(studyId: studyId, version: sdruploadversion, tag: tag, sections: sectionArray,user:user).ConfigureAwait(false);
+                        study = await _clinicalStudyService.GetSections(studyId: studyId, version: sdruploadversion, tag: tag, sections: sectionArray, user: user).ConfigureAwait(false);
                     }
                     else
                     {
-                        study = await _clinicalStudyService.GetAllElements(studyId: studyId, version: sdruploadversion, tag: tag,user:user).ConfigureAwait(false);
+                        study = await _clinicalStudyService.GetAllElements(studyId: studyId, version: sdruploadversion, tag: tag, user: user).ConfigureAwait(false);
                     }
 
                     if (study == null)
                     {
                         return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
                     }
-                    else if(study.ToString() == Constants.ErrorMessages.Forbidden)
+                    else if (study.ToString() == Constants.ErrorMessages.Forbidden)
                     {
                         return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
                     }
@@ -159,7 +156,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(GetStudyDesignSections)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
-                    LoggedInUser user = new LoggedInUser
+                    LoggedInUser user = new()
                     {
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
@@ -169,13 +166,13 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     if (!ValidateApiUsdmVersionMapping.IsValidMapping(Constants.USDMVersions.MVP, usdmVersion))
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.UsdmVersionMapError)).Value);
                     _logger.LogInformation($"Inputs: StudyId: {studyId}; StudyDesignId: {studyDesignId}; Version: {sdruploadversion}; Status: {tag ?? "<null>"}; Sections: {sections ?? "<null>"}");
-                    string[] sectionArray = new string[] { };
+                    string[] sectionArray = Array.Empty<string>();
                     if (!String.IsNullOrWhiteSpace(sections))
                     {
                         sectionArray = sections.Split(',');
                     }
                     bool isValidSection = true;
-                    if (sectionArray.Count() != 0)
+                    if (sectionArray.Length != 0)
                     {
                         foreach (var item in sectionArray)
                         {
@@ -187,7 +184,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         }
 
                     }
-                    var study = await _clinicalStudyService.GetStudyDesignSections(studyDesignId: studyDesignId, studyId: studyId, version: sdruploadversion, tag: tag, sections: sectionArray,user:user).ConfigureAwait(false);
+                    var study = await _clinicalStudyService.GetStudyDesignSections(studyDesignId: studyDesignId, studyId: studyId, version: sdruploadversion, tag: tag, sections: sectionArray, user: user).ConfigureAwait(false);
 
                     //If StudyId is not found
                     if (study == null)
@@ -247,7 +244,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(GetAuditTrail)};");
-                LoggedInUser user = new LoggedInUser
+                LoggedInUser user = new()
                 {
                     UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                     UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
@@ -318,7 +315,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(GetAllStudyId)};");
-                LoggedInUser user = new LoggedInUser
+                LoggedInUser user = new()
                 {
                     UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                     UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
@@ -395,12 +392,12 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(PostAllElements)};");
                     if (studyDTO != null)
                     {
-                        LoggedInUser user = new LoggedInUser
+                        LoggedInUser user = new()
                         {
                             UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                             UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                         };
-                        var response = await _clinicalStudyService.PostAllElements(studyDTO, entrySystem: entrySystem,user: user)
+                        var response = await _clinicalStudyService.PostAllElements(studyDTO, entrySystem: entrySystem, user: user)
                                                                   .ConfigureAwait(false);
 
                         if (response == null)
@@ -423,7 +420,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                             }
                             else
                             {
-                                return Created($"study/{studyDTO.clinicalStudy.studyId}", new JsonResult(response).Value);
+                                return Created($"study/{studyDTO.ClinicalStudy.StudyId}", new JsonResult(response).Value);
                             }
                         }
                     }
@@ -468,44 +465,44 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(SearchStudy)};");
                 if (ModelState.IsValid)
                 {
-                    LoggedInUser user = new LoggedInUser
+                    LoggedInUser user = new()
                     {
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
                     if (searchparameters != null)
                     {
-                        if (String.IsNullOrWhiteSpace(searchparameters.indication)
-                           && String.IsNullOrWhiteSpace(searchparameters.interventionModel) && String.IsNullOrWhiteSpace(searchparameters.phase)
-                           && String.IsNullOrWhiteSpace(searchparameters.studyId) && String.IsNullOrWhiteSpace(searchparameters.studyTitle)
-                           && String.IsNullOrWhiteSpace(searchparameters.fromDate) && String.IsNullOrWhiteSpace(searchparameters.toDate))
+                        if (String.IsNullOrWhiteSpace(searchparameters.Indication)
+                           && String.IsNullOrWhiteSpace(searchparameters.InterventionModel) && String.IsNullOrWhiteSpace(searchparameters.Phase)
+                           && String.IsNullOrWhiteSpace(searchparameters.StudyId) && String.IsNullOrWhiteSpace(searchparameters.StudyTitle)
+                           && String.IsNullOrWhiteSpace(searchparameters.FromDate) && String.IsNullOrWhiteSpace(searchparameters.ToDate))
                         {
                             return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ValidationErrorMessage.AnyOneFieldError)).Value);
                         }
-                        if (String.IsNullOrWhiteSpace(searchparameters.toDate))
+                        if (String.IsNullOrWhiteSpace(searchparameters.ToDate))
                         {
-                            searchparameters.toDate = DateTime.UtcNow.Date.AddHours(23).AddMinutes(59).AddSeconds(59).ToString();
+                            searchparameters.ToDate = DateTime.UtcNow.Date.AddHours(23).AddMinutes(59).AddSeconds(59).ToString();
                         }
                         else
                         {
-                            searchparameters.toDate = Convert.ToDateTime(searchparameters.toDate).Date.AddHours(23).AddMinutes(59).AddSeconds(59).ToString();
+                            searchparameters.ToDate = Convert.ToDateTime(searchparameters.ToDate).Date.AddHours(23).AddMinutes(59).AddSeconds(59).ToString();
                         }
-                        if (String.IsNullOrWhiteSpace(searchparameters.fromDate))
+                        if (String.IsNullOrWhiteSpace(searchparameters.FromDate))
                         {
-                            searchparameters.fromDate = DateTime.MinValue.ToString();
+                            searchparameters.FromDate = DateTime.MinValue.ToString();
                         }
                         else
                         {
-                            searchparameters.fromDate = Convert.ToDateTime(searchparameters.fromDate).ToString();
+                            searchparameters.FromDate = Convert.ToDateTime(searchparameters.FromDate).ToString();
                         }
-                        if ((!String.IsNullOrWhiteSpace(searchparameters.fromDate)) && (!String.IsNullOrWhiteSpace(searchparameters.toDate)))
+                        if ((!String.IsNullOrWhiteSpace(searchparameters.FromDate)) && (!String.IsNullOrWhiteSpace(searchparameters.ToDate)))
                         {
-                            if (Convert.ToDateTime(searchparameters.fromDate) > Convert.ToDateTime(searchparameters.toDate))
+                            if (Convert.ToDateTime(searchparameters.FromDate) > Convert.ToDateTime(searchparameters.ToDate))
                             {
                                 return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError)).Value);
                             }
                         }
-                        var response = await _clinicalStudyService.SearchStudy(searchparameters,user).ConfigureAwait(false);
+                        var response = await _clinicalStudyService.SearchStudy(searchparameters, user).ConfigureAwait(false);
 
                         if (response == null)
                         {
@@ -559,44 +556,44 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyController)}; Method : {nameof(SearchTitle)};");
                 if (ModelState.IsValid)
                 {
-                    LoggedInUser user = new LoggedInUser
+                    LoggedInUser user = new()
                     {
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
                     if (searchparameters != null)
                     {
-                        if (String.IsNullOrWhiteSpace(searchparameters.studyTitle)
-                           && String.IsNullOrWhiteSpace(searchparameters.fromDate) && String.IsNullOrWhiteSpace(searchparameters.toDate))
+                        if (String.IsNullOrWhiteSpace(searchparameters.StudyTitle)
+                           && String.IsNullOrWhiteSpace(searchparameters.FromDate) && String.IsNullOrWhiteSpace(searchparameters.ToDate))
                         {
                             return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ValidationErrorMessage.AnyOneFieldError)).Value);
                         }
-                        if (String.IsNullOrWhiteSpace(searchparameters.toDate))
+                        if (String.IsNullOrWhiteSpace(searchparameters.ToDate))
                         {
-                            searchparameters.toDate = DateTime.UtcNow.Date.AddHours(23).AddMinutes(59).AddSeconds(59).ToString();
+                            searchparameters.ToDate = DateTime.UtcNow.Date.AddHours(23).AddMinutes(59).AddSeconds(59).ToString();
                         }
                         else
                         {
-                            searchparameters.toDate = Convert.ToDateTime(searchparameters.toDate).Date.AddHours(23).AddMinutes(59).AddSeconds(59).ToString();
+                            searchparameters.ToDate = Convert.ToDateTime(searchparameters.ToDate).Date.AddHours(23).AddMinutes(59).AddSeconds(59).ToString();
                         }
-                        if (String.IsNullOrWhiteSpace(searchparameters.fromDate))
+                        if (String.IsNullOrWhiteSpace(searchparameters.FromDate))
                         {
-                            searchparameters.fromDate = DateTime.MinValue.ToString();
+                            searchparameters.FromDate = DateTime.MinValue.ToString();
                         }
                         else
                         {
-                            searchparameters.fromDate = Convert.ToDateTime(searchparameters.fromDate).ToString();
+                            searchparameters.FromDate = Convert.ToDateTime(searchparameters.FromDate).ToString();
                         }
-                        if ((!String.IsNullOrWhiteSpace(searchparameters.fromDate)) && (!String.IsNullOrWhiteSpace(searchparameters.toDate)))
+                        if ((!String.IsNullOrWhiteSpace(searchparameters.FromDate)) && (!String.IsNullOrWhiteSpace(searchparameters.ToDate)))
                         {
-                            if (Convert.ToDateTime(searchparameters.fromDate) > Convert.ToDateTime(searchparameters.toDate))
+                            if (Convert.ToDateTime(searchparameters.FromDate) > Convert.ToDateTime(searchparameters.ToDate))
                             {
                                 return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError)).Value);
                             }
                         }
                         var response = await _clinicalStudyService.SearchTitle(searchparameters, user).ConfigureAwait(false);
 
-                        if (response == null || response.Count==0)
+                        if (response == null || response.Count == 0)
                         {
                             return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.SearchNotFound)).Value);
                         }

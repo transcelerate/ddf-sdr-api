@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TransCelerate.SDR.Core.DTO.Study;
+﻿using TransCelerate.SDR.Core.DTO.Study;
 
 namespace TransCelerate.SDR.Core.DTO
 {
@@ -13,11 +10,11 @@ namespace TransCelerate.SDR.Core.DTO
         /// <summary>
         /// This property holds the ClinicalStudy Component of the Study for POST Method
         /// </summary>
-        public ClinicalStudyDTO clinicalStudy { get; set; }
+        public ClinicalStudyDTO ClinicalStudy { get; set; }
         /// <summary>
         /// This property holds the Audit Trail Component of the Study for POST Method
         /// </summary>
-        public AuditTrailDTO auditTrail { get; set; }
+        public AuditTrailDTO AuditTrail { get; set; }
 
         public object Links { get; set; }
     }

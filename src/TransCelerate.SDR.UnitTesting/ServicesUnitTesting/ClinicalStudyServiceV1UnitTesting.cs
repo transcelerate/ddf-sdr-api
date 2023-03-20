@@ -18,7 +18,6 @@ using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1;
 using TransCelerate.SDR.DataAccess.Interfaces;
 using TransCelerate.SDR.Services.Services;
 using TransCelerate.SDR.WebApi.Mappers;
-using System.Net.Http;
 
 namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 {
@@ -61,7 +60,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         [SetUp]
         public void SetUp()
         {
-            Config.isGroupFilterEnabled = false;
+            Config.IsGroupFilterEnabled = false;
             var mockMapper = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new AutoMapperProfilesV1());
@@ -83,7 +82,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             StudyDto studyDto = GetDtoDataFromStaticJson();
             studyDto.ClinicalStudy.StudyTitle = "New";
             studyEntity.AuditTrail = new AuditTrailEntity { CreatedBy = user.UserName, EntryDateTime = DateTime.Now, SDRUploadVersion = 0, UsdmVersion = "1.0" };
-            studyDto.AuditTrail = new AuditTrailDto { EntryDateTime = DateTime.Now, SDRUploadVersion = 1 , UsdmVersion = "1.0"};
+            studyDto.AuditTrail = new AuditTrailDto { EntryDateTime = DateTime.Now, SDRUploadVersion = 1, UsdmVersion = "1.0" };
             _mockClinicalStudyRepository.Setup(x => x.PostStudyItemsAsync(It.IsAny<StudyEntity>()))
                     .Returns(Task.FromResult(studyDto.ClinicalStudy.Uuid));
             _mockClinicalStudyRepository.Setup(x => x.UpdateStudyItemsAsync(It.IsAny<StudyEntity>()))
@@ -163,15 +162,15 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
 
             var groups = GetUserDataFromStaticJson();
-            groups.SDRGroups.ForEach(x => x.permission = Permissions.READONLY.ToString());
+            groups.SDRGroups.ForEach(x => x.Permission = Permissions.READONLY.ToString());
             _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(user))
                    .Returns(Task.FromResult(groups.SDRGroups));
             user.UserRole = Constants.Roles.App_User;
-            Config.isGroupFilterEnabled = true;
+            Config.IsGroupFilterEnabled = true;
             method = ClinicalStudyService.PostAllElements(studyDto, user);
             method.Wait();
             result = method.Result;
-            Config.isGroupFilterEnabled = false;
+            Config.IsGroupFilterEnabled = false;
 
             //Actual            
             var actual_result2 = result.ToString();
@@ -185,20 +184,20 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             method = ClinicalStudyService.PostAllElements(studyDto, user);
 
             Assert.Throws<AggregateException>(method.Wait);
-            
 
-            
+
+
 
         }
         [Test]
         public void CheckPermissionForAUser_UnitTesting()
         {
-            Config.isGroupFilterEnabled = true;
+            Config.IsGroupFilterEnabled = true;
             user.UserRole = Constants.Roles.App_User;
             user.UserName = "user1@SDR.com";
             _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(user))
                    .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
-            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object);
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
 
             var method = ClinicalStudyService.CheckPermissionForAUser(user);
             method.Wait();
@@ -223,7 +222,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(user))
                   .Throws(new Exception("Error"));
 
-            method = ClinicalStudyService.CheckPermissionForAUser(user);            
+            method = ClinicalStudyService.CheckPermissionForAUser(user);
 
 
             Assert.Throws<AggregateException>(method.Wait);
@@ -235,19 +234,19 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         [Test]
         public void GetStudy_UnitTesting()
         {
-            Config.isGroupFilterEnabled = true;
+            Config.IsGroupFilterEnabled = true;
             user.UserRole = Constants.Roles.Org_Admin;
             user.UserName = "user1@SDR.com";
             StudyDto studyDto = GetDtoDataFromStaticJson();
             StudyEntity studyEntity = GetEntityDataFromStaticJson();
             studyEntity.ClinicalStudy.StudyType.Decode = "OBSERVATIONAL";
-            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(),It.IsAny<int>()))
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity));
             _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(user))
                    .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
-            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object);
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
 
-            var method = ClinicalStudyService.GetStudy("1",0,user);
+            var method = ClinicalStudyService.GetStudy("1", 0, user);
             method.Wait();
             var result = method.Result;
 
@@ -262,7 +261,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             method = ClinicalStudyService.GetStudy("1", 0, user);
             method.Wait();
 
-            Assert.AreEqual(method.Result.ToString(), Constants.ErrorMessages.Forbidden);           
+            Assert.AreEqual(method.Result.ToString(), Constants.ErrorMessages.Forbidden);
 
             _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                   .Throws(new Exception("Error"));
@@ -285,13 +284,13 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         [Test]
         public void CheckAccessForAStudy_UnitTesting()
         {
-            Config.isGroupFilterEnabled = true;
+            Config.IsGroupFilterEnabled = true;
             user.UserRole = Constants.Roles.App_User;
             user.UserName = "user1@SDR.com";
             var study = GetEntityDataFromStaticJson();
             _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(It.IsAny<LoggedInUser>()))
                    .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
-            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object);
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
 
             var method = ClinicalStudyService.CheckAccessForAStudy(study, user);
             method.Wait();
@@ -314,7 +313,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             Assert.AreEqual("studyId5", method.Result.ClinicalStudy.Uuid);
 
-            Config.isGroupFilterEnabled = false;
+            Config.IsGroupFilterEnabled = false;
             method = ClinicalStudyService.CheckAccessForAStudy(study, user);
             method.Wait();
 
@@ -322,10 +321,10 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             var noGroups = GetUserDataFromStaticJson().SDRGroups;
             noGroups.Clear();
-            Config.isGroupFilterEnabled = true;
+            Config.IsGroupFilterEnabled = true;
             _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(user))
                    .Returns(Task.FromResult(noGroups));
-            ClinicalStudyServiceV1 ClinicalStudyService1 = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object);
+            ClinicalStudyServiceV1 ClinicalStudyService1 = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
             method = ClinicalStudyService1.CheckAccessForAStudy(study, user);
             method.Wait();
 
@@ -352,9 +351,9 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             {
                 EntryDateTime = DateTime.Now,
                 SDRUploadVersion = 2,
-                InterventionModel = studyEntity.ClinicalStudy.StudyDesigns.Select(x=>x.InterventionModel),
+                InterventionModel = studyEntity.ClinicalStudy.StudyDesigns.Select(x => x.InterventionModel),
                 StudyIdentifiers = studyEntity.ClinicalStudy.StudyIdentifiers,
-                StudyIndications = studyEntity.ClinicalStudy.StudyDesigns.Select(x=>x.StudyIndications),
+                StudyIndications = studyEntity.ClinicalStudy.StudyDesigns.Select(x => x.StudyIndications),
                 StudyPhase = studyEntity.ClinicalStudy.StudyPhase,
                 StudyTitle = studyEntity.ClinicalStudy.StudyTitle,
                 StudyType = studyEntity.ClinicalStudy.StudyType,
@@ -375,10 +374,10 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 FromDate = DateTime.Now.AddDays(-5).ToString(),
                 ToDate = DateTime.Now.ToString(),
                 Asc = true,
-                Header  = "sdrversion"
+                Header = "sdrversion"
             };
 
-            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object);
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
 
             var method = ClinicalStudyService.SearchStudy(searchParameters, user);
             method.Wait();
@@ -393,7 +392,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             Assert.IsNotEmpty(actual_result);
 
             _mockClinicalStudyRepository.Setup(x => x.SearchStudy(It.IsAny<SearchParameters>(), It.IsAny<LoggedInUser>()))
-                .Throws(new Exception("Error"));            
+                .Throws(new Exception("Error"));
 
             method = ClinicalStudyService.SearchStudy(searchParameters, user);
             Assert.Throws<AggregateException>(method.Wait);
@@ -412,7 +411,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         [Test]
         public void GetStudyAudit_UnitTesting()
         {
-            Config.isGroupFilterEnabled = true;
+            Config.IsGroupFilterEnabled = true;
             user.UserRole = Constants.Roles.Org_Admin;
             user.UserName = "user1@SDR.com";
             StudyDto studyDto = GetDtoDataFromStaticJson();
@@ -433,13 +432,13 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     StudyType = studyEntity.ClinicalStudy.StudyType
                 }
             };
-            _mockClinicalStudyRepository.Setup(x => x.GetAuditTrail(It.IsAny<string>(), It.IsAny<DateTime>(),It.IsAny<DateTime>()))
+            _mockClinicalStudyRepository.Setup(x => x.GetAuditTrail(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>()))
                    .Returns(Task.FromResult(auditTrailResponseEntities));
             _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(user))
                    .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
-            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object);
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
 
-            var method = ClinicalStudyService.GetAuditTrail("1", DateTime.MinValue,DateTime.MinValue, user);
+            var method = ClinicalStudyService.GetAuditTrail("1", DateTime.MinValue, DateTime.MinValue, user);
             method.Wait();
             var result = method.Result;
 
@@ -459,7 +458,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             _mockClinicalStudyRepository.Setup(x => x.GetAuditTrail(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>()))
                   .Throws(new Exception("Error"));
 
-            method = ClinicalStudyService.GetAuditTrail("1", DateTime.MinValue, DateTime.MinValue, user); 
+            method = ClinicalStudyService.GetAuditTrail("1", DateTime.MinValue, DateTime.MinValue, user);
 
 
             Assert.Throws<AggregateException>(method.Wait);
@@ -477,9 +476,9 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         [Test]
         public void CheckAccessForAStudyAudit_UnitTesting()
         {
-            Config.isGroupFilterEnabled = true;
+            Config.IsGroupFilterEnabled = true;
             user.UserRole = Constants.Roles.App_User;
-            user.UserName = "user1@SDR.com";           
+            user.UserName = "user1@SDR.com";
             StudyEntity studyEntity = GetEntityDataFromStaticJson();
             //studyEntity.ClinicalStudy.StudyType.Decode = "OBSERVATIONAL";
             List<AuditTrailResponseEntity> auditTrailResponseEntities = new()
@@ -499,7 +498,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             };
             _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(It.IsAny<LoggedInUser>()))
                    .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
-            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object);
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
 
             var method = ClinicalStudyService.CheckAccessForStudyAudit(studyEntity.ClinicalStudy.Uuid, auditTrailResponseEntities, user);
             method.Wait();
@@ -523,7 +522,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             Assert.IsNull(method.Result);
 
             auditTrailResponseEntities.ForEach(x => x.StudyType.Decode = "Interventional");
-            Config.isGroupFilterEnabled = false;
+            Config.IsGroupFilterEnabled = false;
             method = ClinicalStudyService.CheckAccessForStudyAudit(studyEntity.ClinicalStudy.Uuid, auditTrailResponseEntities, user);
             method.Wait();
 
@@ -531,10 +530,10 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             var noGroups = GetUserDataFromStaticJson().SDRGroups;
             noGroups.Clear();
-            Config.isGroupFilterEnabled = true;
+            Config.IsGroupFilterEnabled = true;
             _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(user))
                    .Returns(Task.FromResult(noGroups));
-            ClinicalStudyServiceV1 ClinicalStudyService1 = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object);
+            ClinicalStudyServiceV1 ClinicalStudyService1 = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
             method = ClinicalStudyService1.CheckAccessForStudyAudit(studyEntity.ClinicalStudy.Uuid, auditTrailResponseEntities, user);
             method.Wait();
 
@@ -554,7 +553,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         [Test]
         public void GetStudyDesign_UnitTesting()
         {
-            Config.isGroupFilterEnabled = true;
+            Config.IsGroupFilterEnabled = true;
             user.UserRole = Constants.Roles.Org_Admin;
             user.UserName = "user1@SDR.com";
             StudyDto studyDto = GetDtoDataFromStaticJson();
@@ -564,8 +563,8 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                    .Returns(Task.FromResult(studyEntity));
             _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(user))
                    .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
-            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object);
-            
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
+
             var method = ClinicalStudyService.GetStudyDesigns("1", 0, user);
             method.Wait();
             var result = method.Result;
@@ -578,8 +577,8 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             Assert.IsNotNull(actual_result);
 
             studyEntity.ClinicalStudy.StudyDesigns = null;
-           _mockClinicalStudyRepository.Setup(x => x.GetPartialStudyDesignItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
-                   .Returns(Task.FromResult(studyEntity));
+            _mockClinicalStudyRepository.Setup(x => x.GetPartialStudyDesignItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
+                    .Returns(Task.FromResult(studyEntity));
             method = ClinicalStudyService.GetStudyDesigns("1", 0, user);
             method.Wait();
 
@@ -614,7 +613,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         #region GET Study History
         [Test]
         public void GetStudyHistory_UnitTesting()
-        {            
+        {
             StudyEntity studyEntity = GetEntityDataFromStaticJson();
             List<StudyHistoryResponseEntity> studyHistories = new()
             {
@@ -630,12 +629,12 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     StudyType = studyEntity.ClinicalStudy.StudyType
                 }
             };
-            _mockClinicalStudyRepository.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(),It.IsAny<string>(),It.IsAny<LoggedInUser>()))
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                    .Returns(Task.FromResult(studyHistories));
-            
-            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object);
 
-            var method = ClinicalStudyService.GetStudyHistory(DateTime.Now,DateTime.MinValue, "", user);
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
+
+            var method = ClinicalStudyService.GetStudyHistory(DateTime.Now, DateTime.MinValue, "", user);
             method.Wait();
             var result = method.Result;
 
@@ -652,7 +651,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             method = ClinicalStudyService.GetStudyHistory(DateTime.Now, DateTime.MinValue, "", user);
             method.Wait();
 
-            Assert.IsNull(method.Result);       
+            Assert.IsNull(method.Result);
 
             _mockClinicalStudyRepository.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                   .Throws(new Exception("Error"));
@@ -676,8 +675,8 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             SearchResponseEntity searchResponseEntity = new()
             {
                 EntryDateTime = DateTime.Now,
-                SDRUploadVersion = 2,               
-                StudyIdentifiers = studyEntity.ClinicalStudy.StudyIdentifiers,                
+                SDRUploadVersion = 2,
+                StudyIdentifiers = studyEntity.ClinicalStudy.StudyIdentifiers,
                 StudyPhase = studyEntity.ClinicalStudy.StudyPhase,
                 StudyTitle = studyEntity.ClinicalStudy.StudyTitle,
                 StudyType = studyEntity.ClinicalStudy.StudyType,
@@ -696,7 +695,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 ToDate = DateTime.Now.ToString(),
             };
 
-            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger,_mockHelper.Object);
+            ClinicalStudyServiceV1 ClinicalStudyService = new ClinicalStudyServiceV1(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object);
 
             var method = ClinicalStudyService.SearchTitle(searchParameters, user);
             method.Wait();
@@ -733,17 +732,17 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             Assert.IsNotEmpty(result);
 
             string[] sortByFields = { "studytitle", "sponsorid", "lastmodifieddate", "version", "" };
-            string[] sortOrder = { "asc","desc" };
+            string[] sortOrder = { "asc", "desc" };
             sortOrder.ToList().ForEach(sortOrderItem =>
             {
                 sortByFields.ToList().ForEach(sortByField =>
                 {
                     searchParameters.SortOrder = sortOrderItem;
                     searchParameters.SortBy = sortByField;
-                    var method_sort = ClinicalStudyService.SortStudyTitle(result, searchParameters);
+                    var method_sort = ClinicalStudyServiceV1.SortStudyTitle(result, searchParameters);
                     Assert.IsNotEmpty(method_sort);
                 });
-            });            
+            });
 
             user.UserRole = Constants.Roles.App_User;
             method = ClinicalStudyService.SearchTitle(searchParameters, user);
@@ -760,7 +759,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         [Test]
         public void GetAccessForAStudy_UnitTesting()
         {
-            Config.isGroupFilterEnabled = true;
+            Config.IsGroupFilterEnabled = true;
             user.UserRole = Constants.Roles.Org_Admin;
             user.UserName = "user1@SDR.com";
             StudyDto studyDto = GetDtoDataFromStaticJson();

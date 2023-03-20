@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using TransCelerate.SDR.Core.Entities.Study;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
@@ -21,27 +20,27 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             try
             {
-                if (studyEntity.clinicalStudy.currentSections != null)
+                if (studyEntity.ClinicalStudy.CurrentSections != null)
                 {
-                    if (studyEntity.clinicalStudy.currentSections.FindAll(x => x.studyDesigns != null).Count() != 0)
+                    if (studyEntity.ClinicalStudy.CurrentSections.FindAll(x => x.StudyDesigns != null).Count != 0)
                     {
-                        List<StudyDesignEntity> studyDesignList = studyEntity.clinicalStudy.currentSections.Find(x => x.studyDesigns != null).studyDesigns;
-                        if (studyDesignList.Count() != 0)
+                        List<StudyDesignEntity> studyDesignList = studyEntity.ClinicalStudy.CurrentSections.Find(x => x.StudyDesigns != null).StudyDesigns;
+                        if (studyDesignList.Count != 0)
                         {
                             foreach (var studyDesign in studyDesignList)
                             {
-                                if (studyDesign.currentSections != null)
+                                if (studyDesign.CurrentSections != null)
                                 {
-                                    studyDesign.currentSections.FindAll(x => x.plannedWorkflows != null)
-                                                                  .ForEach(x => x.plannedWorkflows
+                                    studyDesign.CurrentSections.FindAll(x => x.PlannedWorkflows != null)
+                                                                  .ForEach(x => x.PlannedWorkflows
                                                                         .ForEach(p =>
                                                                         {
-                                                                            if (p.workflowItemMatrix != null)
+                                                                            if (p.WorkflowItemMatrix != null)
                                                                             {
-                                                                                if (p.workflowItemMatrix.matrix != null)
+                                                                                if (p.WorkflowItemMatrix.Matrix != null)
                                                                                 {
-                                                                                    p.workflowItemMatrix.matrix
-                                                                                            .ForEach(m => m.items = GetPreviousNextItems(m.items));
+                                                                                    p.WorkflowItemMatrix.Matrix
+                                                                                            .ForEach(m => m.Items = GetPreviousNextItems(m.Items));
                                                                                 }
                                                                             }
                                                                         }));
@@ -70,39 +69,39 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             try
             {
-                if (itemEntities != null && itemEntities.Count() != 0)
+                if (itemEntities != null && itemEntities.Count != 0)
                 {
-                    for (int i = 0; i < itemEntities.Count(); i++)
+                    for (int i = 0; i < itemEntities.Count; i++)
                     {
                         var previousItems = new List<string>();
                         var nextItems = new List<string>();
                         if (i == 0)
                         {
-                            for (int j = 1; j < itemEntities.Count(); j++)
+                            for (int j = 1; j < itemEntities.Count; j++)
                             {
-                                nextItems.Add(itemEntities[j].itemId);
+                                nextItems.Add(itemEntities[j].ItemId);
                             }
                         }
-                        else if (i == itemEntities.Count() - 1)
+                        else if (i == itemEntities.Count - 1)
                         {
                             for (int j = 0; j < i; j++)
                             {
-                                previousItems.Add(itemEntities[j].itemId);
+                                previousItems.Add(itemEntities[j].ItemId);
                             }
                         }
                         else
                         {
                             for (int j = 0; j < i; j++)
                             {
-                                previousItems.Add(itemEntities[j].itemId);
+                                previousItems.Add(itemEntities[j].ItemId);
                             }
-                            for (int j = i + 1; j < itemEntities.Count(); j++)
+                            for (int j = i + 1; j < itemEntities.Count; j++)
                             {
-                                nextItems.Add(itemEntities[j].itemId);
+                                nextItems.Add(itemEntities[j].ItemId);
                             }
                         }
-                        itemEntities[i].previousItemsInSequence = previousItems;
-                        itemEntities[i].nextItemsInSequence = nextItems;
+                        itemEntities[i].PreviousItemsInSequence = previousItems;
+                        itemEntities[i].NextItemsInSequence = nextItems;
                     }
                 }
                 return itemEntities;

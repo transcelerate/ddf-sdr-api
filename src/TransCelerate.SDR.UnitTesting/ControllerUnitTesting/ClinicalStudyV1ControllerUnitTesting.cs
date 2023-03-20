@@ -6,11 +6,9 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Http;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.StudyV1;
 using TransCelerate.SDR.Core.DTO.Token;
-using TransCelerate.SDR.Core.Entities.StudyV1;
 using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
@@ -65,7 +63,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDto>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(study as object));
-            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger,_mockHelper.Object);
+            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
 
             var method = clinicalStudyV1Controller.PostAllElements(study, "1.0");
             method.Wait();
@@ -89,7 +87,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             /////Restricted
             _mockClinicalStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDto>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(Constants.ErrorMessages.PostRestricted as object));
-            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger,_mockHelper.Object);
+            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
 
             var method = clinicalStudyV1Controller.PostAllElements(study, "1.0");
             method.Wait();
@@ -105,7 +103,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual(401, (result as ObjectResult).StatusCode);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
 
-            
+
             method = clinicalStudyV1Controller.PostAllElements(null, "1.0");
             method.Wait();
             result = method.Result;
@@ -130,7 +128,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             result = method.Result;
 
             //Expected
-            var expected1= ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError);
+            var expected1 = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError);
 
             //Actual            
             var actual_result1 = (method.Result as BadRequestObjectResult).Value as ErrorModel;
@@ -140,8 +138,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
             Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
 
-            Assert.AreEqual(expected1.message, actual_result1.message);
-            Assert.AreEqual("400", actual_result.statusCode);
+            Assert.AreEqual(expected1.Message, actual_result1.Message);
+            Assert.AreEqual("400", actual_result.StatusCode);
         }
         #endregion
 
@@ -153,9 +151,9 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockClinicalStudyService.Setup(x => x.GetStudy(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(study as object));
-            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger,_mockHelper.Object);
+            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = clinicalStudyV1Controller.GetStudy("sd",1,"1.0");
+            var method = clinicalStudyV1Controller.GetStudy("sd", 1, "1.0");
             method.Wait();
             var result = method.Result;
 
@@ -174,8 +172,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         public void GetStudyFailureUnitTesting()
         {
             StudyDto study = GetDtoDataFromStaticJson();
-           
-            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger,_mockHelper.Object);
+
+            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
 
             var listofelements = string.Join(",", Constants.ClinicalStudyElements);
             var method = clinicalStudyV1Controller.GetStudy("sd", 1, "1.0");
@@ -183,30 +181,30 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             var result = method.Result;
 
             //Expected
-            var expected = new ErrorModel { message = Constants.ErrorMessages.StudyNotFound ,statusCode = "400"};
+            var expected = new ErrorModel { Message = Constants.ErrorMessages.StudyNotFound, StatusCode = "400" };
 
             //Actual            
             var actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(NotFoundObjectResult), result);
 
             _mockClinicalStudyService.Setup(x => x.GetStudy(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
-               .Returns(Task.FromResult(Constants.ErrorMessages.Forbidden as object));           
+               .Returns(Task.FromResult(Constants.ErrorMessages.Forbidden as object));
 
             method = clinicalStudyV1Controller.GetStudy("sd", 1, "1.0");
             method.Wait();
             result = method.Result;
 
             //Expected
-            expected = new ErrorModel { message = Constants.ErrorMessages.Forbidden, statusCode = "403" };
+            expected = new ErrorModel { Message = Constants.ErrorMessages.Forbidden, StatusCode = "403" };
 
             //Actual            
             actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
-            Assert.AreEqual(403,(result as ObjectResult).StatusCode);
+            Assert.AreEqual(403, (result as ObjectResult).StatusCode);
 
             _mockClinicalStudyService.Setup(x => x.GetStudy(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                .Throws(new Exception(""));
@@ -216,12 +214,12 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             result = method.Result;
 
             //Expected
-            expected = new ErrorModel { message = Constants.ErrorMessages.GenericError, statusCode = "400" };
+            expected = new ErrorModel { Message = Constants.ErrorMessages.GenericError, StatusCode = "400" };
 
             //Actual            
             actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
@@ -230,12 +228,12 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             result = method.Result;
 
             //Expected
-            expected = new ErrorModel { message = Constants.ErrorMessages.StudyInputError, statusCode = "400" };
+            expected = new ErrorModel { Message = Constants.ErrorMessages.StudyInputError, StatusCode = "400" };
 
             //Actual            
             actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
         }
@@ -250,7 +248,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockClinicalStudyService.Setup(x => x.SearchStudy(It.IsAny<SearchParametersDto>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(studyList));
-            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger,_mockHelper.Object);
+            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
             SearchParametersDto searchParameters = new()
             {
                 Indication = "Bile",
@@ -267,7 +265,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             var method = clinicalStudyV1Controller.SearchStudy(searchParameters);
             method.Wait();
-            
+
             var result = method.Result;
 
             //Expected Result
@@ -289,7 +287,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockClinicalStudyService.Setup(x => x.SearchStudy(It.IsAny<SearchParametersDto>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(studyList));
-            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger,_mockHelper.Object);
+            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
             SearchParametersDto searchParameters = new SearchParametersDto
             {
                 Indication = "",
@@ -299,8 +297,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 PageSize = 0,
                 Phase = "",
                 StudyId = "",
-                FromDate ="",
-                ToDate =""
+                FromDate = "",
+                ToDate = ""
             };
 
 
@@ -315,7 +313,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             //Actual Result            
             var actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
 
@@ -331,7 +329,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             //Actual Result            
             actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
             SearchParametersDto searchParameters1 = new SearchParametersDto
@@ -346,7 +344,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 FromDate = DateTime.Now.AddDays(1).ToString(),
                 ToDate = DateTime.Now.ToString()
             };
-            
+
             method = clinicalStudyV1Controller.SearchStudy(searchParameters1);
             method.Wait();
 
@@ -358,7 +356,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             //Actual Result            
             actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
 
@@ -388,7 +386,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             //Actual Result            
             actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
             studyList = null;
@@ -405,7 +403,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             //Actual Result            
             actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.AreEqual(404, (result as ObjectResult).StatusCode);
         }
 
@@ -416,15 +414,18 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         public void SearchStudyTitleSuccessUnitTesting()
         {
             StudyDto study = GetDtoDataFromStaticJson();
-            List<SearchTitleResponseDto> studyList = new() { new SearchTitleResponseDto 
-            { 
-                ClinicalStudy = new SearchTitleClinicalStudy { StudyIdentifiers = study.ClinicalStudy.StudyIdentifiers,StudyTitle = study.ClinicalStudy.StudyTitle,Uuid = study.ClinicalStudy.Uuid},
-                AuditTrail = new SearchTitleAuditTrail { EntryDateTime = DateTime.Now,SDRUploadVersion=1}
-            }};
+            List<SearchTitleResponseDto> studyList = new()
+            {
+                new SearchTitleResponseDto
+                {
+                    ClinicalStudy = new SearchTitleClinicalStudy { StudyIdentifiers = study.ClinicalStudy.StudyIdentifiers, StudyTitle = study.ClinicalStudy.StudyTitle, Uuid = study.ClinicalStudy.Uuid },
+                    AuditTrail = new SearchTitleAuditTrail { EntryDateTime = DateTime.Now, SDRUploadVersion = 1 }
+                }
+            };
 
             _mockClinicalStudyService.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersDto>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(studyList));
-            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger,_mockHelper.Object);
+            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
             SearchTitleParametersDto searchParameters = new()
             {
                 StudyTitle = "Umbrella",
@@ -467,12 +468,12 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockClinicalStudyService.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersDto>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(studyList));
-            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger,_mockHelper.Object);
-            SearchTitleParametersDto searchParameters = new ()
-            {                
+            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
+            SearchTitleParametersDto searchParameters = new()
+            {
                 StudyTitle = "",
                 PageNumber = 0,
-                PageSize = 0,         
+                PageSize = 0,
                 StudyId = "",
                 FromDate = "",
                 ToDate = ""
@@ -490,7 +491,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             //Actual Result            
             var actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
 
@@ -506,14 +507,14 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             //Actual Result            
             actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
-            SearchTitleParametersDto searchParameters1 = new ()
+            SearchTitleParametersDto searchParameters1 = new()
             {
                 StudyTitle = "",
                 PageNumber = 0,
-                PageSize = 0,               
+                PageSize = 0,
                 StudyId = "",
                 FromDate = DateTime.Now.AddDays(1).ToString(),
                 ToDate = DateTime.Now.ToString()
@@ -530,11 +531,11 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             //Actual Result            
             actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
 
-            SearchTitleParametersDto searchParameters2 = new ()
+            SearchTitleParametersDto searchParameters2 = new()
             {
                 StudyTitle = "Study",
                 PageNumber = 0,
@@ -557,7 +558,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             //Actual Result            
             actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
             studyList = null;
@@ -574,7 +575,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             //Actual Result            
             actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.AreEqual(404, (result as ObjectResult).StatusCode);
         }
 
@@ -587,14 +588,15 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             StudyDto study = GetDtoDataFromStaticJson();
             AudiTrailResponseDto audTrailResponseDto = new AudiTrailResponseDto
             {
-                Uuid = study.ClinicalStudy.Uuid,AuditTrail = new List<AuditTrailDto> { new AuditTrailDto { EntryDateTime = DateTime.Now.AddDays(-1),SDRUploadVersion=1}, new AuditTrailDto { EntryDateTime = DateTime.Now, SDRUploadVersion = 2 } }
+                Uuid = study.ClinicalStudy.Uuid,
+                AuditTrail = new List<AuditTrailDto> { new AuditTrailDto { EntryDateTime = DateTime.Now.AddDays(-1), SDRUploadVersion = 1 }, new AuditTrailDto { EntryDateTime = DateTime.Now, SDRUploadVersion = 2 } }
             };
 
             _mockClinicalStudyService.Setup(x => x.GetAuditTrail(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(audTrailResponseDto as object));
-            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger,_mockHelper.Object);
+            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = clinicalStudyV1Controller.GetAuditTrail("sd", DateTime.MinValue,DateTime.MinValue);
+            var method = clinicalStudyV1Controller.GetAuditTrail("sd", DateTime.MinValue, DateTime.MinValue);
             method.Wait();
             var result = method.Result;
 
@@ -616,19 +618,19 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockClinicalStudyService.Setup(x => x.GetAuditTrail(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(null as object));
-            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger,_mockHelper.Object);
+            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
 
             var method = clinicalStudyV1Controller.GetAuditTrail("sd", DateTime.MinValue, DateTime.MinValue);
             method.Wait();
             var result = method.Result;
 
             //Expected
-            var expected = new ErrorModel { message = Constants.ErrorMessages.StudyNotFound, statusCode = "400" };
+            var expected = new ErrorModel { Message = Constants.ErrorMessages.StudyNotFound, StatusCode = "400" };
 
             //Actual            
             var actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(NotFoundObjectResult), result);
 
             _mockClinicalStudyService.Setup(x => x.GetAuditTrail(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<LoggedInUser>()))
@@ -639,12 +641,12 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             result = method.Result;
 
             //Expected
-            expected = new ErrorModel { message = Constants.ErrorMessages.Forbidden, statusCode = "403" };
+            expected = new ErrorModel { Message = Constants.ErrorMessages.Forbidden, StatusCode = "403" };
 
             //Actual            
             actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(403, (result as ObjectResult).StatusCode);
 
@@ -656,12 +658,12 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             result = method.Result;
 
             //Expected
-            expected = new ErrorModel { message = Constants.ErrorMessages.GenericError, statusCode = "400" };
+            expected = new ErrorModel { Message = Constants.ErrorMessages.GenericError, StatusCode = "400" };
 
             //Actual            
             actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
@@ -670,12 +672,12 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             result = method.Result;
 
             //Expected
-            expected = new ErrorModel { message = Constants.ErrorMessages.StudyInputError, statusCode = "400" };
+            expected = new ErrorModel { Message = Constants.ErrorMessages.StudyInputError, StatusCode = "400" };
 
             //Actual            
             actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
@@ -684,12 +686,12 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             result = method.Result;
 
             //Expected
-            expected = new ErrorModel { message = Constants.ErrorMessages.DateError, statusCode = "400" };
+            expected = new ErrorModel { Message = Constants.ErrorMessages.DateError, StatusCode = "400" };
 
             //Actual            
             actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
         }
@@ -702,19 +704,23 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             StudyDto study = GetDtoDataFromStaticJson();
             List<StudyHistoryResponseDto> studyHistories = new()
             {
-                new StudyHistoryResponseDto { StudyId = study.ClinicalStudy.Uuid, SDRUploadVersion = new List<UploadVersionDto>() { new UploadVersionDto
+                new StudyHistoryResponseDto
+                {
+                    StudyId = study.ClinicalStudy.Uuid,
+                    SDRUploadVersion = new List<UploadVersionDto>() { new UploadVersionDto
                 {
                     ProtocolVersions = new List<string>(){"1","2"},
                     StudyIdentifiers = study.ClinicalStudy.StudyIdentifiers,
                     StudyTitle = study.ClinicalStudy.StudyTitle,
                     UploadVersion = 1,
                     StudyVersion = study.ClinicalStudy.StudyVersion
-                } } }
+                } }
+                }
             };
             Config.DateRange = "20";
             _mockClinicalStudyService.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(studyHistories));
-            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger,_mockHelper.Object);
+            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
 
             var method = clinicalStudyV1Controller.GetStudyHistory(DateTime.MinValue, DateTime.MinValue, "sd");
             method.Wait();
@@ -739,19 +745,19 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             List<StudyHistoryResponseDto> studyHistory = null;
             _mockClinicalStudyService.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                .Returns(Task.FromResult(studyHistory));
-            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger,_mockHelper.Object);
+            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
 
             var method = clinicalStudyV1Controller.GetStudyHistory(DateTime.MinValue, DateTime.MinValue, "sd");
             method.Wait();
             var result = method.Result;
 
             //Expected
-            var expected = new ErrorModel { message = Constants.ErrorMessages.StudyNotFound, statusCode = "400" };
+            var expected = new ErrorModel { Message = Constants.ErrorMessages.StudyNotFound, StatusCode = "400" };
 
             //Actual            
             var actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(NotFoundObjectResult), result);
 
 
@@ -763,27 +769,27 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             result = method.Result;
 
             //Expected
-            expected = new ErrorModel { message = Constants.ErrorMessages.GenericError, statusCode = "400" };
+            expected = new ErrorModel { Message = Constants.ErrorMessages.GenericError, StatusCode = "400" };
 
             //Actual            
             actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
-            
+
 
             method = clinicalStudyV1Controller.GetStudyHistory(DateTime.MinValue.AddDays(2), DateTime.MinValue.AddDays(1), "sd");
             method.Wait();
             result = method.Result;
 
             //Expected
-            expected = new ErrorModel { message = Constants.ErrorMessages.DateError, statusCode = "400" };
+            expected = new ErrorModel { Message = Constants.ErrorMessages.DateError, StatusCode = "400" };
 
             //Actual            
             actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
         }
@@ -797,10 +803,10 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockClinicalStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(study.ClinicalStudy.StudyDesigns as object));
-            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger,_mockHelper.Object);
+            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
 
             var listofelements = string.Join(",", Constants.StudyDesignElements);
-            var method = clinicalStudyV1Controller.GetStudyDesigns("sd",1, "1.0");
+            var method = clinicalStudyV1Controller.GetStudyDesigns("sd", 1, "1.0");
             method.Wait();
             var result = method.Result;
 
@@ -822,19 +828,19 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockClinicalStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(null as object));
-            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger,_mockHelper.Object);
+            ClinicalStudyV1Controller clinicalStudyV1Controller = new ClinicalStudyV1Controller(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
 
             var method = clinicalStudyV1Controller.GetStudyDesigns("sd", 1, "1.0");
             method.Wait();
             var result = method.Result;
 
             //Expected
-            var expected = new ErrorModel { message = Constants.ErrorMessages.StudyNotFound, statusCode = "400" };
+            var expected = new ErrorModel { Message = Constants.ErrorMessages.StudyNotFound, StatusCode = "400" };
 
             //Actual            
             var actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(NotFoundObjectResult), result);
 
             _mockClinicalStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
@@ -845,12 +851,12 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             result = method.Result;
 
             //Expected
-            expected = new ErrorModel { message = Constants.ErrorMessages.Forbidden, statusCode = "403" };
+            expected = new ErrorModel { Message = Constants.ErrorMessages.Forbidden, StatusCode = "403" };
 
             //Actual            
             actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(403, (result as ObjectResult).StatusCode);
 
@@ -862,12 +868,12 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             result = method.Result;
 
             //Expected
-            expected = new ErrorModel { message = Constants.ErrorMessages.StudyDesignNotFound, statusCode = "404" };
+            expected = new ErrorModel { Message = Constants.ErrorMessages.StudyDesignNotFound, StatusCode = "404" };
 
             //Actual            
             actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(404, (result as ObjectResult).StatusCode);
 
@@ -879,12 +885,12 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             result = method.Result;
 
             //Expected
-            expected = new ErrorModel { message = Constants.ErrorMessages.GenericError, statusCode = "400" };
+            expected = new ErrorModel { Message = Constants.ErrorMessages.GenericError, StatusCode = "400" };
 
             //Actual            
             actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
@@ -893,12 +899,12 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             result = method.Result;
 
             //Expected
-            expected = new ErrorModel { message = Constants.ErrorMessages.StudyInputError, statusCode = "400" };
+            expected = new ErrorModel { Message = Constants.ErrorMessages.StudyInputError, StatusCode = "400" };
 
             //Actual            
             actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
         }

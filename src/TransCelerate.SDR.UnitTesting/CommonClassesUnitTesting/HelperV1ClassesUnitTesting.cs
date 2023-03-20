@@ -1,29 +1,24 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TransCelerate.SDR.DataAccess.Filters;
-using TransCelerate.SDR.Core.DTO.Token;
-using TransCelerate.SDR.Core.Entities.StudyV1;
-using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1;
-using TransCelerate.SDR.Core.Utilities.Common;
-using System.IO;
-using Newtonsoft.Json;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
-using TransCelerate.SDR.RuleEngineV1;
+using Newtonsoft.Json;
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using TransCelerate.SDR.Core.DTO.StudyV1;
-using TransCelerate.SDR.WebApi.DependencyInjection;
-using FluentValidation;
+using TransCelerate.SDR.Core.DTO.Token;
+using TransCelerate.SDR.Core.Entities.StudyV1;
 using TransCelerate.SDR.Core.Utilities;
+using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
+using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1;
+using TransCelerate.SDR.DataAccess.Filters;
+using TransCelerate.SDR.RuleEngineV1;
 using TransCelerate.SDR.Services.Interfaces;
-using TransCelerate.SDR.WebApi.Controllers;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Connections;
-using Microsoft.AspNetCore.Http;
 
 namespace TransCelerate.SDR.UnitTesting
 {
@@ -57,7 +52,7 @@ namespace TransCelerate.SDR.UnitTesting
         #region HelperV1 Unit Testing
         [Test]
         public void HelpersUnitTesting()
-        {           
+        {
             HelperV1 helper = new HelperV1();
             AuditTrailEntity auditTrailEntity = helper.GetAuditTrail(user.UserName);
             Assert.IsInstanceOf(typeof(DateTime), auditTrailEntity.EntryDateTime);
@@ -76,22 +71,22 @@ namespace TransCelerate.SDR.UnitTesting
 
             studyEntity2.ClinicalStudy.StudyType = null;
             studyEntity2.ClinicalStudy.StudyPhase = null;
-           
+
 
             studyEntity = helper.CheckForSections(studyEntity1, studyEntity2);
-       
+
         }
 
         [Test]
         public void ApiBehaviourOptionsHelper()
         {
-            ApiBehaviourOptionsHelper apiBehaviourOptionsHelper = new ApiBehaviourOptionsHelper(_mockLogger);            
-            ActionContext  context = new ActionContext();            
+            ApiBehaviourOptionsHelper apiBehaviourOptionsHelper = new ApiBehaviourOptionsHelper(_mockLogger);
+            ActionContext context = new ActionContext();
             var studyDto = GetDtoDataFromStaticJson();
             studyDto.ClinicalStudy = null;
             StudyValidator studyValidator = new StudyValidator();
             var errors = studyValidator.Validate(studyDto).Errors;
-            context.ModelState.AddModelError("clinicalStudy", errors[0].ErrorMessage);            
+            context.ModelState.AddModelError("clinicalStudy", errors[0].ErrorMessage);
             var response = apiBehaviourOptionsHelper.ModelStateResponse(context);
             Assert.IsInstanceOf(typeof(BadRequestObjectResult), response);
 
@@ -100,7 +95,7 @@ namespace TransCelerate.SDR.UnitTesting
             studyDto = GetDtoDataFromStaticJson();
             studyDto.ClinicalStudy.StudyTitle = null;
             IHttpContextAccessor httpContextAccessor = Mock.Of<IHttpContextAccessor>();
-            ClinicalStudyValidator clinicalStudyValidator = new ClinicalStudyValidator(httpContextAccessor);
+            ClinicalStudyValidator clinicalStudyValidator = new ClinicalStudyValidator();
             errors = clinicalStudyValidator.Validate(studyDto.ClinicalStudy).Errors;
             context.ModelState.AddModelError("Conformance", errors[0].ErrorMessage);
             response = apiBehaviourOptionsHelper.ModelStateResponse(context);
@@ -455,7 +450,7 @@ namespace TransCelerate.SDR.UnitTesting
             mockCodeFromDatabase[0].WorkflowItemEncounter.Uuid = null;
             mockCodeFromRequest[0].WorkflowItemActivity.Uuid = null;
 
-            result=helper.CheckForStudyWorkflowItemsSection(mockCodeFromRequest,mockCodeFromDatabase);
+            result = helper.CheckForStudyWorkflowItemsSection(mockCodeFromRequest, mockCodeFromDatabase);
 
         }
 
@@ -533,10 +528,10 @@ namespace TransCelerate.SDR.UnitTesting
 
         [Test]
         public void CheckForEncounterListSection_UnitTesting()
-            {
+        {
             StudyEntity studyEntity = GetEntityDataFromStaticJson();
 
-            List<EncounterEntity> mockCodeFromRequest= new List<EncounterEntity>();
+            List<EncounterEntity> mockCodeFromRequest = new List<EncounterEntity>();
             mockCodeFromRequest = JsonConvert.DeserializeObject<List<EncounterEntity>>(JsonConvert.SerializeObject(studyEntity.ClinicalStudy.StudyDesigns[0].StudyCells[0].StudyEpoch.Encounters));
 
             List<EncounterEntity> mockCodeFromDatabase = new List<EncounterEntity>();
@@ -549,7 +544,7 @@ namespace TransCelerate.SDR.UnitTesting
 
             mockCodeFromDatabase = null;
             result = helper.CheckForEncounterListSection(mockCodeFromRequest, mockCodeFromDatabase);
-            Assert.AreEqual(2,result.Count);
+            Assert.AreEqual(2, result.Count);
 
         }
 
@@ -589,10 +584,10 @@ namespace TransCelerate.SDR.UnitTesting
             filter = DataFiltersV1.GetFiltersForSearchStudy(searchParameters);
             Assert.IsNotNull(filter);
             SearchTitleParameters searchParameters1 = new()
-            {               
+            {
                 StudyTitle = "Umbrella",
                 PageNumber = 1,
-                PageSize = 25,              
+                PageSize = 25,
                 StudyId = "100",
                 FromDate = DateTime.Now.AddDays(-5),
                 ToDate = DateTime.Now,
@@ -603,11 +598,11 @@ namespace TransCelerate.SDR.UnitTesting
 
             Assert.IsNotNull(DataFiltersV1.GetFiltersForSearchTitle(searchParameters1));
 
-            Assert.IsNotNull(DataFiltersV1.GetFiltersForGetAudTrail("sd",DateTime.Now.AddDays(-1),DateTime.Now.AddDays(1)));
+            Assert.IsNotNull(DataFiltersV1.GetFiltersForGetAudTrail("sd", DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1)));
 
-            Assert.IsNotNull(DataFiltersV1.GetFiltersForStudyHistory(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1),"sd"));
+            Assert.IsNotNull(DataFiltersV1.GetFiltersForStudyHistory(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1), "sd"));
 
-            Assert.IsNotNull(DataFiltersV1.GetProjectionForPartialStudyElements(Constants.ClinicalStudyElements.Select(x=>x.ToLower()).ToArray()));
+            Assert.IsNotNull(DataFiltersV1.GetProjectionForPartialStudyElements(Constants.ClinicalStudyElements.Select(x => x.ToLower()).ToArray()));
 
             Assert.IsNotNull(DataFiltersV1.GetProjectionForPartialStudyDesignElementsFullStudy());
         }
@@ -645,7 +640,7 @@ namespace TransCelerate.SDR.UnitTesting
 
             Assert.IsTrue(Validator<ActivityDto>(new ActivityValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemActivity));
             Assert.IsTrue(Validator<AnalysisPopulationDto>(new AnalysisPopulationValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyEstimands[0].AnalysisPopulation));
-            Assert.IsTrue(Validator<ClinicalStudyDto>(new ClinicalStudyValidator(httpContextAccessor), studyDto.ClinicalStudy));
+            Assert.IsTrue(Validator<ClinicalStudyDto>(new ClinicalStudyValidator(), studyDto.ClinicalStudy));
             Assert.IsTrue(Validator<CodeDto>(new CodeValidator(), studyDto.ClinicalStudy.StudyPhase));
             Assert.IsTrue(Validator<EncounterDto>(new EncounterValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0].WorkflowItemEncounter));
             Assert.IsTrue(Validator<EndpointDto>(new EndpointValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyObjectives[0].ObjectiveEndpoints[0]));
@@ -671,8 +666,8 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsTrue(Validator<WorkflowItemDto>(new WorkflowItemValidator(), studyDto.ClinicalStudy.StudyDesigns[0].StudyWorkflows[0].WorkflowItems[0]));
         }
 
-        public bool Validator<T>(AbstractValidator<T> validator,T value)
-        {            
+        public bool Validator<T>(AbstractValidator<T> validator, T value)
+        {
             return validator.Validate(value).IsValid;
         }
 

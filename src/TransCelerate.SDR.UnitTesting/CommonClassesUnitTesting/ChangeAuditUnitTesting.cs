@@ -97,12 +97,12 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
             var result = method.Result;
 
             //Expected
-            var expected = new ErrorModel { message = $"{Constants.ErrorMessages.ChangeAuditNotFound} sd", statusCode = "400" };
+            var expected = new ErrorModel { Message = $"{Constants.ErrorMessages.ChangeAuditNotFound} sd", StatusCode = "400" };
 
             //Actual            
             var actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(NotFoundObjectResult), result);
 
             _mockChangeAuditService.Setup(x => x.GetChangeAudit(It.IsAny<string>(), It.IsAny<LoggedInUser>()))
@@ -113,7 +113,7 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
             result = method.Result;
 
             //Expected
-            expected = new ErrorModel { message = Constants.ErrorMessages.Forbidden, statusCode = "403" };
+            expected = new ErrorModel { Message = Constants.ErrorMessages.Forbidden, StatusCode = "403" };
 
             //Actual            
             actual_result = (result as ObjectResult).Value as ErrorModel;
@@ -126,12 +126,12 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
             result = method.Result;
 
             //Expected
-            expected = new ErrorModel { message = Constants.ErrorMessages.GenericError, statusCode = "400" };
+            expected = new ErrorModel { Message = Constants.ErrorMessages.GenericError, StatusCode = "400" };
 
             //Actual            
             actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
@@ -140,12 +140,12 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
             result = method.Result;
 
             //Expected
-            expected = new ErrorModel { message = Constants.ErrorMessages.StudyInputError, statusCode = "400" };
+            expected = new ErrorModel { Message = Constants.ErrorMessages.StudyInputError, StatusCode = "400" };
 
             //Actual            
             actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            Assert.AreEqual(expected.message, actual_result.message);
+            Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
         }
@@ -170,13 +170,13 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
             //Actual
             var actual = result as ChangeAuditStudyDto;
 
-            Assert.AreEqual(expected.ChangeAudit.StudyId,actual.ChangeAudit.StudyId);
+            Assert.AreEqual(expected.ChangeAudit.StudyId, actual.ChangeAudit.StudyId);
 
             _mockChangeAuditRepository.Setup(x => x.GetChangeAuditAsync(It.IsAny<string>()))
                 .Returns(Task.FromResult(GetChangeAuditEntityDataFromStaticJson()));
             _mockClinicalStudyServiceV2.Setup(x => x.GetAccessForAStudy(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(false));
-            
+
             method = changeAuditService.GetChangeAudit("sd", user);
             method.Wait();
             result = method.Result;

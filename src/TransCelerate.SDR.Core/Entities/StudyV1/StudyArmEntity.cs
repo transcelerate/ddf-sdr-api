@@ -9,6 +9,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV1
         public List<CodeEntity> StudyArmDataOriginType { get; set; }
         public string StudyArmDesc { get; set; }
         public string StudyArmName { get; set; }
-        public List<CodeEntity> StudyArmType { get; set; }        
+        public List<CodeEntity> StudyArmType { get; set; }
     }
 }

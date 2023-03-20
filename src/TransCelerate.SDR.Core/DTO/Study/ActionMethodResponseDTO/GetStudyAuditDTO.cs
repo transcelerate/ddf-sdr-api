@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.DTO.Study
 {
@@ -11,20 +10,20 @@ namespace TransCelerate.SDR.Core.DTO.Study
         /// <summary>
         /// This property holds the value of Study ID
         /// </summary>
-        public string studyId { get; set; }
+        public string StudyId { get; set; }
         /// <summary>
-        /// This property holds the List of Audit Trail for specific <see cref="studyId"/>
+        /// This property holds the List of Audit Trail for specific <see cref="StudyId"/>
         /// </summary>
-        public List<AuditTrailEndpointResponseDTO> auditTrail { get; set; }
+        public List<AuditTrailEndpointResponseDTO> AuditTrail { get; set; }
     }
 
     public class AuditTrailEndpointResponseDTO
     {
-        public string studyTag { get; set; }
-        public string studyStatus { get; set; }
-        public string entryDateTime { get; set; }
-        public string entrySystem { get; set; }
-        public int studyVersion { get; set; }
+        public string StudyTag { get; set; }
+        public string StudyStatus { get; set; }
+        public string EntryDateTime { get; set; }
+        public string EntrySystem { get; set; }
+        public int StudyVersion { get; set; }
         public string UsdmVersion { get; set; }
     }
 }

@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.DTO.Study
 {
     public class ItemDTO
     {
-        public string id { get; set; }
-        public string description { get; set; }
-        public PointInTimeDTO fromPointInTime { get; set; }
-        public PointInTimeDTO toPointInTime { get; set; }
-        public ActivityDTO activity { get; set; }
-        public EncounterDTO encounter { get; set; }
-        public List<string> previousItemsInSequence { get; set; }
-        public List<string> nextItemsInSequence { get; set; }
+        public string Id { get; set; }
+        public string Description { get; set; }
+        public PointInTimeDTO FromPointInTime { get; set; }
+        public PointInTimeDTO ToPointInTime { get; set; }
+        public ActivityDTO Activity { get; set; }
+        public EncounterDTO Encounter { get; set; }
+        public List<string> PreviousItemsInSequence { get; set; }
+        public List<string> NextItemsInSequence { get; set; }
     }
 }

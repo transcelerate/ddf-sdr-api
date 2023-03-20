@@ -1,26 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TransCelerate.SDR.Core.DTO.Study
+﻿namespace TransCelerate.SDR.Core.DTO.Study
 {
     public class SearchTitleParametersDTO
     {
-        public string studyTitle { get; set; }
-        public string fromDate { get; set; }
-        public string toDate { get; set; }
-        public int pageSize { get; set; }
-        public int pageNumber { get; set; }
-        public bool groupByStudyId { get; set; }
-        public string sortOrder { get; set; }
-        public string sortBy { get; set; }
+        public string StudyTitle { get; set; }
+        public string FromDate { get; set; }
+        public string ToDate { get; set; }
+        public int PageSize { get; set; }
+        public int PageNumber { get; set; }
+        public bool GroupByStudyId { get; set; }
+        public string SortOrder { get; set; }
+        public string SortBy { get; set; }
 
         public SearchTitleParametersDTO()
         {
-            pageNumber = 1;
-            pageSize = 20;
+            PageNumber = 1;
+            PageSize = 20;
         }
     }
 }

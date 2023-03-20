@@ -20,82 +20,82 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         public static StudyEntity GenerateSectionId(StudyEntity studyEntity)
         {
             try
-            {                
+            {
 
-                if (studyEntity.clinicalStudy.currentSections != null)
+                if (studyEntity.ClinicalStudy.CurrentSections != null)
                 {
                     //Id Generation for section level
-                    studyEntity.clinicalStudy.currentSections.ForEach(x => x.currentSectionsId = IdGenerator.GenerateId());
+                    studyEntity.ClinicalStudy.CurrentSections.ForEach(x => x.CurrentSectionsId = IdGenerator.GenerateId());
 
-                    if (studyEntity.clinicalStudy.currentSections.Any(x => x.studyDesigns != null))
+                    if (studyEntity.ClinicalStudy.CurrentSections.Any(x => x.StudyDesigns != null))
                     {
-                        studyEntity.clinicalStudy.currentSections
-                                            .FindAll(x => x.studyDesigns != null)
-                                            .ForEach(y => y.studyDesigns
-                                            .FindAll(n => n.currentSections != null)
-                                            .ForEach(z => z.currentSections
-                                            .ForEach(i => i.currentSectionsId = IdGenerator.GenerateId())));
+                        studyEntity.ClinicalStudy.CurrentSections
+                                            .FindAll(x => x.StudyDesigns != null)
+                                            .ForEach(y => y.StudyDesigns
+                                            .FindAll(n => n.CurrentSections != null)
+                                            .ForEach(z => z.CurrentSections
+                                            .ForEach(i => i.CurrentSectionsId = IdGenerator.GenerateId())));
                     }
 
                     //Id Generation for each section                  
 
                     //ObjectiveId
-                    studyEntity.clinicalStudy.currentSections
-                                            .FindAll(x => x.objectives != null)
-                                            .ForEach(x => x.objectives
+                    studyEntity.ClinicalStudy.CurrentSections
+                                            .FindAll(x => x.Objectives != null)
+                                            .ForEach(x => x.Objectives
                                             .ForEach(y => StudyObjectivesIdGenerator(y)));
 
                     //studyIndicationId
-                    studyEntity.clinicalStudy.currentSections
-                                            .FindAll(x => x.studyIndications != null)
-                                            .ForEach(x => x.studyIndications
-                                            .ForEach(y => y.studyIndicationId = IdGenerator.GenerateId()));
+                    studyEntity.ClinicalStudy.CurrentSections
+                                            .FindAll(x => x.StudyIndications != null)
+                                            .ForEach(x => x.StudyIndications
+                                            .ForEach(y => y.StudyIndicationId = IdGenerator.GenerateId()));
 
-                   
+
                     //studyDesignId
-                    studyEntity.clinicalStudy.currentSections
-                                            .FindAll(x => x.studyDesigns != null)
-                                            .ForEach(x => x.studyDesigns
-                                            .ForEach(y => y.studyDesignId = IdGenerator.GenerateId()));
+                    studyEntity.ClinicalStudy.CurrentSections
+                                            .FindAll(x => x.StudyDesigns != null)
+                                            .ForEach(x => x.StudyDesigns
+                                            .ForEach(y => y.StudyDesignId = IdGenerator.GenerateId()));
 
                     //studyPopulationId
-                    studyEntity.clinicalStudy.currentSections
-                                            .FindAll(x => x.studyDesigns != null)
-                                            .ForEach(y => y.studyDesigns
-                                            .FindAll(n => n.currentSections != null)
-                                            .ForEach(z => z.currentSections
-                                            .FindAll(n => n.studyPopulations != null)
-                                            .ForEach(p => p.studyPopulations
-                                            .ForEach(i => i.studyPopulationId = IdGenerator.GenerateId()))));
+                    studyEntity.ClinicalStudy.CurrentSections
+                                            .FindAll(x => x.StudyDesigns != null)
+                                            .ForEach(y => y.StudyDesigns
+                                            .FindAll(n => n.CurrentSections != null)
+                                            .ForEach(z => z.CurrentSections
+                                            .FindAll(n => n.StudyPopulations != null)
+                                            .ForEach(p => p.StudyPopulations
+                                            .ForEach(i => i.StudyPopulationId = IdGenerator.GenerateId()))));
 
                     //investigationalInterventionId
-                    studyEntity.clinicalStudy.currentSections
-                                            .FindAll(x => x.studyDesigns != null)
-                                            .ForEach(y => y.studyDesigns
-                                            .FindAll(n => n.currentSections != null)
-                                            .ForEach(z => z.currentSections
-                                            .FindAll(x => x.investigationalInterventions != null)
-                                            .ForEach(x => x.investigationalInterventions
-                                            .ForEach(y => y.investigationalInterventionId = IdGenerator.GenerateId()))));
+                    studyEntity.ClinicalStudy.CurrentSections
+                                            .FindAll(x => x.StudyDesigns != null)
+                                            .ForEach(y => y.StudyDesigns
+                                            .FindAll(n => n.CurrentSections != null)
+                                            .ForEach(z => z.CurrentSections
+                                            .FindAll(x => x.InvestigationalInterventions != null)
+                                            .ForEach(x => x.InvestigationalInterventions
+                                            .ForEach(y => y.InvestigationalInterventionId = IdGenerator.GenerateId()))));
 
                     //plannedWorkFlowId and sub-elements Id's
-                    studyEntity.clinicalStudy.currentSections
-                                            .FindAll(x => x.studyDesigns != null)
-                                            .ForEach(y => y.studyDesigns
-                                            .FindAll(n => n.currentSections != null)
-                                            .ForEach(z => z.currentSections
-                                            .FindAll(n => n.plannedWorkflows != null)
-                                            .ForEach(p => p.plannedWorkflows
+                    studyEntity.ClinicalStudy.CurrentSections
+                                            .FindAll(x => x.StudyDesigns != null)
+                                            .ForEach(y => y.StudyDesigns
+                                            .FindAll(n => n.CurrentSections != null)
+                                            .ForEach(z => z.CurrentSections
+                                            .FindAll(n => n.PlannedWorkflows != null)
+                                            .ForEach(p => p.PlannedWorkflows
                                             .ForEach(i => StudyPlannedWorkFlowIdGenerator(i)))));
 
                     //studyCellId and sub-elements Id's
-                    studyEntity.clinicalStudy.currentSections
-                                            .FindAll(x => x.studyDesigns != null)
-                                            .ForEach(y => y.studyDesigns
-                                            .FindAll(n => n.currentSections != null)
-                                            .ForEach(z => z.currentSections
-                                            .FindAll(n => n.studyCells != null)
-                                            .ForEach(p => p.studyCells
+                    studyEntity.ClinicalStudy.CurrentSections
+                                            .FindAll(x => x.StudyDesigns != null)
+                                            .ForEach(y => y.StudyDesigns
+                                            .FindAll(n => n.CurrentSections != null)
+                                            .ForEach(z => z.CurrentSections
+                                            .FindAll(n => n.StudyCells != null)
+                                            .ForEach(p => p.StudyCells
                                             .ForEach(i => StudyCellsIdGenerator(i)))));
                 }
                 return studyEntity;
@@ -118,9 +118,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             try
             {
                 //study objectives Id
-                studyObjectivesEntity.objectiveId = IdGenerator.GenerateId();
-                if (studyObjectivesEntity.endpoints != null)
-                    studyObjectivesEntity.endpoints.ForEach(x => x.endPointsId = IdGenerator.GenerateId());
+                studyObjectivesEntity.ObjectiveId = IdGenerator.GenerateId();
+                if (studyObjectivesEntity.Endpoints != null)
+                    studyObjectivesEntity.Endpoints.ForEach(x => x.EndPointsId = IdGenerator.GenerateId());
 
                 return studyObjectivesEntity;
             }
@@ -142,50 +142,50 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             try
             {
                 //plannedWorkFlowId and sub-elements Id's         
-                plannedWorkFlowEntity.plannedWorkFlowId = IdGenerator.GenerateId();
-                plannedWorkFlowEntity.plannedWorkFlowId = IdGenerator.GenerateId();
-                if (plannedWorkFlowEntity.startPoint != null)
-                    plannedWorkFlowEntity.startPoint.pointInTimeId = IdGenerator.GenerateId();
+                plannedWorkFlowEntity.PlannedWorkFlowId = IdGenerator.GenerateId();
+                plannedWorkFlowEntity.PlannedWorkFlowId = IdGenerator.GenerateId();
+                if (plannedWorkFlowEntity.StartPoint != null)
+                    plannedWorkFlowEntity.StartPoint.PointInTimeId = IdGenerator.GenerateId();
 
-                if (plannedWorkFlowEntity.endPoint != null)
-                    plannedWorkFlowEntity.endPoint.pointInTimeId = IdGenerator.GenerateId();
+                if (plannedWorkFlowEntity.EndPoint != null)
+                    plannedWorkFlowEntity.EndPoint.PointInTimeId = IdGenerator.GenerateId();
 
-                if (plannedWorkFlowEntity.workflowItemMatrix != null)
+                if (plannedWorkFlowEntity.WorkflowItemMatrix != null)
                 {
-                    plannedWorkFlowEntity.workflowItemMatrix.workFlowItemMatrixId = IdGenerator.GenerateId();
-                    if (plannedWorkFlowEntity.workflowItemMatrix.matrix != null)
+                    plannedWorkFlowEntity.WorkflowItemMatrix.WorkFlowItemMatrixId = IdGenerator.GenerateId();
+                    if (plannedWorkFlowEntity.WorkflowItemMatrix.Matrix != null)
                     {
-                        plannedWorkFlowEntity.workflowItemMatrix.matrix.FindAll(x => x != null).ForEach(m =>
+                        plannedWorkFlowEntity.WorkflowItemMatrix.Matrix.FindAll(x => x != null).ForEach(m =>
                         {
-                            m.matrixId = IdGenerator.GenerateId();
-                            if (m.items != null)
+                            m.MatrixId = IdGenerator.GenerateId();
+                            if (m.Items != null)
                             {
-                                m.items.FindAll(x => x != null).ForEach(item =>
+                                m.Items.FindAll(x => x != null).ForEach(item =>
                                 {
-                                    item.itemId = IdGenerator.GenerateId();
-                                    if (item.fromPointInTime != null)
-                                        item.fromPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                                    item.ItemId = IdGenerator.GenerateId();
+                                    if (item.FromPointInTime != null)
+                                        item.FromPointInTime.PointInTimeId = IdGenerator.GenerateId();
 
-                                    if (item.toPointInTime != null)
-                                        item.toPointInTime.pointInTimeId = IdGenerator.GenerateId();
+                                    if (item.ToPointInTime != null)
+                                        item.ToPointInTime.PointInTimeId = IdGenerator.GenerateId();
 
-                                    if (item.activity != null)
+                                    if (item.Activity != null)
                                     {
-                                        item.activity.activityId = IdGenerator.GenerateId();
-                                        if (item.activity.studyDataCollection != null)
-                                            item.activity.studyDataCollection.FindAll(x => x != null).ForEach(sdc => sdc.studyDataCollectionId = IdGenerator.GenerateId());
+                                        item.Activity.ActivityId = IdGenerator.GenerateId();
+                                        if (item.Activity.StudyDataCollection != null)
+                                            item.Activity.StudyDataCollection.FindAll(x => x != null).ForEach(sdc => sdc.StudyDataCollectionId = IdGenerator.GenerateId());
                                     }
-                                    if (item.encounter != null)
+                                    if (item.Encounter != null)
                                     {
-                                        item.encounter.encounterId = IdGenerator.GenerateId();
-                                        if (item.encounter.startRule != null)
-                                            item.encounter.startRule.RuleId = IdGenerator.GenerateId();
+                                        item.Encounter.EncounterId = IdGenerator.GenerateId();
+                                        if (item.Encounter.StartRule != null)
+                                            item.Encounter.StartRule.RuleId = IdGenerator.GenerateId();
 
-                                        if (item.encounter.endRule != null)
-                                            item.encounter.endRule.RuleId = IdGenerator.GenerateId();
+                                        if (item.Encounter.EndRule != null)
+                                            item.Encounter.EndRule.RuleId = IdGenerator.GenerateId();
 
-                                        if (item.encounter.epoch != null)
-                                            item.encounter.epoch.epochId = IdGenerator.GenerateId();
+                                        if (item.Encounter.Epoch != null)
+                                            item.Encounter.Epoch.EpochId = IdGenerator.GenerateId();
                                     }
                                 });
                             }
@@ -213,21 +213,22 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             try
             {
                 //studyCellId and sub-elements Id's
-                studyCellEntity.studyCellId = IdGenerator.GenerateId();
-                if (studyCellEntity.studyArm != null)
-                    studyCellEntity.studyArm.studyArmId = IdGenerator.GenerateId();
+                studyCellEntity.StudyCellId = IdGenerator.GenerateId();
+                if (studyCellEntity.StudyArm != null)
+                    studyCellEntity.StudyArm.StudyArmId = IdGenerator.GenerateId();
 
-                if (studyCellEntity.studyEpoch != null)
-                    studyCellEntity.studyEpoch.studyEpochId = IdGenerator.GenerateId();
+                if (studyCellEntity.StudyEpoch != null)
+                    studyCellEntity.StudyEpoch.StudyEpochId = IdGenerator.GenerateId();
 
-                if (studyCellEntity.studyElements != null)
+                if (studyCellEntity.StudyElements != null)
                 {
-                    studyCellEntity.studyElements.FindAll(x => x != null).ForEach(e => {
-                        e.studyElementId = IdGenerator.GenerateId();
-                        if(e.startRule != null)
-                            e.startRule.RuleId = IdGenerator.GenerateId();
-                        if(e.endRule != null)
-                            e.endRule.RuleId = IdGenerator.GenerateId();
+                    studyCellEntity.StudyElements.FindAll(x => x != null).ForEach(e =>
+                    {
+                        e.StudyElementId = IdGenerator.GenerateId();
+                        if (e.StartRule != null)
+                            e.StartRule.RuleId = IdGenerator.GenerateId();
+                        if (e.EndRule != null)
+                            e.EndRule.RuleId = IdGenerator.GenerateId();
                     });
                 }
 
@@ -251,31 +252,31 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             try
             {
                 //studyDesignId
-                studyDesignEntity.studyDesignId = IdGenerator.GenerateId();
+                studyDesignEntity.StudyDesignId = IdGenerator.GenerateId();
 
-                if (studyDesignEntity.currentSections != null)
+                if (studyDesignEntity.CurrentSections != null)
                 {
 
-                    studyDesignEntity.currentSections.ForEach(x => x.currentSectionsId = IdGenerator.GenerateId());
+                    studyDesignEntity.CurrentSections.ForEach(x => x.CurrentSectionsId = IdGenerator.GenerateId());
                     //studyPopulationId
-                    studyDesignEntity.currentSections.FindAll(n => n.studyPopulations != null)
-                                                     .ForEach(p => p.studyPopulations
-                                                     .ForEach(i => i.studyPopulationId = IdGenerator.GenerateId()));
+                    studyDesignEntity.CurrentSections.FindAll(n => n.StudyPopulations != null)
+                                                     .ForEach(p => p.StudyPopulations
+                                                     .ForEach(i => i.StudyPopulationId = IdGenerator.GenerateId()));
 
                     //plannedWorkFlowId and sub-elements Id's
-                    studyDesignEntity.currentSections.FindAll(n => n.plannedWorkflows != null)
-                                                     .ForEach(p => p.plannedWorkflows
+                    studyDesignEntity.CurrentSections.FindAll(n => n.PlannedWorkflows != null)
+                                                     .ForEach(p => p.PlannedWorkflows
                                                      .ForEach(i => StudyPlannedWorkFlowIdGenerator(i)));
 
                     //studyCellId and sub-elements Id's
-                    studyDesignEntity.currentSections.FindAll(n => n.studyCells != null)
-                                                     .ForEach(p => p.studyCells
+                    studyDesignEntity.CurrentSections.FindAll(n => n.StudyCells != null)
+                                                     .ForEach(p => p.StudyCells
                                                      .ForEach(i => StudyCellsIdGenerator(i)));
 
                     //InvestigationalIntervention Id
-                    studyDesignEntity.currentSections.FindAll(n => n.investigationalInterventions != null)
-                                                     .ForEach(p => p.investigationalInterventions
-                                                     .ForEach(i => i.investigationalInterventionId = IdGenerator.GenerateId()));
+                    studyDesignEntity.CurrentSections.FindAll(n => n.InvestigationalInterventions != null)
+                                                     .ForEach(p => p.InvestigationalInterventions
+                                                     .ForEach(i => i.InvestigationalInterventionId = IdGenerator.GenerateId()));
                 }
 
                 return studyDesignEntity;

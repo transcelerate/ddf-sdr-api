@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-
-
-namespace TransCelerate.SDR.Core.DTO.eCPT
+﻿namespace TransCelerate.SDR.Core.DTO.eCPT
 {
     public class InclusionCriteriaDto
     {

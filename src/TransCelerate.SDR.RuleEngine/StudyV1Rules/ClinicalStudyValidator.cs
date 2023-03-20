@@ -1,9 +1,6 @@
 ﻿using FluentValidation;
-using System;
-using Microsoft.AspNetCore.Http;
 using TransCelerate.SDR.Core.DTO.StudyV1;
 using TransCelerate.SDR.Core.Utilities.Common;
-using TransCelerate.SDR.Core.Utilities.Helpers;
 
 namespace TransCelerate.SDR.RuleEngineV1
 {
@@ -12,7 +9,7 @@ namespace TransCelerate.SDR.RuleEngineV1
     /// </summary>
     public class ClinicalStudyValidator : AbstractValidator<ClinicalStudyDto>
     {
-        public ClinicalStudyValidator(IHttpContextAccessor httpContextAccessor)
+        public ClinicalStudyValidator()
         {
             RuleFor(x => x.StudyTitle)
                .Cascade(CascadeMode.Stop)

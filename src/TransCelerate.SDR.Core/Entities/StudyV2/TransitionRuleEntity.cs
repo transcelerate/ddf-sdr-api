@@ -1,7 +1,7 @@
 ﻿namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
     [MongoDB.Bson.Serialization.Attributes.BsonNoId]
-    public class TransitionRuleEntity : Iid
+    public class TransitionRuleEntity : IId
     {
         [MongoDB.Bson.Serialization.Attributes.BsonElement(Utilities.Common.IdFieldPropertyName.StudyV2.TransitionRuleId)]
         public string Id { get; set; }
