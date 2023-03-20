@@ -1,5 +1,6 @@
 ﻿namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
+    [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
     [MongoDB.Bson.Serialization.Attributes.BsonNoId]
     public class ResponseCodeEntity : IId
     {
