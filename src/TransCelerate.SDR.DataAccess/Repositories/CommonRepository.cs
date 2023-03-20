@@ -75,9 +75,16 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                     return null;
                 }
                 else
-                {
-                    study.ClinicalStudy = Newtonsoft.Json.JsonConvert.DeserializeObject<object>(studyData[Constants.DbFilter.ClinicalStudy].ToString());
+                {                    
                     study.AuditTrail = BsonSerializer.Deserialize<AuditTrailEntity>(studyData[Constants.DbFilter.AuditTrail].AsBsonDocument);
+                    if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.V2)
+                    {
+                        study.ClinicalStudy = Newtonsoft.Json.JsonConvert.DeserializeObject<object>(studyData[Constants.DbFilter.ClinicalStudy].ToString());
+                    }
+                    else
+                    {
+                        study.ClinicalStudy = BsonSerializer.Deserialize<object>(studyData[Constants.DbFilter.ClinicalStudy].AsBsonDocument);
+                    }
                     return study;
                 }
             }
