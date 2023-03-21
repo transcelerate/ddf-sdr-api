@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using System;
+using System.Dynamic;
 using System.Linq;
 using TransCelerate.SDR.Core.DTO;
 using TransCelerate.SDR.Core.DTO.Study;
@@ -190,9 +191,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             }
             clinicalStudyJsonObject.Add(nameof(ClinicalStudyDTO.CurrentSections), currentSectionArray);
 
+            var clinicalStudydata = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<ExpandoObject>(JsonConvert.SerializeObject(clinicalStudyJsonObject)), new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
             JObject returnJsonObject = new();
-            returnJsonObject.Add(nameof(PostStudyDTO.ClinicalStudy), clinicalStudyJsonObject);
-            returnJsonObject.Add(nameof(PostStudyDTO.AuditTrail), JObject.Parse(JsonConvert.SerializeObject(studyEntity.AuditTrail, new JsonSerializerSettings
+            returnJsonObject.Add(String.Concat(nameof(PostStudyDTO.ClinicalStudy)[..1].ToLower(), nameof(PostStudyDTO.ClinicalStudy)[1..]), JObject.Parse(clinicalStudydata));
+            returnJsonObject.Add(String.Concat(nameof(PostStudyDTO.AuditTrail)[..1].ToLower(), nameof(PostStudyDTO.AuditTrail)[1..]), JObject.Parse(JsonConvert.SerializeObject(studyEntity.AuditTrail, new JsonSerializerSettings
             {
                 ContractResolver = new DefaultContractResolver()
                 {

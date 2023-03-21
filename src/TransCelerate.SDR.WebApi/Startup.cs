@@ -209,7 +209,7 @@ namespace TransCelerate.SDR.WebApi
                     }
                     using (StreamReader reader = new(context.Request.Body))
                     {
-                        if (!context.Request.Path.Value.Contains(Route.Token))
+                        if (!context.Request.Path.Value.Contains(Route.Token) && !context.Request.Path.Value.Contains(Route.CommonToken))
                         {
                             request = await reader.ReadToEndAsync();
                             context.Request.Body.Position = 0;
