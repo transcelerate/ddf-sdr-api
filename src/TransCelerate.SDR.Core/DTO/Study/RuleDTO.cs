@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using TransCelerate.SDR.Core.Utilities.Common;
-using TransCelerate.SDR.Core.Utilities.Helpers;
+﻿using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.DTO.Study
 {
     public class RuleDTO
     {
-       
-        public string id { get; set; }
 
-        public string description { get; set; }
+        public string Id { get; set; }
 
-        public List<CodingDTO> coding { get; set; }
+        public string Description { get; set; }
+
+        public List<CodingDTO> Coding { get; set; }
     }
 }

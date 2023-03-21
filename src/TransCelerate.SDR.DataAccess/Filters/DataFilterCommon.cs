@@ -3,8 +3,6 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities.Common;
 using TransCelerate.SDR.Core.Entities.UserGroups;
@@ -47,7 +45,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
         public static SortDefinition<BsonDocument> GetSorterForBsonDocument()
         {
             SortDefinitionBuilder<BsonDocument> builder = Builders<BsonDocument>.Sort;
-            SortDefinition<BsonDocument> sorter = builder.Descending("auditTrail.entryDateTime");            
+            SortDefinition<BsonDocument> sorter = builder.Descending("auditTrail.entryDateTime");
 
             return sorter;
         }
@@ -145,7 +143,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
             }
 
             //For Data Segmentation
-            if (user.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+            if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
             {
                 if (groups != null && groups.Any())
                 {
@@ -249,7 +247,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
             return filter;
         }
 
-        public static FilterDefinition<CommonStudyEntity> GetFiltersForSearchStudy(SearchParametersEntity searchParameters, List<SDRGroupsEntity> groups,LoggedInUser user)
+        public static FilterDefinition<CommonStudyEntity> GetFiltersForSearchStudy(SearchParametersEntity searchParameters, List<SDRGroupsEntity> groups, LoggedInUser user)
         {
             FilterDefinitionBuilder<CommonStudyEntity> builder = Builders<CommonStudyEntity>.Filter;
             FilterDefinition<CommonStudyEntity> filter = builder.Empty;
@@ -259,14 +257,14 @@ namespace TransCelerate.SDR.DataAccess.Filters
                                          && x.AuditTrail.EntryDateTime <= searchParameters.ToDate);
 
             //For Data Segmentation
-            if (user.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+            if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
             {
                 if (groups != null && groups.Any())
                 {
                     Tuple<List<string>, List<string>> groupFilters = Core.Utilities.Helpers.GroupFilters.GetGroupFilters(groups);
 
                     if (!groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
-                    {                        
+                    {
                         if (groupFilters.Item1.Any())
                         {
                             filter &= builder.Or(
@@ -284,7 +282,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
                 else
                     filter &= builder.Where(x => x.ClinicalStudy == null); //if there are no groups assigned for the user
             }
-                
+
 
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))

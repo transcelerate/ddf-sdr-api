@@ -5,9 +5,9 @@
     /// </summary>
     public class ErrorModel
     {
-        public string statusCode { get; set; }
+        public string StatusCode { get; set; }
         //public string detail { get; set; }
-        public string message { get; set; }
+        public string Message { get; set; }
     }
-   
+
 }

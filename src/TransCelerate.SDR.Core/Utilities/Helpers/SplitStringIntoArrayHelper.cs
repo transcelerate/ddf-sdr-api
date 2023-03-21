@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
 {
@@ -14,10 +11,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <param name="value">String which needs to be split</param>
         /// <param name="index">The number of parts the string have to be split into</param>
         /// <returns></returns>
-        public static List<string> SplitString(string value,int index)
+        public static List<string> SplitString(string value, int index)
         {
             return value.Select((c, index) => new { c, index })
-                               .GroupBy(x => x.index / index) 
+                               .GroupBy(x => x.index / index)
                                .Select(group => group.Select(elem => elem.c))
                                .Select(chars => new string(chars.ToArray())).ToList();
         }

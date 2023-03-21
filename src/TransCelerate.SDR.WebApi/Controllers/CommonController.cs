@@ -52,7 +52,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetRawJson(string studyId,int sdruploadversion)
+        public async Task<IActionResult> GetRawJson(string studyId, int sdruploadversion)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
 
                     LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
 
-                    var study = await _commonService.GetRawJson(studyId, sdruploadversion,user);
+                    var study = await _commonService.GetRawJson(studyId, sdruploadversion, user);
 
                     if (study == null)
                     {
@@ -75,8 +75,8 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     }
                     else
                     {
-                        return Ok(new GetRawJsonDto() 
-                        { 
+                        return Ok(new GetRawJsonDto()
+                        {
                             StudyDefinitions = JsonConvert.SerializeObject(study, new JsonSerializerSettings
                             {
                                 ContractResolver = new DefaultContractResolver()
@@ -117,7 +117,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> GeteCPT(string studyId, int sdruploadversion,string studydesignId)
+        public async Task<IActionResult> GeteCPT(string studyId, int sdruploadversion, string studydesignId)
         {
             try
             {
@@ -128,7 +128,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
 
                     LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
 
-                    var study = await _commonService.GeteCPT(studyId, sdruploadversion,studydesignId, user);
+                    var study = await _commonService.GeteCPT(studyId, sdruploadversion, studydesignId, user);
 
                     if (study == null)
                     {
@@ -187,7 +187,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(CommonController)}; Method : {nameof(GetApiUsdmMapping)};");
-                ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping = new ApiUsdmVersionMapping_NonStatic
+                ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping = new()
                 {
                     SDRVersions = ApiUsdmVersionMapping.SDRVersions
                 };

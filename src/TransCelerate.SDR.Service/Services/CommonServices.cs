@@ -14,12 +14,11 @@ using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.DataAccess.Interfaces;
-using TransCelerate.SDR.DataAccess.Repositories;
 using TransCelerate.SDR.Services.Interfaces;
 
 namespace TransCelerate.SDR.Services.Services
 {
-    public  class CommonServices:ICommonService
+    public class CommonServices : ICommonService
     {
         #region Variable
         private readonly ICommonRepository _commonRepository;
@@ -62,10 +61,10 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {
-                    var jsonObject = JObject.Parse(JsonConvert.SerializeObject(study.ClinicalStudy));                    
+                    var jsonObject = JObject.Parse(JsonConvert.SerializeObject(study.ClinicalStudy));
 
                     if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.MVP)
-                    {                                                                     
+                    {
                         if (!await CheckAccessForAStudy(studyId, (string)jsonObject["studyType"], user))
                             return Constants.ErrorMessages.Forbidden;
                     }
@@ -75,7 +74,7 @@ namespace TransCelerate.SDR.Services.Services
                             return Constants.ErrorMessages.Forbidden;
                     }
                     else if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.V2)
-                    {                        
+                    {
                         if (!await CheckAccessForAStudy(studyId, (string)jsonObject["studyType"]["decode"], user))
                             return Constants.ErrorMessages.Forbidden;
                     }
@@ -104,7 +103,7 @@ namespace TransCelerate.SDR.Services.Services
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<object> GeteCPT(string studyId, int sdruploadversion,string studyDesignId, LoggedInUser user)
+        public async Task<object> GeteCPT(string studyId, int sdruploadversion, string studyDesignId, LoggedInUser user)
         {
             try
             {
@@ -120,7 +119,7 @@ namespace TransCelerate.SDR.Services.Services
                 else
                 {
                     if (study.AuditTrail.UsdmVersion != Constants.USDMVersions.V2)
-                            return Constants.ErrorMessages.eCPTError;
+                        return Constants.ErrorMessages.eCPTError;
 
                     var jsonObject = JObject.Parse(JsonConvert.SerializeObject(study.ClinicalStudy));
                     if (!await CheckAccessForAStudy(studyId, (string)jsonObject["studyType"]["decode"], user))
@@ -128,7 +127,7 @@ namespace TransCelerate.SDR.Services.Services
 
                     var studyV2 = JsonConvert.DeserializeObject<TransCelerate.SDR.Core.DTO.StudyV2.ClinicalStudyDto>(JsonConvert.SerializeObject(study.ClinicalStudy));
 
-                    if(studyV2.StudyDesigns==null || !studyV2.StudyDesigns.Any())
+                    if (studyV2.StudyDesigns == null || !studyV2.StudyDesigns.Any())
                         return Constants.ErrorMessages.StudyDesignNotFoundCPT;
 
                     if (studyDesignId != null)
@@ -154,10 +153,10 @@ namespace TransCelerate.SDR.Services.Services
             }
         }
 
-        public eCPTDto GetCPTDataV2(TransCelerate.SDR.Core.DTO.StudyV2.ClinicalStudyDto clinicalStudyDto, AuditTrailEntity auditTrail)
+        public ECPTDto GetCPTDataV2(TransCelerate.SDR.Core.DTO.StudyV2.ClinicalStudyDto clinicalStudyDto, AuditTrailEntity auditTrail)
         {
             var links = LinksHelper.GetLinks(clinicalStudyDto.StudyId, clinicalStudyDto.StudyDesigns.Select(c => c.Id).ToList(), auditTrail.UsdmVersion, auditTrail.SDRUploadVersion);
-            StudyDetailsDto studyDetailsDto = new StudyDetailsDto
+            StudyDetailsDto studyDetailsDto = new()
             {
                 StudyId = clinicalStudyDto.StudyId,
                 StudyTitle = clinicalStudyDto.StudyTitle,
@@ -166,28 +165,28 @@ namespace TransCelerate.SDR.Services.Services
                 SDRUploadVersion = auditTrail.SDRUploadVersion,
                 Links = new
                 {
-                    StudyDefinitions = links.StudyDefinitions,
-                    AuditTrail = links.AuditTrail
+                    links.StudyDefinitions,
+                    links.AuditTrail
                 },
             };
-            List<StudyDesignDto> studyeCPTDtos = new List<StudyDesignDto>();
+            List<StudyDesignDto> studyeCPTDtos = new();
             if (clinicalStudyDto.StudyDesigns != null && clinicalStudyDto.StudyDesigns.Any())
             {
-               
+
                 clinicalStudyDto.StudyDesigns.ForEach(design =>
                 {
-                    StudyDesignDto studyeCPTDto = new StudyDesignDto
+                    StudyDesignDto studyeCPTDto = new()
                     {
                         StudyDesignId = design.Id,
                         StudyDesignLink = links.StudyDesigns.Find(x => x.StudyDesignId == design.Id).StudyDesignLink,
                         StudyDesignName = design.StudyDesignName,
-                        ECPTData = new eCPTDataDto
+                        ECPTData = new ECPTDataDto
                         {
                             TitlePage = new TitlePageDto
                             {
                                 Acronym = clinicalStudyDto.StudyAcronym,
-                                AmendmentNumber = clinicalStudyDto.StudyProtocolVersions != null && clinicalStudyDto.StudyProtocolVersions.Any() ? eCPTHelper.GetOrderedStudyProtocols(clinicalStudyDto.StudyProtocolVersions).ProtocolAmendment : null,
-                                ApprovalDate = clinicalStudyDto.StudyProtocolVersions != null && clinicalStudyDto.StudyProtocolVersions.Any() ? eCPTHelper.GetOrderedStudyProtocols(clinicalStudyDto.StudyProtocolVersions).ProtocolEffectiveDate : null,
+                                AmendmentNumber = clinicalStudyDto.StudyProtocolVersions != null && clinicalStudyDto.StudyProtocolVersions.Any() ? ECPTHelper.GetOrderedStudyProtocols(clinicalStudyDto.StudyProtocolVersions).ProtocolAmendment : null,
+                                ApprovalDate = clinicalStudyDto.StudyProtocolVersions != null && clinicalStudyDto.StudyProtocolVersions.Any() ? ECPTHelper.GetOrderedStudyProtocols(clinicalStudyDto.StudyProtocolVersions).ProtocolEffectiveDate : null,
                                 ConditionDisease = design.StudyIndications != null && design.StudyIndications.Any() ?
                                                    design.StudyIndications.Count == 1 ?
                                                    design.StudyIndications.FirstOrDefault().IndicationDescription
@@ -198,11 +197,11 @@ namespace TransCelerate.SDR.Services.Services
                                 SponsorName = clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifierScope.OrganisationName).FirstOrDefault(),
                                 SponsorLegalAddress = clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifierScope.OrganizationLegalAddress).FirstOrDefault() == null ? null
                                                                 : clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifierScope.OrganizationLegalAddress).Select(x => $"{x.Text},{x.Line},{x.City},{x.District},{x.State},{x.PostalCode},{x.Country?.Decode}").FirstOrDefault(),
-                                StudyPhase = eCPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.StudyPhase, clinicalStudyDto.StudyPhase?.StandardCode?.Code) ?? clinicalStudyDto.StudyPhase?.StandardCode?.Decode,
+                                StudyPhase = ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.StudyPhase, clinicalStudyDto.StudyPhase?.StandardCode?.Code) ?? clinicalStudyDto.StudyPhase?.StandardCode?.Decode,
                                 Protocol = new ProtocolDto
                                 {
                                     ProtocolID = clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifier).FirstOrDefault(),
-                                    ProtocolShortTitle = clinicalStudyDto.StudyProtocolVersions != null && clinicalStudyDto.StudyProtocolVersions.Any() ? eCPTHelper.GetOrderedStudyProtocols(clinicalStudyDto.StudyProtocolVersions).BriefTitle : null,
+                                    ProtocolShortTitle = clinicalStudyDto.StudyProtocolVersions != null && clinicalStudyDto.StudyProtocolVersions.Any() ? ECPTHelper.GetOrderedStudyProtocols(clinicalStudyDto.StudyProtocolVersions).BriefTitle : null,
                                     ProtocolTitle = clinicalStudyDto.StudyTitle
                                 }
                             },
@@ -212,15 +211,15 @@ namespace TransCelerate.SDR.Services.Services
                                 {
                                     NumberofParticipants = design.StudyPopulations?.Sum(x => x.PlannedNumberOfParticipants).ToString(),
                                     PrimaryPurpose = design.TrialIntentType != null && design.TrialIntentType.Any() ?
-                                                   design.TrialIntentType.Count == 1 ? eCPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, design.TrialIntentType.FirstOrDefault().Code) ?? design.TrialIntentType.FirstOrDefault().Decode
-                                                   : $"{String.Join(',', design.TrialIntentType.Select(x => eCPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, x.Code) ?? x.Decode).ToArray(), 0, design.TrialIntentType.Count - 1)}" +
-                                                   $" and {design.TrialIntentType.Select(x => eCPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, x.Code) ?? x.Decode).LastOrDefault()}"
+                                                   design.TrialIntentType.Count == 1 ? ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, design.TrialIntentType.FirstOrDefault().Code) ?? design.TrialIntentType.FirstOrDefault().Decode
+                                                   : $"{String.Join(',', design.TrialIntentType.Select(x => ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, x.Code) ?? x.Decode).ToArray(), 0, design.TrialIntentType.Count - 1)}" +
+                                                   $" and {design.TrialIntentType.Select(x => ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, x.Code) ?? x.Decode).LastOrDefault()}"
                                                    : null,
                                     EnrollmentTarget = design.StudyPopulations != null && design.StudyPopulations.Any() ?
                                                       design.StudyPopulations.Count == 1 ? design.StudyPopulations.FirstOrDefault().PopulationDescription
                                                       : $"{String.Join(',', design.StudyPopulations.Select(x => x.PopulationDescription).ToArray(), 0, design.StudyPopulations.Count - 1)} and {design.StudyPopulations.Select(x => x.PopulationDescription).LastOrDefault()}"
                                                       : null,
-                                    InterventionModel = eCPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.InterventionModel, design?.InterventionModel?.Code) ?? design?.InterventionModel?.Decode,
+                                    InterventionModel = ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.InterventionModel, design?.InterventionModel?.Code) ?? design?.InterventionModel?.Decode,
                                     NumberofArms = design.StudyCells != null && design.StudyCells.Any() ?
                                                     design.StudyCells.Where(x => x.StudyArm != null).Any() ?
                                                     design.StudyCells.Where(x => x.StudyArm != null).Select(x => x.StudyArm.Id).Distinct().Count().ToString() : 0.ToString() : 0.ToString()
@@ -228,20 +227,20 @@ namespace TransCelerate.SDR.Services.Services
                             },
                             PageHeader = new PageHeaderDto
                             {
-                                VersionNumber = clinicalStudyDto.StudyProtocolVersions != null && clinicalStudyDto.StudyProtocolVersions.Any() ? eCPTHelper.GetOrderedStudyProtocols(clinicalStudyDto.StudyProtocolVersions).ProtocolVersion : null,
+                                VersionNumber = clinicalStudyDto.StudyProtocolVersions != null && clinicalStudyDto.StudyProtocolVersions.Any() ? ECPTHelper.GetOrderedStudyProtocols(clinicalStudyDto.StudyProtocolVersions).ProtocolVersion : null,
                             },
                             StudyPopulation = new StudyPopulationDto
                             {
                                 InclusionCriteria = new InclusionCriteriaDto
                                 {
-              
+
                                     PlannedMaximumAgeofSubjects = design.StudyPopulations != null && design.StudyPopulations.Any() ?
-                                                                           eCPTHelper.CheckForMaxMin(design.StudyPopulations.Select(x=>x.PlannedMaximumAgeOfParticipants).ToList(),true) :null,
+                                                                           ECPTHelper.CheckForMaxMin(design.StudyPopulations.Select(x => x.PlannedMaximumAgeOfParticipants).ToList(), true) : null,
 
                                     PlannedMinimumAgeofSubjects = design.StudyPopulations != null && design.StudyPopulations.Any() ?
-                                                                           eCPTHelper.CheckForMaxMin(design.StudyPopulations.Select(x => x.PlannedMinimumAgeOfParticipants).ToList(), false) : null,
-                                                                                                                                                    
-                                    SexofParticipants = eCPTHelper.GetPlannedSexOfParticipants(design.StudyPopulations)
+                                                                           ECPTHelper.CheckForMaxMin(design.StudyPopulations.Select(x => x.PlannedMinimumAgeOfParticipants).ToList(), false) : null,
+
+                                    SexofParticipants = ECPTHelper.GetPlannedSexOfParticipants(design.StudyPopulations)
                                 }
                             },
                             Introduction = new IntroductionDto
@@ -260,28 +259,28 @@ namespace TransCelerate.SDR.Services.Services
                                                    : $"{String.Join(',', design.StudyEstimands.Select(x => x.AnalysisPopulation.PopulationDescription).ToArray(), 0, design.StudyEstimands.Count - 1)} and {design.StudyEstimands.Select(x => x.AnalysisPopulation.PopulationDescription).LastOrDefault()}"
                                                    : null,
                             },
-                            ObjectivesEndpointsAndEstimands = eCPTHelper.GetObjectivesEndpointsAndEstimandsDto(design.StudyObjectives,_mapper) ,
-                            StudyInterventionsAndConcomitantTherapy= new StudyInterventionsAndConcomitantTherapyDto
+                            ObjectivesEndpointsAndEstimands = ECPTHelper.GetObjectivesEndpointsAndEstimandsDto(design.StudyObjectives, _mapper),
+                            StudyInterventionsAndConcomitantTherapy = new StudyInterventionsAndConcomitantTherapyDto
                             {
-                                StudyInterventionsAdministered= design.StudyInvestigationalInterventions != null && design.StudyInvestigationalInterventions.Any() ?
+                                StudyInterventionsAdministered = design.StudyInvestigationalInterventions != null && design.StudyInvestigationalInterventions.Any() ?
                                            _mapper.Map<List<StudyInterventionsAdministeredDto>>(design.StudyInvestigationalInterventions)
                                            : null,
-                                StudyArms = design.StudyCells!=null && design.StudyCells.Any() ?
-                                           design.StudyCells.Where(x=>x.StudyArm!=null).Any() ?
-                                           _mapper.Map<List<StudyArmDto>>(design.StudyCells.Where(x => x.StudyArm != null).Select(x=>x.StudyArm).ToList())
-                                           :null : null
+                                StudyArms = design.StudyCells != null && design.StudyCells.Any() ?
+                                           design.StudyCells.Where(x => x.StudyArm != null).Any() ?
+                                           _mapper.Map<List<StudyArmDto>>(design.StudyCells.Where(x => x.StudyArm != null).Select(x => x.StudyArm).ToList())
+                                           : null : null
                             }
-                           
+
                         }
                     };
                     studyeCPTDtos.Add(studyeCPTDto);
                 });
             }
-            return new eCPTDto
+            return new ECPTDto
             {
                 StudyDesign = studyeCPTDtos,
                 StudyDetails = studyDetailsDto
-            };    
+            };
         }
 
 
@@ -313,7 +312,7 @@ namespace TransCelerate.SDR.Services.Services
                         return Constants.ErrorMessages.Forbidden;
 
                     var auditTrailDtoList = _mapper.Map<List<AuditTrailResponseWithLinksDto>>(studies); //Mapping Entity to Dto 
-                    AuditTrailResponseDto getStudyAuditDto = new AuditTrailResponseDto
+                    AuditTrailResponseDto getStudyAuditDto = new()
                     {
                         StudyId = studyId,
                         AuditTrail = auditTrailDtoList
@@ -359,9 +358,9 @@ namespace TransCelerate.SDR.Services.Services
                     if (studies == null)
                         return null;
                     var studyHistory = studies.GroupBy(x => new { x.StudyId })
-                                              .Select(g => new 
+                                              .Select(g => new
                                               {
-                                                  StudyId = g.Key.StudyId,
+                                                  g.Key.StudyId,
                                                   SDRUploadVersion = _mapper.Map<List<UploadVersionDto>>(g.ToList()),
                                                   Date = g.Max(x => x.EntryDateTime)
                                               }) // Grouping the Id's by studyId
@@ -491,7 +490,7 @@ namespace TransCelerate.SDR.Services.Services
             }
         }
 
-        public List<SearchTitleResponseDto> AssignStudyIdentifiers(List<SearchTitleResponseDto> searchTitleDTOs,List<SearchTitleResponseEntity> searchTitleResponses)
+        public static List<SearchTitleResponseDto> AssignStudyIdentifiers(List<SearchTitleResponseDto> searchTitleDTOs, List<SearchTitleResponseEntity> searchTitleResponses)
         {
             searchTitleDTOs.ForEach(searchTitleDTO =>
             {
@@ -511,7 +510,7 @@ namespace TransCelerate.SDR.Services.Services
                                     NamingStrategy = new CamelCaseNamingStrategy()
                                 }
                             }));
-                            CommonStudyIdentifiersDto studyIdentifier = new CommonStudyIdentifiersDto
+                            CommonStudyIdentifiersDto studyIdentifier = new()
                             {
                                 StudyIdentifierScope = new CommonOrganisationDto
                                 {
@@ -531,22 +530,22 @@ namespace TransCelerate.SDR.Services.Services
                     }
                 }
 
-                var studyDesignIds = searchResponse.UsdmVersion == Constants.USDMVersions.MVP ? searchResponse.StudyDesignIdsMVP?.Where(x => x != null && x.Count() > 0).SelectMany(x => x)?.ToList() : searchResponse.StudyDesignIds?.ToList();
+                var studyDesignIds = searchResponse.UsdmVersion == Constants.USDMVersions.MVP ? searchResponse.StudyDesignIdsMVP?.Where(x => x != null && x.Any()).SelectMany(x => x)?.ToList() : searchResponse.StudyDesignIds?.ToList();
                 searchTitleDTO.Links = LinksHelper.GetLinksForUi(searchResponse.StudyId, studyDesignIds, searchResponse.UsdmVersion, searchResponse.SDRUploadVersion);
             });
 
             return searchTitleDTOs;
         }
 
-        public List<SearchTitleResponseDto> SortStudyTitle(List<SearchTitleResponseDto> searchTitleDTOs, SearchTitleParametersDto searchParametersDTO)
+        public static List<SearchTitleResponseDto> SortStudyTitle(List<SearchTitleResponseDto> searchTitleDTOs, SearchTitleParametersDto searchParametersDTO)
         {
             if (!String.IsNullOrWhiteSpace(searchParametersDTO.SortBy))
             {
                 return searchParametersDTO.SortBy.ToLower() switch
                 {
                     //"studytitle" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.ClinicalStudy.StudyTitle).ToList() : searchTitleDTOs.OrderByDescending(x => x.ClinicalStudy.StudyTitle).ToList(),
-                   "sponsorid" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(s => s.ClinicalStudy.StudyIdentifiers != null ? s.ClinicalStudy.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1 || x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID).Any() ? s.ClinicalStudy.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1 || x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : "").ToList()
-                                                                                        : searchTitleDTOs.OrderByDescending(s => s.ClinicalStudy.StudyIdentifiers != null ? s.ClinicalStudy.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1 || x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID).Any() ? s.ClinicalStudy.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1 || x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : "").ToList(),
+                    "sponsorid" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(s => s.ClinicalStudy.StudyIdentifiers != null ? s.ClinicalStudy.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1 || x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID).Any() ? s.ClinicalStudy.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1 || x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : "").ToList()
+                                                                                         : searchTitleDTOs.OrderByDescending(s => s.ClinicalStudy.StudyIdentifiers != null ? s.ClinicalStudy.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1 || x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID).Any() ? s.ClinicalStudy.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1 || x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : "").ToList(),
                     //"lastmodifieddate" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.AuditTrail.EntryDateTime).ToList() : searchTitleDTOs.OrderByDescending(x => x.AuditTrail.EntryDateTime).ToList(),
                     //"version" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.AuditTrail.SDRUploadVersion).ToList() : searchTitleDTOs.OrderByDescending(x => x.AuditTrail.SDRUploadVersion).ToList(),
                     //"usdmversion" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.AuditTrail.UsdmVersion).ToList() : searchTitleDTOs.OrderByDescending(x => x.AuditTrail.UsdmVersion).ToList(),
@@ -579,7 +578,7 @@ namespace TransCelerate.SDR.Services.Services
 
                 var searchParameters = _mapper.Map<SearchParametersEntity>(searchParametersDto);
 
-                List<SearchResponseEntity> searchResponseEntities = await _commonRepository.SearchStudy(searchParameters,user);
+                List<SearchResponseEntity> searchResponseEntities = await _commonRepository.SearchStudy(searchParameters, user);
 
                 if (searchResponseEntities is null || !searchResponseEntities.Any())
                     return null;
@@ -596,7 +595,7 @@ namespace TransCelerate.SDR.Services.Services
                                          .Skip((searchParameters.PageNumber - 1) * searchParameters.PageSize)
                                          .Take(searchParameters.PageSize)
                                          .ToList();
-                }                    
+                }
                 return searchResponseDtos;
             }
             catch (Exception)
@@ -609,7 +608,7 @@ namespace TransCelerate.SDR.Services.Services
             }
         }
 
-        public List<SearchResponseDto> AssignDynamicValues(List<SearchResponseDto> searchResponseDtos, List<SearchResponseEntity> searchResponseEntities)
+        public static List<SearchResponseDto> AssignDynamicValues(List<SearchResponseDto> searchResponseDtos, List<SearchResponseEntity> searchResponseEntities)
         {
             searchResponseDtos.ForEach(searchResponseDto =>
             {
@@ -630,7 +629,7 @@ namespace TransCelerate.SDR.Services.Services
                                     NamingStrategy = new CamelCaseNamingStrategy()
                                 }
                             }));
-                            CommonStudyIdentifiersDto studyIdentifier = new CommonStudyIdentifiersDto
+                            CommonStudyIdentifiersDto studyIdentifier = new()
                             {
                                 StudyIdentifierScope = new CommonOrganisationDto
                                 {
@@ -681,13 +680,13 @@ namespace TransCelerate.SDR.Services.Services
                 if (searchResponseDto.AuditTrail.UsdmVersion == Constants.USDMVersions.MVP && searchResponseEntity.StudyIndicationsMVP != null)
                 {
                     studyDesign.StudyIndications = new List<Core.DTO.Common.CommonStudyIndication>();
-                    var listOfIndicationDescriptions = searchResponseEntity.StudyIndicationsMVP.Where(x => x != null && x.Count() > 0).SelectMany(x => x).ToList();
+                    var listOfIndicationDescriptions = searchResponseEntity.StudyIndicationsMVP.Where(x => x != null && x.Any()).SelectMany(x => x).ToList();
                     listOfIndicationDescriptions.ForEach(ind => studyDesign.StudyIndications.Add(new Core.DTO.Common.CommonStudyIndication { IndicationDescription = ind }));
                 }
                 if (searchResponseDto.AuditTrail.UsdmVersion != Constants.USDMVersions.MVP && searchResponseEntity.StudyIndications != null)
                 {
                     studyDesign.StudyIndications = new List<Core.DTO.Common.CommonStudyIndication>();
-                    var listOfIndicationDescriptions = searchResponseEntity.StudyIndications.Where(x => x != null && x.Count() > 0).SelectMany(x => x).ToList();
+                    var listOfIndicationDescriptions = searchResponseEntity.StudyIndications.Where(x => x != null && x.Any()).SelectMany(x => x).ToList();
                     listOfIndicationDescriptions.ForEach(ind => studyDesign.StudyIndications.Add(new Core.DTO.Common.CommonStudyIndication { IndicationDescription = ind }));
                 }
                 #endregion
@@ -696,16 +695,16 @@ namespace TransCelerate.SDR.Services.Services
                 if (searchResponseDto.AuditTrail.UsdmVersion == Constants.USDMVersions.MVP && searchResponseEntity.InterventionModelMVP != null)
                 {
                     studyDesign.InterventionModel = new List<CommonCodeDto>();
-                    var listOfInterventionModels = searchResponseEntity.InterventionModelMVP.Where(x => x != null && x.Count() > 0).SelectMany(x => x)
-                                                                                .Where(x => x != null && x.Count() > 0).SelectMany(x => x)
-                                                                                .Where(x => x != null && x.Count() > 0).SelectMany(x => x).ToList();
+                    var listOfInterventionModels = searchResponseEntity.InterventionModelMVP.Where(x => x != null && x.Any()).SelectMany(x => x)
+                                                                                .Where(x => x != null && x.Any()).SelectMany(x => x)
+                                                                                .Where(x => x != null && x.Any()).SelectMany(x => x).ToList();
                     listOfInterventionModels.ForEach(ind => studyDesign.InterventionModel.Add(new CommonCodeDto { Decode = ind }));
                 }
                 if (searchResponseDto.AuditTrail.UsdmVersion != Constants.USDMVersions.MVP && searchResponseEntity.InterventionModel != null)
                 {
                     studyDesign.InterventionModel = new List<CommonCodeDto>();
                     var listOfInterventionModels = searchResponseEntity.InterventionModel.ToList();
-                    if(searchResponseDto.AuditTrail.UsdmVersion == Constants.USDMVersions.V1)
+                    if (searchResponseDto.AuditTrail.UsdmVersion == Constants.USDMVersions.V1)
                         listOfInterventionModels.ForEach(ind => studyDesign.InterventionModel.AddRange(JsonConvert.DeserializeObject<List<CommonCodeDto>>(JsonConvert.SerializeObject(ind))));
                     else
                         listOfInterventionModels.ForEach(ind => studyDesign.InterventionModel.Add(JsonConvert.DeserializeObject<CommonCodeDto>(JsonConvert.SerializeObject(ind))));
@@ -713,13 +712,13 @@ namespace TransCelerate.SDR.Services.Services
                 #endregion
 
                 searchResponseDto.ClinicalStudy.StudyDesigns.Add(studyDesign);
-                var studyDesignIds = searchResponseDto.AuditTrail.UsdmVersion == Constants.USDMVersions.MVP ? searchResponseEntity.StudyDesignIdsMVP?.Where(x => x != null && x.Count() > 0).SelectMany(x => x)?.ToList() : searchResponseEntity.StudyDesignIds?.ToList();
-                searchResponseDto.Links = LinksHelper.GetLinksForUi(searchResponseDto.ClinicalStudy.StudyId,studyDesignIds, searchResponseDto.AuditTrail.UsdmVersion, searchResponseDto.AuditTrail.SDRUploadVersion);
+                var studyDesignIds = searchResponseDto.AuditTrail.UsdmVersion == Constants.USDMVersions.MVP ? searchResponseEntity.StudyDesignIdsMVP?.Where(x => x != null && x.Any()).SelectMany(x => x)?.ToList() : searchResponseEntity.StudyDesignIds?.ToList();
+                searchResponseDto.Links = LinksHelper.GetLinksForUi(searchResponseDto.ClinicalStudy.StudyId, studyDesignIds, searchResponseDto.AuditTrail.UsdmVersion, searchResponseDto.AuditTrail.SDRUploadVersion);
             });
             return searchResponseDtos;
         }
 
-        public List<SearchResponseDto> SortSearchResults(List<SearchResponseDto> searchResponseDtos, SearchParametersDto searchParameters)
+        public static List<SearchResponseDto> SortSearchResults(List<SearchResponseDto> searchResponseDtos, SearchParametersDto searchParameters)
         {
             if (!String.IsNullOrWhiteSpace(searchParameters.Header))
             {
@@ -730,12 +729,12 @@ namespace TransCelerate.SDR.Services.Services
                     "sponsorid" => searchParameters.Asc ? searchResponseDtos.OrderBy(s => s.ClinicalStudy.StudyIdentifiers != null ? s.ClinicalStudy.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower() || x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID.ToLower()).Any() ? s.ClinicalStudy.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower() || x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID.ToLower()).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : "").ToList()
                                                             : searchResponseDtos.OrderByDescending(s => s.ClinicalStudy.StudyIdentifiers != null ? s.ClinicalStudy.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower() || x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID.ToLower()).Any() ? s.ClinicalStudy.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower() || x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID.ToLower()).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : "").ToList(),
                     //"lastmodifieddate" => searchParameters.Asc ? searchResponseDtos.OrderBy(x => x.AuditTrail.EntryDateTime).ToList() : searchResponseDtos.OrderByDescending(x => x.AuditTrail.EntryDateTime).ToList(),
-                   // "sdrversion" => searchParameters.Asc ? searchResponseDtos.OrderBy(x => x.AuditTrail.SDRUploadVersion).ToList() : searchResponseDtos.OrderByDescending(x => x.AuditTrail.SDRUploadVersion).ToList(),
+                    // "sdrversion" => searchParameters.Asc ? searchResponseDtos.OrderBy(x => x.AuditTrail.SDRUploadVersion).ToList() : searchResponseDtos.OrderByDescending(x => x.AuditTrail.SDRUploadVersion).ToList(),
 
-                    "interventionmodel" => searchParameters.Asc ? searchResponseDtos.OrderBy(x => x.ClinicalStudy.StudyDesigns!= null && x.ClinicalStudy.StudyDesigns.Any() ? x.ClinicalStudy.StudyDesigns.First().InterventionModel != null && x.ClinicalStudy.StudyDesigns.First().InterventionModel.Any() ? x.ClinicalStudy.StudyDesigns.First().InterventionModel.First().Decode : "" : "").ToList() 
+                    "interventionmodel" => searchParameters.Asc ? searchResponseDtos.OrderBy(x => x.ClinicalStudy.StudyDesigns != null && x.ClinicalStudy.StudyDesigns.Any() ? x.ClinicalStudy.StudyDesigns.First().InterventionModel != null && x.ClinicalStudy.StudyDesigns.First().InterventionModel.Any() ? x.ClinicalStudy.StudyDesigns.First().InterventionModel.First().Decode : "" : "").ToList()
                                                                 : searchResponseDtos.OrderByDescending(x => x.ClinicalStudy.StudyDesigns != null && x.ClinicalStudy.StudyDesigns.Any() ? x.ClinicalStudy.StudyDesigns.First().InterventionModel != null && x.ClinicalStudy.StudyDesigns.First().InterventionModel.Any() ? x.ClinicalStudy.StudyDesigns.First().InterventionModel.First().Decode : "" : "").ToList(),
 
-                    "indication" => searchParameters.Asc ? searchResponseDtos.OrderBy(x => x.ClinicalStudy.StudyDesigns != null && x.ClinicalStudy.StudyDesigns.Any() ? x.ClinicalStudy.StudyDesigns.First().StudyIndications != null && x.ClinicalStudy.StudyDesigns.First().StudyIndications.Any() ? x.ClinicalStudy.StudyDesigns.First().StudyIndications.First().IndicationDescription : "" : "").ToList() 
+                    "indication" => searchParameters.Asc ? searchResponseDtos.OrderBy(x => x.ClinicalStudy.StudyDesigns != null && x.ClinicalStudy.StudyDesigns.Any() ? x.ClinicalStudy.StudyDesigns.First().StudyIndications != null && x.ClinicalStudy.StudyDesigns.First().StudyIndications.Any() ? x.ClinicalStudy.StudyDesigns.First().StudyIndications.First().IndicationDescription : "" : "").ToList()
                                                                     : searchResponseDtos.OrderByDescending(x => x.ClinicalStudy.StudyDesigns != null && x.ClinicalStudy.StudyDesigns.Any() ? x.ClinicalStudy.StudyDesigns.First().StudyIndications != null && x.ClinicalStudy.StudyDesigns.First().StudyIndications.Any() ? x.ClinicalStudy.StudyDesigns.First().StudyIndications.First().IndicationDescription : "" : "").ToList(),
                     //_ => searchParameters.Asc ? searchResponseDtos.OrderByDescending(x => x.AuditTrail.EntryDateTime).ToList() : searchResponseDtos.OrderBy(x => x.AuditTrail.EntryDateTime).ToList(),
                     _ => searchResponseDtos
@@ -756,7 +755,7 @@ namespace TransCelerate.SDR.Services.Services
             {
                 _logger.LogInformation($"Started Service : {nameof(CommonServices)}; Method : {nameof(CheckAccessForAStudy)};");
 
-                if (user.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+                if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
                 {
                     var groups = await _commonRepository.GetGroupsOfUser(user).ConfigureAwait(false);
 
@@ -807,7 +806,7 @@ namespace TransCelerate.SDR.Services.Services
             {
                 _logger.LogInformation($"Started Service : {nameof(CommonServices)}; Method : {nameof(CheckAccessForStudyAudit)};");
 
-                if (user.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+                if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
                 {
                     var groups = await _commonRepository.GetGroupsOfUser(user).ConfigureAwait(false);
 
@@ -828,7 +827,7 @@ namespace TransCelerate.SDR.Services.Services
                                     ContractResolver = new DefaultContractResolver()
                                     {
                                         NamingStrategy = new CamelCaseNamingStrategy()
-                                    }                                  
+                                    }
                                 }));
                                 if (study.UsdmVersion == Constants.USDMVersions.MVP)
                                 {
@@ -885,14 +884,14 @@ namespace TransCelerate.SDR.Services.Services
             {
                 _logger.LogInformation($"Started Service : {nameof(CommonServices)}; Method : {nameof(CheckAccessForStudyAudit)};");
 
-                if (user.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+                if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
                 {
                     var groups = await _commonRepository.GetGroupsOfUser(user).ConfigureAwait(false);
 
                     if (groups != null && groups.Count > 0)
                     {
                         studies.ForEach(x => x.HasAccess = true);
-                        Tuple<List<string>, List<string>> groupFilters = GroupFilters.GetGroupFilters(groups);                        
+                        Tuple<List<string>, List<string>> groupFilters = GroupFilters.GetGroupFilters(groups);
                         if (groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
                             return studies;
                         else

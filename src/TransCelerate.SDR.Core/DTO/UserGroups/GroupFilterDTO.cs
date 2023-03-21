@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.DTO.UserGroups
 {
     public class GroupFilterDTO
     {
-        public string groupFieldName { get; set; }
-        public List<GroupFilterValuesDTO> groupFilterValues { get; set; }
+        public string GroupFieldName { get; set; }
+        public List<GroupFilterValuesDTO> GroupFilterValues { get; set; }
     }
 }

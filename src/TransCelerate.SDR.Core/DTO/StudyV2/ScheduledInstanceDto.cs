@@ -1,14 +1,13 @@
 ﻿using JsonSubTypes;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.Core.DTO.StudyV2
 {
     [JsonConverter(typeof(JsonSubtypes), nameof(ScheduledInstanceDto.ScheduledInstanceType))]
     [JsonSubtypes.KnownSubType(typeof(ScheduledActivityInstanceDto), nameof(Utilities.ScheduledInstanceType.ACTIVITY))]
     [JsonSubtypes.KnownSubType(typeof(ScheduledDecisionInstanceDto), nameof(Utilities.ScheduledInstanceType.DECISION))]
-    public class ScheduledInstanceDto : Iid
+    public class ScheduledInstanceDto : IId
     {
         [Newtonsoft.Json.JsonProperty(Utilities.Common.IdFieldPropertyName.StudyV2.ScheduledInstanceId)]
         public string Id { get; set; }

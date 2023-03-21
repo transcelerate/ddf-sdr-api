@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TransCelerate.SDR.Core.DTO.Common
 {
@@ -13,7 +9,7 @@ namespace TransCelerate.SDR.Core.DTO.Common
     public class StudyHistoryResponseDto
     {
         public string StudyId { get; set; }
-        [JsonProperty("SDRUploadVersion")]
+        [JsonProperty(nameof(SDRUploadVersion))]
         public List<UploadVersionDto> SDRUploadVersion { get; set; }
     }
 

@@ -1,11 +1,7 @@
 ﻿using JsonSubTypes;
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
@@ -17,7 +13,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
     [BsonDiscriminator(nameof(ScheduledInstanceEntity.ScheduledInstanceType))]
     [BsonKnownTypes(typeof(ScheduledActivityInstanceEntity))]
     [BsonKnownTypes(typeof(ScheduledDecisionInstanceEntity))]
-    public class ScheduledInstanceEntity : Iid
+    public class ScheduledInstanceEntity : IId
     {
         [BsonElement(Utilities.Common.IdFieldPropertyName.StudyV2.ScheduledInstanceId)]
         public string Id { get; set; }

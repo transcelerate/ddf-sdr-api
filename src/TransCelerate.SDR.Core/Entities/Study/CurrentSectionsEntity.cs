@@ -1,36 +1,34 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace TransCelerate.SDR.Core.Entities.Study
 {
     public class CurrentSectionsEntity
     {
-        [BsonElement("id")]
-        public string currentSectionsId { get; set; }
-        public string sectionType { get; set; }
+        [BsonElement(Utilities.Common.IdFieldPropertyName.MVP.Id)]
+        public string CurrentSectionsId { get; set; }
+        public string SectionType { get; set; }
 
         [BsonIgnoreIfNull]
-        public List<PlannedWorkFlowEntity> plannedWorkflows { get; set; }
+        public List<PlannedWorkFlowEntity> PlannedWorkflows { get; set; }
 
         [BsonIgnoreIfNull]
-        public List<StudyPopulationEntity> studyPopulations { get; set; }
+        public List<StudyPopulationEntity> StudyPopulations { get; set; }
 
         [BsonIgnoreIfNull]
-        public List<StudyCellEntity> studyCells { get; set; }
+        public List<StudyCellEntity> StudyCells { get; set; }
 
         [BsonIgnoreIfNull]
-        public List<InvestigationalInterventionEntity> investigationalInterventions { get; set; }
+        public List<InvestigationalInterventionEntity> InvestigationalInterventions { get; set; }
 
         [BsonIgnoreIfNull]
-        public List<StudyDesignEntity> studyDesigns { get; set; }
+        public List<StudyDesignEntity> StudyDesigns { get; set; }
 
         [BsonIgnoreIfNull]
-        public List<StudyObjectiveEntity> objectives { get; set; }
+        public List<StudyObjectiveEntity> Objectives { get; set; }
 
         [BsonIgnoreIfNull]
-        public List<StudyIndicationEntity> studyIndications { get; set; }
+        public List<StudyIndicationEntity> StudyIndications { get; set; }
         //Removed Study Protocol
         //[BsonIgnoreIfNull]
         //public StudyProtocolEntity studyProtocol { get; set; }

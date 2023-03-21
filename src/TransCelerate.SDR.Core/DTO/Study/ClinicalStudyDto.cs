@@ -1,27 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using TransCelerate.SDR.Core.Utilities.Common;
-using TransCelerate.SDR.Core.Utilities.Helpers;
+﻿using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.DTO.Study
 {
     public class ClinicalStudyDTO
     {
-        public string studyId { get; set; }
-        public string studyTitle { get; set; }
-        public string studyType { get; set; }        
+        public string StudyId { get; set; }
+        public string StudyTitle { get; set; }
+        public string StudyType { get; set; }
 
-        public string studyPhase { get; set; }
-        public string studyStatus { get; set; }
-        public string studyTag { get; set; }
+        public string StudyPhase { get; set; }
+        public string StudyStatus { get; set; }
+        public string StudyTag { get; set; }
 
-        public List<StudyIdentifierDTO> studyIdentifiers { get; set; }
+        public List<StudyIdentifierDTO> StudyIdentifiers { get; set; }
 
-        public List<CurrentSectionsDTO> currentSections { get; set; }
+        public List<CurrentSectionsDTO> CurrentSections { get; set; }
 
-        public List<StudyProtocolDTO> studyProtocolReferences { get; set; }
+        public List<StudyProtocolDTO> StudyProtocolReferences { get; set; }
 
 
     }

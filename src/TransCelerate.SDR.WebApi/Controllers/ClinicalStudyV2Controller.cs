@@ -1,23 +1,21 @@
-﻿using AutoMapper;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
+using System.Collections.Generic;
 using System.Net;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.StudyV2;
-using TransCelerate.SDR.Services.Interfaces;
 using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
-using Microsoft.AspNetCore.Authorization;
-using System.Collections.Generic;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
-using Newtonsoft.Json;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+using TransCelerate.SDR.Services.Interfaces;
 
 namespace TransCelerate.SDR.WebApi.Controllers
 {
@@ -69,8 +67,8 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
                     _logger.LogInformation($"Inputs : studyId = {studyId}; sdruploadversion = {sdruploadversion}; listofelements: {listofelements}");
-                   
-                    if (!_helper.AreValidStudyElements(listofelements,out string[] listofelementsArray))
+
+                    if (!_helper.AreValidStudyElements(listofelements, out string[] listofelementsArray))
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyElementNotValid)).Value);
 
                     LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
@@ -134,7 +132,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 if (!String.IsNullOrWhiteSpace(study_uuid))
                 {
                     _logger.LogInformation($"Inputs : study_uuid = {study_uuid}; sdruploadversion = {sdruploadversion}; listofelements: {listofelements}; studydesign_uuid: {studydesign_uuid}");
-                    
+
                     if (!_helper.AreValidStudyDesignElements(listofelements, out string[] listofelementsArray))
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyDesignElementNotValid)).Value);
 
@@ -199,13 +197,13 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudyDesigns)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
-                    _logger.LogInformation($"Inputs : study_uuid = {studyId}; sdruploadversion = {sdruploadversion}; WorkflowId: {studyWorkflowId}; studydesign_uuid: {studyDesignId}");                  
-                    if(String.IsNullOrWhiteSpace(studyDesignId) && !String.IsNullOrWhiteSpace(studyWorkflowId))
+                    _logger.LogInformation($"Inputs : study_uuid = {studyId}; sdruploadversion = {sdruploadversion}; WorkflowId: {studyWorkflowId}; studydesign_uuid: {studyDesignId}");
+                    if (String.IsNullOrWhiteSpace(studyDesignId) && !String.IsNullOrWhiteSpace(studyWorkflowId))
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.EnterDesignIdError)).Value);
 
                     LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
 
-                    var SoA = await _clinicalStudyService.GetSOA(studyId, studyDesignId,studyWorkflowId, sdruploadversion, user).ConfigureAwait(false);
+                    var SoA = await _clinicalStudyService.GetSOA(studyId, studyDesignId, studyWorkflowId, sdruploadversion, user).ConfigureAwait(false);
 
                     if (SoA == null)
                     {
@@ -385,13 +383,13 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> PostAllElements([FromBody] StudyDto studyDTO,[FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
+        public async Task<IActionResult> PostAllElements([FromBody] StudyDto studyDTO, [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
         {
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(PostAllElements)};");
                 if (studyDTO != null)
-                {                    
+                {
                     bool isInValidReferenceIntegrity = _helper.ReferenceIntegrityValidation(studyDTO, out var errors);
                     if (isInValidReferenceIntegrity)
                     {
@@ -399,13 +397,13 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         errorList.ForEach(e => _logger.LogError($"{Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse} {errorList.IndexOf(e) + 1}: {e}"));
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(errors, Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse)).Value);
                     }
-                        
+
 
                     LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
 
                     var response = await _clinicalStudyService.PostAllElements(studyDTO, user, Request?.Method)
                                                               .ConfigureAwait(false);
-                    
+
                     if (response?.ToString() == Constants.ErrorMessages.PostRestricted)
                     {
                         return StatusCode(((int)HttpStatusCode.Unauthorized), new JsonResult(ErrorResponseHelper.UnAuthorizedAccess(Constants.ErrorMessages.PostRestricted)).Value);
@@ -451,7 +449,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> PutStudy([FromBody] StudyDto studyDTO,string studyId, [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
+        public async Task<IActionResult> PutStudy([FromBody] StudyDto studyDTO, string studyId, [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
         {
             try
             {

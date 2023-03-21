@@ -6,6 +6,6 @@
         public string OrganisationIdentifier { get; set; }
         public string OrganisationIdentifierScheme { get; set; }
         public string OrganisationName { get; set; }
-        public CodeEntity OrganisationType { get; set; }        
+        public CodeEntity OrganisationType { get; set; }
     }
 }

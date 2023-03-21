@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using System;
 using Microsoft.AspNetCore.Http;
 using TransCelerate.SDR.Core.DTO.StudyV2;
 using TransCelerate.SDR.Core.Utilities.Common;
@@ -15,7 +14,7 @@ namespace TransCelerate.SDR.RuleEngineV2
         private readonly IHttpContextAccessor _httpContextAccessor;
         public ClinicalStudyValidator(IHttpContextAccessor httpContextAccessor)
         {
-            _httpContextAccessor = httpContextAccessor;            
+            _httpContextAccessor = httpContextAccessor;
 
             RuleFor(x => x.StudyTitle)
                .Cascade(CascadeMode.Stop)
@@ -34,7 +33,7 @@ namespace TransCelerate.SDR.RuleEngineV2
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ClinicalStudyValidator), nameof(ClinicalStudyDto.StudyIdentifiers)), ApplyConditionTo.AllValidators)
-                .Must(x=> UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+                .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
             RuleFor(x => x.StudyPhase)
                 .Cascade(CascadeMode.Stop)
@@ -66,7 +65,7 @@ namespace TransCelerate.SDR.RuleEngineV2
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ClinicalStudyValidator), nameof(ClinicalStudyDto.StudyProtocolVersions)), ApplyConditionTo.AllValidators)
                 .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
-            RuleFor(x=>x.StudyDesigns).Cascade(CascadeMode.Stop)
+            RuleFor(x => x.StudyDesigns).Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ClinicalStudyValidator), nameof(ClinicalStudyDto.StudyDesigns)), ApplyConditionTo.AllValidators)

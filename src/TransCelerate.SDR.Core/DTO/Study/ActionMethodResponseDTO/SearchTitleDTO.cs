@@ -1,29 +1,22 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TransCelerate.SDR.Core.DTO.Study
+﻿namespace TransCelerate.SDR.Core.DTO.Study
 {
     public class SearchTitleDTO
     {
-        public SearchTitleClinicalStudy clinicalStudy { get; set; }
-        public SearchTitleAuditTrail auditTrail { get; set; }
-    }    
+        public SearchTitleClinicalStudy ClinicalStudy { get; set; }
+        public SearchTitleAuditTrail AuditTrail { get; set; }
+    }
 
     public class SearchTitleClinicalStudy
     {
-        public string studyId { get; set; }
-        public string studyTitle { get; set; }
-        public string studyTag { get; set; }
+        public string StudyId { get; set; }
+        public string StudyTitle { get; set; }
+        public string StudyTag { get; set; }
     }
 
     public class SearchTitleAuditTrail
     {
-        public string entryDateTime { get; set; }
-        public int studyVersion { get; set; }
+        public string EntryDateTime { get; set; }
+        public int StudyVersion { get; set; }
         public string UsdmVersion { get; set; }
     }
 }

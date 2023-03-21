@@ -1,21 +1,19 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TransCelerate.SDR.Core.Entities.Study
 {
     public class PointInTimeEntity
     {
-        [BsonElement("id")]
-        public string pointInTimeId { get; set; }
-        public string type { get; set; }
-        public string subjectStatusGrouping { get; set; }
-
-        [BsonDateTimeOptions(Kind =DateTimeKind.Utc)]
-        public DateTime startDate { get; set; }
+        [BsonElement(Utilities.Common.IdFieldPropertyName.MVP.Id)]
+        public string PointInTimeId { get; set; }
+        public string Type { get; set; }
+        public string SubjectStatusGrouping { get; set; }
 
         [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
-        public DateTime endDate { get; set; }
+        public DateTime StartDate { get; set; }
+
+        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
+        public DateTime EndDate { get; set; }
     }
 }

@@ -27,39 +27,39 @@
 - [FromDateToDateHelper](#T-TransCelerate-SDR-Core-Utilities-Helpers-FromDateToDateHelper 'TransCelerate.SDR.Core.Utilities.Helpers.FromDateToDateHelper')
   - [GetFromAndToDate(fromDate,toDate,range)](#M-TransCelerate-SDR-Core-Utilities-Helpers-FromDateToDateHelper-GetFromAndToDate-System-DateTime,System-DateTime,System-Int32- 'TransCelerate.SDR.Core.Utilities.Helpers.FromDateToDateHelper.GetFromAndToDate(System.DateTime,System.DateTime,System.Int32)')
 - [GetClinicalStudyDTO](#T-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO')
-  - [objectives](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-objectives 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.objectives')
-  - [studyDesigns](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyDesigns 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.studyDesigns')
-  - [studyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.studyId')
-  - [studyIdentifiers](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyIdentifiers 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.studyIdentifiers')
-  - [studyIndications](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyIndications 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.studyIndications')
-  - [studyPhase](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyPhase 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.studyPhase')
-  - [studyProtocolReferences](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyProtocolReferences 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.studyProtocolReferences')
-  - [studyStatus](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyStatus 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.studyStatus')
-  - [studyTag](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyTag 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.studyTag')
-  - [studyTitle](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyTitle 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.studyTitle')
-  - [studyType](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyType 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.studyType')
+  - [Objectives](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-Objectives 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.Objectives')
+  - [StudyDesigns](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyDesigns 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyDesigns')
+  - [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyId')
+  - [StudyIdentifiers](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyIdentifiers 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyIdentifiers')
+  - [StudyIndications](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyIndications 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyIndications')
+  - [StudyPhase](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyPhase 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyPhase')
+  - [StudyProtocolReferences](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyProtocolReferences 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyProtocolReferences')
+  - [StudyStatus](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyStatus 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyStatus')
+  - [StudyTag](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyTag 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyTag')
+  - [StudyTitle](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyTitle 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyTitle')
+  - [StudyType](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyType 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyType')
 - [GetStudyAuditDTO](#T-TransCelerate-SDR-Core-DTO-Study-GetStudyAuditDTO 'TransCelerate.SDR.Core.DTO.Study.GetStudyAuditDTO')
-  - [auditTrail](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyAuditDTO-auditTrail 'TransCelerate.SDR.Core.DTO.Study.GetStudyAuditDTO.auditTrail')
-  - [studyId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyAuditDTO-studyId 'TransCelerate.SDR.Core.DTO.Study.GetStudyAuditDTO.studyId')
+  - [AuditTrail](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyAuditDTO-AuditTrail 'TransCelerate.SDR.Core.DTO.Study.GetStudyAuditDTO.AuditTrail')
+  - [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyAuditDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetStudyAuditDTO.StudyId')
 - [GetStudyDTO](#T-TransCelerate-SDR-Core-DTO-Study-GetStudyDTO 'TransCelerate.SDR.Core.DTO.Study.GetStudyDTO')
-  - [auditTrail](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDTO-auditTrail 'TransCelerate.SDR.Core.DTO.Study.GetStudyDTO.auditTrail')
-  - [clinicalStudy](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDTO-clinicalStudy 'TransCelerate.SDR.Core.DTO.Study.GetStudyDTO.clinicalStudy')
+  - [AuditTrail](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDTO-AuditTrail 'TransCelerate.SDR.Core.DTO.Study.GetStudyDTO.AuditTrail')
+  - [ClinicalStudy](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDTO-ClinicalStudy 'TransCelerate.SDR.Core.DTO.Study.GetStudyDTO.ClinicalStudy')
 - [GetStudyDesignsDTO](#T-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO')
-  - [investigationalInterventions](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-investigationalInterventions 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.investigationalInterventions')
-  - [plannedWorkflows](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-plannedWorkflows 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.plannedWorkflows')
-  - [studyCells](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-studyCells 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.studyCells')
-  - [studyDesignId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-studyDesignId 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.studyDesignId')
-  - [studyPopulations](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-studyPopulations 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.studyPopulations')
-  - [trialIntentType](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-trialIntentType 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.trialIntentType')
-  - [trialType](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-trialType 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.trialType')
+  - [InvestigationalInterventions](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-InvestigationalInterventions 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.InvestigationalInterventions')
+  - [PlannedWorkflows](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-PlannedWorkflows 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.PlannedWorkflows')
+  - [StudyCells](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-StudyCells 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.StudyCells')
+  - [StudyDesignId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-StudyDesignId 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.StudyDesignId')
+  - [StudyPopulations](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-StudyPopulations 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.StudyPopulations')
+  - [TrialIntentType](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-TrialIntentType 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.TrialIntentType')
+  - [TrialType](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-TrialType 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.TrialType')
 - [GetStudyHistoryResponseDTO](#T-TransCelerate-SDR-Core-DTO-Study-GetStudyHistoryResponseDTO 'TransCelerate.SDR.Core.DTO.Study.GetStudyHistoryResponseDTO')
-  - [study](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyHistoryResponseDTO-study 'TransCelerate.SDR.Core.DTO.Study.GetStudyHistoryResponseDTO.study')
+  - [Study](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyHistoryResponseDTO-Study 'TransCelerate.SDR.Core.DTO.Study.GetStudyHistoryResponseDTO.Study')
 - [GetStudySectionsDTO](#T-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO')
-  - [objectives](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-objectives 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.objectives')
-  - [studyDesigns](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-studyDesigns 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.studyDesigns')
-  - [studyId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-studyId 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.studyId')
-  - [studyIndications](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-studyIndications 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.studyIndications')
-  - [studyVersion](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-studyVersion 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.studyVersion')
+  - [Objectives](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-Objectives 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.Objectives')
+  - [StudyDesigns](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-StudyDesigns 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.StudyDesigns')
+  - [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.StudyId')
+  - [StudyIndications](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-StudyIndications 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.StudyIndications')
+  - [StudyVersion](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-StudyVersion 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.StudyVersion')
 - [GroupFilters](#T-TransCelerate-SDR-Core-Utilities-Helpers-GroupFilters 'TransCelerate.SDR.Core.Utilities.Helpers.GroupFilters')
   - [GetFilterValues(groups,field)](#M-TransCelerate-SDR-Core-Utilities-Helpers-GroupFilters-GetFilterValues-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-UserGroups-SDRGroupsEntity},System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.GroupFilters.GetFilterValues(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.UserGroups.SDRGroupsEntity},System.String)')
   - [GetGroupFilters(groups)](#M-TransCelerate-SDR-Core-Utilities-Helpers-GroupFilters-GetGroupFilters-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-UserGroups-SDRGroupsEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.GroupFilters.GetGroupFilters(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.UserGroups.SDRGroupsEntity})')
@@ -201,8 +201,8 @@
   - [LogWarning(message)](#M-TransCelerate-SDR-Core-Utilities-LogHelper-LogWarning-System-String- 'TransCelerate.SDR.Core.Utilities.LogHelper.LogWarning(System.String)')
 - [Permissions](#T-TransCelerate-SDR-Core-Utilities-Permissions 'TransCelerate.SDR.Core.Utilities.Permissions')
 - [PostStudyDTO](#T-TransCelerate-SDR-Core-DTO-PostStudyDTO 'TransCelerate.SDR.Core.DTO.PostStudyDTO')
-  - [auditTrail](#P-TransCelerate-SDR-Core-DTO-PostStudyDTO-auditTrail 'TransCelerate.SDR.Core.DTO.PostStudyDTO.auditTrail')
-  - [clinicalStudy](#P-TransCelerate-SDR-Core-DTO-PostStudyDTO-clinicalStudy 'TransCelerate.SDR.Core.DTO.PostStudyDTO.clinicalStudy')
+  - [AuditTrail](#P-TransCelerate-SDR-Core-DTO-PostStudyDTO-AuditTrail 'TransCelerate.SDR.Core.DTO.PostStudyDTO.AuditTrail')
+  - [ClinicalStudy](#P-TransCelerate-SDR-Core-DTO-PostStudyDTO-ClinicalStudy 'TransCelerate.SDR.Core.DTO.PostStudyDTO.ClinicalStudy')
 - [PostStudyElementsCheck](#T-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck')
   - [ActivitySectionCheck(existingActivityEntity,incomingActivityEntity)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-ActivitySectionCheck-TransCelerate-SDR-Core-Entities-Study-ActivityEntity,TransCelerate-SDR-Core-Entities-Study-ActivityEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck.ActivitySectionCheck(TransCelerate.SDR.Core.Entities.Study.ActivityEntity,TransCelerate.SDR.Core.Entities.Study.ActivityEntity)')
   - [EncounterSectionCheck(existingEncounterEntity,incomingEncounterEntity)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-EncounterSectionCheck-TransCelerate-SDR-Core-Entities-Study-EncounterEntity,TransCelerate-SDR-Core-Entities-Study-EncounterEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck.EncounterSectionCheck(TransCelerate.SDR.Core.Entities.Study.EncounterEntity,TransCelerate.SDR.Core.Entities.Study.EncounterEntity)')
@@ -593,82 +593,82 @@ TransCelerate.SDR.Core.DTO.Study
 
 This class is a DTO for GET Method for all elements of clinicalStudy
 
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-objectives'></a>
-### objectives `property`
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-Objectives'></a>
+### Objectives `property`
 
 ##### Summary
 
-This property holds the List of Study Objectives for specific [studyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.studyId')
+This property holds the List of Study Objectives for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyId')
 
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyDesigns'></a>
-### studyDesigns `property`
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyDesigns'></a>
+### StudyDesigns `property`
 
 ##### Summary
 
-This property holds the List of Study Designs for specific [studyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.studyId')
+This property holds the List of Study Designs for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyId')
 
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyId'></a>
-### studyId `property`
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyId'></a>
+### StudyId `property`
 
 ##### Summary
 
 This property holds the value of Study ID
 
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyIdentifiers'></a>
-### studyIdentifiers `property`
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyIdentifiers'></a>
+### StudyIdentifiers `property`
 
 ##### Summary
 
-This property holds the List of Study Identifiers for specific [studyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.studyId')
+This property holds the List of Study Identifiers for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyId')
 
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyIndications'></a>
-### studyIndications `property`
-
-##### Summary
-
-This property holds the List of Study Indications for specific [studyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.studyId')
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyPhase'></a>
-### studyPhase `property`
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyIndications'></a>
+### StudyIndications `property`
 
 ##### Summary
 
-This property holds the value of Study Phase for specific [studyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.studyId')
+This property holds the List of Study Indications for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyId')
 
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyProtocolReferences'></a>
-### studyProtocolReferences `property`
-
-##### Summary
-
-This property holds the List of Study Protocol References for specific [studyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.studyId')
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyStatus'></a>
-### studyStatus `property`
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyPhase'></a>
+### StudyPhase `property`
 
 ##### Summary
 
-This property holds the value of Study Status for specific [studyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.studyId')
+This property holds the value of Study Phase for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyId')
 
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyTag'></a>
-### studyTag `property`
-
-##### Summary
-
-This property holds the value of Study Tag for specific [studyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.studyId')
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyTitle'></a>
-### studyTitle `property`
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyProtocolReferences'></a>
+### StudyProtocolReferences `property`
 
 ##### Summary
 
-This property holds the value of Study Title for specific [studyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.studyId')
+This property holds the List of Study Protocol References for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyId')
 
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyType'></a>
-### studyType `property`
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyStatus'></a>
+### StudyStatus `property`
 
 ##### Summary
 
-This property holds the value of Study Type for specific [studyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-studyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.studyId')
+This property holds the value of Study Status for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyId')
+
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyTag'></a>
+### StudyTag `property`
+
+##### Summary
+
+This property holds the value of Study Tag for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyId')
+
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyTitle'></a>
+### StudyTitle `property`
+
+##### Summary
+
+This property holds the value of Study Title for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyId')
+
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyType'></a>
+### StudyType `property`
+
+##### Summary
+
+This property holds the value of Study Type for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyId')
 
 <a name='T-TransCelerate-SDR-Core-DTO-Study-GetStudyAuditDTO'></a>
 ## GetStudyAuditDTO `type`
@@ -681,15 +681,15 @@ TransCelerate.SDR.Core.DTO.Study
 
 This class is a DTO for GET Method for AuditTrail of a study
 
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyAuditDTO-auditTrail'></a>
-### auditTrail `property`
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyAuditDTO-AuditTrail'></a>
+### AuditTrail `property`
 
 ##### Summary
 
-This property holds the List of Audit Trail for specific [studyId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyAuditDTO-studyId 'TransCelerate.SDR.Core.DTO.Study.GetStudyAuditDTO.studyId')
+This property holds the List of Audit Trail for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyAuditDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetStudyAuditDTO.StudyId')
 
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyAuditDTO-studyId'></a>
-### studyId `property`
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyAuditDTO-StudyId'></a>
+### StudyId `property`
 
 ##### Summary
 
@@ -706,15 +706,15 @@ TransCelerate.SDR.Core.DTO.Study
 
 This class is a DTO for GET Method for all elements of a study
 
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDTO-auditTrail'></a>
-### auditTrail `property`
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDTO-AuditTrail'></a>
+### AuditTrail `property`
 
 ##### Summary
 
 This property holds the Audit Trail Component of the Study
 
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDTO-clinicalStudy'></a>
-### clinicalStudy `property`
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDTO-ClinicalStudy'></a>
+### ClinicalStudy `property`
 
 ##### Summary
 
@@ -731,54 +731,54 @@ TransCelerate.SDR.Core.DTO.Study
 
 This class is a DTO for GET Method for study design sections of a study
 
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-investigationalInterventions'></a>
-### investigationalInterventions `property`
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-InvestigationalInterventions'></a>
+### InvestigationalInterventions `property`
 
 ##### Summary
 
-This property holds the Investigational Interventions for specific [studyDesignId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-studyDesignId 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.studyDesignId')
+This property holds the Investigational Interventions for specific [StudyDesignId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-StudyDesignId 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.StudyDesignId')
 
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-plannedWorkflows'></a>
-### plannedWorkflows `property`
-
-##### Summary
-
-This property holds the Planned Workflows for specific [studyDesignId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-studyDesignId 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.studyDesignId')
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-studyCells'></a>
-### studyCells `property`
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-PlannedWorkflows'></a>
+### PlannedWorkflows `property`
 
 ##### Summary
 
-This property holds the Study Cells for specific [studyDesignId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-studyDesignId 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.studyDesignId')
+This property holds the Planned Workflows for specific [StudyDesignId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-StudyDesignId 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.StudyDesignId')
 
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-studyDesignId'></a>
-### studyDesignId `property`
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-StudyCells'></a>
+### StudyCells `property`
+
+##### Summary
+
+This property holds the Study Cells for specific [StudyDesignId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-StudyDesignId 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.StudyDesignId')
+
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-StudyDesignId'></a>
+### StudyDesignId `property`
 
 ##### Summary
 
 This property holds the value of Study Design ID
 
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-studyPopulations'></a>
-### studyPopulations `property`
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-StudyPopulations'></a>
+### StudyPopulations `property`
 
 ##### Summary
 
-This property holds the Study Populations for specific [studyDesignId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-studyDesignId 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.studyDesignId')
+This property holds the Study Populations for specific [StudyDesignId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-StudyDesignId 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.StudyDesignId')
 
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-trialIntentType'></a>
-### trialIntentType `property`
-
-##### Summary
-
-This property holds the value of Trial Intent Type for specific [studyDesignId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-studyDesignId 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.studyDesignId')
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-trialType'></a>
-### trialType `property`
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-TrialIntentType'></a>
+### TrialIntentType `property`
 
 ##### Summary
 
-This property holds the value of Trial Type for specific [studyDesignId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-studyDesignId 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.studyDesignId')
+This property holds the value of Trial Intent Type for specific [StudyDesignId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-StudyDesignId 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.StudyDesignId')
+
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-TrialType'></a>
+### TrialType `property`
+
+##### Summary
+
+This property holds the value of Trial Type for specific [StudyDesignId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-StudyDesignId 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.StudyDesignId')
 
 <a name='T-TransCelerate-SDR-Core-DTO-Study-GetStudyHistoryResponseDTO'></a>
 ## GetStudyHistoryResponseDTO `type`
@@ -791,8 +791,8 @@ TransCelerate.SDR.Core.DTO.Study
 
 This class is a DTO for GET Method for all study Id
 
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyHistoryResponseDTO-study'></a>
-### study `property`
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyHistoryResponseDTO-Study'></a>
+### Study `property`
 
 ##### Summary
 
@@ -809,36 +809,36 @@ TransCelerate.SDR.Core.DTO.Study
 
 This class is a DTO for GET Method for Study Level sections
 
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-objectives'></a>
-### objectives `property`
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-Objectives'></a>
+### Objectives `property`
 
 ##### Summary
 
-This property holds the List of Study Objectives for specific [studyId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-studyId 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.studyId')
+This property holds the List of Study Objectives for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.StudyId')
 
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-studyDesigns'></a>
-### studyDesigns `property`
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-StudyDesigns'></a>
+### StudyDesigns `property`
 
 ##### Summary
 
-This property holds the List of Study Designs for specific [studyId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-studyId 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.studyId')
+This property holds the List of Study Designs for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.StudyId')
 
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-studyId'></a>
-### studyId `property`
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-StudyId'></a>
+### StudyId `property`
 
 ##### Summary
 
 This property holds the value of Study ID
 
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-studyIndications'></a>
-### studyIndications `property`
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-StudyIndications'></a>
+### StudyIndications `property`
 
 ##### Summary
 
-This property holds the List of Study Indications for specific [studyId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-studyId 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.studyId')
+This property holds the List of Study Indications for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.StudyId')
 
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-studyVersion'></a>
-### studyVersion `property`
+<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-StudyVersion'></a>
+### StudyVersion `property`
 
 ##### Summary
 
@@ -3197,15 +3197,15 @@ TransCelerate.SDR.Core.DTO
 
 This class is a DTO for POST Method for a study
 
-<a name='P-TransCelerate-SDR-Core-DTO-PostStudyDTO-auditTrail'></a>
-### auditTrail `property`
+<a name='P-TransCelerate-SDR-Core-DTO-PostStudyDTO-AuditTrail'></a>
+### AuditTrail `property`
 
 ##### Summary
 
 This property holds the Audit Trail Component of the Study for POST Method
 
-<a name='P-TransCelerate-SDR-Core-DTO-PostStudyDTO-clinicalStudy'></a>
-### clinicalStudy `property`
+<a name='P-TransCelerate-SDR-Core-DTO-PostStudyDTO-ClinicalStudy'></a>
+### ClinicalStudy `property`
 
 ##### Summary
 

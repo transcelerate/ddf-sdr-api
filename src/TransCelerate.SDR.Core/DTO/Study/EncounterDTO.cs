@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TransCelerate.SDR.Core.DTO.Study
+﻿namespace TransCelerate.SDR.Core.DTO.Study
 {
     public class EncounterDTO
     {
-        public string id { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public string contactMode { get; set; }
-        public string environmentalSetting { get; set; }
-        public RuleDTO startRule { get; set; }
-        public RuleDTO endRule { get; set; }
-        public EpochDTO epoch { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string ContactMode { get; set; }
+        public string EnvironmentalSetting { get; set; }
+        public RuleDTO StartRule { get; set; }
+        public RuleDTO EndRule { get; set; }
+        public EpochDTO Epoch { get; set; }
     }
 }

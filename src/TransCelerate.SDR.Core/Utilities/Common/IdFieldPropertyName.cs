@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TransCelerate.SDR.Core.Utilities.Common
+﻿namespace TransCelerate.SDR.Core.Utilities.Common
 {
     public class IdFieldPropertyName
     {
@@ -41,7 +35,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string BcSurrogateId = "bcSurrogateId";
             public const string ResponseCodeId = "responseCodeId";
             public const string ScheduleTimelineId = "scheduleTimelineId";
-            public const string ScheduledInstanceId = "scheduledInstanceId";            
+            public const string ScheduledInstanceId = "scheduledInstanceId";
             public const string ScheduleTimelineExitId = "exitId";
             public const string TimingId = "timingId";
         }
@@ -49,8 +43,12 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         {
             public const string StudyId = "studyId";
             public const string Uuid = "uuid";
+            public const string IndicationDesc = "indicationDesc";
         }
-
+        public struct MVP
+        {
+            public const string Id = "id";
+        }
         public struct Common
         {
             public const string UsdmVersion = "usdmVersion";

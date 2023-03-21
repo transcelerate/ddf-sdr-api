@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace TransCelerate.SDR.Core.Entities.StudyV1
+﻿namespace TransCelerate.SDR.Core.Entities.StudyV1
 {
     public class StudyElementEntity : IUuid
     {

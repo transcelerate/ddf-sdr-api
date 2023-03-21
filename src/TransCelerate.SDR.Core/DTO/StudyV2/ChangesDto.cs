@@ -8,7 +8,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
     {
         public DateTime EntryDateTime { get; set; }
 
-        [JsonProperty("SDRUploadVersion")]
+        [JsonProperty(nameof(SDRUploadVersion))]
         public int SDRUploadVersion { get; set; }
 
         public List<string> Elements { get; set; }

@@ -3,8 +3,6 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TransCelerate.SDR.Core.Entities.StudyV2;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
@@ -27,8 +25,10 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
             _client = client;
             _database = _client.GetDatabase(_databaseName);
             _logger = logger;
-            var conventionPack = new ConventionPack();
-            conventionPack.Add(new CamelCaseElementNameConvention());
+            var conventionPack = new ConventionPack
+            {
+                new CamelCaseElementNameConvention()
+            };
             ConventionRegistry.Register("camelCase", conventionPack, t => true);
         }
         #endregion
@@ -53,7 +53,7 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
                 List<StudyEntity> studies = collection.Find(x => (x.ClinicalStudy.StudyId == studyId) &&
                                                            (x.AuditTrail.SDRUploadVersion == sdruploadversion || x.AuditTrail.SDRUploadVersion == sdruploadversion - 1))
                                                      .SortByDescending(s => s.AuditTrail.EntryDateTime)
-                                                     .Limit(2)                 
+                                                     .Limit(2)
                                                      .ToList();
 
                 if (studies == null)
@@ -95,7 +95,7 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
                                                            (x.AuditTrail.SDRUploadVersion == sdruploadversion || x.AuditTrail.SDRUploadVersion == sdruploadversion - 1))
                                                      .SortByDescending(s => s.AuditTrail.EntryDateTime)
                                                      .Limit(2)
-                                                     .Project(x=>x.AuditTrail)
+                                                     .Project(x => x.AuditTrail)
                                                      .ToList();
 
                 if (auditTrails == null)
@@ -165,7 +165,7 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
             try
             {
                 IMongoCollection<ChangeAuditStudyEntity> collection = _database.GetCollection<ChangeAuditStudyEntity>(Constants.Collections.ChangeAudit);
-                changeAudit._id=MongoDB.Bson.ObjectId.GenerateNewId();
+                changeAudit.Id = MongoDB.Bson.ObjectId.GenerateNewId();
                 collection.InsertOne(changeAudit); //Insert One Document               
             }
             catch (Exception)

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using TransCelerate.SDR.Core.DTO.StudyV2;
 using TransCelerate.SDR.Core.Entities.StudyV2;
-using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.WebApi.Mappers
 {
@@ -15,7 +14,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<StudyEntity, StudyDto>().ReverseMap();
             CreateMap<ActivityDto, ActivityEntity>().ReverseMap();
             CreateMap<AnalysisPopulationDto, AnalysisPopulationEntity>().ReverseMap();
-            CreateMap<AuditTrailEntity, AuditTrailDto>()                
+            CreateMap<AuditTrailEntity, AuditTrailDto>()
                 //.ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.EntryDateTime.ToString(Constants.DateFormats.DateFormatForAuditResponse).ToUpper()))
                 .ReverseMap();
             CreateMap<ClinicalStudyDto, ClinicalStudyEntity>().ReverseMap();
@@ -35,7 +34,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<StudyElementDto, StudyElementEntity>().ReverseMap();
             CreateMap<StudyEpochDto, StudyEpochEntity>().ReverseMap();
             CreateMap<StudyIdentifierDto, StudyIdentifierEntity>().ReverseMap();
-            CreateMap<OrganisationDto, OrganisationEntity>().ReverseMap();                                               
+            CreateMap<OrganisationDto, OrganisationEntity>().ReverseMap();
             CreateMap<StudyProtocolVersionDto, StudyProtocolVersionEntity>().ReverseMap();
             CreateMap<TransitionRuleDto, TransitionRuleEntity>().ReverseMap();
             CreateMap<AliasCodeDto, AliasCodeEntity>().ReverseMap();
@@ -67,7 +66,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
 
             //ChangeAudit
             CreateMap<ChangeAuditStudyDto, ChangeAuditStudyEntity>().ReverseMap();
-            CreateMap<ChangeAuditDto,ChangeAuditEntity>().ReverseMap();
+            CreateMap<ChangeAuditDto, ChangeAuditEntity>().ReverseMap();
             CreateMap<ChangesDto, ChangesEntity>().ReverseMap();
         }
     }

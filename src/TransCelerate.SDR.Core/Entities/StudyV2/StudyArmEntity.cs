@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace TransCelerate.SDR.Core.Entities.StudyV2
+﻿namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
     [MongoDB.Bson.Serialization.Attributes.BsonNoId]
-    public class StudyArmEntity : Iid
+    public class StudyArmEntity : IId
     {
         [MongoDB.Bson.Serialization.Attributes.BsonElement(Utilities.Common.IdFieldPropertyName.StudyV2.StudyArmId)]
         public string Id { get; set; }
@@ -11,6 +9,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
         public CodeEntity StudyArmDataOriginType { get; set; }
         public string StudyArmDescription { get; set; }
         public string StudyArmName { get; set; }
-        public CodeEntity StudyArmType { get; set; }        
+        public CodeEntity StudyArmType { get; set; }
     }
 }

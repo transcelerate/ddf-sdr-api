@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Http;
 using TransCelerate.SDR.Core.DTO.StudyV2;
 using TransCelerate.SDR.Core.Utilities.Common;
-using Microsoft.AspNetCore.Http;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 
 namespace TransCelerate.SDR.RuleEngineV2
@@ -19,7 +19,7 @@ namespace TransCelerate.SDR.RuleEngineV2
                 .Cascade(CascadeMode.Stop)
                 .NotNull().OverridePropertyName(IdFieldPropertyName.StudyV2.CodeId).WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().OverridePropertyName(IdFieldPropertyName.StudyV2.CodeId).WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x=> RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion],nameof(CodeValidator),nameof(CodeDto.Id)), ApplyConditionTo.AllValidators);
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(CodeValidator), nameof(CodeDto.Id)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.Code)
                .Cascade(CascadeMode.Stop)

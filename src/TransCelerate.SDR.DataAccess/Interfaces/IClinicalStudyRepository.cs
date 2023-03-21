@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities;
 using TransCelerate.SDR.Core.Entities.Study;
 using TransCelerate.SDR.Core.Entities.UserGroups;
-using TransCelerate.SDR.Core.DTO.Token;
 
 namespace TransCelerate.SDR.DataAccess.Interfaces
 {

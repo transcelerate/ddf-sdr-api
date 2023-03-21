@@ -1,19 +1,16 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TransCelerate.SDR.Core.Entities.Study
 {
     public class StudyArmEntity
     {
-        
-        [BsonElement("id")]
-        public string studyArmId { get; set; }
-        public string description { get; set; }
-        public string studyArmType { get; set; }
-        public string studyOriginType { get; set; }
-        public string studyArmOrigin { get; set; }
-        public string name { get; set; }
+
+        [BsonElement(Utilities.Common.IdFieldPropertyName.MVP.Id)]
+        public string StudyArmId { get; set; }
+        public string Description { get; set; }
+        public string StudyArmType { get; set; }
+        public string StudyOriginType { get; set; }
+        public string StudyArmOrigin { get; set; }
+        public string Name { get; set; }
     }
 }

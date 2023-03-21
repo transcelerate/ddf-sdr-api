@@ -2,7 +2,7 @@
 
 namespace TransCelerate.SDR.Core.DTO.eCPT
 {
-    public class eCPTDataDto
+    public class ECPTDataDto
     {
         public TitlePageDto TitlePage { get; set; }
 

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
-    public class BiomedicalConceptPropertyEntity : Iid
+    [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
+    [MongoDB.Bson.Serialization.Attributes.BsonNoId]
+    public class BiomedicalConceptPropertyEntity : IId
     {
         [MongoDB.Bson.Serialization.Attributes.BsonElement(Utilities.Common.IdFieldPropertyName.StudyV2.BcPropertyId)]
         public string Id { get; set; }

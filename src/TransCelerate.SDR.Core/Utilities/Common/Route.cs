@@ -4,12 +4,12 @@
     /// This class holds list of routes for all the endpoints
     /// </summary>
     public static class Route
-    {        
+    {
         #region Study Routes
         #region GET Method Routes        
         public const string Study = "study/{studyId}";
 
-        public const string StudyDesign = "{studyId}/studydesign/{studyDesignId}";        
+        public const string StudyDesign = "{studyId}/studydesign/{studyDesignId}";
 
         public const string AuditTrail = "audittrail/{studyId}";
 

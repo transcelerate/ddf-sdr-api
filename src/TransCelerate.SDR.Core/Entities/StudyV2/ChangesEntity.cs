@@ -8,7 +8,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
     {
         public DateTime EntryDateTime { get; set; }
 
-        [BsonElement("SDRUploadVersion")]
+        [BsonElement(nameof(SDRUploadVersion))]
         public int SDRUploadVersion { get; set; }
 
         public List<string> Elements { get; set; }

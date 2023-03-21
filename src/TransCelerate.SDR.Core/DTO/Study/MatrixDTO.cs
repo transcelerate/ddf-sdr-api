@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.DTO.Study
 {
     public class MatrixDTO
     {
-        public string id { get; set; }
-        public List<ItemDTO> items { get; set; }
+        public string Id { get; set; }
+        public List<ItemDTO> Items { get; set; }
     }
 }

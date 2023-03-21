@@ -5,8 +5,8 @@
     /// </summary>
     public class ValidationErrorModel
     {
-        public string statusCode { get; set; }
-        public string message { get; set; }
-        public object error { get; set; }
+        public string StatusCode { get; set; }
+        public string Message { get; set; }
+        public object Error { get; set; }
     }
 }

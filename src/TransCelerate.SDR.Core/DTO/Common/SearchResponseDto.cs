@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.Core.DTO.Common
 {
@@ -16,7 +13,7 @@ namespace TransCelerate.SDR.Core.DTO.Common
 
     public class SearchClinicalStudy
     {
-        [JsonProperty("uuid")]
+        [JsonProperty(IdFieldPropertyName.StudyV1.Uuid)]
         public string StudyId { get; set; }
         public string StudyTitle { get; set; }
         public CommonCodeDto StudyType { get; set; }
@@ -32,7 +29,7 @@ namespace TransCelerate.SDR.Core.DTO.Common
     }
     public class CommonStudyIndication
     {
-        [JsonProperty("indicationDesc")]
+        [JsonProperty(IdFieldPropertyName.StudyV1.IndicationDesc)]
         public string IndicationDescription { get; set; }
     }
 }

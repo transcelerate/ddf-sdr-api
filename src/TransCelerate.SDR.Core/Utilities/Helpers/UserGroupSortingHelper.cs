@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.UserGroups;
 using TransCelerate.SDR.Core.Entities.UserGroups;
 
@@ -21,23 +19,23 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <returns>
         /// A <see cref="IOrderedEnumerable{GroupDetailsEntity}"/> after sorting the groups      
         /// </returns>
-        public static IOrderedEnumerable<GroupDetailsEntity> OrderGroups(this IEnumerable<GroupDetailsEntity> groupDetails,UserGroupsQueryParameters userGroupsQueryParameters)
+        public static IOrderedEnumerable<GroupDetailsEntity> OrderGroups(this IEnumerable<GroupDetailsEntity> groupDetails, UserGroupsQueryParameters userGroupsQueryParameters)
         {
-            if (!String.IsNullOrWhiteSpace(userGroupsQueryParameters.sortBy))
+            if (!String.IsNullOrWhiteSpace(userGroupsQueryParameters.SortBy))
             {
-                return userGroupsQueryParameters.sortBy.ToLower() switch
+                return userGroupsQueryParameters.SortBy.ToLower() switch
                 {
-                    "name" => userGroupsQueryParameters.sortOrder == SortOrder.asc.ToString() ? groupDetails.OrderBy(x => x.groupName) : groupDetails.OrderByDescending(x => x.groupName),
-                    "modifiedon" => userGroupsQueryParameters.sortOrder == SortOrder.asc.ToString() ? groupDetails.OrderBy(x => x.groupModifiedOn) : groupDetails.OrderByDescending(x => x.groupModifiedOn),
-                    "modifiedby" => userGroupsQueryParameters.sortOrder == SortOrder.asc.ToString() ? groupDetails.OrderBy(x => x.groupModifiedBy) : groupDetails.OrderByDescending(x => x.groupModifiedBy),
-                    "createdby" => userGroupsQueryParameters.sortOrder == SortOrder.asc.ToString() ? groupDetails.OrderBy(x => x.groupCreatedBy) : groupDetails.OrderByDescending(x => x.groupCreatedBy),
-                    "createdon" => userGroupsQueryParameters.sortOrder == SortOrder.asc.ToString() ? groupDetails.OrderBy(x => x.groupCreatedOn) : groupDetails.OrderByDescending(x => x.groupCreatedOn),
-                    _ => userGroupsQueryParameters.sortOrder == SortOrder.asc.ToString() ? groupDetails.OrderBy(x => x.groupModifiedOn) : groupDetails.OrderByDescending(x => x.groupModifiedOn),
+                    "name" => userGroupsQueryParameters.SortOrder == SortOrder.asc.ToString() ? groupDetails.OrderBy(x => x.GroupName) : groupDetails.OrderByDescending(x => x.GroupName),
+                    "modifiedon" => userGroupsQueryParameters.SortOrder == SortOrder.asc.ToString() ? groupDetails.OrderBy(x => x.GroupModifiedOn) : groupDetails.OrderByDescending(x => x.GroupModifiedOn),
+                    "modifiedby" => userGroupsQueryParameters.SortOrder == SortOrder.asc.ToString() ? groupDetails.OrderBy(x => x.GroupModifiedBy) : groupDetails.OrderByDescending(x => x.GroupModifiedBy),
+                    "createdby" => userGroupsQueryParameters.SortOrder == SortOrder.asc.ToString() ? groupDetails.OrderBy(x => x.GroupCreatedBy) : groupDetails.OrderByDescending(x => x.GroupCreatedBy),
+                    "createdon" => userGroupsQueryParameters.SortOrder == SortOrder.asc.ToString() ? groupDetails.OrderBy(x => x.GroupCreatedOn) : groupDetails.OrderByDescending(x => x.GroupCreatedOn),
+                    _ => userGroupsQueryParameters.SortOrder == SortOrder.asc.ToString() ? groupDetails.OrderBy(x => x.GroupModifiedOn) : groupDetails.OrderByDescending(x => x.GroupModifiedOn),
                 };
             }
             else
             {
-                return userGroupsQueryParameters.sortOrder == SortOrder.asc.ToString() ? groupDetails.OrderBy(x => x.groupModifiedOn) : groupDetails.OrderByDescending(x => x.groupModifiedOn);
+                return userGroupsQueryParameters.SortOrder == SortOrder.asc.ToString() ? groupDetails.OrderBy(x => x.GroupModifiedOn) : groupDetails.OrderByDescending(x => x.GroupModifiedOn);
             }
         }
         /// <summary>
@@ -50,17 +48,17 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// </returns>
         public static IOrderedEnumerable<PostUserToGroupsDTO> OrderUsers(this IEnumerable<PostUserToGroupsDTO> users, UserGroupsQueryParameters userGroupsQueryParameters)
         {
-            if (!String.IsNullOrWhiteSpace(userGroupsQueryParameters.sortBy))
+            if (!String.IsNullOrWhiteSpace(userGroupsQueryParameters.SortBy))
             {
-                return userGroupsQueryParameters.sortBy.ToLower() switch
+                return userGroupsQueryParameters.SortBy.ToLower() switch
                 {
-                    "email" => userGroupsQueryParameters.sortOrder == SortOrder.desc.ToString() ? users.OrderByDescending(x => x.email) : users.OrderBy(x => x.email),
-                    _ => userGroupsQueryParameters.sortOrder == SortOrder.desc.ToString() ? users.OrderByDescending(x => 1) : users.OrderBy(x => 1),
+                    "email" => userGroupsQueryParameters.SortOrder == SortOrder.desc.ToString() ? users.OrderByDescending(x => x.Email) : users.OrderBy(x => x.Email),
+                    _ => userGroupsQueryParameters.SortOrder == SortOrder.desc.ToString() ? users.OrderByDescending(x => 1) : users.OrderBy(x => 1),
                 };
             }
             else
             {
-                return userGroupsQueryParameters.sortOrder == SortOrder.desc.ToString() ? users.OrderByDescending(x => 1) : users.OrderBy(x => 1);
+                return userGroupsQueryParameters.SortOrder == SortOrder.desc.ToString() ? users.OrderByDescending(x => 1) : users.OrderBy(x => 1);
             }
         }
     }

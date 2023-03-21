@@ -3,7 +3,7 @@
 namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
     [MongoDB.Bson.Serialization.Attributes.BsonNoId]
-    public class ObjectiveEntity : Iid
+    public class ObjectiveEntity : IId
     {
         [MongoDB.Bson.Serialization.Attributes.BsonElement(Utilities.Common.IdFieldPropertyName.StudyV2.ObjectiveId)]
         public string Id { get; set; }

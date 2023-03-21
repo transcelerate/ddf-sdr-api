@@ -1,10 +1,5 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Text;
-using FluentValidation;
+﻿using FluentValidation;
 using TransCelerate.SDR.Core.DTO;
-using TransCelerate.SDR.Core.DTO.Study;
 using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.RuleEngine
@@ -17,9 +12,9 @@ namespace TransCelerate.SDR.RuleEngine
         public PostStudyValidator()
         {
 
-            RuleFor(x => x.clinicalStudy)
+            RuleFor(x => x.ClinicalStudy)
                 .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.RootElementMissing);                          
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.RootElementMissing);
 
         }
     }

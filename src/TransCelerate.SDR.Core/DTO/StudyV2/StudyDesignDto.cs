@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.DTO.StudyV2
 {
-    public class StudyDesignDto : Iid
+    public class StudyDesignDto : IId
     {
         [Newtonsoft.Json.JsonProperty(Utilities.Common.IdFieldPropertyName.StudyV2.StudyDesignId)]
         public string Id { get; set; }

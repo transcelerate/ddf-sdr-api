@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Common;
 using TransCelerate.SDR.Core.DTO.Token;
-using TransCelerate.SDR.Services.Services;
 
 namespace TransCelerate.SDR.Services.Interfaces
 {
@@ -35,7 +32,7 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        Task<object> GeteCPT(string studyId, int sdruploadversion,string studyDesignId, LoggedInUser user);
+        Task<object> GeteCPT(string studyId, int sdruploadversion, string studyDesignId, LoggedInUser user);
         /// <summary>
         /// GET Audit Trial
         /// </summary>

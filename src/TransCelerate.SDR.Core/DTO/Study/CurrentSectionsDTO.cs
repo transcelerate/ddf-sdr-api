@@ -1,22 +1,17 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.DTO.Study
 {
     public class CurrentSectionsDTO
     {
-        public string id { get; set; }
-        public string sectionType { get; set; }      
-        public List<PlannedWorkflowDTO> plannedWorkflows { get; set; }
-        public List<StudyPopulationDTO> studyPopulations { get; set; }
-        public List<StudyCellDTO> studyCells { get; set; }
-        public List<InvestigationalInterventionDTO> investigationalInterventions { get; set; } 
-        public List<StudyDesignDTO> studyDesigns { get; set; }
-        public List<StudyObjectiveDTO> objectives { get; set; }
-        public List<StudyIndicationDTO> studyIndications { get; set; }
-        //Removed Study Protocol
-        //public StudyProtocolDTO studyProtocol { get; set; }
+        public string Id { get; set; }
+        public string SectionType { get; set; }
+        public List<PlannedWorkflowDTO> PlannedWorkflows { get; set; }
+        public List<StudyPopulationDTO> StudyPopulations { get; set; }
+        public List<StudyCellDTO> StudyCells { get; set; }
+        public List<InvestigationalInterventionDTO> InvestigationalInterventions { get; set; }
+        public List<StudyDesignDTO> StudyDesigns { get; set; }
+        public List<StudyObjectiveDTO> Objectives { get; set; }
+        public List<StudyIndicationDTO> StudyIndications { get; set; }
     }
 }

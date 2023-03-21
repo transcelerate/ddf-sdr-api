@@ -1,18 +1,15 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace TransCelerate.SDR.Core.Entities
 {
     public class StudyHistoryEntity
     {
-        public string studyId { get; set; }
-        public string studyTitle { get; set; }
-        public int studyVersion { get; set; }
-        public DateTime entryDateTime { get; set; }
+        public string StudyId { get; set; }
+        public string StudyTitle { get; set; }
+        public int StudyVersion { get; set; }
+        public DateTime EntryDateTime { get; set; }
 
-        public string studyType { get; set; }
+        public string StudyType { get; set; }
         public string UsdmVersion { get; set; }
     }
 }

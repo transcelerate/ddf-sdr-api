@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FluentValidation;
-using TransCelerate.SDR.Core.DTO;
+﻿using FluentValidation;
 using TransCelerate.SDR.Core.DTO.Study;
 using TransCelerate.SDR.Core.Utilities.Common;
 
@@ -14,12 +10,12 @@ namespace TransCelerate.SDR.RuleEngine
         /// Validator for Epoch
         /// </summary>
         public EpochValidator()
-        {           
-            RuleFor(x => x.epochType)
+        {
+            RuleFor(x => x.EpochType)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-         
+
         }
     }
 }

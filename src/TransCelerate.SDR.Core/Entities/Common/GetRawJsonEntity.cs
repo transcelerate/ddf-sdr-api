@@ -1,5 +1,5 @@
-﻿using System;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
 
 namespace TransCelerate.SDR.Core.Entities.Common
 {
@@ -20,8 +20,8 @@ namespace TransCelerate.SDR.Core.Entities.Common
 
         public string UsdmVersion { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("SDRUploadVersion")]
-        [BsonElement("SDRUploadVersion")]
+        [Newtonsoft.Json.JsonProperty(nameof(SDRUploadVersion))]
+        [BsonElement(nameof(SDRUploadVersion))]
         public int SDRUploadVersion { get; set; }
     }
 }

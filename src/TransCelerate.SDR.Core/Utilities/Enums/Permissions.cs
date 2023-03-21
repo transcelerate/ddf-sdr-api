@@ -6,6 +6,6 @@
     public enum Permissions
     {
         READONLY,
-        READ_WRITE        
+        READ_WRITE
     }
 }

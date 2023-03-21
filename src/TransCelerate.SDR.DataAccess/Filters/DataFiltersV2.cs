@@ -39,7 +39,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
         public static FilterDefinition<StudyEntity> GetFiltersForGetAuditTrailOfAStudy(string studyId, int sdruploadversion)
         {
             FilterDefinitionBuilder<StudyEntity> builder = Builders<StudyEntity>.Filter;
-            FilterDefinition<StudyEntity> filter = builder.Empty;            
+            FilterDefinition<StudyEntity> filter = builder.Empty;
             filter &= builder.Where(s => s.ClinicalStudy.StudyId == studyId);
 
             if (sdruploadversion != 0)
@@ -111,7 +111,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
             ProjectionDefinition<StudyEntity> projector = projection.Include(x => x.ClinicalStudy.StudyId);
             projector = projector.Include(x => x.ClinicalStudy.StudyType);
             projector = projector.Include(x => x.AuditTrail);
-            projector = projector.Exclude(x => x._id);
+            projector = projector.Exclude(x => x.Id);
 
             listofelementsArray.ToList().ForEach(elements =>
             {
@@ -151,7 +151,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
             projector = projector.Include(x => x.ClinicalStudy.StudyType);
             projector = projector.Include(x => x.ClinicalStudy.StudyDesigns);
             projector = projector.Include(x => x.AuditTrail);
-            projector = projector.Exclude(x => x._id);
+            projector = projector.Exclude(x => x.Id);
 
             return projector;
         }
@@ -161,7 +161,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
             ProjectionDefinitionBuilder<StudyEntity> projection = Builders<StudyEntity>.Projection;
             ProjectionDefinition<StudyEntity> projector = projection.Include(x => x.ClinicalStudy.StudyId);
             projector = projector.Include(x => x.ClinicalStudy.StudyType);
-            projector = projector.Exclude(x => x._id);
+            projector = projector.Exclude(x => x.Id);
 
             return projector;
         }

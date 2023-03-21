@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
@@ -17,6 +16,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
         public List<CodeEntity> BusinessTherapeuticAreas { get; set; }
         public List<StudyProtocolVersionEntity> StudyProtocolVersions { get; set; }
         public List<StudyDesignEntity> StudyDesigns { get; set; }
-        
+
     }
 }
