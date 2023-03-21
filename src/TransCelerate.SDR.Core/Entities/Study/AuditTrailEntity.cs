@@ -1,17 +1,15 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TransCelerate.SDR.Core.Entities.Study
 {
     [BsonIgnoreExtraElements]
     public class AuditTrailEntity
     {
-        public DateTime entryDateTime { get; set; }
-        public string entrySystem { get; set; }
-        [BsonElement("SDRUploadVersion")]
-        public int studyVersion { get; set; }
+        public DateTime EntryDateTime { get; set; }
+        public string EntrySystem { get; set; }
+        [BsonElement(nameof(Entities.Common.AuditTrailEntity.SDRUploadVersion))]
+        public int StudyVersion { get; set; }
         public string UsdmVersion { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.DTO.StudyV2
 {
@@ -15,6 +14,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
         public AliasCodeDto StudyPhase { get; set; }
         public List<CodeDto> BusinessTherapeuticAreas { get; set; }
         public List<StudyProtocolVersionDto> StudyProtocolVersions { get; set; }
-        public List<StudyDesignDto> StudyDesigns { get; set; }        
+        public List<StudyDesignDto> StudyDesigns { get; set; }
     }
 }

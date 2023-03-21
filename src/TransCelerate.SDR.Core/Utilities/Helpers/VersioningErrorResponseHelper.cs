@@ -1,17 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
 {
     public class VersioningErrorResponseHelper : IErrorResponseProvider
-    {        
+    {
         public IActionResult CreateResponse(ErrorResponseContext context)
         {
             return context.ErrorCode switch

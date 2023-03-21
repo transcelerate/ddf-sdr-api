@@ -1,21 +1,17 @@
-﻿using Microsoft.Azure.Functions.Extensions.DependencyInjection;
+﻿using Azure.Extensions.AspNetCore.Configuration.Secrets;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
+using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.AzureKeyVault;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TransCelerate.SDR.AzureFunctions.DataAccess;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
-using TransCelerate.SDR.AzureFunctions.DataAccess;
-using Microsoft.Azure.Services.AppAuthentication;
-using Microsoft.Azure.KeyVault;
-using Microsoft.Azure.WebJobs;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
-using Newtonsoft.Json;
 
 [assembly: FunctionsStartup(typeof(TransCelerate.SDR.AzureFunctions.Startup))]
 namespace TransCelerate.SDR.AzureFunctions
@@ -31,20 +27,26 @@ namespace TransCelerate.SDR.AzureFunctions
         /// <param name="builder"></param>
         public override void Configure(IFunctionsHostBuilder builder)
         {
+            if (Environment.GetEnvironmentVariable("AZURE_FUNCTIONS_ENVIRONMENT") == "Development") // Only for running in Local
+            {
+                Config.ConnectionString = System.Environment.GetEnvironmentVariable("ConnectionStrings:ServerName");
+                Config.DatabaseName = System.Environment.GetEnvironmentVariable("ConnectionStrings:DatabaseName");
+                Config.ApiVersionUsdmVersionMapping = System.Environment.GetEnvironmentVariable("ApiVersionUsdmVersionMapping");
+            }
+            else
+            {
+                var vaultName = System.Environment.GetEnvironmentVariable("KeyVaultName");
+                var config = new ConfigurationBuilder().AddEnvironmentVariables();
+                var client = new SecretClient(new Uri(vaultName), new DefaultAzureCredential());
+                config.AddAzureKeyVault(client: client, new KeyVaultSecretManager());
+                var buildConfig = config.Build();
 
-            var vaultName = System.Environment.GetEnvironmentVariable("KeyVaultName");
-            var config = new ConfigurationBuilder().AddEnvironmentVariables();
-            var azureTokenProvider = new AzureServiceTokenProvider();
-            var keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback
-                                     (azureTokenProvider.KeyVaultTokenCallback));
-            config.AddAzureKeyVault(vaultName, keyVaultClient, new DefaultKeyVaultSecretManager());
-            var buildConfig = config.Build();
 
 
-
-            Config.ConnectionString = Convert.ToString(buildConfig["ConnectionStrings:ServerName"]);
-            Config.DatabaseName = Convert.ToString(buildConfig["ConnectionStrings:DatabaseName"]);
-            Config.ApiVersionUsdmVersionMapping = Convert.ToString(buildConfig["ApiVersionUsdmVersionMapping"]);
+                Config.ConnectionString = Convert.ToString(buildConfig["ConnectionStrings:ServerName"]);
+                Config.DatabaseName = Convert.ToString(buildConfig["ConnectionStrings:DatabaseName"]);
+                Config.ApiVersionUsdmVersionMapping = Convert.ToString(buildConfig["ApiVersionUsdmVersionMapping"]);
+            }
 
             ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(Config.ApiVersionUsdmVersionMapping);
             ApiUsdmVersionMapping.SDRVersions = apiUsdmVersionMapping_NonStatic.SDRVersions;
@@ -53,7 +55,11 @@ namespace TransCelerate.SDR.AzureFunctions
             builder.Services.AddTransient<ILogHelper, LogHelper>();
             builder.Services.AddTransient<IHelperV2, HelperV2>();
             builder.Services.AddTransient<IChangeAuditRepository, ChangeAuditRepository>();
-            builder.Services.AddTransient<IMongoClient, MongoClient>(db => new MongoClient(Config.ConnectionString));
+            // Added because MongoDB 2.19 version by default supports LinqProvider.V3
+            var clientSettings = MongoClientSettings.FromConnectionString(Config.ConnectionString);
+            clientSettings.LinqProvider = LinqProvider.V2;
+            // Added because MongoDB 2.19 version by default supports LinqProvider.V3
+            builder.Services.AddTransient<IMongoClient, MongoClient>(db => new MongoClient(clientSettings));
         }
     }
 }

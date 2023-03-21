@@ -2,7 +2,7 @@
 
 namespace TransCelerate.SDR.Core.DTO.StudyV2
 {
-    public class StudyCellDto : Iid
+    public class StudyCellDto : IId
     {
         [Newtonsoft.Json.JsonProperty(Utilities.Common.IdFieldPropertyName.StudyV2.StudyCellId)]
         public string Id { get; set; }

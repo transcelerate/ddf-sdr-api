@@ -26,7 +26,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string StudyV1 = "StudyDefinitionsV1";
             public const string ChangeAudit = "ChangeAudit";
             public const string StudyDefinitions = "StudyDefinitions";
-        }       
+        }
 
         public struct IdType
         {
@@ -82,8 +82,10 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         public struct DbFilter
         {
             public const string StudyId = "clinicalStudy.studyId";
+            public const string ClinicalStudy = "clinicalStudy";
+            public const string AuditTrail = "auditTrail";
             public const string StudyType = "clinicalStudy.studyType";
-            public const string StudyIdentifiers = "clinicalStudy.studyIdentifiers";            
+            public const string StudyIdentifiers = "clinicalStudy.studyIdentifiers";
             public const string StudyIdentifierOrganisationIdentifier = "studyIdentifierScope.organisationIdentifier";
             public const string StudyIdentifierOrganisationTypeDecode = "studyIdentifierScope.organisationType.decode";
             public const string StudyIdentifierIdType = "idType";
@@ -94,7 +96,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string StudyDesigns = "clinicalStudy.studyDesigns";
             public const string InterventionModel = "interventionModel.decode";
             public const string StudyIndicationsIndicationDescription = "studyIndications.indicationDescription";
-            public const string StudyIndicationsIndicationDesc = "studyIndications.indicationDesc";            
+            public const string StudyIndicationsIndicationDesc = "studyIndications.indicationDesc";
             public const string InterventionModelMVP = "clinicalStudy.currentSections.studyDesigns.currentSections.investigationalInterventions.interventionModel";
             public const string IndicationMVP = "clinicalStudy.currentSections.studyIndications.description";
         }
@@ -202,7 +204,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string ErrorMessageForReferenceIntegrityInResponse = "Reference Integrity Error";
 
             public const string ErrorMessageForReferenceIntegrity = "Reference Integrity Failed";
-                        
+
             public const string WorkFlowNotFound = "The requested StudyScheduleTimeline not found";
 
             public const string EnterDesignIdError = "Kindly provide valid Study Design Id when providing Study WorkFlow Id";
@@ -236,23 +238,23 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string Client_Secret = "client_secret";
         }
 
-        public static readonly string[] ClinicalStudyElements = {            
+        public static readonly string[] ClinicalStudyElements = {
             nameof(ClinicalStudyDto.StudyTitle),
             nameof(ClinicalStudyDto.StudyIdentifiers),
             nameof(ClinicalStudyDto.StudyProtocolVersions),
             nameof(ClinicalStudyDto.StudyVersion),
             nameof(ClinicalStudyDto.StudyPhase),
-            nameof(ClinicalStudyDto.StudyType),            
-            nameof(ClinicalStudyDto.BusinessTherapeuticAreas),            
+            nameof(ClinicalStudyDto.StudyType),
+            nameof(ClinicalStudyDto.BusinessTherapeuticAreas),
             nameof(ClinicalStudyDto.StudyDesigns),
             nameof(ClinicalStudyDto.StudyAcronym),
             nameof(ClinicalStudyDto.StudyRationale),
         };
 
-        public static readonly string[] StudyDesignElements = {            
+        public static readonly string[] StudyDesignElements = {
             nameof(StudyDesignDto.StudyDesignName),
-            nameof(StudyDesignDto.StudyDesignDescription),            
-            nameof(StudyDesignDto.TherapeuticAreas),            
+            nameof(StudyDesignDto.StudyDesignDescription),
+            nameof(StudyDesignDto.TherapeuticAreas),
             nameof(StudyDesignDto.TrialType),
             nameof(StudyDesignDto.StudyInvestigationalInterventions),
             nameof(StudyDesignDto.TrialIntentType),
@@ -269,7 +271,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(StudyDesignDto.StudyDesignBlindingScheme),
             nameof(StudyDesignDto.BiomedicalConcepts),
             nameof(StudyDesignDto.BcCategories),
-            nameof(StudyDesignDto.BcSurrogates)            
+            nameof(StudyDesignDto.BcSurrogates)
         };
 
         public struct FunctionAppConstants
@@ -282,7 +284,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         public static readonly string[] CharactersToBeRemovedForAudit =
         {
             nameof(CodeEntity.CodeSystemVersion),
-            nameof(CodeEntity.CodeSystem),           
+            nameof(CodeEntity.CodeSystem),
             nameof(CodeEntity.Decode),
             nameof(CodeEntity.Code),
             "T"
@@ -296,7 +298,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         {
             public const string ConditionAssignmentsValue = ".Value";
         }
-        public struct ApiVersionErrorCodes 
+        public struct ApiVersionErrorCodes
         {
             public const string ApiVersionUnspecified = "ApiVersionUnspecified";
             public const string UnsupportedApiVersion = "UnsupportedApiVersion";
@@ -304,7 +306,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string AmbiguousApiVersion = "AmbiguousApiVersion";
         }
         public static readonly string[] Male =
-        { 
+        {
            "m",
            "male",
         };
@@ -313,11 +315,11 @@ namespace TransCelerate.SDR.Core.Utilities.Common
            "f",
            "female",
         };
-        public struct PlannedSexOfParticipants 
+        public struct PlannedSexOfParticipants
         {
             public const string Male = "Male";
             public const string Female = "Female";
-            public const string MaleOrFemale ="Male or Female";    
+            public const string MaleOrFemale = "Male or Female";
         }
         public struct SdrCptMasterDataEntities
         {

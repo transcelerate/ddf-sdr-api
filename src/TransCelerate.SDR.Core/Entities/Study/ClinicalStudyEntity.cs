@@ -1,27 +1,24 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using TransCelerate.SDR.Core.Utilities;
 
 namespace TransCelerate.SDR.Core.Entities.Study
 {
     [BsonIgnoreExtraElements]
     public class ClinicalStudyEntity
     {
-        public string studyId { get; set; }
-        public string studyTitle { get; set; }    
-        public string studyType { get; set; }        
+        public string StudyId { get; set; }
+        public string StudyTitle { get; set; }
+        public string StudyType { get; set; }
 
-        public string studyPhase { get; set; }
-        public string studyStatus { get; set; }
-        public string studyTag { get; set; }
+        public string StudyPhase { get; set; }
+        public string StudyStatus { get; set; }
+        public string StudyTag { get; set; }
 
-        public List<StudyIdentifierEntity> studyIdentifiers { get; set; }
+        public List<StudyIdentifierEntity> StudyIdentifiers { get; set; }
 
-        public List<CurrentSectionsEntity> currentSections { get; set; }
+        public List<CurrentSectionsEntity> CurrentSections { get; set; }
 
-        public List<StudyProtocolEntity> studyProtocolReferences { get; set; }
+        public List<StudyProtocolEntity> StudyProtocolReferences { get; set; }
 
     }
 }

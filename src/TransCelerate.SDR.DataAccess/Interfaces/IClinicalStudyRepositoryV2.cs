@@ -1,8 +1,6 @@
 ﻿using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities.StudyV2;
@@ -85,7 +83,7 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// <returns>
         /// A studyId which was inserted <br></br> <br></br>        
         /// </returns>
-        Task<string> UpdateStudyItemsAsync(StudyEntity study);        
+        Task<string> UpdateStudyItemsAsync(StudyEntity study);
 
         Task<List<SDRGroupsEntity>> GetGroupsOfUser(LoggedInUser user);
         /// <summary>

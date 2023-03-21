@@ -18,15 +18,15 @@ namespace TransCelerate.SDR.WebApi.Mappers
 
             //Mapper for User Group Mapping
             CreateMap<SDRGroupsEntity, SDRGroupsDTO>()
-                .ForMember(dest => dest.groupCreatedOn, opt => opt.MapFrom(src => src.groupCreatedOn.ToString(Constants.DateFormats.DateFormatForAuditResponse).ToUpper()))
-                .ForMember(dest => dest.groupModifiedOn, opt => opt.MapFrom(src => src.groupModifiedOn.ToString(Constants.DateFormats.DateFormatForAuditResponse).ToUpper()))
+                .ForMember(dest => dest.GroupCreatedOn, opt => opt.MapFrom(src => src.GroupCreatedOn.ToString(Constants.DateFormats.DateFormatForAuditResponse).ToUpper()))
+                .ForMember(dest => dest.GroupModifiedOn, opt => opt.MapFrom(src => src.GroupModifiedOn.ToString(Constants.DateFormats.DateFormatForAuditResponse).ToUpper()))
                 .AfterMap((src, dest) =>
                 {
-                    if (src.users != null && src.users.Count > 0)
+                    if (src.Users != null && src.Users.Count > 0)
                     {
-                        dest.users.ForEach(x => x.groupName = src.groupName);
-                        dest.users.ForEach(x => x.groupId = src.groupId);
-                        dest.users.ForEach(x => x.groupModifiedOn = src.groupModifiedOn);
+                        dest.Users.ForEach(x => x.GroupName = src.GroupName);
+                        dest.Users.ForEach(x => x.GroupId = src.GroupId);
+                        dest.Users.ForEach(x => x.GroupModifiedOn = src.GroupModifiedOn);
                     }
                 })
                 .ReverseMap();
@@ -34,27 +34,27 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<UserGroupMappingEntity, UserGroupMappingDTO>().ReverseMap();
             CreateMap<GroupFilterEntity, GroupFilterDTO>().ReverseMap();
             CreateMap<GroupDetailsEntity, GroupDetailsDTO>()
-                .ForMember(dest => dest.groupCreatedOn, opt => opt.MapFrom(src => src.groupCreatedOn.ToString(Constants.DateFormats.DateFormatForAuditResponse).ToUpper()))
-                .ForMember(dest => dest.groupModifiedOn, opt => opt.MapFrom(src => src.groupModifiedOn.ToString(Constants.DateFormats.DateFormatForAuditResponse).ToUpper()))
+                .ForMember(dest => dest.GroupCreatedOn, opt => opt.MapFrom(src => src.GroupCreatedOn.ToString(Constants.DateFormats.DateFormatForAuditResponse).ToUpper()))
+                .ForMember(dest => dest.GroupModifiedOn, opt => opt.MapFrom(src => src.GroupModifiedOn.ToString(Constants.DateFormats.DateFormatForAuditResponse).ToUpper()))
                 .ReverseMap();
             CreateMap<GroupListEntity, GroupListDTO>().ReverseMap();
             CreateMap<GroupFilterValuesEntity, GroupFilterValuesDTO>()
-                .ForMember(dest => dest.id, opt => opt.MapFrom(src => src.groupFilterValueId))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.GroupFilterValueId))
                 .ReverseMap();
 
             //Mapper for AuditTrail
             CreateMap<AuditTrailDto, AuditTrailResponseEntity>().ReverseMap();
             CreateMap<AuditTrailResponseEntity, AuditTrailResponseWithLinksDto>()
                 .ForMember(dest => dest.Links, opt => opt.MapFrom(src => LinksHelper.GetLinksForUi(src.StudyId,
-                           src.UsdmVersion == Constants.USDMVersions.MVP ? src.StudyDesignIdsMVP != null ? src.StudyDesignIdsMVP.Where(x => x != null && x.Count() > 0).SelectMany(x => x).ToList() : null :src.StudyDesignIds !=null ?  src.StudyDesignIds.ToList():null,
-                           src.UsdmVersion,src.SDRUploadVersion)))
+                           src.UsdmVersion == Constants.USDMVersions.MVP ? src.StudyDesignIdsMVP != null ? src.StudyDesignIdsMVP.Where(x => x != null && x.Any()).SelectMany(x => x).ToList() : null : src.StudyDesignIds != null ? src.StudyDesignIds.ToList() : null,
+                           src.UsdmVersion, src.SDRUploadVersion)))
                 .ReverseMap();
 
             //Mapper for Search Titke
-            CreateMap<SearchTitleParametersDto, SearchTitleParametersEntity>();            
+            CreateMap<SearchTitleParametersDto, SearchTitleParametersEntity>();
             CreateMap<SearchTitleResponseDto, SearchTitleResponseEntity>()
                .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.ClinicalStudy.StudyId))
-               .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.ClinicalStudy.StudyTitle))               
+               .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.ClinicalStudy.StudyTitle))
                .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))
                .ForMember(dest => dest.UsdmVersion, opt => opt.MapFrom(src => src.AuditTrail.UsdmVersion))
                .ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.AuditTrail.EntryDateTime)).ReverseMap();
@@ -64,7 +64,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
                  .ForMember(dest => dest.UploadVersion, opt => opt.MapFrom(src => src.SDRUploadVersion))
                  .ForMember(dest => dest.ProtocolVersions, opt => opt.MapFrom(src => src.ProtocolVersions))
                  .ForMember(dest => dest.Links, opt => opt.MapFrom(src => LinksHelper.GetLinks(src.StudyId,
-                           src.UsdmVersion == Constants.USDMVersions.MVP ? src.StudyDesignIdsMVP != null ? src.StudyDesignIdsMVP.Where(x => x != null && x.Count() > 0).SelectMany(x => x).ToList() : null : src.StudyDesignIds,
+                           src.UsdmVersion == Constants.USDMVersions.MVP ? src.StudyDesignIdsMVP != null ? src.StudyDesignIdsMVP.Where(x => x != null && x.Any()).SelectMany(x => x).ToList() : null : src.StudyDesignIds,
                            src.UsdmVersion, src.SDRUploadVersion)))
                  .ReverseMap();
 

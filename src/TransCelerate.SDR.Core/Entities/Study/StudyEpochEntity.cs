@@ -1,17 +1,14 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TransCelerate.SDR.Core.Entities.Study
 {
     public class StudyEpochEntity
     {
-        [BsonElement("id")]
-        public string studyEpochId { get; set; }
-        public string epochType { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public int sequenceInStudy { get; set; }
+        [BsonElement(Utilities.Common.IdFieldPropertyName.MVP.Id)]
+        public string StudyEpochId { get; set; }
+        public string EpochType { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public int SequenceInStudy { get; set; }
     }
 }

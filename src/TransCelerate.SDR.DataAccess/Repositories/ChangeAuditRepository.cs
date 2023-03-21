@@ -27,8 +27,10 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _client = client;
             _database = _client.GetDatabase(_databaseName);
             _logger = logger;
-            var conventionPack = new ConventionPack();
-            conventionPack.Add(new CamelCaseElementNameConvention());
+            var conventionPack = new ConventionPack
+            {
+                new CamelCaseElementNameConvention()
+            };
             ConventionRegistry.Register("camelCase", conventionPack, t => true);
         }
         #endregion
@@ -71,23 +73,25 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             {
                 IMongoCollection<ChangeAuditStudyEntity> collection = _database.GetCollection<ChangeAuditStudyEntity>(Constants.Collections.ChangeAudit);
 
-                ChangeAuditStudyEntity changeAuditStudyEntity = new ChangeAuditStudyEntity();
+                ChangeAuditStudyEntity changeAuditStudyEntity = new();
 
-                ChangesEntity change = new ChangesEntity
+                ChangesEntity change = new()
                 {
                     Elements = new List<string>(),
                     EntryDateTime = entrydatetime,
                     SDRUploadVersion = sdruploadversion
                 };
 
-                var changeAuditEntity = new ChangeAuditEntity();
-                changeAuditEntity.StudyId = study_uuid;
-                changeAuditEntity.Changes = new List<ChangesEntity>();
+                var changeAuditEntity = new ChangeAuditEntity
+                {
+                    StudyId = study_uuid,
+                    Changes = new List<ChangesEntity>()
+                };
                 changeAuditEntity.Changes.Add(change);
 
 
                 changeAuditStudyEntity = new ChangeAuditStudyEntity { ChangeAudit = changeAuditEntity };
-                changeAuditStudyEntity._id = MongoDB.Bson.ObjectId.GenerateNewId();
+                changeAuditStudyEntity.Id = MongoDB.Bson.ObjectId.GenerateNewId();
 
                 await collection.InsertOneAsync(changeAuditStudyEntity);
                 return changeAuditEntity.StudyId;

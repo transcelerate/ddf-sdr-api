@@ -2,7 +2,7 @@
 
 namespace TransCelerate.SDR.Core.DTO.StudyV2
 {
-    public class EstimandDto : Iid
+    public class EstimandDto : IId
     {
         [Newtonsoft.Json.JsonProperty(Utilities.Common.IdFieldPropertyName.StudyV2.EstimandId)]
         public string Id { get; set; }

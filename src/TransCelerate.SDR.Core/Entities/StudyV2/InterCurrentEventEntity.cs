@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace TransCelerate.SDR.Core.Entities.StudyV2
+﻿namespace TransCelerate.SDR.Core.Entities.StudyV2
 {
     [MongoDB.Bson.Serialization.Attributes.BsonNoId]
-    public class InterCurrentEventEntity : Iid
+    public class InterCurrentEventEntity : IId
     {
         [MongoDB.Bson.Serialization.Attributes.BsonElement(Utilities.Common.IdFieldPropertyName.StudyV2.IntercurrentEventId)]
         public string Id { get; set; }

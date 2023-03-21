@@ -20,13 +20,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         public static ErrorModel ErrorResponseModel(Exception exception)
         {
             string statusCode;
-            if (exception is UnauthorizedAccessException) statusCode = ((int)HttpStatusCode.Forbidden).ToString();            
+            if (exception is UnauthorizedAccessException) statusCode = ((int)HttpStatusCode.Forbidden).ToString();
             else statusCode = ((int)HttpStatusCode.BadRequest).ToString();
 
-            ErrorModel errorModel = new ErrorModel
+            ErrorModel errorModel = new()
             {
-                statusCode = statusCode,
-                message = Constants.ErrorMessages.GenericError
+                StatusCode = statusCode,
+                Message = Constants.ErrorMessages.GenericError
             };
             return errorModel;
         }
@@ -39,10 +39,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// </returns>>
         public static ErrorModel UnAuthorizedAccess(string message = null)
         {
-            ErrorModel errorModel = new ErrorModel
+            ErrorModel errorModel = new()
             {
-                statusCode = ((int)HttpStatusCode.Unauthorized).ToString(),
-                message = message ?? Constants.ErrorMessages.UnAuthorized
+                StatusCode = ((int)HttpStatusCode.Unauthorized).ToString(),
+                Message = message ?? Constants.ErrorMessages.UnAuthorized
             };
             return errorModel;
         }
@@ -56,10 +56,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// </returns>>
         public static ErrorModel NotFound(string message = null)
         {
-            ErrorModel errorModel = new ErrorModel
+            ErrorModel errorModel = new()
             {
-                statusCode = ((int)HttpStatusCode.NotFound).ToString(),
-                message = message ?? "The requested page is not found"
+                StatusCode = ((int)HttpStatusCode.NotFound).ToString(),
+                Message = message ?? "The requested page is not found"
             };
             return errorModel;
         }
@@ -72,10 +72,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// </returns>>
         public static ErrorModel GatewayError()
         {
-            ErrorModel errorModel = new ErrorModel
+            ErrorModel errorModel = new()
             {
-                statusCode = ((int)HttpStatusCode.InternalServerError).ToString(),
-                message = "Internal Server Error"
+                StatusCode = ((int)HttpStatusCode.InternalServerError).ToString(),
+                Message = "Internal Server Error"
             };
             return errorModel;
         }
@@ -89,10 +89,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// </returns>>
         public static ErrorModel BadRequest(string message = null)
         {
-            ErrorModel errorModel = new ErrorModel
+            ErrorModel errorModel = new()
             {
-                statusCode = ((int)HttpStatusCode.BadRequest).ToString(),
-                message = message ?? "Invalid Input"
+                StatusCode = ((int)HttpStatusCode.BadRequest).ToString(),
+                Message = message ?? "Invalid Input"
             };
             return errorModel;
         }
@@ -106,12 +106,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// A <see cref="ValidationErrorModel"/> When there is Conformance Error or Invalid Inpt
         /// </returns>>
         public static ValidationErrorModel BadRequest(Object validationProblemDetails, string message = null)
-        {            
-            ValidationErrorModel errorModel = new ValidationErrorModel
+        {
+            ValidationErrorModel errorModel = new()
             {
-                statusCode = ((int)HttpStatusCode.BadRequest).ToString(),
-                message = message ?? "Conformance Error",
-                error = validationProblemDetails
+                StatusCode = ((int)HttpStatusCode.BadRequest).ToString(),
+                Message = message ?? "Conformance Error",
+                Error = validationProblemDetails
             };
             return errorModel;
         }
@@ -125,10 +125,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// </returns>>
         public static ErrorModel MethodNotAllowed(string message = null)
         {
-            ErrorModel errorModel = new ErrorModel
+            ErrorModel errorModel = new()
             {
-                statusCode = ((int)HttpStatusCode.MethodNotAllowed).ToString(),
-                message = message ?? "Method Not Allowed"
+                StatusCode = ((int)HttpStatusCode.MethodNotAllowed).ToString(),
+                Message = message ?? "Method Not Allowed"
             };
             return errorModel;
         }
@@ -141,10 +141,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// </returns>>
         public static ErrorModel InternalServerError(string message = null)
         {
-            ErrorModel errorModel = new ErrorModel
+            ErrorModel errorModel = new()
             {
-                statusCode = ((int)HttpStatusCode.InternalServerError).ToString(),
-                message = message ?? "Internal Server Error"
+                StatusCode = ((int)HttpStatusCode.InternalServerError).ToString(),
+                Message = message ?? "Internal Server Error"
             };
             return errorModel;
         }
@@ -157,10 +157,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// </returns>>
         public static ErrorModel Forbidden(string message = null)
         {
-            ErrorModel errorModel = new ErrorModel
+            ErrorModel errorModel = new()
             {
-                statusCode = ((int)HttpStatusCode.Forbidden).ToString(),
-                message = message ?? Constants.ErrorMessages.Forbidden
+                StatusCode = ((int)HttpStatusCode.Forbidden).ToString(),
+                Message = message ?? Constants.ErrorMessages.Forbidden
             };
             return errorModel;
         }

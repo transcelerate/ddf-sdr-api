@@ -10,47 +10,47 @@ namespace TransCelerate.SDR.Core.DTO.Study
         /// <summary>
         /// This property holds the value of Study ID
         /// </summary>
-        public string studyId { get; set; }
+        public string StudyId { get; set; }
         /// <summary>
-        /// This property holds the value of Study Title for specific <see cref="studyId"/>
+        /// This property holds the value of Study Title for specific <see cref="StudyId"/>
         /// </summary>
-        public string studyTitle { get; set; }
+        public string StudyTitle { get; set; }
         /// <summary>
-        /// This property holds the value of Study Type for specific <see cref="studyId"/>
+        /// This property holds the value of Study Type for specific <see cref="StudyId"/>
         /// </summary>
-        public string studyType { get; set; }
+        public string StudyType { get; set; }
 
         /// <summary>
-        /// This property holds the value of Study Phase for specific <see cref="studyId"/>
+        /// This property holds the value of Study Phase for specific <see cref="StudyId"/>
         /// </summary>
-        public string studyPhase { get; set; }
+        public string StudyPhase { get; set; }
         /// <summary>
-        /// This property holds the value of Study Status for specific <see cref="studyId"/>
+        /// This property holds the value of Study Status for specific <see cref="StudyId"/>
         /// </summary>
-        public string studyStatus { get; set; }
+        public string StudyStatus { get; set; }
         /// <summary>
-        /// This property holds the value of Study Tag for specific <see cref="studyId"/>
+        /// This property holds the value of Study Tag for specific <see cref="StudyId"/>
         /// </summary>
-        public string studyTag { get; set; }
+        public string StudyTag { get; set; }
         /// <summary>
-        /// This property holds the List of Study Identifiers for specific <see cref="studyId"/>
+        /// This property holds the List of Study Identifiers for specific <see cref="StudyId"/>
         /// </summary>
-        public List<StudyIdentifierDTO> studyIdentifiers { get; set; }
+        public List<StudyIdentifierDTO> StudyIdentifiers { get; set; }
         /// <summary>
-        /// This property holds the List of Study Protocol References for specific <see cref="studyId"/>
+        /// This property holds the List of Study Protocol References for specific <see cref="StudyId"/>
         /// </summary>
-        public List<StudyProtocolDTO> studyProtocolReferences { get; set; }
+        public List<StudyProtocolDTO> StudyProtocolReferences { get; set; }
         /// <summary>
-        /// This property holds the List of Study Designs for specific <see cref="studyId"/>
+        /// This property holds the List of Study Designs for specific <see cref="StudyId"/>
         /// </summary>
-        public List<GetStudyDesignsDTO> studyDesigns { get; set; }
+        public List<GetStudyDesignsDTO> StudyDesigns { get; set; }
         /// <summary>
-        /// This property holds the List of Study Objectives for specific <see cref="studyId"/>
+        /// This property holds the List of Study Objectives for specific <see cref="StudyId"/>
         /// </summary>
-        public List<StudyObjectiveDTO> objectives { get; set; }
+        public List<StudyObjectiveDTO> Objectives { get; set; }
         /// <summary>
-        /// This property holds the List of Study Indications for specific <see cref="studyId"/>
+        /// This property holds the List of Study Indications for specific <see cref="StudyId"/>
         /// </summary>
-        public List<StudyIndicationDTO> studyIndications { get; set; }           
+        public List<StudyIndicationDTO> StudyIndications { get; set; }
     }
 }

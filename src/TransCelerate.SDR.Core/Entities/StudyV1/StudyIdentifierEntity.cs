@@ -4,6 +4,6 @@
     {
         public string Uuid { get; set; }
         public string StudyIdentifier { get; set; }
-        public StudyIdentifierScopeEntity StudyIdentifierScope { get; set; }        
+        public StudyIdentifierScopeEntity StudyIdentifierScope { get; set; }
     }
 }

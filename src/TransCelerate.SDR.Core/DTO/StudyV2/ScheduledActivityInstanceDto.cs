@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TransCelerate.SDR.Core.Utilities;
+﻿using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.DTO.StudyV2
 {

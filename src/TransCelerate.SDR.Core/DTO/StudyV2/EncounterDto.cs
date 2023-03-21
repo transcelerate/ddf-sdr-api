@@ -2,7 +2,7 @@
 
 namespace TransCelerate.SDR.Core.DTO.StudyV2
 {
-    public class EncounterDto : Iid
+    public class EncounterDto : IId
     {
         [Newtonsoft.Json.JsonProperty(Utilities.Common.IdFieldPropertyName.StudyV2.EncounterId)]
         public string Id { get; set; }
@@ -15,6 +15,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
         public string PreviousEncounterId { get; set; }
         public string EncounterScheduledAtTimingId { get; set; }
         public TransitionRuleDto TransitionStartRule { get; set; }
-        public TransitionRuleDto TransitionEndRule { get; set; }        
+        public TransitionRuleDto TransitionEndRule { get; set; }
     }
 }

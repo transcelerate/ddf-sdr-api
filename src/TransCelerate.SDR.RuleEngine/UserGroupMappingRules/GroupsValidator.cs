@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using FluentValidation;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation;
 using TransCelerate.SDR.Core.DTO.UserGroups;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
@@ -18,23 +15,23 @@ namespace TransCelerate.SDR.RuleEngine
     {
         public GroupsValidator()
         {
-            RuleFor(x => x.groupName)
+            RuleFor(x => x.GroupName)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);  
-            RuleFor(x => x.groupFilter)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+            RuleFor(x => x.GroupFilter)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .Must(x=>x.Count>0).WithMessage(Constants.ValidationErrorMessage.GroupFilterEmptyError);
-            RuleFor(x => x.permission)
+                .Must(x => x.Count > 0).WithMessage(Constants.ValidationErrorMessage.GroupFilterEmptyError);
+            RuleFor(x => x.Permission)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .Must(x=> Enum.GetNames(typeof(Permissions)).Contains(x.Trim())).WithMessage(Constants.ValidationErrorMessage.InvalidPermissionValue);
-            RuleFor(x=>x.groupCreatedOn)    
+                .Must(x => Enum.GetNames(typeof(Permissions)).Contains(x.Trim())).WithMessage(Constants.ValidationErrorMessage.InvalidPermissionValue);
+            RuleFor(x => x.GroupCreatedOn)
                 .Must(x => DateValidationHelper.IsValid(x))
                 .WithMessage(Constants.ValidationErrorMessage.ValidDateError);
-            RuleFor(x=>x.groupModifiedOn)              
+            RuleFor(x => x.GroupModifiedOn)
                 .Must(x => DateValidationHelper.IsValid(x))
                 .WithMessage(Constants.ValidationErrorMessage.ValidDateError);
         }

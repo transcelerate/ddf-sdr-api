@@ -170,10 +170,10 @@ namespace TransCelerate.SDR.Services.Services
 
                         if (studyDesigns is not null && studyDesigns.Any())
                             return new StudyDesignsResponseDto
-                                   {
-                                       StudyDesigns = _helper.RemoveStudyDesignElements(Constants.StudyDesignElements, studyDesigns, studyId),
-                                       Links = LinksHelper.GetLinks(study.ClinicalStudy.StudyId, study.ClinicalStudy.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion)
-                                   };                       
+                            {
+                                StudyDesigns = _helper.RemoveStudyDesignElements(Constants.StudyDesignElements, studyDesigns, studyId),
+                                Links = LinksHelper.GetLinks(study.ClinicalStudy.StudyId, study.ClinicalStudy.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion)
+                            };
 
                         return Constants.ErrorMessages.StudyDesignNotFound;
                     }
@@ -223,19 +223,19 @@ namespace TransCelerate.SDR.Services.Services
                     soa.StudyId = study.ClinicalStudy.StudyId;
                     soa.StudyTitle = study.ClinicalStudy.StudyTitle;
                     if (!String.IsNullOrWhiteSpace(studyDesignId))
-                    {                        
+                    {
                         if (study.ClinicalStudy.StudyDesigns is null || !soa.StudyDesigns.Any(x => x.StudyDesignId == studyDesignId))
                             return Constants.ErrorMessages.StudyDesignNotFound;
 
-                        if(!String.IsNullOrWhiteSpace(studyWorkflowId))
+                        if (!String.IsNullOrWhiteSpace(studyWorkflowId))
                         {
                             soa.StudyDesigns.RemoveAll(x => x.StudyDesignId != studyDesignId);
-                            if(soa.StudyDesigns.First().StudyWorkflows is null || !soa.StudyDesigns.First().StudyWorkflows.Any(x => x.WorkFlowId == studyWorkflowId))
+                            if (soa.StudyDesigns.First().StudyWorkflows is null || !soa.StudyDesigns.First().StudyWorkflows.Any(x => x.WorkFlowId == studyWorkflowId))
                                 return Constants.ErrorMessages.WorkFlowNotFound;
                             soa.StudyDesigns.First().StudyWorkflows.RemoveAll(y => y.WorkFlowId != studyWorkflowId);
                             return soa;
                         }
-                        soa.StudyDesigns.RemoveAll(x=> x.StudyDesignId != studyDesignId);
+                        soa.StudyDesigns.RemoveAll(x => x.StudyDesignId != studyDesignId);
                         return soa;
                     }
                     return soa;
@@ -251,55 +251,63 @@ namespace TransCelerate.SDR.Services.Services
             }
         }
 
-        public SoADto SoA(List<StudyDesignEntity> studyDesigns)
+        public static SoADto SoA(List<StudyDesignEntity> studyDesigns)
         {
-            SoADto soADto = new SoADto();
-            soADto.StudyDesigns = new List<StudyDesigns>();
+            SoADto soADto = new()
+            {
+                StudyDesigns = new List<StudyDesigns>()
+            };
             if (studyDesigns is not null && studyDesigns.Any())
             {
                 studyDesigns.ForEach(design =>
                 {
-                    StudyDesigns studyDesignSoA = new StudyDesigns();
-                    studyDesignSoA.StudyDesignId = design.Id;
-                    studyDesignSoA.StudyDesignName = design.StudyDesignName;
-                    studyDesignSoA.StudyDesignDescription = design.StudyDesignDescription;
-                    studyDesignSoA.StudyWorkflows = new List<StudyWorkflows>();
+                    StudyDesigns studyDesignSoA = new()
+                    {
+                        StudyDesignId = design.Id,
+                        StudyDesignName = design.StudyDesignName,
+                        StudyDesignDescription = design.StudyDesignDescription,
+                        StudyWorkflows = new List<StudyWorkflows>()
+                    };
                     List<EncounterEntity> encounters = GetOrderedEncounters(design.Encounters);
                     List<ActivityEntity> activities = GetOrderedActivities(design.Activities);
-                    if(design.StudyScheduleTimelines != null && design.StudyScheduleTimelines.Any())
-                    {                        
+                    if (design.StudyScheduleTimelines != null && design.StudyScheduleTimelines.Any())
+                    {
                         design.StudyScheduleTimelines.ForEach(workFlow =>
                         {
-                            StudyWorkflows studyWorkflowsA = new StudyWorkflows();
-                            studyWorkflowsA.WorkFlowId = workFlow.Id;
-                            studyWorkflowsA.WorkflowDescription = workFlow.ScheduleTimelineDescription;
+                            StudyWorkflows studyWorkflowsA = new()
+                            {
+                                WorkFlowId = workFlow.Id,
+                                WorkflowDescription = workFlow.ScheduleTimelineDescription
+                            };
                             if (activities != null && activities.Any() && encounters != null && encounters.Any())
-                            {                                
+                            {
                                 var workflowItems = workFlow.ScheduledTimelineInstances?.Select(x => (x as ScheduledActivityInstanceEntity))
                                                                          .Where(x => x != null).ToList();
                                 if (workflowItems != null && workflowItems.Any())
                                 {
-                                    studyWorkflowsA.WorkFlowSoA = new WorkFlowSoA();
-                                    studyWorkflowsA.WorkFlowSoA.SoA = new List<SoA>();
-                                    studyWorkflowsA.WorkFlowSoA.OrderOfActivities = activities.Select(x => x.ActivityName).ToList();
+                                    studyWorkflowsA.WorkFlowSoA = new()
+                                    {
+                                        SoA = new List<SoA>(),
+                                        OrderOfActivities = activities.Select(x => x.ActivityName).ToList()
+                                    };
                                     encounters.ForEach(encounter =>
                                     {
-                                        SoA soA = new SoA();
-                                        string timingValue = design.StudyScheduleTimelines.Where(x => x.ScheduledTimelineInstances != null).SelectMany(x=>x.ScheduledTimelineInstances)
-                                                                         .Where(x => x != null)                                                                         
+                                        SoA soA = new();
+                                        string timingValue = design.StudyScheduleTimelines.Where(x => x.ScheduledTimelineInstances != null).SelectMany(x => x.ScheduledTimelineInstances)
+                                                                         .Where(x => x != null)
                                                                          .SelectMany(x => x.ScheduledInstanceTimings)
                                                                          .Where(x => x.Id == encounter.EncounterScheduledAtTimingId).FirstOrDefault()?.TimingValue;
                                         string timingValueToBeAddedinSoA = String.IsNullOrWhiteSpace(timingValue) ? string.Empty : $" ({timingValue})";
                                         soA.EncounterName = encounter.EncounterName + timingValueToBeAddedinSoA;
                                         soA.Activities = workflowItems.Where(x => x.ScheduledInstanceEncounterId == encounter.Id)
-                                                                      .Select(x => x.ActivityIds).Where(x=>x!=null)
+                                                                      .Select(x => x.ActivityIds).Where(x => x != null)
                                                                       .SelectMany(x => x).Distinct()
                                                                       .Where(x => activities.Where(y => y.Id == x).Any())
                                                                       .Select(x => activities.Where(y => y.Id == x).First()?.ActivityName)
                                                                       .ToList();
                                         studyWorkflowsA.WorkFlowSoA.SoA.Add(soA);
                                     });
-                                }                                
+                                }
                             }
 
                             studyDesignSoA.StudyWorkflows.Add(studyWorkflowsA);
@@ -311,18 +319,18 @@ namespace TransCelerate.SDR.Services.Services
 
             return soADto;
         }
-        public List<EncounterEntity> GetOrderedEncounters(List<EncounterEntity> encounters)
+        public static List<EncounterEntity> GetOrderedEncounters(List<EncounterEntity> encounters)
         {
             if (encounters != null && encounters.Any())
             {
                 if (encounters.Count(x => String.IsNullOrWhiteSpace(x.PreviousEncounterId)) == 1 && encounters.Count(x => String.IsNullOrWhiteSpace(x.NextEncounterId)) == 1)
                 {
-                    List<EncounterEntity> encountersLinkedList = new List<EncounterEntity>();
+                    List<EncounterEntity> encountersLinkedList = new();
                     encountersLinkedList.Add(encounters.Where(x => String.IsNullOrWhiteSpace(x.PreviousEncounterId)).FirstOrDefault());
                     for (int i = 1; i < encounters.Count; i++)
                     {
-                        if (encounters.Where(x => x.PreviousEncounterId == encountersLinkedList[i-1].Id).Any() && encounters.Where(x => x.PreviousEncounterId == encountersLinkedList[i-1].Id).Count() == 1)                            
-                            encountersLinkedList.Add(encounters.Where(x => x.PreviousEncounterId == encountersLinkedList[i-1].Id).First());
+                        if (encounters.Where(x => x.PreviousEncounterId == encountersLinkedList[i - 1].Id).Any() && encounters.Where(x => x.PreviousEncounterId == encountersLinkedList[i - 1].Id).Count() == 1)
+                            encountersLinkedList.Add(encounters.Where(x => x.PreviousEncounterId == encountersLinkedList[i - 1].Id).First());
                         else
                             break;
                     }
@@ -332,13 +340,13 @@ namespace TransCelerate.SDR.Services.Services
             return encounters;
         }
 
-        public List<ActivityEntity> GetOrderedActivities(List<ActivityEntity> activities)
+        public static List<ActivityEntity> GetOrderedActivities(List<ActivityEntity> activities)
         {
             if (activities != null && activities.Any())
             {
                 if (activities.Count(x => String.IsNullOrWhiteSpace(x.PreviousActivityId)) == 1 && activities.Count(x => String.IsNullOrWhiteSpace(x.NextActivityId)) == 1)
                 {
-                    List<ActivityEntity> activityLinkedList = new List<ActivityEntity>();
+                    List<ActivityEntity> activityLinkedList = new();
                     activityLinkedList.Add(activities.Where(x => String.IsNullOrWhiteSpace(x.PreviousActivityId)).FirstOrDefault());
                     for (int i = 1; i < activities.Count; i++)
                     {
@@ -388,23 +396,23 @@ namespace TransCelerate.SDR.Services.Services
                         if (study.ClinicalStudy.StudyDesigns is not null && study.ClinicalStudy.StudyDesigns.Any(x => x.Id == studyDesignId))
                         {
                             var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy.ClinicalStudy.StudyDesigns.Where(x => x.Id == studyDesignId).ToList());
-                            JObject jObject = new JObject();
-                            jObject.Add(nameof(ClinicalStudyDto.StudyDesigns).Substring(0, 1).ToLower() + nameof(ClinicalStudyDto.StudyDesigns).Substring(1), JArray.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))));
+                            JObject jObject = new();
+                            jObject.Add(string.Concat(nameof(ClinicalStudyDto.StudyDesigns)[..1].ToLower(), nameof(ClinicalStudyDto.StudyDesigns).AsSpan(1)), JArray.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))));
                             if (listofelements == null)
                                 jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.ClinicalStudy.StudyId, study.ClinicalStudy.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion))));
-                            return jObject;                            
+                            return jObject;
                         }
                         return Constants.ErrorMessages.StudyDesignNotFound;
                     }
                     else
                     {
                         var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy.ClinicalStudy.StudyDesigns);
-                        JObject jObject = new JObject();
-                        jObject.Add(nameof(ClinicalStudyDto.StudyDesigns).Substring(0, 1).ToLower() + nameof(ClinicalStudyDto.StudyDesigns).Substring(1), JArray.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))));
+                        JObject jObject = new();
+                        jObject.Add(string.Concat(nameof(ClinicalStudyDto.StudyDesigns)[..1].ToLower(), nameof(ClinicalStudyDto.StudyDesigns).AsSpan(1)), JArray.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))));
                         if (listofelements == null)
                             jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.ClinicalStudy.StudyId, study.ClinicalStudy.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion))));
                         return study.ClinicalStudy.StudyDesigns is not null && study.ClinicalStudy.StudyDesigns.Any() ?
-                            jObject: Constants.ErrorMessages.StudyDesignNotFound;
+                            jObject : Constants.ErrorMessages.StudyDesignNotFound;
                     }
                 }
             }
@@ -445,7 +453,7 @@ namespace TransCelerate.SDR.Services.Services
                     if (studies == null)
                         return Constants.ErrorMessages.Forbidden;
                     var auditTrailDtoList = _mapper.Map<List<AuditTrailDto>>(studies); //Mapping Entity to Dto 
-                    AudiTrailResponseDto getStudyAuditDto = new AudiTrailResponseDto
+                    AudiTrailResponseDto getStudyAuditDto = new()
                     {
                         StudyId = studyId,
                         AuditTrail = auditTrailDtoList
@@ -491,7 +499,7 @@ namespace TransCelerate.SDR.Services.Services
                     var groupStudy = studies.GroupBy(x => new { x.StudyId })
                                             .Select(g => new //StudyHistoryResponseDto
                                             {
-                                                StudyId = g.Key.StudyId,
+                                                g.Key.StudyId,
                                                 SDRUploadVersion = _mapper.Map<List<UploadVersionDto>>(g.ToList()),
                                                 Date = g.Max(x => x.EntryDateTime)
                                             }) // Grouping the Id's by studyId
@@ -532,11 +540,11 @@ namespace TransCelerate.SDR.Services.Services
                 _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV2)}; Method : {nameof(PostAllElements)};");
                 if (!await CheckPermissionForAUser(user))
                     return Constants.ErrorMessages.PostRestricted;
-                StudyEntity incomingStudyEntity = new StudyEntity
+                StudyEntity incomingStudyEntity = new()
                 {
                     ClinicalStudy = _mapper.Map<ClinicalStudyEntity>(studyDTO.ClinicalStudy),
                     AuditTrail = _helper.GetAuditTrail(user?.UserName),
-                    _id = MongoDB.Bson.ObjectId.GenerateNewId()
+                    Id = MongoDB.Bson.ObjectId.GenerateNewId()
                 };
 
                 if (method == HttpMethod.Post.Method) //POST Endpoint to create new study
@@ -545,7 +553,7 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else //PUT Endpoint Create New Version for the study
                 {
-                    AuditTrailEntity existingAuditTrail = await _clinicalStudyRepository.GetUsdmVersionAsync(incomingStudyEntity.ClinicalStudy.StudyId, 0);                    
+                    AuditTrailEntity existingAuditTrail = await _clinicalStudyRepository.GetUsdmVersionAsync(incomingStudyEntity.ClinicalStudy.StudyId, 0);
 
                     if (existingAuditTrail is null) // If PUT Endpoint and study_uuid is not valid, return not valid study
                     {
@@ -619,7 +627,7 @@ namespace TransCelerate.SDR.Services.Services
             ServiceBusSender sender = _serviceBusClient.CreateSender(Config.AzureServiceBusQueueName);
 
             string jsonMessageString = JsonConvert.SerializeObject(serviceBusMessageDto);
-            ServiceBusMessage serializedMessage = new ServiceBusMessage(jsonMessageString);
+            ServiceBusMessage serializedMessage = new(jsonMessageString);
             await sender.SendMessageAsync(serializedMessage);
         }
         #endregion
@@ -641,7 +649,7 @@ namespace TransCelerate.SDR.Services.Services
             {
                 _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV2)}; Method : {nameof(CheckAccessForAStudy)};");
 
-                if (user.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+                if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
                 {
                     var groups = await _clinicalStudyRepository.GetGroupsOfUser(user).ConfigureAwait(false);
 
@@ -692,7 +700,7 @@ namespace TransCelerate.SDR.Services.Services
             {
                 _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV2)}; Method : {nameof(CheckAccessForStudyAudit)};");
 
-                if (user.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+                if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
                 {
                     var groups = await _clinicalStudyRepository.GetGroupsOfUser(user).ConfigureAwait(false);
 
@@ -742,13 +750,13 @@ namespace TransCelerate.SDR.Services.Services
             {
                 _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV2)}; Method : {nameof(CheckPermissionForAUser)};");
 
-                if (user.UserRole != Constants.Roles.Org_Admin && Config.isGroupFilterEnabled)
+                if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
                 {
                     var groups = await _clinicalStudyRepository.GetGroupsOfUser(user).ConfigureAwait(false);
 
                     if (groups != null && groups.Count > 0)
                     {
-                        if (groups.Any(x => x.permission == Permissions.READ_WRITE.ToString()))
+                        if (groups.Any(x => x.Permission == Permissions.READ_WRITE.ToString()))
                             return true;
                         else
                             return false;

@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TransCelerate.SDR.Core.DTO.Common
 {
@@ -11,8 +7,8 @@ namespace TransCelerate.SDR.Core.DTO.Common
     {
         public string StudyDefinitions { get; set; }
         public string AuditTrail { get; set; }
-        
-        public List<StudyDesignLinks> StudyDesigns { get; set; } 
+
+        public List<StudyDesignLinks> StudyDesigns { get; set; }
     }
 
     public class StudyDesignLinks
@@ -28,14 +24,14 @@ namespace TransCelerate.SDR.Core.DTO.Common
 
         public List<StudyDesignLinks> StudyDesigns { get; set; }
 
-        [JsonProperty("SoA")]
+        [JsonProperty(nameof(SoA))]
         public string SoA { get; set; }
     }
     public class LinksEndpointDto
     {
         public string StudyDefinitions { get; set; }
         public string AuditTrail { get; set; }
-        [JsonProperty("SoA")]
+        [JsonProperty(nameof(SoA))]
         public string SoA { get; set; }
     }
 }

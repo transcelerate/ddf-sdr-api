@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TransCelerate.SDR.Core.DTO.Study
+﻿namespace TransCelerate.SDR.Core.DTO.Study
 {
     public class DefinedProcedureDTO
     {
-        public string procedureCode { get; set; }
+        public string ProcedureCode { get; set; }
     }
 }

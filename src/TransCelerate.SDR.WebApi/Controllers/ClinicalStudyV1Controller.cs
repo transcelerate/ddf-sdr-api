@@ -1,22 +1,21 @@
-﻿using AutoMapper;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.StudyV1;
-using TransCelerate.SDR.Services.Interfaces;
 using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
-using Microsoft.AspNetCore.Authorization;
-using System.Collections.Generic;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+using TransCelerate.SDR.Services.Interfaces;
 
 namespace TransCelerate.SDR.WebApi.Controllers
 {
@@ -25,15 +24,15 @@ namespace TransCelerate.SDR.WebApi.Controllers
     public class ClinicalStudyV1Controller : ControllerBase
     {
         #region Variables        
-        private readonly ILogHelper _logger;        
+        private readonly ILogHelper _logger;
         private readonly IClinicalStudyServiceV1 _clinicalStudyService;
         private readonly IHelperV1 _helper;
         #endregion
 
         #region Constructor
         public ClinicalStudyV1Controller(IClinicalStudyServiceV1 clinicalStudyService, ILogHelper logger, IHelperV1 helper)
-        {            
-            _logger = logger;            
+        {
+            _logger = logger;
             _clinicalStudyService = clinicalStudyService;
             _helper = helper;
         }
@@ -58,7 +57,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetStudy(string studyId, int sdruploadversion, 
+        public async Task<IActionResult> GetStudy(string studyId, int sdruploadversion,
                                             [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
         {
             try
@@ -67,7 +66,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
                     _logger.LogInformation($"Inputs : studyId = {studyId}; sdruploadversion = {sdruploadversion};");
-                    LoggedInUser user = new LoggedInUser
+                    LoggedInUser user = new()
                     {
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
@@ -129,7 +128,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 {
                     _logger.LogInformation($"Inputs : study_uuid = {study_uuid}; sdruploadversion = {sdruploadversion};");
 
-                    LoggedInUser user = new LoggedInUser
+                    LoggedInUser user = new()
                     {
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
@@ -192,11 +191,11 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
                     _logger.LogInformation($"Inputs : studyId = {studyId}; fromDate = {fromDate}; toDate = {toDate}");
-                    LoggedInUser user = new LoggedInUser
+                    LoggedInUser user = new()
                     {
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
-                    };                    
+                    };
 
                     Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(fromDate, toDate, -1);
 
@@ -260,7 +259,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudyHistory)};");
-                LoggedInUser user = new LoggedInUser
+                LoggedInUser user = new()
                 {
                     UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                     UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
@@ -320,10 +319,10 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");                
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");
                 if (studyDTO != null)
-                {                    
-                    LoggedInUser user = new LoggedInUser
+                {
+                    LoggedInUser user = new()
                     {
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
@@ -387,7 +386,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(SearchStudy)};");
-                LoggedInUser user = new LoggedInUser
+                LoggedInUser user = new()
                 {
                     UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                     UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
@@ -406,7 +405,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
 
                     searchparameters.FromDate = fromAndToDate.Item1.ToString();
                     searchparameters.ToDate = fromAndToDate.Item2.ToString();
-                   
+
                     if ((!String.IsNullOrWhiteSpace(searchparameters.FromDate)) && (!String.IsNullOrWhiteSpace(searchparameters.ToDate)))
                     {
                         if (Convert.ToDateTime(searchparameters.FromDate) > Convert.ToDateTime(searchparameters.ToDate))
@@ -460,7 +459,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(SearchTitle)};");
-                LoggedInUser user = new LoggedInUser
+                LoggedInUser user = new()
                 {
                     UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                     UserRole = User?.FindFirst(ClaimTypes.Role)?.Value

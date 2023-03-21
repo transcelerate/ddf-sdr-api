@@ -6,7 +6,7 @@
     public enum StudySections
     {
         study_indications,
-        study_objectives,           
+        study_objectives,
         study_design
     }
 }

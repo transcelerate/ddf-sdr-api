@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FluentValidation;
-using TransCelerate.SDR.Core.DTO;
+﻿using FluentValidation;
 using TransCelerate.SDR.Core.DTO.Study;
-using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.RuleEngine
 {
@@ -14,7 +9,7 @@ namespace TransCelerate.SDR.RuleEngine
         /// Validator for studyProtocol
         /// </summary>
         public StudyProtocolValidator()
-        {                              
+        {
         }
     }
 }

@@ -10,7 +10,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV1
         public string CreatedBy { get; set; }
 
         public string UsdmVersion { get; set; }
-        [BsonElement("SDRUploadVersion")]
+        [BsonElement(nameof(SDRUploadVersion))]
         public int SDRUploadVersion { get; set; }
     }
 }

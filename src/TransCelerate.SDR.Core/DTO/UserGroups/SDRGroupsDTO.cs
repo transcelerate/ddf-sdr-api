@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.DTO.UserGroups
 {
     public class SDRGroupsDTO
     {
-        public string groupId { get; set; }
-        public string groupName { get; set; }
-        public string groupDescription { get; set; }
-        public string permission { get; set; }
-        public List<GroupFilterDTO> groupFilter { get; set; }       
-        public List<UsersDTO> users { get; set; }
-        public string groupCreatedBy { get; set; }
-        public string groupCreatedOn { get; set; }
-        public string groupModifiedBy { get; set; }
-        public string groupModifiedOn { get; set; }
-        public bool groupEnabled { get; set; }
+        public string GroupId { get; set; }
+        public string GroupName { get; set; }
+        public string GroupDescription { get; set; }
+        public string Permission { get; set; }
+        public List<GroupFilterDTO> GroupFilter { get; set; }
+        public List<UsersDTO> Users { get; set; }
+        public string GroupCreatedBy { get; set; }
+        public string GroupCreatedOn { get; set; }
+        public string GroupModifiedBy { get; set; }
+        public string GroupModifiedOn { get; set; }
+        public bool GroupEnabled { get; set; }
     }
 }

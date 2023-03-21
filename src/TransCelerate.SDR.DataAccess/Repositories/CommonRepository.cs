@@ -1,14 +1,10 @@
 ﻿using MongoDB.Bson;
-using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities.Common;
@@ -20,7 +16,7 @@ using TransCelerate.SDR.DataAccess.Interfaces;
 
 namespace TransCelerate.SDR.DataAccess.Repositories
 {
-    public  class CommonRepository : ICommonRepository
+    public class CommonRepository : ICommonRepository
     {
         #region Variables     
         private readonly string _databaseName = Config.DatabaseName;
@@ -37,8 +33,10 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _client = client;
             _database = _client.GetDatabase(_databaseName);
             _logger = logger;
-            var conventionPack = new ConventionPack();
-            conventionPack.Add(new CamelCaseElementNameConvention());
+            var conventionPack = new ConventionPack
+            {
+                new CamelCaseElementNameConvention()
+            };
             ConventionRegistry.Register("camelCase", conventionPack, t => true);
         }
         #endregion
@@ -58,21 +56,31 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             _logger.LogInformation($"Started Repository : {nameof(CommonRepository)}; Method : {nameof(GetStudyItemsAsync)};");
             try
             {
-                IMongoCollection<GetRawJsonEntity> collection = _database.GetCollection<GetRawJsonEntity>(Constants.Collections.StudyDefinitions);
+                IMongoCollection<BsonDocument> collection = _database.GetCollection<BsonDocument>(Constants.Collections.StudyDefinitions);
 
-                GetRawJsonEntity study = await collection.Find(DataFilterCommon.GetFiltersForGetStudy(studyId, sdruploadversion))
-                                                     .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
+                GetRawJsonEntity study = new();
+                var studyData = await collection.Find(DataFilterCommon.GetFiltersForGetStudyBsonDocument(studyId, sdruploadversion))
+                                                     .Sort(DataFilterCommon.GetSorterForBsonDocument()) // Sort by descending on entryDateTime
                                                      .Limit(1)                  //Taking top 1 result
+                                                     .Project(DataFilterCommon.GetProjectorForBsonDocument())
                                                      .SingleOrDefaultAsync().ConfigureAwait(false);
 
-               
-                if (study == null)
+                if (studyData == null)
                 {
                     _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.StudyDefinitions} Collection");
                     return null;
                 }
                 else
                 {
+                    study.AuditTrail = BsonSerializer.Deserialize<AuditTrailEntity>(studyData[Constants.DbFilter.AuditTrail].AsBsonDocument);
+                    if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.V2)
+                    {
+                        study.ClinicalStudy = Newtonsoft.Json.JsonConvert.DeserializeObject<object>(studyData[Constants.DbFilter.ClinicalStudy].ToString());
+                    }
+                    else
+                    {
+                        study.ClinicalStudy = BsonSerializer.Deserialize<object>(studyData[Constants.DbFilter.ClinicalStudy].AsBsonDocument);
+                    }
                     return study;
                 }
             }
@@ -102,7 +110,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             try
             {
                 var collection = _database.GetCollection<CommonStudyEntity>(Constants.Collections.StudyDefinitions);
-                
+
                 List<AuditTrailResponseEntity> auditTrails = await collection.Aggregate()
                                                   .Match(DataFilterCommon.GetFiltersForGetAudTrail(studyId, fromDate, toDate)) // Condition for matching studyId and date range
                                                   .Project(x => new AuditTrailResponseEntity
@@ -114,7 +122,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                       UsdmVersion = x.AuditTrail.UsdmVersion,
                                                       StudyDesignIds = x.ClinicalStudy.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null,
                                                       StudyDesignIdsMVP = x.ClinicalStudy.CurrentSections.Select(x => x.StudyDesigns.Select(x => x.StudyDesignId)) ?? null,
-                                                      HasAccess = true                                                      
+                                                      HasAccess = true
                                                   })
                                                   .SortByDescending(s => s.EntryDateTime) // Sort by descending on entryDateTime
                                                   .ToListAsync().ConfigureAwait(false);
@@ -156,7 +164,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
                 string usdmVersion = await collection.Find(DataFilterCommon.GetFiltersForGetStudy(studyId, sdruploadversion))
                                                      .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
-                                                     .Project(x=>x.AuditTrail.UsdmVersion)
+                                                     .Project(x => x.AuditTrail.UsdmVersion)
                                                      .Limit(1)                  //Taking top 1 result
                                                      .SingleOrDefaultAsync().ConfigureAwait(false);
 
@@ -214,11 +222,11 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                                     UsdmVersion = x.AuditTrail.UsdmVersion,
                                                                     StudyDesignIds = x.ClinicalStudy.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null,
                                                                     StudyDesignIdsMVP = x.ClinicalStudy.CurrentSections.Select(x => x.StudyDesigns.Select(x => x.StudyDesignId)) ?? null,
-                                                                    HasAccess = true,                                                                    
+                                                                    HasAccess = true,
                                                                 })  //Project only the required fields                                                        
-                                                        .ToListAsync().ConfigureAwait(false);                
+                                                        .ToListAsync().ConfigureAwait(false);
 
-                if (studyHistories.Count() == 0)
+                if (studyHistories.Count == 0)
                 {
                     _logger.LogWarning($"There are no Study in {Constants.Collections.StudyDefinitions} Collection");
                     return null;
@@ -248,7 +256,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// A <see cref="List{SearchResponseEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<List<SearchResponseEntity>> SearchStudy(SearchParametersEntity searchParameters,LoggedInUser user)
+        public async Task<List<SearchResponseEntity>> SearchStudy(SearchParametersEntity searchParameters, LoggedInUser user)
         {
             try
             {
@@ -258,9 +266,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 List<SearchResponseEntity> studies;
 
                 if (searchParameters.Header?.ToLower() == "phase" || searchParameters.Header?.ToLower() == "sponsorid" || searchParameters.Header?.ToLower() == "interventionmodel" || searchParameters.Header?.ToLower() == "indication")
-                {                    
+                {
                     studies = await collection.Aggregate()
-                                              .Match(DataFilterCommon.GetFiltersForSearchStudy(searchParameters, GetGroupsOfUser(user).Result,user))
+                                              .Match(DataFilterCommon.GetFiltersForSearchStudy(searchParameters, GetGroupsOfUser(user).Result, user))
                                               .Project(x => new SearchResponseEntity
                                               {
                                                   StudyId = x.ClinicalStudy.StudyId,
@@ -284,7 +292,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 else
                 {
                     studies = await collection.Aggregate()
-                                              .Match(DataFilterCommon.GetFiltersForSearchStudy(searchParameters, GetGroupsOfUser(user).Result,user))
+                                              .Match(DataFilterCommon.GetFiltersForSearchStudy(searchParameters, GetGroupsOfUser(user).Result, user))
                                               .Project(x => new SearchResponseEntity
                                               {
                                                   StudyId = x.ClinicalStudy.StudyId,
@@ -332,7 +340,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// A <see cref="List{SearchTitleResponseEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<List<SearchTitleResponseEntity>> SearchTitle(SearchTitleParametersEntity searchParameters,LoggedInUser user)
+        public async Task<List<SearchTitleResponseEntity>> SearchTitle(SearchTitleParametersEntity searchParameters, LoggedInUser user)
         {
             try
             {
@@ -405,9 +413,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
                 return await groupsCollection.Find(_ => true)
                                                  .Project(x => x.SDRGroups
-                                                               .Where(x => x.groupEnabled == true)
-                                                               .Where(x => x.users != null)
-                                                               .Where(x => x.users.Any(x => (x.email == user.UserName && x.isActive == true)))
+                                                               .Where(x => x.GroupEnabled == true)
+                                                               .Where(x => x.Users != null)
+                                                               .Where(x => x.Users.Any(x => (x.Email == user.UserName && x.IsActive == true)))
                                                                .ToList())
                                                  .FirstOrDefaultAsync().ConfigureAwait(false);
             }

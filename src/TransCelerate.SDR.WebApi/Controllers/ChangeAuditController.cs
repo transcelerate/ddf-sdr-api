@@ -58,7 +58,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(ChangeAuditController)}; Method : {nameof(GetChangeAudit)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
-                    LoggedInUser user = new LoggedInUser
+                    LoggedInUser user = new()
                     {
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
@@ -93,7 +93,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Ended Controller : {nameof(ChangeAuditController)}; Method : {nameof(GetChangeAudit)};");
             }
         }
-        
+
         #endregion
         #endregion
     }
