@@ -46,8 +46,10 @@ For those looking to evaluate the USDM with a sample data set, please see the fo
 
 2. Create a Mongo DB(or equivalent) with two collections with names mentioned below.
 ```
+StudyDefinitions
 StudyDefinitionsV1
 Groups
+ChangeAudit
 ```
 
 ## How to setup code
@@ -147,7 +149,7 @@ The solution has the following structure:
           └── TransCelerate.SDR.WebApi.md
 
 ```
-**[TransCelerate.SDR.Core](src/TransCelerate.SDR.Core/TransCelerate.SDR.AzureFunctions.md)** - contains Azure function app for change audit.
+**[TransCelerate.SDR.Core](src/TransCelerate.SDR.AzureFunctions/TransCelerate.SDR.AzureFunctions.md)** - contains Azure function app for change audit.
 
 **[TransCelerate.SDR.Core](src/TransCelerate.SDR.Core/TransCelerate.SDR.Core.md)** - contains entities, DTO's and helper classes.
 
