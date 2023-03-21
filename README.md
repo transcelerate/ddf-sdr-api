@@ -149,7 +149,7 @@ The solution has the following structure:
           └── TransCelerate.SDR.WebApi.md
 
 ```
-**[TransCelerate.SDR.Core](src/TransCelerate.SDR.AzureFunctions/TransCelerate.SDR.AzureFunctions.md)** - contains Azure function app for change audit.
+**[TransCelerate.SDR.AzureFunctions](src/TransCelerate.SDR.AzureFunctions/TransCelerate.SDR.AzureFunctions.md)** - contains Azure function app for change audit.
 
 **[TransCelerate.SDR.Core](src/TransCelerate.SDR.Core/TransCelerate.SDR.Core.md)** - contains entities, DTO's and helper classes.
 
