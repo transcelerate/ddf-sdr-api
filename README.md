@@ -77,6 +77,7 @@ git clone "repo_url"
  },
  "isGroupFilterEnabled": true  // change value to false to disable user based data filtering,
  "isAuthEnabled": true  // change value to false to disable authorization
+ "ApiVersionUsdmVersionMapping":"" //Api Version -> USDM Version Mapping JSON must be converted to JSON String and should be added
 ```
 
 3. Then, In the Visual Studio IDE, on clicking the IIS Express Icon or on pressing F5, WebApi solution will start running locally.
@@ -90,6 +91,14 @@ The solution has the following structure:
 
 ```  
   ├── TransCelerate.SDR.sln
+      ├── TransCelerate.SDR.AzureFunctions
+      │   ├── Properties
+      │   ├── DataAccess
+      │   ├── MessageProcessor
+      │   ├── ChangeAuditFunction.cs
+      │   ├── host.json
+      │   ├── Startup.cs
+      │   └── TransCelerate.SDR.Core.md
       ├── TransCelerate.SDR.Core
       │   ├── AppSettings
       │   ├── DTO
@@ -104,18 +113,23 @@ The solution has the following structure:
       │   ├── Repositories
       │   └── TransCelerate.SDR.DataAccess.md
       ├── TransCelerate.SDR.RuleEngine
+      │   ├── Common
       │   ├── StudyRules
       │   ├── StudyV1Rules
+      │   ├── StudyV2Rules
       │   ├── Token
       │   ├── UserGroupMappingRules
       │   ├── ValidationDependencies.cs
-      │   ├── ValidationDependenciesV1.cs   
+      │   ├── ValidationDependenciesCommon.cs
+      │   ├── ValidationDependenciesV1.cs 
+      │   ├── ValidationDependenciesV2.cs
       │   └── TransCelerate.SDR.RuleEngine.md
       ├── TransCelerate.SDR.Service
       │   ├── Interfaces
       │   ├── Services
       │   └── TransCelerate.SDR.Service.md  
       ├── TransCelerate.SDR.UnitTesting
+      │   ├── AzureFunctionsUnitTesting
       │   ├── CommonClassesUnitTesting
       │   ├── ControllerUnitTesting
       │   ├── Data
@@ -123,6 +137,7 @@ The solution has the following structure:
       │   └── TransCelerate.SDR.UnitTesting.md
       └── TransCelerate.SDR.WebApi
           ├── Properties
+	  ├── Data
           ├── DependencyInjection
           ├── Controllers
           ├── Mappers
@@ -132,6 +147,8 @@ The solution has the following structure:
           └── TransCelerate.SDR.WebApi.md
 
 ```
+**[TransCelerate.SDR.Core](src/TransCelerate.SDR.Core/TransCelerate.SDR.AzureFunctions.md)** - contains Azure function app for change audit.
+
 **[TransCelerate.SDR.Core](src/TransCelerate.SDR.Core/TransCelerate.SDR.Core.md)** - contains entities, DTO's and helper classes.
 
 **[TransCelerate.SDR.DataAccess](src/TransCelerate.SDR.DataAccess/TransCelerate.SDR.DataAccess.md)** - contains code for communicating with database (Mongo DB).
@@ -160,11 +177,21 @@ git push
 
 # List of Endpoints
 
-**POST Endpoints**
-The below endpoint can be used to generate authentication token to access other API endpoints.
+The below POST endpoint can be used to generate authentication token to access other API endpoints.
 ```
-/v1/auth/token
+/auth/token
 ```
+The below GET endpoint can be used to GET API Version -> USDM Version mapping.
+```
+/versions
+```
+
+### V1 Endpoints (USDM Version 1.0)
+
+For V1 endpoints, the "usdmVersion" header paramter is mandatory and the header value must be "1.0"
+
+**POST Endpoint**
+
 The below endpoint can be used to create new (or) update existing study definitions.
 ```
 /v1/studydefinitions
@@ -184,17 +211,46 @@ The below endpoint can be used to fetch the sections of study design for a given
 ​/v1​/studydesign​s?study_uuid={studyId}
 ```
 
+### V2 Endpoints (USDM Version 1.9)
 
-The below endpoint can be used to fetch the audit trail for a given StudyId.
+For V2 endpoints, the "usdmVersion" header paramter is mandatory and the header value must be "1.9"
+
+**POST Endpoint**
+The below endpoint can be used to create new (or) update existing study definitions.
+```
+/v2/studydefinitions
+```
+**PUT Endpoint**
+The below endpoint can be used to create new (or) update existing study definitions.
+```
+/v2/studydefinitions/{studyId}
+```
+**GET Endpoints**
+
+The below endpoint can be used to fetch all the elements for a given StudyId.
 
 ```
-/v1​/audittrail​/{studyId}
+/v2/studydefinitions/{studyId}
+```
+
+The below endpoint can be used to fetch the sections of study design for a given StudyId.
+
+```
+​/v2​/studydesign​s?study_uuid={studyId}
+```
+
+### Version Neutral Endpoints
+
+The below endpoints can be used to fetch the audit trail for a given StudyId.
+
+```
+studydefinitions/{studyId}/audittrail
 ```
 
 The below endpoint can be used to fetch basic details of all study definitions in SDR.
 
 ```
-/v1/studydefinitions/studyhistory
+/studydefinitions/studyhistory
 ```
 
 To view the API specifications and to run the endpoints locally, the below swagger url can be used.
@@ -239,3 +295,13 @@ https://localhost:44358/swagger/index.html
 16. **Microsoft.AspNetCore.Authorization** - Used for API Authorization
 
 17. **Vsxmd** - Used for Converting xml comments into markdown file
+
+18. **ObjectsComparer** - Used for comparing two objects of same type and return the differences
+
+19. **Azure.Messaging.ServiceBus** - Used for sending messages in the service bus queue
+
+20. **Microsoft.NET.Sdk.Functions** - SDK for Azure Funtions
+
+21. **Microsoft.AspNetCore.Mvc.Versioning** - Used for API Versioning
+
+22. **Azure.Extensions.AspNetCore.Configuration.Secrets** - Used to get values from Key vault
