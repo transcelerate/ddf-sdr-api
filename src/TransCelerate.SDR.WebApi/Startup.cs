@@ -1,3 +1,5 @@
+using Azure.Messaging.ServiceBus;
+using Moq;
 using FluentValidation.AspNetCore;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -7,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.Azure.ServiceBus.Core;
 using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -157,8 +160,16 @@ namespace TransCelerate.SDR.WebApi
             });
             services.AddAzureClients(clients =>
             {
-                clients.AddServiceBusClient(Config.AzureServiceBusConnectionString);
+                if(!String.IsNullOrWhiteSpace(Config.AzureServiceBusConnectionString))
+                {
+                    clients.AddServiceBusClient(Config.AzureServiceBusConnectionString);
+                }
             });
+            //The below service dependency will be added only if there is no connection string in the configuration for Azure Service Bus
+            if (String.IsNullOrWhiteSpace(Config.AzureServiceBusConnectionString))
+            {
+                services.AddTransient<ServiceBusClient>(x => Mock.Of<ServiceBusClient>());
+            }
         }
 
         /// <summary>

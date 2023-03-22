@@ -624,11 +624,15 @@ namespace TransCelerate.SDR.Services.Services
         #region Azure ServiceBus
         private async Task PushMessageToServiceBus(ServiceBusMessageDto serviceBusMessageDto)
         {
-            ServiceBusSender sender = _serviceBusClient.CreateSender(Config.AzureServiceBusQueueName);
+            //Execute the service bus only when Service Bus ConnectionString and Queue name are available in the configuration
+            if (!String.IsNullOrWhiteSpace(Config.AzureServiceBusConnectionString) && !String.IsNullOrWhiteSpace(Config.AzureServiceBusQueueName))
+            {
+                ServiceBusSender sender = _serviceBusClient.CreateSender(Config.AzureServiceBusQueueName);
 
-            string jsonMessageString = JsonConvert.SerializeObject(serviceBusMessageDto);
-            ServiceBusMessage serializedMessage = new(jsonMessageString);
-            await sender.SendMessageAsync(serializedMessage);
+                string jsonMessageString = JsonConvert.SerializeObject(serviceBusMessageDto);
+                ServiceBusMessage serializedMessage = new(jsonMessageString);
+                await sender.SendMessageAsync(serializedMessage);
+            }
         }
         #endregion
         #endregion
