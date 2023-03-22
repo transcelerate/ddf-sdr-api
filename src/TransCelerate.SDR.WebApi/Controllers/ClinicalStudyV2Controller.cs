@@ -252,6 +252,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="404">The Audit trail for the study is Not Found</response>
         [HttpGet]
         [Route(Route.AuditTrailV2)]
+        [NonAction]
         [ApiVersionNeutral]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IEnumerable<AudiTrailResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
@@ -321,6 +322,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [HttpGet]
         [Route(Route.StudyHistoryV2)]
         [ApiVersionNeutral]
+        [NonAction]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyHistoryResponseDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
