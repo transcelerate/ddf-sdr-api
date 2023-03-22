@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
-using Microsoft.Azure.ServiceBus.Core;
 using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -215,7 +214,7 @@ namespace TransCelerate.SDR.WebApi
                     {
                         if (String.IsNullOrWhiteSpace(context.Response.Headers["Content-Type"]))
                             context.Response.Headers.Add("Content-Type", "application/json");
-                        await context.Response.WriteAsync(JsonConvert.SerializeObject(ErrorResponseHelper.BadRequest(usdmVersionValidationErrors)));
+                        await context.Response.WriteAsync(JsonConvert.SerializeObject(ErrorResponseHelper.BadRequest(usdmVersionValidationErrors), new JsonSerializerSettings { ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver() }));
                         return;
                     }
                     using (StreamReader reader = new(context.Request.Body))
@@ -244,7 +243,7 @@ namespace TransCelerate.SDR.WebApi
                     context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     logger.LogError("Exception Occurred: {ex}", ex);
                     logger.LogInformation("Status Code: {statusCode}; URL: {path}; AuthToken: {token}", context.Response.StatusCode, context.Request.Path, context.Request.Headers["Authorization"]);
-                    await context.Response.WriteAsync(JsonConvert.SerializeObject(ErrorResponseHelper.ErrorResponseModel(ex)));
+                    await context.Response.WriteAsync(JsonConvert.SerializeObject(ErrorResponseHelper.ErrorResponseModel(ex), new JsonSerializerSettings { ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver() }));
                 }
             });
 
