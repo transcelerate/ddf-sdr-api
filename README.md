@@ -51,6 +51,7 @@ StudyDefinitionsV1
 Groups
 ChangeAudit
 ```
+3. A Service Bus Queue must be created for running Azure Function.
 
 ## How to setup code
 
@@ -63,7 +64,8 @@ git clone "repo_url"
 
 ## How To Run
 
-1. For running the code locally, take a copy of appsettings.json file and rename the copied file to appsettings.Development.json file in the root folder of TransCelerate.SDR.WebApi project.
+**API** 
+1. For running the API code locally, take a copy of appsettings.json file and rename the copied file to appsettings.Development.json file in the root folder of TransCelerate.SDR.WebApi project.
 
 2. Edit the appsettings.Development.json and add the values for below mentioned settings.
 
@@ -86,6 +88,33 @@ git clone "repo_url"
 
 4. The browser will automatically open the Swagger UI having the SDR API specifications.
 
+**Azure Function**
+1. For running the Azure Function locally, a local.settings.json file must be created and must be copied to the root folder of TransCelerate.SDR.AzureFunctions project.
+
+2. Edit the local.settings.json and add the values for below mentioned settings.
+
+```
+
+  "Values": {    
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+    
+    "AzureServiceBusConnectionString": "Azure Service Bus Connection String here",
+    
+    "AzureServiceBusQueueName": "Queue Name here",
+    
+    "ConnectionStrings:ServerName": "mongodb+sre://SDRADMIN:KasdeafsfhttDxaqj@study.cph52.mongodb.net/db",
+    
+    "ConnectionStrings:DatabaseName": "Database Name here",
+    
+    "ApiVersionUsdmVersionMapping": "", //Api Version -> USDM Version Mapping JSON must be converted to JSON String and should be added
+  }
+```
+
+3. Then, In the Visual Studio IDE, select TransCelerate.SDR.AzureFunctions project on the startup project and click Start.
+
+4. The browser will automatically open a console which will start listen on the Azure Service Bus Queue.
 
 # Base solution structure
 
@@ -307,3 +336,7 @@ https://localhost:44358/swagger/index.html
 21. **Microsoft.AspNetCore.Mvc.Versioning** - Used for API Versioning
 
 22. **Azure.Extensions.AspNetCore.Configuration.Secrets** - Used to get values from Key vault
+
+23. **JsonSubTypes** - Used to Serialize/Deserialize the inherited classes.
+
+24. **Microsoft.Identity.Web.MicrosoftGraph** - Used to connect with Azure AD and list the users available
