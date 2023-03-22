@@ -286,6 +286,7 @@ The below endpoint can be used to fetch basic details of all study definitions i
 /studydefinitions/studyhistory
 ```
 
+### API Spec
 To view the API specifications and to run the endpoints locally, the below swagger url can be used.
 
 ```
