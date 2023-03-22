@@ -49,7 +49,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                         }
                     }
                 }
-                return jsonObject;
+                return JsonConvert.DeserializeObject(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<ExpandoObject>(JsonConvert.SerializeObject(jsonObject)), new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() }));
             }
             catch (Exception)
             {
@@ -104,7 +104,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     }
                 }
 
-                return jsonObject;
+                return JsonConvert.DeserializeObject(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<ExpandoObject>(JsonConvert.SerializeObject(jsonObject)), new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() })); ;
             }
             catch (Exception)
             {
