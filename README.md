@@ -71,7 +71,8 @@ git clone "repo_url"
 
 ```
 "ConnectionStrings": {
-    "ServerName": "mongodb+sre://SDRADMIN:KasdeafsfhttDxaqj@study.cph52.mongodb.net/db", //Database connection string here
+    //Database connection string here
+    "ServerName": "mongodb+sre://SDRADMIN:KasdeafsfhttDxaqj@study.cph52.mongodb.net/db", 
     "DatabaseName": "Database Name here"
  },
 "StudyHistory": {
@@ -104,7 +105,8 @@ git clone "repo_url"
     
     "AzureServiceBusQueueName": "Queue Name here",
     
-    "ConnectionStrings:ServerName": "mongodb+sre://SDRADMIN:KasdeafsfhttDxaqj@study.cph52.mongodb.net/db",//Database connection string here
+    //Database connection string here
+    "ConnectionStrings:ServerName": "mongodb+sre://SDRADMIN:KasdeafsfhttDxaqj@study.cph52.mongodb.net/db",
     
     "ConnectionStrings:DatabaseName": "Database Name here",
     
