@@ -44,7 +44,7 @@ For those looking to evaluate the USDM with a sample data set, please see the fo
 
 1. Install [Visual Studio 2022](https://visualstudio.microsoft.com/) with default options to run the solution.
 
-2. Create a Mongo DB(or equivalent) with two collections with names mentioned below.
+2. Create a Mongo DB(or equivalent) with four collections with names mentioned below.
 ```
 StudyDefinitions
 StudyDefinitionsV1
@@ -71,7 +71,7 @@ git clone "repo_url"
 
 ```
 "ConnectionStrings": {
-    "ServerName": "mongodb+sre://SDRADMIN:KasdeafsfhttDxaqj@study.cph52.mongodb.net/db",
+    "ServerName": "mongodb+sre://SDRADMIN:KasdeafsfhttDxaqj@study.cph52.mongodb.net/db", //Database connection string here
     "DatabaseName": "Database Name here"
  },
 "StudyHistory": {
@@ -104,7 +104,7 @@ git clone "repo_url"
     
     "AzureServiceBusQueueName": "Queue Name here",
     
-    "ConnectionStrings:ServerName": "mongodb+sre://SDRADMIN:KasdeafsfhttDxaqj@study.cph52.mongodb.net/db",
+    "ConnectionStrings:ServerName": "mongodb+sre://SDRADMIN:KasdeafsfhttDxaqj@study.cph52.mongodb.net/db",//Database connection string here
     
     "ConnectionStrings:DatabaseName": "Database Name here",
     
@@ -247,12 +247,12 @@ The below endpoint can be used to fetch the sections of study design for a given
 For V2 endpoints, the "usdmVersion" header paramter is mandatory and the header value must be "1.9"
 
 **POST Endpoint**
-The below endpoint can be used to create new (or) update existing study definitions.
+The below endpoint can be used to create new study definitions.
 ```
 /v2/studydefinitions
 ```
 **PUT Endpoint**
-The below endpoint can be used to create new (or) update existing study definitions.
+The below endpoint can be used to update existing study definitions (create new version for a study definition).
 ```
 /v2/studydefinitions/{studyId}
 ```
@@ -275,7 +275,7 @@ The below endpoint can be used to fetch the sections of study design for a given
 The below endpoints can be used to fetch the audit trail for a given StudyId.
 
 ```
-studydefinitions/{studyId}/audittrail
+/studydefinitions/{studyId}/audittrail
 ```
 
 The below endpoint can be used to fetch basic details of all study definitions in SDR.
