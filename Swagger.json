@@ -5,10 +5,64 @@
 		"version": "v1"
 	},
 	"paths": {
+		"/studydefinitions/{studyId}/changeaudit": {
+			"get": {
+				"tags": [
+					"ChangeAudit"
+				],
+				"summary": "GET All Elements For a Study",
+				"parameters": [
+					{
+						"name": "studyId",
+						"in": "path",
+						"description": "Study ID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns Change Audit",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StudyV2.Study"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "The Access for Study is Forbidden"
+					},
+					"404": {
+						"description": "The Study for the studyId is Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/v1/studydefinitions/{studyId}": {
 			"get": {
 				"tags": [
-					"ClinicalStudyV1"
+					"ClinicalStudyV"
 				],
 				"summary": "GET All Elements For a Study",
 				"parameters": [
@@ -29,6 +83,15 @@
 							"type": "integer",
 							"format": "int32"
 						}
+					},
+					{
+						"name": "usdmVersion",
+						"in": "header",
+						"description": "usdmVersion",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
 					}
 				],
 				"responses": {
@@ -37,7 +100,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/StudyDto"
+									"$ref": "#/components/schemas/StudyV1.Study"
 								}
 							}
 						}
@@ -47,7 +110,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -57,7 +120,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -68,7 +131,7 @@
 		"/v1/studydesigns": {
 			"get": {
 				"tags": [
-					"ClinicalStudyV1"
+					"ClinicalStudyV"
 				],
 				"summary": "GET Study Designs of a Study",
 				"parameters": [
@@ -88,6 +151,15 @@
 							"type": "integer",
 							"format": "int32"
 						}
+					},
+					{
+						"name": "usdmVersion",
+						"in": "header",
+						"description": "USDM Version",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
 					}
 				],
 				"responses": {
@@ -96,7 +168,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/StudyDto"
+									"$ref": "#/components/schemas/StudyV1.Study"
 								}
 							}
 						}
@@ -106,7 +178,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -116,7 +188,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -127,7 +199,7 @@
 		"/v1/audittrail/{studyId}": {
 			"get": {
 				"tags": [
-					"ClinicalStudyV1"
+					"ClinicalStudyV"
 				],
 				"summary": "GET Audit Trail of a study",
 				"parameters": [
@@ -167,7 +239,7 @@
 								"schema": {
 									"type": "array",
 									"items": {
-										"$ref": "#/components/schemas/AudiTrailResponseDto"
+										"$ref": "#/components/schemas/StudyV1.AudiTrailResponse"
 									}
 								}
 							}
@@ -178,7 +250,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -188,7 +260,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -199,7 +271,7 @@
 		"/v1/studydefinitions/history": {
 			"get": {
 				"tags": [
-					"ClinicalStudyV1"
+					"ClinicalStudyV"
 				],
 				"summary": "Get All StudyId's in the database",
 				"parameters": [
@@ -236,7 +308,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/StudyHistoryResponseDto"
+									"$ref": "#/components/schemas/StudyV1.StudyHistoryResponse"
 								}
 							}
 						}
@@ -246,7 +318,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -256,7 +328,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -267,30 +339,41 @@
 		"/v1/studydefinitions": {
 			"post": {
 				"tags": [
-					"ClinicalStudyV1"
+					"ClinicalStudyV"
 				],
 				"summary": "POST All Elements For a Study",
+				"parameters": [
+					{
+						"name": "usdmVersion",
+						"in": "header",
+						"description": "USDM Version",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
 				"requestBody": {
 					"description": "Study for Inserting/Updating in Database",
 					"content": {
 						"application/json-patch+json": {
 							"schema": {
-								"$ref": "#/components/schemas/StudyDto"
+								"$ref": "#/components/schemas/StudyV1.Study"
 							}
 						},
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/StudyDto"
+								"$ref": "#/components/schemas/StudyV1.Study"
 							}
 						},
 						"text/json": {
 							"schema": {
-								"$ref": "#/components/schemas/StudyDto"
+								"$ref": "#/components/schemas/StudyV1.Study"
 							}
 						},
 						"application/*+json": {
 							"schema": {
-								"$ref": "#/components/schemas/StudyDto"
+								"$ref": "#/components/schemas/StudyV1.Study"
 							}
 						}
 					}
@@ -301,7 +384,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/StudyDto"
+									"$ref": "#/components/schemas/StudyV1.Study"
 								}
 							}
 						}
@@ -311,7 +394,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -322,7 +405,7 @@
 		"/v1/search": {
 			"post": {
 				"tags": [
-					"ClinicalStudyV1"
+					"ClinicalStudyV"
 				],
 				"summary": "Search For a Study",
 				"requestBody": {
@@ -330,22 +413,22 @@
 					"content": {
 						"application/json-patch+json": {
 							"schema": {
-								"$ref": "#/components/schemas/SearchParametersDto"
+								"$ref": "#/components/schemas/StudyV1.SearchParameters"
 							}
 						},
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/SearchParametersDto"
+								"$ref": "#/components/schemas/StudyV1.SearchParameters"
 							}
 						},
 						"text/json": {
 							"schema": {
-								"$ref": "#/components/schemas/SearchParametersDto"
+								"$ref": "#/components/schemas/StudyV1.SearchParameters"
 							}
 						},
 						"application/*+json": {
 							"schema": {
-								"$ref": "#/components/schemas/SearchParametersDto"
+								"$ref": "#/components/schemas/StudyV1.SearchParameters"
 							}
 						}
 					}
@@ -358,7 +441,7 @@
 								"schema": {
 									"type": "array",
 									"items": {
-										"$ref": "#/components/schemas/StudyDto"
+										"$ref": "#/components/schemas/StudyV1.Study"
 									}
 								}
 							}
@@ -369,7 +452,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -379,7 +462,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -390,7 +473,7 @@
 		"/v1/searchstudytitle": {
 			"post": {
 				"tags": [
-					"ClinicalStudyV1"
+					"ClinicalStudyV"
 				],
 				"summary": "Search For a Study",
 				"requestBody": {
@@ -398,22 +481,22 @@
 					"content": {
 						"application/json-patch+json": {
 							"schema": {
-								"$ref": "#/components/schemas/SearchTitleParametersDto"
+								"$ref": "#/components/schemas/StudyV1.SearchTitleParameters"
 							}
 						},
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/SearchTitleParametersDto"
+								"$ref": "#/components/schemas/StudyV1.SearchTitleParameters"
 							}
 						},
 						"text/json": {
 							"schema": {
-								"$ref": "#/components/schemas/SearchTitleParametersDto"
+								"$ref": "#/components/schemas/StudyV1.SearchTitleParameters"
 							}
 						},
 						"application/*+json": {
 							"schema": {
-								"$ref": "#/components/schemas/SearchTitleParametersDto"
+								"$ref": "#/components/schemas/StudyV1.SearchTitleParameters"
 							}
 						}
 					}
@@ -426,7 +509,7 @@
 								"schema": {
 									"type": "array",
 									"items": {
-										"$ref": "#/components/schemas/StudyDto"
+										"$ref": "#/components/schemas/StudyV1.Study"
 									}
 								}
 							}
@@ -437,7 +520,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -447,7 +530,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -455,7 +538,915 @@
 				}
 			}
 		},
-		"/v1/reports/usage": {
+		"/v2/studydefinitions/{studyId}": {
+			"get": {
+				"tags": [
+					"ClinicalStudyV"
+				],
+				"summary": "GET All Elements For a Study",
+				"parameters": [
+					{
+						"name": "studyId",
+						"in": "path",
+						"description": "Study ID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "sdruploadversion",
+						"in": "query",
+						"description": "Version of study",
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "listofelements",
+						"in": "query",
+						"description": "List of elements with comma separated values",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "usdmVersion",
+						"in": "header",
+						"description": "usdm-vreison header",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns Study",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StudyV2.Study"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "The Study for the studyId is Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"ClinicalStudyV"
+				],
+				"summary": "POST/PUT All Elements For a Study",
+				"parameters": [
+					{
+						"name": "studyId",
+						"in": "path",
+						"description": "USDM Version",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "usdmVersion",
+						"in": "header",
+						"description": "USDM Version",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "Study for Inserting/Updating in Database",
+					"content": {
+						"application/json-patch+json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV2.Study"
+							}
+						},
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV2.Study"
+							}
+						},
+						"text/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV2.Study"
+							}
+						},
+						"application/*+json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV2.Study"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "Study Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StudyV2.Study"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"ClinicalStudyV"
+				],
+				"summary": "Delete a Study",
+				"parameters": [
+					{
+						"name": "studyId",
+						"in": "path",
+						"description": "Study ID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Deleted all versions of Study with the mentioned studyId",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StudyV2.Study"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "The Study for the studyId is Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v2/studydesigns": {
+			"get": {
+				"tags": [
+					"ClinicalStudyV"
+				],
+				"summary": "GET Study Designs of a Study",
+				"parameters": [
+					{
+						"name": "study_uuid",
+						"in": "query",
+						"description": "Study ID",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "sdruploadversion",
+						"in": "query",
+						"description": "Version of study",
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "studydesign_uuid",
+						"in": "query",
+						"description": "Study Design ID",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "listofelements",
+						"in": "query",
+						"description": "List of study design elements with comma separated values",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "usdmVersion",
+						"in": "header",
+						"description": "USDM Version",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns Study",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StudyV2.Study"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "The Study for the studyId is Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v2/studydefinitions/{studyId}/studydesigns/soa": {
+			"get": {
+				"tags": [
+					"ClinicalStudyV"
+				],
+				"summary": "GET SoA For a Study",
+				"parameters": [
+					{
+						"name": "studyId",
+						"in": "path",
+						"description": "Study ID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "studyDesignId",
+						"in": "query",
+						"description": "Study Design ID",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "studyWorkflowId",
+						"in": "query",
+						"description": "WorkflowId",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "sdruploadversion",
+						"in": "query",
+						"description": "Version of study",
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns Study",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StudyV2.Study"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "The Study for the studyId is Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v2/studydefinitions": {
+			"post": {
+				"tags": [
+					"ClinicalStudyV"
+				],
+				"summary": "POST/PUT All Elements For a Study",
+				"parameters": [
+					{
+						"name": "usdmVersion",
+						"in": "header",
+						"description": "USDM Version",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "Study for Inserting/Updating in Database",
+					"content": {
+						"application/json-patch+json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV2.Study"
+							}
+						},
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV2.Study"
+							}
+						},
+						"text/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV2.Study"
+							}
+						},
+						"application/*+json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV2.Study"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "Study Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StudyV2.Study"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/studydefinitions/{studyId}/rawdata": {
+			"get": {
+				"tags": [
+					"Common"
+				],
+				"summary": "GET All Elements For a Study",
+				"parameters": [
+					{
+						"name": "studyId",
+						"in": "path",
+						"description": "Study ID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "sdruploadversion",
+						"in": "query",
+						"description": "Version of study",
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns Study"
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "The Study for the studyId is Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/studyDefinitions/{studyId}/studydesigns/eCPT": {
+			"get": {
+				"tags": [
+					"Common"
+				],
+				"summary": "GET All Elements For a Study",
+				"parameters": [
+					{
+						"name": "studyId",
+						"in": "path",
+						"description": "Study ID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "sdruploadversion",
+						"in": "query",
+						"description": "Version of study",
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "studydesignId",
+						"in": "query",
+						"description": "studyDesignId",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns Study"
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "The Study for the studyId is Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/versions": {
+			"get": {
+				"tags": [
+					"Common"
+				],
+				"summary": "GET API -> USDM Version Mapping",
+				"responses": {
+					"200": {
+						"description": "API -> USDM Version Mapping",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Utilities.Common.ApiUsdmVersionMapping"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/studydefinitions/{studyId}/audittrail": {
+			"get": {
+				"tags": [
+					"Common"
+				],
+				"summary": "GET Audit Trail of a study",
+				"parameters": [
+					{
+						"name": "studyId",
+						"in": "path",
+						"description": "Study ID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "fromDate",
+						"in": "query",
+						"description": "Start Date for Date Filter",
+						"schema": {
+							"type": "string",
+							"format": "date-time"
+						}
+					},
+					{
+						"name": "toDate",
+						"in": "query",
+						"description": "End Date for Date Filter",
+						"schema": {
+							"type": "string",
+							"format": "date-time"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns a list of Audit Trail of a study",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Common.AuditTrailResponse"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "The Audit trail for the study is Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/studydefinitions/history": {
+			"get": {
+				"tags": [
+					"Common"
+				],
+				"summary": "Get All StudyId's in the database",
+				"parameters": [
+					{
+						"name": "fromDate",
+						"in": "query",
+						"description": "Start Date for Date Filter",
+						"schema": {
+							"type": "string",
+							"format": "date-time"
+						}
+					},
+					{
+						"name": "toDate",
+						"in": "query",
+						"description": "End Date for Date Filter",
+						"schema": {
+							"type": "string",
+							"format": "date-time"
+						}
+					},
+					{
+						"name": "studyTitle",
+						"in": "query",
+						"description": "Study Title Filter",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns All Study Id's",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Common.StudyHistoryResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "There is no study",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/studydefinitions/{studyId}/links": {
+			"get": {
+				"tags": [
+					"Common"
+				],
+				"summary": "GET Links",
+				"parameters": [
+					{
+						"name": "studyId",
+						"in": "path",
+						"description": "Study ID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "sdruploadversion",
+						"in": "query",
+						"description": "Version of study",
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns Study"
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "The Study for the studyId is Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/studydefinitions/search": {
+			"post": {
+				"tags": [
+					"Common"
+				],
+				"summary": "Search For a Study",
+				"requestBody": {
+					"description": "Parameters to search in database",
+					"content": {
+						"application/json-patch+json": {
+							"schema": {
+								"$ref": "#/components/schemas/Common.SearchParameters"
+							}
+						},
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Common.SearchParameters"
+							}
+						},
+						"text/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Common.SearchParameters"
+							}
+						},
+						"application/*+json": {
+							"schema": {
+								"$ref": "#/components/schemas/Common.SearchParameters"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Returns All Study that matches the search criteria",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Common.SearchResponse"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "There is no study that matches the search criteria",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/studydefinitions/searchstudytitle": {
+			"post": {
+				"tags": [
+					"Common"
+				],
+				"summary": "Search For a Study",
+				"requestBody": {
+					"description": "Parameters to search in database",
+					"content": {
+						"application/json-patch+json": {
+							"schema": {
+								"$ref": "#/components/schemas/Common.SearchTitleParameters"
+							}
+						},
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Common.SearchTitleParameters"
+							}
+						},
+						"text/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Common.SearchTitleParameters"
+							}
+						},
+						"application/*+json": {
+							"schema": {
+								"$ref": "#/components/schemas/Common.SearchTitleParameters"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Returns All Study that matches the search criteria",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Common.SearchTitleResponse"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "There is no study that matches the search criteria",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/reports/usage": {
 			"post": {
 				"tags": [
 					"Reports"
@@ -465,22 +1456,22 @@
 					"content": {
 						"application/json-patch+json": {
 							"schema": {
-								"$ref": "#/components/schemas/ReportBodyParameters"
+								"$ref": "#/components/schemas/Reports.ReportBodyParameters"
 							}
 						},
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/ReportBodyParameters"
+								"$ref": "#/components/schemas/Reports.ReportBodyParameters"
 							}
 						},
 						"text/json": {
 							"schema": {
-								"$ref": "#/components/schemas/ReportBodyParameters"
+								"$ref": "#/components/schemas/Reports.ReportBodyParameters"
 							}
 						},
 						"application/*+json": {
 							"schema": {
-								"$ref": "#/components/schemas/ReportBodyParameters"
+								"$ref": "#/components/schemas/Reports.ReportBodyParameters"
 							}
 						}
 					}
@@ -493,7 +1484,7 @@
 								"schema": {
 									"type": "array",
 									"items": {
-										"$ref": "#/components/schemas/SystemUsageReportDTO"
+										"$ref": "#/components/schemas/Reports.SystemUsageReport"
 									}
 								}
 							},
@@ -501,7 +1492,7 @@
 								"schema": {
 									"type": "array",
 									"items": {
-										"$ref": "#/components/schemas/SystemUsageReportDTO"
+										"$ref": "#/components/schemas/Reports.SystemUsageReport"
 									}
 								}
 							},
@@ -509,7 +1500,7 @@
 								"schema": {
 									"type": "array",
 									"items": {
-										"$ref": "#/components/schemas/SystemUsageReportDTO"
+										"$ref": "#/components/schemas/Reports.SystemUsageReport"
 									}
 								}
 							}
@@ -520,17 +1511,17 @@
 						"content": {
 							"text/plain": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"text/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -540,17 +1531,17 @@
 						"content": {
 							"text/plain": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"text/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -569,22 +1560,22 @@
 					"content": {
 						"application/json-patch+json": {
 							"schema": {
-								"$ref": "#/components/schemas/UserLogin"
+								"$ref": "#/components/schemas/Token.UserLogin"
 							}
 						},
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/UserLogin"
+								"$ref": "#/components/schemas/Token.UserLogin"
 							}
 						},
 						"text/json": {
 							"schema": {
-								"$ref": "#/components/schemas/UserLogin"
+								"$ref": "#/components/schemas/Token.UserLogin"
 							}
 						},
 						"application/*+json": {
 							"schema": {
-								"$ref": "#/components/schemas/UserLogin"
+								"$ref": "#/components/schemas/Token.UserLogin"
 							}
 						}
 					}
@@ -599,7 +1590,48 @@
 				}
 			}
 		},
-		"/v1/usergroups/getgroups": {
+		"/auth/token": {
+			"post": {
+				"tags": [
+					"Token"
+				],
+				"summary": "GET Token for accessing API's",
+				"requestBody": {
+					"description": "logging user details",
+					"content": {
+						"application/json-patch+json": {
+							"schema": {
+								"$ref": "#/components/schemas/Token.UserLogin"
+							}
+						},
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Token.UserLogin"
+							}
+						},
+						"text/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Token.UserLogin"
+							}
+						},
+						"application/*+json": {
+							"schema": {
+								"$ref": "#/components/schemas/Token.UserLogin"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Returns Token"
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
+		"/usergroups/getgroups": {
 			"post": {
 				"tags": [
 					"UserGroups"
@@ -609,22 +1641,22 @@
 					"content": {
 						"application/json-patch+json": {
 							"schema": {
-								"$ref": "#/components/schemas/UserGroupsQueryParameters"
+								"$ref": "#/components/schemas/UserGroups.UserGroupsQueryParameters"
 							}
 						},
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/UserGroupsQueryParameters"
+								"$ref": "#/components/schemas/UserGroups.UserGroupsQueryParameters"
 							}
 						},
 						"text/json": {
 							"schema": {
-								"$ref": "#/components/schemas/UserGroupsQueryParameters"
+								"$ref": "#/components/schemas/UserGroups.UserGroupsQueryParameters"
 							}
 						},
 						"application/*+json": {
 							"schema": {
-								"$ref": "#/components/schemas/UserGroupsQueryParameters"
+								"$ref": "#/components/schemas/UserGroups.UserGroupsQueryParameters"
 							}
 						}
 					}
@@ -635,17 +1667,17 @@
 						"content": {
 							"text/plain": {
 								"schema": {
-									"$ref": "#/components/schemas/UserGroupMappingDTO"
+									"$ref": "#/components/schemas/UserGroups.UserGroupMapping"
 								}
 							},
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/UserGroupMappingDTO"
+									"$ref": "#/components/schemas/UserGroups.UserGroupMapping"
 								}
 							},
 							"text/json": {
 								"schema": {
-									"$ref": "#/components/schemas/UserGroupMappingDTO"
+									"$ref": "#/components/schemas/UserGroups.UserGroupMapping"
 								}
 							}
 						}
@@ -655,17 +1687,17 @@
 						"content": {
 							"text/plain": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"text/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -675,17 +1707,17 @@
 						"content": {
 							"text/plain": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"text/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -693,7 +1725,7 @@
 				}
 			}
 		},
-		"/v1/usergroups/getusers": {
+		"/usergroups/getusers": {
 			"post": {
 				"tags": [
 					"UserGroups"
@@ -703,22 +1735,22 @@
 					"content": {
 						"application/json-patch+json": {
 							"schema": {
-								"$ref": "#/components/schemas/UserGroupsQueryParameters"
+								"$ref": "#/components/schemas/UserGroups.UserGroupsQueryParameters"
 							}
 						},
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/UserGroupsQueryParameters"
+								"$ref": "#/components/schemas/UserGroups.UserGroupsQueryParameters"
 							}
 						},
 						"text/json": {
 							"schema": {
-								"$ref": "#/components/schemas/UserGroupsQueryParameters"
+								"$ref": "#/components/schemas/UserGroups.UserGroupsQueryParameters"
 							}
 						},
 						"application/*+json": {
 							"schema": {
-								"$ref": "#/components/schemas/UserGroupsQueryParameters"
+								"$ref": "#/components/schemas/UserGroups.UserGroupsQueryParameters"
 							}
 						}
 					}
@@ -731,7 +1763,7 @@
 								"schema": {
 									"type": "array",
 									"items": {
-										"$ref": "#/components/schemas/UsersDTO"
+										"$ref": "#/components/schemas/UserGroups.Users"
 									}
 								}
 							},
@@ -739,7 +1771,7 @@
 								"schema": {
 									"type": "array",
 									"items": {
-										"$ref": "#/components/schemas/UsersDTO"
+										"$ref": "#/components/schemas/UserGroups.Users"
 									}
 								}
 							},
@@ -747,7 +1779,7 @@
 								"schema": {
 									"type": "array",
 									"items": {
-										"$ref": "#/components/schemas/UsersDTO"
+										"$ref": "#/components/schemas/UserGroups.Users"
 									}
 								}
 							}
@@ -758,17 +1790,17 @@
 						"content": {
 							"text/plain": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"text/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -778,17 +1810,17 @@
 						"content": {
 							"text/plain": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"text/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -796,7 +1828,7 @@
 				}
 			}
 		},
-		"/v1/usergroups/getgrouplist": {
+		"/usergroups/getgrouplist": {
 			"get": {
 				"tags": [
 					"UserGroups"
@@ -810,7 +1842,7 @@
 								"schema": {
 									"type": "array",
 									"items": {
-										"$ref": "#/components/schemas/UsersDTO"
+										"$ref": "#/components/schemas/UserGroups.Users"
 									}
 								}
 							},
@@ -818,7 +1850,7 @@
 								"schema": {
 									"type": "array",
 									"items": {
-										"$ref": "#/components/schemas/UsersDTO"
+										"$ref": "#/components/schemas/UserGroups.Users"
 									}
 								}
 							},
@@ -826,7 +1858,7 @@
 								"schema": {
 									"type": "array",
 									"items": {
-										"$ref": "#/components/schemas/UsersDTO"
+										"$ref": "#/components/schemas/UserGroups.Users"
 									}
 								}
 							}
@@ -837,17 +1869,17 @@
 						"content": {
 							"text/plain": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"text/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -857,17 +1889,17 @@
 						"content": {
 							"text/plain": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"text/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -875,7 +1907,7 @@
 				}
 			}
 		},
-		"/v1/usergroups/listusers": {
+		"/usergroups/listusers": {
 			"get": {
 				"tags": [
 					"UserGroups"
@@ -901,17 +1933,17 @@
 						"content": {
 							"text/plain": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"text/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -921,17 +1953,17 @@
 						"content": {
 							"text/plain": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"text/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -939,7 +1971,7 @@
 				}
 			}
 		},
-		"/v1/usergroups/checkgroupname": {
+		"/usergroups/checkgroupname": {
 			"get": {
 				"tags": [
 					"UserGroups"
@@ -974,17 +2006,17 @@
 						"content": {
 							"text/plain": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"text/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -994,17 +2026,17 @@
 						"content": {
 							"text/plain": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"text/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -1012,7 +2044,7 @@
 				}
 			}
 		},
-		"/v1/usergroups/postgroup": {
+		"/usergroups/postgroup": {
 			"post": {
 				"tags": [
 					"UserGroups"
@@ -1023,22 +2055,22 @@
 					"content": {
 						"application/json-patch+json": {
 							"schema": {
-								"$ref": "#/components/schemas/SDRGroupsDTO"
+								"$ref": "#/components/schemas/UserGroups.SDRGroups"
 							}
 						},
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/SDRGroupsDTO"
+								"$ref": "#/components/schemas/UserGroups.SDRGroups"
 							}
 						},
 						"text/json": {
 							"schema": {
-								"$ref": "#/components/schemas/SDRGroupsDTO"
+								"$ref": "#/components/schemas/UserGroups.SDRGroups"
 							}
 						},
 						"application/*+json": {
 							"schema": {
-								"$ref": "#/components/schemas/SDRGroupsDTO"
+								"$ref": "#/components/schemas/UserGroups.SDRGroups"
 							}
 						}
 					}
@@ -1049,17 +2081,17 @@
 						"content": {
 							"text/plain": {
 								"schema": {
-									"$ref": "#/components/schemas/UserGroupMappingDTO"
+									"$ref": "#/components/schemas/UserGroups.UserGroupMapping"
 								}
 							},
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/UserGroupMappingDTO"
+									"$ref": "#/components/schemas/UserGroups.UserGroupMapping"
 								}
 							},
 							"text/json": {
 								"schema": {
-									"$ref": "#/components/schemas/UserGroupMappingDTO"
+									"$ref": "#/components/schemas/UserGroups.UserGroupMapping"
 								}
 							}
 						}
@@ -1069,17 +2101,17 @@
 						"content": {
 							"text/plain": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"text/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -1089,17 +2121,17 @@
 						"content": {
 							"text/plain": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"text/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -1107,7 +2139,7 @@
 				}
 			}
 		},
-		"/v1/usergroups/postuser": {
+		"/usergroups/postuser": {
 			"post": {
 				"tags": [
 					"UserGroups"
@@ -1118,22 +2150,22 @@
 					"content": {
 						"application/json-patch+json": {
 							"schema": {
-								"$ref": "#/components/schemas/PostUserToGroupsDTO"
+								"$ref": "#/components/schemas/UserGroups.PostUserToGroups"
 							}
 						},
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/PostUserToGroupsDTO"
+								"$ref": "#/components/schemas/UserGroups.PostUserToGroups"
 							}
 						},
 						"text/json": {
 							"schema": {
-								"$ref": "#/components/schemas/PostUserToGroupsDTO"
+								"$ref": "#/components/schemas/UserGroups.PostUserToGroups"
 							}
 						},
 						"application/*+json": {
 							"schema": {
-								"$ref": "#/components/schemas/PostUserToGroupsDTO"
+								"$ref": "#/components/schemas/UserGroups.PostUserToGroups"
 							}
 						}
 					}
@@ -1144,17 +2176,17 @@
 						"content": {
 							"text/plain": {
 								"schema": {
-									"$ref": "#/components/schemas/UserGroupMappingDTO"
+									"$ref": "#/components/schemas/UserGroups.UserGroupMapping"
 								}
 							},
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/UserGroupMappingDTO"
+									"$ref": "#/components/schemas/UserGroups.UserGroupMapping"
 								}
 							},
 							"text/json": {
 								"schema": {
-									"$ref": "#/components/schemas/UserGroupMappingDTO"
+									"$ref": "#/components/schemas/UserGroups.UserGroupMapping"
 								}
 							}
 						}
@@ -1164,17 +2196,17 @@
 						"content": {
 							"text/plain": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"text/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -1184,17 +2216,17 @@
 						"content": {
 							"text/plain": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							},
 							"text/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ErrorModel"
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
 							}
 						}
@@ -1205,137 +2237,63 @@
 	},
 	"components": {
 		"schemas": {
-			"ActivityDto": {
-				"type": "object",
-				"properties": {
-					"uuid": {
-						"type": "string",
-						"nullable": true
-					},
-					"activityDesc": {
-						"type": "string",
-						"nullable": true
-					},
-					"activityName": {
-						"type": "string",
-						"nullable": true
-					},
-					"definedProcedures": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/DefinedProcedureDto"
-						},
-						"nullable": true
-					},
-					"nextActivityId": {
-						"type": "string",
-						"nullable": true
-					},
-					"previousActivityId": {
-						"type": "string",
-						"nullable": true
-					},
-					"studyDataCollection": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/StudyDataCollectionDto"
-						},
-						"nullable": true
-					}
-				},
-				"additionalProperties": false
-			},
-			"AnalysisPopulationDto": {
-				"type": "object",
-				"properties": {
-					"uuid": {
-						"type": "string",
-						"nullable": true
-					},
-					"population_desc": {
-						"type": "string",
-						"nullable": true
-					}
-				},
-				"additionalProperties": false
-			},
-			"AudiTrailResponseDto": {
-				"type": "object",
-				"properties": {
-					"uuid": {
-						"type": "string",
-						"nullable": true
-					},
-					"auditTrail": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/AuditTrailDto"
-						},
-						"nullable": true
-					}
-				},
-				"additionalProperties": false
-			},
-			"AuditTrailDto": {
+			"Common.AuditTrail": {
 				"type": "object",
 				"properties": {
 					"entryDateTime": {
 						"type": "string",
 						"format": "date-time"
 					},
-					"sdrUploadVersion": {
+					"usdmVersion": {
+						"type": "string",
+						"nullable": true
+					},
+					"SDRUploadVersion": {
 						"type": "integer",
 						"format": "int32"
 					}
 				},
 				"additionalProperties": false
 			},
-			"ClinicalStudyDto": {
+			"Common.AuditTrailResponse": {
 				"type": "object",
 				"properties": {
-					"uuid": {
+					"studyId": {
 						"type": "string",
 						"nullable": true
 					},
-					"studyTitle": {
-						"type": "string",
-						"nullable": true
-					},
-					"studyType": {
-						"$ref": "#/components/schemas/CodeDto"
-					},
-					"studyIdentifiers": {
+					"auditTrail": {
 						"type": "array",
 						"items": {
-							"$ref": "#/components/schemas/StudyIdentifierDto"
+							"$ref": "#/components/schemas/Common.AuditTrailResponseWithLinks"
 						},
-						"nullable": true
-					},
-					"studyPhase": {
-						"$ref": "#/components/schemas/CodeDto"
-					},
-					"studyProtocolVersions": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/StudyProtocolVersionDto"
-						},
-						"nullable": true
-					},
-					"studyDesigns": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/StudyDesignDto"
-						},
-						"nullable": true
-					},
-					"studyVersion": {
-						"type": "string",
 						"nullable": true
 					}
 				},
 				"additionalProperties": false
 			},
-			"CodeDto": {
+			"Common.AuditTrailResponseWithLinks": {
+				"type": "object",
+				"properties": {
+					"entryDateTime": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"usdmVersion": {
+						"type": "string",
+						"nullable": true
+					},
+					"SDRUploadVersion": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"links": {
+						"$ref": "#/components/schemas/Common.LinksForUI"
+					}
+				},
+				"additionalProperties": false
+			},
+			"Common.CommonCode": {
 				"type": "object",
 				"properties": {
 					"uuid": {
@@ -1361,403 +2319,159 @@
 				},
 				"additionalProperties": false
 			},
-			"DefinedProcedureDto": {
+			"Common.CommonOrganisation": {
 				"type": "object",
 				"properties": {
 					"uuid": {
 						"type": "string",
 						"nullable": true
 					},
-					"procedureCode": {
+					"organisationIdentifier": {
+						"type": "string",
+						"nullable": true
+					},
+					"organisationIdentifierScheme": {
+						"type": "string",
+						"nullable": true
+					},
+					"organisationName": {
+						"type": "string",
+						"nullable": true
+					},
+					"organisationType": {
+						"$ref": "#/components/schemas/Common.CommonCode"
+					}
+				},
+				"additionalProperties": false
+			},
+			"Common.CommonStudyDesign": {
+				"type": "object",
+				"properties": {
+					"interventionModel": {
 						"type": "array",
 						"items": {
-							"$ref": "#/components/schemas/CodeDto"
+							"$ref": "#/components/schemas/Common.CommonCode"
 						},
 						"nullable": true
 					},
-					"procedureType": {
-						"type": "string",
+					"studyIndications": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/Common.CommonStudyIndication"
+						},
 						"nullable": true
 					}
 				},
 				"additionalProperties": false
 			},
-			"EncounterDto": {
+			"Common.CommonStudyIdentifiers": {
 				"type": "object",
 				"properties": {
 					"uuid": {
 						"type": "string",
 						"nullable": true
 					},
-					"encounterContactMode": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/CodeDto"
-						},
-						"nullable": true
-					},
-					"encounterDesc": {
+					"studyIdentifier": {
 						"type": "string",
 						"nullable": true
 					},
-					"encounterEnvironmentalSetting": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/CodeDto"
-						},
-						"nullable": true
-					},
-					"encounterName": {
-						"type": "string",
-						"nullable": true
-					},
-					"encounterType": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/CodeDto"
-						},
-						"nullable": true
-					},
-					"nextEncounterId": {
-						"type": "string",
-						"nullable": true
-					},
-					"previousEncounterId": {
-						"type": "string",
-						"nullable": true
-					},
-					"startRule": {
-						"$ref": "#/components/schemas/TransitionRuleDto"
-					},
-					"endRule": {
-						"$ref": "#/components/schemas/TransitionRuleDto"
+					"studyIdentifierScope": {
+						"$ref": "#/components/schemas/Common.CommonOrganisation"
 					}
 				},
 				"additionalProperties": false
 			},
-			"EndpointDto": {
+			"Common.CommonStudyIndication": {
 				"type": "object",
 				"properties": {
-					"uuid": {
-						"type": "string",
-						"nullable": true
-					},
-					"endpointDesc": {
-						"type": "string",
-						"nullable": true
-					},
-					"endpointPurposeDesc": {
-						"type": "string",
-						"nullable": true
-					},
-					"endpointLevel": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/CodeDto"
-						},
-						"nullable": true
-					}
-				},
-				"additionalProperties": false
-			},
-			"ErrorModel": {
-				"type": "object",
-				"properties": {
-					"statusCode": {
-						"type": "string",
-						"nullable": true
-					},
-					"message": {
-						"type": "string",
-						"nullable": true
-					}
-				},
-				"additionalProperties": false
-			},
-			"EstimandDto": {
-				"type": "object",
-				"properties": {
-					"uuid": {
-						"type": "string",
-						"nullable": true
-					},
-					"treatment": {
-						"$ref": "#/components/schemas/InvestigationalInterventionDto"
-					},
-					"summaryMeasure": {
-						"type": "string",
-						"nullable": true
-					},
-					"analysisPopulation": {
-						"$ref": "#/components/schemas/AnalysisPopulationDto"
-					},
-					"variableOfInterest": {
-						"$ref": "#/components/schemas/EncounterDto"
-					},
-					"interCurrentEvents": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/InterCurrentEventDto"
-						},
-						"nullable": true
-					}
-				},
-				"additionalProperties": false
-			},
-			"GroupFilterDTO": {
-				"type": "object",
-				"properties": {
-					"groupFieldName": {
-						"type": "string",
-						"nullable": true
-					},
-					"groupFilterValues": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/GroupFilterValuesDTO"
-						},
-						"nullable": true
-					}
-				},
-				"additionalProperties": false
-			},
-			"GroupFilterValuesDTO": {
-				"type": "object",
-				"properties": {
-					"id": {
-						"type": "string",
-						"nullable": true
-					},
-					"title": {
-						"type": "string",
-						"nullable": true
-					}
-				},
-				"additionalProperties": false
-			},
-			"GroupsTaggedToUser": {
-				"type": "object",
-				"properties": {
-					"groupId": {
-						"type": "string",
-						"nullable": true
-					},
-					"groupName": {
-						"type": "string",
-						"nullable": true
-					},
-					"isActive": {
-						"type": "boolean"
-					}
-				},
-				"additionalProperties": false
-			},
-			"IndicationDto": {
-				"type": "object",
-				"properties": {
-					"uuid": {
-						"type": "string",
-						"nullable": true
-					},
 					"indicationDesc": {
 						"type": "string",
 						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"Common.Links": {
+				"type": "object",
+				"properties": {
+					"studyDefinitions": {
+						"type": "string",
+						"nullable": true
 					},
-					"codes": {
+					"auditTrail": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyDesigns": {
 						"type": "array",
 						"items": {
-							"$ref": "#/components/schemas/CodeDto"
+							"$ref": "#/components/schemas/Common.StudyDesignLinks"
 						},
 						"nullable": true
 					}
 				},
 				"additionalProperties": false
 			},
-			"InterCurrentEventDto": {
+			"Common.LinksForUI": {
+				"type": "object",
+				"properties": {
+					"studyDefinitions": {
+						"type": "string",
+						"nullable": true
+					},
+					"auditTrail": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyDesigns": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/Common.StudyDesignLinks"
+						},
+						"nullable": true
+					},
+					"SoA": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"Common.SearchClinicalStudy": {
 				"type": "object",
 				"properties": {
 					"uuid": {
 						"type": "string",
 						"nullable": true
 					},
-					"interCurrentEventDesc": {
+					"studyTitle": {
 						"type": "string",
 						"nullable": true
 					},
-					"interCurrentEventName": {
-						"type": "string",
-						"nullable": true
+					"studyType": {
+						"$ref": "#/components/schemas/Common.CommonCode"
 					},
-					"strategy": {
+					"studyPhase": {
+						"$ref": "#/components/schemas/Common.CommonCode"
+					},
+					"studyIdentifiers": {
 						"type": "array",
 						"items": {
-							"$ref": "#/components/schemas/CodeDto"
+							"$ref": "#/components/schemas/Common.CommonStudyIdentifiers"
+						},
+						"nullable": true
+					},
+					"studyDesigns": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/Common.CommonStudyDesign"
 						},
 						"nullable": true
 					}
 				},
 				"additionalProperties": false
 			},
-			"InvestigationalInterventionDto": {
-				"type": "object",
-				"properties": {
-					"uuid": {
-						"type": "string",
-						"nullable": true
-					},
-					"interventionDesc": {
-						"type": "string",
-						"nullable": true
-					},
-					"codes": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/CodeDto"
-						},
-						"nullable": true
-					}
-				},
-				"additionalProperties": false
-			},
-			"ObjectiveDto": {
-				"type": "object",
-				"properties": {
-					"uuid": {
-						"type": "string",
-						"nullable": true
-					},
-					"objectiveDesc": {
-						"type": "string",
-						"nullable": true
-					},
-					"objectiveLevel": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/CodeDto"
-						},
-						"nullable": true
-					},
-					"objectiveEndpoints": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/EndpointDto"
-						},
-						"nullable": true
-					}
-				},
-				"additionalProperties": false
-			},
-			"PostUserToGroupsDTO": {
-				"type": "object",
-				"properties": {
-					"oid": {
-						"type": "string",
-						"nullable": true
-					},
-					"email": {
-						"type": "string",
-						"nullable": true
-					},
-					"groups": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/GroupsTaggedToUser"
-						},
-						"nullable": true
-					}
-				},
-				"additionalProperties": false
-			},
-			"ReportBodyParameters": {
-				"type": "object",
-				"properties": {
-					"days": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"operation": {
-						"type": "string",
-						"nullable": true
-					},
-					"responseCode": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"recordNumber": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"pageSize": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"sortBy": {
-						"type": "string",
-						"nullable": true
-					},
-					"sortOrder": {
-						"type": "string",
-						"nullable": true
-					}
-				},
-				"additionalProperties": false
-			},
-			"SDRGroupsDTO": {
-				"type": "object",
-				"properties": {
-					"groupId": {
-						"type": "string",
-						"nullable": true
-					},
-					"groupName": {
-						"type": "string",
-						"nullable": true
-					},
-					"groupDescription": {
-						"type": "string",
-						"nullable": true
-					},
-					"permission": {
-						"type": "string",
-						"nullable": true
-					},
-					"groupFilter": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/GroupFilterDTO"
-						},
-						"nullable": true
-					},
-					"users": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/UsersDTO"
-						},
-						"nullable": true
-					},
-					"groupCreatedBy": {
-						"type": "string",
-						"nullable": true
-					},
-					"groupCreatedOn": {
-						"type": "string",
-						"nullable": true
-					},
-					"groupModifiedBy": {
-						"type": "string",
-						"nullable": true
-					},
-					"groupModifiedOn": {
-						"type": "string",
-						"nullable": true
-					},
-					"groupEnabled": {
-						"type": "boolean"
-					}
-				},
-				"additionalProperties": false
-			},
-			"SearchParametersDto": {
+			"Common.SearchParameters": {
 				"type": "object",
 				"properties": {
 					"studyId": {
@@ -1806,7 +2520,61 @@
 				},
 				"additionalProperties": false
 			},
-			"SearchTitleParametersDto": {
+			"Common.SearchResponse": {
+				"type": "object",
+				"properties": {
+					"clinicalStudy": {
+						"$ref": "#/components/schemas/Common.SearchClinicalStudy"
+					},
+					"auditTrail": {
+						"$ref": "#/components/schemas/Common.AuditTrail"
+					},
+					"links": {
+						"$ref": "#/components/schemas/Common.LinksForUI"
+					}
+				},
+				"additionalProperties": false
+			},
+			"Common.SearchTitleAuditTrail": {
+				"type": "object",
+				"properties": {
+					"entryDateTime": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"SDRUploadVersion": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"usdmVersion": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"Common.SearchTitleClinicalStudy": {
+				"type": "object",
+				"properties": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyTitle": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyIdentifiers": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/Common.CommonStudyIdentifiers"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"Common.SearchTitleParameters": {
 				"type": "object",
 				"properties": {
 					"studyTitle": {
@@ -1847,355 +2615,147 @@
 				},
 				"additionalProperties": false
 			},
-			"StudyArmDto": {
-				"type": "object",
-				"properties": {
-					"uuid": {
-						"type": "string",
-						"nullable": true
-					},
-					"studyArmDataOriginDesc": {
-						"type": "string",
-						"nullable": true
-					},
-					"studyArmDataOriginType": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/CodeDto"
-						},
-						"nullable": true
-					},
-					"studyArmDesc": {
-						"type": "string",
-						"nullable": true
-					},
-					"studyArmName": {
-						"type": "string",
-						"nullable": true
-					},
-					"studyArmType": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/CodeDto"
-						},
-						"nullable": true
-					}
-				},
-				"additionalProperties": false
-			},
-			"StudyCellDto": {
-				"type": "object",
-				"properties": {
-					"uuid": {
-						"type": "string",
-						"nullable": true
-					},
-					"studyArm": {
-						"$ref": "#/components/schemas/StudyArmDto"
-					},
-					"studyEpoch": {
-						"$ref": "#/components/schemas/StudyEpochDto"
-					},
-					"studyElements": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/StudyElementDto"
-						},
-						"nullable": true
-					}
-				},
-				"additionalProperties": false
-			},
-			"StudyDataCollectionDto": {
-				"type": "object",
-				"properties": {
-					"uuid": {
-						"type": "string",
-						"nullable": true
-					},
-					"studyDataName": {
-						"type": "string",
-						"nullable": true
-					},
-					"studyDataDesc": {
-						"type": "string",
-						"nullable": true
-					},
-					"crfLink": {
-						"type": "string",
-						"nullable": true
-					}
-				},
-				"additionalProperties": false
-			},
-			"StudyDesignDto": {
-				"type": "object",
-				"properties": {
-					"uuid": {
-						"type": "string",
-						"nullable": true
-					},
-					"interventionModel": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/CodeDto"
-						},
-						"nullable": true
-					},
-					"trialIntentType": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/CodeDto"
-						},
-						"nullable": true
-					},
-					"trialType": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/CodeDto"
-						},
-						"nullable": true
-					},
-					"studyIndications": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/IndicationDto"
-						},
-						"nullable": true
-					},
-					"studyInvestigationalInterventions": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/InvestigationalInterventionDto"
-						},
-						"nullable": true
-					},
-					"studyObjectives": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/ObjectiveDto"
-						},
-						"nullable": true
-					},
-					"studyPopulations": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/StudyDesignPopulationDto"
-						},
-						"nullable": true
-					},
-					"studyCells": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/StudyCellDto"
-						},
-						"nullable": true
-					},
-					"studyWorkflows": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/WorkflowDto"
-						},
-						"nullable": true
-					},
-					"studyEstimands": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/EstimandDto"
-						},
-						"nullable": true
-					}
-				},
-				"additionalProperties": false
-			},
-			"StudyDesignPopulationDto": {
-				"type": "object",
-				"properties": {
-					"uuid": {
-						"type": "string",
-						"nullable": true
-					},
-					"population_desc": {
-						"type": "string",
-						"nullable": true
-					}
-				},
-				"additionalProperties": false
-			},
-			"StudyDto": {
+			"Common.SearchTitleResponse": {
 				"type": "object",
 				"properties": {
 					"clinicalStudy": {
-						"$ref": "#/components/schemas/ClinicalStudyDto"
+						"$ref": "#/components/schemas/Common.SearchTitleClinicalStudy"
 					},
 					"auditTrail": {
-						"$ref": "#/components/schemas/AuditTrailDto"
+						"$ref": "#/components/schemas/Common.SearchTitleAuditTrail"
+					},
+					"links": {
+						"$ref": "#/components/schemas/Common.LinksForUI"
 					}
 				},
 				"additionalProperties": false
 			},
-			"StudyElementDto": {
+			"Common.StudyDesignLinks": {
 				"type": "object",
 				"properties": {
-					"uuid": {
+					"studyDesignId": {
 						"type": "string",
 						"nullable": true
 					},
-					"studyElementDesc": {
+					"studyDesignLink": {
 						"type": "string",
-						"nullable": true
-					},
-					"studyElementName": {
-						"type": "string",
-						"nullable": true
-					},
-					"transitionStartRule": {
-						"$ref": "#/components/schemas/TransitionRuleDto"
-					},
-					"transitionEndRule": {
-						"$ref": "#/components/schemas/TransitionRuleDto"
-					}
-				},
-				"additionalProperties": false
-			},
-			"StudyEpochDto": {
-				"type": "object",
-				"properties": {
-					"uuid": {
-						"type": "string",
-						"nullable": true
-					},
-					"nextStudyEpochId": {
-						"type": "string",
-						"nullable": true
-					},
-					"previousStudyEpochId": {
-						"type": "string",
-						"nullable": true
-					},
-					"studyEpochDesc": {
-						"type": "string",
-						"nullable": true
-					},
-					"studyEpochName": {
-						"type": "string",
-						"nullable": true
-					},
-					"studyEpochType": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/CodeDto"
-						},
 						"nullable": true
 					}
 				},
 				"additionalProperties": false
 			},
-			"StudyHistoryResponseDto": {
+			"Common.StudyHistoryResponse": {
 				"type": "object",
 				"properties": {
 					"studyId": {
 						"type": "string",
 						"nullable": true
 					},
-					"sdrUploadVersion": {
+					"SDRUploadVersion": {
 						"type": "array",
 						"items": {
-							"$ref": "#/components/schemas/UploadVersionDto"
+							"$ref": "#/components/schemas/Common.UploadVersion"
 						},
 						"nullable": true
 					}
 				},
 				"additionalProperties": false
 			},
-			"StudyIdentifierDto": {
+			"Common.UploadVersion": {
 				"type": "object",
 				"properties": {
-					"uuid": {
+					"uploadVersion": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"studyTitle": {
 						"type": "string",
 						"nullable": true
 					},
-					"studyIdentifier": {
+					"studyVersion": {
 						"type": "string",
 						"nullable": true
 					},
-					"studyIdentifierScope": {
-						"$ref": "#/components/schemas/StudyIdentifiersScopeDto"
-					}
-				},
-				"additionalProperties": false
-			},
-			"StudyIdentifiersScopeDto": {
-				"type": "object",
-				"properties": {
-					"uuid": {
-						"type": "string",
+					"studyIdentifiers": {
 						"nullable": true
 					},
-					"organisationIdentifier": {
-						"type": "string",
-						"nullable": true
-					},
-					"organisationIdentifierScheme": {
-						"type": "string",
-						"nullable": true
-					},
-					"organisationName": {
-						"type": "string",
-						"nullable": true
-					},
-					"organisationType": {
-						"$ref": "#/components/schemas/CodeDto"
-					}
-				},
-				"additionalProperties": false
-			},
-			"StudyProtocolVersionDto": {
-				"type": "object",
-				"properties": {
-					"uuid": {
-						"type": "string",
-						"nullable": true
-					},
-					"briefTitle": {
-						"type": "string",
-						"nullable": true
-					},
-					"officialTitle": {
-						"type": "string",
-						"nullable": true
-					},
-					"protocolAmendment": {
-						"type": "string",
-						"nullable": true
-					},
-					"protocolEffectiveDate": {
-						"type": "string",
-						"nullable": true
-					},
-					"protocolStatus": {
+					"protocolVersions": {
 						"type": "array",
 						"items": {
-							"$ref": "#/components/schemas/CodeDto"
+							"type": "string"
 						},
 						"nullable": true
 					},
-					"protocolVersion": {
+					"usdmVersion": {
 						"type": "string",
 						"nullable": true
 					},
-					"publicTitle": {
+					"links": {
+						"$ref": "#/components/schemas/Common.Links"
+					}
+				},
+				"additionalProperties": false
+			},
+			"ErrorModels.ErrorModel": {
+				"type": "object",
+				"properties": {
+					"statusCode": {
 						"type": "string",
 						"nullable": true
 					},
-					"scientificTitle": {
+					"message": {
 						"type": "string",
 						"nullable": true
 					}
 				},
 				"additionalProperties": false
 			},
-			"SystemUsageReportDTO": {
+			"Reports.ReportBodyParameters": {
+				"type": "object",
+				"properties": {
+					"days": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"operation": {
+						"type": "string",
+						"nullable": true
+					},
+					"responseCode": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"recordNumber": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"pageSize": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"sortBy": {
+						"type": "string",
+						"nullable": true
+					},
+					"sortOrder": {
+						"type": "string",
+						"nullable": true
+					},
+					"filterByTime": {
+						"type": "boolean"
+					},
+					"fromDateTime": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"toDateTime": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"additionalProperties": false
+			},
+			"Reports.SystemUsageReport": {
 				"type": "object",
 				"properties": {
 					"emailId": {
@@ -2233,7 +2793,836 @@
 				},
 				"additionalProperties": false
 			},
-			"TransitionRuleDto": {
+			"StudyV1.Activity": {
+				"type": "object",
+				"properties": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"activityDesc": {
+						"type": "string",
+						"nullable": true
+					},
+					"activityName": {
+						"type": "string",
+						"nullable": true
+					},
+					"definedProcedures": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.DefinedProcedure"
+						},
+						"nullable": true
+					},
+					"nextActivityId": {
+						"type": "string",
+						"nullable": true
+					},
+					"previousActivityId": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyDataCollection": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.StudyDataCollection"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.AnalysisPopulation": {
+				"type": "object",
+				"properties": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"populationDesc": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.AudiTrailResponse": {
+				"type": "object",
+				"properties": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"auditTrail": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.AuditTrail"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.AuditTrail": {
+				"type": "object",
+				"properties": {
+					"entryDateTime": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"usdmVersion": {
+						"type": "string",
+						"nullable": true
+					},
+					"SDRUploadVersion": {
+						"type": "integer",
+						"format": "int32"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.ClinicalStudy": {
+				"type": "object",
+				"properties": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyTitle": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyType": {
+						"$ref": "#/components/schemas/StudyV1.Code"
+					},
+					"studyIdentifiers": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.StudyIdentifier"
+						},
+						"nullable": true
+					},
+					"studyPhase": {
+						"$ref": "#/components/schemas/StudyV1.Code"
+					},
+					"studyProtocolVersions": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.StudyProtocolVersion"
+						},
+						"nullable": true
+					},
+					"studyDesigns": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.StudyDesign"
+						},
+						"nullable": true
+					},
+					"studyVersion": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.Code": {
+				"type": "object",
+				"properties": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"code": {
+						"type": "string",
+						"nullable": true
+					},
+					"codeSystem": {
+						"type": "string",
+						"nullable": true
+					},
+					"codeSystemVersion": {
+						"type": "string",
+						"nullable": true
+					},
+					"decode": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.DefinedProcedure": {
+				"type": "object",
+				"properties": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"procedureCode": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.Code"
+						},
+						"nullable": true
+					},
+					"procedureType": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.Encounter": {
+				"type": "object",
+				"properties": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"encounterContactMode": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.Code"
+						},
+						"nullable": true
+					},
+					"encounterDesc": {
+						"type": "string",
+						"nullable": true
+					},
+					"encounterEnvironmentalSetting": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.Code"
+						},
+						"nullable": true
+					},
+					"encounterName": {
+						"type": "string",
+						"nullable": true
+					},
+					"encounterType": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.Code"
+						},
+						"nullable": true
+					},
+					"nextEncounterId": {
+						"type": "string",
+						"nullable": true
+					},
+					"previousEncounterId": {
+						"type": "string",
+						"nullable": true
+					},
+					"transitionStartRule": {
+						"$ref": "#/components/schemas/StudyV1.TransitionRule"
+					},
+					"transitionEndRule": {
+						"$ref": "#/components/schemas/StudyV1.TransitionRule"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.Endpoint": {
+				"type": "object",
+				"properties": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"endpointDesc": {
+						"type": "string",
+						"nullable": true
+					},
+					"endpointPurposeDesc": {
+						"type": "string",
+						"nullable": true
+					},
+					"endpointLevel": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.Code"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.Estimand": {
+				"type": "object",
+				"properties": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"treatment": {
+						"$ref": "#/components/schemas/StudyV1.InvestigationalIntervention"
+					},
+					"summaryMeasure": {
+						"type": "string",
+						"nullable": true
+					},
+					"analysisPopulation": {
+						"$ref": "#/components/schemas/StudyV1.AnalysisPopulation"
+					},
+					"variableOfInterest": {
+						"$ref": "#/components/schemas/StudyV1.Endpoint"
+					},
+					"intercurrentEvents": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.InterCurrentEvent"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.Indication": {
+				"type": "object",
+				"properties": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"indicationDesc": {
+						"type": "string",
+						"nullable": true
+					},
+					"codes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.Code"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.InterCurrentEvent": {
+				"type": "object",
+				"properties": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"intercurrentEventDesc": {
+						"type": "string",
+						"nullable": true
+					},
+					"intercurrentEventName": {
+						"type": "string",
+						"nullable": true
+					},
+					"intercurrentEventStrategy": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.InvestigationalIntervention": {
+				"type": "object",
+				"properties": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"interventionDesc": {
+						"type": "string",
+						"nullable": true
+					},
+					"codes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.Code"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.Objective": {
+				"type": "object",
+				"properties": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"objectiveDesc": {
+						"type": "string",
+						"nullable": true
+					},
+					"objectiveLevel": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.Code"
+						},
+						"nullable": true
+					},
+					"objectiveEndpoints": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.Endpoint"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.SearchParameters": {
+				"type": "object",
+				"properties": {
+					"studyId": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyTitle": {
+						"type": "string",
+						"nullable": true
+					},
+					"indication": {
+						"type": "string",
+						"nullable": true
+					},
+					"interventionModel": {
+						"type": "string",
+						"nullable": true
+					},
+					"phase": {
+						"type": "string",
+						"nullable": true
+					},
+					"fromDate": {
+						"type": "string",
+						"nullable": true
+					},
+					"toDate": {
+						"type": "string",
+						"nullable": true
+					},
+					"pageSize": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"pageNumber": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"header": {
+						"type": "string",
+						"nullable": true
+					},
+					"asc": {
+						"type": "boolean"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.SearchTitleParameters": {
+				"type": "object",
+				"properties": {
+					"studyTitle": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyId": {
+						"type": "string",
+						"nullable": true
+					},
+					"fromDate": {
+						"type": "string",
+						"nullable": true
+					},
+					"toDate": {
+						"type": "string",
+						"nullable": true
+					},
+					"pageSize": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"pageNumber": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"groupByStudyId": {
+						"type": "boolean"
+					},
+					"sortOrder": {
+						"type": "string",
+						"nullable": true
+					},
+					"sortBy": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.Study": {
+				"type": "object",
+				"properties": {
+					"clinicalStudy": {
+						"$ref": "#/components/schemas/StudyV1.ClinicalStudy"
+					},
+					"auditTrail": {
+						"$ref": "#/components/schemas/StudyV1.AuditTrail"
+					},
+					"links": {
+						"$ref": "#/components/schemas/Common.LinksForUI"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.StudyArm": {
+				"type": "object",
+				"properties": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyArmDataOriginDesc": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyArmDataOriginType": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.Code"
+						},
+						"nullable": true
+					},
+					"studyArmDesc": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyArmName": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyArmType": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.Code"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.StudyCell": {
+				"type": "object",
+				"properties": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyArm": {
+						"$ref": "#/components/schemas/StudyV1.StudyArm"
+					},
+					"studyEpoch": {
+						"$ref": "#/components/schemas/StudyV1.StudyEpoch"
+					},
+					"studyElements": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.StudyElement"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.StudyDataCollection": {
+				"type": "object",
+				"properties": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyDataName": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyDataDesc": {
+						"type": "string",
+						"nullable": true
+					},
+					"crfLink": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.StudyDesign": {
+				"type": "object",
+				"properties": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"interventionModel": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.Code"
+						},
+						"nullable": true
+					},
+					"trialIntentType": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.Code"
+						},
+						"nullable": true
+					},
+					"trialType": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.Code"
+						},
+						"nullable": true
+					},
+					"studyIndications": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.Indication"
+						},
+						"nullable": true
+					},
+					"studyInvestigationalInterventions": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.InvestigationalIntervention"
+						},
+						"nullable": true
+					},
+					"studyObjectives": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.Objective"
+						},
+						"nullable": true
+					},
+					"studyPopulations": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.StudyDesignPopulation"
+						},
+						"nullable": true
+					},
+					"studyCells": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.StudyCell"
+						},
+						"nullable": true
+					},
+					"studyWorkflows": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.Workflow"
+						},
+						"nullable": true
+					},
+					"studyEstimands": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.Estimand"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.StudyDesignPopulation": {
+				"type": "object",
+				"properties": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"populationDesc": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.StudyElement": {
+				"type": "object",
+				"properties": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyElementDesc": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyElementName": {
+						"type": "string",
+						"nullable": true
+					},
+					"transitionStartRule": {
+						"$ref": "#/components/schemas/StudyV1.TransitionRule"
+					},
+					"transitionEndRule": {
+						"$ref": "#/components/schemas/StudyV1.TransitionRule"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.StudyEpoch": {
+				"type": "object",
+				"properties": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"nextStudyEpochId": {
+						"type": "string",
+						"nullable": true
+					},
+					"previousStudyEpochId": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyEpochDesc": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyEpochName": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyEpochType": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.Code"
+						},
+						"nullable": true
+					},
+					"encounters": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.Encounter"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.StudyHistoryResponse": {
+				"type": "object",
+				"properties": {
+					"studyId": {
+						"type": "string",
+						"nullable": true
+					},
+					"SDRUploadVersion": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.UploadVersion"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.StudyIdentifier": {
+				"type": "object",
+				"properties": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyIdentifier": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyIdentifierScope": {
+						"$ref": "#/components/schemas/StudyV1.StudyIdentifiersScope"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.StudyIdentifiersScope": {
+				"type": "object",
+				"properties": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"organisationIdentifier": {
+						"type": "string",
+						"nullable": true
+					},
+					"organisationIdentifierScheme": {
+						"type": "string",
+						"nullable": true
+					},
+					"organisationName": {
+						"type": "string",
+						"nullable": true
+					},
+					"organisationType": {
+						"$ref": "#/components/schemas/StudyV1.Code"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.StudyProtocolVersion": {
+				"type": "object",
+				"properties": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"briefTitle": {
+						"type": "string",
+						"nullable": true
+					},
+					"officialTitle": {
+						"type": "string",
+						"nullable": true
+					},
+					"protocolAmendment": {
+						"type": "string",
+						"nullable": true
+					},
+					"protocolEffectiveDate": {
+						"type": "string",
+						"nullable": true
+					},
+					"protocolStatus": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.Code"
+						},
+						"nullable": true
+					},
+					"protocolVersion": {
+						"type": "string",
+						"nullable": true
+					},
+					"publicTitle": {
+						"type": "string",
+						"nullable": true
+					},
+					"scientificTitle": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.TransitionRule": {
 				"type": "object",
 				"properties": {
 					"uuid": {
@@ -2247,7 +3636,7 @@
 				},
 				"additionalProperties": false
 			},
-			"UploadVersionDto": {
+			"StudyV1.UploadVersion": {
 				"type": "object",
 				"properties": {
 					"uploadVersion": {
@@ -2265,7 +3654,7 @@
 					"studyIdentifiers": {
 						"type": "array",
 						"items": {
-							"$ref": "#/components/schemas/StudyIdentifierDto"
+							"$ref": "#/components/schemas/StudyV1.StudyIdentifier"
 						},
 						"nullable": true
 					},
@@ -2275,24 +3664,1324 @@
 							"type": "string"
 						},
 						"nullable": true
+					},
+					"usdmVersion": {
+						"type": "string",
+						"nullable": true
 					}
 				},
 				"additionalProperties": false
 			},
-			"UserGroupMappingDTO": {
+			"StudyV1.Workflow": {
 				"type": "object",
 				"properties": {
-					"sdrGroups": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"workflowDesc": {
+						"type": "string",
+						"nullable": true
+					},
+					"workflowItems": {
 						"type": "array",
 						"items": {
-							"$ref": "#/components/schemas/SDRGroupsDTO"
+							"$ref": "#/components/schemas/StudyV1.WorkflowItem"
 						},
 						"nullable": true
 					}
 				},
 				"additionalProperties": false
 			},
-			"UserGroupsQueryParameters": {
+			"StudyV1.WorkflowItem": {
+				"type": "object",
+				"properties": {
+					"uuid": {
+						"type": "string",
+						"nullable": true
+					},
+					"workflowItemDesc": {
+						"type": "string",
+						"nullable": true
+					},
+					"workflowItemActivity": {
+						"$ref": "#/components/schemas/StudyV1.Activity"
+					},
+					"workflowItemEncounter": {
+						"$ref": "#/components/schemas/StudyV1.Encounter"
+					},
+					"nextWorkflowItemId": {
+						"type": "string",
+						"nullable": true
+					},
+					"previousWorkflowItemId": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.Activity": {
+				"type": "object",
+				"properties": {
+					"activityId": {
+						"type": "string",
+						"nullable": true
+					},
+					"activityDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"activityName": {
+						"type": "string",
+						"nullable": true
+					},
+					"definedProcedures": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.Procedure"
+						},
+						"nullable": true
+					},
+					"nextActivityId": {
+						"type": "string",
+						"nullable": true
+					},
+					"previousActivityId": {
+						"type": "string",
+						"nullable": true
+					},
+					"activityIsConditional": {
+						"nullable": true
+					},
+					"activityIsConditionalReason": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcCategoryIds": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"nullable": true
+					},
+					"bcSurrogateIds": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"nullable": true
+					},
+					"biomedicalConceptIds": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"nullable": true
+					},
+					"activityTimelineId": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.Address": {
+				"type": "object",
+				"properties": {
+					"text": {
+						"type": "string",
+						"nullable": true
+					},
+					"line": {
+						"type": "string",
+						"nullable": true
+					},
+					"city": {
+						"type": "string",
+						"nullable": true
+					},
+					"district": {
+						"type": "string",
+						"nullable": true
+					},
+					"state": {
+						"type": "string",
+						"nullable": true
+					},
+					"postalCode": {
+						"type": "string",
+						"nullable": true
+					},
+					"country": {
+						"$ref": "#/components/schemas/StudyV2.Code"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.AliasCode": {
+				"type": "object",
+				"properties": {
+					"aliasCodeId": {
+						"type": "string",
+						"nullable": true
+					},
+					"standardCode": {
+						"$ref": "#/components/schemas/StudyV2.Code"
+					},
+					"standardCodeAliases": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.Code"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.AnalysisPopulation": {
+				"type": "object",
+				"properties": {
+					"analysisPopulationId": {
+						"type": "string",
+						"nullable": true
+					},
+					"populationDescription": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.AuditTrail": {
+				"type": "object",
+				"properties": {
+					"entryDateTime": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"usdmVersion": {
+						"type": "string",
+						"nullable": true
+					},
+					"SDRUploadVersion": {
+						"type": "integer",
+						"format": "int32"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.BiomedicalConcept": {
+				"type": "object",
+				"properties": {
+					"biomedicalConceptId": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcName": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcSynonyms": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"nullable": true
+					},
+					"bcReference": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcProperties": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.BiomedicalConceptProperty"
+						},
+						"nullable": true
+					},
+					"bcConceptCode": {
+						"$ref": "#/components/schemas/StudyV2.AliasCode"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.BiomedicalConceptCategory": {
+				"type": "object",
+				"properties": {
+					"biomedicalConceptCategoryId": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcCategoryParentIds": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"nullable": true
+					},
+					"bcCategoryChildrenIds": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"nullable": true
+					},
+					"bcCategoryName": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcCategoryDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcCategoryMemberIds": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.BiomedicalConceptProperty": {
+				"type": "object",
+				"properties": {
+					"bcPropertyId": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcPropertyName": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcPropertyRequired": {
+						"nullable": true
+					},
+					"bcPropertyEnabled": {
+						"nullable": true
+					},
+					"bcPropertyDataType": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcPropertyResponseCodes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.ResponseCode"
+						},
+						"nullable": true
+					},
+					"bcPropertyConceptCode": {
+						"$ref": "#/components/schemas/StudyV2.AliasCode"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.BiomedicalConceptSurrogate": {
+				"type": "object",
+				"properties": {
+					"bcSurrogateId": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcSurrogateName": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcSurrogateDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcSurrogateReference": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.ClinicalStudy": {
+				"type": "object",
+				"properties": {
+					"studyId": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyTitle": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyVersion": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyType": {
+						"$ref": "#/components/schemas/StudyV2.Code"
+					},
+					"studyRationale": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyAcronym": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyIdentifiers": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.StudyIdentifier"
+						},
+						"nullable": true
+					},
+					"studyPhase": {
+						"$ref": "#/components/schemas/StudyV2.AliasCode"
+					},
+					"businessTherapeuticAreas": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.Code"
+						},
+						"nullable": true
+					},
+					"studyProtocolVersions": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.StudyProtocolVersion"
+						},
+						"nullable": true
+					},
+					"studyDesigns": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.StudyDesign"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.Code": {
+				"type": "object",
+				"properties": {
+					"codeId": {
+						"type": "string",
+						"nullable": true
+					},
+					"code": {
+						"type": "string",
+						"nullable": true
+					},
+					"codeSystem": {
+						"type": "string",
+						"nullable": true
+					},
+					"codeSystemVersion": {
+						"type": "string",
+						"nullable": true
+					},
+					"decode": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.Encounter": {
+				"type": "object",
+				"properties": {
+					"encounterId": {
+						"type": "string",
+						"nullable": true
+					},
+					"encounterContactModes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.Code"
+						},
+						"nullable": true
+					},
+					"encounterDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"encounterEnvironmentalSetting": {
+						"$ref": "#/components/schemas/StudyV2.Code"
+					},
+					"encounterName": {
+						"type": "string",
+						"nullable": true
+					},
+					"encounterType": {
+						"$ref": "#/components/schemas/StudyV2.Code"
+					},
+					"nextEncounterId": {
+						"type": "string",
+						"nullable": true
+					},
+					"previousEncounterId": {
+						"type": "string",
+						"nullable": true
+					},
+					"encounterScheduledAtTimingId": {
+						"type": "string",
+						"nullable": true
+					},
+					"transitionStartRule": {
+						"$ref": "#/components/schemas/StudyV2.TransitionRule"
+					},
+					"transitionEndRule": {
+						"$ref": "#/components/schemas/StudyV2.TransitionRule"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.Endpoint": {
+				"type": "object",
+				"properties": {
+					"endpointId": {
+						"type": "string",
+						"nullable": true
+					},
+					"endpointDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"endpointPurposeDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"endpointLevel": {
+						"$ref": "#/components/schemas/StudyV2.Code"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.Estimand": {
+				"type": "object",
+				"properties": {
+					"estimandId": {
+						"type": "string",
+						"nullable": true
+					},
+					"treatment": {
+						"type": "string",
+						"nullable": true
+					},
+					"summaryMeasure": {
+						"type": "string",
+						"nullable": true
+					},
+					"analysisPopulation": {
+						"$ref": "#/components/schemas/StudyV2.AnalysisPopulation"
+					},
+					"variableOfInterest": {
+						"type": "string",
+						"nullable": true
+					},
+					"intercurrentEvents": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.InterCurrentEvent"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.Indication": {
+				"type": "object",
+				"properties": {
+					"indicationId": {
+						"type": "string",
+						"nullable": true
+					},
+					"indicationDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"codes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.Code"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.InterCurrentEvent": {
+				"type": "object",
+				"properties": {
+					"intercurrentEventId": {
+						"type": "string",
+						"nullable": true
+					},
+					"intercurrentEventDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"intercurrentEventName": {
+						"type": "string",
+						"nullable": true
+					},
+					"intercurrentEventStrategy": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.InvestigationalIntervention": {
+				"type": "object",
+				"properties": {
+					"investigationalInterventionId": {
+						"type": "string",
+						"nullable": true
+					},
+					"interventionDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"codes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.Code"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.Objective": {
+				"type": "object",
+				"properties": {
+					"objectiveId": {
+						"type": "string",
+						"nullable": true
+					},
+					"objectiveDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"objectiveLevel": {
+						"$ref": "#/components/schemas/StudyV2.Code"
+					},
+					"objectiveEndpoints": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.Endpoint"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.Organisation": {
+				"type": "object",
+				"properties": {
+					"organisationId": {
+						"type": "string",
+						"nullable": true
+					},
+					"organisationIdentifier": {
+						"type": "string",
+						"nullable": true
+					},
+					"organisationIdentifierScheme": {
+						"type": "string",
+						"nullable": true
+					},
+					"organisationName": {
+						"type": "string",
+						"nullable": true
+					},
+					"organisationType": {
+						"$ref": "#/components/schemas/StudyV2.Code"
+					},
+					"organizationLegalAddress": {
+						"$ref": "#/components/schemas/StudyV2.Address"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.Procedure": {
+				"type": "object",
+				"properties": {
+					"procedureId": {
+						"type": "string",
+						"nullable": true
+					},
+					"procedureCode": {
+						"$ref": "#/components/schemas/StudyV2.Code"
+					},
+					"procedureType": {
+						"type": "string",
+						"nullable": true
+					},
+					"procedureIsConditional": {
+						"nullable": true
+					},
+					"procedureIsConditionalReason": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.ResponseCode": {
+				"type": "object",
+				"properties": {
+					"responseCodeId": {
+						"type": "string",
+						"nullable": true
+					},
+					"responseCodeEnabled": {
+						"nullable": true
+					},
+					"code": {
+						"$ref": "#/components/schemas/StudyV2.Code"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.ScheduleTimeline": {
+				"type": "object",
+				"properties": {
+					"scheduleTimelineId": {
+						"type": "string",
+						"nullable": true
+					},
+					"scheduleTimelineName": {
+						"type": "string",
+						"nullable": true
+					},
+					"scheduleTimelineDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"entryCondition": {
+						"type": "string",
+						"nullable": true
+					},
+					"scheduleTimelineEntryId": {
+						"type": "string",
+						"nullable": true
+					},
+					"scheduleTimelineExits": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.ScheduleTimelineExit"
+						},
+						"nullable": true
+					},
+					"scheduledTimelineInstances": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.ScheduledInstance"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.ScheduleTimelineExit": {
+				"type": "object",
+				"properties": {
+					"exitId": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.ScheduledInstance": {
+				"type": "object",
+				"properties": {
+					"scheduledInstanceId": {
+						"type": "string",
+						"nullable": true
+					},
+					"scheduleTimelineExitId": {
+						"type": "string",
+						"nullable": true
+					},
+					"scheduledInstanceEncounterId": {
+						"type": "string",
+						"nullable": true
+					},
+					"scheduledInstanceTimelineId": {
+						"type": "string",
+						"nullable": true
+					},
+					"scheduleSeqenceNumber": {
+						"type": "integer",
+						"format": "int32",
+						"nullable": true
+					},
+					"scheduledInstanceTimings": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.Timing"
+						},
+						"nullable": true
+					},
+					"scheduledInstanceType": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.Study": {
+				"type": "object",
+				"properties": {
+					"clinicalStudy": {
+						"$ref": "#/components/schemas/StudyV2.ClinicalStudy"
+					},
+					"auditTrail": {
+						"$ref": "#/components/schemas/StudyV2.AuditTrail"
+					},
+					"links": {
+						"$ref": "#/components/schemas/Common.LinksForUI"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.StudyArm": {
+				"type": "object",
+				"properties": {
+					"studyArmId": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyArmDataOriginDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyArmDataOriginType": {
+						"$ref": "#/components/schemas/StudyV2.Code"
+					},
+					"studyArmDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyArmName": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyArmType": {
+						"$ref": "#/components/schemas/StudyV2.Code"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.StudyCell": {
+				"type": "object",
+				"properties": {
+					"studyCellId": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyArm": {
+						"$ref": "#/components/schemas/StudyV2.StudyArm"
+					},
+					"studyEpoch": {
+						"$ref": "#/components/schemas/StudyV2.StudyEpoch"
+					},
+					"studyElements": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.StudyElement"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.StudyDesign": {
+				"type": "object",
+				"properties": {
+					"studyDesignId": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyDesignName": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyDesignDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"trialIntentType": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.Code"
+						},
+						"nullable": true
+					},
+					"trialType": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.Code"
+						},
+						"nullable": true
+					},
+					"interventionModel": {
+						"$ref": "#/components/schemas/StudyV2.Code"
+					},
+					"studyCells": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.StudyCell"
+						},
+						"nullable": true
+					},
+					"studyIndications": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.Indication"
+						},
+						"nullable": true
+					},
+					"studyInvestigationalInterventions": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.InvestigationalIntervention"
+						},
+						"nullable": true
+					},
+					"studyPopulations": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.StudyDesignPopulation"
+						},
+						"nullable": true
+					},
+					"studyObjectives": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.Objective"
+						},
+						"nullable": true
+					},
+					"studyScheduleTimelines": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.ScheduleTimeline"
+						},
+						"nullable": true
+					},
+					"therapeuticAreas": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.Code"
+						},
+						"nullable": true
+					},
+					"studyEstimands": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.Estimand"
+						},
+						"nullable": true
+					},
+					"encounters": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.Encounter"
+						},
+						"nullable": true
+					},
+					"activities": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.Activity"
+						},
+						"nullable": true
+					},
+					"studyDesignRationale": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyDesignBlindingScheme": {
+						"$ref": "#/components/schemas/StudyV2.AliasCode"
+					},
+					"biomedicalConcepts": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.BiomedicalConcept"
+						},
+						"nullable": true
+					},
+					"bcCategories": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.BiomedicalConceptCategory"
+						},
+						"nullable": true
+					},
+					"bcSurrogates": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.BiomedicalConceptSurrogate"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.StudyDesignPopulation": {
+				"type": "object",
+				"properties": {
+					"studyDesignPopulationId": {
+						"type": "string",
+						"nullable": true
+					},
+					"populationDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"plannedNumberOfParticipants": {
+						"type": "integer",
+						"format": "int32",
+						"nullable": true
+					},
+					"plannedMaximumAgeOfParticipants": {
+						"type": "string",
+						"nullable": true
+					},
+					"plannedMinimumAgeOfParticipants": {
+						"type": "string",
+						"nullable": true
+					},
+					"plannedSexOfParticipants": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.Code"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.StudyElement": {
+				"type": "object",
+				"properties": {
+					"studyElementId": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyElementDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyElementName": {
+						"type": "string",
+						"nullable": true
+					},
+					"transitionStartRule": {
+						"$ref": "#/components/schemas/StudyV2.TransitionRule"
+					},
+					"transitionEndRule": {
+						"$ref": "#/components/schemas/StudyV2.TransitionRule"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.StudyEpoch": {
+				"type": "object",
+				"properties": {
+					"studyEpochId": {
+						"type": "string",
+						"nullable": true
+					},
+					"nextStudyEpochId": {
+						"type": "string",
+						"nullable": true
+					},
+					"previousStudyEpochId": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyEpochDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyEpochName": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyEpochType": {
+						"$ref": "#/components/schemas/StudyV2.Code"
+					},
+					"encounters": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.StudyIdentifier": {
+				"type": "object",
+				"properties": {
+					"studyIdentifierId": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyIdentifier": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyIdentifierScope": {
+						"$ref": "#/components/schemas/StudyV2.Organisation"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.StudyProtocolVersion": {
+				"type": "object",
+				"properties": {
+					"studyProtocolVersionId": {
+						"type": "string",
+						"nullable": true
+					},
+					"briefTitle": {
+						"type": "string",
+						"nullable": true
+					},
+					"officialTitle": {
+						"type": "string",
+						"nullable": true
+					},
+					"protocolAmendment": {
+						"type": "string",
+						"nullable": true
+					},
+					"protocolEffectiveDate": {
+						"type": "string",
+						"nullable": true
+					},
+					"protocolStatus": {
+						"$ref": "#/components/schemas/StudyV2.Code"
+					},
+					"protocolVersion": {
+						"type": "string",
+						"nullable": true
+					},
+					"publicTitle": {
+						"type": "string",
+						"nullable": true
+					},
+					"scientificTitle": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.Timing": {
+				"type": "object",
+				"properties": {
+					"timingId": {
+						"type": "string",
+						"nullable": true
+					},
+					"timingType": {
+						"$ref": "#/components/schemas/StudyV2.Code"
+					},
+					"timingValue": {
+						"type": "string",
+						"nullable": true
+					},
+					"timingWindow": {
+						"type": "string",
+						"nullable": true
+					},
+					"relativeToScheduledInstanceId": {
+						"type": "string",
+						"nullable": true
+					},
+					"relativeFromScheduledInstanceId": {
+						"type": "string",
+						"nullable": true
+					},
+					"timingRelativeToFrom": {
+						"$ref": "#/components/schemas/StudyV2.Code"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.TransitionRule": {
+				"type": "object",
+				"properties": {
+					"transitionRuleId": {
+						"type": "string",
+						"nullable": true
+					},
+					"transitionRuleDescription": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"Token.UserLogin": {
+				"type": "object",
+				"properties": {
+					"username": {
+						"type": "string",
+						"nullable": true
+					},
+					"password": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"UserGroups.GroupFilter": {
+				"type": "object",
+				"properties": {
+					"groupFieldName": {
+						"type": "string",
+						"nullable": true
+					},
+					"groupFilterValues": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/UserGroups.GroupFilterValues"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"UserGroups.GroupFilterValues": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"nullable": true
+					},
+					"title": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"UserGroups.GroupsTaggedToUser": {
+				"type": "object",
+				"properties": {
+					"groupId": {
+						"type": "string",
+						"nullable": true
+					},
+					"groupName": {
+						"type": "string",
+						"nullable": true
+					},
+					"isActive": {
+						"type": "boolean"
+					}
+				},
+				"additionalProperties": false
+			},
+			"UserGroups.PostUserToGroups": {
+				"type": "object",
+				"properties": {
+					"oid": {
+						"type": "string",
+						"nullable": true
+					},
+					"email": {
+						"type": "string",
+						"nullable": true
+					},
+					"groups": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/UserGroups.GroupsTaggedToUser"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"UserGroups.SDRGroups": {
+				"type": "object",
+				"properties": {
+					"groupId": {
+						"type": "string",
+						"nullable": true
+					},
+					"groupName": {
+						"type": "string",
+						"nullable": true
+					},
+					"groupDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"permission": {
+						"type": "string",
+						"nullable": true
+					},
+					"groupFilter": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/UserGroups.GroupFilter"
+						},
+						"nullable": true
+					},
+					"users": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/UserGroups.Users"
+						},
+						"nullable": true
+					},
+					"groupCreatedBy": {
+						"type": "string",
+						"nullable": true
+					},
+					"groupCreatedOn": {
+						"type": "string",
+						"nullable": true
+					},
+					"groupModifiedBy": {
+						"type": "string",
+						"nullable": true
+					},
+					"groupModifiedOn": {
+						"type": "string",
+						"nullable": true
+					},
+					"groupEnabled": {
+						"type": "boolean"
+					}
+				},
+				"additionalProperties": false
+			},
+			"UserGroups.UserGroupMapping": {
+				"type": "object",
+				"properties": {
+					"sdrGroups": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/UserGroups.SDRGroups"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"UserGroups.UserGroupsQueryParameters": {
 				"type": "object",
 				"properties": {
 					"pageNumber": {
@@ -2314,21 +5003,7 @@
 				},
 				"additionalProperties": false
 			},
-			"UserLogin": {
-				"type": "object",
-				"properties": {
-					"username": {
-						"type": "string",
-						"nullable": true
-					},
-					"password": {
-						"type": "string",
-						"nullable": true
-					}
-				},
-				"additionalProperties": false
-			},
-			"UsersDTO": {
+			"UserGroups.Users": {
 				"type": "object",
 				"properties": {
 					"oid": {
@@ -2357,50 +5032,31 @@
 				},
 				"additionalProperties": false
 			},
-			"WorkflowDto": {
+			"Utilities.Common.ApiUsdmVersionMapping": {
 				"type": "object",
 				"properties": {
-					"workflowId": {
-						"type": "string",
-						"nullable": true
-					},
-					"workflowDesc": {
-						"type": "string",
-						"nullable": true
-					},
-					"workflowItems": {
+					"SDRVersions": {
 						"type": "array",
 						"items": {
-							"$ref": "#/components/schemas/WorkflowItemDto"
+							"$ref": "#/components/schemas/Utilities.Common.SDRVersions"
 						},
 						"nullable": true
 					}
 				},
 				"additionalProperties": false
 			},
-			"WorkflowItemDto": {
+			"Utilities.Common.SDRVersions": {
 				"type": "object",
 				"properties": {
-					"uuid": {
+					"apiVersion": {
 						"type": "string",
 						"nullable": true
 					},
-					"workflowItemDesc": {
-						"type": "string",
-						"nullable": true
-					},
-					"workflowItemActivity": {
-						"$ref": "#/components/schemas/ActivityDto"
-					},
-					"workflowItemEncounter": {
-						"$ref": "#/components/schemas/EncounterDto"
-					},
-					"nextWorkflowItemId": {
-						"type": "string",
-						"nullable": true
-					},
-					"previousWorkflowItemId": {
-						"type": "string",
+					"usdmVersions": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
 						"nullable": true
 					}
 				},
