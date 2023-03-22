@@ -187,7 +187,7 @@
           "entity": "ScheduledActivityInstance",
           "required": [
             "Id",
-            "ScheduleSeqenceNumber",
+            "ScheduleSequenceNumber",
             "ScheduledInstanceType"
           ]
         },

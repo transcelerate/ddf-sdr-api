@@ -36,7 +36,7 @@
             public const string ResponseCodeId = "responseCodeId";
             public const string ScheduleTimelineId = "scheduleTimelineId";
             public const string ScheduledInstanceId = "scheduledInstanceId";
-            public const string ScheduleTimelineExitId = "exitId";
+            public const string ScheduleTimelineExitId = "scheduleTimelineExitId";
             public const string TimingId = "timingId";
         }
         public struct StudyV1
