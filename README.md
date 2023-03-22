@@ -289,7 +289,7 @@ To view the API specifications and to run the endpoints locally, the below swagg
 ```
 https://localhost:44358/swagger/index.html
 ```
-**Note**: Refer **[DDF SDR API User Guide](documents/ddf-sdr-user-guide-api-v3.0.pdf)** for detailed information on all the endpoints.
+**Note**: Refer **[DDF SDR API User Guide](documents/ddf-sdr-user-guide-api-v4.0.pdf)** for detailed information on all the endpoints.
 
 # Nuget Packages 
 
