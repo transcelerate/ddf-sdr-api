@@ -4,7 +4,6 @@
 - [Pre-requisites](#pre-requisites)
 - [Code setup and debugging](#code-setup-and-debugging)
 - [Base solution structure](#base-solution-structure)
-- [Commit changes to repository](#commit-changes-to-repository)
 - [List of Endpoints](#list-of-endpoints)
 - [Nuget packages](#nuget-packages)
 
@@ -13,7 +12,7 @@
 
 Study Definition Repository (SDR) Reference Implementation is TransCelerate’s vision to catalyze industry-level transformation, enabling digital exchange of study definition information by collaborating with technology providers and standards bodies to create a sustainable open-source Study Definition Repository.
 
-This is a .NET 6 Web API project that is designed to expose APIs which upstream/downstream systems can utilize to store and retrieve study definitions from SDR.
+This is a .NET 6 Web API project that is designed to expose APIs which upstream/downstream systems can utilize to store and retrieve study definitions from SDR. The latest Release of SDR (Release V2.0) supports study definitions conformant with USDM V1.0 and USDM 1.9.
 
 This [Process Flow Document](https://github.com/transcelerate/ddf-sdr-platform/blob/main/documents/MVP%20Process%20Flows%20(final).pdf) provides information regarding user interface functions and system interactions with the SDR at a high level. Please also refer to the [DDF SDR API User Guide](documents/ddf-sdr-user-guide-api-v3.0.pdf) to get started, and the [DDF SDR RI API Demo video](https://www.youtube.com/watch?v=s9Qnzxy7HME&list=PLMXS-Xt7Ou1KNUF-HQKQRRzqfPQEXWb1u&index=7). 
 
@@ -35,23 +34,22 @@ To acknowledge the CLA, follow these instructions:
 NOTE: Keep a copy for your records.
 
 # Sample Data
-For those looking to evaluate the USDM with a sample data set, please see the following to files in the Data Model folder:
-- [Sample Data via JSON](https://github.com/transcelerate/ddf-sdr-api/blob/main/DataModel/API_UserGuide_JSON_Files/Request-POST-AddStudyDefinitionV1.json)
-
+For those looking to evaluate the USDM with a sample data set, please see the following files in the Data Model folder:
+- [USDM V1.0 conformant Sample JSON](https://github.com/transcelerate/ddf-sdr-api/blob/main/DataModel/API_UserGuide_JSON_Files/Request-POST-AddStudyDefinitionV1.json)
+- [USDM V1.9 conformant Sample JSON](https://github.com/transcelerate/ddf-sdr-api/blob/main/DataModel/API_UserGuide_JSON_Files/Request-POST-AddStudyDefinitionV1.json)
 
 # Code setup and debugging
 ## Pre-requisites
 
 1. Install [Visual Studio 2022](https://visualstudio.microsoft.com/) with default options to run the solution.
 
-2. Create a Mongo DB(or equivalent) with four collections with names mentioned below.
+2. Create a Mongo DB(or equivalent) and collections with names mentioned below.
 ```
 StudyDefinitions
-StudyDefinitionsV1
 Groups
 ChangeAudit
 ```
-3. A Service Bus Queue must be created for running Azure Function.
+3. A Service Bus Queue must be created for Change Audit functionality. This is optional if user does not intend to capture changes between versions of a study. No action is needed in code setup to disable change audit. You can also skip creation of ChangeAudit collection in previous step.
 
 ## How to setup code
 
@@ -78,21 +76,23 @@ git clone "repo_url"
 "StudyHistory": {
 	// This parameter will be used to restrict the historical data (last 30/60/90 days) in study history endpoint response, if no date filters are passed in request.
 	// Keep this value as "-1" to disable this restriction.
-    "DateRange": "No. of days"
+    "DateRange": "30"
  },
  "isGroupFilterEnabled": true  // change value to false to disable user based data filtering,
  "isAuthEnabled": true  // change value to false to disable authorization
- "ApiVersionUsdmVersionMapping":"" //Api Version -> USDM Version Mapping JSON must be converted to JSON String and should be added
+ "ApiVersionUsdmVersionMapping":"" // {"SDRVersions":[{"apiVersion":"v1","usdmVersions":["1.0"]},{"apiVersion":"v2","usdmVersions":["1.9"]}]}
 ```
+> **Note**  
+> **API to USDM Version mapping** - SDR supports 3 major USDM versions at a given point in time along with all their minor versions. API endpoints are up-versioned for breaking changes in USDM (API V1 -> USDM V1.0, API V2 -> USDM 1.9).
 
 3. Then, In the Visual Studio IDE, on clicking the IIS Express Icon or on pressing F5, WebApi solution will start running locally.
 
 4. The browser will automatically open the Swagger UI having the SDR API specifications.
 
-**Azure Function**
-1. For running the Azure Function locally, a local.settings.json file must be created and must be copied to the root folder of TransCelerate.SDR.AzureFunctions project.
-
-2. Edit the local.settings.json and add the values for below mentioned settings.
+**Azure Function App**
+1. An Azure Function App is developed to capture Change Audit. An Azure ServiceBus queue message triggers this function app. To run the Azure Function App locally, creation of Azure ServiceBus queue is mandatory. 
+2. A local.settings.json file must be created and must be copied to the root folder of TransCelerate.SDR.AzureFunctions project.
+3. Edit the local.settings.json and add the values for below mentioned settings.
 
 ```
 
@@ -110,7 +110,7 @@ git clone "repo_url"
     
     "ConnectionStrings:DatabaseName": "Database Name here",
     
-    "ApiVersionUsdmVersionMapping": "", //Api Version -> USDM Version Mapping JSON must be converted to JSON String and should be added
+    "ApiVersionUsdmVersionMapping": "", //{"SDRVersions":[{"apiVersion":"v1","usdmVersions":["1.0"]},{"apiVersion":"v2","usdmVersions":["1.9"]}]}
   }
 ```
 
@@ -182,31 +182,17 @@ The solution has the following structure:
 ```
 **[TransCelerate.SDR.AzureFunctions](src/TransCelerate.SDR.AzureFunctions/TransCelerate.SDR.AzureFunctions.md)** - contains Azure function app for change audit.
 
-**[TransCelerate.SDR.Core](src/TransCelerate.SDR.Core/TransCelerate.SDR.Core.md)** - contains entities, DTO's and helper classes.
+**[TransCelerate.SDR.Core](src/TransCelerate.SDR.Core/TransCelerate.SDR.Core.md)** - contains entities, DTOs and helper classes.
 
-**[TransCelerate.SDR.DataAccess](src/TransCelerate.SDR.DataAccess/TransCelerate.SDR.DataAccess.md)** - contains code for communicating with database (Mongo DB).
+**[TransCelerate.SDR.DataAccess](src/TransCelerate.SDR.DataAccess/TransCelerate.SDR.DataAccess.md)** - contains code for communicating with MongoDB database.
 
 **[TransCelerate.SDR.RuleEngine](src/TransCelerate.SDR.RuleEngine/TransCelerate.SDR.RuleEngine.md)** - contains code for model validations based on data conformance rules.
 
 **[TransCelerate.SDR.Service](src/TransCelerate.SDR.Service/TransCelerate.SDR.Services.md)** - contains code for service layer which is a bridge between API controller and repository.
 
-**[TransCelerate.SDR.UnitTesting](src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.md)** - contains code for unit testing (NUnit).
+**[TransCelerate.SDR.UnitTesting](src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.md)** - contains code for unit testing (NUnit Framework).
 
-**[TransCelerate.SDR.WebApi](src/TransCelerate.SDR.WebApi/TransCelerate.SDR.WebApi.md)** - contains controllers, mappers and the startup for the application.
-
-# Commit changes to repository
-1. After doing the necessary changes, build the solution.
-
-2. Once the build is successful, run all the unit test cases from Test Explorer.
-
-3. Verify all the unit test cases are passed and the changes are reflecting in Swagger UI.
-
-4. Use below command from the git to push the code changes back to the Repository.
-
-```
-git commit -m 'message for commit'
-git push
-```
+**[TransCelerate.SDR.WebApi](src/TransCelerate.SDR.WebApi/TransCelerate.SDR.WebApi.md)** - contains API controllers, mappers and the startup for the application.
 
 # List of Endpoints
 
@@ -221,7 +207,7 @@ The below GET endpoint can be used to GET API Version -> USDM Version mapping.
 
 ### V1 Endpoints (USDM Version 1.0)
 
-For V1 endpoints, the "usdmVersion" header paramter is mandatory and the header value must be "1.0"
+For V1 endpoints, the "usdmVersion" header parameter is mandatory and the header value must be "1.0"
 
 **POST Endpoint**
 
@@ -246,7 +232,7 @@ The below endpoint can be used to fetch the sections of study design for a given
 
 ### V2 Endpoints (USDM Version 1.9)
 
-For V2 endpoints, the "usdmVersion" header paramter is mandatory and the header value must be "1.9"
+For V2 endpoints, the "usdmVersion" header parameter is mandatory and the header value must be "1.9"
 
 **POST Endpoint**
 The below endpoint can be used to create new study definitions.
@@ -269,7 +255,7 @@ The below endpoint can be used to fetch all the elements for a given StudyId.
 The below endpoint can be used to fetch the sections of study design for a given StudyId.
 
 ```
-​/v2​/studydesign​s?study_uuid={studyId}
+/v2/studydesigns?study_uuid={studyId}
 ```
 
 ### Version Neutral Endpoints
