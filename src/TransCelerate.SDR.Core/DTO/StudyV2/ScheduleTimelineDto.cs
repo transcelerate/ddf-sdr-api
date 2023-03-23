@@ -11,6 +11,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
         public string EntryCondition { get; set; }
         public string ScheduleTimelineEntryId { get; set; }
         public List<ScheduleTimelineExitDto> ScheduleTimelineExits { get; set; }
-        public List<ScheduledInstanceDto> ScheduledTimelineInstances { get; set; }
+        public List<ScheduledInstanceDto> ScheduleTimelineInstances { get; set; }
     }
 }

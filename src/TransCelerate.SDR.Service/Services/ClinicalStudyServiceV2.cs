@@ -281,7 +281,7 @@ namespace TransCelerate.SDR.Services.Services
                             };
                             if (activities != null && activities.Any() && encounters != null && encounters.Any())
                             {
-                                var workflowItems = workFlow.ScheduledTimelineInstances?.Select(x => (x as ScheduledActivityInstanceEntity))
+                                var workflowItems = workFlow.ScheduleTimelineInstances?.Select(x => (x as ScheduledActivityInstanceEntity))
                                                                          .Where(x => x != null).ToList();
                                 if (workflowItems != null && workflowItems.Any())
                                 {
@@ -293,7 +293,7 @@ namespace TransCelerate.SDR.Services.Services
                                     encounters.ForEach(encounter =>
                                     {
                                         SoA soA = new();
-                                        string timingValue = design.StudyScheduleTimelines.Where(x => x.ScheduledTimelineInstances != null).SelectMany(x => x.ScheduledTimelineInstances)
+                                        string timingValue = design.StudyScheduleTimelines.Where(x => x.ScheduleTimelineInstances != null).SelectMany(x => x.ScheduleTimelineInstances)
                                                                          .Where(x => x != null)
                                                                          .SelectMany(x => x.ScheduledInstanceTimings)
                                                                          .Where(x => x.Id == encounter.EncounterScheduledAtTimingId).FirstOrDefault()?.TimingValue;

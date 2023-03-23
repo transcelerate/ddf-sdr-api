@@ -13,6 +13,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
         public string EntryCondition { get; set; }
         public string ScheduleTimelineEntryId { get; set; }
         public List<ScheduleTimelineExitEntity> ScheduleTimelineExits { get; set; }
-        public List<ScheduledInstanceEntity> ScheduledTimelineInstances { get; set; }
+        public List<ScheduledInstanceEntity> ScheduleTimelineInstances { get; set; }
     }
 }
