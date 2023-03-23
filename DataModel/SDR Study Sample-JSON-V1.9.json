@@ -406,10 +406,10 @@
                         "scheduleTimelineEntryId": "INS001",
                         "scheduleTimelineExits": [
                             {
-                                "exitId": "Exit01"
+                                "scheduleTimelineExitId": "Exit01"
                             }
                         ],
-                        "scheduledTimelineInstances": [
+                        "scheduleTimelineInstances": [
                             {
                                 "scheduledInstanceType": "ACTIVITY",
                                 "activityIds": [
