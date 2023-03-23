@@ -35,8 +35,8 @@ NOTE: Keep a copy for your records.
 
 # Sample Data
 For those looking to evaluate the USDM with a sample data set, please see the following files in the Data Model folder:
-- [USDM V1.0 conformant Sample JSON](https://github.com/transcelerate/ddf-sdr-api/blob/main/DataModel/API_UserGuide_JSON_Files/Request-POST-AddStudyDefinitionV1.json)
-- [USDM V1.9 conformant Sample JSON](https://github.com/transcelerate/ddf-sdr-api/blob/main/DataModel/API_UserGuide_JSON_Files/Request-POST-AddStudyDefinitionV1.json)
+- [USDM V1.0 conformant Sample JSON](DataModel/Archive/V1/SDR%20Study%20Sample-JSON-V1.json)
+- [USDM V1.9 conformant Sample JSON](DataModel/SDR%20Study%20Sample-JSON-V1.9.json)
 
 # Code setup and debugging
 ## Pre-requisites
