@@ -347,7 +347,7 @@
 				],
 				"studyObjectives": [
 					{
-						"objectiveId": "Objective_01",
+						"objectiveId": "1cedd7c7-65b0-4c27e9d",
 						"objectiveDescription": "Objective Level 1",
 						"objectiveLevel": {
 							"codeId": "2ae454b4-b37b-4986-9b3c-d5044bc4aec7",
@@ -372,7 +372,7 @@
 						]
 					},
 					{
-						"objectiveId": "Objective_02",
+						"objectiveId": "1cedd7c7-65b0-48b4-ac93-cbe046c27e9d",
 						"objectiveDescription": "Objective Level 1",
 						"objectiveLevel": {
 							"codeId": "2ae454b4-b37b-4986-9b3c-d5044bc4aec7",
@@ -406,10 +406,10 @@
 						"scheduleTimelineEntryId": "INS001",
 						"scheduleTimelineExits": [
 							{
-								"exitId": "Exit01"
+								"scheduleTimelineExitId": "Exit01"
 							}
 						],
-						"scheduledTimelineInstances": [
+						"scheduleTimelineInstances": [
 							{
 								"scheduledInstanceType": "ACTIVITY",
 								"activityIds": [
@@ -426,7 +426,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS11",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 1,
+								"scheduleSequenceNumber": 1,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T01",
@@ -481,7 +481,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS11",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 2,
+								"scheduleSequenceNumber": 2,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T030",
@@ -537,7 +537,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS12",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T03",
@@ -593,7 +593,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS13",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T06",
@@ -628,7 +628,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS14",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T07",
@@ -663,7 +663,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS15",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T08",
@@ -698,7 +698,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS16",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T09",
@@ -733,7 +733,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS17",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T10",
@@ -768,7 +768,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS18",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T11",
@@ -803,7 +803,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS19",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T12",
@@ -838,7 +838,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS20",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T13",
@@ -873,7 +873,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS21",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T14",
@@ -908,7 +908,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS22",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T15",
@@ -943,7 +943,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS23",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T16",
@@ -978,7 +978,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS23",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T17",
