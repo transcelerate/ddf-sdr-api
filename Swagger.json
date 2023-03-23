@@ -2,7 +2,7 @@
 	"openapi": "3.0.1",
 	"info": {
 		"title": "Transcelerate SDR",
-		"version": "v2"
+		"version": "v1"
 	},
 	"paths": {
 		"/studydefinitions/{studyId}/changeaudit": {
@@ -3752,6 +3752,7 @@
 						"nullable": true
 					},
 					"activityIsConditional": {
+						"type": "boolean",
 						"nullable": true
 					},
 					"activityIsConditionalReason": {
@@ -4320,6 +4321,7 @@
 						"nullable": true
 					},
 					"procedureIsConditional": {
+						"type": "boolean",
 						"nullable": true
 					},
 					"procedureIsConditionalReason": {
@@ -4375,7 +4377,7 @@
 						},
 						"nullable": true
 					},
-					"scheduledTimelineInstances": {
+					"scheduleTimelineInstances": {
 						"type": "array",
 						"items": {
 							"$ref": "#/components/schemas/StudyV2.ScheduledInstance"
@@ -4388,7 +4390,7 @@
 			"StudyV2.ScheduleTimelineExit": {
 				"type": "object",
 				"properties": {
-					"exitId": {
+					"scheduleTimelineExitId": {
 						"type": "string",
 						"nullable": true
 					}
@@ -4414,7 +4416,7 @@
 						"type": "string",
 						"nullable": true
 					},
-					"scheduleSeqenceNumber": {
+					"scheduleSequenceNumber": {
 						"type": "integer",
 						"format": "int32",
 						"nullable": true
