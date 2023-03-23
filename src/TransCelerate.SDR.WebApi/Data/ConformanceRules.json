@@ -195,7 +195,7 @@
           "entity": "ScheduledDecisionInstance",
           "required": [
             "Id",            
-            "ScheduleSeqenceNumber",
+            "ScheduleSequenceNumber",
             "ScheduledInstanceType"
           ]
         },
@@ -203,7 +203,7 @@
           "entity": "ScheduledInstance",
           "required": [
             "Id",
-            "ScheduleSeqenceNumber",
+            "ScheduleSequenceNumber",
             "ScheduledInstanceType"
           ]
         },
