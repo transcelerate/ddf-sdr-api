@@ -347,7 +347,7 @@
 				],
 				"studyObjectives": [
 					{
-						"objectiveId": "1cedd7c7-65b0-4c27e9d",
+						"objectiveId": "Objective_01",
 						"objectiveDescription": "Objective Level 1",
 						"objectiveLevel": {
 							"codeId": "2ae454b4-b37b-4986-9b3c-d5044bc4aec7",
@@ -372,7 +372,7 @@
 						]
 					},
 					{
-						"objectiveId": "1cedd7c7-65b0-48b4-ac93-cbe046c27e9d",
+						"objectiveId": "Objective_02",
 						"objectiveDescription": "Objective Level 1",
 						"objectiveLevel": {
 							"codeId": "2ae454b4-b37b-4986-9b3c-d5044bc4aec7",
