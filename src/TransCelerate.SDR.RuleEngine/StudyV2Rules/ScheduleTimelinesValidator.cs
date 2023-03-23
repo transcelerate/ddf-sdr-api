@@ -50,14 +50,14 @@ namespace TransCelerate.SDR.RuleEngineV2
                .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
 
-            RuleFor(x => x.ScheduledTimelineInstances)
+            RuleFor(x => x.ScheduleTimelineInstances)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ScheduleTimelinesValidator), nameof(ScheduleTimelineDto.ScheduledTimelineInstances)), ApplyConditionTo.AllValidators)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ScheduleTimelinesValidator), nameof(ScheduleTimelineDto.ScheduleTimelineInstances)), ApplyConditionTo.AllValidators)
                 .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
-            RuleForEach(x => x.ScheduledTimelineInstances).SetInheritanceValidator(v =>
+            RuleForEach(x => x.ScheduleTimelineInstances).SetInheritanceValidator(v =>
             {
                 v.Add<ScheduledActivityInstanceDto>(new ScheduledActivityInstanceValidator(_httpContextAccessor));
                 v.Add<ScheduledDecisionInstanceDto>(new ScheduledDecisionInstanceValidator(_httpContextAccessor));

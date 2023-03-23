@@ -20,7 +20,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV2
         public string ScheduledInstanceEncounterId { get; set; }
         public string ScheduleTimelineExitId { get; set; }
         public string ScheduledInstanceTimelineId { get; set; }
-        public int ScheduleSeqenceNumber { get; set; }
+        public int ScheduleSequenceNumber { get; set; }
         public List<TimingEntity> ScheduledInstanceTimings { get; set; }
         public virtual string ScheduledInstanceType { get; set; }
     }

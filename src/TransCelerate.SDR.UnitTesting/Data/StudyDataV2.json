@@ -314,11 +314,11 @@
             "entryCondition": "condition",
             "scheduleTimelineExits": [
               {
-                "exitId": "Ex01"
+                "scheduleTimelineExitId": "Ex01"
               }
             ],
             "scheduleTimelineDescription": "dwsc",
-            "scheduledTimelineInstances": [
+            "scheduleTimelineInstances": [
               {
                 "scheduledInstanceType": "ACTIVITY",
                 "activityIds": [
@@ -329,7 +329,7 @@
                 "scheduleTimelineExitId": "Exit01",
                 "scheduledInstanceEncounterId": "VIS11",
                 "scheduledInstanceTimelineId": "Timeline01",
-                "scheduleSeqenceNumber": 1,
+                "scheduleSequenceNumber": 1,
                 "scheduledInstanceTimings": [
                   {
                     "timingId": "Timing01",
@@ -384,7 +384,7 @@
                 "scheduleTimelineExitId": "Exit01",
                 "scheduledInstanceEncounterId": "VIS11",
                 "scheduledInstanceTimelineId": "Timeline01",
-                "scheduleSeqenceNumber": 2,
+                "scheduleSequenceNumber": 2,
                 "scheduledInstanceTimings": [
                   {
                     "timingId": "Timing01",
@@ -440,7 +440,7 @@
                 "scheduleTimelineExitId": "Exit01",
                 "scheduledInstanceEncounterId": "VIS11",
                 "scheduledInstanceTimelineId": "Timeline01",
-                "scheduleSeqenceNumber": 3,
+                "scheduleSequenceNumber": 3,
                 "scheduledInstanceTimings": [
                   {
                     "timingId": "Timing01",
