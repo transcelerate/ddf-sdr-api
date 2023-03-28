@@ -547,7 +547,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                     if (x.ScheduleTimelineExits is not null && x.ScheduleTimelineExits.Any())
                         x.ScheduleTimelineExits.ForEach(y => y.Id = null);
 
-                    if (x.ScheduleTimelineInstances is not null && x.ScheduleTimelineEntryId.Any())
+                    if (x.ScheduleTimelineInstances is not null && x.ScheduleTimelineInstances.Any())
                     {
                         x.ScheduleTimelineInstances.ForEach(y =>
                         {
