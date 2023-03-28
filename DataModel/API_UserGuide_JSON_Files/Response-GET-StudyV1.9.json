@@ -1,6 +1,6 @@
 {
 	"clinicalStudy": {
-		"studyId": "59ef523b-215a-4be8-9afc-e37ac1084f90",
+		"studyId": "ed021bf5-c2db-4dbc-adbe-1e5fb6c621c6",
 		"studyTitle": "Study of Stage III Biliary Duct Cancer",
 		"studyVersion": "1",
 		"studyType": {
@@ -406,10 +406,10 @@
 						"scheduleTimelineEntryId": "INS001",
 						"scheduleTimelineExits": [
 							{
-								"exitId": "Exit01"
+								"scheduleTimelineExitId": "Exit01"
 							}
 						],
-						"scheduledTimelineInstances": [
+						"scheduleTimelineInstances": [
 							{
 								"scheduledInstanceType": "ACTIVITY",
 								"activityIds": [
@@ -426,7 +426,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS11",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 1,
+								"scheduleSequenceNumber": 1,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T01",
@@ -481,7 +481,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS11",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 2,
+								"scheduleSequenceNumber": 2,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T030",
@@ -537,7 +537,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS12",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T03",
@@ -593,7 +593,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS13",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T06",
@@ -628,7 +628,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS14",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T07",
@@ -663,7 +663,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS15",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T08",
@@ -698,7 +698,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS16",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T09",
@@ -733,7 +733,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS17",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T10",
@@ -768,7 +768,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS18",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T11",
@@ -803,7 +803,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS19",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T12",
@@ -838,7 +838,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS20",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T13",
@@ -873,7 +873,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS21",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T14",
@@ -908,7 +908,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS22",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T15",
@@ -943,7 +943,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS23",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T16",
@@ -978,7 +978,7 @@
 								"scheduleTimelineExitId": "Exit01",
 								"scheduledInstanceEncounterId": "VIS23",
 								"scheduledInstanceTimelineId": "Timeline01",
-								"scheduleSeqenceNumber": 3,
+								"scheduleSequenceNumber": 3,
 								"scheduledInstanceTimings": [
 									{
 										"timingId": "T17",
@@ -2714,19 +2714,19 @@
 		]
 	},
 	"auditTrail": {
-		"entryDateTime": "2023-03-17T07:23:41.746Z",
+		"entryDateTime": "2023-03-23T09:52:36.9167832Z",
 		"usdmVersion": "1.9",
 		"SDRUploadVersion": 1
 	},
 	"links": {
-		"studyDefinitions": "/v2/studydefinitions/59ef523b-215a-4be8-9afc-e37ac1084f90?sdruploadversion=1",
-		"auditTrail": "/studydefinitions/59ef523b-215a-4be8-9afc-e37ac1084f90/audittrail",
+		"studyDefinitions": "/v2/studydefinitions/ed021bf5-c2db-4dbc-adbe-1e5fb6c621c6?sdruploadversion=1",
+		"auditTrail": "/studydefinitions/ed021bf5-c2db-4dbc-adbe-1e5fb6c621c6/audittrail",
 		"studyDesigns": [
 			{
 				"studyDesignId": "SD01",
-				"studyDesignLink": "/v2/studydesigns?study_uuid=59ef523b-215a-4be8-9afc-e37ac1084f90&sdruploadversion=1&studydesign_uuid=SD01"
+				"studyDesignLink": "/v2/studydesigns?study_uuid=ed021bf5-c2db-4dbc-adbe-1e5fb6c621c6&sdruploadversion=1&studydesign_uuid=SD01"
 			}
 		],
-		"SoA": "/v2/studydefinitions/59ef523b-215a-4be8-9afc-e37ac1084f90/studydesigns/soa?sdruploadversion=1"
+		"SoA": "/v2/studydefinitions/ed021bf5-c2db-4dbc-adbe-1e5fb6c621c6/studydesigns/soa?sdruploadversion=1"
 	}
 }
