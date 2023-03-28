@@ -15,8 +15,7 @@ namespace TransCelerate.SDR.Core.Entities.Common
     [BsonIgnoreExtraElements]
     public class AuditTrailEntity
     {
-        public DateTime EntryDateTime { get; set; }
-        public string CreatedBy { get; set; }
+        public DateTime EntryDateTime { get; set; }        
 
         public string UsdmVersion { get; set; }
 
