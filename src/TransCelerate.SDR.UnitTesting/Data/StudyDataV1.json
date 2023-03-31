@@ -199,8 +199,8 @@
             },
             "studyEpoch": {
               "uuid": "53da634d-03b4-4234-9283-cc2436abd5cc",
-              "nextEpochId": "c0d6b66e-0831-4f7d-94a2-1e12b6b58500",
-              "previousEpochId": "c0d6b66e-0831-4f7d-94a2-1e12b6b58501",
+              "nextStudyEpochId": "",
+              "previousStudyEpochId": "",
               "studyEpochDesc": "The run in",
               "studyEpochName": "Run In",
               "studyEpochType": [
@@ -244,8 +244,8 @@
                       "decode": "SITE VISIT"
                     }
                   ],
-                  "nextEncounterId": "c0d6b66e-0831-4f7d-94a2-1e12b6b58500",
-                  "previousEncounterId": "c0d6b66e-0831-4f7d-94a2-1e12b6b58501",
+                  "nextEncounterId": "",
+                  "previousEncounterId": "",
                   "transitionStartRule": {
                     "uuid": "003f24ee-f09b-447e-8ca4-0ff07a0c3791",
                     "transitionRuleDesc": "Start Rule"
@@ -276,7 +276,7 @@
         ],
         "studyWorkflows": [
           {
-            "workflowId": "da60cd25-2582-4f3f-b497-41301ed5ddf6",
+            "uuid": "da60cd25-2582-4f3f-b497-41301ed5ddf6",
             "workflowDesc": "SampleDesc",
             "workflowItems": [
               {
@@ -301,8 +301,8 @@
                       "procedureType": "Specimen Collection"
                     }
                   ],
-                  "nextActivityId": "c0d6b66e-0831-4f7d-94a2-1e12b6b58500",
-                  "previousActivityId": "c0d6b66e-0831-4f7d-94a2-1e12b6b58501",
+                  "nextActivityId": "",
+                  "previousActivityId": "",
                   "studyDataCollection": [
                     {
                       "uuid": "378b5dc2-31c3-4bb8-9e5c-3ff5a12a065d",
@@ -343,8 +343,8 @@
                       "decode": "SITE VISIT"
                     }
                   ],
-                  "nextEncounterId": "c0d6b66e-0831-4f7d-94a2-1e12b6b58500",
-                  "previousEncounterId": "c0d6b66e-0831-4f7d-94a2-1e12b6b58501",
+                  "nextEncounterId": "",
+                  "previousEncounterId": "",
                   "transitionStartRule": {
                     "uuid": "2a59f69e-8a29-4c90-ba03-a9807f98569c",
                     "transitionRuleDesc": "Start Rule"
@@ -410,7 +410,9 @@
     "studyVersion": "1"
   },
   "auditTrail": {
-    "entryDateTime": "2022-09-07T07:40:51.9171776Z",
-    "SDRUploadVersion": 7
+    "entryDateTime": "2022-10-11T09:41:27.529764Z",
+    "SDRUploadVersion": 2,
+    "usdmVersion": "1.0"
   }
+
 }

@@ -1,9 +1,4 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.UserGroups;
 using TransCelerate.SDR.Core.Utilities.Common;
 
@@ -16,15 +11,15 @@ namespace TransCelerate.SDR.RuleEngine
     {
         public GroupFilterValidator()
         {
-            RuleFor(x => x.groupFieldName)
+            RuleFor(x => x.GroupFieldName)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
 
-            RuleFor(x => x.groupFilterValues)
+            RuleFor(x => x.GroupFilterValues)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .Must(x => x.Count > 0).WithMessage(Constants.ValidationErrorMessage.GroupFilterEmptyError);                            
+                .Must(x => x.Count > 0).WithMessage(Constants.ValidationErrorMessage.GroupFilterEmptyError);
         }
     }
 }

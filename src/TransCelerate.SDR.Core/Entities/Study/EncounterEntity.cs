@@ -1,20 +1,17 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TransCelerate.SDR.Core.Entities.Study
 {
     public class EncounterEntity
     {
-        [BsonElement("id")]
-        public string encounterId { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public string contactMode { get; set; }
-        public string environmentalSetting { get; set; }
-        public RuleEntity startRule { get; set; }
-        public RuleEntity endRule { get; set; }
-        public EpochEntity epoch { get; set; }
+        [BsonElement(Utilities.Common.IdFieldPropertyName.MVP.Id)]
+        public string EncounterId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string ContactMode { get; set; }
+        public string EnvironmentalSetting { get; set; }
+        public RuleEntity StartRule { get; set; }
+        public RuleEntity EndRule { get; set; }
+        public EpochEntity Epoch { get; set; }
     }
 }

@@ -10,30 +10,30 @@ namespace TransCelerate.SDR.Core.DTO.Study
         /// <summary>
         /// This property holds the value of Study Design ID
         /// </summary>
-        public string studyDesignId { get; set; }
+        public string StudyDesignId { get; set; }
         /// <summary>
-        /// This property holds the value of Trial Intent Type for specific <see cref="studyDesignId"/>
+        /// This property holds the value of Trial Intent Type for specific <see cref="StudyDesignId"/>
         /// </summary>
-        public string trialIntentType { get; set; }
+        public string TrialIntentType { get; set; }
         /// <summary>
-        /// This property holds the value of Trial Type for specific <see cref="studyDesignId"/>
+        /// This property holds the value of Trial Type for specific <see cref="StudyDesignId"/>
         /// </summary>
-        public string trialType { get; set; }
+        public string TrialType { get; set; }
         /// <summary>
-        /// This property holds the Planned Workflows for specific <see cref="studyDesignId"/>
+        /// This property holds the Planned Workflows for specific <see cref="StudyDesignId"/>
         /// </summary>
-        public List<PlannedWorkflowDTO> plannedWorkflows { get; set; }
+        public List<PlannedWorkflowDTO> PlannedWorkflows { get; set; }
         /// <summary>
-        /// This property holds the Study Populations for specific <see cref="studyDesignId"/>
+        /// This property holds the Study Populations for specific <see cref="StudyDesignId"/>
         /// </summary>
-        public List<StudyPopulationDTO> studyPopulations { get; set; }
+        public List<StudyPopulationDTO> StudyPopulations { get; set; }
         /// <summary>
-        /// This property holds the Study Cells for specific <see cref="studyDesignId"/>
+        /// This property holds the Study Cells for specific <see cref="StudyDesignId"/>
         /// </summary>
-        public List<StudyCellDTO> studyCells { get; set; }
+        public List<StudyCellDTO> StudyCells { get; set; }
         /// <summary>
-        /// This property holds the Investigational Interventions for specific <see cref="studyDesignId"/>
+        /// This property holds the Investigational Interventions for specific <see cref="StudyDesignId"/>
         /// </summary>
-        public List<InvestigationalInterventionDTO> investigationalInterventions { get; set; }
+        public List<InvestigationalInterventionDTO> InvestigationalInterventions { get; set; }
     }
 }

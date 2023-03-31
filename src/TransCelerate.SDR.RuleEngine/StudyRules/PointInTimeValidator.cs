@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FluentValidation;
-using TransCelerate.SDR.Core.DTO;
+﻿using FluentValidation;
 using TransCelerate.SDR.Core.DTO.Study;
-using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.Core.Utilities.Common;
+using TransCelerate.SDR.Core.Utilities.Helpers;
 
 namespace TransCelerate.SDR.RuleEngine
 {
@@ -15,21 +11,21 @@ namespace TransCelerate.SDR.RuleEngine
         /// Validator for PointInTime
         /// </summary>
         public PointInTimeValidator()
-        {           
-            RuleFor(x => x.type)
+        {
+            RuleFor(x => x.Type)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-            RuleFor(x => x.subjectStatusGrouping)
+            RuleFor(x => x.SubjectStatusGrouping)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-            RuleFor(x => x.startDate)
+            RuleFor(x => x.StartDate)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .Must(x=>DateValidationHelper.IsValid(x)).WithMessage(Constants.ValidationErrorMessage.ValidDateError);
-            RuleFor(x => x.endDate)
+                .Must(x => DateValidationHelper.IsValid(x)).WithMessage(Constants.ValidationErrorMessage.ValidDateError);
+            RuleFor(x => x.EndDate)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)

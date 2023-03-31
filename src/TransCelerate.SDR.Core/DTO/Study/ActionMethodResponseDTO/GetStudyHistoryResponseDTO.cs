@@ -10,13 +10,14 @@ namespace TransCelerate.SDR.Core.DTO.Study
         /// <summary>
         /// This property holds the Study History details
         /// </summary>
-        public List<StudyHistoryDTO> study { get; set; }
-    }  
-    
+        public List<StudyHistoryDTO> Study { get; set; }
+    }
+
     public class StudyHistoryDTO
     {
-        public string studyTitle { get; set; }
-        public string studyId { get; set; }
-        public int[] studyVersion { get; set; }      
+        public string StudyTitle { get; set; }
+        public string StudyId { get; set; }
+        public int[] StudyVersion { get; set; }
+        public string UsdmVersion { get; set; }
     }
 }

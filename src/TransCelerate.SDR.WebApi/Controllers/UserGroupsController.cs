@@ -20,18 +20,19 @@ namespace TransCelerate.SDR.WebApi.Controllers
 {
     [Authorize(Roles = Constants.Roles.Org_Admin)]
     [ApiController]
+    [ApiVersionNeutral]
     public class UserGroupsController : ControllerBase
     {
         #region Variables
         private readonly IUserGroupMappingService _userGroupMappingService;
-        private readonly ILogHelper _logger;        
+        private readonly ILogHelper _logger;
         #endregion
 
         #region Constructor
         public UserGroupsController(IUserGroupMappingService userGroupMappingService, ILogHelper logger)
         {
             _userGroupMappingService = userGroupMappingService;
-            _logger = logger;              
+            _logger = logger;
         }
         #endregion
 
@@ -55,12 +56,12 @@ namespace TransCelerate.SDR.WebApi.Controllers
             {
                 _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(GetUserGroups)};");
                 var groups = await _userGroupMappingService.GetUserGroups(userGroupsQueryParameters);
-                if(groups == null)
-                {                    
+                if (groups == null)
+                {
                     return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.GroupsNotFound)).Value);
                 }
-                else if(groups.Count == 0)
-                {                                            
+                else if (groups.Count == 0)
+                {
                     return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.GroupsNotFound)).Value);
                 }
                 else
@@ -76,7 +77,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             finally
             {
                 _logger.LogInformation($"Ended Controller : {nameof(UserGroupsController)}; Method : {nameof(GetUserGroups)};");
-            }            
+            }
         }
 
         /// <summary>
@@ -97,9 +98,9 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(GetUsersList)};");
                 var users = await _userGroupMappingService.GetUsersList(userGroupsQueryParameters);
                 if (users == null)
-                {                      
+                {
                     return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.UsersNotFound)).Value);
-                }               
+                }
                 else
                 {
                     return Ok(users);
@@ -164,13 +165,13 @@ namespace TransCelerate.SDR.WebApi.Controllers
             {
                 _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(GetUserList)};");
 
-                ClientSecretCredential clientSecretCredential = new ClientSecretCredential(
+                ClientSecretCredential clientSecretCredential = new(
                     Config.TenantID, Config.ClientId, Config.ClientSecret);
                 Microsoft.Graph.GraphServiceClient graphServiceClient =
-                    new Microsoft.Graph.GraphServiceClient(clientSecretCredential);               
+                    new(clientSecretCredential);
 
-                var users = await graphServiceClient.Users.Request().GetAsync();         
-               
+                var users = await graphServiceClient.Users.Request().GetAsync();
+
                 if (users == null)
                 {
                     return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.GroupsNotFound)).Value);
@@ -183,7 +184,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         users = await users.NextPageRequest.GetAsync();
                         userList.AddRange(users.CurrentPage);
                     }
-                    var userListResponse = userList.Select(x => new 
+                    var userListResponse = userList.Select(x => new
                     {
                         x.Id,
                         x.DisplayName,
@@ -219,7 +220,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(CheckGroupName)};");
-                if(!String.IsNullOrWhiteSpace(groupName))
+                if (!String.IsNullOrWhiteSpace(groupName))
                 {
                     return Ok(await _userGroupMappingService.CheckGroupName(groupName));
                 }
@@ -227,7 +228,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 {
                     return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest()).Value);
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -259,7 +260,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(PostGroup)};");
-                LoggedInUser user = new LoggedInUser
+                LoggedInUser user = new()
                 {
                     UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                     UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
@@ -270,12 +271,12 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 }
                 else
                 {
-                    var response = await _userGroupMappingService.PostGroup(groupDTO,user);
+                    var response = await _userGroupMappingService.PostGroup(groupDTO, user);
                     if (response == null)
                     {
                         return NotFound(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError)).Value);
-                    }   
-                    else if(Convert.ToString(response) == Constants.ErrorMessages.GroupNameExists)
+                    }
+                    else if (Convert.ToString(response) == Constants.ErrorMessages.GroupNameExists)
                     {
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GroupNameExists)).Value);
                     }
@@ -317,7 +318,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(UserGroupsController)}; Method : {nameof(PostGroup)};");
-                LoggedInUser user = new LoggedInUser
+                LoggedInUser user = new()
                 {
                     UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                     UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
@@ -328,11 +329,11 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 }
                 else
                 {
-                    var response = await _userGroupMappingService.PostUserToGroups(userToGroupsDTO,user);
+                    var response = await _userGroupMappingService.PostUserToGroups(userToGroupsDTO, user);
                     if (response == null)
-                    {   
+                    {
                         return NotFound(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError)).Value);
-                    }                    
+                    }
                     else
                     {
                         return Ok(response);

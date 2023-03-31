@@ -1,0 +1,31 @@
+{
+  "changeAudit": {
+    "study_uuid": "aaed3efe-7d70-4c9e-90e2-3446e936c291",
+    "changes": [
+      {
+        "entryDateTime": "2022-09-25T07:46:24.5124521Z",
+        "SDRUploadVersion": 2,
+        "elements": [
+          "studyType",
+          "studyVersion"
+        ]
+      },
+      {
+        "entryDateTime": "2022-09-26T09:25:24.6124521Z",
+        "SDRUploadVersion": 3,
+        "elements": [
+          "studyIdentifiers",
+          "studyDesign.studyCells.studyArm"
+        ]
+      },
+      {
+        "entryDateTime": "2022-09-27T08:15:24.4124521Z",
+        "SDRUploadVersion": 4,
+        "elements": [
+          "studyPhase",
+          "studyProtocolVersions"
+        ]
+      }
+    ]
+  }
+}

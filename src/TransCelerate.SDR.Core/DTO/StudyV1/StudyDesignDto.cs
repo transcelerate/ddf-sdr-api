@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.DTO.StudyV1
 {
-    public class StudyDesignDto
+    public class StudyDesignDto : IUuid
     {
         public string Uuid { get; set; }
         public List<CodeDto> InterventionModel { get; set; }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FluentValidation;
-using TransCelerate.SDR.Core.DTO;
+﻿using FluentValidation;
 using TransCelerate.SDR.Core.DTO.Study;
 using TransCelerate.SDR.Core.Utilities.Common;
 
@@ -14,15 +10,15 @@ namespace TransCelerate.SDR.RuleEngine
         /// Validator for Planned Workflow
         /// </summary>
         public PlannedWorkFlowValidator()
-        {                       
-            RuleFor(x => x.startPoint)
+        {
+            RuleFor(x => x.StartPoint)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-            RuleFor(x => x.endPoint)
+            RuleFor(x => x.EndPoint)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);         
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
         }
     }
 }

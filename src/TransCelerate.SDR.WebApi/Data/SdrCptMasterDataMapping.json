@@ -1,0 +1,204 @@
+{
+  "SdrCptMasterDataMapping": [
+    {
+      "entity": "InterventionModel",
+      "mapping": [
+        {
+          "code": "C142568",
+          "CDISC": "SEQUENTIAL",
+          "CPT": "Sequential"
+        },
+        {
+          "code": "C82637",
+          "CDISC": "CROSS-OVER",
+          "CPT": "Cross-Over Group"
+        },
+        {
+          "code": "C82638",
+          "CDISC": "FACTORIAL",
+          "CPT": "Factorial"
+        },
+        {
+          "code": "C82639",
+          "CDISC": "PARALLEL",
+          "CPT": "Parallel Group"
+        },
+        {
+          "code": "C82640",
+          "CDISC": "SINGLE GROUP",
+          "CPT": "Single Group"
+        }
+      ]
+    },
+    {
+      "entity": "Study Phase",
+      "mapping": [
+        {
+          "code": "C48660",
+          "CDISC": "NOT APPLICABLE",
+          "CPT": ""
+        },
+        {
+          "code": "C54721",
+          "CDISC": "PHASE 0 TRIAL",
+          "CPT": "Early Phase 1"
+        },
+        {
+          "code": "C15600",
+          "CDISC": "PHASE I TRIAL",
+          "CPT": "Phase 1"
+        },
+        {
+          "code": "C15693",
+          "CDISC": "PHASE I/II TRIAL",
+          "CPT": "Phase 1/Phase 2"
+        },
+        {
+          "code": "C15601",
+          "CDISC": "PHASE II TRIAL",
+          "CPT": "Phase 2"
+        },
+        {
+          "code": "C15694",
+          "CDISC": "PHASE II/III TRIAL",
+          "CPT": "Phase 2/ Phase 3"
+        },
+        {
+          "code": "C49686",
+          "CDISC": "PHASE IIA TRIAL",
+          "CPT": "Phase 2"
+        },
+        {
+          "code": "C49688",
+          "CDISC": "PHASE IIB TRIAL",
+          "CPT": "Phase 2"
+        },
+        {
+          "code": "C15602",
+          "CDISC": "PHASE III TRIAL",
+          "CPT": "Phase 3"
+        },
+        {
+          "code": "C49687",
+          "CDISC": "PHASE IIIA TRIAL",
+          "CPT": "Phase 3"
+        },
+        {
+          "code": "C49689",
+          "CDISC": "PHASE IIIB TRIAL",
+          "CPT": "Phase 3"
+        },
+        {
+          "code": "C15603",
+          "CDISC": "PHASE IV TRIAL",
+          "CPT": "Phase 4"
+        },
+        {
+          "code": "C47865",
+          "CDISC": "PHASE V TRIAL",
+          "CPT": "Phase 5"
+        }
+      ]
+    },
+    {
+      "entity": "TrialIntentType",
+      "mapping": [
+        {
+          "code": "C15714",
+          "CDISC": "BASIC SCIENCE",
+          "CPT": "Basic Science"
+        },
+        {
+          "code": "C49654",
+          "CDISC": "CURE",
+          "CPT": ""
+        },
+        {
+          "code": "C139174",
+          "CDISC": "DEVICE FEASIBILITY",
+          "CPT": "Device Feasibility"
+        },
+        {
+          "code": "C49653",
+          "CDISC": "DIAGNOSIS",
+          "CPT": "Diagnostic"
+        },
+        {
+          "code": "C170629",
+          "CDISC": "DISEASE MODIFYING",
+          "CPT": ""
+        },
+        {
+          "code": "C15245",
+          "CDISC": "HEALTH SERVICES RESEARCH",
+          "CPT": "Health Services Research"
+        },
+        {
+          "code": "C49655",
+          "CDISC": "MITIGATION",
+          "CPT": ""
+        },
+        {
+          "code": "",
+          "CDISC": "",
+          "CPT": "Other"
+        },
+        {
+          "code": "C49657",
+          "CDISC": "PREVENTION",
+          "CPT": "Prevention"
+        },
+        {
+          "code": "C71485",
+          "CDISC": "SCREENING",
+          "CPT": "Screening"
+        },
+        {
+          "code": "C71486",
+          "CDISC": "SUPPORTIVE CARE",
+          "CPT": "Supportive Care"
+        },
+        {
+          "code": "C49656",
+          "CDISC": "TREATMENT",
+          "CPT": "Treatment"
+        }
+      ]
+    },
+    {
+      "entity": "Objective Level",
+      "mapping": [
+        {
+          "code": "C85826",
+          "CDISC": "Study Primary Objective",
+          "CPT": ""
+        },
+        {
+          "code": "C85827",
+          "CDISC": "Study Secondary Objective",
+          "CPT": ""
+        }
+      ]
+    },
+    {
+      "entity": "SexofParticipants",
+      "mapping": [
+        {
+          "code": "C49636",
+          "CDISC": "BOTH",
+          "CPT": "Male or Female"
+        },
+        {
+          "code": "C16576",
+          "CDISC": "F",
+          "CPT": "Female"
+        },
+        {
+          "code": "C20197",
+          "CDISC": "M",
+          "CPT": "Male"
+        }
+      ]
+    }
+  ]
+}

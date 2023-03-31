@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TransCelerate.SDR.Core.DTO.Study
+﻿namespace TransCelerate.SDR.Core.DTO.Study
 {
     public class StudyDataCollectionDTO
     {
-        public string id { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public string eCRFLink { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string ECRFLink { get; set; }
     }
 }

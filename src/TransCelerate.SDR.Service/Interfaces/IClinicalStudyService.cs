@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO;
 using TransCelerate.SDR.Core.DTO.Study;
-using TransCelerate.SDR.Core.Entities.Study;
 using TransCelerate.SDR.Core.DTO.Token;
+using TransCelerate.SDR.Core.Entities.Study;
 
 namespace TransCelerate.SDR.Services.Interfaces
 {
@@ -25,7 +25,7 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        Task<object> GetAllElements(string studyId,int version, string tag,LoggedInUser user);
+        Task<object> GetAllElements(string studyId, int version, string tag, LoggedInUser user);
 
         /// <summary>
         /// GET All Elements For a Study
@@ -54,7 +54,7 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// A <see cref="object"/> of studyDesign sections with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        Task<object> GetStudyDesignSections(string studyId,string studyDesignId, int version, string tag, string[] sections, LoggedInUser user);
+        Task<object> GetStudyDesignSections(string studyId, string studyDesignId, int version, string tag, string[] sections, LoggedInUser user);
 
         /// <summary>
         /// GET Audit Trial
@@ -80,7 +80,7 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// A <see cref="GetStudyHistoryResponseDTO"/> which has list of study ID's <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        Task<GetStudyHistoryResponseDTO> GetAllStudyId(DateTime fromDate, DateTime toDate,string studyTitle, LoggedInUser user);
+        Task<GetStudyHistoryResponseDTO> GetAllStudyId(DateTime fromDate, DateTime toDate, string studyTitle, LoggedInUser user);
         #endregion
 
         #region POST Methods

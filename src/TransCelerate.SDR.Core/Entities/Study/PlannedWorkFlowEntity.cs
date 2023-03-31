@@ -1,18 +1,14 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TransCelerate.SDR.Core.Entities.Study
 {
     public class PlannedWorkFlowEntity
     {
-        [BsonElement("id")]
-        public string plannedWorkFlowId { get; set; }
-        public string description { get; set; }
-        public PointInTimeEntity startPoint { get; set; }
-        public PointInTimeEntity endPoint { get; set; }
-        //public List<TransitionEntity> transitions { get; set; }
-        public WorkFlowItemMatrixEntity workflowItemMatrix { get; set; }
+        [BsonElement(Utilities.Common.IdFieldPropertyName.MVP.Id)]
+        public string PlannedWorkFlowId { get; set; }
+        public string Description { get; set; }
+        public PointInTimeEntity StartPoint { get; set; }
+        public PointInTimeEntity EndPoint { get; set; }
+        public WorkFlowItemMatrixEntity WorkflowItemMatrix { get; set; }
     }
 }

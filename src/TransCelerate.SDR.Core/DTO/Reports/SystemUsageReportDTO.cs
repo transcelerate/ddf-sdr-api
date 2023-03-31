@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TransCelerate.SDR.Core.DTO.Reports
+﻿namespace TransCelerate.SDR.Core.DTO.Reports
 {
     public class SystemUsageReportDTO
-    {  
+    {
         public string EmailId { get; set; }
         public string UserName { get; set; }
         public string Operation { get; set; }
-        public string Api { get; set; }        
+        public string Api { get; set; }
         public string RequestDate { get; set; }
         public string CallerIpAddress { get; set; }
         public string ResponseCode { get; set; }
-        public string ResponseCodeDescription { get; set; }        
+        public string ResponseCodeDescription { get; set; }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
+using System.IO;
 using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.Core.AppSettings
@@ -25,8 +27,28 @@ namespace TransCelerate.SDR.Core.AppSettings
             Config.AppInsightsAppId = Convert.ToString(config.GetSection("AppInsights-AppId").Value);
             Config.AppInsightsRESTApiUrl = Convert.ToString(config.GetSection("AppInsights-RESTApiUrl").Value);
             Config.DateRange = Convert.ToString(config.GetSection("StudyHistory:DateRange").Value);
-            Config.isGroupFilterEnabled = Convert.ToBoolean(config.GetSection("isGroupFilterEnabled").Value);
-            Config.isAuthEnabled = Convert.ToBoolean(config.GetSection("isAuthEnabled").Value);
+            Config.IsGroupFilterEnabled = Convert.ToBoolean(config.GetSection("isGroupFilterEnabled").Value);
+            Config.IsAuthEnabled = Convert.ToBoolean(config.GetSection("isAuthEnabled").Value);
+            Config.AzureServiceBusConnectionString = Convert.ToString(config.GetSection("AzureServiceBusConnectionString").Value);
+            Config.AzureServiceBusQueueName = Convert.ToString(config.GetSection("AzureServiceBusQueueName").Value);
+            Config.ApiVersionUsdmVersionMapping = Convert.ToString(config.GetSection("ApiVersionUsdmVersionMapping").Value);
+            Config.SdrCptMasterDataMapping = Convert.ToString(config.GetSection("SdrCptMasterDataMapping").Value);
+            Config.ConformanceRules = Convert.ToString(config.GetSection("ConformanceRules").Value);
+
+            ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(Config.ApiVersionUsdmVersionMapping);
+            ApiUsdmVersionMapping.SDRVersions = apiUsdmVersionMapping_NonStatic.SDRVersions;
+
+            if (String.IsNullOrWhiteSpace(Config.ConformanceRules))
+                Config.ConformanceRules = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ConformanceRules.json");
+
+            ConformanceNonStatic conformanceNonStatic = JsonConvert.DeserializeObject<ConformanceNonStatic>(Config.ConformanceRules);
+            Conformance.ConformanceRules = conformanceNonStatic.ConformanceRules;
+
+            if (String.IsNullOrWhiteSpace(Config.SdrCptMasterDataMapping))
+                Config.SdrCptMasterDataMapping = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/SdrCptMasterDataMapping.json");
+
+            SdrCptMapping_NonStatic sdrCptMapping_NonStatic = JsonConvert.DeserializeObject<SdrCptMapping_NonStatic>(Config.SdrCptMasterDataMapping);
+            SdrCptMapping.SdrCptMasterDataMapping = sdrCptMapping_NonStatic.SdrCptMasterDataMapping;
         }
     }
 }

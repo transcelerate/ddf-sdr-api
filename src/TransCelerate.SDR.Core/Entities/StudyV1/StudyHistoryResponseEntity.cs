@@ -13,5 +13,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV1
         public DateTime EntryDateTime { get; set; }
         public CodeEntity StudyType { get; set; }
         public IEnumerable<string> ProtocolVersions { get; set; }
+        public string UsdmVersion { get; set; }
     }
 }

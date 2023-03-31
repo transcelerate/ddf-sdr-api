@@ -1,4 +1,7 @@
-﻿namespace TransCelerate.SDR.Core.Utilities.Common
+﻿using TransCelerate.SDR.Core.DTO.StudyV2;
+using TransCelerate.SDR.Core.Entities.StudyV2;
+
+namespace TransCelerate.SDR.Core.Utilities.Common
 {
     /// <summary>
     /// This class holds all the constant strings used in the application
@@ -21,12 +24,18 @@
             public const string Study = "Study";
             public const string SDRGrouping = "Groups";
             public const string StudyV1 = "StudyDefinitionsV1";
-        }       
+            public const string ChangeAudit = "ChangeAudit";
+            public const string StudyDefinitions = "StudyDefinitions";
+        }
 
         public struct IdType
         {
             public const string SPONSOR_ID = "SPONSOR_ID";
             public const string SPONSOR_ID_V1 = "Clinical Study Sponsor";
+            public const string REGULATORY_AGENCY = "Regulatory Agency";
+            public const string STUDY_PRIMARY_OBJECTIVE = "Study Primary Objective";
+            public const string STUDY_SECONDARY_OBJECTIVE = "Study Secondary Objective";
+
         }
 
         public struct LogConstant
@@ -58,7 +67,39 @@
         {
             public const string ALL = "ALL";
         }
-
+        public struct USDMVersions
+        {
+            public const string MVP = "mvp";
+            public const string V1 = "1.0";
+            public const string V2 = "1.9";
+        }
+        public struct ApiVersions
+        {
+            public const string MVP = "mvp";
+            public const string V1 = "v1";
+            public const string V2 = "v2";
+        }
+        public struct DbFilter
+        {
+            public const string StudyId = "clinicalStudy.studyId";
+            public const string ClinicalStudy = "clinicalStudy";
+            public const string AuditTrail = "auditTrail";
+            public const string StudyType = "clinicalStudy.studyType";
+            public const string StudyIdentifiers = "clinicalStudy.studyIdentifiers";
+            public const string StudyIdentifierOrganisationIdentifier = "studyIdentifierScope.organisationIdentifier";
+            public const string StudyIdentifierOrganisationTypeDecode = "studyIdentifierScope.organisationType.decode";
+            public const string StudyIdentifierIdType = "idType";
+            public const string StudyIdentifierOrgCode = "orgCode";
+            public const string StudyPhase = "clinicalStudy.studyPhase";
+            public const string StudyPhaseDecode = "decode";
+            public const string StudyPhaseStandardCodeDecode = "standardCode.decode";
+            public const string StudyDesigns = "clinicalStudy.studyDesigns";
+            public const string InterventionModel = "interventionModel.decode";
+            public const string StudyIndicationsIndicationDescription = "studyIndications.indicationDescription";
+            public const string StudyIndicationsIndicationDesc = "studyIndications.indicationDesc";
+            public const string InterventionModelMVP = "clinicalStudy.currentSections.studyDesigns.currentSections.investigationalInterventions.interventionModel";
+            public const string IndicationMVP = "clinicalStudy.currentSections.studyIndications.description";
+        }
         public struct ValidationErrorMessage
         {
             public const string ConformanceError = "Field is missing or empty";
@@ -77,6 +118,10 @@
 
             public const string PropertyEmptyError = "Field is empty";
 
+            public const string ScheduledInstanceTypesError = $"The value must be {nameof(Utilities.ScheduledInstanceType.ACTIVITY)}/{nameof(Utilities.ScheduledInstanceType.DECISION)}";
+
+            public const string UniquenessArrayError = "The {PropertyName} Ids are not unique";
+
             public const string NumberError = "Enter a valid number";
 
             public const string GroupFilterEmptyError = "Group Filter must not be empty";
@@ -94,11 +139,15 @@
             public const string RootElementMissing = "Root Element is missing";
 
             public const string InValidDays = "Invalid Date Range";
+
+            public const string BooleanValidationFailed = "Type must be boolean (true/false)";
         }
 
         public struct ErrorMessages
         {
             public const string StudyNotFound = "The requested study document not found";
+
+            public const string ChangeAuditNotFound = "The requested change audit is not found for the study with uuid :";
 
             public const string GenericError = "An Error Occured";
 
@@ -106,13 +155,29 @@
 
             public const string DateError = "ToDate must be greater than or equal to FromDate";
 
+            public const string DateErrorForReports = "ToDate must be greater than FromDate";
+
             public const string StudyInputError = "Kindly provide a valid input";
+
+            public const string DateMissingError = "Kindly provide a date range";
 
             public const string SearchNotFound = "No study matches the search keywords";
 
             public const string SectionNotValid = "Kindly provide a valid section";
 
-            public const string NotValidStudyId = "The provided studyId is not valid";
+            public const string StudyElementNotValid = "Kindly provide a valid study element";
+
+            public const string StudyDesignElementNotValid = "Kindly provide a valid study design element";
+
+            public const string NotValidStudyId = "The provided studyId is not found";
+
+            public const string DowngradeError = "The usdmVersion cannot be downgraded";
+
+            public const string StudyIdNotFound = "The provided clinicalStudy.studyId is not found";
+
+            public const string UsePutEndpoint = "Kindly use PUT Study Definitions endpoint to update study definitions";
+
+            public const string UsePostEndpoint = "Kindly use POST Study Definitions endpoint to create new study definitions";
 
             public const string GroupsNotFound = "There are no user groups available";
 
@@ -135,6 +200,31 @@
             public const string PostRestricted = "Operation restricted for the user";
 
             public const string UsageReportNotAvailable = "System Usage Report Not Available";
+
+            public const string ErrorMessageForReferenceIntegrityInResponse = "Reference Integrity Error";
+
+            public const string ErrorMessageForReferenceIntegrity = "Reference Integrity Failed";
+
+            public const string WorkFlowNotFound = "The requested StudyScheduleTimeline not found";
+
+            public const string EnterDesignIdError = "Kindly provide valid Study Design Id when providing Study WorkFlow Id";
+
+            public const string SoANotFound = "The Schedule Of Activities Not Found";
+
+            public const string UsdmVersionMissing = "The 'usdmVersion' header is missing";
+
+            public const string UsdmVersionAmbiguous = "The 'usdmVersion' is ambiguous";
+
+            public const string UsdmVersionMapError = "The usdmVersion is not compatible with the apiVersion. Kindly refer versions endpoint for apiVersion -> usdmVersion mapping ";
+
+            public const string eCPTError = "CPT export data cannot be generated for this study";
+
+            public const string CPTNotFound = "The requested CPT variables are not available";
+
+            public const string StudyDesignIdNotFoundCPT = "The requested study design not found and eCPT data cannot be generated";
+
+            public const string StudyDesignNotFoundCPT = "The study design is not available for the given study and eCPT data cannot be generated";
+
         }
 
         public struct TokenConstants
@@ -146,6 +236,98 @@
             public const string Password = "password";
             public const string Scope = "scope";
             public const string Client_Secret = "client_secret";
+        }
+
+        public static readonly string[] ClinicalStudyElements = {
+            nameof(ClinicalStudyDto.StudyTitle),
+            nameof(ClinicalStudyDto.StudyIdentifiers),
+            nameof(ClinicalStudyDto.StudyProtocolVersions),
+            nameof(ClinicalStudyDto.StudyVersion),
+            nameof(ClinicalStudyDto.StudyPhase),
+            nameof(ClinicalStudyDto.StudyType),
+            nameof(ClinicalStudyDto.BusinessTherapeuticAreas),
+            nameof(ClinicalStudyDto.StudyDesigns),
+            nameof(ClinicalStudyDto.StudyAcronym),
+            nameof(ClinicalStudyDto.StudyRationale),
+        };
+
+        public static readonly string[] StudyDesignElements = {
+            nameof(StudyDesignDto.StudyDesignName),
+            nameof(StudyDesignDto.StudyDesignDescription),
+            nameof(StudyDesignDto.TherapeuticAreas),
+            nameof(StudyDesignDto.TrialType),
+            nameof(StudyDesignDto.StudyInvestigationalInterventions),
+            nameof(StudyDesignDto.TrialIntentType),
+            nameof(StudyDesignDto.InterventionModel),
+            nameof(StudyDesignDto.StudyIndications),
+            nameof(StudyDesignDto.StudyPopulations),
+            nameof(StudyDesignDto.StudyObjectives),
+            nameof(StudyDesignDto.StudyCells),
+            nameof(StudyDesignDto.StudyScheduleTimelines),
+            nameof(StudyDesignDto.StudyEstimands),
+            nameof(StudyDesignDto.Activities),
+            nameof(StudyDesignDto.Encounters),
+            nameof(StudyDesignDto.StudyDesignRationale),
+            nameof(StudyDesignDto.StudyDesignBlindingScheme),
+            nameof(StudyDesignDto.BiomedicalConcepts),
+            nameof(StudyDesignDto.BcCategories),
+            nameof(StudyDesignDto.BcSurrogates)
+        };
+
+        public struct FunctionAppConstants
+        {
+            public const string ChangeAuditFunction = "ChangeAuditFunction";
+            public const string AzureServiceBusQueueName = "%AzureServiceBusQueueName%";
+            public const string AzureServiceBusConnectionString = "AzureServiceBusConnectionString";
+        }
+
+        public static readonly string[] CharactersToBeRemovedForAudit =
+        {
+            nameof(CodeEntity.CodeSystemVersion),
+            nameof(CodeEntity.CodeSystem),
+            nameof(CodeEntity.Decode),
+            nameof(CodeEntity.Code),
+            "T"
+        };
+        public static readonly string[] ParanthesisToBeRemovedForAudit =
+        {
+            "[",
+            "]"
+        };
+        public struct StringToBeRemovedForChangeAudit
+        {
+            public const string ConditionAssignmentsValue = ".Value";
+        }
+        public struct ApiVersionErrorCodes
+        {
+            public const string ApiVersionUnspecified = "ApiVersionUnspecified";
+            public const string UnsupportedApiVersion = "UnsupportedApiVersion";
+            public const string InvalidApiVersion = "InvalidApiVersion";
+            public const string AmbiguousApiVersion = "AmbiguousApiVersion";
+        }
+        public static readonly string[] Male =
+        {
+           "m",
+           "male",
+        };
+        public static readonly string[] Female =
+        {
+           "f",
+           "female",
+        };
+        public struct PlannedSexOfParticipants
+        {
+            public const string Male = "Male";
+            public const string Female = "Female";
+            public const string MaleOrFemale = "Male or Female";
+        }
+        public struct SdrCptMasterDataEntities
+        {
+            public const string InterventionModel = "InterventionModel";
+            public const string StudyPhase = "Study Phase";
+            public const string TrialIntentType = "TrialIntentType";
+            public const string ObjectiveLevel = "Objective Level";
+            public const string SexofParticipants = "SexofParticipants";
         }
     }
 }

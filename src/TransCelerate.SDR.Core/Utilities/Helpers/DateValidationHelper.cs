@@ -2,7 +2,7 @@
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
 {
-    public static class DateValidationHelper 
+    public static class DateValidationHelper
     {
         /// <summary>
         /// Validator for Date
@@ -16,9 +16,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             var dateString = value as string;
             if (string.IsNullOrWhiteSpace(dateString))
             {
-                return true; 
+                return true;
             }
-            var success = DateTime.TryParse(dateString, out DateTime result);
+
+            var success = DateTime.TryParse(dateString, out _);
             return success;
         }
     }

@@ -1,28 +1,25 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
-using TransCelerate.SDR.Core.DTO.Token;
-using TransCelerate.SDR.Core.DTO.UserGroups;
+using TransCelerate.SDR.Core.DTO.Reports;
 using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
-using TransCelerate.SDR.Core.Utilities.Helpers;
-using TransCelerate.SDR.Core.DTO.Reports;
-using Newtonsoft.Json;
-using System.Net.Http;
-using AutoMapper;
-using System.Net;
 using TransCelerate.SDR.Core.Utilities.Enums;
+using TransCelerate.SDR.Core.Utilities.Helpers;
 
 namespace TransCelerate.SDR.WebApi.Controllers
 {
     [Authorize(Roles = Constants.Roles.Org_Admin)]
+    [ApiVersionNeutral]
     [ApiController]
     public class ReportsController : ControllerBase
     {
@@ -33,7 +30,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
 
         #region Constructor
         public ReportsController(ILogHelper logger, IMapper mapper)
-        {            
+        {
             _logger = logger;
             _mapper = mapper;
         }
@@ -56,23 +53,30 @@ namespace TransCelerate.SDR.WebApi.Controllers
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(ReportsController)}; Method : {nameof(GetUsageReport)};");
-                if (reportBodyParameters.days == 0)
+                if (reportBodyParameters.Days == 0 && !reportBodyParameters.FilterByTime)
                     return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ValidationErrorMessage.InValidDays)).Value);
-                HttpClient client = new HttpClient();
+                if (reportBodyParameters.FilterByTime)
+                {
+                    if (reportBodyParameters.FromDateTime == DateTime.MinValue || reportBodyParameters.ToDateTime == DateTime.MinValue)
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateMissingError)).Value);
+                    if (reportBodyParameters.FromDateTime >= reportBodyParameters.ToDateTime)
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateErrorForReports)).Value);
+                }
+                HttpClient client = new();
                 client.DefaultRequestHeaders.Add(Constants.DefaultHeaders.AppInsightsApiKey, Config.AppInsightsApiKey);
 
-                string url = $"{Config.AppInsightsRESTApiUrl}/{Config.AppInsightsAppId}/query?" + UsageReportQueryHelper.FormattedQuery(reportBodyParameters);                     
+                string url = $"{Config.AppInsightsRESTApiUrl}/{Config.AppInsightsAppId}/query?" + UsageReportQueryHelper.FormattedQuery(reportBodyParameters);
 
                 var response = await client.GetAsync(url);
                 var responseString = response.Content.ReadAsStringAsync().Result;
 
                 if (response.IsSuccessStatusCode)
-                {                    
+                {
                     var rawReport = JsonConvert.DeserializeObject<SystemUsageRawReport>(responseString);
 
-                    List<SystemUsageReportDTO> usageReport = new List<SystemUsageReportDTO>();
+                    List<SystemUsageReportDTO> usageReport = new();
                     if (rawReport.Tables[0].Rows.Count > 0)
-                    {                        
+                    {
                         rawReport.Tables[0].Rows.ForEach(rows => usageReport.Add(new SystemUsageReportDTO
                         {
                             RequestDate = rows[(int)UsageReportFields.timestamp],
@@ -92,20 +96,20 @@ namespace TransCelerate.SDR.WebApi.Controllers
                             ResponseCodeDescription = int.TryParse(rows[(int)UsageReportFields.resultCode], out int code) == true ?
                                                       Enum.IsDefined(typeof(HttpStatusCode), code) == true ?
                                                       $"{code} - {Enum.GetName(typeof(HttpStatusCode), code)}"
-                                                      : null : null                                                                                                                                         
+                                                      : null : null
                         }));
                         return Ok(new JsonResult(usageReport).Value);
                     }
                     else
                     {
                         return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.UsageReportNotAvailable)).Value);
-                    }                    
+                    }
                 }
 
                 else
                 {
                     _logger.LogError($"Exception occured. Exception : {responseString}");
-                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError)).Value);                                        
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError)).Value);
                 }
             }
             catch (Exception ex)
@@ -117,7 +121,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             {
                 _logger.LogInformation($"Ended Controller : {nameof(ReportsController)}; Method : {nameof(GetUsageReport)};");
             }
-        }        
+        }
         #endregion
     }
 }

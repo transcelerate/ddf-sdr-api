@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Newtonsoft.Json;
 
 namespace TransCelerate.SDR.Core.DTO.Study
 {
     public class AuditTrailDTO
-    {               
-        public string entryDateTime { get; set; }     
-        public string entrySystem { get; set; }
-        public int studyVersion { get; set; }
+    {
+        public string EntryDateTime { get; set; }
+        public string EntrySystem { get; set; }
+        [JsonProperty(nameof(DTO.Common.AuditTrailDto.SDRUploadVersion))]
+        public int StudyVersion { get; set; }
+        public string UsdmVersion { get; set; }
     }
 }

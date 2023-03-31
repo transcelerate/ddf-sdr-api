@@ -1,16 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using TransCelerate.SDR.Core.Utilities.Common;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
-using System.Net;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.IO;
+using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using TransCelerate.SDR.Core.Utilities;
 
 namespace TransCelerate.SDR.Core.Filters
@@ -30,7 +23,7 @@ namespace TransCelerate.SDR.Core.Filters
             try
             {
                 _logger.LogInformation($"Started Action Filter : {nameof(ActionFilter)}; Method : {nameof(OnActionExecutionAsync)};");
-                
+
                 string request = string.Empty;
                 string response = string.Empty;
                 int statusCode = 0;
@@ -40,7 +33,7 @@ namespace TransCelerate.SDR.Core.Filters
                 var result = await next();
                 // execute any code after the action executes                
 
-                if(context!=null)
+                if (context != null)
                 {
                     //Getting Request Body                
                     var input = context.ActionArguments;
@@ -48,16 +41,15 @@ namespace TransCelerate.SDR.Core.Filters
                         request = JsonConvert.SerializeObject(input);
 
                     //Getting Response Body                
-                    var objResult = result.Result as ObjectResult;
-                    if (objResult != null && objResult.Value != null)
+                    if (result.Result is ObjectResult objResult && objResult.Value != null)
                     {
                         statusCode = objResult.StatusCode ?? 0;
                         response = JsonConvert.SerializeObject(objResult.Value);
                     }
-                    var AuthToken = context.HttpContext.Request.Headers["Authorization"];
-                    context.HttpContext.Response.Headers.Add("Controller", "True");
+                    var AuthToken = context?.HttpContext?.Request?.Headers["Authorization"];
+                    context?.HttpContext?.Response?.Headers?.Add("Controller", "True");
                     //Logging Request and Response parameters
-                    _logger.LogInformation($"Status Code: {statusCode}; UserName : {context.HttpContext.User?.FindFirst(ClaimTypes.Email)?.Value}; UserRole : {context.HttpContext.User?.FindFirst(ClaimTypes.Role)?.Value} URL: {context.HttpContext.Request.Path}; AuthToken: {AuthToken}");
+                    _logger.LogInformation($"Status Code: {statusCode}; UserName : {context.HttpContext.User?.FindFirst(ClaimTypes.Email)?.Value}; UserRole : {context.HttpContext.User?.FindFirst(ClaimTypes.Role)?.Value} URL: {context.HttpContext.Request?.Path}; AuthToken: {AuthToken}");
                 }
             }
             catch (Exception ex)

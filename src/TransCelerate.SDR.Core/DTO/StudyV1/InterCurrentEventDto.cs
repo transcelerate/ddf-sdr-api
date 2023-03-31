@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace TransCelerate.SDR.Core.DTO.StudyV1
+﻿namespace TransCelerate.SDR.Core.DTO.StudyV1
 {
-    public class InterCurrentEventDto
+    public class InterCurrentEventDto : IUuid
     {
         public string Uuid { get; set; }
         public string IntercurrentEventDesc { get; set; }

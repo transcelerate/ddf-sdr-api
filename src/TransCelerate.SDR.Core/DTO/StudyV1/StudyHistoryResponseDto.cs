@@ -9,7 +9,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV1
     public class StudyHistoryResponseDto
     {
         public string StudyId { get; set; }
-        [JsonProperty("SDRUploadVersion")]
+        [JsonProperty(nameof(SDRUploadVersion))]
         public List<UploadVersionDto> SDRUploadVersion { get; set; }
     }
 
@@ -20,5 +20,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV1
         public string StudyVersion { get; set; }
         public List<StudyIdentifierDto> StudyIdentifiers { get; set; }
         public List<string> ProtocolVersions { get; set; }
+        public string UsdmVersion { get; set; }
+
     }
 }

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV1
 {
-    public class StudyDesignEntity
+    public class StudyDesignEntity : IUuid
     {
         public string Uuid { get; set; }
         public List<CodeEntity> InterventionModel { get; set; }

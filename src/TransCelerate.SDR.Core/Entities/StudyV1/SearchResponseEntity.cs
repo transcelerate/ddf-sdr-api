@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV1
 {
@@ -12,7 +9,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV1
         public string StudyTitle { get; set; }
         public CodeEntity StudyType { get; set; }
 
-        public CodeEntity StudyPhase { get; set; }        
+        public CodeEntity StudyPhase { get; set; }
 
         public List<StudyIdentifierEntity> StudyIdentifiers { get; set; }
 
@@ -22,5 +19,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV1
 
         public DateTime EntryDateTime { get; set; }
         public int SDRUploadVersion { get; set; }
+        public string UsdmVersion { get; set; }
     }
 }

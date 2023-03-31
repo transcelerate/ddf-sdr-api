@@ -8,7 +8,7 @@ namespace TransCelerate.SDR.RuleEngineV1
     /// This Class is the validator for ClinicalStudy
     /// </summary>
     public class ClinicalStudyValidator : AbstractValidator<ClinicalStudyDto>
-    {       
+    {
         public ClinicalStudyValidator()
         {
             RuleFor(x => x.StudyTitle)
@@ -35,7 +35,6 @@ namespace TransCelerate.SDR.RuleEngineV1
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-
         }
     }
 }

@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
@@ -15,7 +11,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
     /// </summary>
     public class ApiBehaviourOptionsHelper
     {
-        private readonly ILogHelper _logger;       
+        private readonly ILogHelper _logger;
         public ApiBehaviourOptionsHelper(ILogHelper logger)
         {
             _logger = logger;
@@ -26,18 +22,24 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <param name="context">Action Context</param>
         /// <returns></returns>
         public ObjectResult ModelStateResponse(ActionContext context)
-        {            
-            var errors = context.ModelState.ToDictionary(
-                    kvp => kvp.Key?.Length > 2 ? string.Join(".",  kvp.Key?.Split(".").Select(key => key?.Substring(0, 1)?.ToLower() + key?.Substring(1))) : kvp.Key,
+        {
+            var modelState = context.ModelState.ToList();
+            modelState.RemoveAll(x => x.Value.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid);
+            var errors = modelState.ToDictionary(
+                    kvp => kvp.Key?.Length > 2 ? string.Join(".", kvp.Key?.Split(".").Select(key => $"{key?[..1]?.ToLower()}{key?[1..]}")) : kvp.Key,
                     kvp => kvp.Value?.Errors?.Select(e => e.ErrorMessage).ToArray()
                 );
+            var errorsToList = errors.ToList();
+            errorsToList.RemoveAll(x => x.Key.Contains(IdFieldPropertyName.Common.UsdmVersion));
+            errors = errorsToList.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
             context.HttpContext?.Response?.Headers?.Add("InvalidInput", "True");
             var errorList = SplitStringIntoArrayHelper.SplitString(JsonConvert.SerializeObject(errors), 32000);//since app insights limit is 32768 characters                                                              
             var AuthToken = context?.HttpContext?.Request?.Headers["Authorization"];
-            
+
             //For Conformance error
             if ((JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyEmptyError.ToLower()) || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyMissingError.ToLower())
                 || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.SelectAtleastOneGroup.ToLower()) || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.InvalidPermissionValue.ToLower())
+                || JsonConvert.SerializeObject(errors).ToLower().Contains("unique") || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.BooleanValidationFailed.ToLower())
                 || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.GroupFilterEmptyError.ToLower())) && !JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.TokenConstants.Username.ToLower()) && !JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.TokenConstants.Password.ToLower()))
             {
 

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities.StudyV1;
@@ -22,6 +20,14 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
         Task<StudyEntity> GetStudyItemsAsync(string studyId, int sdruploadversion);
+
+        /// <summary>
+        /// GET Study Designs for a Study Id
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="sdruploadversion">Version of study</param>
+        /// <returns></returns>
+        Task<StudyEntity> GetPartialStudyDesignItemsAsync(string studyId, int sdruploadversion);
 
         /// <summary>
         /// GET List of study for a study ID
@@ -88,5 +94,18 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         Task<List<SearchResponseEntity>> SearchTitle(SearchTitleParameters searchParameters, LoggedInUser user);
 
         Task<List<SDRGroupsEntity>> GetGroupsOfUser(LoggedInUser user);
+
+        Task<StudyEntity> GetStudyItemsForCheckingAccessAsync(string studyId, int sdruploadversion);
+
+        /// <summary>
+        /// GET a Study for a study ID with version filter
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="sdruploadversion">Version of study</param>
+        /// <returns>
+        /// A <see cref="AuditTrailEntity"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        Task<AuditTrailEntity> GetUsdmVersionAsync(string studyId, int sdruploadversion);
     }
 }

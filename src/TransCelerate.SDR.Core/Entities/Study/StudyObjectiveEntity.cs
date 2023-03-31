@@ -1,34 +1,31 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
 using System.Collections.Generic;
-using System.Text;
-using MongoDB.Bson.Serialization.Attributes;
-using TransCelerate.SDR.Core.Utilities;
 
 namespace TransCelerate.SDR.Core.Entities.Study
 {
     [BsonIgnoreExtraElements]
     public class StudyObjectiveEntity
     {
-        public string description { get; set; }
+        public string Description { get; set; }
 
-        [BsonElement("id")]
-        public string objectiveId { get; set; }
+        [BsonElement(Utilities.Common.IdFieldPropertyName.MVP.Id)]
+        public string ObjectiveId { get; set; }
 
-        public string level { get; set; }
+        public string Level { get; set; }
 
-        public List<EndpointsEntity> endpoints { get; set; }
+        public List<EndpointsEntity> Endpoints { get; set; }
     }
     [BsonIgnoreExtraElements]
     public class EndpointsEntity
     {
 
-        public string description { get; set; }
+        public string Description { get; set; }
 
-        public string purpose { get; set; }
+        public string Purpose { get; set; }
 
-        [BsonElement("id")]
-        public string endPointsId { get; set; }
+        [BsonElement(Utilities.Common.IdFieldPropertyName.MVP.Id)]
+        public string EndPointsId { get; set; }
 
-        public string outcomeLevel { get; set; }
-    }            
+        public string OutcomeLevel { get; set; }
+    }
 }

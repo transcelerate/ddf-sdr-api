@@ -17,15 +17,15 @@ namespace TransCelerate.SDR.RuleEngine
         public static IServiceCollection AddValidationDependencies(this IServiceCollection services)
         {
             //Study Level Validators
-            services.AddTransient<IValidator<ClinicalStudyDTO>, ClinicalStudyValidator>();            
-            services.AddTransient<IValidator<PostStudyDTO>, PostStudyValidator>();            
+            services.AddTransient<IValidator<ClinicalStudyDTO>, ClinicalStudyValidator>();
+            services.AddTransient<IValidator<PostStudyDTO>, PostStudyValidator>();
             services.AddTransient<IValidator<StudyIdentifierDTO>, StudyIdentifiersValidator>();
             services.AddTransient<IValidator<StudyProtocolDTO>, StudyProtocolValidator>();
             //Section Level Validators
             ////Investigational Intervention Section
             services.AddTransient<IValidator<InvestigationalInterventionDTO>, InvestigationalInterventionValidatior>();
             ////Study Objectives Section
-            services.AddTransient<IValidator<StudyObjectiveDTO>, StudyObjectivesValidator>();            
+            services.AddTransient<IValidator<StudyObjectiveDTO>, StudyObjectivesValidator>();
             ////Study Indications Section
             services.AddTransient<IValidator<StudyIndicationDTO>, StudyIndicationValidator>();
             ////Study Design Section
@@ -33,18 +33,18 @@ namespace TransCelerate.SDR.RuleEngine
             services.AddTransient<IValidator<StudyPopulationDTO>, StudyPopulationValidator>();
             //////Study Cell Section
             services.AddTransient<IValidator<StudyCellDTO>, StudyCellsValidator>();
-            services.AddTransient<IValidator<StudyElementDTO>, StudyElementsValidator>();            
+            services.AddTransient<IValidator<StudyElementDTO>, StudyElementsValidator>();
             services.AddTransient<IValidator<StudyArmDTO>, StudyArmValidator>();
             services.AddTransient<IValidator<StudyEpochDTO>, StudyEpochValidator>();
             //////Planned WorkFlow Section
-            services.AddTransient<IValidator<PlannedWorkflowDTO>, PlannedWorkFlowValidator>();            
+            services.AddTransient<IValidator<PlannedWorkflowDTO>, PlannedWorkFlowValidator>();
             services.AddTransient<IValidator<WorkflowItemMatrixDTO>, WorkFlowItemMatrixValidator>();
             services.AddTransient<IValidator<MatrixDTO>, MatrixValidator>();
             services.AddTransient<IValidator<ItemDTO>, ItemValidator>();
             services.AddTransient<IValidator<ActivityDTO>, ActivityValidator>();
             services.AddTransient<IValidator<DefinedProcedureDTO>, DefinedProcedureValidator>();
             services.AddTransient<IValidator<StudyDataCollectionDTO>, StudyDataCollectionValidator>();
-            services.AddTransient<IValidator<EncounterDTO>, EncounterValidator>();            
+            services.AddTransient<IValidator<EncounterDTO>, EncounterValidator>();
 
             //Common Section
             services.AddTransient<IValidator<CodingDTO>, CodingValidator>();

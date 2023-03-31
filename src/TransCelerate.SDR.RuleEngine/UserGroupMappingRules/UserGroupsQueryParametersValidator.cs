@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using FluentValidation;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation;
 using TransCelerate.SDR.Core.DTO.UserGroups;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
@@ -17,16 +14,16 @@ namespace TransCelerate.SDR.RuleEngine
     {
         public UserGroupsQueryParametersValidator()
         {
-            RuleFor(x => x.sortOrder)
+            RuleFor(x => x.SortOrder)
                  .Must(x => Enum.GetNames(typeof(SortOrder)).Contains(x.Trim()))
-                 .When(x=> !String.IsNullOrEmpty(x.sortOrder))
+                 .When(x => !String.IsNullOrEmpty(x.SortOrder))
                  .WithMessage(Constants.ValidationErrorMessage.InvalidSortOrder);
 
-            RuleFor(x => x.pageNumber)
+            RuleFor(x => x.PageNumber)
                 .GreaterThanOrEqualTo(0)
                 .WithMessage(Constants.ValidationErrorMessage.EnterValidNumber);
 
-            RuleFor(x => x.pageSize)
+            RuleFor(x => x.PageSize)
                 .GreaterThanOrEqualTo(0)
                 .WithMessage(Constants.ValidationErrorMessage.EnterValidNumber);
 

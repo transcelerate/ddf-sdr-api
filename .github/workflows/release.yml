@@ -65,15 +65,27 @@ jobs:
       shell: pwsh
       # Zip the build artifact publish folder
       run: |
-          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net6.0/publish/**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
-     
-     
+          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net6.0/publish/**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force
+
+    - name: Zip publish files
+      shell: pwsh
+      # Zip the Function App build artifact publish folder
+      run: |
+          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net6.0/publish/**" -DestinationPath "${{ github.workspace }}\FunAppPublish.zip" -Force  
+          
     - name: 'Publish Artifact: Artifact'
       uses: actions/upload-artifact@v2
       # Publish the Build artifact in github
       with:
         path: '${{ github.workspace }}/Publish.zip'
         name: Build-Artifact
+
+    - name: 'Publish Function App Artifact: Artifact'
+      uses: actions/upload-artifact@v2
+      # Publish the Function App Build artifact in github
+      with:
+        path: '${{ github.workspace }}/FunAppPublish.zip'
+        name: FunctionAppBuild-Artifact
         
     ###############################---------------NUnit Test Cases-----------------------#############################
         
@@ -163,17 +175,46 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_SP }}   
       
-    - name: 'Run Azure webapp deploy action using publish profile credentials'
-      env:  
-        # AZURE_WEBAPP_NAME is getting fetched from secrets
-        # AZURE_WEBAPP_PACKAGE_PATH is declared from build path
-        AZURE_WEBAPP_NAME: ${{ secrets.AZURE_WEBAPP_NAME }}    # set this to your application's name
-        AZURE_WEBAPP_PACKAGE_PATH: '${{ github.workspace }}/**.zip'      # set this to the path to your web app project, defaults to the repository root
-      uses: azure/webapps-deploy@v2
-      # Deploy to target machine and path
-      with: 
-        app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
-        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+#     - name: 'Run Azure webapp deploy action using publish profile credentials'
+#       env:  
+#         # AZURE_WEBAPP_NAME is getting fetched from secrets
+#         # AZURE_WEBAPP_PACKAGE_PATH is declared from build path
+#         AZURE_WEBAPP_NAME: ${{ secrets.AZURE_WEBAPP_NAME }}    # set this to your application's name
+#         AZURE_WEBAPP_PACKAGE_PATH: '${{ github.workspace }}/Publish.zip'      # set this to the path to your web app project, defaults to the repository root
+#       uses: azure/webapps-deploy@v2
+#       # Deploy to target machine and path
+#       with: 
+#         app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
+#         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+
+    - name: Azure Container Registry Login
+      uses: Azure/docker-login@v1
+      with:
+        # Container registry username
+        username: ${{ secrets.ACR_USERNAME }} # default is 
+        # Container registry password
+        password: ${{ secrets.ACR_PASSWORD }} # default is 
+        # Container registry server url
+        login-server: ${{ secrets.ACR_NAME }} # default is https://index.docker.io/v1/
+    - run: |
+        cp '${{ github.workspace }}/Dockerfile' '${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net6.0/publish/'
+        cd ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net6.0/publish/
+        ls
+        docker build . -t ${{ secrets.ACR_NAME }}/sdrapibuild:latest
+        docker push ${{ secrets.ACR_NAME }}/sdrapibuild:latest
+        
+    - uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+        images: '${{ secrets.ACR_NAME }}/sdrapibuild:latest'
+
+    - name: Azure Functions Action
+      uses: Azure/functions-action@v1.4.7
+      with:
+    # Name of the Azure Function App
+        app-name: ${{ secrets.AZURE_FUNCTIONAPP_NAME }}  # Replace with Function app name
+    # Path to package or folder. *.zip or a folder to deploy
+        package: '${{ github.workspace }}/FunAppPublish.zip'
 
 
         

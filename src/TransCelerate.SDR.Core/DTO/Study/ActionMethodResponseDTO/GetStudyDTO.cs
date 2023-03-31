@@ -9,10 +9,11 @@
         /// <summary>
         /// This property holds the ClinicalStudy Component of the Study 
         /// </summary>
-        public GetClinicalStudyDTO clinicalStudy { get; set; }
+        public GetClinicalStudyDTO ClinicalStudy { get; set; }
         /// <summary>
         /// This property holds the Audit Trail Component of the Study 
         /// </summary>
-        public AuditTrailDTO auditTrail { get; set; }
+        public AuditTrailDTO AuditTrail { get; set; }
+        public TransCelerate.SDR.Core.DTO.Common.LinksForUIDto Links { get; set; }
     }
 }

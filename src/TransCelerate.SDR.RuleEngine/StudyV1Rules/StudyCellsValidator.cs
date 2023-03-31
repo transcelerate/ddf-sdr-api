@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using TransCelerate.SDR.Core.DTO.StudyV1;
-using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.RuleEngineV1
 {
@@ -11,7 +10,7 @@ namespace TransCelerate.SDR.RuleEngineV1
     {
         public StudyCellsValidator()
         {
-                     
+
         }
     }
 }

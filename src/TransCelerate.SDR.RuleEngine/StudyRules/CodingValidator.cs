@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FluentValidation;
-using TransCelerate.SDR.Core.DTO;
+﻿using FluentValidation;
 using TransCelerate.SDR.Core.DTO.Study;
 using TransCelerate.SDR.Core.Utilities.Common;
 
@@ -14,20 +10,20 @@ namespace TransCelerate.SDR.RuleEngine
         /// Validator for Coding
         /// </summary>
         public CodingValidator()
-        {           
-            RuleFor(x => x.code)
+        {
+            RuleFor(x => x.Code)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-            RuleFor(x => x.decode)
+            RuleFor(x => x.Decode)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
-            RuleFor(x => x.codeSystem)
+            RuleFor(x => x.CodeSystem)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError); 
-            RuleFor(x => x.codeSystemVersion)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+            RuleFor(x => x.CodeSystemVersion)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);

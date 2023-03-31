@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Reports;
 using TransCelerate.SDR.Core.Utilities.Enums;
 
@@ -31,58 +27,53 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                            $"{Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.resultCode)}," +
                                            $"{Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.url)} ";
 
-            if (!String.IsNullOrWhiteSpace(reportBodyParameters.operation))
+            if (!String.IsNullOrWhiteSpace(reportBodyParameters.Operation))
             {
-                query += $"| where {Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.name)} startswith \"{reportBodyParameters.operation}\"";
+                query += $"| where {Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.name)} startswith \"{reportBodyParameters.Operation}\"";
             }
-            if (reportBodyParameters.responseCode != 0)
+            if (reportBodyParameters.ResponseCode != 0)
             {
-                query += $"| where {Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.resultCode)} == {reportBodyParameters.responseCode}";
+                query += $"| where {Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.resultCode)} == {reportBodyParameters.ResponseCode}";
             }
 
-            if (!String.IsNullOrWhiteSpace(reportBodyParameters.sortBy))
+            if (!String.IsNullOrWhiteSpace(reportBodyParameters.SortBy))
             {
-                switch (reportBodyParameters.sortBy.ToLower())
+                query += reportBodyParameters.SortBy.ToLower() switch
                 {
-                    case "requestdate":
-                        query += $"| order by  {Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.timestamp)} ";
-                        break;
-                    case "operation":
-                        query += $"| order by  {Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.name)} ";
-                        break;
-                    case "api":
-                        query += $"| order by  {Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.url)} ";
-                        break;
-                    case "callerip":
-                        query += $"| order by  {Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.client_IP)} ";
-                        break;
-                    case "responsecode":
-                        query += $"| order by  {Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.resultCode)} ";
-                        break;
-                    default:
-                        query += $"| order by  {Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.timestamp)} ";
-                        break;
-                }
-                query += reportBodyParameters.sortOrder == SortOrder.asc.ToString() ? $"{SortOrder.asc}" : $"{SortOrder.desc}";
+                    "requestdate" => $"| order by  {Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.timestamp)} ",
+                    "operation" => $"| order by  {Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.name)} ",
+                    "api" => $"| order by  {Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.url)} ",
+                    "callerip" => $"| order by  {Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.client_IP)} ",
+                    "responsecode" => $"| order by  {Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.resultCode)} ",
+                    _ => $"| order by  {Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.timestamp)} ",
+                };
+                query += reportBodyParameters.SortOrder == SortOrder.asc.ToString() ? $"{SortOrder.asc}" : $"{SortOrder.desc}";
             }
             else
             {
                 query += $"| order by  {Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.timestamp)} ";
-                query += reportBodyParameters.sortOrder == SortOrder.asc.ToString() ? $"{SortOrder.asc}" : $"{SortOrder.desc}";
+                query += reportBodyParameters.SortOrder == SortOrder.asc.ToString() ? $"{SortOrder.asc}" : $"{SortOrder.desc}";
             }
-            
-            if(reportBodyParameters.pageSize == 0)
+
+            if (reportBodyParameters.PageSize == 0)
             {
                 query += $"| serialize Num = row_number() " +
-                         $"| where Num > {reportBodyParameters.recordNumber}" +                   
-                         $"&timespan=P{reportBodyParameters.days}D";
+                         $"| where Num > {reportBodyParameters.RecordNumber}";
             }
             else
             {
                 query += $"| serialize Num = row_number() " +
-                         $"| where Num > {reportBodyParameters.recordNumber}" +
-                         $"| take {reportBodyParameters.pageSize}" +
-                         $"&timespan=P{reportBodyParameters.days}D";
+                         $"| where Num > {reportBodyParameters.RecordNumber}" +
+                         $"| take {reportBodyParameters.PageSize}";
+            }
+
+            if (reportBodyParameters.FilterByTime)
+            {
+                query += $"&timespan={reportBodyParameters.FromDateTime:O}/{reportBodyParameters.ToDateTime:O}";
+            }
+            else
+            {
+                query += $"&timespan=P{reportBodyParameters.Days}D";
             }
 
             return query;

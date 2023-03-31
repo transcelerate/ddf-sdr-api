@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.StudyV1;
 using TransCelerate.SDR.Core.DTO.Token;
+using TransCelerate.SDR.Core.Entities.StudyV1;
 
 namespace TransCelerate.SDR.Services.Interfaces
 {
@@ -68,7 +67,7 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// POST All Elements For a Study
         /// </summary>
         /// <param name="studyDTO">Study for Inserting/Updating in Database</param>        
-        /// <param name="user">Logged In User</param>
+        /// <param name="user">Logged In User</param>        
         /// <returns>
         /// A <see cref="object"/> which has study ID and study design ID's <br></br> <br></br>
         /// <see langword="null"/> If the insert is not done
@@ -100,7 +99,25 @@ namespace TransCelerate.SDR.Services.Interfaces
         Task<List<SearchTitleResponseDto>> SearchTitle(SearchTitleParametersDto searchParameters, LoggedInUser user);
         #endregion
 
-
-
+        #region Check Access For A study
+        /// <summary>
+        /// Check access for the study
+        /// </summary>
+        /// <param name="study">Study for which user access have to be checked</param>   
+        /// <param name="user">Logged In User</param>
+        /// <returns>
+        /// A <see cref="StudyEntity"/> if the user have access <br></br> <br></br>
+        /// <see langword="null"/> If user doesn't have access to the study
+        /// </returns>
+        Task<StudyEntity> CheckAccessForAStudy(StudyEntity study, LoggedInUser user);
+        /// <summary>
+        /// Check Access for a study
+        /// </summary>
+        /// <param name="studyId"></param>
+        /// <param name="sdruploadversion"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        Task<bool> GetAccessForAStudy(string studyId, int sdruploadversion, LoggedInUser user);
+        #endregion
     }
 }
