@@ -214,7 +214,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Audit trail for the study is Not Found</response>
         [HttpGet]
-        [Route(Route.GetAudiTrail)]
+        [Route(Route.GetRevisionHistory)]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IEnumerable<AuditTrailResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]

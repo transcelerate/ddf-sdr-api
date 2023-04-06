@@ -166,7 +166,7 @@ namespace TransCelerate.SDR.Services.Services
                 Links = new
                 {
                     links.StudyDefinitions,
-                    links.AuditTrail
+                    links.RevisionHistory
                 },
             };
             List<StudyDesignDto> studyeCPTDtos = new();
@@ -315,7 +315,7 @@ namespace TransCelerate.SDR.Services.Services
                     AuditTrailResponseDto getStudyAuditDto = new()
                     {
                         StudyId = studyId,
-                        AuditTrail = auditTrailDtoList
+                        RevisionHistory = auditTrailDtoList
                     };
 
                     return getStudyAuditDto;

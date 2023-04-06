@@ -108,8 +108,8 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <summary>
         /// GET Study Designs of a Study
         /// </summary>
-        /// <param name="study_uuid">Study ID</param>
-        /// <param name="studydesign_uuid">Study Design ID</param>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="studyDesignId">Study Design ID</param>
         /// <param name="sdruploadversion">Version of study</param>
         /// <param name="listofelements">List of study design elements with comma separated values</param>
         /// <param name="usdmVersion">USDM Version</param>
@@ -123,22 +123,22 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetStudyDesigns(string study_uuid, int sdruploadversion, string studydesign_uuid, string listofelements,
+        public async Task<IActionResult> GetStudyDesigns(string studyId, int sdruploadversion, string studyDesignId, string listofelements,
                                                   [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
         {
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudyDesigns)};");
-                if (!String.IsNullOrWhiteSpace(study_uuid))
+                if (!String.IsNullOrWhiteSpace(studyId))
                 {
-                    _logger.LogInformation($"Inputs : study_uuid = {study_uuid}; sdruploadversion = {sdruploadversion}; listofelements: {listofelements}; studydesign_uuid: {studydesign_uuid}");
+                    _logger.LogInformation($"Inputs : study_uuid = {studyId}; sdruploadversion = {sdruploadversion}; listofelements: {listofelements}; studydesign_uuid: {studyDesignId}");
 
                     if (!_helper.AreValidStudyDesignElements(listofelements, out string[] listofelementsArray))
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyDesignElementNotValid)).Value);
 
                     LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
 
-                    var study = await _clinicalStudyService.GetStudyDesigns(study_uuid, studydesign_uuid, sdruploadversion, user, listofelementsArray).ConfigureAwait(false);
+                    var study = await _clinicalStudyService.GetStudyDesigns(studyId, studyDesignId, sdruploadversion, user, listofelementsArray).ConfigureAwait(false);
 
                     if (study == null)
                     {
