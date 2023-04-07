@@ -27,7 +27,7 @@
   - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetAuditTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetAuditTrail(System.String,System.DateTime,System.DateTime)')
   - [GetSOA(studyId,studyDesignId,sdruploadversion,studyWorkflowId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetSOA-System-String,System-String,System-String,System-Int32- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetSOA(System.String,System.String,System.String,System.Int32)')
   - [GetStudy(studyId,sdruploadversion,listofelements,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetStudy-System-String,System-Int32,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetStudy(System.String,System.Int32,System.String,System.String)')
-  - [GetStudyDesigns(study_uuid,studydesign_uuid,sdruploadversion,listofelements,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetStudyDesigns-System-String,System-Int32,System-String,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetStudyDesigns(System.String,System.Int32,System.String,System.String,System.String)')
+  - [GetStudyDesigns(studyId,studyDesignId,sdruploadversion,listofelements,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetStudyDesigns-System-String,System-Int32,System-String,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetStudyDesigns(System.String,System.Int32,System.String,System.String,System.String)')
   - [GetStudyHistory(fromDate,toDate,studyTitle)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetStudyHistory-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetStudyHistory(System.DateTime,System.DateTime,System.String)')
   - [PostAllElements(studyDTO,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV2-StudyDto,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.PostAllElements(TransCelerate.SDR.Core.DTO.StudyV2.StudyDto,System.String)')
   - [PutStudy(studyDTO,usdmVersion,studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-PutStudy-TransCelerate-SDR-Core-DTO-StudyV2-StudyDto,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.PutStudy(TransCelerate.SDR.Core.DTO.StudyV2.StudyDto,System.String,System.String)')
@@ -375,7 +375,7 @@ GET All Elements For a Study
 | usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | usdm-vreison header |
 
 <a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetStudyDesigns-System-String,System-Int32,System-String,System-String,System-String-'></a>
-### GetStudyDesigns(study_uuid,studydesign_uuid,sdruploadversion,listofelements,usdmVersion) `method`
+### GetStudyDesigns(studyId,studyDesignId,sdruploadversion,listofelements,usdmVersion) `method`
 
 ##### Summary
 
@@ -385,8 +385,8 @@ GET Study Designs of a Study
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| study_uuid | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
-| studydesign_uuid | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Study Design ID |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
+| studyDesignId | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Study Design ID |
 | sdruploadversion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Version of study |
 | listofelements | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | List of study design elements with comma separated values |
 | usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
