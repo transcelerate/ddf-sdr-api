@@ -2,7 +2,7 @@
 {
     public class SearchParametersDto
     {
-        public string StudyId { get; set; }
+        public string SponsorId { get; set; }
 
         public string StudyTitle { get; set; }
 

@@ -3,7 +3,7 @@
     public class SearchTitleParametersDto
     {
         public string StudyTitle { get; set; }
-        public string StudyId { get; set; }
+        public string SponsorId { get; set; }
         public string FromDate { get; set; }
         public string ToDate { get; set; }
         public int PageSize { get; set; }
