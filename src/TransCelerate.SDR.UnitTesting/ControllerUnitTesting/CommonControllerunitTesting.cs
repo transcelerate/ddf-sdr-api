@@ -600,7 +600,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 StudyTitle = "Umbrella",
                 PageNumber = 1,
                 PageSize = 25,
-                StudyId = "100",
+                SponsorId = "100",
                 FromDate = DateTime.Now.AddDays(-5).ToString(),
                 ToDate = DateTime.Now.ToString()
             };
@@ -635,7 +635,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 StudyTitle = "",
                 PageNumber = 0,
                 PageSize = 0,
-                StudyId = "",
+                SponsorId = "",
                 FromDate = "",
                 ToDate = ""
             };
@@ -676,7 +676,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 StudyTitle = "",
                 PageNumber = 0,
                 PageSize = 0,
-                StudyId = "",
+                SponsorId = "",
                 FromDate = DateTime.Now.AddDays(1).ToString(),
                 ToDate = DateTime.Now.ToString()
             };
@@ -701,7 +701,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 StudyTitle = "Study",
                 PageNumber = 0,
                 PageSize = 0,
-                StudyId = "",
+                SponsorId = "",
                 FromDate = "",
                 ToDate = ""
             };
@@ -826,7 +826,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 PageNumber = 1,
                 PageSize = 25,
                 Phase = "PHASE_1_TRAIL",
-                StudyId = "100",
+                SponsorId = "100",
                 FromDate = DateTime.Now.AddDays(-5).ToString(),
                 ToDate = DateTime.Now.ToString()
             };
@@ -864,7 +864,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 PageNumber = 0,
                 PageSize = 0,
                 Phase = "",
-                StudyId = "",
+                SponsorId = "",
                 FromDate = "",
                 ToDate = ""
             };
@@ -908,7 +908,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 PageNumber = 0,
                 PageSize = 0,
                 Phase = "",
-                StudyId = "",
+                SponsorId = "",
                 FromDate = DateTime.Now.AddDays(1).ToString(),
                 ToDate = DateTime.Now.ToString()
             };
@@ -936,7 +936,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 PageNumber = 0,
                 PageSize = 0,
                 Phase = "",
-                StudyId = "",
+                SponsorId = "",
                 FromDate = "",
                 ToDate = ""
             };

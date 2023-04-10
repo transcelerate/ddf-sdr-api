@@ -15,6 +15,7 @@ namespace TransCelerate.SDR.RuleEngine.Common
         {
             // Validators            
             services.AddTransient<IValidator<SearchParametersDto>, SearchParametersValidator>();
+            services.AddTransient<IValidator<SearchTitleParametersDto>, SearchTitleParametersValidator>();
 
             return services;
         }

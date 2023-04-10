@@ -609,12 +609,24 @@ namespace TransCelerate.SDR.UnitTesting
                 PageNumber = 1,
                 PageSize = 25,
                 Phase = "PHASE_1_TRAIL",
-                StudyId = "100",
+                SponsorId = "100",
                 FromDate = "",
                 ToDate = ""
             };
             TransCelerate.SDR.RuleEngine.Common.SearchParametersValidator searchValidator = new();
             Assert.IsTrue(searchValidator.Validate(searchParametersCommon).IsValid);
+
+            TransCelerate.SDR.Core.DTO.Common.SearchTitleParametersDto searchTitleParametersCommon = new()
+            {                
+                StudyTitle = "Umbrella",
+                PageNumber = 1,
+                PageSize = 25,                
+                SponsorId = "100",
+                FromDate = "",
+                ToDate = ""
+            };
+            TransCelerate.SDR.RuleEngine.Common.SearchTitleParametersValidator searchTitleParametersValidator = new();
+            Assert.IsTrue(searchTitleParametersValidator.Validate(searchTitleParametersCommon).IsValid);
         }
         #endregion
 
@@ -1009,7 +1021,7 @@ namespace TransCelerate.SDR.UnitTesting
                 SortBy = "version",
                 SortOrder = "asc",
                 GroupByStudyId = true,
-                StudyId = "100",
+                SponsorId = "100",
                 FromDate = DateTime.Now.AddDays(-5),
                 ToDate = DateTime.Now,
             };
@@ -1027,7 +1039,7 @@ namespace TransCelerate.SDR.UnitTesting
                 PageNumber = 1,
                 PageSize = 25,
                 Phase = "PHASE_1_TRAIL",
-                StudyId = "100",
+                SponsorId = "100",
                 FromDate = DateTime.Now.AddDays(-5),
                 ToDate = DateTime.Now,
                 Asc = true,

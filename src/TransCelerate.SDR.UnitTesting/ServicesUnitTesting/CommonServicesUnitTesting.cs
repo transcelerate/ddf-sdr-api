@@ -628,7 +628,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 StudyTitle = "Umbrella",
                 PageNumber = 1,
                 PageSize = 25,
-                StudyId = "100",
+                SponsorId = "100",
                 FromDate = DateTime.Now.AddDays(-5).ToString(),
                 ToDate = DateTime.Now.ToString(),
             };
@@ -902,7 +902,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 PageNumber = 1,
                 PageSize = 25,
                 Phase = "PHASE_1_TRAIL",
-                StudyId = "100",
+                SponsorId = "100",
                 FromDate = DateTime.Now.AddDays(-5).ToString(),
                 ToDate = DateTime.Now.ToString(),
                 Asc = true,
