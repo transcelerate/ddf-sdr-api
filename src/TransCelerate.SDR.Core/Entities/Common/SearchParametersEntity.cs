@@ -4,7 +4,7 @@ namespace TransCelerate.SDR.Core.Entities.Common
 {
     public class SearchParametersEntity
     {
-        public string StudyId { get; set; }
+        public string SponsorId { get; set; }
         public string StudyTitle { get; set; }
         public string Indication { get; set; }
         public string InterventionModel { get; set; }

@@ -32,7 +32,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
             };
         }
 
-        public static JsonSerializerSettings GetSerializerSettingsForCamelCasing()
+        public JsonSerializerSettings GetSerializerSettingsForCamelCasing()
         {
             return new JsonSerializerSettings
             {

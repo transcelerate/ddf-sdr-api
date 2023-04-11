@@ -5,17 +5,14 @@ using TransCelerate.SDR.Core.Utilities.Helpers;
 
 namespace TransCelerate.SDR.RuleEngine.Common
 {
-    public class SearchParametersValidator : AbstractValidator<SearchParametersDto>
+    public class SearchTitleParametersValidator : AbstractValidator<SearchTitleParametersDto>
     {
-        public SearchParametersValidator()
+        public SearchTitleParametersValidator()
         {
             RuleFor(x => x.StudyTitle)
                 .Matches(Constants.RegularExpressions.AlphaNumericsWithSpace)
                 .WithMessage(Constants.ValidationErrorMessage.AlphaNumericErrorMessage);
             RuleFor(x => x.SponsorId)
-                .Matches(Constants.RegularExpressions.AlphaNumericsWithSpace)
-                .WithMessage(Constants.ValidationErrorMessage.AlphaNumericErrorMessage);
-            RuleFor(x => x.Indication)
                 .Matches(Constants.RegularExpressions.AlphaNumericsWithSpace)
                 .WithMessage(Constants.ValidationErrorMessage.AlphaNumericErrorMessage);
             RuleFor(x => x.FromDate)

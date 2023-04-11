@@ -16,8 +16,7 @@ namespace TransCelerate.SDR.Core.DTO.Common
     }
 
     public class SearchTitleClinicalStudy
-    {
-        [JsonProperty(IdFieldPropertyName.StudyV1.Uuid)]
+    {        
         public string StudyId { get; set; }
         public string StudyTitle { get; set; }
         public List<CommonStudyIdentifiersDto> StudyIdentifiers { get; set; }

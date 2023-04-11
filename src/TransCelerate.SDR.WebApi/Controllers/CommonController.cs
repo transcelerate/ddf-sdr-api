@@ -406,7 +406,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 {
                     if (String.IsNullOrWhiteSpace(searchparameters.Indication)
                        && String.IsNullOrWhiteSpace(searchparameters.InterventionModel) && String.IsNullOrWhiteSpace(searchparameters.Phase)
-                       && String.IsNullOrWhiteSpace(searchparameters.StudyId) && String.IsNullOrWhiteSpace(searchparameters.StudyTitle)
+                       && String.IsNullOrWhiteSpace(searchparameters.SponsorId) && String.IsNullOrWhiteSpace(searchparameters.StudyTitle)
                        && String.IsNullOrWhiteSpace(searchparameters.FromDate) && String.IsNullOrWhiteSpace(searchparameters.ToDate))
                     {
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ValidationErrorMessage.AnyOneFieldError)).Value);
@@ -473,7 +473,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
                 if (searchparameters != null)
                 {
-                    if (String.IsNullOrWhiteSpace(searchparameters.StudyTitle) && String.IsNullOrWhiteSpace(searchparameters.StudyId)
+                    if (String.IsNullOrWhiteSpace(searchparameters.StudyTitle) && String.IsNullOrWhiteSpace(searchparameters.SponsorId)
                        && String.IsNullOrWhiteSpace(searchparameters.FromDate) && String.IsNullOrWhiteSpace(searchparameters.ToDate))
                     {
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ValidationErrorMessage.AnyOneFieldError)).Value);

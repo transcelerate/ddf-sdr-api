@@ -5,7 +5,7 @@ namespace TransCelerate.SDR.Core.Entities.Common
     public class SearchTitleParametersEntity
     {
         public string StudyTitle { get; set; }
-        public string StudyId { get; set; }
+        public string SponsorId { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
         public int PageSize { get; set; }

@@ -177,6 +177,7 @@
   - [AreValidStudyDesignElements(listofelements,listofelementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-AreValidStudyDesignElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.AreValidStudyDesignElements(System.String,System.String[]@)')
   - [AreValidStudyElements(listofelements,listofelementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-AreValidStudyElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.AreValidStudyElements(System.String,System.String[]@)')
   - [GetAuditTrail(user)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-GetAuditTrail-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.GetAuditTrail(System.String)')
+  - [GetSerializerSettingsForCamelCasing()](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-GetSerializerSettingsForCamelCasing 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.GetSerializerSettingsForCamelCasing')
   - [IsSameStudy(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity,TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.IsSameStudy(TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity,TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity)')
   - [JsonObjectCheck(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-JsonObjectCheck-System-Object,System-Object- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.JsonObjectCheck(System.Object,System.Object)')
   - [RemoveIdForInvestigationalInterventions(investigationalInterventions)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-RemoveIdForInvestigationalInterventions-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV2-InvestigationalInterventionEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.RemoveIdForInvestigationalInterventions(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV2.InvestigationalInterventionEntity})')
@@ -2841,6 +2842,21 @@ Get Audit Trail fields for the POST Api
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | user | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-GetSerializerSettingsForCamelCasing'></a>
+### GetSerializerSettingsForCamelCasing() `method`
+
+##### Summary
+
+JSON Serializer for camel casing
+
+##### Returns
+
+
+
+##### Parameters
+
+This method has no parameters.
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity,TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity-'></a>
 ### IsSameStudy(incoming,existing) `method`
