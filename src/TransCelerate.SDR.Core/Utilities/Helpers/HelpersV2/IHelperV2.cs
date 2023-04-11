@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using TransCelerate.SDR.Core.DTO.StudyV2;
 using TransCelerate.SDR.Core.Entities.StudyV2;
 
@@ -12,6 +13,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
         /// <param name="user"></param>
         /// <returns></returns>
         AuditTrailEntity GetAuditTrail(string user);
+        /// <summary>
+        /// JSON Serializer for camel casing
+        /// </summary>
+        /// <returns></returns>
+        JsonSerializerSettings GetSerializerSettingsForCamelCasing();
 
         #region Partial Study Elements
         /// <summary>

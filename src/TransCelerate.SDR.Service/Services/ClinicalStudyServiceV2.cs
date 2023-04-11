@@ -399,7 +399,7 @@ namespace TransCelerate.SDR.Services.Services
                             JObject jObject = new();
                             jObject.Add(string.Concat(nameof(ClinicalStudyDto.StudyDesigns)[..1].ToLower(), nameof(ClinicalStudyDto.StudyDesigns).AsSpan(1)), JArray.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))));
                             if (listofelements == null)
-                                jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.ClinicalStudy.StudyId, study.ClinicalStudy.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion))));
+                                jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.ClinicalStudy.StudyId, study.ClinicalStudy.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion), _helper.GetSerializerSettingsForCamelCasing())));
                             return jObject;
                         }
                         return Constants.ErrorMessages.StudyDesignNotFound;
@@ -410,7 +410,7 @@ namespace TransCelerate.SDR.Services.Services
                         JObject jObject = new();
                         jObject.Add(string.Concat(nameof(ClinicalStudyDto.StudyDesigns)[..1].ToLower(), nameof(ClinicalStudyDto.StudyDesigns).AsSpan(1)), JArray.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))));
                         if (listofelements == null)
-                            jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.ClinicalStudy.StudyId, study.ClinicalStudy.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion))));
+                            jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.ClinicalStudy.StudyId, study.ClinicalStudy.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion), _helper.GetSerializerSettingsForCamelCasing())));
                         return study.ClinicalStudy.StudyDesigns is not null && study.ClinicalStudy.StudyDesigns.Any() ?
                             jObject : Constants.ErrorMessages.StudyDesignNotFound;
                     }
