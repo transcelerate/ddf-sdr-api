@@ -205,9 +205,9 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string ErrorMessageForReferenceIntegrity = "Reference Integrity Failed";
 
-            public const string WorkFlowNotFound = "The requested StudyScheduleTimeline not found";
+            public const string ScheduleTimelineNotFound = "The requested StudyScheduleTimeline not found";
 
-            public const string EnterDesignIdError = "Kindly provide valid Study Design Id when providing Study WorkFlow Id";
+            public const string EnterDesignIdError = "Kindly provide valid Study Design Id when providing Schedule Timeline Id";
 
             public const string SoANotFound = "The Schedule Of Activities Not Found";
 

@@ -194,14 +194,14 @@ namespace TransCelerate.SDR.Services.Services
         /// </summary>
         /// <param name="studyId">Study ID</param>
         /// <param name="sdruploadversion">Version of study</param>
-        /// <param name="studyWorkflowId">workdflowId</param>
+        /// <param name="scheduleTimelineId">workdflowId</param>
         /// <param name="studyDesignId">study design Id</param>
         /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<object> GetSOA(string studyId, string studyDesignId, string studyWorkflowId, int sdruploadversion, LoggedInUser user)
+        public async Task<object> GetSOA(string studyId, string studyDesignId, string scheduleTimelineId, int sdruploadversion, LoggedInUser user)
         {
             try
             {
@@ -227,12 +227,12 @@ namespace TransCelerate.SDR.Services.Services
                         if (study.ClinicalStudy.StudyDesigns is null || !soa.StudyDesigns.Any(x => x.StudyDesignId == studyDesignId))
                             return Constants.ErrorMessages.StudyDesignNotFound;
 
-                        if (!String.IsNullOrWhiteSpace(studyWorkflowId))
+                        if (!String.IsNullOrWhiteSpace(scheduleTimelineId))
                         {
                             soa.StudyDesigns.RemoveAll(x => x.StudyDesignId != studyDesignId);
-                            if (soa.StudyDesigns.First().StudyWorkflows is null || !soa.StudyDesigns.First().StudyWorkflows.Any(x => x.WorkFlowId == studyWorkflowId))
-                                return Constants.ErrorMessages.WorkFlowNotFound;
-                            soa.StudyDesigns.First().StudyWorkflows.RemoveAll(y => y.WorkFlowId != studyWorkflowId);
+                            if (soa.StudyDesigns.First().StudyScheduleTimelines is null || !soa.StudyDesigns.First().StudyScheduleTimelines.Any(x => x.ScheduleTimelineId == scheduleTimelineId))
+                                return Constants.ErrorMessages.ScheduleTimelineNotFound;
+                            soa.StudyDesigns.First().StudyScheduleTimelines.RemoveAll(y => y.ScheduleTimelineId != scheduleTimelineId);
                             return soa;
                         }
                         soa.StudyDesigns.RemoveAll(x => x.StudyDesignId != studyDesignId);
@@ -266,7 +266,7 @@ namespace TransCelerate.SDR.Services.Services
                         StudyDesignId = design.Id,
                         StudyDesignName = design.StudyDesignName,
                         StudyDesignDescription = design.StudyDesignDescription,
-                        StudyWorkflows = new List<StudyWorkflows>()
+                        StudyScheduleTimelines = new List<ScheduleTimelines>()
                     };
                     List<EncounterEntity> encounters = GetOrderedEncounters(design.Encounters);
                     List<ActivityEntity> activities = GetOrderedActivities(design.Activities);
@@ -274,10 +274,10 @@ namespace TransCelerate.SDR.Services.Services
                     {
                         design.StudyScheduleTimelines.ForEach(workFlow =>
                         {
-                            StudyWorkflows studyWorkflowsA = new()
+                            ScheduleTimelines studyWorkflowsA = new()
                             {
-                                WorkFlowId = workFlow.Id,
-                                WorkflowDescription = workFlow.ScheduleTimelineDescription
+                                ScheduleTimelineId = workFlow.Id,
+                                ScheduleTimelineDescription = workFlow.ScheduleTimelineDescription
                             };
                             if (activities != null && activities.Any() && encounters != null && encounters.Any())
                             {
@@ -285,7 +285,7 @@ namespace TransCelerate.SDR.Services.Services
                                                                          .Where(x => x != null).ToList();
                                 if (workflowItems != null && workflowItems.Any())
                                 {
-                                    studyWorkflowsA.WorkFlowSoA = new()
+                                    studyWorkflowsA.ScheduleTimelineSoA = new()
                                     {
                                         SoA = new List<SoA>(),
                                         OrderOfActivities = activities.Select(x => x.ActivityName).ToList()
@@ -305,12 +305,12 @@ namespace TransCelerate.SDR.Services.Services
                                                                       .Where(x => activities.Where(y => y.Id == x).Any())
                                                                       .Select(x => activities.Where(y => y.Id == x).First()?.ActivityName)
                                                                       .ToList();
-                                        studyWorkflowsA.WorkFlowSoA.SoA.Add(soA);
+                                        studyWorkflowsA.ScheduleTimelineSoA.SoA.Add(soA);
                                     });
                                 }
                             }
 
-                            studyDesignSoA.StudyWorkflows.Add(studyWorkflowsA);
+                            studyDesignSoA.StudyScheduleTimelines.Add(studyWorkflowsA);
                         });
                     }
                     soADto.StudyDesigns.Add(studyDesignSoA);

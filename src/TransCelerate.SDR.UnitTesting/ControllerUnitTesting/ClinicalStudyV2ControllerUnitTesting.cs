@@ -983,7 +983,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             actual_result = (result as ObjectResult).Value as ErrorModel;
 
             _mockClinicalStudyService.Setup(x => x.GetSOA(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
-               .Returns(Task.FromResult(Constants.ErrorMessages.WorkFlowNotFound as object));
+               .Returns(Task.FromResult(Constants.ErrorMessages.ScheduleTimelineNotFound as object));
             Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
@@ -994,7 +994,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             result = method.Result;
 
             //Expected
-            expected = new ErrorModel { Message = Constants.ErrorMessages.WorkFlowNotFound, StatusCode = "404" };
+            expected = new ErrorModel { Message = Constants.ErrorMessages.ScheduleTimelineNotFound, StatusCode = "404" };
 
             //Actual            
             actual_result = (result as ObjectResult).Value as ErrorModel;
@@ -1004,7 +1004,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual(404, (result as ObjectResult).StatusCode);
 
             _mockClinicalStudyService.Setup(x => x.GetSOA(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
-               .Returns(Task.FromResult(Constants.ErrorMessages.WorkFlowNotFound as object));
+               .Returns(Task.FromResult(Constants.ErrorMessages.ScheduleTimelineNotFound as object));
             Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(404, (result as ObjectResult).StatusCode);
