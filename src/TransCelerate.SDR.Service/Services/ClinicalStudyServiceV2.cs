@@ -194,7 +194,7 @@ namespace TransCelerate.SDR.Services.Services
         /// </summary>
         /// <param name="studyId">Study ID</param>
         /// <param name="sdruploadversion">Version of study</param>
-        /// <param name="scheduleTimelineId">workdflowId</param>
+        /// <param name="scheduleTimelineId">Schedule Timeline Id</param>
         /// <param name="studyDesignId">study design Id</param>
         /// <param name="user">Logged In User</param>
         /// <returns>
