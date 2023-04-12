@@ -25,7 +25,7 @@
 - [ClinicalStudyV2Controller](#T-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller')
   - [DeleteStudy(studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-DeleteStudy-System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.DeleteStudy(System.String)')
   - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetAuditTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetAuditTrail(System.String,System.DateTime,System.DateTime)')
-  - [GetSOA(studyId,studyDesignId,sdruploadversion,studyWorkflowId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetSOA-System-String,System-String,System-String,System-Int32- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetSOA(System.String,System.String,System.String,System.Int32)')
+  - [GetSOA(studyId,studyDesignId,sdruploadversion,scheduleTimelineId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetSOA-System-String,System-String,System-String,System-Int32- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetSOA(System.String,System.String,System.String,System.Int32)')
   - [GetStudy(studyId,sdruploadversion,listofelements,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetStudy-System-String,System-Int32,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetStudy(System.String,System.Int32,System.String,System.String)')
   - [GetStudyDesigns(studyId,studyDesignId,sdruploadversion,listofelements,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetStudyDesigns-System-String,System-Int32,System-String,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetStudyDesigns(System.String,System.Int32,System.String,System.String,System.String)')
   - [GetStudyHistory(fromDate,toDate,studyTitle)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetStudyHistory-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetStudyHistory(System.DateTime,System.DateTime,System.String)')
@@ -343,7 +343,7 @@ GET Audit Trail of a study
 | studyId | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | Study ID |
 
 <a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetSOA-System-String,System-String,System-String,System-Int32-'></a>
-### GetSOA(studyId,studyDesignId,sdruploadversion,studyWorkflowId) `method`
+### GetSOA(studyId,studyDesignId,sdruploadversion,scheduleTimelineId) `method`
 
 ##### Summary
 
@@ -356,7 +356,7 @@ GET SoA For a Study
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
 | studyDesignId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study Design ID |
 | sdruploadversion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Version of study |
-| studyWorkflowId | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | WorkflowId |
+| scheduleTimelineId | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Schedule Timeline Id |
 
 <a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetStudy-System-String,System-Int32,System-String,System-String-'></a>
 ### GetStudy(studyId,sdruploadversion,listofelements,usdmVersion) `method`

@@ -921,7 +921,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             method = ClinicalStudyService.GetSOA("1", studyEntity.ClinicalStudy.StudyDesigns[0].Id, "Wf1", 0, user);
             method.Wait();
 
-            Assert.AreEqual(method.Result.ToString(), Constants.ErrorMessages.WorkFlowNotFound);
+            Assert.AreEqual(method.Result.ToString(), Constants.ErrorMessages.ScheduleTimelineNotFound);
 
             user.UserRole = Constants.Roles.App_User;
             method = ClinicalStudyService.GetSOA("1", "Sd_1", "Wf1", 0, user);
