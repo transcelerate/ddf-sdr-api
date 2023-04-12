@@ -179,7 +179,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <param name="studyId">Study ID</param>
         /// <param name="studyDesignId">Study Design ID</param>
         /// <param name="sdruploadversion">Version of study</param>
-        /// <param name="scheduleTimelineId">WorkflowId</param>
+        /// <param name="scheduleTimelineId">Schedule Timeline Id</param>
         /// <response code="200">Returns Study</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>
