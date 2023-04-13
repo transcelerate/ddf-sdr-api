@@ -179,7 +179,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <param name="studyId">Study ID</param>
         /// <param name="studyDesignId">Study Design ID</param>
         /// <param name="sdruploadversion">Version of study</param>
-        /// <param name="studyWorkflowId">WorkflowId</param>
+        /// <param name="scheduleTimelineId">Schedule Timeline Id</param>
         /// <response code="200">Returns Study</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>
@@ -190,20 +190,20 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetSOA(string studyId, string studyDesignId, string studyWorkflowId, int sdruploadversion)
+        public async Task<IActionResult> GetSOA(string studyId, string studyDesignId, string scheduleTimelineId, int sdruploadversion)
         {
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudyDesigns)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
-                    _logger.LogInformation($"Inputs : study_uuid = {studyId}; sdruploadversion = {sdruploadversion}; WorkflowId: {studyWorkflowId}; studydesign_uuid: {studyDesignId}");
-                    if (String.IsNullOrWhiteSpace(studyDesignId) && !String.IsNullOrWhiteSpace(studyWorkflowId))
+                    _logger.LogInformation($"Inputs : study_uuid = {studyId}; sdruploadversion = {sdruploadversion}; WorkflowId: {scheduleTimelineId}; studydesign_uuid: {studyDesignId}");
+                    if (String.IsNullOrWhiteSpace(studyDesignId) && !String.IsNullOrWhiteSpace(scheduleTimelineId))
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.EnterDesignIdError)).Value);
 
                     LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
 
-                    var SoA = await _clinicalStudyService.GetSOA(studyId, studyDesignId, studyWorkflowId, sdruploadversion, user).ConfigureAwait(false);
+                    var SoA = await _clinicalStudyService.GetSOA(studyId, studyDesignId, scheduleTimelineId, sdruploadversion, user).ConfigureAwait(false);
 
                     if (SoA == null)
                     {
@@ -217,9 +217,9 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     {
                         return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyDesignNotFound)).Value);
                     }
-                    else if (SoA.ToString() == Constants.ErrorMessages.WorkFlowNotFound)
+                    else if (SoA.ToString() == Constants.ErrorMessages.ScheduleTimelineNotFound)
                     {
-                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.WorkFlowNotFound)).Value);
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.ScheduleTimelineNotFound)).Value);
                     }
                     else
                     {

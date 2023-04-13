@@ -16,18 +16,18 @@ namespace TransCelerate.SDR.Core.DTO.StudyV2
         public string StudyDesignName { get; set; }
         public string StudyDesignDescription { get; set; }
 
-        public List<StudyWorkflows> StudyWorkflows { get; set; }
+        public List<ScheduleTimelines> StudyScheduleTimelines { get; set; }
     }
 
-    public class StudyWorkflows
+    public class ScheduleTimelines
     {
-        public string WorkFlowId { get; set; }
-        public string WorkflowDescription { get; set; }
+        public string ScheduleTimelineId { get; set; }
+        public string ScheduleTimelineDescription { get; set; }
 
-        public WorkFlowSoA WorkFlowSoA { get; set; }
+        public ScheduleTimelineSoA ScheduleTimelineSoA { get; set; }
     }
 
-    public class WorkFlowSoA
+    public class ScheduleTimelineSoA
     {
         public List<string> OrderOfActivities { get; set; }
         [Newtonsoft.Json.JsonProperty(nameof(SoA))]

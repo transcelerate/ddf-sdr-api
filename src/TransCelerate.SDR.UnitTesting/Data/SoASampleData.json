@@ -798,11 +798,11 @@
       "studyDesignId": "SD_1",
       "studyDesignName": "name",
       "studyDesignDescription": "desc",
-      "studyWorkflows": [
+      "studyScheduleTimelines": [
         {
-          "workFlowId": "WF01",
-          "workflowDescription": "SampleDesc",
-          "workFlowSoA": {
+          "scheduleTimelineId": "WF01",
+          "scheduleTimelineDescription": "SampleDesc",
+          "scheduleTimelineSoA": {
             "orderOfActivities": [
               "Informed consent",
               "Eligibility criteria",
