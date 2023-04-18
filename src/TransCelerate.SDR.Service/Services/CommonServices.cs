@@ -767,9 +767,10 @@ namespace TransCelerate.SDR.Services.Services
                         } };                        
                         searchResponseDto.Links = LinksHelper.GetLinksForUi(searchResponseDto.ClinicalStudy.StudyId, searchResponseMVP.StudyDesignIds?.Where(x => x != null && x.Any()).SelectMany(x => x)?.ToList(), searchResponseDto.AuditTrail.UsdmVersion, searchResponseDto.AuditTrail.SDRUploadVersion);
                     });
+                    return searchResponseDtos;
                 }
 
-                return searchResponseDtos;
+                return null;
             }
             if (searchParameters.UsdmVersion == Constants.USDMVersions.V1)
             {
@@ -791,9 +792,10 @@ namespace TransCelerate.SDR.Services.Services
                         } };
                         searchResponseDto.Links = LinksHelper.GetLinksForUi(searchResponseDto.ClinicalStudy.StudyId, searchResponseV1.StudyDesignIds?.ToList(), searchResponseDto.AuditTrail.UsdmVersion, searchResponseDto.AuditTrail.SDRUploadVersion);
                     });
+                    return searchResponseDtos;
                 }
 
-                return searchResponseDtos;
+                return null;
             }
             if (searchParameters.UsdmVersion == Constants.USDMVersions.V2)
             {
@@ -815,9 +817,10 @@ namespace TransCelerate.SDR.Services.Services
                         } };
                         searchResponseDto.Links = LinksHelper.GetLinksForUi(searchResponseDto.ClinicalStudy.StudyId, searchResponseV2.StudyDesignIds?.ToList(), searchResponseDto.AuditTrail.UsdmVersion, searchResponseDto.AuditTrail.SDRUploadVersion);
                     });
+                    return searchResponseDtos;
                 }
 
-                return searchResponseDtos;
+                return null;
             }
             else
                 return null;
