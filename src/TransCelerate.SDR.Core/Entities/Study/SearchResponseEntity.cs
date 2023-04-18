@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.Entities.Study
 {
-
-
     public class SearchResponse
     {
         public string StudyId { get; set; }
@@ -20,7 +18,7 @@ namespace TransCelerate.SDR.Core.Entities.Study
         public IEnumerable<List<StudyIndicationEntity>> StudyIndications { get; set; }
 
         public IEnumerable<IEnumerable<IEnumerable<List<InvestigationalInterventionEntity>>>> InvestigationalInterventions { get; set; }
-
+        public IEnumerable<IEnumerable<string>> StudyDesignIds { get; set; }
         public DateTime EntryDateTime { get; set; }
         public string EntrySystem { get; set; }
         public int StudyVersion { get; set; }

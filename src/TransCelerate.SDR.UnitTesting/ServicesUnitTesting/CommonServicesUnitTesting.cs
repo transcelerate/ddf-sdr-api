@@ -906,7 +906,8 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 FromDate = DateTime.Now.AddDays(-5).ToString(),
                 ToDate = DateTime.Now.ToString(),
                 Asc = true,
-                Header = "studyphase"
+                Header = "phase",
+                ValidateUsdmVersion = false
             };
 
             CommonServices CommonService = new(_mockCommonRepository.Object, _mockLogger, _mockMapper);
@@ -960,6 +961,66 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             method.Wait();
             result = method.Result;
             Assert.IsNull(result);
+
+            _mockCommonRepository.Setup(x => x.SearchStudyMVP(It.IsAny<SearchParametersEntity>(), user))
+                .Returns(Task.FromResult(new List<Core.Entities.Study.SearchResponse> { new Core.Entities.Study.SearchResponse
+                {
+                    StudyId = mvp.ClinicalStudy.StudyId,
+                    StudyTitle = mvp.ClinicalStudy.StudyTitle,
+                    StudyIdentifiers = mvp.ClinicalStudy.StudyIdentifiers,
+                    StudyType = mvp.ClinicalStudy.StudyType,
+                    StudyPhase = mvp.ClinicalStudy.StudyPhase,
+                    StudyVersion = mvp.AuditTrail.StudyVersion,
+                    EntryDateTime = mvp.AuditTrail.EntryDateTime,                    
+                    UsdmVersion = mvp.AuditTrail.UsdmVersion,                                                            
+                } }));
+
+            _mockCommonRepository.Setup(x => x.SearchStudyV1(It.IsAny<SearchParametersEntity>(), user))
+                .Returns(Task.FromResult(new List<Core.Entities.StudyV1.SearchResponseEntity> { new Core.Entities.StudyV1.SearchResponseEntity
+                {
+                    StudyId = v1.ClinicalStudy.Uuid,
+                    StudyTitle = v1.ClinicalStudy.StudyTitle,
+                    StudyIdentifiers = v1.ClinicalStudy.StudyIdentifiers,
+                    StudyType = v1.ClinicalStudy.StudyType,
+                    StudyPhase = v1.ClinicalStudy.StudyPhase,
+                    SDRUploadVersion = v1.AuditTrail.SDRUploadVersion,
+                    EntryDateTime = v1.AuditTrail.EntryDateTime,                    
+                    UsdmVersion = v1.AuditTrail.UsdmVersion,
+                    InterventionModel = v1.ClinicalStudy.StudyDesigns.Select(y => y.InterventionModel) ?? null,
+                    StudyIndications = v1.ClinicalStudy.StudyDesigns.Select(y => y.StudyIndications) ?? null,
+                    StudyDesignIds = v1.ClinicalStudy.StudyDesigns.Select(x => x.Uuid ?? x.Uuid) ?? null,
+                } }));
+
+            _mockCommonRepository.Setup(x => x.SearchStudyV2(It.IsAny<SearchParametersEntity>(), user))
+                .Returns(Task.FromResult(new List<Core.Entities.StudyV2.SearchResponseEntity> { new Core.Entities.StudyV2.SearchResponseEntity
+                {                    
+                    StudyId = v2.ClinicalStudy.StudyId,
+                    StudyTitle = v2.ClinicalStudy.StudyTitle,
+                    StudyIdentifiers = v2.ClinicalStudy.StudyIdentifiers,
+                    StudyType = v2.ClinicalStudy.StudyType,
+                    StudyPhase = v2.ClinicalStudy.StudyPhase,
+                    SDRUploadVersion = v2.AuditTrail.SDRUploadVersion,
+                    EntryDateTime = v2.AuditTrail.EntryDateTime,                    
+                    UsdmVersion = v2.AuditTrail.UsdmVersion,
+                    InterventionModel = v2.ClinicalStudy.StudyDesigns.Select(y => y.InterventionModel) ?? null,                    
+                    StudyDesignIds = v2.ClinicalStudy.StudyDesigns.Select(x => x.Id) ?? null,
+                } }));
+
+            searchParameters.ValidateUsdmVersion = true;
+            searchParameters.UsdmVersion = Constants.USDMVersions.MVP;
+            method = CommonService.SearchStudy(searchParameters, user);
+            method.Wait();
+            result = method.Result;
+
+            searchParameters.UsdmVersion = Constants.USDMVersions.V1;
+            method = CommonService.SearchStudy(searchParameters, user);
+            method.Wait();
+            result = method.Result;
+
+            searchParameters.UsdmVersion = Constants.USDMVersions.V2;
+            method = CommonService.SearchStudy(searchParameters, user);
+            method.Wait();
+            result = method.Result;
 
 
         }

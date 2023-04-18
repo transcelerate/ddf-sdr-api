@@ -77,6 +77,16 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
         Task<List<SearchResponse>> SearchStudy(SearchParameters searchParameters, LoggedInUser user);
+        /// <summary>
+        /// Sorting the result set
+        /// </summary>
+        /// <param name="filteredResult">Filtered result from database</param>
+        /// <param name="property">Property by which the sorting must be done</param>
+        /// <param name="asc">Ascending/Descending</param>
+        /// <returns>
+        /// A Sorted <see cref="IEnumerable{StudyEntity}"/>  
+        /// </returns>
+        IEnumerable<SearchResponse> ApplyOrderBy(List<SearchResponse> filteredResult, string property, bool asc);
 
         /// <summary>
         /// Search the collection based on search criteria

@@ -9,7 +9,8 @@ namespace TransCelerate.SDR.Core.Entities.Common
         public string Indication { get; set; }
         public string InterventionModel { get; set; }
         public string Phase { get; set; }
-
+        public string UsdmVersion { get; set; }
+        public bool ValidateUsdmVersion { get; set; }
         public DateTime FromDate { get; set; }
 
         public DateTime ToDate { get; set; }

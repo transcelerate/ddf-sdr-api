@@ -225,6 +225,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string StudyDesignNotFoundCPT = "The study design is not available for the given study and eCPT data cannot be generated";
 
+            public const string InvalidUsdmVersion = "The provided USDM Version is invalid";
+
         }
 
         public struct TokenConstants

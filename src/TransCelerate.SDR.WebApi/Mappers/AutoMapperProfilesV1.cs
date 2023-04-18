@@ -48,7 +48,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
 
             //Mapper for Search Response
             CreateMap<StudyDto, SearchResponseEntity>()
-                .ForMember(dest => dest.Uuid, opt => opt.MapFrom(src => src.ClinicalStudy.Uuid))
+                .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.ClinicalStudy.Uuid))
                 .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.ClinicalStudy.StudyTitle))
                 .ForMember(dest => dest.StudyIdentifiers, opt => opt.MapFrom(src => src.ClinicalStudy.StudyIdentifiers))
                 .ForMember(dest => dest.StudyType, opt => opt.MapFrom(src => src.ClinicalStudy.StudyType))
@@ -60,7 +60,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
 
             //Mapper for Search Title
             CreateMap<SearchTitleResponseDto, SearchResponseEntity>()
-               .ForMember(dest => dest.Uuid, opt => opt.MapFrom(src => src.ClinicalStudy.Uuid))
+               .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.ClinicalStudy.Uuid))
                .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.ClinicalStudy.StudyTitle))
                .ForMember(dest => dest.StudyIdentifiers, opt => opt.MapFrom(src => src.ClinicalStudy.StudyIdentifiers))
                .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))

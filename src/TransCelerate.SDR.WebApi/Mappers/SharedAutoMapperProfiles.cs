@@ -71,12 +71,79 @@ namespace TransCelerate.SDR.WebApi.Mappers
             //Mapper for Search
             CreateMap<SearchParametersDto, SearchParametersEntity>();
 
+            //Mapper for Common Search
             CreateMap<SearchResponseDto, SearchResponseEntity>()
                 .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.ClinicalStudy.StudyId))
                 .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.ClinicalStudy.StudyTitle))
                 .ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.AuditTrail.EntryDateTime))
                 .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))
                 .ForMember(dest => dest.UsdmVersion, opt => opt.MapFrom(src => src.AuditTrail.UsdmVersion))
+                .ReverseMap();
+
+            //Mapper for Search MVP
+            CreateMap<SearchResponseDto, Core.Entities.Study.SearchResponse>()
+                .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.ClinicalStudy.StudyId))
+                .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.ClinicalStudy.StudyTitle))                
+                .ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.AuditTrail.EntryDateTime))
+                .ForMember(dest => dest.StudyVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))
+                .ForMember(dest => dest.UsdmVersion, opt => opt.MapFrom(src => src.AuditTrail.UsdmVersion))
+                .ReverseMap();
+
+            CreateMap<CommonStudyIdentifiersDto, Core.Entities.Study.StudyIdentifierEntity>()
+                .ForMember(dest => dest.IdType, opt => opt.MapFrom(src => src.StudyIdentifierScope.OrganisationType.Decode))
+                .ForMember(dest => dest.OrgCode, opt => opt.MapFrom(src => src.StudyIdentifierScope.OrganisationIdentifier))
+                .ReverseMap();
+
+            CreateMap<CommonCodeDto, Core.Entities.Study.InvestigationalInterventionEntity>()
+                .ForMember(dest => dest.InterventionModel, opt => opt.MapFrom(src => src.Decode))
+                .ReverseMap();
+
+            CreateMap<Core.DTO.Common.CommonStudyIndication, Core.Entities.Study.StudyIndicationEntity>()
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.IndicationDescription))
+                .ReverseMap();
+
+            //Mapper for Search V1
+            CreateMap<SearchResponseDto, Core.Entities.StudyV1.SearchResponseEntity>()
+                .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.ClinicalStudy.StudyId))
+                .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.ClinicalStudy.StudyTitle))
+                .ForMember(dest => dest.StudyType, opt => opt.MapFrom(src => src.ClinicalStudy.StudyType))
+                .ForMember(dest => dest.StudyPhase, opt => opt.MapFrom(src => src.ClinicalStudy.StudyPhase))
+                .ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.AuditTrail.EntryDateTime))
+                .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))
+                .ForMember(dest => dest.UsdmVersion, opt => opt.MapFrom(src => src.AuditTrail.UsdmVersion))
+                .ReverseMap();
+
+            CreateMap<CommonStudyIdentifiersDto, Core.Entities.StudyV1.StudyIdentifierEntity>()
+                .ReverseMap();
+            CreateMap<CommonOrganisationDto, Core.Entities.StudyV1.StudyIdentifierScopeEntity>()
+                .ReverseMap();
+            CreateMap<CommonStudyIdentifiersDto, Core.Entities.StudyV1.StudyIdentifierEntity>()
+                .ReverseMap();
+            CreateMap<CommonCodeDto, Core.Entities.StudyV1.CodeEntity>()
+                .ReverseMap();
+
+            CreateMap<Core.DTO.Common.CommonStudyIndication, Core.Entities.StudyV1.IndicationEntity>()
+                .ForMember(dest => dest.IndicationDesc, opt => opt.MapFrom(src => src.IndicationDescription))
+                .ReverseMap();
+
+            //Mapper for Search V2
+            CreateMap<SearchResponseDto, Core.Entities.StudyV2.SearchResponseEntity>()
+                .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.ClinicalStudy.StudyId))
+                .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.ClinicalStudy.StudyTitle))
+                .ForMember(dest => dest.StudyType, opt => opt.MapFrom(src => src.ClinicalStudy.StudyType))                
+                .ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.AuditTrail.EntryDateTime))
+                .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))
+                .ForMember(dest => dest.UsdmVersion, opt => opt.MapFrom(src => src.AuditTrail.UsdmVersion))
+                .ReverseMap();
+
+            CreateMap<CommonCodeDto, Core.Entities.StudyV2.CodeEntity>()
+                .ReverseMap();
+            CreateMap<CommonStudyIdentifiersDto, Core.Entities.StudyV2.StudyIdentifierEntity>()
+                .ReverseMap();
+            CreateMap<CommonOrganisationDto, Core.Entities.StudyV2.OrganisationEntity>()
+                .ReverseMap();
+            CreateMap<Core.DTO.Common.CommonStudyIndication, Core.Entities.StudyV2.IndicationEntity>()
+                .ForMember(dest => dest.IndicationDescription, opt => opt.MapFrom(src => src.IndicationDescription))
                 .ReverseMap();
 
             //ECPT Mapper
