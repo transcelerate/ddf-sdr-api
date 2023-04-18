@@ -30,7 +30,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     kvp => kvp.Value?.Errors?.Select(e => e.ErrorMessage).ToArray()
                 );
             var errorsToList = errors.ToList();
-            errorsToList.RemoveAll(x => x.Key.Contains(IdFieldPropertyName.Common.UsdmVersion));
+            
             errors = errorsToList.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
             context.HttpContext?.Response?.Headers?.Add("InvalidInput", "True");
             var errorList = SplitStringIntoArrayHelper.SplitString(JsonConvert.SerializeObject(errors), 32000);//since app insights limit is 32768 characters                                                              

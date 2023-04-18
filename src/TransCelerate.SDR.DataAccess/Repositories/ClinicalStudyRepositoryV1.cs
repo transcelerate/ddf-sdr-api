@@ -338,7 +338,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                               .Match(DataFiltersV1.GetFiltersForSearchStudy(searchParameters))
                                               .Project(x => new SearchResponseEntity
                                               {
-                                                  Uuid = x.ClinicalStudy.Uuid,
+                                                  StudyId = x.ClinicalStudy.Uuid,
                                                   StudyTitle = x.ClinicalStudy.StudyTitle,
                                                   StudyType = x.ClinicalStudy.StudyType,
                                                   StudyPhase = x.ClinicalStudy.StudyPhase,
@@ -384,8 +384,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                         "studytitle" => asc ? searchResponses.OrderBy(s => s.StudyTitle) : searchResponses.OrderByDescending(s => s.StudyTitle),
 
                         //Sort by studyIdentifier: orgCode
-                        "sponsorid" => asc ? searchResponses.OrderBy(s => s.StudyIdentifiers != null ? s.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1).Any() ? s.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : "")
-                                                                                        : searchResponses.OrderByDescending(s => s.StudyIdentifiers != null ? s.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1).Any() ? s.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : ""),
+                        "sponsorid" => asc ? searchResponses.OrderBy(s => s.StudyIdentifiers != null ? s.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower()).Any() ? s.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower()).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : "")
+                                                                                        : searchResponses.OrderByDescending(s => s.StudyIdentifiers != null ? s.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower()).Any() ? s.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower()).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : ""),
 
                         //Sort by studyIndication: description
                         "indication" => asc ? searchResponses.OrderBy(s => (s.StudyIndications != null && s.StudyIndications.Any()) ? (s.StudyIndications.First() != null && s.StudyIndications.First().Any()) ? s.StudyIndications.First().First() != null ? s.StudyIndications.First().First().IndicationDesc ?? "" : "" : "" : "")
@@ -440,7 +440,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                         Tuple<List<string>, List<string>> groupFilters = GroupFilters.GetGroupFilters(groups);
                         if (groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
                             return searchResponses;
-                        searchResponses = searchResponses.Where(x => groupFilters.Item1.Contains(x.StudyType?.Decode?.ToLower()) || groupFilters.Item2.Contains(x.Uuid)).ToList();
+                        searchResponses = searchResponses.Where(x => groupFilters.Item1.Contains(x.StudyType?.Decode?.ToLower()) || groupFilters.Item2.Contains(x.StudyId)).ToList();
                     }
                     else
                     {
@@ -483,7 +483,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                               .Match(DataFiltersV1.GetFiltersForSearchTitle(searchParameters))
                                               .Project(x => new SearchResponseEntity
                                               {
-                                                  Uuid = x.ClinicalStudy.Uuid,
+                                                  StudyId = x.ClinicalStudy.Uuid,
                                                   StudyTitle = x.ClinicalStudy.StudyTitle,
                                                   StudyType = x.ClinicalStudy.StudyType,
                                                   StudyIdentifiers = x.ClinicalStudy.StudyIdentifiers,

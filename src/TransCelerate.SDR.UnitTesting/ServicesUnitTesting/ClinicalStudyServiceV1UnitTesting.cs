@@ -355,7 +355,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 StudyPhase = studyEntity.ClinicalStudy.StudyPhase,
                 StudyTitle = studyEntity.ClinicalStudy.StudyTitle,
                 StudyType = studyEntity.ClinicalStudy.StudyType,
-                Uuid = studyEntity.ClinicalStudy.Uuid
+                StudyId = studyEntity.ClinicalStudy.Uuid
             };
             _mockClinicalStudyRepository.Setup(x => x.SearchStudy(It.IsAny<SearchParameters>(), It.IsAny<LoggedInUser>()))
                   .Returns(Task.FromResult(new List<SearchResponseEntity>() { searchResponseEntity }));
@@ -678,7 +678,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 StudyPhase = studyEntity.ClinicalStudy.StudyPhase,
                 StudyTitle = studyEntity.ClinicalStudy.StudyTitle,
                 StudyType = studyEntity.ClinicalStudy.StudyType,
-                Uuid = studyEntity.ClinicalStudy.Uuid
+                StudyId = studyEntity.ClinicalStudy.Uuid
             };
             _mockClinicalStudyRepository.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParameters>(), It.IsAny<LoggedInUser>()))
                   .Returns(Task.FromResult(new List<SearchResponseEntity>() { searchResponseEntity }));

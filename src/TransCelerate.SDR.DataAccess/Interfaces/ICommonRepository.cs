@@ -68,5 +68,10 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
         Task<List<SearchResponseEntity>> SearchStudy(SearchParametersEntity searchParameters, LoggedInUser user);
+
+        Task<List<Core.Entities.Study.SearchResponse>> SearchStudyMVP(SearchParametersEntity searchParameters, LoggedInUser user);
+        Task<List<Core.Entities.StudyV1.SearchResponseEntity>> SearchStudyV1(SearchParametersEntity searchParameters, LoggedInUser user);
+        Task<List<Core.Entities.StudyV2.SearchResponseEntity>> SearchStudyV2(SearchParametersEntity searchParameters, LoggedInUser user);
+
     }
 }
