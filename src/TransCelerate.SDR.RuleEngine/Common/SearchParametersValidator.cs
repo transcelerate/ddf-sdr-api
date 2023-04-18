@@ -22,14 +22,6 @@ namespace TransCelerate.SDR.RuleEngine.Common
                 .Matches(Constants.RegularExpressions.AlphaNumericsWithSpace)
                 .WithMessage(Constants.ValidationErrorMessage.AlphaNumericErrorMessage);
 
-            RuleFor(x => x.Phase)
-                .Matches(Constants.RegularExpressions.AlphaNumericsWithSpace)
-                .WithMessage(Constants.ValidationErrorMessage.AlphaNumericErrorMessage);
-
-            RuleFor(x => x.InterventionModel)
-                .Matches(Constants.RegularExpressions.AlphaNumericsWithSpace)
-                .WithMessage(Constants.ValidationErrorMessage.AlphaNumericErrorMessage);
-
             RuleFor(x => x.UsdmVersion)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)                
