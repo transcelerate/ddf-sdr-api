@@ -582,8 +582,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                         //Sort by studyTitle
                         "studytitle" => asc ? filteredResult.OrderBy(s => s.StudyTitle) : filteredResult.OrderByDescending(s => s.StudyTitle),
                         //Sort by studyIdentifier: orgCode
-                        "sponsorid" => asc ? filteredResult.OrderBy(s => s.StudyIdentifiers.FindAll(x => x.IdType == Constants.IdType.SPONSOR_ID).Count != 0 ? s.StudyIdentifiers.Find(x => x.IdType == Constants.IdType.SPONSOR_ID).OrgCode ?? "" : "")
-                                                                                        : filteredResult.OrderByDescending(s => s.StudyIdentifiers.FindAll(x => x.IdType == Constants.IdType.SPONSOR_ID).Count != 0 ? s.StudyIdentifiers.Find(x => x.IdType == Constants.IdType.SPONSOR_ID).OrgCode ?? "" : ""),
+                        "sponsorid" => asc ? filteredResult.OrderBy(s => s.StudyIdentifiers.FindAll(x => x.IdType.ToLower() == Constants.IdType.SPONSOR_ID.ToLower()).Count != 0 ? s.StudyIdentifiers.Find(x => x.IdType.ToLower() == Constants.IdType.SPONSOR_ID.ToLower()).OrgCode ?? "" : "")
+                                                                                        : filteredResult.OrderByDescending(s => s.StudyIdentifiers.FindAll(x => x.IdType.ToLower() == Constants.IdType.SPONSOR_ID.ToLower()).Count != 0 ? s.StudyIdentifiers.Find(x => x.IdType.ToLower() == Constants.IdType.SPONSOR_ID.ToLower()).OrgCode ?? "" : ""),
                         //Sort by studyIndication: description
                         "indication" => asc ? filteredResult.OrderBy(s => s.StudyIndications != null ? s.StudyIndications.Any() ? s.StudyIndications.First().Count > 0 ? s.StudyIndications.First().First().Description ?? "" : "" : "" : "")
                                                                                         : filteredResult.OrderByDescending(s => s.StudyIndications != null ? s.StudyIndications.Any() ? s.StudyIndications.First().Count > 0 ? s.StudyIndications.First().First().Description ?? "" : "" : "" : ""),

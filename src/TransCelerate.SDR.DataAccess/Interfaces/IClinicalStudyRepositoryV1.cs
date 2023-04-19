@@ -82,6 +82,8 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// </returns>
         Task<List<SearchResponseEntity>> SearchStudy(SearchParameters searchParameters, LoggedInUser user);
 
+        IEnumerable<SearchResponseEntity> SortSearchResults(List<SearchResponseEntity> searchResponses, string property, bool asc);
+
         /// <summary>
         /// Search the collection based on search criteria
         /// </summary>

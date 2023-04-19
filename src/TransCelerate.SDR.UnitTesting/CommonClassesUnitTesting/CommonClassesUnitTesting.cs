@@ -66,6 +66,8 @@ namespace TransCelerate.SDR.UnitTesting
                 cfg.AddProfile(new AutoMapperProfies());
             });
             _mockMapper = new Mapper(mockMapper);
+            ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ApiUsdmVersionMapping.json"));
+            ApiUsdmVersionMapping.SDRVersions = apiUsdmVersionMapping_NonStatic.SDRVersions;
         }
         readonly LoggedInUser user = new()
         {
@@ -604,16 +606,17 @@ namespace TransCelerate.SDR.UnitTesting
             TransCelerate.SDR.Core.DTO.Common.SearchParametersDto searchParametersCommon = new()
             {
                 Indication = "Bile",
-                InterventionModel = "CROSS_OVER",
+                InterventionModel = "CROSS OVER",
                 StudyTitle = "Umbrella",
                 PageNumber = 1,
                 PageSize = 25,
-                Phase = "PHASE_1_TRAIL",
+                Phase = "PHASE 1 TRAIL",
                 SponsorId = "100",
                 FromDate = "",
-                ToDate = ""
+                ToDate = "",
+                ValidateUsdmVersion = false
             };
-            TransCelerate.SDR.RuleEngine.Common.SearchParametersValidator searchValidator = new();
+            TransCelerate.SDR.RuleEngine.Common.SearchParametersValidator searchValidator = new();            
             Assert.IsTrue(searchValidator.Validate(searchParametersCommon).IsValid);
 
             TransCelerate.SDR.Core.DTO.Common.SearchTitleParametersDto searchTitleParametersCommon = new()
@@ -1043,7 +1046,8 @@ namespace TransCelerate.SDR.UnitTesting
                 FromDate = DateTime.Now.AddDays(-5),
                 ToDate = DateTime.Now,
                 Asc = true,
-                Header = "sdrversion"
+                Header = "sdrversion",
+                ValidateUsdmVersion = false
             };
 
             Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchStudy(searchParametersEntity));

@@ -397,5 +397,244 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             return sorter;
         }
+
+        public static FilterDefinition<Core.Entities.Study.StudyEntity> GetFiltersForSearchMVP(SearchParametersEntity searchParameters, List<SDRGroupsEntity> groups, LoggedInUser user)
+        {
+            FilterDefinitionBuilder<Core.Entities.Study.StudyEntity> builder = Builders<Core.Entities.Study.StudyEntity>.Filter;
+            FilterDefinition<Core.Entities.Study.StudyEntity> filter = builder.Empty;
+
+            //Filter for usdmVersion
+            filter &= builder.Where(x => x.AuditTrail.UsdmVersion.ToLower() == searchParameters.UsdmVersion.ToLower());
+
+            //Filter for Date Range
+            filter &= builder.Where(x => x.AuditTrail.EntryDateTime >= searchParameters.FromDate
+                                         && x.AuditTrail.EntryDateTime <= searchParameters.ToDate);
+            //For Data Segmentation
+            if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
+            {
+                if (groups != null && groups.Any())
+                {
+                    Tuple<List<string>, List<string>> groupFilters = Core.Utilities.Helpers.GroupFilters.GetGroupFilters(groups);
+
+                    if (!groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
+                    {
+                        if (groupFilters.Item1.Any())
+                        {
+                            filter &= builder.Or(
+                                        builder.Regex(Constants.DbFilter.StudyType, new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),                                        
+                                        builder.In(x => x.ClinicalStudy.StudyId, groupFilters.Item2)
+                                        );
+                        }
+                        else
+                        {
+                            filter &= builder.In(x => x.ClinicalStudy.StudyId, groupFilters.Item2);
+                        }
+                    }
+                }
+                else
+                    filter &= builder.Where(x => x.ClinicalStudy == null); //if there are no groups assigned for the user
+            }
+
+            //Filter for StudyTitle
+            if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
+                filter &= builder.Where(x => x.ClinicalStudy.StudyTitle.ToLower().Contains(searchParameters.StudyTitle.ToLower()));
+
+            //Filter for OrgCode
+            if (!String.IsNullOrWhiteSpace(searchParameters.SponsorId))
+                filter &= builder.Where(x => x.ClinicalStudy.StudyIdentifiers.Any(x => x.IdType.ToLower() == Constants.IdType.SPONSOR_ID.ToLower() && x.OrgCode.ToLower().Contains(searchParameters.SponsorId)));
+
+            //Filter for Indication
+            if (!String.IsNullOrWhiteSpace(searchParameters.Indication))
+                filter &= builder.Where(x => x.ClinicalStudy.CurrentSections.Any(y=>y.StudyIndications.Any(z=>z.Description.ToLower().Contains(searchParameters.Indication.ToLower()))));
+
+            //Filter for Intervention Model
+            if (!String.IsNullOrWhiteSpace(searchParameters.InterventionModel))
+                filter &= builder.Where(x => x.ClinicalStudy.CurrentSections.Any(y=>y.StudyDesigns.Any(z=>z.CurrentSections.Any(a=>a.InvestigationalInterventions.Any(b=>b.InterventionModel.ToLower().Contains(searchParameters.InterventionModel.ToLower()))))));
+
+            //Filter for Study Phase
+            if (!String.IsNullOrWhiteSpace(searchParameters.Phase))
+                filter &= builder.Where(x => x.ClinicalStudy.StudyPhase.ToLower().Contains(searchParameters.Phase.ToLower()));
+
+            return filter;
+        }
+
+        /// <summary>
+        /// Search Filters
+        /// </summary>
+        /// <param name="searchParameters"></param>
+        /// <param name="groups"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static FilterDefinition<Core.Entities.StudyV1.StudyEntity> GetFiltersForSearchV1(SearchParametersEntity searchParameters, List<SDRGroupsEntity> groups, LoggedInUser user)
+        {
+            FilterDefinitionBuilder<Core.Entities.StudyV1.StudyEntity> builder = Builders<Core.Entities.StudyV1.StudyEntity>.Filter;
+            FilterDefinition<Core.Entities.StudyV1.StudyEntity> filter = builder.Empty;
+
+            //Filter for Date Range
+            filter &= builder.Where(x => x.AuditTrail.EntryDateTime >= searchParameters.FromDate
+                                         && x.AuditTrail.EntryDateTime <= searchParameters.ToDate);
+
+            //Filter for usdmVersion
+            filter &= builder.Where(x => x.AuditTrail.UsdmVersion.ToLower() == searchParameters.UsdmVersion.ToLower());
+
+            //For Data Segmentation
+            if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
+            {
+                if (groups != null && groups.Any())
+                {
+                    Tuple<List<string>, List<string>> groupFilters = Core.Utilities.Helpers.GroupFilters.GetGroupFilters(groups);
+
+                    if (!groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
+                    {
+                        if (groupFilters.Item1.Any())
+                        {
+                            filter &= builder.Or(                                        
+                                        builder.Regex($"{Constants.DbFilter.StudyType}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
+                                        builder.In(x => x.ClinicalStudy.Uuid, groupFilters.Item2)
+                                        );
+                        }
+                        else
+                        {
+                            filter &= builder.In(x => x.ClinicalStudy.Uuid, groupFilters.Item2);
+                        }
+                    }
+                }
+                else
+                    filter &= builder.Where(x => x.ClinicalStudy == null); //if there are no groups assigned for the user
+            }
+
+            //Filter for StudyTitle
+            if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
+                filter &= builder.Where(x => x.ClinicalStudy.StudyTitle.ToLower().Contains(searchParameters.StudyTitle.ToLower()));
+
+            //Filter for OrgCode
+            if (!String.IsNullOrWhiteSpace(searchParameters.SponsorId))
+                filter &= builder.Where(x => x.ClinicalStudy.StudyIdentifiers.Any(x => (x.StudyIdentifierScope.OrganisationIdentifier.ToLower().Contains(searchParameters.SponsorId.ToLower())) && (x.StudyIdentifierScope.OrganisationType.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower())));
+
+            //Filter for Indication
+            if (!String.IsNullOrWhiteSpace(searchParameters.Indication))
+                filter &= builder.Where(x => x.ClinicalStudy.StudyDesigns.Any(x => x.StudyIndications.Any(y => y.IndicationDesc.ToLower().Contains(searchParameters.Indication.ToLower()))));
+
+            //Filter for Intervention Model
+            if (!String.IsNullOrWhiteSpace(searchParameters.InterventionModel))
+                filter &= builder.Where(x => x.ClinicalStudy.StudyDesigns.Any(x => x.InterventionModel.Any(y => y.Decode.ToLower().Contains(searchParameters.InterventionModel.ToLower()))));
+
+            //Filter for Study Phase
+            if (!String.IsNullOrWhiteSpace(searchParameters.Phase))
+                filter &= builder.Where(x => x.ClinicalStudy.StudyPhase.Decode.ToLower().Contains(searchParameters.Phase.ToLower()));
+
+
+            return filter;
+        }
+
+        /// <summary>
+        /// Search Filters
+        /// </summary>
+        /// <param name="searchParameters"></param>
+        /// <param name="groups"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static FilterDefinition<Core.Entities.StudyV2.StudyEntity> GetFiltersForSearchV2(SearchParametersEntity searchParameters, List<SDRGroupsEntity> groups, LoggedInUser user)
+        {
+            FilterDefinitionBuilder<Core.Entities.StudyV2.StudyEntity> builder = Builders<Core.Entities.StudyV2.StudyEntity>.Filter;
+            FilterDefinition<Core.Entities.StudyV2.StudyEntity> filter = builder.Empty;
+
+            //Filter for Date Range
+            filter &= builder.Where(x => x.AuditTrail.EntryDateTime >= searchParameters.FromDate
+                                         && x.AuditTrail.EntryDateTime <= searchParameters.ToDate);
+
+            //Filter for usdmVersion
+            filter &= builder.Where(x => x.AuditTrail.UsdmVersion.ToLower() == searchParameters.UsdmVersion.ToLower());
+
+            //For Data Segmentation
+            if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
+            {
+                if (groups != null && groups.Any())
+                {
+                    Tuple<List<string>, List<string>> groupFilters = Core.Utilities.Helpers.GroupFilters.GetGroupFilters(groups);
+
+                    if (!groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
+                    {
+                        if (groupFilters.Item1.Any())
+                        {
+                            filter &= builder.Or(
+                                        builder.Regex($"{Constants.DbFilter.StudyType}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
+                                        builder.In(x => x.ClinicalStudy.StudyId, groupFilters.Item2)
+                                        );
+                        }
+                        else
+                        {
+                            filter &= builder.In(x => x.ClinicalStudy.StudyId, groupFilters.Item2);
+                        }
+                    }
+                }
+                else
+                    filter &= builder.Where(x => x.ClinicalStudy == null); //if there are no groups assigned for the user
+            }
+
+            //Filter for StudyTitle
+            if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
+                filter &= builder.Where(x => x.ClinicalStudy.StudyTitle.ToLower().Contains(searchParameters.StudyTitle.ToLower()));
+
+            //Filter for OrgCode
+            if (!String.IsNullOrWhiteSpace(searchParameters.SponsorId))
+                filter &= builder.Where(x => x.ClinicalStudy.StudyIdentifiers.Any(x => (x.StudyIdentifierScope.OrganisationIdentifier.ToLower().Contains(searchParameters.SponsorId.ToLower())) && (x.StudyIdentifierScope.OrganisationType.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower())));
+
+            //Filter for Indication
+            if (!String.IsNullOrWhiteSpace(searchParameters.Indication))
+                filter &= builder.Where(x => x.ClinicalStudy.StudyDesigns.Any(x => x.StudyIndications.Any(y => y.IndicationDescription.ToLower().Contains(searchParameters.Indication.ToLower()))));
+
+            //Filter for Intervention Model
+            if (!String.IsNullOrWhiteSpace(searchParameters.InterventionModel))
+                filter &= builder.Where(x => x.ClinicalStudy.StudyDesigns.Any(x => x.InterventionModel.Decode.ToLower().Contains(searchParameters.InterventionModel.ToLower())));
+
+            //Filter for Study Phase
+            if (!String.IsNullOrWhiteSpace(searchParameters.Phase))
+                filter &= builder.Where(x => x.ClinicalStudy.StudyPhase.StandardCode.Decode.ToLower().Contains(searchParameters.Phase.ToLower()));
+
+
+            return filter;
+        }
+
+
+        public static IEnumerable<Core.Entities.StudyV2.SearchResponseEntity> SortSearchResultsV2(List<Core.Entities.StudyV2.SearchResponseEntity> searchResponses, string property, bool asc)
+        {
+            if (!String.IsNullOrWhiteSpace(property))
+            {
+                return property.ToLower() switch
+                {
+                    //Sort by studyTitle
+                    "studytitle" => asc ? searchResponses.OrderBy(s => s.StudyTitle) : searchResponses.OrderByDescending(s => s.StudyTitle),
+
+                    //Sort by studyIdentifier: orgCode
+                    "sponsorid" => asc ? searchResponses.OrderBy(s => s.StudyIdentifiers != null ? s.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode?.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower()).Any() ? s.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower()).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : "")
+                                                                                    : searchResponses.OrderByDescending(s => s.StudyIdentifiers != null ? s.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower()).Any() ? s.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower()).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : ""),
+
+                    //Sort by studyIndication: description
+                    "indication" => asc ? searchResponses.OrderBy(s => (s.StudyIndications != null && s.StudyIndications.Any()) ? (s.StudyIndications.First() != null && s.StudyIndications.First().Any()) ? s.StudyIndications.First().First() != null ? s.StudyIndications.First().First().IndicationDescription ?? "" : "" : "" : "")
+                                                                                        : searchResponses.OrderByDescending(s => (s.StudyIndications != null && s.StudyIndications.Any()) ? (s.StudyIndications.First() != null && s.StudyIndications.First().Any()) ? s.StudyIndications.First().First() != null ? s.StudyIndications.First().First().IndicationDescription ?? "" : "" : "" : ""),
+
+                    //Sort by studyDesign: Intervention Model
+                    "interventionmodel" => asc ? searchResponses.OrderBy(s => (s.InterventionModel != null && s.InterventionModel.Any()) ? s.InterventionModel.First() != null ? s.InterventionModel.First().Decode :"" :"")
+                                                           : searchResponses.OrderByDescending(s => (s.InterventionModel != null && s.InterventionModel.Any()) ? s.InterventionModel.First() != null ? s.InterventionModel.First().Decode : "" : ""),
+
+                    //Sort by studyPhase
+                    "phase" => asc ? searchResponses.OrderBy(s => s.StudyPhase != null ? s.StudyPhase.StandardCode?.Decode ?? "" : "") : searchResponses.OrderByDescending(s => s.StudyPhase != null ? s.StudyPhase.StandardCode?.Decode ?? "" : ""),
+
+                    //Sort by SDR version
+                    "sdrversion" => asc ? searchResponses.OrderBy(s => s.SDRUploadVersion) : searchResponses.OrderByDescending(s => s.SDRUploadVersion),
+
+                    //Sort by entryDateTime
+                    "lastmodifieddate" => asc ? searchResponses.OrderBy(s => s.EntryDateTime) : searchResponses.OrderByDescending(s => s.EntryDateTime),
+
+                    //Sort by entrySystem Descending by default
+                    _ => asc ? searchResponses.OrderBy(s => s.EntryDateTime) : searchResponses.OrderByDescending(s => s.EntryDateTime),
+                };
+            }
+            else
+            {
+                return asc ? searchResponses.OrderBy(s => s.EntryDateTime) : searchResponses.OrderByDescending(s => s.EntryDateTime);
+            }
+        }
     }
 }

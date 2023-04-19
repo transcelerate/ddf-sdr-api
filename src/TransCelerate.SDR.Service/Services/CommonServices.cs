@@ -569,20 +569,19 @@ namespace TransCelerate.SDR.Services.Services
         {
             try
             {
-                _logger.LogInformation($"Started Service : {nameof(CommonServices)}; Method : {nameof(SearchStudy)};");
-                _logger.LogInformation($"Search Parameters : {JsonConvert.SerializeObject(searchParametersDto)}");
+                _logger.LogInformation($"Started Service : {nameof(CommonServices)}; Method : {nameof(SearchStudy)};");                
 
                 var searchParameters = _mapper.Map<SearchParametersEntity>(searchParametersDto);
 
+                if (searchParameters.ValidateUsdmVersion)
+                {
+                    return await GetSearchResultsWithUsdmVersionFilter(searchParameters, user);
+                }
                 List<SearchResponseEntity> searchResponseEntities = await _commonRepository.SearchStudy(searchParameters, user);
 
                 if (searchResponseEntities is null || !searchResponseEntities.Any())
                     return null;
-                //searchResponseEntities = await CheckAccessForListOfStudies(searchResponseEntities, user);
-                //if (searchResponseEntities is null || !searchResponseEntities.Any())
-                //    return null;
 
-                //return searchResponseEntities;
                 var searchResponseDtos = _mapper.Map<List<SearchResponseDto>>(searchResponseEntities);
                 searchResponseDtos = AssignDynamicValues(searchResponseDtos, searchResponseEntities);
                 if (searchParameters.Header?.ToLower() == "phase" || searchParameters.Header?.ToLower() == "sponsorid" || searchParameters.Header?.ToLower() == "interventionmodel" || searchParameters.Header?.ToLower() == "indication")
@@ -741,6 +740,90 @@ namespace TransCelerate.SDR.Services.Services
                 //return searchParameters.Asc ? searchResponseDtos.OrderBy(x => x.AuditTrail.EntryDateTime).ToList() : searchResponseDtos.OrderByDescending(x => x.AuditTrail.EntryDateTime).ToList();
                 return searchResponseDtos;
             }
+        }
+
+        public async Task<object> GetSearchResultsWithUsdmVersionFilter(SearchParametersEntity searchParameters, LoggedInUser loggedInUser)
+        {
+            if (searchParameters.UsdmVersion == Constants.USDMVersions.MVP)
+            {
+                var searchResponse = await _commonRepository.SearchStudyMVP(searchParameters, loggedInUser);
+                var searchResponseDtos = _mapper.Map<List<SearchResponseDto>>(searchResponse);
+
+                if (searchResponseDtos.Any())
+                {
+                    searchResponseDtos.ForEach(searchResponseDto =>
+                    {
+                        var searchResponseMVP = searchResponse.FirstOrDefault(x => x.StudyId == searchResponseDto.ClinicalStudy.StudyId && x.StudyVersion == searchResponseDto.AuditTrail.SDRUploadVersion);
+
+                        searchResponseDto.ClinicalStudy.StudyIdentifiers = _mapper.Map<List<CommonStudyIdentifiersDto>>(searchResponseMVP.StudyIdentifiers);
+                        searchResponseDto.ClinicalStudy.StudyType = new CommonCodeDto { Decode = searchResponseMVP.StudyType }; 
+                        searchResponseDto.ClinicalStudy.StudyPhase = new CommonCodeDto { Decode = searchResponseMVP.StudyPhase };
+                        searchResponseDto.ClinicalStudy.StudyDesigns = new List<CommonStudyDesign> { new CommonStudyDesign
+                        {
+                            InterventionModel = _mapper.Map<List<CommonCodeDto>>(searchResponseMVP.InvestigationalInterventions?.Where(x => x != null && x.Any()).SelectMany(x => x)
+                                                                                .Where(x => x != null && x.Any()).SelectMany(x => x)
+                                                                                .Where(x => x != null && x.Any()).SelectMany(x => x).ToList()),
+                            StudyIndications = _mapper.Map<List<Core.DTO.Common.CommonStudyIndication>>(searchResponseMVP.StudyIndications?.Where(x => x != null && x.Any()).SelectMany(x=>x).ToList())
+                        } };                        
+                        searchResponseDto.Links = LinksHelper.GetLinksForUi(searchResponseDto.ClinicalStudy.StudyId, searchResponseMVP.StudyDesignIds?.Where(x => x != null && x.Any()).SelectMany(x => x)?.ToList(), searchResponseDto.AuditTrail.UsdmVersion, searchResponseDto.AuditTrail.SDRUploadVersion);
+                    });
+                    return searchResponseDtos;
+                }
+
+                return null;
+            }
+            if (searchParameters.UsdmVersion == Constants.USDMVersions.V1)
+            {
+                var searchResponse = await _commonRepository.SearchStudyV1(searchParameters, loggedInUser);
+                var searchResponseDtos = _mapper.Map<List<SearchResponseDto>>(searchResponse);
+
+                if (searchResponseDtos.Any())
+                {
+                    searchResponseDtos.ForEach(searchResponseDto =>
+                    {
+                        var searchResponseV1 = searchResponse.FirstOrDefault(x => x.StudyId == searchResponseDto.ClinicalStudy.StudyId && x.SDRUploadVersion == searchResponseDto.AuditTrail.SDRUploadVersion);
+
+                        searchResponseDto.ClinicalStudy.StudyIdentifiers = _mapper.Map<List<CommonStudyIdentifiersDto>>(searchResponseV1.StudyIdentifiers);
+
+                        searchResponseDto.ClinicalStudy.StudyDesigns = new List<CommonStudyDesign> { new CommonStudyDesign
+                        {
+                            InterventionModel = _mapper.Map<List<CommonCodeDto>>(searchResponseV1.InterventionModel?.Where(x=>x !=null && x.Any()).SelectMany(x=>x).ToList()),
+                            StudyIndications = _mapper.Map<List<Core.DTO.Common.CommonStudyIndication>>(searchResponseV1.StudyIndications?.Where(x => x != null && x.Any()).SelectMany(x=>x).ToList())
+                        } };
+                        searchResponseDto.Links = LinksHelper.GetLinksForUi(searchResponseDto.ClinicalStudy.StudyId, searchResponseV1.StudyDesignIds?.ToList(), searchResponseDto.AuditTrail.UsdmVersion, searchResponseDto.AuditTrail.SDRUploadVersion);
+                    });
+                    return searchResponseDtos;
+                }
+
+                return null;
+            }
+            if (searchParameters.UsdmVersion == Constants.USDMVersions.V2)
+            {
+                var searchResponse = await _commonRepository.SearchStudyV2(searchParameters, loggedInUser);
+                var searchResponseDtos = _mapper.Map<List<SearchResponseDto>>(searchResponse);
+
+                if (searchResponseDtos.Any())
+                {
+                    searchResponseDtos.ForEach(searchResponseDto =>
+                    {
+                        var searchResponseV2 = searchResponse.FirstOrDefault(x => x.StudyId == searchResponseDto.ClinicalStudy.StudyId && x.SDRUploadVersion == searchResponseDto.AuditTrail.SDRUploadVersion);
+
+                        searchResponseDto.ClinicalStudy.StudyIdentifiers = _mapper.Map<List<CommonStudyIdentifiersDto>>(searchResponseV2.StudyIdentifiers);
+                        searchResponseDto.ClinicalStudy.StudyPhase = _mapper.Map<CommonCodeDto>(searchResponseV2.StudyPhase?.StandardCode);
+                        searchResponseDto.ClinicalStudy.StudyDesigns = new List<CommonStudyDesign> { new CommonStudyDesign
+                        {
+                            InterventionModel = _mapper.Map<List<CommonCodeDto>>(searchResponseV2.InterventionModel?.ToList()),
+                            StudyIndications = _mapper.Map<List<Core.DTO.Common.CommonStudyIndication>>(searchResponseV2.StudyIndications?.Where(x => x != null && x.Any()).SelectMany(x=>x).ToList())
+                        } };
+                        searchResponseDto.Links = LinksHelper.GetLinksForUi(searchResponseDto.ClinicalStudy.StudyId, searchResponseV2.StudyDesignIds?.ToList(), searchResponseDto.AuditTrail.UsdmVersion, searchResponseDto.AuditTrail.SDRUploadVersion);
+                    });
+                    return searchResponseDtos;
+                }
+
+                return null;
+            }
+            else
+                return null;
         }
         #endregion
 

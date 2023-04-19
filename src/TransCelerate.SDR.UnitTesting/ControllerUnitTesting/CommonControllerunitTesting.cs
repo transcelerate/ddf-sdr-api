@@ -828,7 +828,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 Phase = "PHASE_1_TRAIL",
                 SponsorId = "100",
                 FromDate = DateTime.Now.AddDays(-5).ToString(),
-                ToDate = DateTime.Now.ToString()
+                ToDate = DateTime.Now.ToString(),
+                ValidateUsdmVersion = false
             };
 
 
@@ -866,7 +867,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 Phase = "",
                 SponsorId = "",
                 FromDate = "",
-                ToDate = ""
+                ToDate = "",
+                ValidateUsdmVersion = false
             };
 
 
@@ -938,7 +940,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 Phase = "",
                 SponsorId = "",
                 FromDate = "",
-                ToDate = ""
+                ToDate = "",
+                ValidateUsdmVersion = false
             };
             _mockCommonService.Setup(x => x.SearchStudy(It.IsAny<SearchParametersDto>(), It.IsAny<LoggedInUser>()))
                .Throws(new Exception("Error"));
