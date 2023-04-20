@@ -649,14 +649,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
 
                     if (y.DefinedProcedures is not null && y.DefinedProcedures.Any())
                     {
-                        y.PreviousActivityId = null;
-                        if (y.DefinedProcedures != null && y.DefinedProcedures.Any())
-                            y.DefinedProcedures.ForEach(procedure =>
-                            {
-                                procedure.Id = null;
-                                if (procedure.ProcedureCode is not null)
-                                    procedure.ProcedureCode.Id = null;
-                            });
+                        y.DefinedProcedures.ForEach(procedure =>
+                        {
+                            procedure.Id = null;
+                            if (procedure.ProcedureCode is not null)
+                                procedure.ProcedureCode.Id = null;
+                        });
                     }
                 });
             }
