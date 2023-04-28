@@ -362,7 +362,7 @@ namespace TransCelerate.SDR.Services.Services
         }
 
         /// <summary>
-        /// GET Study Designs of a Study
+        /// GET SoA for a Study
         /// </summary>
         /// <param name="studyId">Study ID</param>
         /// <param name="sdruploadversion">Version of study</param>
