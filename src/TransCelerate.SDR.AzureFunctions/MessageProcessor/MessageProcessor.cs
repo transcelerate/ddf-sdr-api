@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -87,7 +88,7 @@ namespace TransCelerate.SDR.AzureFunctions
                 if (!element.EndsWith($".{nameof(StudyIdentifierEntity.Id)}"))
                 {
                     // Remove The index numbers
-                    element = Regex.Replace(element, "[0-9]", string.Empty);
+                    element = Regex.Replace(element, "[0-9]", string.Empty, RegexOptions.None, TimeSpan.FromMilliseconds(1000));
 
                     // Remove [] from the element
                     Constants.ParanthesisToBeRemovedForAudit.ToList().ForEach(character =>
