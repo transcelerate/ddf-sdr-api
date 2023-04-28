@@ -452,7 +452,7 @@ namespace TransCelerate.SDR.Services.Services
 
                             if (scheduleActivityInstances != null && scheduleActivityInstances.Any())
                             {
-                                var activitiesMappedToTimeLine = activities is not null && activities.Any() ? activities.Where(act => scheduleActivityInstances.SelectMany(instance => instance.ActivityIds).Contains(act.Id)).ToList() : new List<ActivityEntity>();
+                                var activitiesMappedToTimeLine = activities is not null && activities.Any() ? activities.Where(act => scheduleActivityInstances.Where(x => x.ActivityIds is not null && x.ActivityIds.Any()).SelectMany(instance => instance.ActivityIds).Contains(act.Id)).ToList() : new List<ActivityEntity>();
                                 studyTimelineSoA.ScheduleTimelineSoA = new()
                                 {
                                     SoA = new List<Core.DTO.StudyV3.SoA>(),
@@ -546,7 +546,7 @@ namespace TransCelerate.SDR.Services.Services
                         instance.Timings.ForEach(y =>
                         {
                             y.Activities = new List<string>();
-                            y.Activities.AddRange(instance.ActivityIds);
+                            y.Activities.AddRange(instance.ActivityIds is not null && instance.ActivityIds.Any() ? instance.ActivityIds.Distinct().ToList() : new List<string>());
                         });
                     }
                     else
