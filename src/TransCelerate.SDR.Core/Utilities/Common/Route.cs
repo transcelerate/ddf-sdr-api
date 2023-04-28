@@ -66,6 +66,12 @@
         public const string SearchTitleV2 = "v2/searchstudytitle";
         #endregion
         #endregion
+        public const string SoAV3 = "v3/studydefinitions/{studyId}/studydesigns/soa";
+        #region Study V3 Routes
+        #region GET Method Routes
+
+        #endregion
+        #endregion
 
         #region User Group Routes
         public const string GetGroups = "usergroups/getgroups";

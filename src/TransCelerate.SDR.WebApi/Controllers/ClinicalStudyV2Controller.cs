@@ -241,6 +241,75 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudyDesigns)};");
             }
         }
+
+        /// <summary>
+        /// GET SoA For a Study USDM Version 2.0
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="studyDesignId">Study Design ID</param>
+        /// <param name="sdruploadversion">Version of study</param>
+        /// <param name="scheduleTimelineId">Schedule Timeline Id</param>
+        /// <response code="200">Returns Study</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">The Study for the studyId is Not Found</response>
+        [HttpGet]
+        [Route(Route.SoAV3)]
+        [ApiVersion(Constants.USDMVersions.V2)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDto))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> GetSOAV3(string studyId, string studyDesignId, string scheduleTimelineId, int sdruploadversion)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudyDesigns)};");
+                if (!String.IsNullOrWhiteSpace(studyId))
+                {
+                    _logger.LogInformation($"Inputs : study_uuid = {studyId}; sdruploadversion = {sdruploadversion}; WorkflowId: {scheduleTimelineId}; studydesign_uuid: {studyDesignId}");
+                    if (String.IsNullOrWhiteSpace(studyDesignId) && !String.IsNullOrWhiteSpace(scheduleTimelineId))
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.EnterDesignIdError)).Value);
+
+                    LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
+
+                    var SoA = await _clinicalStudyService.GetSOAV3(studyId, studyDesignId, scheduleTimelineId, sdruploadversion, user).ConfigureAwait(false);
+
+                    if (SoA == null)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
+                    }
+                    else if (SoA.ToString() == Constants.ErrorMessages.Forbidden)
+                    {
+                        return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
+                    }
+                    else if (SoA.ToString() == Constants.ErrorMessages.StudyDesignNotFound)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyDesignNotFound)).Value);
+                    }
+                    else if (SoA.ToString() == Constants.ErrorMessages.ScheduleTimelineNotFound)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.ScheduleTimelineNotFound)).Value);
+                    }
+                    else
+                    {
+                        return Ok(SoA);
+                    }
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudyDesigns)};");
+            }
+        }
         /// <summary>
         /// GET Audit Trail of a study
         /// </summary>
