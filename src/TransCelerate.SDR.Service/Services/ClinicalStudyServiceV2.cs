@@ -294,7 +294,7 @@ namespace TransCelerate.SDR.Services.Services
                                     {
                                         SoA soA = new();
                                         string timingValue = design.StudyScheduleTimelines.Where(x => x.ScheduleTimelineInstances != null).SelectMany(x => x.ScheduleTimelineInstances)
-                                                                         .Where(x => x != null)
+                                                                         .Where(x => x != null && x.ScheduledInstanceTimings is not null)
                                                                          .SelectMany(x => x.ScheduledInstanceTimings)
                                                                          .Where(x => x.Id == encounter.EncounterScheduledAtTimingId).FirstOrDefault()?.TimingValue;
                                         string timingValueToBeAddedinSoA = String.IsNullOrWhiteSpace(timingValue) ? string.Empty : $" ({timingValue})";
