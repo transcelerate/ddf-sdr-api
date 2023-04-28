@@ -68,6 +68,14 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<ChangeAuditStudyDto, ChangeAuditStudyEntity>().ReverseMap();
             CreateMap<ChangeAuditDto, ChangeAuditEntity>().ReverseMap();
             CreateMap<ChangesDto, ChangesEntity>().ReverseMap();
+
+            //SoA V3
+            CreateMap<ScheduleTimelineEntity, Core.DTO.StudyV3.ScheduleTimelines>()
+                .ForMember(dest => dest.ScheduleTimelineId, opt => opt.MapFrom(src => src.Id))
+                .ReverseMap();
+            CreateMap<TimingEntity, Core.DTO.StudyV3.TimingSoA>()
+                .ForMember(dest => dest.TimingType, opt => opt.MapFrom(src => src.TimingType != null ? src.TimingType.Decode : null))
+                .ReverseMap();
         }
     }
 }

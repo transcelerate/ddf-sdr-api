@@ -362,6 +362,204 @@ namespace TransCelerate.SDR.Services.Services
         }
 
         /// <summary>
+        /// GET Study Designs of a Study
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="sdruploadversion">Version of study</param>
+        /// <param name="scheduleTimelineId">Schedule Timeline Id</param>
+        /// <param name="studyDesignId">study design Id</param>
+        /// <param name="user">Logged In User</param>
+        /// <returns>
+        /// A <see cref="object"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        public async Task<object> GetSOAV3(string studyId, string studyDesignId, string scheduleTimelineId, int sdruploadversion, LoggedInUser user)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV2)}; Method : {nameof(GetSOA)};");
+                studyId = studyId.Trim();
+
+                StudyEntity study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: studyId, sdruploadversion: sdruploadversion).ConfigureAwait(false);
+                if (study == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    StudyEntity checkStudy = await CheckAccessForAStudy(study, user);
+                    if (checkStudy == null)
+                        return Constants.ErrorMessages.Forbidden;
+
+                    var soa = SoAV3(study.ClinicalStudy.StudyDesigns);
+                    soa.StudyId = study.ClinicalStudy.StudyId;
+                    soa.StudyTitle = study.ClinicalStudy.StudyTitle;
+                    if (!String.IsNullOrWhiteSpace(studyDesignId))
+                    {
+                        if (study.ClinicalStudy.StudyDesigns is null || !soa.StudyDesigns.Any(x => x.StudyDesignId == studyDesignId))
+                            return Constants.ErrorMessages.StudyDesignNotFound;
+
+                        if (!String.IsNullOrWhiteSpace(scheduleTimelineId))
+                        {
+                            soa.StudyDesigns.RemoveAll(x => x.StudyDesignId != studyDesignId);
+                            if (soa.StudyDesigns.First().StudyScheduleTimelines is null || !soa.StudyDesigns.First().StudyScheduleTimelines.Any(x => x.ScheduleTimelineId == scheduleTimelineId))
+                                return Constants.ErrorMessages.ScheduleTimelineNotFound;
+                            soa.StudyDesigns.First().StudyScheduleTimelines.RemoveAll(y => y.ScheduleTimelineId != scheduleTimelineId);
+                            return soa;
+                        }
+                        soa.StudyDesigns.RemoveAll(x => x.StudyDesignId != studyDesignId);
+                        return soa;
+                    }
+                    return soa;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV2)}; Method : {nameof(GetSOA)};");
+            }
+        }
+
+        public Core.DTO.StudyV3.SoADto SoAV3(List<StudyDesignEntity> studyDesigns)
+        {
+            Core.DTO.StudyV3.SoADto soADto = new()
+            {
+                StudyDesigns = new List<Core.DTO.StudyV3.StudyDesigns>()
+            };
+            if (studyDesigns is not null && studyDesigns.Any())
+            {
+                studyDesigns.ForEach(design =>
+                {
+                    Core.DTO.StudyV3.StudyDesigns studyDesignSoA = new()
+                    {
+                        StudyDesignId = design.Id,
+                        StudyDesignName = design.StudyDesignName,
+                        StudyDesignDescription = design.StudyDesignDescription,
+                        StudyScheduleTimelines = new List<Core.DTO.StudyV3.ScheduleTimelines>()
+                    };
+                    List<EncounterEntity> encounters = GetOrderedEncounters(design.Encounters);
+                    List<ActivityEntity> activities = GetOrderedActivities(design.Activities);
+                    if (design.StudyScheduleTimelines != null && design.StudyScheduleTimelines.Any())
+                    {
+                        design.StudyScheduleTimelines.ForEach(scheduleTimeline =>
+                        {
+                            Core.DTO.StudyV3.ScheduleTimelines studyTimelineSoA = _mapper.Map<Core.DTO.StudyV3.ScheduleTimelines>(scheduleTimeline);
+                            var scheduleActivityInstances = scheduleTimeline.ScheduleTimelineInstances?.Select(x => (x as ScheduledActivityInstanceEntity))
+                                                                         .Where(x => x != null).ToList();
+
+                            if (scheduleActivityInstances != null && scheduleActivityInstances.Any())
+                            {
+                                var activitiesMappedToTimeLine = activities is not null && activities.Any() ? activities.Where(act => scheduleActivityInstances.SelectMany(instance => instance.ActivityIds).Contains(act.Id)).ToList() : new List<ActivityEntity>();
+                                studyTimelineSoA.ScheduleTimelineSoA = new()
+                                {
+                                    SoA = new List<Core.DTO.StudyV3.SoA>(),
+                                    OrderOfActivities = activitiesMappedToTimeLine.Select(act => new Core.DTO.StudyV3.OrderOfActivities
+                                    {
+                                        ActivityId = act.Id,
+                                        ActivityName = act.ActivityName,
+                                        ActivityDescription = act.ActivityDescription,
+                                        ActivityIsConditional = act.ActivityIsConditional,
+                                        ActivityIsConditionalReason = act.ActivityIsConditionalReason,
+                                        ActivityTimelineId = act.ActivityTimelineId,
+                                        ActivityTimelineName = String.IsNullOrWhiteSpace(act.ActivityTimelineId) ? string.Empty : design.StudyScheduleTimelines.FirstOrDefault(x => x.Id == act.ActivityTimelineId)?.ScheduleTimelineName,
+                                        BiomedicalConcepts = design.BiomedicalConcepts.Where(bc => act.BiomedicalConceptIds != null && act.BiomedicalConceptIds.Any() && act.BiomedicalConceptIds.Contains(bc.Id)).Select(bc => bc.BcName).ToList(),
+                                        FootnoteId = string.Empty,
+                                        FootnoteDescription = act.ActivityIsConditional ? $"{act.ActivityName} : {act.ActivityIsConditionalReason}" : string.Empty,
+                                        DefinedProcedures = act.DefinedProcedures?.Select(y => new Core.DTO.StudyV3.ProcedureSoA
+                                        {
+                                            ProcedureId = y.Id,
+                                            ProcedureName = string.Empty,
+                                            ProcedureDescription = string.Empty,
+                                            ProcedureIsConditional = y.ProcedureIsConditional,
+                                            ProcedureIsConditionalReason = y.ProcedureIsConditionalReason,
+                                            FootnoteId = string.Empty,
+                                            //below string.Empty has to be changed once procedureName is included in the model
+                                            FootnoteDescription = y.ProcedureIsConditional ? $"{string.Empty} : {y.ProcedureIsConditionalReason}" : string.Empty
+                                        }).ToList()
+                                    }).ToList()
+                                };
+                                // SoA for instances where encounter is mapped
+                                encounters?.Where(x => scheduleActivityInstances.Select(y => y.ScheduledInstanceEncounterId).Contains(x.Id)).ToList().ForEach(encounter =>
+                                {
+                                    string timingValue = design.StudyScheduleTimelines.Where(x => x.ScheduleTimelineInstances != null).SelectMany(x => x.ScheduleTimelineInstances)
+                                                                                      .Where(x => x != null && x.ScheduledInstanceTimings is not null)
+                                                                                      .SelectMany(x => x.ScheduledInstanceTimings)
+                                                                                      .Where(x => x.Id == encounter.EncounterScheduledAtTimingId).FirstOrDefault()?.TimingValue;
+                                    Core.DTO.StudyV3.SoA soA = new()
+                                    {
+                                        EncounterId = encounter.Id,
+                                        EncounterName = encounter.EncounterName,
+                                        EncounterScheduledAtTimingValue = String.IsNullOrWhiteSpace(timingValue) ? string.Empty : timingValue,
+                                        Timings = GetTimings(scheduleActivityInstances.Where(instance => instance.ScheduledInstanceEncounterId == encounter.Id).ToList())
+                                    };
+
+                                    studyTimelineSoA.ScheduleTimelineSoA.SoA.Add(soA);
+                                });
+                                // SoA for instances where encounter is not mapped
+                                if (scheduleActivityInstances.Where(x => String.IsNullOrWhiteSpace(x.ScheduledInstanceEncounterId)).Any())
+                                {
+                                    Core.DTO.StudyV3.SoA soA = new()
+                                    {
+                                        EncounterId = string.Empty,
+                                        EncounterName = string.Empty,
+                                        EncounterScheduledAtTimingValue = string.Empty,
+                                        Timings = GetTimings(scheduleActivityInstances.Where(x => String.IsNullOrWhiteSpace(x.ScheduledInstanceEncounterId)).ToList())
+                                    };
+
+                                    studyTimelineSoA.ScheduleTimelineSoA.SoA.Add(soA);
+                                }
+                            }
+
+                            studyDesignSoA.StudyScheduleTimelines.Add(studyTimelineSoA);
+                        });
+                    }
+                    soADto.StudyDesigns.Add(studyDesignSoA);
+                });
+            }
+
+            return soADto;
+        }
+        public List<Core.DTO.StudyV3.TimingSoA> GetTimings(List<ScheduledActivityInstanceEntity> scheduledActivityInstances)
+        {
+            if (scheduledActivityInstances is not null && scheduledActivityInstances.Any())
+            {
+                var instances = scheduledActivityInstances.Where(x => x.ScheduledInstanceTimings is not null && x.ScheduledInstanceTimings.Any()).Select(x => new
+                {
+                    x.ScheduleSequenceNumber,
+                    Timings = _mapper.Map<List<Core.DTO.StudyV3.TimingSoA>>(x.ScheduledInstanceTimings),
+                    x.ActivityIds
+                }).OrderBy(x => x.ScheduleSequenceNumber).ToList();
+
+                instances.AddRange(scheduledActivityInstances.Where(x => x.ScheduledInstanceTimings is null || !x.ScheduledInstanceTimings.Any()).Select(x => new
+                {
+                    x.ScheduleSequenceNumber,
+                    Timings = _mapper.Map<List<Core.DTO.StudyV3.TimingSoA>>(x.ScheduledInstanceTimings),
+                    x.ActivityIds
+                }).OrderBy(x => x.ScheduleSequenceNumber).ToList());
+                instances?.ForEach(instance =>
+                {
+                    if (instance.Timings is not null && instance.Timings.Any())
+                    {
+                        instance.Timings.ForEach(y =>
+                        {
+                            y.Activities = new List<string>();
+                            y.Activities.AddRange(instance.ActivityIds);
+                        });
+                    }
+                    else
+                    {
+                        instance.Timings.Add(new Core.DTO.StudyV3.TimingSoA { Activities = instance.ActivityIds is not null && instance.ActivityIds.Any() ? instance.ActivityIds.Distinct().ToList() : new List<string>() });
+                    }
+                });
+
+                return instances.SelectMany(x => x.Timings).Any() ? instances.SelectMany(x => x.Timings).ToList() : new List<Core.DTO.StudyV3.TimingSoA>();
+            }
+            return new List<Core.DTO.StudyV3.TimingSoA>();
+        }
+        /// <summary>
         /// GET Study Designs Elements of a Study
         /// </summary>
         /// <param name="studyId">Study ID</param>
