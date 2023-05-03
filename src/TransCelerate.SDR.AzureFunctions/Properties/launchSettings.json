@@ -2,7 +2,7 @@
   "profiles": {
     "TransCelerate.SDR.AzureFunctions": {
       "commandName": "Project",
-      "commandLineArgs": "--port 7260",
+      "commandLineArgs": "--port 7042",
       "launchBrowser": false
     }
   }

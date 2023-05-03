@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TransCelerate.SDR.AzureFunctions\TransCelerate.SDR.AzureFunctions.csproj" />
+    <ProjectReference Include="..\TransCelerate.SDR.AzureFunctions\TransCelerate.SDR.AzureFunctions.csproj" />  
     <ProjectReference Include="..\TransCelerate.SDR.Core\TransCelerate.SDR.Core.csproj" />
     <ProjectReference Include="..\TransCelerate.SDR.DataAccess\TransCelerate.SDR.DataAccess.csproj" />
     <ProjectReference Include="..\TransCelerate.SDR.RuleEngine\TransCelerate.SDR.RuleEngine.csproj" />

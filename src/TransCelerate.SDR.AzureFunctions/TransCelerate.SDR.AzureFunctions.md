@@ -3,8 +3,6 @@
 
 ## Contents
 
-- [ChangeAuditFunction](#T-TransCelerate-SDR-AzureFunctions-ChangeAuditFunction 'TransCelerate.SDR.AzureFunctions.ChangeAuditFunction')
-  - [Run(myQueueItem)](#M-TransCelerate-SDR-AzureFunctions-ChangeAuditFunction-Run-System-String- 'TransCelerate.SDR.AzureFunctions.ChangeAuditFunction.Run(System.String)')
 - [ChangeAuditRepository](#T-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditRepository 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditRepository')
   - [GetAuditTrailsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditRepository-GetAuditTrailsAsync-System-String,System-Int32- 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditRepository.GetAuditTrailsAsync(System.String,System.Int32)')
   - [GetChangeAuditAsync(studyId)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditRepository-GetChangeAuditAsync-System-String- 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditRepository.GetChangeAuditAsync(System.String)')
@@ -23,28 +21,6 @@
   - [AddChangeAuditInDatabase(changeAuditStudyEntity,serviceBusMessageEntity,changedValues,currentVersionAudiTrail)](#M-TransCelerate-SDR-AzureFunctions-MessageProcessor-AddChangeAuditInDatabase-TransCelerate-SDR-Core-Entities-StudyV2-ChangeAuditStudyEntity,TransCelerate-SDR-Core-Entities-StudyV2-ServiceBusMessageEntity,System-Collections-Generic-List{System-String},TransCelerate-SDR-Core-Entities-StudyV2-AuditTrailEntity- 'TransCelerate.SDR.AzureFunctions.MessageProcessor.AddChangeAuditInDatabase(TransCelerate.SDR.Core.Entities.StudyV2.ChangeAuditStudyEntity,TransCelerate.SDR.Core.Entities.StudyV2.ServiceBusMessageEntity,System.Collections.Generic.List{System.String},TransCelerate.SDR.Core.Entities.StudyV2.AuditTrailEntity)')
   - [FormatChangeAuditElements(elements)](#M-TransCelerate-SDR-AzureFunctions-MessageProcessor-FormatChangeAuditElements-System-Collections-Generic-List{System-String}- 'TransCelerate.SDR.AzureFunctions.MessageProcessor.FormatChangeAuditElements(System.Collections.Generic.List{System.String})')
   - [ProcessMessage(message)](#M-TransCelerate-SDR-AzureFunctions-MessageProcessor-ProcessMessage-System-String- 'TransCelerate.SDR.AzureFunctions.MessageProcessor.ProcessMessage(System.String)')
-- [Startup](#T-TransCelerate-SDR-AzureFunctions-Startup 'TransCelerate.SDR.AzureFunctions.Startup')
-  - [Configure(builder)](#M-TransCelerate-SDR-AzureFunctions-Startup-Configure-Microsoft-Azure-Functions-Extensions-DependencyInjection-IFunctionsHostBuilder- 'TransCelerate.SDR.AzureFunctions.Startup.Configure(Microsoft.Azure.Functions.Extensions.DependencyInjection.IFunctionsHostBuilder)')
-
-<a name='T-TransCelerate-SDR-AzureFunctions-ChangeAuditFunction'></a>
-## ChangeAuditFunction `type`
-
-##### Namespace
-
-TransCelerate.SDR.AzureFunctions
-
-<a name='M-TransCelerate-SDR-AzureFunctions-ChangeAuditFunction-Run-System-String-'></a>
-### Run(myQueueItem) `method`
-
-##### Summary
-
-Azure Service Bus Trigger for Change Audit
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| myQueueItem | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Queue Message |
 
 <a name='T-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditRepository'></a>
 ## ChangeAuditRepository `type`
@@ -296,27 +272,3 @@ Process the Message for Change Audit
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | message | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Message from service bus |
-
-<a name='T-TransCelerate-SDR-AzureFunctions-Startup'></a>
-## Startup `type`
-
-##### Namespace
-
-TransCelerate.SDR.AzureFunctions
-
-##### Summary
-
-Startup for Azure Function App
-
-<a name='M-TransCelerate-SDR-AzureFunctions-Startup-Configure-Microsoft-Azure-Functions-Extensions-DependencyInjection-IFunctionsHostBuilder-'></a>
-### Configure(builder) `method`
-
-##### Summary
-
-Add depenedncies for Azure Function App
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| builder | [Microsoft.Azure.Functions.Extensions.DependencyInjection.IFunctionsHostBuilder](#T-Microsoft-Azure-Functions-Extensions-DependencyInjection-IFunctionsHostBuilder 'Microsoft.Azure.Functions.Extensions.DependencyInjection.IFunctionsHostBuilder') |  |

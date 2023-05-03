@@ -1,11 +1,10 @@
-using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.Functions.Worker;
 using System;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.AzureFunctions
 {
-
     public class ChangeAuditFunction
     {
         private readonly IMessageProcessor _messageProcessor;
@@ -17,15 +16,10 @@ namespace TransCelerate.SDR.AzureFunctions
             _logger = logger;
         }
 
-        /// <summary>
-        /// Azure Service Bus Trigger for Change Audit
-        /// </summary>
-        /// <param name="myQueueItem">Queue Message</param>
-
-        [FunctionName(Constants.FunctionAppConstants.ChangeAuditFunction)]
+        [Function(Constants.FunctionAppConstants.ChangeAuditFunction)]
         public void Run([ServiceBusTrigger(Constants.FunctionAppConstants.AzureServiceBusQueueName,
-            Connection = Constants.FunctionAppConstants.AzureServiceBusConnectionString)]string myQueueItem)
-        {
+            Connection = Constants.FunctionAppConstants.AzureServiceBusConnectionString)] string myQueueItem)
+        {            
             try
             {
                 _logger.LogInformation($"C# ServiceBus queue trigger function message : {myQueueItem}");
