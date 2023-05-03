@@ -184,12 +184,13 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>
         [HttpGet]
-        [Route(Route.SoAV2)]
+        [Route(Route.SoAV3)]//To be changed after versioning
         [ApiVersion(Constants.USDMVersions.V2)]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
+        [NonAction]
         public async Task<IActionResult> GetSOA(string studyId, string studyDesignId, string scheduleTimelineId, int sdruploadversion)
         {
             try
@@ -253,7 +254,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>
         [HttpGet]
-        [Route(Route.SoAV3)]
+        [Route(Route.SoAV2)] //To be changed after versioning
         [ApiVersion(Constants.USDMVersions.V2)]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
