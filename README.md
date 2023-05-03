@@ -14,7 +14,7 @@ Study Definition Repository (SDR) Reference Implementation is TransCelerate’s 
 
 This is a .NET 6 Web API project that is designed to expose APIs which upstream/downstream systems can utilize to store and retrieve study definitions from SDR. The latest Release of SDR (Release V2.0) supports study definitions conformant with USDM V1.0 and USDM 1.9.
 
-This [Process Flow Document](https://github.com/transcelerate/ddf-sdr-platform/blob/main/documents/sdr-release-v2.0/ddf-sdr-ri-process-flows-v4.0.pdf) provides information regarding user interface functions and system interactions with the SDR at a high level. Please also refer to the [DDF SDR API User Guide](documents/sdr-release-v2.0/ddf-sdr-ri-api-user-guide-v4.0.pdf) to get started, and the [DDF SDR RI API Demo video](https://www.youtube.com/playlist?list=PLMXS-Xt7Ou1KNUF-HQKQRRzqfPQEXWb1u). 
+This [Process Flow Document](https://github.com/transcelerate/ddf-sdr-platform/blob/main/documents/sdr-release-v2.0/ddf-sdr-ri-process-flows-v4.0.pdf) provides information regarding user interface functions and system interactions with the SDR at a high level. Please also refer to the [DDF SDR API User Guide](documents/sdr-release-v2.0/ddf-sdr-ri-api-user-guide-v4.1.pdf) to get started, and the [DDF SDR RI API Demo video](https://www.youtube.com/playlist?list=PLMXS-Xt7Ou1KNUF-HQKQRRzqfPQEXWb1u). 
 
 **NOTES:** 
 - These materials and information are provided by TransCelerate Biopharma Inc. AS IS.  Any party using or relying on this information and these materials do so entirely at their own risk.  Neither TransCelerate nor its members will bear any responsibility or liability for any harm, including indirect or consequential harm, that a user may incur from use or misuse of this information or materials.
@@ -197,10 +197,6 @@ The solution has the following structure:
 
 # List of Endpoints
 
-The below POST endpoint can be used to generate authentication token to access other API endpoints.
-```
-/auth/token
-```
 The below GET endpoint can be used to GET API Version -> USDM Version mapping.
 ```
 /versions
@@ -279,7 +275,7 @@ To view the API specifications and to run the endpoints locally, the below swagg
 ```
 https://localhost:44358/swagger/index.html
 ```
-**Note**: Refer **[DDF SDR API User Guide](documents/sdr-release-v2.0/ddf-sdr-ri-api-user-guide-v4.0.pdf)** for detailed information on all the endpoints.
+**Note**: Refer **[DDF SDR API User Guide](documents/sdr-release-v2.0/ddf-sdr-ri-api-user-guide-v4.1.pdf)** for detailed information on all the endpoints.
 
 # Nuget Packages 
 
