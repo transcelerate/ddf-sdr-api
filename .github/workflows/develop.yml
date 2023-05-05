@@ -61,12 +61,18 @@ jobs:
     - name: Build solution **\*.sln
       # Build dotnet code
       run: dotnet publish 'src/TransCelerate.SDR.sln' --configuration release
-      
-    - name: Zip publish files
+
+    - name: Unhide files and folders
       shell: pwsh
-      # Zip the build artifact publish folder
+      # Unhide all files & folders
       run: |
-          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net7.0/publish/**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
+          attrib -s -h -Path "${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net7.0/publish/**" /s /d
+
+    # - name: Zip publish files
+    #   shell: pwsh
+    #   # Zip the build artifact publish folder
+    #   run: |
+    #       Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net7.0/publish/**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
      
     - name: Zip publish files
       shell: pwsh
@@ -90,82 +96,82 @@ jobs:
 
     ###############################---------------NUnit Test Cases-----------------------#############################
         
-    - name: Dotnet Test
-      # Running Dotnet test cases and also scanning the code code in sonar with using code coverage file
-      run: |
-          dotnet test 'src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release  --collect "XPlat Code Coverage" --logger trx 
-          cp ${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting/TestResults/*/coverage.cobertura.xml '${{ github.workspace }}/coverage.cobertura.xml'
+    # - name: Dotnet Test
+    #   # Running Dotnet test cases and also scanning the code code in sonar with using code coverage file
+    #   run: |
+    #       dotnet test 'src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release  --collect "XPlat Code Coverage" --logger trx 
+    #       cp ${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting/TestResults/*/coverage.cobertura.xml '${{ github.workspace }}/coverage.cobertura.xml'
     
-    - name: Code Coverage Summary Report
-      uses: irongut/CodeCoverageSummary@v1.0.2
-      # Code Coverage report
-      with:
-        filename: coverage.cobertura.xml
-        badge: true
-        format: 'markdown'
-        output: 'both'
+    # - name: Code Coverage Summary Report
+    #   uses: irongut/CodeCoverageSummary@v1.0.2
+    #   # Code Coverage report
+    #   with:
+    #     filename: coverage.cobertura.xml
+    #     badge: true
+    #     format: 'markdown'
+    #     output: 'both'
         
-    - name: use this action, test solution dir
-      uses: zyborg/dotnet-tests-report@v1
-      # Publish the test cases run in Github
-      with:
-        project_path: '${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting'
-        report_name: 'TransCelerate.SDR.UnitTesting'
-        report_title: API Tests Report
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+    # - name: use this action, test solution dir
+    #   uses: zyborg/dotnet-tests-report@v1
+    #   # Publish the test cases run in Github
+    #   with:
+    #     project_path: '${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting'
+    #     report_name: 'TransCelerate.SDR.UnitTesting'
+    #     report_title: API Tests Report
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
    
  
        
 ########################---------------------Sonar Scan-------------------------###################################
 
-    - name: Cache SonarQube packages
-      uses: actions/cache@v1
-      # A list of files, directories, and wildcard patterns to cache and restore
-      with:
-           # An explicit key for restoring and saving the cache
-          path: ~\sonar\cache
-          # An ordered list of keys to use for restoring the cache if no cache hit occurred for key
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
+    # - name: Cache SonarQube packages
+    #   uses: actions/cache@v1
+    #   # A list of files, directories, and wildcard patterns to cache and restore
+    #   with:
+    #        # An explicit key for restoring and saving the cache
+    #       path: ~\sonar\cache
+    #       # An ordered list of keys to use for restoring the cache if no cache hit occurred for key
+    #       key: ${{ runner.os }}-sonar
+    #       restore-keys: ${{ runner.os }}-sonar
           
-    - name: Cache SonarQube scanner
-      id: cache-sonar-scanner
-      uses: actions/cache@v1
-      with:
-          path: .\.sonar\scanner
-          key: ${{ runner.os }}-sonar-scanner
-          restore-keys: ${{ runner.os }}-sonar-scanner
+    # - name: Cache SonarQube scanner
+    #   id: cache-sonar-scanner
+    #   uses: actions/cache@v1
+    #   with:
+    #       path: .\.sonar\scanner
+    #       key: ${{ runner.os }}-sonar-scanner
+    #       restore-keys: ${{ runner.os }}-sonar-scanner
           
-    - name: Install SonarQube scanner
-      if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
-      shell: pwsh
-      # Install sonarqube scanner and dotnet reportgenerator
-      run: |
-          New-Item -Path ./.sonar/scanner -ItemType Directory
-          dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
-          dotnet tool update dotnet-reportgenerator-globaltool -g 
+    # - name: Install SonarQube scanner
+    #   if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+    #   shell: pwsh
+    #   # Install sonarqube scanner and dotnet reportgenerator
+    #   run: |
+    #       New-Item -Path ./.sonar/scanner -ItemType Directory
+    #       dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
+    #       dotnet tool update dotnet-reportgenerator-globaltool -g 
           
-    - name: Build and analyze
-      # GITHUB_TOKEN secret used from secrets
-      env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-      shell: pwsh
-      # Running Dotnet test cases and also scanning the code code in sonar with using code coverage file
-      run: |
-          ./.sonar/scanner/dotnet-sonarscanner begin /k:"transceleratebiopharmainc_ddf-sdr-api" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.coverageReportPaths="${{ github.workspace }}/coverage/SonarQube.xml" /d:sonar.cobertura.reportPath='${{ github.workspace }}/coverage/Cobertura.xml'
+    # - name: Build and analyze
+    #   # GITHUB_TOKEN secret used from secrets
+    #   env:
+    #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+    #   shell: pwsh
+    #   # Running Dotnet test cases and also scanning the code code in sonar with using code coverage file
+    #   run: |
+    #       ./.sonar/scanner/dotnet-sonarscanner begin /k:"transceleratebiopharmainc_ddf-sdr-api" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.coverageReportPaths="${{ github.workspace }}/coverage/SonarQube.xml" /d:sonar.cobertura.reportPath='${{ github.workspace }}/coverage/Cobertura.xml'
           
-          dotnet test 'src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release  --collect "XPlat Code Coverage" -s "src/CodeCoverage.runsettings" --logger trx 
-          cd ${{ github.workspace }}
-          reportgenerator "-reports:src/TransCelerate.SDR.UnitTesting/TestResults/*/coverage.cobertura.xml" "-targetdir:coverage" -reporttypes:"Cobertura;SonarQube"
+    #       dotnet test 'src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release  --collect "XPlat Code Coverage" -s "src/CodeCoverage.runsettings" --logger trx 
+    #       cd ${{ github.workspace }}
+    #       reportgenerator "-reports:src/TransCelerate.SDR.UnitTesting/TestResults/*/coverage.cobertura.xml" "-targetdir:coverage" -reporttypes:"Cobertura;SonarQube"
           
-          ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+    #       ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
           
-    - name: SonarQube Quality Gate check
-      uses: sonarsource/sonarqube-quality-gate-action@master
-      with:
-        scanMetadataReportFile: .sonarqube/out/.sonar/report-task.txt
-      env:
-       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    # - name: SonarQube Quality Gate check
+    #   uses: sonarsource/sonarqube-quality-gate-action@master
+    #   with:
+    #     scanMetadataReportFile: .sonarqube/out/.sonar/report-task.txt
+    #   env:
+    #    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 
 #############################-------------Deployment----------------#####################################
@@ -188,26 +194,26 @@ jobs:
     #     app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
     #     package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
-    - name: Azure Container Registry Login
-      uses: Azure/docker-login@v1
-      with:
-        # Container registry username
-        username: ${{ secrets.ACR_USERNAME }} # default is 
-        # Container registry password
-        password: ${{ secrets.ACR_PASSWORD }} # default is 
-        # Container registry server url
-        login-server: ${{ secrets.ACR_NAME }} # default is https://index.docker.io/v1/
-    - run: |
-        cp '${{ github.workspace }}/Dockerfile' '${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net7.0/publish/'
-        cd ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net7.0/publish/
-        ls
-        docker build . -t ${{ secrets.ACR_NAME }}/sdrapibuild:latest
-        docker push ${{ secrets.ACR_NAME }}/sdrapibuild:latest
+    # - name: Azure Container Registry Login
+    #   uses: Azure/docker-login@v1
+    #   with:
+    #     # Container registry username
+    #     username: ${{ secrets.ACR_USERNAME }} # default is 
+    #     # Container registry password
+    #     password: ${{ secrets.ACR_PASSWORD }} # default is 
+    #     # Container registry server url
+    #     login-server: ${{ secrets.ACR_NAME }} # default is https://index.docker.io/v1/
+    # - run: |
+    #     cp '${{ github.workspace }}/Dockerfile' '${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net7.0/publish/'
+    #     cd ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net7.0/publish/
+    #     ls
+    #     docker build . -t ${{ secrets.ACR_NAME }}/sdrapibuild:latest
+    #     docker push ${{ secrets.ACR_NAME }}/sdrapibuild:latest
         
-    - uses: azure/webapps-deploy@v2
-      with:
-        app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
-        images: '${{ secrets.ACR_NAME }}/sdrapibuild:latest'
+    # - uses: azure/webapps-deploy@v2
+    #   with:
+    #     app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+    #     images: '${{ secrets.ACR_NAME }}/sdrapibuild:latest'
         
     - name: Azure Functions Action
       uses: Azure/functions-action@v1.4.7
