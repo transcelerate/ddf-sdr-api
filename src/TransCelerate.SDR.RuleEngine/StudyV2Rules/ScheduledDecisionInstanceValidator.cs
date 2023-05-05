@@ -1,6 +1,9 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Http;
+using System;
+using System.Linq;
 using TransCelerate.SDR.Core.DTO.StudyV2;
+using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 
@@ -54,7 +57,8 @@ namespace TransCelerate.SDR.RuleEngineV2
               .Cascade(CascadeMode.Stop)
               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-              .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ScheduledDecisionInstanceValidator), nameof(ScheduledDecisionInstanceDto.ScheduledInstanceType)), ApplyConditionTo.AllValidators);
+              .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ScheduledDecisionInstanceValidator), nameof(ScheduledDecisionInstanceDto.ScheduledInstanceType)), ApplyConditionTo.AllValidators)
+              .Must(x => Enum.GetNames(typeof(ScheduledInstanceType)).Contains(x)).WithMessage(Constants.ValidationErrorMessage.ScheduledInstanceTypesError);
 
             RuleFor(x => x.ConditionAssignments)
               .Cascade(CascadeMode.Stop)
