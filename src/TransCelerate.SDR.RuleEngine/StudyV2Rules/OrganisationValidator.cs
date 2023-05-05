@@ -43,13 +43,15 @@ namespace TransCelerate.SDR.RuleEngineV2
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(OrganisationValidator), nameof(OrganisationDto.OrganisationType)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(OrganisationValidator), nameof(OrganisationDto.OrganisationType)), ApplyConditionTo.AllValidators)
+               .SetValidator(new CodeValidator(_httpContextAccessor));
 
             RuleFor(x => x.OrganizationLegalAddress)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(OrganisationValidator), nameof(OrganisationDto.OrganizationLegalAddress)), ApplyConditionTo.AllValidators);
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(OrganisationValidator), nameof(OrganisationDto.OrganizationLegalAddress)), ApplyConditionTo.AllValidators)
+                .SetValidator(new AddressValidator(_httpContextAccessor));
         }
     }
 }

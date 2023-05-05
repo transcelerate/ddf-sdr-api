@@ -21,6 +21,20 @@ namespace TransCelerate.SDR.RuleEngineV1
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
 
+            RuleFor(x => x.EncounterType)
+                .ForEach(x => x.SetValidator(new CodeValidator()));
+
+            RuleFor(x => x.EncounterEnvironmentalSetting)
+                .ForEach(x => x.SetValidator(new CodeValidator()));
+
+            RuleFor(x => x.EncounterContactMode)
+                .ForEach(x => x.SetValidator(new CodeValidator()));
+
+            RuleFor(x => x.TransitionStartRule)
+                .SetValidator(new TransitionRuleValidator());
+
+            RuleFor(x => x.TransitionEndRule)
+                .SetValidator(new TransitionRuleValidator());
         }
     }
 }

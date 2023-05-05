@@ -22,7 +22,8 @@ namespace TransCelerate.SDR.RuleEngine
             RuleFor(x => x.GroupFilter)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .Must(x => x.Count > 0).WithMessage(Constants.ValidationErrorMessage.GroupFilterEmptyError);
+                .Must(x => x.Count > 0).WithMessage(Constants.ValidationErrorMessage.GroupFilterEmptyError)
+                .ForEach(x => x.SetValidator(new GroupFilterValidator()));
             RuleFor(x => x.Permission)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)

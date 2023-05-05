@@ -16,6 +16,8 @@ namespace TransCelerate.SDR.RuleEngineV1
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
 
+            RuleFor(x => x.Codes)
+                .ForEach(x => x.SetValidator(new CodeValidator()));
         }
     }
 }
