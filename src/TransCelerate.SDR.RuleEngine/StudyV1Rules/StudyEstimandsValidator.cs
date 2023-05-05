@@ -14,7 +14,8 @@ namespace TransCelerate.SDR.RuleEngineV1
             RuleFor(x => x.Treatment)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .SetValidator(new InvestigationalInterventionValidator());
 
             RuleFor(x => x.SummaryMeasure)
                 .Cascade(CascadeMode.Stop)
@@ -24,17 +25,20 @@ namespace TransCelerate.SDR.RuleEngineV1
             RuleFor(x => x.AnalysisPopulation)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .SetValidator(new AnalysisPopulationValidator());
 
             RuleFor(x => x.VariableOfInterest)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .SetValidator(new EndpointValidator());
 
             RuleFor(x => x.IntercurrentEvents)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .ForEach(x => x.SetValidator(new InterCurrentEventsValidator()));
         }
     }
 }

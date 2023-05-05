@@ -10,6 +10,11 @@ namespace TransCelerate.SDR.RuleEngine
         /// </summary>
         public StudyElementsValidator()
         {
+            RuleFor(x => x.EndRule)
+                .SetValidator(new RuleValidator());
+
+            RuleFor(x => x.StartRule)
+                .SetValidator(new RuleValidator());
         }
     }
 }

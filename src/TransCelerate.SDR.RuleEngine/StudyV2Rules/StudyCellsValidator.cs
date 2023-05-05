@@ -26,19 +26,22 @@ namespace TransCelerate.SDR.RuleEngineV2
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyCellsValidator), nameof(StudyCellDto.StudyElements)), ApplyConditionTo.AllValidators)
-                .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+                .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError)
+                .ForEach(x => x.SetValidator(new StudyElementsValidator(_httpContextAccessor)));
 
             RuleFor(x => x.StudyArm)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyCellsValidator), nameof(StudyCellDto.StudyArm)), ApplyConditionTo.AllValidators);
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyCellsValidator), nameof(StudyCellDto.StudyArm)), ApplyConditionTo.AllValidators)
+                .SetValidator(new StudyArmValidator(_httpContextAccessor));
 
             RuleFor(x => x.StudyEpoch)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyCellsValidator), nameof(StudyCellDto.StudyEpoch)), ApplyConditionTo.AllValidators);
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyCellsValidator), nameof(StudyCellDto.StudyEpoch)), ApplyConditionTo.AllValidators)
+                .SetValidator(new StudyEpochValidator(_httpContextAccessor));
 
         }
     }

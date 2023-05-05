@@ -193,6 +193,7 @@
                               },
                               "activity": {
                                 "id": "bb235543-ab66-4b7a-be77-ca700b392794",
+                                "description": "Some common activity",
                                 "definedProcedures": [
                                   {
                                     "procedureCode": "testCode"
@@ -269,6 +270,7 @@
                               },
                               "activity": {
                                 "id": "5eedee11-3dd3-40ba-b4df-d8e6df6f40f7",
+                                "description": "Some common activity",
                                 "definedProcedures": [
                                   {
                                     "procedureCode": "testCode"

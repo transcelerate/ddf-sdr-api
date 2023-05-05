@@ -15,6 +15,9 @@ namespace TransCelerate.SDR.RuleEngine
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+
+            RuleFor(x => x.Endpoints)
+                .ForEach(y => y.SetValidator(new EndpointsValidator()));
         }
     }
 }

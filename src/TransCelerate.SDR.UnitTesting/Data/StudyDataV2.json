@@ -667,18 +667,21 @@
           {
             "activityId": "ACT03",
             "activityDescription": "Activity_1",
-            "activityName": "Demography",
+            "activityName": "Eligibility Criteria",
+            "activityIsConditional": false,
+            "activityIsConditionalReason": "reason",
             "definedProcedures": [
               {
                 "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
-                "procedureCode": 
-                  {
-                    "codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
-                    "code": "767002",
-                    "codeSystem": "SNOMED-CT",
-                    "codeSystemVersion": "2022-05-31",
-                    "decode": "White blood cell count"
-                  },
+                "procedureIsConditional": false,
+                "procedureIsConditionalReason": "reason",
+                "procedureCode": {
+                  "codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+                  "code": "767002",
+                  "codeSystem": "SNOMED-CT",
+                  "codeSystemVersion": "2022-05-31",
+                  "decode": "White blood cell count"
+                },
                 "procedureType": "Specimen Collection"
               }
             ],
