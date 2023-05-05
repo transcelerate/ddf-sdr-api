@@ -63,7 +63,6 @@ jobs:
       run: dotnet publish 'src/TransCelerate.SDR.sln' --configuration release
 
     - name: Unhide files and folders
-      shell: pwsh
       # Unhide all files & folders
       run: |
           attrib -s -h -Path "${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net7.0/publish/**" /s /d
