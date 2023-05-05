@@ -23,6 +23,10 @@
 - [CodeValidator](#T-TransCelerate-SDR-RuleEngineV2-CodeValidator 'TransCelerate.SDR.RuleEngineV2.CodeValidator')
 - [CodingValidator](#T-TransCelerate-SDR-RuleEngine-CodingValidator 'TransCelerate.SDR.RuleEngine.CodingValidator')
   - [#ctor()](#M-TransCelerate-SDR-RuleEngine-CodingValidator-#ctor 'TransCelerate.SDR.RuleEngine.CodingValidator.#ctor')
+- [CurrenSectionsValidator](#T-TransCelerate-SDR-RuleEngine-CurrenSectionsValidator 'TransCelerate.SDR.RuleEngine.CurrenSectionsValidator')
+  - [#ctor()](#M-TransCelerate-SDR-RuleEngine-CurrenSectionsValidator-#ctor 'TransCelerate.SDR.RuleEngine.CurrenSectionsValidator.#ctor')
+- [CurrentSectionsForDesignValidator](#T-TransCelerate-SDR-RuleEngine-CurrentSectionsForDesignValidator 'TransCelerate.SDR.RuleEngine.CurrentSectionsForDesignValidator')
+  - [#ctor()](#M-TransCelerate-SDR-RuleEngine-CurrentSectionsForDesignValidator-#ctor 'TransCelerate.SDR.RuleEngine.CurrentSectionsForDesignValidator.#ctor')
 - [DefinedProcedureValidator](#T-TransCelerate-SDR-RuleEngine-DefinedProcedureValidator 'TransCelerate.SDR.RuleEngine.DefinedProcedureValidator')
   - [#ctor()](#M-TransCelerate-SDR-RuleEngine-DefinedProcedureValidator-#ctor 'TransCelerate.SDR.RuleEngine.DefinedProcedureValidator.#ctor')
 - [EncounterValidator](#T-TransCelerate-SDR-RuleEngine-EncounterValidator 'TransCelerate.SDR.RuleEngine.EncounterValidator')
@@ -80,8 +84,10 @@
   - [#ctor()](#M-TransCelerate-SDR-RuleEngine-StudyDataCollectionValidator-#ctor 'TransCelerate.SDR.RuleEngine.StudyDataCollectionValidator.#ctor')
 - [StudyDesignPopulationValidator](#T-TransCelerate-SDR-RuleEngineV1-StudyDesignPopulationValidator 'TransCelerate.SDR.RuleEngineV1.StudyDesignPopulationValidator')
 - [StudyDesignPopulationValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyDesignPopulationValidator 'TransCelerate.SDR.RuleEngineV2.StudyDesignPopulationValidator')
+- [StudyDesignValidator](#T-TransCelerate-SDR-RuleEngine-StudyDesignValidator 'TransCelerate.SDR.RuleEngine.StudyDesignValidator')
 - [StudyDesignValidator](#T-TransCelerate-SDR-RuleEngineV1-StudyDesignValidator 'TransCelerate.SDR.RuleEngineV1.StudyDesignValidator')
 - [StudyDesignValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyDesignValidator 'TransCelerate.SDR.RuleEngineV2.StudyDesignValidator')
+  - [#ctor()](#M-TransCelerate-SDR-RuleEngine-StudyDesignValidator-#ctor 'TransCelerate.SDR.RuleEngine.StudyDesignValidator.#ctor')
 - [StudyElementsValidator](#T-TransCelerate-SDR-RuleEngine-StudyElementsValidator 'TransCelerate.SDR.RuleEngine.StudyElementsValidator')
 - [StudyElementsValidator](#T-TransCelerate-SDR-RuleEngineV1-StudyElementsValidator 'TransCelerate.SDR.RuleEngineV1.StudyElementsValidator')
 - [StudyElementsValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyElementsValidator 'TransCelerate.SDR.RuleEngineV2.StudyElementsValidator')
@@ -330,6 +336,42 @@ TransCelerate.SDR.RuleEngine
 ##### Summary
 
 Validator for Coding
+
+##### Parameters
+
+This constructor has no parameters.
+
+<a name='T-TransCelerate-SDR-RuleEngine-CurrenSectionsValidator'></a>
+## CurrenSectionsValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngine
+
+<a name='M-TransCelerate-SDR-RuleEngine-CurrenSectionsValidator-#ctor'></a>
+### #ctor() `constructor`
+
+##### Summary
+
+Validator for CurrenSections
+
+##### Parameters
+
+This constructor has no parameters.
+
+<a name='T-TransCelerate-SDR-RuleEngine-CurrentSectionsForDesignValidator'></a>
+## CurrentSectionsForDesignValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngine
+
+<a name='M-TransCelerate-SDR-RuleEngine-CurrentSectionsForDesignValidator-#ctor'></a>
+### #ctor() `constructor`
+
+##### Summary
+
+Validator for CurrenSections
 
 ##### Parameters
 
@@ -902,6 +944,13 @@ TransCelerate.SDR.RuleEngineV2
 
 This Class is the validator for StudyDesignPopulation
 
+<a name='T-TransCelerate-SDR-RuleEngine-StudyDesignValidator'></a>
+## StudyDesignValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngine
+
 <a name='T-TransCelerate-SDR-RuleEngineV1-StudyDesignValidator'></a>
 ## StudyDesignValidator `type`
 
@@ -923,6 +972,17 @@ TransCelerate.SDR.RuleEngineV2
 ##### Summary
 
 This Class is the validator for StudyDesign
+
+<a name='M-TransCelerate-SDR-RuleEngine-StudyDesignValidator-#ctor'></a>
+### #ctor() `constructor`
+
+##### Summary
+
+Validator for studyProtocol
+
+##### Parameters
+
+This constructor has no parameters.
 
 <a name='T-TransCelerate-SDR-RuleEngine-StudyElementsValidator'></a>
 ## StudyElementsValidator `type`

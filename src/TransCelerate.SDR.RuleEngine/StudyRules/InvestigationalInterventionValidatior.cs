@@ -10,7 +10,8 @@ namespace TransCelerate.SDR.RuleEngine
         /// </summary>
         public InvestigationalInterventionValidatior()
         {
-
+            RuleFor(x => x.Coding)
+                .ForEach(y => y.SetValidator(new CodingValidator()));
         }
     }
 }

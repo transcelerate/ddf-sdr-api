@@ -13,7 +13,8 @@ namespace TransCelerate.SDR.RuleEngineV1
         {
             RuleFor(x => x.ClinicalStudy)
                 .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.RootElementMissing);
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.RootElementMissing)
+                .SetValidator(new ClinicalStudyValidator());
         }
     }
 }

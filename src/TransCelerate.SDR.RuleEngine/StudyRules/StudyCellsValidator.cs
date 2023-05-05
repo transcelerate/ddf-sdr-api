@@ -14,11 +14,16 @@ namespace TransCelerate.SDR.RuleEngine
             RuleFor(x => x.StudyArm)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .SetValidator(new StudyArmValidator());
             RuleFor(x => x.StudyEpoch)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .SetValidator(new StudyEpochValidator());
+
+            RuleFor(x => x.StudyElements)
+                .ForEach(x => x.SetValidator(new StudyElementsValidator()));
         }
     }
 }
