@@ -37,7 +37,8 @@ namespace TransCelerate.SDR.RuleEngineV2
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EndpointValidator), nameof(EndpointDto.EndpointLevel)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EndpointValidator), nameof(EndpointDto.EndpointLevel)), ApplyConditionTo.AllValidators)
+               .SetValidator(new CodeValidator(_httpContextAccessor));
         }
     }
 }

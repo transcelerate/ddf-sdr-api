@@ -14,11 +14,16 @@ namespace TransCelerate.SDR.RuleEngine
             RuleFor(x => x.StartPoint)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .SetValidator(new PointInTimeValidator());
             RuleFor(x => x.EndPoint)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .SetValidator(new PointInTimeValidator());
+
+            RuleFor(x => x.WorkflowItemMatrix)
+                .SetValidator(new WorkFlowItemMatrixValidator());
         }
     }
 }

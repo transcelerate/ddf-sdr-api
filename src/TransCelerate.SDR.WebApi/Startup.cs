@@ -32,6 +32,7 @@ using TransCelerate.SDR.RuleEngineV1;
 using TransCelerate.SDR.RuleEngineV2;
 using TransCelerate.SDR.WebApi.DependencyInjection;
 using TransCelerate.SDR.WebApi.Mappers;
+using FluentValidation;
 
 namespace TransCelerate.SDR.WebApi
 {
@@ -121,14 +122,10 @@ namespace TransCelerate.SDR.WebApi
             services.AddControllers(config =>
             {
                 config.Filters.Add<ActionFilter>();
-            }).AddFluentValidation(fv =>
-            {
-                fv.DisableDataAnnotationsValidation = true;
-                fv.ImplicitlyValidateChildProperties = true;
-                fv.ImplicitlyValidateRootCollectionElements = true;
-                fv.ValidatorOptions.DisplayNameResolver = (type, memberInfo, expression) => string.Concat(memberInfo.Name.Replace(" ", "")[..1]?.ToLower(), memberInfo.Name.Replace(" ", "").AsSpan(1));
-                fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             });
+
+            services.AddFluentValidationAutoValidation();
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
             //Enabling CORS
             services.AddCors();

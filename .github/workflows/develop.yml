@@ -39,12 +39,12 @@ jobs:
       uses: actions/setup-dotnet@v1
       # Setup for dotnet
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 7.0.x
         
-    - name: Dotnet Version    
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.x
+    # - name: Dotnet Version    
+    #   uses: actions/setup-dotnet@v1
+    #   with:
+    #     dotnet-version: 3.1.x
         
     - name: Use NuGet
       # Use Nuget for Dotnet Build
@@ -66,14 +66,13 @@ jobs:
       shell: pwsh
       # Zip the build artifact publish folder
       run: |
-          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net6.0/publish/**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
+          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net7.0/publish/**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
      
     - name: Zip publish files
       shell: pwsh
       # Zip the Function App build artifact publish folder
       run: |
-          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net6.0/publish/**" -DestinationPath "${{ github.workspace }}\FunAppPublish.zip" -Force
-
+          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net7.0/publish/**","${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net7.0/publish/.azurefunctions" -DestinationPath "${{ github.workspace }}\FunAppPublish.zip" -Force
     - name: 'Publish Artifact: Artifact'
       uses: actions/upload-artifact@v2
       # Publish the Build artifact in github
@@ -198,8 +197,8 @@ jobs:
         # Container registry server url
         login-server: ${{ secrets.ACR_NAME }} # default is https://index.docker.io/v1/
     - run: |
-        cp '${{ github.workspace }}/Dockerfile' '${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net6.0/publish/'
-        cd ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net6.0/publish/
+        cp '${{ github.workspace }}/Dockerfile' '${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net7.0/publish/'
+        cd ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net7.0/publish/
         ls
         docker build . -t ${{ secrets.ACR_NAME }}/sdrapibuild:latest
         docker push ${{ secrets.ACR_NAME }}/sdrapibuild:latest

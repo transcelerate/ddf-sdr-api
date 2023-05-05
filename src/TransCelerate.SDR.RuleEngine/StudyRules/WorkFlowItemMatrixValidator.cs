@@ -10,6 +10,8 @@ namespace TransCelerate.SDR.RuleEngine
         /// </summary>
         public WorkFlowItemMatrixValidator()
         {
+            RuleFor(x => x.Matrix)
+                .ForEach(y => y.SetValidator(new MatrixValidator()));
         }
     }
 }

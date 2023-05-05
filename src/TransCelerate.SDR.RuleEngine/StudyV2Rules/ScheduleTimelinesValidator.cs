@@ -47,7 +47,8 @@ namespace TransCelerate.SDR.RuleEngineV2
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ScheduleTimelinesValidator), nameof(ScheduleTimelineDto.ScheduleTimelineExits)), ApplyConditionTo.AllValidators)
-               .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+               .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError)
+               .ForEach(x => x.SetValidator(new ScheduleTimelineExitValidator(_httpContextAccessor)));
 
 
             RuleFor(x => x.ScheduleTimelineInstances)
@@ -55,12 +56,13 @@ namespace TransCelerate.SDR.RuleEngineV2
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ScheduleTimelinesValidator), nameof(ScheduleTimelineDto.ScheduleTimelineInstances)), ApplyConditionTo.AllValidators)
-                .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+                .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError)
+                .ForEach(x => x.SetValidator(new ScheduledInstanceValidator(_httpContextAccessor)));
 
             RuleForEach(x => x.ScheduleTimelineInstances).SetInheritanceValidator(v =>
             {
-                v.Add<ScheduledActivityInstanceDto>(new ScheduledActivityInstanceValidator(_httpContextAccessor));
-                v.Add<ScheduledDecisionInstanceDto>(new ScheduledDecisionInstanceValidator(_httpContextAccessor));
+                v.Add(new ScheduledActivityInstanceValidator(_httpContextAccessor));
+                v.Add(new ScheduledDecisionInstanceValidator(_httpContextAccessor));
             });
         }
     }

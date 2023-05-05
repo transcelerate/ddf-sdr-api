@@ -31,7 +31,8 @@ namespace TransCelerate.SDR.RuleEngineV2
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyArmValidator), nameof(StudyArmDto.StudyArmDataOriginType)), ApplyConditionTo.AllValidators);
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyArmValidator), nameof(StudyArmDto.StudyArmDataOriginType)), ApplyConditionTo.AllValidators)
+                .SetValidator(new CodeValidator(_httpContextAccessor));
 
             RuleFor(x => x.StudyArmDescription)
                 .Cascade(CascadeMode.Stop)
@@ -43,7 +44,8 @@ namespace TransCelerate.SDR.RuleEngineV2
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyArmValidator), nameof(StudyArmDto.StudyArmType)), ApplyConditionTo.AllValidators);
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyArmValidator), nameof(StudyArmDto.StudyArmType)), ApplyConditionTo.AllValidators)
+                .SetValidator(new CodeValidator(_httpContextAccessor));
 
             RuleFor(x => x.StudyArmName)
                 .Cascade(CascadeMode.Stop)
