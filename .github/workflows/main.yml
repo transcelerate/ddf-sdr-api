@@ -73,7 +73,7 @@ jobs:
       shell: pwsh
       # Zip the Function App build artifact publish folder
       run: |
-          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net6.0/publish/**" -DestinationPath "${{ github.workspace }}\FunAppPublish.zip" -Force  
+          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net6.0/publish/**","${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net7.0/publish/.azurefunctions" -DestinationPath "${{ github.workspace }}\FunAppPublish.zip" -Force  
                
     - name: 'Publish Artifact: Artifact'
       uses: actions/upload-artifact@v2
