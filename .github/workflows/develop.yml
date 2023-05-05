@@ -80,12 +80,12 @@ jobs:
       run: |
           Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net7.0/publish/{.,}*" -DestinationPath "${{ github.workspace }}\FunAppPublish.zip" -Force
 
-    - name: 'Publish Artifact: Artifact'
-      uses: actions/upload-artifact@v2
-      # Publish the Build artifact in github
-      with:
-        path: '${{ github.workspace }}/Publish.zip'
-        name: Build-Artifact
+#     - name: 'Publish Artifact: Artifact'
+#       uses: actions/upload-artifact@v2
+#       # Publish the Build artifact in github
+#       with:
+#         path: '${{ github.workspace }}/Publish.zip'
+#         name: Build-Artifact
 
     - name: 'Publish Function App Artifact: Artifact'
       uses: actions/upload-artifact@v2
