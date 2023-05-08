@@ -50,8 +50,10 @@ namespace TransCelerate.SDR.RuleEngineV2
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ScheduledInstanceValidator), nameof(ScheduledInstanceDto.ScheduledInstanceTimings)), ApplyConditionTo.AllValidators)
-               .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError)
-               .ForEach(x => x.SetValidator(new TimingValidator(_httpContextAccessor)));
+               .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleForEach(x => x.ScheduledInstanceTimings)
+                .SetValidator(new TimingValidator(_httpContextAccessor));
 
             RuleFor(x => x.ScheduledInstanceType)
               .Cascade(CascadeMode.Stop)

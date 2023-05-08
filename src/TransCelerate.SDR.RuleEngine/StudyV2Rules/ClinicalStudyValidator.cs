@@ -34,8 +34,10 @@ namespace TransCelerate.SDR.RuleEngineV2
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ClinicalStudyValidator), nameof(ClinicalStudyDto.StudyIdentifiers)), ApplyConditionTo.AllValidators)
-                .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError)
-                .ForEach(x => x.SetValidator(new StudyIdentifiersValidator(_httpContextAccessor)));
+                .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleForEach(x => x.StudyIdentifiers)
+                .SetValidator(new StudyIdentifiersValidator(_httpContextAccessor));
 
             RuleFor(x => x.StudyPhase)
                 .Cascade(CascadeMode.Stop)
@@ -66,24 +68,28 @@ namespace TransCelerate.SDR.RuleEngineV2
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ClinicalStudyValidator), nameof(ClinicalStudyDto.StudyProtocolVersions)), ApplyConditionTo.AllValidators)
-                .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError)
-                .ForEach(x => x.SetValidator(new StudyProtocolVersionsValidator(_httpContextAccessor)));
+                .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleForEach(x => x.StudyProtocolVersions)
+                .SetValidator(new StudyProtocolVersionsValidator(_httpContextAccessor));
 
             RuleFor(x => x.StudyDesigns).Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ClinicalStudyValidator), nameof(ClinicalStudyDto.StudyDesigns)), ApplyConditionTo.AllValidators)
-                .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError)
-                .ForEach(x => x.SetValidator(new StudyDesignValidator(_httpContextAccessor)));
+                .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleForEach(x => x.StudyDesigns)
+                .SetValidator(new StudyDesignValidator(_httpContextAccessor));
 
             RuleFor(x => x.BusinessTherapeuticAreas).Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ClinicalStudyValidator), nameof(ClinicalStudyDto.BusinessTherapeuticAreas)), ApplyConditionTo.AllValidators)
-                .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError)
-                .ForEach(x => x.SetValidator(new CodeValidator(_httpContextAccessor)));
+                .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
-
+            RuleForEach(x => x.BusinessTherapeuticAreas)
+                .SetValidator(new CodeValidator(_httpContextAccessor));
         }
     }
 }

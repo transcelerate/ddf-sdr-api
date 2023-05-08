@@ -38,8 +38,10 @@ namespace TransCelerate.SDR.RuleEngineV2
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(BiomedicalConceptValidator), nameof(BiomedicalConceptDto.BcProperties)), ApplyConditionTo.AllValidators)
-                .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError)
-                .ForEach(x => x.SetValidator(new BiomedicalConceptPropertyValidator(_httpContextAccessor)));
+                .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleForEach(x => x.BcProperties)
+                .SetValidator(new BiomedicalConceptPropertyValidator(_httpContextAccessor));
 
             RuleFor(x => x.BcReference)
                .Cascade(CascadeMode.Stop)
