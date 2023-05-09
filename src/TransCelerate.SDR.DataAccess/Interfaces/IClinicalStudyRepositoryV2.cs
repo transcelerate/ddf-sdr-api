@@ -3,13 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Token;
-using TransCelerate.SDR.Core.Entities.StudyV2;
+using TransCelerate.SDR.Core.Entities.StudyV3;
 using TransCelerate.SDR.Core.Entities.UserGroups;
 
 
 namespace TransCelerate.SDR.DataAccess.Interfaces
 {
-    public interface IClinicalStudyRepositoryV2
+    public interface IClinicalStudyRepositoryV3
     {
 
         /// <summary>

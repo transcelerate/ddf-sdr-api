@@ -74,10 +74,10 @@ namespace TransCelerate.SDR.UnitTesting
             UserName = "user1@SDR.com",
             UserRole = Constants.Roles.Org_Admin
         };
-        public static ChangeAuditStudyDto GetChangeAuditDtoDataFromStaticJson()
+        public static Core.DTO.Common.ChangeAuditStudyDto GetChangeAuditDtoDataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ChangeAuditData.json");
-            return JsonConvert.DeserializeObject<ChangeAuditStudyDto>(jsonData);
+            return JsonConvert.DeserializeObject<Core.DTO.Common.ChangeAuditStudyDto>(jsonData);
         }
         public static StudyEntity GetPostDataFromStaticJson()
         {
@@ -881,7 +881,7 @@ namespace TransCelerate.SDR.UnitTesting
 
             Mock<ActionExecutionDelegate> actionExecutionDelegate = new();
 
-            ChangeAuditStudyDto study = GetChangeAuditDtoDataFromStaticJson();
+            Core.DTO.Common.ChangeAuditStudyDto study = GetChangeAuditDtoDataFromStaticJson();
 
             _mockChangeAuditService.Setup(x => x.GetChangeAudit(It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(study as object));

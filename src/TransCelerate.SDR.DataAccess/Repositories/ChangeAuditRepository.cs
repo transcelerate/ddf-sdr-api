@@ -3,7 +3,7 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TransCelerate.SDR.Core.Entities.StudyV2;
+using TransCelerate.SDR.Core.Entities.Common;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.DataAccess.Filters;
@@ -90,8 +90,11 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 changeAuditEntity.Changes.Add(change);
 
 
-                changeAuditStudyEntity = new ChangeAuditStudyEntity { ChangeAudit = changeAuditEntity };
-                changeAuditStudyEntity.Id = MongoDB.Bson.ObjectId.GenerateNewId();
+                changeAuditStudyEntity = new ChangeAuditStudyEntity
+                {
+                    ChangeAudit = changeAuditEntity,
+                    Id = MongoDB.Bson.ObjectId.GenerateNewId()
+                };
 
                 await collection.InsertOneAsync(changeAuditStudyEntity);
                 return changeAuditEntity.StudyId;

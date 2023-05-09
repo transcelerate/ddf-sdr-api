@@ -21,7 +21,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
         {
             FilterDefinitionBuilder<StudyEntity> builder = Builders<StudyEntity>.Filter;
             FilterDefinition<StudyEntity> filter = builder.Empty;
-            filter &= builder.Where(s => s.AuditTrail.UsdmVersion == Constants.USDMVersions.V2);
+            filter &= builder.Where(s => s.AuditTrail.UsdmVersion == Constants.USDMVersions.V1_9);
             filter &= builder.Where(s => s.ClinicalStudy.StudyId == studyId);
 
             if (sdruploadversion != 0)
@@ -47,10 +47,10 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             return filter;
         }
-        public static FilterDefinition<ChangeAuditStudyEntity> GetFiltersForChangeAudit(string studyId)
+        public static FilterDefinition<Core.Entities.Common.ChangeAuditStudyEntity> GetFiltersForChangeAudit(string studyId)
         {
-            FilterDefinitionBuilder<ChangeAuditStudyEntity> builder = Builders<ChangeAuditStudyEntity>.Filter;
-            FilterDefinition<ChangeAuditStudyEntity> filter = builder.Empty;
+            FilterDefinitionBuilder<Core.Entities.Common.ChangeAuditStudyEntity> builder = Builders<Core.Entities.Common.ChangeAuditStudyEntity>.Filter;
+            FilterDefinition<Core.Entities.Common.ChangeAuditStudyEntity> filter = builder.Empty;
             filter &= builder.Where(s => s.ChangeAudit.StudyId == studyId);
 
             return filter;
@@ -89,7 +89,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
         {
             FilterDefinitionBuilder<StudyEntity> builder = Builders<StudyEntity>.Filter;
             FilterDefinition<StudyEntity> filter = builder.Empty;
-            filter &= builder.Where(s => s.AuditTrail.UsdmVersion == Constants.USDMVersions.V2);
+            filter &= builder.Where(s => s.AuditTrail.UsdmVersion == Constants.USDMVersions.V1_9);
             filter &= builder.Where(s => s.ClinicalStudy.StudyId == studyId);
 
             //Filter for Date Range

@@ -146,29 +146,10 @@ namespace TransCelerate.SDR.WebApi.Mappers
                 .ForMember(dest => dest.IndicationDescription, opt => opt.MapFrom(src => src.IndicationDescription))
                 .ReverseMap();
 
-            //ECPT Mapper
-            CreateMap<TransCelerate.SDR.Core.DTO.StudyV2.EndpointDto, TransCelerate.SDR.Core.DTO.eCPT.ObjectiveEndpointDto>()
-                 .ForMember(dest => dest.EndpointLevel, opt => opt.MapFrom(src => src.EndpointLevel != null ? src.EndpointLevel.Decode : null))
-                 .ReverseMap();
-
-            CreateMap<TransCelerate.SDR.Core.DTO.StudyV2.ObjectiveDto, TransCelerate.SDR.Core.DTO.eCPT.ObjectivesDto>()
-                  .ForMember(dest => dest.ObjectiveLevel, opt => opt.MapFrom(src => src.ObjectiveLevel != null ? src.ObjectiveLevel.Decode : null))
-                  .ReverseMap();
-
-            CreateMap<TransCelerate.SDR.Core.DTO.StudyV2.StudyArmDto, TransCelerate.SDR.Core.DTO.eCPT.StudyArmDto>()
-                    .ForMember(dest => dest.ArmName, opt => opt.MapFrom(src => src.StudyArmName))
-                    .ForMember(dest => dest.ArmDescription, opt => opt.MapFrom(src => src.StudyArmDescription))
-                    .ForMember(dest => dest.ArmType, opt => opt.MapFrom(src => src.StudyArmType != null ? src.StudyArmType.Decode : null))
-                    .ReverseMap();
-
-            CreateMap<TransCelerate.SDR.Core.DTO.StudyV2.InvestigationalInterventionDto, TransCelerate.SDR.Core.DTO.eCPT.StudyInterventionsAdministeredDto>()
-                .ForMember(dest => dest.InterventionDescription, opt => opt.MapFrom(src => src.InterventionDescription))
-                .ReverseMap();
-
-
-
-
-
+            //ChangeAudit
+            CreateMap<ChangeAuditStudyDto, ChangeAuditStudyEntity>().ReverseMap();
+            CreateMap<ChangeAuditDto, ChangeAuditEntity>().ReverseMap();
+            CreateMap<ChangesDto, ChangesEntity>().ReverseMap();
         }
     }
 }

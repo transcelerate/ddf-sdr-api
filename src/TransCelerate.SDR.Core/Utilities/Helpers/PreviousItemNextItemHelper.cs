@@ -29,22 +29,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                         {
                             foreach (var studyDesign in studyDesignList)
                             {
-                                if (studyDesign.CurrentSections != null)
-                                {
-                                    studyDesign.CurrentSections.FindAll(x => x.PlannedWorkflows != null)
+                                studyDesign.CurrentSections?.FindAll(x => x.PlannedWorkflows != null)
                                                                   .ForEach(x => x.PlannedWorkflows
                                                                         .ForEach(p =>
                                                                         {
-                                                                            if (p.WorkflowItemMatrix != null)
-                                                                            {
-                                                                                if (p.WorkflowItemMatrix.Matrix != null)
-                                                                                {
-                                                                                    p.WorkflowItemMatrix.Matrix
-                                                                                            .ForEach(m => m.Items = GetPreviousNextItems(m.Items));
-                                                                                }
-                                                                            }
+                                                                            p.WorkflowItemMatrix?.Matrix?.ForEach(m => m.Items = GetPreviousNextItems(m.Items));
                                                                         }));
-                                }
                             }
                         }
 

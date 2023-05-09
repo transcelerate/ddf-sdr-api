@@ -24,21 +24,26 @@
   - [SearchTitle(searchparameters)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller-SearchTitle-TransCelerate-SDR-Core-DTO-StudyV1-SearchTitleParametersDto- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV1Controller.SearchTitle(TransCelerate.SDR.Core.DTO.StudyV1.SearchTitleParametersDto)')
 - [ClinicalStudyV2Controller](#T-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller')
   - [DeleteStudy(studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-DeleteStudy-System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.DeleteStudy(System.String)')
-  - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetAuditTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetAuditTrail(System.String,System.DateTime,System.DateTime)')
-  - [GetSOA(studyId,studyDesignId,sdruploadversion,scheduleTimelineId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetSOA-System-String,System-String,System-String,System-Int32- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetSOA(System.String,System.String,System.String,System.Int32)')
-  - [GetSOAV3(studyId,studyDesignId,sdruploadversion,scheduleTimelineId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetSOAV3-System-String,System-String,System-String,System-Int32- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetSOAV3(System.String,System.String,System.String,System.Int32)')
+  - [GetSOAV2(studyId,studyDesignId,sdruploadversion,scheduleTimelineId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetSOAV2-System-String,System-String,System-String,System-Int32- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetSOAV2(System.String,System.String,System.String,System.Int32)')
   - [GetStudy(studyId,sdruploadversion,listofelements,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetStudy-System-String,System-Int32,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetStudy(System.String,System.Int32,System.String,System.String)')
   - [GetStudyDesigns(studyId,studyDesignId,sdruploadversion,listofelements,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetStudyDesigns-System-String,System-Int32,System-String,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetStudyDesigns(System.String,System.Int32,System.String,System.String,System.String)')
-  - [GetStudyHistory(fromDate,toDate,studyTitle)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetStudyHistory-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetStudyHistory(System.DateTime,System.DateTime,System.String)')
+  - [GeteCPTV2(studyId,sdruploadversion,studydesignId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GeteCPTV2-System-String,System-Int32,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GeteCPTV2(System.String,System.Int32,System.String)')
   - [PostAllElements(studyDTO,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV2-StudyDto,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.PostAllElements(TransCelerate.SDR.Core.DTO.StudyV2.StudyDto,System.String)')
   - [PutStudy(studyDTO,usdmVersion,studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-PutStudy-TransCelerate-SDR-Core-DTO-StudyV2-StudyDto,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.PutStudy(TransCelerate.SDR.Core.DTO.StudyV2.StudyDto,System.String,System.String)')
+- [ClinicalStudyV3Controller](#T-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller')
+  - [DeleteStudy(studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-DeleteStudy-System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.DeleteStudy(System.String)')
+  - [GetSOAV3(studyId,studyDesignId,sdruploadversion,scheduleTimelineId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-GetSOAV3-System-String,System-String,System-String,System-Int32- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.GetSOAV3(System.String,System.String,System.String,System.Int32)')
+  - [GetStudy(studyId,sdruploadversion,listofelements,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-GetStudy-System-String,System-Int32,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.GetStudy(System.String,System.Int32,System.String,System.String)')
+  - [GetStudyDesigns(studyId,studyDesignId,sdruploadversion,listofelements,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-GetStudyDesigns-System-String,System-Int32,System-String,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.GetStudyDesigns(System.String,System.Int32,System.String,System.String,System.String)')
+  - [GeteCPTV3(studyId,sdruploadversion,studydesignId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-GeteCPTV3-System-String,System-Int32,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.GeteCPTV3(System.String,System.Int32,System.String)')
+  - [PostAllElements(studyDTO,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV3-StudyDto,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.PostAllElements(TransCelerate.SDR.Core.DTO.StudyV3.StudyDto,System.String)')
+  - [PutStudy(studyDTO,usdmVersion,studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-PutStudy-TransCelerate-SDR-Core-DTO-StudyV3-StudyDto,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.PutStudy(TransCelerate.SDR.Core.DTO.StudyV3.StudyDto,System.String,System.String)')
 - [CommonController](#T-TransCelerate-SDR-WebApi-Controllers-CommonController 'TransCelerate.SDR.WebApi.Controllers.CommonController')
   - [GetApiUsdmMapping()](#M-TransCelerate-SDR-WebApi-Controllers-CommonController-GetApiUsdmMapping 'TransCelerate.SDR.WebApi.Controllers.CommonController.GetApiUsdmMapping')
   - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-WebApi-Controllers-CommonController-GetAuditTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.WebApi.Controllers.CommonController.GetAuditTrail(System.String,System.DateTime,System.DateTime)')
   - [GetLinks(studyId,sdruploadversion)](#M-TransCelerate-SDR-WebApi-Controllers-CommonController-GetLinks-System-String,System-Int32- 'TransCelerate.SDR.WebApi.Controllers.CommonController.GetLinks(System.String,System.Int32)')
   - [GetRawJson(studyId,sdruploadversion)](#M-TransCelerate-SDR-WebApi-Controllers-CommonController-GetRawJson-System-String,System-Int32- 'TransCelerate.SDR.WebApi.Controllers.CommonController.GetRawJson(System.String,System.Int32)')
   - [GetStudyHistory(fromDate,toDate,studyTitle)](#M-TransCelerate-SDR-WebApi-Controllers-CommonController-GetStudyHistory-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.WebApi.Controllers.CommonController.GetStudyHistory(System.DateTime,System.DateTime,System.String)')
-  - [GeteCPT(studyId,sdruploadversion,studydesignId)](#M-TransCelerate-SDR-WebApi-Controllers-CommonController-GeteCPT-System-String,System-Int32,System-String- 'TransCelerate.SDR.WebApi.Controllers.CommonController.GeteCPT(System.String,System.Int32,System.String)')
   - [SearchStudy(searchparameters)](#M-TransCelerate-SDR-WebApi-Controllers-CommonController-SearchStudy-TransCelerate-SDR-Core-DTO-Common-SearchParametersDto- 'TransCelerate.SDR.WebApi.Controllers.CommonController.SearchStudy(TransCelerate.SDR.Core.DTO.Common.SearchParametersDto)')
   - [SearchTitle(searchparameters)](#M-TransCelerate-SDR-WebApi-Controllers-CommonController-SearchTitle-TransCelerate-SDR-Core-DTO-Common-SearchTitleParametersDto- 'TransCelerate.SDR.WebApi.Controllers.CommonController.SearchTitle(TransCelerate.SDR.Core.DTO.Common.SearchTitleParametersDto)')
 - [ReportsController](#T-TransCelerate-SDR-WebApi-Controllers-ReportsController 'TransCelerate.SDR.WebApi.Controllers.ReportsController')
@@ -328,39 +333,8 @@ Delete a Study
 | ---- | ---- | ----------- |
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
 
-<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetAuditTrail-System-String,System-DateTime,System-DateTime-'></a>
-### GetAuditTrail(fromDate,toDate,studyId) `method`
-
-##### Summary
-
-GET Audit Trail of a study
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| fromDate | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Start Date for Date Filter |
-| toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | End Date for Date Filter |
-| studyId | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | Study ID |
-
-<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetSOA-System-String,System-String,System-String,System-Int32-'></a>
-### GetSOA(studyId,studyDesignId,sdruploadversion,scheduleTimelineId) `method`
-
-##### Summary
-
-GET SoA For a Study
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
-| studyDesignId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study Design ID |
-| sdruploadversion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Version of study |
-| scheduleTimelineId | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Schedule Timeline Id |
-
-<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetSOAV3-System-String,System-String,System-String,System-Int32-'></a>
-### GetSOAV3(studyId,studyDesignId,sdruploadversion,scheduleTimelineId) `method`
+<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetSOAV2-System-String,System-String,System-String,System-Int32-'></a>
+### GetSOAV2(studyId,studyDesignId,sdruploadversion,scheduleTimelineId) `method`
 
 ##### Summary
 
@@ -408,20 +382,20 @@ GET Study Designs of a Study
 | listofelements | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | List of study design elements with comma separated values |
 | usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
 
-<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetStudyHistory-System-DateTime,System-DateTime,System-String-'></a>
-### GetStudyHistory(fromDate,toDate,studyTitle) `method`
+<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GeteCPTV2-System-String,System-Int32,System-String-'></a>
+### GeteCPTV2(studyId,sdruploadversion,studydesignId) `method`
 
 ##### Summary
 
-Get All StudyId's in the database
+GET eCPT Elements For a Study
 
 ##### Parameters
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| fromDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | Start Date for Date Filter |
-| toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | End Date for Date Filter |
-| studyTitle | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study Title Filter |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
+| sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
+| studydesignId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | studyDesignId |
 
 <a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV2-StudyDto,System-String-'></a>
 ### PostAllElements(studyDTO,usdmVersion) `method`
@@ -449,6 +423,119 @@ POST/PUT All Elements For a Study
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | studyDTO | [TransCelerate.SDR.Core.DTO.StudyV2.StudyDto](#T-TransCelerate-SDR-Core-DTO-StudyV2-StudyDto 'TransCelerate.SDR.Core.DTO.StudyV2.StudyDto') | Study for Inserting/Updating in Database |
+| usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
+
+<a name='T-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller'></a>
+## ClinicalStudyV3Controller `type`
+
+##### Namespace
+
+TransCelerate.SDR.WebApi.Controllers
+
+<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-DeleteStudy-System-String-'></a>
+### DeleteStudy(studyId) `method`
+
+##### Summary
+
+Delete a Study
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
+
+<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-GetSOAV3-System-String,System-String,System-String,System-Int32-'></a>
+### GetSOAV3(studyId,studyDesignId,sdruploadversion,scheduleTimelineId) `method`
+
+##### Summary
+
+GET SoA For a Study USDM Version 2.0
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
+| studyDesignId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study Design ID |
+| sdruploadversion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Version of study |
+| scheduleTimelineId | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Schedule Timeline Id |
+
+<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-GetStudy-System-String,System-Int32,System-String,System-String-'></a>
+### GetStudy(studyId,sdruploadversion,listofelements,usdmVersion) `method`
+
+##### Summary
+
+GET All Elements For a Study
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
+| sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
+| listofelements | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | List of elements with comma separated values |
+| usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | usdm-vreison header |
+
+<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-GetStudyDesigns-System-String,System-Int32,System-String,System-String,System-String-'></a>
+### GetStudyDesigns(studyId,studyDesignId,sdruploadversion,listofelements,usdmVersion) `method`
+
+##### Summary
+
+GET Study Designs of a Study
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
+| studyDesignId | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Study Design ID |
+| sdruploadversion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Version of study |
+| listofelements | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | List of study design elements with comma separated values |
+| usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
+
+<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-GeteCPTV3-System-String,System-Int32,System-String-'></a>
+### GeteCPTV3(studyId,sdruploadversion,studydesignId) `method`
+
+##### Summary
+
+GET eCPT Elements For a Study
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
+| sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
+| studydesignId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | studyDesignId |
+
+<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV3-StudyDto,System-String-'></a>
+### PostAllElements(studyDTO,usdmVersion) `method`
+
+##### Summary
+
+POST All Elements For a Study
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyDTO | [TransCelerate.SDR.Core.DTO.StudyV3.StudyDto](#T-TransCelerate-SDR-Core-DTO-StudyV3-StudyDto 'TransCelerate.SDR.Core.DTO.StudyV3.StudyDto') | Study for Inserting/Updating in Database |
+| usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
+
+<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-PutStudy-TransCelerate-SDR-Core-DTO-StudyV3-StudyDto,System-String,System-String-'></a>
+### PutStudy(studyDTO,usdmVersion,studyId) `method`
+
+##### Summary
+
+PUT All Elements For a Study
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyDTO | [TransCelerate.SDR.Core.DTO.StudyV3.StudyDto](#T-TransCelerate-SDR-Core-DTO-StudyV3-StudyDto 'TransCelerate.SDR.Core.DTO.StudyV3.StudyDto') | Study for Inserting/Updating in Database |
 | usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
 
@@ -527,21 +614,6 @@ Get All StudyId's in the database
 | fromDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | Start Date for Date Filter |
 | toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | End Date for Date Filter |
 | studyTitle | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study Title Filter |
-
-<a name='M-TransCelerate-SDR-WebApi-Controllers-CommonController-GeteCPT-System-String,System-Int32,System-String-'></a>
-### GeteCPT(studyId,sdruploadversion,studydesignId) `method`
-
-##### Summary
-
-GET All Elements For a Study
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
-| sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
-| studydesignId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | studyDesignId |
 
 <a name='M-TransCelerate-SDR-WebApi-Controllers-CommonController-SearchStudy-TransCelerate-SDR-Core-DTO-Common-SearchParametersDto-'></a>
 ### SearchStudy(searchparameters) `method`

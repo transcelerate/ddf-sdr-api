@@ -569,10 +569,12 @@ namespace TransCelerate.SDR.UnitTesting
             DateTime toDate = DateTime.Now.AddHours(23).AddMinutes(59).AddSeconds(59);
             List<StudyHistoryEntity> studyHistories = new();
             studyList = GetListDataFromStaticJson();
-            StudyHistoryEntity studyHistory = new();
-            studyHistory.StudyId = studyList[0].ClinicalStudy.StudyId;
-            studyHistory.StudyTitle = studyList[0].ClinicalStudy.StudyTitle;
-            studyHistory.StudyVersion = studyList[0].AuditTrail.StudyVersion;
+            StudyHistoryEntity studyHistory = new()
+            {
+                StudyId = studyList[0].ClinicalStudy.StudyId,
+                StudyTitle = studyList[0].ClinicalStudy.StudyTitle,
+                StudyVersion = studyList[0].AuditTrail.StudyVersion
+            };
             studyHistories.Add(studyHistory);
             studyHistory.StudyId = studyList[1].ClinicalStudy.StudyId;
             studyHistory.StudyTitle = studyList[1].ClinicalStudy.StudyTitle;
@@ -619,10 +621,12 @@ namespace TransCelerate.SDR.UnitTesting
             DateTime toDate = DateTime.Now.AddHours(23).AddMinutes(59).AddSeconds(59);
             List<StudyHistoryEntity> studyHistories = new();
             studyList = GetListDataFromStaticJson();
-            StudyHistoryEntity studyHistory = new();
-            studyHistory.StudyId = studyList[0].ClinicalStudy.StudyId;
-            studyHistory.StudyTitle = studyList[0].ClinicalStudy.StudyTitle;
-            studyHistory.StudyVersion = studyList[0].AuditTrail.StudyVersion;
+            StudyHistoryEntity studyHistory = new()
+            {
+                StudyId = studyList[0].ClinicalStudy.StudyId,
+                StudyTitle = studyList[0].ClinicalStudy.StudyTitle,
+                StudyVersion = studyList[0].AuditTrail.StudyVersion
+            };
             studyHistories.Add(studyHistory);
             studyHistory.StudyId = studyList[1].ClinicalStudy.StudyId;
             studyHistory.StudyTitle = studyList[1].ClinicalStudy.StudyTitle;

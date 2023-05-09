@@ -77,7 +77,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 else
                 {
                     study.AuditTrail = BsonSerializer.Deserialize<AuditTrailEntity>(studyData[Constants.DbFilter.AuditTrail].AsBsonDocument);
-                    if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.V2)
+                    if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.V1_9 || study.AuditTrail.UsdmVersion == Constants.USDMVersions.V2)
                     {
                         study.ClinicalStudy = Newtonsoft.Json.JsonConvert.DeserializeObject<object>(studyData[Constants.DbFilter.ClinicalStudy].ToString());
                     }
@@ -452,7 +452,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         {
             try
             {
-                _logger.LogInformation($"Started Repository : {nameof(CommonRepository)}; Method : {nameof(SearchStudyV1)};");
+                _logger.LogInformation($"Started Repository : {nameof(CommonRepository)}; Method : {nameof(SearchStudyV2)};");
                 IMongoCollection<Core.Entities.StudyV2.StudyEntity> collection = _database.GetCollection<Core.Entities.StudyV2.StudyEntity>(Constants.Collections.StudyDefinitions);
 
 
@@ -486,7 +486,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(CommonRepository)}; Method : {nameof(SearchStudyV1)};");
+                _logger.LogInformation($"Ended Repository : {nameof(CommonRepository)}; Method : {nameof(SearchStudyV2)};");
             }
         }
         #endregion
