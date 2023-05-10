@@ -355,9 +355,8 @@ namespace TransCelerate.SDR.Services.Services
                                                 ProcedureDescription = y.ProcedureDescription,
                                                 ProcedureIsConditional = y.ProcedureIsConditional,
                                                 ProcedureIsConditionalReason = y.ProcedureIsConditionalReason,
-                                                FootnoteId = string.Empty,
-                                                //below string.Empty has to be changed once procedureName is included in the model
-                                                FootnoteDescription = y.ProcedureIsConditional ? $"{string.Empty} : {y.ProcedureIsConditionalReason}" : string.Empty
+                                                FootnoteId = string.Empty,                                                
+                                                FootnoteDescription = y.ProcedureIsConditional ? $"{y.ProcedureName} : {y.ProcedureIsConditionalReason}" : string.Empty
                                             }).ToList()
                                         }).ToList()
                                     };
@@ -737,7 +736,7 @@ namespace TransCelerate.SDR.Services.Services
                         return Constants.ErrorMessages.NotValidStudyId;
                     }
 
-                    if (existingAuditTrail.UsdmVersion == Constants.USDMVersions.V1_9) // If previus USDM version is same as incoming
+                    if (existingAuditTrail.UsdmVersion == Constants.USDMVersions.V2) // If previus USDM version is same as incoming
                     {
                         StudyEntity existingStudyEntity = await _clinicalStudyRepository.GetStudyItemsAsync(incomingStudyEntity.ClinicalStudy.StudyId, 0);
 
