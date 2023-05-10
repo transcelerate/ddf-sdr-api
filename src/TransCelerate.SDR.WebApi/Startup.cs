@@ -1,5 +1,5 @@
 using Azure.Messaging.ServiceBus;
-using Moq;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Moq;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -30,9 +31,9 @@ using TransCelerate.SDR.RuleEngine;
 using TransCelerate.SDR.RuleEngine.Common;
 using TransCelerate.SDR.RuleEngineV1;
 using TransCelerate.SDR.RuleEngineV2;
+using TransCelerate.SDR.RuleEngineV3;
 using TransCelerate.SDR.WebApi.DependencyInjection;
 using TransCelerate.SDR.WebApi.Mappers;
-using FluentValidation;
 
 namespace TransCelerate.SDR.WebApi
 {
@@ -138,6 +139,7 @@ namespace TransCelerate.SDR.WebApi
             services.AddAutoMapper(typeof(AutoMapperProfies).Assembly);
             services.AddAutoMapper(typeof(AutoMapperProfilesV1).Assembly);
             services.AddAutoMapper(typeof(AutoMapperProfilesV2).Assembly);
+            services.AddAutoMapper(typeof(AutoMapperProfilesV3).Assembly);
             services.AddAutoMapper(typeof(SharedAutoMapperProfiles).Assembly);
 
             //API to use MVC with validation handling and JSON response
@@ -145,6 +147,7 @@ namespace TransCelerate.SDR.WebApi
             services.AddValidationDependencies();
             services.AddValidationDependenciesV1();
             services.AddValidationDependenciesV2();
+            services.AddValidationDependenciesV3();
             services.AddValidationDependenciesCommon();
             services.Configure<ApiBehaviorOptions>(options =>
             {

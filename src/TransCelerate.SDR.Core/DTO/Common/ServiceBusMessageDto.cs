@@ -1,4 +1,4 @@
-﻿namespace TransCelerate.SDR.Core.DTO.StudyV2
+﻿namespace TransCelerate.SDR.Core.DTO.Common
 {
     public class ServiceBusMessageDto
     {

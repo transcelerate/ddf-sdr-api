@@ -15,6 +15,7 @@ using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
 using TransCelerate.SDR.DataAccess.Interfaces;
+using TransCelerate.SDR.DataAccess.Repositories;
 using TransCelerate.SDR.Services.Interfaces;
 
 namespace TransCelerate.SDR.Services.Services
@@ -188,145 +189,16 @@ namespace TransCelerate.SDR.Services.Services
                 _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV2)}; Method : {nameof(GetStudy)};");
             }
         }
-
-        /// <summary>
-        /// GET Study Designs of a Study
-        /// </summary>
-        /// <param name="studyId">Study ID</param>
-        /// <param name="sdruploadversion">Version of study</param>
-        /// <param name="scheduleTimelineId">Schedule Timeline Id</param>
-        /// <param name="studyDesignId">study design Id</param>
-        /// <param name="user">Logged In User</param>
-        /// <returns>
-        /// A <see cref="object"/> with matching studyId <br></br> <br></br>
-        /// <see langword="null"/> If no study is matching with studyId
-        /// </returns>
-        public async Task<object> GetSOA(string studyId, string studyDesignId, string scheduleTimelineId, int sdruploadversion, LoggedInUser user)
-        {
-            try
-            {
-                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV2)}; Method : {nameof(GetSOA)};");
-                studyId = studyId.Trim();
-
-                StudyEntity study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: studyId, sdruploadversion: sdruploadversion).ConfigureAwait(false);
-                if (study == null)
-                {
-                    return null;
-                }
-                else
-                {
-                    StudyEntity checkStudy = await CheckAccessForAStudy(study, user);
-                    if (checkStudy == null)
-                        return Constants.ErrorMessages.Forbidden;
-
-                    var soa = SoA(study.ClinicalStudy.StudyDesigns);
-                    soa.StudyId = study.ClinicalStudy.StudyId;
-                    soa.StudyTitle = study.ClinicalStudy.StudyTitle;
-                    if (!String.IsNullOrWhiteSpace(studyDesignId))
-                    {
-                        if (study.ClinicalStudy.StudyDesigns is null || !soa.StudyDesigns.Any(x => x.StudyDesignId == studyDesignId))
-                            return Constants.ErrorMessages.StudyDesignNotFound;
-
-                        if (!String.IsNullOrWhiteSpace(scheduleTimelineId))
-                        {
-                            soa.StudyDesigns.RemoveAll(x => x.StudyDesignId != studyDesignId);
-                            if (soa.StudyDesigns.First().StudyScheduleTimelines is null || !soa.StudyDesigns.First().StudyScheduleTimelines.Any(x => x.ScheduleTimelineId == scheduleTimelineId))
-                                return Constants.ErrorMessages.ScheduleTimelineNotFound;
-                            soa.StudyDesigns.First().StudyScheduleTimelines.RemoveAll(y => y.ScheduleTimelineId != scheduleTimelineId);
-                            return soa;
-                        }
-                        soa.StudyDesigns.RemoveAll(x => x.StudyDesignId != studyDesignId);
-                        return soa;
-                    }
-                    return soa;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV2)}; Method : {nameof(GetSOA)};");
-            }
-        }
-
-        public static SoADto SoA(List<StudyDesignEntity> studyDesigns)
-        {
-            SoADto soADto = new()
-            {
-                StudyDesigns = new List<StudyDesigns>()
-            };
-            if (studyDesigns is not null && studyDesigns.Any())
-            {
-                studyDesigns.ForEach(design =>
-                {
-                    StudyDesigns studyDesignSoA = new()
-                    {
-                        StudyDesignId = design.Id,
-                        StudyDesignName = design.StudyDesignName,
-                        StudyDesignDescription = design.StudyDesignDescription,
-                        StudyScheduleTimelines = new List<ScheduleTimelines>()
-                    };
-                    List<EncounterEntity> encounters = GetOrderedEncounters(design.Encounters);
-                    List<ActivityEntity> activities = GetOrderedActivities(design.Activities);
-                    if (design.StudyScheduleTimelines != null && design.StudyScheduleTimelines.Any())
-                    {
-                        design.StudyScheduleTimelines.ForEach(workFlow =>
-                        {
-                            ScheduleTimelines studyWorkflowsA = new()
-                            {
-                                ScheduleTimelineId = workFlow.Id,
-                                ScheduleTimelineDescription = workFlow.ScheduleTimelineDescription
-                            };
-                            if (activities != null && activities.Any() && encounters != null && encounters.Any())
-                            {
-                                var workflowItems = workFlow.ScheduleTimelineInstances?.Select(x => (x as ScheduledActivityInstanceEntity))
-                                                                         .Where(x => x != null).ToList();
-                                if (workflowItems != null && workflowItems.Any())
-                                {
-                                    studyWorkflowsA.ScheduleTimelineSoA = new()
-                                    {
-                                        SoA = new List<SoA>(),
-                                        OrderOfActivities = activities.Select(x => x.ActivityName).ToList()
-                                    };
-                                    encounters.ForEach(encounter =>
-                                    {
-                                        SoA soA = new();
-                                        string timingValue = design.StudyScheduleTimelines.Where(x => x.ScheduleTimelineInstances != null).SelectMany(x => x.ScheduleTimelineInstances)
-                                                                         .Where(x => x != null && x.ScheduledInstanceTimings is not null)
-                                                                         .SelectMany(x => x.ScheduledInstanceTimings)
-                                                                         .Where(x => x.Id == encounter.EncounterScheduledAtTimingId).FirstOrDefault()?.TimingValue;
-                                        string timingValueToBeAddedinSoA = String.IsNullOrWhiteSpace(timingValue) ? string.Empty : $" ({timingValue})";
-                                        soA.EncounterName = encounter.EncounterName + timingValueToBeAddedinSoA;
-                                        soA.Activities = workflowItems.Where(x => x.ScheduledInstanceEncounterId == encounter.Id)
-                                                                      .Select(x => x.ActivityIds).Where(x => x != null)
-                                                                      .SelectMany(x => x).Distinct()
-                                                                      .Where(x => activities.Where(y => y.Id == x).Any())
-                                                                      .Select(x => activities.Where(y => y.Id == x).First()?.ActivityName)
-                                                                      .ToList();
-                                        studyWorkflowsA.ScheduleTimelineSoA.SoA.Add(soA);
-                                    });
-                                }
-                            }
-
-                            studyDesignSoA.StudyScheduleTimelines.Add(studyWorkflowsA);
-                        });
-                    }
-                    soADto.StudyDesigns.Add(studyDesignSoA);
-                });
-            }
-
-            return soADto;
-        }
         public static List<EncounterEntity> GetOrderedEncounters(List<EncounterEntity> encounters)
         {
             if (encounters != null && encounters.Any())
             {
                 if (encounters.Count(x => String.IsNullOrWhiteSpace(x.PreviousEncounterId)) == 1 && encounters.Count(x => String.IsNullOrWhiteSpace(x.NextEncounterId)) == 1)
                 {
-                    List<EncounterEntity> encountersLinkedList = new();
-                    encountersLinkedList.Add(encounters.Where(x => String.IsNullOrWhiteSpace(x.PreviousEncounterId)).FirstOrDefault());
+                    List<EncounterEntity> encountersLinkedList = new()
+                    {
+                        encounters.Where(x => String.IsNullOrWhiteSpace(x.PreviousEncounterId)).FirstOrDefault()
+                    };
                     for (int i = 1; i < encounters.Count; i++)
                     {
                         if (encounters.Where(x => x.PreviousEncounterId == encountersLinkedList[i - 1].Id).Any() && encounters.Where(x => x.PreviousEncounterId == encountersLinkedList[i - 1].Id).Count() == 1)
@@ -346,8 +218,10 @@ namespace TransCelerate.SDR.Services.Services
             {
                 if (activities.Count(x => String.IsNullOrWhiteSpace(x.PreviousActivityId)) == 1 && activities.Count(x => String.IsNullOrWhiteSpace(x.NextActivityId)) == 1)
                 {
-                    List<ActivityEntity> activityLinkedList = new();
-                    activityLinkedList.Add(activities.Where(x => String.IsNullOrWhiteSpace(x.PreviousActivityId)).FirstOrDefault());
+                    List<ActivityEntity> activityLinkedList = new()
+                    {
+                        activities.Where(x => String.IsNullOrWhiteSpace(x.PreviousActivityId)).FirstOrDefault()
+                    };
                     for (int i = 1; i < activities.Count; i++)
                     {
                         if (activities.Where(x => x.PreviousActivityId == activityLinkedList[i - 1].Id).Any() && activities.Where(x => x.PreviousActivityId == activityLinkedList[i - 1].Id).Count() == 1)
@@ -373,11 +247,11 @@ namespace TransCelerate.SDR.Services.Services
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<object> GetSOAV3(string studyId, string studyDesignId, string scheduleTimelineId, int sdruploadversion, LoggedInUser user)
+        public async Task<object> GetSOAV2(string studyId, string studyDesignId, string scheduleTimelineId, int sdruploadversion, LoggedInUser user)
         {
             try
             {
-                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV2)}; Method : {nameof(GetSOA)};");
+                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV2)}; Method : {nameof(GetSOAV2)};");
                 studyId = studyId.Trim();
 
                 StudyEntity study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: studyId, sdruploadversion: sdruploadversion).ConfigureAwait(false);
@@ -419,26 +293,26 @@ namespace TransCelerate.SDR.Services.Services
             }
             finally
             {
-                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV2)}; Method : {nameof(GetSOA)};");
+                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV2)}; Method : {nameof(GetSOAV2)};");
             }
         }
 
-        public Core.DTO.StudyV3.SoADto SoAV3(List<StudyDesignEntity> studyDesigns)
+        public SoADto SoAV3(List<StudyDesignEntity> studyDesigns)
         {
-            Core.DTO.StudyV3.SoADto soADto = new()
+            SoADto soADto = new()
             {
-                StudyDesigns = new List<Core.DTO.StudyV3.StudyDesigns>()
+                StudyDesigns = new List<StudyDesigns>()
             };
             if (studyDesigns is not null && studyDesigns.Any())
             {
                 studyDesigns.ForEach(design =>
                 {
-                    Core.DTO.StudyV3.StudyDesigns studyDesignSoA = new()
+                    StudyDesigns studyDesignSoA = new()
                     {
                         StudyDesignId = design.Id,
                         StudyDesignName = design.StudyDesignName,
                         StudyDesignDescription = design.StudyDesignDescription,
-                        StudyScheduleTimelines = new List<Core.DTO.StudyV3.ScheduleTimelines>()
+                        StudyScheduleTimelines = new List<ScheduleTimelines>()
                     };
                     List<EncounterEntity> encounters = GetOrderedEncounters(design.Encounters);
                     List<ActivityEntity> activities = GetOrderedActivities(design.Activities);
@@ -446,70 +320,76 @@ namespace TransCelerate.SDR.Services.Services
                     {
                         design.StudyScheduleTimelines.ForEach(scheduleTimeline =>
                         {
-                            Core.DTO.StudyV3.ScheduleTimelines studyTimelineSoA = _mapper.Map<Core.DTO.StudyV3.ScheduleTimelines>(scheduleTimeline);
+                            ScheduleTimelines studyTimelineSoA = _mapper.Map<ScheduleTimelines>(scheduleTimeline);
                             var scheduleActivityInstances = scheduleTimeline.ScheduleTimelineInstances?.Select(x => (x as ScheduledActivityInstanceEntity))
                                                                          .Where(x => x != null).ToList();
-
+                            
                             if (scheduleActivityInstances != null && scheduleActivityInstances.Any())
                             {
                                 var activitiesMappedToTimeLine = activities is not null && activities.Any() ? activities.Where(act => scheduleActivityInstances.Where(x => x.ActivityIds is not null && x.ActivityIds.Any()).SelectMany(instance => instance.ActivityIds).Contains(act.Id)).ToList() : new List<ActivityEntity>();
-                                studyTimelineSoA.ScheduleTimelineSoA = new()
+                                var encountersMappedToTimeLine = scheduleActivityInstances.Where(x => !String.IsNullOrWhiteSpace(x.ScheduledInstanceEncounterId)).Select(x => x.ScheduledInstanceEncounterId).ToList();
+                                var timingsMappedToTimeline = scheduleActivityInstances.Where(x => x != null && x.ScheduledInstanceTimings is not null)
+                                                                                       .SelectMany(x => x.ScheduledInstanceTimings).ToList();
+                                if (activitiesMappedToTimeLine.Any() || encountersMappedToTimeLine.Any() || timingsMappedToTimeline.Any())
                                 {
-                                    SoA = new List<Core.DTO.StudyV3.SoA>(),
-                                    OrderOfActivities = activitiesMappedToTimeLine.Select(act => new Core.DTO.StudyV3.OrderOfActivities
+                                    studyTimelineSoA.ScheduleTimelineSoA = new()
                                     {
-                                        ActivityId = act.Id,
-                                        ActivityName = act.ActivityName,
-                                        ActivityDescription = act.ActivityDescription,
-                                        ActivityIsConditional = act.ActivityIsConditional,
-                                        ActivityIsConditionalReason = act.ActivityIsConditionalReason,
-                                        ActivityTimelineId = act.ActivityTimelineId,
-                                        ActivityTimelineName = String.IsNullOrWhiteSpace(act.ActivityTimelineId) ? string.Empty : design.StudyScheduleTimelines.FirstOrDefault(x => x.Id == act.ActivityTimelineId)?.ScheduleTimelineName,
-                                        BiomedicalConcepts = design.BiomedicalConcepts.Where(bc => act.BiomedicalConceptIds != null && act.BiomedicalConceptIds.Any() && act.BiomedicalConceptIds.Contains(bc.Id)).Select(bc => bc.BcName).ToList(),
-                                        FootnoteId = string.Empty,
-                                        FootnoteDescription = act.ActivityIsConditional ? $"{act.ActivityName} : {act.ActivityIsConditionalReason}" : string.Empty,
-                                        DefinedProcedures = act.DefinedProcedures?.Select(y => new Core.DTO.StudyV3.ProcedureSoA
+                                        SoA = new List<SoA>(),
+                                        OrderOfActivities = activitiesMappedToTimeLine.Select(act => new OrderOfActivities
                                         {
-                                            ProcedureId = y.Id,
-                                            ProcedureName = string.Empty,
-                                            ProcedureDescription = string.Empty,
-                                            ProcedureIsConditional = y.ProcedureIsConditional,
-                                            ProcedureIsConditionalReason = y.ProcedureIsConditionalReason,
+                                            ActivityId = act.Id,
+                                            ActivityName = act.ActivityName,
+                                            ActivityDescription = act.ActivityDescription,
+                                            ActivityIsConditional = act.ActivityIsConditional,
+                                            ActivityIsConditionalReason = act.ActivityIsConditionalReason,
+                                            ActivityTimelineId = act.ActivityTimelineId,
+                                            ActivityTimelineName = String.IsNullOrWhiteSpace(act.ActivityTimelineId) ? string.Empty : design.StudyScheduleTimelines.FirstOrDefault(x => x.Id == act.ActivityTimelineId)?.ScheduleTimelineName,
+                                            BiomedicalConcepts = design.BiomedicalConcepts.Where(bc => act.BiomedicalConceptIds != null && act.BiomedicalConceptIds.Any() && act.BiomedicalConceptIds.Contains(bc.Id)).Select(bc => bc.BcName).ToList(),
                                             FootnoteId = string.Empty,
-                                            //below string.Empty has to be changed once procedureName is included in the model
-                                            FootnoteDescription = y.ProcedureIsConditional ? $"{string.Empty} : {y.ProcedureIsConditionalReason}" : string.Empty
+                                            FootnoteDescription = act.ActivityIsConditional ? $"{act.ActivityName} : {act.ActivityIsConditionalReason}" : string.Empty,
+                                            DefinedProcedures = act.DefinedProcedures?.Select(y => new ProcedureSoA
+                                            {
+                                                ProcedureId = y.Id,
+                                                ProcedureName = string.Empty,
+                                                ProcedureDescription = string.Empty,
+                                                ProcedureIsConditional = y.ProcedureIsConditional,
+                                                ProcedureIsConditionalReason = y.ProcedureIsConditionalReason,
+                                                FootnoteId = string.Empty,
+                                                //below string.Empty has to be changed once procedureName is included in the model
+                                                FootnoteDescription = y.ProcedureIsConditional ? $"{string.Empty} : {y.ProcedureIsConditionalReason}" : string.Empty
+                                            }).ToList()
                                         }).ToList()
-                                    }).ToList()
-                                };
-                                // SoA for instances where encounter is mapped
-                                encounters?.Where(x => scheduleActivityInstances.Select(y => y.ScheduledInstanceEncounterId).Contains(x.Id)).ToList().ForEach(encounter =>
-                                {
-                                    string timingValue = design.StudyScheduleTimelines.Where(x => x.ScheduleTimelineInstances != null).SelectMany(x => x.ScheduleTimelineInstances)
-                                                                                      .Where(x => x != null && x.ScheduledInstanceTimings is not null)
-                                                                                      .SelectMany(x => x.ScheduledInstanceTimings)
-                                                                                      .Where(x => x.Id == encounter.EncounterScheduledAtTimingId).FirstOrDefault()?.TimingValue;
-                                    Core.DTO.StudyV3.SoA soA = new()
-                                    {
-                                        EncounterId = encounter.Id,
-                                        EncounterName = encounter.EncounterName,
-                                        EncounterScheduledAtTimingValue = String.IsNullOrWhiteSpace(timingValue) ? string.Empty : timingValue,
-                                        Timings = GetTimings(scheduleActivityInstances.Where(instance => instance.ScheduledInstanceEncounterId == encounter.Id).ToList())
                                     };
-
-                                    studyTimelineSoA.ScheduleTimelineSoA.SoA.Add(soA);
-                                });
-                                // SoA for instances where encounter is not mapped
-                                if (scheduleActivityInstances.Where(x => String.IsNullOrWhiteSpace(x.ScheduledInstanceEncounterId)).Any())
-                                {
-                                    Core.DTO.StudyV3.SoA soA = new()
+                                    // SoA for instances where encounter is mapped
+                                    encounters?.Where(x => scheduleActivityInstances.Select(y => y.ScheduledInstanceEncounterId).Contains(x.Id)).ToList().ForEach(encounter =>
                                     {
-                                        EncounterId = string.Empty,
-                                        EncounterName = string.Empty,
-                                        EncounterScheduledAtTimingValue = string.Empty,
-                                        Timings = GetTimings(scheduleActivityInstances.Where(x => String.IsNullOrWhiteSpace(x.ScheduledInstanceEncounterId)).ToList())
-                                    };
+                                        string timingValue = design.StudyScheduleTimelines.Where(x => x.ScheduleTimelineInstances != null).SelectMany(x => x.ScheduleTimelineInstances)
+                                                                                          .Where(x => x != null && x.ScheduledInstanceTimings is not null)
+                                                                                          .SelectMany(x => x.ScheduledInstanceTimings)
+                                                                                          .Where(x => x.Id == encounter.EncounterScheduledAtTimingId).FirstOrDefault()?.TimingValue;
+                                        SoA soA = new()
+                                        {
+                                            EncounterId = encounter.Id,
+                                            EncounterName = encounter.EncounterName,
+                                            EncounterScheduledAtTimingValue = String.IsNullOrWhiteSpace(timingValue) ? string.Empty : timingValue,
+                                            Timings = GetTimings(scheduleActivityInstances.Where(instance => instance.ScheduledInstanceEncounterId == encounter.Id).ToList())
+                                        };
 
-                                    studyTimelineSoA.ScheduleTimelineSoA.SoA.Add(soA);
+                                        studyTimelineSoA.ScheduleTimelineSoA.SoA.Add(soA);
+                                    });
+                                    // SoA for instances where encounter is not mapped
+                                    if (scheduleActivityInstances.Where(x => String.IsNullOrWhiteSpace(x.ScheduledInstanceEncounterId)).Any())
+                                    {
+                                        SoA soA = new()
+                                        {
+                                            EncounterId = string.Empty,
+                                            EncounterName = string.Empty,
+                                            EncounterScheduledAtTimingValue = string.Empty,
+                                            Timings = GetTimings(scheduleActivityInstances.Where(x => String.IsNullOrWhiteSpace(x.ScheduledInstanceEncounterId)).ToList())
+                                        };
+
+                                        studyTimelineSoA.ScheduleTimelineSoA.SoA.Add(soA);
+                                    }
                                 }
                             }
 
@@ -522,21 +402,21 @@ namespace TransCelerate.SDR.Services.Services
 
             return soADto;
         }
-        public List<Core.DTO.StudyV3.TimingSoA> GetTimings(List<ScheduledActivityInstanceEntity> scheduledActivityInstances)
+        public List<TimingSoA> GetTimings(List<ScheduledActivityInstanceEntity> scheduledActivityInstances)
         {
             if (scheduledActivityInstances is not null && scheduledActivityInstances.Any())
             {
                 var instances = scheduledActivityInstances.Where(x => x.ScheduledInstanceTimings is not null && x.ScheduledInstanceTimings.Any()).Select(x => new
                 {
                     x.ScheduleSequenceNumber,
-                    Timings = _mapper.Map<List<Core.DTO.StudyV3.TimingSoA>>(x.ScheduledInstanceTimings),
+                    Timings = _mapper.Map<List<TimingSoA>>(x.ScheduledInstanceTimings),
                     x.ActivityIds
                 }).OrderBy(x => x.ScheduleSequenceNumber).ToList();
 
                 instances.AddRange(scheduledActivityInstances.Where(x => x.ScheduledInstanceTimings is null || !x.ScheduledInstanceTimings.Any()).Select(x => new
                 {
                     x.ScheduleSequenceNumber,
-                    Timings = _mapper.Map<List<Core.DTO.StudyV3.TimingSoA>>(x.ScheduledInstanceTimings),
+                    Timings = _mapper.Map<List<TimingSoA>>(x.ScheduledInstanceTimings),
                     x.ActivityIds
                 }).OrderBy(x => x.ScheduleSequenceNumber).ToList());
                 instances?.ForEach(instance =>
@@ -551,13 +431,13 @@ namespace TransCelerate.SDR.Services.Services
                     }
                     else
                     {
-                        instance.Timings.Add(new Core.DTO.StudyV3.TimingSoA { Activities = instance.ActivityIds is not null && instance.ActivityIds.Any() ? instance.ActivityIds.Distinct().ToList() : new List<string>() });
+                        instance.Timings.Add(new TimingSoA { Activities = instance.ActivityIds is not null && instance.ActivityIds.Any() ? instance.ActivityIds.Distinct().ToList() : new List<string>() });
                     }
                 });
 
-                return instances.SelectMany(x => x.Timings).Any() ? instances.SelectMany(x => x.Timings).ToList() : new List<Core.DTO.StudyV3.TimingSoA>();
+                return instances.SelectMany(x => x.Timings).Any() ? instances.SelectMany(x => x.Timings).ToList() : new List<TimingSoA>();
             }
-            return new List<Core.DTO.StudyV3.TimingSoA>();
+            return new List<TimingSoA>();
         }
         /// <summary>
         /// GET Study Designs Elements of a Study
@@ -594,8 +474,10 @@ namespace TransCelerate.SDR.Services.Services
                         if (study.ClinicalStudy.StudyDesigns is not null && study.ClinicalStudy.StudyDesigns.Any(x => x.Id == studyDesignId))
                         {
                             var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy.ClinicalStudy.StudyDesigns.Where(x => x.Id == studyDesignId).ToList());
-                            JObject jObject = new();
-                            jObject.Add(string.Concat(nameof(ClinicalStudyDto.StudyDesigns)[..1].ToLower(), nameof(ClinicalStudyDto.StudyDesigns).AsSpan(1)), JArray.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))));
+                            JObject jObject = new()
+                            {
+                                { string.Concat(nameof(ClinicalStudyDto.StudyDesigns)[..1].ToLower(), nameof(ClinicalStudyDto.StudyDesigns).AsSpan(1)), JArray.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))) }
+                            };
                             if (listofelements == null)
                                 jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.ClinicalStudy.StudyId, study.ClinicalStudy.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion), _helper.GetSerializerSettingsForCamelCasing())));
                             return jObject;
@@ -605,8 +487,10 @@ namespace TransCelerate.SDR.Services.Services
                     else
                     {
                         var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy.ClinicalStudy.StudyDesigns);
-                        JObject jObject = new();
-                        jObject.Add(string.Concat(nameof(ClinicalStudyDto.StudyDesigns)[..1].ToLower(), nameof(ClinicalStudyDto.StudyDesigns).AsSpan(1)), JArray.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))));
+                        JObject jObject = new()
+                        {
+                            { string.Concat(nameof(ClinicalStudyDto.StudyDesigns)[..1].ToLower(), nameof(ClinicalStudyDto.StudyDesigns).AsSpan(1)), JArray.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))) }
+                        };
                         if (listofelements == null)
                             jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.ClinicalStudy.StudyId, study.ClinicalStudy.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion), _helper.GetSerializerSettingsForCamelCasing())));
                         return study.ClinicalStudy.StudyDesigns is not null && study.ClinicalStudy.StudyDesigns.Any() ?
@@ -625,39 +509,51 @@ namespace TransCelerate.SDR.Services.Services
         }
 
         /// <summary>
-        /// GET Audit Trial
+        /// GET eCPT Elements For a Study
         /// </summary>
-        /// <param name="fromDate">Start Date for Date Filter</param>
-        /// <param name="toDate">End Date for Date Filter</param>
         /// <param name="studyId">Study ID</param>
-        /// <param name="user">Logged In User</param>
+        /// <param name="sdruploadversion">Version of study</param>
+        /// <param name="studyDesignId">studyDesignId</param>
+        /// <param name="user">Logged in user</param>
         /// <returns>
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<object> GetAuditTrail(string studyId, DateTime fromDate, DateTime toDate, LoggedInUser user)
+        public async Task<object> GeteCPTV2(string studyId, int sdruploadversion, string studyDesignId, LoggedInUser user)
         {
             try
             {
-                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV2)}; Method : {nameof(GetAuditTrail)};");
-                List<AuditTrailResponseEntity> studies = await _clinicalStudyRepository.GetAuditTrail(studyId, fromDate, toDate);
-                if (studies == null)
+                _logger.LogInformation($"Started Service : {nameof(CommonServices)}; Method : {nameof(GeteCPTV2)};");
+                studyId = studyId.Trim();
+
+                var study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: studyId, sdruploadversion: sdruploadversion).ConfigureAwait(false);
+
+                if (study == null)
                 {
                     return null;
                 }
                 else
                 {
-                    studies = await CheckAccessForStudyAudit(studyId, studies, user);
-                    if (studies == null)
+                    StudyEntity checkStudy = await CheckAccessForAStudy(study, user);
+                    if (checkStudy == null)
                         return Constants.ErrorMessages.Forbidden;
-                    var auditTrailDtoList = _mapper.Map<List<AuditTrailDto>>(studies); //Mapping Entity to Dto 
-                    AudiTrailResponseDto getStudyAuditDto = new()
-                    {
-                        StudyId = studyId,
-                        AuditTrail = auditTrailDtoList
-                    };
 
-                    return getStudyAuditDto;
+                    var studyDTO = _mapper.Map<StudyDto>(study);
+
+                    if (studyDTO.ClinicalStudy.StudyDesigns == null || !studyDTO.ClinicalStudy.StudyDesigns.Any())
+                        return Constants.ErrorMessages.StudyDesignNotFoundCPT;
+
+                    if (studyDesignId != null)
+                    {
+                        if (studyDTO.ClinicalStudy.StudyDesigns.Any(x => x.Id == studyDesignId))
+                            studyDTO.ClinicalStudy.StudyDesigns.RemoveAll(x => x.Id != studyDesignId);
+                        else
+                            return Constants.ErrorMessages.StudyDesignIdNotFoundCPT;
+                    }
+
+                    var eCPT = GetCPTDataV2(studyDTO.ClinicalStudy, study.AuditTrail);
+
+                    return eCPT;
                 }
             }
             catch (Exception)
@@ -666,57 +562,137 @@ namespace TransCelerate.SDR.Services.Services
             }
             finally
             {
-                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV2)}; Method : {nameof(GetAuditTrail)};");
+                _logger.LogInformation($"Ended Service : {nameof(CommonServices)}; Method : {nameof(GeteCPTV2)};");
             }
         }
 
-
-        /// <summary>
-        /// Get AllStudy Id's
-        /// </summary>
-        /// <param name="fromDate">Start Date for Date Filter</param>
-        /// <param name="toDate">End Date for Date Filter</param>
-        /// <param name="studyTitle">Study Title Filter</param>
-        /// <param name="user">Logged In User</param>
-        /// <returns>
-        /// A <see cref="List{StudyHistoryResponseEntity}"/> which has list of study ID's <br></br> <br></br>
-        /// <see langword="null"/> If no study is matching with studyId
-        /// </returns>
-        public async Task<List<StudyHistoryResponseDto>> GetStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle, LoggedInUser user)
+        public Core.DTO.eCPT.ECPTDto GetCPTDataV2(ClinicalStudyDto clinicalStudyDto, AuditTrailEntity auditTrail)
         {
-            try
+            var links = LinksHelper.GetLinks(clinicalStudyDto.StudyId, clinicalStudyDto.StudyDesigns.Select(c => c.Id).ToList(), auditTrail.UsdmVersion, auditTrail.SDRUploadVersion);
+            Core.DTO.eCPT.StudyDetailsDto studyDetailsDto = new()
             {
-                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV2)}; Method : {nameof(GetStudyHistory)};");
-                List<StudyHistoryResponseEntity> studies = await _clinicalStudyRepository.GetStudyHistory(fromDate, toDate, studyTitle, user); //Getting List of studyId, studyTitle and Version
-                if (studies == null)
-                {
-                    return null;
-                }
-                else
-                {
-                    var groupStudy = studies.GroupBy(x => new { x.StudyId })
-                                            .Select(g => new //StudyHistoryResponseDto
-                                            {
-                                                g.Key.StudyId,
-                                                SDRUploadVersion = _mapper.Map<List<UploadVersionDto>>(g.ToList()),
-                                                Date = g.Max(x => x.EntryDateTime)
-                                            }) // Grouping the Id's by studyId
-                                            .OrderByDescending(x => x.Date)
-                                            .ToList();
+                StudyId = clinicalStudyDto.StudyId,
+                StudyTitle = clinicalStudyDto.StudyTitle,
 
-                    List<StudyHistoryResponseDto> studyHistory = JsonConvert.DeserializeObject<List<StudyHistoryResponseDto>>(JsonConvert.SerializeObject(groupStudy));
+                UsdmVersion = auditTrail.UsdmVersion,
+                SDRUploadVersion = auditTrail.SDRUploadVersion,
+                Links = new
+                {
+                    links.StudyDefinitions,
+                    links.RevisionHistory
+                },
+            };
+            List<Core.DTO.eCPT.StudyDesignDto> studyeCPTDtos = new();
+            if (clinicalStudyDto.StudyDesigns != null && clinicalStudyDto.StudyDesigns.Any())
+            {
+                clinicalStudyDto.StudyDesigns.ForEach(design =>
+                {
+                    Core.DTO.eCPT.StudyDesignDto studyeCPTDto = new()
+                    {
+                        StudyDesignId = design.Id,
+                        StudyDesignLink = links.StudyDesigns.Find(x => x.StudyDesignId == design.Id).StudyDesignLink,
+                        StudyDesignName = design.StudyDesignName,
+                        ECPTData = new Core.DTO.eCPT.ECPTDataDto
+                        {
+                            TitlePage = new Core.DTO.eCPT.TitlePageDto
+                            {
+                                Acronym = clinicalStudyDto.StudyAcronym,
+                                AmendmentNumber = clinicalStudyDto.StudyProtocolVersions != null && clinicalStudyDto.StudyProtocolVersions.Any() ? ECPTHelper.GetOrderedStudyProtocolsV2(clinicalStudyDto.StudyProtocolVersions).ProtocolAmendment : null,
+                                ApprovalDate = clinicalStudyDto.StudyProtocolVersions != null && clinicalStudyDto.StudyProtocolVersions.Any() ? ECPTHelper.GetOrderedStudyProtocolsV2(clinicalStudyDto.StudyProtocolVersions).ProtocolEffectiveDate : null,
+                                ConditionDisease = design.StudyIndications != null && design.StudyIndications.Any() ?
+                                                   design.StudyIndications.Count == 1 ?
+                                                   design.StudyIndications.FirstOrDefault().IndicationDescription
+                                                   : $"{String.Join(',', design.StudyIndications.Select(x => x.IndicationDescription).ToArray(), 0, design.StudyIndications.Count - 1)} and {design.StudyIndications.Select(x => x.IndicationDescription).LastOrDefault()}"
+                                                   : null,
+                                RegulatoryAgencyId = clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.REGULATORY_AGENCY, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifierScope.OrganisationIdentifierScheme).FirstOrDefault(),
+                                RegulatoryAgencyNumber = clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.REGULATORY_AGENCY, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifier).FirstOrDefault(),
+                                SponsorName = clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifierScope.OrganisationName).FirstOrDefault(),
+                                SponsorLegalAddress = clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifierScope.OrganizationLegalAddress).FirstOrDefault() == null ? null
+                                                                : clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifierScope.OrganizationLegalAddress).Select(x => $"{x.Text},{x.Line},{x.City},{x.District},{x.State},{x.PostalCode},{x.Country?.Decode}").FirstOrDefault(),
+                                StudyPhase = ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.StudyPhase, clinicalStudyDto.StudyPhase?.StandardCode?.Code) ?? clinicalStudyDto.StudyPhase?.StandardCode?.Decode,
+                                Protocol = new Core.DTO.eCPT.ProtocolDto
+                                {
+                                    ProtocolID = clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifier).FirstOrDefault(),
+                                    ProtocolShortTitle = clinicalStudyDto.StudyProtocolVersions != null && clinicalStudyDto.StudyProtocolVersions.Any() ? ECPTHelper.GetOrderedStudyProtocolsV2(clinicalStudyDto.StudyProtocolVersions).BriefTitle : null,
+                                    ProtocolTitle = clinicalStudyDto.StudyTitle
+                                }
+                            },
+                            ProtocolSummary = new Core.DTO.eCPT.ProtocolSummaryDto
+                            {
+                                Synopsis = new Core.DTO.eCPT.SynopsisDto
+                                {
+                                    NumberofParticipants = design.StudyPopulations?.Sum(x => x.PlannedNumberOfParticipants).ToString(),
+                                    PrimaryPurpose = design.TrialIntentType != null && design.TrialIntentType.Any() ?
+                                                   design.TrialIntentType.Count == 1 ? ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, design.TrialIntentType.FirstOrDefault().Code) ?? design.TrialIntentType.FirstOrDefault().Decode
+                                                   : $"{String.Join(',', design.TrialIntentType.Select(x => ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, x.Code) ?? x.Decode).ToArray(), 0, design.TrialIntentType.Count - 1)}" +
+                                                   $" and {design.TrialIntentType.Select(x => ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, x.Code) ?? x.Decode).LastOrDefault()}"
+                                                   : null,
+                                    EnrollmentTarget = design.StudyPopulations != null && design.StudyPopulations.Any() ?
+                                                      design.StudyPopulations.Count == 1 ? design.StudyPopulations.FirstOrDefault().PopulationDescription
+                                                      : $"{String.Join(',', design.StudyPopulations.Select(x => x.PopulationDescription).ToArray(), 0, design.StudyPopulations.Count - 1)} and {design.StudyPopulations.Select(x => x.PopulationDescription).LastOrDefault()}"
+                                                      : null,
+                                    InterventionModel = ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.InterventionModel, design?.InterventionModel?.Code) ?? design?.InterventionModel?.Decode,
+                                    NumberofArms = design.StudyCells != null && design.StudyCells.Any() ?
+                                                    design.StudyCells.Where(x => x.StudyArm != null).Any() ?
+                                                    design.StudyCells.Where(x => x.StudyArm != null).Select(x => x.StudyArm.Id).Distinct().Count().ToString() : 0.ToString() : 0.ToString()
+                                }
+                            },
+                            PageHeader = new Core.DTO.eCPT.PageHeaderDto
+                            {
+                                VersionNumber = clinicalStudyDto.StudyProtocolVersions != null && clinicalStudyDto.StudyProtocolVersions.Any() ? ECPTHelper.GetOrderedStudyProtocolsV2(clinicalStudyDto.StudyProtocolVersions).ProtocolVersion : null,
+                            },
+                            StudyPopulation = new Core.DTO.eCPT.StudyPopulationDto
+                            {
+                                InclusionCriteria = new Core.DTO.eCPT.InclusionCriteriaDto
+                                {
 
-                    return studyHistory;
-                }
+                                    PlannedMaximumAgeofSubjects = design.StudyPopulations != null && design.StudyPopulations.Any() ?
+                                                                           ECPTHelper.CheckForMaxMin(design.StudyPopulations.Select(x => x.PlannedMaximumAgeOfParticipants).ToList(), true) : null,
+
+                                    PlannedMinimumAgeofSubjects = design.StudyPopulations != null && design.StudyPopulations.Any() ?
+                                                                           ECPTHelper.CheckForMaxMin(design.StudyPopulations.Select(x => x.PlannedMinimumAgeOfParticipants).ToList(), false) : null,
+
+                                    SexofParticipants = ECPTHelper.GetPlannedSexOfParticipantsV2(design.StudyPopulations)
+                                }
+                            },
+                            Introduction = new Core.DTO.eCPT.IntroductionDto
+                            {
+                                StudyRationale = clinicalStudyDto.StudyRationale
+                            },
+                            StudyDesign = new Core.DTO.eCPT.StudyDesignCptDto
+                            {
+                                ScientificRationaleForStudyDesign = design.StudyDesignRationale
+                            },
+                            StatisticalConsiderations = new Core.DTO.eCPT.StatisticalConsiderationsDto
+                            {
+                                PopulationsForAnalyses = design.StudyEstimands != null && design.StudyEstimands.Any() ?
+                                                   design.StudyEstimands.Count == 1 ?
+                                                   design.StudyEstimands.FirstOrDefault().AnalysisPopulation.PopulationDescription
+                                                   : $"{String.Join(',', design.StudyEstimands.Select(x => x.AnalysisPopulation.PopulationDescription).ToArray(), 0, design.StudyEstimands.Count - 1)} and {design.StudyEstimands.Select(x => x.AnalysisPopulation.PopulationDescription).LastOrDefault()}"
+                                                   : null,
+                            },
+                            ObjectivesEndpointsAndEstimands = ECPTHelper.GetObjectivesEndpointsAndEstimandsDtoV2(design.StudyObjectives, _mapper),
+                            StudyInterventionsAndConcomitantTherapy = new Core.DTO.eCPT.StudyInterventionsAndConcomitantTherapyDto
+                            {
+                                StudyInterventionsAdministered = design.StudyInvestigationalInterventions != null && design.StudyInvestigationalInterventions.Any() ?
+                                           _mapper.Map<List<Core.DTO.eCPT.StudyInterventionsAdministeredDto>>(design.StudyInvestigationalInterventions)
+                                           : null,
+                                StudyArms = design.StudyCells != null && design.StudyCells.Any() ?
+                                           design.StudyCells.Where(x => x.StudyArm != null).Any() ?
+                                           _mapper.Map<List<Core.DTO.eCPT.StudyArmDto>>(design.StudyCells.Where(x => x.StudyArm != null).Select(x => x.StudyArm).ToList())
+                                           : null : null
+                            }
+
+                        }
+                    };
+                    studyeCPTDtos.Add(studyeCPTDto);
+                });
             }
-            catch (Exception)
+            return new Core.DTO.eCPT.ECPTDto
             {
-                throw;
-            }
-            finally
-            {
-                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV2)}; Method : {nameof(GetStudyHistory)};");
-            }
+                StudyDesign = studyeCPTDtos,
+                StudyDetails = studyDetailsDto
+            };
         }
         #endregion
 
@@ -758,7 +734,7 @@ namespace TransCelerate.SDR.Services.Services
                         return Constants.ErrorMessages.NotValidStudyId;
                     }
 
-                    if (existingAuditTrail.UsdmVersion == Constants.USDMVersions.V2) // If previus USDM version is same as incoming
+                    if (existingAuditTrail.UsdmVersion == Constants.USDMVersions.V1_9) // If previus USDM version is same as incoming
                     {
                         StudyEntity existingStudyEntity = await _clinicalStudyRepository.GetStudyItemsAsync(incomingStudyEntity.ClinicalStudy.StudyId, 0);
 
@@ -769,13 +745,13 @@ namespace TransCelerate.SDR.Services.Services
                         else
                         {
                             studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity, existingStudyEntity.AuditTrail).ConfigureAwait(false);
-                            await PushMessageToServiceBus(new ServiceBusMessageDto { Study_uuid = incomingStudyEntity.ClinicalStudy.StudyId, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
+                            await PushMessageToServiceBus(new Core.DTO.Common.ServiceBusMessageDto { Study_uuid = incomingStudyEntity.ClinicalStudy.StudyId, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
                         }
                     }
                     else // If previus USDM version is different from incoming
                     {
                         studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity, existingAuditTrail).ConfigureAwait(false);
-                        await PushMessageToServiceBus(new ServiceBusMessageDto { Study_uuid = incomingStudyEntity.ClinicalStudy.StudyId, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
+                        await PushMessageToServiceBus(new Core.DTO.Common.ServiceBusMessageDto { Study_uuid = incomingStudyEntity.ClinicalStudy.StudyId, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
                     }
                 }
                 studyDTO.Links = LinksHelper.GetLinksForUi(studyDTO.ClinicalStudy.StudyId, studyDTO.ClinicalStudy.StudyDesigns?.Select(x => x.Id).ToList(), studyDTO.AuditTrail.UsdmVersion, studyDTO.AuditTrail.SDRUploadVersion);
@@ -805,7 +781,7 @@ namespace TransCelerate.SDR.Services.Services
         {
             existingStudyEntity.AuditTrail.EntryDateTime = incomingStudyEntity.AuditTrail.EntryDateTime;
             incomingStudyEntity.AuditTrail.SDRUploadVersion = existingStudyEntity.AuditTrail.SDRUploadVersion;
-            incomingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
+            incomingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V1_9;
             await _clinicalStudyRepository.UpdateStudyItemsAsync(incomingStudyEntity);
             return _mapper.Map<StudyDto>(incomingStudyEntity);
         }
@@ -814,13 +790,13 @@ namespace TransCelerate.SDR.Services.Services
         {
             //incomingStudyEntity = _helper.CheckForSections(incomingStudyEntity, existingStudyEntity);
             incomingStudyEntity.AuditTrail.SDRUploadVersion = existingAuditTrailEntity.SDRUploadVersion + 1;
-            incomingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
+            incomingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V1_9;
             await _clinicalStudyRepository.PostStudyItemsAsync(incomingStudyEntity);
             return _mapper.Map<StudyDto>(incomingStudyEntity);
         }
 
         #region Azure ServiceBus
-        private async Task PushMessageToServiceBus(ServiceBusMessageDto serviceBusMessageDto)
+        private async Task PushMessageToServiceBus(Core.DTO.Common.ServiceBusMessageDto serviceBusMessageDto)
         {
             //Execute the service bus only when Service Bus ConnectionString and Queue name are available in the configuration
             if (!String.IsNullOrWhiteSpace(Config.AzureServiceBusConnectionString) && !String.IsNullOrWhiteSpace(Config.AzureServiceBusQueueName))

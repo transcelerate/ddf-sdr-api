@@ -1,18 +1,19 @@
 using Azure.Extensions.AspNetCore.Configuration.Secrets;
+using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MongoDB.Driver.Linq;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
+using Newtonsoft.Json;
 using System;
 using TransCelerate.SDR.AzureFunctions;
+using TransCelerate.SDR.AzureFunctions.DataAccess;
+using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
-using TransCelerate.SDR.Core.Utilities;
-using Microsoft.Extensions.DependencyInjection;
-using TransCelerate.SDR.AzureFunctions.DataAccess;
-using Newtonsoft.Json;
-using Azure.Identity;
+using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3;
 
 var host = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults()
@@ -45,6 +46,7 @@ var host = new HostBuilder()
         services.AddTransient<IMessageProcessor, MessageProcessor>();
         services.AddTransient<ILogHelper, LogHelper>();
         services.AddTransient<IHelperV2, HelperV2>();
+        services.AddTransient<IHelperV3, HelperV3>();
         services.AddTransient<IChangeAuditRepository, ChangeAuditRepository>();
         // Added because MongoDB 2.19 version by default supports LinqProvider.V3
         var clientSettings = MongoClientSettings.FromConnectionString(Config.ConnectionString);
