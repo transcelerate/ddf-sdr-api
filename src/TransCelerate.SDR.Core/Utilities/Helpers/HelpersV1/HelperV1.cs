@@ -300,8 +300,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                                     y.WorkflowItemActivity.DefinedProcedures.ForEach(procedure =>
                                     {
                                         procedure.Uuid = IdGenerator.GenerateId();
-                                        if (procedure.ProcedureCode is not null)
-                                            procedure.ProcedureCode.ForEach(y => y.Uuid = IdGenerator.GenerateId());
+                                        procedure.ProcedureCode?.ForEach(y => y.Uuid = IdGenerator.GenerateId());
                                     });
                                 }
                                 if (y.WorkflowItemActivity.StudyDataCollection is not null && y.WorkflowItemActivity.StudyDataCollection.Any())
@@ -651,8 +650,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                                     {
 
                                         procedure.Uuid = null;
-                                        if (procedure.ProcedureCode is not null)
-                                            procedure.ProcedureCode.ForEach(y => y.Uuid = null);
+                                        procedure.ProcedureCode?.ForEach(y => y.Uuid = null);
                                     });
                                 }
                                 if (y.WorkflowItemActivity.StudyDataCollection is not null && y.WorkflowItemActivity.StudyDataCollection.Any())
@@ -1473,8 +1471,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                                     x.WorkflowItemActivity.DefinedProcedures.ForEach(y =>
                                     {
                                         y.Uuid = IdGenerator.GenerateId();
-                                        if (y.ProcedureCode is not null)
-                                            y.ProcedureCode.ForEach(z => z.Uuid = IdGenerator.GenerateId());
+                                        y.ProcedureCode?.ForEach(z => z.Uuid = IdGenerator.GenerateId());
                                     });
                                 }
                                 if (x.WorkflowItemActivity.StudyDataCollection is not null && x.WorkflowItemActivity.StudyDataCollection.Any())
@@ -1497,8 +1494,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                                 x.WorkflowItemActivity.DefinedProcedures.ForEach(y =>
                                 {
                                     y.Uuid = IdGenerator.GenerateId();
-                                    if (y.ProcedureCode is not null)
-                                        y.ProcedureCode.ForEach(z => z.Uuid = IdGenerator.GenerateId());
+                                    y.ProcedureCode?.ForEach(z => z.Uuid = IdGenerator.GenerateId());
                                 });
                             }
                             if (x.WorkflowItemActivity.StudyDataCollection is not null && x.WorkflowItemActivity.StudyDataCollection.Any())
@@ -1531,8 +1527,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                                 x.WorkflowItemActivity.DefinedProcedures.ForEach(y =>
                                 {
                                     y.Uuid = IdGenerator.GenerateId();
-                                    if (y.ProcedureCode is not null)
-                                        y.ProcedureCode.ForEach(z => z.Uuid = IdGenerator.GenerateId());
+                                    y.ProcedureCode?.ForEach(z => z.Uuid = IdGenerator.GenerateId());
                                 });
                             }
                             if (x.WorkflowItemActivity.StudyDataCollection is not null && x.WorkflowItemActivity.StudyDataCollection.Any())
@@ -1569,8 +1564,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                             x.WorkflowItemActivity.DefinedProcedures.ForEach(y =>
                             {
                                 y.Uuid = IdGenerator.GenerateId();
-                                if (y.ProcedureCode is not null)
-                                    y.ProcedureCode.ForEach(z => z.Uuid = IdGenerator.GenerateId());
+                                y.ProcedureCode?.ForEach(z => z.Uuid = IdGenerator.GenerateId());
                             });
                         }
                         if (x.WorkflowItemActivity.StudyDataCollection is not null && x.WorkflowItemActivity.StudyDataCollection.Any())

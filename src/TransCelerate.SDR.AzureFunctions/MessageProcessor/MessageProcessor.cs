@@ -4,23 +4,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using TransCelerate.SDR.AzureFunctions.DataAccess;
-using TransCelerate.SDR.Core.Entities.StudyV2;
+using TransCelerate.SDR.Core.Entities.Common;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
+using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3;
 
 namespace TransCelerate.SDR.AzureFunctions
 {
     public class MessageProcessor : IMessageProcessor
     {
         #region Variables        
-        private readonly IHelperV2 _helper;
+        private readonly IHelperV2 _helperV2;
+        private readonly IHelperV3 _helperV3;
         private readonly IChangeAuditRepository _changeAuditReposotory;
         #endregion
         #region Constructor
-        public MessageProcessor(IChangeAuditRepository changeAuditReposotory, IHelperV2 helper)
+        public MessageProcessor(IChangeAuditRepository changeAuditReposotory, IHelperV2 helperV2, IHelperV3 helperV3)
         {
             _changeAuditReposotory = changeAuditReposotory;
-            _helper = helper;
+            _helperV3 = helperV3;
+            _helperV2 = helperV2;
         }
         #endregion
         #region Process Message For Change Audit
@@ -57,13 +60,25 @@ namespace TransCelerate.SDR.AzureFunctions
                 if (currentApiVersion == Constants.ApiVersions.V2)
                 {
                     //Get the studies with current and previous version
-                    List<StudyEntity> studyEntities = _changeAuditReposotory.GetStudyItemsAsync(serviceBusMessageEntity.Study_uuid, serviceBusMessageEntity.CurrentVersion);
+                    List<Core.Entities.StudyV2.StudyEntity> studyEntities = _changeAuditReposotory.GetStudyItemsAsyncV2(serviceBusMessageEntity.Study_uuid, serviceBusMessageEntity.CurrentVersion);
 
-                    StudyEntity currentStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion).FirstOrDefault();
-                    StudyEntity previousStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion - 1).FirstOrDefault();
+                    Core.Entities.StudyV2.StudyEntity currentStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion).FirstOrDefault();
+                    Core.Entities.StudyV2.StudyEntity previousStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion - 1).FirstOrDefault();
 
                     //Get the changes between current and previous version
-                    changedValues = _helper.GetChangedValues(currentStudyVersion, previousStudyVersion);
+                    changedValues = _helperV2.GetChangedValues(currentStudyVersion, previousStudyVersion);
+                    changedValues = FormatChangeAuditElements(changedValues);
+                }
+                if (currentApiVersion == Constants.ApiVersions.V3)
+                {
+                    //Get the studies with current and previous version
+                    List<Core.Entities.StudyV3.StudyEntity> studyEntities = _changeAuditReposotory.GetStudyItemsAsyncV3(serviceBusMessageEntity.Study_uuid, serviceBusMessageEntity.CurrentVersion);
+
+                    Core.Entities.StudyV3.StudyEntity currentStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion).FirstOrDefault();
+                    Core.Entities.StudyV3.StudyEntity previousStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion - 1).FirstOrDefault();
+
+                    //Get the changes between current and previous version
+                    changedValues = _helperV3.GetChangedValues(currentStudyVersion, previousStudyVersion);
                     changedValues = FormatChangeAuditElements(changedValues);
                 }
 
@@ -85,7 +100,7 @@ namespace TransCelerate.SDR.AzureFunctions
             List<string> formattedList = new();
             elements.ForEach(element =>
             {
-                if (!element.EndsWith($".{nameof(StudyIdentifierEntity.Id)}"))
+                if (!element.EndsWith($".{nameof(Core.Entities.StudyV2.StudyIdentifierEntity.Id)}"))
                 {
                     // Remove The index numbers
                     element = Regex.Replace(element, "[0-9]", string.Empty, RegexOptions.None, TimeSpan.FromMilliseconds(1000));

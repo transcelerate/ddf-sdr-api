@@ -97,8 +97,10 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 Oid = "aw2dq254wfdsf",
                 Groups = groupList
             };
-            List<PostUserToGroupsDTO> postUserToGroups = new();
-            postUserToGroups.Add(postUserToGroupsDTO);
+            List<PostUserToGroupsDTO> postUserToGroups = new()
+            {
+                postUserToGroupsDTO
+            };
             IEnumerable<PostUserToGroupsDTO> postUserToGroupsIenum = JsonConvert.DeserializeObject<IEnumerable<PostUserToGroupsDTO>>(
                                                                     JsonConvert.SerializeObject(postUserToGroups));
             return postUserToGroupsIenum;

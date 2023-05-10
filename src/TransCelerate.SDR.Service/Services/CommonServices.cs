@@ -73,6 +73,11 @@ namespace TransCelerate.SDR.Services.Services
                         if (!await CheckAccessForAStudy(studyId, (string)jsonObject["studyType"]["decode"], user))
                             return Constants.ErrorMessages.Forbidden;
                     }
+                    else if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.V1_9)
+                    {
+                        if (!await CheckAccessForAStudy(studyId, (string)jsonObject["studyType"]["decode"], user))
+                            return Constants.ErrorMessages.Forbidden;
+                    }
                     else if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.V2)
                     {
                         if (!await CheckAccessForAStudy(studyId, (string)jsonObject["studyType"]["decode"], user))
@@ -91,198 +96,6 @@ namespace TransCelerate.SDR.Services.Services
                 _logger.LogInformation($"Ended Service : {nameof(CommonServices)}; Method : {nameof(GetRawJson)};");
             }
         }
-
-        /// <summary>
-        /// GET All Elements For a Study
-        /// </summary>
-        /// <param name="studyId">Study ID</param>
-        /// <param name="sdruploadversion">Version of study</param>
-        /// <param name="studyDesignId">studyDesignId</param>
-        /// <param name="user">Logged in user</param>
-        /// <returns>
-        /// A <see cref="object"/> with matching studyId <br></br> <br></br>
-        /// <see langword="null"/> If no study is matching with studyId
-        /// </returns>
-        public async Task<object> GeteCPT(string studyId, int sdruploadversion, string studyDesignId, LoggedInUser user)
-        {
-            try
-            {
-                _logger.LogInformation($"Started Service : {nameof(CommonServices)}; Method : {nameof(GeteCPT)};");
-                studyId = studyId.Trim();
-
-                var study = await _commonRepository.GetStudyItemsAsync(studyId: studyId, sdruploadversion: sdruploadversion).ConfigureAwait(false);
-
-                if (study == null)
-                {
-                    return null;
-                }
-                else
-                {
-                    if (study.AuditTrail.UsdmVersion != Constants.USDMVersions.V2)
-                        return Constants.ErrorMessages.eCPTError;
-
-                    var jsonObject = JObject.Parse(JsonConvert.SerializeObject(study.ClinicalStudy));
-                    if (!await CheckAccessForAStudy(studyId, (string)jsonObject["studyType"]["decode"], user))
-                        return Constants.ErrorMessages.Forbidden;
-
-                    var studyV2 = JsonConvert.DeserializeObject<TransCelerate.SDR.Core.DTO.StudyV2.ClinicalStudyDto>(JsonConvert.SerializeObject(study.ClinicalStudy));
-
-                    if (studyV2.StudyDesigns == null || !studyV2.StudyDesigns.Any())
-                        return Constants.ErrorMessages.StudyDesignNotFoundCPT;
-
-                    if (studyDesignId != null)
-                    {
-                        if (studyV2.StudyDesigns.Any(x => x.Id == studyDesignId))
-                            studyV2.StudyDesigns.RemoveAll(x => x.Id != studyDesignId);
-                        else
-                            return Constants.ErrorMessages.StudyDesignIdNotFoundCPT;
-                    }
-
-                    var eCPT = GetCPTDataV2(studyV2, study.AuditTrail);
-
-                    return eCPT;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                _logger.LogInformation($"Ended Service : {nameof(CommonServices)}; Method : {nameof(GeteCPT)};");
-            }
-        }
-
-        public ECPTDto GetCPTDataV2(TransCelerate.SDR.Core.DTO.StudyV2.ClinicalStudyDto clinicalStudyDto, AuditTrailEntity auditTrail)
-        {
-            var links = LinksHelper.GetLinks(clinicalStudyDto.StudyId, clinicalStudyDto.StudyDesigns.Select(c => c.Id).ToList(), auditTrail.UsdmVersion, auditTrail.SDRUploadVersion);
-            StudyDetailsDto studyDetailsDto = new()
-            {
-                StudyId = clinicalStudyDto.StudyId,
-                StudyTitle = clinicalStudyDto.StudyTitle,
-
-                UsdmVersion = auditTrail.UsdmVersion,
-                SDRUploadVersion = auditTrail.SDRUploadVersion,
-                Links = new
-                {
-                    links.StudyDefinitions,
-                    links.RevisionHistory
-                },
-            };
-            List<StudyDesignDto> studyeCPTDtos = new();
-            if (clinicalStudyDto.StudyDesigns != null && clinicalStudyDto.StudyDesigns.Any())
-            {
-
-                clinicalStudyDto.StudyDesigns.ForEach(design =>
-                {
-                    StudyDesignDto studyeCPTDto = new()
-                    {
-                        StudyDesignId = design.Id,
-                        StudyDesignLink = links.StudyDesigns.Find(x => x.StudyDesignId == design.Id).StudyDesignLink,
-                        StudyDesignName = design.StudyDesignName,
-                        ECPTData = new ECPTDataDto
-                        {
-                            TitlePage = new TitlePageDto
-                            {
-                                Acronym = clinicalStudyDto.StudyAcronym,
-                                AmendmentNumber = clinicalStudyDto.StudyProtocolVersions != null && clinicalStudyDto.StudyProtocolVersions.Any() ? ECPTHelper.GetOrderedStudyProtocols(clinicalStudyDto.StudyProtocolVersions).ProtocolAmendment : null,
-                                ApprovalDate = clinicalStudyDto.StudyProtocolVersions != null && clinicalStudyDto.StudyProtocolVersions.Any() ? ECPTHelper.GetOrderedStudyProtocols(clinicalStudyDto.StudyProtocolVersions).ProtocolEffectiveDate : null,
-                                ConditionDisease = design.StudyIndications != null && design.StudyIndications.Any() ?
-                                                   design.StudyIndications.Count == 1 ?
-                                                   design.StudyIndications.FirstOrDefault().IndicationDescription
-                                                   : $"{String.Join(',', design.StudyIndications.Select(x => x.IndicationDescription).ToArray(), 0, design.StudyIndications.Count - 1)} and {design.StudyIndications.Select(x => x.IndicationDescription).LastOrDefault()}"
-                                                   : null,
-                                RegulatoryAgencyId = clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.REGULATORY_AGENCY, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifierScope.OrganisationIdentifierScheme).FirstOrDefault(),
-                                RegulatoryAgencyNumber = clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.REGULATORY_AGENCY, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifier).FirstOrDefault(),
-                                SponsorName = clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifierScope.OrganisationName).FirstOrDefault(),
-                                SponsorLegalAddress = clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifierScope.OrganizationLegalAddress).FirstOrDefault() == null ? null
-                                                                : clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifierScope.OrganizationLegalAddress).Select(x => $"{x.Text},{x.Line},{x.City},{x.District},{x.State},{x.PostalCode},{x.Country?.Decode}").FirstOrDefault(),
-                                StudyPhase = ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.StudyPhase, clinicalStudyDto.StudyPhase?.StandardCode?.Code) ?? clinicalStudyDto.StudyPhase?.StandardCode?.Decode,
-                                Protocol = new ProtocolDto
-                                {
-                                    ProtocolID = clinicalStudyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifier).FirstOrDefault(),
-                                    ProtocolShortTitle = clinicalStudyDto.StudyProtocolVersions != null && clinicalStudyDto.StudyProtocolVersions.Any() ? ECPTHelper.GetOrderedStudyProtocols(clinicalStudyDto.StudyProtocolVersions).BriefTitle : null,
-                                    ProtocolTitle = clinicalStudyDto.StudyTitle
-                                }
-                            },
-                            ProtocolSummary = new ProtocolSummaryDto
-                            {
-                                Synopsis = new SynopsisDto
-                                {
-                                    NumberofParticipants = design.StudyPopulations?.Sum(x => x.PlannedNumberOfParticipants).ToString(),
-                                    PrimaryPurpose = design.TrialIntentType != null && design.TrialIntentType.Any() ?
-                                                   design.TrialIntentType.Count == 1 ? ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, design.TrialIntentType.FirstOrDefault().Code) ?? design.TrialIntentType.FirstOrDefault().Decode
-                                                   : $"{String.Join(',', design.TrialIntentType.Select(x => ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, x.Code) ?? x.Decode).ToArray(), 0, design.TrialIntentType.Count - 1)}" +
-                                                   $" and {design.TrialIntentType.Select(x => ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, x.Code) ?? x.Decode).LastOrDefault()}"
-                                                   : null,
-                                    EnrollmentTarget = design.StudyPopulations != null && design.StudyPopulations.Any() ?
-                                                      design.StudyPopulations.Count == 1 ? design.StudyPopulations.FirstOrDefault().PopulationDescription
-                                                      : $"{String.Join(',', design.StudyPopulations.Select(x => x.PopulationDescription).ToArray(), 0, design.StudyPopulations.Count - 1)} and {design.StudyPopulations.Select(x => x.PopulationDescription).LastOrDefault()}"
-                                                      : null,
-                                    InterventionModel = ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.InterventionModel, design?.InterventionModel?.Code) ?? design?.InterventionModel?.Decode,
-                                    NumberofArms = design.StudyCells != null && design.StudyCells.Any() ?
-                                                    design.StudyCells.Where(x => x.StudyArm != null).Any() ?
-                                                    design.StudyCells.Where(x => x.StudyArm != null).Select(x => x.StudyArm.Id).Distinct().Count().ToString() : 0.ToString() : 0.ToString()
-                                }
-                            },
-                            PageHeader = new PageHeaderDto
-                            {
-                                VersionNumber = clinicalStudyDto.StudyProtocolVersions != null && clinicalStudyDto.StudyProtocolVersions.Any() ? ECPTHelper.GetOrderedStudyProtocols(clinicalStudyDto.StudyProtocolVersions).ProtocolVersion : null,
-                            },
-                            StudyPopulation = new StudyPopulationDto
-                            {
-                                InclusionCriteria = new InclusionCriteriaDto
-                                {
-
-                                    PlannedMaximumAgeofSubjects = design.StudyPopulations != null && design.StudyPopulations.Any() ?
-                                                                           ECPTHelper.CheckForMaxMin(design.StudyPopulations.Select(x => x.PlannedMaximumAgeOfParticipants).ToList(), true) : null,
-
-                                    PlannedMinimumAgeofSubjects = design.StudyPopulations != null && design.StudyPopulations.Any() ?
-                                                                           ECPTHelper.CheckForMaxMin(design.StudyPopulations.Select(x => x.PlannedMinimumAgeOfParticipants).ToList(), false) : null,
-
-                                    SexofParticipants = ECPTHelper.GetPlannedSexOfParticipants(design.StudyPopulations)
-                                }
-                            },
-                            Introduction = new IntroductionDto
-                            {
-                                StudyRationale = clinicalStudyDto.StudyRationale
-                            },
-                            StudyDesign = new StudyDesignCptDto
-                            {
-                                ScientificRationaleForStudyDesign = design.StudyDesignRationale
-                            },
-                            StatisticalConsiderations = new StatisticalConsiderationsDto
-                            {
-                                PopulationsForAnalyses = design.StudyEstimands != null && design.StudyEstimands.Any() ?
-                                                   design.StudyEstimands.Count == 1 ?
-                                                   design.StudyEstimands.FirstOrDefault().AnalysisPopulation.PopulationDescription
-                                                   : $"{String.Join(',', design.StudyEstimands.Select(x => x.AnalysisPopulation.PopulationDescription).ToArray(), 0, design.StudyEstimands.Count - 1)} and {design.StudyEstimands.Select(x => x.AnalysisPopulation.PopulationDescription).LastOrDefault()}"
-                                                   : null,
-                            },
-                            ObjectivesEndpointsAndEstimands = ECPTHelper.GetObjectivesEndpointsAndEstimandsDto(design.StudyObjectives, _mapper),
-                            StudyInterventionsAndConcomitantTherapy = new StudyInterventionsAndConcomitantTherapyDto
-                            {
-                                StudyInterventionsAdministered = design.StudyInvestigationalInterventions != null && design.StudyInvestigationalInterventions.Any() ?
-                                           _mapper.Map<List<StudyInterventionsAdministeredDto>>(design.StudyInvestigationalInterventions)
-                                           : null,
-                                StudyArms = design.StudyCells != null && design.StudyCells.Any() ?
-                                           design.StudyCells.Where(x => x.StudyArm != null).Any() ?
-                                           _mapper.Map<List<StudyArmDto>>(design.StudyCells.Where(x => x.StudyArm != null).Select(x => x.StudyArm).ToList())
-                                           : null : null
-                            }
-
-                        }
-                    };
-                    studyeCPTDtos.Add(studyeCPTDto);
-                });
-            }
-            return new ECPTDto
-            {
-                StudyDesign = studyeCPTDtos,
-                StudyDetails = studyDetailsDto
-            };
-        }
-
 
         /// <summary>
         /// GET Audit Trial
@@ -370,9 +183,7 @@ namespace TransCelerate.SDR.Services.Services
                                                   StudyId = x.StudyId,
                                                   SDRUploadVersion = x.SDRUploadVersion
                                               })
-                                              .ToList();
-
-                    //List<StudyHistoryResponseDto> studyHistoryResponse = JsonConvert.DeserializeObject<List<StudyHistoryResponseDto>>(JsonConvert.SerializeObject(studyHistory));
+                                              .ToList();                    
 
                     return studyHistory;
                 }
@@ -797,9 +608,34 @@ namespace TransCelerate.SDR.Services.Services
 
                 return null;
             }
-            if (searchParameters.UsdmVersion == Constants.USDMVersions.V2)
+            if (searchParameters.UsdmVersion == Constants.USDMVersions.V1_9)
             {
                 var searchResponse = await _commonRepository.SearchStudyV2(searchParameters, loggedInUser);
+                var searchResponseDtos = _mapper.Map<List<SearchResponseDto>>(searchResponse);
+
+                if (searchResponseDtos.Any())
+                {
+                    searchResponseDtos.ForEach(searchResponseDto =>
+                    {
+                        var searchResponseV2 = searchResponse.FirstOrDefault(x => x.StudyId == searchResponseDto.ClinicalStudy.StudyId && x.SDRUploadVersion == searchResponseDto.AuditTrail.SDRUploadVersion);
+
+                        searchResponseDto.ClinicalStudy.StudyIdentifiers = _mapper.Map<List<CommonStudyIdentifiersDto>>(searchResponseV2.StudyIdentifiers);
+                        searchResponseDto.ClinicalStudy.StudyPhase = _mapper.Map<CommonCodeDto>(searchResponseV2.StudyPhase?.StandardCode);
+                        searchResponseDto.ClinicalStudy.StudyDesigns = new List<CommonStudyDesign> { new CommonStudyDesign
+                        {
+                            InterventionModel = _mapper.Map<List<CommonCodeDto>>(searchResponseV2.InterventionModel?.ToList()),
+                            StudyIndications = _mapper.Map<List<Core.DTO.Common.CommonStudyIndication>>(searchResponseV2.StudyIndications?.Where(x => x != null && x.Any()).SelectMany(x=>x).ToList())
+                        } };
+                        searchResponseDto.Links = LinksHelper.GetLinksForUi(searchResponseDto.ClinicalStudy.StudyId, searchResponseV2.StudyDesignIds?.ToList(), searchResponseDto.AuditTrail.UsdmVersion, searchResponseDto.AuditTrail.SDRUploadVersion);
+                    });
+                    return searchResponseDtos;
+                }
+
+                return null;
+            }
+            if (searchParameters.UsdmVersion == Constants.USDMVersions.V2)
+            {
+                var searchResponse = await _commonRepository.SearchStudyV3(searchParameters, loggedInUser);
                 var searchResponseDtos = _mapper.Map<List<SearchResponseDto>>(searchResponse);
 
                 if (searchResponseDtos.Any())
@@ -918,6 +754,11 @@ namespace TransCelerate.SDR.Services.Services
                                     if (!groupFilters.Item1.Contains((string)jsonObject["studyType"]["decode"].ToString().ToLower()))
                                         study.HasAccess = false;
                                 }
+                                else if (study.UsdmVersion == Constants.USDMVersions.V1_9)
+                                {
+                                    if (!groupFilters.Item1.Contains((string)jsonObject["studyType"]["decode"].ToString().ToLower()))
+                                        study.HasAccess = false;
+                                }
                                 else if (study.UsdmVersion == Constants.USDMVersions.V2)
                                 {
                                     if (!groupFilters.Item1.Contains((string)jsonObject["studyType"]["decode"].ToString().ToLower()))
@@ -992,6 +833,11 @@ namespace TransCelerate.SDR.Services.Services
                                         study.HasAccess = false;
                                 }
                                 else if (study.UsdmVersion == Constants.USDMVersions.V1)
+                                {
+                                    if (!groupFilters.Item1.Contains((string)jsonObject["studyType"]["decode"].ToString().ToLower()))
+                                        study.HasAccess = false;
+                                }
+                                else if (study.UsdmVersion == Constants.USDMVersions.V1_9)
                                 {
                                     if (!groupFilters.Item1.Contains((string)jsonObject["studyType"]["decode"].ToString().ToLower()))
                                         study.HasAccess = false;

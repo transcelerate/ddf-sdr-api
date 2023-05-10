@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using System;
 using System.Threading.Tasks;
-using TransCelerate.SDR.Core.DTO.StudyV2;
+using TransCelerate.SDR.Core.DTO.Common;
 using TransCelerate.SDR.Core.DTO.Token;
-using TransCelerate.SDR.Core.Entities.StudyV2;
+using TransCelerate.SDR.Core.Entities.Common;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.DataAccess.Interfaces;
@@ -15,16 +15,16 @@ namespace TransCelerate.SDR.Services.Services
     {
         #region Variables
         private readonly IChangeAuditRepository _changeAuditRepository;
-        private readonly IClinicalStudyServiceV2 _clinicalStudyServiceV2;
+        private readonly ICommonService _commonService;
         private readonly IMapper _mapper;
         private readonly ILogHelper _logger;
         #endregion
 
         #region Constructor
-        public ChangeAuditService(IChangeAuditRepository changeAuditRepository, IMapper mapper, ILogHelper logger, IClinicalStudyServiceV2 clinicalStudyServiceV2)
+        public ChangeAuditService(IChangeAuditRepository changeAuditRepository, IMapper mapper, ILogHelper logger, ICommonService commonService)
         {
             _changeAuditRepository = changeAuditRepository;
-            _clinicalStudyServiceV2 = clinicalStudyServiceV2;
+            _commonService = commonService;
             _mapper = mapper;
             _logger = logger;
         }
@@ -46,9 +46,9 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {
-                    bool checkAccessForStudy = await _clinicalStudyServiceV2.GetAccessForAStudy(studyId, 0, user).ConfigureAwait(false);
+                    var checkAccessForStudy = await _commonService.GetRawJson(studyId, 0, user).ConfigureAwait(false);
 
-                    return checkAccessForStudy ? _mapper.Map<ChangeAuditStudyDto>(changeAudit) : Constants.ErrorMessages.Forbidden;
+                    return checkAccessForStudy is not null ? _mapper.Map<ChangeAuditStudyDto>(changeAudit) : Constants.ErrorMessages.Forbidden;
                 }
             }
             catch (Exception)

@@ -28,7 +28,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
             {
                 EntryDateTime = DateTime.UtcNow,
                 CreatedBy = user,
-                UsdmVersion = Constants.USDMVersions.V2
+                UsdmVersion = Constants.USDMVersions.V1_9
             };
         }
 
@@ -475,15 +475,14 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                     {
                         x.ObjectiveLevel.Id = null;
                     }
-                    if (x.ObjectiveEndpoints is not null)
-                    {
-                        x.ObjectiveEndpoints.ForEach(y =>
-                        {
-                            y.Id = null;
-                            if (y.EndpointLevel is not null)
-                                y.EndpointLevel.Id = null;
-                        });
-                    }
+                    x.ObjectiveEndpoints?.ForEach(y => 
+                    { 
+                        y.Id = null; 
+                        if (y.EndpointLevel is not null) 
+                        { 
+                            y.EndpointLevel.Id = null; 
+                        } 
+                    });
                 });
             }
             return objectives;

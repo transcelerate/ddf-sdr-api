@@ -48,7 +48,7 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
         Task<object> GetStudyDesigns(string studyId, string studyDesignId, int sdruploadversion, LoggedInUser user, string[] listofelements);
-
+        
         /// <summary>
         /// GET SoA
         /// </summary>
@@ -61,20 +61,7 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        Task<object> GetSOA(string studyId, string studyDesignId, string scheduleTimelineId, int sdruploadversion, LoggedInUser user);
-        /// <summary>
-        /// GET SoA
-        /// </summary>
-        /// <param name="studyId">Study ID</param>
-        /// <param name="sdruploadversion">Version of study</param>
-        /// <param name="scheduleTimelineId">workdflowId</param>
-        /// <param name="studyDesignId">study design Id</param>
-        /// <param name="user">Logged In User</param>
-        /// <returns>
-        /// A <see cref="object"/> with matching studyId <br></br> <br></br>
-        /// <see langword="null"/> If no study is matching with studyId
-        /// </returns>
-        Task<object> GetSOAV3(string studyId, string studyDesignId, string scheduleTimelineId, int sdruploadversion, LoggedInUser user);
+        Task<object> GetSOAV2(string studyId, string studyDesignId, string scheduleTimelineId, int sdruploadversion, LoggedInUser user);
         /// <summary>
         /// GET Study Designs of a Study
         /// </summary>
@@ -88,31 +75,19 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
         Task<object> GetPartialStudyDesigns(string studyId, string studyDesignId, int sdruploadversion, LoggedInUser user, string[] listofelements);
+        
         /// <summary>
-        /// GET Audit Trial
+        /// GET eCPT Elements For a Study
         /// </summary>
-        /// <param name="fromDate">Start Date for Date Filter</param>
-        /// <param name="toDate">End Date for Date Filter</param>
         /// <param name="studyId">Study ID</param>
-        /// <param name="user">Logged In User</param>
+        /// <param name="sdruploadversion">Version of study</param>
+        /// <param name="studyDesignId">studyDesignId</param>
+        /// <param name="user">Logged in user</param>
         /// <returns>
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        Task<object> GetAuditTrail(string studyId, DateTime fromDate, DateTime toDate, LoggedInUser user);
-
-        /// <summary>
-        /// Get AllStudy Id's
-        /// </summary>
-        /// <param name="fromDate">Start Date for Date Filter</param>
-        /// <param name="toDate">End Date for Date Filter</param>
-        /// <param name="studyTitle">Study Title Filter</param>
-        /// <param name="user">Logged In User</param>
-        /// <returns>
-        /// A <see cref="List{StudyHistoryResponseEntity}"/> which has list of study ID's <br></br> <br></br>
-        /// <see langword="null"/> If no study is matching with studyId
-        /// </returns>
-        Task<List<StudyHistoryResponseDto>> GetStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle, LoggedInUser user);
+        Task<object> GeteCPTV2(string studyId, int sdruploadversion, string studyDesignId, LoggedInUser user);
         #endregion
 
 

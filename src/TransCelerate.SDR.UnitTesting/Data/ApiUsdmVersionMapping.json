@@ -17,6 +17,12 @@
       "usdmVersions": [
         "1.9"
       ]
+    },
+    {
+      "apiVersion": "v3",
+      "usdmVersions": [
+        "2.0"
+      ]
     }
   ]
 }
