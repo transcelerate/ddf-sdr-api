@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.StudyV2;
@@ -52,7 +51,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>
         [HttpGet]
-        [ApiVersion(Constants.USDMVersions.V2)]
+        [ApiVersion(Constants.USDMVersions.V1_9)]
         [Route(Route.StudyV2)]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
@@ -118,7 +117,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="404">The Study for the studyId is Not Found</response>
         [HttpGet]
         [Route(Route.StudyDesignV2)]
-        [ApiVersion(Constants.USDMVersions.V2)]
+        [ApiVersion(Constants.USDMVersions.V1_9)]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
@@ -174,76 +173,6 @@ namespace TransCelerate.SDR.WebApi.Controllers
         }
 
         /// <summary>
-        /// GET SoA For a Study
-        /// </summary>
-        /// <param name="studyId">Study ID</param>
-        /// <param name="studyDesignId">Study Design ID</param>
-        /// <param name="sdruploadversion">Version of study</param>
-        /// <param name="scheduleTimelineId">Schedule Timeline Id</param>
-        /// <response code="200">Returns Study</response>
-        /// <response code="400">Bad Request</response>
-        /// <response code="404">The Study for the studyId is Not Found</response>
-        [HttpGet]
-        [Route(Route.SoAV3)]//To be changed after versioning
-        [ApiVersion(Constants.USDMVersions.V2)]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDto))]
-        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
-        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
-        [Produces("application/json")]
-        [NonAction]
-        public async Task<IActionResult> GetSOA(string studyId, string studyDesignId, string scheduleTimelineId, int sdruploadversion)
-        {
-            try
-            {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudyDesigns)};");
-                if (!String.IsNullOrWhiteSpace(studyId))
-                {
-                    _logger.LogInformation($"Inputs : study_uuid = {studyId}; sdruploadversion = {sdruploadversion}; WorkflowId: {scheduleTimelineId}; studydesign_uuid: {studyDesignId}");
-                    if (String.IsNullOrWhiteSpace(studyDesignId) && !String.IsNullOrWhiteSpace(scheduleTimelineId))
-                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.EnterDesignIdError)).Value);
-
-                    LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
-
-                    var SoA = await _clinicalStudyService.GetSOA(studyId, studyDesignId, scheduleTimelineId, sdruploadversion, user).ConfigureAwait(false);
-
-                    if (SoA == null)
-                    {
-                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
-                    }
-                    else if (SoA.ToString() == Constants.ErrorMessages.Forbidden)
-                    {
-                        return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
-                    }
-                    else if (SoA.ToString() == Constants.ErrorMessages.StudyDesignNotFound)
-                    {
-                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyDesignNotFound)).Value);
-                    }
-                    else if (SoA.ToString() == Constants.ErrorMessages.ScheduleTimelineNotFound)
-                    {
-                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.ScheduleTimelineNotFound)).Value);
-                    }
-                    else
-                    {
-                        return Ok(SoA);
-                    }
-                }
-                else
-                {
-                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Exception occured. Exception : {ex}");
-                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
-            }
-            finally
-            {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudyDesigns)};");
-            }
-        }
-
-        /// <summary>
         /// GET SoA For a Study USDM Version 2.0
         /// </summary>
         /// <param name="studyId">Study ID</param>
@@ -254,13 +183,13 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>
         [HttpGet]
-        [Route(Route.SoAV2)] //To be changed after versioning
-        [ApiVersion(Constants.USDMVersions.V2)]
+        [Route(Route.SoAV2)] 
+        [ApiVersion(Constants.USDMVersions.V1_9)]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetSOAV3(string studyId, string studyDesignId, string scheduleTimelineId, int sdruploadversion)
+        public async Task<IActionResult> GetSOAV2(string studyId, string studyDesignId, string scheduleTimelineId, int sdruploadversion)
         {
             try
             {
@@ -273,7 +202,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
 
                     LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
 
-                    var SoA = await _clinicalStudyService.GetSOAV3(studyId, studyDesignId, scheduleTimelineId, sdruploadversion, user).ConfigureAwait(false);
+                    var SoA = await _clinicalStudyService.GetSOAV2(studyId, studyDesignId, scheduleTimelineId, sdruploadversion, user).ConfigureAwait(false);
 
                     if (SoA == null)
                     {
@@ -311,57 +240,58 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudyDesigns)};");
             }
         }
+
         /// <summary>
-        /// GET Audit Trail of a study
+        /// GET eCPT Elements For a Study
         /// </summary>
-        /// <param name="fromDate">Start Date for Date Filter</param>
-        /// <param name="toDate">End Date for Date Filter</param>
         /// <param name="studyId">Study ID</param>
-        /// <response code="200">Returns a list of Audit Trail of a study</response>
+        /// <param name="sdruploadversion">Version of study</param> 
+        /// <param name="studydesignId">studyDesignId</param> 
+        /// <response code="200">Returns Study</response>
         /// <response code="400">Bad Request</response>
-        /// <response code="404">The Audit trail for the study is Not Found</response>
+        /// <response code="404">The Study for the studyId is Not Found</response>
         [HttpGet]
-        [Route(Route.AuditTrailV2)]
-        [NonAction]
-        [ApiVersionNeutral]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IEnumerable<AudiTrailResponseDto>))]
+        [Route(Route.GeteCPTV2)]
+        [ApiVersion(Constants.USDMVersions.V1_9)]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> GetAuditTrail(string studyId, DateTime fromDate, DateTime toDate)
+        public async Task<IActionResult> GeteCPTV2(string studyId, int sdruploadversion, string studydesignId)
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetAuditTrail)};");
+                _logger.LogInformation($"Started Controller : {nameof(CommonController)}; Method : {nameof(GeteCPTV2)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
-                    _logger.LogInformation($"Inputs : studyId = {studyId}; fromDate = {fromDate}; toDate = {toDate}");
+                    _logger.LogInformation($"Inputs : studyId = {studyId}; sdruploadversion = {sdruploadversion};");
 
                     LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
 
-                    Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(fromDate, toDate, -1);
+                    var study = await _clinicalStudyService.GeteCPTV2(studyId, sdruploadversion, studydesignId, user);
 
-                    fromDate = fromAndToDate.Item1;
-                    toDate = fromAndToDate.Item2;
-                    if (fromDate <= toDate)
+                    if (study == null)
                     {
-                        var studyAuditResponse = await _clinicalStudyService.GetAuditTrail(studyId, fromDate, toDate, user);
-                        if (studyAuditResponse == null)
-                        {
-                            return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
-                        }
-                        else if (studyAuditResponse.ToString() == Constants.ErrorMessages.Forbidden)
-                        {
-                            return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
-                        }
-                        else
-                        {
-                            return Ok(studyAuditResponse);
-                        }
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
+                    }
+                    else if (study.ToString() == Constants.ErrorMessages.Forbidden)
+                    {
+                        return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
+                    }
+                    else if (study.ToString() == Constants.ErrorMessages.eCPTError)
+                    {
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.eCPTError)).Value);
+                    }
+                    else if (study.ToString() == Constants.ErrorMessages.StudyDesignNotFoundCPT)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyDesignNotFoundCPT)).Value);
+                    }
+                    else if (study.ToString() == Constants.ErrorMessages.StudyDesignIdNotFoundCPT)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyDesignIdNotFoundCPT)).Value);
                     }
                     else
                     {
-                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError)).Value);
+                        return Ok(study);
                     }
                 }
                 else
@@ -376,67 +306,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetAuditTrail)};");
-            }
-        }
-
-        /// <summary>
-        /// Get All StudyId's in the database
-        /// </summary>
-        /// <param name="fromDate">Start Date for Date Filter</param>
-        /// <param name="toDate">End Date for Date Filter</param>
-        /// <param name="studyTitle">Study Title Filter</param>
-        /// <response code="200">Returns All Study Id's</response>
-        /// <response code="400">Bad Request</response>
-        /// <response code="404">There is no study</response>
-        [HttpGet]
-        [Route(Route.StudyHistoryV2)]
-        [ApiVersionNeutral]
-        [NonAction]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyHistoryResponseDto))]
-        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
-        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
-        [Produces("application/json")]
-        public async Task<IActionResult> GetStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle)
-        {
-            try
-            {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudyHistory)};");
-
-                LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
-
-                _logger.LogInformation($"Inputs: FromDate: {fromDate}; ToDate: {toDate}; DateRange from Key Vault :{Config.DateRange}");
-
-                Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(fromDate, toDate, Convert.ToInt32(Config.DateRange));
-
-                fromDate = fromAndToDate.Item1;
-                toDate = fromAndToDate.Item2;
-
-                if (fromDate <= toDate)
-                {
-                    var studyHistoryResponse = await _clinicalStudyService.GetStudyHistory(fromDate, toDate, studyTitle, user);
-                    if (studyHistoryResponse == null)
-                    {
-                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
-                    }
-                    else
-                    {
-                        return Ok(studyHistoryResponse);
-                    }
-                }
-                else
-                {
-                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError)).Value);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Exception occured. Exception : {ex}");
-                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
-            }
-            finally
-            {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetStudyHistory)};");
+                _logger.LogInformation($"Ended Controller : {nameof(CommonController)}; Method : {nameof(GeteCPTV2)};");
             }
         }
         #endregion
@@ -450,7 +320,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="201">Study Created</response>
         /// <response code="400">Bad Request</response>       
         [HttpPost]
-        [ApiVersion(Constants.USDMVersions.V2)]
+        [ApiVersion(Constants.USDMVersions.V1_9)]
         [Route(Route.PostElementsV2)]
         [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
@@ -516,7 +386,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="201">Study Created</response>
         /// <response code="400">Bad Request</response>       
         [HttpPut]
-        [ApiVersion(Constants.USDMVersions.V2)]
+        [ApiVersion(Constants.USDMVersions.V1_9)]
         [Route(Route.StudyV2)]
         [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]

@@ -119,8 +119,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             {
                 //study objectives Id
                 studyObjectivesEntity.ObjectiveId = IdGenerator.GenerateId();
-                if (studyObjectivesEntity.Endpoints != null)
-                    studyObjectivesEntity.Endpoints.ForEach(x => x.EndPointsId = IdGenerator.GenerateId());
+                studyObjectivesEntity.Endpoints?.ForEach(x => x.EndPointsId = IdGenerator.GenerateId());
 
                 return studyObjectivesEntity;
             }
@@ -153,14 +152,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 if (plannedWorkFlowEntity.WorkflowItemMatrix != null)
                 {
                     plannedWorkFlowEntity.WorkflowItemMatrix.WorkFlowItemMatrixId = IdGenerator.GenerateId();
-                    if (plannedWorkFlowEntity.WorkflowItemMatrix.Matrix != null)
-                    {
-                        plannedWorkFlowEntity.WorkflowItemMatrix.Matrix.FindAll(x => x != null).ForEach(m =>
+                    plannedWorkFlowEntity.WorkflowItemMatrix.Matrix?.FindAll(x => x != null).ForEach(m =>
                         {
                             m.MatrixId = IdGenerator.GenerateId();
-                            if (m.Items != null)
-                            {
-                                m.Items.FindAll(x => x != null).ForEach(item =>
+                            m.Items?.FindAll(x => x != null).ForEach(item =>
                                 {
                                     item.ItemId = IdGenerator.GenerateId();
                                     if (item.FromPointInTime != null)
@@ -172,8 +167,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                     if (item.Activity != null)
                                     {
                                         item.Activity.ActivityId = IdGenerator.GenerateId();
-                                        if (item.Activity.StudyDataCollection != null)
-                                            item.Activity.StudyDataCollection.FindAll(x => x != null).ForEach(sdc => sdc.StudyDataCollectionId = IdGenerator.GenerateId());
+                                        item.Activity.StudyDataCollection?.FindAll(x => x != null).ForEach(sdc => sdc.StudyDataCollectionId = IdGenerator.GenerateId());
                                     }
                                     if (item.Encounter != null)
                                     {
@@ -188,9 +182,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                             item.Encounter.Epoch.EpochId = IdGenerator.GenerateId();
                                     }
                                 });
-                            }
                         });
-                    }
                 }
 
                 return plannedWorkFlowEntity;
@@ -220,9 +212,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 if (studyCellEntity.StudyEpoch != null)
                     studyCellEntity.StudyEpoch.StudyEpochId = IdGenerator.GenerateId();
 
-                if (studyCellEntity.StudyElements != null)
-                {
-                    studyCellEntity.StudyElements.FindAll(x => x != null).ForEach(e =>
+                studyCellEntity.StudyElements?.FindAll(x => x != null).ForEach(e =>
                     {
                         e.StudyElementId = IdGenerator.GenerateId();
                         if (e.StartRule != null)
@@ -230,7 +220,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                         if (e.EndRule != null)
                             e.EndRule.RuleId = IdGenerator.GenerateId();
                     });
-                }
 
                 return studyCellEntity;
             }

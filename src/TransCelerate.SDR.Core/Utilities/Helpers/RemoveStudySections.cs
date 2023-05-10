@@ -192,18 +192,24 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             clinicalStudyJsonObject.Add(nameof(ClinicalStudyDTO.CurrentSections), currentSectionArray);
 
             var clinicalStudydata = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<ExpandoObject>(JsonConvert.SerializeObject(clinicalStudyJsonObject)), new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
-            JObject returnJsonObject = new();
-            returnJsonObject.Add(String.Concat(nameof(PostStudyDTO.ClinicalStudy)[..1].ToLower(), nameof(PostStudyDTO.ClinicalStudy)[1..]), JObject.Parse(clinicalStudydata));
-            returnJsonObject.Add(String.Concat(nameof(PostStudyDTO.AuditTrail)[..1].ToLower(), nameof(PostStudyDTO.AuditTrail)[1..]), JObject.Parse(JsonConvert.SerializeObject(studyEntity.AuditTrail, new JsonSerializerSettings
+            JObject returnJsonObject = new()
             {
-                ContractResolver = new DefaultContractResolver()
+                { String.Concat(nameof(PostStudyDTO.ClinicalStudy)[..1].ToLower(), nameof(PostStudyDTO.ClinicalStudy)[1..]), JObject.Parse(clinicalStudydata) },
                 {
-                    NamingStrategy = new CamelCaseNamingStrategy()
-                },
-                Formatting = Formatting.Indented
+                    String.Concat(nameof(PostStudyDTO.AuditTrail)[..1].ToLower(), nameof(PostStudyDTO.AuditTrail)[1..]),
+                    JObject.Parse(JsonConvert.SerializeObject(studyEntity.AuditTrail, new JsonSerializerSettings
+                    {
+                        ContractResolver = new DefaultContractResolver()
+                        {
+                            NamingStrategy = new CamelCaseNamingStrategy()
+                        },
+                        Formatting = Formatting.Indented
 
-            })));
-            returnJsonObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinksForUi(studyEntity.ClinicalStudy.StudyId,
+                    }))
+                },
+                {
+                    "links",
+                    JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinksForUi(studyEntity.ClinicalStudy.StudyId,
                 studyEntity.ClinicalStudy.CurrentSections?.Where(x => x.StudyDesigns != null).SelectMany(x => x.StudyDesigns)?.Select(x => x.StudyDesignId)?.ToList(),
                 studyEntity.AuditTrail.UsdmVersion, studyEntity.AuditTrail.StudyVersion), new JsonSerializerSettings
                 {
@@ -213,7 +219,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     },
                     Formatting = Formatting.Indented
 
-                })));
+                }))
+                }
+            };
             return returnJsonObject;
         }
     }

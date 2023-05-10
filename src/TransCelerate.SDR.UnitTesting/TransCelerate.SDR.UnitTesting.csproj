@@ -70,6 +70,9 @@
     <None Update="Data\StudyDataV1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\StudyDataV3.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\StudyDataV2.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

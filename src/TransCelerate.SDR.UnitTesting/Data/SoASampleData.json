@@ -1,7 +1,7 @@
 {
   "activities": [
     {
-      "activityId": "ACT001",
+      "Id": "ACT001",
       "activityDescription": "Informed consent",
       "activityName": "Informed consent",
       "definedProcedures": null,
@@ -11,7 +11,7 @@
       "activityIsOptional": false
     },
     {
-      "activityId": "ACT002",
+      "Id": "ACT002",
       "activityDescription": "Informed consent",
       "activityName": "Eligibility criteria",
       "definedProcedures": null,
@@ -21,7 +21,7 @@
       "activityIsOptional": false
     },
     {
-      "activityId": "ACT003",
+      "Id": "ACT003",
       "activityDescription": "Informed consent",
       "activityName": "Demography",
       "definedProcedures": null,
@@ -31,7 +31,7 @@
       "activityIsOptional": false
     },
     {
-      "activityId": "ACT004",
+      "Id": "ACT004",
       "activityDescription": "Informed consent",
       "activityName": "Medical history",
       "definedProcedures": null,
@@ -41,7 +41,7 @@
       "activityIsOptional": false
     },
     {
-      "activityId": "ACT005",
+      "Id": "ACT005",
       "activityDescription": "Informed consent",
       "activityName": "Disease characteristics",
       "definedProcedures": null,
@@ -51,7 +51,7 @@
       "activityIsOptional": false
     },
     {
-      "activityId": "ACT006",
+      "Id": "ACT006",
       "activityDescription": "Informed consent",
       "activityName": "Physical exam",
       "definedProcedures": null,
@@ -61,7 +61,7 @@
       "activityIsOptional": false
     },
     {
-      "activityId": "ACT007",
+      "Id": "ACT007",
       "activityDescription": "Informed consent",
       "activityName": "Height",
       "definedProcedures": null,
@@ -71,7 +71,7 @@
       "activityIsOptional": false
     },
     {
-      "activityId": "ACT008",
+      "Id": "ACT008",
       "activityDescription": "Informed consent",
       "activityName": "12-lead ECG",
       "definedProcedures": null,
@@ -81,7 +81,7 @@
       "activityIsOptional": false
     },
     {
-      "activityId": "ACT009",
+      "Id": "ACT009",
       "activityDescription": "Informed consent",
       "activityName": "Hematology (predose)",
       "definedProcedures": null,
@@ -91,7 +91,7 @@
       "activityIsOptional": false
     },
     {
-      "activityId": "ACT010",
+      "Id": "ACT010",
       "activityDescription": "Informed consent",
       "activityName": "Chemistry (predose)",
       "definedProcedures": null,
@@ -101,7 +101,7 @@
       "activityIsOptional": false
     },
     {
-      "activityId": "ACT011",
+      "Id": "ACT011",
       "activityDescription": "Informed consent",
       "activityName": "Serology",
       "definedProcedures": null,
@@ -111,7 +111,7 @@
       "activityIsOptional": false
     },
     {
-      "activityId": "ACT012",
+      "Id": "ACT012",
       "activityDescription": "Informed consent",
       "activityName": "Urinalysis",
       "definedProcedures": null,
@@ -121,7 +121,7 @@
       "activityIsOptional": false
     },
     {
-      "activityId": "ACT013",
+      "Id": "ACT013",
       "activityDescription": "Informed consent",
       "activityName": "Pregnancy test",
       "definedProcedures": null,
@@ -131,7 +131,7 @@
       "activityIsOptional": false
     },
     {
-      "activityId": "ACT014",
+      "Id": "ACT014",
       "activityDescription": "Informed consent",
       "activityName": "Ensure availability of medication X",
       "definedProcedures": null,
@@ -141,7 +141,7 @@
       "activityIsOptional": false
     },
     {
-      "activityId": "ACT015",
+      "Id": "ACT015",
       "activityDescription": "Informed consent",
       "activityName": "Hospitalization",
       "definedProcedures": null,
@@ -151,7 +151,7 @@
       "activityIsOptional": false
     },
     {
-      "activityId": "ACT016",
+      "Id": "ACT016",
       "activityDescription": "Informed consent",
       "activityName": "Weight",
       "definedProcedures": null,
@@ -161,7 +161,7 @@
       "activityIsOptional": false
     },
     {
-      "activityId": "ACT017",
+      "Id": "ACT017",
       "activityDescription": "Informed consent",
       "activityName": "Vital signs",
       "definedProcedures": null,
@@ -171,7 +171,7 @@
       "activityIsOptional": false
     },
     {
-      "activityId": "ACT018",
+      "Id": "ACT018",
       "activityDescription": "Informed consent",
       "activityName": "adverse events",
       "definedProcedures": null,
@@ -181,7 +181,7 @@
       "activityIsOptional": false
     },
     {
-      "activityId": "ACT019",
+      "Id": "ACT019",
       "activityDescription": "Informed consent",
       "activityName": "Concomitant medications",
       "definedProcedures": null,
@@ -193,7 +193,7 @@
   ],
   "encounters": [
     {
-      "encounterId": "VIS11",
+      "Id": "VIS11",
       "encounterContactModes": null,
       "encounterDescription": "PLANNED VISIT",
       "encounterEnvironmentalSetting": null,
@@ -205,7 +205,7 @@
       "transitionEndRule": null
     },
     {
-      "encounterId": "VIS12",
+      "Id": "VIS12",
       "encounterContactModes": null,
       "encounterDescription": "PLANNED VISIT",
       "encounterEnvironmentalSetting": null,
@@ -217,7 +217,7 @@
       "transitionEndRule": null
     },
     {
-      "encounterId": "VIS13",
+      "Id": "VIS13",
       "encounterContactModes": null,
       "encounterDescription": "PLANNED VISIT",
       "encounterEnvironmentalSetting": null,
@@ -229,7 +229,7 @@
       "transitionEndRule": null
     },
     {
-      "encounterId": "VIS14",
+      "Id": "VIS14",
       "encounterContactModes": null,
       "encounterDescription": "PLANNED VISIT",
       "encounterEnvironmentalSetting": null,
@@ -241,7 +241,7 @@
       "transitionEndRule": null
     },
     {
-      "encounterId": "VIS15",
+      "Id": "VIS15",
       "encounterContactModes": null,
       "encounterDescription": "PLANNED VISIT",
       "encounterEnvironmentalSetting": null,
@@ -253,7 +253,7 @@
       "transitionEndRule": null
     },
     {
-      "encounterId": "VIS16",
+      "Id": "VIS16",
       "encounterContactModes": null,
       "encounterDescription": "PLANNED VISIT",
       "encounterEnvironmentalSetting": null,
@@ -265,7 +265,7 @@
       "transitionEndRule": null
     },
     {
-      "encounterId": "VIS17",
+      "Id": "VIS17",
       "encounterContactModes": null,
       "encounterDescription": "PLANNED VISIT",
       "encounterEnvironmentalSetting": null,
@@ -277,7 +277,7 @@
       "transitionEndRule": null
     },
     {
-      "encounterId": "VIS18",
+      "Id": "VIS18",
       "encounterContactModes": null,
       "encounterDescription": "PLANNED VISIT",
       "encounterEnvironmentalSetting": null,
@@ -289,7 +289,7 @@
       "transitionEndRule": null
     },
     {
-      "encounterId": "VIS19",
+      "Id": "VIS19",
       "encounterContactModes": null,
       "encounterDescription": "PLANNED VISIT",
       "encounterEnvironmentalSetting": null,
@@ -301,7 +301,7 @@
       "transitionEndRule": null
     },
     {
-      "encounterId": "VIS20",
+      "Id": "VIS20",
       "encounterContactModes": null,
       "encounterDescription": "PLANNED VISIT",
       "encounterEnvironmentalSetting": null,
@@ -313,7 +313,7 @@
       "transitionEndRule": null
     },
     {
-      "encounterId": "VIS21",
+      "Id": "VIS21",
       "encounterContactModes": null,
       "encounterDescription": "PLANNED VISIT",
       "encounterEnvironmentalSetting": null,
@@ -325,7 +325,7 @@
       "transitionEndRule": null
     },
     {
-      "encounterId": "VIS22",
+      "Id": "VIS22",
       "encounterContactModes": null,
       "encounterDescription": "PLANNED VISIT",
       "encounterEnvironmentalSetting": null,
@@ -337,7 +337,7 @@
       "transitionEndRule": null
     },
     {
-      "encounterId": "VIS23",
+      "Id": "VIS23",
       "encounterContactModes": null,
       "encounterDescription": "VIRTUAL VISIT",
       "encounterEnvironmentalSetting": null,
@@ -349,681 +349,1490 @@
       "transitionEndRule": null
     }
   ],
-  "WorkflowItems": [
+  "studyScheduleTimelines": [
     {
-      "workflowItemId": "WI001",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT001",
-      "workflowItemEncounterId": "VIS11",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI002",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT002",
-      "workflowItemEncounterId": "VIS11",
-      "nextWorkflowItemId": "WI003",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI003",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT003",
-      "workflowItemEncounterId": "VIS11",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI004",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT004",
-      "workflowItemEncounterId": "VIS11",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI005",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT005",
-      "workflowItemEncounterId": "VIS11",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI006",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT006",
-      "workflowItemEncounterId": "VIS11",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI007",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT006",
-      "workflowItemEncounterId": "VIS13",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI008",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT006",
-      "workflowItemEncounterId": "VIS22",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI009",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT007",
-      "workflowItemEncounterId": "VIS11",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI010",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT008",
-      "workflowItemEncounterId": "VIS11",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI011",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT008",
-      "workflowItemEncounterId": "VIS12",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI012",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT008",
-      "workflowItemEncounterId": "VIS13",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI013",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT008",
-      "workflowItemEncounterId": "VIS14",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI014",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT008",
-      "workflowItemEncounterId": "VIS22",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI015",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT009",
-      "workflowItemEncounterId": "VIS11",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI016",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT009",
-      "workflowItemEncounterId": "VIS14",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI017",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT009",
-      "workflowItemEncounterId": "VIS22",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI018",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT010",
-      "workflowItemEncounterId": "VIS11",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI019",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT010",
-      "workflowItemEncounterId": "VIS14",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI020",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT010",
-      "workflowItemEncounterId": "VIS22",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI021",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT011",
-      "workflowItemEncounterId": "VIS11",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI022",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT011",
-      "workflowItemEncounterId": "VIS12",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI023",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT011",
-      "workflowItemEncounterId": "VIS13",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI024",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT011",
-      "workflowItemEncounterId": "VIS14",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI025",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT011",
-      "workflowItemEncounterId": "VIS15",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI026",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT011",
-      "workflowItemEncounterId": "VIS18",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI027",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT011",
-      "workflowItemEncounterId": "VIS20",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI028",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT011",
-      "workflowItemEncounterId": "VIS22",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI029",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT012",
-      "workflowItemEncounterId": "VIS11",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI030",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT012",
-      "workflowItemEncounterId": "VIS14",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI031",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT012",
-      "workflowItemEncounterId": "VIS22",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI032",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT013",
-      "workflowItemEncounterId": "VIS11",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI033",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT013",
-      "workflowItemEncounterId": "VIS14",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI034",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT014",
-      "workflowItemEncounterId": "VIS15",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI035",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT014",
-      "workflowItemEncounterId": "VIS18",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI036",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT014",
-      "workflowItemEncounterId": "VIS20",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI037",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT015",
-      "workflowItemEncounterId": "VIS12",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI038",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT015",
-      "workflowItemEncounterId": "VIS15",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI039",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT015",
-      "workflowItemEncounterId": "VIS18",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI040",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT015",
-      "workflowItemEncounterId": "VIS20",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI041",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT016",
-      "workflowItemEncounterId": "VIS11",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI042",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT016",
-      "workflowItemEncounterId": "VIS15",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI043",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT016",
-      "workflowItemEncounterId": "VIS18",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI044",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT016",
-      "workflowItemEncounterId": "VIS22",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI045",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT017",
-      "workflowItemEncounterId": "VIS11",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI046",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT017",
-      "workflowItemEncounterId": "VIS12",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI047",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT017",
-      "workflowItemEncounterId": "VIS13",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI048",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT017",
-      "workflowItemEncounterId": "VIS14",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI049",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT017",
-      "workflowItemEncounterId": "VIS15",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI050",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT017",
-      "workflowItemEncounterId": "VIS16",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI051",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT017",
-      "workflowItemEncounterId": "VIS17",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI052",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT017",
-      "workflowItemEncounterId": "VIS18",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI053",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT017",
-      "workflowItemEncounterId": "VIS19",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI054",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT017",
-      "workflowItemEncounterId": "VIS20",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    },
-    {
-      "workflowItemId": "WI055",
-      "workflowItemDescription": "Sample Item Desc",
-      "workflowItemActivityId": "ACT017",
-      "workflowItemEncounterId": "VIS21",
-      "nextWorkflowItemId": "WI002",
-      "previousWorkflowItemId": ""
-    }
-  ],
-  "studyId": "14ccafdb-ef1d-448b-92b5-1f0b60d1dcbb",
-  "studyTitle": "Study Of Lung Cancer",
-  "studyDesigns": [
-    {
-      "studyDesignId": "SD_1",
-      "studyDesignName": "name",
-      "studyDesignDescription": "desc",
-      "studyScheduleTimelines": [
+      "Id": "Timeline01",
+      "scheduleTimelineName": "name",
+      "scheduleTimelineDescription": "Timeline for Stage III",
+      "entryCondition": "condition",
+      "scheduleTimelineEntryId": "INS001",
+      "scheduleTimelineExits": [
         {
-          "scheduleTimelineId": "WF01",
-          "scheduleTimelineDescription": "SampleDesc",
-          "scheduleTimelineSoA": {
-            "orderOfActivities": [
-              "Informed consent",
-              "Eligibility criteria",
-              "Demography",
-              "Medical history",
-              "Disease characteristics",
-              "Physical exam",
-              "Height",
-              "12-lead ECG",
-              "Hematology (predose)",
-              "Chemistry (predose)",
-              "Serology",
-              "Urinalysis",
-              "Pregnancy test",
-              "Ensure availability of medication X",
-              "Hospitalization",
-              "Weight",
-              "Vital signs",
-              "adverse events",
-              "Concomitant medications"
-            ],
-            "SoA": [
-              {
-                "encounterName": "SCREENING VISIT",
-                "activities": [
-                  "Informed consent",
-                  "Eligibility criteria",
-                  "Demography",
-                  "Medical history",
-                  "Disease characteristics",
-                  "Physical exam",
-                  "Height",
-                  "12-lead ECG",
-                  "Hematology (predose)",
-                  "Chemistry (predose)",
-                  "Serology",
-                  "Urinalysis",
-                  "Pregnancy test",
-                  "Weight",
-                  "Vital signs"
-                ]
+          "scheduleTimelineExitId": "Exit01"
+        }
+      ],
+      "scheduleTimelineInstances": [
+        {
+          "scheduledInstanceType": "ACTIVITY",
+          "activityIds": [
+            "ACT001",
+            "ACT002",
+            "ACT003",
+            "ACT005",
+            "ACT008",
+            "ACT009",
+            "ACT011",
+            "ACT018"
+          ],
+          "Id": "INS002",
+          "scheduleTimelineExitId": "Exit01",
+          "scheduledInstanceEncounterId": "VIS11",
+          "scheduledInstanceTimelineId": "Timeline01",
+          "scheduleSequenceNumber": 1,
+          "scheduledInstanceTimings": [
+            {
+              "Id": "T01",
+              "timingType": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "After"
               },
-              {
-                "encounterName": "RUN-IN VISIT 1",
-                "activities": [
-                  "12-lead ECG",
-                  "Serology",
-                  "Hospitalization",
-                  "Vital signs"
-                ]
-              },
-              {
-                "encounterName": "RUN-IN VISIT 2",
-                "activities": [
-                  "Physical exam",
-                  "12-lead ECG",
-                  "Serology",
-                  "Vital signs"
-                ]
-              },
-              {
-                "encounterName": "RUN-IN VISIT 3",
-                "activities": [
-                  "12-lead ECG",
-                  "Hematology (predose)",
-                  "Chemistry (predose)",
-                  "Serology",
-                  "Urinalysis",
-                  "Pregnancy test",
-                  "Vital signs"
-                ]
-              },
-              {
-                "encounterName": "CYCLE 1, TREATMENT DAY 1",
-                "activities": [
-                  "Serology",
-                  "Ensure availability of medication X",
-                  "Hospitalization",
-                  "Weight",
-                  "Vital signs"
-                ]
-              },
-              {
-                "encounterName": "CYCLE 1, TREATMENT DAY 3",
-                "activities": [
-                  "Vital signs"
-                ]
-              },
-              {
-                "encounterName": "CYCLE 1, TREATMENT DAY 5",
-                "activities": [
-                  "Vital signs"
-                ]
-              },
-              {
-                "encounterName": "CYCLE 2, TREATMENT DAY 1",
-                "activities": [
-                  "Serology",
-                  "Ensure availability of medication X",
-                  "Hospitalization",
-                  "Weight",
-                  "Vital signs"
-                ]
-              },
-              {
-                "encounterName": "CYCLE 2, TREATMENT DAY 3",
-                "activities": [
-                  "Vital signs"
-                ]
-              },
-              {
-                "encounterName": "CYCLE X, TREATMENT DAY 1",
-                "activities": [
-                  "Serology",
-                  "Ensure availability of medication X",
-                  "Hospitalization",
-                  "Vital signs"
-                ]
-              },
-              {
-                "encounterName": "CYCLE X, TREATMENT DAY 4",
-                "activities": [
-                  "Vital signs"
-                ]
-              },
-              {
-                "encounterName": "FU 1",
-                "activities": [
-                  "Physical exam",
-                  "12-lead ECG",
-                  "Hematology (predose)",
-                  "Chemistry (predose)",
-                  "Serology",
-                  "Urinalysis",
-                  "Weight"
-                ]
-              },
-              {
-                "encounterName": "FU 2",
-                "activities": []
+              "timingValue": "Day 1",
+              "timingWindow": "window",
+              "relativeToScheduledInstanceId": "INS001",
+              "relativeFromScheduledInstanceId": "INS002",
+              "timingRelativeToFrom": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "StartToStart"
               }
-            ]
-          }
+            },
+            {
+              "Id": "T02",
+              "timingType": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "Before"
+              },
+              "timingValue": "Day 15",
+              "timingWindow": "window",
+              "relativeToScheduledInstanceId": "INS002",
+              "relativeFromScheduledInstanceId": "INS001",
+              "timingRelativeToFrom": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "EndToEnd"
+              }
+            }
+          ]
         },
         {
-          "workFlowId": "WF02",
-          "workflowDescription": "SampleDesc",
-          "workFlowSoA": {
+          "scheduledInstanceType": "DECISION",
+          "conditionAssignments": {
+            "option": "changes"
+          },
+          "Id": "INS001",
+          "scheduleTimelineExitId": "Exit01",
+          "scheduledInstanceEncounterId": "VIS11",
+          "scheduledInstanceTimelineId": "Timeline01",
+          "scheduleSequenceNumber": 2,
+          "scheduledInstanceTimings": [
+            {
+              "Id": "T030",
+              "timingType": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "After"
+              },
+              "timingValue": "Day 1",
+              "timingWindow": "window",
+              "relativeToScheduledInstanceId": "INS001",
+              "relativeFromScheduledInstanceId": "INS002",
+              "timingRelativeToFrom": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "StartToStart"
+              }
+            },
+            {
+              "Id": "T04",
+              "timingType": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "Before"
+              },
+              "timingValue": "Day 15",
+              "timingWindow": "window",
+              "relativeToScheduledInstanceId": "INS002",
+              "relativeFromScheduledInstanceId": "INS001",
+              "timingRelativeToFrom": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "EndToEnd"
+              }
+            }
+          ]
+        },
+        {
+          "scheduledInstanceType": "ACTIVITY",
+          "activityIds": [
+            "ACT003",
+            "ACT002"
+          ],
+          "Id": "INS003",
+          "scheduleTimelineExitId": "Exit01",
+          "scheduledInstanceEncounterId": "VIS12",
+          "scheduledInstanceTimelineId": "Timeline01",
+          "scheduleSequenceNumber": 3,
+          "scheduledInstanceTimings": [
+            {
+              "Id": "T03",
+              "timingType": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "After"
+              },
+              "timingValue": "Day 1",
+              "timingWindow": "window",
+              "relativeToScheduledInstanceId": "INS001",
+              "relativeFromScheduledInstanceId": "INS002",
+              "timingRelativeToFrom": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "StartToStart"
+              }
+            },
+            {
+              "Id": "T04",
+              "timingType": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "Before"
+              },
+              "timingValue": "Day 15",
+              "timingWindow": "window",
+              "relativeToScheduledInstanceId": "INS002",
+              "relativeFromScheduledInstanceId": "INS001",
+              "timingRelativeToFrom": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "EndToEnd"
+              }
+            }
+          ]
+        },
+        {
+          "scheduledInstanceType": "ACTIVITY",
+          "activityIds": [
+            "ACT005",
+            "ACT006"
+          ],
+          "Id": "INS004",
+          "scheduleTimelineExitId": "Exit01",
+          "scheduledInstanceEncounterId": "VIS13",
+          "scheduledInstanceTimelineId": "Timeline01",
+          "scheduleSequenceNumber": 3,
+          "scheduledInstanceTimings": [
+            {
+              "Id": "T06",
+              "timingType": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "After"
+              },
+              "timingValue": "Day 10",
+              "timingWindow": "window",
+              "relativeToScheduledInstanceId": "INS001",
+              "relativeFromScheduledInstanceId": "INS002",
+              "timingRelativeToFrom": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "StartToStart"
+              }
+            }
+          ]
+        },
+        {
+          "scheduledInstanceType": "ACTIVITY",
+          "activityIds": [
+            "ACT006",
+            "ACT007"
+          ],
+          "Id": "INS005",
+          "scheduleTimelineExitId": "Exit01",
+          "scheduledInstanceEncounterId": "VIS14",
+          "scheduledInstanceTimelineId": "Timeline01",
+          "scheduleSequenceNumber": 3,
+          "scheduledInstanceTimings": [
+            {
+              "Id": "T07",
+              "timingType": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "After"
+              },
+              "timingValue": "Day 18",
+              "timingWindow": "window",
+              "relativeToScheduledInstanceId": "INS001",
+              "relativeFromScheduledInstanceId": "INS002",
+              "timingRelativeToFrom": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "StartToStart"
+              }
+            }
+          ]
+        },
+        {
+          "scheduledInstanceType": "ACTIVITY",
+          "activityIds": [
+            "ACT008",
+            "ACT009"
+          ],
+          "Id": "INS006",
+          "scheduleTimelineExitId": "Exit01",
+          "scheduledInstanceEncounterId": "VIS15",
+          "scheduledInstanceTimelineId": "Timeline01",
+          "scheduleSequenceNumber": 3,
+          "scheduledInstanceTimings": [
+            {
+              "Id": "T08",
+              "timingType": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "After"
+              },
+              "timingValue": "Day 20",
+              "timingWindow": "window",
+              "relativeToScheduledInstanceId": "INS001",
+              "relativeFromScheduledInstanceId": "INS002",
+              "timingRelativeToFrom": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "StartToStart"
+              }
+            }
+          ]
+        },
+        {
+          "scheduledInstanceType": "ACTIVITY",
+          "activityIds": [
+            "ACT010",
+            "ACT011"
+          ],
+          "Id": "INS007",
+          "scheduleTimelineExitId": "Exit01",
+          "scheduledInstanceEncounterId": "VIS16",
+          "scheduledInstanceTimelineId": "Timeline01",
+          "scheduleSequenceNumber": 3,
+          "scheduledInstanceTimings": [
+            {
+              "Id": "T09",
+              "timingType": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "After"
+              },
+              "timingValue": "Day 23",
+              "timingWindow": "window",
+              "relativeToScheduledInstanceId": "INS001",
+              "relativeFromScheduledInstanceId": "INS002",
+              "timingRelativeToFrom": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "StartToStart"
+              }
+            }
+          ]
+        },
+        {
+          "scheduledInstanceType": "ACTIVITY",
+          "activityIds": [
+            "ACT012",
+            "ACT013"
+          ],
+          "Id": "INS008",
+          "scheduleTimelineExitId": "Exit01",
+          "scheduledInstanceEncounterId": "VIS17",
+          "scheduledInstanceTimelineId": "Timeline01",
+          "scheduleSequenceNumber": 3,
+          "scheduledInstanceTimings": [
+            {
+              "Id": "T10",
+              "timingType": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "After"
+              },
+              "timingValue": "Day 25",
+              "timingWindow": "window",
+              "relativeToScheduledInstanceId": "INS001",
+              "relativeFromScheduledInstanceId": "INS002",
+              "timingRelativeToFrom": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "StartToStart"
+              }
+            }
+          ]
+        },
+        {
+          "scheduledInstanceType": "ACTIVITY",
+          "activityIds": [
+            "ACT013",
+            "ACT014"
+          ],
+          "Id": "INS009",
+          "scheduleTimelineExitId": "Exit01",
+          "scheduledInstanceEncounterId": "VIS18",
+          "scheduledInstanceTimelineId": "Timeline01",
+          "scheduleSequenceNumber": 3,
+          "scheduledInstanceTimings": [
+            {
+              "Id": "T11",
+              "timingType": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "After"
+              },
+              "timingValue": "Day 30",
+              "timingWindow": "window",
+              "relativeToScheduledInstanceId": "INS001",
+              "relativeFromScheduledInstanceId": "INS002",
+              "timingRelativeToFrom": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "StartToStart"
+              }
+            }
+          ]
+        },
+        {
+          "scheduledInstanceType": "ACTIVITY",
+          "activityIds": [
+            "ACT015",
+            "ACT016"
+          ],
+          "Id": "INS010",
+          "scheduleTimelineExitId": "Exit01",
+          "scheduledInstanceEncounterId": "VIS19",
+          "scheduledInstanceTimelineId": "Timeline01",
+          "scheduleSequenceNumber": 3,
+          "scheduledInstanceTimings": [
+            {
+              "Id": "T12",
+              "timingType": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "After"
+              },
+              "timingValue": "Day 35",
+              "timingWindow": "window",
+              "relativeToScheduledInstanceId": "INS001",
+              "relativeFromScheduledInstanceId": "INS002",
+              "timingRelativeToFrom": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "StartToStart"
+              }
+            }
+          ]
+        },
+        {
+          "scheduledInstanceType": "ACTIVITY",
+          "activityIds": [
+            "ACT017",
+            "ACT018"
+          ],
+          "Id": "INS011",
+          "scheduleTimelineExitId": "Exit01",
+          "scheduledInstanceEncounterId": "VIS20",
+          "scheduledInstanceTimelineId": "Timeline01",
+          "scheduleSequenceNumber": 3,
+          "scheduledInstanceTimings": [
+            {
+              "Id": "T13",
+              "timingType": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "After"
+              },
+              "timingValue": "WEEK 1",
+              "timingWindow": "window",
+              "relativeToScheduledInstanceId": "INS001",
+              "relativeFromScheduledInstanceId": "INS002",
+              "timingRelativeToFrom": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "StartToStart"
+              }
+            }
+          ]
+        },
+        {
+          "scheduledInstanceType": "ACTIVITY",
+          "activityIds": [
+            "ACT018",
+            "ACT019"
+          ],
+          "Id": "INS012",
+          "scheduleTimelineExitId": "Exit01",
+          "scheduledInstanceEncounterId": "VIS21",
+          "scheduledInstanceTimelineId": "Timeline01",
+          "scheduleSequenceNumber": 3,
+          "scheduledInstanceTimings": [
+            {
+              "Id": "T14",
+              "timingType": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "After"
+              },
+              "timingValue": "WEEK 3",
+              "timingWindow": "window",
+              "relativeToScheduledInstanceId": "INS001",
+              "relativeFromScheduledInstanceId": "INS002",
+              "timingRelativeToFrom": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "StartToStart"
+              }
+            }
+          ]
+        },
+        {
+          "scheduledInstanceType": "ACTIVITY",
+          "activityIds": [
+            "ACT019",
+            "ACT002"
+          ],
+          "Id": "INS013",
+          "scheduleTimelineExitId": "Exit01",
+          "scheduledInstanceEncounterId": "VIS22",
+          "scheduledInstanceTimelineId": "Timeline01",
+          "scheduleSequenceNumber": 3,
+          "scheduledInstanceTimings": [
+            {
+              "Id": "T15",
+              "timingType": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "After"
+              },
+              "timingValue": "WEEK 5",
+              "timingWindow": "window",
+              "relativeToScheduledInstanceId": "INS001",
+              "relativeFromScheduledInstanceId": "INS002",
+              "timingRelativeToFrom": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "StartToStart"
+              }
+            }
+          ]
+        },
+        {
+          "scheduledInstanceType": "ACTIVITY",
+          "activityIds": [
+            "ACT003",
+            "ACT001"
+          ],
+          "Id": "INS014",
+          "scheduleTimelineExitId": "Exit01",
+          "scheduledInstanceEncounterId": "VIS23",
+          "scheduledInstanceTimelineId": "Timeline01",
+          "scheduleSequenceNumber": 3,
+          "scheduledInstanceTimings": [
+            {
+              "Id": "T16",
+              "timingType": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "After"
+              },
+              "timingValue": "WEEK 6",
+              "timingWindow": "window",
+              "relativeToScheduledInstanceId": "INS001",
+              "relativeFromScheduledInstanceId": "INS002",
+              "timingRelativeToFrom": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "StartToStart"
+              }
+            }
+          ]
+        },
+        {
+          "scheduledInstanceType": "ACTIVITY",
+          "activityIds": [
+            "ACT005",
+            "ACT002"
+          ],
+          "Id": "INS015",
+          "scheduleTimelineExitId": "Exit01",
+          "scheduledInstanceEncounterId": "VIS23",
+          "scheduledInstanceTimelineId": "Timeline01",
+          "scheduleSequenceNumber": 3,
+          "scheduledInstanceTimings": [
+            {
+              "Id": "T17",
+              "timingType": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "After"
+              },
+              "timingValue": "MONTH 1",
+              "timingWindow": "window",
+              "relativeToScheduledInstanceId": "INS001",
+              "relativeFromScheduledInstanceId": "INS002",
+              "timingRelativeToFrom": {
+                "codeId": "END001",
+                "code": "C9834x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "StartToStart"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "studyId": "c2254c40-a085-4ae1-bcdc-be61cd88760a",
+  "studyTitle": "Study of Stomach Cancer",
+  "studyDesigns": [
+    {
+      "studyDesignId": "SD01",
+      "studyDesignName": "Design for Lung Cancer",
+      "studyDesignDescription": "Stage III Lung Cancer",
+      "studyScheduleTimelines": [
+        {
+          "scheduleTimelineId": "Timeline01",
+          "scheduleTimelineName": "name",
+          "scheduleTimelineDescription": "Timeline for Stage III",
+          "entryCondition": "condition",
+          "scheduleTimelineSoA": {
             "orderOfActivities": [
-              "Informed consent",
-              "Eligibility criteria",
-              "Demography",
-              "Medical history",
-              "Disease characteristics",
-              "Physical exam",
-              "Height",
-              "12-lead ECG",
-              "Hematology (predose)",
-              "Chemistry (predose)",
-              "Serology",
-              "Urinalysis",
-              "Pregnancy test",
-              "Ensure availability of medication X",
-              "Hospitalization",
-              "Weight",
-              "Vital signs",
-              "adverse events",
-              "Concomitant medications"
+              {
+                "activityId": "ACT001",
+                "activityDescription": "Informed consents",
+                "activityName": "Informed consent",
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": " : Reason"
+                  }
+                ],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "Reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT002",
+                "activityDescription": "Informed consent",
+                "activityName": "Eligibility criteria",
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": " : Reason"
+                  }
+                ],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT003",
+                "activityDescription": "Informed consent",
+                "activityName": "Demography",
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": " : Reason"
+                  }
+                ],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT005",
+                "activityDescription": "Informed consent",
+                "activityName": "Disease characteristics",
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": " : Reason"
+                  }
+                ],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT006",
+                "activityDescription": "Informed consent",
+                "activityName": "Physical exam",
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": " : Reason"
+                  }
+                ],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT007",
+                "activityDescription": "Informed consent",
+                "activityName": "Height",
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": " : Reason"
+                  }
+                ],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT008",
+                "activityDescription": "Informed consent",
+                "activityName": "12-lead ECG",
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": " : Reason"
+                  }
+                ],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT009",
+                "activityDescription": "Informed consent",
+                "activityName": "Hematology (predose)",
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": " : Reason"
+                  }
+                ],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT010",
+                "activityDescription": "Informed consent",
+                "activityName": "Chemistry (predose)",
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": " : Reason"
+                  }
+                ],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT011",
+                "activityDescription": "Informed consent",
+                "activityName": "Serology",
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": " : Reason"
+                  }
+                ],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT012",
+                "activityDescription": "Informed consent",
+                "activityName": "Urinalysis",
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": " : Reason"
+                  }
+                ],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT013",
+                "activityDescription": "Informed consent",
+                "activityName": "Pregnancy test",
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": " : Reason"
+                  }
+                ],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT014",
+                "activityDescription": "Informed consent",
+                "activityName": "Ensure availability of medication X",
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": " : Reason"
+                  }
+                ],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT015",
+                "activityDescription": "Informed consent",
+                "activityName": "Hospitalization",
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": " : Reason"
+                  }
+                ],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT016",
+                "activityDescription": "Informed consent",
+                "activityName": "Weight",
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": " : Reason"
+                  }
+                ],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT017",
+                "activityDescription": "Informed consent",
+                "activityName": "Vital signs",
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": " : Reason"
+                  }
+                ],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT018",
+                "activityDescription": "Informed consent",
+                "activityName": "adverse events",
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": " : Reason"
+                  }
+                ],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT019",
+                "activityDescription": "Informed consent",
+                "activityName": "Concomitant medications",
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "name",
+                    "procedureDescription": "des",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": " : Reason"
+                  }
+                ],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              }
             ],
             "SoA": [
               {
+                "encounterId": "VIS11",
                 "encounterName": "SCREENING VISIT",
-                "activities": []
+                "encounterScheduledAtTimingValue": "Day 1",
+                "timings": [
+                  {
+                    "timingValue": "Day 1",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT001",
+                      "ACT002",
+                      "ACT003",
+                      "ACT005",
+                      "ACT008",
+                      "ACT009",
+                      "ACT011",
+                      "ACT018"
+                    ]
+                  },
+                  {
+                    "timingValue": "Day 15",
+                    "timingWindow": "window",
+                    "timingType": "Before",
+                    "activities": [
+                      "ACT001",
+                      "ACT002",
+                      "ACT003",
+                      "ACT005",
+                      "ACT008",
+                      "ACT009",
+                      "ACT011",
+                      "ACT018"
+                    ]
+                  }
+                ]
               },
               {
+                "encounterId": "VIS12",
                 "encounterName": "RUN-IN VISIT 1",
-                "activities": []
+                "encounterScheduledAtTimingValue": "Day 15",
+                "timings": [
+                  {
+                    "timingValue": "Day 1",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT003",
+                      "ACT002"
+                    ]
+                  },
+                  {
+                    "timingValue": "Day 15",
+                    "timingWindow": "window",
+                    "timingType": "Before",
+                    "activities": [
+                      "ACT003",
+                      "ACT002"
+                    ]
+                  }
+                ]
               },
               {
+                "encounterId": "VIS13",
                 "encounterName": "RUN-IN VISIT 2",
-                "activities": []
+                "encounterScheduledAtTimingValue": "Day 1",
+                "timings": [
+                  {
+                    "timingValue": "Day 10",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT005",
+                      "ACT006"
+                    ]
+                  }
+                ]
               },
               {
+                "encounterId": "VIS14",
                 "encounterName": "RUN-IN VISIT 3",
-                "activities": []
+                "encounterScheduledAtTimingValue": "Day 15",
+                "timings": [
+                  {
+                    "timingValue": "Day 18",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT006",
+                      "ACT007"
+                    ]
+                  }
+                ]
               },
               {
-                "encounterName": "CYCLE 1, TREATMENT DAY 1",
-                "activities": []
+                "encounterId": "VIS15",
+                "encounterName": "CYCLE 1, TREATMENT 1",
+                "encounterScheduledAtTimingValue": "Day 1",
+                "timings": [
+                  {
+                    "timingValue": "Day 20",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT008",
+                      "ACT009"
+                    ]
+                  }
+                ]
               },
               {
-                "encounterName": "CYCLE 1, TREATMENT DAY 3",
-                "activities": []
+                "encounterId": "VIS16",
+                "encounterName": "CYCLE 1, TREATMENT 2",
+                "encounterScheduledAtTimingValue": "Day 10",
+                "timings": [
+                  {
+                    "timingValue": "Day 23",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT010",
+                      "ACT011"
+                    ]
+                  }
+                ]
               },
               {
-                "encounterName": "CYCLE 1, TREATMENT DAY 5",
-                "activities": []
+                "encounterId": "VIS17",
+                "encounterName": "CYCLE 1, TREATMENT 3",
+                "encounterScheduledAtTimingValue": "Day 18",
+                "timings": [
+                  {
+                    "timingValue": "Day 25",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT012",
+                      "ACT013"
+                    ]
+                  }
+                ]
               },
               {
-                "encounterName": "CYCLE 2, TREATMENT DAY 1",
-                "activities": []
+                "encounterId": "VIS18",
+                "encounterName": "CYCLE 2, TREATMENT 1",
+                "encounterScheduledAtTimingValue": "Day 20",
+                "timings": [
+                  {
+                    "timingValue": "Day 30",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT013",
+                      "ACT014"
+                    ]
+                  }
+                ]
               },
               {
-                "encounterName": "CYCLE 2, TREATMENT DAY 3",
-                "activities": []
+                "encounterId": "VIS19",
+                "encounterName": "CYCLE 2, TREATMENT 2",
+                "encounterScheduledAtTimingValue": "Day 23",
+                "timings": [
+                  {
+                    "timingValue": "Day 35",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT015",
+                      "ACT016"
+                    ]
+                  }
+                ]
               },
               {
-                "encounterName": "CYCLE X, TREATMENT DAY 1",
-                "activities": []
+                "encounterId": "VIS20",
+                "encounterName": "CYCLE 3, TREATMENT 1",
+                "encounterScheduledAtTimingValue": "Day 25",
+                "timings": [
+                  {
+                    "timingValue": "WEEK 1",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT017",
+                      "ACT018"
+                    ]
+                  }
+                ]
               },
               {
-                "encounterName": "CYCLE X, TREATMENT DAY 4",
-                "activities": []
+                "encounterId": "VIS21",
+                "encounterName": "CYCLE 3, TREATMENT 2",
+                "encounterScheduledAtTimingValue": "Day 30",
+                "timings": [
+                  {
+                    "timingValue": "WEEK 3",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT018",
+                      "ACT019"
+                    ]
+                  }
+                ]
               },
               {
+                "encounterId": "VIS22",
                 "encounterName": "FU 1",
-                "activities": []
+                "encounterScheduledAtTimingValue": "WEEK 6",
+                "timings": [
+                  {
+                    "timingValue": "WEEK 5",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT019",
+                      "ACT002"
+                    ]
+                  }
+                ]
               },
               {
+                "encounterId": "VIS23",
                 "encounterName": "FU 2",
-                "activities": []
+                "encounterScheduledAtTimingValue": "MONTH 1",
+                "timings": [
+                  {
+                    "timingValue": "WEEK 6",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT003",
+                      "ACT001"
+                    ]
+                  },
+                  {
+                    "timingValue": "MONTH 1",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT005",
+                      "ACT002"
+                    ]
+                  }
+                ]
               }
             ]
           }

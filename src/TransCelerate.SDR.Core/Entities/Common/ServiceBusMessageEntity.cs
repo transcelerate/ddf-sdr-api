@@ -1,4 +1,4 @@
-﻿namespace TransCelerate.SDR.Core.Entities.StudyV2
+﻿namespace TransCelerate.SDR.Core.Entities.Common
 {
     public class ServiceBusMessageEntity
     {

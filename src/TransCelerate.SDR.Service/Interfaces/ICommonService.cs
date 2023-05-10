@@ -22,18 +22,6 @@ namespace TransCelerate.SDR.Services.Interfaces
         Task<object> GetRawJson(string studyId, int sdruploadversion, LoggedInUser user);
 
         /// <summary>
-        /// GET All Elements For a Study
-        /// </summary>
-        /// <param name="studyId">Study ID</param>
-        /// <param name="sdruploadversion">Version of study</param>
-        /// <param name="studyDesignId">studyDesignId</param>
-        /// <param name="user">Logged In User</param>
-        /// <returns>
-        /// A <see cref="object"/> with matching studyId <br></br> <br></br>
-        /// <see langword="null"/> If no study is matching with studyId
-        /// </returns>
-        Task<object> GeteCPT(string studyId, int sdruploadversion, string studyDesignId, LoggedInUser user);
-        /// <summary>
         /// GET Audit Trial
         /// </summary>
         /// <param name="fromDate">Start Date for Date Filter</param>

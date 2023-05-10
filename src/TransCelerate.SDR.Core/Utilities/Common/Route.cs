@@ -56,6 +56,8 @@
         public const string AuditTrailV2 = "v2/audittrail/{studyId}";
 
         public const string StudyHistoryV2 = "/v2/studydefinitions/history";
+
+        public const string GeteCPTV2 = "v2/studyDefinitions/{studyId}/studydesigns/eCPT";
         #endregion
 
         #region POST Method Routes
@@ -66,10 +68,21 @@
         public const string SearchTitleV2 = "v2/searchstudytitle";
         #endregion
         #endregion
-        public const string SoAV3 = "v3/studydefinitions/{studyId}/studydesigns/soa";
         #region Study V3 Routes
         #region GET Method Routes
+        public const string StudyV3 = "v3/studydefinitions/{studyId}";
 
+        public const string StudyDesignV3 = "v3/studydesigns";
+
+        public const string SoAV3 = "v3/studydefinitions/{studyId}/studydesigns/soa";
+
+        public const string AuditTrailV3 = "v3/audittrail/{studyId}";
+
+        public const string GeteCPTV3 = "v3/studyDefinitions/{studyId}/studydesigns/eCPT";
+        #endregion
+
+        #region POST Method Routes
+        public const string PostElementsV3 = "/v3/studydefinitions";
         #endregion
         #endregion
 
@@ -111,8 +124,7 @@
         public const string GetStudyHistory = "studydefinitions/history";
         public const string CommonSearch = "studydefinitions/search";
         public const string GetLinksForAStudy = "studydefinitions/{studyId}/links";
-        public const string CommonToken = "auth/token";
-        public const string GeteCPT = "studyDefinitions/{studyId}/studydesigns/eCPT";
+        public const string CommonToken = "auth/token";        
         #endregion
     }
 }
