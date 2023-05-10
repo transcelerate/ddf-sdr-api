@@ -608,9 +608,34 @@ namespace TransCelerate.SDR.Services.Services
 
                 return null;
             }
-            if (searchParameters.UsdmVersion == Constants.USDMVersions.V1_9 || searchParameters.UsdmVersion == Constants.USDMVersions.V2)
+            if (searchParameters.UsdmVersion == Constants.USDMVersions.V1_9)
             {
                 var searchResponse = await _commonRepository.SearchStudyV2(searchParameters, loggedInUser);
+                var searchResponseDtos = _mapper.Map<List<SearchResponseDto>>(searchResponse);
+
+                if (searchResponseDtos.Any())
+                {
+                    searchResponseDtos.ForEach(searchResponseDto =>
+                    {
+                        var searchResponseV2 = searchResponse.FirstOrDefault(x => x.StudyId == searchResponseDto.ClinicalStudy.StudyId && x.SDRUploadVersion == searchResponseDto.AuditTrail.SDRUploadVersion);
+
+                        searchResponseDto.ClinicalStudy.StudyIdentifiers = _mapper.Map<List<CommonStudyIdentifiersDto>>(searchResponseV2.StudyIdentifiers);
+                        searchResponseDto.ClinicalStudy.StudyPhase = _mapper.Map<CommonCodeDto>(searchResponseV2.StudyPhase?.StandardCode);
+                        searchResponseDto.ClinicalStudy.StudyDesigns = new List<CommonStudyDesign> { new CommonStudyDesign
+                        {
+                            InterventionModel = _mapper.Map<List<CommonCodeDto>>(searchResponseV2.InterventionModel?.ToList()),
+                            StudyIndications = _mapper.Map<List<Core.DTO.Common.CommonStudyIndication>>(searchResponseV2.StudyIndications?.Where(x => x != null && x.Any()).SelectMany(x=>x).ToList())
+                        } };
+                        searchResponseDto.Links = LinksHelper.GetLinksForUi(searchResponseDto.ClinicalStudy.StudyId, searchResponseV2.StudyDesignIds?.ToList(), searchResponseDto.AuditTrail.UsdmVersion, searchResponseDto.AuditTrail.SDRUploadVersion);
+                    });
+                    return searchResponseDtos;
+                }
+
+                return null;
+            }
+            if (searchParameters.UsdmVersion == Constants.USDMVersions.V2)
+            {
+                var searchResponse = await _commonRepository.SearchStudyV3(searchParameters, loggedInUser);
                 var searchResponseDtos = _mapper.Map<List<SearchResponseDto>>(searchResponse);
 
                 if (searchResponseDtos.Any())

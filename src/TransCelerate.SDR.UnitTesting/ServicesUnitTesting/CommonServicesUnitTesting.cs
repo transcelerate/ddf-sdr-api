@@ -768,9 +768,11 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             var mvp = JsonConvert.DeserializeObject<TransCelerate.SDR.Core.Entities.Study.StudyEntity>(JsonConvert.SerializeObject(GetData(Constants.USDMVersions.MVP)));
             var v1 = JsonConvert.DeserializeObject<TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity>(JsonConvert.SerializeObject(GetData(Constants.USDMVersions.V1)));
             var v2 = JsonConvert.DeserializeObject<TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity>(JsonConvert.SerializeObject(GetData(Constants.USDMVersions.V1_9)));
+            var v3 = JsonConvert.DeserializeObject<TransCelerate.SDR.Core.Entities.StudyV3.StudyEntity>(JsonConvert.SerializeObject(GetData(Constants.USDMVersions.V2)));
             mvp.AuditTrail.UsdmVersion = Constants.USDMVersions.MVP;
             v1.AuditTrail.UsdmVersion = Constants.USDMVersions.V1;
             v2.AuditTrail.UsdmVersion = Constants.USDMVersions.V1_9;
+            v3.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
             List<SearchResponseEntity> studyList = new()
             {
                 new SearchResponseEntity
@@ -823,6 +825,21 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     InterventionModel = v2.ClinicalStudy.StudyDesigns.Select(y => y.InterventionModel) ?? null,
                     StudyIndications = v2.ClinicalStudy.StudyDesigns.Select(y => y.StudyIndications.Select(z => z.IndicationDescription)) ?? null,
                     StudyDesignIds = v2.ClinicalStudy.StudyDesigns.Select(x => x.Id) ?? null,
+                },
+                new SearchResponseEntity
+                {
+                    StudyIdentifiers = JsonConvert.DeserializeObject<List<object>>(JsonConvert.SerializeObject(v3.ClinicalStudy.StudyIdentifiers)),
+                    StudyId = v3.ClinicalStudy.StudyId,
+                    StudyTitle = v3.ClinicalStudy.StudyTitle,
+                    StudyType = v3.ClinicalStudy.StudyType,
+                    StudyPhase = v3.ClinicalStudy.StudyPhase,
+                    SDRUploadVersion = v3.AuditTrail.SDRUploadVersion,
+                    EntryDateTime = v3.AuditTrail.EntryDateTime,
+                    HasAccess = true,
+                    UsdmVersion = v3.AuditTrail.UsdmVersion,
+                    InterventionModel = v3.ClinicalStudy.StudyDesigns.Select(y => y.InterventionModel) ?? null,
+                    StudyIndications = v3.ClinicalStudy.StudyDesigns.Select(y => y.StudyIndications.Select(z => z.IndicationDescription)) ?? null,
+                    StudyDesignIds = v3.ClinicalStudy.StudyDesigns.Select(x => x.Id) ?? null,
                 }
             };
             CommonCodeEntity commonCode = JsonConvert.DeserializeObject<CommonCodeEntity>(JsonConvert.SerializeObject(v2.ClinicalStudy.StudyType));
@@ -940,6 +957,20 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     InterventionModel = v2.ClinicalStudy.StudyDesigns.Select(y => y.InterventionModel) ?? null,                    
                     StudyDesignIds = v2.ClinicalStudy.StudyDesigns.Select(x => x.Id) ?? null,
                 } }));
+            _mockCommonRepository.Setup(x => x.SearchStudyV3(It.IsAny<SearchParametersEntity>(), user))
+                .Returns(Task.FromResult(new List<Core.Entities.StudyV3.SearchResponseEntity> { new Core.Entities.StudyV3.SearchResponseEntity
+                {
+                    StudyId = v3.ClinicalStudy.StudyId,
+                    StudyTitle = v3.ClinicalStudy.StudyTitle,
+                    StudyIdentifiers = v3.ClinicalStudy.StudyIdentifiers,
+                    StudyType = v3.ClinicalStudy.StudyType,
+                    StudyPhase = v3.ClinicalStudy.StudyPhase,
+                    SDRUploadVersion = v3.AuditTrail.SDRUploadVersion,
+                    EntryDateTime = v3.AuditTrail.EntryDateTime,
+                    UsdmVersion = v3.AuditTrail.UsdmVersion,
+                    InterventionModel = v3.ClinicalStudy.StudyDesigns.Select(y => y.InterventionModel) ?? null,
+                    StudyDesignIds = v3.ClinicalStudy.StudyDesigns.Select(x => x.Id) ?? null,
+                } }));
 
             searchParameters.ValidateUsdmVersion = true;
             searchParameters.UsdmVersion = Constants.USDMVersions.MVP;
@@ -957,7 +988,10 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             method.Wait();
             result = method.Result;
 
-
+            searchParameters.UsdmVersion = Constants.USDMVersions.V2;
+            method = CommonService.SearchStudy(searchParameters, user);
+            method.Wait();
+            result = method.Result;
         }
         #endregion
 
