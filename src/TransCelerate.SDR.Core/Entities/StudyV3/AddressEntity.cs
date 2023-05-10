@@ -1,5 +1,7 @@
 ﻿namespace TransCelerate.SDR.Core.Entities.StudyV3
 {
+    [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
+    [MongoDB.Bson.Serialization.Attributes.BsonNoId]
     public class AddressEntity
     {
         [MongoDB.Bson.Serialization.Attributes.BsonElement(Utilities.Common.IdFieldPropertyName.StudyV3.AddressId)]

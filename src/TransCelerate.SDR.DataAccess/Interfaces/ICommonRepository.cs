@@ -72,6 +72,7 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         Task<List<Core.Entities.Study.SearchResponse>> SearchStudyMVP(SearchParametersEntity searchParameters, LoggedInUser user);
         Task<List<Core.Entities.StudyV1.SearchResponseEntity>> SearchStudyV1(SearchParametersEntity searchParameters, LoggedInUser user);
         Task<List<Core.Entities.StudyV2.SearchResponseEntity>> SearchStudyV2(SearchParametersEntity searchParameters, LoggedInUser user);
+        Task<List<Core.Entities.StudyV3.SearchResponseEntity>> SearchStudyV3(SearchParametersEntity searchParameters, LoggedInUser user);
 
     }
 }
