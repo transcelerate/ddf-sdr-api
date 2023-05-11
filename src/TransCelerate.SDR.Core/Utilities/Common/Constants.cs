@@ -145,6 +145,11 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string BooleanValidationFailed = "Type must be boolean (true/false)";
         }
 
+        public struct SuccessMessages
+        {
+            public const string ValidationSuccess = "The study definition is conformant with USDM Version : ";
+        }
+
         public struct ErrorMessages
         {
             public const string StudyNotFound = "The requested study document not found";

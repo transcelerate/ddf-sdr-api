@@ -83,6 +83,8 @@
 
         #region POST Method Routes
         public const string PostElementsV3 = "/v3/studydefinitions";
+
+        public const string ValidateUsdmConformanceV3 = "/v3/studydefinitions/validate-usdm-conformance";
         #endregion
         #endregion
 

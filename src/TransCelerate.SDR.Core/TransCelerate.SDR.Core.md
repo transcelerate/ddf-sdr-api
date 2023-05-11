@@ -298,6 +298,8 @@
 - [StudyHistoryResponseDto](#T-TransCelerate-SDR-Core-DTO-StudyV2-StudyHistoryResponseDto 'TransCelerate.SDR.Core.DTO.StudyV2.StudyHistoryResponseDto')
 - [StudySectionTypes](#T-TransCelerate-SDR-Core-Utilities-StudySectionTypes 'TransCelerate.SDR.Core.Utilities.StudySectionTypes')
 - [StudySections](#T-TransCelerate-SDR-Core-Utilities-StudySections 'TransCelerate.SDR.Core.Utilities.StudySections')
+- [SuccessResponseHelper](#T-TransCelerate-SDR-Core-Utilities-Helpers-SuccessResponseHelper 'TransCelerate.SDR.Core.Utilities.Helpers.SuccessResponseHelper')
+  - [ValidationSuccess()](#M-TransCelerate-SDR-Core-Utilities-Helpers-SuccessResponseHelper-ValidationSuccess-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.SuccessResponseHelper.ValidationSuccess(System.String)')
 - [UsageReportQueryHelper](#T-TransCelerate-SDR-Core-Utilities-Helpers-UsageReportQueryHelper 'TransCelerate.SDR.Core.Utilities.Helpers.UsageReportQueryHelper')
   - [FormattedQuery(reportBodyParameters)](#M-TransCelerate-SDR-Core-Utilities-Helpers-UsageReportQueryHelper-FormattedQuery-TransCelerate-SDR-Core-DTO-Reports-ReportBodyParameters- 'TransCelerate.SDR.Core.Utilities.Helpers.UsageReportQueryHelper.FormattedQuery(TransCelerate.SDR.Core.DTO.Reports.ReportBodyParameters)')
 - [UserGroupSortingHelper](#T-TransCelerate-SDR-Core-Utilities-Helpers-UserGroupSortingHelper 'TransCelerate.SDR.Core.Utilities.Helpers.UserGroupSortingHelper')
@@ -4695,6 +4697,28 @@ TransCelerate.SDR.Core.Utilities
 ##### Summary
 
 Enums for Study Level Sections
+
+<a name='T-TransCelerate-SDR-Core-Utilities-Helpers-SuccessResponseHelper'></a>
+## SuccessResponseHelper `type`
+
+##### Namespace
+
+TransCelerate.SDR.Core.Utilities.Helpers
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-SuccessResponseHelper-ValidationSuccess-System-String-'></a>
+### ValidationSuccess() `method`
+
+##### Summary
+
+Response Helper for successful validation
+
+##### Returns
+
+A [ErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-ErrorModel 'TransCelerate.SDR.Core.ErrorModels.ErrorModel') When there is an Unauthorized Access
+
+##### Parameters
+
+This method has no parameters.
 
 <a name='T-TransCelerate-SDR-Core-Utilities-Helpers-UsageReportQueryHelper'></a>
 ## UsageReportQueryHelper `type`
