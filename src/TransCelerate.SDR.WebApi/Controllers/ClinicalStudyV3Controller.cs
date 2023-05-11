@@ -445,6 +445,54 @@ namespace TransCelerate.SDR.WebApi.Controllers
         }
         #endregion
 
+        #region USDM Conformance Validation
+        /// <summary>
+        /// Validate USDM Conformance rules for a Study
+        /// </summary>        
+        /// <param name="studyDTO">Study for Validation</param>        
+        /// <param name="usdmVersion">USDM Version</param>        
+        /// <response code="201">Study Created</response>
+        /// <response code="400">Bad Request</response>       
+        [HttpPost]
+        [ApiVersion(Constants.USDMVersions.V2)]
+        [Route(Route.ValidateUsdmConformanceV3)]
+        [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDto))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public IActionResult ValidateUsdmConformance([FromBody] StudyDto studyDTO, [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(PostAllElements)};");
+                if (studyDTO != null)
+                {
+                    bool isInValidReferenceIntegrity = _helper.ReferenceIntegrityValidation(studyDTO, out var errors);
+                    if (isInValidReferenceIntegrity)
+                    {
+                        var errorList = SplitStringIntoArrayHelper.SplitString(JsonConvert.SerializeObject(errors), 32000);//since app insights limit is 32768 characters   
+                        errorList.ForEach(e => _logger.LogError($"{Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse} {errorList.IndexOf(e) + 1}: {e}"));
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(errors, Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse)).Value);
+                    }
+                    return Ok(new JsonResult(SuccessResponseHelper.ValidationSuccess($"{Constants.SuccessMessages.ValidationSuccess}{usdmVersion}")).Value);
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(PostAllElements)};");
+            }
+        }
+        #endregion
+
+
         #region DELETE Method
         /// <summary>
         /// Delete a Study
