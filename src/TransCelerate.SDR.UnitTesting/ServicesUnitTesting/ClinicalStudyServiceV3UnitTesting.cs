@@ -516,13 +516,13 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                    .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
             ClinicalStudyServiceV3 ClinicalStudyService = new(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockServiceBusClient.Object, _mockChangeAuditRepository.Object);
 
-            var method = ClinicalStudyService.GetPartialStudyElements("1", 0, user, Constants.ClinicalStudyElementsV2);
+            var method = ClinicalStudyService.GetPartialStudyElements("1", 0, user, Constants.ClinicalStudyElementsV3);
             method.Wait();
             var result = method.Result;
 
             _mockClinicalStudyRepository.Setup(x => x.GetPartialStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string[]>()))
                  .Returns(Task.FromResult(null as StudyEntity));
-            method = ClinicalStudyService.GetPartialStudyElements("1", 0, user, Constants.ClinicalStudyElementsV2);
+            method = ClinicalStudyService.GetPartialStudyElements("1", 0, user, Constants.ClinicalStudyElementsV3);
             method.Wait();
             result = method.Result;
 
@@ -530,14 +530,14 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             studyEntity.ClinicalStudy.StudyType.Decode = "FAILURE STUDY TYPE";
             _mockClinicalStudyRepository.Setup(x => x.GetPartialStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string[]>()))
                    .Returns(Task.FromResult(studyEntity));
-            method = ClinicalStudyService.GetPartialStudyElements("1", 0, user, Constants.ClinicalStudyElementsV2);
+            method = ClinicalStudyService.GetPartialStudyElements("1", 0, user, Constants.ClinicalStudyElementsV3);
             method.Wait();
 
 
             _mockClinicalStudyRepository.Setup(x => x.GetPartialStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string[]>()))
                   .Throws(new Exception("Error"));
 
-            method = ClinicalStudyService.GetPartialStudyElements("1", 0, user, Constants.ClinicalStudyElementsV2);
+            method = ClinicalStudyService.GetPartialStudyElements("1", 0, user, Constants.ClinicalStudyElementsV3);
 
 
             Assert.Throws<AggregateException>(method.Wait);
