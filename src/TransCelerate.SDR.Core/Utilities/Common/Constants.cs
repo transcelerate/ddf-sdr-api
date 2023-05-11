@@ -247,7 +247,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string Client_Secret = "client_secret";
         }
 
-        public static readonly string[] ClinicalStudyElements = {
+        public static readonly string[] ClinicalStudyElementsV2 = {
             nameof(ClinicalStudyDto.StudyTitle),
             nameof(ClinicalStudyDto.StudyIdentifiers),
             nameof(ClinicalStudyDto.StudyProtocolVersions),
@@ -260,7 +260,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(ClinicalStudyDto.StudyRationale),
         };
 
-        public static readonly string[] StudyDesignElements = {
+        public static readonly string[] StudyDesignElementsV2 = {
             nameof(StudyDesignDto.StudyDesignName),
             nameof(StudyDesignDto.StudyDesignDescription),
             nameof(StudyDesignDto.TherapeuticAreas),
@@ -282,7 +282,41 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(StudyDesignDto.BcCategories),
             nameof(StudyDesignDto.BcSurrogates)
         };
+        public static readonly string[] ClinicalStudyElementsV3 = {
+            nameof(Core.DTO.StudyV3.ClinicalStudyDto.StudyTitle),
+            nameof(Core.DTO.StudyV3.ClinicalStudyDto.StudyIdentifiers),
+            nameof(Core.DTO.StudyV3.ClinicalStudyDto.StudyProtocolVersions),
+            nameof(Core.DTO.StudyV3.ClinicalStudyDto.StudyVersion),
+            nameof(Core.DTO.StudyV3.ClinicalStudyDto.StudyPhase),
+            nameof(Core.DTO.StudyV3.ClinicalStudyDto.StudyType),
+            nameof(Core.DTO.StudyV3.ClinicalStudyDto.BusinessTherapeuticAreas),
+            nameof(Core.DTO.StudyV3.ClinicalStudyDto.StudyDesigns),
+            nameof(Core.DTO.StudyV3.ClinicalStudyDto.StudyAcronym),
+            nameof(Core.DTO.StudyV3.ClinicalStudyDto.StudyRationale),
+        };
 
+        public static readonly string[] StudyDesignElementsV3 = {
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyDesignName),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyDesignDescription),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.TherapeuticAreas),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.TrialType),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyInvestigationalInterventions),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.TrialIntentTypes),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.InterventionModel),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyIndications),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyPopulations),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyObjectives),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyCells),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyScheduleTimelines),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyEstimands),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.Activities),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.Encounters),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyDesignRationale),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyDesignBlindingScheme),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.BiomedicalConcepts),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.BcCategories),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.BcSurrogates)
+        };
         public struct FunctionAppConstants
         {
             public const string ChangeAuditFunction = "ChangeAuditFunction";

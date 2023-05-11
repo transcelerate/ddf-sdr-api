@@ -172,7 +172,7 @@ namespace TransCelerate.SDR.Services.Services
                         if (studyDesigns is not null && studyDesigns.Any())
                             return new StudyDesignsResponseDto
                             {
-                                StudyDesigns = _helper.RemoveStudyDesignElements(Constants.StudyDesignElements, studyDesigns, studyId),
+                                StudyDesigns = _helper.RemoveStudyDesignElements(Constants.StudyDesignElementsV3, studyDesigns, studyId),
                                 Links = LinksHelper.GetLinks(study.ClinicalStudy.StudyId, study.ClinicalStudy.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion)
                             };
 
