@@ -564,7 +564,7 @@ namespace TransCelerate.SDR.UnitTesting
 
             Assert.IsNotNull(DataFiltersV1.GetFiltersForStudyHistory(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1), "sd"));
 
-            Assert.IsNotNull(DataFiltersV1.GetProjectionForPartialStudyElements(Constants.ClinicalStudyElements.Select(x => x.ToLower()).ToArray()));
+            Assert.IsNotNull(DataFiltersV1.GetProjectionForPartialStudyElements(Constants.ClinicalStudyElementsV2.Select(x => x.ToLower()).ToArray()));
 
             Assert.IsNotNull(DataFiltersV1.GetProjectionForPartialStudyDesignElementsFullStudy());
         }
