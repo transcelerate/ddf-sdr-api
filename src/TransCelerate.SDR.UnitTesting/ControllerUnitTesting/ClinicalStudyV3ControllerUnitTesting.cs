@@ -26,8 +26,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         private readonly ILogHelper _mockLogger = Mock.Of<ILogHelper>();
         private readonly Mock<IHelperV3> _mockHelper = new(MockBehavior.Loose);
         private readonly Mock<IClinicalStudyServiceV3> _mockClinicalStudyService = new(MockBehavior.Loose);
-        private string[] studyElements = Constants.ClinicalStudyElements;
-        private string[] studyDesignElements = Constants.StudyDesignElements;
+        private string[] studyElements = Constants.ClinicalStudyElementsV3;
+        private string[] studyDesignElements = Constants.StudyDesignElementsV3;
         #endregion
 
         #region Setup               
@@ -353,7 +353,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 .Returns(Task.FromResult(null as object));
             ClinicalStudyV3Controller ClinicalStudyV3Controller = new(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var listofelements = string.Join(",", Constants.ClinicalStudyElements);
+            var listofelements = string.Join(",", Constants.ClinicalStudyElementsV3);
             var method = ClinicalStudyV3Controller.GetStudy("sd", 1, listofelements, Constants.USDMVersions.V1_9);
             method.Wait();
             var result = method.Result;
@@ -446,7 +446,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 .Returns(Task.FromResult(study.ClinicalStudy.StudyDesigns as object));
             ClinicalStudyV3Controller ClinicalStudyV3Controller = new(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var listofelements = string.Join(",", Constants.StudyDesignElements);
+            var listofelements = string.Join(",", Constants.StudyDesignElementsV3);
             var method = ClinicalStudyV3Controller.GetStudyDesigns("sd", 1, "des", listofelements, Constants.USDMVersions.V1_9);
             method.Wait();
             var result = method.Result;

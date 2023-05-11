@@ -62,7 +62,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
                 {
                     foreach (string element in listofElementsArray)
                     {
-                        if (!Constants.ClinicalStudyElements.Select(x => x.ToLower()).Contains(element.ToLower()))
+                        if (!Constants.ClinicalStudyElementsV3.Select(x => x.ToLower()).Contains(element.ToLower()))
                         {
                             isValid = false;
                             break;
@@ -88,7 +88,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
                 {
                     foreach (string element in listofElementsArray)
                     {
-                        if (!Constants.StudyDesignElements.Select(x => x.ToLower()).Contains(element.ToLower()))
+                        if (!Constants.StudyDesignElementsV3.Select(x => x.ToLower()).Contains(element.ToLower()))
                         {
                             isValid = false;
                             break;
@@ -111,7 +111,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
             var jsonObject = JObject.Parse(JsonConvert.SerializeObject(studyDTO, serializer));
             jsonObject.Property(string.Concat(nameof(StudyEntity.AuditTrail)[..1].ToLower(), nameof(StudyEntity.AuditTrail).AsSpan(1))).Remove();
             jsonObject.Property("links").Remove();
-            foreach (var item in Constants.ClinicalStudyElements.Select(x => x.ToLower()))
+            foreach (var item in Constants.ClinicalStudyElementsV3.Select(x => x.ToLower()))
             {
                 sections = sections.Select(t => t.Trim().ToLower()).ToArray();
                 if (!sections.Contains(item))
@@ -157,7 +157,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
             foreach (var studyDesign in studyDesigns)
             {
                 var jsonObject = JObject.Parse(JsonConvert.SerializeObject(studyDesign, serializer));
-                foreach (var item in Constants.StudyDesignElements.Select(x => x.ToLower()))
+                foreach (var item in Constants.StudyDesignElementsV3.Select(x => x.ToLower()))
                 {
                     if (sections != null && sections.Any())
                     {

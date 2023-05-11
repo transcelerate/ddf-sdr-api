@@ -265,7 +265,9 @@
             "Id",
             "StudyEpochName",
             "StudyEpochDescription",
-            "StudyEpochType"
+            "StudyEpochType",
+            "NextStudyEpochId",
+            "PreviousStudyEpochId"
           ]
         },
         {
@@ -315,7 +317,10 @@
           "required": [
             "Id",
             "TimingType",
-            "TimingValue",            
+            "TimingValue",
+            "RelativeFromScheduledInstanceId",
+            "RelativeToScheduledInstanceId",
+            "TimingWindow",
             "TimingRelativeToFrom"
           ]
         },
@@ -610,9 +615,7 @@
             "Id",
             "StudyEpochName",
             "StudyEpochDescription",
-            "StudyEpochType",
-            "NextStudyEpochId",
-            "PreviousStudyEpochId"
+            "StudyEpochType"
           ]
         },
         {
@@ -663,9 +666,6 @@
             "Id",
             "TimingType",
             "TimingValue",
-            "RelativeFromScheduledInstanceId",
-            "RelativeToScheduledInstanceId",
-            "TimingWindow",
             "TimingRelativeToFrom"
           ]
         },

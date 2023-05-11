@@ -169,7 +169,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             ClinicalStudyV1Controller clinicalStudyV1Controller = new(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var listofelements = string.Join(",", Constants.ClinicalStudyElements);
+            var listofelements = string.Join(",", Constants.ClinicalStudyElementsV2);
             var method = clinicalStudyV1Controller.GetStudy("sd", 1, "1.0");
             method.Wait();
             var result = method.Result;
@@ -799,7 +799,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 .Returns(Task.FromResult(study.ClinicalStudy.StudyDesigns as object));
             ClinicalStudyV1Controller clinicalStudyV1Controller = new(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var listofelements = string.Join(",", Constants.StudyDesignElements);
+            var listofelements = string.Join(",", Constants.StudyDesignElementsV2);
             var method = clinicalStudyV1Controller.GetStudyDesigns("sd", 1, "1.0");
             method.Wait();
             var result = method.Result;
