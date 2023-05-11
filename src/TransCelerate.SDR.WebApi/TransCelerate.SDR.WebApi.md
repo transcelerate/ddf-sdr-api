@@ -38,6 +38,7 @@
   - [GeteCPTV3(studyId,sdruploadversion,studydesignId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-GeteCPTV3-System-String,System-Int32,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.GeteCPTV3(System.String,System.Int32,System.String)')
   - [PostAllElements(studyDTO,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV3-StudyDto,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.PostAllElements(TransCelerate.SDR.Core.DTO.StudyV3.StudyDto,System.String)')
   - [PutStudy(studyDTO,usdmVersion,studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-PutStudy-TransCelerate-SDR-Core-DTO-StudyV3-StudyDto,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.PutStudy(TransCelerate.SDR.Core.DTO.StudyV3.StudyDto,System.String,System.String)')
+  - [ValidateUsdmConformance(studyDTO,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-ValidateUsdmConformance-TransCelerate-SDR-Core-DTO-StudyV3-StudyDto,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.ValidateUsdmConformance(TransCelerate.SDR.Core.DTO.StudyV3.StudyDto,System.String)')
 - [CommonController](#T-TransCelerate-SDR-WebApi-Controllers-CommonController 'TransCelerate.SDR.WebApi.Controllers.CommonController')
   - [GetApiUsdmMapping()](#M-TransCelerate-SDR-WebApi-Controllers-CommonController-GetApiUsdmMapping 'TransCelerate.SDR.WebApi.Controllers.CommonController.GetApiUsdmMapping')
   - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-WebApi-Controllers-CommonController-GetAuditTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.WebApi.Controllers.CommonController.GetAuditTrail(System.String,System.DateTime,System.DateTime)')
@@ -538,6 +539,20 @@ PUT All Elements For a Study
 | studyDTO | [TransCelerate.SDR.Core.DTO.StudyV3.StudyDto](#T-TransCelerate-SDR-Core-DTO-StudyV3-StudyDto 'TransCelerate.SDR.Core.DTO.StudyV3.StudyDto') | Study for Inserting/Updating in Database |
 | usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
+
+<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-ValidateUsdmConformance-TransCelerate-SDR-Core-DTO-StudyV3-StudyDto,System-String-'></a>
+### ValidateUsdmConformance(studyDTO,usdmVersion) `method`
+
+##### Summary
+
+Validate USDM Conformance rules for a Study
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyDTO | [TransCelerate.SDR.Core.DTO.StudyV3.StudyDto](#T-TransCelerate-SDR-Core-DTO-StudyV3-StudyDto 'TransCelerate.SDR.Core.DTO.StudyV3.StudyDto') | Study for Validation |
+| usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
 
 <a name='T-TransCelerate-SDR-WebApi-Controllers-CommonController'></a>
 ## CommonController `type`
