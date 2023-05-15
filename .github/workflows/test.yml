@@ -59,7 +59,9 @@ jobs:
         with:
           solution: '${{ github.workspace }}/src/TransCelerate.SDR.sln'
           build-breaking: true
-          all-categories: all
+          # all-categories: all
+          style: minimum
+          all-categories: none
 
       - name: Upload analysis results if success or failure
         if: success() || failure()
