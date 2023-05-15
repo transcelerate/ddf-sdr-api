@@ -1,7 +1,5 @@
 # This is a basic workflow to help you get started with Actions
-
 name: CICD_develop_TEST
-
 
 # Controls when the workflow will run
 on:
@@ -13,97 +11,137 @@ on:
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+
 jobs:
-  
-  # This workflow contains a single job called "build"
-  Build_Deploy_TEST:
-    # The type of runner that the job will run on
+
+  analysis:
+    name: .NET Code Analysis runner
+
+    # .NET Code Analysis runs on windows-latest.
+    # ubuntu-latest and macos-latest supporting coming soon
     runs-on: windows-latest
     environment: TEST
-    
-        
-    steps:     
-    - name: Set up JDK 11
-      uses: actions/setup-java@v1
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
       # Setup JDK 11
-      with:
+        with:
+          java-version: 1.11
+        
+      - name: Fetch Depth      
+        uses: actions/checkout@v2
+        with:
+      # fetch depth is used to disable shallow cloning while sonarqube analysis
+          fetch-depth: 0
+
+      - name: Dotnet Setup
+        uses: actions/setup-dotnet@v1
+      # Setup for dotnet
+        with:
+          dotnet-version: 7.0.x
+
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "3.1.x"
+
+      - name: Run NuGet restore
+        run: dotnet restore '${{ github.workspace }}/src/TransCelerate.SDR.sln'
+
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+
+      - name: Run .NET Code Analysis
+        uses: dotnet/code-analysis@main
+        id: code-analysis
+        with:
+          solution: TransCelerate.SDR.sln
+          build-breaking: true
+          all-categories: all
+
+      - name: Upload analysis results if success or failure
+        if: success() || failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: analysis_results.sarif
+          path: ${{ steps.code-analysis.outputs.sarifFile }}
+
+  build:
+    name: Build dotnet code
+    needs:
+      - analysis
+    runs-on: ubuntu-latest
+    environment: TEST 
+
+    steps:
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+      # Setup JDK 11
+        with:
           java-version: 1.11
           
-    - name: Fetch Depth      
-      uses: actions/checkout@v2
-      with:
+      - name: Fetch Depth      
+        uses: actions/checkout@v2
+        with:
           # fetch depth is used to disable shallow cloning while sonarqube analysis
           fetch-depth: 0
 
-    - name: Dotnet Setup
-      uses: actions/setup-dotnet@v1
+      - name: Dotnet Setup
+        uses: actions/setup-dotnet@v1
       # Setup for dotnet
-      with:
-        dotnet-version: 7.0.x
-
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.1
+        with:
+          dotnet-version: 7.0.x
         
-    - name: Dotnet Version    
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.x
+    # - name: Dotnet Version    
+    #   uses: actions/setup-dotnet@v1
+    #   with:
+    #     dotnet-version: 3.1.x
         
-    - name: Use NuGet
+      - name: Use NuGet
       # Use Nuget for Dotnet Build
-      uses: nuget/setup-nuget@v1
+        uses: nuget/setup-nuget@v1
       
-    - name: NuGet restore
-      run: nuget restore '${{ github.workspace }}/src/TransCelerate.SDR.sln'  
+      - name: NuGet restore
+        run: nuget restore '${{ github.workspace }}/src/TransCelerate.SDR.sln'      
       
-      # Run code analysis for the solution at repo root
-    - name: Run .NET Code Analysis
-      uses: dotnet/code-analysis@main
-      id: code-analysis
-      with:
-        build-breaking: false
-
-    # Upload the analysis results file
-    - name: Upload analysis results
-      uses: actions/upload-artifact@v2
-      with:
-        name: analysis_results.sarif
-        path: ${{ steps.code-analysis.outputs.sarifFile }}
-      
-    # - name: Find and Replace User Name - Using Build Variable
-    #   # Replace the Keyvault value in appsettings.json
-    #   run: |
-    #     find ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/appsettings.json -type f -exec sed -i ''s@{#KeyVault-Name#}@'${{ secrets.KEYVAULT_NAME }}'@g'' {} \;
+      - name: Find and Replace User Name - Using Build Variable
+      # Replace the Keyvault value in appsettings.json
+        run: |
+          find ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/appsettings.json -type f -exec sed -i ''s@{#KeyVault-Name#}@'${{ secrets.KEYVAULT_NAME }}'@g'' {} \;
+ 
+      - name: Build solution **\*.sln
+      # Build dotnet code
+        run: dotnet publish 'src/TransCelerate.SDR.sln' --configuration release
         
-    # - name: Build solution **\*.sln
-    #   # Build dotnet code
-    #   run: dotnet publish 'src/TransCelerate.SDR.sln' --configuration release
-      
-    # - name: Zip publish files
-    #   shell: pwsh
-    #   # Zip the build artifact publish folder
-    #   run: |
-    #       Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net7.0/publish/**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
      
-    # - name: Zip publish files
-    #   shell: pwsh
-    #   # Zip the Function App build artifact publish folder
-    #   run: |
-    #       Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net7.0/publish/**","${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net7.0/publish/.azurefunctions" -DestinationPath "${{ github.workspace }}\FunAppPublish.zip" -Force
-
-    # - name: 'Publish Artifact: Artifact'
-    #   uses: actions/upload-artifact@v2
-    #   # Publish the Build artifact in github
-    #   with:
-    #     path: '${{ github.workspace }}/Publish.zip'
-    #     name: Build-Artifact
-
-    # - name: 'Publish Function App Artifact: Artifact'
-    #   uses: actions/upload-artifact@v2
-    #   # Publish the Function App Build artifact in github
-    #   with:
-    #     path: '${{ github.workspace }}/FunAppPublish.zip'
-    #     name: FunctionAppBuild-Artifact
+      - name: Zip publish files
+        shell: pwsh
+        # Zip the build artifact publish folder
+        run: |
+            Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net7.0/publish/**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
+         
+      - name: Zip publish files
+        shell: pwsh
+        # Zip the Function App build artifact publish folder
+        run: |
+            Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net7.0/publish/**","${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net7.0/publish/.azurefunctions" -DestinationPath "${{ github.workspace }}\FunAppPublish.zip" -Force
+    
+      - name: 'Publish Artifact: Artifact'
+        uses: actions/upload-artifact@v2
+        # Publish the Build artifact in github
+        with:
+          path: '${{ github.workspace }}/Publish.zip'
+          name: Build-Artifact
+    
+      - name: 'Publish Function App Artifact: Artifact'
+        uses: actions/upload-artifact@v2
+        # Publish the Function App Build artifact in github
+        with:
+          path: '${{ github.workspace }}/FunAppPublish.zip'
+          name: FunctionAppBuild-Artifact
 
 #     ###############################---------------NUnit Test Cases-----------------------#############################
         
