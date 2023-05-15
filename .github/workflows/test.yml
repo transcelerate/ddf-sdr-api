@@ -37,15 +37,15 @@ jobs:
       # fetch depth is used to disable shallow cloning while sonarqube analysis
           fetch-depth: 0
 
-      - name: Dotnet Setup
-        uses: actions/setup-dotnet@v1
-      # Setup for dotnet
-        with:
-          dotnet-version: 7.0.x
+      # - name: Dotnet Setup
+      #   uses: actions/setup-dotnet@v1
+      # # Setup for dotnet
+      #   with:
+      #     dotnet-version: 7.0.x
 
       - uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: "3.1.x"
+          dotnet-version: "7.0.x"
 
       - name: Run NuGet restore
         run: dotnet restore '${{ github.workspace }}/src/TransCelerate.SDR.sln'
