@@ -57,7 +57,7 @@ jobs:
         uses: dotnet/code-analysis@main
         id: code-analysis
         with:
-          solution: TransCelerate.SDR.sln
+          solution: '${{ github.workspace }}/src/TransCelerate.SDR.sln'
           build-breaking: true
           all-categories: all
 
