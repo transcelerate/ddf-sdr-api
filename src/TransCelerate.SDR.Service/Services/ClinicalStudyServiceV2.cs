@@ -265,7 +265,7 @@ namespace TransCelerate.SDR.Services.Services
                     if (checkStudy == null)
                         return Constants.ErrorMessages.Forbidden;
 
-                    var soa = SoAV3(study.ClinicalStudy.StudyDesigns);
+                    var soa = SoAV2(study.ClinicalStudy.StudyDesigns);
                     soa.StudyId = study.ClinicalStudy.StudyId;
                     soa.StudyTitle = study.ClinicalStudy.StudyTitle;
                     if (!String.IsNullOrWhiteSpace(studyDesignId))
@@ -297,7 +297,7 @@ namespace TransCelerate.SDR.Services.Services
             }
         }
 
-        public SoADto SoAV3(List<StudyDesignEntity> studyDesigns)
+        public SoADto SoAV2(List<StudyDesignEntity> studyDesigns)
         {
             SoADto soADto = new()
             {
@@ -347,17 +347,7 @@ namespace TransCelerate.SDR.Services.Services
                                             BiomedicalConcepts = design.BiomedicalConcepts.Where(bc => act.BiomedicalConceptIds != null && act.BiomedicalConceptIds.Any() && act.BiomedicalConceptIds.Contains(bc.Id)).Select(bc => bc.BcName).ToList(),
                                             FootnoteId = string.Empty,
                                             FootnoteDescription = act.ActivityIsConditional ? $"{act.ActivityName} : {act.ActivityIsConditionalReason}" : string.Empty,
-                                            DefinedProcedures = act.DefinedProcedures?.Select(y => new ProcedureSoA
-                                            {
-                                                ProcedureId = y.Id,
-                                                ProcedureName = string.Empty,
-                                                ProcedureDescription = string.Empty,
-                                                ProcedureIsConditional = y.ProcedureIsConditional,
-                                                ProcedureIsConditionalReason = y.ProcedureIsConditionalReason,
-                                                FootnoteId = string.Empty,
-                                                //below string.Empty has to be changed once procedureName is included in the model
-                                                FootnoteDescription = y.ProcedureIsConditional ? $"{string.Empty} : {y.ProcedureIsConditionalReason}" : string.Empty
-                                            }).ToList()
+                                            DefinedProcedures = new List<ProcedureSoA>()
                                         }).ToList()
                                     };
                                     // SoA for instances where encounter is mapped
