@@ -133,5 +133,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
 
         #endregion
 
+        #region Version Compare
+        List<string> GetChangedValues(StudyDto currentStudyVersion, StudyDto previousStudyVersion);
+        #endregion
+
     }
 }

@@ -309,6 +309,69 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Ended Controller : {nameof(CommonController)}; Method : {nameof(GeteCPTV3  )};");
             }
         }
+
+        /// <summary>
+        /// GET Differences between two versions of a study
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="sdrUploadVersionOne">First Version of study</param> 
+        /// <param name="sdrUploadVersionTwo">Second Version of study</param>
+        /// <param name="usdmVersion">usdm-vreison header</param>
+        /// <response code="200">Returns Study</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">The Study for the studyId is Not Found</response>
+        [HttpGet]
+        [ApiVersion(Constants.USDMVersions.V2)]
+        [Route(Route.VersionCompareV3)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDto))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> GetDifferences(string studyId, int sdrUploadVersionOne, int sdrUploadVersionTwo,
+                                                  [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetDifferences)};");
+                if (!String.IsNullOrWhiteSpace(studyId))
+                {
+                    _logger.LogInformation($"Inputs : studyId = {studyId}; sdruploadversion1 = {sdrUploadVersionOne}; sdruploadversion2 = {sdrUploadVersionTwo};");
+
+                    LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
+
+                    if(sdrUploadVersionOne == sdrUploadVersionTwo)
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.ProvideDifferentVersion)).Value);
+
+                    var differences = await _clinicalStudyService.GetDifferences(studyId, sdrUploadVersionOne: Math.Min(sdrUploadVersionOne, sdrUploadVersionTwo), sdrUploadVersionTwo: Math.Max(sdrUploadVersionOne, sdrUploadVersionTwo), user);
+
+                    if (differences == null)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
+                    }
+                    else if (differences.ToString() == Constants.ErrorMessages.ForbiddenForAStudy)
+                    {
+                        return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden(Constants.ErrorMessages.ForbiddenForAStudy)).Value);
+                    }
+                    else
+                    {
+                        return Ok(differences);
+                    }
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV2Controller)}; Method : {nameof(GetDifferences)};");
+            }
+        }
         #endregion
 
         #region POST/PUT Methods

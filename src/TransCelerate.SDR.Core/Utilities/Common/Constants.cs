@@ -202,6 +202,10 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string Forbidden = "Access to the resource is restricted";
 
+            public const string ForbiddenForAStudy = "Access to one of the SDRUploadVersion of the study is restricted";
+
+            public const string ProvideDifferentVersion = "Kindly provide different SDRUploadVersions";
+
             public const string InvalidCredentials = "Invalid Credentials";
 
             public const string PostRestricted = "Operation restricted for the user";
