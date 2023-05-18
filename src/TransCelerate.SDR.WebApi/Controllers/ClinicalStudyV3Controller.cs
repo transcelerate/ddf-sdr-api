@@ -348,6 +348,10 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     {
                         return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
                     }
+                    if (differences.ToString() == Constants.ErrorMessages.OneVersionNotFound)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
+                    }
                     else if (differences.ToString() == Constants.ErrorMessages.ForbiddenForAStudy)
                     {
                         return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden(Constants.ErrorMessages.ForbiddenForAStudy)).Value);

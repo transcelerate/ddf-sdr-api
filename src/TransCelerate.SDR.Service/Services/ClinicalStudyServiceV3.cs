@@ -718,9 +718,13 @@ namespace TransCelerate.SDR.Services.Services
                 StudyEntity studyOne = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: studyId, sdruploadversion: sdrUploadVersionOne).ConfigureAwait(false);
                 StudyEntity studyTwo = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: studyId, sdruploadversion: sdrUploadVersionTwo).ConfigureAwait(false);
 
-                if (studyOne == null || studyTwo == null)
+                if (studyOne == null && studyTwo == null)
                 {
                     return null;
+                }
+                else if (studyOne == null || studyTwo == null)
+                {
+                    return Constants.ErrorMessages.OneVersionNotFound;
                 }
                 else
                 {
@@ -734,7 +738,13 @@ namespace TransCelerate.SDR.Services.Services
                     var studyDtoOne = _mapper.Map<StudyDto>(studyOne);
                     var studyDtoTwo = _mapper.Map<StudyDto>(studyTwo);
 
-                    return _helper.GetChangedValues(studyDtoOne, studyDtoTwo);
+                    return new VersionCompareDto
+                    {
+                        StudyId = studyId,
+                        LHS = new VersionDetails { EntryDateTime = studyOne.AuditTrail.EntryDateTime, SDRUploadVersion = studyOne.AuditTrail.SDRUploadVersion},
+                        RHS = new VersionDetails { EntryDateTime = studyTwo.AuditTrail.EntryDateTime, SDRUploadVersion = studyTwo.AuditTrail.SDRUploadVersion},
+                        ElementsChanged = _helper.GetChangedValues(studyDtoOne, studyDtoTwo)
+                    };
                 }
             }
             catch (Exception)
