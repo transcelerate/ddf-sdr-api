@@ -350,7 +350,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     }
                     if (differences.ToString() == Constants.ErrorMessages.OneVersionNotFound)
                     {
-                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.OneVersionNotFound)).Value);
                     }
                     else if (differences.ToString() == Constants.ErrorMessages.ForbiddenForAStudy)
                     {
