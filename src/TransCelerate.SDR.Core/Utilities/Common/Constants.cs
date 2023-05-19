@@ -154,6 +154,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         {
             public const string StudyNotFound = "The requested study document not found";
 
+            public const string OneVersionNotFound = "The requested one or more SDRUploadVersions not found";
+
             public const string ChangeAuditNotFound = "The requested change audit is not found for the study with uuid :";
 
             public const string GenericError = "An Error Occured";
@@ -201,6 +203,10 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string UnAuthorized = "Access Denied";
 
             public const string Forbidden = "Access to the resource is restricted";
+
+            public const string ForbiddenForAStudy = "Access to one or more SDRUploadVersions of the study is restricted";
+
+            public const string ProvideDifferentVersion = "Kindly provide different SDRUploadVersions";
 
             public const string InvalidCredentials = "Invalid Credentials";
 
@@ -372,5 +378,15 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string ObjectiveLevel = "Objective Level";
             public const string SexofParticipants = "SexofParticipants";
         }
+
+        public static readonly string[] CharactersToBeRemovedForVersionCompare =
+        {
+            nameof(DTO.StudyV3.CodeDto.Id),
+            nameof(DTO.StudyV3.CodeDto.CodeSystemVersion),
+            nameof(DTO.StudyV3.CodeDto.CodeSystem),
+            nameof(DTO.StudyV3.CodeDto.Decode),
+            nameof(DTO.StudyV3.CodeDto.Code),
+            "T"
+        };
     }
 }

@@ -32,6 +32,7 @@
   - [PutStudy(studyDTO,usdmVersion,studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-PutStudy-TransCelerate-SDR-Core-DTO-StudyV2-StudyDto,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.PutStudy(TransCelerate.SDR.Core.DTO.StudyV2.StudyDto,System.String,System.String)')
 - [ClinicalStudyV3Controller](#T-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller')
   - [DeleteStudy(studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-DeleteStudy-System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.DeleteStudy(System.String)')
+  - [GetDifferences(studyId,sdrUploadVersionOne,sdrUploadVersionTwo,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-GetDifferences-System-String,System-Int32,System-Int32,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.GetDifferences(System.String,System.Int32,System.Int32,System.String)')
   - [GetSOAV3(studyId,studyDesignId,sdruploadversion,scheduleTimelineId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-GetSOAV3-System-String,System-String,System-String,System-Int32- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.GetSOAV3(System.String,System.String,System.String,System.Int32)')
   - [GetStudy(studyId,sdruploadversion,listofelements,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-GetStudy-System-String,System-Int32,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.GetStudy(System.String,System.Int32,System.String,System.String)')
   - [GetStudyDesigns(studyId,studyDesignId,sdruploadversion,listofelements,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-GetStudyDesigns-System-String,System-Int32,System-String,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.GetStudyDesigns(System.String,System.Int32,System.String,System.String,System.String)')
@@ -446,6 +447,22 @@ Delete a Study
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
+
+<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-GetDifferences-System-String,System-Int32,System-Int32,System-String-'></a>
+### GetDifferences(studyId,sdrUploadVersionOne,sdrUploadVersionTwo,usdmVersion) `method`
+
+##### Summary
+
+GET Differences between two versions of a study
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
+| sdrUploadVersionOne | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | First Version of study |
+| sdrUploadVersionTwo | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Second Version of study |
+| usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | usdm-vreison header |
 
 <a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-GetSOAV3-System-String,System-String,System-String,System-Int32-'></a>
 ### GetSOAV3(studyId,studyDesignId,sdruploadversion,scheduleTimelineId) `method`
