@@ -735,15 +735,12 @@ namespace TransCelerate.SDR.Services.Services
                     if (checkStudy == null)
                         return Constants.ErrorMessages.ForbiddenForAStudy;
 
-                    var studyDtoOne = _mapper.Map<StudyDto>(studyOne);
-                    var studyDtoTwo = _mapper.Map<StudyDto>(studyTwo);
-
                     return new VersionCompareDto
                     {
                         StudyId = studyId,
                         LHS = new VersionDetails { EntryDateTime = studyOne.AuditTrail.EntryDateTime, SDRUploadVersion = studyOne.AuditTrail.SDRUploadVersion},
                         RHS = new VersionDetails { EntryDateTime = studyTwo.AuditTrail.EntryDateTime, SDRUploadVersion = studyTwo.AuditTrail.SDRUploadVersion},
-                        ElementsChanged = _helper.GetChangedValues(studyDtoOne, studyDtoTwo)
+                        ElementsChanged = _helper.GetChangedValuesForStudyComparison(studyOne, studyTwo)
                     };
                 }
             }

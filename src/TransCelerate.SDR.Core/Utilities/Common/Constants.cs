@@ -381,11 +381,11 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
         public static readonly string[] CharactersToBeRemovedForVersionCompare =
         {
-            nameof(DTO.StudyV3.CodeDto.Id),
-            nameof(DTO.StudyV3.CodeDto.CodeSystemVersion),
-            nameof(DTO.StudyV3.CodeDto.CodeSystem),
-            nameof(DTO.StudyV3.CodeDto.Decode),
-            nameof(DTO.StudyV3.CodeDto.Code)
+            nameof(Entities.StudyV3.CodeEntity.Id),
+            nameof(Entities.StudyV3.CodeEntity.CodeSystemVersion),
+            nameof(Entities.StudyV3.CodeEntity.CodeSystem),
+            nameof(Entities.StudyV3.CodeEntity.Decode),
+            nameof(Entities.StudyV3.CodeEntity.Code)
         };
     }
 }
