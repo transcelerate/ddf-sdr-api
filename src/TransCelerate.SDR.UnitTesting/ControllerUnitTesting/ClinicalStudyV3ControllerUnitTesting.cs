@@ -9,6 +9,7 @@ using System.IO;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.StudyV3;
 using TransCelerate.SDR.Core.DTO.Token;
+using TransCelerate.SDR.Core.Entities.StudyV3;
 using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
@@ -36,6 +37,11 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV3.json");
             return JsonConvert.DeserializeObject<StudyDto>(jsonData);
+        }
+        public static StudyEntity GetEntityDataFromStaticJson()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV3.json");
+            return JsonConvert.DeserializeObject<StudyEntity>(jsonData);
         }
         public static SoADto GetSOAV3DataFromStaticJson()
         {
@@ -1045,6 +1051,157 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), method);
             _mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDto>(), out errors))
                .Returns(false);
+        }
+        #endregion
+
+        #region Version Comparison
+        [Test]
+        public void GetDifferencesSuccessUnitTesting()
+        {
+            StudyDto study = GetDtoDataFromStaticJson();
+            var currentVersionV3 = GetEntityDataFromStaticJson();
+            var previousVersionV3 = GetEntityDataFromStaticJson();
+            currentVersionV3.AuditTrail.SDRUploadVersion = 2;
+            currentVersionV3.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
+            previousVersionV3.AuditTrail.SDRUploadVersion = 1;
+            previousVersionV3.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
+
+            List<StudyEntity> studyEntitiesV3 = new()
+            {
+                currentVersionV3,
+                previousVersionV3
+
+            };
+            HelperV3 helperV3 = new();
+
+            _mockClinicalStudyService.Setup(x => x.GetDifferences(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+                .Returns(Task.FromResult(new VersionCompareDto 
+                {
+                    StudyId = currentVersionV3.ClinicalStudy.StudyId,
+                    LHS = new VersionDetails { EntryDateTime = currentVersionV3.AuditTrail.EntryDateTime},
+                    RHS = new VersionDetails { EntryDateTime = previousVersionV3.AuditTrail.EntryDateTime},
+                    ElementsChanged = helperV3.GetChangedValuesForStudyComparison(currentVersionV3, previousVersionV3)
+                } as object));
+            ClinicalStudyV3Controller ClinicalStudyV3Controller = new(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
+
+            var method = ClinicalStudyV3Controller.GetDifferences("sd", 2, 1, Constants.USDMVersions.V2);
+            method.Wait();
+            var result = method.Result;
+
+            //Expected
+            var expected = study;
+
+            //Actual            
+            var actual_result = JsonConvert.DeserializeObject<VersionCompareDto>(
+                 JsonConvert.SerializeObject((result as OkObjectResult).Value));
+
+            Assert.AreEqual(expected.ClinicalStudy.StudyId, actual_result.StudyId);
+            Assert.IsInstanceOf(typeof(OkObjectResult), result);
+        }
+
+        [Test]
+        public void GetDifferencesFailureUnitTesting()
+        {
+            StudyDto study = GetDtoDataFromStaticJson();
+
+            _mockClinicalStudyService.Setup(x => x.GetDifferences(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+               .Returns(Task.FromResult(null as object));
+            ClinicalStudyV3Controller ClinicalStudyV3Controller = new(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
+
+            var listofelements = string.Join(",", Constants.ClinicalStudyElementsV3);
+            var method = ClinicalStudyV3Controller.GetDifferences("sd", 1, 2, Constants.USDMVersions.V2);
+            method.Wait();
+            var result = method.Result;
+
+            //Expected
+            var expected = new ErrorModel { Message = Constants.ErrorMessages.StudyNotFound, StatusCode = "404" };
+
+            //Actual            
+            var actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.Message, actual_result.Message);
+            Assert.IsInstanceOf(typeof(NotFoundObjectResult), result);
+
+            _mockClinicalStudyService.Setup(x => x.GetDifferences(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+               .Returns(Task.FromResult(Constants.ErrorMessages.OneVersionNotFound as object));
+
+            method = ClinicalStudyV3Controller.GetDifferences("sd", 1, 2, Constants.USDMVersions.V2);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { Message = Constants.ErrorMessages.OneVersionNotFound, StatusCode = "404" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.Message, actual_result.Message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(404, (result as ObjectResult).StatusCode);
+
+            _mockClinicalStudyService.Setup(x => x.GetDifferences(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+               .Returns(Task.FromResult(Constants.ErrorMessages.ForbiddenForAStudy as object));
+
+            method = ClinicalStudyV3Controller.GetDifferences("sd", 1, 2, Constants.USDMVersions.V2);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { Message = Constants.ErrorMessages.ForbiddenForAStudy, StatusCode = "403" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.Message, actual_result.Message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(403, (result as ObjectResult).StatusCode);
+
+
+            method = ClinicalStudyV3Controller.GetDifferences("sd", 1, 1, Constants.USDMVersions.V2);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { Message = Constants.ErrorMessages.ProvideDifferentVersion, StatusCode = "400" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.Message, actual_result.Message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+
+
+            _mockClinicalStudyService.Setup(x => x.GetDifferences(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+               .Throws(new Exception(""));
+
+            method = ClinicalStudyV3Controller.GetDifferences("sd", 1, 2, Constants.USDMVersions.V2);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { Message = Constants.ErrorMessages.GenericError, StatusCode = "400" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.Message, actual_result.Message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+
+            method = ClinicalStudyV3Controller.GetDifferences("", 1, 2, Constants.USDMVersions.V2);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { Message = Constants.ErrorMessages.StudyInputError, StatusCode = "400" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.Message, actual_result.Message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
         }
         #endregion
         #endregion

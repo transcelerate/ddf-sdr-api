@@ -88,6 +88,19 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
         Task<object> GeteCPTV3(string studyId, int sdruploadversion, string studyDesignId, LoggedInUser user);
+
+        /// <summary>
+        /// GET Differences between two versions of a study
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="sdrUploadVersionOne">First Version of study</param> 
+        /// <param name="sdrUploadVersionTwo">Second Version of study</param>
+        /// <param name="user">Logged In User</param>
+        /// <returns>
+        /// A <see cref="object"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        Task<object> GetDifferences(string studyId, int sdrUploadVersionOne, int sdrUploadVersionTwo, LoggedInUser user);
         #endregion
 
 
