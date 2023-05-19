@@ -1684,39 +1684,127 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
             {
                 currentVersion.ForEach(currentItem =>
                 {
+                    List<string> tempChangedValues = new();
                     if (previousVersion != null && previousVersion.Any(x => x.Id == currentItem.Id))
                     {
+                        //Get Differences for Array Items
                         var differences = GetDifferences<T>(currentItem, previousVersion.Find(x => x.Id == currentItem.Id));
                         differences.ForEach(x =>
                         {
-                            changedValues.Add($"[{currentVersion.IndexOf(currentItem)}].{x}");
+                            tempChangedValues.Add($"[{currentVersion.IndexOf(currentItem)}].{x}");
                         });
                         if (currentVersion.IndexOf(currentItem) != previousVersion.IndexOf(previousVersion.Find(x => x.Id == currentItem.Id)))
-                            changedValues.Add($".{nameof(T)}");
+                            tempChangedValues.Add($"[].{nameof(T)}");
+
+                        //Get Differences for Non-Array  Items                       
+                        tempChangedValues.AddRange(GetDifferenceForNonArrayElements(currentItem, previousVersion.Find(x => x.Id == currentItem.Id), tempChangedValues,currentVersion.IndexOf(currentItem)));
                     }
                     else if (previousVersion != null && currentVersion?.Count == previousVersion?.Count && !previousVersion.Any(x => x.Id == currentItem.Id))
                     {
-                        changedValues.Add($".{nameof(T)}");
+                        tempChangedValues.Add($"[].{nameof(T)}");
                     }
+                    changedValues.AddRange(tempChangedValues);
                 });
             }
             else if ((currentVersion is null && previousVersion is not null) || (currentVersion is not null && previousVersion is null))
-                changedValues.Add($".{nameof(T)}");
+                changedValues.Add($"[].{nameof(T)}");
             if (currentVersion?.Count != previousVersion?.Count)
-                changedValues.Add($".{nameof(T)}");
-
-            //changedValues.Add($".{GetJsonPropertyName.GetFields(typeof(T), nameof(DTO.StudyV3.IId.Id))}");
+                changedValues.Add($"[].{nameof(T)}");
+            
             return changedValues;
         }
+        public List<string> GetDifferenceForNonArrayElements<T>(T currentVersion, T previousVersion,List<string> changedValues,int index) where T : class, DTO.StudyV3.IId
+        {
+            if (typeof(T) == typeof(StudyIdentifierDto))
+            {
+                var currentStudyIdentifier = currentVersion as StudyIdentifierDto;
+                var previousStudyIdentifier = previousVersion as StudyIdentifierDto;
 
+                if (currentStudyIdentifier.StudyIdentifierScope?.Id != previousStudyIdentifier.StudyIdentifierScope?.Id)
+                {
+                    changedValues.RemoveAll(x => x.Contains(nameof(StudyIdentifierDto.StudyIdentifierScope)));
+                    changedValues.Add($"[{index}].{nameof(StudyIdentifierDto.StudyIdentifierScope)}");
+                }
+                else
+                {                    
+                    if (currentStudyIdentifier.StudyIdentifierScope?.OrganizationLegalAddress?.Id != currentStudyIdentifier.StudyIdentifierScope?.OrganizationLegalAddress?.Id)
+                    {
+                        changedValues.RemoveAll(x => x.Contains(nameof(OrganisationDto.OrganizationLegalAddress)));
+                        changedValues.Add($"[{index}].{nameof(StudyIdentifierDto.StudyIdentifierScope)}");
+                    }
+                }
+            }
+            if (typeof(T) == typeof(StudyCellDto))
+            {
+                var currentStudyCell = currentVersion as StudyCellDto;
+                var previousStudyCell = previousVersion as StudyCellDto;
+
+                if (currentStudyCell.StudyEpoch?.Id != previousStudyCell.StudyEpoch?.Id)
+                {
+                    changedValues.RemoveAll(x => x.Contains(nameof(StudyCellDto.StudyEpoch)));
+                    changedValues.Add($"[{index}].{nameof(StudyCellDto.StudyEpoch)}");
+                }
+                if (currentStudyCell.StudyArm?.Id != previousStudyCell.StudyArm?.Id)
+                {
+                    changedValues.RemoveAll(x => x.Contains(nameof(StudyCellDto.StudyArm)));
+                    changedValues.Add($"[{index}].{nameof(StudyCellDto.StudyArm)}");
+                }
+            }
+            if (typeof(T) == typeof(StudyElementDto))
+            {
+                var currentStudyElement = currentVersion as StudyElementDto;
+                var previousStudyElement = previousVersion as StudyElementDto;
+
+                if (currentStudyElement.TransitionEndRule?.Id != previousStudyElement.TransitionEndRule?.Id)
+                {
+                    changedValues.RemoveAll(x => x.Contains(nameof(StudyElementDto.TransitionEndRule)));
+                    changedValues.Add($"[{index}].{nameof(StudyElementDto.TransitionEndRule)}");
+                }
+                if (currentStudyElement.TransitionStartRule?.Id != previousStudyElement.TransitionStartRule?.Id)
+                {
+                    changedValues.RemoveAll(x => x.Contains(nameof(StudyElementDto.TransitionStartRule)));
+                    changedValues.Add($"[{index}].{nameof(StudyElementDto.TransitionStartRule)}");
+                }
+            }
+            if (typeof(T) == typeof(EncounterDto))
+            {
+                var currentStudyEncounter = currentVersion as EncounterDto;
+                var previousStudyEncounter = previousVersion as EncounterDto;
+
+                if (currentStudyEncounter.TransitionEndRule?.Id != previousStudyEncounter.TransitionEndRule?.Id)
+                {
+                    changedValues.RemoveAll(x => x.Contains(nameof(EncounterDto.TransitionEndRule)));
+                    changedValues.Add($"[{index}].{nameof(EncounterDto.TransitionEndRule)}");
+                }
+                if (currentStudyEncounter.TransitionStartRule?.Id != previousStudyEncounter.TransitionStartRule?.Id)
+                {
+                    changedValues.RemoveAll(x => x.Contains(nameof(EncounterDto.TransitionStartRule)));
+                    changedValues.Add($"[{index}].{nameof(EncounterDto.TransitionStartRule)}");
+                }
+            }
+            if (typeof(T) == typeof(EstimandDto))
+            {
+                var currentStudyEstimand = currentVersion as EstimandDto;
+                var previousStudyEstimand = previousVersion as EstimandDto;
+
+                if (currentStudyEstimand.AnalysisPopulation?.Id != previousStudyEstimand.AnalysisPopulation?.Id)
+                {
+                    changedValues.RemoveAll(x => x.Contains(nameof(EstimandDto.AnalysisPopulation)));
+                    changedValues.Add($"[{index}].{nameof(EstimandDto.AnalysisPopulation)}");
+                }
+            }
+            return changedValues;
+        }
         public List<string> GetDifferenceForStudyIdentifiers(List<StudyIdentifierDto> currentVersion, List<StudyIdentifierDto> previousVersion)
         {
             var tempList = new List<string>();
             if ((currentVersion is null && previousVersion is not null) || (currentVersion is not null && previousVersion is null))
                 tempList.Add($"{nameof(StudyDto.ClinicalStudy)}.{nameof(ClinicalStudyDto.StudyIdentifiers)}");
             if (currentVersion?.Count != previousVersion?.Count)
-                if (currentVersion?.Count != previousVersion?.Count)
-                    tempList.Add($"{nameof(StudyDto.ClinicalStudy)}.{nameof(ClinicalStudyDto.StudyIdentifiers)}");
+                tempList.Add($"{nameof(StudyDto.ClinicalStudy)}.{nameof(ClinicalStudyDto.StudyIdentifiers)}");
+
+            var differencesForIdentifiersSubElements = GetDifferenceForAListForStudyComparison<StudyIdentifierDto>(currentVersion, previousVersion);
+
             GetDifferenceForAListForStudyComparison<StudyIdentifierDto>(currentVersion, previousVersion).ForEach(x =>
             {
                 tempList.Add($"{nameof(StudyDto.ClinicalStudy)}.{nameof(ClinicalStudyDto.StudyIdentifiers)}{x}");
