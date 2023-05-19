@@ -5,6 +5,7 @@ using ObjectsComparer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using TransCelerate.SDR.Core.DTO.StudyV3;
@@ -1727,10 +1728,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
                 }
                 else
                 {                    
-                    if (currentStudyIdentifier.StudyIdentifierScope?.OrganizationLegalAddress?.Id != currentStudyIdentifier.StudyIdentifierScope?.OrganizationLegalAddress?.Id)
+                    if (currentStudyIdentifier.StudyIdentifierScope?.OrganizationLegalAddress?.Id != previousStudyIdentifier.StudyIdentifierScope?.OrganizationLegalAddress?.Id)
                     {
                         changedValues.RemoveAll(x => x.Contains(nameof(OrganisationDto.OrganizationLegalAddress)));
-                        changedValues.Add($"[{index}].{nameof(StudyIdentifierDto.StudyIdentifierScope)}");
+                        changedValues.Add($"[{index}].{nameof(StudyIdentifierDto.StudyIdentifierScope)}.{nameof(OrganisationDto.OrganizationLegalAddress)}");
                     }
                 }
             }
@@ -2001,18 +2002,18 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
 
                             GetDifferenceForAListForStudyComparison<ResponseCodeDto>(currentBcProp.BcPropertyResponseCodes, previousBcProp.BcPropertyResponseCodes).ForEach(x =>
                             {
-                                currentBcChangedValues.Add($"{nameof(StudyDesignDto.BiomedicalConcepts)}.{nameof(BiomedicalConceptDto.BcProperties)}.{nameof(BiomedicalConceptPropertyDto.BcPropertyResponseCodes)}{x}");
+                                currentBcChangedValues.Add($"{nameof(StudyDesignDto.BiomedicalConcepts)}[{currentStudyDesign.BiomedicalConcepts.IndexOf(currentBc)}].{nameof(BiomedicalConceptDto.BcProperties)}[{currentBc.BcProperties.IndexOf(currentBcProp)}].{nameof(BiomedicalConceptPropertyDto.BcPropertyResponseCodes)}{x}");
                             });
 
                             GetDifferenceForAliasCode(currentBcProp.BcPropertyConceptCode, previousBcProp.BcPropertyConceptCode).ForEach(x =>
                             {
-                                currentBcChangedValues.Add($"{nameof(StudyDesignDto.BiomedicalConcepts)}.{nameof(BiomedicalConceptDto.BcProperties)}.{nameof(BiomedicalConceptPropertyDto.BcPropertyConceptCode)}{x}");
+                                currentBcChangedValues.Add($"{nameof(StudyDesignDto.BiomedicalConcepts)}[{currentStudyDesign.BiomedicalConcepts.IndexOf(currentBc)}].{nameof(BiomedicalConceptDto.BcProperties)}[{currentBc.BcProperties.IndexOf(currentBcProp)}].{nameof(BiomedicalConceptPropertyDto.BcPropertyConceptCode)}{x}");
                             });
                         }
                     });
                     GetDifferenceForAliasCode(currentBc.BcConceptCode, previousBc.BcConceptCode).ForEach(x =>
                     {
-                        currentBcChangedValues.Add($"{nameof(StudyDesignDto.BiomedicalConcepts)}.{nameof(BiomedicalConceptDto.BcConceptCode)}{x}");
+                        currentBcChangedValues.Add($"{nameof(StudyDesignDto.BiomedicalConcepts)}[{currentStudyDesign.BiomedicalConcepts.IndexOf(currentBc)}].{nameof(BiomedicalConceptDto.BcConceptCode)}{x}");
                     });
                 }
                 tempList.AddRange(currentBcChangedValues);
@@ -2186,7 +2187,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
                     {
                         var previousItem = previousVersion.Find(x => x.Id == currentItem.Id);
                         if (previousItem.GetType() != currentItem.GetType())
-                            changedValues.Add($".{nameof(T)}");
+                            changedValues.Add($"[].{nameof(T)}");
 
                         if (previousItem.GetType() == currentItem.GetType())
                         {
@@ -2216,18 +2217,18 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
                             }
                         }
                         if (currentVersion.IndexOf(currentItem) != previousVersion.IndexOf(previousItem))
-                            changedValues.Add($".{nameof(T)}");
+                            changedValues.Add($"[].{nameof(T)}");
                     }
                     else if (previousVersion != null && currentVersion?.Count == previousVersion?.Count && !previousVersion.Any(x => x.Id == currentItem.Id))
                     {
-                        changedValues.Add($".{nameof(T)}");
+                        changedValues.Add($"[].{nameof(T)}");
                     }
                 });
             }
             else if ((currentVersion is null && previousVersion is not null) || (currentVersion is not null && previousVersion is null))
-                changedValues.Add($".{nameof(T)}");
+                changedValues.Add($"[].{nameof(T)}");
             if (currentVersion?.Count != previousVersion?.Count)
-                changedValues.Add($".{nameof(T)}");
+                changedValues.Add($"[].{nameof(T)}");
             return changedValues;
         }
         public List<string> GetDifferenceForActivities(StudyDesignDto currentStudyDesign, StudyDesignDto previousStudyDesign)
@@ -2262,9 +2263,22 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
             changes?.ForEach(change =>
             {
                 //Remove Code
-                var stringSegments = change.Split(".");
+                var stringSegments = change.Split(".").ToList();
                 if (Constants.CharactersToBeRemovedForVersionCompare.ToList().Any(x => x == stringSegments.Last()))
-                    stringSegments = stringSegments.SkipLast(1).ToArray();
+                {
+                    stringSegments = stringSegments.SkipLast(1).ToList();
+                    var stringToRemoveArrayBracketForCode = stringSegments.Last();
+                    stringSegments = stringSegments.SkipLast(1).ToList();
+                    stringToRemoveArrayBracketForCode = Regex.Replace(stringToRemoveArrayBracketForCode, "[0-9]", string.Empty, RegexOptions.None, TimeSpan.FromMilliseconds(1000));
+                    Constants.ParanthesisToBeRemovedForAudit.ToList().ForEach(character =>
+                    {
+                        stringToRemoveArrayBracketForCode = stringToRemoveArrayBracketForCode.Replace(character, string.Empty);
+                    });
+                    stringSegments.Add(stringToRemoveArrayBracketForCode);
+                }
+                if (stringSegments.Last() == "T")
+                    stringSegments = stringSegments.SkipLast(1).ToList();
+
                 change = string.Join(".", stringSegments);
 
 

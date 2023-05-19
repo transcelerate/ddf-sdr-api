@@ -385,8 +385,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(DTO.StudyV3.CodeDto.CodeSystemVersion),
             nameof(DTO.StudyV3.CodeDto.CodeSystem),
             nameof(DTO.StudyV3.CodeDto.Decode),
-            nameof(DTO.StudyV3.CodeDto.Code),
-            "T"
+            nameof(DTO.StudyV3.CodeDto.Code)
         };
     }
 }
