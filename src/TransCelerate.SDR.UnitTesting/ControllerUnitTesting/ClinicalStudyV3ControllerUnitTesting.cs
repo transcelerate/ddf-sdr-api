@@ -9,6 +9,7 @@ using System.IO;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.StudyV3;
 using TransCelerate.SDR.Core.DTO.Token;
+using TransCelerate.SDR.Core.Entities.StudyV3;
 using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
@@ -36,6 +37,11 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV3.json");
             return JsonConvert.DeserializeObject<StudyDto>(jsonData);
+        }
+        public static StudyEntity GetEntityDataFromStaticJson()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV3.json");
+            return JsonConvert.DeserializeObject<StudyEntity>(jsonData);
         }
         public static SoADto GetSOAV3DataFromStaticJson()
         {
@@ -1053,14 +1059,14 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         public void GetDifferencesSuccessUnitTesting()
         {
             StudyDto study = GetDtoDataFromStaticJson();
-            var currentVersionV3 = GetDtoDataFromStaticJson();
-            var previousVersionV3 = GetDtoDataFromStaticJson();
+            var currentVersionV3 = GetEntityDataFromStaticJson();
+            var previousVersionV3 = GetEntityDataFromStaticJson();
             currentVersionV3.AuditTrail.SDRUploadVersion = 2;
             currentVersionV3.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
             previousVersionV3.AuditTrail.SDRUploadVersion = 1;
             previousVersionV3.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
 
-            List<StudyDto> studyEntitiesV3 = new()
+            List<StudyEntity> studyEntitiesV3 = new()
             {
                 currentVersionV3,
                 previousVersionV3
@@ -1074,7 +1080,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                     StudyId = currentVersionV3.ClinicalStudy.StudyId,
                     LHS = new VersionDetails { EntryDateTime = currentVersionV3.AuditTrail.EntryDateTime},
                     RHS = new VersionDetails { EntryDateTime = previousVersionV3.AuditTrail.EntryDateTime},
-                    ElementsChanged = helperV3.GetChangedValues(currentVersionV3, previousVersionV3)
+                    ElementsChanged = helperV3.GetChangedValuesForStudyComparison(currentVersionV3, previousVersionV3)
                 } as object));
             ClinicalStudyV3Controller ClinicalStudyV3Controller = new(_mockClinicalStudyService.Object, _mockLogger, _mockHelper.Object);
 
