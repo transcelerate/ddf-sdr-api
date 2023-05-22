@@ -829,6 +829,88 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             Assert.IsNull(Core.Utilities.Helpers.ECPTHelper.GetPlannedSexOfParticipantsV3(data.ClinicalStudy.StudyDesigns[0].StudyPopulations));
         }
         #endregion
+
+        #region GET Study
+        [Test]
+        public void GetDifferences_UnitTesting()
+        {
+            Config.IsGroupFilterEnabled = true;
+            user.UserRole = Constants.Roles.Org_Admin;
+            user.UserName = "user1@SDR.com";
+
+            var currentVersionV3 = GetEntityDataFromStaticJson();
+            var previousVersionV3 = GetEntityDataFromStaticJson();
+            currentVersionV3.AuditTrail.SDRUploadVersion = 2;
+            currentVersionV3.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
+            previousVersionV3.AuditTrail.SDRUploadVersion = 1;
+            previousVersionV3.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
+
+            currentVersionV3.ClinicalStudy.StudyType.Decode = "OBSERVATIONAL";
+            previousVersionV3.ClinicalStudy.StudyType.Decode = "OBSERVATIONAL";
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), 1))
+                   .Returns(Task.FromResult(currentVersionV3));
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), 2))
+                   .Returns(Task.FromResult(previousVersionV3));
+            _mockClinicalStudyRepository.Setup(x => x.GetGroupsOfUser(user))
+                   .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
+            ClinicalStudyServiceV3 ClinicalStudyService = new(_mockClinicalStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockServiceBusClient.Object, _mockChangeAuditRepository.Object);
+
+            var method = ClinicalStudyService.GetDifferences("1", 1, 2, user);
+            method.Wait();
+            var result = method.Result;
+
+            //Actual            
+            var actual_result = JsonConvert.DeserializeObject<VersionCompareDto>(
+                JsonConvert.SerializeObject(result));
+
+            //Assert          
+            Assert.IsNotNull(actual_result);
+
+            user.UserRole = Constants.Roles.App_User;
+            method = ClinicalStudyService.GetDifferences("1", 1, 2, user);
+            method.Wait();
+
+            Assert.AreEqual(method.Result.ToString(), Constants.ErrorMessages.ForbiddenForAStudy);
+
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
+                  .Throws(new Exception("Error"));
+
+            method = ClinicalStudyService.GetDifferences("1", 1, 2, user);
+
+
+            Assert.Throws<AggregateException>(method.Wait);
+
+            currentVersionV3.ClinicalStudy.StudyType.Decode = "INTERVENTIONAL";
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), 1))
+                  .Returns(Task.FromResult(currentVersionV3));
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), 2))
+                  .Returns(Task.FromResult(previousVersionV3));
+
+            method = ClinicalStudyService.GetDifferences("1", 1, 2, user);
+            method.Wait();
+
+            Assert.AreEqual(method.Result, Constants.ErrorMessages.ForbiddenForAStudy);
+
+
+            previousVersionV3 = null;
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), 2))
+                  .Returns(Task.FromResult(previousVersionV3));
+
+            method = ClinicalStudyService.GetDifferences("1", 1, 2, user);
+            method.Wait();
+
+            Assert.AreEqual(method.Result, Constants.ErrorMessages.OneVersionNotFound);
+
+            previousVersionV3 = null;
+            _mockClinicalStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
+                  .Returns(Task.FromResult(previousVersionV3));
+
+            method = ClinicalStudyService.GetDifferences("1", 1, 2, user);
+            method.Wait();
+
+            Assert.IsNull(method.Result);            
+        }
+        #endregion        
         #endregion
     }
 }

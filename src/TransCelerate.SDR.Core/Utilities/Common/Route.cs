@@ -79,6 +79,8 @@
         public const string AuditTrailV3 = "v3/audittrail/{studyId}";
 
         public const string GeteCPTV3 = "v3/studyDefinitions/{studyId}/studydesigns/eCPT";
+
+        public const string VersionCompareV3 = "v3/studydefinitions/{studyId}/version-comparison";
         #endregion
 
         #region POST Method Routes
