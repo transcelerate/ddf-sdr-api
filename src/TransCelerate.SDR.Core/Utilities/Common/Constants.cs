@@ -208,6 +208,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string ProvideDifferentVersion = "Kindly provide different SDRUploadVersions";
 
+            public const string ProvideValidVersion = "Kindly provide valid SDRUploadVersion for";
+
             public const string InvalidCredentials = "Invalid Credentials";
 
             public const string PostRestricted = "Operation restricted for the user";
