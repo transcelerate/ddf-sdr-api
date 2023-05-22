@@ -389,5 +389,10 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(Entities.StudyV3.CodeEntity.Decode),
             nameof(Entities.StudyV3.CodeEntity.Code)
         };
+
+        public struct VersionCompareConstants
+        {
+            public const string ArrayBrackets = "[]";
+        }
     }
 }
