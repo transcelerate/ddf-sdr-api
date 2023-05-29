@@ -275,13 +275,18 @@ namespace TransCelerate.SDR.Services.Services
                             studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity, existingStudyEntity).ConfigureAwait(false);
                         }
                     }
-                    else if (existingAuditTrail.UsdmVersion == Constants.USDMVersions.MVP)// If previus USDM version is different from incoming
-                    {
-                        studyDTO = await CreateNewVersionForAStudyWithoutCheck(incomingStudyEntity, existingAuditTrail, incomingStudyEntity.ClinicalStudy.Uuid).ConfigureAwait(false);
-                    }
+                    // Uncomment below lines based on Story #810
+                    //else if (existingAuditTrail.UsdmVersion == Constants.USDMVersions.MVP)// If previus USDM version is different from incoming
+                    //{
+                    //    studyDTO = await CreateNewVersionForAStudyWithoutCheck(incomingStudyEntity, existingAuditTrail, incomingStudyEntity.ClinicalStudy.Uuid).ConfigureAwait(false);
+                    //}
+                    //else
+                    //{
+                    //    return Constants.ErrorMessages.DowngradeError;
+                    //}
                     else
                     {
-                        return Constants.ErrorMessages.DowngradeError;
+                        studyDTO = await CreateNewVersionForAStudyWithoutCheck(incomingStudyEntity, existingAuditTrail, incomingStudyEntity.ClinicalStudy.Uuid).ConfigureAwait(false);
                     }
                 }
                 studyDTO.Links = LinksHelper.GetLinksForUi(studyDTO.ClinicalStudy.Uuid, studyDTO.ClinicalStudy.StudyDesigns?.Select(x => x.Uuid).ToList(), studyDTO.AuditTrail.UsdmVersion, studyDTO.AuditTrail.SDRUploadVersion);

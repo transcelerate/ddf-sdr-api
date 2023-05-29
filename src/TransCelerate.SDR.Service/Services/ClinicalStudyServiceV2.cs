@@ -738,7 +738,17 @@ namespace TransCelerate.SDR.Services.Services
                             await PushMessageToServiceBus(new Core.DTO.Common.ServiceBusMessageDto { Study_uuid = incomingStudyEntity.ClinicalStudy.StudyId, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
                         }
                     }
-                    else // If previus USDM version is different from incoming
+                    // Uncomment below lines based on Story #810
+                    //else if (existingAuditTrail.UsdmVersion == Constants.USDMVersions.MVP || existingAuditTrail.UsdmVersion == Constants.USDMVersions.V1)// If previus USDM version is different from incoming
+                    //{
+                    //    studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity, existingAuditTrail).ConfigureAwait(false);
+                    //    await PushMessageToServiceBus(new Core.DTO.Common.ServiceBusMessageDto { Study_uuid = incomingStudyEntity.ClinicalStudy.StudyId, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
+                    //}
+                    //else
+                    //{
+                    //    return Constants.ErrorMessages.DowngradeError;
+                    //}
+                    else
                     {
                         studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity, existingAuditTrail).ConfigureAwait(false);
                         await PushMessageToServiceBus(new Core.DTO.Common.ServiceBusMessageDto { Study_uuid = incomingStudyEntity.ClinicalStudy.StudyId, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });

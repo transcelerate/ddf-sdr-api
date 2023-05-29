@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using TransCelerate.SDR.Core.DTO.StudyV3;
 using TransCelerate.SDR.Core.Entities.StudyV3;
 using TransCelerate.SDR.Core.Utilities.Common;
@@ -2263,11 +2262,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
 
             changes?.ForEach(change =>
             {
-                //Remove Code
+                //Remove Code field values
                 var stringSegments = change.Split(".").ToList();
                 if (Constants.CharactersToBeRemovedForVersionCompare.ToList().Any(x => x == stringSegments.Last()))
                 {
+                    //To remove code field property names
                     stringSegments = stringSegments.SkipLast(1).ToList();
+                    //To remove the array bracket with the index number for code fields
                     var stringToRemoveArrayBracketForCode = stringSegments.Last();
                     stringSegments = stringSegments.SkipLast(1).ToList();
                     stringToRemoveArrayBracketForCode = Regex.Replace(stringToRemoveArrayBracketForCode, "[0-9]", string.Empty, RegexOptions.None, TimeSpan.FromMilliseconds(1000));
@@ -2275,8 +2276,18 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
                     {
                         stringToRemoveArrayBracketForCode = stringToRemoveArrayBracketForCode.Replace(character, string.Empty);
                     });
+                   
                     stringSegments.Add(stringToRemoveArrayBracketForCode);
                 }
+                // Add [] for code array fields
+                if (Constants.CodeFieldArrayElements.V3.ToList().Any(arrayField => arrayField == stringSegments.Last()))
+                {
+                    var stringToAddArrayBracketForCode = stringSegments.Last();
+                    stringToAddArrayBracketForCode += Constants.VersionCompareConstants.ArrayBrackets;
+                    stringSegments = stringSegments.SkipLast(1).ToList();
+                    stringSegments.Add(stringToAddArrayBracketForCode);
+                }
+                //Remove T
                 if (stringSegments.Last() == "T")
                     stringSegments = stringSegments.SkipLast(1).ToList();
 
