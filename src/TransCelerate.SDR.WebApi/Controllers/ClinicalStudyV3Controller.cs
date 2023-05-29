@@ -339,7 +339,16 @@ namespace TransCelerate.SDR.WebApi.Controllers
 
                     LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
 
-                    if(sdrUploadVersionOne == sdrUploadVersionTwo)
+                    if (sdrUploadVersionOne == 0 && sdrUploadVersionTwo == 0)
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest($"{Constants.ErrorMessages.ProvideValidVersion} {nameof(sdrUploadVersionOne)} and {nameof(sdrUploadVersionTwo)}")).Value);
+
+                    if (sdrUploadVersionOne == 0)
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest($"{Constants.ErrorMessages.ProvideValidVersion} {nameof(sdrUploadVersionOne)}")).Value);
+
+                    if (sdrUploadVersionTwo == 0)
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest($"{Constants.ErrorMessages.ProvideValidVersion} {nameof(sdrUploadVersionTwo)}")).Value);
+
+                    if (sdrUploadVersionOne == sdrUploadVersionTwo)
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.ProvideDifferentVersion)).Value);
 
                     var differences = await _clinicalStudyService.GetDifferences(studyId, sdrUploadVersionOne: Math.Min(sdrUploadVersionOne, sdrUploadVersionTwo), sdrUploadVersionTwo: Math.Max(sdrUploadVersionOne, sdrUploadVersionTwo), user);
