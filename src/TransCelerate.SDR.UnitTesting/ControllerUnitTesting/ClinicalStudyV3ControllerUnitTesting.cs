@@ -1202,6 +1202,48 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+
+            method = ClinicalStudyV3Controller.GetDifferences("a", 0, 1, Constants.USDMVersions.V2);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { Message = Constants.ErrorMessages.ProvideValidVersion + " sdrUploadVersionOne", StatusCode = "400" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.Message, actual_result.Message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+
+            method = ClinicalStudyV3Controller.GetDifferences("a", 1, 0, Constants.USDMVersions.V2);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { Message = Constants.ErrorMessages.ProvideValidVersion + " sdrUploadVersionTwo", StatusCode = "400" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.Message, actual_result.Message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+
+            method = ClinicalStudyV3Controller.GetDifferences("a", 0, 0, Constants.USDMVersions.V2);
+            method.Wait();
+            result = method.Result;
+
+            //Expected
+            expected = new ErrorModel { Message = Constants.ErrorMessages.ProvideValidVersion + " sdrUploadVersionOne and sdrUploadVersionTwo", StatusCode = "400" };
+
+            //Actual            
+            actual_result = (result as ObjectResult).Value as ErrorModel;
+
+            Assert.AreEqual(expected.Message, actual_result.Message);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
         }
         #endregion
         #endregion
