@@ -622,7 +622,7 @@ namespace TransCelerate.SDR.Services.Services
                             {
                                 Synopsis = new Core.DTO.eCPT.SynopsisDto
                                 {
-                                    NumberofParticipants = design.StudyPopulations?.Sum(x => x.PlannedNumberOfParticipants).ToString(),
+                                    NumberofParticipants = design.StudyPopulations?.Sum(x => int.Parse(Convert.ToString(x.PlannedNumberOfParticipants))).ToString(),
                                     PrimaryPurpose = design.TrialIntentTypes != null && design.TrialIntentTypes.Any() ?
                                                    design.TrialIntentTypes.Count == 1 ? ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, design.TrialIntentTypes.FirstOrDefault().Code) ?? design.TrialIntentTypes.FirstOrDefault().Decode
                                                    : $"{String.Join(',', design.TrialIntentTypes.Select(x => ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, x.Code) ?? x.Decode).ToArray(), 0, design.TrialIntentTypes.Count - 1)}" +
