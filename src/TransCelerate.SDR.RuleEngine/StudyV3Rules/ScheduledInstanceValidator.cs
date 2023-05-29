@@ -43,7 +43,8 @@ namespace TransCelerate.SDR.RuleEngineV3
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ScheduledInstanceValidator), nameof(ScheduledInstanceDto.ScheduleSequenceNumber)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ScheduledInstanceValidator), nameof(ScheduledInstanceDto.ScheduleSequenceNumber)), ApplyConditionTo.AllValidators)
+               .Must(ValidateDatatype.ValidateInt).WithMessage(Constants.ValidationErrorMessage.IntegerValidationFailed);
 
             RuleFor(x => x.ScheduledInstanceTimings)
                .Cascade(CascadeMode.Stop)

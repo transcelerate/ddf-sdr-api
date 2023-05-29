@@ -14,7 +14,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV3
         public string ScheduleTimelineExitId { get; set; }
         public string ScheduledInstanceEncounterId { get; set; }
         public string ScheduledInstanceTimelineId { get; set; }
-        public int? ScheduleSequenceNumber { get; set; }
+        public object ScheduleSequenceNumber { get; set; }
         public List<TimingDto> ScheduledInstanceTimings { get; set; }
         public virtual string ScheduledInstanceType { get; set; }
     }

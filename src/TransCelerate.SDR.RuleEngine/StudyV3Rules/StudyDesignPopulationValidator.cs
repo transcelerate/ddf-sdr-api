@@ -30,7 +30,9 @@ namespace TransCelerate.SDR.RuleEngineV3
             RuleFor(x => x.PlannedNumberOfParticipants)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignPopulationValidator), nameof(StudyDesignPopulationDto.PlannedNumberOfParticipants)), ApplyConditionTo.AllValidators);
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignPopulationValidator), nameof(StudyDesignPopulationDto.PlannedNumberOfParticipants)), ApplyConditionTo.AllValidators)
+               .Must(ValidateDatatype.ValidateInt).WithMessage(Constants.ValidationErrorMessage.IntegerValidationFailed);
 
 
             RuleFor(x => x.PlannedMaximumAgeOfParticipants)
