@@ -394,5 +394,21 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         {
             public const string ArrayBrackets = "[]";
         }
+
+        public readonly struct CodeFieldArrayElements
+        {
+            public static readonly string[] V3 =
+            {
+                nameof(Entities.StudyV3.AliasCodeEntity.StandardCodeAliases),
+                nameof(Entities.StudyV3.ClinicalStudyEntity.BusinessTherapeuticAreas),
+                nameof(Entities.StudyV3.StudyDesignEntity.TrialIntentTypes),
+                nameof(Entities.StudyV3.StudyDesignEntity.TrialType),
+                nameof(Entities.StudyV3.StudyDesignPopulationEntity.PlannedSexOfParticipants),
+                nameof(Entities.StudyV3.StudyDesignEntity.TherapeuticAreas),
+                nameof(Entities.StudyV3.EncounterEntity.EncounterContactModes),
+                nameof(Entities.StudyV3.IndicationEntity.Codes),
+                nameof(Entities.StudyV3.InvestigationalInterventionEntity.Codes)
+            };
+        }
     }
 }
