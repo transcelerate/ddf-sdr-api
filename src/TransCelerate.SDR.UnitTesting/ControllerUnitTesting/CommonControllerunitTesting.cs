@@ -37,13 +37,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
         public static CommonStudyEntity GetData(string usdmVersion)
         {
-            if (usdmVersion == Constants.USDMVersions.MVP)
-            {
-                string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/PostStudyData.json");
-                var mvpData = JsonConvert.DeserializeObject<CommonStudyEntity>(jsonData);
-                return mvpData;
-            }
-            else if (usdmVersion == Constants.USDMVersions.V1)
+            if (usdmVersion == Constants.USDMVersions.V1)
             {
                 string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV1.json");
                 var v1 = JsonConvert.DeserializeObject<CommonStudyEntity>(jsonData);
@@ -404,7 +398,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         [Test]
         public void SearchStudyTitleSuccessUnitTesting()
         {
-            CommonStudyEntity mvp = GetData(Constants.USDMVersions.MVP);
+            CommonStudyEntity mvp = GetData(Constants.USDMVersions.V2);
             CommonStudyEntity v1 = GetData(Constants.USDMVersions.V1);
             CommonStudyEntity v2 = GetData(Constants.USDMVersions.V1_9);
             List<SearchTitleResponseEntity> studyList = new()
@@ -629,24 +623,12 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         #region Search StudyDefintions
         [Test]
         public void SearchStudySuccessUnitTesting()
-        {
-            CommonStudyEntity mvp = GetData(Constants.USDMVersions.MVP);
+        {            
             CommonStudyEntity v1 = GetData(Constants.USDMVersions.V1);
             CommonStudyEntity v2 = GetData(Constants.USDMVersions.V1_9);
             CommonStudyEntity v3 = GetData(Constants.USDMVersions.V2);
             List<SearchResponseEntity> studyList = new()
             {
-                new SearchResponseEntity
-                {
-                    StudyIdentifiers = mvp.ClinicalStudy.StudyIdentifiers,
-                    StudyId = mvp.ClinicalStudy.StudyId,
-                    StudyTitle = mvp.ClinicalStudy.StudyTitle,
-                    StudyType = mvp.ClinicalStudy.StudyType,
-                    SDRUploadVersion = mvp.AuditTrail.SDRUploadVersion,
-                    EntryDateTime = mvp.AuditTrail.EntryDateTime,
-                    HasAccess = true,
-                    UsdmVersion = mvp.AuditTrail.UsdmVersion,
-                },
                 new SearchResponseEntity
                 {
                     StudyIdentifiers = v1.ClinicalStudy.StudyIdentifiers,

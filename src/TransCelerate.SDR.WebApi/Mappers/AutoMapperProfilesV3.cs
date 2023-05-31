@@ -55,9 +55,6 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<ScheduledActivityInstanceDto, ScheduledActivityInstanceEntity>().ReverseMap();
             CreateMap<TimingDto, TimingEntity>().ReverseMap();
 
-            //Mapper for AuditTrail
-            CreateMap<AuditTrailDto, AuditTrailResponseEntity>().ReverseMap();
-
             //SoA V3
             CreateMap<ScheduleTimelineEntity, ScheduleTimelines>()
                 .ForMember(dest => dest.ScheduleTimelineId, opt => opt.MapFrom(src => src.Id))

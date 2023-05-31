@@ -24,19 +24,17 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
         private readonly IMongoClient _client;
         private readonly IMongoDatabase _database;
-        private readonly IClinicalStudyRepositoryV1 _clinicalStudyRepositoryV1;
-        private readonly IClinicalStudyRepository _clinicalStudyRepository;
+        private readonly IClinicalStudyRepositoryV1 _clinicalStudyRepositoryV1;        
 
         #endregion
 
         #region Constructor      
-        public CommonRepository(IMongoClient client, ILogHelper logger,IClinicalStudyRepositoryV1 clinicalStudyRepositoryV1, IClinicalStudyRepository clinicalStudyRepository)
+        public CommonRepository(IMongoClient client, ILogHelper logger,IClinicalStudyRepositoryV1 clinicalStudyRepositoryV1)
         {
             _client = client;
             _database = _client.GetDatabase(_databaseName);
             _logger = logger;
-            _clinicalStudyRepositoryV1 = clinicalStudyRepositoryV1;
-            _clinicalStudyRepository = clinicalStudyRepository;
+            _clinicalStudyRepositoryV1 = clinicalStudyRepositoryV1;            
             var conventionPack = new ConventionPack
             {
                 new CamelCaseElementNameConvention()
@@ -124,8 +122,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                       EntryDateTime = x.AuditTrail.EntryDateTime,
                                                       SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
                                                       UsdmVersion = x.AuditTrail.UsdmVersion,
-                                                      StudyDesignIds = x.ClinicalStudy.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null,
-                                                      StudyDesignIdsMVP = x.ClinicalStudy.CurrentSections.Select(x => x.StudyDesigns.Select(x => x.StudyDesignId)) ?? null,
+                                                      StudyDesignIds = x.ClinicalStudy.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null,                                                      
                                                       HasAccess = true
                                                   })
                                                   .SortByDescending(s => s.EntryDateTime) // Sort by descending on entryDateTime
@@ -224,8 +221,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                                     ProtocolVersions = x.ClinicalStudy.StudyProtocolVersions.Select(x => x.ProtocolVersion),
                                                                     StudyVersion = x.ClinicalStudy.StudyVersion,
                                                                     UsdmVersion = x.AuditTrail.UsdmVersion,
-                                                                    StudyDesignIds = x.ClinicalStudy.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null,
-                                                                    StudyDesignIdsMVP = x.ClinicalStudy.CurrentSections.Select(x => x.StudyDesigns.Select(x => x.StudyDesignId)) ?? null,
+                                                                    StudyDesignIds = x.ClinicalStudy.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null,                                                                    
                                                                     HasAccess = true,
                                                                 })  //Project only the required fields                                                        
                                                         .ToListAsync().ConfigureAwait(false);
@@ -282,14 +278,11 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                   StudyPhase = x.ClinicalStudy.StudyPhase,
                                                   StudyIdentifiers = x.ClinicalStudy.StudyIdentifiers,
                                                   InterventionModel = x.ClinicalStudy.StudyDesigns.Select(y => y.InterventionModel) ?? null,
-                                                  StudyIndications = x.ClinicalStudy.StudyDesigns.Select(y => y.StudyIndications.Select(z => z.IndicationDescription ?? z.IndicationDesc)) ?? null,
-                                                  StudyIndicationsMVP = x.ClinicalStudy.CurrentSections.Select(x => x.StudyIndications.Select(x => x.Description)) ?? null,
-                                                  InterventionModelMVP = x.ClinicalStudy.CurrentSections.Select(x => x.StudyDesigns).Select(x => x.Select(x => x.CurrentSections.Select(x => x.InvestigationalInterventions.Select(x => x.InterventionModel)))) ?? null,
+                                                  StudyIndications = x.ClinicalStudy.StudyDesigns.Select(y => y.StudyIndications.Select(z => z.IndicationDescription ?? z.IndicationDesc)) ?? null,                                                  
                                                   EntryDateTime = x.AuditTrail.EntryDateTime,
                                                   SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
                                                   UsdmVersion = x.AuditTrail.UsdmVersion,
-                                                  StudyDesignIds = x.ClinicalStudy.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null,
-                                                  StudyDesignIdsMVP = x.ClinicalStudy.CurrentSections.Select(x => x.StudyDesigns.Select(x => x.StudyDesignId)) ?? null,
+                                                  StudyDesignIds = x.ClinicalStudy.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null,                                                  
                                               })
                                               .ToListAsync()
                                               .ConfigureAwait(false);
@@ -306,14 +299,11 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                   StudyPhase = x.ClinicalStudy.StudyPhase,
                                                   StudyIdentifiers = x.ClinicalStudy.StudyIdentifiers,
                                                   InterventionModel = x.ClinicalStudy.StudyDesigns.Select(y => y.InterventionModel) ?? null,
-                                                  StudyIndications = x.ClinicalStudy.StudyDesigns.Select(y => y.StudyIndications.Select(z => z.IndicationDescription ?? z.IndicationDesc)) ?? null,
-                                                  StudyIndicationsMVP = x.ClinicalStudy.CurrentSections.Select(x => x.StudyIndications.Select(x => x.Description)) ?? null,
-                                                  InterventionModelMVP = x.ClinicalStudy.CurrentSections.Select(x => x.StudyDesigns).Select(x => x.Select(x => x.CurrentSections.Select(x => x.InvestigationalInterventions.Select(x => x.InterventionModel)))) ?? null,
+                                                  StudyIndications = x.ClinicalStudy.StudyDesigns.Select(y => y.StudyIndications.Select(z => z.IndicationDescription ?? z.IndicationDesc)) ?? null,                                                  
                                                   EntryDateTime = x.AuditTrail.EntryDateTime,
                                                   SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
                                                   UsdmVersion = x.AuditTrail.UsdmVersion,
-                                                  StudyDesignIds = x.ClinicalStudy.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null,
-                                                  StudyDesignIdsMVP = x.ClinicalStudy.CurrentSections.Select(x => x.StudyDesigns.Select(x => x.StudyDesignId)) ?? null,
+                                                  StudyDesignIds = x.ClinicalStudy.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null,                                                  
                                               })
                                               .Sort(DataFilterCommon.GetSorterForSearchStudy(searchParameters))
                                               .Skip((searchParameters.PageNumber - 1) * searchParameters.PageSize)
@@ -332,61 +322,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             {
                 _logger.LogInformation($"Ended Repository : {nameof(CommonRepository)}; Method : {nameof(SearchStudy)};");
             }
-        }
-
-        /// <summary>
-        /// Search the collection based on search criteria
-        /// </summary>
-        /// <param name="searchParameters">Parameters to search in database</param>        
-        /// <param name="user">Loggedin User</param>        
-        /// <returns>
-        /// A <see cref="List{SearchResponseEntity}"/> with matching studyId <br></br> <br></br>
-        /// <see langword="null"/> If no study is matching with studyId
-        /// </returns>
-        public async Task<List<Core.Entities.Study.SearchResponse>> SearchStudyMVP(SearchParametersEntity searchParameters, LoggedInUser user)
-        {
-            try
-            {
-                _logger.LogInformation($"Started Repository : {nameof(CommonRepository)}; Method : {nameof(SearchStudyMVP)};");
-                IMongoCollection<Core.Entities.Study.StudyEntity> collection = _database.GetCollection<Core.Entities.Study.StudyEntity>(Constants.Collections.StudyDefinitions);
-                
-
-                List<Core.Entities.Study.SearchResponse> studies = await collection.Aggregate()
-                                                                    .Match(DataFilterCommon.GetFiltersForSearchMVP(searchParameters, GetGroupsOfUser(user).Result, user))
-                                                                    .Project(x => new Core.Entities.Study.SearchResponse
-                                                                    {
-                                                                        StudyId = x.ClinicalStudy.StudyId ?? null,
-                                                                        StudyTag = x.ClinicalStudy.StudyTag ?? null,
-                                                                        StudyType = x.ClinicalStudy.StudyType ?? null,
-                                                                        StudyPhase = x.ClinicalStudy.StudyPhase ?? null,
-                                                                        StudyTitle = x.ClinicalStudy.StudyTitle ?? null,
-                                                                        StudyStatus = x.ClinicalStudy.StudyStatus ?? null,
-                                                                        StudyIdentifiers = x.ClinicalStudy.StudyIdentifiers ?? null,
-                                                                        StudyIndications = x.ClinicalStudy.CurrentSections.Select(x => x.StudyIndications) ?? null,
-                                                                        InvestigationalInterventions = x.ClinicalStudy.CurrentSections.Select(x => x.StudyDesigns).Select(x => x.Select(x => x.CurrentSections.Select(x => x.InvestigationalInterventions))) ?? null,
-                                                                        EntryDateTime = x.AuditTrail.EntryDateTime,
-                                                                        EntrySystem = x.AuditTrail.EntrySystem ?? null,
-                                                                        StudyVersion = x.AuditTrail.StudyVersion,
-                                                                        UsdmVersion = x.AuditTrail.UsdmVersion,
-                                                                        StudyDesignIds = x.ClinicalStudy.CurrentSections.Select(x => x.StudyDesigns.Select(x => x.StudyDesignId)) ?? null,
-                                                                    })
-                                                                    .ToListAsync()
-                                                                    .ConfigureAwait(false);
-
-                return _clinicalStudyRepository.ApplyOrderBy(studies,searchParameters.Header,searchParameters.Asc)
-                                               .Skip((searchParameters.PageNumber - 1) * searchParameters.PageSize)
-                                               .Take(searchParameters.PageSize)
-                                               .ToList(); 
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                _logger.LogInformation($"Ended Repository : {nameof(CommonRepository)}; Method : {nameof(SearchStudyMVP)};");
-            }
-        }
+        }        
 
         /// <summary>
         /// Search the collection based on search criteria
@@ -573,7 +509,6 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                   EntryDateTime = x.AuditTrail.EntryDateTime,
                                                   SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
                                                   StudyDesignIds = x.ClinicalStudy.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null,
-                                                  StudyDesignIdsMVP = x.ClinicalStudy.CurrentSections.Select(x => x.StudyDesigns.Select(x => x.StudyDesignId)) ?? null,
                                                   UsdmVersion = x.AuditTrail.UsdmVersion
                                               })
                                               .ToListAsync()
@@ -592,7 +527,6 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                  EntryDateTime = x.AuditTrail.EntryDateTime,
                                                  SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
                                                  StudyDesignIds = x.ClinicalStudy.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null,
-                                                 StudyDesignIdsMVP = x.ClinicalStudy.CurrentSections.Select(x => x.StudyDesigns.Select(x => x.StudyDesignId)) ?? null,
                                                  UsdmVersion = x.AuditTrail.UsdmVersion
                                              })
                                              .Sort(DataFilterCommon.GetSorterForSearchStudyTitle(searchParameters))

@@ -8,10 +8,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         public static bool GetConformanceRules(string usdmVersion, string entity, string field)
         {
             entity = entity.Replace("Validator", "");
-            return Conformance.ConformanceRules
-                        .Where(x => x.Usdmversion == usdmVersion).FirstOrDefault()
-                        .Rules.Where(x => x.Entity == entity).FirstOrDefault()
-                        .Required.Any(x => x == field);
+            var conformanceRule = Conformance.ConformanceRules
+                                             .Where(x => x.Usdmversion == usdmVersion).FirstOrDefault()?
+                                             .Rules.Where(x => x.Entity == entity).FirstOrDefault()?
+                                             .Required.Any(x => x == field);
+            return conformanceRule ?? false;
         }
     }
 }
