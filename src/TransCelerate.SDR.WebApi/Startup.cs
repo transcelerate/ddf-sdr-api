@@ -135,16 +135,14 @@ namespace TransCelerate.SDR.WebApi
             //Dependency Injection of interfaces
             services.AddApplicationDependencies();
 
-            //AutoMapper Profile
-            services.AddAutoMapper(typeof(AutoMapperProfies).Assembly);
+            //AutoMapper Profile            
             services.AddAutoMapper(typeof(AutoMapperProfilesV1).Assembly);
             services.AddAutoMapper(typeof(AutoMapperProfilesV2).Assembly);
             services.AddAutoMapper(typeof(AutoMapperProfilesV3).Assembly);
             services.AddAutoMapper(typeof(SharedAutoMapperProfiles).Assembly);
 
             //API to use MVC with validation handling and JSON response
-            services.AddMvc().AddNewtonsoftJson();
-            services.AddValidationDependencies();
+            services.AddMvc().AddNewtonsoftJson();            
             services.AddValidationDependenciesV1();
             services.AddValidationDependenciesV2();
             services.AddValidationDependenciesV3();
@@ -210,14 +208,7 @@ namespace TransCelerate.SDR.WebApi
                     string request = string.Empty;
                     string response = string.Empty;
                     context.Request.EnableBuffering();
-                    string usdmVersionValidationErrors = HeaderValidationHelper.ValidateUsdmVersionHeaderMvp(context, null);
-                    if (usdmVersionValidationErrors != null)
-                    {
-                        if (String.IsNullOrWhiteSpace(context.Response.Headers["Content-Type"]))
-                            context.Response.Headers.Add("Content-Type", "application/json");
-                        await context.Response.WriteAsync(JsonConvert.SerializeObject(ErrorResponseHelper.BadRequest(usdmVersionValidationErrors), new JsonSerializerSettings { ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver() }));
-                        return;
-                    }
+                    
                     using (StreamReader reader = new(context.Request.Body))
                     {
                         if (!context.Request.Path.Value.Contains(Route.Token) && !context.Request.Path.Value.Contains(Route.CommonToken))

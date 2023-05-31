@@ -3,19 +3,6 @@
 
 ## Contents
 
-- [ClinicalStudyRepository](#T-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepository')
-  - [ApplyOrderBy(filteredResult,property,asc)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-ApplyOrderBy-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-SearchResponse},System-String,System-Boolean- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepository.ApplyOrderBy(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.SearchResponse},System.String,System.Boolean)')
-  - [Filter(searchParameters)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-Filter-TransCelerate-SDR-Core-Entities-Study-SearchParameters- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepository.Filter(TransCelerate.SDR.Core.Entities.Study.SearchParameters)')
-  - [Filter(searchParameters)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-Filter-TransCelerate-SDR-Core-Entities-Study-SearchTitleParameters- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepository.Filter(TransCelerate.SDR.Core.Entities.Study.SearchTitleParameters)')
-  - [GetAllStudyId(fromDate,toDate,studyTitle,user)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-GetAllStudyId-System-DateTime,System-DateTime,System-String,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepository.GetAllStudyId(System.DateTime,System.DateTime,System.String,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
-  - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-GetAuditTrail-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepository.GetAuditTrail(System.DateTime,System.DateTime,System.String)')
-  - [GetStudyItemsAsync(studyId,version)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-GetStudyItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepository.GetStudyItemsAsync(System.String,System.Int32)')
-  - [GetStudyItemsAsync(studyId,version,tag)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-GetStudyItemsAsync-System-String,System-Int32,System-String- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepository.GetStudyItemsAsync(System.String,System.Int32,System.String)')
-  - [GetUsdmVersionAsync(studyId,version)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-GetUsdmVersionAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepository.GetUsdmVersionAsync(System.String,System.Int32)')
-  - [PostStudyItemsAsync(study)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-PostStudyItemsAsync-TransCelerate-SDR-Core-Entities-Study-StudyEntity- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepository.PostStudyItemsAsync(TransCelerate.SDR.Core.Entities.Study.StudyEntity)')
-  - [SearchStudy(searchParameters,user)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-SearchStudy-TransCelerate-SDR-Core-Entities-Study-SearchParameters,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepository.SearchStudy(TransCelerate.SDR.Core.Entities.Study.SearchParameters,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
-  - [SearchTitle(searchParameters,user)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-SearchTitle-TransCelerate-SDR-Core-Entities-Study-SearchTitleParameters,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepository.SearchTitle(TransCelerate.SDR.Core.Entities.Study.SearchTitleParameters,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
-  - [UpdateStudyItemsAsync(study)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-UpdateStudyItemsAsync-TransCelerate-SDR-Core-Entities-Study-StudyEntity- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepository.UpdateStudyItemsAsync(TransCelerate.SDR.Core.Entities.Study.StudyEntity)')
 - [ClinicalStudyRepositoryV1](#T-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV1 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV1')
   - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV1-GetAuditTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV1.GetAuditTrail(System.String,System.DateTime,System.DateTime)')
   - [GetPartialStudyDesignItemsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV1-GetPartialStudyDesignItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV1.GetPartialStudyDesignItemsAsync(System.String,System.Int32)')
@@ -29,10 +16,8 @@
 - [ClinicalStudyRepositoryV2](#T-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV2 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV2')
   - [CountAsync(study_uuid)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV2-CountAsync-System-String- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV2.CountAsync(System.String)')
   - [DeleteStudyAsync(study_uuid)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV2-DeleteStudyAsync-System-String- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV2.DeleteStudyAsync(System.String)')
-  - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV2-GetAuditTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV2.GetAuditTrail(System.String,System.DateTime,System.DateTime)')
   - [GetPartialStudyDesignItemsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV2-GetPartialStudyDesignItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV2.GetPartialStudyDesignItemsAsync(System.String,System.Int32)')
   - [GetPartialStudyItemsAsync(studyId,sdruploadversion,listofelementsArray)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV2-GetPartialStudyItemsAsync-System-String,System-Int32,System-String[]- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV2.GetPartialStudyItemsAsync(System.String,System.Int32,System.String[])')
-  - [GetStudyHistory(fromDate,toDate,studyTitle,user)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV2-GetStudyHistory-System-DateTime,System-DateTime,System-String,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV2.GetStudyHistory(System.DateTime,System.DateTime,System.String,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
   - [GetStudyItemsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV2-GetStudyItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV2.GetStudyItemsAsync(System.String,System.Int32)')
   - [GetUsdmVersionAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV2-GetUsdmVersionAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV2.GetUsdmVersionAsync(System.String,System.Int32)')
   - [PostStudyItemsAsync(study)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV2-PostStudyItemsAsync-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV2.PostStudyItemsAsync(TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity)')
@@ -40,10 +25,8 @@
 - [ClinicalStudyRepositoryV3](#T-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV3 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV3')
   - [CountAsync(study_uuid)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV3-CountAsync-System-String- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV3.CountAsync(System.String)')
   - [DeleteStudyAsync(study_uuid)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV3-DeleteStudyAsync-System-String- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV3.DeleteStudyAsync(System.String)')
-  - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV3-GetAuditTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV3.GetAuditTrail(System.String,System.DateTime,System.DateTime)')
   - [GetPartialStudyDesignItemsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV3-GetPartialStudyDesignItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV3.GetPartialStudyDesignItemsAsync(System.String,System.Int32)')
   - [GetPartialStudyItemsAsync(studyId,sdruploadversion,listofelementsArray)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV3-GetPartialStudyItemsAsync-System-String,System-Int32,System-String[]- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV3.GetPartialStudyItemsAsync(System.String,System.Int32,System.String[])')
-  - [GetStudyHistory(fromDate,toDate,studyTitle,user)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV3-GetStudyHistory-System-DateTime,System-DateTime,System-String,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV3.GetStudyHistory(System.DateTime,System.DateTime,System.String,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
   - [GetStudyItemsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV3-GetStudyItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV3.GetStudyItemsAsync(System.String,System.Int32)')
   - [GetUsdmVersionAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV3-GetUsdmVersionAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV3.GetUsdmVersionAsync(System.String,System.Int32)')
   - [PostStudyItemsAsync(study)](#M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV3-PostStudyItemsAsync-TransCelerate-SDR-Core-Entities-StudyV3-StudyEntity- 'TransCelerate.SDR.DataAccess.Repositories.ClinicalStudyRepositoryV3.PostStudyItemsAsync(TransCelerate.SDR.Core.Entities.StudyV3.StudyEntity)')
@@ -54,7 +37,6 @@
   - [GetStudyItemsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-GetStudyItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Repositories.CommonRepository.GetStudyItemsAsync(System.String,System.Int32)')
   - [GetUsdmVersion(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-GetUsdmVersion-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Repositories.CommonRepository.GetUsdmVersion(System.String,System.Int32)')
   - [SearchStudy(searchParameters,user)](#M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-SearchStudy-TransCelerate-SDR-Core-Entities-Common-SearchParametersEntity,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Repositories.CommonRepository.SearchStudy(TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
-  - [SearchStudyMVP(searchParameters,user)](#M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-SearchStudyMVP-TransCelerate-SDR-Core-Entities-Common-SearchParametersEntity,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Repositories.CommonRepository.SearchStudyMVP(TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
   - [SearchStudyV1(searchParameters,user)](#M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-SearchStudyV1-TransCelerate-SDR-Core-Entities-Common-SearchParametersEntity,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Repositories.CommonRepository.SearchStudyV1(TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
   - [SearchStudyV2(searchParameters,user)](#M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-SearchStudyV2-TransCelerate-SDR-Core-Entities-Common-SearchParametersEntity,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Repositories.CommonRepository.SearchStudyV2(TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
   - [SearchStudyV3(searchParameters,user)](#M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-SearchStudyV3-TransCelerate-SDR-Core-Entities-Common-SearchParametersEntity,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Repositories.CommonRepository.SearchStudyV3(TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
@@ -62,7 +44,6 @@
 - [DataFilterCommon](#T-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon')
   - [GetFiltersForGetAudTrail(studyId,fromDate,toDate)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForGetAudTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetFiltersForGetAudTrail(System.String,System.DateTime,System.DateTime)')
   - [GetFiltersForGetStudy(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForGetStudy-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetFiltersForGetStudy(System.String,System.Int32)')
-  - [GetFiltersForSearchStudy(searchParameters)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForSearchStudy-TransCelerate-SDR-Core-Entities-Common-SearchParametersEntity- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetFiltersForSearchStudy(TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity)')
   - [GetFiltersForSearchTitle(searchParameters,groups,user)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForSearchTitle-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity,System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-UserGroups-SDRGroupsEntity},TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetFiltersForSearchTitle(TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity,System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.UserGroups.SDRGroupsEntity},TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
   - [GetFiltersForSearchV1(searchParameters,groups,user)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForSearchV1-TransCelerate-SDR-Core-Entities-Common-SearchParametersEntity,System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-UserGroups-SDRGroupsEntity},TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetFiltersForSearchV1(TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity,System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.UserGroups.SDRGroupsEntity},TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
   - [GetFiltersForSearchV2(searchParameters,groups,user)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForSearchV2-TransCelerate-SDR-Core-Entities-Common-SearchParametersEntity,System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-UserGroups-SDRGroupsEntity},TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetFiltersForSearchV2(TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity,System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.UserGroups.SDRGroupsEntity},TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
@@ -91,18 +72,6 @@
   - [GetFiltersForStudyHistory(fromDate,toDate,studyTitle)](#M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV3-GetFiltersForStudyHistory-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV3.GetFiltersForStudyHistory(System.DateTime,System.DateTime,System.String)')
   - [GetProjectionForPartialStudyDesignElementsFullStudy()](#M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV3-GetProjectionForPartialStudyDesignElementsFullStudy 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV3.GetProjectionForPartialStudyDesignElementsFullStudy')
   - [GetProjectionForPartialStudyElements(listofelementsArray)](#M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV3-GetProjectionForPartialStudyElements-System-String[]- 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV3.GetProjectionForPartialStudyElements(System.String[])')
-- [IClinicalStudyRepository](#T-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepository')
-  - [ApplyOrderBy(filteredResult,property,asc)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-ApplyOrderBy-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-SearchResponse},System-String,System-Boolean- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepository.ApplyOrderBy(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.SearchResponse},System.String,System.Boolean)')
-  - [GetAllStudyId(fromDate,toDate,studyTitle,user)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-GetAllStudyId-System-DateTime,System-DateTime,System-String,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepository.GetAllStudyId(System.DateTime,System.DateTime,System.String,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
-  - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-GetAuditTrail-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepository.GetAuditTrail(System.DateTime,System.DateTime,System.String)')
-  - [GetGroupsOfUser(user)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-GetGroupsOfUser-TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepository.GetGroupsOfUser(TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
-  - [GetStudyItemsAsync(studyId,version)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-GetStudyItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepository.GetStudyItemsAsync(System.String,System.Int32)')
-  - [GetStudyItemsAsync(studyId,version,tag)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-GetStudyItemsAsync-System-String,System-Int32,System-String- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepository.GetStudyItemsAsync(System.String,System.Int32,System.String)')
-  - [GetUsdmVersionAsync(studyId,version)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-GetUsdmVersionAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepository.GetUsdmVersionAsync(System.String,System.Int32)')
-  - [PostStudyItemsAsync(study)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-PostStudyItemsAsync-TransCelerate-SDR-Core-Entities-Study-StudyEntity- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepository.PostStudyItemsAsync(TransCelerate.SDR.Core.Entities.Study.StudyEntity)')
-  - [SearchStudy(searchParameters,user)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-SearchStudy-TransCelerate-SDR-Core-Entities-Study-SearchParameters,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepository.SearchStudy(TransCelerate.SDR.Core.Entities.Study.SearchParameters,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
-  - [SearchTitle(searchParameters,user)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-SearchTitle-TransCelerate-SDR-Core-Entities-Study-SearchTitleParameters,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepository.SearchTitle(TransCelerate.SDR.Core.Entities.Study.SearchTitleParameters,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
-  - [UpdateStudyItemsAsync(study)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-UpdateStudyItemsAsync-TransCelerate-SDR-Core-Entities-Study-StudyEntity- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepository.UpdateStudyItemsAsync(TransCelerate.SDR.Core.Entities.Study.StudyEntity)')
 - [IClinicalStudyRepositoryV1](#T-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV1 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV1')
   - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV1-GetAuditTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV1.GetAuditTrail(System.String,System.DateTime,System.DateTime)')
   - [GetPartialStudyDesignItemsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV1-GetPartialStudyDesignItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV1.GetPartialStudyDesignItemsAsync(System.String,System.Int32)')
@@ -116,10 +85,8 @@
 - [IClinicalStudyRepositoryV2](#T-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV2 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV2')
   - [CountAsync(study_uuid)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV2-CountAsync-System-String- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV2.CountAsync(System.String)')
   - [DeleteStudyAsync(study_uuid)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV2-DeleteStudyAsync-System-String- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV2.DeleteStudyAsync(System.String)')
-  - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV2-GetAuditTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV2.GetAuditTrail(System.String,System.DateTime,System.DateTime)')
   - [GetPartialStudyDesignItemsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV2-GetPartialStudyDesignItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV2.GetPartialStudyDesignItemsAsync(System.String,System.Int32)')
   - [GetPartialStudyItemsAsync(studyId,sdruploadversion,listofelementsArray)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV2-GetPartialStudyItemsAsync-System-String,System-Int32,System-String[]- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV2.GetPartialStudyItemsAsync(System.String,System.Int32,System.String[])')
-  - [GetStudyHistory(fromDate,toDate,studyTitle,user)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV2-GetStudyHistory-System-DateTime,System-DateTime,System-String,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV2.GetStudyHistory(System.DateTime,System.DateTime,System.String,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
   - [GetStudyItemsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV2-GetStudyItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV2.GetStudyItemsAsync(System.String,System.Int32)')
   - [GetUsdmVersionAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV2-GetUsdmVersionAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV2.GetUsdmVersionAsync(System.String,System.Int32)')
   - [PostStudyItemsAsync(study)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV2-PostStudyItemsAsync-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV2.PostStudyItemsAsync(TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity)')
@@ -127,10 +94,8 @@
 - [IClinicalStudyRepositoryV3](#T-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV3 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV3')
   - [CountAsync(study_uuid)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV3-CountAsync-System-String- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV3.CountAsync(System.String)')
   - [DeleteStudyAsync(study_uuid)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV3-DeleteStudyAsync-System-String- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV3.DeleteStudyAsync(System.String)')
-  - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV3-GetAuditTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV3.GetAuditTrail(System.String,System.DateTime,System.DateTime)')
   - [GetPartialStudyDesignItemsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV3-GetPartialStudyDesignItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV3.GetPartialStudyDesignItemsAsync(System.String,System.Int32)')
   - [GetPartialStudyItemsAsync(studyId,sdruploadversion,listofelementsArray)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV3-GetPartialStudyItemsAsync-System-String,System-Int32,System-String[]- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV3.GetPartialStudyItemsAsync(System.String,System.Int32,System.String[])')
-  - [GetStudyHistory(fromDate,toDate,studyTitle,user)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV3-GetStudyHistory-System-DateTime,System-DateTime,System-String,TransCelerate-SDR-Core-DTO-Token-LoggedInUser- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV3.GetStudyHistory(System.DateTime,System.DateTime,System.String,TransCelerate.SDR.Core.DTO.Token.LoggedInUser)')
   - [GetStudyItemsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV3-GetStudyItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV3.GetStudyItemsAsync(System.String,System.Int32)')
   - [GetUsdmVersionAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV3-GetUsdmVersionAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV3.GetUsdmVersionAsync(System.String,System.Int32)')
   - [PostStudyItemsAsync(study)](#M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV3-PostStudyItemsAsync-TransCelerate-SDR-Core-Entities-StudyV3-StudyEntity- 'TransCelerate.SDR.DataAccess.Interfaces.IClinicalStudyRepositoryV3.PostStudyItemsAsync(TransCelerate.SDR.Core.Entities.StudyV3.StudyEntity)')
@@ -159,230 +124,6 @@
   - [GetGroups()](#M-TransCelerate-SDR-DataAccess-Repositories-UserGroupMappingRepository-GetGroups-TransCelerate-SDR-Core-DTO-UserGroups-UserGroupsQueryParameters- 'TransCelerate.SDR.DataAccess.Repositories.UserGroupMappingRepository.GetGroups(TransCelerate.SDR.Core.DTO.UserGroups.UserGroupsQueryParameters)')
   - [UpdateAGroup(group)](#M-TransCelerate-SDR-DataAccess-Repositories-UserGroupMappingRepository-UpdateAGroup-TransCelerate-SDR-Core-Entities-UserGroups-SDRGroupsEntity- 'TransCelerate.SDR.DataAccess.Repositories.UserGroupMappingRepository.UpdateAGroup(TransCelerate.SDR.Core.Entities.UserGroups.SDRGroupsEntity)')
   - [UpdateUsersToGroups(userGroupMappingEntity)](#M-TransCelerate-SDR-DataAccess-Repositories-UserGroupMappingRepository-UpdateUsersToGroups-TransCelerate-SDR-Core-Entities-UserGroups-UserGroupMappingEntity- 'TransCelerate.SDR.DataAccess.Repositories.UserGroupMappingRepository.UpdateUsersToGroups(TransCelerate.SDR.Core.Entities.UserGroups.UserGroupMappingEntity)')
-
-<a name='T-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository'></a>
-## ClinicalStudyRepository `type`
-
-##### Namespace
-
-TransCelerate.SDR.DataAccess.Repositories
-
-<a name='M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-ApplyOrderBy-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-SearchResponse},System-String,System-Boolean-'></a>
-### ApplyOrderBy(filteredResult,property,asc) `method`
-
-##### Summary
-
-Sorting the result set
-
-##### Returns
-
-A Sorted [IEnumerable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerable`1 'System.Collections.Generic.IEnumerable`1')
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| filteredResult | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.SearchResponse}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.SearchResponse}') | Filtered result from database |
-| property | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Property by which the sorting must be done |
-| asc | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') | Ascending/Descending |
-
-<a name='M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-Filter-TransCelerate-SDR-Core-Entities-Study-SearchParameters-'></a>
-### Filter(searchParameters) `method`
-
-##### Summary
-
-Search the collection based on search criteria
-
-##### Returns
-
-A [FilterDefinition\`1](#T-MongoDB-Driver-FilterDefinition`1 'MongoDB.Driver.FilterDefinition`1') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| searchParameters | [TransCelerate.SDR.Core.Entities.Study.SearchParameters](#T-TransCelerate-SDR-Core-Entities-Study-SearchParameters 'TransCelerate.SDR.Core.Entities.Study.SearchParameters') | Parameters to search in database |
-
-<a name='M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-Filter-TransCelerate-SDR-Core-Entities-Study-SearchTitleParameters-'></a>
-### Filter(searchParameters) `method`
-
-##### Summary
-
-Search the collection based on search criteria
-
-##### Returns
-
-A [FilterDefinition\`1](#T-MongoDB-Driver-FilterDefinition`1 'MongoDB.Driver.FilterDefinition`1') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| searchParameters | [TransCelerate.SDR.Core.Entities.Study.SearchTitleParameters](#T-TransCelerate-SDR-Core-Entities-Study-SearchTitleParameters 'TransCelerate.SDR.Core.Entities.Study.SearchTitleParameters') | Parameters to search in database |
-
-<a name='M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-GetAllStudyId-System-DateTime,System-DateTime,System-String,TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
-### GetAllStudyId(fromDate,toDate,studyTitle,user) `method`
-
-##### Summary
-
-Get List of all studyId
-
-##### Returns
-
-A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| fromDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | Start Date for Date Filter |
-| toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | End Date for Date Filter |
-| studyTitle | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study Title Filter |
-| user | [TransCelerate.SDR.Core.DTO.Token.LoggedInUser](#T-TransCelerate-SDR-Core-DTO-Token-LoggedInUser 'TransCelerate.SDR.Core.DTO.Token.LoggedInUser') | Logged In User |
-
-<a name='M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-GetAuditTrail-System-DateTime,System-DateTime,System-String-'></a>
-### GetAuditTrail(fromDate,toDate,studyId) `method`
-
-##### Summary
-
-GET List of study for a study ID
-
-##### Returns
-
-A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| fromDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | Start Date for Date Filter |
-| toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | End Date for Date Filter |
-| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
-
-<a name='M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-GetStudyItemsAsync-System-String,System-Int32-'></a>
-### GetStudyItemsAsync(studyId,version) `method`
-
-##### Summary
-
-GET a Study for a study ID with version filter
-
-##### Returns
-
-A [StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
-| version | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
-
-<a name='M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-GetStudyItemsAsync-System-String,System-Int32,System-String-'></a>
-### GetStudyItemsAsync(studyId,version,tag) `method`
-
-##### Summary
-
-GET a Study for a study ID with version and tag filter
-
-##### Returns
-
-A [StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
-| version | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
-| tag | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Tag of a study |
-
-<a name='M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-GetUsdmVersionAsync-System-String,System-Int32-'></a>
-### GetUsdmVersionAsync(studyId,version) `method`
-
-##### Summary
-
-GET a Study for a study ID with version filter
-
-##### Returns
-
-A [AuditTrailEntity](#T-TransCelerate-SDR-Core-Entities-Study-AuditTrailEntity 'TransCelerate.SDR.Core.Entities.Study.AuditTrailEntity') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
-| version | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
-
-<a name='M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-PostStudyItemsAsync-TransCelerate-SDR-Core-Entities-Study-StudyEntity-'></a>
-### PostStudyItemsAsync(study) `method`
-
-##### Summary
-
-POST a Study
-
-##### Returns
-
-A studyId which was inserted
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| study | [TransCelerate.SDR.Core.Entities.Study.StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') | Study for Inserting into Database |
-
-<a name='M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-SearchStudy-TransCelerate-SDR-Core-Entities-Study-SearchParameters,TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
-### SearchStudy(searchParameters,user) `method`
-
-##### Summary
-
-Search the collection based on search criteria
-
-##### Returns
-
-A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| searchParameters | [TransCelerate.SDR.Core.Entities.Study.SearchParameters](#T-TransCelerate-SDR-Core-Entities-Study-SearchParameters 'TransCelerate.SDR.Core.Entities.Study.SearchParameters') | Parameters to search in database |
-| user | [TransCelerate.SDR.Core.DTO.Token.LoggedInUser](#T-TransCelerate-SDR-Core-DTO-Token-LoggedInUser 'TransCelerate.SDR.Core.DTO.Token.LoggedInUser') | Logged In User |
-
-<a name='M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-SearchTitle-TransCelerate-SDR-Core-Entities-Study-SearchTitleParameters,TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
-### SearchTitle(searchParameters,user) `method`
-
-##### Summary
-
-Search the collection based on search criteria
-
-##### Returns
-
-A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| searchParameters | [TransCelerate.SDR.Core.Entities.Study.SearchTitleParameters](#T-TransCelerate-SDR-Core-Entities-Study-SearchTitleParameters 'TransCelerate.SDR.Core.Entities.Study.SearchTitleParameters') | Parameters to search in database |
-| user | [TransCelerate.SDR.Core.DTO.Token.LoggedInUser](#T-TransCelerate-SDR-Core-DTO-Token-LoggedInUser 'TransCelerate.SDR.Core.DTO.Token.LoggedInUser') | Logged In User |
-
-<a name='M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepository-UpdateStudyItemsAsync-TransCelerate-SDR-Core-Entities-Study-StudyEntity-'></a>
-### UpdateStudyItemsAsync(study) `method`
-
-##### Summary
-
-Updates a Study
-
-##### Returns
-
-A studyId which was inserted
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| study | [TransCelerate.SDR.Core.Entities.Study.StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') | Update study in database |
 
 <a name='T-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV1'></a>
 ## ClinicalStudyRepositoryV1 `type`
@@ -595,25 +336,6 @@ Delete all versions of a study
 | ---- | ---- | ----------- |
 | study_uuid | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study Id |
 
-<a name='M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV2-GetAuditTrail-System-String,System-DateTime,System-DateTime-'></a>
-### GetAuditTrail(fromDate,toDate,studyId) `method`
-
-##### Summary
-
-GET List of study for a study ID
-
-##### Returns
-
-A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| fromDate | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Start Date for Date Filter |
-| toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | End Date for Date Filter |
-| studyId | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | Study ID |
-
 <a name='M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV2-GetPartialStudyDesignItemsAsync-System-String,System-Int32-'></a>
 ### GetPartialStudyDesignItemsAsync(studyId,sdruploadversion) `method`
 
@@ -650,26 +372,6 @@ A [StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity 'TransCel
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
 | sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
 | listofelementsArray | [System.String[]](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[] 'System.String[]') | Array of study elements |
-
-<a name='M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV2-GetStudyHistory-System-DateTime,System-DateTime,System-String,TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
-### GetStudyHistory(fromDate,toDate,studyTitle,user) `method`
-
-##### Summary
-
-Get List of all studyId
-
-##### Returns
-
-A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| fromDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | Start Date for Date Filter |
-| toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | End Date for Date Filter |
-| studyTitle | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study Title Filter |
-| user | [TransCelerate.SDR.Core.DTO.Token.LoggedInUser](#T-TransCelerate-SDR-Core-DTO-Token-LoggedInUser 'TransCelerate.SDR.Core.DTO.Token.LoggedInUser') | Logged In User |
 
 <a name='M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV2-GetStudyItemsAsync-System-String,System-Int32-'></a>
 ### GetStudyItemsAsync(studyId,sdruploadversion) `method`
@@ -782,25 +484,6 @@ Delete all versions of a study
 | ---- | ---- | ----------- |
 | study_uuid | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study Id |
 
-<a name='M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV3-GetAuditTrail-System-String,System-DateTime,System-DateTime-'></a>
-### GetAuditTrail(fromDate,toDate,studyId) `method`
-
-##### Summary
-
-GET List of study for a study ID
-
-##### Returns
-
-A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| fromDate | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Start Date for Date Filter |
-| toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | End Date for Date Filter |
-| studyId | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | Study ID |
-
 <a name='M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV3-GetPartialStudyDesignItemsAsync-System-String,System-Int32-'></a>
 ### GetPartialStudyDesignItemsAsync(studyId,sdruploadversion) `method`
 
@@ -837,26 +520,6 @@ A [StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV3-StudyEntity 'TransCel
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
 | sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
 | listofelementsArray | [System.String[]](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[] 'System.String[]') | Array of study elements |
-
-<a name='M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV3-GetStudyHistory-System-DateTime,System-DateTime,System-String,TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
-### GetStudyHistory(fromDate,toDate,studyTitle,user) `method`
-
-##### Summary
-
-Get List of all studyId
-
-##### Returns
-
-A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| fromDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | Start Date for Date Filter |
-| toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | End Date for Date Filter |
-| studyTitle | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study Title Filter |
-| user | [TransCelerate.SDR.Core.DTO.Token.LoggedInUser](#T-TransCelerate-SDR-Core-DTO-Token-LoggedInUser 'TransCelerate.SDR.Core.DTO.Token.LoggedInUser') | Logged In User |
 
 <a name='M-TransCelerate-SDR-DataAccess-Repositories-ClinicalStudyRepositoryV3-GetStudyItemsAsync-System-String,System-Int32-'></a>
 ### GetStudyItemsAsync(studyId,sdruploadversion) `method`
@@ -1027,24 +690,6 @@ A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US
 | searchParameters | [TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity](#T-TransCelerate-SDR-Core-Entities-Common-SearchParametersEntity 'TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity') | Parameters to search in database |
 | user | [TransCelerate.SDR.Core.DTO.Token.LoggedInUser](#T-TransCelerate-SDR-Core-DTO-Token-LoggedInUser 'TransCelerate.SDR.Core.DTO.Token.LoggedInUser') | Loggedin User |
 
-<a name='M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-SearchStudyMVP-TransCelerate-SDR-Core-Entities-Common-SearchParametersEntity,TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
-### SearchStudyMVP(searchParameters,user) `method`
-
-##### Summary
-
-Search the collection based on search criteria
-
-##### Returns
-
-A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| searchParameters | [TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity](#T-TransCelerate-SDR-Core-Entities-Common-SearchParametersEntity 'TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity') | Parameters to search in database |
-| user | [TransCelerate.SDR.Core.DTO.Token.LoggedInUser](#T-TransCelerate-SDR-Core-DTO-Token-LoggedInUser 'TransCelerate.SDR.Core.DTO.Token.LoggedInUser') | Loggedin User |
-
 <a name='M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-SearchStudyV1-TransCelerate-SDR-Core-Entities-Common-SearchParametersEntity,TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
 ### SearchStudyV1(searchParameters,user) `method`
 
@@ -1160,23 +805,6 @@ Get filters for GET StudyDefinitons API
 | ---- | ---- | ----------- |
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
-
-<a name='M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForSearchStudy-TransCelerate-SDR-Core-Entities-Common-SearchParametersEntity-'></a>
-### GetFiltersForSearchStudy(searchParameters) `method`
-
-##### Summary
-
-Get filters for Search Study API
-
-##### Returns
-
-
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| searchParameters | [TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity](#T-TransCelerate-SDR-Core-Entities-Common-SearchParametersEntity 'TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity') |  |
 
 <a name='M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForSearchTitle-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity,System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-UserGroups-SDRGroupsEntity},TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
 ### GetFiltersForSearchTitle(searchParameters,groups,user) `method`
@@ -1658,213 +1286,6 @@ Get projectio definition for partial study elements
 | ---- | ---- | ----------- |
 | listofelementsArray | [System.String[]](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[] 'System.String[]') | list of study elements |
 
-<a name='T-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository'></a>
-## IClinicalStudyRepository `type`
-
-##### Namespace
-
-TransCelerate.SDR.DataAccess.Interfaces
-
-<a name='M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-ApplyOrderBy-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-SearchResponse},System-String,System-Boolean-'></a>
-### ApplyOrderBy(filteredResult,property,asc) `method`
-
-##### Summary
-
-Sorting the result set
-
-##### Returns
-
-A Sorted [IEnumerable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerable`1 'System.Collections.Generic.IEnumerable`1')
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| filteredResult | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.SearchResponse}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.SearchResponse}') | Filtered result from database |
-| property | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Property by which the sorting must be done |
-| asc | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') | Ascending/Descending |
-
-<a name='M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-GetAllStudyId-System-DateTime,System-DateTime,System-String,TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
-### GetAllStudyId(fromDate,toDate,studyTitle,user) `method`
-
-##### Summary
-
-Get List of all studyId
-
-##### Returns
-
-A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| fromDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | Start Date for Date Filter |
-| toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | End Date for Date Filter |
-| studyTitle | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study Title Filter |
-| user | [TransCelerate.SDR.Core.DTO.Token.LoggedInUser](#T-TransCelerate-SDR-Core-DTO-Token-LoggedInUser 'TransCelerate.SDR.Core.DTO.Token.LoggedInUser') | Logged In User |
-
-<a name='M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-GetAuditTrail-System-DateTime,System-DateTime,System-String-'></a>
-### GetAuditTrail(fromDate,toDate,studyId) `method`
-
-##### Summary
-
-GET List of study for a study ID
-
-##### Returns
-
-A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| fromDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | Start Date for Date Filter |
-| toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | End Date for Date Filter |
-| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
-
-<a name='M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-GetGroupsOfUser-TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
-### GetGroupsOfUser(user) `method`
-
-##### Summary
-
-GET groups assigned to user
-
-##### Returns
-
-A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| user | [TransCelerate.SDR.Core.DTO.Token.LoggedInUser](#T-TransCelerate-SDR-Core-DTO-Token-LoggedInUser 'TransCelerate.SDR.Core.DTO.Token.LoggedInUser') | Logged In User |
-
-<a name='M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-GetStudyItemsAsync-System-String,System-Int32-'></a>
-### GetStudyItemsAsync(studyId,version) `method`
-
-##### Summary
-
-GET a Study for a study ID with version filter
-
-##### Returns
-
-A [StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
-| version | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
-
-<a name='M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-GetStudyItemsAsync-System-String,System-Int32,System-String-'></a>
-### GetStudyItemsAsync(studyId,version,tag) `method`
-
-##### Summary
-
-GET a Study for a study ID with version and tag filter
-
-##### Returns
-
-A [StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
-| version | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
-| tag | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Tag of a study |
-
-<a name='M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-GetUsdmVersionAsync-System-String,System-Int32-'></a>
-### GetUsdmVersionAsync(studyId,version) `method`
-
-##### Summary
-
-GET a Study for a study ID with version filter
-
-##### Returns
-
-A [AuditTrailEntity](#T-TransCelerate-SDR-Core-Entities-Study-AuditTrailEntity 'TransCelerate.SDR.Core.Entities.Study.AuditTrailEntity') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
-| version | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
-
-<a name='M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-PostStudyItemsAsync-TransCelerate-SDR-Core-Entities-Study-StudyEntity-'></a>
-### PostStudyItemsAsync(study) `method`
-
-##### Summary
-
-POST a Study
-
-##### Returns
-
-A studyId which was inserted
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| study | [TransCelerate.SDR.Core.Entities.Study.StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') | Study for Inserting into Database |
-
-<a name='M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-SearchStudy-TransCelerate-SDR-Core-Entities-Study-SearchParameters,TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
-### SearchStudy(searchParameters,user) `method`
-
-##### Summary
-
-Search the collection based on search criteria
-
-##### Returns
-
-A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| searchParameters | [TransCelerate.SDR.Core.Entities.Study.SearchParameters](#T-TransCelerate-SDR-Core-Entities-Study-SearchParameters 'TransCelerate.SDR.Core.Entities.Study.SearchParameters') | Parameters to search in database |
-| user | [TransCelerate.SDR.Core.DTO.Token.LoggedInUser](#T-TransCelerate-SDR-Core-DTO-Token-LoggedInUser 'TransCelerate.SDR.Core.DTO.Token.LoggedInUser') | Logged In User |
-
-<a name='M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-SearchTitle-TransCelerate-SDR-Core-Entities-Study-SearchTitleParameters,TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
-### SearchTitle(searchParameters,user) `method`
-
-##### Summary
-
-Search the collection based on search criteria
-
-##### Returns
-
-A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| searchParameters | [TransCelerate.SDR.Core.Entities.Study.SearchTitleParameters](#T-TransCelerate-SDR-Core-Entities-Study-SearchTitleParameters 'TransCelerate.SDR.Core.Entities.Study.SearchTitleParameters') | Parameters to search in database |
-| user | [TransCelerate.SDR.Core.DTO.Token.LoggedInUser](#T-TransCelerate-SDR-Core-DTO-Token-LoggedInUser 'TransCelerate.SDR.Core.DTO.Token.LoggedInUser') | Logged In User |
-
-<a name='M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepository-UpdateStudyItemsAsync-TransCelerate-SDR-Core-Entities-Study-StudyEntity-'></a>
-### UpdateStudyItemsAsync(study) `method`
-
-##### Summary
-
-Updates a Study
-
-##### Returns
-
-A studyId which was inserted
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| study | [TransCelerate.SDR.Core.Entities.Study.StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') | Update study in database |
-
 <a name='T-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV1'></a>
 ## IClinicalStudyRepositoryV1 `type`
 
@@ -2076,25 +1497,6 @@ Delete all version of a study
 | ---- | ---- | ----------- |
 | study_uuid | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study Id |
 
-<a name='M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV2-GetAuditTrail-System-String,System-DateTime,System-DateTime-'></a>
-### GetAuditTrail(fromDate,toDate,studyId) `method`
-
-##### Summary
-
-GET List of study for a study ID
-
-##### Returns
-
-A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| fromDate | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Start Date for Date Filter |
-| toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | End Date for Date Filter |
-| studyId | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | Study ID |
-
 <a name='M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV2-GetPartialStudyDesignItemsAsync-System-String,System-Int32-'></a>
 ### GetPartialStudyDesignItemsAsync(studyId,sdruploadversion) `method`
 
@@ -2131,26 +1533,6 @@ A [StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity 'TransCel
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
 | sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
 | listofelementsArray | [System.String[]](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[] 'System.String[]') | Array of study elements |
-
-<a name='M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV2-GetStudyHistory-System-DateTime,System-DateTime,System-String,TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
-### GetStudyHistory(fromDate,toDate,studyTitle,user) `method`
-
-##### Summary
-
-Get List of all studyId
-
-##### Returns
-
-A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| fromDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | Start Date for Date Filter |
-| toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | End Date for Date Filter |
-| studyTitle | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study Title Filter |
-| user | [TransCelerate.SDR.Core.DTO.Token.LoggedInUser](#T-TransCelerate-SDR-Core-DTO-Token-LoggedInUser 'TransCelerate.SDR.Core.DTO.Token.LoggedInUser') | Logged In User |
 
 <a name='M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV2-GetStudyItemsAsync-System-String,System-Int32-'></a>
 ### GetStudyItemsAsync(studyId,sdruploadversion) `method`
@@ -2263,25 +1645,6 @@ Delete all version of a study
 | ---- | ---- | ----------- |
 | study_uuid | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study Id |
 
-<a name='M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV3-GetAuditTrail-System-String,System-DateTime,System-DateTime-'></a>
-### GetAuditTrail(fromDate,toDate,studyId) `method`
-
-##### Summary
-
-GET List of study for a study ID
-
-##### Returns
-
-A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| fromDate | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Start Date for Date Filter |
-| toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | End Date for Date Filter |
-| studyId | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | Study ID |
-
 <a name='M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV3-GetPartialStudyDesignItemsAsync-System-String,System-Int32-'></a>
 ### GetPartialStudyDesignItemsAsync(studyId,sdruploadversion) `method`
 
@@ -2318,26 +1681,6 @@ A [StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV3-StudyEntity 'TransCel
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
 | sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
 | listofelementsArray | [System.String[]](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[] 'System.String[]') | Array of study elements |
-
-<a name='M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV3-GetStudyHistory-System-DateTime,System-DateTime,System-String,TransCelerate-SDR-Core-DTO-Token-LoggedInUser-'></a>
-### GetStudyHistory(fromDate,toDate,studyTitle,user) `method`
-
-##### Summary
-
-Get List of all studyId
-
-##### Returns
-
-A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') with matching studyId `null` If no study is matching with studyId
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| fromDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | Start Date for Date Filter |
-| toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | End Date for Date Filter |
-| studyTitle | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study Title Filter |
-| user | [TransCelerate.SDR.Core.DTO.Token.LoggedInUser](#T-TransCelerate-SDR-Core-DTO-Token-LoggedInUser 'TransCelerate.SDR.Core.DTO.Token.LoggedInUser') | Logged In User |
 
 <a name='M-TransCelerate-SDR-DataAccess-Interfaces-IClinicalStudyRepositoryV3-GetStudyItemsAsync-System-String,System-Int32-'></a>
 ### GetStudyItemsAsync(studyId,sdruploadversion) `method`

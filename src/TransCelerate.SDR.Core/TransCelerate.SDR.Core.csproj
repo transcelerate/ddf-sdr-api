@@ -8,36 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="DomainModels\**" />
-    <EmbeddedResource Remove="DomainModels\**" />
-    <None Remove="DomainModels\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="DTO\Study\TransitionCriteriaDTO.cs" />
-    <Compile Remove="DTO\Study\TransitionDTO.cs" />
-    <Compile Remove="DTO\Study\TransitionRuleDTO.cs" />
-    <Compile Remove="Entities\Amendment.cs" />
-    <Compile Remove="Entities\ClinicalStudy.cs" />
-    <Compile Remove="Entities\IdentifierType.cs" />
-    <Compile Remove="Entities\InvestigationalIntervention.cs" />
-    <Compile Remove="Entities\Section.cs" />
-    <Compile Remove="Entities\StudyEndpoint.cs" />
-    <Compile Remove="Entities\StudyIdentifier.cs" />
-    <Compile Remove="Entities\StudyIndication.cs" />
-    <Compile Remove="Entities\StudyObjective.cs" />
-    <Compile Remove="Entities\StudyProtocol.cs" />
-    <Compile Remove="Entities\StudyTargetPopulation.cs" />
-    <Compile Remove="Entities\StudyTrialIntentType.cs" />
-    <Compile Remove="Entities\StudyTrialType.cs" />
-    <Compile Remove="Entities\Study\TransitionCriteriaEntity.cs" />
-    <Compile Remove="Entities\Study\TransitionEntity.cs" />
-    <Compile Remove="Entities\Study\TransitionRuleEntity.cs" />
-    <Compile Remove="Utilities\Helpers\JsonSettings.cs" />
-    <Compile Remove="Utilities\Helpers\ShouldSerializeContractResolver.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.13.1" />
     <PackageReference Include="JsonSubTypes" Version="2.0.1" />

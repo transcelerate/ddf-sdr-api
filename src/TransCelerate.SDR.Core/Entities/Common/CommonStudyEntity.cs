@@ -23,7 +23,6 @@ namespace TransCelerate.SDR.Core.Entities.Common
         public List<object> StudyIdentifiers { get; set; }
         public List<CommonStudyProtocolVersions> StudyProtocolVersions { get; set; }
         public List<CommonStudyDesigns> StudyDesigns { get; set; }
-        public List<CommonCurrentSectionsEntity> CurrentSections { get; set; }
     }
 
     [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
@@ -38,7 +37,6 @@ namespace TransCelerate.SDR.Core.Entities.Common
         public string Uuid { get; set; }
         public object InterventionModel { get; set; }
         public List<CommonStudyIndication> StudyIndications { get; set; }
-        public List<CommonCurrentSectionsEntity> CurrentSections { get; set; }
     }
     [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
     public class CommonCodeEntity
@@ -55,13 +53,6 @@ namespace TransCelerate.SDR.Core.Entities.Common
         public string IndicationDescription { get; set; }
         public string IndicationDesc { get; set; }
         public string Description { get; set; }
-    }
-    [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
-    public class CommonCurrentSectionsEntity
-    {
-        public List<CommonStudyDesigns> StudyDesigns { get; set; }
-        public List<CommonStudyIndication> StudyIndications { get; set; }
-        public List<CommonInvestigationalInterventionEntity> InvestigationalInterventions { get; set; }
     }
     [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
     public class CommonInvestigationalInterventionEntity

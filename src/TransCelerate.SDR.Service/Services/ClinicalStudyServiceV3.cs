@@ -921,57 +921,6 @@ namespace TransCelerate.SDR.Services.Services
             }
         }
 
-        /// <summary>
-        /// Check access for the Study Aduit
-        /// </summary>
-        /// <param name="studyId">StudyId of the study</param>   
-        /// <param name="studies">Study List for which user access have to be checked</param>   
-        /// <param name="user">Logged In User</param>
-        /// <returns>
-        /// A <see cref="List{AuditTrailResponseEntity}"/> if the user have access <br></br> <br></br>
-        /// <see langword="null"/> If user doesn't have access to the study
-        /// </returns>
-        public async Task<List<AuditTrailResponseEntity>> CheckAccessForStudyAudit(string studyId, List<AuditTrailResponseEntity> studies, LoggedInUser user)
-        {
-            try
-            {
-                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV3)}; Method : {nameof(CheckAccessForStudyAudit)};");
-
-                if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
-                {
-                    var groups = await _clinicalStudyRepository.GetGroupsOfUser(user).ConfigureAwait(false);
-
-                    if (groups != null && groups.Count > 0)
-                    {
-                        Tuple<List<string>, List<string>> groupFilters = GroupFilters.GetGroupFilters(groups);
-                        if (groupFilters.Item2.Contains(studyId))
-                            return studies;
-                        else if (groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
-                            return studies;
-                        else
-                        {
-                            studies.RemoveAll(x => !groupFilters.Item1.Contains(x.StudyType?.Decode?.ToLower()));
-                            return studies.Count > 0 ? studies : null;
-                        }
-                    }
-                    else
-                    {
-                        // Filter should not give any results
-                        return null;
-                    }
-                }
-                else
-                    return studies;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV3)}; Method : {nameof(CheckAccessForStudyAudit)};");
-            }
-        }
 
         /// <summary>
         /// Check READ_WRITE Permission for a user
