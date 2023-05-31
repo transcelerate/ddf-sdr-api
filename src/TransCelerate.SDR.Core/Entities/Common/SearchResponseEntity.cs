@@ -17,12 +17,6 @@ namespace TransCelerate.SDR.Core.Entities.Common
 
         public IEnumerable<object> InterventionModel { get; set; }
         public IEnumerable<string> StudyDesignIds { get; set; }
-        public IEnumerable<IEnumerable<string>> StudyDesignIdsMVP { get; set; }
-
-        public IEnumerable<IEnumerable<string>> StudyIndicationsMVP { get; set; }
-
-        public IEnumerable<IEnumerable<IEnumerable<IEnumerable<string>>>> InterventionModelMVP { get; set; }
-
         public DateTime EntryDateTime { get; set; }
         public int SDRUploadVersion { get; set; }
         public string UsdmVersion { get; set; }

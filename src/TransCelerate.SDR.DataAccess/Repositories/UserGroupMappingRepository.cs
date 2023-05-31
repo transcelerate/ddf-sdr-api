@@ -284,7 +284,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// </returns>
         public async Task<SDRGroupsEntity> AddAGroup(SDRGroupsEntity group)
         {
-            _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(AddAGroup)};");
+            _logger.LogInformation($"Started Repository : {nameof(UserGroupMappingRepository)}; Method : {nameof(AddAGroup)};");
             try
             {
                 var collection = _database.GetCollection<UserGroupMappingEntity>(Constants.Collections.SDRGrouping);
@@ -301,7 +301,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(AddAGroup)};");
+                _logger.LogInformation($"Ended Repository : {nameof(UserGroupMappingRepository)}; Method : {nameof(AddAGroup)};");
             }
         }
 
@@ -314,7 +314,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// </returns>
         public async Task<SDRGroupsEntity> UpdateAGroup(SDRGroupsEntity group)
         {
-            _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(UpdateAGroup)};");
+            _logger.LogInformation($"Started Repository : {nameof(UserGroupMappingRepository)}; Method : {nameof(UpdateAGroup)};");
             try
             {
                 var collection = _database.GetCollection<UserGroupMappingEntity>(Constants.Collections.SDRGrouping);
@@ -332,7 +332,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(UpdateAGroup)};");
+                _logger.LogInformation($"Ended Repository : {nameof(UserGroupMappingRepository)}; Method : {nameof(UpdateAGroup)};");
             }
         }
 
@@ -345,7 +345,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// </returns>
         public async Task<UserGroupMappingEntity> UpdateUsersToGroups(UserGroupMappingEntity userGroupMappingEntity)
         {
-            _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(UpdateUsersToGroups)};");
+            _logger.LogInformation($"Started Repository : {nameof(UserGroupMappingRepository)}; Method : {nameof(UpdateUsersToGroups)};");
             try
             {
                 var collection = _database.GetCollection<UserGroupMappingEntity>(Constants.Collections.SDRGrouping);
@@ -362,7 +362,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepository)}; Method : {nameof(UpdateUsersToGroups)};");
+                _logger.LogInformation($"Ended Repository : {nameof(UserGroupMappingRepository)}; Method : {nameof(UpdateUsersToGroups)};");
             }
         }
         #endregion

@@ -62,9 +62,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             string cptMappingValue = null;
             if (code != null)
             {
-                var mappings = SdrCptMapping.SdrCptMasterDataMapping.Where(x => x.Entity == entity).FirstOrDefault().Mapping;
-                cptMappingValue = mappings.Where(x => x.Code.ToLower() == code.ToLower()).Any() ?
-                                  mappings.Where(x => x.Code.ToLower() == code.ToLower()).Select(x => !String.IsNullOrWhiteSpace(x.CPT) ? x.CPT : x.CDISC).FirstOrDefault() : null;
+                var sdrCptMapping = SdrCptMapping.SdrCptMasterDataMapping.Where(x => x.Entity == entity).FirstOrDefault();
+                if (sdrCptMapping != null && sdrCptMapping.Mapping != null && sdrCptMapping.Mapping.Any())
+                {
+                    var mappings = sdrCptMapping.Mapping;
+                    cptMappingValue = mappings.Where(x => x.Code.ToLower() == code.ToLower()).Any() ?
+                                      mappings.Where(x => x.Code.ToLower() == code.ToLower()).Select(x => !String.IsNullOrWhiteSpace(x.CPT) ? x.CPT : x.CDISC).FirstOrDefault() : null;
+                }
             }
             return cptMappingValue;
         }

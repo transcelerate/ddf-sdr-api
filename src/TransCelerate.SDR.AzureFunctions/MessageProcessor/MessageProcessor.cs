@@ -38,8 +38,8 @@ namespace TransCelerate.SDR.AzureFunctions
 
             //Check The AuditTrails
             List<AuditTrailEntity> auditTrailEntities = _changeAuditReposotory.GetAuditTrailsAsync(serviceBusMessageEntity.Study_uuid, serviceBusMessageEntity.CurrentVersion);
-            string currentUsdmVersion = auditTrailEntities.Where(x => x.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion).FirstOrDefault().UsdmVersion;
-            string previousUsdmVersion = auditTrailEntities.Where(x => x.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion - 1).FirstOrDefault().UsdmVersion;
+            string currentUsdmVersion = auditTrailEntities.Where(x => x.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion).FirstOrDefault()?.UsdmVersion;
+            string previousUsdmVersion = auditTrailEntities.Where(x => x.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion - 1).FirstOrDefault()?.UsdmVersion;
 
             string currentApiVersion = ApiUsdmVersionMapping.SDRVersions.Where(x => x.UsdmVersions.Contains(currentUsdmVersion)).Select(x => x.ApiVersion).First();
             string previousApiVersion = ApiUsdmVersionMapping.SDRVersions.Where(x => x.UsdmVersions.Contains(previousUsdmVersion)).Select(x => x.ApiVersion).First();

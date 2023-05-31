@@ -3,13 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Token;
-using TransCelerate.SDR.Core.Entities.StudyV3;
+using TransCelerate.SDR.Core.Entities.StudyV2;
 using TransCelerate.SDR.Core.Entities.UserGroups;
 
 
 namespace TransCelerate.SDR.DataAccess.Interfaces
 {
-    public interface IClinicalStudyRepositoryV3
+    public interface IClinicalStudyRepositoryV2
     {
 
         /// <summary>
@@ -42,31 +42,7 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// <param name="sdruploadversion">Version of study</param>
         /// <returns></returns>
         Task<StudyEntity> GetPartialStudyDesignItemsAsync(string studyId, int sdruploadversion);
-
-        /// <summary>
-        /// GET List of study for a study ID
-        /// </summary>
-        /// <param name="fromDate">Start Date for Date Filter</param>
-        /// <param name="toDate">End Date for Date Filter</param>
-        /// <param name="studyId">Study ID</param>
-        /// <returns>
-        /// A <see cref="List{AuditTrailResponseEntity}"/> with matching studyId <br></br> <br></br>
-        /// <see langword="null"/> If no study is matching with studyId
-        /// </returns>
-        Task<List<AuditTrailResponseEntity>> GetAuditTrail(string studyId, DateTime fromDate, DateTime toDate);
-
-        /// <summary>
-        /// Get List of all studyId 
-        /// </summary>
-        /// <param name="fromDate">Start Date for Date Filter</param>
-        /// <param name="toDate">End Date for Date Filter</param>
-        /// <param name="studyTitle">Study Title Filter</param>
-        /// <param name="user">Logged In User</param>
-        /// <returns>
-        /// A <see cref="List{StudyHistoryEntity}"/> with matching studyId <br></br> <br></br>
-        /// <see langword="null"/> If no study is matching with studyId
-        /// </returns>
-        Task<List<StudyHistoryResponseEntity>> GetStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle, LoggedInUser user);
+       
         /// <summary>
         /// POST a Study
         /// </summary>

@@ -111,7 +111,10 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         {
             var mockMapper = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new AutoMapperProfies());
+                cfg.AddProfile(new AutoMapperProfilesV1());
+                cfg.AddProfile(new AutoMapperProfilesV2());
+                cfg.AddProfile(new AutoMapperProfilesV3());
+                cfg.AddProfile(new SharedAutoMapperProfiles());
             });
         }
         #endregion
