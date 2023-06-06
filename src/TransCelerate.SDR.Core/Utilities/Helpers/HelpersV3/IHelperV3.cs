@@ -41,7 +41,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
         /// <param name="sections"></param>
         /// <param name="studyDTO"></param>
         /// <returns></returns>
-        object RemoveStudyElements(string[] sections, StudyDto studyDTO);
+        object RemoveStudyElements(string[] sections, StudyDefinitionsDto studyDTO);
         /// <summary>
         /// Remove studyDesign elements which are not requested
         /// </summary>
@@ -58,7 +58,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
         /// <param name="incoming"></param>
         /// <param name="existing"></param>
         /// <returns></returns>
-        bool IsSameStudy(StudyEntity incoming, StudyEntity existing);
+        bool IsSameStudy(StudyDefinitionsEntity incoming, StudyDefinitionsEntity existing);
         /// <summary>
         /// Deep compare of existing and incoming study
         /// </summary>
@@ -73,7 +73,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
         /// </summary>
         /// <param name="study"></param>
         /// <returns></returns>
-        StudyEntity RemovedSectionId(StudyEntity study);
+        StudyDefinitionsEntity RemovedSectionId(StudyDefinitionsEntity study);
         /// <summary>
         /// Remove uuid for Study Investigational Interventions
         /// </summary>
@@ -125,16 +125,16 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
         #endregion
 
         #region Get Difference
-        List<string> GetChangedValues(StudyEntity currentStudyVersion, StudyEntity previousStudyVersion);
+        List<string> GetChangedValues(StudyDefinitionsEntity currentStudyVersion, StudyDefinitionsEntity previousStudyVersion);
         #endregion
 
         #region RefernceIntegrityCheck
-        bool ReferenceIntegrityValidation(StudyDto study, out object referenceErrors);
+        bool ReferenceIntegrityValidation(StudyDefinitionsDto study, out object referenceErrors);
 
         #endregion
 
         #region Version Compare
-        List<string> GetChangedValuesForStudyComparison(StudyEntity currentStudyVersion, StudyEntity previousStudyVersion);
+        List<string> GetChangedValuesForStudyComparison(StudyDefinitionsEntity currentStudyVersion, StudyDefinitionsEntity previousStudyVersion);
         #endregion
 
     }

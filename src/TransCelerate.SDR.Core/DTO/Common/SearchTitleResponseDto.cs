@@ -10,12 +10,12 @@ namespace TransCelerate.SDR.Core.DTO.Common
     /// </summary>
     public class SearchTitleResponseDto
     {
-        public SearchTitleClinicalStudy ClinicalStudy { get; set; }
+        public SearchTitleStudy Study { get; set; }
         public SearchTitleAuditTrail AuditTrail { get; set; }
         public LinksForUIDto Links { get; set; }
     }
 
-    public class SearchTitleClinicalStudy
+    public class SearchTitleStudy
     {        
         public string StudyId { get; set; }
         public string StudyTitle { get; set; }

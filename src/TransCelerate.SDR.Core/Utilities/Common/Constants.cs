@@ -83,24 +83,24 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         }
         public struct DbFilter
         {
-            public const string StudyId = "clinicalStudy.studyId";
-            public const string ClinicalStudy = "clinicalStudy";
+            public const string StudyId = "study.studyId";
+            public const string Study = "study";
             public const string AuditTrail = "auditTrail";
-            public const string StudyType = "clinicalStudy.studyType";
-            public const string StudyIdentifiers = "clinicalStudy.studyIdentifiers";
+            public const string StudyType = "study.studyType";
+            public const string StudyIdentifiers = "study.studyIdentifiers";
             public const string StudyIdentifierOrganisationIdentifier = "studyIdentifierScope.organisationIdentifier";
             public const string StudyIdentifierOrganisationTypeDecode = "studyIdentifierScope.organisationType.decode";
             public const string StudyIdentifierIdType = "idType";
             public const string StudyIdentifierOrgCode = "orgCode";
-            public const string StudyPhase = "clinicalStudy.studyPhase";
+            public const string StudyPhase = "study.studyPhase";
             public const string StudyPhaseDecode = "decode";
             public const string StudyPhaseStandardCodeDecode = "standardCode.decode";
-            public const string StudyDesigns = "clinicalStudy.studyDesigns";
+            public const string StudyDesigns = "study.studyDesigns";
             public const string InterventionModel = "interventionModel.decode";
             public const string StudyIndicationsIndicationDescription = "studyIndications.indicationDescription";
             public const string StudyIndicationsIndicationDesc = "studyIndications.indicationDesc";
-            public const string InterventionModelMVP = "clinicalStudy.currentSections.studyDesigns.currentSections.investigationalInterventions.interventionModel";
-            public const string IndicationMVP = "clinicalStudy.currentSections.studyIndications.description";
+            public const string InterventionModelMVP = "study.currentSections.studyDesigns.currentSections.investigationalInterventions.interventionModel";
+            public const string IndicationMVP = "study.currentSections.studyIndications.description";
         }
         public struct ValidationErrorMessage
         {
@@ -184,7 +184,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string DowngradeError = "The usdmVersion cannot be downgraded";
 
-            public const string StudyIdNotFound = "The provided clinicalStudy.studyId is not found";
+            public const string StudyIdNotFound = "The provided study.studyId is not found";
 
             public const string UsePutEndpoint = "Kindly use PUT Study Definitions endpoint to update study definitions";
 
@@ -257,17 +257,17 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string Client_Secret = "client_secret";
         }
 
-        public static readonly string[] ClinicalStudyElementsV2 = {
-            nameof(ClinicalStudyDto.StudyTitle),
-            nameof(ClinicalStudyDto.StudyIdentifiers),
-            nameof(ClinicalStudyDto.StudyProtocolVersions),
-            nameof(ClinicalStudyDto.StudyVersion),
-            nameof(ClinicalStudyDto.StudyPhase),
-            nameof(ClinicalStudyDto.StudyType),
-            nameof(ClinicalStudyDto.BusinessTherapeuticAreas),
-            nameof(ClinicalStudyDto.StudyDesigns),
-            nameof(ClinicalStudyDto.StudyAcronym),
-            nameof(ClinicalStudyDto.StudyRationale),
+        public static readonly string[] StudyElementsV2 = {
+            nameof(StudyDto.StudyTitle),
+            nameof(StudyDto.StudyIdentifiers),
+            nameof(StudyDto.StudyProtocolVersions),
+            nameof(StudyDto.StudyVersion),
+            nameof(StudyDto.StudyPhase),
+            nameof(StudyDto.StudyType),
+            nameof(StudyDto.BusinessTherapeuticAreas),
+            nameof(StudyDto.StudyDesigns),
+            nameof(StudyDto.StudyAcronym),
+            nameof(StudyDto.StudyRationale),
         };
 
         public static readonly string[] StudyDesignElementsV2 = {
@@ -292,17 +292,17 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(StudyDesignDto.BcCategories),
             nameof(StudyDesignDto.BcSurrogates)
         };
-        public static readonly string[] ClinicalStudyElementsV3 = {
-            nameof(Core.DTO.StudyV3.ClinicalStudyDto.StudyTitle),
-            nameof(Core.DTO.StudyV3.ClinicalStudyDto.StudyIdentifiers),
-            nameof(Core.DTO.StudyV3.ClinicalStudyDto.StudyProtocolVersions),
-            nameof(Core.DTO.StudyV3.ClinicalStudyDto.StudyVersion),
-            nameof(Core.DTO.StudyV3.ClinicalStudyDto.StudyPhase),
-            nameof(Core.DTO.StudyV3.ClinicalStudyDto.StudyType),
-            nameof(Core.DTO.StudyV3.ClinicalStudyDto.BusinessTherapeuticAreas),
-            nameof(Core.DTO.StudyV3.ClinicalStudyDto.StudyDesigns),
-            nameof(Core.DTO.StudyV3.ClinicalStudyDto.StudyAcronym),
-            nameof(Core.DTO.StudyV3.ClinicalStudyDto.StudyRationale),
+        public static readonly string[] StudyElementsV3 = {
+            nameof(Core.DTO.StudyV3.StudyDto.StudyTitle),
+            nameof(Core.DTO.StudyV3.StudyDto.StudyIdentifiers),
+            nameof(Core.DTO.StudyV3.StudyDto.StudyProtocolVersions),
+            nameof(Core.DTO.StudyV3.StudyDto.StudyVersion),
+            nameof(Core.DTO.StudyV3.StudyDto.StudyPhase),
+            nameof(Core.DTO.StudyV3.StudyDto.StudyType),
+            nameof(Core.DTO.StudyV3.StudyDto.BusinessTherapeuticAreas),
+            nameof(Core.DTO.StudyV3.StudyDto.StudyDesigns),
+            nameof(Core.DTO.StudyV3.StudyDto.StudyAcronym),
+            nameof(Core.DTO.StudyV3.StudyDto.StudyRationale),
         };
 
         public static readonly string[] StudyDesignElementsV3 = {
@@ -402,7 +402,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public static readonly string[] V3 =
             {
                 nameof(Entities.StudyV3.AliasCodeEntity.StandardCodeAliases),
-                nameof(Entities.StudyV3.ClinicalStudyEntity.BusinessTherapeuticAreas),
+                nameof(Entities.StudyV3.StudyEntity.BusinessTherapeuticAreas),
                 nameof(Entities.StudyV3.StudyDesignEntity.TrialIntentTypes),
                 nameof(Entities.StudyV3.StudyDesignEntity.TrialType),
                 nameof(Entities.StudyV3.StudyDesignPopulationEntity.PlannedSexOfParticipants),

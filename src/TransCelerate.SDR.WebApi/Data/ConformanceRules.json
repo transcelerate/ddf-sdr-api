@@ -77,7 +77,7 @@
           ]
         },
         {
-          "entity": "ClinicalStudy",
+          "entity": "Study",
           "required": [
             "StudyTitle",
             "StudyType",
@@ -307,9 +307,9 @@
           ]
         },
         {
-          "entity": "Study",
+          "entity": "StudyDefinitions",
           "required": [
-            "ClinicalStudy"
+            "Study"
           ]
         },
         {
@@ -425,7 +425,7 @@
           ]
         },
         {
-          "entity": "ClinicalStudy",
+          "entity": "Study",
           "required": [
             "StudyTitle",
             "StudyType",
@@ -655,9 +655,9 @@
           ]
         },
         {
-          "entity": "Study",
+          "entity": "StudyDefinitions",
           "required": [
-            "ClinicalStudy"
+            "Study"
           ]
         },
         {

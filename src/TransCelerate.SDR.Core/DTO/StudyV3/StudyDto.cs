@@ -1,9 +1,19 @@
-﻿namespace TransCelerate.SDR.Core.DTO.StudyV3
+﻿using System.Collections.Generic;
+
+namespace TransCelerate.SDR.Core.DTO.StudyV3
 {
     public class StudyDto
     {
-        public ClinicalStudyDto ClinicalStudy { get; set; }
-        public AuditTrailDto AuditTrail { get; set; }
-        public TransCelerate.SDR.Core.DTO.Common.LinksForUIDto Links { get; set; }
+        public string StudyId { get; set; }
+        public string StudyTitle { get; set; }
+        public string StudyVersion { get; set; }
+        public CodeDto StudyType { get; set; }
+        public string StudyRationale { get; set; }
+        public string StudyAcronym { get; set; }
+        public List<StudyIdentifierDto> StudyIdentifiers { get; set; }
+        public AliasCodeDto StudyPhase { get; set; }
+        public List<CodeDto> BusinessTherapeuticAreas { get; set; }
+        public List<StudyProtocolVersionDto> StudyProtocolVersions { get; set; }
+        public List<StudyDesignDto> StudyDesigns { get; set; }
     }
 }

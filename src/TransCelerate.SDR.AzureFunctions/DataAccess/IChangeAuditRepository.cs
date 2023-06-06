@@ -21,7 +21,7 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
         /// <returns> A <see cref="List{StudyEntity}"/> with matching studyId
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        List<Core.Entities.StudyV3.StudyEntity> GetStudyItemsAsyncV3(string studyId, int sdruploadversion);
+        List<Core.Entities.StudyV3.StudyDefinitionsEntity> GetStudyItemsAsyncV3(string studyId, int sdruploadversion);
         /// <summary>
         /// Get Current and previous version of study for study Id for V2 API Version
         /// </summary>
@@ -30,7 +30,7 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
         /// <returns> A <see cref="List{StudyEntity}"/> with matching studyId
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        List<Core.Entities.StudyV2.StudyEntity> GetStudyItemsAsyncV2(string studyId, int sdruploadversion);
+        List<Core.Entities.StudyV2.StudyDefinitionsEntity> GetStudyItemsAsyncV2(string studyId, int sdruploadversion);
         /// <summary>
         /// Insert a Change Audit for a study
         /// </summary>

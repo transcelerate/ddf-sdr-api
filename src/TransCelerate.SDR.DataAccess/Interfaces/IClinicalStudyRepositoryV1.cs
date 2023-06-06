@@ -16,10 +16,10 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// <param name="studyId">Study ID</param>
         /// <param name="sdruploadversion">Version of study</param>
         /// <returns>
-        /// A <see cref="StudyEntity"/> with matching studyId <br></br> <br></br>
+        /// A <see cref="StudyDefinitionsEntity"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        Task<StudyEntity> GetStudyItemsAsync(string studyId, int sdruploadversion);
+        Task<StudyDefinitionsEntity> GetStudyItemsAsync(string studyId, int sdruploadversion);
 
         /// <summary>
         /// GET Study Designs for a Study Id
@@ -27,7 +27,7 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// <param name="studyId">Study ID</param>
         /// <param name="sdruploadversion">Version of study</param>
         /// <returns></returns>
-        Task<StudyEntity> GetPartialStudyDesignItemsAsync(string studyId, int sdruploadversion);
+        Task<StudyDefinitionsEntity> GetPartialStudyDesignItemsAsync(string studyId, int sdruploadversion);
 
         /// <summary>
         /// GET List of study for a study ID
@@ -60,7 +60,7 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// <returns>
         /// A studyId which was inserted <br></br> <br></br>        
         /// </returns>
-        Task<string> PostStudyItemsAsync(StudyEntity study);
+        Task<string> PostStudyItemsAsync(StudyDefinitionsEntity study);
 
         /// <summary>
         /// Updates a Study
@@ -69,7 +69,7 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// <returns>
         /// A studyId which was inserted <br></br> <br></br>        
         /// </returns>
-        Task<string> UpdateStudyItemsAsync(StudyEntity study);
+        Task<string> UpdateStudyItemsAsync(StudyDefinitionsEntity study);
 
         /// <summary>
         /// Search the collection based on search criteria
@@ -97,7 +97,7 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
 
         Task<List<SDRGroupsEntity>> GetGroupsOfUser(LoggedInUser user);
 
-        Task<StudyEntity> GetStudyItemsForCheckingAccessAsync(string studyId, int sdruploadversion);
+        Task<StudyDefinitionsEntity> GetStudyItemsForCheckingAccessAsync(string studyId, int sdruploadversion);
 
         /// <summary>
         /// GET a Study for a study ID with version filter

@@ -115,7 +115,7 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// A <see cref="object"/> which has study ID and study design ID's <br></br> <br></br>
         /// <see langword="null"/> If the insert is not done
         /// </returns>
-        Task<object> PostAllElements(StudyDto studyDTO, LoggedInUser user, string method);
+        Task<object> PostAllElements(StudyDefinitionsDto studyDTO, LoggedInUser user, string method);
         #endregion
 
         #region Delete Study
@@ -135,10 +135,10 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// <param name="study">Study for which user access have to be checked</param>   
         /// <param name="user">Logged In User</param>
         /// <returns>
-        /// A <see cref="StudyEntity"/> if the user have access <br></br> <br></br>
+        /// A <see cref="StudyDefinitionsEntity"/> if the user have access <br></br> <br></br>
         /// <see langword="null"/> If user doesn't have access to the study
         /// </returns>
-        Task<StudyEntity> CheckAccessForAStudy(StudyEntity study, LoggedInUser user);
+        Task<StudyDefinitionsEntity> CheckAccessForAStudy(StudyDefinitionsEntity study, LoggedInUser user);
         /// <summary>
         /// Check Access for a study
         /// </summary>

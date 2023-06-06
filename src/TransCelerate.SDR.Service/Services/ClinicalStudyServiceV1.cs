@@ -53,7 +53,7 @@ namespace TransCelerate.SDR.Services.Services
                 _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(GetStudy)};");
                 studyId = studyId.Trim();
 
-                StudyEntity study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: studyId, sdruploadversion: sdruploadversion).ConfigureAwait(false);
+                StudyDefinitionsEntity study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: studyId, sdruploadversion: sdruploadversion).ConfigureAwait(false);
 
                 if (study == null)
                 {
@@ -61,11 +61,11 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {
-                    StudyEntity checkStudy = await CheckAccessForAStudy(study, user);
+                    StudyDefinitionsEntity checkStudy = await CheckAccessForAStudy(study, user);
                     if (checkStudy == null)
                         return Constants.ErrorMessages.Forbidden;
-                    var studyDTO = _mapper.Map<StudyDto>(study);  //Mapping Entity to Dto
-                    studyDTO.Links = LinksHelper.GetLinksForUi(study.ClinicalStudy.Uuid, study.ClinicalStudy.StudyDesigns?.Select(x => x.Uuid).ToList(), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion);
+                    var studyDTO = _mapper.Map<StudyDefinitionsDto>(study);  //Mapping Entity to Dto
+                    studyDTO.Links = LinksHelper.GetLinksForUi(study.Study.Uuid, study.Study.StudyDesigns?.Select(x => x.Uuid).ToList(), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion);
                     return studyDTO;
                 }
             }
@@ -96,7 +96,7 @@ namespace TransCelerate.SDR.Services.Services
                 _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(GetStudy)};");
                 studyId = studyId.Trim();
 
-                StudyEntity study = await _clinicalStudyRepository.GetPartialStudyDesignItemsAsync(studyId: studyId, sdruploadversion: sdruploadversion).ConfigureAwait(false);
+                StudyDefinitionsEntity study = await _clinicalStudyRepository.GetPartialStudyDesignItemsAsync(studyId: studyId, sdruploadversion: sdruploadversion).ConfigureAwait(false);
 
                 if (study == null)
                 {
@@ -104,17 +104,17 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {
-                    StudyEntity checkStudy = await CheckAccessForAStudy(study, user);
+                    StudyDefinitionsEntity checkStudy = await CheckAccessForAStudy(study, user);
                     if (checkStudy == null)
                         return Constants.ErrorMessages.Forbidden;
 
-                    var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy?.ClinicalStudy?.StudyDesigns);  //Mapping Entity to Dto
+                    var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy?.Study?.StudyDesigns);  //Mapping Entity to Dto
 
                     if (studyDesigns is not null && studyDesigns.Any())
                         return new StudyDesignsResposeDto
                         {
                             StudyDesigns = studyDesigns,
-                            Links = LinksHelper.GetLinks(study.ClinicalStudy.Uuid, study.ClinicalStudy.StudyDesigns?.Select(x => x.Uuid), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion)
+                            Links = LinksHelper.GetLinks(study.Study.Uuid, study.Study.StudyDesigns?.Select(x => x.Uuid), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion)
                         };
 
                     return Constants.ErrorMessages.StudyDesignNotFound;
@@ -236,27 +236,27 @@ namespace TransCelerate.SDR.Services.Services
         /// A <see cref="object"/> which has study ID and study design ID's <br></br> <br></br>
         /// <see langword="null"/> If the insert is not done
         /// </returns>
-        public async Task<object> PostAllElements(StudyDto studyDTO, LoggedInUser user)
+        public async Task<object> PostAllElements(StudyDefinitionsDto studyDTO, LoggedInUser user)
         {
             try
             {
                 _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(PostAllElements)};");
                 if (!await CheckPermissionForAUser(user))
                     return Constants.ErrorMessages.PostRestricted;
-                StudyEntity incomingStudyEntity = new()
+                StudyDefinitionsEntity incomingStudyEntity = new()
                 {
-                    ClinicalStudy = _mapper.Map<ClinicalStudyEntity>(studyDTO.ClinicalStudy),
+                    Study = _mapper.Map<StudyEntity>(studyDTO.Study),
                     AuditTrail = _helper.GetAuditTrail(user?.UserName),
                     Id = MongoDB.Bson.ObjectId.GenerateNewId()
                 };
 
-                if (String.IsNullOrWhiteSpace(incomingStudyEntity.ClinicalStudy.Uuid)) // create new study
+                if (String.IsNullOrWhiteSpace(incomingStudyEntity.Study.Uuid)) // create new study
                 {
                     studyDTO = await CreateNewStudy(incomingStudyEntity).ConfigureAwait(false);
                 }
                 else // create new version for study
                 {
-                    AuditTrailEntity existingAuditTrail = await _clinicalStudyRepository.GetUsdmVersionAsync(incomingStudyEntity.ClinicalStudy.Uuid, 0);
+                    AuditTrailEntity existingAuditTrail = await _clinicalStudyRepository.GetUsdmVersionAsync(incomingStudyEntity.Study.Uuid, 0);
 
                     if (existingAuditTrail is null) // If PUT Endpoint and study_uuid is not valid, return not valid study
                     {
@@ -264,7 +264,7 @@ namespace TransCelerate.SDR.Services.Services
                     }
                     if (existingAuditTrail.UsdmVersion == Constants.USDMVersions.V1) // If previus USDM version is same as incoming
                     {
-                        StudyEntity existingStudyEntity = await _clinicalStudyRepository.GetStudyItemsAsync(incomingStudyEntity.ClinicalStudy.Uuid, 0);
+                        StudyDefinitionsEntity existingStudyEntity = await _clinicalStudyRepository.GetStudyItemsAsync(incomingStudyEntity.Study.Uuid, 0);
 
                         if (_helper.IsSameStudy(incomingStudyEntity, existingStudyEntity))
                         {
@@ -286,10 +286,10 @@ namespace TransCelerate.SDR.Services.Services
                     //}
                     else
                     {
-                        studyDTO = await CreateNewVersionForAStudyWithoutCheck(incomingStudyEntity, existingAuditTrail, incomingStudyEntity.ClinicalStudy.Uuid).ConfigureAwait(false);
+                        studyDTO = await CreateNewVersionForAStudyWithoutCheck(incomingStudyEntity, existingAuditTrail, incomingStudyEntity.Study.Uuid).ConfigureAwait(false);
                     }
                 }
-                studyDTO.Links = LinksHelper.GetLinksForUi(studyDTO.ClinicalStudy.Uuid, studyDTO.ClinicalStudy.StudyDesigns?.Select(x => x.Uuid).ToList(), studyDTO.AuditTrail.UsdmVersion, studyDTO.AuditTrail.SDRUploadVersion);
+                studyDTO.Links = LinksHelper.GetLinksForUi(studyDTO.Study.Uuid, studyDTO.Study.StudyDesigns?.Select(x => x.Uuid).ToList(), studyDTO.AuditTrail.UsdmVersion, studyDTO.AuditTrail.SDRUploadVersion);
                 return studyDTO;
             }
             catch (Exception)
@@ -302,41 +302,41 @@ namespace TransCelerate.SDR.Services.Services
             }
         }
 
-        public async Task<StudyDto> CreateNewStudy(StudyEntity studyEntity)
+        public async Task<StudyDefinitionsDto> CreateNewStudy(StudyDefinitionsEntity studyEntity)
         {
             studyEntity = _helper.GeneratedSectionId(studyEntity);
-            studyEntity.ClinicalStudy.Uuid = IdGenerator.GenerateId();
+            studyEntity.Study.Uuid = IdGenerator.GenerateId();
             studyEntity.AuditTrail.SDRUploadVersion = 1;
             studyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V1;
             await _clinicalStudyRepository.PostStudyItemsAsync(studyEntity);
-            return _mapper.Map<StudyDto>(studyEntity);
+            return _mapper.Map<StudyDefinitionsDto>(studyEntity);
         }
 
-        public async Task<StudyDto> UpdateExistingStudy(StudyEntity incomingStudyEntity, StudyEntity existingStudyEntity)
+        public async Task<StudyDefinitionsDto> UpdateExistingStudy(StudyDefinitionsEntity incomingStudyEntity, StudyDefinitionsEntity existingStudyEntity)
         {
             existingStudyEntity.AuditTrail.EntryDateTime = incomingStudyEntity.AuditTrail.EntryDateTime;
             incomingStudyEntity.AuditTrail.SDRUploadVersion = existingStudyEntity.AuditTrail.SDRUploadVersion;
             existingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V1;
             await _clinicalStudyRepository.UpdateStudyItemsAsync(existingStudyEntity);
-            return _mapper.Map<StudyDto>(existingStudyEntity);
+            return _mapper.Map<StudyDefinitionsDto>(existingStudyEntity);
         }
 
-        public async Task<StudyDto> CreateNewVersionForAStudy(StudyEntity incomingStudyEntity, StudyEntity existingStudyEntity)
+        public async Task<StudyDefinitionsDto> CreateNewVersionForAStudy(StudyDefinitionsEntity incomingStudyEntity, StudyDefinitionsEntity existingStudyEntity)
         {
             incomingStudyEntity = _helper.CheckForSections(incomingStudyEntity, existingStudyEntity);
             incomingStudyEntity.AuditTrail.SDRUploadVersion = existingStudyEntity.AuditTrail.SDRUploadVersion + 1;
             incomingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V1;
             await _clinicalStudyRepository.PostStudyItemsAsync(incomingStudyEntity);
-            return _mapper.Map<StudyDto>(incomingStudyEntity);
+            return _mapper.Map<StudyDefinitionsDto>(incomingStudyEntity);
         }
-        public async Task<StudyDto> CreateNewVersionForAStudyWithoutCheck(StudyEntity incomingStudyEntity, AuditTrailEntity existingAuditTrailEntity, string studyId)
+        public async Task<StudyDefinitionsDto> CreateNewVersionForAStudyWithoutCheck(StudyDefinitionsEntity incomingStudyEntity, AuditTrailEntity existingAuditTrailEntity, string studyId)
         {
             incomingStudyEntity = _helper.GeneratedSectionId(incomingStudyEntity);
-            incomingStudyEntity.ClinicalStudy.Uuid = studyId;
+            incomingStudyEntity.Study.Uuid = studyId;
             incomingStudyEntity.AuditTrail.SDRUploadVersion = existingAuditTrailEntity.SDRUploadVersion + 1;
             incomingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V1;
             await _clinicalStudyRepository.PostStudyItemsAsync(incomingStudyEntity);
-            return _mapper.Map<StudyDto>(incomingStudyEntity);
+            return _mapper.Map<StudyDefinitionsDto>(incomingStudyEntity);
         }
         #endregion
 
@@ -350,7 +350,7 @@ namespace TransCelerate.SDR.Services.Services
         /// A <see cref="List{StudyDto}"/> which matches serach criteria <br></br> <br></br>
         /// <see langword="null"/> If the insert is not done
         /// </returns>
-        public async Task<List<StudyDto>> SearchStudy(SearchParametersDto searchParametersDto, LoggedInUser user)
+        public async Task<List<StudyDefinitionsDto>> SearchStudy(SearchParametersDto searchParametersDto, LoggedInUser user)
         {
             try
             {
@@ -366,7 +366,7 @@ namespace TransCelerate.SDR.Services.Services
                     return null;
                 }
 
-                List<StudyDto> studyDtos = _mapper.Map<List<StudyDto>>(studies);
+                List<StudyDefinitionsDto> studyDtos = _mapper.Map<List<StudyDefinitionsDto>>(studies);
 
                 studies.ForEach(study =>
                 {
@@ -378,7 +378,7 @@ namespace TransCelerate.SDR.Services.Services
                         new StudyDesignDto { StudyIndications = studyIndication, InterventionModel = interventionModel }
                     };
 
-                    studyDtos[studies.IndexOf(study)].ClinicalStudy.StudyDesigns = studyDesigns;
+                    studyDtos[studies.IndexOf(study)].Study.StudyDesigns = studyDesigns;
                 });
                 return studyDtos;
 
@@ -418,10 +418,10 @@ namespace TransCelerate.SDR.Services.Services
 
                 if (searchParameters.GroupByStudyId)
                 {
-                    searchTitleDTOList = searchTitleDTOList.GroupBy(x => x.ClinicalStudy.Uuid)
+                    searchTitleDTOList = searchTitleDTOList.GroupBy(x => x.Study.Uuid)
                                                     .Select(g => new SearchTitleResponseDto
                                                     {
-                                                        ClinicalStudy = g.Where(x => x.AuditTrail.SDRUploadVersion == g.Max(x => x.AuditTrail.SDRUploadVersion)).Select(x => x.ClinicalStudy).FirstOrDefault(),
+                                                        Study = g.Where(x => x.AuditTrail.SDRUploadVersion == g.Max(x => x.AuditTrail.SDRUploadVersion)).Select(x => x.Study).FirstOrDefault(),
                                                         AuditTrail = g.Where(x => x.AuditTrail.SDRUploadVersion == g.Max(x => x.AuditTrail.SDRUploadVersion)).Select(x => x.AuditTrail).FirstOrDefault()
                                                     }).ToList();
                 }
@@ -449,17 +449,17 @@ namespace TransCelerate.SDR.Services.Services
             {
                 return searchParametersDTO.SortBy.ToLower() switch
                 {
-                    "studytitle" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.ClinicalStudy.StudyTitle).ToList() : searchTitleDTOs.OrderByDescending(x => x.ClinicalStudy.StudyTitle).ToList(),
-                    "sponsorid" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(s => s.ClinicalStudy.StudyIdentifiers != null ? s.ClinicalStudy.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1).Any() ? s.ClinicalStudy.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : "").ToList()
-                                                                                        : searchTitleDTOs.OrderByDescending(s => s.ClinicalStudy.StudyIdentifiers != null ? s.ClinicalStudy.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1).Any() ? s.ClinicalStudy.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : "").ToList(),
+                    "studytitle" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.Study.StudyTitle).ToList() : searchTitleDTOs.OrderByDescending(x => x.Study.StudyTitle).ToList(),
+                    "sponsorid" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(s => s.Study.StudyIdentifiers != null ? s.Study.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1).Any() ? s.Study.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : "").ToList()
+                                                                                        : searchTitleDTOs.OrderByDescending(s => s.Study.StudyIdentifiers != null ? s.Study.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1).Any() ? s.Study.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode == Constants.IdType.SPONSOR_ID_V1).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : "").ToList(),
                     "lastmodifieddate" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.AuditTrail.EntryDateTime).ToList() : searchTitleDTOs.OrderByDescending(x => x.AuditTrail.EntryDateTime).ToList(),
                     "version" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(x => x.AuditTrail.SDRUploadVersion).ToList() : searchTitleDTOs.OrderByDescending(x => x.AuditTrail.SDRUploadVersion).ToList(),
-                    _ => searchParametersDTO.SortOrder == SortOrder.desc.ToString() ? searchTitleDTOs.OrderByDescending(x => x.ClinicalStudy.StudyTitle).ToList() : searchTitleDTOs.OrderBy(x => x.ClinicalStudy.StudyTitle).ToList(),
+                    _ => searchParametersDTO.SortOrder == SortOrder.desc.ToString() ? searchTitleDTOs.OrderByDescending(x => x.Study.StudyTitle).ToList() : searchTitleDTOs.OrderBy(x => x.Study.StudyTitle).ToList(),
                 };
             }
             else
             {
-                return searchParametersDTO.SortOrder == SortOrder.desc.ToString() ? searchTitleDTOs.OrderByDescending(x => x.ClinicalStudy.StudyTitle).ToList() : searchTitleDTOs.OrderBy(x => x.ClinicalStudy.StudyTitle).ToList();
+                return searchParametersDTO.SortOrder == SortOrder.desc.ToString() ? searchTitleDTOs.OrderByDescending(x => x.Study.StudyTitle).ToList() : searchTitleDTOs.OrderBy(x => x.Study.StudyTitle).ToList();
             }
         }
         #endregion
@@ -470,10 +470,10 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="study">Study for which user access have to be checked</param>   
         /// <param name="user">Logged In User</param>
         /// <returns>
-        /// A <see cref="StudyEntity"/> if the user have access <br></br> <br></br>
+        /// A <see cref="StudyDefinitionsEntity"/> if the user have access <br></br> <br></br>
         /// <see langword="null"/> If user doesn't have access to the study
         /// </returns>
-        public async Task<StudyEntity> CheckAccessForAStudy(StudyEntity study, LoggedInUser user)
+        public async Task<StudyDefinitionsEntity> CheckAccessForAStudy(StudyDefinitionsEntity study, LoggedInUser user)
         {
             try
             {
@@ -486,11 +486,11 @@ namespace TransCelerate.SDR.Services.Services
                     if (groups != null && groups.Count > 0)
                     {
                         Tuple<List<string>, List<string>> groupFilters = GroupFilters.GetGroupFilters(groups);
-                        if (groupFilters.Item2.Contains(study.ClinicalStudy.Uuid))
+                        if (groupFilters.Item2.Contains(study.Study.Uuid))
                             return study;
                         else if (groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
                             return study;
-                        else if (groupFilters.Item1.Contains(study.ClinicalStudy.StudyType?.Decode?.ToLower()))
+                        else if (groupFilters.Item1.Contains(study.Study.StudyType?.Decode?.ToLower()))
                             return study;
                         else
                             return null;
@@ -618,9 +618,9 @@ namespace TransCelerate.SDR.Services.Services
                 _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(GetAccessForAStudy)};");
                 studyId = studyId.Trim();
 
-                StudyEntity study = study = await _clinicalStudyRepository.GetStudyItemsForCheckingAccessAsync(studyId: studyId, 0).ConfigureAwait(false);
+                StudyDefinitionsEntity study = study = await _clinicalStudyRepository.GetStudyItemsForCheckingAccessAsync(studyId: studyId, 0).ConfigureAwait(false);
 
-                StudyEntity checkStudy = await CheckAccessForAStudy(study, user);
+                StudyDefinitionsEntity checkStudy = await CheckAccessForAStudy(study, user);
                 if (checkStudy == null)
                     return false;
 

@@ -11,13 +11,13 @@ namespace TransCelerate.SDR.WebApi.Mappers
             AllowNullCollections = true;
             AllowNullDestinationValues = true;
 
-            CreateMap<StudyEntity, StudyDto>().ReverseMap();
+            CreateMap<StudyDefinitionsEntity, StudyDefinitionsDto>().ReverseMap();
             CreateMap<ActivityDto, ActivityEntity>().ReverseMap();
             CreateMap<AnalysisPopulationDto, AnalysisPopulationEntity>().ReverseMap();
             CreateMap<AuditTrailEntity, AuditTrailDto>()
                 //.ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.EntryDateTime.ToString(Constants.DateFormats.DateFormatForAuditResponse).ToUpper()))
                 .ReverseMap();
-            CreateMap<ClinicalStudyDto, ClinicalStudyEntity>().ReverseMap();
+            CreateMap<StudyDto, StudyEntity>().ReverseMap();
             CreateMap<CodeDto, CodeEntity>().ReverseMap();
             CreateMap<DefinedProcedureDto, DefinedProcedureEntity>().ReverseMap();
             CreateMap<EncounterDto, EncounterEntity>().ReverseMap();
@@ -47,12 +47,12 @@ namespace TransCelerate.SDR.WebApi.Mappers
 
 
             //Mapper for Search Response
-            CreateMap<StudyDto, SearchResponseEntity>()
-                .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.ClinicalStudy.Uuid))
-                .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.ClinicalStudy.StudyTitle))
-                .ForMember(dest => dest.StudyIdentifiers, opt => opt.MapFrom(src => src.ClinicalStudy.StudyIdentifiers))
-                .ForMember(dest => dest.StudyType, opt => opt.MapFrom(src => src.ClinicalStudy.StudyType))
-                .ForMember(dest => dest.StudyPhase, opt => opt.MapFrom(src => src.ClinicalStudy.StudyPhase))
+            CreateMap<StudyDefinitionsDto, SearchResponseEntity>()
+                .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.Study.Uuid))
+                .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.Study.StudyTitle))
+                .ForMember(dest => dest.StudyIdentifiers, opt => opt.MapFrom(src => src.Study.StudyIdentifiers))
+                .ForMember(dest => dest.StudyType, opt => opt.MapFrom(src => src.Study.StudyType))
+                .ForMember(dest => dest.StudyPhase, opt => opt.MapFrom(src => src.Study.StudyPhase))
                 .ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.AuditTrail.EntryDateTime))
                 .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))
                 .ForMember(dest => dest.UsdmVersion, opt => opt.MapFrom(src => src.AuditTrail.UsdmVersion))
@@ -60,9 +60,9 @@ namespace TransCelerate.SDR.WebApi.Mappers
 
             //Mapper for Search Title
             CreateMap<SearchTitleResponseDto, SearchResponseEntity>()
-               .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.ClinicalStudy.Uuid))
-               .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.ClinicalStudy.StudyTitle))
-               .ForMember(dest => dest.StudyIdentifiers, opt => opt.MapFrom(src => src.ClinicalStudy.StudyIdentifiers))
+               .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.Study.Uuid))
+               .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.Study.StudyTitle))
+               .ForMember(dest => dest.StudyIdentifiers, opt => opt.MapFrom(src => src.Study.StudyIdentifiers))
                .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))
                .ForMember(dest => dest.UsdmVersion, opt => opt.MapFrom(src => src.AuditTrail.UsdmVersion))
                .ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.AuditTrail.EntryDateTime)).ReverseMap();

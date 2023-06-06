@@ -10,7 +10,7 @@
   - [GetStudy(studyId,sdruploadversion,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller-GetStudy-System-String,System-Int32,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV1Controller.GetStudy(System.String,System.Int32,System.String)')
   - [GetStudyDesigns(study_uuid,sdruploadversion,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller-GetStudyDesigns-System-String,System-Int32,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV1Controller.GetStudyDesigns(System.String,System.Int32,System.String)')
   - [GetStudyHistory(fromDate,toDate,studyTitle)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller-GetStudyHistory-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV1Controller.GetStudyHistory(System.DateTime,System.DateTime,System.String)')
-  - [PostAllElements(studyDTO,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV1-StudyDto,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV1Controller.PostAllElements(TransCelerate.SDR.Core.DTO.StudyV1.StudyDto,System.String)')
+  - [PostAllElements(studyDTO,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV1-StudyDefinitionsDto,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV1Controller.PostAllElements(TransCelerate.SDR.Core.DTO.StudyV1.StudyDefinitionsDto,System.String)')
   - [SearchStudy(searchparameters)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller-SearchStudy-TransCelerate-SDR-Core-DTO-StudyV1-SearchParametersDto- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV1Controller.SearchStudy(TransCelerate.SDR.Core.DTO.StudyV1.SearchParametersDto)')
   - [SearchTitle(searchparameters)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller-SearchTitle-TransCelerate-SDR-Core-DTO-StudyV1-SearchTitleParametersDto- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV1Controller.SearchTitle(TransCelerate.SDR.Core.DTO.StudyV1.SearchTitleParametersDto)')
 - [ClinicalStudyV2Controller](#T-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller')
@@ -19,8 +19,8 @@
   - [GetStudy(studyId,sdruploadversion,listofelements,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetStudy-System-String,System-Int32,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetStudy(System.String,System.Int32,System.String,System.String)')
   - [GetStudyDesigns(studyId,studyDesignId,sdruploadversion,listofelements,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GetStudyDesigns-System-String,System-Int32,System-String,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GetStudyDesigns(System.String,System.Int32,System.String,System.String,System.String)')
   - [GeteCPTV2(studyId,sdruploadversion,studydesignId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-GeteCPTV2-System-String,System-Int32,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.GeteCPTV2(System.String,System.Int32,System.String)')
-  - [PostAllElements(studyDTO,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV2-StudyDto,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.PostAllElements(TransCelerate.SDR.Core.DTO.StudyV2.StudyDto,System.String)')
-  - [PutStudy(studyDTO,usdmVersion,studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-PutStudy-TransCelerate-SDR-Core-DTO-StudyV2-StudyDto,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.PutStudy(TransCelerate.SDR.Core.DTO.StudyV2.StudyDto,System.String,System.String)')
+  - [PostAllElements(studyDTO,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV2-StudyDefinitionsDto,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.PostAllElements(TransCelerate.SDR.Core.DTO.StudyV2.StudyDefinitionsDto,System.String)')
+  - [PutStudy(studyDTO,usdmVersion,studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-PutStudy-TransCelerate-SDR-Core-DTO-StudyV2-StudyDefinitionsDto,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV2Controller.PutStudy(TransCelerate.SDR.Core.DTO.StudyV2.StudyDefinitionsDto,System.String,System.String)')
 - [ClinicalStudyV3Controller](#T-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller')
   - [DeleteStudy(studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-DeleteStudy-System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.DeleteStudy(System.String)')
   - [GetDifferences(studyId,sdrUploadVersionOne,sdrUploadVersionTwo,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-GetDifferences-System-String,System-Int32,System-Int32,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.GetDifferences(System.String,System.Int32,System.Int32,System.String)')
@@ -28,9 +28,9 @@
   - [GetStudy(studyId,sdruploadversion,listofelements,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-GetStudy-System-String,System-Int32,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.GetStudy(System.String,System.Int32,System.String,System.String)')
   - [GetStudyDesigns(studyId,studyDesignId,sdruploadversion,listofelements,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-GetStudyDesigns-System-String,System-Int32,System-String,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.GetStudyDesigns(System.String,System.Int32,System.String,System.String,System.String)')
   - [GeteCPTV3(studyId,sdruploadversion,studydesignId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-GeteCPTV3-System-String,System-Int32,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.GeteCPTV3(System.String,System.Int32,System.String)')
-  - [PostAllElements(studyDTO,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV3-StudyDto,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.PostAllElements(TransCelerate.SDR.Core.DTO.StudyV3.StudyDto,System.String)')
-  - [PutStudy(studyDTO,usdmVersion,studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-PutStudy-TransCelerate-SDR-Core-DTO-StudyV3-StudyDto,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.PutStudy(TransCelerate.SDR.Core.DTO.StudyV3.StudyDto,System.String,System.String)')
-  - [ValidateUsdmConformance(studyDTO,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-ValidateUsdmConformance-TransCelerate-SDR-Core-DTO-StudyV3-StudyDto,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.ValidateUsdmConformance(TransCelerate.SDR.Core.DTO.StudyV3.StudyDto,System.String)')
+  - [PostAllElements(studyDTO,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV3-StudyDefinitionsDto,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.PostAllElements(TransCelerate.SDR.Core.DTO.StudyV3.StudyDefinitionsDto,System.String)')
+  - [PutStudy(studyDTO,usdmVersion,studyId)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-PutStudy-TransCelerate-SDR-Core-DTO-StudyV3-StudyDefinitionsDto,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.PutStudy(TransCelerate.SDR.Core.DTO.StudyV3.StudyDefinitionsDto,System.String,System.String)')
+  - [ValidateUsdmConformance(studyDTO,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-ValidateUsdmConformance-TransCelerate-SDR-Core-DTO-StudyV3-StudyDefinitionsDto,System-String- 'TransCelerate.SDR.WebApi.Controllers.ClinicalStudyV3Controller.ValidateUsdmConformance(TransCelerate.SDR.Core.DTO.StudyV3.StudyDefinitionsDto,System.String)')
 - [CommonController](#T-TransCelerate-SDR-WebApi-Controllers-CommonController 'TransCelerate.SDR.WebApi.Controllers.CommonController')
   - [GetApiUsdmMapping()](#M-TransCelerate-SDR-WebApi-Controllers-CommonController-GetApiUsdmMapping 'TransCelerate.SDR.WebApi.Controllers.CommonController.GetApiUsdmMapping')
   - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-WebApi-Controllers-CommonController-GetAuditTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.WebApi.Controllers.CommonController.GetAuditTrail(System.String,System.DateTime,System.DateTime)')
@@ -142,7 +142,7 @@ Get All StudyId's in the database
 | toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | End Date for Date Filter |
 | studyTitle | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study Title Filter |
 
-<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV1-StudyDto,System-String-'></a>
+<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV1-StudyDefinitionsDto,System-String-'></a>
 ### PostAllElements(studyDTO,usdmVersion) `method`
 
 ##### Summary
@@ -153,7 +153,7 @@ POST All Elements For a Study
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| studyDTO | [TransCelerate.SDR.Core.DTO.StudyV1.StudyDto](#T-TransCelerate-SDR-Core-DTO-StudyV1-StudyDto 'TransCelerate.SDR.Core.DTO.StudyV1.StudyDto') | Study for Inserting/Updating in Database |
+| studyDTO | [TransCelerate.SDR.Core.DTO.StudyV1.StudyDefinitionsDto](#T-TransCelerate-SDR-Core-DTO-StudyV1-StudyDefinitionsDto 'TransCelerate.SDR.Core.DTO.StudyV1.StudyDefinitionsDto') | Study for Inserting/Updating in Database |
 | usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
 
 <a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV1Controller-SearchStudy-TransCelerate-SDR-Core-DTO-StudyV1-SearchParametersDto-'></a>
@@ -266,7 +266,7 @@ GET eCPT Elements For a Study
 | sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
 | studydesignId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | studyDesignId |
 
-<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV2-StudyDto,System-String-'></a>
+<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV2-StudyDefinitionsDto,System-String-'></a>
 ### PostAllElements(studyDTO,usdmVersion) `method`
 
 ##### Summary
@@ -277,10 +277,10 @@ POST/PUT All Elements For a Study
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| studyDTO | [TransCelerate.SDR.Core.DTO.StudyV2.StudyDto](#T-TransCelerate-SDR-Core-DTO-StudyV2-StudyDto 'TransCelerate.SDR.Core.DTO.StudyV2.StudyDto') | Study for Inserting/Updating in Database |
+| studyDTO | [TransCelerate.SDR.Core.DTO.StudyV2.StudyDefinitionsDto](#T-TransCelerate-SDR-Core-DTO-StudyV2-StudyDefinitionsDto 'TransCelerate.SDR.Core.DTO.StudyV2.StudyDefinitionsDto') | Study for Inserting/Updating in Database |
 | usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
 
-<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-PutStudy-TransCelerate-SDR-Core-DTO-StudyV2-StudyDto,System-String,System-String-'></a>
+<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV2Controller-PutStudy-TransCelerate-SDR-Core-DTO-StudyV2-StudyDefinitionsDto,System-String,System-String-'></a>
 ### PutStudy(studyDTO,usdmVersion,studyId) `method`
 
 ##### Summary
@@ -291,7 +291,7 @@ POST/PUT All Elements For a Study
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| studyDTO | [TransCelerate.SDR.Core.DTO.StudyV2.StudyDto](#T-TransCelerate-SDR-Core-DTO-StudyV2-StudyDto 'TransCelerate.SDR.Core.DTO.StudyV2.StudyDto') | Study for Inserting/Updating in Database |
+| studyDTO | [TransCelerate.SDR.Core.DTO.StudyV2.StudyDefinitionsDto](#T-TransCelerate-SDR-Core-DTO-StudyV2-StudyDefinitionsDto 'TransCelerate.SDR.Core.DTO.StudyV2.StudyDefinitionsDto') | Study for Inserting/Updating in Database |
 | usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
 
@@ -395,7 +395,7 @@ GET eCPT Elements For a Study
 | sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
 | studydesignId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | studyDesignId |
 
-<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV3-StudyDto,System-String-'></a>
+<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV3-StudyDefinitionsDto,System-String-'></a>
 ### PostAllElements(studyDTO,usdmVersion) `method`
 
 ##### Summary
@@ -406,10 +406,10 @@ POST All Elements For a Study
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| studyDTO | [TransCelerate.SDR.Core.DTO.StudyV3.StudyDto](#T-TransCelerate-SDR-Core-DTO-StudyV3-StudyDto 'TransCelerate.SDR.Core.DTO.StudyV3.StudyDto') | Study for Inserting/Updating in Database |
+| studyDTO | [TransCelerate.SDR.Core.DTO.StudyV3.StudyDefinitionsDto](#T-TransCelerate-SDR-Core-DTO-StudyV3-StudyDefinitionsDto 'TransCelerate.SDR.Core.DTO.StudyV3.StudyDefinitionsDto') | Study for Inserting/Updating in Database |
 | usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
 
-<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-PutStudy-TransCelerate-SDR-Core-DTO-StudyV3-StudyDto,System-String,System-String-'></a>
+<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-PutStudy-TransCelerate-SDR-Core-DTO-StudyV3-StudyDefinitionsDto,System-String,System-String-'></a>
 ### PutStudy(studyDTO,usdmVersion,studyId) `method`
 
 ##### Summary
@@ -420,11 +420,11 @@ PUT All Elements For a Study
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| studyDTO | [TransCelerate.SDR.Core.DTO.StudyV3.StudyDto](#T-TransCelerate-SDR-Core-DTO-StudyV3-StudyDto 'TransCelerate.SDR.Core.DTO.StudyV3.StudyDto') | Study for Inserting/Updating in Database |
+| studyDTO | [TransCelerate.SDR.Core.DTO.StudyV3.StudyDefinitionsDto](#T-TransCelerate-SDR-Core-DTO-StudyV3-StudyDefinitionsDto 'TransCelerate.SDR.Core.DTO.StudyV3.StudyDefinitionsDto') | Study for Inserting/Updating in Database |
 | usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
 
-<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-ValidateUsdmConformance-TransCelerate-SDR-Core-DTO-StudyV3-StudyDto,System-String-'></a>
+<a name='M-TransCelerate-SDR-WebApi-Controllers-ClinicalStudyV3Controller-ValidateUsdmConformance-TransCelerate-SDR-Core-DTO-StudyV3-StudyDefinitionsDto,System-String-'></a>
 ### ValidateUsdmConformance(studyDTO,usdmVersion) `method`
 
 ##### Summary
@@ -435,7 +435,7 @@ Validate USDM Conformance rules for a Study
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| studyDTO | [TransCelerate.SDR.Core.DTO.StudyV3.StudyDto](#T-TransCelerate-SDR-Core-DTO-StudyV3-StudyDto 'TransCelerate.SDR.Core.DTO.StudyV3.StudyDto') | Study for Validation |
+| studyDTO | [TransCelerate.SDR.Core.DTO.StudyV3.StudyDefinitionsDto](#T-TransCelerate-SDR-Core-DTO-StudyV3-StudyDefinitionsDto 'TransCelerate.SDR.Core.DTO.StudyV3.StudyDefinitionsDto') | Study for Validation |
 | usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
 
 <a name='T-TransCelerate-SDR-WebApi-Controllers-CommonController'></a>

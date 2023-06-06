@@ -41,10 +41,10 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ChangeAuditData.json");
             return JsonConvert.DeserializeObject<ChangeAuditStudyDto>(jsonData);
         }
-        public static Core.Entities.StudyV2.StudyEntity GetEntityDataFromStaticJson()
+        public static Core.Entities.StudyV2.StudyDefinitionsEntity GetEntityDataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
-            var data = JsonConvert.DeserializeObject<Core.Entities.StudyV2.StudyEntity>(jsonData);
+            var data = JsonConvert.DeserializeObject<Core.Entities.StudyV2.StudyDefinitionsEntity>(jsonData);
             data.AuditTrail.UsdmVersion = Constants.USDMVersions.V1_9;
             return data;
         }

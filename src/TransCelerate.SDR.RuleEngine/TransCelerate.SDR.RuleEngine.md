@@ -21,9 +21,6 @@
 - [BiomedicalConceptSurrogateValidator](#T-TransCelerate-SDR-RuleEngineV3-BiomedicalConceptSurrogateValidator 'TransCelerate.SDR.RuleEngineV3.BiomedicalConceptSurrogateValidator')
 - [BiomedicalConceptValidator](#T-TransCelerate-SDR-RuleEngineV2-BiomedicalConceptValidator 'TransCelerate.SDR.RuleEngineV2.BiomedicalConceptValidator')
 - [BiomedicalConceptValidator](#T-TransCelerate-SDR-RuleEngineV3-BiomedicalConceptValidator 'TransCelerate.SDR.RuleEngineV3.BiomedicalConceptValidator')
-- [ClinicalStudyValidator](#T-TransCelerate-SDR-RuleEngineV1-ClinicalStudyValidator 'TransCelerate.SDR.RuleEngineV1.ClinicalStudyValidator')
-- [ClinicalStudyValidator](#T-TransCelerate-SDR-RuleEngineV2-ClinicalStudyValidator 'TransCelerate.SDR.RuleEngineV2.ClinicalStudyValidator')
-- [ClinicalStudyValidator](#T-TransCelerate-SDR-RuleEngineV3-ClinicalStudyValidator 'TransCelerate.SDR.RuleEngineV3.ClinicalStudyValidator')
 - [CodeValidator](#T-TransCelerate-SDR-RuleEngineV1-CodeValidator 'TransCelerate.SDR.RuleEngineV1.CodeValidator')
 - [CodeValidator](#T-TransCelerate-SDR-RuleEngineV2-CodeValidator 'TransCelerate.SDR.RuleEngineV2.CodeValidator')
 - [CodeValidator](#T-TransCelerate-SDR-RuleEngineV3-CodeValidator 'TransCelerate.SDR.RuleEngineV3.CodeValidator')
@@ -63,6 +60,9 @@
 - [StudyCellsValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyCellsValidator 'TransCelerate.SDR.RuleEngineV2.StudyCellsValidator')
 - [StudyCellsValidator](#T-TransCelerate-SDR-RuleEngineV3-StudyCellsValidator 'TransCelerate.SDR.RuleEngineV3.StudyCellsValidator')
 - [StudyDataCollectionValidator](#T-TransCelerate-SDR-RuleEngineV1-StudyDataCollectionValidator 'TransCelerate.SDR.RuleEngineV1.StudyDataCollectionValidator')
+- [StudyDefinitionsValidator](#T-TransCelerate-SDR-RuleEngineV1-StudyDefinitionsValidator 'TransCelerate.SDR.RuleEngineV1.StudyDefinitionsValidator')
+- [StudyDefinitionsValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyDefinitionsValidator 'TransCelerate.SDR.RuleEngineV2.StudyDefinitionsValidator')
+- [StudyDefinitionsValidator](#T-TransCelerate-SDR-RuleEngineV3-StudyDefinitionsValidator 'TransCelerate.SDR.RuleEngineV3.StudyDefinitionsValidator')
 - [StudyDesignPopulationValidator](#T-TransCelerate-SDR-RuleEngineV1-StudyDesignPopulationValidator 'TransCelerate.SDR.RuleEngineV1.StudyDesignPopulationValidator')
 - [StudyDesignPopulationValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyDesignPopulationValidator 'TransCelerate.SDR.RuleEngineV2.StudyDesignPopulationValidator')
 - [StudyDesignPopulationValidator](#T-TransCelerate-SDR-RuleEngineV3-StudyDesignPopulationValidator 'TransCelerate.SDR.RuleEngineV3.StudyDesignPopulationValidator')
@@ -302,39 +302,6 @@ TransCelerate.SDR.RuleEngineV3
 ##### Summary
 
 This Class is the validator for Activity
-
-<a name='T-TransCelerate-SDR-RuleEngineV1-ClinicalStudyValidator'></a>
-## ClinicalStudyValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for ClinicalStudy
-
-<a name='T-TransCelerate-SDR-RuleEngineV2-ClinicalStudyValidator'></a>
-## ClinicalStudyValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV2
-
-##### Summary
-
-This Class is the validator for ClinicalStudy
-
-<a name='T-TransCelerate-SDR-RuleEngineV3-ClinicalStudyValidator'></a>
-## ClinicalStudyValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV3
-
-##### Summary
-
-This Class is the validator for ClinicalStudy
 
 <a name='T-TransCelerate-SDR-RuleEngineV1-CodeValidator'></a>
 ## CodeValidator `type`
@@ -765,6 +732,39 @@ TransCelerate.SDR.RuleEngineV1
 
 This Class is the validator for StudyDataCollection
 
+<a name='T-TransCelerate-SDR-RuleEngineV1-StudyDefinitionsValidator'></a>
+## StudyDefinitionsValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV1
+
+##### Summary
+
+This Class is the validator for Study
+
+<a name='T-TransCelerate-SDR-RuleEngineV2-StudyDefinitionsValidator'></a>
+## StudyDefinitionsValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV2
+
+##### Summary
+
+This Class is the validator for Study
+
+<a name='T-TransCelerate-SDR-RuleEngineV3-StudyDefinitionsValidator'></a>
+## StudyDefinitionsValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV3
+
+##### Summary
+
+This Class is the validator for Study
+
 <a name='T-TransCelerate-SDR-RuleEngineV1-StudyDesignPopulationValidator'></a>
 ## StudyDesignPopulationValidator `type`
 
@@ -1027,7 +1027,7 @@ TransCelerate.SDR.RuleEngineV1
 
 ##### Summary
 
-This Class is the validator for Study
+This Class is the validator for ClinicalStudy
 
 <a name='T-TransCelerate-SDR-RuleEngineV2-StudyValidator'></a>
 ## StudyValidator `type`
@@ -1038,7 +1038,7 @@ TransCelerate.SDR.RuleEngineV2
 
 ##### Summary
 
-This Class is the validator for Study
+This Class is the validator for ClinicalStudy
 
 <a name='T-TransCelerate-SDR-RuleEngineV3-StudyValidator'></a>
 ## StudyValidator `type`
@@ -1049,7 +1049,7 @@ TransCelerate.SDR.RuleEngineV3
 
 ##### Summary
 
-This Class is the validator for Study
+This Class is the validator for ClinicalStudy
 
 <a name='T-TransCelerate-SDR-RuleEngineV1-TransitionRuleValidator'></a>
 ## TransitionRuleValidator `type`

@@ -53,7 +53,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [HttpGet]
         [ApiVersion(Constants.USDMVersions.V1_9)]
         [Route(Route.StudyV2)]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDto))]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDefinitionsDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
@@ -118,7 +118,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [HttpGet]
         [Route(Route.StudyDesignV2)]
         [ApiVersion(Constants.USDMVersions.V1_9)]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDto))]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDefinitionsDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
@@ -185,7 +185,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [HttpGet]
         [Route(Route.SoAV2)] 
         [ApiVersion(Constants.USDMVersions.V1_9)]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDto))]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDefinitionsDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
@@ -322,10 +322,10 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [HttpPost]
         [ApiVersion(Constants.USDMVersions.V1_9)]
         [Route(Route.PostElementsV2)]
-        [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDto))]
+        [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDefinitionsDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> PostAllElements([FromBody] StudyDto studyDTO, [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
+        public async Task<IActionResult> PostAllElements([FromBody] StudyDefinitionsDto studyDTO, [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
         {
             try
             {
@@ -358,7 +358,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         }
                         else
                         {
-                            return Created($"study/{studyDTO.ClinicalStudy.StudyId}", new JsonResult(response).Value);
+                            return Created($"study/{studyDTO.Study.StudyId}", new JsonResult(response).Value);
                         }
                     }
                 }
@@ -388,10 +388,10 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [HttpPut]
         [ApiVersion(Constants.USDMVersions.V1_9)]
         [Route(Route.StudyV2)]
-        [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDto))]
+        [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDefinitionsDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> PutStudy([FromBody] StudyDto studyDTO, string studyId, [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
+        public async Task<IActionResult> PutStudy([FromBody] StudyDefinitionsDto studyDTO, string studyId, [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
         {
             try
             {
@@ -405,7 +405,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         errorList.ForEach(e => _logger.LogError($"{Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse} {errorList.IndexOf(e) + 1}: {e}"));
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(errors, Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse)).Value);
                     }
-                    studyDTO.ClinicalStudy.StudyId = string.IsNullOrWhiteSpace(studyId) ? studyDTO.ClinicalStudy.StudyId : studyId;
+                    studyDTO.Study.StudyId = string.IsNullOrWhiteSpace(studyId) ? studyDTO.Study.StudyId : studyId;
 
                     LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
 
@@ -424,7 +424,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         }
                         else
                         {
-                            return Created($"study/{studyDTO.ClinicalStudy.StudyId}", new JsonResult(response).Value);
+                            return Created($"study/{studyDTO.Study.StudyId}", new JsonResult(response).Value);
                         }
                     }
                 }
@@ -457,7 +457,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [Authorize(Roles = Constants.Roles.Org_Admin)]
         [ApiVersionNeutral]
         [Route(Route.StudyV2)]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDto))]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDefinitionsDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
