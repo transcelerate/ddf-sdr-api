@@ -16,19 +16,19 @@ using TransCelerate.SDR.Services.Interfaces;
 
 namespace TransCelerate.SDR.Services.Services
 {
-    public class ClinicalStudyServiceV1 : IClinicalStudyServiceV1
+    public class StudyServiceV1 : IStudyServiceV1
     {
         #region Variables
-        private readonly IClinicalStudyRepositoryV1 _clinicalStudyRepository;
+        private readonly IStudyRepositoryV1 _studyRepository;
         private readonly IMapper _mapper;
         private readonly ILogHelper _logger;
         private readonly IHelperV1 _helper;
         #endregion
 
         #region Constructor
-        public ClinicalStudyServiceV1(IClinicalStudyRepositoryV1 clinicalStudyRepository, IMapper mapper, ILogHelper logger, IHelperV1 helper)
+        public StudyServiceV1(IStudyRepositoryV1 studyRepository, IMapper mapper, ILogHelper logger, IHelperV1 helper)
         {
-            _clinicalStudyRepository = clinicalStudyRepository;
+            _studyRepository = studyRepository;
             _mapper = mapper;
             _logger = logger;
             _helper = helper;
@@ -50,10 +50,10 @@ namespace TransCelerate.SDR.Services.Services
         {
             try
             {
-                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(GetStudy)};");
+                _logger.LogInformation($"Started Service : {nameof(StudyServiceV1)}; Method : {nameof(GetStudy)};");
                 studyId = studyId.Trim();
 
-                StudyDefinitionsEntity study = await _clinicalStudyRepository.GetStudyItemsAsync(studyId: studyId, sdruploadversion: sdruploadversion).ConfigureAwait(false);
+                StudyDefinitionsEntity study = await _studyRepository.GetStudyItemsAsync(studyId: studyId, sdruploadversion: sdruploadversion).ConfigureAwait(false);
 
                 if (study == null)
                 {
@@ -75,7 +75,7 @@ namespace TransCelerate.SDR.Services.Services
             }
             finally
             {
-                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(GetStudy)};");
+                _logger.LogInformation($"Ended Service : {nameof(StudyServiceV1)}; Method : {nameof(GetStudy)};");
             }
         }
 
@@ -93,10 +93,10 @@ namespace TransCelerate.SDR.Services.Services
         {
             try
             {
-                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(GetStudy)};");
+                _logger.LogInformation($"Started Service : {nameof(StudyServiceV1)}; Method : {nameof(GetStudy)};");
                 studyId = studyId.Trim();
 
-                StudyDefinitionsEntity study = await _clinicalStudyRepository.GetPartialStudyDesignItemsAsync(studyId: studyId, sdruploadversion: sdruploadversion).ConfigureAwait(false);
+                StudyDefinitionsEntity study = await _studyRepository.GetPartialStudyDesignItemsAsync(studyId: studyId, sdruploadversion: sdruploadversion).ConfigureAwait(false);
 
                 if (study == null)
                 {
@@ -126,7 +126,7 @@ namespace TransCelerate.SDR.Services.Services
             }
             finally
             {
-                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(GetStudy)};");
+                _logger.LogInformation($"Ended Service : {nameof(StudyServiceV1)}; Method : {nameof(GetStudy)};");
             }
         }
 
@@ -145,8 +145,8 @@ namespace TransCelerate.SDR.Services.Services
         {
             try
             {
-                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(GetAuditTrail)};");
-                List<AuditTrailResponseEntity> studies = await _clinicalStudyRepository.GetAuditTrail(studyId, fromDate, toDate);
+                _logger.LogInformation($"Started Service : {nameof(StudyServiceV1)}; Method : {nameof(GetAuditTrail)};");
+                List<AuditTrailResponseEntity> studies = await _studyRepository.GetAuditTrail(studyId, fromDate, toDate);
                 if (studies == null)
                 {
                     return null;
@@ -172,7 +172,7 @@ namespace TransCelerate.SDR.Services.Services
             }
             finally
             {
-                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(GetAuditTrail)};");
+                _logger.LogInformation($"Ended Service : {nameof(StudyServiceV1)}; Method : {nameof(GetAuditTrail)};");
             }
         }
 
@@ -192,8 +192,8 @@ namespace TransCelerate.SDR.Services.Services
         {
             try
             {
-                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(GetStudyHistory)};");
-                List<StudyHistoryResponseEntity> studies = await _clinicalStudyRepository.GetStudyHistory(fromDate, toDate, studyTitle, user); //Getting List of studyId, studyTitle and Version
+                _logger.LogInformation($"Started Service : {nameof(StudyServiceV1)}; Method : {nameof(GetStudyHistory)};");
+                List<StudyHistoryResponseEntity> studies = await _studyRepository.GetStudyHistory(fromDate, toDate, studyTitle, user); //Getting List of studyId, studyTitle and Version
                 if (studies == null)
                 {
                     return null;
@@ -221,7 +221,7 @@ namespace TransCelerate.SDR.Services.Services
             }
             finally
             {
-                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(GetStudyHistory)};");
+                _logger.LogInformation($"Ended Service : {nameof(StudyServiceV1)}; Method : {nameof(GetStudyHistory)};");
             }
         }
         #endregion
@@ -240,7 +240,7 @@ namespace TransCelerate.SDR.Services.Services
         {
             try
             {
-                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(PostAllElements)};");
+                _logger.LogInformation($"Started Service : {nameof(StudyServiceV1)}; Method : {nameof(PostAllElements)};");
                 if (!await CheckPermissionForAUser(user))
                     return Constants.ErrorMessages.PostRestricted;
                 StudyDefinitionsEntity incomingStudyEntity = new()
@@ -256,7 +256,7 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else // create new version for study
                 {
-                    AuditTrailEntity existingAuditTrail = await _clinicalStudyRepository.GetUsdmVersionAsync(incomingStudyEntity.Study.Uuid, 0);
+                    AuditTrailEntity existingAuditTrail = await _studyRepository.GetUsdmVersionAsync(incomingStudyEntity.Study.Uuid, 0);
 
                     if (existingAuditTrail is null) // If PUT Endpoint and study_uuid is not valid, return not valid study
                     {
@@ -264,7 +264,7 @@ namespace TransCelerate.SDR.Services.Services
                     }
                     if (existingAuditTrail.UsdmVersion == Constants.USDMVersions.V1) // If previus USDM version is same as incoming
                     {
-                        StudyDefinitionsEntity existingStudyEntity = await _clinicalStudyRepository.GetStudyItemsAsync(incomingStudyEntity.Study.Uuid, 0);
+                        StudyDefinitionsEntity existingStudyEntity = await _studyRepository.GetStudyItemsAsync(incomingStudyEntity.Study.Uuid, 0);
 
                         if (_helper.IsSameStudy(incomingStudyEntity, existingStudyEntity))
                         {
@@ -275,15 +275,6 @@ namespace TransCelerate.SDR.Services.Services
                             studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity, existingStudyEntity).ConfigureAwait(false);
                         }
                     }
-                    // Uncomment below lines based on Story #810
-                    //else if (existingAuditTrail.UsdmVersion == Constants.USDMVersions.MVP)// If previus USDM version is different from incoming
-                    //{
-                    //    studyDTO = await CreateNewVersionForAStudyWithoutCheck(incomingStudyEntity, existingAuditTrail, incomingStudyEntity.ClinicalStudy.Uuid).ConfigureAwait(false);
-                    //}
-                    //else
-                    //{
-                    //    return Constants.ErrorMessages.DowngradeError;
-                    //}
                     else
                     {
                         studyDTO = await CreateNewVersionForAStudyWithoutCheck(incomingStudyEntity, existingAuditTrail, incomingStudyEntity.Study.Uuid).ConfigureAwait(false);
@@ -298,7 +289,7 @@ namespace TransCelerate.SDR.Services.Services
             }
             finally
             {
-                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(PostAllElements)};");
+                _logger.LogInformation($"Ended Service : {nameof(StudyServiceV1)}; Method : {nameof(PostAllElements)};");
             }
         }
 
@@ -308,7 +299,7 @@ namespace TransCelerate.SDR.Services.Services
             studyEntity.Study.Uuid = IdGenerator.GenerateId();
             studyEntity.AuditTrail.SDRUploadVersion = 1;
             studyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V1;
-            await _clinicalStudyRepository.PostStudyItemsAsync(studyEntity);
+            await _studyRepository.PostStudyItemsAsync(studyEntity);
             return _mapper.Map<StudyDefinitionsDto>(studyEntity);
         }
 
@@ -317,7 +308,7 @@ namespace TransCelerate.SDR.Services.Services
             existingStudyEntity.AuditTrail.EntryDateTime = incomingStudyEntity.AuditTrail.EntryDateTime;
             incomingStudyEntity.AuditTrail.SDRUploadVersion = existingStudyEntity.AuditTrail.SDRUploadVersion;
             existingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V1;
-            await _clinicalStudyRepository.UpdateStudyItemsAsync(existingStudyEntity);
+            await _studyRepository.UpdateStudyItemsAsync(existingStudyEntity);
             return _mapper.Map<StudyDefinitionsDto>(existingStudyEntity);
         }
 
@@ -326,7 +317,7 @@ namespace TransCelerate.SDR.Services.Services
             incomingStudyEntity = _helper.CheckForSections(incomingStudyEntity, existingStudyEntity);
             incomingStudyEntity.AuditTrail.SDRUploadVersion = existingStudyEntity.AuditTrail.SDRUploadVersion + 1;
             incomingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V1;
-            await _clinicalStudyRepository.PostStudyItemsAsync(incomingStudyEntity);
+            await _studyRepository.PostStudyItemsAsync(incomingStudyEntity);
             return _mapper.Map<StudyDefinitionsDto>(incomingStudyEntity);
         }
         public async Task<StudyDefinitionsDto> CreateNewVersionForAStudyWithoutCheck(StudyDefinitionsEntity incomingStudyEntity, AuditTrailEntity existingAuditTrailEntity, string studyId)
@@ -335,7 +326,7 @@ namespace TransCelerate.SDR.Services.Services
             incomingStudyEntity.Study.Uuid = studyId;
             incomingStudyEntity.AuditTrail.SDRUploadVersion = existingAuditTrailEntity.SDRUploadVersion + 1;
             incomingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V1;
-            await _clinicalStudyRepository.PostStudyItemsAsync(incomingStudyEntity);
+            await _studyRepository.PostStudyItemsAsync(incomingStudyEntity);
             return _mapper.Map<StudyDefinitionsDto>(incomingStudyEntity);
         }
         #endregion
@@ -354,12 +345,12 @@ namespace TransCelerate.SDR.Services.Services
         {
             try
             {
-                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(SearchStudy)};");
+                _logger.LogInformation($"Started Service : {nameof(StudyServiceV1)}; Method : {nameof(SearchStudy)};");
                 _logger.LogInformation($"Search Parameters : {JsonConvert.SerializeObject(searchParametersDto)}");
 
                 var searchParameters = _mapper.Map<SearchParameters>(searchParametersDto);
 
-                List<SearchResponseEntity> studies = await _clinicalStudyRepository.SearchStudy(searchParameters, user);
+                List<SearchResponseEntity> studies = await _studyRepository.SearchStudy(searchParameters, user);
 
                 if (studies is null || !studies.Any())
                 {
@@ -389,7 +380,7 @@ namespace TransCelerate.SDR.Services.Services
             }
             finally
             {
-                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(SearchStudy)};");
+                _logger.LogInformation($"Ended Service : {nameof(StudyServiceV1)}; Method : {nameof(SearchStudy)};");
             }
         }
 
@@ -406,14 +397,14 @@ namespace TransCelerate.SDR.Services.Services
         {
             try
             {
-                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(SearchTitle)};");
+                _logger.LogInformation($"Started Service : {nameof(StudyServiceV1)}; Method : {nameof(SearchTitle)};");
                 _logger.LogInformation($"Search Parameters : {JsonConvert.SerializeObject(searchParametersDTO)}");
 
                 if (user.UserRole == Constants.Roles.App_User && searchParametersDTO.GroupByStudyId)
                     return new List<SearchTitleResponseDto>();
                 var searchParameters = _mapper.Map<SearchTitleParameters>(searchParametersDTO);
 
-                var searchResponse = await _clinicalStudyRepository.SearchTitle(searchParameters, user);
+                var searchResponse = await _studyRepository.SearchTitle(searchParameters, user);
                 var searchTitleDTOList = _mapper.Map<List<SearchTitleResponseDto>>(searchResponse);
 
                 if (searchParameters.GroupByStudyId)
@@ -440,7 +431,7 @@ namespace TransCelerate.SDR.Services.Services
             }
             finally
             {
-                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(SearchTitle)};");
+                _logger.LogInformation($"Ended Service : {nameof(StudyServiceV1)}; Method : {nameof(SearchTitle)};");
             }
         }
         public static List<SearchTitleResponseDto> SortStudyTitle(List<SearchTitleResponseDto> searchTitleDTOs, SearchTitleParametersDto searchParametersDTO)
@@ -477,11 +468,11 @@ namespace TransCelerate.SDR.Services.Services
         {
             try
             {
-                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(CheckAccessForAStudy)};");
+                _logger.LogInformation($"Started Service : {nameof(StudyServiceV1)}; Method : {nameof(CheckAccessForAStudy)};");
 
                 if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
                 {
-                    var groups = await _clinicalStudyRepository.GetGroupsOfUser(user).ConfigureAwait(false);
+                    var groups = await _studyRepository.GetGroupsOfUser(user).ConfigureAwait(false);
 
                     if (groups != null && groups.Count > 0)
                     {
@@ -510,7 +501,7 @@ namespace TransCelerate.SDR.Services.Services
             }
             finally
             {
-                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(CheckAccessForAStudy)};");
+                _logger.LogInformation($"Ended Service : {nameof(StudyServiceV1)}; Method : {nameof(CheckAccessForAStudy)};");
             }
         }
 
@@ -528,11 +519,11 @@ namespace TransCelerate.SDR.Services.Services
         {
             try
             {
-                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(CheckAccessForStudyAudit)};");
+                _logger.LogInformation($"Started Service : {nameof(StudyServiceV1)}; Method : {nameof(CheckAccessForStudyAudit)};");
 
                 if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
                 {
-                    var groups = await _clinicalStudyRepository.GetGroupsOfUser(user).ConfigureAwait(false);
+                    var groups = await _studyRepository.GetGroupsOfUser(user).ConfigureAwait(false);
 
                     if (groups != null && groups.Count > 0)
                     {
@@ -562,7 +553,7 @@ namespace TransCelerate.SDR.Services.Services
             }
             finally
             {
-                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(CheckAccessForStudyAudit)};");
+                _logger.LogInformation($"Ended Service : {nameof(StudyServiceV1)}; Method : {nameof(CheckAccessForStudyAudit)};");
             }
         }
 
@@ -578,11 +569,11 @@ namespace TransCelerate.SDR.Services.Services
         {
             try
             {
-                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(CheckPermissionForAUser)};");
+                _logger.LogInformation($"Started Service : {nameof(StudyServiceV1)}; Method : {nameof(CheckPermissionForAUser)};");
 
                 if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
                 {
-                    var groups = await _clinicalStudyRepository.GetGroupsOfUser(user).ConfigureAwait(false);
+                    var groups = await _studyRepository.GetGroupsOfUser(user).ConfigureAwait(false);
 
                     if (groups != null && groups.Count > 0)
                     {
@@ -605,7 +596,7 @@ namespace TransCelerate.SDR.Services.Services
             }
             finally
             {
-                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(CheckPermissionForAUser)};");
+                _logger.LogInformation($"Ended Service : {nameof(StudyServiceV1)}; Method : {nameof(CheckPermissionForAUser)};");
             }
         }
         #endregion
@@ -615,10 +606,10 @@ namespace TransCelerate.SDR.Services.Services
         {
             try
             {
-                _logger.LogInformation($"Started Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(GetAccessForAStudy)};");
+                _logger.LogInformation($"Started Service : {nameof(StudyServiceV1)}; Method : {nameof(GetAccessForAStudy)};");
                 studyId = studyId.Trim();
 
-                StudyDefinitionsEntity study = study = await _clinicalStudyRepository.GetStudyItemsForCheckingAccessAsync(studyId: studyId, 0).ConfigureAwait(false);
+                StudyDefinitionsEntity study = study = await _studyRepository.GetStudyItemsForCheckingAccessAsync(studyId: studyId, 0).ConfigureAwait(false);
 
                 StudyDefinitionsEntity checkStudy = await CheckAccessForAStudy(study, user);
                 if (checkStudy == null)
@@ -632,7 +623,7 @@ namespace TransCelerate.SDR.Services.Services
             }
             finally
             {
-                _logger.LogInformation($"Ended Service : {nameof(ClinicalStudyServiceV1)}; Method : {nameof(GetAccessForAStudy)};");
+                _logger.LogInformation($"Ended Service : {nameof(StudyServiceV1)}; Method : {nameof(GetAccessForAStudy)};");
             }
         }
         #endregion

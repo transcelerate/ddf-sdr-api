@@ -5,7 +5,7 @@ using TransCelerate.SDR.Core.Utilities.Common;
 namespace TransCelerate.SDR.RuleEngineV1
 {
     /// <summary>
-    /// This Class is the validator for ClinicalStudy
+    /// This Class is the validator for Study
     /// </summary>
     public class StudyValidator : AbstractValidator<StudyDto>
     {

@@ -466,8 +466,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             //Actual Result            
             var actual_result = JsonConvert.DeserializeObject<List<SearchTitleResponseDto>>(
                  JsonConvert.SerializeObject((result as ObjectResult).Value));
-
-            //  Assert.AreEqual(expected[0].ClinicalStudy.StudyId, actual_result[0].ClinicalStudy.StudyId);
+            
             Assert.IsInstanceOf(typeof(ObjectResult), result);
         }
 

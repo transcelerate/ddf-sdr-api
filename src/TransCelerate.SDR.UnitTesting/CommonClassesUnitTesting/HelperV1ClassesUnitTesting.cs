@@ -82,8 +82,8 @@ namespace TransCelerate.SDR.UnitTesting
             ActionContext context = new();
             var studyDto = GetDtoDataFromStaticJson();
             studyDto.Study = null;
-            StudyDefinitionsValidator studyValidator = new();
-            var errors = studyValidator.Validate(studyDto).Errors;
+            StudyDefinitionsValidator studyDefinitionsValidator = new();
+            var errors = studyDefinitionsValidator.Validate(studyDto).Errors;
             context.ModelState.AddModelError("study", errors[0].ErrorMessage);
             var response = apiBehaviourOptionsHelper.ModelStateResponse(context);
             Assert.IsInstanceOf(typeof(BadRequestObjectResult), response);
@@ -92,8 +92,8 @@ namespace TransCelerate.SDR.UnitTesting
             context.ModelState.Clear();
             studyDto = GetDtoDataFromStaticJson();
             studyDto.Study.StudyTitle = null;
-            StudyValidator clinicalStudyValidator = new();
-            errors = clinicalStudyValidator.Validate(studyDto.Study).Errors;
+            StudyValidator studyValidator = new();
+            errors = studyValidator.Validate(studyDto.Study).Errors;
             context.ModelState.AddModelError("Conformance", errors[0].ErrorMessage);
             response = apiBehaviourOptionsHelper.ModelStateResponse(context);
             Assert.IsInstanceOf(typeof(BadRequestObjectResult), response);

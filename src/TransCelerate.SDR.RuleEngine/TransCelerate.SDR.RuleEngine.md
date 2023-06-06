@@ -1027,7 +1027,7 @@ TransCelerate.SDR.RuleEngineV1
 
 ##### Summary
 
-This Class is the validator for ClinicalStudy
+This Class is the validator for Study
 
 <a name='T-TransCelerate-SDR-RuleEngineV2-StudyValidator'></a>
 ## StudyValidator `type`
@@ -1038,7 +1038,7 @@ TransCelerate.SDR.RuleEngineV2
 
 ##### Summary
 
-This Class is the validator for ClinicalStudy
+This Class is the validator for Study
 
 <a name='T-TransCelerate-SDR-RuleEngineV3-StudyValidator'></a>
 ## StudyValidator `type`
@@ -1049,7 +1049,7 @@ TransCelerate.SDR.RuleEngineV3
 
 ##### Summary
 
-This Class is the validator for ClinicalStudy
+This Class is the validator for Study
 
 <a name='T-TransCelerate-SDR-RuleEngineV1-TransitionRuleValidator'></a>
 ## TransitionRuleValidator `type`

@@ -7,7 +7,7 @@ using TransCelerate.SDR.Core.Entities.UserGroups;
 
 namespace TransCelerate.SDR.DataAccess.Interfaces
 {
-    public interface IClinicalStudyRepositoryV1
+    public interface IStudyRepositoryV1
     {
 
         /// <summary>

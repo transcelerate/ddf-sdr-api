@@ -450,26 +450,21 @@ namespace TransCelerate.SDR.Services.Services
             if (!String.IsNullOrWhiteSpace(searchParameters.Header))
             {
                 return searchParameters.Header.ToLower() switch
-                {
-                    //"studytitle" => searchParameters.Asc ? searchResponseDtos.OrderBy(x => x.ClinicalStudy.StudyTitle).ToList() : searchResponseDtos.OrderByDescending(x => x.ClinicalStudy.StudyTitle).ToList(),
+                {                    
                     "phase" => searchParameters.Asc ? searchResponseDtos.OrderBy(s => s.Study.StudyPhase != null ? s.Study.StudyPhase.Decode ?? "" : "").ToList() : searchResponseDtos.OrderByDescending(s => s.Study.StudyPhase != null ? s.Study.StudyPhase.Decode ?? "" : "").ToList(),
                     "sponsorid" => searchParameters.Asc ? searchResponseDtos.OrderBy(s => s.Study.StudyIdentifiers != null ? s.Study.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower() || x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID.ToLower()).Any() ? s.Study.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower() || x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID.ToLower()).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : "").ToList()
-                                                            : searchResponseDtos.OrderByDescending(s => s.Study.StudyIdentifiers != null ? s.Study.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower() || x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID.ToLower()).Any() ? s.Study.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower() || x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID.ToLower()).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : "").ToList(),
-                    //"lastmodifieddate" => searchParameters.Asc ? searchResponseDtos.OrderBy(x => x.AuditTrail.EntryDateTime).ToList() : searchResponseDtos.OrderByDescending(x => x.AuditTrail.EntryDateTime).ToList(),
-                    // "sdrversion" => searchParameters.Asc ? searchResponseDtos.OrderBy(x => x.AuditTrail.SDRUploadVersion).ToList() : searchResponseDtos.OrderByDescending(x => x.AuditTrail.SDRUploadVersion).ToList(),
+                                                            : searchResponseDtos.OrderByDescending(s => s.Study.StudyIdentifiers != null ? s.Study.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower() || x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID.ToLower()).Any() ? s.Study.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower() || x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID.ToLower()).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : "").ToList(),                    
 
                     "interventionmodel" => searchParameters.Asc ? searchResponseDtos.OrderBy(x => x.Study.StudyDesigns != null && x.Study.StudyDesigns.Any() ? x.Study.StudyDesigns.First().InterventionModel != null && x.Study.StudyDesigns.First().InterventionModel.Any() ? x.Study.StudyDesigns.First().InterventionModel.First().Decode : "" : "").ToList()
                                                                 : searchResponseDtos.OrderByDescending(x => x.Study.StudyDesigns != null && x.Study.StudyDesigns.Any() ? x.Study.StudyDesigns.First().InterventionModel != null && x.Study.StudyDesigns.First().InterventionModel.Any() ? x.Study.StudyDesigns.First().InterventionModel.First().Decode : "" : "").ToList(),
 
                     "indication" => searchParameters.Asc ? searchResponseDtos.OrderBy(x => x.Study.StudyDesigns != null && x.Study.StudyDesigns.Any() ? x.Study.StudyDesigns.First().StudyIndications != null && x.Study.StudyDesigns.First().StudyIndications.Any() ? x.Study.StudyDesigns.First().StudyIndications.First().IndicationDescription : "" : "").ToList()
                                                                     : searchResponseDtos.OrderByDescending(x => x.Study.StudyDesigns != null && x.Study.StudyDesigns.Any() ? x.Study.StudyDesigns.First().StudyIndications != null && x.Study.StudyDesigns.First().StudyIndications.Any() ? x.Study.StudyDesigns.First().StudyIndications.First().IndicationDescription : "" : "").ToList(),
-                    //_ => searchParameters.Asc ? searchResponseDtos.OrderByDescending(x => x.AuditTrail.EntryDateTime).ToList() : searchResponseDtos.OrderBy(x => x.AuditTrail.EntryDateTime).ToList(),
                     _ => searchResponseDtos
                 };
             }
             else
-            {
-                //return searchParameters.Asc ? searchResponseDtos.OrderBy(x => x.AuditTrail.EntryDateTime).ToList() : searchResponseDtos.OrderByDescending(x => x.AuditTrail.EntryDateTime).ToList();
+            {                
                 return searchResponseDtos;
             }
         }

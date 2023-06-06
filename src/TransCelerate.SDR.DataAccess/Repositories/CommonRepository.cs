@@ -24,17 +24,17 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
         private readonly IMongoClient _client;
         private readonly IMongoDatabase _database;
-        private readonly IClinicalStudyRepositoryV1 _clinicalStudyRepositoryV1;        
+        private readonly IStudyRepositoryV1 _studyRepositoryV1;        
 
         #endregion
 
         #region Constructor      
-        public CommonRepository(IMongoClient client, ILogHelper logger,IClinicalStudyRepositoryV1 clinicalStudyRepositoryV1)
+        public CommonRepository(IMongoClient client, ILogHelper logger,IStudyRepositoryV1 studyRepositoryV1)
         {
             _client = client;
             _database = _client.GetDatabase(_databaseName);
             _logger = logger;
-            _clinicalStudyRepositoryV1 = clinicalStudyRepositoryV1;            
+            _studyRepositoryV1 = studyRepositoryV1;            
             var conventionPack = new ConventionPack
             {
                 new CamelCaseElementNameConvention()
@@ -202,7 +202,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// </returns>
         public async Task<List<StudyHistoryResponseEntity>> GetStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle)
         {
-            _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(GetStudyHistory)};");
+            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV1)}; Method : {nameof(GetStudyHistory)};");
             try
             {
                 var collection = _database.GetCollection<CommonStudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
@@ -242,7 +242,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(GetStudyHistory)};");
+                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV1)}; Method : {nameof(GetStudyHistory)};");
             }
         }
         #endregion
@@ -360,7 +360,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                               .ToListAsync()
                                               .ConfigureAwait(false);
 
-                return _clinicalStudyRepositoryV1.SortSearchResults(studies, searchParameters.Header, searchParameters.Asc)
+                return _studyRepositoryV1.SortSearchResults(studies, searchParameters.Header, searchParameters.Asc)
                                                  .Skip((searchParameters.PageNumber - 1) * searchParameters.PageSize)
                                                  .Take(searchParameters.PageSize)
                                                  .ToList();
@@ -491,7 +491,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         {
             try
             {
-                _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(SearchTitle)};");
+                _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV1)}; Method : {nameof(SearchTitle)};");
                 IMongoCollection<CommonStudyDefinitionsEntity> collection = _database.GetCollection<CommonStudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
 
                 List<SearchTitleResponseEntity> studies = new();
@@ -543,7 +543,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepositoryV1)}; Method : {nameof(SearchTitle)};");
+                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV1)}; Method : {nameof(SearchTitle)};");
             }
         }
         #endregion

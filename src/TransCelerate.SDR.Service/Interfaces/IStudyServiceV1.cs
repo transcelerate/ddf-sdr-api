@@ -7,7 +7,7 @@ using TransCelerate.SDR.Core.Entities.StudyV1;
 
 namespace TransCelerate.SDR.Services.Interfaces
 {
-    public interface IClinicalStudyServiceV1
+    public interface IStudyServiceV1
     {
         #region GET Methods
         /// <summary>
