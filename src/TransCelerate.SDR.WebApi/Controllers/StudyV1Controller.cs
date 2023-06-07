@@ -340,10 +340,6 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         {
                             return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.NotValidStudyId)).Value);
                         }
-                        if (response?.ToString() == Constants.ErrorMessages.DowngradeError)
-                        {
-                            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DowngradeError)).Value);
-                        }
                         else
                         {
                             return Created($"study/{studyDTO.Study.Uuid}", new JsonResult(response).Value);

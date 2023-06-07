@@ -1,5 +1,5 @@
 {
-  "study": {
+  "clinicalStudy": {
     "studyId": "aaed3efe-7d70-4c9e-90e2-3446e936c291",
     "studyTitle": "Study Of Lung Cancer",
     "studyRationale": "Rational",
@@ -252,14 +252,13 @@
             "studyArm": {
               "studyArmId": "69c12025-5f05-428f-93de-2aa932309683",
               "studyArmDataOriginDescription": "Captured subject data",
-              "studyArmDataOriginType": 
-                {
-                  "codeId": "281a3135-5ab6-47c4-a136-92fb88d57f0d",
-                  "code": "C6574y",
-                  "codeSystem": "http:www.cdisc.org",
-                  "codeSystemVersion": "1",
-                  "decode": "SUBJECT DATA"
-                },
+              "studyArmDataOriginType": {
+                "codeId": "281a3135-5ab6-47c4-a136-92fb88d57f0d",
+                "code": "C6574y",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "SUBJECT DATA"
+              },
               "studyArmDescription": "The Placebo Arm",
               "studyArmName": "Placebo",
               "studyArmType": {
@@ -276,14 +275,13 @@
               "previousStudyEpochId": "",
               "studyEpochDescription": "The run in",
               "studyEpochName": "Run In",
-              "studyEpochType": 
-                {
-                  "codeId": "91603043-8496-4a71-aabc-2d6848bbc87d",
-                  "code": "C98779",
-                  "codeSystem": "http:www.cdisc.org",
-                  "codeSystemVersion": "2022-03-25",
-                  "decode": "Run-in Period"
-                },
+              "studyEpochType": {
+                "codeId": "91603043-8496-4a71-aabc-2d6848bbc87d",
+                "code": "C98779",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "2022-03-25",
+                "decode": "Run-in Period"
+              },
               "encounters": [
                 "EN001",
                 "EN002"
@@ -522,23 +520,21 @@
               }
             ],
             "encounterDescription": "desc",
-            "encounterEnvironmentalSetting": 
-              {
-                "codeId": "f07aae83-6592-4614-8c7c-c2437184db3e",
-                "code": "C51282",
-                "codeSystem": "http:www.cdisc.org",
-                "codeSystemVersion": "2022-03-25",
-                "decode": "Clinic"
-              },
+            "encounterEnvironmentalSetting": {
+              "codeId": "f07aae83-6592-4614-8c7c-c2437184db3e",
+              "code": "C51282",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "2022-03-25",
+              "decode": "Clinic"
+            },
             "encounterName": "Encounter 1",
-            "encounterType": 
-              {
-                "codeId": "37cd2f4f-680a-4e3b-8def-82e29b89b778",
-                "code": "C7652x",
-                "codeSystem": "http:www.cdisc.org",
-                "codeSystemVersion": "1",
-                "decode": "SITE VISIT"
-              },
+            "encounterType": {
+              "codeId": "37cd2f4f-680a-4e3b-8def-82e29b89b778",
+              "code": "C7652x",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "1",
+              "decode": "SITE VISIT"
+            },
             "nextEncounterId": "",
             "previousEncounterId": "",
             "encounterScheduledAtTimingId": "Timing01",
@@ -563,23 +559,21 @@
               }
             ],
             "encounterDescription": "desc",
-            "encounterEnvironmentalSetting": 
-              {
-                "codeId": "f07aae83-6592-4614-8c7c-c2437184db3e",
-                "code": "C51282",
-                "codeSystem": "http:www.cdisc.org",
-                "codeSystemVersion": "2022-03-25",
-                "decode": "Clinic"
-              },
+            "encounterEnvironmentalSetting": {
+              "codeId": "f07aae83-6592-4614-8c7c-c2437184db3e",
+              "code": "C51282",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "2022-03-25",
+              "decode": "Clinic"
+            },
             "encounterName": "Encounter 1",
-            "encounterType": 
-              {
-                "codeId": "37cd2f4f-680a-4e3b-8def-82e29b89b778",
-                "code": "C7652x",
-                "codeSystem": "http:www.cdisc.org",
-                "codeSystemVersion": "1",
-                "decode": "SITE VISIT"
-              },
+            "encounterType": {
+              "codeId": "37cd2f4f-680a-4e3b-8def-82e29b89b778",
+              "code": "C7652x",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "1",
+              "decode": "SITE VISIT"
+            },
             "nextEncounterId": "",
             "previousEncounterId": "",
             "encounterScheduledAtTimingId": "Timing01",
@@ -594,7 +588,7 @@
           }
         ],
         "activities": [
-         {
+          {
             "activityId": "ACT01",
             "activityDescription": "Activity_1",
             "activityName": "Informed Consent",

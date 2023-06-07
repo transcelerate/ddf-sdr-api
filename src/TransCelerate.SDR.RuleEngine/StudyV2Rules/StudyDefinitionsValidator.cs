@@ -17,7 +17,7 @@ namespace TransCelerate.SDR.RuleEngineV2
             _httpContextAccessor = httpContextAccessor;
             RuleFor(x => x.Study)
                 .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.RootElementMissing)
+                .NotNull().OverridePropertyName(IdFieldPropertyName.ParentElement.ClinicalStudy).WithMessage(Constants.ValidationErrorMessage.RootElementMissing)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDefinitionsValidator), nameof(StudyDefinitionsDto.Study)), ApplyConditionTo.AllValidators)
                 .SetValidator(new StudyValidator(_httpContextAccessor));
         }

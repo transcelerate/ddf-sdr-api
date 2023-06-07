@@ -99,16 +99,10 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string InterventionModel = "interventionModel.decode";
             public const string StudyIndicationsIndicationDescription = "studyIndications.indicationDescription";
             public const string StudyIndicationsIndicationDesc = "studyIndications.indicationDesc";
-            public const string InterventionModelMVP = "study.currentSections.studyDesigns.currentSections.investigationalInterventions.interventionModel";
-            public const string IndicationMVP = "study.currentSections.studyIndications.description";
         }
         public struct ValidationErrorMessage
         {
-            public const string ConformanceError = "Field is missing or empty";
-
             public const string AlphaNumericErrorMessage = "Only Alphanumeric characters are allowed";
-
-            public const string JsonParseError = "Cannot deserialize";
 
             public const string ValidDateError = "Enter A Valid Date";
 
@@ -116,19 +110,13 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string PropertyMissingError = "Field is missing";
 
-            public const string ValidGroupFieldValue = "Group Field Value is null or empty";
-
             public const string PropertyEmptyError = "Field is empty";
 
             public const string ScheduledInstanceTypesError = $"The value must be {nameof(Utilities.ScheduledInstanceType.ACTIVITY)}/{nameof(Utilities.ScheduledInstanceType.DECISION)}";
 
             public const string UniquenessArrayError = "The {PropertyName} Ids are not unique";
 
-            public const string NumberError = "Enter a valid number";
-
             public const string GroupFilterEmptyError = "Group Filter must not be empty";
-
-            public const string GroupFilterValue = "Group Filter Value must not be empty";
 
             public const string SelectAtleastOneGroup = "Select Atleast One Group";
 
@@ -174,21 +162,11 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string SearchNotFound = "No study matches the search keywords";
 
-            public const string SectionNotValid = "Kindly provide a valid section";
-
             public const string StudyElementNotValid = "Kindly provide a valid study element";
 
             public const string StudyDesignElementNotValid = "Kindly provide a valid study design element";
 
             public const string NotValidStudyId = "The provided studyId is not found";
-
-            public const string DowngradeError = "The usdmVersion cannot be downgraded";
-
-            public const string StudyIdNotFound = "The provided study.studyId is not found";
-
-            public const string UsePutEndpoint = "Kindly use PUT Study Definitions endpoint to update study definitions";
-
-            public const string UsePostEndpoint = "Kindly use POST Study Definitions endpoint to create new study definitions";
 
             public const string GroupsNotFound = "There are no user groups available";
 
@@ -197,8 +175,6 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string GroupIdError = "The group Id is not valid";
 
             public const string PostGroupDataNotValid = "The data on the request body is not valid";
-
-            public const string GroupingDetailsUpdated = "The grouping details are updated";
 
             public const string GroupNameExists = "The group name already exist";
 

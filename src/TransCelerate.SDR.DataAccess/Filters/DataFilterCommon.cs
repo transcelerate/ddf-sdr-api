@@ -139,14 +139,6 @@ namespace TransCelerate.SDR.DataAccess.Filters
                                                          { Constants.DbFilter.StudyIdentifierOrganisationTypeDecode, new BsonRegularExpression($"/{Constants.IdType.SPONSOR_ID_V1}$/i")}
                                                      }
                                                  )
-                                             ),
-                                     builder.And(
-                                            builder.ElemMatch<BsonDocument>(Constants.DbFilter.StudyIdentifiers, new BsonDocument()
-                                                     {
-                                                         { Constants.DbFilter.StudyIdentifierOrgCode, new BsonRegularExpression($"/{searchParameters.SponsorId}/i") } ,
-                                                         { Constants.DbFilter.StudyIdentifierIdType, new BsonRegularExpression($"/{Constants.IdType.SPONSOR_ID}$/i")}
-                                                     }
-                                                 )
                                              )
                                     );
             }
@@ -162,8 +154,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
                     {
                         if (groupFilters.Item1.Any())
                         {
-                            filter &= builder.Or(
-                                        builder.Regex(Constants.DbFilter.StudyType, new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
+                            filter &= builder.Or(                                        
                                         builder.Regex($"{Constants.DbFilter.StudyType}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
                                         builder.In(x => x.Study.StudyId, groupFilters.Item2)
                                         );
@@ -205,8 +196,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
                     {
                         if (groupFilters.Item1.Any())
                         {
-                            filter &= builder.Or(
-                                        builder.Regex(Constants.DbFilter.StudyType, new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
+                            filter &= builder.Or(                                        
                                         builder.Regex($"{Constants.DbFilter.StudyType}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
                                         builder.In(x => x.Study.StudyId, groupFilters.Item2)
                                         );
@@ -237,14 +227,6 @@ namespace TransCelerate.SDR.DataAccess.Filters
                                                          { Constants.DbFilter.StudyIdentifierOrganisationTypeDecode, new BsonRegularExpression($"/{Constants.IdType.SPONSOR_ID_V1}$/i")}
                                      }
                                  )
-                             ),
-                     builder.And(
-                            builder.ElemMatch<BsonDocument>(Constants.DbFilter.StudyIdentifiers, new BsonDocument()
-                                     {
-                                                         { Constants.DbFilter.StudyIdentifierOrgCode, new BsonRegularExpression($"/{searchParameters.SponsorId}/i") } ,
-                                                         { Constants.DbFilter.StudyIdentifierIdType, new BsonRegularExpression($"/{Constants.IdType.SPONSOR_ID}$/i")}
-                                     }
-                                 )
                              )
                     );
             }
@@ -252,8 +234,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
             //Filter for Indication
             if (!String.IsNullOrWhiteSpace(searchParameters.Indication))
             {
-                filter &= builder.Or(
-                     builder.Regex($"{Constants.DbFilter.IndicationMVP}", new BsonRegularExpression($"/{searchParameters.Indication}/i")),
+                filter &= builder.Or(                     
                      builder.Regex($"{Constants.DbFilter.StudyDesigns}.{Constants.DbFilter.StudyIndicationsIndicationDesc}", new BsonRegularExpression($"/{searchParameters.Indication}/i")),
                      builder.Regex($"{Constants.DbFilter.StudyDesigns}.{Constants.DbFilter.StudyIndicationsIndicationDescription}", new BsonRegularExpression($"/{searchParameters.Indication}/i"))
                     );
@@ -262,8 +243,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
             ////Filter for Intervention Model
             if (!String.IsNullOrWhiteSpace(searchParameters.InterventionModel))
             {
-                filter &= builder.Or(
-                     builder.Regex($"{Constants.DbFilter.InterventionModelMVP}", new BsonRegularExpression($"/{searchParameters.InterventionModel}/i")),
+                filter &= builder.Or(                     
                      builder.Regex($"{Constants.DbFilter.StudyDesigns}.{Constants.DbFilter.InterventionModel}", new BsonRegularExpression($"/{searchParameters.InterventionModel}/i"))
                     );
             }
@@ -271,8 +251,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
             //Filter for Study Phase
             if (!String.IsNullOrWhiteSpace(searchParameters.Phase))
             {
-                filter &= builder.Or(
-                     builder.Regex(Constants.DbFilter.StudyPhase, new BsonRegularExpression($"/{searchParameters.Phase}/i")),
+                filter &= builder.Or(                     
                      builder.Regex($"{Constants.DbFilter.StudyPhase}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{searchParameters.Phase}/i")),
                      builder.Regex($"{Constants.DbFilter.StudyPhase}.{Constants.DbFilter.StudyPhaseStandardCodeDecode}", new BsonRegularExpression($"/{searchParameters.Phase}/i"))
                     );

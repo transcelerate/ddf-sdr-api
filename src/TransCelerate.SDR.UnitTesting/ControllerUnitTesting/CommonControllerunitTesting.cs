@@ -40,12 +40,14 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             if (usdmVersion == Constants.USDMVersions.V1)
             {
                 string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV1.json");
+                jsonData = jsonData.Replace($"{IdFieldPropertyName.ParentElement.ClinicalStudy.ChangeToCamelCase()}", $"{nameof(CommonStudyDefinitionsEntity.Study).ChangeToCamelCase()}");
                 var v1 = JsonConvert.DeserializeObject<CommonStudyDefinitionsEntity>(jsonData);
                 return v1;
             }
             else if (usdmVersion == Constants.USDMVersions.V1_9)
             {
                 string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
+                jsonData = jsonData.Replace($"{IdFieldPropertyName.ParentElement.ClinicalStudy.ChangeToCamelCase()}", $"{nameof(CommonStudyDefinitionsEntity.Study).ChangeToCamelCase()}");
                 var v2 = JsonConvert.DeserializeObject<CommonStudyDefinitionsEntity>(jsonData);
                 return v2;
             }
@@ -181,6 +183,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         public void GetAuditTrailSuccessUnitTesting()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
+            jsonData = jsonData.Replace($"{IdFieldPropertyName.ParentElement.ClinicalStudy.ChangeToCamelCase()}", $"{nameof(CommonStudyDefinitionsEntity.Study).ChangeToCamelCase()}");
             var data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
             AuditTrailResponseDto auditTrailResponseDto = new()
             {
@@ -210,6 +213,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         public void GetAuditTrailFailureUnitTesting()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
+            jsonData = jsonData.Replace($"{IdFieldPropertyName.ParentElement.ClinicalStudy.ChangeToCamelCase()}", $"{nameof(CommonStudyDefinitionsEntity.Study).ChangeToCamelCase()}");
             var data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
             _mockCommonService.Setup(x => x.GetAuditTrail(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(null as object));

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Common;
 using TransCelerate.SDR.Core.DTO.Token;
@@ -82,19 +83,21 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         {
             if (usdmVersion == Constants.USDMVersions.V2)
             {
-                string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV3.json");
-                var mvpData = JsonConvert.DeserializeObject<CommonStudyDefinitionsEntity>(jsonData);
-                return mvpData;
+                string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV3.json");                
+                var v3 = JsonConvert.DeserializeObject<CommonStudyDefinitionsEntity>(jsonData);
+                return v3;
             }
             else if (usdmVersion == Constants.USDMVersions.V1)
             {
                 string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV1.json");
+                jsonData = jsonData.Replace($"{IdFieldPropertyName.ParentElement.ClinicalStudy.ChangeToCamelCase()}", $"{nameof(CommonStudyDefinitionsEntity.Study).ChangeToCamelCase()}");
                 var v1 = JsonConvert.DeserializeObject<CommonStudyDefinitionsEntity>(jsonData);
                 return v1;
             }
             else
             {
                 string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
+                jsonData = jsonData.Replace($"{IdFieldPropertyName.ParentElement.ClinicalStudy.ChangeToCamelCase()}", $"{nameof(CommonStudyDefinitionsEntity.Study).ChangeToCamelCase()}");
                 var v2 = JsonConvert.DeserializeObject<CommonStudyDefinitionsEntity>(jsonData);
                 return v2;
             }
@@ -130,6 +133,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             CommonServices commonServices = new(_mockCommonRepository.Object, _mockLogger, _mockMapper);
 
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
+            jsonData = jsonData.Replace($"{IdFieldPropertyName.ParentElement.ClinicalStudy.ChangeToCamelCase()}", $"{nameof(CommonStudyDefinitionsEntity.Study).ChangeToCamelCase()}");
             var data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
             _mockCommonRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(data));
@@ -140,6 +144,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             Assert.IsNotNull(result);
 
             jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV1.json");
+            jsonData = jsonData.Replace($"{IdFieldPropertyName.ParentElement.ClinicalStudy.ChangeToCamelCase()}", $"{nameof(CommonStudyDefinitionsEntity.Study).ChangeToCamelCase()}");
             data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
             _mockCommonRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                   .Returns(Task.FromResult(data));
@@ -168,6 +173,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                   .Returns(Task.FromResult(nullGroup));
 
             jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
+            jsonData = jsonData.Replace($"{IdFieldPropertyName.ParentElement.ClinicalStudy.ChangeToCamelCase()}", $"{nameof(CommonStudyDefinitionsEntity.Study).ChangeToCamelCase()}");
             data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
             _mockCommonRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(data));
@@ -178,6 +184,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             Assert.AreEqual(result, Constants.ErrorMessages.Forbidden);
 
             jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV1.json");
+            jsonData = jsonData.Replace($"{IdFieldPropertyName.ParentElement.ClinicalStudy.ChangeToCamelCase()}", $"{nameof(CommonStudyDefinitionsEntity.Study).ChangeToCamelCase()}");
             data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
             _mockCommonRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                   .Returns(Task.FromResult(data));
@@ -764,9 +771,12 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         {
             Config.IsGroupFilterEnabled = true;
             user.UserRole = Constants.Roles.Org_Admin;
-            user.UserName = "user1@SDR.com";            
-            var v1 = JsonConvert.DeserializeObject<TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity>(JsonConvert.SerializeObject(GetData(Constants.USDMVersions.V1)));
-            var v2 = JsonConvert.DeserializeObject<TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity>(JsonConvert.SerializeObject(GetData(Constants.USDMVersions.V1_9)));
+            user.UserName = "user1@SDR.com";
+            var regex = new Regex(Regex.Escape(nameof(CommonStudyDefinitionsEntity.Study)));
+            var v1String = regex.Replace(JsonConvert.SerializeObject(GetData(Constants.USDMVersions.V1)), IdFieldPropertyName.ParentElement.ClinicalStudy, 1);            
+            var v1_9String = regex.Replace(JsonConvert.SerializeObject(GetData(Constants.USDMVersions.V1_9)), IdFieldPropertyName.ParentElement.ClinicalStudy, 1);                        
+            var v1 = JsonConvert.DeserializeObject<TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity>(v1String);
+            var v2 = JsonConvert.DeserializeObject<TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity>(v1_9String);
             var v3 = JsonConvert.DeserializeObject<TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity>(JsonConvert.SerializeObject(GetData(Constants.USDMVersions.V2)));            
             v1.AuditTrail.UsdmVersion = Constants.USDMVersions.V1;
             v2.AuditTrail.UsdmVersion = Constants.USDMVersions.V1_9;
