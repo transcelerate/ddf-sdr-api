@@ -21,19 +21,19 @@ namespace TransCelerate.SDR.WebApi.Controllers
 {
     [Authorize]
     [ApiController]
-    public class ClinicalStudyV1Controller : ControllerBase
+    public class StudyV1Controller : ControllerBase
     {
         #region Variables        
         private readonly ILogHelper _logger;
-        private readonly IClinicalStudyServiceV1 _clinicalStudyService;
+        private readonly IStudyServiceV1 _studyService;
         private readonly IHelperV1 _helper;
         #endregion
 
         #region Constructor
-        public ClinicalStudyV1Controller(IClinicalStudyServiceV1 clinicalStudyService, ILogHelper logger, IHelperV1 helper)
+        public StudyV1Controller(IStudyServiceV1 studyService, ILogHelper logger, IHelperV1 helper)
         {
             _logger = logger;
-            _clinicalStudyService = clinicalStudyService;
+            _studyService = studyService;
             _helper = helper;
         }
         #endregion
@@ -53,7 +53,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [HttpGet]
         [Route(Route.StudyV1)]
         [ApiVersion(Constants.USDMVersions.V1)]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDto))]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDefinitionsDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
@@ -62,7 +62,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudy)};");
+                _logger.LogInformation($"Started Controller : {nameof(StudyV1Controller)}; Method : {nameof(GetStudy)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
                     _logger.LogInformation($"Inputs : studyId = {studyId}; sdruploadversion = {sdruploadversion};");
@@ -71,7 +71,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
-                    var study = await _clinicalStudyService.GetStudy(studyId, sdruploadversion, user).ConfigureAwait(false);
+                    var study = await _studyService.GetStudy(studyId, sdruploadversion, user).ConfigureAwait(false);
 
                     if (study == null)
                     {
@@ -98,7 +98,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudy)};");
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV1Controller)}; Method : {nameof(GetStudy)};");
             }
         }
 
@@ -114,7 +114,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [HttpGet]
         [Route(Route.StudyDesignV1)]
         [ApiVersion(Constants.USDMVersions.V1)]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDto))]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDefinitionsDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
@@ -123,7 +123,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudyDesigns)};");
+                _logger.LogInformation($"Started Controller : {nameof(StudyV1Controller)}; Method : {nameof(GetStudyDesigns)};");
                 if (!String.IsNullOrWhiteSpace(study_uuid))
                 {
                     _logger.LogInformation($"Inputs : study_uuid = {study_uuid}; sdruploadversion = {sdruploadversion};");
@@ -133,7 +133,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
-                    var study = await _clinicalStudyService.GetStudyDesigns(study_uuid, sdruploadversion, user).ConfigureAwait(false);
+                    var study = await _studyService.GetStudyDesigns(study_uuid, sdruploadversion, user).ConfigureAwait(false);
 
                     if (study == null)
                     {
@@ -164,7 +164,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudyDesigns)};");
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV1Controller)}; Method : {nameof(GetStudyDesigns)};");
             }
         }
         /// <summary>
@@ -187,7 +187,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetAuditTrail)};");
+                _logger.LogInformation($"Started Controller : {nameof(StudyV1Controller)}; Method : {nameof(GetAuditTrail)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
                     _logger.LogInformation($"Inputs : studyId = {studyId}; fromDate = {fromDate}; toDate = {toDate}");
@@ -203,7 +203,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     toDate = fromAndToDate.Item2;
                     if (fromDate <= toDate)
                     {
-                        var studyAuditResponse = await _clinicalStudyService.GetAuditTrail(studyId, fromDate, toDate, user);
+                        var studyAuditResponse = await _studyService.GetAuditTrail(studyId, fromDate, toDate, user);
                         if (studyAuditResponse == null)
                         {
                             return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
@@ -234,7 +234,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetAuditTrail)};");
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV1Controller)}; Method : {nameof(GetAuditTrail)};");
             }
         }
 
@@ -258,7 +258,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudyHistory)};");
+                _logger.LogInformation($"Started Controller : {nameof(StudyV1Controller)}; Method : {nameof(GetStudyHistory)};");
                 LoggedInUser user = new()
                 {
                     UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
@@ -273,7 +273,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
 
                 if (fromDate <= toDate)
                 {
-                    var studyHistoryResponse = await _clinicalStudyService.GetStudyHistory(fromDate, toDate, studyTitle, user);
+                    var studyHistoryResponse = await _studyService.GetStudyHistory(fromDate, toDate, studyTitle, user);
                     if (studyHistoryResponse == null)
                     {
                         return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
@@ -295,7 +295,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(GetStudyHistory)};");
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV1Controller)}; Method : {nameof(GetStudyHistory)};");
             }
         }
         #endregion
@@ -311,15 +311,15 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [HttpPost]
         [Route(Route.PostElementsV1)]
         [ApiVersion(Constants.USDMVersions.V1)]
-        [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDto))]
+        [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDefinitionsDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public async Task<IActionResult> PostAllElements([FromBody] StudyDto studyDTO,
+        public async Task<IActionResult> PostAllElements([FromBody] StudyDefinitionsDto studyDTO,
                                             [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");
+                _logger.LogInformation($"Started Controller : {nameof(StudyV1Controller)}; Method : {nameof(PostAllElements)};");
                 if (studyDTO != null)
                 {
                     LoggedInUser user = new()
@@ -327,7 +327,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
                         UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
                     };
-                    var response = await _clinicalStudyService.PostAllElements(studyDTO, user)
+                    var response = await _studyService.PostAllElements(studyDTO, user)
                                                               .ConfigureAwait(false);
 
                     if (response?.ToString() == Constants.ErrorMessages.PostRestricted)
@@ -340,13 +340,9 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         {
                             return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.NotValidStudyId)).Value);
                         }
-                        if (response?.ToString() == Constants.ErrorMessages.DowngradeError)
-                        {
-                            return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DowngradeError)).Value);
-                        }
                         else
                         {
-                            return Created($"study/{studyDTO.ClinicalStudy.Uuid}", new JsonResult(response).Value);
+                            return Created($"study/{studyDTO.Study.Uuid}", new JsonResult(response).Value);
                         }
                     }
                 }
@@ -362,7 +358,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(PostAllElements)};");
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV1Controller)}; Method : {nameof(PostAllElements)};");
             }
         }
 
@@ -377,7 +373,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [HttpPost]
         [ApiVersionNeutral]
         [Route(Route.SearchElementsV1)]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IEnumerable<StudyDto>))]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IEnumerable<StudyDefinitionsDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
@@ -385,7 +381,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(SearchStudy)};");
+                _logger.LogInformation($"Started Controller : {nameof(StudyV1Controller)}; Method : {nameof(SearchStudy)};");
                 LoggedInUser user = new()
                 {
                     UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
@@ -413,7 +409,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                             return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError)).Value);
                         }
                     }
-                    var response = await _clinicalStudyService.SearchStudy(searchparameters, user).ConfigureAwait(false);
+                    var response = await _studyService.SearchStudy(searchparameters, user).ConfigureAwait(false);
 
                     if (response == null)
                     {
@@ -436,7 +432,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(SearchStudy)};");
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV1Controller)}; Method : {nameof(SearchStudy)};");
             }
         }
 
@@ -450,7 +446,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [HttpPost]
         [ApiVersionNeutral]
         [Route(Route.SearchTitleV1)]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IEnumerable<StudyDto>))]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IEnumerable<StudyDefinitionsDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
@@ -458,7 +454,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(SearchTitle)};");
+                _logger.LogInformation($"Started Controller : {nameof(StudyV1Controller)}; Method : {nameof(SearchTitle)};");
                 LoggedInUser user = new()
                 {
                     UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
@@ -483,7 +479,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                             return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError)).Value);
                         }
                     }
-                    var response = await _clinicalStudyService.SearchTitle(searchparameters, user).ConfigureAwait(false);
+                    var response = await _studyService.SearchTitle(searchparameters, user).ConfigureAwait(false);
 
                     if (response == null || response.Count == 0)
                     {
@@ -506,7 +502,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(ClinicalStudyV1Controller)}; Method : {nameof(SearchTitle)};");
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV1Controller)}; Method : {nameof(SearchTitle)};");
             }
         }
         #endregion

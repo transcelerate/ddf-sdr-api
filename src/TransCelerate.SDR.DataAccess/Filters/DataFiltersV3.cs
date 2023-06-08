@@ -17,12 +17,12 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// <param name="studyId"></param>
         /// <param name="sdruploadversion"></param>
         /// <returns></returns>
-        public static FilterDefinition<StudyEntity> GetFiltersForGetStudy(string studyId, int sdruploadversion)
+        public static FilterDefinition<StudyDefinitionsEntity> GetFiltersForGetStudy(string studyId, int sdruploadversion)
         {
-            FilterDefinitionBuilder<StudyEntity> builder = Builders<StudyEntity>.Filter;
-            FilterDefinition<StudyEntity> filter = builder.Empty;
+            FilterDefinitionBuilder<StudyDefinitionsEntity> builder = Builders<StudyDefinitionsEntity>.Filter;
+            FilterDefinition<StudyDefinitionsEntity> filter = builder.Empty;
             filter &= builder.Where(s => s.AuditTrail.UsdmVersion == Constants.USDMVersions.V2);
-            filter &= builder.Where(s => s.ClinicalStudy.StudyId == studyId);
+            filter &= builder.Where(s => s.Study.StudyId == studyId);
 
             if (sdruploadversion != 0)
                 filter &= builder.Where(x => x.AuditTrail.SDRUploadVersion == sdruploadversion);
@@ -36,11 +36,11 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// <param name="studyId"></param>
         /// <param name="sdruploadversion"></param>
         /// <returns></returns>
-        public static FilterDefinition<StudyEntity> GetFiltersForGetAuditTrailOfAStudy(string studyId, int sdruploadversion)
+        public static FilterDefinition<StudyDefinitionsEntity> GetFiltersForGetAuditTrailOfAStudy(string studyId, int sdruploadversion)
         {
-            FilterDefinitionBuilder<StudyEntity> builder = Builders<StudyEntity>.Filter;
-            FilterDefinition<StudyEntity> filter = builder.Empty;
-            filter &= builder.Where(s => s.ClinicalStudy.StudyId == studyId);
+            FilterDefinitionBuilder<StudyDefinitionsEntity> builder = Builders<StudyDefinitionsEntity>.Filter;
+            FilterDefinition<StudyDefinitionsEntity> filter = builder.Empty;
+            filter &= builder.Where(s => s.Study.StudyId == studyId);
 
             if (sdruploadversion != 0)
                 filter &= builder.Where(x => x.AuditTrail.SDRUploadVersion == sdruploadversion);
@@ -62,17 +62,17 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// <param name="toDate"></param>
         /// <param name="studyTitle"></param>
         /// <returns></returns>
-        public static FilterDefinition<StudyEntity> GetFiltersForStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle)
+        public static FilterDefinition<StudyDefinitionsEntity> GetFiltersForStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle)
         {
-            FilterDefinitionBuilder<StudyEntity> builder = Builders<StudyEntity>.Filter;
-            FilterDefinition<StudyEntity> filter = builder.Empty;
+            FilterDefinitionBuilder<StudyDefinitionsEntity> builder = Builders<StudyDefinitionsEntity>.Filter;
+            FilterDefinition<StudyDefinitionsEntity> filter = builder.Empty;
             //Filter for Date Range
             filter &= builder.Where(x => x.AuditTrail.EntryDateTime >= fromDate
                                          && x.AuditTrail.EntryDateTime <= toDate);
 
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(studyTitle))
-                filter &= builder.Where(x => x.ClinicalStudy.StudyTitle.ToLower().Contains(studyTitle.ToLower()));
+                filter &= builder.Where(x => x.Study.StudyTitle.ToLower().Contains(studyTitle.ToLower()));
 
 
             return filter;
@@ -85,12 +85,12 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// <param name="fromDate"></param>
         /// <param name="toDate"></param>
         /// <returns></returns>
-        public static FilterDefinition<StudyEntity> GetFiltersForGetAudTrail(string studyId, DateTime fromDate, DateTime toDate)
+        public static FilterDefinition<StudyDefinitionsEntity> GetFiltersForGetAudTrail(string studyId, DateTime fromDate, DateTime toDate)
         {
-            FilterDefinitionBuilder<StudyEntity> builder = Builders<StudyEntity>.Filter;
-            FilterDefinition<StudyEntity> filter = builder.Empty;
+            FilterDefinitionBuilder<StudyDefinitionsEntity> builder = Builders<StudyDefinitionsEntity>.Filter;
+            FilterDefinition<StudyDefinitionsEntity> filter = builder.Empty;
             filter &= builder.Where(s => s.AuditTrail.UsdmVersion == Constants.USDMVersions.V2);
-            filter &= builder.Where(s => s.ClinicalStudy.StudyId == studyId);
+            filter &= builder.Where(s => s.Study.StudyId == studyId);
 
             //Filter for Date Range
             filter &= builder.Where(x => x.AuditTrail.EntryDateTime >= fromDate
@@ -105,11 +105,11 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// </summary>
         /// <param name="listofelementsArray">list of study elements</param>
         /// <returns></returns>
-        public static ProjectionDefinition<StudyEntity> GetProjectionForPartialStudyElements(string[] listofelementsArray)
+        public static ProjectionDefinition<StudyDefinitionsEntity> GetProjectionForPartialStudyElements(string[] listofelementsArray)
         {
-            ProjectionDefinitionBuilder<StudyEntity> projection = Builders<StudyEntity>.Projection;
-            ProjectionDefinition<StudyEntity> projector = projection.Include(x => x.ClinicalStudy.StudyId);
-            projector = projector.Include(x => x.ClinicalStudy.StudyType);
+            ProjectionDefinitionBuilder<StudyDefinitionsEntity> projection = Builders<StudyDefinitionsEntity>.Projection;
+            ProjectionDefinition<StudyDefinitionsEntity> projector = projection.Include(x => x.Study.StudyId);
+            projector = projector.Include(x => x.Study.StudyType);
             projector = projector.Include(x => x.AuditTrail);
             projector = projector.Exclude(x => x.Id);
 
@@ -117,24 +117,24 @@ namespace TransCelerate.SDR.DataAccess.Filters
             {
                 if (elements is not null)
                 {
-                    if (elements.ToLower().Equals(nameof(ClinicalStudyEntity.StudyTitle).ToLower()))
-                        projector = projector.Include(x => x.ClinicalStudy.StudyTitle);
-                    else if (elements.ToLower().Equals(nameof(ClinicalStudyEntity.StudyPhase).ToLower()))
-                        projector = projector.Include(x => x.ClinicalStudy.StudyPhase);
-                    else if (elements.ToLower().Equals(nameof(ClinicalStudyEntity.StudyVersion).ToLower()))
-                        projector = projector.Include(x => x.ClinicalStudy.StudyVersion);
-                    else if (elements.ToLower().Equals(nameof(ClinicalStudyEntity.StudyProtocolVersions).ToLower()))
-                        projector = projector.Include(x => x.ClinicalStudy.StudyProtocolVersions);
-                    else if (elements.ToLower().Equals(nameof(ClinicalStudyEntity.StudyIdentifiers).ToLower()))
-                        projector = projector.Include(x => x.ClinicalStudy.StudyIdentifiers);
-                    else if (elements.ToLower().Equals(nameof(ClinicalStudyEntity.StudyDesigns).ToLower()))
-                        projector = projector.Include(x => x.ClinicalStudy.StudyDesigns);
-                    else if (elements.ToLower().Equals(nameof(ClinicalStudyEntity.BusinessTherapeuticAreas).ToLower()))
-                        projector = projector.Include(x => x.ClinicalStudy.BusinessTherapeuticAreas);
-                    else if (elements.ToLower().Equals(nameof(ClinicalStudyEntity.StudyRationale).ToLower()))
-                        projector = projector.Include(x => x.ClinicalStudy.StudyRationale);
-                    else if (elements.ToLower().Equals(nameof(ClinicalStudyEntity.StudyAcronym).ToLower()))
-                        projector = projector.Include(x => x.ClinicalStudy.StudyAcronym);
+                    if (elements.ToLower().Equals(nameof(StudyEntity.StudyTitle).ToLower()))
+                        projector = projector.Include(x => x.Study.StudyTitle);
+                    else if (elements.ToLower().Equals(nameof(StudyEntity.StudyPhase).ToLower()))
+                        projector = projector.Include(x => x.Study.StudyPhase);
+                    else if (elements.ToLower().Equals(nameof(StudyEntity.StudyVersion).ToLower()))
+                        projector = projector.Include(x => x.Study.StudyVersion);
+                    else if (elements.ToLower().Equals(nameof(StudyEntity.StudyProtocolVersions).ToLower()))
+                        projector = projector.Include(x => x.Study.StudyProtocolVersions);
+                    else if (elements.ToLower().Equals(nameof(StudyEntity.StudyIdentifiers).ToLower()))
+                        projector = projector.Include(x => x.Study.StudyIdentifiers);
+                    else if (elements.ToLower().Equals(nameof(StudyEntity.StudyDesigns).ToLower()))
+                        projector = projector.Include(x => x.Study.StudyDesigns);
+                    else if (elements.ToLower().Equals(nameof(StudyEntity.BusinessTherapeuticAreas).ToLower()))
+                        projector = projector.Include(x => x.Study.BusinessTherapeuticAreas);
+                    else if (elements.ToLower().Equals(nameof(StudyEntity.StudyRationale).ToLower()))
+                        projector = projector.Include(x => x.Study.StudyRationale);
+                    else if (elements.ToLower().Equals(nameof(StudyEntity.StudyAcronym).ToLower()))
+                        projector = projector.Include(x => x.Study.StudyAcronym);
                 }
             });
             return projector;
@@ -144,23 +144,23 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// Get Study Design Projection Definition
         /// </summary>
         /// <returns></returns>
-        public static ProjectionDefinition<StudyEntity> GetProjectionForPartialStudyDesignElementsFullStudy()
+        public static ProjectionDefinition<StudyDefinitionsEntity> GetProjectionForPartialStudyDesignElementsFullStudy()
         {
-            ProjectionDefinitionBuilder<StudyEntity> projection = Builders<StudyEntity>.Projection;
-            ProjectionDefinition<StudyEntity> projector = projection.Include(x => x.ClinicalStudy.StudyId);
-            projector = projector.Include(x => x.ClinicalStudy.StudyType);
-            projector = projector.Include(x => x.ClinicalStudy.StudyDesigns);
+            ProjectionDefinitionBuilder<StudyDefinitionsEntity> projection = Builders<StudyDefinitionsEntity>.Projection;
+            ProjectionDefinition<StudyDefinitionsEntity> projector = projection.Include(x => x.Study.StudyId);
+            projector = projector.Include(x => x.Study.StudyType);
+            projector = projector.Include(x => x.Study.StudyDesigns);
             projector = projector.Include(x => x.AuditTrail);
             projector = projector.Exclude(x => x.Id);
 
             return projector;
         }
 
-        public static ProjectionDefinition<StudyEntity> GetProjectionForCheckAccessForAStudy()
+        public static ProjectionDefinition<StudyDefinitionsEntity> GetProjectionForCheckAccessForAStudy()
         {
-            ProjectionDefinitionBuilder<StudyEntity> projection = Builders<StudyEntity>.Projection;
-            ProjectionDefinition<StudyEntity> projector = projection.Include(x => x.ClinicalStudy.StudyId);
-            projector = projector.Include(x => x.ClinicalStudy.StudyType);
+            ProjectionDefinitionBuilder<StudyDefinitionsEntity> projection = Builders<StudyDefinitionsEntity>.Projection;
+            ProjectionDefinition<StudyDefinitionsEntity> projector = projection.Include(x => x.Study.StudyId);
+            projector = projector.Include(x => x.Study.StudyType);
             projector = projector.Exclude(x => x.Id);
 
             return projector;

@@ -11,13 +11,13 @@ namespace TransCelerate.SDR.WebApi.Mappers
             AllowNullCollections = true;
             AllowNullDestinationValues = true;
 
-            CreateMap<StudyEntity, StudyDto>().ReverseMap();
+            CreateMap<StudyDefinitionsEntity, StudyDefinitionsDto>().ReverseMap();
             CreateMap<ActivityDto, ActivityEntity>().ReverseMap();
             CreateMap<AnalysisPopulationDto, AnalysisPopulationEntity>().ReverseMap();
             CreateMap<AuditTrailEntity, AuditTrailDto>()
                 //.ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.EntryDateTime.ToString(Constants.DateFormats.DateFormatForAuditResponse).ToUpper()))
                 .ReverseMap();
-            CreateMap<ClinicalStudyDto, ClinicalStudyEntity>().ReverseMap();
+            CreateMap<StudyDto, StudyEntity>().ReverseMap();
             CreateMap<CodeDto, CodeEntity>().ReverseMap();
             CreateMap<ProcedureDto, ProcedureEntity>().ReverseMap();
             CreateMap<EncounterDto, EncounterEntity>().ReverseMap();

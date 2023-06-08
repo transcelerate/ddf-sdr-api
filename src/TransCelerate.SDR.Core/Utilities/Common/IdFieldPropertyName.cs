@@ -84,6 +84,11 @@
             public const string Uuid = "uuid";
             public const string IndicationDesc = "indicationDesc";
         }
+        public struct ParentElement
+        {
+            public const string ClinicalStudy = "clinicalStudy";
+        }
+
         public struct MVP
         {
             public const string Id = "id";

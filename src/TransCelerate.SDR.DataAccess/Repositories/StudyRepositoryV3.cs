@@ -15,7 +15,7 @@ using TransCelerate.SDR.DataAccess.Interfaces;
 
 namespace TransCelerate.SDR.DataAccess.Repositories
 {
-    public class ClinicalStudyRepositoryV3 : IClinicalStudyRepositoryV3
+    public class StudyRepositoryV3 : IStudyRepositoryV3
     {
         #region Variables     
         private readonly string _databaseName = Config.DatabaseName;
@@ -27,7 +27,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         #endregion
 
         #region Constructor      
-        public ClinicalStudyRepositoryV3(IMongoClient client, ILogHelper logger)
+        public StudyRepositoryV3(IMongoClient client, ILogHelper logger)
         {
             _client = client;
             _database = _client.GetDatabase(_databaseName);
@@ -49,18 +49,18 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// <param name="studyId">Study ID</param>
         /// <param name="sdruploadversion">Version of study</param>
         /// <returns>
-        /// A <see cref="StudyEntity"/> with matching studyId <br></br> <br></br>
+        /// A <see cref="StudyDefinitionsEntity"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<StudyEntity> GetStudyItemsAsync(string studyId, int sdruploadversion)
+        public async Task<StudyDefinitionsEntity> GetStudyItemsAsync(string studyId, int sdruploadversion)
         {
-            _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(GetStudyItemsAsync)};");
+            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(GetStudyItemsAsync)};");
             try
             {
-                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
+                IMongoCollection<StudyDefinitionsEntity> collection = _database.GetCollection<StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
 
 
-                StudyEntity study = await collection.Find(DataFiltersV3.GetFiltersForGetStudy(studyId, sdruploadversion))
+                StudyDefinitionsEntity study = await collection.Find(DataFiltersV3.GetFiltersForGetStudy(studyId, sdruploadversion))
                                                      .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
                                                      .Limit(1)                  //Taking top 1 result
                                                      .SingleOrDefaultAsync().ConfigureAwait(false);
@@ -81,7 +81,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(GetStudyItemsAsync)};");
+                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(GetStudyItemsAsync)};");
             }
         }
 
@@ -92,21 +92,21 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// <param name="sdruploadversion">Version of study</param>
         /// <param name="listofelementsArray">Array of study elements</param>
         /// <returns>
-        /// A <see cref="StudyEntity"/> with matching studyId <br></br> <br></br>
+        /// A <see cref="StudyDefinitionsEntity"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<StudyEntity> GetPartialStudyItemsAsync(string studyId, int sdruploadversion, string[] listofelementsArray)
+        public async Task<StudyDefinitionsEntity> GetPartialStudyItemsAsync(string studyId, int sdruploadversion, string[] listofelementsArray)
         {
-            _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(GetPartialStudyItemsAsync)};");
+            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(GetPartialStudyItemsAsync)};");
             try
             {
-                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
+                IMongoCollection<StudyDefinitionsEntity> collection = _database.GetCollection<StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
 
 
-                StudyEntity study = await collection.Find(DataFiltersV3.GetFiltersForGetStudy(studyId, sdruploadversion))
+                StudyDefinitionsEntity study = await collection.Find(DataFiltersV3.GetFiltersForGetStudy(studyId, sdruploadversion))
                                                      .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
                                                      .Limit(1)                  //Taking top 1 result
-                                                     .Project<StudyEntity>(DataFiltersV3.GetProjectionForPartialStudyElements(listofelementsArray))
+                                                     .Project<StudyDefinitionsEntity>(DataFiltersV3.GetProjectionForPartialStudyElements(listofelementsArray))
                                                      .SingleOrDefaultAsync().ConfigureAwait(false);
 
                 if (study == null)
@@ -125,7 +125,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(GetPartialStudyItemsAsync)};");
+                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(GetPartialStudyItemsAsync)};");
             }
         }
 
@@ -135,16 +135,16 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// <param name="studyId">Study ID</param>
         /// <param name="sdruploadversion">Version of study</param>
         /// <returns></returns>
-        public async Task<StudyEntity> GetPartialStudyDesignItemsAsync(string studyId, int sdruploadversion)
+        public async Task<StudyDefinitionsEntity> GetPartialStudyDesignItemsAsync(string studyId, int sdruploadversion)
         {
-            _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(GetPartialStudyDesignItemsAsync)};");
+            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(GetPartialStudyDesignItemsAsync)};");
             try
             {
-                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
+                IMongoCollection<StudyDefinitionsEntity> collection = _database.GetCollection<StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
 
 
-                StudyEntity study = await collection.Find(DataFiltersV3.GetFiltersForGetStudy(studyId, sdruploadversion))
-                                                     .Project<StudyEntity>(DataFiltersV3.GetProjectionForPartialStudyDesignElementsFullStudy())
+                StudyDefinitionsEntity study = await collection.Find(DataFiltersV3.GetFiltersForGetStudy(studyId, sdruploadversion))
+                                                     .Project<StudyDefinitionsEntity>(DataFiltersV3.GetProjectionForPartialStudyDesignElementsFullStudy())
                                                      .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
                                                      .Limit(1)                  //Taking top 1 result                                                     
                                                      .FirstOrDefaultAsync().ConfigureAwait(false);
@@ -165,7 +165,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(GetPartialStudyDesignItemsAsync)};");
+                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(GetPartialStudyDesignItemsAsync)};");
             }
         }       
         #endregion
@@ -178,15 +178,15 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// <returns>
         /// A studyId which was inserted <br></br> <br></br>        
         /// </returns>
-        public async Task<string> PostStudyItemsAsync(StudyEntity study)
+        public async Task<string> PostStudyItemsAsync(StudyDefinitionsEntity study)
         {
-            _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(PostStudyItemsAsync)};");
+            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(PostStudyItemsAsync)};");
             try
             {
-                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
+                IMongoCollection<StudyDefinitionsEntity> collection = _database.GetCollection<StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
 
                 await collection.InsertOneAsync(study).ConfigureAwait(false); //Insert One Document                
-                return (study.ClinicalStudy.StudyId);
+                return (study.Study.StudyId);
             }
             catch (Exception)
             {
@@ -194,7 +194,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(PostStudyItemsAsync)};");
+                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(PostStudyItemsAsync)};");
             }
         }
         #endregion
@@ -208,21 +208,21 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// <returns>
         /// A studyId which was inserted <br></br> <br></br>        
         /// </returns>
-        public async Task<string> UpdateStudyItemsAsync(StudyEntity study)
+        public async Task<string> UpdateStudyItemsAsync(StudyDefinitionsEntity study)
         {
-            _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(UpdateStudyItemsAsync)};");
+            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(UpdateStudyItemsAsync)};");
             try
             {
-                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
+                IMongoCollection<StudyDefinitionsEntity> collection = _database.GetCollection<StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
 
-                UpdateDefinition<StudyEntity> updateDefinition = Builders<StudyEntity>.Update
-                                    .Set(s => s.ClinicalStudy, study.ClinicalStudy)
+                UpdateDefinition<StudyDefinitionsEntity> updateDefinition = Builders<StudyDefinitionsEntity>.Update
+                                    .Set(s => s.Study, study.Study)
                                     .Set(s => s.AuditTrail, study.AuditTrail);
-                await collection.UpdateOneAsync(x => (x.ClinicalStudy.StudyId == study.ClinicalStudy.StudyId
+                await collection.UpdateOneAsync(x => (x.Study.StudyId == study.Study.StudyId
                                                    && x.AuditTrail.SDRUploadVersion == study.AuditTrail.SDRUploadVersion), //Match studyId and studyVersion
-                                                   updateDefinition).ConfigureAwait(false); // Update clinicalStudy and auditTrail
+                                                   updateDefinition).ConfigureAwait(false); // Update study and auditTrail
 
-                return (study.ClinicalStudy.StudyId);
+                return (study.Study.StudyId);
             }
             catch (Exception)
             {
@@ -230,7 +230,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(UpdateStudyItemsAsync)};");
+                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(UpdateStudyItemsAsync)};");
             }
         }
         #endregion
@@ -266,11 +266,11 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// <returns></returns>
         public async Task<DeleteResult> DeleteStudyAsync(string study_uuid)
         {
-            _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(DeleteStudyAsync)};");
+            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(DeleteStudyAsync)};");
             try
             {
-                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
-                var builder = Builders<StudyEntity>.Filter.Eq(x => x.ClinicalStudy.StudyId, study_uuid);
+                IMongoCollection<StudyDefinitionsEntity> collection = _database.GetCollection<StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
+                var builder = Builders<StudyDefinitionsEntity>.Filter.Eq(x => x.Study.StudyId, study_uuid);
 
                 var deleteResult = await collection.DeleteManyAsync(builder).ConfigureAwait(false);
 
@@ -282,7 +282,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(DeleteStudyAsync)};");
+                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(DeleteStudyAsync)};");
             }
         }
         /// <summary>
@@ -292,11 +292,11 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// <returns></returns>
         public async Task<long> CountAsync(string study_uuid)
         {
-            _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(CountAsync)};");
+            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(CountAsync)};");
             try
             {
-                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
-                var builder = Builders<StudyEntity>.Filter.Eq(x => x.ClinicalStudy.StudyId, study_uuid);
+                IMongoCollection<StudyDefinitionsEntity> collection = _database.GetCollection<StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
+                var builder = Builders<StudyDefinitionsEntity>.Filter.Eq(x => x.Study.StudyId, study_uuid);
                 long count = await collection.CountDocumentsAsync(builder).ConfigureAwait(false);
 
                 return count;
@@ -307,23 +307,23 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(CountAsync)};");
+                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(CountAsync)};");
             }
         }
         #endregion
 
         #region Get only studyType
-        public async Task<StudyEntity> GetStudyItemsForCheckingAccessAsync(string studyId, int sdruploadversion)
+        public async Task<StudyDefinitionsEntity> GetStudyItemsForCheckingAccessAsync(string studyId, int sdruploadversion)
         {
-            _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(GetStudyItemsForCheckingAccessAsync)};");
+            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(GetStudyItemsForCheckingAccessAsync)};");
             try
             {
-                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
+                IMongoCollection<StudyDefinitionsEntity> collection = _database.GetCollection<StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
 
 
-                StudyEntity study = await collection.Find(DataFiltersV3.GetFiltersForGetStudy(studyId, sdruploadversion))
+                StudyDefinitionsEntity study = await collection.Find(DataFiltersV3.GetFiltersForGetStudy(studyId, sdruploadversion))
                                                      .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
-                                                     .Project<StudyEntity>(DataFiltersV3.GetProjectionForCheckAccessForAStudy())
+                                                     .Project<StudyDefinitionsEntity>(DataFiltersV3.GetProjectionForCheckAccessForAStudy())
                                                      .Limit(1)                  //Taking top 1 result
                                                      .SingleOrDefaultAsync().ConfigureAwait(false);
 
@@ -343,7 +343,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(GetStudyItemsForCheckingAccessAsync)};");
+                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(GetStudyItemsForCheckingAccessAsync)};");
             }
         }
         #endregion
@@ -360,10 +360,10 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// </returns>
         public async Task<AuditTrailEntity> GetUsdmVersionAsync(string studyId, int sdruploadversion)
         {
-            _logger.LogInformation($"Started Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(GetUsdmVersionAsync)};");
+            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(GetUsdmVersionAsync)};");
             try
             {
-                IMongoCollection<StudyEntity> collection = _database.GetCollection<StudyEntity>(Constants.Collections.StudyDefinitions);
+                IMongoCollection<StudyDefinitionsEntity> collection = _database.GetCollection<StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
 
 
                 AuditTrailEntity auditTrail = await collection.Find(DataFiltersV3.GetFiltersForGetAuditTrailOfAStudy(studyId, sdruploadversion))
@@ -388,7 +388,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(ClinicalStudyRepositoryV2)}; Method : {nameof(GetUsdmVersionAsync)};");
+                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(GetUsdmVersionAsync)};");
             }
         }
         #endregion

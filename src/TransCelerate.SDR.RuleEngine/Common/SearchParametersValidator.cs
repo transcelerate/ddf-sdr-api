@@ -42,11 +42,11 @@ namespace TransCelerate.SDR.RuleEngine.Common
 
             RuleFor(x => x.PageNumber)
                 .Must(x => x > 0)
-                .WithMessage(Constants.ValidationErrorMessage.NumberError);
+                .WithMessage(Constants.ValidationErrorMessage.EnterValidNumber);
 
             RuleFor(x => x.PageSize)
                .Must(x => x > 0)
-               .WithMessage(Constants.ValidationErrorMessage.NumberError);
+               .WithMessage(Constants.ValidationErrorMessage.EnterValidNumber);
         }
     }
 }

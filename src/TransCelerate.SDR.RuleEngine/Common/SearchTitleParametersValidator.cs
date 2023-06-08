@@ -23,10 +23,10 @@ namespace TransCelerate.SDR.RuleEngine.Common
                 .WithMessage(Constants.ValidationErrorMessage.ValidDateError);
             RuleFor(x => x.PageNumber)
                 .Must(x => x > 0)
-                .WithMessage(Constants.ValidationErrorMessage.NumberError);
+                .WithMessage(Constants.ValidationErrorMessage.EnterValidNumber);
             RuleFor(x => x.PageSize)
                .Must(x => x > 0)
-               .WithMessage(Constants.ValidationErrorMessage.NumberError);
+               .WithMessage(Constants.ValidationErrorMessage.EnterValidNumber);
         }
     }
 }

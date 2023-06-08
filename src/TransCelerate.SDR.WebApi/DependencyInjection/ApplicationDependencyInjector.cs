@@ -23,12 +23,12 @@ namespace TransCelerate.SDR.WebApi.DependencyInjection
             services.AddTransient<IHelperV1, HelperV1>();
             services.AddTransient<IHelperV2, HelperV2>();
             services.AddTransient<IHelperV3, HelperV3>();
-            services.AddTransient<IClinicalStudyRepositoryV1, ClinicalStudyRepositoryV1>();
-            services.AddTransient<IClinicalStudyRepositoryV2, ClinicalStudyRepositoryV2>();
-            services.AddTransient<IClinicalStudyRepositoryV3, ClinicalStudyRepositoryV3>();
-            services.AddTransient<IClinicalStudyServiceV1, ClinicalStudyServiceV1>();
-            services.AddTransient<IClinicalStudyServiceV2, ClinicalStudyServiceV2>();
-            services.AddTransient<IClinicalStudyServiceV3, ClinicalStudyServiceV3>();
+            services.AddTransient<IStudyRepositoryV1, StudyRepositoryV1>();
+            services.AddTransient<IStudyRepositoryV2, StudyRepositoryV2>();
+            services.AddTransient<IStudyRepositoryV3, StudyRepositoryV3>();
+            services.AddTransient<IStudyServiceV1, StudyServiceV1>();
+            services.AddTransient<IStudyServiceV2, StudyServiceV2>();
+            services.AddTransient<IStudyServiceV3, StudyServiceV3>();
             services.AddTransient<IChangeAuditRepository, ChangeAuditRepository>();
             services.AddTransient<IChangeAuditService, ChangeAuditService>();
             services.AddTransient<ICommonService, CommonServices>();
