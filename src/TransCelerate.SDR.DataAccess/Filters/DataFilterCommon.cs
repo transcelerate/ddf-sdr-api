@@ -63,11 +63,11 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// <param name="fromDate"></param>
         /// <param name="toDate"></param>
         /// <returns></returns>
-        public static FilterDefinition<CommonStudyEntity> GetFiltersForGetAudTrail(string studyId, DateTime fromDate, DateTime toDate)
+        public static FilterDefinition<CommonStudyDefinitionsEntity> GetFiltersForGetAudTrail(string studyId, DateTime fromDate, DateTime toDate)
         {
-            FilterDefinitionBuilder<CommonStudyEntity> builder = Builders<CommonStudyEntity>.Filter;
-            FilterDefinition<CommonStudyEntity> filter = builder.Empty;
-            filter &= builder.Where(s => s.ClinicalStudy.StudyId == studyId);
+            FilterDefinitionBuilder<CommonStudyDefinitionsEntity> builder = Builders<CommonStudyDefinitionsEntity>.Filter;
+            FilterDefinition<CommonStudyDefinitionsEntity> filter = builder.Empty;
+            filter &= builder.Where(s => s.Study.StudyId == studyId);
 
             //Filter for supported USDM Versions
             filter &= builder.In(x => x.AuditTrail.UsdmVersion, ApiUsdmVersionMapping.SDRVersions.SelectMany(y => y.UsdmVersions).ToArray());
@@ -87,10 +87,10 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// <param name="toDate"></param>
         /// <param name="studyTitle"></param>
         /// <returns></returns>
-        public static FilterDefinition<CommonStudyEntity> GetFiltersForStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle)
+        public static FilterDefinition<CommonStudyDefinitionsEntity> GetFiltersForStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle)
         {
-            FilterDefinitionBuilder<CommonStudyEntity> builder = Builders<CommonStudyEntity>.Filter;
-            FilterDefinition<CommonStudyEntity> filter = builder.Empty;
+            FilterDefinitionBuilder<CommonStudyDefinitionsEntity> builder = Builders<CommonStudyDefinitionsEntity>.Filter;
+            FilterDefinition<CommonStudyDefinitionsEntity> filter = builder.Empty;
             //Filter for Date Range
             filter &= builder.Where(x => x.AuditTrail.EntryDateTime >= fromDate
                                          && x.AuditTrail.EntryDateTime <= toDate);
@@ -100,7 +100,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(studyTitle))
-                filter &= builder.Where(x => x.ClinicalStudy.StudyTitle.ToLower().Contains(studyTitle.ToLower()));
+                filter &= builder.Where(x => x.Study.StudyTitle.ToLower().Contains(studyTitle.ToLower()));
 
 
             return filter;
@@ -112,10 +112,10 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// <param name="groups"></param>
         /// <param name="user"></param>
         /// <returns></returns>
-        public static FilterDefinition<CommonStudyEntity> GetFiltersForSearchTitle(SearchTitleParametersEntity searchParameters, List<SDRGroupsEntity> groups, LoggedInUser user)
+        public static FilterDefinition<CommonStudyDefinitionsEntity> GetFiltersForSearchTitle(SearchTitleParametersEntity searchParameters, List<SDRGroupsEntity> groups, LoggedInUser user)
         {
-            FilterDefinitionBuilder<CommonStudyEntity> builder = Builders<CommonStudyEntity>.Filter;
-            FilterDefinition<CommonStudyEntity> filter = builder.Empty;
+            FilterDefinitionBuilder<CommonStudyDefinitionsEntity> builder = Builders<CommonStudyDefinitionsEntity>.Filter;
+            FilterDefinition<CommonStudyDefinitionsEntity> filter = builder.Empty;
 
             //Filter for supported USDM Versions
             filter &= builder.In(x => x.AuditTrail.UsdmVersion, ApiUsdmVersionMapping.SDRVersions.SelectMany(y => y.UsdmVersions).ToArray());
@@ -126,7 +126,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
-                filter &= builder.Where(x => x.ClinicalStudy.StudyTitle.ToLower().Contains(searchParameters.StudyTitle.ToLower()));
+                filter &= builder.Where(x => x.Study.StudyTitle.ToLower().Contains(searchParameters.StudyTitle.ToLower()));
 
             //Filter for OrgCode
             if (!String.IsNullOrWhiteSpace(searchParameters.SponsorId))
@@ -137,14 +137,6 @@ namespace TransCelerate.SDR.DataAccess.Filters
                                                      {
                                                          { Constants.DbFilter.StudyIdentifierOrganisationIdentifier, new BsonRegularExpression($"/{searchParameters.SponsorId}/i") } ,
                                                          { Constants.DbFilter.StudyIdentifierOrganisationTypeDecode, new BsonRegularExpression($"/{Constants.IdType.SPONSOR_ID_V1}$/i")}
-                                                     }
-                                                 )
-                                             ),
-                                     builder.And(
-                                            builder.ElemMatch<BsonDocument>(Constants.DbFilter.StudyIdentifiers, new BsonDocument()
-                                                     {
-                                                         { Constants.DbFilter.StudyIdentifierOrgCode, new BsonRegularExpression($"/{searchParameters.SponsorId}/i") } ,
-                                                         { Constants.DbFilter.StudyIdentifierIdType, new BsonRegularExpression($"/{Constants.IdType.SPONSOR_ID}$/i")}
                                                      }
                                                  )
                                              )
@@ -162,30 +154,29 @@ namespace TransCelerate.SDR.DataAccess.Filters
                     {
                         if (groupFilters.Item1.Any())
                         {
-                            filter &= builder.Or(
-                                        builder.Regex(Constants.DbFilter.StudyType, new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
+                            filter &= builder.Or(                                        
                                         builder.Regex($"{Constants.DbFilter.StudyType}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
-                                        builder.In(x => x.ClinicalStudy.StudyId, groupFilters.Item2)
+                                        builder.In(x => x.Study.StudyId, groupFilters.Item2)
                                         );
                         }
                         else
                         {
-                            filter &= builder.In(x => x.ClinicalStudy.StudyId, groupFilters.Item2);
+                            filter &= builder.In(x => x.Study.StudyId, groupFilters.Item2);
                         }
                     }
                 }
                 else
-                    filter &= builder.Where(x => x.ClinicalStudy == null); //if there are no groups assigned for the user
+                    filter &= builder.Where(x => x.Study == null); //if there are no groups assigned for the user
             }
 
             return filter;
         }
        
 
-        public static FilterDefinition<CommonStudyEntity> GetFiltersForSearchStudy(SearchParametersEntity searchParameters, List<SDRGroupsEntity> groups, LoggedInUser user)
+        public static FilterDefinition<CommonStudyDefinitionsEntity> GetFiltersForSearchStudy(SearchParametersEntity searchParameters, List<SDRGroupsEntity> groups, LoggedInUser user)
         {
-            FilterDefinitionBuilder<CommonStudyEntity> builder = Builders<CommonStudyEntity>.Filter;
-            FilterDefinition<CommonStudyEntity> filter = builder.Empty;
+            FilterDefinitionBuilder<CommonStudyDefinitionsEntity> builder = Builders<CommonStudyDefinitionsEntity>.Filter;
+            FilterDefinition<CommonStudyDefinitionsEntity> filter = builder.Empty;
             
             //Filter for supported USDM Versions
             filter &= builder.In(x => x.AuditTrail.UsdmVersion, ApiUsdmVersionMapping.SDRVersions.SelectMany(y => y.UsdmVersions).ToArray());
@@ -205,26 +196,25 @@ namespace TransCelerate.SDR.DataAccess.Filters
                     {
                         if (groupFilters.Item1.Any())
                         {
-                            filter &= builder.Or(
-                                        builder.Regex(Constants.DbFilter.StudyType, new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
+                            filter &= builder.Or(                                        
                                         builder.Regex($"{Constants.DbFilter.StudyType}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
-                                        builder.In(x => x.ClinicalStudy.StudyId, groupFilters.Item2)
+                                        builder.In(x => x.Study.StudyId, groupFilters.Item2)
                                         );
                         }
                         else
                         {
-                            filter &= builder.In(x => x.ClinicalStudy.StudyId, groupFilters.Item2);
+                            filter &= builder.In(x => x.Study.StudyId, groupFilters.Item2);
                         }
                     }
                 }
                 else
-                    filter &= builder.Where(x => x.ClinicalStudy == null); //if there are no groups assigned for the user
+                    filter &= builder.Where(x => x.Study == null); //if there are no groups assigned for the user
             }
 
 
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
-                filter &= builder.Where(x => x.ClinicalStudy.StudyTitle.ToLower().Contains(searchParameters.StudyTitle.ToLower()));
+                filter &= builder.Where(x => x.Study.StudyTitle.ToLower().Contains(searchParameters.StudyTitle.ToLower()));
 
             //Filter for OrgCode
             if (!String.IsNullOrWhiteSpace(searchParameters.SponsorId))
@@ -237,14 +227,6 @@ namespace TransCelerate.SDR.DataAccess.Filters
                                                          { Constants.DbFilter.StudyIdentifierOrganisationTypeDecode, new BsonRegularExpression($"/{Constants.IdType.SPONSOR_ID_V1}$/i")}
                                      }
                                  )
-                             ),
-                     builder.And(
-                            builder.ElemMatch<BsonDocument>(Constants.DbFilter.StudyIdentifiers, new BsonDocument()
-                                     {
-                                                         { Constants.DbFilter.StudyIdentifierOrgCode, new BsonRegularExpression($"/{searchParameters.SponsorId}/i") } ,
-                                                         { Constants.DbFilter.StudyIdentifierIdType, new BsonRegularExpression($"/{Constants.IdType.SPONSOR_ID}$/i")}
-                                     }
-                                 )
                              )
                     );
             }
@@ -252,8 +234,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
             //Filter for Indication
             if (!String.IsNullOrWhiteSpace(searchParameters.Indication))
             {
-                filter &= builder.Or(
-                     builder.Regex($"{Constants.DbFilter.IndicationMVP}", new BsonRegularExpression($"/{searchParameters.Indication}/i")),
+                filter &= builder.Or(                     
                      builder.Regex($"{Constants.DbFilter.StudyDesigns}.{Constants.DbFilter.StudyIndicationsIndicationDesc}", new BsonRegularExpression($"/{searchParameters.Indication}/i")),
                      builder.Regex($"{Constants.DbFilter.StudyDesigns}.{Constants.DbFilter.StudyIndicationsIndicationDescription}", new BsonRegularExpression($"/{searchParameters.Indication}/i"))
                     );
@@ -262,8 +243,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
             ////Filter for Intervention Model
             if (!String.IsNullOrWhiteSpace(searchParameters.InterventionModel))
             {
-                filter &= builder.Or(
-                     builder.Regex($"{Constants.DbFilter.InterventionModelMVP}", new BsonRegularExpression($"/{searchParameters.InterventionModel}/i")),
+                filter &= builder.Or(                     
                      builder.Regex($"{Constants.DbFilter.StudyDesigns}.{Constants.DbFilter.InterventionModel}", new BsonRegularExpression($"/{searchParameters.InterventionModel}/i"))
                     );
             }
@@ -271,8 +251,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
             //Filter for Study Phase
             if (!String.IsNullOrWhiteSpace(searchParameters.Phase))
             {
-                filter &= builder.Or(
-                     builder.Regex(Constants.DbFilter.StudyPhase, new BsonRegularExpression($"/{searchParameters.Phase}/i")),
+                filter &= builder.Or(                     
                      builder.Regex($"{Constants.DbFilter.StudyPhase}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{searchParameters.Phase}/i")),
                      builder.Regex($"{Constants.DbFilter.StudyPhase}.{Constants.DbFilter.StudyPhaseStandardCodeDecode}", new BsonRegularExpression($"/{searchParameters.Phase}/i"))
                     );
@@ -343,10 +322,10 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// <param name="groups"></param>
         /// <param name="user"></param>
         /// <returns></returns>
-        public static FilterDefinition<Core.Entities.StudyV1.StudyEntity> GetFiltersForSearchV1(SearchParametersEntity searchParameters, List<SDRGroupsEntity> groups, LoggedInUser user)
+        public static FilterDefinition<Core.Entities.StudyV1.StudyDefinitionsEntity> GetFiltersForSearchV1(SearchParametersEntity searchParameters, List<SDRGroupsEntity> groups, LoggedInUser user)
         {
-            FilterDefinitionBuilder<Core.Entities.StudyV1.StudyEntity> builder = Builders<Core.Entities.StudyV1.StudyEntity>.Filter;
-            FilterDefinition<Core.Entities.StudyV1.StudyEntity> filter = builder.Empty;
+            FilterDefinitionBuilder<Core.Entities.StudyV1.StudyDefinitionsEntity> builder = Builders<Core.Entities.StudyV1.StudyDefinitionsEntity>.Filter;
+            FilterDefinition<Core.Entities.StudyV1.StudyDefinitionsEntity> filter = builder.Empty;
 
             //Filter for Date Range
             filter &= builder.Where(x => x.AuditTrail.EntryDateTime >= searchParameters.FromDate
@@ -368,38 +347,38 @@ namespace TransCelerate.SDR.DataAccess.Filters
                         {
                             filter &= builder.Or(                                        
                                         builder.Regex($"{Constants.DbFilter.StudyType}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
-                                        builder.In(x => x.ClinicalStudy.Uuid, groupFilters.Item2)
+                                        builder.In(x => x.Study.Uuid, groupFilters.Item2)
                                         );
                         }
                         else
                         {
-                            filter &= builder.In(x => x.ClinicalStudy.Uuid, groupFilters.Item2);
+                            filter &= builder.In(x => x.Study.Uuid, groupFilters.Item2);
                         }
                     }
                 }
                 else
-                    filter &= builder.Where(x => x.ClinicalStudy == null); //if there are no groups assigned for the user
+                    filter &= builder.Where(x => x.Study == null); //if there are no groups assigned for the user
             }
 
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
-                filter &= builder.Where(x => x.ClinicalStudy.StudyTitle.ToLower().Contains(searchParameters.StudyTitle.ToLower()));
+                filter &= builder.Where(x => x.Study.StudyTitle.ToLower().Contains(searchParameters.StudyTitle.ToLower()));
 
             //Filter for OrgCode
             if (!String.IsNullOrWhiteSpace(searchParameters.SponsorId))
-                filter &= builder.Where(x => x.ClinicalStudy.StudyIdentifiers.Any(x => (x.StudyIdentifierScope.OrganisationIdentifier.ToLower().Contains(searchParameters.SponsorId.ToLower())) && (x.StudyIdentifierScope.OrganisationType.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower())));
+                filter &= builder.Where(x => x.Study.StudyIdentifiers.Any(x => (x.StudyIdentifierScope.OrganisationIdentifier.ToLower().Contains(searchParameters.SponsorId.ToLower())) && (x.StudyIdentifierScope.OrganisationType.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower())));
 
             //Filter for Indication
             if (!String.IsNullOrWhiteSpace(searchParameters.Indication))
-                filter &= builder.Where(x => x.ClinicalStudy.StudyDesigns.Any(x => x.StudyIndications.Any(y => y.IndicationDesc.ToLower().Contains(searchParameters.Indication.ToLower()))));
+                filter &= builder.Where(x => x.Study.StudyDesigns.Any(x => x.StudyIndications.Any(y => y.IndicationDesc.ToLower().Contains(searchParameters.Indication.ToLower()))));
 
             //Filter for Intervention Model
             if (!String.IsNullOrWhiteSpace(searchParameters.InterventionModel))
-                filter &= builder.Where(x => x.ClinicalStudy.StudyDesigns.Any(x => x.InterventionModel.Any(y => y.Decode.ToLower().Contains(searchParameters.InterventionModel.ToLower()))));
+                filter &= builder.Where(x => x.Study.StudyDesigns.Any(x => x.InterventionModel.Any(y => y.Decode.ToLower().Contains(searchParameters.InterventionModel.ToLower()))));
 
             //Filter for Study Phase
             if (!String.IsNullOrWhiteSpace(searchParameters.Phase))
-                filter &= builder.Where(x => x.ClinicalStudy.StudyPhase.Decode.ToLower().Contains(searchParameters.Phase.ToLower()));
+                filter &= builder.Where(x => x.Study.StudyPhase.Decode.ToLower().Contains(searchParameters.Phase.ToLower()));
 
 
             return filter;
@@ -412,10 +391,10 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// <param name="groups"></param>
         /// <param name="user"></param>
         /// <returns></returns>
-        public static FilterDefinition<Core.Entities.StudyV2.StudyEntity> GetFiltersForSearchV2(SearchParametersEntity searchParameters, List<SDRGroupsEntity> groups, LoggedInUser user)
+        public static FilterDefinition<Core.Entities.StudyV2.StudyDefinitionsEntity> GetFiltersForSearchV2(SearchParametersEntity searchParameters, List<SDRGroupsEntity> groups, LoggedInUser user)
         {
-            FilterDefinitionBuilder<Core.Entities.StudyV2.StudyEntity> builder = Builders<Core.Entities.StudyV2.StudyEntity>.Filter;
-            FilterDefinition<Core.Entities.StudyV2.StudyEntity> filter = builder.Empty;
+            FilterDefinitionBuilder<Core.Entities.StudyV2.StudyDefinitionsEntity> builder = Builders<Core.Entities.StudyV2.StudyDefinitionsEntity>.Filter;
+            FilterDefinition<Core.Entities.StudyV2.StudyDefinitionsEntity> filter = builder.Empty;
 
             //Filter for Date Range
             filter &= builder.Where(x => x.AuditTrail.EntryDateTime >= searchParameters.FromDate
@@ -437,38 +416,38 @@ namespace TransCelerate.SDR.DataAccess.Filters
                         {
                             filter &= builder.Or(
                                         builder.Regex($"{Constants.DbFilter.StudyType}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
-                                        builder.In(x => x.ClinicalStudy.StudyId, groupFilters.Item2)
+                                        builder.In(x => x.Study.StudyId, groupFilters.Item2)
                                         );
                         }
                         else
                         {
-                            filter &= builder.In(x => x.ClinicalStudy.StudyId, groupFilters.Item2);
+                            filter &= builder.In(x => x.Study.StudyId, groupFilters.Item2);
                         }
                     }
                 }
                 else
-                    filter &= builder.Where(x => x.ClinicalStudy == null); //if there are no groups assigned for the user
+                    filter &= builder.Where(x => x.Study == null); //if there are no groups assigned for the user
             }
 
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
-                filter &= builder.Where(x => x.ClinicalStudy.StudyTitle.ToLower().Contains(searchParameters.StudyTitle.ToLower()));
+                filter &= builder.Where(x => x.Study.StudyTitle.ToLower().Contains(searchParameters.StudyTitle.ToLower()));
 
             //Filter for OrgCode
             if (!String.IsNullOrWhiteSpace(searchParameters.SponsorId))
-                filter &= builder.Where(x => x.ClinicalStudy.StudyIdentifiers.Any(x => (x.StudyIdentifierScope.OrganisationIdentifier.ToLower().Contains(searchParameters.SponsorId.ToLower())) && (x.StudyIdentifierScope.OrganisationType.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower())));
+                filter &= builder.Where(x => x.Study.StudyIdentifiers.Any(x => (x.StudyIdentifierScope.OrganisationIdentifier.ToLower().Contains(searchParameters.SponsorId.ToLower())) && (x.StudyIdentifierScope.OrganisationType.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower())));
 
             //Filter for Indication
             if (!String.IsNullOrWhiteSpace(searchParameters.Indication))
-                filter &= builder.Where(x => x.ClinicalStudy.StudyDesigns.Any(x => x.StudyIndications.Any(y => y.IndicationDescription.ToLower().Contains(searchParameters.Indication.ToLower()))));
+                filter &= builder.Where(x => x.Study.StudyDesigns.Any(x => x.StudyIndications.Any(y => y.IndicationDescription.ToLower().Contains(searchParameters.Indication.ToLower()))));
 
             //Filter for Intervention Model
             if (!String.IsNullOrWhiteSpace(searchParameters.InterventionModel))
-                filter &= builder.Where(x => x.ClinicalStudy.StudyDesigns.Any(x => x.InterventionModel.Decode.ToLower().Contains(searchParameters.InterventionModel.ToLower())));
+                filter &= builder.Where(x => x.Study.StudyDesigns.Any(x => x.InterventionModel.Decode.ToLower().Contains(searchParameters.InterventionModel.ToLower())));
 
             //Filter for Study Phase
             if (!String.IsNullOrWhiteSpace(searchParameters.Phase))
-                filter &= builder.Where(x => x.ClinicalStudy.StudyPhase.StandardCode.Decode.ToLower().Contains(searchParameters.Phase.ToLower()));
+                filter &= builder.Where(x => x.Study.StudyPhase.StandardCode.Decode.ToLower().Contains(searchParameters.Phase.ToLower()));
 
 
             return filter;
@@ -522,10 +501,10 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// <param name="groups"></param>
         /// <param name="user"></param>
         /// <returns></returns>
-        public static FilterDefinition<Core.Entities.StudyV3.StudyEntity> GetFiltersForSearchV3(SearchParametersEntity searchParameters, List<SDRGroupsEntity> groups, LoggedInUser user)
+        public static FilterDefinition<Core.Entities.StudyV3.StudyDefinitionsEntity> GetFiltersForSearchV3(SearchParametersEntity searchParameters, List<SDRGroupsEntity> groups, LoggedInUser user)
         {
-            FilterDefinitionBuilder<Core.Entities.StudyV3.StudyEntity> builder = Builders<Core.Entities.StudyV3.StudyEntity>.Filter;
-            FilterDefinition<Core.Entities.StudyV3.StudyEntity> filter = builder.Empty;
+            FilterDefinitionBuilder<Core.Entities.StudyV3.StudyDefinitionsEntity> builder = Builders<Core.Entities.StudyV3.StudyDefinitionsEntity>.Filter;
+            FilterDefinition<Core.Entities.StudyV3.StudyDefinitionsEntity> filter = builder.Empty;
 
             //Filter for Date Range
             filter &= builder.Where(x => x.AuditTrail.EntryDateTime >= searchParameters.FromDate
@@ -547,38 +526,38 @@ namespace TransCelerate.SDR.DataAccess.Filters
                         {
                             filter &= builder.Or(
                                         builder.Regex($"{Constants.DbFilter.StudyType}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
-                                        builder.In(x => x.ClinicalStudy.StudyId, groupFilters.Item2)
+                                        builder.In(x => x.Study.StudyId, groupFilters.Item2)
                                         );
                         }
                         else
                         {
-                            filter &= builder.In(x => x.ClinicalStudy.StudyId, groupFilters.Item2);
+                            filter &= builder.In(x => x.Study.StudyId, groupFilters.Item2);
                         }
                     }
                 }
                 else
-                    filter &= builder.Where(x => x.ClinicalStudy == null); //if there are no groups assigned for the user
+                    filter &= builder.Where(x => x.Study == null); //if there are no groups assigned for the user
             }
 
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
-                filter &= builder.Where(x => x.ClinicalStudy.StudyTitle.ToLower().Contains(searchParameters.StudyTitle.ToLower()));
+                filter &= builder.Where(x => x.Study.StudyTitle.ToLower().Contains(searchParameters.StudyTitle.ToLower()));
 
             //Filter for OrgCode
             if (!String.IsNullOrWhiteSpace(searchParameters.SponsorId))
-                filter &= builder.Where(x => x.ClinicalStudy.StudyIdentifiers.Any(x => (x.StudyIdentifierScope.OrganisationIdentifier.ToLower().Contains(searchParameters.SponsorId.ToLower())) && (x.StudyIdentifierScope.OrganisationType.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower())));
+                filter &= builder.Where(x => x.Study.StudyIdentifiers.Any(x => (x.StudyIdentifierScope.OrganisationIdentifier.ToLower().Contains(searchParameters.SponsorId.ToLower())) && (x.StudyIdentifierScope.OrganisationType.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower())));
 
             //Filter for Indication
             if (!String.IsNullOrWhiteSpace(searchParameters.Indication))
-                filter &= builder.Where(x => x.ClinicalStudy.StudyDesigns.Any(x => x.StudyIndications.Any(y => y.IndicationDescription.ToLower().Contains(searchParameters.Indication.ToLower()))));
+                filter &= builder.Where(x => x.Study.StudyDesigns.Any(x => x.StudyIndications.Any(y => y.IndicationDescription.ToLower().Contains(searchParameters.Indication.ToLower()))));
 
             //Filter for Intervention Model
             if (!String.IsNullOrWhiteSpace(searchParameters.InterventionModel))
-                filter &= builder.Where(x => x.ClinicalStudy.StudyDesigns.Any(x => x.InterventionModel.Decode.ToLower().Contains(searchParameters.InterventionModel.ToLower())));
+                filter &= builder.Where(x => x.Study.StudyDesigns.Any(x => x.InterventionModel.Decode.ToLower().Contains(searchParameters.InterventionModel.ToLower())));
 
             //Filter for Study Phase
             if (!String.IsNullOrWhiteSpace(searchParameters.Phase))
-                filter &= builder.Where(x => x.ClinicalStudy.StudyPhase.StandardCode.Decode.ToLower().Contains(searchParameters.Phase.ToLower()));
+                filter &= builder.Where(x => x.Study.StudyPhase.StandardCode.Decode.ToLower().Contains(searchParameters.Phase.ToLower()));
 
 
             return filter;

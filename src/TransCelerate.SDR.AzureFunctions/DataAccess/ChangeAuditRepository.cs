@@ -42,15 +42,15 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
         /// <returns> A <see cref="List{StudyEntity}"/> with matching studyId
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public List<Core.Entities.StudyV2.StudyEntity> GetStudyItemsAsyncV2(string studyId, int sdruploadversion)
+        public List<Core.Entities.StudyV2.StudyDefinitionsEntity> GetStudyItemsAsyncV2(string studyId, int sdruploadversion)
         {
             _logger.LogInformation($"Started Repository : {nameof(ChangeAuditRepository)}; Method : {nameof(GetStudyItemsAsyncV2)};");
             try
             {
-                IMongoCollection<Core.Entities.StudyV2.StudyEntity> collection = _database.GetCollection<Core.Entities.StudyV2.StudyEntity>(Constants.Collections.StudyDefinitions);
+                IMongoCollection<Core.Entities.StudyV2.StudyDefinitionsEntity> collection = _database.GetCollection<Core.Entities.StudyV2.StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
 
 
-                List<Core.Entities.StudyV2.StudyEntity> studies = collection.Find(x => (x.ClinicalStudy.StudyId == studyId) &&
+                List<Core.Entities.StudyV2.StudyDefinitionsEntity> studies = collection.Find(x => (x.Study.StudyId == studyId) &&
                                                            (x.AuditTrail.SDRUploadVersion == sdruploadversion || x.AuditTrail.SDRUploadVersion == sdruploadversion - 1))
                                                      .SortByDescending(s => s.AuditTrail.EntryDateTime)
                                                      .Limit(2)
@@ -83,15 +83,15 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
         /// <returns> A <see cref="List{StudyEntity}"/> with matching studyId
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public List<Core.Entities.StudyV3.StudyEntity> GetStudyItemsAsyncV3(string studyId, int sdruploadversion)
+        public List<Core.Entities.StudyV3.StudyDefinitionsEntity> GetStudyItemsAsyncV3(string studyId, int sdruploadversion)
         {
             _logger.LogInformation($"Started Repository : {nameof(ChangeAuditRepository)}; Method : {nameof(GetStudyItemsAsyncV3)};");
             try
             {
-                IMongoCollection<Core.Entities.StudyV3.StudyEntity> collection = _database.GetCollection<Core.Entities.StudyV3.StudyEntity>(Constants.Collections.StudyDefinitions);
+                IMongoCollection<Core.Entities.StudyV3.StudyDefinitionsEntity> collection = _database.GetCollection<Core.Entities.StudyV3.StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
 
 
-                List<Core.Entities.StudyV3.StudyEntity> studies = collection.Find(x => (x.ClinicalStudy.StudyId == studyId) &&
+                List<Core.Entities.StudyV3.StudyDefinitionsEntity> studies = collection.Find(x => (x.Study.StudyId == studyId) &&
                                                            (x.AuditTrail.SDRUploadVersion == sdruploadversion || x.AuditTrail.SDRUploadVersion == sdruploadversion - 1))
                                                      .SortByDescending(s => s.AuditTrail.EntryDateTime)
                                                      .Limit(2)
@@ -129,10 +129,10 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
             _logger.LogInformation($"Started Repository : {nameof(ChangeAuditRepository)}; Method : {nameof(GetAuditTrailsAsync)};");
             try
             {
-                IMongoCollection<CommonStudyEntity> collection = _database.GetCollection<CommonStudyEntity>(Constants.Collections.StudyDefinitions);
+                IMongoCollection<CommonStudyDefinitionsEntity> collection = _database.GetCollection<CommonStudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
 
 
-                List<Core.Entities.Common.AuditTrailEntity> auditTrails = collection.Find(x => (x.ClinicalStudy.StudyId == studyId) &&
+                List<Core.Entities.Common.AuditTrailEntity> auditTrails = collection.Find(x => (x.Study.StudyId == studyId) &&
                                                            (x.AuditTrail.SDRUploadVersion == sdruploadversion || x.AuditTrail.SDRUploadVersion == sdruploadversion - 1))
                                                      .SortByDescending(s => s.AuditTrail.EntryDateTime)
                                                      .Limit(2)
@@ -231,7 +231,7 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
                 UpdateDefinition<ChangeAuditStudyEntity> updateDefinition = Builders<ChangeAuditStudyEntity>.Update
                                     .Set(s => s.ChangeAudit.Changes, changeAudit.ChangeAudit.Changes);
                 collection.UpdateOne(x => x.ChangeAudit.StudyId == changeAudit.ChangeAudit.StudyId,
-                                                   updateDefinition); // Update clinicalStudy and auditTrail           
+                                                   updateDefinition); // Update study and auditTrail           
             }
             catch (Exception)
             {

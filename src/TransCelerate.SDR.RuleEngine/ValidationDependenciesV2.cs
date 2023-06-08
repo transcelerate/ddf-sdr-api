@@ -16,7 +16,7 @@ namespace TransCelerate.SDR.RuleEngineV2
             // Validators            
             services.AddTransient<IValidator<ActivityDto>, ActivityValidator>();
             services.AddTransient<IValidator<AnalysisPopulationDto>, AnalysisPopulationValidator>();
-            services.AddTransient<IValidator<ClinicalStudyDto>, ClinicalStudyValidator>();
+            services.AddTransient<IValidator<StudyDto>, StudyValidator>();
             services.AddTransient<IValidator<CodeDto>, CodeValidator>();
             services.AddTransient<IValidator<ProcedureDto>, ProcedureValidator>();
             services.AddTransient<IValidator<EncounterDto>, EncounterValidator>();
@@ -30,7 +30,7 @@ namespace TransCelerate.SDR.RuleEngineV2
             services.AddTransient<IValidator<StudyCellDto>, StudyCellsValidator>();
             services.AddTransient<IValidator<StudyDesignDto>, StudyDesignValidator>();
             services.AddTransient<IValidator<StudyDesignPopulationDto>, StudyDesignPopulationValidator>();
-            services.AddTransient<IValidator<StudyDto>, StudyValidator>();
+            services.AddTransient<IValidator<StudyDefinitionsDto>, StudyDefinitionsValidator>();
             services.AddTransient<IValidator<StudyElementDto>, StudyElementsValidator>();
             services.AddTransient<IValidator<StudyEpochDto>, StudyEpochValidator>();
             services.AddTransient<IValidator<StudyIdentifierDto>, StudyIdentifiersValidator>();

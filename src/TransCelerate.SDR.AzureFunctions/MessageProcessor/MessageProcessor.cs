@@ -60,10 +60,10 @@ namespace TransCelerate.SDR.AzureFunctions
                 if (currentApiVersion == Constants.ApiVersions.V2)
                 {
                     //Get the studies with current and previous version
-                    List<Core.Entities.StudyV2.StudyEntity> studyEntities = _changeAuditReposotory.GetStudyItemsAsyncV2(serviceBusMessageEntity.Study_uuid, serviceBusMessageEntity.CurrentVersion);
+                    List<Core.Entities.StudyV2.StudyDefinitionsEntity> studyEntities = _changeAuditReposotory.GetStudyItemsAsyncV2(serviceBusMessageEntity.Study_uuid, serviceBusMessageEntity.CurrentVersion);
 
-                    Core.Entities.StudyV2.StudyEntity currentStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion).FirstOrDefault();
-                    Core.Entities.StudyV2.StudyEntity previousStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion - 1).FirstOrDefault();
+                    Core.Entities.StudyV2.StudyDefinitionsEntity currentStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion).FirstOrDefault();
+                    Core.Entities.StudyV2.StudyDefinitionsEntity previousStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion - 1).FirstOrDefault();
 
                     //Get the changes between current and previous version
                     changedValues = _helperV2.GetChangedValues(currentStudyVersion, previousStudyVersion);
@@ -72,10 +72,10 @@ namespace TransCelerate.SDR.AzureFunctions
                 if (currentApiVersion == Constants.ApiVersions.V3)
                 {
                     //Get the studies with current and previous version
-                    List<Core.Entities.StudyV3.StudyEntity> studyEntities = _changeAuditReposotory.GetStudyItemsAsyncV3(serviceBusMessageEntity.Study_uuid, serviceBusMessageEntity.CurrentVersion);
+                    List<Core.Entities.StudyV3.StudyDefinitionsEntity> studyEntities = _changeAuditReposotory.GetStudyItemsAsyncV3(serviceBusMessageEntity.Study_uuid, serviceBusMessageEntity.CurrentVersion);
 
-                    Core.Entities.StudyV3.StudyEntity currentStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion).FirstOrDefault();
-                    Core.Entities.StudyV3.StudyEntity previousStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion - 1).FirstOrDefault();
+                    Core.Entities.StudyV3.StudyDefinitionsEntity currentStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion).FirstOrDefault();
+                    Core.Entities.StudyV3.StudyDefinitionsEntity previousStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion - 1).FirstOrDefault();
 
                     //Get the changes between current and previous version
                     changedValues = _helperV3.GetChangedValues(currentStudyVersion, previousStudyVersion);

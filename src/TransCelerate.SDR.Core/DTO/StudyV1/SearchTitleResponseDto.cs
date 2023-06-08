@@ -9,11 +9,11 @@ namespace TransCelerate.SDR.Core.DTO.StudyV1
     /// </summary>
     public class SearchTitleResponseDto
     {
-        public SearchTitleClinicalStudy ClinicalStudy { get; set; }
+        public SearchTitleStudy Study { get; set; }
         public SearchTitleAuditTrail AuditTrail { get; set; }
     }
 
-    public class SearchTitleClinicalStudy
+    public class SearchTitleStudy
     {
         public string Uuid { get; set; }
         public string StudyTitle { get; set; }
