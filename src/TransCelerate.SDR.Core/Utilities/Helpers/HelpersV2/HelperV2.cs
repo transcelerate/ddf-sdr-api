@@ -717,25 +717,25 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
             List<string> changedValues = new();
 
             if (currentStudyVersion.Study.StudyTitle != previousStudyVersion.Study.StudyTitle)
-                changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.StudyTitle)}");
+                changedValues.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}.{nameof(StudyEntity.StudyTitle)}");
             if (currentStudyVersion.Study.StudyVersion != previousStudyVersion.Study.StudyVersion)
-                changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.StudyVersion)}");
+                changedValues.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}.{nameof(StudyEntity.StudyVersion)}");
             if (currentStudyVersion.Study.StudyRationale != previousStudyVersion.Study.StudyRationale)
-                changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.StudyRationale)}");
+                changedValues.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}.{nameof(StudyEntity.StudyRationale)}");
             if (currentStudyVersion.Study.StudyAcronym != previousStudyVersion.Study.StudyAcronym)
-                changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.StudyAcronym)}");
+                changedValues.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}.{nameof(StudyEntity.StudyAcronym)}");
             if (GetDifferences<CodeEntity>(currentStudyVersion.Study.StudyType, previousStudyVersion.Study.StudyType).Any())
-                changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.StudyType)}");
+                changedValues.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}.{nameof(StudyEntity.StudyType)}");
 
             //StudyPhase
             GetDifferenceForAliasCode(currentStudyVersion.Study.StudyPhase, previousStudyVersion.Study.StudyPhase).ForEach(x =>
             {
-                changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.StudyPhase)}.{x}");
+                changedValues.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}.{nameof(StudyEntity.StudyPhase)}.{x}");
             });
 
             //BusinessTherapeuticAreas
             if (GetDifferences<List<CodeEntity>>(currentStudyVersion.Study.BusinessTherapeuticAreas, previousStudyVersion.Study.BusinessTherapeuticAreas).Any())
-                changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.BusinessTherapeuticAreas)}");
+                changedValues.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}.{nameof(StudyEntity.BusinessTherapeuticAreas)}");
 
             //StudyIdentifiers
             changedValues.AddRange(GetDifferenceForStudyIdentifiers(currentStudyVersion.Study.StudyIdentifiers, previousStudyVersion.Study.StudyIdentifiers));
@@ -799,13 +799,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
         {
             var tempList = new List<string>();
             if ((currentVersion is null && previousVersion is not null) || (currentVersion is not null && previousVersion is null))
-                tempList.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.StudyIdentifiers)}");
+                tempList.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}.{nameof(StudyEntity.StudyIdentifiers)}");
             if (currentVersion?.Count != previousVersion?.Count)
                 if (currentVersion?.Count != previousVersion?.Count)
-                    tempList.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.StudyIdentifiers)}");
+                    tempList.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}.{nameof(StudyEntity.StudyIdentifiers)}");
             GetDifferenceForAList<StudyIdentifierEntity>(currentVersion, previousVersion).ForEach(x =>
             {
-                tempList.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.StudyIdentifiers)}.{x}");
+                tempList.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}.{nameof(StudyEntity.StudyIdentifiers)}.{x}");
             });
             return tempList;
         }
@@ -844,12 +844,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
         {
             var tempList = new List<string>();
             if ((currentVersion is null && previousVersion is not null) || (currentVersion is not null && previousVersion is null))
-                tempList.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.StudyProtocolVersions)}");
+                tempList.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}.{nameof(StudyEntity.StudyProtocolVersions)}");
             if (currentVersion?.Count != previousVersion?.Count)
-                tempList.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.StudyProtocolVersions)}");
+                tempList.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}.{nameof(StudyEntity.StudyProtocolVersions)}");
             GetDifferenceForAList<StudyProtocolVersionEntity>(currentVersion, previousVersion).ForEach(x =>
             {
-                tempList.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.StudyProtocolVersions)}.{x}");
+                tempList.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}.{nameof(StudyEntity.StudyProtocolVersions)}.{x}");
             });
             return tempList;
         }
@@ -860,16 +860,16 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
             List<string> formattedChangedValues = new();
 
             if ((currentVersion is null && previousVersion is not null) || (currentVersion is not null && previousVersion is null))
-                formattedChangedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.StudyDesigns)}");
+                formattedChangedValues.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}.{nameof(StudyEntity.StudyDesigns)}");
             if (currentVersion?.Count != previousVersion?.Count)
-                formattedChangedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.StudyDesigns)}");
+                formattedChangedValues.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}.{nameof(StudyEntity.StudyDesigns)}");
             changedValues.AddRange(GetDifferenceForEachStudyDesigns(currentVersion, previousVersion));
 
             if (changedValues.Any())
             {
                 changedValues.ForEach(x =>
                 {
-                    string addRootPath = $"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.StudyDesigns)}.{x}";
+                    string addRootPath = $"{IdFieldPropertyName.ParentElement.ClinicalStudy}.{nameof(StudyEntity.StudyDesigns)}.{x}";
                     formattedChangedValues.Add(addRootPath);
                 });
             }
@@ -1301,13 +1301,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                         List<string> tempStudyEpochUUIDs = studyEpochUUIDs.ToList();
                         tempStudyEpochUUIDs.RemoveAll(x => x == cell.StudyEpoch.Id);
                         if (!String.IsNullOrWhiteSpace(cell.StudyEpoch.PreviousStudyEpochId) && !tempStudyEpochUUIDs.Contains(cell.StudyEpoch.PreviousStudyEpochId))
-                            errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                            errors.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}." +
                                 $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                                 $"{nameof(StudyDesignDto.StudyCells)}[{design.StudyCells.IndexOf(cell)}]." +
                                 $"{nameof(StudyCellDto.StudyEpoch)}.{nameof(StudyEpochDto.PreviousStudyEpochId)}");
 
                         if (!String.IsNullOrWhiteSpace(cell.StudyEpoch.NextStudyEpochId) && !tempStudyEpochUUIDs.Contains(cell.StudyEpoch.NextStudyEpochId))
-                            errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                            errors.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}." +
                                 $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                                 $"{nameof(StudyDesignDto.StudyCells)}[{design.StudyCells.IndexOf(cell)}].{nameof(StudyCellDto.StudyEpoch)}." +
                                 $"{nameof(StudyEpochDto.NextStudyEpochId)}");
@@ -1318,7 +1318,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                             {
                                 List<string> encounterIds = design.Encounters is null ? new List<string>() : design.Encounters.Select(x => x.Id).ToList();
                                 if (!String.IsNullOrWhiteSpace(encounterId) && !encounterIds.Contains(encounterId))
-                                    errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                    errors.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}." +
                                                $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                                                $"{nameof(StudyDesignDto.StudyCells)}[{design.StudyCells.IndexOf(cell)}].{nameof(StudyCellDto.StudyEpoch)}." +
                                                $"{nameof(StudyEpochDto.Encounters)}[{cell.StudyEpoch.Encounters.IndexOf(encounterId)}]");
@@ -1347,7 +1347,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                     List<string> scheduleTimelineExitIds = scheduleTimeline.ScheduleTimelineExits is null ? new List<string>() : scheduleTimeline.ScheduleTimelineExits.Select(x => x.Id).ToList();
 
                     if (!String.IsNullOrWhiteSpace(scheduleTimeline.ScheduleTimelineEntryId) && !scheduledTimelineInstanceIds.Contains(scheduleTimeline.ScheduleTimelineEntryId))
-                        errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                        errors.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}." +
                             $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                             $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}].{nameof(ScheduleTimelineDto.ScheduleTimelineEntryId)}");
 
@@ -1356,21 +1356,21 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                         scheduleTimeline.ScheduleTimelineInstances.ForEach(timelineInstance =>
                         {
                             if (!String.IsNullOrWhiteSpace(timelineInstance.ScheduleTimelineExitId) && !scheduleTimelineExitIds.Contains(timelineInstance.ScheduleTimelineExitId))
-                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                errors.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}." +
                                     $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                                     $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}]." +
                                     $"{nameof(ScheduleTimelineDto.ScheduleTimelineInstances)}[{scheduleTimeline.ScheduleTimelineInstances.IndexOf(timelineInstance)}]." +
                                     $"{nameof(ScheduledInstanceDto.ScheduleTimelineExitId)}");
 
                             if (!String.IsNullOrWhiteSpace(timelineInstance.ScheduledInstanceEncounterId) && !encounterIds.Contains(timelineInstance.ScheduledInstanceEncounterId))
-                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                errors.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}." +
                                     $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                                     $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}]." +
                                     $"{nameof(ScheduleTimelineDto.ScheduleTimelineInstances)}[{scheduleTimeline.ScheduleTimelineInstances.IndexOf(timelineInstance)}]." +
                                     $"{nameof(ScheduledInstanceDto.ScheduledInstanceEncounterId)}");
 
                             if (!String.IsNullOrWhiteSpace(timelineInstance.ScheduledInstanceTimelineId) && !scheduledTimelineIds.Contains(timelineInstance.ScheduledInstanceTimelineId))
-                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                errors.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}." +
                                     $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                                     $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}]." +
                                     $"{nameof(ScheduleTimelineDto.ScheduleTimelineInstances)}[{scheduleTimeline.ScheduleTimelineInstances.IndexOf(timelineInstance)}]." +
@@ -1384,7 +1384,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                                     activityIds.ForEach(id =>
                                     {
                                         if (!String.IsNullOrWhiteSpace(id) && !allActivityIds.Contains(id))
-                                            errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                            errors.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}." +
                                                 $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                                                 $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}]." +
                                                 $"{nameof(ScheduleTimelineDto.ScheduleTimelineInstances)}[{scheduleTimeline.ScheduleTimelineInstances.IndexOf(timelineInstance)}]." +
@@ -1398,7 +1398,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                                 timelineInstance.ScheduledInstanceTimings.ForEach(timing =>
                                 {
                                     if (!String.IsNullOrWhiteSpace(timing.RelativeFromScheduledInstanceId) && !allScheduleInstanceIds.Contains(timing.RelativeFromScheduledInstanceId))
-                                        errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                        errors.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}." +
                                             $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                                             $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}]." +
                                             $"{nameof(ScheduleTimelineDto.ScheduleTimelineInstances)}[{scheduleTimeline.ScheduleTimelineInstances.IndexOf(timelineInstance)}]." +
@@ -1406,7 +1406,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                                             $"{nameof(TimingDto.RelativeFromScheduledInstanceId)}");
 
                                     if (!String.IsNullOrWhiteSpace(timing.RelativeToScheduledInstanceId) && !allScheduleInstanceIds.Contains(timing.RelativeToScheduledInstanceId))
-                                        errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                        errors.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}." +
                                             $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                                             $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}]." +
                                             $"{nameof(ScheduleTimelineDto.ScheduleTimelineInstances)}[{scheduleTimeline.ScheduleTimelineInstances.IndexOf(timelineInstance)}]." +
@@ -1439,19 +1439,19 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                     List<string> tempActIDs = activitiesIds.ToList();
                     tempActIDs.RemoveAll(x => x == act.Id);
                     if (!String.IsNullOrWhiteSpace(act.PreviousActivityId) && !tempActIDs.Contains(act.PreviousActivityId))
-                        errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                        errors.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}." +
                             $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                             $"{nameof(StudyDesignDto.Activities)}[{design.Activities.IndexOf(act)}]." +
                             $"{nameof(ActivityDto.PreviousActivityId)}");
 
                     if (!String.IsNullOrWhiteSpace(act.NextActivityId) && !tempActIDs.Contains(act.NextActivityId))
-                        errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                        errors.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}." +
                           $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                           $"{nameof(StudyDesignDto.Activities)}[{design.Activities.IndexOf(act)}]." +
                           $"{nameof(ActivityDto.NextActivityId)}");
 
                     if (!String.IsNullOrWhiteSpace(act.ActivityTimelineId) && !scheduleTimelineIds.Contains(act.ActivityTimelineId))
-                        errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                        errors.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}." +
                           $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                           $"{nameof(StudyDesignDto.Activities)}[{design.Activities.IndexOf(act)}]." +
                           $"{nameof(ActivityDto.ActivityTimelineId)}");
@@ -1461,7 +1461,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                         act.BiomedicalConceptIds.ForEach(bc =>
                         {
                             if (!String.IsNullOrWhiteSpace(bc) && !biomedicalConceptIds.Contains(bc))
-                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                errors.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}." +
                                            $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                                            $"{nameof(StudyDesignDto.Activities)}[{design.Activities.IndexOf(act)}]." +
                                            $"{nameof(ActivityDto.BiomedicalConceptIds)}[{act.BiomedicalConceptIds.IndexOf(bc)}]");
@@ -1472,7 +1472,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                         act.BcCategoryIds.ForEach(bcCat =>
                         {
                             if (!String.IsNullOrWhiteSpace(bcCat) && !bcCategoryIds.Contains(bcCat))
-                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                errors.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}." +
                                            $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                                            $"{nameof(StudyDesignDto.Activities)}[{design.Activities.IndexOf(act)}]." +
                                            $"{nameof(ActivityDto.BcCategoryIds)}[{act.BcCategoryIds.IndexOf(bcCat)}]");
@@ -1483,7 +1483,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                         act.BcSurrogateIds.ForEach(bcSurr =>
                         {
                             if (!String.IsNullOrWhiteSpace(bcSurr) && !bcSurrogateIds.Contains(bcSurr))
-                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                errors.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}." +
                                            $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                                            $"{nameof(StudyDesignDto.Activities)}[{design.Activities.IndexOf(act)}]." +
                                            $"{nameof(ActivityDto.BcSurrogateIds)}[{act.BcSurrogateIds.IndexOf(bcSurr)}]");
@@ -1512,19 +1512,19 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                     List<string> tempencounterIds = encounterIds.ToList();
                     tempencounterIds.RemoveAll(x => x == enc.Id);
                     if (!String.IsNullOrWhiteSpace(enc.PreviousEncounterId) && !tempencounterIds.Contains(enc.PreviousEncounterId))
-                        errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                        errors.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}." +
                             $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                             $"{nameof(StudyDesignDto.Encounters)}[{design.Encounters.IndexOf(enc)}]." +
                             $"{nameof(EncounterDto.PreviousEncounterId)}");
 
                     if (!String.IsNullOrWhiteSpace(enc.NextEncounterId) && !tempencounterIds.Contains(enc.NextEncounterId))
-                        errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                        errors.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}." +
                           $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                           $"{nameof(StudyDesignDto.Encounters)}[{design.Encounters.IndexOf(enc)}]." +
                           $"{nameof(EncounterDto.NextEncounterId)}");
 
                     if (!String.IsNullOrWhiteSpace(enc.EncounterScheduledAtTimingId) && !allTimingIds.Contains(enc.EncounterScheduledAtTimingId))
-                        errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                        errors.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}." +
                           $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                           $"{nameof(StudyDesignDto.Encounters)}[{design.Encounters.IndexOf(enc)}]." +
                           $"{nameof(EncounterDto.EncounterScheduledAtTimingId)}");
@@ -1546,13 +1546,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                     List<string> endpointIds = design.StudyObjectives is null ? new List<string>() : design.StudyObjectives.Select(x => x?.ObjectiveEndpoints).Where(y => y != null).SelectMany(x => x.Select(y => y.Id)).ToList();
 
                     if (!String.IsNullOrWhiteSpace(estimand.Treatment) && !investigationalInterventionIds.Contains(estimand.Treatment))
-                        errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                        errors.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}." +
                             $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                             $"{nameof(StudyDesignDto.StudyEstimands)}[{design.StudyEstimands.IndexOf(estimand)}]." +
                             $"{nameof(EstimandDto.Treatment)}");
 
                     if (!String.IsNullOrWhiteSpace(estimand.VariableOfInterest) && !endpointIds.Contains(estimand.VariableOfInterest))
-                        errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                        errors.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}." +
                             $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                             $"{nameof(StudyDesignDto.StudyEstimands)}[{design.StudyEstimands.IndexOf(estimand)}]." +
                             $"{nameof(EstimandDto.VariableOfInterest)}");
@@ -1580,7 +1580,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                         bcCat.BcCategoryParentIds.ForEach(parent =>
                         {
                             if (!String.IsNullOrWhiteSpace(parent) && !tempCategoryIds.Contains(parent))
-                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                errors.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}." +
                                            $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                                            $"{nameof(StudyDesignDto.BcCategories)}[{design.BcCategories.IndexOf(bcCat)}]." +
                                            $"{nameof(BiomedicalConceptCategoryDto.BcCategoryParentIds)}[{bcCat.BcCategoryParentIds.IndexOf(parent)}]");
@@ -1591,7 +1591,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                         bcCat.BcCategoryChildrenIds.ForEach(child =>
                         {
                             if (!String.IsNullOrWhiteSpace(child) && !tempCategoryIds.Contains(child))
-                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                errors.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}." +
                                            $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                                            $"{nameof(StudyDesignDto.BcCategories)}[{design.BcCategories.IndexOf(bcCat)}]." +
                                            $"{nameof(BiomedicalConceptCategoryDto.BcCategoryChildrenIds)}[{bcCat.BcCategoryChildrenIds.IndexOf(child)}]");
@@ -1602,7 +1602,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
                         bcCat.BcCategoryMemberIds.ForEach(member =>
                         {
                             if (!String.IsNullOrWhiteSpace(member) && !biomedicalConceptIds.Contains(member))
-                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                errors.Add($"{IdFieldPropertyName.ParentElement.ClinicalStudy}." +
                                            $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                                            $"{nameof(StudyDesignDto.BcCategories)}[{design.BcCategories.IndexOf(bcCat)}]." +
                                            $"{nameof(BiomedicalConceptCategoryDto.BcCategoryMemberIds)}[{bcCat.BcCategoryMemberIds.IndexOf(member)}]");
