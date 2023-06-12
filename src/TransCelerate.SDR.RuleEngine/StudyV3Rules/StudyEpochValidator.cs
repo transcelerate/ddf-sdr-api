@@ -38,14 +38,7 @@ namespace TransCelerate.SDR.RuleEngineV3
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyEpochValidator), nameof(StudyEpochDto.StudyEpochType)), ApplyConditionTo.AllValidators)
-               .SetValidator(new CodeValidator(_httpContextAccessor));
-
-            RuleFor(x => x.EncounterIds)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyEpochValidator), nameof(StudyEpochDto.EncounterIds)), ApplyConditionTo.AllValidators)
-                .Must(x => UniquenessArrayValidator.ValidateStringList(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+               .SetValidator(new CodeValidator(_httpContextAccessor));            
 
             RuleFor(x => x.NextStudyEpochId)
                .Cascade(CascadeMode.Stop)

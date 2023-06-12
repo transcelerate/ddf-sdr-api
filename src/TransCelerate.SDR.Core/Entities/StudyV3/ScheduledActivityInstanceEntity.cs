@@ -7,6 +7,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV3
     public class ScheduledActivityInstanceEntity : ScheduledInstanceEntity
     {
         public override string ScheduledInstanceType { get; set; } = nameof(Utilities.ScheduledInstanceType.ACTIVITY);
+        public string ScheduledActivityInstanceEncounterId { get; set; }
         public List<string> ActivityIds { get; set; }
     }
 }

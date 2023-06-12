@@ -13,6 +13,5 @@ namespace TransCelerate.SDR.Core.Entities.StudyV3
         public string StudyEpochDescription { get; set; }
         public string StudyEpochName { get; set; }
         public CodeEntity StudyEpochType { get; set; }
-        public List<string> EncounterIds { get; set; }
     }
 }

@@ -26,5 +26,8 @@ namespace TransCelerate.SDR.Core.DTO.StudyV3
         public List<BiomedicalConceptDto> BiomedicalConcepts { get; set; }
         public List<BiomedicalConceptCategoryDto> BcCategories { get; set; }
         public List<BiomedicalConceptSurrogateDto> BcSurrogates { get; set; }
+        public List<StudyArmDto> StudyArms { get; set; }
+        public List<StudyEpochDto> StudyEpochs { get; set; }
+        public List<StudyElementDto> StudyElements { get; set; }
     }
 }

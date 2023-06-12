@@ -178,15 +178,10 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsTrue(Validator<IndicationDto>(new IndicationValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].StudyIndications[0]));
             Assert.IsTrue(Validator<InterCurrentEventDto>(new InterCurrentEventsValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].StudyEstimands[0].IntercurrentEvents[0]));
             Assert.IsTrue(Validator<InvestigationalInterventionDto>(new InvestigationalInterventionValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].StudyInvestigationalInterventions[0]));
-            Assert.IsTrue(Validator<ProcedureDto>(new ProcedureValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].Activities[0].DefinedProcedures[0]));
-            Assert.IsTrue(Validator<StudyArmDto>(new StudyArmValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].StudyCells[0].StudyArm));
+            Assert.IsTrue(Validator<ProcedureDto>(new ProcedureValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].Activities[0].DefinedProcedures[0]));            
             Assert.IsTrue(Validator<StudyCellDto>(new StudyCellsValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].StudyCells[0]));
             Assert.IsTrue(Validator<StudyDesignPopulationDto>(new StudyDesignPopulationValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].StudyPopulations[0]));
             Assert.IsTrue(Validator<StudyDesignDto>(new StudyDesignValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0]));
-            Assert.IsTrue(Validator<StudyElementDto>(new StudyElementsValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].StudyCells[0].StudyElements[0]));
-            studyDto.Study.StudyDesigns[0].StudyCells[0].StudyEpoch.NextStudyEpochId = "123";
-            studyDto.Study.StudyDesigns[0].StudyCells[0].StudyEpoch.PreviousStudyEpochId = "124";
-            Assert.IsTrue(Validator<StudyEpochDto>(new StudyEpochValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].StudyCells[0].StudyEpoch));
             Assert.IsTrue(Validator<EstimandDto>(new StudyEstimandsValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].StudyEstimands[0]));
             Assert.IsTrue(Validator<OrganisationDto>(new OrganisationValidator(httpContextAccessor.Object), studyDto.Study.StudyIdentifiers[0].StudyIdentifierScope));
             Assert.IsTrue(Validator<StudyIdentifierDto>(new StudyIdentifiersValidator(httpContextAccessor.Object), studyDto.Study.StudyIdentifiers[0]));
@@ -241,13 +236,6 @@ namespace TransCelerate.SDR.UnitTesting
             var studyDto = GetDtoDataFromStaticJson();
 
             studyDto.Study.StudyDesigns[0].StudyCells.Add(JsonConvert.DeserializeObject<StudyCellDto>(JsonConvert.SerializeObject(studyDto.Study.StudyDesigns[0].StudyCells[0])));
-            studyDto.Study.StudyDesigns[0].StudyCells[0].StudyEpoch.Id = "998";
-            studyDto.Study.StudyDesigns[0].StudyCells[0].StudyEpoch.NextStudyEpochId = "999";
-            studyDto.Study.StudyDesigns[0].StudyCells[0].StudyEpoch.PreviousStudyEpochId = "888";
-
-            studyDto.Study.StudyDesigns[0].StudyCells[1].StudyEpoch.Id = "999";
-            studyDto.Study.StudyDesigns[0].StudyCells[1].StudyEpoch.NextStudyEpochId = "888";
-            studyDto.Study.StudyDesigns[0].StudyCells[1].StudyEpoch.PreviousStudyEpochId = "998";
 
             studyDto.Study.StudyDesigns[0].Activities.Add(JsonConvert.DeserializeObject<ActivityDto>(JsonConvert.SerializeObject(studyDto.Study.StudyDesigns[0].Activities[0])));
             studyDto.Study.StudyDesigns[0].Activities[0].Id = "123";

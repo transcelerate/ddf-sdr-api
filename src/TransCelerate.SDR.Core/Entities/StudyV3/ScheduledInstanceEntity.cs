@@ -17,10 +17,10 @@ namespace TransCelerate.SDR.Core.Entities.StudyV3
     {
         [BsonElement(Utilities.Common.IdFieldPropertyName.StudyV3.ScheduledInstanceId)]
         public string Id { get; set; }
-        public string ScheduledInstanceEncounterId { get; set; }
         public string ScheduleTimelineExitId { get; set; }
         public string ScheduledInstanceTimelineId { get; set; }
-        public int ScheduleSequenceNumber { get; set; }
+        public string DefaultConditionId { get; set; }
+        public string EpochId { get; set; }
         public List<TimingEntity> ScheduledInstanceTimings { get; set; }
         public virtual string ScheduledInstanceType { get; set; }
     }
