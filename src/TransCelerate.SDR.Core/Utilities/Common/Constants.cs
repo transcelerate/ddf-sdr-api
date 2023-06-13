@@ -100,6 +100,12 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string StudyIndicationsIndicationDescription = "studyIndications.indicationDescription";
             public const string StudyIndicationsIndicationDesc = "studyIndications.indicationDesc";
         }
+
+        public struct DefaultValues
+        {
+            public const int IntegerMinimumValue = 0;
+        }
+
         public struct ValidationErrorMessage
         {
             public const string AlphaNumericErrorMessage = "Only Alphanumeric characters are allowed";
@@ -111,6 +117,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string PropertyMissingError = "Field is missing";
 
             public const string PropertyEmptyError = "Field is empty";
+
+            public const string IntegerMinimumValueError = "Value must be greater than or equal to zero";
 
             public const string ScheduledInstanceTypesError = $"The value must be {nameof(Utilities.ScheduledInstanceType.ACTIVITY)}/{nameof(Utilities.ScheduledInstanceType.DECISION)}";
 

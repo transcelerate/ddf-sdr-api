@@ -28,7 +28,7 @@
             "decode": "Clinical Study Sponsor"
           },
           "organizationLegalAddress": {
-            "AddressId":"Ad1",
+            "AddressId": "Ad1",
             "text": "text",
             "line": " line2",
             "city": " city",
@@ -76,7 +76,6 @@
               "decode": "Clinical Study Sponsor"
             }
           }
-
         }
       }
     ],
@@ -248,63 +247,66 @@
             ]
           }
         ],
+        "studyArms": [
+          {
+            "studyArmId": "69c12025-5f05-428f-93de-2aa932309683",
+            "studyArmDataOriginDescription": "Captured subject data",
+            "studyArmDataOriginType": {
+              "codeId": "281a3135-5ab6-47c4-a136-92fb88d57f0d",
+              "code": "C6574y",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "1",
+              "decode": "SUBJECT DATA"
+            },
+            "studyArmDescription": "The Placebo Arm",
+            "studyArmName": "Placebo",
+            "studyArmType": {
+              "codeId": "77c714cf-ac76-4843-a4b6-1c68b8be7590",
+              "code": "C174268",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "2022-03-25",
+              "decode": "Placebo Control Arm"
+            }
+          }
+        ],
+        "studyEpochs": [
+          {
+            "studyEpochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d9",
+            "nextStudyEpochId": "",
+            "previousStudyEpochId": "",
+            "studyEpochDescription": "The run in",
+            "studyEpochName": "Run In",
+            "studyEpochType": {
+              "codeId": "91603043-8496-4a71-aabc-2d6848bbc87d",
+              "code": "C98779",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "2022-03-25",
+              "decode": "Run-in Period"
+            }
+          }
+        ],
+        "studyElements": [
+          {
+            "studyElementId": "00ad20fa-bb06-4b93-b237-6bc37a3810e5",
+            "studyElementDescription": "First element",
+            "studyElementName": "Element 1",
+            "transitionStartRule": {
+              "transitionRuleId": "14a6b9fa-f080-415b-83bd-6d6ffe5e4b60",
+              "transitionRuleDescription": "Start Rule"
+            },
+            "transitionEndRule": {
+              "transitionRuleId": "ae648ac6-f2c2-49d8-8ee2-64ccadec513e",
+              "transitionRuleDescription": "End Rule"
+            }
+          }
+        ],
         "studyCells": [
           {
             "studyCellId": "4614b061-f72c-43e1-aeb2-db1e4d312711",
-            "studyArm": {
-              "studyArmId": "69c12025-5f05-428f-93de-2aa932309683",
-              "studyArmDataOriginDescription": "Captured subject data",
-              "studyArmDataOriginType": 
-                {
-                  "codeId": "281a3135-5ab6-47c4-a136-92fb88d57f0d",
-                  "code": "C6574y",
-                  "codeSystem": "http:www.cdisc.org",
-                  "codeSystemVersion": "1",
-                  "decode": "SUBJECT DATA"
-                },
-              "studyArmDescription": "The Placebo Arm",
-              "studyArmName": "Placebo",
-              "studyArmType": {
-                "codeId": "77c714cf-ac76-4843-a4b6-1c68b8be7590",
-                "code": "C174268",
-                "codeSystem": "http:www.cdisc.org",
-                "codeSystemVersion": "2022-03-25",
-                "decode": "Placebo Control Arm"
-              }
-            },
-            "studyEpoch": {
-              "studyEpochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d9",
-              "nextStudyEpochId": "",
-              "previousStudyEpochId": "",
-              "studyEpochDescription": "The run in",
-              "studyEpochName": "Run In",
-              "studyEpochType": 
-                {
-                  "codeId": "91603043-8496-4a71-aabc-2d6848bbc87d",
-                  "code": "C98779",
-                  "codeSystem": "http:www.cdisc.org",
-                  "codeSystemVersion": "2022-03-25",
-                  "decode": "Run-in Period"
-                },
-              "encounterIds": [
-                "EN001",
-                "EN002"
-              ]
-            },
-            "studyElements": [
-              {
-                "studyElementId": "00ad20fa-bb06-4b93-b237-6bc37a3810e5",
-                "studyElementDescription": "First element",
-                "studyElementName": "Element 1",
-                "transitionStartRule": {
-                  "transitionRuleId": "14a6b9fa-f080-415b-83bd-6d6ffe5e4b60",
-                  "transitionRuleDescription": "Start Rule"
-                },
-                "transitionEndRule": {
-                  "transitionRuleId": "ae648ac6-f2c2-49d8-8ee2-64ccadec513e",
-                  "transitionRuleDescription": "End Rule"
-                }
-              }
+            "studyArmId": "69c12025-5f05-428f-93de-2aa932309683",
+            "studyEpochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d9",
+            "studyElementIds": [
+              "00ad20fa-bb06-4b93-b237-6bc37a3810e5"
             ]
           }
         ],
@@ -314,6 +316,7 @@
             "scheduleTimelineName": "name",
             "scheduleTimelineEntryId": "ScheduledInstanceId01",
             "entryCondition": "condition",
+            "mainTimeline": true,
             "scheduleTimelineExits": [
               {
                 "scheduleTimelineExitId": "Ex01"
@@ -327,9 +330,11 @@
                   "ACT001",
                   "ACT002"
                 ],
+                "epochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d9",
+                "defaultConditionId": "INS002",
                 "scheduledInstanceId": "INS001",
                 "scheduleTimelineExitId": "Exit01",
-                "scheduledInstanceEncounterId": "VIS11",
+                "scheduledActivityInstanceEncounterId": "VIS11",
                 "scheduledInstanceTimelineId": "Timeline01",
                 "scheduleSequenceNumber": 1,
                 "scheduledInstanceTimings": [
@@ -384,7 +389,7 @@
                 },
                 "scheduledInstanceId": "INS002",
                 "scheduleTimelineExitId": "Exit01",
-                "scheduledInstanceEncounterId": "VIS11",
+                "scheduledActivityInstanceEncounterId": "VIS11",
                 "scheduledInstanceTimelineId": "Timeline01",
                 "scheduleSequenceNumber": 2,
                 "scheduledInstanceTimings": [
@@ -440,7 +445,7 @@
                 ],
                 "scheduledInstanceId": "INS003",
                 "scheduleTimelineExitId": "Exit01",
-                "scheduledInstanceEncounterId": "VIS11",
+                "scheduledActivityInstanceEncounterId": "VIS11",
                 "scheduledInstanceTimelineId": "Timeline01",
                 "scheduleSequenceNumber": 3,
                 "scheduledInstanceTimings": [
@@ -524,23 +529,21 @@
               }
             ],
             "encounterDescription": "desc",
-            "encounterEnvironmentalSetting": 
-              {
-                "codeId": "f07aae83-6592-4614-8c7c-c2437184db3e",
-                "code": "C51282",
-                "codeSystem": "http:www.cdisc.org",
-                "codeSystemVersion": "2022-03-25",
-                "decode": "Clinic"
-              },
+            "encounterEnvironmentalSetting": {
+              "codeId": "f07aae83-6592-4614-8c7c-c2437184db3e",
+              "code": "C51282",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "2022-03-25",
+              "decode": "Clinic"
+            },
             "encounterName": "Encounter 1",
-            "encounterType": 
-              {
-                "codeId": "37cd2f4f-680a-4e3b-8def-82e29b89b778",
-                "code": "C7652x",
-                "codeSystem": "http:www.cdisc.org",
-                "codeSystemVersion": "1",
-                "decode": "SITE VISIT"
-              },
+            "encounterType": {
+              "codeId": "37cd2f4f-680a-4e3b-8def-82e29b89b778",
+              "code": "C7652x",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "1",
+              "decode": "SITE VISIT"
+            },
             "nextEncounterId": "",
             "previousEncounterId": "",
             "encounterScheduledAtTimingId": "Timing01",
@@ -565,23 +568,21 @@
               }
             ],
             "encounterDescription": "desc",
-            "encounterEnvironmentalSetting": 
-              {
-                "codeId": "f07aae83-6592-4614-8c7c-c2437184db3e",
-                "code": "C51282",
-                "codeSystem": "http:www.cdisc.org",
-                "codeSystemVersion": "2022-03-25",
-                "decode": "Clinic"
-              },
+            "encounterEnvironmentalSetting": {
+              "codeId": "f07aae83-6592-4614-8c7c-c2437184db3e",
+              "code": "C51282",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "2022-03-25",
+              "decode": "Clinic"
+            },
             "encounterName": "Encounter 1",
-            "encounterType": 
-              {
-                "codeId": "37cd2f4f-680a-4e3b-8def-82e29b89b778",
-                "code": "C7652x",
-                "codeSystem": "http:www.cdisc.org",
-                "codeSystemVersion": "1",
-                "decode": "SITE VISIT"
-              },
+            "encounterType": {
+              "codeId": "37cd2f4f-680a-4e3b-8def-82e29b89b778",
+              "code": "C7652x",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "1",
+              "decode": "SITE VISIT"
+            },
             "nextEncounterId": "",
             "previousEncounterId": "",
             "encounterScheduledAtTimingId": "Timing01",
@@ -596,7 +597,7 @@
           }
         ],
         "activities": [
-         {
+          {
             "activityId": "ACT01",
             "activityDescription": "Activity_1",
             "activityName": "Informed Consent",
@@ -919,7 +920,6 @@
         "bcCategories": [
           {
             "biomedicalConceptCategoryId": "BCC1",
-            "bcCategoryParentIds": [],
             "bcCategoryChildrenIds": [
               "BCC10"
             ],
@@ -932,8 +932,7 @@
           },
           {
             "biomedicalConceptCategoryId": "BCC2",
-            "bcCategoryParentIds": [],
-            "bcCategoryChildrenIds": [
+            "bcCategoryChildIds": [
               "BCC10",
               "BCC11"
             ],
@@ -946,11 +945,7 @@
           },
           {
             "biomedicalConceptCategoryId": "BCC10",
-            "bcCategoryParentIds": [
-              "BCC1",
-              "BCC2"
-            ],
-            "bcCategoryChildrenIds": [],
+            "bcCategoryChildIds": [],
             "bcCategoryName": "Diastolic Blood Pressure",
             "bcCategoryDescription": "Diastolic Blood Pressure",
             "bcCategoryMemberIds": [
@@ -959,12 +954,8 @@
             ]
           },
           {
-            "biomedicalConceptCategoryId": "BCC11",
-            "bcCategoryParentIds": [
-              "BCC1",
-              "BCC2"
-            ],
-            "bcCategoryChildrenIds": [],
+            "biomedicalConceptCategoryId": "BCC11",       
+            "bcCategoryChildIds": [],
             "bcCategoryName": "Systolic Blood Pressure",
             "bcCategoryDescription": "Systolic Blood Pressure",
             "bcCategoryMemberIds": [

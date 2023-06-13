@@ -353,10 +353,8 @@
         {
           "entity": "Activity",
           "required": [
-            "Id",
-            "ActivityDescription",
+            "Id",          
             "ActivityName",
-            "ActivityIsConditionalReason",
             "ActivityIsConditional"
           ]
         },
@@ -400,8 +398,7 @@
           "entity": "BiomedicalConceptCategory",
           "required": [
             "Id",
-            "BcCategoryName",
-            "BcCategoryDescription"
+            "BcCategoryName"
           ]
         },
         {
@@ -409,7 +406,6 @@
           "required": [
             "Id",
             "BcSurrogateName",
-            "BcSurrogateDescription",
             "BcSurrogateReference"
           ]
         },
@@ -451,7 +447,6 @@
           "entity": "Encounter",
           "required": [
             "Id",
-            "EncounterDescription",
             "EncounterName"
           ]
         },
@@ -474,7 +469,6 @@
           "entity": "InterCurrentEvents",
           "required": [
             "Id",
-            "IntercurrentEventDescription",
             "IntercurrentEventName",
             "IntercurrentEventStrategy"
           ]
@@ -501,10 +495,8 @@
           "required": [
             "Id",
             "ProcedureName",
-            "ProcedureDescription",
             "ProcedureType",
             "ProcedureCode",
-            "ProcedureIsConditionalReason",
             "ProcedureIsConditional"
           ]
         },
@@ -522,7 +514,6 @@
             "Id",
             "StudyArmDataOriginDescription",
             "StudyArmDataOriginType",
-            "StudyArmDescription",
             "StudyArmType",
             "StudyArmName"
           ]
@@ -537,7 +528,6 @@
           "entity": "ScheduledActivityInstance",
           "required": [
             "Id",
-            "ScheduleSequenceNumber",
             "ScheduledInstanceType"
           ]
         },
@@ -545,7 +535,6 @@
           "entity": "ScheduledDecisionInstance",
           "required": [
             "Id",
-            "ScheduleSequenceNumber",
             "ScheduledInstanceType"
           ]
         },
@@ -553,7 +542,6 @@
           "entity": "ScheduledInstance",
           "required": [
             "Id",
-            "ScheduleSequenceNumber",
             "ScheduledInstanceType"
           ]
         },
@@ -562,14 +550,16 @@
           "required": [
             "Id",
             "ScheduleTimelineName",
-            "ScheduleTimelineDescription",
-            "EntryCondition"
+            "EntryCondition",
+            "MainTimeline"
           ]
         },
         {
           "entity": "StudyCells",
           "required": [
-            "Id"
+            "Id",
+            "StudyArmId",
+            "StudyEpochId"
           ]
         },
         {
@@ -597,15 +587,16 @@
             "Id",
             "InterventionModel",
             "StudyDesignName",
-            "StudyDesignDescription",
-            "StudyDesignRationale"
+            "StudyDesignRationale",
+            "StudyCells",
+            "StudyArms",
+            "StudyEpochs"
           ]
         },
         {
           "entity": "StudyElements",
           "required": [
             "Id",
-            "StudyElementDescription",
             "StudyElementName"
           ]
         },
@@ -614,7 +605,6 @@
           "required": [
             "Id",
             "StudyEpochName",
-            "StudyEpochDescription",
             "StudyEpochType"
           ]
         },

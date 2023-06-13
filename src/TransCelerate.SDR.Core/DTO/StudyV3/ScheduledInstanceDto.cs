@@ -12,9 +12,9 @@ namespace TransCelerate.SDR.Core.DTO.StudyV3
         [Newtonsoft.Json.JsonProperty(Utilities.Common.IdFieldPropertyName.StudyV3.ScheduledInstanceId)]
         public string Id { get; set; }
         public string ScheduleTimelineExitId { get; set; }
-        public string ScheduledInstanceEncounterId { get; set; }
         public string ScheduledInstanceTimelineId { get; set; }
-        public object ScheduleSequenceNumber { get; set; }
+        public string DefaultConditionId { get; set; }
+        public string EpochId { get; set; }
         public List<TimingDto> ScheduledInstanceTimings { get; set; }
         public virtual string ScheduledInstanceType { get; set; }
     }
