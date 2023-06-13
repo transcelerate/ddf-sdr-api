@@ -118,25 +118,25 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
                 if (!sections.Contains(item))
                 {
                     if (item == nameof(StudyDto.StudyTitle).ToLower())
-                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDto.StudyTitle)[..1].ToLower(), nameof(StudyDto.StudyTitle).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDto.StudyTitle).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                     else if (item == nameof(StudyDto.StudyPhase).ToLower())
-                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDto.StudyPhase)[..1].ToLower(), nameof(StudyDto.StudyPhase).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDto.StudyPhase).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                     else if (item == nameof(StudyDto.StudyType).ToLower())
-                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDto.StudyType)[..1].ToLower(), nameof(StudyDto.StudyType).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDto.StudyType).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                     else if (item == nameof(StudyDto.StudyIdentifiers).ToLower())
-                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDto.StudyIdentifiers)[..1].ToLower(), nameof(StudyDto.StudyIdentifiers).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDto.StudyIdentifiers).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                     else if (item == nameof(StudyDto.StudyDesigns).ToLower())
-                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDto.StudyDesigns)[..1].ToLower(), nameof(StudyDto.StudyDesigns).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDto.StudyDesigns).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                     else if (item == nameof(StudyDto.StudyProtocolVersions).ToLower())
-                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDto.StudyProtocolVersions)[..1].ToLower(), nameof(StudyDto.StudyProtocolVersions).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDto.StudyProtocolVersions).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                     else if (item == nameof(StudyDto.StudyVersion).ToLower())
-                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDto.StudyVersion)[..1].ToLower(), nameof(StudyDto.StudyVersion).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDto.StudyVersion).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                     else if (item == nameof(StudyDto.BusinessTherapeuticAreas).ToLower())
-                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDto.BusinessTherapeuticAreas)[..1].ToLower(), nameof(StudyDto.BusinessTherapeuticAreas).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDto.BusinessTherapeuticAreas).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                     else if (item == nameof(StudyDto.StudyAcronym).ToLower())
-                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDto.StudyAcronym)[..1].ToLower(), nameof(StudyDto.StudyAcronym).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDto.StudyAcronym).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                     else if (item == nameof(StudyDto.StudyRationale).ToLower())
-                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDto.StudyRationale)[..1].ToLower(), nameof(StudyDto.StudyRationale).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDto.StudyRationale).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                 }
             }
 
@@ -166,45 +166,51 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
                         if (!sections.Contains(item))
                         {
                             if (item == nameof(StudyDesignDto.InterventionModel).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDesignDto.InterventionModel)[..1].ToLower(), nameof(StudyDesignDto.InterventionModel).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.InterventionModel).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.TrialIntentTypes).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDesignDto.TrialIntentTypes)[..1].ToLower(), nameof(StudyDesignDto.TrialIntentTypes).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.TrialIntentTypes).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.TrialType).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDesignDto.TrialType)[..1].ToLower(), nameof(StudyDesignDto.TrialType).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.TrialType).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyInvestigationalInterventions).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDesignDto.StudyInvestigationalInterventions)[..1].ToLower(), nameof(StudyDesignDto.StudyInvestigationalInterventions).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.StudyInvestigationalInterventions).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyIndications).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDesignDto.StudyIndications)[..1].ToLower(), nameof(StudyDesignDto.StudyIndications).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.StudyIndications).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyPopulations).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDesignDto.StudyPopulations)[..1].ToLower(), nameof(StudyDesignDto.StudyPopulations).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.StudyPopulations).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyObjectives).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDesignDto.StudyObjectives)[..1].ToLower(), nameof(StudyDesignDto.StudyObjectives).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.StudyObjectives).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyCells).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDesignDto.StudyCells)[..1].ToLower(), nameof(StudyDesignDto.StudyCells).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.StudyCells).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyScheduleTimelines).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDesignDto.StudyScheduleTimelines)[..1].ToLower(), nameof(StudyDesignDto.StudyScheduleTimelines).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.StudyScheduleTimelines).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyEstimands).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDesignDto.StudyEstimands)[..1].ToLower(), nameof(StudyDesignDto.StudyEstimands).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.StudyEstimands).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyDesignName).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDesignDto.StudyDesignName)[..1].ToLower(), nameof(StudyDesignDto.StudyDesignName).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.StudyDesignName).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyDesignDescription).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDesignDto.StudyDesignDescription)[..1].ToLower(), nameof(StudyDesignDto.StudyDesignDescription).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.StudyDesignDescription).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.TherapeuticAreas).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDesignDto.TherapeuticAreas)[..1].ToLower(), nameof(StudyDesignDto.TherapeuticAreas).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.TherapeuticAreas).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Activities).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDesignDto.Activities)[..1].ToLower(), nameof(StudyDesignDto.Activities).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Activities).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Encounters).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDesignDto.Encounters)[..1].ToLower(), nameof(StudyDesignDto.Encounters).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Encounters).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyDesignRationale).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDesignDto.StudyDesignRationale)[..1].ToLower(), nameof(StudyDesignDto.StudyDesignRationale).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.StudyDesignRationale).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyDesignBlindingScheme).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDesignDto.StudyDesignBlindingScheme)[..1].ToLower(), nameof(StudyDesignDto.StudyDesignBlindingScheme).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.StudyDesignBlindingScheme).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.BiomedicalConcepts).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDesignDto.BiomedicalConcepts)[..1].ToLower(), nameof(StudyDesignDto.BiomedicalConcepts).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.BiomedicalConcepts).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.BcCategories).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDesignDto.BcCategories)[..1].ToLower(), nameof(StudyDesignDto.BcCategories).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.BcCategories).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.BcSurrogates).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == (string.Concat(nameof(StudyDesignDto.BcSurrogates)[..1].ToLower(), nameof(StudyDesignDto.BcSurrogates).AsSpan(1)))).ToList().ForEach(x => x.Remove());
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.BcSurrogates).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
+                            else if (item == nameof(StudyDesignDto.StudyArms).ToLower())
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.StudyArms).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
+                            else if (item == nameof(StudyDesignDto.StudyEpochs).ToLower())
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.StudyEpochs).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
+                            else if (item == nameof(StudyDesignDto.StudyElements).ToLower())
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.StudyElements).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                         }
                     }
                 }
