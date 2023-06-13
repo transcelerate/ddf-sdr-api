@@ -1391,6 +1391,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
                                     $"{nameof(ScheduleTimelineDto.ScheduleTimelineInstances)}[{scheduleTimeline.ScheduleTimelineInstances.IndexOf(timelineInstance)}]." +
                                     $"{nameof(ScheduledInstanceDto.EpochId)}");
 
+                            if (!String.IsNullOrWhiteSpace(timelineInstance.DefaultConditionId) && !tempInstanceIds.Contains(timelineInstance.DefaultConditionId))
+                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                    $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
+                                    $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}]." +
+                                    $"{nameof(ScheduleTimelineDto.ScheduleTimelineInstances)}[{scheduleTimeline.ScheduleTimelineInstances.IndexOf(timelineInstance)}]." +
+                                    $"{nameof(ScheduledInstanceDto.DefaultConditionId)}");
+
                             if (timelineInstance.GetType() == typeof(ScheduledActivityInstanceDto))
                             {
                                 var activityTimelineInstance = timelineInstance as ScheduledActivityInstanceDto;
@@ -1412,14 +1419,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
                                         $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                                         $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}]." +
                                         $"{nameof(ScheduleTimelineDto.ScheduleTimelineInstances)}[{scheduleTimeline.ScheduleTimelineInstances.IndexOf(timelineInstance)}]." +
-                                        $"{nameof(ScheduledActivityInstanceDto.ScheduledActivityInstanceEncounterId)}");
-
-                                if (!String.IsNullOrWhiteSpace(activityTimelineInstance.DefaultConditionId) && !tempInstanceIds.Contains(activityTimelineInstance.DefaultConditionId))
-                                    errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
-                                        $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
-                                        $"{nameof(StudyDesignDto.StudyScheduleTimelines)}[{design.StudyScheduleTimelines.IndexOf(scheduleTimeline)}]." +
-                                        $"{nameof(ScheduleTimelineDto.ScheduleTimelineInstances)}[{scheduleTimeline.ScheduleTimelineInstances.IndexOf(timelineInstance)}]." +
-                                        $"{nameof(ScheduledInstanceDto.DefaultConditionId)}");
+                                        $"{nameof(ScheduledActivityInstanceDto.ScheduledActivityInstanceEncounterId)}");                                
                             }
 
                             if (timelineInstance.ScheduledInstanceTimings is not null && timelineInstance.ScheduledInstanceTimings.Any())
@@ -1536,13 +1536,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
                 
                 design.StudyCells.ForEach(cell =>
                 {
-                    if (String.IsNullOrWhiteSpace(cell.StudyArmId) && armIds.Contains(cell.StudyArmId))
+                    if (!String.IsNullOrWhiteSpace(cell.StudyArmId) && !armIds.Contains(cell.StudyArmId))
                         errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
                                    $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                                    $"{nameof(StudyDesignDto.StudyCells)}[{design.StudyCells.IndexOf(cell)}]." +
                                    $"{nameof(StudyCellDto.StudyArmId)}");
 
-                    if (String.IsNullOrWhiteSpace(cell.StudyEpochId) && epochIds.Contains(cell.StudyEpochId))
+                    if (!String.IsNullOrWhiteSpace(cell.StudyEpochId) && !epochIds.Contains(cell.StudyEpochId))
                         errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
                                    $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                                    $"{nameof(StudyDesignDto.StudyCells)}[{design.StudyCells.IndexOf(cell)}]." +
@@ -2006,17 +2006,17 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
                         //Epochs
                         GetDifferenceForAListForStudyComparison<StudyEpochEntity>(currentStudyDesign.StudyEpochs, previousStudyDesign.StudyEpochs).ForEach(x =>
                         {
-                            changedValues.Add($"{nameof(StudyDesignEntity.StudyEpochs)}.{x}");
+                            changedValues.Add($"{nameof(StudyDesignEntity.StudyEpochs)}{x}");
                         });
                         //Arms
                         GetDifferenceForAListForStudyComparison<StudyArmEntity>(currentStudyDesign.StudyArms, previousStudyDesign.StudyArms).ForEach(x =>
                         {
-                            changedValues.Add($"{nameof(StudyDesignEntity.StudyArms)}.{x}");
+                            changedValues.Add($"{nameof(StudyDesignEntity.StudyArms)}{x}");
                         });
                         //StudyElements
                         GetDifferenceForAListForStudyComparison<StudyElementEntity>(currentStudyDesign.StudyElements, previousStudyDesign.StudyElements).ForEach(x =>
                         {
-                            changedValues.Add($"{nameof(StudyDesignEntity.StudyElements)}.{x}");
+                            changedValues.Add($"{nameof(StudyDesignEntity.StudyElements)}{x}");
                         });
 
                         changedValues.ForEach(x => formattedChangedValues.Add($"[{currentVersion.IndexOf(currentStudyDesign)}].{x}"));
