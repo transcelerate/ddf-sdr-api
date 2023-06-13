@@ -100,6 +100,12 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string StudyIndicationsIndicationDescription = "studyIndications.indicationDescription";
             public const string StudyIndicationsIndicationDesc = "studyIndications.indicationDesc";
         }
+
+        public struct DefaultValues
+        {
+            public const int IntegerMinimumValue = 0;
+        }
+
         public struct ValidationErrorMessage
         {
             public const string AlphaNumericErrorMessage = "Only Alphanumeric characters are allowed";
@@ -111,6 +117,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string PropertyMissingError = "Field is missing";
 
             public const string PropertyEmptyError = "Field is empty";
+
+            public const string IntegerMinimumValueError = "Value must be greater than or equal to zero";
 
             public const string ScheduledInstanceTypesError = $"The value must be {nameof(Utilities.ScheduledInstanceType.ACTIVITY)}/{nameof(Utilities.ScheduledInstanceType.DECISION)}";
 
@@ -293,6 +301,9 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(Core.DTO.StudyV3.StudyDesignDto.StudyPopulations),
             nameof(Core.DTO.StudyV3.StudyDesignDto.StudyObjectives),
             nameof(Core.DTO.StudyV3.StudyDesignDto.StudyCells),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyArms),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyEpochs),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyElements),
             nameof(Core.DTO.StudyV3.StudyDesignDto.StudyScheduleTimelines),
             nameof(Core.DTO.StudyV3.StudyDesignDto.StudyEstimands),
             nameof(Core.DTO.StudyV3.StudyDesignDto.Activities),
