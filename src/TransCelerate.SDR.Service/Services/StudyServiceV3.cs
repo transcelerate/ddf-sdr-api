@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Azure.Messaging.ServiceBus;
+using Microsoft.Azure.Amqp;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -372,7 +373,7 @@ namespace TransCelerate.SDR.Services.Services
                                             EncounterId = encounter.Id,
                                             EncounterName = encounter.EncounterName,
                                             EncounterScheduledAtTimingValue = String.IsNullOrWhiteSpace(timingValue) ? string.Empty : timingValue,
-                                            Timings = GetTimings(scheduleActivityInstances.Where(instance => instance.ScheduledActivityInstanceEncounterId == encounter.Id).ToList())
+                                            Timings = GetTimings(scheduleActivityInstances.Where(instance => instance.ScheduledActivityInstanceEncounterId == encounter.Id).ToList(), scheduleTimeline.ScheduleTimelineInstances)
                                         };
 
                                         studyTimelineSoA.ScheduleTimelineSoA.SoA.Add(soA);
@@ -385,7 +386,7 @@ namespace TransCelerate.SDR.Services.Services
                                             EncounterId = string.Empty,
                                             EncounterName = string.Empty,
                                             EncounterScheduledAtTimingValue = string.Empty,
-                                            Timings = GetTimings(scheduleActivityInstances.Where(x => String.IsNullOrWhiteSpace(x.ScheduledActivityInstanceEncounterId)).ToList())
+                                            Timings = GetTimings(scheduleActivityInstances.Where(x => String.IsNullOrWhiteSpace(x.ScheduledActivityInstanceEncounterId)).ToList(), scheduleTimeline.ScheduleTimelineInstances)
                                         };
 
                                         studyTimelineSoA.ScheduleTimelineSoA.SoA.Add(soA);
@@ -402,21 +403,42 @@ namespace TransCelerate.SDR.Services.Services
 
             return soADto;
         }
-        public List<TimingSoA> GetTimings(List<ScheduledActivityInstanceEntity> scheduledActivityInstances)
+        public List<TimingSoA> GetTimings(List<ScheduledActivityInstanceEntity> scheduledActivityInstances,List<ScheduledInstanceEntity> scheduledInstances)
         {
             if (scheduledActivityInstances is not null && scheduledActivityInstances.Any())
             {
-                var instances = scheduledActivityInstances.Where(x => x.ScheduledInstanceTimings is not null && x.ScheduledInstanceTimings.Any()).Select(x => new
+                //Get ordered Instances in reverse order
+                scheduledInstances = GetOrderedInstances(scheduledInstances);
+                //Reverse it to get correct order
+                scheduledInstances.Reverse();
+                //Add sequence number since the ordering based on defaultConditionId includes both ACTIVITY and DECISION Type instances
+                int sequenceNumber = 0;
+                var scheduledInstancesWithSeqNumber = scheduledInstances.Select(x => new
+                {
+                    x.Id,
+                    SequenceNumber = ++sequenceNumber
+                });
+                //Assign sequence number for Activity Instances
+                var orderedScheduledActivityInstances = scheduledActivityInstances.Select(x => new { 
+                    x.ScheduledInstanceTimings,
+                    x.ActivityIds,
+                    scheduledInstancesWithSeqNumber.FirstOrDefault(y => y.Id == x.Id)?.SequenceNumber
+                });
+                //Add Instances with valid timing values
+                var instances = orderedScheduledActivityInstances.Where(x => x.ScheduledInstanceTimings is not null && x.ScheduledInstanceTimings.Any()).Select(x => new
                 {                    
                     Timings = _mapper.Map<List<TimingSoA>>(x.ScheduledInstanceTimings),
-                    x.ActivityIds
-                }).ToList();
-
-                instances.AddRange(scheduledActivityInstances.Where(x => x.ScheduledInstanceTimings is null || !x.ScheduledInstanceTimings.Any()).Select(x => new
+                    x.ActivityIds,
+                    x.SequenceNumber
+                }).OrderBy(x => x.SequenceNumber).ToList();
+                //Add Instances without valid timing values
+                instances.AddRange(orderedScheduledActivityInstances.Where(x => x.ScheduledInstanceTimings is null || !x.ScheduledInstanceTimings.Any()).Select(x => new
                 {                    
                     Timings = _mapper.Map<List<TimingSoA>>(x.ScheduledInstanceTimings),
-                    x.ActivityIds
-                }).ToList());
+                    x.ActivityIds,
+                    x.SequenceNumber
+                }).OrderBy(x => x.SequenceNumber).ToList());
+                //Add activities under timing for SoA Response
                 instances?.ForEach(instance =>
                 {
                     if (instance.Timings is not null && instance.Timings.Any())
@@ -436,6 +458,26 @@ namespace TransCelerate.SDR.Services.Services
                 return instances.SelectMany(x => x.Timings).Any() ? instances.SelectMany(x => x.Timings).ToList() : new List<TimingSoA>();
             }
             return new List<TimingSoA>();
+        }
+
+        public static List<ScheduledInstanceEntity> GetOrderedInstances(List<ScheduledInstanceEntity> scheduledInstances)
+        {
+            if (scheduledInstances.Count(x => String.IsNullOrWhiteSpace(x.DefaultConditionId)) == 1)
+            {
+                List<ScheduledInstanceEntity> instanceLinkedList = new()
+                {
+                    scheduledInstances.Where(x => String.IsNullOrWhiteSpace(x.DefaultConditionId)).FirstOrDefault()
+                };
+                for (int i = 1; i < scheduledInstances.Count; i++)
+                {
+                    if (scheduledInstances.Where(x => x.DefaultConditionId == instanceLinkedList[i - 1].Id).Any() && scheduledInstances.Where(x => x.DefaultConditionId == instanceLinkedList[i - 1].Id).Count() == 1)
+                        instanceLinkedList.Add(scheduledInstances.Where(x => x.DefaultConditionId == instanceLinkedList[i - 1].Id).First());
+                    else
+                        break;
+                }
+                return instanceLinkedList.Count == scheduledInstances.Count ? instanceLinkedList : scheduledInstances;
+            }
+            return scheduledInstances;
         }
         /// <summary>
         /// GET Study Designs Elements of a Study
