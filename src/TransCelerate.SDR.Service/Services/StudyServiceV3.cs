@@ -324,10 +324,9 @@ namespace TransCelerate.SDR.Services.Services
                         design.StudyScheduleTimelines.ForEach(scheduleTimeline =>
                         {
                             ScheduleTimelines studyTimelineSoA = _mapper.Map<ScheduleTimelines>(scheduleTimeline);
-                            //Get ordered Instances in reverse order
+                            //Get ordered Instances
                             List<ScheduledInstanceEntity> scheduledInstances = GetOrderedInstances(scheduleTimeline.ScheduleTimelineInstances);
-                            //Reverse it to get correct order
-                            scheduledInstances.Reverse();
+
                             var scheduleActivityInstances = scheduleTimeline.ScheduleTimelineInstances?.Select(x => (x as ScheduledActivityInstanceEntity))
                                                                          .Where(x => x != null).ToList();
                             
@@ -462,20 +461,25 @@ namespace TransCelerate.SDR.Services.Services
 
         public static List<ScheduledInstanceEntity> GetOrderedInstances(List<ScheduledInstanceEntity> scheduledInstances)
         {
-            if (scheduledInstances.Count(x => String.IsNullOrWhiteSpace(x.DefaultConditionId)) == 1)
+            if (scheduledInstances != null && scheduledInstances.Any())
             {
-                List<ScheduledInstanceEntity> instanceLinkedList = new()
+                if (scheduledInstances.Count(x => String.IsNullOrWhiteSpace(x.DefaultConditionId)) == 1)
                 {
-                    scheduledInstances.Where(x => String.IsNullOrWhiteSpace(x.DefaultConditionId)).FirstOrDefault()
-                };
-                for (int i = 1; i < scheduledInstances.Count; i++)
-                {
-                    if (scheduledInstances.Where(x => x.DefaultConditionId == instanceLinkedList[i - 1].Id).Any() && scheduledInstances.Where(x => x.DefaultConditionId == instanceLinkedList[i - 1].Id).Count() == 1)
-                        instanceLinkedList.Add(scheduledInstances.Where(x => x.DefaultConditionId == instanceLinkedList[i - 1].Id).First());
-                    else
-                        break;
+                    List<ScheduledInstanceEntity> instanceLinkedList = new()
+                    {
+                        scheduledInstances.Where(x => String.IsNullOrWhiteSpace(x.DefaultConditionId)).FirstOrDefault()
+                    };
+                    for (int i = 1; i < scheduledInstances.Count; i++)
+                    {
+                        if (scheduledInstances.Where(x => x.DefaultConditionId == instanceLinkedList[i - 1].Id).Any() && scheduledInstances.Where(x => x.DefaultConditionId == instanceLinkedList[i - 1].Id).Count() == 1)
+                            instanceLinkedList.Add(scheduledInstances.Where(x => x.DefaultConditionId == instanceLinkedList[i - 1].Id).First());
+                        else
+                            break;
+                    }
+                    //Reverse it to get correct order
+                    instanceLinkedList.Reverse();
+                    return instanceLinkedList.Count == scheduledInstances.Count ? instanceLinkedList : scheduledInstances;
                 }
-                return instanceLinkedList.Count == scheduledInstances.Count ? instanceLinkedList : scheduledInstances;
             }
             return scheduledInstances;
         }
