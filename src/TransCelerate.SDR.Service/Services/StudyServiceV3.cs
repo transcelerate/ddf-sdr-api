@@ -318,11 +318,16 @@ namespace TransCelerate.SDR.Services.Services
                     };
                     List<EncounterEntity> encounters = GetOrderedEncounters(design.Encounters);
                     List<ActivityEntity> activities = GetOrderedActivities(design.Activities);
+
                     if (design.StudyScheduleTimelines != null && design.StudyScheduleTimelines.Any())
                     {
                         design.StudyScheduleTimelines.ForEach(scheduleTimeline =>
                         {
                             ScheduleTimelines studyTimelineSoA = _mapper.Map<ScheduleTimelines>(scheduleTimeline);
+                            //Get ordered Instances in reverse order
+                            List<ScheduledInstanceEntity> scheduledInstances = GetOrderedInstances(scheduleTimeline.ScheduleTimelineInstances);
+                            //Reverse it to get correct order
+                            scheduledInstances.Reverse();
                             var scheduleActivityInstances = scheduleTimeline.ScheduleTimelineInstances?.Select(x => (x as ScheduledActivityInstanceEntity))
                                                                          .Where(x => x != null).ToList();
                             
@@ -373,7 +378,7 @@ namespace TransCelerate.SDR.Services.Services
                                             EncounterId = encounter.Id,
                                             EncounterName = encounter.EncounterName,
                                             EncounterScheduledAtTimingValue = String.IsNullOrWhiteSpace(timingValue) ? string.Empty : timingValue,
-                                            Timings = GetTimings(scheduleActivityInstances.Where(instance => instance.ScheduledActivityInstanceEncounterId == encounter.Id).ToList(), scheduleTimeline.ScheduleTimelineInstances)
+                                            Timings = GetTimings(scheduleActivityInstances.Where(instance => instance.ScheduledActivityInstanceEncounterId == encounter.Id).ToList(), scheduledInstances)
                                         };
 
                                         studyTimelineSoA.ScheduleTimelineSoA.SoA.Add(soA);
@@ -386,7 +391,7 @@ namespace TransCelerate.SDR.Services.Services
                                             EncounterId = string.Empty,
                                             EncounterName = string.Empty,
                                             EncounterScheduledAtTimingValue = string.Empty,
-                                            Timings = GetTimings(scheduleActivityInstances.Where(x => String.IsNullOrWhiteSpace(x.ScheduledActivityInstanceEncounterId)).ToList(), scheduleTimeline.ScheduleTimelineInstances)
+                                            Timings = GetTimings(scheduleActivityInstances.Where(x => String.IsNullOrWhiteSpace(x.ScheduledActivityInstanceEncounterId)).ToList(), scheduledInstances)
                                         };
 
                                         studyTimelineSoA.ScheduleTimelineSoA.SoA.Add(soA);
@@ -406,31 +411,27 @@ namespace TransCelerate.SDR.Services.Services
         public List<TimingSoA> GetTimings(List<ScheduledActivityInstanceEntity> scheduledActivityInstances,List<ScheduledInstanceEntity> scheduledInstances)
         {
             if (scheduledActivityInstances is not null && scheduledActivityInstances.Any())
-            {
-                //Get ordered Instances in reverse order
-                scheduledInstances = GetOrderedInstances(scheduledInstances);
-                //Reverse it to get correct order
-                scheduledInstances.Reverse();
+            {                
                 //Add sequence number since the ordering based on defaultConditionId includes both ACTIVITY and DECISION Type instances
                 int sequenceNumber = 0;
                 var scheduledInstancesWithSeqNumber = scheduledInstances.Select(x => new
                 {
                     x.Id,
                     SequenceNumber = ++sequenceNumber
-                });
+                }).ToList();                
                 //Assign sequence number for Activity Instances
                 var orderedScheduledActivityInstances = scheduledActivityInstances.Select(x => new { 
                     x.ScheduledInstanceTimings,
                     x.ActivityIds,
                     scheduledInstancesWithSeqNumber.FirstOrDefault(y => y.Id == x.Id)?.SequenceNumber
-                });
+                }).ToList();
                 //Add Instances with valid timing values
                 var instances = orderedScheduledActivityInstances.Where(x => x.ScheduledInstanceTimings is not null && x.ScheduledInstanceTimings.Any()).Select(x => new
                 {                    
                     Timings = _mapper.Map<List<TimingSoA>>(x.ScheduledInstanceTimings),
                     x.ActivityIds,
                     x.SequenceNumber
-                }).OrderBy(x => x.SequenceNumber).ToList();
+                }).OrderBy(x => x.SequenceNumber).ToList();                
                 //Add Instances without valid timing values
                 instances.AddRange(orderedScheduledActivityInstances.Where(x => x.ScheduledInstanceTimings is null || !x.ScheduledInstanceTimings.Any()).Select(x => new
                 {                    
@@ -454,7 +455,6 @@ namespace TransCelerate.SDR.Services.Services
                         instance.Timings.Add(new TimingSoA { Activities = instance.ActivityIds is not null && instance.ActivityIds.Any() ? instance.ActivityIds.Distinct().ToList() : new List<string>() });
                     }
                 });
-
                 return instances.SelectMany(x => x.Timings).Any() ? instances.SelectMany(x => x.Timings).ToList() : new List<TimingSoA>();
             }
             return new List<TimingSoA>();
