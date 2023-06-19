@@ -10,24 +10,10 @@ namespace TransCelerate.SDR.RuleEngine.Common
     {
         public SearchParametersValidator()
         {
-            RuleFor(x => x.StudyTitle)
-                .Matches(Constants.RegularExpressions.AlphaNumericsWithSpace)
-                .WithMessage(Constants.ValidationErrorMessage.AlphaNumericErrorMessage);
-
-            RuleFor(x => x.SponsorId)
-                .Matches(Constants.RegularExpressions.AlphaNumericsWithSpace)
-                .WithMessage(Constants.ValidationErrorMessage.AlphaNumericErrorMessage);
-
-            RuleFor(x => x.Indication)
-                .Matches(Constants.RegularExpressions.AlphaNumericsWithSpace)
-                .WithMessage(Constants.ValidationErrorMessage.AlphaNumericErrorMessage);
-
             RuleFor(x => x.UsdmVersion)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)                
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)                
-                .Matches(Constants.RegularExpressions.AlphaNumericsWithSpace)
-                .WithMessage(Constants.ValidationErrorMessage.AlphaNumericErrorMessage)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .Must(x => ApiUsdmVersionMapping.SDRVersions.SelectMany(x=>x.UsdmVersions).Any(y=>y==x))
                 .WithMessage(Constants.ErrorMessages.InvalidUsdmVersion)
                 .When(x => x.ValidateUsdmVersion, ApplyConditionTo.AllValidators);
