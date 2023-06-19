@@ -196,11 +196,12 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// <param name="fromDate">Start Date for Date Filter</param>
         /// <param name="toDate">End Date for Date Filter</param>
         /// <param name="studyTitle">Study Title Filter</param>        
+        /// <param name="user">Logged in user</param>        
         /// <returns>
         /// A <see cref="List{StudyHistoryResponseEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<List<StudyHistoryResponseEntity>> GetStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle)
+        public async Task<List<StudyHistoryResponseEntity>> GetStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle, LoggedInUser user)
         {
             _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV1)}; Method : {nameof(GetStudyHistory)};");
             try
@@ -208,7 +209,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 var collection = _database.GetCollection<CommonStudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
 
                 List<StudyHistoryResponseEntity> studyHistories = await collection.Aggregate()
-                                                        .Match(DataFilterCommon.GetFiltersForStudyHistory(fromDate, toDate, studyTitle)) // Condition for matching date range
+                                                        .Match(DataFilterCommon.GetFiltersForStudyHistory(fromDate, toDate, studyTitle, GetGroupsOfUser(user).Result, user)) // Condition for matching date range
                                                         .Project(x =>
                                                                 new StudyHistoryResponseEntity
                                                                 {
@@ -221,8 +222,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                                     ProtocolVersions = x.Study.StudyProtocolVersions.Select(x => x.ProtocolVersion),
                                                                     StudyVersion = x.Study.StudyVersion,
                                                                     UsdmVersion = x.AuditTrail.UsdmVersion,
-                                                                    StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null,                                                                    
-                                                                    HasAccess = true,
+                                                                    StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null                                                                    
                                                                 })  //Project only the required fields                                                        
                                                         .ToListAsync().ConfigureAwait(false);
 
