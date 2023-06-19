@@ -13,7 +13,7 @@ namespace TransCelerate.SDR.RuleEngineV1
         {
             RuleFor(x => x.Study)
                 .Cascade(CascadeMode.Stop)
-                .NotNull().OverridePropertyName(IdFieldPropertyName.ParentElement.ClinicalStudy).WithMessage(Constants.ValidationErrorMessage.RootElementMissing)
+                .NotNull().OverridePropertyName(IdFieldPropertyName.ParentElement.ClinicalStudy).WithName(IdFieldPropertyName.ParentElement.ClinicalStudy).WithMessage(Constants.ValidationErrorMessage.RootElementMissing)
                 .SetValidator(new StudyValidator());
         }
     }
