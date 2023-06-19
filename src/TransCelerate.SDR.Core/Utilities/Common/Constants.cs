@@ -130,11 +130,11 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string InvalidPermissionValue = "Permission value is not valid";
 
-            public const string InvalidSortOrder = "Sort Order is not valid";
+            public const string InvalidSortOrder = "sortOrder value must be asc/desc";
 
-            public const string EnterValidNumber = "Enter a valid number";
+            public const string EnterValidNumber = "PageNumber must be >=1";
 
-            public const string RootElementMissing = "Root Element is missing";
+            public const string RootElementMissing = "Root Element {PropertyName} is missing";
 
             public const string InValidDays = "Invalid Date Range";
 
@@ -170,9 +170,9 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string SearchNotFound = "No study matches the search keywords";
 
-            public const string StudyElementNotValid = "Kindly provide a valid study element";
+            public const string StudyElementNotValid = "A valid study element is required in the listofelements query parameter";
 
-            public const string StudyDesignElementNotValid = "Kindly provide a valid study design element";
+            public const string StudyDesignElementNotValid = "A valid study design element is required in the listofelements query parameter";
 
             public const string NotValidStudyId = "The provided studyId is not found";
 
@@ -192,13 +192,13 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string ForbiddenForAStudy = "Access to one or more SDRUploadVersions of the study is restricted";
 
-            public const string ProvideDifferentVersion = "Kindly provide different SDRUploadVersions";
+            public const string ProvideDifferentVersion = "SDRUploadVersions for the Compare API must be different";
 
-            public const string ProvideValidVersion = "Kindly provide valid SDRUploadVersion for";
+            public static readonly string[] ProvideValidVersion = { "A valid SDRUploadVersion for ", " must be provided" };
 
             public const string InvalidCredentials = "Invalid Credentials";
 
-            public const string PostRestricted = "Operation restricted for the user";
+            public const string PostRestricted = "User does not have permission to create or update this study";
 
             public const string UsageReportNotAvailable = "System Usage Report Not Available";
 
@@ -208,13 +208,13 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string ScheduleTimelineNotFound = "The requested StudyScheduleTimeline not found";
 
-            public const string EnterDesignIdError = "Kindly provide valid Study Design Id when providing Schedule Timeline Id";
+            public const string EnterDesignIdError = "A valid studyDesignId is required when specifying a studyScheduleTimelineId";
 
             public const string SoANotFound = "The Schedule Of Activities Not Found";
 
             public const string UsdmVersionMissing = "The 'usdmVersion' header is missing";
 
-            public const string UsdmVersionAmbiguous = "The 'usdmVersion' is ambiguous";
+            public const string UsdmVersionAmbiguous = "Only one usdmVersion header is allowed";
 
             public const string UsdmVersionMapError = "The usdmVersion is not compatible with the apiVersion. Kindly refer versions endpoint for apiVersion -> usdmVersion mapping ";
 
@@ -228,6 +228,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string InvalidUsdmVersion = "The provided USDM Version is invalid";
 
+            public const string ConformanceErrorMessage = "The study definition is not conformant with USDM Version : ";
         }
 
         public struct TokenConstants
