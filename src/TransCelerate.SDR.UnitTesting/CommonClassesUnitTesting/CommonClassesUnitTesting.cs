@@ -756,7 +756,7 @@ namespace TransCelerate.SDR.UnitTesting
 
             Assert.IsNotNull(DataFilterCommon.GetFiltersForGetAudTrail("sd", DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1)));
 
-            Assert.IsNotNull(DataFilterCommon.GetFiltersForStudyHistory(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1), "sd"));
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForStudyHistory(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1), "sd", GetUserDataFromStaticJson().SDRGroups, user));
 
             SearchParametersEntity searchParametersEntity = new()
             {

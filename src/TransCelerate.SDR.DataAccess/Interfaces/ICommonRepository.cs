@@ -51,12 +51,13 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// </summary>
         /// <param name="fromDate">Start Date for Date Filter</param>
         /// <param name="toDate">End Date for Date Filter</param>
-        /// <param name="studyTitle">Study Title Filter</param>        
+        /// <param name="studyTitle">Study Title Filter</param>      
+        /// <param name="user">Logged in user</param>   
         /// <returns>
         /// A <see cref="List{StudyHistoryEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        Task<List<StudyHistoryResponseEntity>> GetStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle);
+        Task<List<StudyHistoryResponseEntity>> GetStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle, LoggedInUser user);
 
         /// <summary>
         /// Search the collection based on search criteria

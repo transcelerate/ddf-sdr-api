@@ -426,21 +426,21 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         [Test]
         public void GetStudyHistory_UnitTesting()
         {
-            CommonStudyDefinitionsEntity mvp = GetData(Constants.USDMVersions.MVP);
+            CommonStudyDefinitionsEntity v3 = GetData(Constants.USDMVersions.V2);
             CommonStudyDefinitionsEntity v1 = GetData(Constants.USDMVersions.V1);
             CommonStudyDefinitionsEntity v2 = GetData(Constants.USDMVersions.V1_9);
             List<StudyHistoryResponseEntity> studyHistories = new()
             {
                 new StudyHistoryResponseEntity
                 {
-                    StudyId = mvp.Study.StudyId,
+                    StudyId = v3.Study.StudyId,
                     ProtocolVersions = new List<string>() { "1", "2" },
-                    StudyIdentifiers = mvp.Study.StudyIdentifiers,
-                    StudyTitle = mvp.Study.StudyTitle,
+                    StudyIdentifiers = v3.Study.StudyIdentifiers,
+                    StudyTitle = v3.Study.StudyTitle,
                     EntryDateTime = DateTime.Now,
-                    StudyVersion = mvp.Study.StudyVersion,
+                    StudyVersion = v3.Study.StudyVersion,
                     SDRUploadVersion = 1,
-                    StudyType = mvp.Study.StudyType,
+                    StudyType = v3.Study.StudyType,
                     UsdmVersion = Constants.USDMVersions.MVP
                 },
                 new StudyHistoryResponseEntity
@@ -468,7 +468,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     UsdmVersion = Constants.USDMVersions.V1_9
                 }
             };
-            _mockCommonRepository.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>()))
+            _mockCommonRepository.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                    .Returns(Task.FromResult(studyHistories));
 
             CommonServices CommonService = new(_mockCommonRepository.Object, _mockLogger, _mockMapper);
@@ -484,30 +484,16 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             //Assert          
             Assert.IsNotNull(actual_result);
 
-            //Group is Null
-            user.UserRole = Constants.Roles.App_User;
-            Config.IsGroupFilterEnabled = true;
-            var grps = GetUserDataFromStaticJson().SDRGroups;
-            grps = null;
-            _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
-                   .Returns(Task.FromResult(grps));
-            method = CommonService.GetStudyHistory(DateTime.Now, DateTime.MinValue, "", user);
-            method.Wait();
-            result = method.Result;
-            Assert.IsNull(result);
-            Config.IsGroupFilterEnabled = false;
-            user.UserRole = Constants.Roles.Org_Admin;
-
             //no studies
             studyHistories = null;
-            _mockCommonRepository.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>()))
+            _mockCommonRepository.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                     .Returns(Task.FromResult(studyHistories));
             method = CommonService.GetStudyHistory(DateTime.Now, DateTime.MinValue, "", user);
             method.Wait();
 
             Assert.IsNull(method.Result);
 
-            _mockCommonRepository.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>()))
+            _mockCommonRepository.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                   .Throws(new Exception("Error"));
 
             method = CommonService.GetStudyHistory(DateTime.Now, DateTime.MinValue, "", user);
