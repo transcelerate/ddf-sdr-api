@@ -1208,7 +1208,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             result = method.Result;
 
             //Expected
-            expected = new ErrorModel { Message = Constants.ErrorMessages.ProvideValidVersion + " sdrUploadVersionOne", StatusCode = "400" };
+            expected = new ErrorModel { Message = Constants.ErrorMessages.ProvideValidVersion[0] + " sdrUploadVersionOne" + Constants.ErrorMessages.ProvideValidVersion[1] ,StatusCode = "400" };
 
             //Actual            
             actual_result = (result as ObjectResult).Value as ErrorModel;
@@ -1222,7 +1222,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             result = method.Result;
 
             //Expected
-            expected = new ErrorModel { Message = Constants.ErrorMessages.ProvideValidVersion + " sdrUploadVersionTwo", StatusCode = "400" };
+            expected = new ErrorModel { Message = Constants.ErrorMessages.ProvideValidVersion[0] + " sdrUploadVersionTwo" + Constants.ErrorMessages.ProvideValidVersion[1], StatusCode = "400" };
 
             //Actual            
             actual_result = (result as ObjectResult).Value as ErrorModel;
@@ -1236,7 +1236,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             result = method.Result;
 
             //Expected
-            expected = new ErrorModel { Message = Constants.ErrorMessages.ProvideValidVersion + " sdrUploadVersionOne and sdrUploadVersionTwo", StatusCode = "400" };
+            expected = new ErrorModel { Message = Constants.ErrorMessages.ProvideValidVersion[0] + " sdrUploadVersionOne and sdrUploadVersionTwo" + Constants.ErrorMessages.ProvideValidVersion[1], StatusCode = "400" };
 
             //Actual            
             actual_result = (result as ObjectResult).Value as ErrorModel;

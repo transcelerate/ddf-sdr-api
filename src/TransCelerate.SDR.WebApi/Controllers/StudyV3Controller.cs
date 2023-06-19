@@ -340,13 +340,13 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
 
                     if (sdrUploadVersionOne == 0 && sdrUploadVersionTwo == 0)
-                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest($"{Constants.ErrorMessages.ProvideValidVersion} {nameof(sdrUploadVersionOne)} and {nameof(sdrUploadVersionTwo)}")).Value);
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest($"{Constants.ErrorMessages.ProvideValidVersion[0]} {nameof(sdrUploadVersionOne)} and {nameof(sdrUploadVersionTwo)}{Constants.ErrorMessages.ProvideValidVersion[1]}")).Value);
 
                     if (sdrUploadVersionOne == 0)
-                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest($"{Constants.ErrorMessages.ProvideValidVersion} {nameof(sdrUploadVersionOne)}")).Value);
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest($"{Constants.ErrorMessages.ProvideValidVersion[0]} {nameof(sdrUploadVersionOne)}{Constants.ErrorMessages.ProvideValidVersion[1]}")).Value);
 
                     if (sdrUploadVersionTwo == 0)
-                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest($"{Constants.ErrorMessages.ProvideValidVersion} {nameof(sdrUploadVersionTwo)}")).Value);
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest($"{Constants.ErrorMessages.ProvideValidVersion[0]} {nameof(sdrUploadVersionTwo)}{Constants.ErrorMessages.ProvideValidVersion[1]}")).Value);
 
                     if (sdrUploadVersionOne == sdrUploadVersionTwo)
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.ProvideDifferentVersion)).Value);
