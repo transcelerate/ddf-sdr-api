@@ -86,8 +86,10 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// <param name="fromDate"></param>
         /// <param name="toDate"></param>
         /// <param name="studyTitle"></param>
+        /// <param name="groups"></param>
+        /// <param name="user"></param>
         /// <returns></returns>
-        public static FilterDefinition<CommonStudyDefinitionsEntity> GetFiltersForStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle)
+        public static FilterDefinition<CommonStudyDefinitionsEntity> GetFiltersForStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle, List<SDRGroupsEntity> groups, LoggedInUser user)
         {
             FilterDefinitionBuilder<CommonStudyDefinitionsEntity> builder = Builders<CommonStudyDefinitionsEntity>.Filter;
             FilterDefinition<CommonStudyDefinitionsEntity> filter = builder.Empty;
@@ -97,6 +99,32 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             //Filter for supported USDM Versions
             filter &= builder.In(x => x.AuditTrail.UsdmVersion, ApiUsdmVersionMapping.SDRVersions.SelectMany(y => y.UsdmVersions).ToArray());
+
+            //For Data Segmentation
+            if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
+            {
+                if (groups != null && groups.Any())
+                {
+                    Tuple<List<string>, List<string>> groupFilters = Core.Utilities.Helpers.GroupFilters.GetGroupFilters(groups);
+
+                    if (!groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
+                    {
+                        if (groupFilters.Item1.Any())
+                        {
+                            filter &= builder.Or(
+                                        builder.Regex($"{Constants.DbFilter.StudyType}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
+                                        builder.In(x => x.Study.StudyId, groupFilters.Item2)
+                                        );
+                        }
+                        else
+                        {
+                            filter &= builder.In(x => x.Study.StudyId, groupFilters.Item2);
+                        }
+                    }
+                }
+                else
+                    filter &= builder.Where(x => x.Study == null); //if there are no groups assigned for the user
+            }
 
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(studyTitle))

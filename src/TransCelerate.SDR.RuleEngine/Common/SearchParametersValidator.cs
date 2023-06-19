@@ -10,13 +10,9 @@ namespace TransCelerate.SDR.RuleEngine.Common
     {
         public SearchParametersValidator()
         {
-            RuleFor(x => x.StudyTitle)
-                .Matches(Constants.RegularExpressions.AlphaNumericsWithSpace)
-                .WithMessage(Constants.ValidationErrorMessage.AlphaNumericErrorMessage);
+            RuleFor(x => x.StudyTitle);
 
-            RuleFor(x => x.SponsorId)
-                .Matches(Constants.RegularExpressions.AlphaNumericsWithSpace)
-                .WithMessage(Constants.ValidationErrorMessage.AlphaNumericErrorMessage);
+            RuleFor(x => x.SponsorId);
 
             RuleFor(x => x.Indication)
                 .Matches(Constants.RegularExpressions.AlphaNumericsWithSpace)

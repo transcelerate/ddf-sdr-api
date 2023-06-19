@@ -160,16 +160,13 @@ namespace TransCelerate.SDR.Services.Services
             try
             {
                 _logger.LogInformation($"Started Service : {nameof(CommonServices)}; Method : {nameof(GetStudyHistory)};");
-                List<StudyHistoryResponseEntity> studies = await _commonRepository.GetStudyHistory(fromDate, toDate, studyTitle); //Getting List of studyId, studyTitle and Version
+                List<StudyHistoryResponseEntity> studies = await _commonRepository.GetStudyHistory(fromDate, toDate, studyTitle, user); //Getting List of studyId, studyTitle and Version
                 if (studies == null)
                 {
                     return null;
                 }
                 else
                 {
-                    studies = await CheckAccessForListOfStudies(studies, user);
-                    if (studies == null)
-                        return null;
                     var studyHistory = studies.GroupBy(x => new { x.StudyId })
                                               .Select(g => new
                                               {
