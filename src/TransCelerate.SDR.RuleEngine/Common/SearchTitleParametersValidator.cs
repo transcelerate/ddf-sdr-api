@@ -9,12 +9,6 @@ namespace TransCelerate.SDR.RuleEngine.Common
     {
         public SearchTitleParametersValidator()
         {
-            RuleFor(x => x.StudyTitle)
-                .Matches(Constants.RegularExpressions.AlphaNumericsWithSpace)
-                .WithMessage(Constants.ValidationErrorMessage.AlphaNumericErrorMessage);
-            RuleFor(x => x.SponsorId)
-                .Matches(Constants.RegularExpressions.AlphaNumericsWithSpace)
-                .WithMessage(Constants.ValidationErrorMessage.AlphaNumericErrorMessage);
             RuleFor(x => x.FromDate)
                 .Must(x => DateValidationHelper.IsValid(x))
                 .WithMessage(Constants.ValidationErrorMessage.ValidDateError);
