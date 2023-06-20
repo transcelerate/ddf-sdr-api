@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -61,6 +62,10 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateMissingError)).Value);
                     if (reportBodyParameters.FromDateTime >= reportBodyParameters.ToDateTime)
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateErrorForReports)).Value);
+                }
+                if (!Enum.GetNames(typeof(SortOrder)).Contains(reportBodyParameters.SortOrder))
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ValidationErrorMessage.InvalidSortOrder)).Value);
                 }
                 HttpClient client = new();
                 client.DefaultRequestHeaders.Add(Constants.DefaultHeaders.AppInsightsApiKey, Config.AppInsightsApiKey);
