@@ -3,6 +3,7 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities.Common;
 using TransCelerate.SDR.Core.Entities.UserGroups;
@@ -159,6 +160,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
             //Filter for OrgCode
             if (!String.IsNullOrWhiteSpace(searchParameters.SponsorId))
             {
+                searchParameters.SponsorId = Regex.Escape(searchParameters.SponsorId);
                 filter &= builder.Or(
                                      builder.And(
                                              builder.ElemMatch<BsonDocument>(Constants.DbFilter.StudyIdentifiers, new BsonDocument()
@@ -247,6 +249,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
             //Filter for OrgCode
             if (!String.IsNullOrWhiteSpace(searchParameters.SponsorId))
             {
+                searchParameters.SponsorId = Regex.Escape(searchParameters.SponsorId);
                 filter &= builder.Or(
                      builder.And(
                              builder.ElemMatch<BsonDocument>(Constants.DbFilter.StudyIdentifiers, new BsonDocument()
@@ -262,6 +265,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
             //Filter for Indication
             if (!String.IsNullOrWhiteSpace(searchParameters.Indication))
             {
+                searchParameters.Indication = Regex.Escape(searchParameters.Indication);
                 filter &= builder.Or(                     
                      builder.Regex($"{Constants.DbFilter.StudyDesigns}.{Constants.DbFilter.StudyIndicationsIndicationDesc}", new BsonRegularExpression($"/{searchParameters.Indication}/i")),
                      builder.Regex($"{Constants.DbFilter.StudyDesigns}.{Constants.DbFilter.StudyIndicationsIndicationDescription}", new BsonRegularExpression($"/{searchParameters.Indication}/i"))
@@ -271,6 +275,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
             ////Filter for Intervention Model
             if (!String.IsNullOrWhiteSpace(searchParameters.InterventionModel))
             {
+                searchParameters.InterventionModel = Regex.Escape(searchParameters.InterventionModel);
                 filter &= builder.Or(                     
                      builder.Regex($"{Constants.DbFilter.StudyDesigns}.{Constants.DbFilter.InterventionModel}", new BsonRegularExpression($"/{searchParameters.InterventionModel}/i"))
                     );
@@ -279,6 +284,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
             //Filter for Study Phase
             if (!String.IsNullOrWhiteSpace(searchParameters.Phase))
             {
+                searchParameters.Phase = Regex.Escape(searchParameters.Phase);
                 filter &= builder.Or(                     
                      builder.Regex($"{Constants.DbFilter.StudyPhase}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{searchParameters.Phase}/i")),
                      builder.Regex($"{Constants.DbFilter.StudyPhase}.{Constants.DbFilter.StudyPhaseStandardCodeDecode}", new BsonRegularExpression($"/{searchParameters.Phase}/i"))
