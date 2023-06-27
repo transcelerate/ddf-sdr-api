@@ -32,7 +32,10 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         {
             public const string SPONSOR_ID = "SPONSOR_ID";
             public const string SPONSOR_ID_V1 = "Clinical Study Sponsor";
-            public const string REGULATORY_AGENCY = "Regulatory Agency";
+            public static readonly string[] RegulatoryAgencyIdentifierNumberConstants =
+            {
+                "Regulatory Agency","Clinical Study Registry"
+            };
             public const string STUDY_PRIMARY_OBJECTIVE = "Study Primary Objective";
             public const string STUDY_SECONDARY_OBJECTIVE = "Study Secondary Objective";
 

@@ -20,8 +20,12 @@
           "amendmentNumber": "Ammendment",
           "approvalDate": "2022-01-02",
           "conditionDisease": "Something bad and Description",
-          "regulatoryAgencyId": "tezt",
-          "regulatoryAgencyNumber": "tezt",
+          "regulatoryAgencyIdentifierNumbers": [
+            {
+              "regulatoryAgencyId": "tezt",
+              "regulatoryAgencyNumber": "tezt"
+            }
+          ],
           "sponsorLegalAddress": "text, line2, city,district ,state , postalCode,country ",
           "sponsorName": "testissue",
           "studyPhase": "Phase 3",
@@ -84,28 +88,32 @@
           "populationsForAnalyses": "Population 1"
         },
         "objectivesEndpointsAndEstimands": {
-          "primaryObjectives": {
-            "objectiveDescription": "Objective Level 1",
-            "objectiveLevel": "Study Primary Objective",
-            "objectiveEndpoints": [
-              {
-                "endpointDescription": "Endpoint 1",
-                "endpointPurposeDescription": "level description",
-                "endpointLevel": "PURPOSE"
-              }
-            ]
-          },
-          "secondaryObjectives": {
-            "objectiveDescription": "Objective Level 2",
-            "objectiveLevel": "Study Secondary Objective",
-            "objectiveEndpoints": [
-              {
-                "endpointDescription": "Endpoint 1",
-                "endpointPurposeDescription": "level description",
-                "endpointLevel": "PURPOSE"
-              }
-            ]
-          }
+          "primaryObjectives": [
+            {
+              "objectiveDescription": "Objective Level 1",
+              "objectiveLevel": "Study Primary Objective",
+              "objectiveEndpoints": [
+                {
+                  "endpointDescription": "Endpoint 1",
+                  "endpointPurposeDescription": "level description",
+                  "endpointLevel": "PURPOSE"
+                }
+              ]
+            }
+          ],
+          "secondaryObjectives": [
+            {
+              "objectiveDescription": "Objective Level 2",
+              "objectiveLevel": "Study Secondary Objective",
+              "objectiveEndpoints": [
+                {
+                  "endpointDescription": "Endpoint 1",
+                  "endpointPurposeDescription": "level description",
+                  "endpointLevel": "PURPOSE"
+                }
+              ]
+            }
+          ]
         }
       }
     }
