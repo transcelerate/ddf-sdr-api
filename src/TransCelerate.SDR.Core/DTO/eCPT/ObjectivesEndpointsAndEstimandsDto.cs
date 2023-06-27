@@ -1,10 +1,12 @@
 ﻿
 
+using System.Collections.Generic;
+
 namespace TransCelerate.SDR.Core.DTO.eCPT
 {
     public class ObjectivesEndpointsAndEstimandsDto
     {
-        public ObjectivesDto PrimaryObjectives { get; set; }
-        public ObjectivesDto SecondaryObjectives { get; set; }
+        public List<ObjectivesDto> PrimaryObjectives { get; set; }
+        public List<ObjectivesDto> SecondaryObjectives { get; set; }
     }
 }

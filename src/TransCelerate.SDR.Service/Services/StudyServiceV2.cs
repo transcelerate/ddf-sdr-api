@@ -592,13 +592,12 @@ namespace TransCelerate.SDR.Services.Services
                                 ConditionDisease = design.StudyIndications != null && design.StudyIndications.Any() ?
                                                    design.StudyIndications.Count == 1 ?
                                                    design.StudyIndications.FirstOrDefault().IndicationDescription
-                                                   : $"{String.Join(',', design.StudyIndications.Select(x => x.IndicationDescription).ToArray(), 0, design.StudyIndications.Count - 1)} and {design.StudyIndications.Select(x => x.IndicationDescription).LastOrDefault()}"
+                                                   : $"{String.Join(", ", design.StudyIndications.Select(x => x.IndicationDescription).ToArray(), 0, design.StudyIndications.Count - 1)} and {design.StudyIndications.Select(x => x.IndicationDescription).LastOrDefault()}"
                                                    : null,
-                                RegulatoryAgencyId = studyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.REGULATORY_AGENCY, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifierScope.OrganisationIdentifierScheme).FirstOrDefault(),
-                                RegulatoryAgencyNumber = studyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.REGULATORY_AGENCY, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifier).FirstOrDefault(),
+                                RegulatoryAgencyIdentifierNumbers = _mapper.Map<List<Core.DTO.eCPT.RegulatoryAgencyIdentifierNumberDto>>(studyDto.StudyIdentifiers.Where(x => Constants.IdType.RegulatoryAgencyIdentifierNumberConstants.Any(y => y.ToLower() == x.StudyIdentifierScope?.OrganisationType?.Decode?.ToLower()))),
                                 SponsorName = studyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifierScope.OrganisationName).FirstOrDefault(),
                                 SponsorLegalAddress = studyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifierScope.OrganizationLegalAddress).FirstOrDefault() == null ? null
-                                                                : studyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifierScope.OrganizationLegalAddress).Select(x => $"{x.Text},{x.Line},{x.City},{x.District},{x.State},{x.PostalCode},{x.Country?.Decode}").FirstOrDefault(),
+                                                                : studyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifierScope.OrganizationLegalAddress).Select(x => $"{x.Line}, {x.City}, {x.District}, {x.State}, {x.PostalCode}, {x.Country?.Decode}").FirstOrDefault(),
                                 StudyPhase = ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.StudyPhase, studyDto.StudyPhase?.StandardCode?.Code) ?? studyDto.StudyPhase?.StandardCode?.Decode,
                                 Protocol = new Core.DTO.eCPT.ProtocolDto
                                 {
@@ -614,12 +613,12 @@ namespace TransCelerate.SDR.Services.Services
                                     NumberofParticipants = design.StudyPopulations?.Sum(x => int.Parse(Convert.ToString(x.PlannedNumberOfParticipants))).ToString(),
                                     PrimaryPurpose = design.TrialIntentType != null && design.TrialIntentType.Any() ?
                                                    design.TrialIntentType.Count == 1 ? ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, design.TrialIntentType.FirstOrDefault().Code) ?? design.TrialIntentType.FirstOrDefault().Decode
-                                                   : $"{String.Join(',', design.TrialIntentType.Select(x => ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, x.Code) ?? x.Decode).ToArray(), 0, design.TrialIntentType.Count - 1)}" +
+                                                   : $"{String.Join(", ", design.TrialIntentType.Select(x => ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, x.Code) ?? x.Decode).ToArray(), 0, design.TrialIntentType.Count - 1)}" +
                                                    $" and {design.TrialIntentType.Select(x => ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, x.Code) ?? x.Decode).LastOrDefault()}"
                                                    : null,
                                     EnrollmentTarget = design.StudyPopulations != null && design.StudyPopulations.Any() ?
                                                       design.StudyPopulations.Count == 1 ? design.StudyPopulations.FirstOrDefault().PopulationDescription
-                                                      : $"{String.Join(',', design.StudyPopulations.Select(x => x.PopulationDescription).ToArray(), 0, design.StudyPopulations.Count - 1)} and {design.StudyPopulations.Select(x => x.PopulationDescription).LastOrDefault()}"
+                                                      : $"{String.Join(", ", design.StudyPopulations.Select(x => x.PopulationDescription).ToArray(), 0, design.StudyPopulations.Count - 1)} and {design.StudyPopulations.Select(x => x.PopulationDescription).LastOrDefault()}"
                                                       : null,
                                     InterventionModel = ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.InterventionModel, design?.InterventionModel?.Code) ?? design?.InterventionModel?.Decode,
                                     NumberofArms = design.StudyCells != null && design.StudyCells.Any() ?
@@ -658,7 +657,7 @@ namespace TransCelerate.SDR.Services.Services
                                 PopulationsForAnalyses = design.StudyEstimands != null && design.StudyEstimands.Any() ?
                                                    design.StudyEstimands.Count == 1 ?
                                                    design.StudyEstimands.FirstOrDefault().AnalysisPopulation.PopulationDescription
-                                                   : $"{String.Join(',', design.StudyEstimands.Select(x => x.AnalysisPopulation.PopulationDescription).ToArray(), 0, design.StudyEstimands.Count - 1)} and {design.StudyEstimands.Select(x => x.AnalysisPopulation.PopulationDescription).LastOrDefault()}"
+                                                   : $"{String.Join(", ", design.StudyEstimands.Select(x => x.AnalysisPopulation.PopulationDescription).ToArray(), 0, design.StudyEstimands.Count - 1)} and {design.StudyEstimands.Select(x => x.AnalysisPopulation.PopulationDescription).LastOrDefault()}"
                                                    : null,
                             },
                             ObjectivesEndpointsAndEstimands = ECPTHelper.GetObjectivesEndpointsAndEstimandsDtoV2(design.StudyObjectives, _mapper),
