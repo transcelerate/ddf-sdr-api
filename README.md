@@ -252,21 +252,80 @@ The below endpoint can be used to fetch all the elements for a given StudyId.
 The below endpoint can be used to fetch the sections of study design for a given StudyId.
 
 ```
-/v2/studydesigns?study_uuid={studyId}
+/v2/studydesigns?studyId={studyId}
+```
+The below endpoint can be used to export study details mapped to a limited set of CPT Variables grouped by sections within the Common Protocol Template
+```
+/v2/studydefinitions/{studyId}/studydesigns/ecpt
+```
+The below endpoint can be used to fetch data from study definitions that help build the Schedule of Activities matrix for a given Schedule Timeline in a Study Design
+```
+/v2/studydefinitions/{studyId}/studydesigns/soa
+```
+### V3 Endpoints (USDM Version 2.0)
+
+For V3 endpoints, the "usdmVersion" header parameter is mandatory and the header value must be "2.0"
+
+**POST Endpoint**
+The below endpoint can be used to create new study definitions.
+```
+/v3/studydefinitions
+```
+The below endpoint can be used to validate the USDM conformance rules for a study definition
+```
+/v3/studydefinitions/validate-usdm-conformance
+```
+**PUT Endpoint**
+The below endpoint can be used to update existing study definitions (create new version for a study definition).
+```
+/v3/studydefinitions/{studyId}
+```
+**GET Endpoints**
+
+The below endpoint can be used to fetch all the elements for a given StudyId.
+
+```
+/v3/studydefinitions/{studyId}
 ```
 
+The below endpoint can be used to fetch the sections of study design for a given StudyId.
+
+```
+/v3/studydesigns?studyId={studyId}
+```
+The below endpoint can be used to get the changes between two SDR Upload Versions of a specific study definition
+```
+/v3/studydefinitions/{studyId}/version-comparison?sdruploadversionone={sdruploadversionone}&sdruploadversiontwo={sdruploadversiontwo}
+```
+The below endpoint can be used to export study details mapped to a limited set of CPT Variables grouped by sections within the Common Protocol Template
+```
+/v3/studydefinitions/{studyId}/studydesigns/ecpt
+```
+The below endpoint can be used to fetch data from study definitions that help build the Schedule of Activities matrix for a given Schedule Timeline in a Study Design
+```
+/v3/studydefinitions/{studyId}/studydesigns/soa
+```
 ### Version Neutral Endpoints
 
-The below endpoints can be used to fetch the audit trail for a given StudyId.
+The below endpoints can be used to fetch the revision history for a given StudyId.
 
 ```
-/studydefinitions/{studyId}/audittrail
+/studydefinitions/{studyId}/revisionhistory
 ```
 
 The below endpoint can be used to fetch basic details of all study definitions in SDR.
 
 ```
 /studydefinitions/studyhistory
+```
+The below endpoint can be used to fetch study definitons in raw JSON string format
+
+```
+/studydefinitions/{studyId}/rawdata
+```
+The below endpoint can be used to fetch the change audit details of a study definiton
+```
+/studydefinitions/{studyId}/changeaudit
 ```
 
 ### API Spec
