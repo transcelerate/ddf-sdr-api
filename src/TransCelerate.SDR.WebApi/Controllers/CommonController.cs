@@ -137,7 +137,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         }
 
         /// <summary>
-        /// GET Audit Trail of a study
+        /// GET Revision History of a study
         /// </summary>
         /// <param name="fromDate">Start Date for Date Filter</param>
         /// <param name="toDate">End Date for Date Filter</param>

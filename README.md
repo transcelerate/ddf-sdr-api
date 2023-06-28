@@ -12,7 +12,7 @@
 
 Study Definition Repository (SDR) Reference Implementation is TransCelerate’s vision to catalyze industry-level transformation, enabling digital exchange of study definition information by collaborating with technology providers and standards bodies to create a sustainable open-source Study Definition Repository.
 
-This is a .NET 6 Web API project that is designed to expose APIs which upstream/downstream systems can utilize to store and retrieve study definitions from SDR. The latest Release of SDR (Release V2.0) supports study definitions conformant with USDM V1.0 and USDM 1.9.
+This is a .NET 6 Web API project that is designed to expose APIs which upstream/downstream systems can utilize to store and retrieve study definitions from SDR. The latest Release of SDR (Release V2.0.1) supports study definitions conformant with USDM V1.0, USDM 1.9 and V2.0.
 
 This [Process Flow Document](https://github.com/transcelerate/ddf-sdr-platform/blob/main/documents/sdr-release-v2.0/ddf-sdr-ri-process-flows-v4.0.pdf) provides information regarding user interface functions and system interactions with the SDR at a high level. Please also refer to the [DDF SDR API User Guide](documents/sdr-release-v2.0/ddf-sdr-ri-api-user-guide-v4.1.pdf) to get started, and the [DDF SDR RI API Demo video](https://www.youtube.com/playlist?list=PLMXS-Xt7Ou1KNUF-HQKQRRzqfPQEXWb1u). 
 
@@ -38,6 +38,7 @@ NOTE: Keep a copy for your records.
 For those looking to evaluate the USDM with a sample data set, please see the following files in the Data Model folder:
 - [USDM V1.0 conformant Sample JSON](data-model/sdr-release-v0.5/SDR%20Study%20Sample-JSON-V1.0.json)
 - [USDM V1.9 conformant Sample JSON](data-model/sdr-release-v2.0/ddf-sdr-api-study-sample-json-v1.9.json)
+- [USDM V2.0 conformant Sample JSON](data-model/sdr-release-v2.0.1/ddf-sdr-api-study-sample-json-v2.0.json)
 
 # Code setup and debugging
 ## Pre-requisites
@@ -81,10 +82,10 @@ git clone "repo_url"
  },
  "isGroupFilterEnabled": true  // change value to false to disable user based data filtering,
  "isAuthEnabled": true  // change value to false to disable authorization
- "ApiVersionUsdmVersionMapping":"" // {"SDRVersions":[{"apiVersion":"v1","usdmVersions":["1.0"]},{"apiVersion":"v2","usdmVersions":["1.9"]}]}
+ "ApiVersionUsdmVersionMapping":"" // {"SDRVersions":[{"apiVersion":"v1","usdmVersions":["1.0"]},{"apiVersion":"v2","usdmVersions":["1.9"]},{"apiVersion":"v3","usdmVersions":["2.0"]}]}
 ```
 > **Note**  
-> **API to USDM Version mapping** - SDR supports 3 major USDM versions at a given point in time along with all their minor versions. API endpoints are up-versioned for breaking changes in USDM (API V1 -> USDM V1.0, API V2 -> USDM 1.9).
+> **API to USDM Version mapping** - SDR supports 3 major USDM versions at a given point in time along with all their minor versions. API endpoints are up-versioned for breaking changes in USDM (API V1 -> USDM V1.0, API V2 -> USDM 1.9, API V3 -> USDM 2.0).
 
 3. Then, In the Visual Studio IDE, on clicking the IIS Express Icon or on pressing F5, WebApi solution will start running locally.
 
