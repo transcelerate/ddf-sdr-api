@@ -349,15 +349,17 @@ SDR APIs are defined in such a way that an API version can handle more than one 
  TransCelerate.SDR.Core.Entities
  TransCelerate.SDR.Core.Utilities.Helpers
  TransCelerate.SDR.RuleEngine
+ TransCelerate.SDR.DataAccess
  TransCelerate.SDR.Services
  TransCelerate.SDR.WebApi.Controllers
  TransCelerate.SDR.WebApi.Mappers
  ```
-- Common API endpoints would not require any code change. Logic for below endpoints must be revisited when creating a new API version.
- ```
- /search
- /searchstudytitle
- ```
+- For version neutral endpoint search endpoint, data filters need to be added in below components to support new API version
+```
+ TransCelerate.SDR.DataAccess
+ TransCelerate.SDR.Services
+```
+
 # Nuget Packages 
 
 1. **Automapper.Extensions.Microsoft.DependencyInjection** - Used for mapping two different classes.
