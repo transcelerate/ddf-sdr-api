@@ -91,11 +91,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 var objectiveMapping = SdrCptMapping.SdrCptMasterDataMapping.Where(x => x.Entity == Constants.SdrCptMasterDataEntities.ObjectiveLevel).FirstOrDefault().Mapping;
                 var primaryObjective = objectives.Where(x => x.ObjectiveLevel?.Code == objectiveMapping.Where(x => x.CDISC == Constants.IdType.STUDY_PRIMARY_OBJECTIVE).Select(x => x.Code).FirstOrDefault());
                 var secondaryObjective = objectives.Where(x => x.ObjectiveLevel?.Code == objectiveMapping.Where(x => x.CDISC == Constants.IdType.STUDY_SECONDARY_OBJECTIVE).Select(x => x.Code).FirstOrDefault());
-                if (primaryObjective != null)
+                if (primaryObjective != null && primaryObjective.Any())
                 {
                     objectivesEndpointsAndEstimandsDto.PrimaryObjectives = mapper.Map<List<ObjectivesDto>>(primaryObjective);
                 }
-                if (secondaryObjective != null)
+                if (secondaryObjective != null && secondaryObjective.Any())
                 {
                     objectivesEndpointsAndEstimandsDto.SecondaryObjectives = mapper.Map<List<ObjectivesDto>>(secondaryObjective);
                 }
@@ -157,11 +157,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 var objectiveMapping = SdrCptMapping.SdrCptMasterDataMapping.Where(x => x.Entity == Constants.SdrCptMasterDataEntities.ObjectiveLevel).FirstOrDefault().Mapping;
                 var primaryObjective = objectives.Where(x => x.ObjectiveLevel?.Code == objectiveMapping.Where(x => x.CDISC == Constants.IdType.STUDY_PRIMARY_OBJECTIVE).Select(x => x.Code).FirstOrDefault());
                 var secondaryObjective = objectives.Where(x => x.ObjectiveLevel?.Code == objectiveMapping.Where(x => x.CDISC == Constants.IdType.STUDY_SECONDARY_OBJECTIVE).Select(x => x.Code).FirstOrDefault());
-                if (primaryObjective != null)
+                if (primaryObjective != null && primaryObjective.Any())
                 {
                     objectivesEndpointsAndEstimandsDto.PrimaryObjectives = mapper.Map<List<ObjectivesDto>>(primaryObjective);
                 }
-                if (secondaryObjective != null)
+                if (secondaryObjective != null && secondaryObjective.Any())
                 {
                     objectivesEndpointsAndEstimandsDto.SecondaryObjectives = mapper.Map<List<ObjectivesDto>>(secondaryObjective);
                 }
