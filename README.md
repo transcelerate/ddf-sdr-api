@@ -4,7 +4,9 @@
 - [Pre-requisites](#pre-requisites)
 - [Code setup and debugging](#code-setup-and-debugging)
 - [Base solution structure](#base-solution-structure)
-- [List of Endpoints](#list-of-endpoints)
+- [SDR-API](#sdr-api)
+  - [List of Endpoints](#list-of-endpoints)
+  - [API Versioning](#api-versioning)
 - [Nuget packages](#nuget-packages)
 
 
@@ -196,7 +198,8 @@ The solution has the following structure:
 
 **[TransCelerate.SDR.WebApi](src/TransCelerate.SDR.WebApi/TransCelerate.SDR.WebApi.md)** - contains API controllers, mappers and the startup for the application.
 
-# List of Endpoints
+# SDR API
+## List Of Endpoints
 
 The below GET endpoint can be used to GET API Version -> USDM Version mapping.
 ```
@@ -337,6 +340,24 @@ https://localhost:44358/swagger/index.html
 ```
 **Note**: Refer **[DDF SDR API User Guide](documents/sdr-release-v2.0/ddf-sdr-ri-api-user-guide-v4.1.pdf)** for detailed information on all the endpoints.
 
+## API Versioning
+SDR APIs are defined in such a way that an API version can handle more than one USDM Version. If there are no breaking changes between the USDM Versions, with same API version, more than one USDM Versions can be handled. But, when there is a breaking change in a new USDM Version, a new API version must be created to support the new USDM Version. Below are the list of changes that are required when creating a new API version.
+- Configuration for **ApiVersionUsdmVersionMapping** and **ConformanceRules** must be updated to support new API version.
+- Create new version for the below listed components
+ ```
+ TransCelerate.SDR.Core.DTO
+ TransCelerate.SDR.Core.Entities
+ TransCelerate.SDR.Core.Utilities.Helpers
+ TransCelerate.SDR.RuleEngine
+ TransCelerate.SDR.Services
+ TransCelerate.SDR.WebApi.Controllers
+ TransCelerate.SDR.WebApi.Mappers
+ ```
+- Common API endpoints would not require any code change. Logic for below endpoints must be revisited when creating a new API version.
+ ```
+ /search
+ /searchstudytitle
+ ```
 # Nuget Packages 
 
 1. **Automapper.Extensions.Microsoft.DependencyInjection** - Used for mapping two different classes.
