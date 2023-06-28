@@ -38,7 +38,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
 
         #region GET Methods
         /// <summary>
-        /// GET All Elements For a Study
+        /// GET Change Audit For a Study
         /// </summary>
         /// <param name="studyId">Study ID</param>
         /// <response code="200">Returns Change Audit</response>
