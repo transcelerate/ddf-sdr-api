@@ -114,8 +114,7 @@ git clone "repo_url"
     
     "ConnectionStrings:DatabaseName": "Database Name here",
     
-    "ApiVersionUsdmVersionMapping": "", //{"SDRVersions":[{"apiVersion":"v1","usdmVersions":["1.0"]},{"apiVersion":"v2","usdmVersions":["1.9"]}]}
-  }
+    "ApiVersionUsdmVersionMapping": "", //{"SDRVersions":[{"apiVersion":"v1","usdmVersions":["1.0"]},{"apiVersion":"v2","usdmVersions":["1.9"]},{"apiVersion":"v3","usdmVersions":["2.0"]}]}
 ```
 
 3. Then, In the Visual Studio IDE, select TransCelerate.SDR.AzureFunctions project on the startup project and click Start.
