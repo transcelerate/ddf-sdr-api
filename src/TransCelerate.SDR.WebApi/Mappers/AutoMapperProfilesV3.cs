@@ -84,7 +84,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
 
             CreateMap<TransCelerate.SDR.Core.DTO.StudyV3.StudyIdentifierDto, TransCelerate.SDR.Core.DTO.eCPT.RegulatoryAgencyIdentifierNumberDto>()
                 .ForMember(dest => dest.RegulatoryAgencyNumber, opt => opt.MapFrom(src => src.StudyIdentifier))
-                .ForMember(dest => dest.RegulatoryAgencyId, opt => opt.MapFrom(src => src.StudyIdentifierScope != null ? src.StudyIdentifierScope.OrganisationIdentifier : null))
+                .ForMember(dest => dest.RegulatoryAgencyId, opt => opt.MapFrom(src => src.StudyIdentifierScope != null ? src.StudyIdentifierScope.OrganisationIdentifierScheme : null))
                 .ReverseMap();
         }
     }
