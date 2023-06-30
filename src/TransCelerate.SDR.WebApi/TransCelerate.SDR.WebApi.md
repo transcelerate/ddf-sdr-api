@@ -67,7 +67,7 @@ TransCelerate.SDR.WebApi.Controllers
 
 ##### Summary
 
-GET All Elements For a Study
+GET Change Audit For a Study
 
 ##### Parameters
 
@@ -98,7 +98,7 @@ This method has no parameters.
 
 ##### Summary
 
-GET Audit Trail of a study
+GET Revision History of a study
 
 ##### Parameters
 
@@ -362,7 +362,7 @@ Delete a Study
 
 ##### Summary
 
-GET SoA For a Study USDM Version 2.0
+GET SoA For a Study USDM Version 1.9
 
 ##### Parameters
 
