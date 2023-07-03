@@ -48,7 +48,8 @@ namespace TransCelerate.SDR.Services.Services
                 {
                     var checkAccessForStudy = await _commonService.GetRawJson(studyId, 0, user).ConfigureAwait(false);
 
-                    return checkAccessForStudy is not null ? _mapper.Map<ChangeAuditStudyDto>(changeAudit) : Constants.ErrorMessages.Forbidden;
+                    return checkAccessForStudy is not null && checkAccessForStudy.ToString() != Constants.ErrorMessages.Forbidden
+                                            ? _mapper.Map<ChangeAuditStudyDto>(changeAudit) : Constants.ErrorMessages.Forbidden;
                 }
             }
             catch (Exception)
