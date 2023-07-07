@@ -1,11 +1,11 @@
 {
-  "studyId": "6aff027d-b22b-4326-bca1-57081e86b66e",
-  "studyTitle": "Study of Stage III Biliary Duct Cancer",
+  "studyId": "14840d80-83b0-4956-85e2-31257f5c12e7",
+  "studyTitle": "Study of Stomach Cancer",
   "studyDesigns": [
     {
       "studyDesignId": "SD01",
-      "studyDesignName": "Design for Stage III",
-      "studyDesignDescription": "Stage III Biliary Duct Cancer",
+      "studyDesignName": "Design for Lung Cancer",
+      "studyDesignDescription": "Stage III Lung Cancer",
       "studyScheduleTimelines": [
         {
           "scheduleTimelineId": "Timeline01",
@@ -18,7 +18,26 @@
                 "activityId": "ACT001",
                 "activityDescription": "Informed consents",
                 "activityName": "Informed consent",
-                "definedProcedures": [],
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": "Name : Reason"
+                  }
+                ],
                 "activityIsConditional": false,
                 "activityIsConditionalReason": "Reason",
                 "biomedicalConcepts": [
@@ -33,7 +52,26 @@
                 "activityId": "ACT002",
                 "activityDescription": "Informed consent",
                 "activityName": "Eligibility criteria",
-                "definedProcedures": [],
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": "Name : Reason"
+                  }
+                ],
                 "activityIsConditional": false,
                 "activityIsConditionalReason": "reason",
                 "biomedicalConcepts": [
@@ -48,7 +86,26 @@
                 "activityId": "ACT003",
                 "activityDescription": "Informed consent",
                 "activityName": "Demography",
-                "definedProcedures": [],
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": "Name : Reason"
+                  }
+                ],
                 "activityIsConditional": false,
                 "activityIsConditionalReason": "reason",
                 "biomedicalConcepts": [
@@ -63,7 +120,26 @@
                 "activityId": "ACT005",
                 "activityDescription": "Informed consent",
                 "activityName": "Disease characteristics",
-                "definedProcedures": [],
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": "Name : Reason"
+                  }
+                ],
                 "activityIsConditional": false,
                 "activityIsConditionalReason": "reason",
                 "biomedicalConcepts": [
@@ -78,7 +154,26 @@
                 "activityId": "ACT006",
                 "activityDescription": "Informed consent",
                 "activityName": "Physical exam",
-                "definedProcedures": [],
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": "Name : Reason"
+                  }
+                ],
                 "activityIsConditional": false,
                 "activityIsConditionalReason": "reason",
                 "biomedicalConcepts": [
@@ -93,7 +188,26 @@
                 "activityId": "ACT007",
                 "activityDescription": "Informed consent",
                 "activityName": "Height",
-                "definedProcedures": [],
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": "Name : Reason"
+                  }
+                ],
                 "activityIsConditional": false,
                 "activityIsConditionalReason": "reason",
                 "biomedicalConcepts": [
@@ -108,7 +222,26 @@
                 "activityId": "ACT008",
                 "activityDescription": "Informed consent",
                 "activityName": "12-lead ECG",
-                "definedProcedures": [],
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": "Name : Reason"
+                  }
+                ],
                 "activityIsConditional": false,
                 "activityIsConditionalReason": "reason",
                 "biomedicalConcepts": [
@@ -123,7 +256,26 @@
                 "activityId": "ACT009",
                 "activityDescription": "Informed consent",
                 "activityName": "Hematology (predose)",
-                "definedProcedures": [],
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": "Name : Reason"
+                  }
+                ],
                 "activityIsConditional": false,
                 "activityIsConditionalReason": "reason",
                 "biomedicalConcepts": [
@@ -138,7 +290,26 @@
                 "activityId": "ACT010",
                 "activityDescription": "Informed consent",
                 "activityName": "Chemistry (predose)",
-                "definedProcedures": [],
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": "Name : Reason"
+                  }
+                ],
                 "activityIsConditional": false,
                 "activityIsConditionalReason": "reason",
                 "biomedicalConcepts": [
@@ -153,7 +324,26 @@
                 "activityId": "ACT011",
                 "activityDescription": "Informed consent",
                 "activityName": "Serology",
-                "definedProcedures": [],
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": "Name : Reason"
+                  }
+                ],
                 "activityIsConditional": false,
                 "activityIsConditionalReason": "reason",
                 "biomedicalConcepts": [
@@ -168,7 +358,26 @@
                 "activityId": "ACT012",
                 "activityDescription": "Informed consent",
                 "activityName": "Urinalysis",
-                "definedProcedures": [],
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": "Name : Reason"
+                  }
+                ],
                 "activityIsConditional": false,
                 "activityIsConditionalReason": "reason",
                 "biomedicalConcepts": [
@@ -183,7 +392,26 @@
                 "activityId": "ACT013",
                 "activityDescription": "Informed consent",
                 "activityName": "Pregnancy test",
-                "definedProcedures": [],
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": "Name : Reason"
+                  }
+                ],
                 "activityIsConditional": false,
                 "activityIsConditionalReason": "reason",
                 "biomedicalConcepts": [
@@ -198,7 +426,26 @@
                 "activityId": "ACT014",
                 "activityDescription": "Informed consent",
                 "activityName": "Ensure availability of medication X",
-                "definedProcedures": [],
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": "Name : Reason"
+                  }
+                ],
                 "activityIsConditional": false,
                 "activityIsConditionalReason": "reason",
                 "biomedicalConcepts": [
@@ -213,7 +460,26 @@
                 "activityId": "ACT015",
                 "activityDescription": "Informed consent",
                 "activityName": "Hospitalization",
-                "definedProcedures": [],
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": "Name : Reason"
+                  }
+                ],
                 "activityIsConditional": false,
                 "activityIsConditionalReason": "reason",
                 "biomedicalConcepts": [
@@ -228,7 +494,26 @@
                 "activityId": "ACT016",
                 "activityDescription": "Informed consent",
                 "activityName": "Weight",
-                "definedProcedures": [],
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": "Name : Reason"
+                  }
+                ],
                 "activityIsConditional": false,
                 "activityIsConditionalReason": "reason",
                 "biomedicalConcepts": [
@@ -243,7 +528,26 @@
                 "activityId": "ACT017",
                 "activityDescription": "Informed consent",
                 "activityName": "Vital signs",
-                "definedProcedures": [],
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": "Name : Reason"
+                  }
+                ],
                 "activityIsConditional": false,
                 "activityIsConditionalReason": "reason",
                 "biomedicalConcepts": [
@@ -258,7 +562,26 @@
                 "activityId": "ACT018",
                 "activityDescription": "Informed consent",
                 "activityName": "adverse events",
-                "definedProcedures": [],
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": "Name : Reason"
+                  }
+                ],
                 "activityIsConditional": false,
                 "activityIsConditionalReason": "reason",
                 "biomedicalConcepts": [
@@ -273,7 +596,26 @@
                 "activityId": "ACT019",
                 "activityDescription": "Informed consent",
                 "activityName": "Concomitant medications",
-                "definedProcedures": [],
+                "definedProcedures": [
+                  {
+                    "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "Reasons",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  },
+                  {
+                    "procedureId": "f4e2",
+                    "procedureName": "Name",
+                    "procedureDescription": "Desc",
+                    "procedureIsConditional": true,
+                    "procedureIsConditionalReason": "Reason",
+                    "footnoteId": "",
+                    "footnoteDescription": "Name : Reason"
+                  }
+                ],
                 "activityIsConditional": false,
                 "activityIsConditionalReason": "reason",
                 "biomedicalConcepts": [

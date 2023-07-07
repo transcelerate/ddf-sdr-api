@@ -1,19 +1,19 @@
 {
-    "studyDetails": {
-        "studyId": "ed021bf5-c2db-4dbc-adbe-1e5fb6c621c6",
-        "studyTitle": "Study of Stage III Biliary Duct Cancer",
-        "usdmVersion": "1.9",
-        "SDRUploadVersion": 1,
-        "links": {
-            "studyDefinitions": "/v2/studydefinitions/ed021bf5-c2db-4dbc-adbe-1e5fb6c621c6?sdruploadversion=1",
-            "auditTrail": "/studydefinitions/ed021bf5-c2db-4dbc-adbe-1e5fb6c621c6/audittrail"
-        }
-    },
+  "studyDetails": {
+    "studyId": "6896d721-b854-4d1d-9a62-7e5978f1f6c0",
+    "studyTitle": "Study of Stomach Cancer",
+    "usdmVersion": "2.0",
+    "SDRUploadVersion": 1,
+    "links": {
+      "studyDefinitions": "/v3/studydefinitions/ed021bf5-c2db-4dbc-adbe-1e5fb6c621c6?sdruploadversion=1",
+      "revisionHistory": "/studydefinitions/ed021bf5-c2db-4dbc-adbe-1e5fb6c621c6/revisionhistory"
+    }
+  },
     "studyDesign": [
         {
             "studyDesignId": "SD01",
             "studyDesignName": "Design for Stage III",
-            "studyDesignLink": "/v2/studydesigns?studyId=ed021bf5-c2db-4dbc-adbe-1e5fb6c621c6&sdruploadversion=1&studydesignId=SD01",
+            "studyDesignLink": "/v3/studydesigns?studyId=ed021bf5-c2db-4dbc-adbe-1e5fb6c621c6&sdruploadversion=1&studydesign_uuid=SD01",
             "ecptData": {
               "titlePage": {
                 "acronym": "Acronym",
@@ -25,7 +25,7 @@
                     "regulatoryAgencyId": "FDA",
                     "regulatoryAgencyNumber": "CT-GOV"
                   }
-                ],
+                ],                
                 "sponsorLegalAddress": "line2, city,district ,state , postalCode,Egypt",
                 "sponsorName": "ClinicalTrials.gov",
                 "studyPhase": "Phase 2",
@@ -98,7 +98,7 @@
                   ],
                   "secondaryObjectives": [
                     {
-                      "objectiveDescription": "Objective Level 1",
+                      "objectiveDescription": "Objective Level 2",
                       "objectiveLevel": "Study Secondary Objective",
                       "objectiveEndpoints": [
                         {
