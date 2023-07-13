@@ -1,0 +1,2939 @@
+{
+	"study": {
+		"studyId": "",
+		"studyTitle": "Study of Stomach Cancer",
+		"studyVersion": "1",
+		"studyType": {
+			"codeId": "7bbb6fd9-7e43-4dbf-90fa-3de117dc76d2",
+			"code": "C98388",
+			"codeSystem": "http:www.cdisc.org",
+			"codeSystemVersion": "2022-03-25",
+			"decode": "INTERVENTIONAL"
+		},
+		"studyRationale": "Rational",
+		"studyAcronym": "Acronym",
+		"studyIdentifiers": [
+			{
+				"studyIdentifierId": "c4663375-29be-4b37-9a7d-b2ef927fdf64",
+				"studyIdentifier": "CT-GOV",
+				"studyIdentifierScope": {
+					"organisationId": "96dd6b83-2d34-45ac-9d08-3e647b2c7316",
+					"organisationIdentifier": "CT-GOV",
+					"organisationIdentifierScheme": "FDA",
+					"organisationName": "ClinicalTrials.gov",
+					"organisationType": {
+						"codeId": "8fcecddf-bbe2-4e71-ad97-114cbc3f1cba",
+						"code": "C2365x",
+						"codeSystem": "http:www.cdisc.org",
+						"codeSystemVersion": "1",
+						"decode": "Clinical Study Sponsor"
+					},
+					"organizationLegalAddress": {
+						"addressId": "AD_1",
+						"text": "text",
+						"line": " line2",
+						"city": " city",
+						"district": "district ",
+						"state": "state ",
+						"postalCode": " postalCode",
+						"country": {
+							"codeId": "8fcecddf-bbe2-4e71-ad97-114cbc3f1cba",
+							"code": "C2365x",
+							"codeSystem": "http:www.cdisc.org",
+							"codeSystemVersion": "1",
+							"decode": "Egypt"
+						}
+					}
+				}
+			},
+			{
+				"studyIdentifierId": "c3f0bac9-72e4-4df6-98ed-e364d10c8239",
+				"studyIdentifier": "CT-GOV",
+				"studyIdentifierScope": {
+					"organisationId": "502db4f4-3573-444c-b0a1-ac677e46556a",
+					"organisationIdentifier": "CT-GOV",
+					"organisationIdentifierScheme": "FDA",
+					"organisationName": "ClinicalTrials.gov",
+					"organisationType": {
+						"codeId": "d036ab0b-ce9c-4857-838f-07888180d161",
+						"code": "C2365x",
+						"codeSystem": "http:www.cdisc.org",
+						"codeSystemVersion": "1",
+						"decode": "Regulatory Agency"
+					},
+					"organizationLegalAddress": {
+						"addressId": "AD_1",
+						"text": "text",
+						"line": " line2",
+						"city": " city",
+						"district": "district ",
+						"state": "state ",
+						"postalCode": " postalCode",
+						"country": {
+							"codeId": "8fcecddf-bbe2-4e71-ad97-114cbc3f1cba",
+							"code": "C2365x",
+							"codeSystem": "http:www.cdisc.org",
+							"codeSystemVersion": "1",
+							"decode": "Portugal"
+						}
+					}
+				}
+			}
+		],
+		"studyPhase": {
+			"aliasCodeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f616",
+			"standardCode": {
+				"codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f613",
+				"code": "C49686",
+				"codeSystem": "http:www.cdisc.org",
+				"codeSystemVersion": "2022-03-25",
+				"decode": "Phase IIa Trial"
+			},
+			"standardCodeAliases": [
+				{
+					"codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f613",
+					"code": "C49686",
+					"codeSystem": "http:www.cdisc.org",
+					"codeSystemVersion": "2022-03-25",
+					"decode": "Phase IIa Trial"
+				}
+			]
+		},
+		"businessTherapeuticAreas": [
+			{
+				"codeId": "6b190647-9ac4-4558-a88b-4b5496a2600c",
+				"code": "C158288",
+				"codeSystem": "http:www.cdisc.org",
+				"codeSystemVersion": "2022-03-25",
+				"decode": "Biosimilarity Study"
+			}
+		],
+		"studyProtocolVersions": [
+			{
+				"studyProtocolVersionId": "72fa3742-1bad-42dc-8fdb-8d1c0379c75f",
+				"briefTitle": "Short",
+				"officialTitle": "Very Official",
+				"protocolAmendment": "Ammendment",
+				"protocolEffectiveDate": "2022-01-01",
+				"protocolStatus": {
+					"codeId": "ab83b043-178f-4a8c-868a-e474f500888b",
+					"code": "C1113x",
+					"codeSystem": "http:www.cdisc.org",
+					"codeSystemVersion": "1",
+					"decode": "FINAL 1"
+				},
+				"protocolVersion": "1",
+				"publicTitle": "Public Voice",
+				"scientificTitle": "Incomprehensible"
+			}
+		],
+		"studyDesigns": [
+			{
+				"studyDesignId": "SD01",
+				"studyDesignName": "Design for Lung Cancer",
+				"studyDesignDescription": "Stage III Lung Cancer",
+				"trialIntentTypes": [
+					{
+						"codeId": "9fc53378-ac85-463d-8f9f-587bba5bb605",
+						"code": "C15714",
+						"codeSystem": "http:www.cdisc.org",
+						"codeSystemVersion": "2022-03-25",
+						"decode": "Basic Research"
+					}
+				],
+				"trialType": [
+					{
+						"codeId": "dc752a27-4afa-48c5-9dc1-1717e6a099ab",
+						"code": "C158288",
+						"codeSystem": "http:www.cdisc.org",
+						"codeSystemVersion": "2022-03-25",
+						"decode": "Biosimilarity Study"
+					}
+				],
+				"interventionModel": {
+					"codeId": "4997ed7c-ce9a-4459-bf5d-19d9a8d5c772",
+					"code": "C82639",
+					"codeSystem": "http:www.cdisc.org",
+					"codeSystemVersion": "2022-03-25",
+					"decode": "Parallel"
+				},
+				"studyCells": [
+					{
+						"studyCellId": "4614b061-f72c-43e1-aeb2-db1e4d312711",
+						"studyArmId": "different1",
+						"studyEpochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d",
+						"studyElementIds": [
+							"00ad20fa-bb06-4b93-b237-6bc37a3810e",
+							"00ad20fa-bb06-4b93-b237-6bc37a3810e5"
+						]
+					},
+					{
+						"studyCellId": "4614b061-f2-db1e4d312711",
+						"studyArmId": "different",
+						"studyEpochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d",
+						"studyElementIds": [
+							"00ad20fa-bb06-4b93-b237-6bc37a3810e"
+						]
+					}
+				],
+				"studyIndications": [
+					{
+						"indicationId": "c14a9bd2-938b-490d-ac47-4b4483e304b9",
+						"indicationDescription": "Something bad",
+						"codes": [
+							{
+								"codeId": "a387aa89-c025-438e-91dd-b08281d122d0",
+								"code": "C6666x",
+								"codeSystem": "http:www.cdisc.org",
+								"codeSystemVersion": "1",
+								"decode": "BAD STUFF"
+							}
+						]
+					}
+				],
+				"studyInvestigationalInterventions": [
+					{
+						"investigationalInterventionId": "IN001",
+						"interventionDescription": "Intervention 1",
+						"codes": [
+							{
+								"codeId": "00ce1a32-2526-4016-9624-28139a929090",
+								"code": "C7639x",
+								"codeSystem": "http:www.cdisc.org",
+								"codeSystemVersion": "1",
+								"decode": "MODEL 1"
+							}
+						]
+					}
+				],
+				"studyPopulations": [
+					{
+						"studyDesignPopulationId": "ef300f84-2sa479w-415b-adf1-dad41df6169cd5",
+						"populationDescription": "Population 1",
+						"plannedNumberOfParticipants": 2,
+						"plannedMaximumAgeOfParticipants": "88",
+						"plannedMinimumAgeOfParticipants": "23",
+						"plannedSexOfParticipants": [
+							{
+								"codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f614",
+								"code": "C49636",
+								"codeSystem": "http:www.cdisc.org",
+								"codeSystemVersion": "2022-03-25",
+								"decode": "Both"
+							},
+							{
+								"codeId": "61ad4d8f--4bbf6141f614",
+								"code": "C16576",
+								"codeSystem": "http:www.cdisc.org",
+								"codeSystemVersion": "2022-03-25",
+								"decode": "Male"
+							}
+						]
+					},
+					{
+						"studyDesignPopulationId": "ef300f84-2saf1-dad41df6169cd5",
+						"populationDescription": "Population 1",
+						"plannedNumberOfParticipants": 2,
+						"plannedMaximumAgeOfParticipants": "80",
+						"plannedMinimumAgeOfParticipants": "21",
+						"plannedSexOfParticipants": [
+							{
+								"codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f614",
+								"code": "C49636",
+								"codeSystem": "http:www.cdisc.org",
+								"codeSystemVersion": "2022-03-25",
+								"decode": "Both"
+							},
+							{
+								"codeId": "61ad4d8f--4bbf6141f614",
+								"code": "C16576",
+								"codeSystem": "http:www.cdisc.org",
+								"codeSystemVersion": "2022-03-25",
+								"decode": "Male"
+							}
+						]
+					}
+				],
+				"studyObjectives": [
+					{
+						"objectiveId": "1cedd7c7-65b0-4c27e9d",
+						"objectiveDescription": "Objective Level 1",
+						"objectiveLevel": {
+							"codeId": "2ae454b4-b37b-4986-9b3c-d5044bc4aec7",
+							"code": "C85826",
+							"codeSystem": "http:www.cdisc.org",
+							"codeSystemVersion": "1",
+							"decode": "Study Primary Objective"
+						},
+						"objectiveEndpoints": [
+							{
+								"endpointId": "END001",
+								"endpointDescription": "Endpoint 1",
+								"endpointPurposeDescription": "level description",
+								"endpointLevel": {
+									"codeId": "END001",
+									"code": "C9834x",
+									"codeSystem": "http:www.cdisc.org",
+									"codeSystemVersion": "1",
+									"decode": "PURPOSE"
+								}
+							}
+						]
+					},
+					{
+						"objectiveId": "1cedd7c7-65b0-48b4-ac93-cbe046c27e9d",
+						"objectiveDescription": "Objective Level 1",
+						"objectiveLevel": {
+							"codeId": "2ae454b4-b37b-4986-9b3c-d5044bc4aec7",
+							"code": "C85827",
+							"codeSystem": "http:www.cdisc.org",
+							"codeSystemVersion": "1",
+							"decode": "Study Secondary Objective"
+						},
+						"objectiveEndpoints": [
+							{
+								"endpointId": "END001",
+								"endpointDescription": "Endpoint 1",
+								"endpointPurposeDescription": "level description",
+								"endpointLevel": {
+									"codeId": "END001",
+									"code": "C9834x",
+									"codeSystem": "http:www.cdisc.org",
+									"codeSystemVersion": "1",
+									"decode": "PURPOSE"
+								}
+							}
+						]
+					}
+				],
+				"studyScheduleTimelines": [
+					{
+						"scheduleTimelineId": "Timeline01",
+						"scheduleTimelineName": "name",
+						"scheduleTimelineDescription": "Timeline for Stage III",
+						"entryCondition": "condition",
+						"scheduleTimelineEntryId": "INS001",
+						"scheduleTimelineExits": [
+							{
+								"scheduleTimelineExitId": "Exit01"
+							}
+						],
+						"mainTimeline": true,
+						"scheduleTimelineInstances": [
+							{
+								"scheduledInstanceType": "ACTIVITY",
+								"scheduledActivityInstanceEncounterId": "VIS11",
+								"activityIds": [
+									"ACT001",
+									"ACT002",
+									"ACT003",
+									"ACT005",
+									"ACT008",
+									"ACT009",
+									"ACT011",
+									"ACT018"
+								],
+								"scheduledInstanceId": "INS002",
+								"scheduleTimelineExitId": "Exit01",
+								"scheduledInstanceTimelineId": "Timeline01",
+								"defaultConditionId": "INS003",
+								"epochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d9",
+								"scheduledInstanceTimings": [
+									{
+										"timingId": "T01",
+										"timingType": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "After"
+										},
+										"timingValue": "Day 1",
+										"timingDescription": "desc",
+										"timingWindow": "window",
+										"relativeToScheduledInstanceId": "INS001",
+										"relativeFromScheduledInstanceId": "INS002",
+										"timingWindowLower": "lower",
+										"timingWindowUpper": "upper",
+										"timingRelativeToFrom": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "StartToStart"
+										}
+									},
+									{
+										"timingId": "T02",
+										"timingType": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "Before"
+										},
+										"timingValue": "Day 15",
+										"timingDescription": "desc",
+										"timingWindow": "window",
+										"relativeToScheduledInstanceId": "INS002",
+										"relativeFromScheduledInstanceId": "INS001",
+										"timingWindowLower": "lower",
+										"timingWindowUpper": "upper",
+										"timingRelativeToFrom": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "EndToEnd"
+										}
+									}
+								]
+							},
+							{
+								"scheduledInstanceType": "DECISION",
+								"conditionAssignments": {
+									"option": "changes"
+								},
+								"scheduledInstanceId": "INS001",
+								"scheduleTimelineExitId": "Exit01",
+								"scheduledInstanceTimelineId": "Timeline01",
+								"defaultConditionId": "INS002",
+								"epochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d",
+								"scheduledInstanceTimings": [
+									{
+										"timingId": "T030",
+										"timingType": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "After"
+										},
+										"timingValue": "Day 1",
+										"timingDescription": "desc",
+										"timingWindow": "window",
+										"relativeToScheduledInstanceId": "INS001",
+										"relativeFromScheduledInstanceId": "INS002",
+										"timingWindowLower": "lower",
+										"timingWindowUpper": "upper",
+										"timingRelativeToFrom": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "StartToStart"
+										}
+									},
+									{
+										"timingId": "T04",
+										"timingType": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "Before"
+										},
+										"timingValue": "Day 15",
+										"timingDescription": "desc",
+										"timingWindow": "window",
+										"relativeToScheduledInstanceId": "INS002",
+										"relativeFromScheduledInstanceId": "INS001",
+										"timingWindowLower": "lower",
+										"timingWindowUpper": "upper",
+										"timingRelativeToFrom": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "EndToEnd"
+										}
+									}
+								]
+							},
+							{
+								"scheduledInstanceType": "ACTIVITY",
+								"scheduledActivityInstanceEncounterId": "VIS12",
+								"activityIds": [
+									"ACT003",
+									"ACT002"
+								],
+								"scheduledInstanceId": "INS003",
+								"scheduleTimelineExitId": "Exit01",
+								"scheduledInstanceTimelineId": "Timeline01",
+								"defaultConditionId": "INS004",
+								"epochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d9",
+								"scheduledInstanceTimings": [
+									{
+										"timingId": "T03",
+										"timingType": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "After"
+										},
+										"timingValue": "Day 1",
+										"timingDescription": "desc",
+										"timingWindow": "window",
+										"relativeToScheduledInstanceId": "INS001",
+										"relativeFromScheduledInstanceId": "INS002",
+										"timingWindowLower": "lower",
+										"timingWindowUpper": "upper",
+										"timingRelativeToFrom": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "StartToStart"
+										}
+									},
+									{
+										"timingId": "T04",
+										"timingType": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "Before"
+										},
+										"timingValue": "Day 15",
+										"timingDescription": "desc",
+										"timingWindow": "window",
+										"relativeToScheduledInstanceId": "INS002",
+										"relativeFromScheduledInstanceId": "INS001",
+										"timingWindowLower": "lower",
+										"timingWindowUpper": "upper",
+										"timingRelativeToFrom": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "EndToEnd"
+										}
+									}
+								]
+							},
+							{
+								"scheduledInstanceType": "ACTIVITY",
+								"scheduledActivityInstanceEncounterId": "VIS13",
+								"activityIds": [
+									"ACT005",
+									"ACT006"
+								],
+								"scheduledInstanceId": "INS004",
+								"scheduleTimelineExitId": "Exit01",
+								"scheduledInstanceTimelineId": "Timeline01",
+								"defaultConditionId": "INS005",
+								"epochId": "",
+								"scheduledInstanceTimings": [
+									{
+										"timingId": "T06",
+										"timingType": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "After"
+										},
+										"timingValue": "Day 10",
+										"timingDescription": "desc",
+										"timingWindow": "window",
+										"relativeToScheduledInstanceId": "INS001",
+										"relativeFromScheduledInstanceId": "INS002",
+										"timingWindowLower": "lower",
+										"timingWindowUpper": "upper",
+										"timingRelativeToFrom": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "StartToStart"
+										}
+									}
+								]
+							},
+							{
+								"scheduledInstanceType": "ACTIVITY",
+								"scheduledActivityInstanceEncounterId": "VIS14",
+								"activityIds": [
+									"ACT006",
+									"ACT007"
+								],
+								"scheduledInstanceId": "INS005",
+								"scheduleTimelineExitId": "Exit01",
+								"scheduledInstanceTimelineId": "Timeline01",
+								"defaultConditionId": "INS006",
+								"epochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d9",
+								"scheduledInstanceTimings": [
+									{
+										"timingId": "T07",
+										"timingType": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "After"
+										},
+										"timingValue": "Day 18",
+										"timingDescription": "desc",
+										"timingWindow": "window",
+										"relativeToScheduledInstanceId": "INS001",
+										"relativeFromScheduledInstanceId": "INS002",
+										"timingWindowLower": "lower",
+										"timingWindowUpper": "upper",
+										"timingRelativeToFrom": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "StartToStart"
+										}
+									}
+								]
+							},
+							{
+								"scheduledInstanceType": "ACTIVITY",
+								"scheduledActivityInstanceEncounterId": "VIS15",
+								"activityIds": [
+									"ACT008",
+									"ACT009"
+								],
+								"scheduledInstanceId": "INS006",
+								"scheduleTimelineExitId": "Exit01",
+								"scheduledInstanceTimelineId": "Timeline01",
+								"defaultConditionId": "INS007",
+								"epochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d9",
+								"scheduledInstanceTimings": [
+									{
+										"timingId": "T08",
+										"timingType": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "After"
+										},
+										"timingValue": "Day 20",
+										"timingDescription": "desc",
+										"timingWindow": "window",
+										"relativeToScheduledInstanceId": "INS001",
+										"relativeFromScheduledInstanceId": "INS002",
+										"timingWindowLower": "lower",
+										"timingWindowUpper": "upper",
+										"timingRelativeToFrom": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "StartToStart"
+										}
+									}
+								]
+							},
+							{
+								"scheduledInstanceType": "ACTIVITY",
+								"scheduledActivityInstanceEncounterId": "VIS16",
+								"activityIds": [
+									"ACT010",
+									"ACT011"
+								],
+								"scheduledInstanceId": "INS007",
+								"scheduleTimelineExitId": "Exit01",
+								"scheduledInstanceTimelineId": "Timeline01",
+								"defaultConditionId": "INS008",
+								"epochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d9",
+								"scheduledInstanceTimings": [
+									{
+										"timingId": "T09",
+										"timingType": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "After"
+										},
+										"timingValue": "Day 23",
+										"timingDescription": "desc",
+										"timingWindow": "window",
+										"relativeToScheduledInstanceId": "INS001",
+										"relativeFromScheduledInstanceId": "INS002",
+										"timingWindowLower": "lower",
+										"timingWindowUpper": "upper",
+										"timingRelativeToFrom": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "StartToStart"
+										}
+									}
+								]
+							},
+							{
+								"scheduledInstanceType": "ACTIVITY",
+								"scheduledActivityInstanceEncounterId": "VIS17",
+								"activityIds": [
+									"ACT012",
+									"ACT013"
+								],
+								"scheduledInstanceId": "INS008",
+								"scheduleTimelineExitId": "Exit01",
+								"scheduledInstanceTimelineId": "Timeline01",
+								"defaultConditionId": "INS009",
+								"epochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d9",
+								"scheduledInstanceTimings": [
+									{
+										"timingId": "T10",
+										"timingType": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "After"
+										},
+										"timingValue": "Day 25",
+										"timingDescription": "desc",
+										"timingWindow": "window",
+										"relativeToScheduledInstanceId": "INS001",
+										"relativeFromScheduledInstanceId": "INS002",
+										"timingWindowLower": "lower",
+										"timingWindowUpper": "upper",
+										"timingRelativeToFrom": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "StartToStart"
+										}
+									}
+								]
+							},
+							{
+								"scheduledInstanceType": "ACTIVITY",
+								"scheduledActivityInstanceEncounterId": "VIS18",
+								"activityIds": [
+									"ACT013",
+									"ACT014"
+								],
+								"scheduledInstanceId": "INS009",
+								"scheduleTimelineExitId": "Exit01",
+								"scheduledInstanceTimelineId": "Timeline01",
+								"defaultConditionId": "INS010",
+								"epochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d9",
+								"scheduledInstanceTimings": [
+									{
+										"timingId": "T11",
+										"timingType": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "After"
+										},
+										"timingValue": "Day 30",
+										"timingDescription": "desc",
+										"timingWindow": "window",
+										"relativeToScheduledInstanceId": "INS001",
+										"relativeFromScheduledInstanceId": "INS002",
+										"timingWindowLower": "lower",
+										"timingWindowUpper": "upper",
+										"timingRelativeToFrom": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "StartToStart"
+										}
+									}
+								]
+							},
+							{
+								"scheduledInstanceType": "ACTIVITY",
+								"scheduledActivityInstanceEncounterId": "VIS19",
+								"activityIds": [
+									"ACT015",
+									"ACT016"
+								],
+								"scheduledInstanceId": "INS010",
+								"scheduleTimelineExitId": "Exit01",
+								"scheduledInstanceTimelineId": "Timeline01",
+								"defaultConditionId": "INS011",
+								"epochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d9",
+								"scheduledInstanceTimings": [
+									{
+										"timingId": "T12",
+										"timingType": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "After"
+										},
+										"timingValue": "Day 35",
+										"timingDescription": "desc",
+										"timingWindow": "window",
+										"relativeToScheduledInstanceId": "INS001",
+										"relativeFromScheduledInstanceId": "INS002",
+										"timingWindowLower": "lower",
+										"timingWindowUpper": "upper",
+										"timingRelativeToFrom": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "StartToStart"
+										}
+									}
+								]
+							},
+							{
+								"scheduledInstanceType": "ACTIVITY",
+								"scheduledActivityInstanceEncounterId": "VIS20",
+								"activityIds": [
+									"ACT017",
+									"ACT018"
+								],
+								"scheduledInstanceId": "INS011",
+								"scheduleTimelineExitId": "Exit01",
+								"scheduledInstanceTimelineId": "Timeline01",
+								"defaultConditionId": "INS012",
+								"epochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d9",
+								"scheduledInstanceTimings": [
+									{
+										"timingId": "T13",
+										"timingType": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "After"
+										},
+										"timingValue": "WEEK 1",
+										"timingDescription": "desc",
+										"timingWindow": "window",
+										"relativeToScheduledInstanceId": "INS001",
+										"relativeFromScheduledInstanceId": "INS002",
+										"timingWindowLower": "lower",
+										"timingWindowUpper": "upper",
+										"timingRelativeToFrom": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "StartToStart"
+										}
+									}
+								]
+							},
+							{
+								"scheduledInstanceType": "ACTIVITY",
+								"scheduledActivityInstanceEncounterId": "VIS21",
+								"activityIds": [
+									"ACT018",
+									"ACT019"
+								],
+								"scheduledInstanceId": "INS012",
+								"scheduleTimelineExitId": "Exit01",
+								"scheduledInstanceTimelineId": "Timeline01",
+								"defaultConditionId": "INS013",
+								"epochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d9",
+								"scheduledInstanceTimings": [
+									{
+										"timingId": "T14",
+										"timingType": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "After"
+										},
+										"timingValue": "WEEK 3",
+										"timingDescription": "desc",
+										"timingWindow": "window",
+										"relativeToScheduledInstanceId": "INS001",
+										"relativeFromScheduledInstanceId": "INS002",
+										"timingWindowLower": "lower",
+										"timingWindowUpper": "upper",
+										"timingRelativeToFrom": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "StartToStart"
+										}
+									}
+								]
+							},
+							{
+								"scheduledInstanceType": "ACTIVITY",
+								"scheduledActivityInstanceEncounterId": "VIS22",
+								"activityIds": [
+									"ACT019",
+									"ACT002"
+								],
+								"scheduledInstanceId": "INS013",
+								"scheduleTimelineExitId": "Exit01",
+								"scheduledInstanceTimelineId": "Timeline01",
+								"defaultConditionId": "INS014",
+								"epochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d9",
+								"scheduledInstanceTimings": [
+									{
+										"timingId": "T15",
+										"timingType": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "After"
+										},
+										"timingValue": "WEEK 5",
+										"timingDescription": "desc",
+										"timingWindow": "window",
+										"relativeToScheduledInstanceId": "INS001",
+										"relativeFromScheduledInstanceId": "INS002",
+										"timingWindowLower": "lower",
+										"timingWindowUpper": "upper",
+										"timingRelativeToFrom": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "StartToStart"
+										}
+									}
+								]
+							},
+							{
+								"scheduledInstanceType": "ACTIVITY",
+								"scheduledActivityInstanceEncounterId": "VIS23",
+								"activityIds": [
+									"ACT003",
+									"ACT001"
+								],
+								"scheduledInstanceId": "INS014",
+								"scheduleTimelineExitId": "Exit01",
+								"scheduledInstanceTimelineId": "Timeline01",
+								"defaultConditionId": "INS015",
+								"epochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d9",
+								"scheduledInstanceTimings": [
+									{
+										"timingId": "T16",
+										"timingType": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "After"
+										},
+										"timingValue": "WEEK 6",
+										"timingDescription": "desc",
+										"timingWindow": "window",
+										"relativeToScheduledInstanceId": "INS001",
+										"relativeFromScheduledInstanceId": "INS002",
+										"timingWindowLower": "lower",
+										"timingWindowUpper": "upper",
+										"timingRelativeToFrom": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "StartToStart"
+										}
+									}
+								]
+							},
+							{
+								"scheduledInstanceType": "ACTIVITY",
+								"scheduledActivityInstanceEncounterId": "VIS23",
+								"activityIds": [
+									"ACT005",
+									"ACT002"
+								],
+								"scheduledInstanceId": "INS015",
+								"scheduleTimelineExitId": "Exit01",
+								"scheduledInstanceTimelineId": "Timeline01",
+								"defaultConditionId": "",
+								"epochId": "",
+								"scheduledInstanceTimings": [
+									{
+										"timingId": "T17",
+										"timingType": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "After"
+										},
+										"timingValue": "MONTH 1",
+										"timingDescription": "desc",
+										"timingWindow": "window",
+										"relativeToScheduledInstanceId": "INS001",
+										"relativeFromScheduledInstanceId": "INS002",
+										"timingWindowLower": "lower",
+										"timingWindowUpper": "upper",
+										"timingRelativeToFrom": {
+											"codeId": "END001",
+											"code": "C9834x",
+											"codeSystem": "http:www.cdisc.org",
+											"codeSystemVersion": "1",
+											"decode": "StartToStart"
+										}
+									}
+								]
+							}
+						]
+					}
+				],
+				"therapeuticAreas": [
+					{
+						"codeId": "6b190647-9ac4-4558-a88b-4b5496a2600c",
+						"code": "C158288",
+						"codeSystem": "http:www.cdisc.org",
+						"codeSystemVersion": "2022-03-25",
+						"decode": "Biosimilarity Study"
+					}
+				],
+				"studyEstimands": [
+					{
+						"estimandId": "0bc02031-b058-43f8-9888-0f66f59b825f",
+						"treatment": "IN001",
+						"summaryMeasure": "TEST",
+						"analysisPopulation": {
+							"analysisPopulationId": "77af2751-1707-4edc-a5db-350ebe7233d8",
+							"populationDescription": "Population 1"
+						},
+						"variableOfInterest": "END001",
+						"intercurrentEvents": [
+							{
+								"intercurrentEventId": "1dc5c1e9-7b21-4455-9f37-ff2fadb8ac65",
+								"intercurrentEventDescription": "Event Description",
+								"intercurrentEventName": "Event Name",
+								"intercurrentEventStrategy": "Strategies"
+							}
+						]
+					}
+				],
+				"encounters": [
+					{
+						"encounterId": "VIS11",
+						"encounterContactModes": [
+							{
+								"codeId": "40c6a10a-da80-41746",
+								"code": "767002",
+								"codeSystem": "SNOMED-CT",
+								"codeSystemVersion": "2022-05-31",
+								"decode": "White blood cell counts"
+							}
+						],
+						"encounterDescription": "PLANNED VISIT",
+						"encounterEnvironmentalSetting": {
+							"codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+							"code": "C25299",
+							"codeSystem": "http://www.cdisc.org",
+							"codeSystemVersion": "2022-03-25",
+							"decode": "Diastolic Blood Pressure"
+						},
+						"encounterName": "SCREENING VISIT",
+						"encounterType": {
+							"codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+							"code": "C25299",
+							"codeSystem": "http://www.cdisc.org",
+							"codeSystemVersion": "2022-03-25",
+							"decode": "Diastolic Blood Pressure"
+						},
+						"nextEncounterId": "VIS12",
+						"previousEncounterId": "",
+						"encounterScheduledAtTimingId": "T030",
+						"transitionStartRule": {
+							"transitionRuleId": "14a6b9fa-f080-415b-83bd-6d6ffe5e4b60",
+							"transitionRuleDescription": "Start Rule"
+						},
+						"transitionEndRule": {
+							"transitionRuleId": "ae648ac6-f2c2-49d8-8ee2-64ccadec513e",
+							"transitionRuleDescription": "End Rule"
+						}
+					},
+					{
+						"encounterId": "VIS12",
+						"encounterContactModes": [
+							{
+								"codeId": "40c6a10a-da80-41746",
+								"code": "767002",
+								"codeSystem": "SNOMED-CT",
+								"codeSystemVersion": "2022-05-31",
+								"decode": "White blood cell counts"
+							}
+						],
+						"encounterDescription": "PLANNED VISIT",
+						"encounterEnvironmentalSetting": {
+							"codeId": "40c6a10a-da80-41746",
+							"code": "767002",
+							"codeSystem": "SNOMED-CT",
+							"codeSystemVersion": "2022-05-31",
+							"decode": "White blood cell counts"
+						},
+						"encounterName": "RUN-IN VISIT 1",
+						"encounterType": {
+							"codeId": "40c6a10a-da80-41746",
+							"code": "767002",
+							"codeSystem": "SNOMED-CT",
+							"codeSystemVersion": "2022-05-31",
+							"decode": "White blood cell counts"
+						},
+						"nextEncounterId": "VIS13",
+						"previousEncounterId": "VIS11",
+						"encounterScheduledAtTimingId": "T02",
+						"transitionStartRule": {
+							"transitionRuleId": "14a6b9fa-f080-415b-83bd-6d6ffe5e4b60",
+							"transitionRuleDescription": "Start Rule"
+						},
+						"transitionEndRule": {
+							"transitionRuleId": "ae648ac6-f2c2-49d8-8ee2-64ccadec513e",
+							"transitionRuleDescription": "End Rule"
+						}
+					},
+					{
+						"encounterId": "VIS13",
+						"encounterContactModes": [
+							{
+								"codeId": "40c6a10a-da80-41746",
+								"code": "767002",
+								"codeSystem": "SNOMED-CT",
+								"codeSystemVersion": "2022-05-31",
+								"decode": "White blood cell counts"
+							}
+						],
+						"encounterDescription": "PLANNED VISIT",
+						"encounterEnvironmentalSetting": {
+							"codeId": "40c6a10a-da80-41746",
+							"code": "767002",
+							"codeSystem": "SNOMED-CT",
+							"codeSystemVersion": "2022-05-31",
+							"decode": "White blood cell counts"
+						},
+						"encounterName": "RUN-IN VISIT 2",
+						"encounterType": {
+							"codeId": "40c6a10a-da80-41746",
+							"code": "767002",
+							"codeSystem": "SNOMED-CT",
+							"codeSystemVersion": "2022-05-31",
+							"decode": "White blood cell counts"
+						},
+						"nextEncounterId": "VIS14",
+						"previousEncounterId": "VIS12",
+						"encounterScheduledAtTimingId": "T03",
+						"transitionStartRule": {
+							"transitionRuleId": "14a6b9fa-f080-415b-83bd-6d6ffe5e4b60",
+							"transitionRuleDescription": "Start Rule"
+						},
+						"transitionEndRule": {
+							"transitionRuleId": "ae648ac6-f2c2-49d8-8ee2-64ccadec513e",
+							"transitionRuleDescription": "End Rule"
+						}
+					},
+					{
+						"encounterId": "VIS14",
+						"encounterContactModes": [
+							{
+								"codeId": "40c6a10a-da80-41746",
+								"code": "767002",
+								"codeSystem": "SNOMED-CT",
+								"codeSystemVersion": "2022-05-31",
+								"decode": "White blood cell counts"
+							}
+						],
+						"encounterDescription": "PLANNED VISIT",
+						"encounterEnvironmentalSetting": {
+							"codeId": "40c6a10a-da80-41746",
+							"code": "767002",
+							"codeSystem": "SNOMED-CT",
+							"codeSystemVersion": "2022-05-31",
+							"decode": "White blood cell counts"
+						},
+						"encounterName": "RUN-IN VISIT 3",
+						"encounterType": {
+							"codeId": "40c6a10a-da80-41746",
+							"code": "767002",
+							"codeSystem": "SNOMED-CT",
+							"codeSystemVersion": "2022-05-31",
+							"decode": "White blood cell counts"
+						},
+						"nextEncounterId": "VIS15",
+						"previousEncounterId": "VIS13",
+						"encounterScheduledAtTimingId": "T04",
+						"transitionStartRule": {
+							"transitionRuleId": "14a6b9fa-f080-415b-83bd-6d6ffe5e4b60",
+							"transitionRuleDescription": "Start Rule"
+						},
+						"transitionEndRule": {
+							"transitionRuleId": "ae648ac6-f2c2-49d8-8ee2-64ccadec513e",
+							"transitionRuleDescription": "End Rule"
+						}
+					},
+					{
+						"encounterId": "VIS15",
+						"encounterContactModes": [
+							{
+								"codeId": "40c6a10a-da80-41746",
+								"code": "767002",
+								"codeSystem": "SNOMED-CT",
+								"codeSystemVersion": "2022-05-31",
+								"decode": "White blood cell counts"
+							}
+						],
+						"encounterDescription": "PLANNED VISIT",
+						"encounterEnvironmentalSetting": {
+							"codeId": "40c6a10a-da80-41746",
+							"code": "767002",
+							"codeSystem": "SNOMED-CT",
+							"codeSystemVersion": "2022-05-31",
+							"decode": "White blood cell counts"
+						},
+						"encounterName": "CYCLE 1, TREATMENT 1",
+						"encounterType": {
+							"codeId": "40c6a10a-da80-41746",
+							"code": "767002",
+							"codeSystem": "SNOMED-CT",
+							"codeSystemVersion": "2022-05-31",
+							"decode": "White blood cell counts"
+						},
+						"nextEncounterId": "VIS16",
+						"previousEncounterId": "VIS14",
+						"encounterScheduledAtTimingId": "T03",
+						"transitionStartRule": {
+							"transitionRuleId": "14a6b9fa-f080-415b-83bd-6d6ffe5e4b60",
+							"transitionRuleDescription": "Start Rule"
+						},
+						"transitionEndRule": {
+							"transitionRuleId": "ae648ac6-f2c2-49d8-8ee2-64ccadec513e",
+							"transitionRuleDescription": "End Rule"
+						}
+					},
+					{
+						"encounterId": "VIS16",
+						"encounterContactModes": [
+							{
+								"codeId": "40c6a10a-da80-41746",
+								"code": "767002",
+								"codeSystem": "SNOMED-CT",
+								"codeSystemVersion": "2022-05-31",
+								"decode": "White blood cell counts"
+							}
+						],
+						"encounterDescription": "PLANNED VISIT",
+						"encounterEnvironmentalSetting": {
+							"codeId": "40c6a10a-da80-41746",
+							"code": "767002",
+							"codeSystem": "SNOMED-CT",
+							"codeSystemVersion": "2022-05-31",
+							"decode": "White blood cell counts"
+						},
+						"encounterName": "CYCLE 1, TREATMENT 2",
+						"encounterType": {
+							"codeId": "40c6a10a-da80-41746",
+							"code": "767002",
+							"codeSystem": "SNOMED-CT",
+							"codeSystemVersion": "2022-05-31",
+							"decode": "White blood cell counts"
+						},
+						"nextEncounterId": "VIS17",
+						"previousEncounterId": "VIS15",
+						"encounterScheduledAtTimingId": "T06",
+						"transitionStartRule": {
+							"transitionRuleId": "14a6b9fa-f080-415b-83bd-6d6ffe5e4b60",
+							"transitionRuleDescription": "Start Rule"
+						},
+						"transitionEndRule": {
+							"transitionRuleId": "ae648ac6-f2c2-49d8-8ee2-64ccadec513e",
+							"transitionRuleDescription": "End Rule"
+						}
+					},
+					{
+						"encounterId": "VIS17",
+						"encounterContactModes": [
+							{
+								"codeId": "40c6a10a-da80-41746",
+								"code": "767002",
+								"codeSystem": "SNOMED-CT",
+								"codeSystemVersion": "2022-05-31",
+								"decode": "White blood cell counts"
+							}
+						],
+						"encounterDescription": "PLANNED VISIT",
+						"encounterEnvironmentalSetting": {
+							"codeId": "40c6a10a-da80-41746",
+							"code": "767002",
+							"codeSystem": "SNOMED-CT",
+							"codeSystemVersion": "2022-05-31",
+							"decode": "White blood cell counts"
+						},
+						"encounterName": "CYCLE 1, TREATMENT 3",
+						"encounterType": {
+							"codeId": "40c6a10a-da80-41746",
+							"code": "767002",
+							"codeSystem": "SNOMED-CT",
+							"codeSystemVersion": "2022-05-31",
+							"decode": "White blood cell counts"
+						},
+						"nextEncounterId": "VIS18",
+						"previousEncounterId": "VIS16",
+						"encounterScheduledAtTimingId": "T07",
+						"transitionStartRule": {
+							"transitionRuleId": "14a6b9fa-f080-415b-83bd-6d6ffe5e4b60",
+							"transitionRuleDescription": "Start Rule"
+						},
+						"transitionEndRule": {
+							"transitionRuleId": "ae648ac6-f2c2-49d8-8ee2-64ccadec513e",
+							"transitionRuleDescription": "End Rule"
+						}
+					},
+					{
+						"encounterId": "VIS18",
+						"encounterContactModes": [
+							{
+								"codeId": "40c6a10a-da80-41746",
+								"code": "767002",
+								"codeSystem": "SNOMED-CT",
+								"codeSystemVersion": "2022-05-31",
+								"decode": "White blood cell counts"
+							}
+						],
+						"encounterDescription": "PLANNED VISIT",
+						"encounterEnvironmentalSetting": {
+							"codeId": "40c6a10a-da80-41746",
+							"code": "767002",
+							"codeSystem": "SNOMED-CT",
+							"codeSystemVersion": "2022-05-31",
+							"decode": "White blood cell counts"
+						},
+						"encounterName": "CYCLE 2, TREATMENT 1",
+						"encounterType": {
+							"codeId": "40c6a10a-da80-41746",
+							"code": "767002",
+							"codeSystem": "SNOMED-CT",
+							"codeSystemVersion": "2022-05-31",
+							"decode": "White blood cell counts"
+						},
+						"nextEncounterId": "VIS19",
+						"previousEncounterId": "VIS17",
+						"encounterScheduledAtTimingId": "T08",
+						"transitionStartRule": {
+							"transitionRuleId": "14a6b9fa-f080-415b-83bd-6d6ffe5e4b60",
+							"transitionRuleDescription": "Start Rule"
+						},
+						"transitionEndRule": {
+							"transitionRuleId": "ae648ac6-f2c2-49d8-8ee2-64ccadec513e",
+							"transitionRuleDescription": "End Rule"
+						}
+					},
+					{
+						"encounterId": "VIS19",
+						"encounterContactModes": [
+							{
+								"codeId": "40c6a10a-da80-41746",
+								"code": "767002",
+								"codeSystem": "SNOMED-CT",
+								"codeSystemVersion": "2022-05-31",
+								"decode": "White blood cell counts"
+							}
+						],
+						"encounterDescription": "PLANNED VISIT",
+						"encounterEnvironmentalSetting": {
+							"codeId": "40c6a10a-da80-41746",
+							"code": "767002",
+							"codeSystem": "SNOMED-CT",
+							"codeSystemVersion": "2022-05-31",
+							"decode": "White blood cell counts"
+						},
+						"encounterName": "CYCLE 2, TREATMENT 2",
+						"encounterType": {
+							"codeId": "40c6a10a-da80-41746",
+							"code": "767002",
+							"codeSystem": "SNOMED-CT",
+							"codeSystemVersion": "2022-05-31",
+							"decode": "White blood cell counts"
+						},
+						"nextEncounterId": "VIS20",
+						"previousEncounterId": "VIS18",
+						"encounterScheduledAtTimingId": "T09",
+						"transitionStartRule": {
+							"transitionRuleId": "14a6b9fa-f080-415b-83bd-6d6ffe5e4b60",
+							"transitionRuleDescription": "Start Rule"
+						},
+						"transitionEndRule": {
+							"transitionRuleId": "ae648ac6-f2c2-49d8-8ee2-64ccadec513e",
+							"transitionRuleDescription": "End Rule"
+						}
+					},
+					{
+						"encounterId": "VIS20",
+						"encounterContactModes": [
+							{
+								"codeId": "40c6a10a-da80-41746",
+								"code": "767002",
+								"codeSystem": "SNOMED-CT",
+								"codeSystemVersion": "2022-05-31",
+								"decode": "White blood cell counts"
+							}
+						],
+						"encounterDescription": "PLANNED VISIT",
+						"encounterEnvironmentalSetting": {
+							"codeId": "40c6a10a-da80-41746",
+							"code": "767002",
+							"codeSystem": "SNOMED-CT",
+							"codeSystemVersion": "2022-05-31",
+							"decode": "White blood cell counts"
+						},
+						"encounterName": "CYCLE 3, TREATMENT 1",
+						"encounterType": {
+							"codeId": "40c6a10a-da80-41746",
+							"code": "767002",
+							"codeSystem": "SNOMED-CT",
+							"codeSystemVersion": "2022-05-31",
+							"decode": "White blood cell counts"
+						},
+						"nextEncounterId": "VIS21",
+						"previousEncounterId": "VIS19",
+						"encounterScheduledAtTimingId": "T10",
+						"transitionStartRule": {
+							"transitionRuleId": "14a6b9fa-f080-415b-83bd-6d6ffe5e4b60",
+							"transitionRuleDescription": "Start Rule"
+						},
+						"transitionEndRule": {
+							"transitionRuleId": "ae648ac6-f2c2-49d8-8ee2-64ccadec513e",
+							"transitionRuleDescription": "End Rule"
+						}
+					},
+					{
+						"encounterId": "VIS21",
+						"encounterContactModes": [
+							{
+								"codeId": "40c6a10a-da80-41746",
+								"code": "767002",
+								"codeSystem": "SNOMED-CT",
+								"codeSystemVersion": "2022-05-31",
+								"decode": "White blood cell counts"
+							}
+						],
+						"encounterDescription": "PLANNED VISIT",
+						"encounterEnvironmentalSetting": {
+							"codeId": "40c6a10a-da80-41746",
+							"code": "767002",
+							"codeSystem": "SNOMED-CT",
+							"codeSystemVersion": "2022-05-31",
+							"decode": "White blood cell counts"
+						},
+						"encounterName": "CYCLE 3, TREATMENT 2",
+						"encounterType": {
+							"codeId": "40c6a10a-da80-41746",
+							"code": "767002",
+							"codeSystem": "SNOMED-CT",
+							"codeSystemVersion": "2022-05-31",
+							"decode": "White blood cell counts"
+						},
+						"nextEncounterId": "VIS22",
+						"previousEncounterId": "VIS20",
+						"encounterScheduledAtTimingId": "T11",
+						"transitionStartRule": {
+							"transitionRuleId": "14a6b9fa-f080-415b-83bd-6d6ffe5e4b60",
+							"transitionRuleDescription": "Start Rule"
+						},
+						"transitionEndRule": {
+							"transitionRuleId": "ae648ac6-f2c2-49d8-8ee2-64ccadec513e",
+							"transitionRuleDescription": "End Rule"
+						}
+					},
+					{
+						"encounterId": "VIS22",
+						"encounterContactModes": [
+							{
+								"codeId": "40c6a10a-da80-41746",
+								"code": "767002",
+								"codeSystem": "SNOMED-CT",
+								"codeSystemVersion": "2022-05-31",
+								"decode": "White blood cell counts"
+							}
+						],
+						"encounterDescription": "PLANNED VISIT",
+						"encounterEnvironmentalSetting": {
+							"codeId": "40c6a10a-da80-41746",
+							"code": "767002",
+							"codeSystem": "SNOMED-CT",
+							"codeSystemVersion": "2022-05-31",
+							"decode": "White blood cell counts"
+						},
+						"encounterName": "FU 1",
+						"encounterType": {
+							"codeId": "40c6a10a-da80-41746",
+							"code": "767002",
+							"codeSystem": "SNOMED-CT",
+							"codeSystemVersion": "2022-05-31",
+							"decode": "White blood cell counts"
+						},
+						"nextEncounterId": "VIS23",
+						"previousEncounterId": "VIS21",
+						"encounterScheduledAtTimingId": "T16",
+						"transitionStartRule": {
+							"transitionRuleId": "14a6b9fa-f080-415b-83bd-6d6ffe5e4b60",
+							"transitionRuleDescription": "Start Rule"
+						},
+						"transitionEndRule": {
+							"transitionRuleId": "ae648ac6-f2c2-49d8-8ee2-64ccadec513e",
+							"transitionRuleDescription": "End Rule"
+						}
+					},
+					{
+						"encounterId": "VIS23",
+						"encounterContactModes": [
+							{
+								"codeId": "40c6a10a-da80-41746",
+								"code": "767002",
+								"codeSystem": "SNOMED-CT",
+								"codeSystemVersion": "2022-05-31",
+								"decode": "White blood cell counts"
+							}
+						],
+						"encounterDescription": "VIRTUAL VISIT",
+						"encounterEnvironmentalSetting": {
+							"codeId": "40c6a10a-da80-41746",
+							"code": "767002",
+							"codeSystem": "SNOMED-CT",
+							"codeSystemVersion": "2022-05-31",
+							"decode": "White blood cell counts"
+						},
+						"encounterName": "FU 2",
+						"encounterType": {
+							"codeId": "40c6a10a-da80-41746",
+							"code": "767002",
+							"codeSystem": "SNOMED-CT",
+							"codeSystemVersion": "2022-05-31",
+							"decode": "White blood cell counts"
+						},
+						"nextEncounterId": "",
+						"previousEncounterId": "VIS22",
+						"encounterScheduledAtTimingId": "T17",
+						"transitionStartRule": {
+							"transitionRuleId": "14a6b9fa-f080-415b-83bd-6d6ffe5e4b60",
+							"transitionRuleDescription": "Start Rule"
+						},
+						"transitionEndRule": {
+							"transitionRuleId": "ae648ac6-f2c2-49d8-8ee2-64ccadec513e",
+							"transitionRuleDescription": "End Rule"
+						}
+					}
+				],
+				"activities": [
+					{
+						"activityId": "ACT001",
+						"activityDescription": "Informed consents",
+						"activityName": "Informed consent",
+						"definedProcedures": [
+							{
+								"procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-41746",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell counts"
+								},
+								"procedureIsConditional": false,
+								"procedureIsConditionalReason": "Reasons"
+							},
+							{
+								"procedureId": "f4e2",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell count"
+								},
+								"procedureIsConditional": true,
+								"procedureIsConditionalReason": "Reason"
+							}
+						],
+						"nextActivityId": "ACT002",
+						"previousActivityId": "",
+						"activityIsConditional": false,
+						"activityIsConditionalReason": "Reason",
+						"bcCategoryIds": [
+							"BCC1"
+						],
+						"bcSurrogateIds": [
+							"BCS1"
+						],
+						"biomedicalConceptIds": [
+							"BC11"
+						],
+						"activityTimelineId": "Timeline01"
+					},
+					{
+						"activityId": "ACT002",
+						"activityDescription": "Informed consent",
+						"activityName": "Eligibility criteria",
+						"definedProcedures": [
+							{
+								"procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-41746",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell counts"
+								},
+								"procedureIsConditional": false,
+								"procedureIsConditionalReason": "Reasons"
+							},
+							{
+								"procedureId": "f4e2",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell count"
+								},
+								"procedureIsConditional": true,
+								"procedureIsConditionalReason": "Reason"
+							}
+						],
+						"nextActivityId": "ACT003",
+						"previousActivityId": "ACT001",
+						"activityIsConditional": false,
+						"activityIsConditionalReason": "reason",
+						"bcCategoryIds": [
+							"BCC1"
+						],
+						"bcSurrogateIds": [
+							"BCS1"
+						],
+						"biomedicalConceptIds": [
+							"BC11"
+						],
+						"activityTimelineId": "Timeline01"
+					},
+					{
+						"activityId": "ACT003",
+						"activityDescription": "Informed consent",
+						"activityName": "Demography",
+						"definedProcedures": [
+							{
+								"procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-41746",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell counts"
+								},
+								"procedureIsConditional": false,
+								"procedureIsConditionalReason": "Reasons"
+							},
+							{
+								"procedureId": "f4e2",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell count"
+								},
+								"procedureIsConditional": true,
+								"procedureIsConditionalReason": "Reason"
+							}
+						],
+						"nextActivityId": "ACT004",
+						"previousActivityId": "ACT002",
+						"activityIsConditional": false,
+						"activityIsConditionalReason": "reason",
+						"bcCategoryIds": [
+							"BCC1"
+						],
+						"bcSurrogateIds": [
+							"BCS1"
+						],
+						"biomedicalConceptIds": [
+							"BC11"
+						],
+						"activityTimelineId": "Timeline01"
+					},
+					{
+						"activityId": "ACT004",
+						"activityDescription": "Informed consent",
+						"activityName": "Medical history",
+						"definedProcedures": [
+							{
+								"procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-41746",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell counts"
+								},
+								"procedureIsConditional": false,
+								"procedureIsConditionalReason": "Reasons"
+							},
+							{
+								"procedureId": "f4e2",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell count"
+								},
+								"procedureIsConditional": true,
+								"procedureIsConditionalReason": "Reason"
+							}
+						],
+						"nextActivityId": "ACT005",
+						"previousActivityId": "ACT003",
+						"activityIsConditional": false,
+						"activityIsConditionalReason": "reason",
+						"bcCategoryIds": [
+							"BCC1"
+						],
+						"bcSurrogateIds": [
+							"BCS1"
+						],
+						"biomedicalConceptIds": [
+							"BC11"
+						],
+						"activityTimelineId": "Timeline01"
+					},
+					{
+						"activityId": "ACT005",
+						"activityDescription": "Informed consent",
+						"activityName": "Disease characteristics",
+						"definedProcedures": [
+							{
+								"procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-41746",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell counts"
+								},
+								"procedureIsConditional": false,
+								"procedureIsConditionalReason": "Reasons"
+							},
+							{
+								"procedureId": "f4e2",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell count"
+								},
+								"procedureIsConditional": true,
+								"procedureIsConditionalReason": "Reason"
+							}
+						],
+						"nextActivityId": "ACT006",
+						"previousActivityId": "ACT004",
+						"activityIsConditional": false,
+						"activityIsConditionalReason": "reason",
+						"bcCategoryIds": [
+							"BCC1"
+						],
+						"bcSurrogateIds": [
+							"BCS1"
+						],
+						"biomedicalConceptIds": [
+							"BC11"
+						],
+						"activityTimelineId": "Timeline01"
+					},
+					{
+						"activityId": "ACT006",
+						"activityDescription": "Informed consent",
+						"activityName": "Physical exam",
+						"definedProcedures": [
+							{
+								"procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-41746",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell counts"
+								},
+								"procedureIsConditional": false,
+								"procedureIsConditionalReason": "Reasons"
+							},
+							{
+								"procedureId": "f4e2",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell count"
+								},
+								"procedureIsConditional": true,
+								"procedureIsConditionalReason": "Reason"
+							}
+						],
+						"nextActivityId": "ACT007",
+						"previousActivityId": "ACT005",
+						"activityIsConditional": false,
+						"activityIsConditionalReason": "reason",
+						"bcCategoryIds": [
+							"BCC1"
+						],
+						"bcSurrogateIds": [
+							"BCS1"
+						],
+						"biomedicalConceptIds": [
+							"BC11"
+						],
+						"activityTimelineId": "Timeline01"
+					},
+					{
+						"activityId": "ACT007",
+						"activityDescription": "Informed consent",
+						"activityName": "Height",
+						"definedProcedures": [
+							{
+								"procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-41746",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell counts"
+								},
+								"procedureIsConditional": false,
+								"procedureIsConditionalReason": "Reasons"
+							},
+							{
+								"procedureId": "f4e2",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell count"
+								},
+								"procedureIsConditional": true,
+								"procedureIsConditionalReason": "Reason"
+							}
+						],
+						"nextActivityId": "ACT008",
+						"previousActivityId": "ACT006",
+						"activityIsConditional": false,
+						"activityIsConditionalReason": "reason",
+						"bcCategoryIds": [
+							"BCC1"
+						],
+						"bcSurrogateIds": [
+							"BCS1"
+						],
+						"biomedicalConceptIds": [
+							"BC11"
+						],
+						"activityTimelineId": "Timeline01"
+					},
+					{
+						"activityId": "ACT008",
+						"activityDescription": "Informed consent",
+						"activityName": "12-lead ECG",
+						"definedProcedures": [
+							{
+								"procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-41746",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell counts"
+								},
+								"procedureIsConditional": false,
+								"procedureIsConditionalReason": "Reasons"
+							},
+							{
+								"procedureId": "f4e2",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell count"
+								},
+								"procedureIsConditional": true,
+								"procedureIsConditionalReason": "Reason"
+							}
+						],
+						"nextActivityId": "ACT009",
+						"previousActivityId": "ACT007",
+						"activityIsConditional": false,
+						"activityIsConditionalReason": "reason",
+						"bcCategoryIds": [
+							"BCC1"
+						],
+						"bcSurrogateIds": [
+							"BCS1"
+						],
+						"biomedicalConceptIds": [
+							"BC11"
+						],
+						"activityTimelineId": "Timeline01"
+					},
+					{
+						"activityId": "ACT009",
+						"activityDescription": "Informed consent",
+						"activityName": "Hematology (predose)",
+						"definedProcedures": [
+							{
+								"procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-41746",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell counts"
+								},
+								"procedureIsConditional": false,
+								"procedureIsConditionalReason": "Reasons"
+							},
+							{
+								"procedureId": "f4e2",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell count"
+								},
+								"procedureIsConditional": true,
+								"procedureIsConditionalReason": "Reason"
+							}
+						],
+						"nextActivityId": "ACT010",
+						"previousActivityId": "ACT008",
+						"activityIsConditional": false,
+						"activityIsConditionalReason": "reason",
+						"bcCategoryIds": [
+							"BCC1"
+						],
+						"bcSurrogateIds": [
+							"BCS1"
+						],
+						"biomedicalConceptIds": [
+							"BC11"
+						],
+						"activityTimelineId": "Timeline01"
+					},
+					{
+						"activityId": "ACT010",
+						"activityDescription": "Informed consent",
+						"activityName": "Chemistry (predose)",
+						"definedProcedures": [
+							{
+								"procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-41746",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell counts"
+								},
+								"procedureIsConditional": false,
+								"procedureIsConditionalReason": "Reasons"
+							},
+							{
+								"procedureId": "f4e2",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell count"
+								},
+								"procedureIsConditional": true,
+								"procedureIsConditionalReason": "Reason"
+							}
+						],
+						"nextActivityId": "ACT011",
+						"previousActivityId": "ACT009",
+						"activityIsConditional": false,
+						"activityIsConditionalReason": "reason",
+						"bcCategoryIds": [
+							"BCC1"
+						],
+						"bcSurrogateIds": [
+							"BCS1"
+						],
+						"biomedicalConceptIds": [
+							"BC11"
+						],
+						"activityTimelineId": "Timeline01"
+					},
+					{
+						"activityId": "ACT011",
+						"activityDescription": "Informed consent",
+						"activityName": "Serology",
+						"definedProcedures": [
+							{
+								"procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-41746",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell counts"
+								},
+								"procedureIsConditional": false,
+								"procedureIsConditionalReason": "Reasons"
+							},
+							{
+								"procedureId": "f4e2",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell count"
+								},
+								"procedureIsConditional": true,
+								"procedureIsConditionalReason": "Reason"
+							}
+						],
+						"nextActivityId": "ACT012",
+						"previousActivityId": "ACT010",
+						"activityIsConditional": false,
+						"activityIsConditionalReason": "reason",
+						"bcCategoryIds": [
+							"BCC1"
+						],
+						"bcSurrogateIds": [
+							"BCS1"
+						],
+						"biomedicalConceptIds": [
+							"BC11"
+						],
+						"activityTimelineId": "Timeline01"
+					},
+					{
+						"activityId": "ACT012",
+						"activityDescription": "Informed consent",
+						"activityName": "Urinalysis",
+						"definedProcedures": [
+							{
+								"procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-41746",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell counts"
+								},
+								"procedureIsConditional": false,
+								"procedureIsConditionalReason": "Reasons"
+							},
+							{
+								"procedureId": "f4e2",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell count"
+								},
+								"procedureIsConditional": true,
+								"procedureIsConditionalReason": "Reason"
+							}
+						],
+						"nextActivityId": "ACT013",
+						"previousActivityId": "ACT011",
+						"activityIsConditional": false,
+						"activityIsConditionalReason": "reason",
+						"bcCategoryIds": [
+							"BCC1"
+						],
+						"bcSurrogateIds": [
+							"BCS1"
+						],
+						"biomedicalConceptIds": [
+							"BC11"
+						],
+						"activityTimelineId": "Timeline01"
+					},
+					{
+						"activityId": "ACT013",
+						"activityDescription": "Informed consent",
+						"activityName": "Pregnancy test",
+						"definedProcedures": [
+							{
+								"procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-41746",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell counts"
+								},
+								"procedureIsConditional": false,
+								"procedureIsConditionalReason": "Reasons"
+							},
+							{
+								"procedureId": "f4e2",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell count"
+								},
+								"procedureIsConditional": true,
+								"procedureIsConditionalReason": "Reason"
+							}
+						],
+						"nextActivityId": "ACT014",
+						"previousActivityId": "ACT012",
+						"activityIsConditional": false,
+						"activityIsConditionalReason": "reason",
+						"bcCategoryIds": [
+							"BCC1"
+						],
+						"bcSurrogateIds": [
+							"BCS1"
+						],
+						"biomedicalConceptIds": [
+							"BC11"
+						],
+						"activityTimelineId": "Timeline01"
+					},
+					{
+						"activityId": "ACT014",
+						"activityDescription": "Informed consent",
+						"activityName": "Ensure availability of medication X",
+						"definedProcedures": [
+							{
+								"procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-41746",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell counts"
+								},
+								"procedureIsConditional": false,
+								"procedureIsConditionalReason": "Reasons"
+							},
+							{
+								"procedureId": "f4e2",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell count"
+								},
+								"procedureIsConditional": true,
+								"procedureIsConditionalReason": "Reason"
+							}
+						],
+						"nextActivityId": "ACT015",
+						"previousActivityId": "ACT013",
+						"activityIsConditional": false,
+						"activityIsConditionalReason": "reason",
+						"bcCategoryIds": [
+							"BCC1"
+						],
+						"bcSurrogateIds": [
+							"BCS1"
+						],
+						"biomedicalConceptIds": [
+							"BC11"
+						],
+						"activityTimelineId": "Timeline01"
+					},
+					{
+						"activityId": "ACT015",
+						"activityDescription": "Informed consent",
+						"activityName": "Hospitalization",
+						"definedProcedures": [
+							{
+								"procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-41746",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell counts"
+								},
+								"procedureIsConditional": false,
+								"procedureIsConditionalReason": "Reasons"
+							},
+							{
+								"procedureId": "f4e2",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell count"
+								},
+								"procedureIsConditional": true,
+								"procedureIsConditionalReason": "Reason"
+							}
+						],
+						"nextActivityId": "ACT016",
+						"previousActivityId": "ACT014",
+						"activityIsConditional": false,
+						"activityIsConditionalReason": "reason",
+						"bcCategoryIds": [
+							"BCC1"
+						],
+						"bcSurrogateIds": [
+							"BCS1"
+						],
+						"biomedicalConceptIds": [
+							"BC11"
+						],
+						"activityTimelineId": "Timeline01"
+					},
+					{
+						"activityId": "ACT016",
+						"activityDescription": "Informed consent",
+						"activityName": "Weight",
+						"definedProcedures": [
+							{
+								"procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-41746",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell counts"
+								},
+								"procedureIsConditional": false,
+								"procedureIsConditionalReason": "Reasons"
+							},
+							{
+								"procedureId": "f4e2",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell count"
+								},
+								"procedureIsConditional": true,
+								"procedureIsConditionalReason": "Reason"
+							}
+						],
+						"nextActivityId": "ACT017",
+						"previousActivityId": "ACT015",
+						"activityIsConditional": false,
+						"activityIsConditionalReason": "reason",
+						"bcCategoryIds": [
+							"BCC1"
+						],
+						"bcSurrogateIds": [
+							"BCS1"
+						],
+						"biomedicalConceptIds": [
+							"BC11"
+						],
+						"activityTimelineId": "Timeline01"
+					},
+					{
+						"activityId": "ACT017",
+						"activityDescription": "Informed consent",
+						"activityName": "Vital signs",
+						"definedProcedures": [
+							{
+								"procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-41746",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell counts"
+								},
+								"procedureIsConditional": false,
+								"procedureIsConditionalReason": "Reasons"
+							},
+							{
+								"procedureId": "f4e2",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell count"
+								},
+								"procedureIsConditional": true,
+								"procedureIsConditionalReason": "Reason"
+							}
+						],
+						"nextActivityId": "ACT018",
+						"previousActivityId": "ACT016",
+						"activityIsConditional": false,
+						"activityIsConditionalReason": "reason",
+						"bcCategoryIds": [
+							"BCC1"
+						],
+						"bcSurrogateIds": [
+							"BCS1"
+						],
+						"biomedicalConceptIds": [
+							"BC11"
+						],
+						"activityTimelineId": "Timeline01"
+					},
+					{
+						"activityId": "ACT018",
+						"activityDescription": "Informed consent",
+						"activityName": "adverse events",
+						"definedProcedures": [
+							{
+								"procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-41746",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell counts"
+								},
+								"procedureIsConditional": false,
+								"procedureIsConditionalReason": "Reasons"
+							},
+							{
+								"procedureId": "f4e2",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell count"
+								},
+								"procedureIsConditional": true,
+								"procedureIsConditionalReason": "Reason"
+							}
+						],
+						"nextActivityId": "ACT019",
+						"previousActivityId": "ACT017",
+						"activityIsConditional": false,
+						"activityIsConditionalReason": "reason",
+						"bcCategoryIds": [
+							"BCC1"
+						],
+						"bcSurrogateIds": [
+							"BCS1"
+						],
+						"biomedicalConceptIds": [
+							"BC11"
+						],
+						"activityTimelineId": "Timeline01"
+					},
+					{
+						"activityId": "ACT019",
+						"activityDescription": "Informed consent",
+						"activityName": "Concomitant medications",
+						"definedProcedures": [
+							{
+								"procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-41746",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell counts"
+								},
+								"procedureIsConditional": false,
+								"procedureIsConditionalReason": "Reasons"
+							},
+							{
+								"procedureId": "f4e2",
+								"procedureName": "Name",
+								"procedureDescription": "Desc",
+								"procedureType": "Specimen Collection",
+								"procedureCode": {
+									"codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+									"code": "767002",
+									"codeSystem": "SNOMED-CT",
+									"codeSystemVersion": "2022-05-31",
+									"decode": "White blood cell count"
+								},
+								"procedureIsConditional": true,
+								"procedureIsConditionalReason": "Reason"
+							}
+						],
+						"nextActivityId": "",
+						"previousActivityId": "ACT018",
+						"activityIsConditional": false,
+						"activityIsConditionalReason": "reason",
+						"bcCategoryIds": [
+							"BCC1"
+						],
+						"bcSurrogateIds": [
+							"BCS1"
+						],
+						"biomedicalConceptIds": [
+							"BC11"
+						],
+						"activityTimelineId": "Timeline01"
+					}
+				],
+				"studyDesignRationale": "Rationale ",
+				"studyDesignBlindingScheme": {
+					"aliasCodeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f616",
+					"standardCode": {
+						"codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f613",
+						"code": "C49686",
+						"codeSystem": "http:www.cdisc.org",
+						"codeSystemVersion": "2022-03-25",
+						"decode": "Phase IIa Trial"
+					},
+					"standardCodeAliases": [
+						{
+							"codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f613",
+							"code": "C49686",
+							"codeSystem": "http:www.cdisc.org",
+							"codeSystemVersion": "2022-03-25",
+							"decode": "Phase IIa Trial"
+						}
+					]
+				},
+				"biomedicalConcepts": [
+					{
+						"biomedicalConceptId": "BC11",
+						"bcName": "Diastolic Blood Pressure ",
+						"bcSynonyms": [
+							"DIABP",
+							"DIA BP",
+							"Blood pressure diastolic",
+							"BP dias",
+							"BP diastolic",
+							"DBP",
+							"Dias",
+							"Dias BP",
+							"Diast",
+							"Diastoli "
+						],
+						"bcReference": "href",
+						"bcProperties": [
+							{
+								"bcPropertyId": "BCPropId1",
+								"bcPropertyName": "Unit of Pressure",
+								"bcPropertyRequired": true,
+								"bcPropertyEnabled": false,
+								"bcPropertyDataType": "strings",
+								"bcPropertyResponseCodes": [
+									{
+										"responseCodeId": "responseCodeId",
+										"responseCodeEnabled": true,
+										"code": {
+											"codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+											"code": "C49670",
+											"codeSystem": "http://www.cdisc.org",
+											"codeSystemVersion": "2022-03-25",
+											"decode": "mmHg"
+										}
+									}
+								],
+								"bcPropertyConceptCode": {
+									"aliasCodeId": "aliasId",
+									"standardCode": {
+										"codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+										"code": "C25299",
+										"codeSystem": "http://www.cdisc.org",
+										"codeSystemVersion": "2022-03-25",
+										"decode": "Diastolic Blood Pressure"
+									},
+									"standardCodeAliases": [
+										{
+											"codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+											"code": "8462-4",
+											"codeSystem": "http://loinc.org/",
+											"codeSystemVersion": "2022-03-25",
+											"decode": "Diastolic Blood Pressure"
+										}
+									]
+								}
+							},
+							{
+								"bcPropertyId": "BCPropIds",
+								"bcPropertyName": "Unit of Pressure",
+								"bcPropertyRequired": false,
+								"bcPropertyEnabled": true,
+								"bcPropertyDataType": "string",
+								"bcPropertyResponseCodes": [
+									{
+										"responseCodeId": "responseCodeId",
+										"responseCodeEnabled": true,
+										"code": {
+											"codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+											"code": "C49670",
+											"codeSystem": "http://www.cdisc.org",
+											"codeSystemVersion": "2022-03-25",
+											"decode": "mmHg"
+										}
+									}
+								],
+								"bcPropertyConceptCode": {
+									"aliasCodeId": "aliasId",
+									"standardCode": {
+										"codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+										"code": "C25299",
+										"codeSystem": "http://www.cdisc.org",
+										"codeSystemVersion": "2022-03-25",
+										"decode": "Diastolic Blood Pressure"
+									},
+									"standardCodeAliases": [
+										{
+											"codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+											"code": "8462-4",
+											"codeSystem": "http://loinc.org/",
+											"codeSystemVersion": "2022-03-25",
+											"decode": "Diastolic Blood Pressure"
+										}
+									]
+								}
+							}
+						],
+						"bcConceptCode": {
+							"aliasCodeId": "aliasId",
+							"standardCode": {
+								"codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+								"code": "C25299",
+								"codeSystem": "http://www.cdisc.org",
+								"codeSystemVersion": "2022-03-27",
+								"decode": "Diastolic Blood Pressure"
+							},
+							"standardCodeAliases": [
+								{
+									"codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+									"code": "8462-4",
+									"codeSystem": "http://loinc.org/",
+									"codeSystemVersion": "2022-03-25",
+									"decode": "Diastolic Blood Pressure"
+								}
+							]
+						}
+					},
+					{
+						"biomedicalConceptId": "BC2",
+						"bcName": "Systolic Blood Pressure",
+						"bcSynonyms": [
+							"SYSBP",
+							"SYS BP",
+							"Blood pressure systolic "
+						],
+						"bcReference": "https://www.google.com",
+						"bcProperties": [
+							{
+								"bcPropertyId": "BCPropId",
+								"bcPropertyName": "Unit of Pressure",
+								"bcPropertyRequired": true,
+								"bcPropertyEnabled": false,
+								"bcPropertyDataType": "string",
+								"bcPropertyResponseCodes": [
+									{
+										"responseCodeId": "responseCodeId",
+										"responseCodeEnabled": true,
+										"code": {
+											"codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+											"code": "C49670",
+											"codeSystem": "http://www.cdisc.org",
+											"codeSystemVersion": "2022-03-24",
+											"decode": "mmHg "
+										}
+									}
+								],
+								"bcPropertyConceptCode": {
+									"aliasCodeId": "aliasId",
+									"standardCode": {
+										"codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+										"code": "Cxxxx",
+										"codeSystem": "http://www.cdisc.org",
+										"codeSystemVersion": "2022-03-25",
+										"decode": "Systolic Blood Pressure"
+									},
+									"standardCodeAliases": [
+										{
+											"codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+											"code": "8xx-x",
+											"codeSystem": "http://loinc.org/",
+											"codeSystemVersion": "2022-03-25",
+											"decode": "Systolic Blood Pressure "
+										}
+									]
+								}
+							}
+						],
+						"bcConceptCode": {
+							"aliasCodeId": "aliasId",
+							"standardCode": {
+								"codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+								"code": "C25299",
+								"codeSystem": "http://www.cdisc.org",
+								"codeSystemVersion": "2022-03-25",
+								"decode": "Diastolic Blood Pressure"
+							},
+							"standardCodeAliases": [
+								{
+									"codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+									"code": "8462-4",
+									"codeSystem": "http://loinc.org/",
+									"codeSystemVersion": "2022-03-2",
+									"decode": "Diastolic Blood Pressure"
+								}
+							]
+						}
+					}
+				],
+				"bcCategories": [
+					{
+						"biomedicalConceptCategoryId": "BCC1",
+						"bcCategoryChildIds": [
+							"BCC2"
+						],
+						"bcCategoryName": "Blood pressure",
+						"bcCategoryDescription": "Blood pressure",
+						"bcCategoryMemberIds": [
+							"BC11"
+						],
+						"bcCategoryCode": {
+							"aliasCodeId": "aliasId",
+							"standardCode": {
+								"codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+								"code": "C25299",
+								"codeSystem": "http://www.cdisc.org",
+								"codeSystemVersion": "2022-03-25",
+								"decode": "Diastolic Blood Pressure"
+							},
+							"standardCodeAliases": [
+								{
+									"codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+									"code": "8462-4",
+									"codeSystem": "http://loinc.org/",
+									"codeSystemVersion": "2022-03-25",
+									"decode": "Diastolic Blood Pressure"
+								}
+							]
+						}
+					},
+					{
+						"biomedicalConceptCategoryId": "BCC2",
+						"bcCategoryChildIds": [
+							"BCC1",
+							"BCC3"
+						],
+						"bcCategoryName": "Blood Pressure Tests",
+						"bcCategoryDescription": "Blood Pressure Test",
+						"bcCategoryMemberIds": [
+							"BC2",
+							"BC11"
+						],
+						"bcCategoryCode": {
+							"aliasCodeId": "aliasId",
+							"standardCode": {
+								"codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+								"code": "C25299",
+								"codeSystem": "http://www.cdisc.org",
+								"codeSystemVersion": "2022-03-25",
+								"decode": "Diastolic Blood Pressure"
+							},
+							"standardCodeAliases": [
+								{
+									"codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+									"code": "8462-4",
+									"codeSystem": "http://loinc.org/",
+									"codeSystemVersion": "2022-03-25",
+									"decode": "Diastolic Blood Pressure"
+								}
+							]
+						}
+					},
+					{
+						"biomedicalConceptCategoryId": "BCC3",
+						"bcCategoryChildIds": [
+							"BCC2"
+						],
+						"bcCategoryName": "Diastolic Blood Pressure",
+						"bcCategoryDescription": "Diastolic Blood Pressure",
+						"bcCategoryMemberIds": [
+							"BC11"
+						],
+						"bcCategoryCode": {
+							"aliasCodeId": "aliasId",
+							"standardCode": {
+								"codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+								"code": "C25299",
+								"codeSystem": "http://www.cdisc.org",
+								"codeSystemVersion": "2022-03-25",
+								"decode": "Diastolic Blood Pressure"
+							},
+							"standardCodeAliases": [
+								{
+									"codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+									"code": "8462-4",
+									"codeSystem": "http://loinc.org/",
+									"codeSystemVersion": "2022-03-25",
+									"decode": "Diastolic Blood Pressure"
+								}
+							]
+						}
+					},
+					{
+						"biomedicalConceptCategoryId": "BCC4",
+						"bcCategoryChildIds": [
+							"BCC2"
+						],
+						"bcCategoryName": "Systolic Blood Pressure",
+						"bcCategoryDescription": "Systolic Blood Pressure",
+						"bcCategoryMemberIds": [
+							"BC2"
+						],
+						"bcCategoryCode": {
+							"aliasCodeId": "aliasId",
+							"standardCode": {
+								"codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+								"code": "C25299",
+								"codeSystem": "http://www.cdisc.org",
+								"codeSystemVersion": "2022-03-25",
+								"decode": "Diastolic Blood Pressure"
+							},
+							"standardCodeAliases": [
+								{
+									"codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+									"code": "8462-4",
+									"codeSystem": "http://loinc.org/",
+									"codeSystemVersion": "2022-03-25",
+									"decode": "Diastolic Blood Pressure"
+								}
+							]
+						}
+					}
+				],
+				"bcSurrogates": [
+					{
+						"bcSurrogateId": "BCS1",
+						"bcSurrogateName": "Diastolic Blood Pressure",
+						"bcSurrogateDescription": "Diastolic Blood Pressure",
+						"bcSurrogateReference": "https://google.com"
+					}
+				],
+				"studyArms": [
+					{
+						"studyArmId": "different",
+						"studyArmDataOriginDescription": "Captured subject data",
+						"studyArmDataOriginType": {
+							"codeId": "281a3135-5ab6-47c4-a136-92fb88d57f0d",
+							"code": "C6574y",
+							"codeSystem": "http:www.cdisc.org",
+							"codeSystemVersion": "14",
+							"decode": "SUBJECT DATA"
+						},
+						"studyArmDescription": "The Placebo Arm",
+						"studyArmName": "Placebo",
+						"studyArmType": {
+							"codeId": "77c714cf-ac76-4843-a4b6-1c68b8be7590",
+							"code": "C174268",
+							"codeSystem": "http:www.cdisc.org",
+							"codeSystemVersion": "2022-03-25",
+							"decode": "Placebo Control Arms"
+						}
+					},
+					{
+						"studyArmId": "different1",
+						"studyArmDataOriginDescription": "Captured subject data",
+						"studyArmDataOriginType": {
+							"codeId": "281a3135-5ab6-47c4-a136-92fb88d57f0d",
+							"code": "C6574y",
+							"codeSystem": "http:www.cdisc.org",
+							"codeSystemVersion": "1",
+							"decode": "SUBJECT DATA"
+						},
+						"studyArmDescription": "The Placebo Arm",
+						"studyArmName": "Placebo",
+						"studyArmType": {
+							"codeId": "77c714cf-ac76-4843-a4b6-1c68b8be7590",
+							"code": "C174268",
+							"codeSystem": "http:www.cdisc.org",
+							"codeSystemVersion": "2022-03-25",
+							"decode": "Placebo Control Arms"
+						}
+					}
+				],
+				"studyEpochs": [
+					{
+						"studyEpochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d",
+						"nextStudyEpochId": "",
+						"previousStudyEpochId": "",
+						"studyEpochDescription": "The run in",
+						"studyEpochName": "Run In",
+						"studyEpochType": {
+							"codeId": "91603043-8496-4a71-aabc-2d6848bbc87d",
+							"code": "C98779",
+							"codeSystem": "http:www.cdisc.org",
+							"codeSystemVersion": "2022-03-25",
+							"decode": "Run-in Periods"
+						}
+					},
+					{
+						"studyEpochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d9",
+						"nextStudyEpochId": "",
+						"previousStudyEpochId": "",
+						"studyEpochDescription": "The run in",
+						"studyEpochName": "Run In",
+						"studyEpochType": {
+							"codeId": "91603043-8496-4a71-aabc-2d6848bbc87d",
+							"code": "C98779",
+							"codeSystem": "http:www.cdisc.orgs",
+							"codeSystemVersion": "2022-03-25",
+							"decode": "Run-in Period"
+						}
+					}
+				],
+				"studyElements": [
+					{
+						"studyElementId": "00ad20fa-bb06-4b93-b237-6bc37a3810e",
+						"studyElementDescription": "First elements",
+						"studyElementName": "Element 1",
+						"transitionStartRule": {
+							"transitionRuleId": "14a6b9fa-f080-415b-83bd-6d6ffe5e4b60",
+							"transitionRuleDescription": "Start Rules"
+						},
+						"transitionEndRule": {
+							"transitionRuleId": "ae648ac6-f2c2-49d8-8ee2-64ccadec513e",
+							"transitionRuleDescription": "End Rule"
+						}
+					},
+					{
+						"studyElementId": "00ad20fa-bb06-4b93-b237-6bc37a3810e5",
+						"studyElementDescription": "First element",
+						"studyElementName": "Element 1",
+						"transitionStartRule": {
+							"transitionRuleId": "14a6b9fa-f080-415b-83bd-6d6ffe5e4b60",
+							"transitionRuleDescription": "Start Rule"
+						},
+						"transitionEndRule": {
+							"transitionRuleId": "ae648ac6-f2c2-49d8-8ee2-64ccadec",
+							"transitionRuleDescription": "End Rule"
+						}
+					}
+				]
+			}
+		]
+	}
+}
