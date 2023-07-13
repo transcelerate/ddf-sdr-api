@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "5c3fcec9-f68e-4d58-86eb-34fa1631fc1e",
+		"_postman_id": "b0835750-0e55-4604-afd1-fc2b09bdda93",
 		"name": "Demo",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15473443"
 	},
 	"item": [
 		{
@@ -837,38 +838,6 @@
 								"studydefinitions",
 								"{studyId}",
 								"changeaudit"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "eCPT",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/studydefinitions/{studyId}/studydesigns/ecpt",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"studydefinitions",
-								"{studyId}",
-								"studydesigns",
-								"ecpt"
-							],
-							"query": [
-								{
-									"key": "sdruploadversion",
-									"value": "3",
-									"disabled": true
-								},
-								{
-									"key": "studydesignid",
-									"value": "SD011",
-									"disabled": true
-								}
 							]
 						}
 					},

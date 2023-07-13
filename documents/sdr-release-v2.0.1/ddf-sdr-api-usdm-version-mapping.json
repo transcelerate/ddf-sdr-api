@@ -1,0 +1,22 @@
+{
+  "SDRVersions": [
+    {
+      "apiVersion": "v1",
+      "usdmVersions": [
+        "1.0"
+      ]
+    },
+    {
+      "apiVersion": "v2",
+      "usdmVersions": [
+        "1.9"
+      ]
+    },
+    {
+      "apiVersion": "v3",
+      "usdmVersions": [
+        "2.0"
+      ]
+    }
+  ]
+}
