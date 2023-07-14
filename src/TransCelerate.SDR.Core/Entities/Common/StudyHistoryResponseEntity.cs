@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.Entities.Common
 {
-    public class StudyHistoryResponseEntity : ICheckAccess
+    public class StudyHistoryResponseEntity
     {
         public string StudyId { get; set; }
         public string StudyTitle { get; set; }
@@ -15,7 +15,6 @@ namespace TransCelerate.SDR.Core.Entities.Common
         public IEnumerable<string> ProtocolVersions { get; set; }
         public string UsdmVersion { get; set; }
         public IEnumerable<IEnumerable<string>> StudyDesignIdsMVP { get; set; }
-        public IEnumerable<string> StudyDesignIds { get; set; }
-        public bool HasAccess { get; set; }
+        public IEnumerable<string> StudyDesignIds { get; set; }        
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using TransCelerate.SDR.Core.DTO.StudyV2;
 using TransCelerate.SDR.Core.Entities.StudyV2;
 
@@ -12,6 +13,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
         /// <param name="user"></param>
         /// <returns></returns>
         AuditTrailEntity GetAuditTrail(string user);
+        /// <summary>
+        /// JSON Serializer for camel casing
+        /// </summary>
+        /// <returns></returns>
+        JsonSerializerSettings GetSerializerSettingsForCamelCasing();
 
         #region Partial Study Elements
         /// <summary>
@@ -35,7 +41,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
         /// <param name="sections"></param>
         /// <param name="studyDTO"></param>
         /// <returns></returns>
-        object RemoveStudyElements(string[] sections, StudyDto studyDTO);
+        object RemoveStudyElements(string[] sections, StudyDefinitionsDto studyDTO);
         /// <summary>
         /// Remove studyDesign elements which are not requested
         /// </summary>
@@ -52,7 +58,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
         /// <param name="incoming"></param>
         /// <param name="existing"></param>
         /// <returns></returns>
-        bool IsSameStudy(StudyEntity incoming, StudyEntity existing);
+        bool IsSameStudy(StudyDefinitionsEntity incoming, StudyDefinitionsEntity existing);
         /// <summary>
         /// Deep compare of existing and incoming study
         /// </summary>
@@ -67,7 +73,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
         /// </summary>
         /// <param name="study"></param>
         /// <returns></returns>
-        StudyEntity RemovedSectionId(StudyEntity study);
+        StudyDefinitionsEntity RemovedSectionId(StudyDefinitionsEntity study);
         /// <summary>
         /// Remove uuid for Study Investigational Interventions
         /// </summary>
@@ -119,11 +125,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2
         #endregion
 
         #region Get Difference
-        List<string> GetChangedValues(StudyEntity currentStudyVersion, StudyEntity previousStudyVersion);
+        List<string> GetChangedValues(StudyDefinitionsEntity currentStudyVersion, StudyDefinitionsEntity previousStudyVersion);
         #endregion
 
         #region RefernceIntegrityCheck
-        bool ReferenceIntegrityValidation(StudyDto study, out object referenceErrors);
+        bool ReferenceIntegrityValidation(StudyDefinitionsDto study, out object referenceErrors);
 
         #endregion
 

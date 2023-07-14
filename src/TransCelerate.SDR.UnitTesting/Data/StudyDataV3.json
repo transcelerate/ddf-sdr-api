@@ -1,0 +1,984 @@
+{
+  "study": {
+    "studyId": "aaed3efe-7d70-4c9e-90e2-3446e936c291",
+    "studyTitle": "Study Of Lung Cancer",
+    "studyRationale": "Rational",
+    "studyAcronym": "Acronym",
+    "studyType": {
+      "codeId": "7bbb6fd9-7e43-4dbf-90fa-3de117dc76d2",
+      "code": "C98388",
+      "codeSystem": "http:www.cdisc.org",
+      "codeSystemVersion": "2022-03-25",
+      "decode": "INTERVENTIONAL"
+    },
+    "studyIdentifiers": [
+      {
+        "studyIdentifierId": "c4663375-29be-4b37-9a7d-b2ef927fdf64",
+        "studyIdentifier": "CT-GOV-1234",
+        "studyIdentifierScope": {
+          "organisationId": "96dd6b83-2d34-45ac-9d08-3e647b2c7316",
+          "organisationIdentifier": "CT-GOV",
+          "organisationIdentifierScheme": "FDA",
+          "organisationName": "ClinicalTrials.gov",
+          "organisationType": {
+            "codeId": "8fcecddf-bbe2-4e71-ad97-114cbc3f1cba",
+            "code": "C2365x",
+            "codeSystem": "http:www.cdisc.org",
+            "codeSystemVersion": "1",
+            "decode": "Clinical Study Sponsor"
+          },
+          "organizationLegalAddress": {
+            "AddressId": "Ad1",
+            "text": "text",
+            "line": " line2",
+            "city": " city",
+            "district": "district ",
+            "state": "state ",
+            "postalCode": " postalCode",
+            "country": {
+              "codeId": "8fcecddf-bbe2-4e71-ad97-114cbc3f1cbd",
+              "code": "C2365x",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "1",
+              "decode": "Clinical Study Sponsor"
+            }
+          }
+        }
+      },
+      {
+        "studyIdentifierId": "c3f0bac9-72e4-4df6-98ed-e364d10c8239",
+        "studyIdentifier": "CT-GOV-1234",
+        "studyIdentifierScope": {
+          "organisationId": "502db4f4-3573-444c-b0a1-ac677e46556a",
+          "organisationIdentifier": "CT-GOV",
+          "organisationIdentifierScheme": "FDA",
+          "organisationName": "ClinicalTrials.gov",
+          "organisationType": {
+            "codeId": "d036ab0b-ce9c-4857-838f-07888180d161",
+            "code": "C2365x",
+            "codeSystem": "http:www.cdisc.org",
+            "codeSystemVersion": "1",
+            "decode": "Clinical Study Registry"
+          },
+          "organizationLegalAddress": {
+            "AddressId": "Ad2",
+            "text": "text",
+            "line": " line2",
+            "city": " city",
+            "district": "district ",
+            "state": "state ",
+            "postalCode": " postalCode",
+            "country": {
+              "codeId": "8fcecddf-bbe2-4e71-ad97-114cbc3f1cbt",
+              "code": "C2365x",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "1",
+              "decode": "Clinical Study Sponsor"
+            }
+          }
+        }
+      }
+    ],
+    "studyPhase": {
+      "aliasCodeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f616",
+      "standardCode": {
+        "codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f613",
+        "code": "C49686",
+        "codeSystem": "http:www.cdisc.org",
+        "codeSystemVersion": "2022-03-25",
+        "decode": "Phase IIa Trial"
+      },
+      "standardCodeAliases": [
+        {
+          "codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f614",
+          "code": "C49686",
+          "codeSystem": "http:www.cdisc.org",
+          "codeSystemVersion": "2022-03-25",
+          "decode": "Phase IIa Trial"
+        }
+      ]
+    },
+    "studyProtocolVersions": [
+      {
+        "studyProtocolVersionId": "72fa3742-1bad-42dc-8fdb-8d1c0379c75f",
+        "briefTitle": "Short",
+        "officialTitle": "Very Official",
+        "protocolAmendment": "Ammendment",
+        "protocolEffectiveDate": "2022-01-01",
+        "protocolStatus": {
+          "codeId": "ab83b043-178f-4a8c-868a-e474f500888b",
+          "code": "C1113x",
+          "codeSystem": "http:www.cdisc.org",
+          "codeSystemVersion": "1",
+          "decode": "FINAL 1"
+        },
+        "protocolVersion": "1",
+        "publicTitle": "Public Voice",
+        "scientificTitle": "Incomprehensible"
+      }
+    ],
+    "businessTherapeuticAreas": [
+      {
+        "codeId": "6b190647-9ac4-4558-a88b-4b5496a2600c",
+        "code": "C158288",
+        "codeSystem": "http:www.cdisc.org",
+        "codeSystemVersion": "2022-03-25",
+        "decode": "Biosimilarity Study"
+      }
+    ],
+    "studyDesigns": [
+      {
+        "studyDesignId": "e2b6594a-a077-4645-9cae-a1de19f88c69",
+        "studyDesignName": "name",
+        "studyDesignDescription": "desc",
+        "interventionModel": {
+          "codeId": "4997ed7c-ce9a-4459-bf5d-19d9a8d5c772",
+          "code": "C82639",
+          "codeSystem": "http:www.cdisc.org",
+          "codeSystemVersion": "2022-03-25",
+          "decode": "Parallel"
+        },
+        "trialIntentTypes": [
+          {
+            "codeId": "9fc53378-ac85-463d-8f9f-587bba5bb605",
+            "code": "C15714",
+            "codeSystem": "http:www.cdisc.org",
+            "codeSystemVersion": "2022-03-25",
+            "decode": "Basic Research"
+          }
+        ],
+        "trialType": [
+          {
+            "codeId": "dc752a27-4afa-48c5-9dc1-1717e6a099ab",
+            "code": "C158288",
+            "codeSystem": "http:www.cdisc.org",
+            "codeSystemVersion": "2022-03-25",
+            "decode": "Biosimilarity Study"
+          }
+        ],
+        "therapeuticAreas": [
+          {
+            "codeId": "6b190647-9ac4-4558-a88b-4b5496a2600c",
+            "code": "C158288",
+            "codeSystem": "http:www.cdisc.org",
+            "codeSystemVersion": "2022-03-25",
+            "decode": "Biosimilarity Study"
+          }
+        ],
+        "studyIndications": [
+          {
+            "indicationId": "c14a9bd2-938b-490d-ac47-4b4483e304b9",
+            "indicationDescription": "Something bad",
+            "codes": [
+              {
+                "codeId": "a387aa89-c025-438e-91dd-b08281d122d0",
+                "code": "C6666x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "BAD STUFF"
+              }
+            ]
+          }
+        ],
+        "studyInvestigationalInterventions": [
+          {
+            "investigationalInterventionId": "IN001",
+            "interventionDescription": "Intervention 1",
+            "codes": [
+              {
+                "codeId": "00ce1a32-2526-4016-9624-28139a929090",
+                "code": "C7639x",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "1",
+                "decode": "MODEL 1"
+              }
+            ]
+          }
+        ],
+        "studyObjectives": [
+          {
+            "objectiveId": "1cedd7c7-65b0-48b4-ac93-cbe046c27e9d",
+            "objectiveDescription": "Objective Level 1",
+            "objectiveLevel": {
+              "codeId": "2ae454b4-b37b-4986-9b3c-d5044bc4aec7",
+              "code": "C9844x",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "1",
+              "decode": "OBJ LEVEL"
+            },
+            "objectiveEndpoints": [
+              {
+                "endpointId": "f0576462-4eb8-4db9-aef4-1334249d8c7f",
+                "endpointDescription": "Endpoint 1",
+                "endpointPurposeDescription": "level description",
+                "endpointLevel": {
+                  "codeId": "END001",
+                  "code": "C9834x",
+                  "codeSystem": "http:www.cdisc.org",
+                  "codeSystemVersion": "1",
+                  "decode": "PURPOSE"
+                }
+              }
+            ]
+          }
+        ],
+        "studyPopulations": [
+          {
+            "studyDesignPopulationId": "ef300f84-2479-415b-adf1-d41df6169cd5",
+            "populationDescription": "Population 1",
+            "plannedNumberOfParticipants": 2,
+            "plannedMaximumAgeOfParticipants": "max ",
+            "plannedMinimumAgeOfParticipants": "min",
+            "plannedSexOfParticipants": [
+              {
+                "codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f614",
+                "code": "C16576",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "2022-03-25",
+                "decode": "Phase IIa Trial"
+              },
+              {
+                "codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f616",
+                "code": "C20197",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "2022-03-25",
+                "decode": "Phase IIa Trial"
+              }
+            ]
+          }
+        ],
+        "studyArms": [
+          {
+            "studyArmId": "69c12025-5f05-428f-93de-2aa932309683",
+            "studyArmDataOriginDescription": "Captured subject data",
+            "studyArmDataOriginType": {
+              "codeId": "281a3135-5ab6-47c4-a136-92fb88d57f0d",
+              "code": "C6574y",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "1",
+              "decode": "SUBJECT DATA"
+            },
+            "studyArmDescription": "The Placebo Arm",
+            "studyArmName": "Placebo",
+            "studyArmType": {
+              "codeId": "77c714cf-ac76-4843-a4b6-1c68b8be7590",
+              "code": "C174268",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "2022-03-25",
+              "decode": "Placebo Control Arm"
+            }
+          }
+        ],
+        "studyEpochs": [
+          {
+            "studyEpochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d9",
+            "nextStudyEpochId": "",
+            "previousStudyEpochId": "",
+            "studyEpochDescription": "The run in",
+            "studyEpochName": "Run In",
+            "studyEpochType": {
+              "codeId": "91603043-8496-4a71-aabc-2d6848bbc87d",
+              "code": "C98779",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "2022-03-25",
+              "decode": "Run-in Period"
+            }
+          }
+        ],
+        "studyElements": [
+          {
+            "studyElementId": "00ad20fa-bb06-4b93-b237-6bc37a3810e5",
+            "studyElementDescription": "First element",
+            "studyElementName": "Element 1",
+            "transitionStartRule": {
+              "transitionRuleId": "14a6b9fa-f080-415b-83bd-6d6ffe5e4b60",
+              "transitionRuleDescription": "Start Rule"
+            },
+            "transitionEndRule": {
+              "transitionRuleId": "ae648ac6-f2c2-49d8-8ee2-64ccadec513e",
+              "transitionRuleDescription": "End Rule"
+            }
+          }
+        ],
+        "studyCells": [
+          {
+            "studyCellId": "4614b061-f72c-43e1-aeb2-db1e4d312711",
+            "studyArmId": "69c12025-5f05-428f-93de-2aa932309683",
+            "studyEpochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d9",
+            "studyElementIds": [
+              "00ad20fa-bb06-4b93-b237-6bc37a3810e5"
+            ]
+          }
+        ],
+        "studyScheduleTimelines": [
+          {
+            "scheduleTimelineId": "TL01",
+            "scheduleTimelineName": "name",
+            "scheduleTimelineEntryId": "ScheduledInstanceId01",
+            "entryCondition": "condition",
+            "mainTimeline": true,
+            "scheduleTimelineExits": [
+              {
+                "scheduleTimelineExitId": "Ex01"
+              }
+            ],
+            "scheduleTimelineDescription": "dwsc",
+            "scheduleTimelineInstances": [
+              {
+                "scheduledInstanceType": "ACTIVITY",
+                "activityIds": [
+                  "ACT001",
+                  "ACT002"
+                ],
+                "epochId": "32616f8e-aee7-4038-9d6f-ed2adb8879d9",
+                "defaultConditionId": "INS002",
+                "scheduledInstanceId": "INS001",
+                "scheduleTimelineExitId": "Exit01",
+                "scheduledActivityInstanceEncounterId": "VIS11",
+                "scheduledInstanceTimelineId": "Timeline01",
+                "scheduleSequenceNumber": 1,
+                "scheduledInstanceTimings": [
+                  {
+                    "timingId": "Timing01",
+                    "timingType": {
+                      "codeId": "END001",
+                      "code": "C9834x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "After"
+                    },
+                    "relativeToScheduledInstanceId": "INS001",
+                    "timingValue": "Day 1",
+                    "relativeFromScheduledInstanceId": "INS002",
+                    "timingWindow": "window",
+                    "timingRelativeToFrom": {
+                      "codeId": "END001",
+                      "code": "C9834x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "StartToStart"
+                    }
+                  },
+                  {
+                    "timingId": "Timing02",
+                    "timingType": {
+                      "codeId": "END001",
+                      "code": "C9834x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "Before"
+                    },
+                    "relativeToScheduledInstanceId": "INS002",
+                    "timingValue": "Day 15",
+                    "relativeFromScheduledInstanceId": "INS001",
+                    "timingWindow": "window",
+                    "timingRelativeToFrom": {
+                      "codeId": "END001",
+                      "code": "C9834x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "EndToEnd"
+                    }
+                  }
+                ]
+              },
+              {
+                "scheduledInstanceType": "DECISION",
+                "conditionAssignments": {
+                  "option": "Must be done"
+                },
+                "scheduledInstanceId": "INS002",
+                "scheduleTimelineExitId": "Exit01",
+                "scheduledActivityInstanceEncounterId": "VIS11",
+                "scheduledInstanceTimelineId": "Timeline01",
+                "scheduleSequenceNumber": 2,
+                "scheduledInstanceTimings": [
+                  {
+                    "timingId": "Timing01",
+                    "timingType": {
+                      "codeId": "END001",
+                      "code": "C9834x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "After"
+                    },
+                    "relativeToScheduledInstanceId": "INS001",
+                    "timingValue": "Day 1",
+                    "relativeFromScheduledInstanceId": "INS002",
+                    "timingWindow": "window",
+                    "timingRelativeToFrom": {
+                      "codeId": "END001",
+                      "code": "C9834x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "StartToStart"
+                    }
+                  },
+                  {
+                    "timingId": "Timing02",
+                    "timingType": {
+                      "codeId": "END001",
+                      "code": "C9834x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "Before"
+                    },
+                    "relativeToScheduledInstanceId": "INS002",
+                    "timingValue": "Day 15",
+                    "relativeFromScheduledInstanceId": "INS001",
+                    "timingWindow": "window",
+                    "timingRelativeToFrom": {
+                      "codeId": "END001",
+                      "code": "C9834x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "EndToEnd"
+                    }
+                  }
+                ]
+              },
+              {
+                "scheduledInstanceType": "ACTIVITY",
+                "activityIds": [
+                  "ACT001",
+                  "ACT002"
+                ],
+                "scheduledInstanceId": "INS003",
+                "scheduleTimelineExitId": "Exit01",
+                "scheduledActivityInstanceEncounterId": "VIS11",
+                "scheduledInstanceTimelineId": "Timeline01",
+                "scheduleSequenceNumber": 3,
+                "scheduledInstanceTimings": [
+                  {
+                    "timingId": "Timing01",
+                    "timingType": {
+                      "codeId": "END001",
+                      "code": "C9834x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "After"
+                    },
+                    "relativeToScheduledInstanceId": "INS001",
+                    "timingValue": "Day 1",
+                    "relativeFromScheduledInstanceId": "INS002",
+                    "timingWindow": "window",
+                    "timingRelativeToFrom": {
+                      "codeId": "END001",
+                      "code": "C9834x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "StartToStart"
+                    }
+                  },
+                  {
+                    "timingId": "Timing02",
+                    "timingType": {
+                      "codeId": "END001",
+                      "code": "C9834x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "Before"
+                    },
+                    "relativeToScheduledInstanceId": "INS002",
+                    "timingValue": "Day 15",
+                    "relativeFromScheduledInstanceId": "INS001",
+                    "timingWindow": "window",
+                    "timingRelativeToFrom": {
+                      "codeId": "END001",
+                      "code": "C9834x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "EndToEnd"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "studyEstimands": [
+          {
+            "estimandId": "0bc02031-b058-43f8-9888-0f66f59b825f",
+            "treatment": "IN001",
+            "summaryMeasure": "TEST",
+            "analysisPopulation": {
+              "analysisPopulationId": "77af2751-1707-4edc-a5db-350ebe7233d8",
+              "populationDescription": "Population 1"
+            },
+            "variableOfInterest": "END001",
+            "intercurrentEvents": [
+              {
+                "intercurrentEventId": "1dc5c1e9-7b21-4455-9f37-ff2fadb8ac65",
+                "intercurrentEventDescription": "Event Description",
+                "intercurrentEventName": "Event Name",
+                "intercurrentEventStrategy": "Strategies"
+              }
+            ]
+          }
+        ],
+        "encounters": [
+          {
+            "encounterId": "EN001",
+            "encounterContactModes": [
+              {
+                "codeId": "d3b65049-39fe-4dc3-a180-b16304f07ef9",
+                "code": "C1755745",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "2022-03-25",
+                "decode": "In Person"
+              }
+            ],
+            "encounterDescription": "desc",
+            "encounterEnvironmentalSetting": {
+              "codeId": "f07aae83-6592-4614-8c7c-c2437184db3e",
+              "code": "C51282",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "2022-03-25",
+              "decode": "Clinic"
+            },
+            "encounterName": "Encounter 1",
+            "encounterType": {
+              "codeId": "37cd2f4f-680a-4e3b-8def-82e29b89b778",
+              "code": "C7652x",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "1",
+              "decode": "SITE VISIT"
+            },
+            "nextEncounterId": "",
+            "previousEncounterId": "",
+            "encounterScheduledAtTimingId": "Timing01",
+            "transitionStartRule": {
+              "transitionRuleId": "fb5cefdf-9308-44bd-898a-6c9ab35174fb",
+              "transitionRuleDescription": "Start Rule"
+            },
+            "transitionEndRule": {
+              "transitionRuleId": "a40c1adf-13e8-41da-a555-925a2585ccd3",
+              "transitionRuleDescription": "End Rule"
+            }
+          },
+          {
+            "encounterId": "EN002",
+            "encounterContactMode": [
+              {
+                "codeId": "d3b65049-39fe-4dc3-a180-b16304f07ef9",
+                "code": "C1755745",
+                "codeSystem": "http:www.cdisc.org",
+                "codeSystemVersion": "2022-03-25",
+                "decode": "In Person"
+              }
+            ],
+            "encounterDescription": "desc",
+            "encounterEnvironmentalSetting": {
+              "codeId": "f07aae83-6592-4614-8c7c-c2437184db3e",
+              "code": "C51282",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "2022-03-25",
+              "decode": "Clinic"
+            },
+            "encounterName": "Encounter 1",
+            "encounterType": {
+              "codeId": "37cd2f4f-680a-4e3b-8def-82e29b89b778",
+              "code": "C7652x",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "1",
+              "decode": "SITE VISIT"
+            },
+            "nextEncounterId": "",
+            "previousEncounterId": "",
+            "encounterScheduledAtTimingId": "Timing01",
+            "transitionStartRule": {
+              "transitionRuleId": "fb5cefdf-9308-44bd-898a-6c9ab35174fb",
+              "transitionRuleDescription": "Start Rule"
+            },
+            "transitionEndRule": {
+              "transitionRuleId": "a40c1adf-13e8-41da-a555-925a2585ccd3",
+              "transitionRuleDescription": "End Rule"
+            }
+          }
+        ],
+        "activities": [
+          {
+            "activityId": "ACT01",
+            "activityDescription": "Activity_1",
+            "activityName": "Informed Consent",
+            "activityIsConditional": true,
+            "activityIsConditionalReason": "reason",
+            "definedProcedures": [
+              {
+                "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                "procedureName": "name",
+                "procedureDescription": "desc",
+                "procedureIsConditional": true,
+                "procedureIsConditionalReason": "reason",
+                "procedureCode": {
+                  "codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+                  "code": "767002",
+                  "codeSystem": "SNOMED-CT",
+                  "codeSystemVersion": "2022-05-31",
+                  "decode": "White blood cell count"
+                },
+                "procedureType": "Specimen Collection"
+              }
+            ],
+            "nextActivityId": "",
+            "previousActivityId": "",
+            "bcCategoryIds": [
+              "BCC1",
+              "BCC2"
+            ],
+            "bcSurrogateIds": [
+              "BCS1"
+            ],
+            "biomedicalConceptIds": [
+              "BC1"
+            ],
+            "activityTimelineId": "Timeline01"
+          },
+          {
+            "activityId": "ACT02",
+            "activityDescription": "Activity_1",
+            "activityName": "Eligibility Criteria",
+            "activityIsConditional": false,
+            "activityIsConditionalReason": "reason",
+            "definedProcedures": [
+              {
+                "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                "procedureName": "name",
+                "procedureDescription": "desc",
+                "procedureIsConditional": false,
+                "procedureIsConditionalReason": "reason",
+                "procedureCode": {
+                  "codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+                  "code": "767002",
+                  "codeSystem": "SNOMED-CT",
+                  "codeSystemVersion": "2022-05-31",
+                  "decode": "White blood cell count"
+                },
+                "procedureType": "Specimen Collection"
+              }
+            ],
+            "nextActivityId": "",
+            "previousActivityId": "",
+            "bcCategoryIds": [
+              "BCC1",
+              "BCC2"
+            ],
+            "bcSurrogateIds": [
+              "BCS1"
+            ],
+            "biomedicalConceptIds": [
+              "BC1"
+            ],
+            "activityTimelineId": "Timeline01"
+          },
+          {
+            "activityId": "ACT03",
+            "activityDescription": "Activity_1",
+            "activityName": "Eligibility Criteria",
+            "activityIsConditional": false,
+            "activityIsConditionalReason": "reason",
+            "definedProcedures": [
+              {
+                "procedureId": "f4e2afcd-0b32-4d16-9247-bcc45604bc13",
+                "procedureName": "name",
+                "procedureDescription": "desc",
+                "procedureIsConditional": false,
+                "procedureIsConditionalReason": "reason",
+                "procedureCode": {
+                  "codeId": "40c6a10a-da80-4174-928c-88124a5f8e76",
+                  "code": "767002",
+                  "codeSystem": "SNOMED-CT",
+                  "codeSystemVersion": "2022-05-31",
+                  "decode": "White blood cell count"
+                },
+                "procedureType": "Specimen Collection"
+              }
+            ],
+            "nextActivityId": "",
+            "previousActivityId": "",
+            "bcCategoryIds": [
+              "BCC1",
+              "BCC2"
+            ],
+            "bcSurrogateIds": [
+              "BCS1"
+            ],
+            "biomedicalConceptIds": [
+              "BC1"
+            ],
+            "activityTimelineId": "Timeline01"
+          }
+        ],
+        "studyDesignBlindingScheme": {
+          "aliasCodeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f619",
+          "standardCode": {
+            "codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f613",
+            "code": "C49686",
+            "codeSystem": "http:www.cdisc.org",
+            "codeSystemVersion": "2022-03-25",
+            "decode": "Phase IIa Trial"
+          },
+          "standardCodeAliases": [
+            {
+              "codeId": "61ad4d8f-527c-4f1d-b227-4bbf6141f619",
+              "code": "C49686",
+              "codeSystem": "http:www.cdisc.org",
+              "codeSystemVersion": "2022-03-25",
+              "decode": "Phase IIa Trial"
+            }
+          ]
+        },
+        "studyDesignRationale": "Rationale ",
+        "biomedicalConcepts": [
+          {
+            "biomedicalConceptId": "BC1",
+            "bcName": "Diastolic Blood Pressure ",
+            "bcSynonyms": [
+              "DIABP",
+              "DIA BP",
+              "Blood pressure diastolic",
+              "BP dias",
+              "BP diastolic",
+              "DBP",
+              "Dias",
+              "Dias BP",
+              "Diast",
+              "Diastoli "
+            ],
+            "bcReference": "href",
+            "bcProperties": [
+              {
+                "bcPropertyId": "BCPropId1",
+                "bcPropertyName": "Unit of Pressure",
+                "bcPropertyRequired": true,
+                "bcPropertyEnabled": false,
+                "bcPropertyDataType": "strings",
+                "bcPropertyResponseCodes": [
+                  {
+                    "responseCodeId": "responseCodeId",
+                    "responseCodeEnabled": true,
+                    "code": {
+                      "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                      "code": "C49670",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2022-03-25",
+                      "decode": "mmHg"
+                    }
+                  }
+                ],
+                "bcPropertyConceptCode": {
+                  "aliasCodeId": "aliasId",
+                  "standardCode": {
+                    "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                    "code": "C25299",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2022-03-25",
+                    "decode": "Diastolic Blood Pressure"
+                  },
+                  "standardCodeAliases": [
+                    {
+                      "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                      "code": "8462-4",
+                      "codeSystem": "http://loinc.org/",
+                      "codeSystemVersion": "2022-03-25",
+                      "decode": "Diastolic Blood Pressure"
+                    }
+                  ]
+                }
+              },
+              {
+                "bcPropertyId": "BCPropIds",
+                "bcPropertyName": "Unit of Pressure",
+                "bcPropertyRequired": false,
+                "bcPropertyEnabled": true,
+                "bcPropertyDataType": "string",
+                "bcPropertyResponseCodes": [
+                  {
+                    "responseCodeId": "responseCodeId",
+                    "responseCodeEnabled": true,
+                    "code": {
+                      "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                      "code": "C49670",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2022-03-25",
+                      "decode": "mmHg"
+                    }
+                  }
+                ],
+                "bcPropertyConceptCode": {
+                  "aliasCodeId": "aliasId",
+                  "standardCode": {
+                    "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                    "code": "C25299",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2022-03-25",
+                    "decode": "Diastolic Blood Pressure"
+                  },
+                  "standardCodeAliases": [
+                    {
+                      "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                      "code": "8462-4",
+                      "codeSystem": "http://loinc.org/",
+                      "codeSystemVersion": "2022-03-25",
+                      "decode": "Diastolic Blood Pressure"
+                    }
+                  ]
+                }
+              }
+            ],
+            "bcConceptCode": {
+              "aliasCodeId": "aliasId",
+              "standardCode": {
+                "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                "code": "C25299",
+                "codeSystem": "http://www.cdisc.org",
+                "codeSystemVersion": "2022-03-27",
+                "decode": "Diastolic Blood Pressure"
+              },
+              "standardCodeAliases": [
+                {
+                  "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                  "code": "8462-4",
+                  "codeSystem": "http://loinc.org/",
+                  "codeSystemVersion": "2022-03-25",
+                  "decode": "Diastolic Blood Pressure"
+                }
+              ]
+            }
+          },
+          {
+            "biomedicalConceptId": "BC2",
+            "bcName": "Systolic Blood Pressure",
+            "bcSynonyms": [
+              "SYSBP",
+              "SYS BP",
+              "Blood pressure systolic "
+            ],
+            "bcReference": "href",
+            "bcProperties": [
+              {
+                "bcPropertyId": "BCPropId",
+                "bcPropertyName": "Unit of Pressure",
+                "bcPropertyRequired": true,
+                "bcPropertyEnabled": false,
+                "bcPropertyDataType": "string",
+                "bcPropertyResponseCodes": [
+                  {
+                    "responseCodeId": "responseCodeId",
+                    "responseCodeEnabled": true,
+                    "code": {
+                      "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                      "code": "C49670",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2022-03-24",
+                      "decode": "mmHg "
+                    }
+                  }
+                ],
+                "bcPropertyConceptCode": {
+                  "aliasCodeId": "aliasId",
+                  "standardCode": {
+                    "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                    "code": "Cxxxx",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2022-03-25",
+                    "decode": "Systolic Blood Pressure"
+                  },
+                  "standardCodeAliases": [
+                    {
+                      "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                      "code": "8xx-x",
+                      "codeSystem": "http://loinc.org/",
+                      "codeSystemVersion": "2022-03-25",
+                      "decode": "Systolic Blood Pressure "
+                    }
+                  ]
+                }
+              }
+            ],
+            "bcConceptCode": {
+              "aliasCodeId": "aliasId",
+              "standardCode": {
+                "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                "code": "C25299",
+                "codeSystem": "http://www.cdisc.org",
+                "codeSystemVersion": "2022-03-25",
+                "decode": "Diastolic Blood Pressure"
+              },
+              "standardCodeAliases": [
+                {
+                  "codeId": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
+                  "code": "8462-4",
+                  "codeSystem": "http://loinc.org/",
+                  "codeSystemVersion": "2022-03-2",
+                  "decode": "Diastolic Blood Pressure"
+                }
+              ]
+            }
+          }
+        ],
+        "bcCategories": [
+          {
+            "biomedicalConceptCategoryId": "BCC1",
+            "bcCategoryChildrenIds": [
+              "BCC10"
+            ],
+            "bcCategoryName": "Blood Pressure",
+            "bcCategoryDescription": "Blood Pressure",
+            "bcCategoryMemberIds": [
+              "BC1",
+              "BC2"
+            ]
+          },
+          {
+            "biomedicalConceptCategoryId": "BCC2",
+            "bcCategoryChildIds": [
+              "BCC10",
+              "BCC11"
+            ],
+            "bcCategoryName": "Blood Pressure Tests",
+            "bcCategoryDescription": "Blood Pressure Test",
+            "bcCategoryMemberIds": [
+              "BC2",
+              "BC1"
+            ]
+          },
+          {
+            "biomedicalConceptCategoryId": "BCC10",
+            "bcCategoryChildIds": [],
+            "bcCategoryName": "Diastolic Blood Pressure",
+            "bcCategoryDescription": "Diastolic Blood Pressure",
+            "bcCategoryMemberIds": [
+              "BC1",
+              "BC2"
+            ]
+          },
+          {
+            "biomedicalConceptCategoryId": "BCC11",       
+            "bcCategoryChildIds": [],
+            "bcCategoryName": "Systolic Blood Pressure",
+            "bcCategoryDescription": "Systolic Blood Pressure",
+            "bcCategoryMemberIds": [
+              "BC1",
+              "BC2"
+            ]
+          }
+        ],
+        "bcSurrogates": [
+          {
+            "bcSurrogateId": "BCS1",
+            "bcSurrogateName": "Diastolic Blood Pressure",
+            "bcSurrogateDescription": "Diastolic Blood Pressure",
+            "bcSurrogateReference": "href"
+          }
+        ]
+      }
+    ],
+    "studyVersion": "1"
+  },
+  "auditTrail": {
+    "entryDateTime": "2022-10-18T11:44:11.0529109Z",
+    "SDRUploadVersion": 1,
+    "usdmVersion": "2.0"
+  }
+}

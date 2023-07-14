@@ -32,7 +32,10 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         {
             public const string SPONSOR_ID = "SPONSOR_ID";
             public const string SPONSOR_ID_V1 = "Clinical Study Sponsor";
-            public const string REGULATORY_AGENCY = "Regulatory Agency";
+            public static readonly string[] RegulatoryAgencyIdentifierNumberConstants =
+            {
+                "Regulatory Agency","Clinical Study Registry"
+            };
             public const string STUDY_PRIMARY_OBJECTIVE = "Study Primary Objective";
             public const string STUDY_SECONDARY_OBJECTIVE = "Study Secondary Objective";
 
@@ -71,42 +74,44 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         {
             public const string MVP = "mvp";
             public const string V1 = "1.0";
-            public const string V2 = "1.9";
+            public const string V1_9 = "1.9";
+            public const string V2 = "2.0";
         }
         public struct ApiVersions
         {
             public const string MVP = "mvp";
             public const string V1 = "v1";
             public const string V2 = "v2";
+            public const string V3 = "v3";
         }
         public struct DbFilter
         {
-            public const string StudyId = "clinicalStudy.studyId";
-            public const string ClinicalStudy = "clinicalStudy";
+            public const string StudyId = "study.studyId";
+            public const string Study = "study";
             public const string AuditTrail = "auditTrail";
-            public const string StudyType = "clinicalStudy.studyType";
-            public const string StudyIdentifiers = "clinicalStudy.studyIdentifiers";
+            public const string StudyType = "study.studyType";
+            public const string StudyIdentifiers = "study.studyIdentifiers";
             public const string StudyIdentifierOrganisationIdentifier = "studyIdentifierScope.organisationIdentifier";
             public const string StudyIdentifierOrganisationTypeDecode = "studyIdentifierScope.organisationType.decode";
             public const string StudyIdentifierIdType = "idType";
             public const string StudyIdentifierOrgCode = "orgCode";
-            public const string StudyPhase = "clinicalStudy.studyPhase";
+            public const string StudyPhase = "study.studyPhase";
             public const string StudyPhaseDecode = "decode";
             public const string StudyPhaseStandardCodeDecode = "standardCode.decode";
-            public const string StudyDesigns = "clinicalStudy.studyDesigns";
+            public const string StudyDesigns = "study.studyDesigns";
             public const string InterventionModel = "interventionModel.decode";
             public const string StudyIndicationsIndicationDescription = "studyIndications.indicationDescription";
             public const string StudyIndicationsIndicationDesc = "studyIndications.indicationDesc";
-            public const string InterventionModelMVP = "clinicalStudy.currentSections.studyDesigns.currentSections.investigationalInterventions.interventionModel";
-            public const string IndicationMVP = "clinicalStudy.currentSections.studyIndications.description";
         }
+
+        public struct DefaultValues
+        {
+            public const int IntegerMinimumValue = 0;
+        }
+
         public struct ValidationErrorMessage
         {
-            public const string ConformanceError = "Field is missing or empty";
-
             public const string AlphaNumericErrorMessage = "Only Alphanumeric characters are allowed";
-
-            public const string JsonParseError = "Cannot deserialize";
 
             public const string ValidDateError = "Enter A Valid Date";
 
@@ -114,38 +119,43 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string PropertyMissingError = "Field is missing";
 
-            public const string ValidGroupFieldValue = "Group Field Value is null or empty";
-
             public const string PropertyEmptyError = "Field is empty";
+
+            public const string IntegerMinimumValueError = "Value must be greater than or equal to zero";
 
             public const string ScheduledInstanceTypesError = $"The value must be {nameof(Utilities.ScheduledInstanceType.ACTIVITY)}/{nameof(Utilities.ScheduledInstanceType.DECISION)}";
 
             public const string UniquenessArrayError = "The {PropertyName} Ids are not unique";
 
-            public const string NumberError = "Enter a valid number";
-
             public const string GroupFilterEmptyError = "Group Filter must not be empty";
-
-            public const string GroupFilterValue = "Group Filter Value must not be empty";
 
             public const string SelectAtleastOneGroup = "Select Atleast One Group";
 
             public const string InvalidPermissionValue = "Permission value is not valid";
 
-            public const string InvalidSortOrder = "Sort Order is not valid";
+            public const string InvalidSortOrder = "sortOrder value must be asc/desc";
 
-            public const string EnterValidNumber = "Enter a valid number";
+            public const string EnterValidNumber = "PageNumber must be >=1";
 
-            public const string RootElementMissing = "Root Element is missing";
+            public const string RootElementMissing = "Root Element {PropertyName} is missing";
 
             public const string InValidDays = "Invalid Date Range";
 
             public const string BooleanValidationFailed = "Type must be boolean (true/false)";
+
+            public const string IntegerValidationFailed = "Type must be integer";
+        }
+
+        public struct SuccessMessages
+        {
+            public const string ValidationSuccess = "The study definition is conformant with USDM Version : ";
         }
 
         public struct ErrorMessages
         {
             public const string StudyNotFound = "The requested study document not found";
+
+            public const string OneVersionNotFound = "The requested one or more SDRUploadVersions not found";
 
             public const string ChangeAuditNotFound = "The requested change audit is not found for the study with uuid :";
 
@@ -163,21 +173,11 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string SearchNotFound = "No study matches the search keywords";
 
-            public const string SectionNotValid = "Kindly provide a valid section";
+            public const string StudyElementNotValid = "A valid study element is required in the listofelements query parameter";
 
-            public const string StudyElementNotValid = "Kindly provide a valid study element";
-
-            public const string StudyDesignElementNotValid = "Kindly provide a valid study design element";
+            public const string StudyDesignElementNotValid = "A valid study design element is required in the listofelements query parameter";
 
             public const string NotValidStudyId = "The provided studyId is not found";
-
-            public const string DowngradeError = "The usdmVersion cannot be downgraded";
-
-            public const string StudyIdNotFound = "The provided clinicalStudy.studyId is not found";
-
-            public const string UsePutEndpoint = "Kindly use PUT Study Definitions endpoint to update study definitions";
-
-            public const string UsePostEndpoint = "Kindly use POST Study Definitions endpoint to create new study definitions";
 
             public const string GroupsNotFound = "There are no user groups available";
 
@@ -187,17 +187,21 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string PostGroupDataNotValid = "The data on the request body is not valid";
 
-            public const string GroupingDetailsUpdated = "The grouping details are updated";
-
             public const string GroupNameExists = "The group name already exist";
 
             public const string UnAuthorized = "Access Denied";
 
             public const string Forbidden = "Access to the resource is restricted";
 
+            public const string ForbiddenForAStudy = "Access to one or more SDRUploadVersions of the study is restricted";
+
+            public const string ProvideDifferentVersion = "SDRUploadVersions for the Compare API must be different";
+
+            public static readonly string[] ProvideValidVersion = { "A valid SDRUploadVersion for ", " must be provided" };
+
             public const string InvalidCredentials = "Invalid Credentials";
 
-            public const string PostRestricted = "Operation restricted for the user";
+            public const string PostRestricted = "User does not have permission to create or update this study";
 
             public const string UsageReportNotAvailable = "System Usage Report Not Available";
 
@@ -205,15 +209,15 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string ErrorMessageForReferenceIntegrity = "Reference Integrity Failed";
 
-            public const string WorkFlowNotFound = "The requested StudyScheduleTimeline not found";
+            public const string ScheduleTimelineNotFound = "The requested StudyScheduleTimeline not found";
 
-            public const string EnterDesignIdError = "Kindly provide valid Study Design Id when providing Study WorkFlow Id";
+            public const string EnterDesignIdError = "A valid studyDesignId is required when specifying a studyScheduleTimelineId";
 
             public const string SoANotFound = "The Schedule Of Activities Not Found";
 
             public const string UsdmVersionMissing = "The 'usdmVersion' header is missing";
 
-            public const string UsdmVersionAmbiguous = "The 'usdmVersion' is ambiguous";
+            public const string UsdmVersionAmbiguous = "Only one usdmVersion header is allowed";
 
             public const string UsdmVersionMapError = "The usdmVersion is not compatible with the apiVersion. Kindly refer versions endpoint for apiVersion -> usdmVersion mapping ";
 
@@ -225,6 +229,9 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string StudyDesignNotFoundCPT = "The study design is not available for the given study and eCPT data cannot be generated";
 
+            public const string InvalidUsdmVersion = "The provided USDM Version is invalid";
+
+            public const string ConformanceErrorMessage = "The study definition is not conformant with USDM Version : ";
         }
 
         public struct TokenConstants
@@ -238,20 +245,20 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string Client_Secret = "client_secret";
         }
 
-        public static readonly string[] ClinicalStudyElements = {
-            nameof(ClinicalStudyDto.StudyTitle),
-            nameof(ClinicalStudyDto.StudyIdentifiers),
-            nameof(ClinicalStudyDto.StudyProtocolVersions),
-            nameof(ClinicalStudyDto.StudyVersion),
-            nameof(ClinicalStudyDto.StudyPhase),
-            nameof(ClinicalStudyDto.StudyType),
-            nameof(ClinicalStudyDto.BusinessTherapeuticAreas),
-            nameof(ClinicalStudyDto.StudyDesigns),
-            nameof(ClinicalStudyDto.StudyAcronym),
-            nameof(ClinicalStudyDto.StudyRationale),
+        public static readonly string[] StudyElementsV2 = {
+            nameof(StudyDto.StudyTitle),
+            nameof(StudyDto.StudyIdentifiers),
+            nameof(StudyDto.StudyProtocolVersions),
+            nameof(StudyDto.StudyVersion),
+            nameof(StudyDto.StudyPhase),
+            nameof(StudyDto.StudyType),
+            nameof(StudyDto.BusinessTherapeuticAreas),
+            nameof(StudyDto.StudyDesigns),
+            nameof(StudyDto.StudyAcronym),
+            nameof(StudyDto.StudyRationale),
         };
 
-        public static readonly string[] StudyDesignElements = {
+        public static readonly string[] StudyDesignElementsV2 = {
             nameof(StudyDesignDto.StudyDesignName),
             nameof(StudyDesignDto.StudyDesignDescription),
             nameof(StudyDesignDto.TherapeuticAreas),
@@ -273,7 +280,44 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(StudyDesignDto.BcCategories),
             nameof(StudyDesignDto.BcSurrogates)
         };
+        public static readonly string[] StudyElementsV3 = {
+            nameof(Core.DTO.StudyV3.StudyDto.StudyTitle),
+            nameof(Core.DTO.StudyV3.StudyDto.StudyIdentifiers),
+            nameof(Core.DTO.StudyV3.StudyDto.StudyProtocolVersions),
+            nameof(Core.DTO.StudyV3.StudyDto.StudyVersion),
+            nameof(Core.DTO.StudyV3.StudyDto.StudyPhase),
+            nameof(Core.DTO.StudyV3.StudyDto.StudyType),
+            nameof(Core.DTO.StudyV3.StudyDto.BusinessTherapeuticAreas),
+            nameof(Core.DTO.StudyV3.StudyDto.StudyDesigns),
+            nameof(Core.DTO.StudyV3.StudyDto.StudyAcronym),
+            nameof(Core.DTO.StudyV3.StudyDto.StudyRationale),
+        };
 
+        public static readonly string[] StudyDesignElementsV3 = {
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyDesignName),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyDesignDescription),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.TherapeuticAreas),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.TrialType),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyInvestigationalInterventions),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.TrialIntentTypes),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.InterventionModel),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyIndications),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyPopulations),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyObjectives),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyCells),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyArms),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyEpochs),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyElements),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyScheduleTimelines),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyEstimands),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.Activities),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.Encounters),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyDesignRationale),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyDesignBlindingScheme),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.BiomedicalConcepts),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.BcCategories),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.BcSurrogates)
+        };
         public struct FunctionAppConstants
         {
             public const string ChangeAuditFunction = "ChangeAuditFunction";
@@ -328,6 +372,36 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string TrialIntentType = "TrialIntentType";
             public const string ObjectiveLevel = "Objective Level";
             public const string SexofParticipants = "SexofParticipants";
+        }
+
+        public static readonly string[] CharactersToBeRemovedForVersionCompare =
+        {
+            nameof(Entities.StudyV3.CodeEntity.Id),
+            nameof(Entities.StudyV3.CodeEntity.CodeSystemVersion),
+            nameof(Entities.StudyV3.CodeEntity.CodeSystem),
+            nameof(Entities.StudyV3.CodeEntity.Decode),
+            nameof(Entities.StudyV3.CodeEntity.Code)
+        };
+
+        public struct VersionCompareConstants
+        {
+            public const string ArrayBrackets = "[]";
+        }
+
+        public readonly struct CodeFieldArrayElements
+        {
+            public static readonly string[] V3 =
+            {
+                nameof(Entities.StudyV3.AliasCodeEntity.StandardCodeAliases),
+                nameof(Entities.StudyV3.StudyEntity.BusinessTherapeuticAreas),
+                nameof(Entities.StudyV3.StudyDesignEntity.TrialIntentTypes),
+                nameof(Entities.StudyV3.StudyDesignEntity.TrialType),
+                nameof(Entities.StudyV3.StudyDesignPopulationEntity.PlannedSexOfParticipants),
+                nameof(Entities.StudyV3.StudyDesignEntity.TherapeuticAreas),
+                nameof(Entities.StudyV3.EncounterEntity.EncounterContactModes),
+                nameof(Entities.StudyV3.IndicationEntity.Codes),
+                nameof(Entities.StudyV3.InvestigationalInterventionEntity.Codes)
+            };
         }
     }
 }

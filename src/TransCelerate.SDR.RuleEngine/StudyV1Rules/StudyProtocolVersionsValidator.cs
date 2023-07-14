@@ -30,7 +30,8 @@ namespace TransCelerate.SDR.RuleEngineV1
             RuleFor(x => x.ProtocolStatus)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError);
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .ForEach(y => y.SetValidator(new CodeValidator()));
 
             RuleFor(x => x.ProtocolVersion)
                 .Cascade(CascadeMode.Stop)

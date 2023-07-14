@@ -39,6 +39,9 @@ namespace TransCelerate.SDR.RuleEngineV2
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.DefinedProcedures)), ApplyConditionTo.AllValidators)
                .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
+            RuleForEach(x => x.DefinedProcedures)
+                .SetValidator(new ProcedureValidator(_httpContextAccessor));
+
             RuleFor(x => x.ActivityIsConditional)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)

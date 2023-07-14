@@ -30,22 +30,25 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     kvp => kvp.Value?.Errors?.Select(e => e.ErrorMessage).ToArray()
                 );
             var errorsToList = errors.ToList();
-            errorsToList.RemoveAll(x => x.Key.Contains(IdFieldPropertyName.Common.UsdmVersion));
+            
             errors = errorsToList.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
             context.HttpContext?.Response?.Headers?.Add("InvalidInput", "True");
             var errorList = SplitStringIntoArrayHelper.SplitString(JsonConvert.SerializeObject(errors), 32000);//since app insights limit is 32768 characters                                                              
             var AuthToken = context?.HttpContext?.Request?.Headers["Authorization"];
+            var usdmVersion = context?.HttpContext?.Request?.Headers["usdmVersion"];
 
             //For Conformance error
             if ((JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyEmptyError.ToLower()) || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyMissingError.ToLower())
                 || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.SelectAtleastOneGroup.ToLower()) || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.InvalidPermissionValue.ToLower())
-                || JsonConvert.SerializeObject(errors).ToLower().Contains("unique") || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.BooleanValidationFailed.ToLower())
-                || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.GroupFilterEmptyError.ToLower())) && !JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.TokenConstants.Username.ToLower()) && !JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.TokenConstants.Password.ToLower()))
+                || JsonConvert.SerializeObject(errors).ToLower().Contains("unique") || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.BooleanValidationFailed.ToLower()) || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.IntegerMinimumValueError.ToLower())
+                || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.IntegerValidationFailed.ToLower()) || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.ScheduledInstanceTypesError.ToLower())
+                || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.GroupFilterEmptyError.ToLower())) && !JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.TokenConstants.Username.ToLower()) && !JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.TokenConstants.Password.ToLower())
+                && !JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ErrorMessages.InvalidUsdmVersion.ToLower()) && !errors.Any(key => key.Key?.ToLower() == nameof(Core.DTO.Common.AuditTrailDto.UsdmVersion).ToLower()))
             {
 
                 errorList.ForEach(e => _logger.LogError($"Conformance Error {errorList.IndexOf(e) + 1}: {e}"));
                 _logger.LogInformation($"Status Code: {400}; UserName : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Email)?.Value}; UserRole : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Role)?.Value} URL: {context?.HttpContext?.Request?.Path}; AuthToken: {AuthToken}");
-                return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(errors));
+                return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(errors,$"{Constants.ErrorMessages.ConformanceErrorMessage}{usdmVersion}"));
             }
             //Other errors
             else

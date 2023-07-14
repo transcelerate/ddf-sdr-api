@@ -31,7 +31,8 @@ namespace TransCelerate.SDR.RuleEngineV2
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyEstimandsValidator), nameof(EstimandDto.AnalysisPopulation)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyEstimandsValidator), nameof(EstimandDto.AnalysisPopulation)), ApplyConditionTo.AllValidators)
+               .SetValidator(new AnalysisPopulationValidator(_httpContextAccessor));
 
             RuleFor(x => x.IntercurrentEvents)
                 .Cascade(CascadeMode.Stop)
@@ -39,6 +40,9 @@ namespace TransCelerate.SDR.RuleEngineV2
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyEstimandsValidator), nameof(EstimandDto.IntercurrentEvents)), ApplyConditionTo.AllValidators)
                 .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleForEach(x => x.IntercurrentEvents)
+                .SetValidator(new InterCurrentEventsValidator(_httpContextAccessor));
 
             RuleFor(x => x.VariableOfInterest)
                 .Cascade(CascadeMode.Stop)

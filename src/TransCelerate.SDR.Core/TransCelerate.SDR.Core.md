@@ -8,7 +8,6 @@
 - [ApiBehaviourOptionsHelper](#T-TransCelerate-SDR-Core-Utilities-Helpers-ApiBehaviourOptionsHelper 'TransCelerate.SDR.Core.Utilities.Helpers.ApiBehaviourOptionsHelper')
   - [ModelStateResponse(context)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ApiBehaviourOptionsHelper-ModelStateResponse-Microsoft-AspNetCore-Mvc-ActionContext- 'TransCelerate.SDR.Core.Utilities.Helpers.ApiBehaviourOptionsHelper.ModelStateResponse(Microsoft.AspNetCore.Mvc.ActionContext)')
 - [AudiTrailResponseDto](#T-TransCelerate-SDR-Core-DTO-StudyV1-AudiTrailResponseDto 'TransCelerate.SDR.Core.DTO.StudyV1.AudiTrailResponseDto')
-- [AudiTrailResponseDto](#T-TransCelerate-SDR-Core-DTO-StudyV2-AudiTrailResponseDto 'TransCelerate.SDR.Core.DTO.StudyV2.AudiTrailResponseDto')
 - [Config](#T-TransCelerate-SDR-Core-Utilities-Common-Config 'TransCelerate.SDR.Core.Utilities.Common.Config')
 - [Constants](#T-TransCelerate-SDR-Core-Utilities-Common-Constants 'TransCelerate.SDR.Core.Utilities.Common.Constants')
 - [DateValidationHelper](#T-TransCelerate-SDR-Core-Utilities-Helpers-DateValidationHelper 'TransCelerate.SDR.Core.Utilities.Helpers.DateValidationHelper')
@@ -26,40 +25,6 @@
   - [UnAuthorizedAccess()](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-UnAuthorizedAccess-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.UnAuthorizedAccess(System.String)')
 - [FromDateToDateHelper](#T-TransCelerate-SDR-Core-Utilities-Helpers-FromDateToDateHelper 'TransCelerate.SDR.Core.Utilities.Helpers.FromDateToDateHelper')
   - [GetFromAndToDate(fromDate,toDate,range)](#M-TransCelerate-SDR-Core-Utilities-Helpers-FromDateToDateHelper-GetFromAndToDate-System-DateTime,System-DateTime,System-Int32- 'TransCelerate.SDR.Core.Utilities.Helpers.FromDateToDateHelper.GetFromAndToDate(System.DateTime,System.DateTime,System.Int32)')
-- [GetClinicalStudyDTO](#T-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO')
-  - [Objectives](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-Objectives 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.Objectives')
-  - [StudyDesigns](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyDesigns 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyDesigns')
-  - [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyId')
-  - [StudyIdentifiers](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyIdentifiers 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyIdentifiers')
-  - [StudyIndications](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyIndications 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyIndications')
-  - [StudyPhase](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyPhase 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyPhase')
-  - [StudyProtocolReferences](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyProtocolReferences 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyProtocolReferences')
-  - [StudyStatus](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyStatus 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyStatus')
-  - [StudyTag](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyTag 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyTag')
-  - [StudyTitle](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyTitle 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyTitle')
-  - [StudyType](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyType 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyType')
-- [GetStudyAuditDTO](#T-TransCelerate-SDR-Core-DTO-Study-GetStudyAuditDTO 'TransCelerate.SDR.Core.DTO.Study.GetStudyAuditDTO')
-  - [AuditTrail](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyAuditDTO-AuditTrail 'TransCelerate.SDR.Core.DTO.Study.GetStudyAuditDTO.AuditTrail')
-  - [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyAuditDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetStudyAuditDTO.StudyId')
-- [GetStudyDTO](#T-TransCelerate-SDR-Core-DTO-Study-GetStudyDTO 'TransCelerate.SDR.Core.DTO.Study.GetStudyDTO')
-  - [AuditTrail](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDTO-AuditTrail 'TransCelerate.SDR.Core.DTO.Study.GetStudyDTO.AuditTrail')
-  - [ClinicalStudy](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDTO-ClinicalStudy 'TransCelerate.SDR.Core.DTO.Study.GetStudyDTO.ClinicalStudy')
-- [GetStudyDesignsDTO](#T-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO')
-  - [InvestigationalInterventions](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-InvestigationalInterventions 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.InvestigationalInterventions')
-  - [PlannedWorkflows](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-PlannedWorkflows 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.PlannedWorkflows')
-  - [StudyCells](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-StudyCells 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.StudyCells')
-  - [StudyDesignId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-StudyDesignId 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.StudyDesignId')
-  - [StudyPopulations](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-StudyPopulations 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.StudyPopulations')
-  - [TrialIntentType](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-TrialIntentType 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.TrialIntentType')
-  - [TrialType](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-TrialType 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.TrialType')
-- [GetStudyHistoryResponseDTO](#T-TransCelerate-SDR-Core-DTO-Study-GetStudyHistoryResponseDTO 'TransCelerate.SDR.Core.DTO.Study.GetStudyHistoryResponseDTO')
-  - [Study](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyHistoryResponseDTO-Study 'TransCelerate.SDR.Core.DTO.Study.GetStudyHistoryResponseDTO.Study')
-- [GetStudySectionsDTO](#T-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO')
-  - [Objectives](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-Objectives 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.Objectives')
-  - [StudyDesigns](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-StudyDesigns 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.StudyDesigns')
-  - [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.StudyId')
-  - [StudyIndications](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-StudyIndications 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.StudyIndications')
-  - [StudyVersion](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-StudyVersion 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.StudyVersion')
 - [GroupFilters](#T-TransCelerate-SDR-Core-Utilities-Helpers-GroupFilters 'TransCelerate.SDR.Core.Utilities.Helpers.GroupFilters')
   - [GetFilterValues(groups,field)](#M-TransCelerate-SDR-Core-Utilities-Helpers-GroupFilters-GetFilterValues-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-UserGroups-SDRGroupsEntity},System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.GroupFilters.GetFilterValues(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.UserGroups.SDRGroupsEntity},System.String)')
   - [GetGroupFilters(groups)](#M-TransCelerate-SDR-Core-Utilities-Helpers-GroupFilters-GetGroupFilters-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-UserGroups-SDRGroupsEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.GroupFilters.GetGroupFilters(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.UserGroups.SDRGroupsEntity})')
@@ -69,7 +34,7 @@
   - [CheckForEncounterListSection(incomingEncounters,existingEncounters)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-CheckForEncounterListSection-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-EncounterEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-EncounterEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.HelperV1.CheckForEncounterListSection(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.EncounterEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.EncounterEntity})')
   - [CheckForIntercurrentEventsSection(incomingInterCurrentEvents,exisitingInterCurrentEvents)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-CheckForIntercurrentEventsSection-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-InterCurrentEventEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-InterCurrentEventEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.HelperV1.CheckForIntercurrentEventsSection(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.InterCurrentEventEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.InterCurrentEventEntity})')
   - [CheckForInvestigationalInterventionsSection(incomingInvestigationalInterventions,existingInvestigationalInterventions)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-CheckForInvestigationalInterventionsSection-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-InvestigationalInterventionEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-InvestigationalInterventionEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.HelperV1.CheckForInvestigationalInterventionsSection(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.InvestigationalInterventionEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.InvestigationalInterventionEntity})')
-  - [CheckForSections(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-CheckForSections-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity,TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.HelperV1.CheckForSections(TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity,TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity)')
+  - [CheckForSections(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-CheckForSections-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.HelperV1.CheckForSections(TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity)')
   - [CheckForStudyCellsSection(incomingStudyCells,existingStudyCells)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-CheckForStudyCellsSection-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-StudyCellEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-StudyCellEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.HelperV1.CheckForStudyCellsSection(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.StudyCellEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.StudyCellEntity})')
   - [CheckForStudyDataCollectionSection(incomingStudyDataCollections,existingStudyDataCollections)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-CheckForStudyDataCollectionSection-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-StudyDataCollectionEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-StudyDataCollectionEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.HelperV1.CheckForStudyDataCollectionSection(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.StudyDataCollectionEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.StudyDataCollectionEntity})')
   - [CheckForStudyDesignPopulationsSection(incomingStudyDesignPopulations,existingStudyDesignPopulations)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-CheckForStudyDesignPopulationsSection-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-StudyDesignPopulationEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-StudyDesignPopulationEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.HelperV1.CheckForStudyDesignPopulationsSection(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.StudyDesignPopulationEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.StudyDesignPopulationEntity})')
@@ -92,9 +57,9 @@
   - [GenerateIdForStudyObjectives(objectives)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-GenerateIdForStudyObjectives-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-ObjectiveEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.HelperV1.GenerateIdForStudyObjectives(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.ObjectiveEntity})')
   - [GenerateIdForStudyProtocol(studyProtocolVersions)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-GenerateIdForStudyProtocol-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-StudyProtocolVersionEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.HelperV1.GenerateIdForStudyProtocol(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.StudyProtocolVersionEntity})')
   - [GenerateIdForStudyWorkflow(workflows)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-GenerateIdForStudyWorkflow-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-WorkflowEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.HelperV1.GenerateIdForStudyWorkflow(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.WorkflowEntity})')
-  - [GeneratedSectionId(study)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-GeneratedSectionId-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.HelperV1.GeneratedSectionId(TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity)')
+  - [GeneratedSectionId(study)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-GeneratedSectionId-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.HelperV1.GeneratedSectionId(TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity)')
   - [GetAuditTrail(user)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-GetAuditTrail-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.HelperV1.GetAuditTrail(System.String)')
-  - [IsSameStudy(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity,TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.HelperV1.IsSameStudy(TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity,TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity)')
+  - [IsSameStudy(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.HelperV1.IsSameStudy(TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity)')
   - [JsonObjectCheck(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-JsonObjectCheck-System-Object,System-Object- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.HelperV1.JsonObjectCheck(System.Object,System.Object)')
   - [RemoveIdForInvestigationalInterventions(investigationalInterventions)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-RemoveIdForInvestigationalInterventions-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-InvestigationalInterventionEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.HelperV1.RemoveIdForInvestigationalInterventions(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.InvestigationalInterventionEntity})')
   - [RemoveIdForStudyCells(studyCells)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-RemoveIdForStudyCells-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-StudyCellEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.HelperV1.RemoveIdForStudyCells(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.StudyCellEntity})')
@@ -105,13 +70,13 @@
   - [RemoveIdForStudyObjectives(objectives)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-RemoveIdForStudyObjectives-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-ObjectiveEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.HelperV1.RemoveIdForStudyObjectives(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.ObjectiveEntity})')
   - [RemoveIdForStudyProtocol(studyProtocolVersions)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-RemoveIdForStudyProtocol-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-StudyProtocolVersionEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.HelperV1.RemoveIdForStudyProtocol(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.StudyProtocolVersionEntity})')
   - [RemoveIdForStudyWorkflow(workflows)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-RemoveIdForStudyWorkflow-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-WorkflowEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.HelperV1.RemoveIdForStudyWorkflow(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.WorkflowEntity})')
-  - [RemovedSectionId(study)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-RemovedSectionId-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.HelperV1.RemovedSectionId(TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity)')
+  - [RemovedSectionId(study)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-RemovedSectionId-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.HelperV1.RemovedSectionId(TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity)')
 - [HelperV2](#T-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2')
   - [AreValidStudyDesignElements(listofelements,listofElementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-AreValidStudyDesignElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.AreValidStudyDesignElements(System.String,System.String[]@)')
   - [AreValidStudyElements(listofelements,listofElementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-AreValidStudyElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.AreValidStudyElements(System.String,System.String[]@)')
   - [GetAuditTrail(user)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-GetAuditTrail-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.GetAuditTrail(System.String)')
-  - [GetChangedValues(currentStudyVersion,previousStudyVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-GetChangedValues-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity,TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.GetChangedValues(TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity,TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity)')
-  - [IsSameStudy(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity,TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.IsSameStudy(TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity,TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity)')
+  - [GetChangedValues(currentStudyVersion,previousStudyVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-GetChangedValues-TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.GetChangedValues(TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity)')
+  - [IsSameStudy(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.IsSameStudy(TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity)')
   - [JsonObjectCheck(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-JsonObjectCheck-System-Object,System-Object- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.JsonObjectCheck(System.Object,System.Object)')
   - [RemoveIdForActivities(activities)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-RemoveIdForActivities-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV2-ActivityEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.RemoveIdForActivities(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV2.ActivityEntity})')
   - [RemoveIdForAliasCode(aliasCode)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-RemoveIdForAliasCode-TransCelerate-SDR-Core-Entities-StudyV2-AliasCodeEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.RemoveIdForAliasCode(TransCelerate.SDR.Core.Entities.StudyV2.AliasCodeEntity)')
@@ -127,8 +92,35 @@
   - [RemoveIdForStudyObjectives(objectives)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-RemoveIdForStudyObjectives-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV2-ObjectiveEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.RemoveIdForStudyObjectives(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV2.ObjectiveEntity})')
   - [RemoveIdForStudyProtocol(studyProtocolVersions)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-RemoveIdForStudyProtocol-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV2-StudyProtocolVersionEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.RemoveIdForStudyProtocol(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV2.StudyProtocolVersionEntity})')
   - [RemoveStudyDesignElements(sections,studyDesigns,study_uuid)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-RemoveStudyDesignElements-System-String[],System-Collections-Generic-List{TransCelerate-SDR-Core-DTO-StudyV2-StudyDesignDto},System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.RemoveStudyDesignElements(System.String[],System.Collections.Generic.List{TransCelerate.SDR.Core.DTO.StudyV2.StudyDesignDto},System.String)')
-  - [RemoveStudyElements(sections,studyDTO)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-RemoveStudyElements-System-String[],TransCelerate-SDR-Core-DTO-StudyV2-StudyDto- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.RemoveStudyElements(System.String[],TransCelerate.SDR.Core.DTO.StudyV2.StudyDto)')
-  - [RemovedSectionId(study)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-RemovedSectionId-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.RemovedSectionId(TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity)')
+  - [RemoveStudyElements(sections,studyDTO)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-RemoveStudyElements-System-String[],TransCelerate-SDR-Core-DTO-StudyV2-StudyDefinitionsDto- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.RemoveStudyElements(System.String[],TransCelerate.SDR.Core.DTO.StudyV2.StudyDefinitionsDto)')
+  - [RemovedSectionId(study)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-RemovedSectionId-TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.RemovedSectionId(TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity)')
+- [HelperV3](#T-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3')
+  - [AreValidStudyDesignElements(listofelements,listofElementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-AreValidStudyDesignElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.AreValidStudyDesignElements(System.String,System.String[]@)')
+  - [AreValidStudyElements(listofelements,listofElementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-AreValidStudyElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.AreValidStudyElements(System.String,System.String[]@)')
+  - [GetAuditTrail(user)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-GetAuditTrail-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.GetAuditTrail(System.String)')
+  - [GetChangedValues(currentStudyVersion,previousStudyVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-GetChangedValues-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.GetChangedValues(TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity)')
+  - [GetChangedValuesForStudyComparison(currentStudyVersion,previousStudyVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-GetChangedValuesForStudyComparison-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.GetChangedValuesForStudyComparison(TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity)')
+  - [IsSameStudy(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.IsSameStudy(TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity)')
+  - [JsonObjectCheck(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-JsonObjectCheck-System-Object,System-Object- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.JsonObjectCheck(System.Object,System.Object)')
+  - [RemoveIdForActivities(activities)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForActivities-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-ActivityEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.RemoveIdForActivities(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.ActivityEntity})')
+  - [RemoveIdForAliasCode(aliasCode)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForAliasCode-TransCelerate-SDR-Core-Entities-StudyV3-AliasCodeEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.RemoveIdForAliasCode(TransCelerate.SDR.Core.Entities.StudyV3.AliasCodeEntity)')
+  - [RemoveIdForBioMedicalConcepts(biomedicalConcepts)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForBioMedicalConcepts-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-BiomedicalConceptEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.RemoveIdForBioMedicalConcepts(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.BiomedicalConceptEntity})')
+  - [RemoveIdForEncounters(encounters)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForEncounters-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-EncounterEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.RemoveIdForEncounters(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.EncounterEntity})')
+  - [RemoveIdForInvestigationalInterventions(investigationalInterventions)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForInvestigationalInterventions-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-InvestigationalInterventionEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.RemoveIdForInvestigationalInterventions(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.InvestigationalInterventionEntity})')
+  - [RemoveIdForScheduleTimelines(scheduleTimelines)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForScheduleTimelines-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-ScheduleTimelineEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.RemoveIdForScheduleTimelines(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.ScheduleTimelineEntity})')
+  - [RemoveIdForStudyArms(studyArms)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForStudyArms-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-StudyArmEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.RemoveIdForStudyArms(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyArmEntity})')
+  - [RemoveIdForStudyCells(studyCells)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForStudyCells-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-StudyCellEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.RemoveIdForStudyCells(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyCellEntity})')
+  - [RemoveIdForStudyDesign(studyDesigns)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForStudyDesign-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-StudyDesignEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.RemoveIdForStudyDesign(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyDesignEntity})')
+  - [RemoveIdForStudyElements(studyElements)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForStudyElements-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-StudyElementEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.RemoveIdForStudyElements(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyElementEntity})')
+  - [RemoveIdForStudyEpochs(studyEpochs)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForStudyEpochs-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-StudyEpochEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.RemoveIdForStudyEpochs(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyEpochEntity})')
+  - [RemoveIdForStudyEstimand(estimands)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForStudyEstimand-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-EstimandEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.RemoveIdForStudyEstimand(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.EstimandEntity})')
+  - [RemoveIdForStudyIdentifier(studyIdentifiers)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForStudyIdentifier-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-StudyIdentifierEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.RemoveIdForStudyIdentifier(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyIdentifierEntity})')
+  - [RemoveIdForStudyIndications(indications)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForStudyIndications-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-IndicationEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.RemoveIdForStudyIndications(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.IndicationEntity})')
+  - [RemoveIdForStudyObjectives(objectives)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForStudyObjectives-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-ObjectiveEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.RemoveIdForStudyObjectives(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.ObjectiveEntity})')
+  - [RemoveIdForStudyProtocol(studyProtocolVersions)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForStudyProtocol-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-StudyProtocolVersionEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.RemoveIdForStudyProtocol(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyProtocolVersionEntity})')
+  - [RemoveStudyDesignElements(sections,studyDesigns,study_uuid)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveStudyDesignElements-System-String[],System-Collections-Generic-List{TransCelerate-SDR-Core-DTO-StudyV3-StudyDesignDto},System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.RemoveStudyDesignElements(System.String[],System.Collections.Generic.List{TransCelerate.SDR.Core.DTO.StudyV3.StudyDesignDto},System.String)')
+  - [RemoveStudyElements(sections,studyDTO)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveStudyElements-System-String[],TransCelerate-SDR-Core-DTO-StudyV3-StudyDefinitionsDto- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.RemoveStudyElements(System.String[],TransCelerate.SDR.Core.DTO.StudyV3.StudyDefinitionsDto)')
+  - [RemovedSectionId(study)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemovedSectionId-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.RemovedSectionId(TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity)')
 - [HttpContextResponseHelper](#T-TransCelerate-SDR-Core-Utilities-Helpers-HttpContextResponseHelper 'TransCelerate.SDR.Core.Utilities.Helpers.HttpContextResponseHelper')
   - [Response(context,response)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HttpContextResponseHelper-Response-Microsoft-AspNetCore-Http-HttpContext,System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HttpContextResponseHelper.Response(Microsoft.AspNetCore.Http.HttpContext,System.String)')
 - [IHelperV1](#T-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.IHelperV1')
@@ -136,7 +128,7 @@
   - [CheckForDefinedProceduresSection(incomingDefinedProcedures,exisitingDefinedProcedures)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-CheckForDefinedProceduresSection-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-DefinedProcedureEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-DefinedProcedureEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.IHelperV1.CheckForDefinedProceduresSection(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.DefinedProcedureEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.DefinedProcedureEntity})')
   - [CheckForIntercurrentEventsSection(incomingInterCurrentEvents,exisitingInterCurrentEvents)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-CheckForIntercurrentEventsSection-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-InterCurrentEventEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-InterCurrentEventEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.IHelperV1.CheckForIntercurrentEventsSection(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.InterCurrentEventEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.InterCurrentEventEntity})')
   - [CheckForInvestigationalInterventionsSection(incomingInvestigationalInterventions,existingInvestigationalInterventions)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-CheckForInvestigationalInterventionsSection-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-InvestigationalInterventionEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-InvestigationalInterventionEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.IHelperV1.CheckForInvestigationalInterventionsSection(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.InvestigationalInterventionEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.InvestigationalInterventionEntity})')
-  - [CheckForSections(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-CheckForSections-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity,TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.IHelperV1.CheckForSections(TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity,TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity)')
+  - [CheckForSections(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-CheckForSections-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.IHelperV1.CheckForSections(TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity)')
   - [CheckForStudyCellsSection(incomingStudyCells,existingStudyCells)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-CheckForStudyCellsSection-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-StudyCellEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-StudyCellEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.IHelperV1.CheckForStudyCellsSection(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.StudyCellEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.StudyCellEntity})')
   - [CheckForStudyDataCollectionSection(incomingStudyDataCollections,existingStudyDataCollections)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-CheckForStudyDataCollectionSection-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-StudyDataCollectionEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-StudyDataCollectionEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.IHelperV1.CheckForStudyDataCollectionSection(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.StudyDataCollectionEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.StudyDataCollectionEntity})')
   - [CheckForStudyDesignPopulationsSection(incomingStudyDesignPopulations,existingStudyDesignPopulations)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-CheckForStudyDesignPopulationsSection-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-StudyDesignPopulationEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-StudyDesignPopulationEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.IHelperV1.CheckForStudyDesignPopulationsSection(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.StudyDesignPopulationEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.StudyDesignPopulationEntity})')
@@ -159,9 +151,9 @@
   - [GenerateIdForStudyObjectives(objectives)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-GenerateIdForStudyObjectives-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-ObjectiveEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.IHelperV1.GenerateIdForStudyObjectives(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.ObjectiveEntity})')
   - [GenerateIdForStudyProtocol(studyProtocolVersions)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-GenerateIdForStudyProtocol-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-StudyProtocolVersionEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.IHelperV1.GenerateIdForStudyProtocol(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.StudyProtocolVersionEntity})')
   - [GenerateIdForStudyWorkflow(workflows)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-GenerateIdForStudyWorkflow-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-WorkflowEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.IHelperV1.GenerateIdForStudyWorkflow(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.WorkflowEntity})')
-  - [GeneratedSectionId(study)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-GeneratedSectionId-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.IHelperV1.GeneratedSectionId(TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity)')
+  - [GeneratedSectionId(study)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-GeneratedSectionId-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.IHelperV1.GeneratedSectionId(TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity)')
   - [GetAuditTrail(user)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-GetAuditTrail-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.IHelperV1.GetAuditTrail(System.String)')
-  - [IsSameStudy(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity,TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.IHelperV1.IsSameStudy(TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity,TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity)')
+  - [IsSameStudy(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.IHelperV1.IsSameStudy(TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity)')
   - [JsonObjectCheck(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-JsonObjectCheck-System-Object,System-Object- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.IHelperV1.JsonObjectCheck(System.Object,System.Object)')
   - [RemoveIdForInvestigationalInterventions(investigationalInterventions)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-RemoveIdForInvestigationalInterventions-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-InvestigationalInterventionEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.IHelperV1.RemoveIdForInvestigationalInterventions(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.InvestigationalInterventionEntity})')
   - [RemoveIdForStudyCells(studyCells)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-RemoveIdForStudyCells-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-StudyCellEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.IHelperV1.RemoveIdForStudyCells(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.StudyCellEntity})')
@@ -172,12 +164,13 @@
   - [RemoveIdForStudyObjectives(objectives)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-RemoveIdForStudyObjectives-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-ObjectiveEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.IHelperV1.RemoveIdForStudyObjectives(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.ObjectiveEntity})')
   - [RemoveIdForStudyProtocol(studyProtocolVersions)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-RemoveIdForStudyProtocol-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-StudyProtocolVersionEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.IHelperV1.RemoveIdForStudyProtocol(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.StudyProtocolVersionEntity})')
   - [RemoveIdForStudyWorkflow(workflows)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-RemoveIdForStudyWorkflow-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-WorkflowEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.IHelperV1.RemoveIdForStudyWorkflow(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.WorkflowEntity})')
-  - [RemovedSectionId(study)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-RemovedSectionId-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.IHelperV1.RemovedSectionId(TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity)')
+  - [RemovedSectionId(study)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-RemovedSectionId-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1.IHelperV1.RemovedSectionId(TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity)')
 - [IHelperV2](#T-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2')
   - [AreValidStudyDesignElements(listofelements,listofelementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-AreValidStudyDesignElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.AreValidStudyDesignElements(System.String,System.String[]@)')
   - [AreValidStudyElements(listofelements,listofelementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-AreValidStudyElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.AreValidStudyElements(System.String,System.String[]@)')
   - [GetAuditTrail(user)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-GetAuditTrail-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.GetAuditTrail(System.String)')
-  - [IsSameStudy(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity,TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.IsSameStudy(TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity,TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity)')
+  - [GetSerializerSettingsForCamelCasing()](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-GetSerializerSettingsForCamelCasing 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.GetSerializerSettingsForCamelCasing')
+  - [IsSameStudy(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.IsSameStudy(TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity)')
   - [JsonObjectCheck(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-JsonObjectCheck-System-Object,System-Object- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.JsonObjectCheck(System.Object,System.Object)')
   - [RemoveIdForInvestigationalInterventions(investigationalInterventions)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-RemoveIdForInvestigationalInterventions-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV2-InvestigationalInterventionEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.RemoveIdForInvestigationalInterventions(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV2.InvestigationalInterventionEntity})')
   - [RemoveIdForStudyCells(studyCells)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-RemoveIdForStudyCells-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV2-StudyCellEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.RemoveIdForStudyCells(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV2.StudyCellEntity})')
@@ -188,8 +181,26 @@
   - [RemoveIdForStudyObjectives(objectives)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-RemoveIdForStudyObjectives-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV2-ObjectiveEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.RemoveIdForStudyObjectives(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV2.ObjectiveEntity})')
   - [RemoveIdForStudyProtocol(studyProtocolVersions)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-RemoveIdForStudyProtocol-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV2-StudyProtocolVersionEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.RemoveIdForStudyProtocol(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV2.StudyProtocolVersionEntity})')
   - [RemoveStudyDesignElements(sections,studyDTO,study_uuid)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-RemoveStudyDesignElements-System-String[],System-Collections-Generic-List{TransCelerate-SDR-Core-DTO-StudyV2-StudyDesignDto},System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.RemoveStudyDesignElements(System.String[],System.Collections.Generic.List{TransCelerate.SDR.Core.DTO.StudyV2.StudyDesignDto},System.String)')
-  - [RemoveStudyElements(sections,studyDTO)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-RemoveStudyElements-System-String[],TransCelerate-SDR-Core-DTO-StudyV2-StudyDto- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.RemoveStudyElements(System.String[],TransCelerate.SDR.Core.DTO.StudyV2.StudyDto)')
-  - [RemovedSectionId(study)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-RemovedSectionId-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.RemovedSectionId(TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity)')
+  - [RemoveStudyElements(sections,studyDTO)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-RemoveStudyElements-System-String[],TransCelerate-SDR-Core-DTO-StudyV2-StudyDefinitionsDto- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.RemoveStudyElements(System.String[],TransCelerate.SDR.Core.DTO.StudyV2.StudyDefinitionsDto)')
+  - [RemovedSectionId(study)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-RemovedSectionId-TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.RemovedSectionId(TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity)')
+- [IHelperV3](#T-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3')
+  - [AreValidStudyDesignElements(listofelements,listofelementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-AreValidStudyDesignElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3.AreValidStudyDesignElements(System.String,System.String[]@)')
+  - [AreValidStudyElements(listofelements,listofelementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-AreValidStudyElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3.AreValidStudyElements(System.String,System.String[]@)')
+  - [GetAuditTrail(user)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-GetAuditTrail-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3.GetAuditTrail(System.String)')
+  - [GetSerializerSettingsForCamelCasing()](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-GetSerializerSettingsForCamelCasing 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3.GetSerializerSettingsForCamelCasing')
+  - [IsSameStudy(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3.IsSameStudy(TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity)')
+  - [JsonObjectCheck(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-JsonObjectCheck-System-Object,System-Object- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3.JsonObjectCheck(System.Object,System.Object)')
+  - [RemoveIdForInvestigationalInterventions(investigationalInterventions)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-RemoveIdForInvestigationalInterventions-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-InvestigationalInterventionEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3.RemoveIdForInvestigationalInterventions(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.InvestigationalInterventionEntity})')
+  - [RemoveIdForStudyCells(studyCells)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-RemoveIdForStudyCells-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-StudyCellEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3.RemoveIdForStudyCells(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyCellEntity})')
+  - [RemoveIdForStudyDesign(studyDesigns)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-RemoveIdForStudyDesign-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-StudyDesignEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3.RemoveIdForStudyDesign(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyDesignEntity})')
+  - [RemoveIdForStudyEstimand(estimands)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-RemoveIdForStudyEstimand-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-EstimandEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3.RemoveIdForStudyEstimand(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.EstimandEntity})')
+  - [RemoveIdForStudyIdentifier(studyIdentifiers)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-RemoveIdForStudyIdentifier-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-StudyIdentifierEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3.RemoveIdForStudyIdentifier(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyIdentifierEntity})')
+  - [RemoveIdForStudyIndications(indications)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-RemoveIdForStudyIndications-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-IndicationEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3.RemoveIdForStudyIndications(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.IndicationEntity})')
+  - [RemoveIdForStudyObjectives(objectives)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-RemoveIdForStudyObjectives-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-ObjectiveEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3.RemoveIdForStudyObjectives(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.ObjectiveEntity})')
+  - [RemoveIdForStudyProtocol(studyProtocolVersions)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-RemoveIdForStudyProtocol-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-StudyProtocolVersionEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3.RemoveIdForStudyProtocol(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyProtocolVersionEntity})')
+  - [RemoveStudyDesignElements(sections,studyDTO,study_uuid)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-RemoveStudyDesignElements-System-String[],System-Collections-Generic-List{TransCelerate-SDR-Core-DTO-StudyV3-StudyDesignDto},System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3.RemoveStudyDesignElements(System.String[],System.Collections.Generic.List{TransCelerate.SDR.Core.DTO.StudyV3.StudyDesignDto},System.String)')
+  - [RemoveStudyElements(sections,studyDTO)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-RemoveStudyElements-System-String[],TransCelerate-SDR-Core-DTO-StudyV3-StudyDefinitionsDto- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3.RemoveStudyElements(System.String[],TransCelerate.SDR.Core.DTO.StudyV3.StudyDefinitionsDto)')
+  - [RemovedSectionId(study)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-RemovedSectionId-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3.RemovedSectionId(TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity)')
 - [IdGenerator](#T-TransCelerate-SDR-Core-Utilities-Helpers-IdGenerator 'TransCelerate.SDR.Core.Utilities.Helpers.IdGenerator')
   - [GenerateId()](#M-TransCelerate-SDR-Core-Utilities-Helpers-IdGenerator-GenerateId 'TransCelerate.SDR.Core.Utilities.Helpers.IdGenerator.GenerateId')
 - [LogHelper](#T-TransCelerate-SDR-Core-Utilities-LogHelper 'TransCelerate.SDR.Core.Utilities.LogHelper')
@@ -200,50 +211,10 @@
   - [LogTrace(message)](#M-TransCelerate-SDR-Core-Utilities-LogHelper-LogTrace-System-String- 'TransCelerate.SDR.Core.Utilities.LogHelper.LogTrace(System.String)')
   - [LogWarning(message)](#M-TransCelerate-SDR-Core-Utilities-LogHelper-LogWarning-System-String- 'TransCelerate.SDR.Core.Utilities.LogHelper.LogWarning(System.String)')
 - [Permissions](#T-TransCelerate-SDR-Core-Utilities-Permissions 'TransCelerate.SDR.Core.Utilities.Permissions')
-- [PostStudyDTO](#T-TransCelerate-SDR-Core-DTO-PostStudyDTO 'TransCelerate.SDR.Core.DTO.PostStudyDTO')
-  - [AuditTrail](#P-TransCelerate-SDR-Core-DTO-PostStudyDTO-AuditTrail 'TransCelerate.SDR.Core.DTO.PostStudyDTO.AuditTrail')
-  - [ClinicalStudy](#P-TransCelerate-SDR-Core-DTO-PostStudyDTO-ClinicalStudy 'TransCelerate.SDR.Core.DTO.PostStudyDTO.ClinicalStudy')
-- [PostStudyElementsCheck](#T-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck')
-  - [ActivitySectionCheck(existingActivityEntity,incomingActivityEntity)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-ActivitySectionCheck-TransCelerate-SDR-Core-Entities-Study-ActivityEntity,TransCelerate-SDR-Core-Entities-Study-ActivityEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck.ActivitySectionCheck(TransCelerate.SDR.Core.Entities.Study.ActivityEntity,TransCelerate.SDR.Core.Entities.Study.ActivityEntity)')
-  - [EncounterSectionCheck(existingEncounterEntity,incomingEncounterEntity)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-EncounterSectionCheck-TransCelerate-SDR-Core-Entities-Study-EncounterEntity,TransCelerate-SDR-Core-Entities-Study-EncounterEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck.EncounterSectionCheck(TransCelerate.SDR.Core.Entities.Study.EncounterEntity,TransCelerate.SDR.Core.Entities.Study.EncounterEntity)')
-  - [EpochSectionCheck(existingEpochEntity,incomingEpochEntity)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-EpochSectionCheck-TransCelerate-SDR-Core-Entities-Study-EpochEntity,TransCelerate-SDR-Core-Entities-Study-EpochEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck.EpochSectionCheck(TransCelerate.SDR.Core.Entities.Study.EpochEntity,TransCelerate.SDR.Core.Entities.Study.EpochEntity)')
-  - [InvestigationalInvestigationSectionCheck(existingStudyDesign,existingInvestigationalInterventionEntities,incomingInvestigationalInterventionEntities)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-InvestigationalInvestigationSectionCheck-TransCelerate-SDR-Core-Entities-Study-StudyDesignEntity,System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-InvestigationalInterventionEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-InvestigationalInterventionEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck.InvestigationalInvestigationSectionCheck(TransCelerate.SDR.Core.Entities.Study.StudyDesignEntity,System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.InvestigationalInterventionEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.InvestigationalInterventionEntity})')
-  - [ItemSectionCheck(existingItemEntities,incomingItemEntities)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-ItemSectionCheck-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-ItemEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-ItemEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck.ItemSectionCheck(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.ItemEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.ItemEntity})')
-  - [JsonObjectCheck(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-JsonObjectCheck-System-Object,System-Object- 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck.JsonObjectCheck(System.Object,System.Object)')
-  - [MatrixSectionCheck(existingMatrixEntities,incomingMatrixEntities)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-MatrixSectionCheck-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-MatrixEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-MatrixEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck.MatrixSectionCheck(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.MatrixEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.MatrixEntity})')
-  - [PointInTimeSectionCheck(existingPointInTime,incomingPointInTime)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-PointInTimeSectionCheck-TransCelerate-SDR-Core-Entities-Study-PointInTimeEntity,TransCelerate-SDR-Core-Entities-Study-PointInTimeEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck.PointInTimeSectionCheck(TransCelerate.SDR.Core.Entities.Study.PointInTimeEntity,TransCelerate.SDR.Core.Entities.Study.PointInTimeEntity)')
-  - [RemoveId(studyEntity)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-RemoveId-TransCelerate-SDR-Core-Entities-Study-StudyEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck.RemoveId(TransCelerate.SDR.Core.Entities.Study.StudyEntity)')
-  - [RuleSectionCheck(existingRuleEntity,incomingRuleEntity)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-RuleSectionCheck-TransCelerate-SDR-Core-Entities-Study-RuleEntity,TransCelerate-SDR-Core-Entities-Study-RuleEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck.RuleSectionCheck(TransCelerate.SDR.Core.Entities.Study.RuleEntity,TransCelerate.SDR.Core.Entities.Study.RuleEntity)')
-  - [SectionCheck(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-SectionCheck-TransCelerate-SDR-Core-Entities-Study-StudyEntity,TransCelerate-SDR-Core-Entities-Study-StudyEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck.SectionCheck(TransCelerate.SDR.Core.Entities.Study.StudyEntity,TransCelerate.SDR.Core.Entities.Study.StudyEntity)')
-  - [StudyArmSectionCheck(existingStudyArm,incomingStudyArm)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-StudyArmSectionCheck-TransCelerate-SDR-Core-Entities-Study-StudyArmEntity,TransCelerate-SDR-Core-Entities-Study-StudyArmEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck.StudyArmSectionCheck(TransCelerate.SDR.Core.Entities.Study.StudyArmEntity,TransCelerate.SDR.Core.Entities.Study.StudyArmEntity)')
-  - [StudyCellsSectionCheck(existingStudyDesign,existingStudyCellsEntities,incomingStudyCellsEntities)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-StudyCellsSectionCheck-TransCelerate-SDR-Core-Entities-Study-StudyDesignEntity,System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyCellEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyCellEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck.StudyCellsSectionCheck(TransCelerate.SDR.Core.Entities.Study.StudyDesignEntity,System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyCellEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyCellEntity})')
-  - [StudyComparison(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-StudyComparison-TransCelerate-SDR-Core-Entities-Study-StudyEntity,TransCelerate-SDR-Core-Entities-Study-StudyEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck.StudyComparison(TransCelerate.SDR.Core.Entities.Study.StudyEntity,TransCelerate.SDR.Core.Entities.Study.StudyEntity)')
-  - [StudyDataCollectionSectionCheck(existingStudyDataCollectionEntities,incomingStudyDataCollectionEntities)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-StudyDataCollectionSectionCheck-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyDataCollectionEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyDataCollectionEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck.StudyDataCollectionSectionCheck(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyDataCollectionEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyDataCollectionEntity})')
-  - [StudyDesignSectionCheck(existing,existingStudyDesignEntities,incomingStudyDesignEntities)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-StudyDesignSectionCheck-TransCelerate-SDR-Core-Entities-Study-StudyEntity,System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyDesignEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyDesignEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck.StudyDesignSectionCheck(TransCelerate.SDR.Core.Entities.Study.StudyEntity,System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyDesignEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyDesignEntity})')
-  - [StudyElementsSectionCheck(existingStudyElementsEntities,incomingStudyElementsEntities)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-StudyElementsSectionCheck-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyElementEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyElementEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck.StudyElementsSectionCheck(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyElementEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyElementEntity})')
-  - [StudyEpochSectionCheck(existingStudyEpoch,incomingStudyEpoch)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-StudyEpochSectionCheck-TransCelerate-SDR-Core-Entities-Study-StudyEpochEntity,TransCelerate-SDR-Core-Entities-Study-StudyEpochEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck.StudyEpochSectionCheck(TransCelerate.SDR.Core.Entities.Study.StudyEpochEntity,TransCelerate.SDR.Core.Entities.Study.StudyEpochEntity)')
-  - [StudyIndicationSectionCheck(existing,existingStudyIndicationEntities,incomingStudyIndicationEntities)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-StudyIndicationSectionCheck-TransCelerate-SDR-Core-Entities-Study-StudyEntity,System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyIndicationEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyIndicationEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck.StudyIndicationSectionCheck(TransCelerate.SDR.Core.Entities.Study.StudyEntity,System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyIndicationEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyIndicationEntity})')
-  - [StudyObjectivesSectionCheck(existing,existingStudyObjectivesEntities,incomingStudyObjectivesEntities)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-StudyObjectivesSectionCheck-TransCelerate-SDR-Core-Entities-Study-StudyEntity,System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyObjectiveEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyObjectiveEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck.StudyObjectivesSectionCheck(TransCelerate.SDR.Core.Entities.Study.StudyEntity,System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyObjectiveEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyObjectiveEntity})')
-  - [StudyPlannedWorkFlowSectionCheck(existingStudyDesign,existingPlannedWorkFlowsEntities,incomingPlannedWorkFlowsEntities)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-StudyPlannedWorkFlowSectionCheck-TransCelerate-SDR-Core-Entities-Study-StudyDesignEntity,System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-PlannedWorkFlowEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-PlannedWorkFlowEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck.StudyPlannedWorkFlowSectionCheck(TransCelerate.SDR.Core.Entities.Study.StudyDesignEntity,System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.PlannedWorkFlowEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.PlannedWorkFlowEntity})')
-  - [StudyPopulationsSectionCheck(existingStudyDesign,existingStudyPopulationEntities,incomingStudyPopulationEntities)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-StudyPopulationsSectionCheck-TransCelerate-SDR-Core-Entities-Study-StudyDesignEntity,System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyPopulationEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyPopulationEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck.StudyPopulationsSectionCheck(TransCelerate.SDR.Core.Entities.Study.StudyDesignEntity,System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyPopulationEntity},System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyPopulationEntity})')
-  - [WorkFlowItemMatrixSectionCheck(existingWorkFlowItemMatrixEntity,incomingWorkFlowItemMatrixEntity)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-WorkFlowItemMatrixSectionCheck-TransCelerate-SDR-Core-Entities-Study-WorkFlowItemMatrixEntity,TransCelerate-SDR-Core-Entities-Study-WorkFlowItemMatrixEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.PostStudyElementsCheck.WorkFlowItemMatrixSectionCheck(TransCelerate.SDR.Core.Entities.Study.WorkFlowItemMatrixEntity,TransCelerate.SDR.Core.Entities.Study.WorkFlowItemMatrixEntity)')
-- [PreviousItemNextItemHelper](#T-TransCelerate-SDR-Core-Utilities-Helpers-PreviousItemNextItemHelper 'TransCelerate.SDR.Core.Utilities.Helpers.PreviousItemNextItemHelper')
-  - [GetPreviousNextItems(itemEntities)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PreviousItemNextItemHelper-GetPreviousNextItems-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-ItemEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.PreviousItemNextItemHelper.GetPreviousNextItems(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.ItemEntity})')
-  - [PreviousItemsNextItemsWraper(studyEntity)](#M-TransCelerate-SDR-Core-Utilities-Helpers-PreviousItemNextItemHelper-PreviousItemsNextItemsWraper-TransCelerate-SDR-Core-Entities-Study-StudyEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.PreviousItemNextItemHelper.PreviousItemsNextItemsWraper(TransCelerate.SDR.Core.Entities.Study.StudyEntity)')
-- [RemoveStudySections](#T-TransCelerate-SDR-Core-Utilities-Helpers-RemoveStudySections 'TransCelerate.SDR.Core.Utilities.Helpers.RemoveStudySections')
-  - [PostResponseRemoveSections(studyEntity)](#M-TransCelerate-SDR-Core-Utilities-Helpers-RemoveStudySections-PostResponseRemoveSections-TransCelerate-SDR-Core-DTO-PostStudyDTO- 'TransCelerate.SDR.Core.Utilities.Helpers.RemoveStudySections.PostResponseRemoveSections(TransCelerate.SDR.Core.DTO.PostStudyDTO)')
-  - [RemoveSections(sections,getStudySectionsDTO)](#M-TransCelerate-SDR-Core-Utilities-Helpers-RemoveStudySections-RemoveSections-System-String[],TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO- 'TransCelerate.SDR.Core.Utilities.Helpers.RemoveStudySections.RemoveSections(System.String[],TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO)')
-  - [RemoveSectionsForStudyDesign(sections,getStudySectionsDTO)](#M-TransCelerate-SDR-Core-Utilities-Helpers-RemoveStudySections-RemoveSectionsForStudyDesign-System-String[],TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO- 'TransCelerate.SDR.Core.Utilities.Helpers.RemoveStudySections.RemoveSectionsForStudyDesign(System.String[],TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO)')
 - [Route](#T-TransCelerate-SDR-Core-Utilities-Common-Route 'TransCelerate.SDR.Core.Utilities.Common.Route')
 - [ScheduledInstanceType](#T-TransCelerate-SDR-Core-Utilities-ScheduledInstanceType 'TransCelerate.SDR.Core.Utilities.ScheduledInstanceType')
 - [SearchTitleResponseDto](#T-TransCelerate-SDR-Core-DTO-Common-SearchTitleResponseDto 'TransCelerate.SDR.Core.DTO.Common.SearchTitleResponseDto')
 - [SearchTitleResponseDto](#T-TransCelerate-SDR-Core-DTO-StudyV1-SearchTitleResponseDto 'TransCelerate.SDR.Core.DTO.StudyV1.SearchTitleResponseDto')
-- [SectionIdGenerator](#T-TransCelerate-SDR-Core-Utilities-Helpers-SectionIdGenerator 'TransCelerate.SDR.Core.Utilities.Helpers.SectionIdGenerator')
-  - [GenerateSectionId(studyEntity)](#M-TransCelerate-SDR-Core-Utilities-Helpers-SectionIdGenerator-GenerateSectionId-TransCelerate-SDR-Core-Entities-Study-StudyEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.SectionIdGenerator.GenerateSectionId(TransCelerate.SDR.Core.Entities.Study.StudyEntity)')
-  - [StudyCellsIdGenerator(studyCellEntity)](#M-TransCelerate-SDR-Core-Utilities-Helpers-SectionIdGenerator-StudyCellsIdGenerator-TransCelerate-SDR-Core-Entities-Study-StudyCellEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.SectionIdGenerator.StudyCellsIdGenerator(TransCelerate.SDR.Core.Entities.Study.StudyCellEntity)')
-  - [StudyDesignIdGenerator(studyDesignEntity)](#M-TransCelerate-SDR-Core-Utilities-Helpers-SectionIdGenerator-StudyDesignIdGenerator-TransCelerate-SDR-Core-Entities-Study-StudyDesignEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.SectionIdGenerator.StudyDesignIdGenerator(TransCelerate.SDR.Core.Entities.Study.StudyDesignEntity)')
-  - [StudyObjectivesIdGenerator(studyObjectivesEntity)](#M-TransCelerate-SDR-Core-Utilities-Helpers-SectionIdGenerator-StudyObjectivesIdGenerator-TransCelerate-SDR-Core-Entities-Study-StudyObjectiveEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.SectionIdGenerator.StudyObjectivesIdGenerator(TransCelerate.SDR.Core.Entities.Study.StudyObjectiveEntity)')
-  - [StudyPlannedWorkFlowIdGenerator(plannedWorkFlowEntity)](#M-TransCelerate-SDR-Core-Utilities-Helpers-SectionIdGenerator-StudyPlannedWorkFlowIdGenerator-TransCelerate-SDR-Core-Entities-Study-PlannedWorkFlowEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.SectionIdGenerator.StudyPlannedWorkFlowIdGenerator(TransCelerate.SDR.Core.Entities.Study.PlannedWorkFlowEntity)')
 - [SortOrder](#T-TransCelerate-SDR-Core-Utilities-SortOrder 'TransCelerate.SDR.Core.Utilities.SortOrder')
 - [SplitStringIntoArrayHelper](#T-TransCelerate-SDR-Core-Utilities-Helpers-SplitStringIntoArrayHelper 'TransCelerate.SDR.Core.Utilities.Helpers.SplitStringIntoArrayHelper')
   - [SplitString(value,index)](#M-TransCelerate-SDR-Core-Utilities-Helpers-SplitStringIntoArrayHelper-SplitString-System-String,System-Int32- 'TransCelerate.SDR.Core.Utilities.Helpers.SplitStringIntoArrayHelper.SplitString(System.String,System.Int32)')
@@ -252,9 +223,10 @@
 - [StudyDesignSections](#T-TransCelerate-SDR-Core-Utilities-StudyDesignSections 'TransCelerate.SDR.Core.Utilities.StudyDesignSections')
 - [StudyHistoryResponseDto](#T-TransCelerate-SDR-Core-DTO-Common-StudyHistoryResponseDto 'TransCelerate.SDR.Core.DTO.Common.StudyHistoryResponseDto')
 - [StudyHistoryResponseDto](#T-TransCelerate-SDR-Core-DTO-StudyV1-StudyHistoryResponseDto 'TransCelerate.SDR.Core.DTO.StudyV1.StudyHistoryResponseDto')
-- [StudyHistoryResponseDto](#T-TransCelerate-SDR-Core-DTO-StudyV2-StudyHistoryResponseDto 'TransCelerate.SDR.Core.DTO.StudyV2.StudyHistoryResponseDto')
 - [StudySectionTypes](#T-TransCelerate-SDR-Core-Utilities-StudySectionTypes 'TransCelerate.SDR.Core.Utilities.StudySectionTypes')
 - [StudySections](#T-TransCelerate-SDR-Core-Utilities-StudySections 'TransCelerate.SDR.Core.Utilities.StudySections')
+- [SuccessResponseHelper](#T-TransCelerate-SDR-Core-Utilities-Helpers-SuccessResponseHelper 'TransCelerate.SDR.Core.Utilities.Helpers.SuccessResponseHelper')
+  - [ValidationSuccess()](#M-TransCelerate-SDR-Core-Utilities-Helpers-SuccessResponseHelper-ValidationSuccess-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.SuccessResponseHelper.ValidationSuccess(System.String)')
 - [UsageReportQueryHelper](#T-TransCelerate-SDR-Core-Utilities-Helpers-UsageReportQueryHelper 'TransCelerate.SDR.Core.Utilities.Helpers.UsageReportQueryHelper')
   - [FormattedQuery(reportBodyParameters)](#M-TransCelerate-SDR-Core-Utilities-Helpers-UsageReportQueryHelper-FormattedQuery-TransCelerate-SDR-Core-DTO-Reports-ReportBodyParameters- 'TransCelerate.SDR.Core.Utilities.Helpers.UsageReportQueryHelper.FormattedQuery(TransCelerate.SDR.Core.DTO.Reports.ReportBodyParameters)')
 - [UserGroupSortingHelper](#T-TransCelerate-SDR-Core-Utilities-Helpers-UserGroupSortingHelper 'TransCelerate.SDR.Core.Utilities.Helpers.UserGroupSortingHelper')
@@ -318,17 +290,6 @@ This method helps to format the error response for invalid input and conformance
 ##### Namespace
 
 TransCelerate.SDR.Core.DTO.StudyV1
-
-##### Summary
-
-This class is a DTO for response of GET Audit Trail Endpoint
-
-<a name='T-TransCelerate-SDR-Core-DTO-StudyV2-AudiTrailResponseDto'></a>
-## AudiTrailResponseDto `type`
-
-##### Namespace
-
-TransCelerate.SDR.Core.DTO.StudyV2
 
 ##### Summary
 
@@ -582,268 +543,6 @@ This method helps to return formatted from and to date
 | toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | To Date |
 | range | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Date Range for which the from date have to be formatted (used for studyHistory endpoint). |
 
-<a name='T-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO'></a>
-## GetClinicalStudyDTO `type`
-
-##### Namespace
-
-TransCelerate.SDR.Core.DTO.Study
-
-##### Summary
-
-This class is a DTO for GET Method for all elements of clinicalStudy
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-Objectives'></a>
-### Objectives `property`
-
-##### Summary
-
-This property holds the List of Study Objectives for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyId')
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyDesigns'></a>
-### StudyDesigns `property`
-
-##### Summary
-
-This property holds the List of Study Designs for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyId')
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyId'></a>
-### StudyId `property`
-
-##### Summary
-
-This property holds the value of Study ID
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyIdentifiers'></a>
-### StudyIdentifiers `property`
-
-##### Summary
-
-This property holds the List of Study Identifiers for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyId')
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyIndications'></a>
-### StudyIndications `property`
-
-##### Summary
-
-This property holds the List of Study Indications for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyId')
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyPhase'></a>
-### StudyPhase `property`
-
-##### Summary
-
-This property holds the value of Study Phase for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyId')
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyProtocolReferences'></a>
-### StudyProtocolReferences `property`
-
-##### Summary
-
-This property holds the List of Study Protocol References for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyId')
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyStatus'></a>
-### StudyStatus `property`
-
-##### Summary
-
-This property holds the value of Study Status for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyId')
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyTag'></a>
-### StudyTag `property`
-
-##### Summary
-
-This property holds the value of Study Tag for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyId')
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyTitle'></a>
-### StudyTitle `property`
-
-##### Summary
-
-This property holds the value of Study Title for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyId')
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyType'></a>
-### StudyType `property`
-
-##### Summary
-
-This property holds the value of Study Type for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetClinicalStudyDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetClinicalStudyDTO.StudyId')
-
-<a name='T-TransCelerate-SDR-Core-DTO-Study-GetStudyAuditDTO'></a>
-## GetStudyAuditDTO `type`
-
-##### Namespace
-
-TransCelerate.SDR.Core.DTO.Study
-
-##### Summary
-
-This class is a DTO for GET Method for AuditTrail of a study
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyAuditDTO-AuditTrail'></a>
-### AuditTrail `property`
-
-##### Summary
-
-This property holds the List of Audit Trail for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyAuditDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetStudyAuditDTO.StudyId')
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyAuditDTO-StudyId'></a>
-### StudyId `property`
-
-##### Summary
-
-This property holds the value of Study ID
-
-<a name='T-TransCelerate-SDR-Core-DTO-Study-GetStudyDTO'></a>
-## GetStudyDTO `type`
-
-##### Namespace
-
-TransCelerate.SDR.Core.DTO.Study
-
-##### Summary
-
-This class is a DTO for GET Method for all elements of a study
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDTO-AuditTrail'></a>
-### AuditTrail `property`
-
-##### Summary
-
-This property holds the Audit Trail Component of the Study
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDTO-ClinicalStudy'></a>
-### ClinicalStudy `property`
-
-##### Summary
-
-This property holds the ClinicalStudy Component of the Study
-
-<a name='T-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO'></a>
-## GetStudyDesignsDTO `type`
-
-##### Namespace
-
-TransCelerate.SDR.Core.DTO.Study
-
-##### Summary
-
-This class is a DTO for GET Method for study design sections of a study
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-InvestigationalInterventions'></a>
-### InvestigationalInterventions `property`
-
-##### Summary
-
-This property holds the Investigational Interventions for specific [StudyDesignId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-StudyDesignId 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.StudyDesignId')
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-PlannedWorkflows'></a>
-### PlannedWorkflows `property`
-
-##### Summary
-
-This property holds the Planned Workflows for specific [StudyDesignId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-StudyDesignId 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.StudyDesignId')
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-StudyCells'></a>
-### StudyCells `property`
-
-##### Summary
-
-This property holds the Study Cells for specific [StudyDesignId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-StudyDesignId 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.StudyDesignId')
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-StudyDesignId'></a>
-### StudyDesignId `property`
-
-##### Summary
-
-This property holds the value of Study Design ID
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-StudyPopulations'></a>
-### StudyPopulations `property`
-
-##### Summary
-
-This property holds the Study Populations for specific [StudyDesignId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-StudyDesignId 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.StudyDesignId')
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-TrialIntentType'></a>
-### TrialIntentType `property`
-
-##### Summary
-
-This property holds the value of Trial Intent Type for specific [StudyDesignId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-StudyDesignId 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.StudyDesignId')
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-TrialType'></a>
-### TrialType `property`
-
-##### Summary
-
-This property holds the value of Trial Type for specific [StudyDesignId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudyDesignsDTO-StudyDesignId 'TransCelerate.SDR.Core.DTO.Study.GetStudyDesignsDTO.StudyDesignId')
-
-<a name='T-TransCelerate-SDR-Core-DTO-Study-GetStudyHistoryResponseDTO'></a>
-## GetStudyHistoryResponseDTO `type`
-
-##### Namespace
-
-TransCelerate.SDR.Core.DTO.Study
-
-##### Summary
-
-This class is a DTO for GET Method for all study Id
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudyHistoryResponseDTO-Study'></a>
-### Study `property`
-
-##### Summary
-
-This property holds the Study History details
-
-<a name='T-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO'></a>
-## GetStudySectionsDTO `type`
-
-##### Namespace
-
-TransCelerate.SDR.Core.DTO.Study
-
-##### Summary
-
-This class is a DTO for GET Method for Study Level sections
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-Objectives'></a>
-### Objectives `property`
-
-##### Summary
-
-This property holds the List of Study Objectives for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.StudyId')
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-StudyDesigns'></a>
-### StudyDesigns `property`
-
-##### Summary
-
-This property holds the List of Study Designs for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.StudyId')
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-StudyId'></a>
-### StudyId `property`
-
-##### Summary
-
-This property holds the value of Study ID
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-StudyIndications'></a>
-### StudyIndications `property`
-
-##### Summary
-
-This property holds the List of Study Indications for specific [StudyId](#P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-StudyId 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO.StudyId')
-
-<a name='P-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-StudyVersion'></a>
-### StudyVersion `property`
-
-##### Summary
-
-This property holds the value of version of Study
-
 <a name='T-TransCelerate-SDR-Core-Utilities-Helpers-GroupFilters'></a>
 ## GroupFilters `type`
 
@@ -991,7 +690,7 @@ Comparison between existing and incoming Study Investigational Interventions
 | incomingInvestigationalInterventions | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.InvestigationalInterventionEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.InvestigationalInterventionEntity}') |  |
 | existingInvestigationalInterventions | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.InvestigationalInterventionEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.InvestigationalInterventionEntity}') |  |
 
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-CheckForSections-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity,TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity-'></a>
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-CheckForSections-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity-'></a>
 ### CheckForSections(incoming,existing) `method`
 
 ##### Summary
@@ -1006,8 +705,8 @@ Comparison between existing and incoming study
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| incoming | [TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity') |  |
-| existing | [TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity') |  |
+| incoming | [TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity') |  |
+| existing | [TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity') |  |
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-CheckForStudyCellsSection-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-StudyCellEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-StudyCellEntity}-'></a>
 ### CheckForStudyCellsSection(incomingStudyCells,existingStudyCells) `method`
@@ -1396,7 +1095,7 @@ Generate uuid for Study Workflows
 | ---- | ---- | ----------- |
 | workflows | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.WorkflowEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.WorkflowEntity}') |  |
 
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-GeneratedSectionId-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity-'></a>
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-GeneratedSectionId-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity-'></a>
 ### GeneratedSectionId(study) `method`
 
 ##### Summary
@@ -1411,7 +1110,7 @@ Generate uuid for Each section of study
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| study | [TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity') | Study Entity |
+| study | [TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity') | Study Entity |
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-GetAuditTrail-System-String-'></a>
 ### GetAuditTrail(user) `method`
@@ -1430,7 +1129,7 @@ Get Audit Trail fields for the POST Api
 | ---- | ---- | ----------- |
 | user | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity,TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity-'></a>
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity-'></a>
 ### IsSameStudy(incoming,existing) `method`
 
 ##### Summary
@@ -1445,8 +1144,8 @@ Compare Full Study
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| incoming | [TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity') |  |
-| existing | [TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity') |  |
+| incoming | [TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity') |  |
+| existing | [TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity') |  |
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-JsonObjectCheck-System-Object,System-Object-'></a>
 ### JsonObjectCheck(incoming,existing) `method`
@@ -1619,7 +1318,7 @@ Remove uuid for Study Workflows
 | ---- | ---- | ----------- |
 | workflows | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.WorkflowEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.WorkflowEntity}') |  |
 
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-RemovedSectionId-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity-'></a>
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-HelperV1-RemovedSectionId-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity-'></a>
 ### RemovedSectionId(study) `method`
 
 ##### Summary
@@ -1634,7 +1333,7 @@ Remode uuid for Study
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| study | [TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity') |  |
+| study | [TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity') |  |
 
 <a name='T-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2'></a>
 ## HelperV2 `type`
@@ -1700,7 +1399,7 @@ Get Audit Trail fields for the POST Api
 | ---- | ---- | ----------- |
 | user | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-GetChangedValues-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity,TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity-'></a>
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-GetChangedValues-TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity-'></a>
 ### GetChangedValues(currentStudyVersion,previousStudyVersion) `method`
 
 ##### Summary
@@ -1715,10 +1414,10 @@ Get the differences between two studies
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| currentStudyVersion | [TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity') | Current study version |
-| previousStudyVersion | [TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity') | Previous study version |
+| currentStudyVersion | [TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity') | Current study version |
+| previousStudyVersion | [TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity') | Previous study version |
 
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity,TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity-'></a>
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity-'></a>
 ### IsSameStudy(incoming,existing) `method`
 
 ##### Summary
@@ -1733,8 +1432,8 @@ Compare Full Study
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| incoming | [TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity') |  |
-| existing | [TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity') |  |
+| incoming | [TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity') |  |
+| existing | [TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity') |  |
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-JsonObjectCheck-System-Object,System-Object-'></a>
 ### JsonObjectCheck(incoming,existing) `method`
@@ -1994,7 +1693,7 @@ Remove the study design elemets which are not requested
 | studyDesigns | [System.Collections.Generic.List{TransCelerate.SDR.Core.DTO.StudyV2.StudyDesignDto}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.DTO.StudyV2.StudyDesignDto}') |  |
 | study_uuid | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-RemoveStudyElements-System-String[],TransCelerate-SDR-Core-DTO-StudyV2-StudyDto-'></a>
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-RemoveStudyElements-System-String[],TransCelerate-SDR-Core-DTO-StudyV2-StudyDefinitionsDto-'></a>
 ### RemoveStudyElements(sections,studyDTO) `method`
 
 ##### Summary
@@ -2010,9 +1709,9 @@ Remove the study elemets which are not requested
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | sections | [System.String[]](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[] 'System.String[]') |  |
-| studyDTO | [TransCelerate.SDR.Core.DTO.StudyV2.StudyDto](#T-TransCelerate-SDR-Core-DTO-StudyV2-StudyDto 'TransCelerate.SDR.Core.DTO.StudyV2.StudyDto') |  |
+| studyDTO | [TransCelerate.SDR.Core.DTO.StudyV2.StudyDefinitionsDto](#T-TransCelerate-SDR-Core-DTO-StudyV2-StudyDefinitionsDto 'TransCelerate.SDR.Core.DTO.StudyV2.StudyDefinitionsDto') |  |
 
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-RemovedSectionId-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity-'></a>
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-RemovedSectionId-TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity-'></a>
 ### RemovedSectionId(study) `method`
 
 ##### Summary
@@ -2027,7 +1726,469 @@ Remode uuid for Study
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| study | [TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity') |  |
+| study | [TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity') |  |
+
+<a name='T-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3'></a>
+## HelperV3 `type`
+
+##### Namespace
+
+TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
+
+##### Summary
+
+This class is used as a helper for different funtionalities
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-AreValidStudyDesignElements-System-String,System-String[]@-'></a>
+### AreValidStudyDesignElements(listofelements,listofElementsArray) `method`
+
+##### Summary
+
+Check whether the the input list of study design elements are valid or not
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| listofelements | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| listofElementsArray | [System.String[]@](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[]@ 'System.String[]@') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-AreValidStudyElements-System-String,System-String[]@-'></a>
+### AreValidStudyElements(listofelements,listofElementsArray) `method`
+
+##### Summary
+
+Check whether the the input list of study elements are valid or not
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| listofelements | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| listofElementsArray | [System.String[]@](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[]@ 'System.String[]@') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-GetAuditTrail-System-String-'></a>
+### GetAuditTrail(user) `method`
+
+##### Summary
+
+Get Audit Trail fields for the POST Api
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| user | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-GetChangedValues-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity-'></a>
+### GetChangedValues(currentStudyVersion,previousStudyVersion) `method`
+
+##### Summary
+
+Get the differences between two studies
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| currentStudyVersion | [TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity') | Current study version |
+| previousStudyVersion | [TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity') | Previous study version |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-GetChangedValuesForStudyComparison-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity-'></a>
+### GetChangedValuesForStudyComparison(currentStudyVersion,previousStudyVersion) `method`
+
+##### Summary
+
+Get the differences between two studies
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| currentStudyVersion | [TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity') | Current study version |
+| previousStudyVersion | [TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity') | Previous study version |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity-'></a>
+### IsSameStudy(incoming,existing) `method`
+
+##### Summary
+
+Compare Full Study
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| incoming | [TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity') |  |
+| existing | [TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-JsonObjectCheck-System-Object,System-Object-'></a>
+### JsonObjectCheck(incoming,existing) `method`
+
+##### Summary
+
+Deep compare of existing and incoming study
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| incoming | [System.Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') |  |
+| existing | [System.Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForActivities-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-ActivityEntity}-'></a>
+### RemoveIdForActivities(activities) `method`
+
+##### Summary
+
+Remove uuid for Activities
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| activities | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.ActivityEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.ActivityEntity}') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForAliasCode-TransCelerate-SDR-Core-Entities-StudyV3-AliasCodeEntity-'></a>
+### RemoveIdForAliasCode(aliasCode) `method`
+
+##### Summary
+
+Remove uuid for AliasCode
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| aliasCode | [TransCelerate.SDR.Core.Entities.StudyV3.AliasCodeEntity](#T-TransCelerate-SDR-Core-Entities-StudyV3-AliasCodeEntity 'TransCelerate.SDR.Core.Entities.StudyV3.AliasCodeEntity') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForBioMedicalConcepts-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-BiomedicalConceptEntity}-'></a>
+### RemoveIdForBioMedicalConcepts(biomedicalConcepts) `method`
+
+##### Summary
+
+Remove uuid for Biomedical Concepts
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| biomedicalConcepts | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.BiomedicalConceptEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.BiomedicalConceptEntity}') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForEncounters-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-EncounterEntity}-'></a>
+### RemoveIdForEncounters(encounters) `method`
+
+##### Summary
+
+Remove uuid for Encounters
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| encounters | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.EncounterEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.EncounterEntity}') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForInvestigationalInterventions-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-InvestigationalInterventionEntity}-'></a>
+### RemoveIdForInvestigationalInterventions(investigationalInterventions) `method`
+
+##### Summary
+
+Remove uuid for Study Investigational Interventions
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| investigationalInterventions | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.InvestigationalInterventionEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.InvestigationalInterventionEntity}') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForScheduleTimelines-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-ScheduleTimelineEntity}-'></a>
+### RemoveIdForScheduleTimelines(scheduleTimelines) `method`
+
+##### Summary
+
+Remove uuid for Schedule Timelines
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| scheduleTimelines | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.ScheduleTimelineEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.ScheduleTimelineEntity}') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForStudyArms-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-StudyArmEntity}-'></a>
+### RemoveIdForStudyArms(studyArms) `method`
+
+##### Summary
+
+Remove uuid for Study Cells
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyArms | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyArmEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyArmEntity}') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForStudyCells-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-StudyCellEntity}-'></a>
+### RemoveIdForStudyCells(studyCells) `method`
+
+##### Summary
+
+Remove uuid for Study Cells
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyCells | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyCellEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyCellEntity}') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForStudyDesign-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-StudyDesignEntity}-'></a>
+### RemoveIdForStudyDesign(studyDesigns) `method`
+
+##### Summary
+
+Remove uuid for Study Designs
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyDesigns | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyDesignEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyDesignEntity}') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForStudyElements-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-StudyElementEntity}-'></a>
+### RemoveIdForStudyElements(studyElements) `method`
+
+##### Summary
+
+Remove uuid for Study Cells
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyElements | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyElementEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyElementEntity}') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForStudyEpochs-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-StudyEpochEntity}-'></a>
+### RemoveIdForStudyEpochs(studyEpochs) `method`
+
+##### Summary
+
+Remove uuid for Study Cells
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyEpochs | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyEpochEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyEpochEntity}') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForStudyEstimand-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-EstimandEntity}-'></a>
+### RemoveIdForStudyEstimand(estimands) `method`
+
+##### Summary
+
+Remove uuid for Study Estimands
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| estimands | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.EstimandEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.EstimandEntity}') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForStudyIdentifier-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-StudyIdentifierEntity}-'></a>
+### RemoveIdForStudyIdentifier(studyIdentifiers) `method`
+
+##### Summary
+
+Remove uuid for Study Identifier
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyIdentifiers | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyIdentifierEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyIdentifierEntity}') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForStudyIndications-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-IndicationEntity}-'></a>
+### RemoveIdForStudyIndications(indications) `method`
+
+##### Summary
+
+Remove uuid for Study Indications
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| indications | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.IndicationEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.IndicationEntity}') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForStudyObjectives-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-ObjectiveEntity}-'></a>
+### RemoveIdForStudyObjectives(objectives) `method`
+
+##### Summary
+
+Remove uuid for Study Objectives
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| objectives | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.ObjectiveEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.ObjectiveEntity}') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveIdForStudyProtocol-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-StudyProtocolVersionEntity}-'></a>
+### RemoveIdForStudyProtocol(studyProtocolVersions) `method`
+
+##### Summary
+
+Remove uuid for Study Protocol Versions
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyProtocolVersions | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyProtocolVersionEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyProtocolVersionEntity}') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveStudyDesignElements-System-String[],System-Collections-Generic-List{TransCelerate-SDR-Core-DTO-StudyV3-StudyDesignDto},System-String-'></a>
+### RemoveStudyDesignElements(sections,studyDesigns,study_uuid) `method`
+
+##### Summary
+
+Remove the study design elemets which are not requested
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| sections | [System.String[]](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[] 'System.String[]') |  |
+| studyDesigns | [System.Collections.Generic.List{TransCelerate.SDR.Core.DTO.StudyV3.StudyDesignDto}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.DTO.StudyV3.StudyDesignDto}') |  |
+| study_uuid | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemoveStudyElements-System-String[],TransCelerate-SDR-Core-DTO-StudyV3-StudyDefinitionsDto-'></a>
+### RemoveStudyElements(sections,studyDTO) `method`
+
+##### Summary
+
+Remove the study elemets which are not requested
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| sections | [System.String[]](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[] 'System.String[]') |  |
+| studyDTO | [TransCelerate.SDR.Core.DTO.StudyV3.StudyDefinitionsDto](#T-TransCelerate-SDR-Core-DTO-StudyV3-StudyDefinitionsDto 'TransCelerate.SDR.Core.DTO.StudyV3.StudyDefinitionsDto') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-RemovedSectionId-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity-'></a>
+### RemovedSectionId(study) `method`
+
+##### Summary
+
+Remode uuid for Study
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| study | [TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity') |  |
 
 <a name='T-TransCelerate-SDR-Core-Utilities-Helpers-HttpContextResponseHelper'></a>
 ## HttpContextResponseHelper `type`
@@ -2137,7 +2298,7 @@ Comparison between existing and incoming Study Investigational Interventions
 | incomingInvestigationalInterventions | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.InvestigationalInterventionEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.InvestigationalInterventionEntity}') |  |
 | existingInvestigationalInterventions | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.InvestigationalInterventionEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.InvestigationalInterventionEntity}') |  |
 
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-CheckForSections-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity,TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity-'></a>
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-CheckForSections-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity-'></a>
 ### CheckForSections(incoming,existing) `method`
 
 ##### Summary
@@ -2152,8 +2313,8 @@ Comparison between existing and incoming study
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| incoming | [TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity') |  |
-| existing | [TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity') |  |
+| incoming | [TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity') |  |
+| existing | [TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity') |  |
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-CheckForStudyCellsSection-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-StudyCellEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV1-StudyCellEntity}-'></a>
 ### CheckForStudyCellsSection(incomingStudyCells,existingStudyCells) `method`
@@ -2542,7 +2703,7 @@ Generate uuid for Study Workflows
 | ---- | ---- | ----------- |
 | workflows | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.WorkflowEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.WorkflowEntity}') |  |
 
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-GeneratedSectionId-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity-'></a>
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-GeneratedSectionId-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity-'></a>
 ### GeneratedSectionId(study) `method`
 
 ##### Summary
@@ -2557,7 +2718,7 @@ Generate uuid for Each section of study
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| study | [TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity') | Study Entity |
+| study | [TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity') | Study Entity |
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-GetAuditTrail-System-String-'></a>
 ### GetAuditTrail(user) `method`
@@ -2576,7 +2737,7 @@ Get Audit Trail fields for the POST Api
 | ---- | ---- | ----------- |
 | user | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity,TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity-'></a>
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity-'></a>
 ### IsSameStudy(incoming,existing) `method`
 
 ##### Summary
@@ -2591,8 +2752,8 @@ Compare Full Study
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| incoming | [TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity') |  |
-| existing | [TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity') |  |
+| incoming | [TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity') |  |
+| existing | [TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity') |  |
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-JsonObjectCheck-System-Object,System-Object-'></a>
 ### JsonObjectCheck(incoming,existing) `method`
@@ -2765,7 +2926,7 @@ Remove uuid for Study Workflows
 | ---- | ---- | ----------- |
 | workflows | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.WorkflowEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV1.WorkflowEntity}') |  |
 
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-RemovedSectionId-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity-'></a>
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV1-IHelperV1-RemovedSectionId-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity-'></a>
 ### RemovedSectionId(study) `method`
 
 ##### Summary
@@ -2780,7 +2941,7 @@ Remode uuid for Study
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| study | [TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyEntity') |  |
+| study | [TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV1-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV1.StudyDefinitionsEntity') |  |
 
 <a name='T-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2'></a>
 ## IHelperV2 `type`
@@ -2842,7 +3003,22 @@ Get Audit Trail fields for the POST Api
 | ---- | ---- | ----------- |
 | user | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity,TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity-'></a>
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-GetSerializerSettingsForCamelCasing'></a>
+### GetSerializerSettingsForCamelCasing() `method`
+
+##### Summary
+
+JSON Serializer for camel casing
+
+##### Returns
+
+
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity-'></a>
 ### IsSameStudy(incoming,existing) `method`
 
 ##### Summary
@@ -2857,8 +3033,8 @@ Compare Full Study
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| incoming | [TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity') |  |
-| existing | [TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity') |  |
+| incoming | [TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity') |  |
+| existing | [TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity') |  |
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-JsonObjectCheck-System-Object,System-Object-'></a>
 ### JsonObjectCheck(incoming,existing) `method`
@@ -3033,7 +3209,7 @@ Remove studyDesign elements which are not requested
 | studyDTO | [System.Collections.Generic.List{TransCelerate.SDR.Core.DTO.StudyV2.StudyDesignDto}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.DTO.StudyV2.StudyDesignDto}') |  |
 | study_uuid | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-RemoveStudyElements-System-String[],TransCelerate-SDR-Core-DTO-StudyV2-StudyDto-'></a>
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-RemoveStudyElements-System-String[],TransCelerate-SDR-Core-DTO-StudyV2-StudyDefinitionsDto-'></a>
 ### RemoveStudyElements(sections,studyDTO) `method`
 
 ##### Summary
@@ -3049,9 +3225,9 @@ Remove the study elemets which are not requested
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | sections | [System.String[]](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[] 'System.String[]') |  |
-| studyDTO | [TransCelerate.SDR.Core.DTO.StudyV2.StudyDto](#T-TransCelerate-SDR-Core-DTO-StudyV2-StudyDto 'TransCelerate.SDR.Core.DTO.StudyV2.StudyDto') |  |
+| studyDTO | [TransCelerate.SDR.Core.DTO.StudyV2.StudyDefinitionsDto](#T-TransCelerate-SDR-Core-DTO-StudyV2-StudyDefinitionsDto 'TransCelerate.SDR.Core.DTO.StudyV2.StudyDefinitionsDto') |  |
 
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-RemovedSectionId-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity-'></a>
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-RemovedSectionId-TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity-'></a>
 ### RemovedSectionId(study) `method`
 
 ##### Summary
@@ -3066,7 +3242,308 @@ Remode uuid for Study
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| study | [TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity](#T-TransCelerate-SDR-Core-Entities-StudyV2-StudyEntity 'TransCelerate.SDR.Core.Entities.StudyV2.StudyEntity') |  |
+| study | [TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity') |  |
+
+<a name='T-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3'></a>
+## IHelperV3 `type`
+
+##### Namespace
+
+TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-AreValidStudyDesignElements-System-String,System-String[]@-'></a>
+### AreValidStudyDesignElements(listofelements,listofelementsArray) `method`
+
+##### Summary
+
+Check whether the the input list of study design elements are valid or not
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| listofelements | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| listofelementsArray | [System.String[]@](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[]@ 'System.String[]@') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-AreValidStudyElements-System-String,System-String[]@-'></a>
+### AreValidStudyElements(listofelements,listofelementsArray) `method`
+
+##### Summary
+
+Check whether the the input list of elements are valid or not
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| listofelements | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| listofelementsArray | [System.String[]@](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[]@ 'System.String[]@') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-GetAuditTrail-System-String-'></a>
+### GetAuditTrail(user) `method`
+
+##### Summary
+
+Get Audit Trail fields for the POST Api
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| user | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-GetSerializerSettingsForCamelCasing'></a>
+### GetSerializerSettingsForCamelCasing() `method`
+
+##### Summary
+
+JSON Serializer for camel casing
+
+##### Returns
+
+
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity-'></a>
+### IsSameStudy(incoming,existing) `method`
+
+##### Summary
+
+Compare Full Study
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| incoming | [TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity') |  |
+| existing | [TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-JsonObjectCheck-System-Object,System-Object-'></a>
+### JsonObjectCheck(incoming,existing) `method`
+
+##### Summary
+
+Deep compare of existing and incoming study
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| incoming | [System.Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') |  |
+| existing | [System.Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-RemoveIdForInvestigationalInterventions-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-InvestigationalInterventionEntity}-'></a>
+### RemoveIdForInvestigationalInterventions(investigationalInterventions) `method`
+
+##### Summary
+
+Remove uuid for Study Investigational Interventions
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| investigationalInterventions | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.InvestigationalInterventionEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.InvestigationalInterventionEntity}') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-RemoveIdForStudyCells-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-StudyCellEntity}-'></a>
+### RemoveIdForStudyCells(studyCells) `method`
+
+##### Summary
+
+Remove uuid for Study Cells
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyCells | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyCellEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyCellEntity}') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-RemoveIdForStudyDesign-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-StudyDesignEntity}-'></a>
+### RemoveIdForStudyDesign(studyDesigns) `method`
+
+##### Summary
+
+Remove uuid for Study Designs
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyDesigns | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyDesignEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyDesignEntity}') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-RemoveIdForStudyEstimand-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-EstimandEntity}-'></a>
+### RemoveIdForStudyEstimand(estimands) `method`
+
+##### Summary
+
+Remove uuid for Study Estimands
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| estimands | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.EstimandEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.EstimandEntity}') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-RemoveIdForStudyIdentifier-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-StudyIdentifierEntity}-'></a>
+### RemoveIdForStudyIdentifier(studyIdentifiers) `method`
+
+##### Summary
+
+Remove uuid for Study Identifier
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyIdentifiers | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyIdentifierEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyIdentifierEntity}') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-RemoveIdForStudyIndications-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-IndicationEntity}-'></a>
+### RemoveIdForStudyIndications(indications) `method`
+
+##### Summary
+
+Remove uuid for Study Indications
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| indications | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.IndicationEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.IndicationEntity}') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-RemoveIdForStudyObjectives-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-ObjectiveEntity}-'></a>
+### RemoveIdForStudyObjectives(objectives) `method`
+
+##### Summary
+
+Remove uuid for Study Objectives
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| objectives | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.ObjectiveEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.ObjectiveEntity}') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-RemoveIdForStudyProtocol-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-StudyV3-StudyProtocolVersionEntity}-'></a>
+### RemoveIdForStudyProtocol(studyProtocolVersions) `method`
+
+##### Summary
+
+Remove uuid for Study Protocol Versions
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyProtocolVersions | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyProtocolVersionEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.StudyV3.StudyProtocolVersionEntity}') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-RemoveStudyDesignElements-System-String[],System-Collections-Generic-List{TransCelerate-SDR-Core-DTO-StudyV3-StudyDesignDto},System-String-'></a>
+### RemoveStudyDesignElements(sections,studyDTO,study_uuid) `method`
+
+##### Summary
+
+Remove studyDesign elements which are not requested
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| sections | [System.String[]](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[] 'System.String[]') |  |
+| studyDTO | [System.Collections.Generic.List{TransCelerate.SDR.Core.DTO.StudyV3.StudyDesignDto}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.DTO.StudyV3.StudyDesignDto}') |  |
+| study_uuid | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-RemoveStudyElements-System-String[],TransCelerate-SDR-Core-DTO-StudyV3-StudyDefinitionsDto-'></a>
+### RemoveStudyElements(sections,studyDTO) `method`
+
+##### Summary
+
+Remove the study elemets which are not requested
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| sections | [System.String[]](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[] 'System.String[]') |  |
+| studyDTO | [TransCelerate.SDR.Core.DTO.StudyV3.StudyDefinitionsDto](#T-TransCelerate-SDR-Core-DTO-StudyV3-StudyDefinitionsDto 'TransCelerate.SDR.Core.DTO.StudyV3.StudyDefinitionsDto') |  |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-RemovedSectionId-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity-'></a>
+### RemovedSectionId(study) `method`
+
+##### Summary
+
+Remode uuid for Study
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| study | [TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity](#T-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity 'TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity') |  |
 
 <a name='T-TransCelerate-SDR-Core-Utilities-Helpers-IdGenerator'></a>
 ## IdGenerator `type`
@@ -3186,491 +3663,6 @@ TransCelerate.SDR.Core.Utilities
 
 Enums for Permissions
 
-<a name='T-TransCelerate-SDR-Core-DTO-PostStudyDTO'></a>
-## PostStudyDTO `type`
-
-##### Namespace
-
-TransCelerate.SDR.Core.DTO
-
-##### Summary
-
-This class is a DTO for POST Method for a study
-
-<a name='P-TransCelerate-SDR-Core-DTO-PostStudyDTO-AuditTrail'></a>
-### AuditTrail `property`
-
-##### Summary
-
-This property holds the Audit Trail Component of the Study for POST Method
-
-<a name='P-TransCelerate-SDR-Core-DTO-PostStudyDTO-ClinicalStudy'></a>
-### ClinicalStudy `property`
-
-##### Summary
-
-This property holds the ClinicalStudy Component of the Study for POST Method
-
-<a name='T-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck'></a>
-## PostStudyElementsCheck `type`
-
-##### Namespace
-
-TransCelerate.SDR.Core.Utilities.Helpers
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-ActivitySectionCheck-TransCelerate-SDR-Core-Entities-Study-ActivityEntity,TransCelerate-SDR-Core-Entities-Study-ActivityEntity-'></a>
-### ActivitySectionCheck(existingActivityEntity,incomingActivityEntity) `method`
-
-##### Summary
-
-Check for Activity section
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| existingActivityEntity | [TransCelerate.SDR.Core.Entities.Study.ActivityEntity](#T-TransCelerate-SDR-Core-Entities-Study-ActivityEntity 'TransCelerate.SDR.Core.Entities.Study.ActivityEntity') | Existing Activity |
-| incomingActivityEntity | [TransCelerate.SDR.Core.Entities.Study.ActivityEntity](#T-TransCelerate-SDR-Core-Entities-Study-ActivityEntity 'TransCelerate.SDR.Core.Entities.Study.ActivityEntity') | Incoming Activity |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-EncounterSectionCheck-TransCelerate-SDR-Core-Entities-Study-EncounterEntity,TransCelerate-SDR-Core-Entities-Study-EncounterEntity-'></a>
-### EncounterSectionCheck(existingEncounterEntity,incomingEncounterEntity) `method`
-
-##### Summary
-
-Check for Encounter section
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| existingEncounterEntity | [TransCelerate.SDR.Core.Entities.Study.EncounterEntity](#T-TransCelerate-SDR-Core-Entities-Study-EncounterEntity 'TransCelerate.SDR.Core.Entities.Study.EncounterEntity') | Existing Encounter |
-| incomingEncounterEntity | [TransCelerate.SDR.Core.Entities.Study.EncounterEntity](#T-TransCelerate-SDR-Core-Entities-Study-EncounterEntity 'TransCelerate.SDR.Core.Entities.Study.EncounterEntity') | Incoming Encounter |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-EpochSectionCheck-TransCelerate-SDR-Core-Entities-Study-EpochEntity,TransCelerate-SDR-Core-Entities-Study-EpochEntity-'></a>
-### EpochSectionCheck(existingEpochEntity,incomingEpochEntity) `method`
-
-##### Summary
-
-Check for Epoch section
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| existingEpochEntity | [TransCelerate.SDR.Core.Entities.Study.EpochEntity](#T-TransCelerate-SDR-Core-Entities-Study-EpochEntity 'TransCelerate.SDR.Core.Entities.Study.EpochEntity') | Existing Epoch |
-| incomingEpochEntity | [TransCelerate.SDR.Core.Entities.Study.EpochEntity](#T-TransCelerate-SDR-Core-Entities-Study-EpochEntity 'TransCelerate.SDR.Core.Entities.Study.EpochEntity') | Incoming Epoch |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-InvestigationalInvestigationSectionCheck-TransCelerate-SDR-Core-Entities-Study-StudyDesignEntity,System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-InvestigationalInterventionEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-InvestigationalInterventionEntity}-'></a>
-### InvestigationalInvestigationSectionCheck(existingStudyDesign,existingInvestigationalInterventionEntities,incomingInvestigationalInterventionEntities) `method`
-
-##### Summary
-
-Check for Investigational Intervention section
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| existingStudyDesign | [TransCelerate.SDR.Core.Entities.Study.StudyDesignEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyDesignEntity 'TransCelerate.SDR.Core.Entities.Study.StudyDesignEntity') | Existing Study Design |
-| existingInvestigationalInterventionEntities | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.InvestigationalInterventionEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.InvestigationalInterventionEntity}') | Existing InvestigationalIntervention |
-| incomingInvestigationalInterventionEntities | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.InvestigationalInterventionEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.InvestigationalInterventionEntity}') | Incoming InvestigationalIntervention |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-ItemSectionCheck-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-ItemEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-ItemEntity}-'></a>
-### ItemSectionCheck(existingItemEntities,incomingItemEntities) `method`
-
-##### Summary
-
-Check for Items section
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| existingItemEntities | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.ItemEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.ItemEntity}') | Existing Items |
-| incomingItemEntities | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.ItemEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.ItemEntity}') | Incoming Items |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-JsonObjectCheck-System-Object,System-Object-'></a>
-### JsonObjectCheck(incoming,existing) `method`
-
-##### Summary
-
-This method will check whether two Json objects are same or not
-
-##### Returns
-
-`true` If incoming and existing study entities are identical
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| incoming | [System.Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') | Object of Incoming study defenitions |
-| existing | [System.Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') | Object of Existing study defenitions |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-MatrixSectionCheck-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-MatrixEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-MatrixEntity}-'></a>
-### MatrixSectionCheck(existingMatrixEntities,incomingMatrixEntities) `method`
-
-##### Summary
-
-Check for Matrix section
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| existingMatrixEntities | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.MatrixEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.MatrixEntity}') | Existing Matrix |
-| incomingMatrixEntities | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.MatrixEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.MatrixEntity}') | Incoming Matrix |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-PointInTimeSectionCheck-TransCelerate-SDR-Core-Entities-Study-PointInTimeEntity,TransCelerate-SDR-Core-Entities-Study-PointInTimeEntity-'></a>
-### PointInTimeSectionCheck(existingPointInTime,incomingPointInTime) `method`
-
-##### Summary
-
-Check for PointInTime section
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| existingPointInTime | [TransCelerate.SDR.Core.Entities.Study.PointInTimeEntity](#T-TransCelerate-SDR-Core-Entities-Study-PointInTimeEntity 'TransCelerate.SDR.Core.Entities.Study.PointInTimeEntity') | Existing PointInTime |
-| incomingPointInTime | [TransCelerate.SDR.Core.Entities.Study.PointInTimeEntity](#T-TransCelerate-SDR-Core-Entities-Study-PointInTimeEntity 'TransCelerate.SDR.Core.Entities.Study.PointInTimeEntity') | Incoming PointInTime |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-RemoveId-TransCelerate-SDR-Core-Entities-Study-StudyEntity-'></a>
-### RemoveId(studyEntity) `method`
-
-##### Summary
-
-This method will remove all the id fields in the study
-
-##### Returns
-
-A [StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') after removing all ID fields
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| studyEntity | [TransCelerate.SDR.Core.Entities.Study.StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') | Study defenitions for which Id fields must be removed |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-RuleSectionCheck-TransCelerate-SDR-Core-Entities-Study-RuleEntity,TransCelerate-SDR-Core-Entities-Study-RuleEntity-'></a>
-### RuleSectionCheck(existingRuleEntity,incomingRuleEntity) `method`
-
-##### Summary
-
-Check for Rule section
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| existingRuleEntity | [TransCelerate.SDR.Core.Entities.Study.RuleEntity](#T-TransCelerate-SDR-Core-Entities-Study-RuleEntity 'TransCelerate.SDR.Core.Entities.Study.RuleEntity') | Existing Rule |
-| incomingRuleEntity | [TransCelerate.SDR.Core.Entities.Study.RuleEntity](#T-TransCelerate-SDR-Core-Entities-Study-RuleEntity 'TransCelerate.SDR.Core.Entities.Study.RuleEntity') | Incoming Rule |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-SectionCheck-TransCelerate-SDR-Core-Entities-Study-StudyEntity,TransCelerate-SDR-Core-Entities-Study-StudyEntity-'></a>
-### SectionCheck(incoming,existing) `method`
-
-##### Summary
-
-Section Level Study comparison for sectional POST
-
-##### Returns
-
-A [StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') after checking the section for Posting the data to the database
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| incoming | [TransCelerate.SDR.Core.Entities.Study.StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') | Incoming Study Defenitions |
-| existing | [TransCelerate.SDR.Core.Entities.Study.StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') | Existing Study Defenitions |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-StudyArmSectionCheck-TransCelerate-SDR-Core-Entities-Study-StudyArmEntity,TransCelerate-SDR-Core-Entities-Study-StudyArmEntity-'></a>
-### StudyArmSectionCheck(existingStudyArm,incomingStudyArm) `method`
-
-##### Summary
-
-Check for StudyArm section
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| existingStudyArm | [TransCelerate.SDR.Core.Entities.Study.StudyArmEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyArmEntity 'TransCelerate.SDR.Core.Entities.Study.StudyArmEntity') | Existing StudyArm |
-| incomingStudyArm | [TransCelerate.SDR.Core.Entities.Study.StudyArmEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyArmEntity 'TransCelerate.SDR.Core.Entities.Study.StudyArmEntity') | Incoming StudyArm |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-StudyCellsSectionCheck-TransCelerate-SDR-Core-Entities-Study-StudyDesignEntity,System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyCellEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyCellEntity}-'></a>
-### StudyCellsSectionCheck(existingStudyDesign,existingStudyCellsEntities,incomingStudyCellsEntities) `method`
-
-##### Summary
-
-Check for StudyCells section
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| existingStudyDesign | [TransCelerate.SDR.Core.Entities.Study.StudyDesignEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyDesignEntity 'TransCelerate.SDR.Core.Entities.Study.StudyDesignEntity') | Existing Study Design |
-| existingStudyCellsEntities | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyCellEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyCellEntity}') | Existing Study Cells |
-| incomingStudyCellsEntities | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyCellEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyCellEntity}') | Incoming Study Cells |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-StudyComparison-TransCelerate-SDR-Core-Entities-Study-StudyEntity,TransCelerate-SDR-Core-Entities-Study-StudyEntity-'></a>
-### StudyComparison(incoming,existing) `method`
-
-##### Summary
-
-This method is used to check whether the incoming study and existing study are same
-
-##### Returns
-
-`true` If incoming and existing study entities are identical
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| incoming | [TransCelerate.SDR.Core.Entities.Study.StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') | Incoming study defenitions |
-| existing | [TransCelerate.SDR.Core.Entities.Study.StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') | Existing study defenitions |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-StudyDataCollectionSectionCheck-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyDataCollectionEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyDataCollectionEntity}-'></a>
-### StudyDataCollectionSectionCheck(existingStudyDataCollectionEntities,incomingStudyDataCollectionEntities) `method`
-
-##### Summary
-
-Check for StudyDataCollection section
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| existingStudyDataCollectionEntities | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyDataCollectionEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyDataCollectionEntity}') | Existing StudyDataCollection |
-| incomingStudyDataCollectionEntities | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyDataCollectionEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyDataCollectionEntity}') | Incoming StudyDataCollection |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-StudyDesignSectionCheck-TransCelerate-SDR-Core-Entities-Study-StudyEntity,System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyDesignEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyDesignEntity}-'></a>
-### StudyDesignSectionCheck(existing,existingStudyDesignEntities,incomingStudyDesignEntities) `method`
-
-##### Summary
-
-Check for Study Design section
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| existing | [TransCelerate.SDR.Core.Entities.Study.StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') | Existing Study Defenitions |
-| existingStudyDesignEntities | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyDesignEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyDesignEntity}') | Existing Study Designs |
-| incomingStudyDesignEntities | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyDesignEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyDesignEntity}') | Existing Study Designs |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-StudyElementsSectionCheck-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyElementEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyElementEntity}-'></a>
-### StudyElementsSectionCheck(existingStudyElementsEntities,incomingStudyElementsEntities) `method`
-
-##### Summary
-
-Check for StudyElements section
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| existingStudyElementsEntities | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyElementEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyElementEntity}') | Existing StudyElement |
-| incomingStudyElementsEntities | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyElementEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyElementEntity}') | Incoming StudyElement |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-StudyEpochSectionCheck-TransCelerate-SDR-Core-Entities-Study-StudyEpochEntity,TransCelerate-SDR-Core-Entities-Study-StudyEpochEntity-'></a>
-### StudyEpochSectionCheck(existingStudyEpoch,incomingStudyEpoch) `method`
-
-##### Summary
-
-Check for StudyEpoch section
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| existingStudyEpoch | [TransCelerate.SDR.Core.Entities.Study.StudyEpochEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEpochEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEpochEntity') | Existing StudyEpoch |
-| incomingStudyEpoch | [TransCelerate.SDR.Core.Entities.Study.StudyEpochEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEpochEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEpochEntity') | Incoming StudyEpoch |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-StudyIndicationSectionCheck-TransCelerate-SDR-Core-Entities-Study-StudyEntity,System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyIndicationEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyIndicationEntity}-'></a>
-### StudyIndicationSectionCheck(existing,existingStudyIndicationEntities,incomingStudyIndicationEntities) `method`
-
-##### Summary
-
-Check for Study Indication section
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| existing | [TransCelerate.SDR.Core.Entities.Study.StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') | Existing Study Defenitions |
-| existingStudyIndicationEntities | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyIndicationEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyIndicationEntity}') | Existing Study Indications |
-| incomingStudyIndicationEntities | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyIndicationEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyIndicationEntity}') | Incoming Study Indications |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-StudyObjectivesSectionCheck-TransCelerate-SDR-Core-Entities-Study-StudyEntity,System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyObjectiveEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyObjectiveEntity}-'></a>
-### StudyObjectivesSectionCheck(existing,existingStudyObjectivesEntities,incomingStudyObjectivesEntities) `method`
-
-##### Summary
-
-Check for Study Objectives section
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| existing | [TransCelerate.SDR.Core.Entities.Study.StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') | Existing Study Defenitions |
-| existingStudyObjectivesEntities | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyObjectiveEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyObjectiveEntity}') | Existing Study Objectives |
-| incomingStudyObjectivesEntities | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyObjectiveEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyObjectiveEntity}') | Incoming Study Objectives |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-StudyPlannedWorkFlowSectionCheck-TransCelerate-SDR-Core-Entities-Study-StudyDesignEntity,System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-PlannedWorkFlowEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-PlannedWorkFlowEntity}-'></a>
-### StudyPlannedWorkFlowSectionCheck(existingStudyDesign,existingPlannedWorkFlowsEntities,incomingPlannedWorkFlowsEntities) `method`
-
-##### Summary
-
-Check for Study Planned WorkFlow section
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| existingStudyDesign | [TransCelerate.SDR.Core.Entities.Study.StudyDesignEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyDesignEntity 'TransCelerate.SDR.Core.Entities.Study.StudyDesignEntity') | Existing Study Design |
-| existingPlannedWorkFlowsEntities | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.PlannedWorkFlowEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.PlannedWorkFlowEntity}') | Existing PlannedWorkflows |
-| incomingPlannedWorkFlowsEntities | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.PlannedWorkFlowEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.PlannedWorkFlowEntity}') | Incoming PlannedWorkflows |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-StudyPopulationsSectionCheck-TransCelerate-SDR-Core-Entities-Study-StudyDesignEntity,System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyPopulationEntity},System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-StudyPopulationEntity}-'></a>
-### StudyPopulationsSectionCheck(existingStudyDesign,existingStudyPopulationEntities,incomingStudyPopulationEntities) `method`
-
-##### Summary
-
-Check for Study Population section
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| existingStudyDesign | [TransCelerate.SDR.Core.Entities.Study.StudyDesignEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyDesignEntity 'TransCelerate.SDR.Core.Entities.Study.StudyDesignEntity') | Existing Study Design |
-| existingStudyPopulationEntities | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyPopulationEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyPopulationEntity}') | Existing Study Populations |
-| incomingStudyPopulationEntities | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyPopulationEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.StudyPopulationEntity}') | Incoming Study Populations |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-PostStudyElementsCheck-WorkFlowItemMatrixSectionCheck-TransCelerate-SDR-Core-Entities-Study-WorkFlowItemMatrixEntity,TransCelerate-SDR-Core-Entities-Study-WorkFlowItemMatrixEntity-'></a>
-### WorkFlowItemMatrixSectionCheck(existingWorkFlowItemMatrixEntity,incomingWorkFlowItemMatrixEntity) `method`
-
-##### Summary
-
-Check for WorkFlowItemMatrix section
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| existingWorkFlowItemMatrixEntity | [TransCelerate.SDR.Core.Entities.Study.WorkFlowItemMatrixEntity](#T-TransCelerate-SDR-Core-Entities-Study-WorkFlowItemMatrixEntity 'TransCelerate.SDR.Core.Entities.Study.WorkFlowItemMatrixEntity') | Existing WorkFlowItemMatrix |
-| incomingWorkFlowItemMatrixEntity | [TransCelerate.SDR.Core.Entities.Study.WorkFlowItemMatrixEntity](#T-TransCelerate-SDR-Core-Entities-Study-WorkFlowItemMatrixEntity 'TransCelerate.SDR.Core.Entities.Study.WorkFlowItemMatrixEntity') | Incoming WorkFlowItemMatrix |
-
-<a name='T-TransCelerate-SDR-Core-Utilities-Helpers-PreviousItemNextItemHelper'></a>
-## PreviousItemNextItemHelper `type`
-
-##### Namespace
-
-TransCelerate.SDR.Core.Utilities.Helpers
-
-##### Summary
-
-This class is to get Previous Items and Next Items for a Study
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-PreviousItemNextItemHelper-GetPreviousNextItems-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-Study-ItemEntity}-'></a>
-### GetPreviousNextItems(itemEntities) `method`
-
-##### Summary
-
-Generate the Previous Items and Next Items
-
-##### Returns
-
-A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') after creating previuosItems and NextItems Array
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| itemEntities | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.ItemEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.Study.ItemEntity}') | Item List for which Previous and Next Items need to be created |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-PreviousItemNextItemHelper-PreviousItemsNextItemsWraper-TransCelerate-SDR-Core-Entities-Study-StudyEntity-'></a>
-### PreviousItemsNextItemsWraper(studyEntity) `method`
-
-##### Summary
-
-Get the ItemList from the Study
-
-##### Returns
-
-A [StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') after creating previuosItems and NextItems Array
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| studyEntity | [TransCelerate.SDR.Core.Entities.Study.StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') | Study Entity for which Previous and Next Items need to be created |
-
-<a name='T-TransCelerate-SDR-Core-Utilities-Helpers-RemoveStudySections'></a>
-## RemoveStudySections `type`
-
-##### Namespace
-
-TransCelerate.SDR.Core.Utilities.Helpers
-
-##### Summary
-
-This class is for removing sections from the study for sectional response
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-RemoveStudySections-PostResponseRemoveSections-TransCelerate-SDR-Core-DTO-PostStudyDTO-'></a>
-### PostResponseRemoveSections(studyEntity) `method`
-
-##### Summary
-
-This method is for formatting study definitions to POST request format
-
-##### Returns
-
-A [Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') After formating the JSON to the POST request format
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| studyEntity | [TransCelerate.SDR.Core.DTO.PostStudyDTO](#T-TransCelerate-SDR-Core-DTO-PostStudyDTO 'TransCelerate.SDR.Core.DTO.PostStudyDTO') | Study for formatting the response |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-RemoveStudySections-RemoveSections-System-String[],TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-'></a>
-### RemoveSections(sections,getStudySectionsDTO) `method`
-
-##### Summary
-
-This method is for removing study level sections
-
-##### Returns
-
-A [Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') After removing sections which are not in the sections array
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| sections | [System.String[]](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[] 'System.String[]') | Study Sections array |
-| getStudySectionsDTO | [TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO](#T-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO') | Study defenitions from Database |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-RemoveStudySections-RemoveSectionsForStudyDesign-System-String[],TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO-'></a>
-### RemoveSectionsForStudyDesign(sections,getStudySectionsDTO) `method`
-
-##### Summary
-
-This method is for removing study design level sections
-
-##### Returns
-
-A [Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') After removing sections which are not in the sections array
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| sections | [System.String[]](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[] 'System.String[]') | Study Design Sections array |
-| getStudySectionsDTO | [TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO](#T-TransCelerate-SDR-Core-DTO-Study-GetStudySectionsDTO 'TransCelerate.SDR.Core.DTO.Study.GetStudySectionsDTO') | Study defenitions from Database |
-
 <a name='T-TransCelerate-SDR-Core-Utilities-Common-Route'></a>
 ## Route `type`
 
@@ -3714,102 +3706,6 @@ TransCelerate.SDR.Core.DTO.StudyV1
 ##### Summary
 
 This class is a DTO for response of Search StudyTitle Endpoint
-
-<a name='T-TransCelerate-SDR-Core-Utilities-Helpers-SectionIdGenerator'></a>
-## SectionIdGenerator `type`
-
-##### Namespace
-
-TransCelerate.SDR.Core.Utilities.Helpers
-
-##### Summary
-
-This class is for generating Id for each Sections
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-SectionIdGenerator-GenerateSectionId-TransCelerate-SDR-Core-Entities-Study-StudyEntity-'></a>
-### GenerateSectionId(studyEntity) `method`
-
-##### Summary
-
-Generate Id for all the sections
-
-##### Returns
-
-A [StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') after generating ID for all Sections
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| studyEntity | [TransCelerate.SDR.Core.Entities.Study.StudyEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyEntity 'TransCelerate.SDR.Core.Entities.Study.StudyEntity') | Study for which Id's to be generated |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-SectionIdGenerator-StudyCellsIdGenerator-TransCelerate-SDR-Core-Entities-Study-StudyCellEntity-'></a>
-### StudyCellsIdGenerator(studyCellEntity) `method`
-
-##### Summary
-
-Generate Id for Study Cells
-
-##### Returns
-
-A [StudyCellEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyCellEntity 'TransCelerate.SDR.Core.Entities.Study.StudyCellEntity') after generating ID for StudyCell Section
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| studyCellEntity | [TransCelerate.SDR.Core.Entities.Study.StudyCellEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyCellEntity 'TransCelerate.SDR.Core.Entities.Study.StudyCellEntity') | Study Cells for which Id's to be generated |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-SectionIdGenerator-StudyDesignIdGenerator-TransCelerate-SDR-Core-Entities-Study-StudyDesignEntity-'></a>
-### StudyDesignIdGenerator(studyDesignEntity) `method`
-
-##### Summary
-
-Generate Id for Study Designs
-
-##### Returns
-
-A [StudyDesignEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyDesignEntity 'TransCelerate.SDR.Core.Entities.Study.StudyDesignEntity') after generating ID for StudyDesign Section
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| studyDesignEntity | [TransCelerate.SDR.Core.Entities.Study.StudyDesignEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyDesignEntity 'TransCelerate.SDR.Core.Entities.Study.StudyDesignEntity') | Study Design for which Id's to be generated |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-SectionIdGenerator-StudyObjectivesIdGenerator-TransCelerate-SDR-Core-Entities-Study-StudyObjectiveEntity-'></a>
-### StudyObjectivesIdGenerator(studyObjectivesEntity) `method`
-
-##### Summary
-
-Generate Id for Study Objectives
-
-##### Returns
-
-A [StudyObjectiveEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyObjectiveEntity 'TransCelerate.SDR.Core.Entities.Study.StudyObjectiveEntity') after generating ID for StudyObjective Section
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| studyObjectivesEntity | [TransCelerate.SDR.Core.Entities.Study.StudyObjectiveEntity](#T-TransCelerate-SDR-Core-Entities-Study-StudyObjectiveEntity 'TransCelerate.SDR.Core.Entities.Study.StudyObjectiveEntity') | Study Objectives for which Id's to be generated |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-SectionIdGenerator-StudyPlannedWorkFlowIdGenerator-TransCelerate-SDR-Core-Entities-Study-PlannedWorkFlowEntity-'></a>
-### StudyPlannedWorkFlowIdGenerator(plannedWorkFlowEntity) `method`
-
-##### Summary
-
-Generate Id for Study PlannedWorkFlows
-
-##### Returns
-
-A [PlannedWorkFlowEntity](#T-TransCelerate-SDR-Core-Entities-Study-PlannedWorkFlowEntity 'TransCelerate.SDR.Core.Entities.Study.PlannedWorkFlowEntity') after generating ID for PlannedWorkFlow Section
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| plannedWorkFlowEntity | [TransCelerate.SDR.Core.Entities.Study.PlannedWorkFlowEntity](#T-TransCelerate-SDR-Core-Entities-Study-PlannedWorkFlowEntity 'TransCelerate.SDR.Core.Entities.Study.PlannedWorkFlowEntity') | Planned workflow for which Id's to be generated |
 
 <a name='T-TransCelerate-SDR-Core-Utilities-SortOrder'></a>
 ## SortOrder `type`
@@ -3900,17 +3796,6 @@ TransCelerate.SDR.Core.DTO.StudyV1
 
 This class is a DTO for response of GET Study History Endpoint
 
-<a name='T-TransCelerate-SDR-Core-DTO-StudyV2-StudyHistoryResponseDto'></a>
-## StudyHistoryResponseDto `type`
-
-##### Namespace
-
-TransCelerate.SDR.Core.DTO.StudyV2
-
-##### Summary
-
-This class is a DTO for response of GET Study History Endpoint
-
 <a name='T-TransCelerate-SDR-Core-Utilities-StudySectionTypes'></a>
 ## StudySectionTypes `type`
 
@@ -3932,6 +3817,28 @@ TransCelerate.SDR.Core.Utilities
 ##### Summary
 
 Enums for Study Level Sections
+
+<a name='T-TransCelerate-SDR-Core-Utilities-Helpers-SuccessResponseHelper'></a>
+## SuccessResponseHelper `type`
+
+##### Namespace
+
+TransCelerate.SDR.Core.Utilities.Helpers
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-SuccessResponseHelper-ValidationSuccess-System-String-'></a>
+### ValidationSuccess() `method`
+
+##### Summary
+
+Response Helper for successful validation
+
+##### Returns
+
+A [ErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-ErrorModel 'TransCelerate.SDR.Core.ErrorModels.ErrorModel') When there is an Unauthorized Access
+
+##### Parameters
+
+This method has no parameters.
 
 <a name='T-TransCelerate-SDR-Core-Utilities-Helpers-UsageReportQueryHelper'></a>
 ## UsageReportQueryHelper `type`

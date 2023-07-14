@@ -34,11 +34,15 @@ namespace TransCelerate.SDR.RuleEngineV2
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ObjectiveValidator), nameof(ObjectiveDto.ObjectiveEndpoints)), ApplyConditionTo.AllValidators)
                .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
+            RuleForEach(x => x.ObjectiveEndpoints)
+                .SetValidator(new EndpointValidator(_httpContextAccessor));
+
             RuleFor(x => x.ObjectiveLevel)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ObjectiveValidator), nameof(ObjectiveDto.ObjectiveLevel)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ObjectiveValidator), nameof(ObjectiveDto.ObjectiveLevel)), ApplyConditionTo.AllValidators)
+               .SetValidator(new CodeValidator(_httpContextAccessor));
         }
     }
 }

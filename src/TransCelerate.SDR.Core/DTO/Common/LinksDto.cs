@@ -6,7 +6,7 @@ namespace TransCelerate.SDR.Core.DTO.Common
     public class LinksDto
     {
         public string StudyDefinitions { get; set; }
-        public string AuditTrail { get; set; }
+        public string RevisionHistory { get; set; }
 
         public List<StudyDesignLinks> StudyDesigns { get; set; }
     }
@@ -20,7 +20,7 @@ namespace TransCelerate.SDR.Core.DTO.Common
     public class LinksForUIDto
     {
         public string StudyDefinitions { get; set; }
-        public string AuditTrail { get; set; }
+        public string RevisionHistory { get; set; }
 
         public List<StudyDesignLinks> StudyDesigns { get; set; }
 
@@ -30,7 +30,7 @@ namespace TransCelerate.SDR.Core.DTO.Common
     public class LinksEndpointDto
     {
         public string StudyDefinitions { get; set; }
-        public string AuditTrail { get; set; }
+        public string RevisionHistory { get; set; }
         [JsonProperty(nameof(SoA))]
         public string SoA { get; set; }
     }

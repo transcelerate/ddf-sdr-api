@@ -40,7 +40,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         /// <param name="incoming"></param>
         /// <param name="existing"></param>
         /// <returns></returns>
-        StudyEntity CheckForSections(StudyEntity incoming, StudyEntity existing);
+        StudyDefinitionsEntity CheckForSections(StudyDefinitionsEntity incoming, StudyDefinitionsEntity existing);
         /// <summary>
         /// Comparison between existing and incoming Study Cells
         /// </summary>
@@ -140,7 +140,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         /// </summary>
         /// <param name="study">Study Entity</param>
         /// <returns></returns>
-        StudyEntity GeneratedSectionId(StudyEntity study);
+        StudyDefinitionsEntity GeneratedSectionId(StudyDefinitionsEntity study);
         /// <summary>
         /// Generate uuid for Study Investigational Interventions
         /// </summary>
@@ -210,7 +210,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         /// <param name="incoming"></param>
         /// <param name="existing"></param>
         /// <returns></returns>
-        bool IsSameStudy(StudyEntity incoming, StudyEntity existing);
+        bool IsSameStudy(StudyDefinitionsEntity incoming, StudyDefinitionsEntity existing);
         /// <summary>
         /// Deep compare of existing and incoming study
         /// </summary>
@@ -225,7 +225,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         /// </summary>
         /// <param name="study"></param>
         /// <returns></returns>
-        StudyEntity RemovedSectionId(StudyEntity study);
+        StudyDefinitionsEntity RemovedSectionId(StudyDefinitionsEntity study);
         /// <summary>
         /// Remove uuid for Study Investigational Interventions
         /// </summary>

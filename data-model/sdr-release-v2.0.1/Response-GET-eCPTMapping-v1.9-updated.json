@@ -1,0 +1,116 @@
+{
+  "studyDetails": {
+    "studyId": "845f3086-d3a8-4026-b687-592448293d56",
+    "studyTitle": "Study of Stage III Biliary Duct Cancer",
+    "usdmVersion": "1.9",
+    "SDRUploadVersion": 1,
+    "links": {
+      "studyDefinitions": "/v2/studydefinitions/845f3086-d3a8-4026-b687-592448293d56?sdruploadversion=1",
+      "revisionHistory": "/studydefinitions/845f3086-d3a8-4026-b687-592448293d56/revisionhistory"
+    }
+  },
+  "studyDesign": [
+    {
+      "studyDesignId": "SD01",
+      "studyDesignName": "Design for Stage III",
+      "studyDesignLink": "/v2/studydesigns?studyid=845f3086-d3a8-4026-b687-592448293d56&sdruploadversion=1&studydesignid=SD01",
+      "ecptData": {
+        "titlePage": {
+          "acronym": "Acronym",
+          "amendmentNumber": "Ammendment",
+          "approvalDate": "2022-01-01",
+          "conditionDisease": "Something bad",
+          "regulatoryAgencyIdentifierNumbers": [
+            {
+              "regulatoryAgencyId": "FDA",
+              "regulatoryAgencyNumber": "CT-GOV"
+            }
+          ],
+          "sponsorLegalAddress": " line2,  city, district , state ,  postalCode, Egypt",
+          "sponsorName": "ClinicalTrials.gov",
+          "studyPhase": "Phase 2",
+          "protocol": {
+            "protocolShortTitle": "Short",
+            "protocolTitle": "Study of Stage III Biliary Duct Cancer",
+            "protocolID": "CT-GOV-1234"
+          }
+        },
+        "protocolSummary": {
+          "synopsis": {
+            "interventionModel": "Parallel Group",
+            "numberofParticipants": "4",
+            "primaryPurpose": "Basic Science",
+            "enrollmentTarget": "Population 1 and Population 1",
+            "numberofArms": "2"
+          }
+        },
+        "pageHeader": {
+          "versionNumber": "1"
+        },
+        "studyPopulation": {
+          "inclusionCriteria": {
+            "plannedMaximumAgeofSubjects": "88",
+            "plannedMinimumAgeofSubjects": "21",
+            "sexofParticipants": "Male or Female"
+          }
+        },
+        "introduction": {
+          "studyRationale": "Rational"
+        },
+        "studyDesign": {
+          "scientificRationaleForStudyDesign": "Rationale "
+        },
+        "studyInterventionsAndConcomitantTherapy": {
+          "studyInterventionsAdministered": [
+            {
+              "interventionDescription": "Intervention 1"
+            }
+          ],
+          "studyArms": [
+            {
+              "armName": "Placebo",
+              "armDescription": "The Placebo Arm",
+              "armType": "Placebo Control Arm"
+            },
+            {
+              "armName": "Placebo",
+              "armDescription": "The Placebo Arm",
+              "armType": "Placebo Control Arm"
+            }
+          ]
+        },
+        "statisticalConsiderations": {
+          "populationsForAnalyses": "Population 1"
+        },
+        "objectivesEndpointsAndEstimands": {
+          "primaryObjectives": [
+            {
+              "objectiveDescription": "Objective Level 1",
+              "objectiveLevel": "Study Primary Objective",
+              "objectiveEndpoints": [
+                {
+                  "endpointDescription": "Endpoint 1",
+                  "endpointPurposeDescription": "level description",
+                  "endpointLevel": "PURPOSE"
+                }
+              ]
+            }
+          ],
+          "secondaryObjectives": [
+            {
+              "objectiveDescription": "Objective Level 1",
+              "objectiveLevel": "Study Secondary Objective",
+              "objectiveEndpoints": [
+                {
+                  "endpointDescription": "Endpoint 1",
+                  "endpointPurposeDescription": "level description",
+                  "endpointLevel": "PURPOSE"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

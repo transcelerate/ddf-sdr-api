@@ -6,7 +6,7 @@ using System;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using TransCelerate.SDR.Core.DTO.StudyV2;
+using TransCelerate.SDR.Core.DTO.Common;
 using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.Core.Utilities;
@@ -38,7 +38,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
 
         #region GET Methods
         /// <summary>
-        /// GET All Elements For a Study
+        /// GET Change Audit For a Study
         /// </summary>
         /// <param name="studyId">Study ID</param>
         /// <response code="200">Returns Change Audit</response>
@@ -47,7 +47,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="403">The Access for Study is Forbidden</response>
         [HttpGet]
         [Route(Route.ChangeAudit)]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDto))]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ChangeAuditDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]

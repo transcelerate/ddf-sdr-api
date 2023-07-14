@@ -11,7 +11,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             LinksDto links = new()
             {
-                AuditTrail = $"/studydefinitions/{studyId}/audittrail"
+                RevisionHistory = $"/studydefinitions/{studyId}/revisionhistory"
             };
             if (usdmVersion == Constants.USDMVersions.MVP)
             {
@@ -30,7 +30,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             LinksDto links = new()
             {
-                AuditTrail = $"/studydefinitions/{studyId}/audittrail"
+                RevisionHistory = $"/studydefinitions/{studyId}/revisionhistory"
             };
             if (usdmVersion == Constants.USDMVersions.MVP)
             {
@@ -76,7 +76,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                         {
                             StudyDesignId = designId,
                             StudyDesignLink = $"/{ApiUsdmVersionMapping.SDRVersions.Where(x => x.UsdmVersions.Contains(usdmVersion)).Select(x => x.ApiVersion).First()}" +
-                                              $"/studydesigns?study_uuid={studyId}&sdruploadversion={sdruploadversion}&studydesign_uuid={designId}"
+                                              $"/studydesigns?studyid={studyId}&sdruploadversion={sdruploadversion}&studydesignid={designId}"
                         });
                     }
                 });
@@ -90,7 +90,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             LinksForUIDto links = new()
             {
-                AuditTrail = $"/studydefinitions/{studyId}/audittrail"
+                RevisionHistory = $"/studydefinitions/{studyId}/revisionhistory"
             };
             if (usdmVersion == Constants.USDMVersions.MVP)
             {
@@ -112,7 +112,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             LinksEndpointDto links = new()
             {
-                AuditTrail = $"/studydefinitions/{studyId}/audittrail"
+                RevisionHistory = $"/studydefinitions/{studyId}/revisionhistory"
             };
             if (usdmVersion == Constants.USDMVersions.MVP)
             {

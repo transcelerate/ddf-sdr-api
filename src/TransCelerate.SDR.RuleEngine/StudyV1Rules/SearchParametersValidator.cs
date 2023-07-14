@@ -12,15 +12,6 @@ namespace TransCelerate.SDR.RuleEngineV1
     {
         public SearchParametersValidator()
         {
-            RuleFor(x => x.StudyTitle)
-                .Matches(Constants.RegularExpressions.AlphaNumericsWithSpace)
-                .WithMessage(Constants.ValidationErrorMessage.AlphaNumericErrorMessage);
-            RuleFor(x => x.StudyId)
-                .Matches(Constants.RegularExpressions.AlphaNumericsWithSpace)
-                .WithMessage(Constants.ValidationErrorMessage.AlphaNumericErrorMessage);
-            RuleFor(x => x.Indication)
-                .Matches(Constants.RegularExpressions.AlphaNumericsWithSpace)
-                .WithMessage(Constants.ValidationErrorMessage.AlphaNumericErrorMessage);
             RuleFor(x => x.FromDate)
                 .Must(x => DateValidationHelper.IsValid(x))
                 .WithMessage(Constants.ValidationErrorMessage.ValidDateError);
@@ -29,10 +20,10 @@ namespace TransCelerate.SDR.RuleEngineV1
                 .WithMessage(Constants.ValidationErrorMessage.ValidDateError);
             RuleFor(x => x.PageNumber)
                 .Must(x => x > 0)
-                .WithMessage(Constants.ValidationErrorMessage.NumberError);
+                .WithMessage(Constants.ValidationErrorMessage.EnterValidNumber);
             RuleFor(x => x.PageSize)
                .Must(x => x > 0)
-               .WithMessage(Constants.ValidationErrorMessage.NumberError);
+               .WithMessage(Constants.ValidationErrorMessage.EnterValidNumber);
         }
     }
 }

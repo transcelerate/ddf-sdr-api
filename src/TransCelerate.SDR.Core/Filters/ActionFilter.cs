@@ -24,7 +24,6 @@ namespace TransCelerate.SDR.Core.Filters
             {
                 _logger.LogInformation($"Started Action Filter : {nameof(ActionFilter)}; Method : {nameof(OnActionExecutionAsync)};");
 
-                string request = string.Empty;
                 string response = string.Empty;
                 int statusCode = 0;
 
@@ -35,16 +34,11 @@ namespace TransCelerate.SDR.Core.Filters
 
                 if (context != null)
                 {
-                    //Getting Request Body                
-                    var input = context.ActionArguments;
-                    if (input != null)
-                        request = JsonConvert.SerializeObject(input);
 
                     //Getting Response Body                
                     if (result.Result is ObjectResult objResult && objResult.Value != null)
                     {
-                        statusCode = objResult.StatusCode ?? 0;
-                        response = JsonConvert.SerializeObject(objResult.Value);
+                        statusCode = objResult.StatusCode ?? 0;                        
                     }
                     var AuthToken = context?.HttpContext?.Request?.Headers["Authorization"];
                     context?.HttpContext?.Response?.Headers?.Add("Controller", "True");

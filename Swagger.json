@@ -2,7 +2,7 @@
 	"openapi": "3.0.1",
 	"info": {
 		"title": "Transcelerate SDR",
-		"version": "v2"
+		"version": "v3"
 	},
 	"paths": {
 		"/studydefinitions/{studyId}/changeaudit": {
@@ -10,7 +10,7 @@
 				"tags": [
 					"ChangeAudit"
 				],
-				"summary": "GET All Elements For a Study",
+				"summary": "GET Change Audit For a Study",
 				"parameters": [
 					{
 						"name": "studyId",
@@ -28,7 +28,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/StudyV2.Study"
+									"$ref": "#/components/schemas/Common.ChangeAudit"
 								}
 							}
 						}
@@ -48,910 +48,6 @@
 					},
 					"404": {
 						"description": "The Study for the studyId is Not Found",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/v1/studydefinitions/{studyId}": {
-			"get": {
-				"tags": [
-					"ClinicalStudyV"
-				],
-				"summary": "GET All Elements For a Study",
-				"parameters": [
-					{
-						"name": "studyId",
-						"in": "path",
-						"description": "Study ID",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "sdruploadversion",
-						"in": "query",
-						"description": "Version of study",
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "usdmVersion",
-						"in": "header",
-						"description": "usdmVersion",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Returns Study",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/StudyV1.Study"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
-								}
-							}
-						}
-					},
-					"404": {
-						"description": "The Study for the studyId is Not Found",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/v1/studydesigns": {
-			"get": {
-				"tags": [
-					"ClinicalStudyV"
-				],
-				"summary": "GET Study Designs of a Study",
-				"parameters": [
-					{
-						"name": "study_uuid",
-						"in": "query",
-						"description": "Study ID",
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "sdruploadversion",
-						"in": "query",
-						"description": "Version of study",
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "usdmVersion",
-						"in": "header",
-						"description": "USDM Version",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Returns Study",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/StudyV1.Study"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
-								}
-							}
-						}
-					},
-					"404": {
-						"description": "The Study for the studyId is Not Found",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/v1/audittrail/{studyId}": {
-			"get": {
-				"tags": [
-					"ClinicalStudyV"
-				],
-				"summary": "GET Audit Trail of a study",
-				"parameters": [
-					{
-						"name": "studyId",
-						"in": "path",
-						"description": "Study ID",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "fromDate",
-						"in": "query",
-						"description": "Start Date for Date Filter",
-						"schema": {
-							"type": "string",
-							"format": "date-time"
-						}
-					},
-					{
-						"name": "toDate",
-						"in": "query",
-						"description": "End Date for Date Filter",
-						"schema": {
-							"type": "string",
-							"format": "date-time"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Returns a list of Audit Trail of a study",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "array",
-									"items": {
-										"$ref": "#/components/schemas/StudyV1.AudiTrailResponse"
-									}
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
-								}
-							}
-						}
-					},
-					"404": {
-						"description": "The Audit trail for the study is Not Found",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/v1/studydefinitions/history": {
-			"get": {
-				"tags": [
-					"ClinicalStudyV"
-				],
-				"summary": "Get All StudyId's in the database",
-				"parameters": [
-					{
-						"name": "fromDate",
-						"in": "query",
-						"description": "Start Date for Date Filter",
-						"schema": {
-							"type": "string",
-							"format": "date-time"
-						}
-					},
-					{
-						"name": "toDate",
-						"in": "query",
-						"description": "End Date for Date Filter",
-						"schema": {
-							"type": "string",
-							"format": "date-time"
-						}
-					},
-					{
-						"name": "studyTitle",
-						"in": "query",
-						"description": "Study Title Filter",
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Returns All Study Id's",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/StudyV1.StudyHistoryResponse"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
-								}
-							}
-						}
-					},
-					"404": {
-						"description": "There is no study",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/v1/studydefinitions": {
-			"post": {
-				"tags": [
-					"ClinicalStudyV"
-				],
-				"summary": "POST All Elements For a Study",
-				"parameters": [
-					{
-						"name": "usdmVersion",
-						"in": "header",
-						"description": "USDM Version",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"description": "Study for Inserting/Updating in Database",
-					"content": {
-						"application/json-patch+json": {
-							"schema": {
-								"$ref": "#/components/schemas/StudyV1.Study"
-							}
-						},
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/StudyV1.Study"
-							}
-						},
-						"text/json": {
-							"schema": {
-								"$ref": "#/components/schemas/StudyV1.Study"
-							}
-						},
-						"application/*+json": {
-							"schema": {
-								"$ref": "#/components/schemas/StudyV1.Study"
-							}
-						}
-					}
-				},
-				"responses": {
-					"201": {
-						"description": "Study Created",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/StudyV1.Study"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/v1/search": {
-			"post": {
-				"tags": [
-					"ClinicalStudyV"
-				],
-				"summary": "Search For a Study",
-				"requestBody": {
-					"description": "Parameters to search in database",
-					"content": {
-						"application/json-patch+json": {
-							"schema": {
-								"$ref": "#/components/schemas/StudyV1.SearchParameters"
-							}
-						},
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/StudyV1.SearchParameters"
-							}
-						},
-						"text/json": {
-							"schema": {
-								"$ref": "#/components/schemas/StudyV1.SearchParameters"
-							}
-						},
-						"application/*+json": {
-							"schema": {
-								"$ref": "#/components/schemas/StudyV1.SearchParameters"
-							}
-						}
-					}
-				},
-				"responses": {
-					"200": {
-						"description": "Returns All Study that matches the search criteria",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "array",
-									"items": {
-										"$ref": "#/components/schemas/StudyV1.Study"
-									}
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
-								}
-							}
-						}
-					},
-					"404": {
-						"description": "There is no study that matches the search criteria",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/v1/searchstudytitle": {
-			"post": {
-				"tags": [
-					"ClinicalStudyV"
-				],
-				"summary": "Search For a Study",
-				"requestBody": {
-					"description": "Parameters to search in database",
-					"content": {
-						"application/json-patch+json": {
-							"schema": {
-								"$ref": "#/components/schemas/StudyV1.SearchTitleParameters"
-							}
-						},
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/StudyV1.SearchTitleParameters"
-							}
-						},
-						"text/json": {
-							"schema": {
-								"$ref": "#/components/schemas/StudyV1.SearchTitleParameters"
-							}
-						},
-						"application/*+json": {
-							"schema": {
-								"$ref": "#/components/schemas/StudyV1.SearchTitleParameters"
-							}
-						}
-					}
-				},
-				"responses": {
-					"200": {
-						"description": "Returns All Study that matches the search criteria",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "array",
-									"items": {
-										"$ref": "#/components/schemas/StudyV1.Study"
-									}
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
-								}
-							}
-						}
-					},
-					"404": {
-						"description": "There is no study that matches the search criteria",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/v2/studydefinitions/{studyId}": {
-			"get": {
-				"tags": [
-					"ClinicalStudyV"
-				],
-				"summary": "GET All Elements For a Study",
-				"parameters": [
-					{
-						"name": "studyId",
-						"in": "path",
-						"description": "Study ID",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "sdruploadversion",
-						"in": "query",
-						"description": "Version of study",
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "listofelements",
-						"in": "query",
-						"description": "List of elements with comma separated values",
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "usdmVersion",
-						"in": "header",
-						"description": "usdm-vreison header",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Returns Study",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/StudyV2.Study"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
-								}
-							}
-						}
-					},
-					"404": {
-						"description": "The Study for the studyId is Not Found",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
-								}
-							}
-						}
-					}
-				}
-			},
-			"put": {
-				"tags": [
-					"ClinicalStudyV"
-				],
-				"summary": "POST/PUT All Elements For a Study",
-				"parameters": [
-					{
-						"name": "studyId",
-						"in": "path",
-						"description": "USDM Version",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "usdmVersion",
-						"in": "header",
-						"description": "USDM Version",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"description": "Study for Inserting/Updating in Database",
-					"content": {
-						"application/json-patch+json": {
-							"schema": {
-								"$ref": "#/components/schemas/StudyV2.Study"
-							}
-						},
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/StudyV2.Study"
-							}
-						},
-						"text/json": {
-							"schema": {
-								"$ref": "#/components/schemas/StudyV2.Study"
-							}
-						},
-						"application/*+json": {
-							"schema": {
-								"$ref": "#/components/schemas/StudyV2.Study"
-							}
-						}
-					}
-				},
-				"responses": {
-					"201": {
-						"description": "Study Created",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/StudyV2.Study"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
-								}
-							}
-						}
-					}
-				}
-			},
-			"delete": {
-				"tags": [
-					"ClinicalStudyV"
-				],
-				"summary": "Delete a Study",
-				"parameters": [
-					{
-						"name": "studyId",
-						"in": "path",
-						"description": "Study ID",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Deleted all versions of Study with the mentioned studyId",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/StudyV2.Study"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
-								}
-							}
-						}
-					},
-					"404": {
-						"description": "The Study for the studyId is Not Found",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/v2/studydesigns": {
-			"get": {
-				"tags": [
-					"ClinicalStudyV"
-				],
-				"summary": "GET Study Designs of a Study",
-				"parameters": [
-					{
-						"name": "study_uuid",
-						"in": "query",
-						"description": "Study ID",
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "sdruploadversion",
-						"in": "query",
-						"description": "Version of study",
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "studydesign_uuid",
-						"in": "query",
-						"description": "Study Design ID",
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "listofelements",
-						"in": "query",
-						"description": "List of study design elements with comma separated values",
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "usdmVersion",
-						"in": "header",
-						"description": "USDM Version",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Returns Study",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/StudyV2.Study"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
-								}
-							}
-						}
-					},
-					"404": {
-						"description": "The Study for the studyId is Not Found",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/v2/studydefinitions/{studyId}/studydesigns/soa": {
-			"get": {
-				"tags": [
-					"ClinicalStudyV"
-				],
-				"summary": "GET SoA For a Study",
-				"parameters": [
-					{
-						"name": "studyId",
-						"in": "path",
-						"description": "Study ID",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "studyDesignId",
-						"in": "query",
-						"description": "Study Design ID",
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "studyWorkflowId",
-						"in": "query",
-						"description": "WorkflowId",
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "sdruploadversion",
-						"in": "query",
-						"description": "Version of study",
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Returns Study",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/StudyV2.Study"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
-								}
-							}
-						}
-					},
-					"404": {
-						"description": "The Study for the studyId is Not Found",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/v2/studydefinitions": {
-			"post": {
-				"tags": [
-					"ClinicalStudyV"
-				],
-				"summary": "POST/PUT All Elements For a Study",
-				"parameters": [
-					{
-						"name": "usdmVersion",
-						"in": "header",
-						"description": "USDM Version",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"description": "Study for Inserting/Updating in Database",
-					"content": {
-						"application/json-patch+json": {
-							"schema": {
-								"$ref": "#/components/schemas/StudyV2.Study"
-							}
-						},
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/StudyV2.Study"
-							}
-						},
-						"text/json": {
-							"schema": {
-								"$ref": "#/components/schemas/StudyV2.Study"
-							}
-						},
-						"application/*+json": {
-							"schema": {
-								"$ref": "#/components/schemas/StudyV2.Study"
-							}
-						}
-					}
-				},
-				"responses": {
-					"201": {
-						"description": "Study Created",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/StudyV2.Study"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad Request",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -986,67 +82,6 @@
 						"schema": {
 							"type": "integer",
 							"format": "int32"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Returns Study"
-					},
-					"400": {
-						"description": "Bad Request",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
-								}
-							}
-						}
-					},
-					"404": {
-						"description": "The Study for the studyId is Not Found",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/studyDefinitions/{studyId}/studydesigns/eCPT": {
-			"get": {
-				"tags": [
-					"Common"
-				],
-				"summary": "GET All Elements For a Study",
-				"parameters": [
-					{
-						"name": "studyId",
-						"in": "path",
-						"description": "Study ID",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "sdruploadversion",
-						"in": "query",
-						"description": "Version of study",
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "studydesignId",
-						"in": "query",
-						"description": "studyDesignId",
-						"schema": {
-							"type": "string"
 						}
 					}
 				],
@@ -1117,12 +152,12 @@
 				}
 			}
 		},
-		"/studydefinitions/{studyId}/audittrail": {
+		"/studydefinitions/{studyId}/revisionhistory": {
 			"get": {
 				"tags": [
 					"Common"
 				],
-				"summary": "GET Audit Trail of a study",
+				"summary": "GET Revision History of a study",
 				"parameters": [
 					{
 						"name": "studyId",
@@ -1540,6 +575,1601 @@
 								}
 							},
 							"text/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v1/studydefinitions/{studyId}": {
+			"get": {
+				"tags": [
+					"StudyV"
+				],
+				"summary": "GET All Elements For a Study",
+				"parameters": [
+					{
+						"name": "studyId",
+						"in": "path",
+						"description": "Study ID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "sdruploadversion",
+						"in": "query",
+						"description": "Version of study",
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "usdmVersion",
+						"in": "header",
+						"description": "usdmVersion",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns Study",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StudyV1.StudyDefinitions"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "The Study for the studyId is Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v1/studydesigns": {
+			"get": {
+				"tags": [
+					"StudyV"
+				],
+				"summary": "GET Study Designs of a Study",
+				"parameters": [
+					{
+						"name": "study_uuid",
+						"in": "query",
+						"description": "Study ID",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "sdruploadversion",
+						"in": "query",
+						"description": "Version of study",
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "usdmVersion",
+						"in": "header",
+						"description": "USDM Version",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns Study",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StudyV1.StudyDefinitions"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "The Study for the studyId is Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v1/audittrail/{studyId}": {
+			"get": {
+				"tags": [
+					"StudyV"
+				],
+				"summary": "GET Audit Trail of a study",
+				"parameters": [
+					{
+						"name": "studyId",
+						"in": "path",
+						"description": "Study ID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "fromDate",
+						"in": "query",
+						"description": "Start Date for Date Filter",
+						"schema": {
+							"type": "string",
+							"format": "date-time"
+						}
+					},
+					{
+						"name": "toDate",
+						"in": "query",
+						"description": "End Date for Date Filter",
+						"schema": {
+							"type": "string",
+							"format": "date-time"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns a list of Audit Trail of a study",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/StudyV1.AudiTrailResponse"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "The Audit trail for the study is Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v1/studydefinitions/history": {
+			"get": {
+				"tags": [
+					"StudyV"
+				],
+				"summary": "Get All StudyId's in the database",
+				"parameters": [
+					{
+						"name": "fromDate",
+						"in": "query",
+						"description": "Start Date for Date Filter",
+						"schema": {
+							"type": "string",
+							"format": "date-time"
+						}
+					},
+					{
+						"name": "toDate",
+						"in": "query",
+						"description": "End Date for Date Filter",
+						"schema": {
+							"type": "string",
+							"format": "date-time"
+						}
+					},
+					{
+						"name": "studyTitle",
+						"in": "query",
+						"description": "Study Title Filter",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns All Study Id's",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StudyV1.StudyHistoryResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "There is no study",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v1/studydefinitions": {
+			"post": {
+				"tags": [
+					"StudyV"
+				],
+				"summary": "POST All Elements For a Study",
+				"parameters": [
+					{
+						"name": "usdmVersion",
+						"in": "header",
+						"description": "USDM Version",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "Study for Inserting/Updating in Database",
+					"content": {
+						"application/json-patch+json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV1.StudyDefinitions"
+							}
+						},
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV1.StudyDefinitions"
+							}
+						},
+						"text/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV1.StudyDefinitions"
+							}
+						},
+						"application/*+json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV1.StudyDefinitions"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "Study Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StudyV1.StudyDefinitions"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v1/search": {
+			"post": {
+				"tags": [
+					"StudyV"
+				],
+				"summary": "Search For a Study",
+				"requestBody": {
+					"description": "Parameters to search in database",
+					"content": {
+						"application/json-patch+json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV1.SearchParameters"
+							}
+						},
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV1.SearchParameters"
+							}
+						},
+						"text/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV1.SearchParameters"
+							}
+						},
+						"application/*+json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV1.SearchParameters"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Returns All Study that matches the search criteria",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/StudyV1.StudyDefinitions"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "There is no study that matches the search criteria",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v1/searchstudytitle": {
+			"post": {
+				"tags": [
+					"StudyV"
+				],
+				"summary": "Search For a Study",
+				"requestBody": {
+					"description": "Parameters to search in database",
+					"content": {
+						"application/json-patch+json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV1.SearchTitleParameters"
+							}
+						},
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV1.SearchTitleParameters"
+							}
+						},
+						"text/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV1.SearchTitleParameters"
+							}
+						},
+						"application/*+json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV1.SearchTitleParameters"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Returns All Study that matches the search criteria",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/StudyV1.StudyDefinitions"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "There is no study that matches the search criteria",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v2/studydefinitions/{studyId}": {
+			"get": {
+				"tags": [
+					"StudyV"
+				],
+				"summary": "GET All Elements For a Study",
+				"parameters": [
+					{
+						"name": "studyId",
+						"in": "path",
+						"description": "Study ID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "sdruploadversion",
+						"in": "query",
+						"description": "Version of study",
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "listofelements",
+						"in": "query",
+						"description": "List of elements with comma separated values",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "usdmVersion",
+						"in": "header",
+						"description": "usdm-vreison header",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns Study",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StudyV2.StudyDefinitions"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "The Study for the studyId is Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"StudyV"
+				],
+				"summary": "POST/PUT All Elements For a Study",
+				"parameters": [
+					{
+						"name": "studyId",
+						"in": "path",
+						"description": "USDM Version",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "usdmVersion",
+						"in": "header",
+						"description": "USDM Version",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "Study for Inserting/Updating in Database",
+					"content": {
+						"application/json-patch+json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV2.StudyDefinitions"
+							}
+						},
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV2.StudyDefinitions"
+							}
+						},
+						"text/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV2.StudyDefinitions"
+							}
+						},
+						"application/*+json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV2.StudyDefinitions"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "Study Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StudyV2.StudyDefinitions"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"StudyV"
+				],
+				"summary": "Delete a Study",
+				"parameters": [
+					{
+						"name": "studyId",
+						"in": "path",
+						"description": "Study ID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Deleted all versions of Study with the mentioned studyId",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StudyV2.StudyDefinitions"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "The Study for the studyId is Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v2/studydesigns": {
+			"get": {
+				"tags": [
+					"StudyV"
+				],
+				"summary": "GET Study Designs of a Study",
+				"parameters": [
+					{
+						"name": "studyId",
+						"in": "query",
+						"description": "Study ID",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "sdruploadversion",
+						"in": "query",
+						"description": "Version of study",
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "studyDesignId",
+						"in": "query",
+						"description": "Study Design ID",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "listofelements",
+						"in": "query",
+						"description": "List of study design elements with comma separated values",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "usdmVersion",
+						"in": "header",
+						"description": "USDM Version",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns Study",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StudyV2.StudyDefinitions"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "The Study for the studyId is Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v2/studydefinitions/{studyId}/studydesigns/soa": {
+			"get": {
+				"tags": [
+					"StudyV"
+				],
+				"summary": "GET SoA For a Study USDM Version 1.9",
+				"parameters": [
+					{
+						"name": "studyId",
+						"in": "path",
+						"description": "Study ID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "studyDesignId",
+						"in": "query",
+						"description": "Study Design ID",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "scheduleTimelineId",
+						"in": "query",
+						"description": "Schedule Timeline Id",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "sdruploadversion",
+						"in": "query",
+						"description": "Version of study",
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns Study",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StudyV2.StudyDefinitions"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "The Study for the studyId is Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v2/studyDefinitions/{studyId}/studydesigns/eCPT": {
+			"get": {
+				"tags": [
+					"StudyV"
+				],
+				"summary": "GET eCPT Elements For a Study",
+				"parameters": [
+					{
+						"name": "studyId",
+						"in": "path",
+						"description": "Study ID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "sdruploadversion",
+						"in": "query",
+						"description": "Version of study",
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "studydesignId",
+						"in": "query",
+						"description": "studyDesignId",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns Study"
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "The Study for the studyId is Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v2/studydefinitions": {
+			"post": {
+				"tags": [
+					"StudyV"
+				],
+				"summary": "POST/PUT All Elements For a Study",
+				"parameters": [
+					{
+						"name": "usdmVersion",
+						"in": "header",
+						"description": "USDM Version",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "Study for Inserting/Updating in Database",
+					"content": {
+						"application/json-patch+json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV2.StudyDefinitions"
+							}
+						},
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV2.StudyDefinitions"
+							}
+						},
+						"text/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV2.StudyDefinitions"
+							}
+						},
+						"application/*+json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV2.StudyDefinitions"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "Study Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StudyV2.StudyDefinitions"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v3/studydefinitions/{studyId}": {
+			"get": {
+				"tags": [
+					"StudyV"
+				],
+				"summary": "GET All Elements For a Study",
+				"parameters": [
+					{
+						"name": "studyId",
+						"in": "path",
+						"description": "Study ID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "sdruploadversion",
+						"in": "query",
+						"description": "Version of study",
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "listofelements",
+						"in": "query",
+						"description": "List of elements with comma separated values",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "usdmVersion",
+						"in": "header",
+						"description": "usdm-vreison header",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns Study",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StudyV3.StudyDefinitions"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "The Study for the studyId is Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"StudyV"
+				],
+				"summary": "PUT All Elements For a Study",
+				"parameters": [
+					{
+						"name": "studyId",
+						"in": "path",
+						"description": "USDM Version",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "usdmVersion",
+						"in": "header",
+						"description": "USDM Version",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "Study for Inserting/Updating in Database",
+					"content": {
+						"application/json-patch+json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV3.StudyDefinitions"
+							}
+						},
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV3.StudyDefinitions"
+							}
+						},
+						"text/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV3.StudyDefinitions"
+							}
+						},
+						"application/*+json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV3.StudyDefinitions"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "Study Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StudyV3.StudyDefinitions"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"StudyV"
+				],
+				"summary": "Delete a Study",
+				"parameters": [
+					{
+						"name": "studyId",
+						"in": "path",
+						"description": "Study ID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Deleted all versions of Study with the mentioned studyId",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StudyV3.StudyDefinitions"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "The Study for the studyId is Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v3/studydesigns": {
+			"get": {
+				"tags": [
+					"StudyV"
+				],
+				"summary": "GET Study Designs of a Study",
+				"parameters": [
+					{
+						"name": "studyId",
+						"in": "query",
+						"description": "Study ID",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "sdruploadversion",
+						"in": "query",
+						"description": "Version of study",
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "studyDesignId",
+						"in": "query",
+						"description": "Study Design ID",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "listofelements",
+						"in": "query",
+						"description": "List of study design elements with comma separated values",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "usdmVersion",
+						"in": "header",
+						"description": "USDM Version",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns Study",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StudyV3.StudyDefinitions"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "The Study for the studyId is Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v3/studydefinitions/{studyId}/studydesigns/soa": {
+			"get": {
+				"tags": [
+					"StudyV"
+				],
+				"summary": "GET SoA For a Study USDM Version 2.0",
+				"parameters": [
+					{
+						"name": "studyId",
+						"in": "path",
+						"description": "Study ID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "studyDesignId",
+						"in": "query",
+						"description": "Study Design ID",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "scheduleTimelineId",
+						"in": "query",
+						"description": "Schedule Timeline Id",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "sdruploadversion",
+						"in": "query",
+						"description": "Version of study",
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns Study",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StudyV3.StudyDefinitions"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "The Study for the studyId is Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v3/studyDefinitions/{studyId}/studydesigns/eCPT": {
+			"get": {
+				"tags": [
+					"StudyV"
+				],
+				"summary": "GET eCPT Elements For a Study",
+				"parameters": [
+					{
+						"name": "studyId",
+						"in": "path",
+						"description": "Study ID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "sdruploadversion",
+						"in": "query",
+						"description": "Version of study",
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "studydesignId",
+						"in": "query",
+						"description": "studyDesignId",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns Study"
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "The Study for the studyId is Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v3/studydefinitions/{studyId}/version-comparison": {
+			"get": {
+				"tags": [
+					"StudyV"
+				],
+				"summary": "GET Differences between two versions of a study",
+				"parameters": [
+					{
+						"name": "studyId",
+						"in": "path",
+						"description": "Study ID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "sdrUploadVersionOne",
+						"in": "query",
+						"description": "First Version of study",
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "sdrUploadVersionTwo",
+						"in": "query",
+						"description": "Second Version of study",
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "usdmVersion",
+						"in": "header",
+						"description": "usdm-vreison header",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns Study",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StudyV3.StudyDefinitions"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "The Study for the studyId is Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v3/studydefinitions": {
+			"post": {
+				"tags": [
+					"StudyV"
+				],
+				"summary": "POST All Elements For a Study",
+				"parameters": [
+					{
+						"name": "usdmVersion",
+						"in": "header",
+						"description": "USDM Version",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "Study for Inserting/Updating in Database",
+					"content": {
+						"application/json-patch+json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV3.StudyDefinitions"
+							}
+						},
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV3.StudyDefinitions"
+							}
+						},
+						"text/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV3.StudyDefinitions"
+							}
+						},
+						"application/*+json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV3.StudyDefinitions"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "Study Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StudyV3.StudyDefinitions"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v3/studydefinitions/validate-usdm-conformance": {
+			"post": {
+				"tags": [
+					"StudyV"
+				],
+				"summary": "Validate USDM Conformance rules for a Study",
+				"parameters": [
+					{
+						"name": "usdmVersion",
+						"in": "header",
+						"description": "USDM Version",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "Study for Validation",
+					"content": {
+						"application/json-patch+json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV3.StudyDefinitions"
+							}
+						},
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV3.StudyDefinitions"
+							}
+						},
+						"text/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV3.StudyDefinitions"
+							}
+						},
+						"application/*+json": {
+							"schema": {
+								"$ref": "#/components/schemas/StudyV3.StudyDefinitions"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "Study Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StudyV3.StudyDefinitions"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/ErrorModels.ErrorModel"
 								}
@@ -2262,7 +2892,7 @@
 						"type": "string",
 						"nullable": true
 					},
-					"auditTrail": {
+					"revisionHistory": {
 						"type": "array",
 						"items": {
 							"$ref": "#/components/schemas/Common.AuditTrailResponseWithLinks"
@@ -2293,10 +2923,48 @@
 				},
 				"additionalProperties": false
 			},
+			"Common.ChangeAudit": {
+				"type": "object",
+				"properties": {
+					"studyId": {
+						"type": "string",
+						"nullable": true
+					},
+					"changes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/Common.Changes"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"Common.Changes": {
+				"type": "object",
+				"properties": {
+					"entryDateTime": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"SDRUploadVersion": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"elements": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
 			"Common.CommonCode": {
 				"type": "object",
 				"properties": {
-					"uuid": {
+					"codeId": {
 						"type": "string",
 						"nullable": true
 					},
@@ -2322,7 +2990,7 @@
 			"Common.CommonOrganisation": {
 				"type": "object",
 				"properties": {
-					"uuid": {
+					"organisationId": {
 						"type": "string",
 						"nullable": true
 					},
@@ -2367,7 +3035,7 @@
 			"Common.CommonStudyIdentifiers": {
 				"type": "object",
 				"properties": {
-					"uuid": {
+					"studyIdentifierId": {
 						"type": "string",
 						"nullable": true
 					},
@@ -2384,7 +3052,7 @@
 			"Common.CommonStudyIndication": {
 				"type": "object",
 				"properties": {
-					"indicationDesc": {
+					"indicationDescription": {
 						"type": "string",
 						"nullable": true
 					}
@@ -2398,7 +3066,7 @@
 						"type": "string",
 						"nullable": true
 					},
-					"auditTrail": {
+					"revisionHistory": {
 						"type": "string",
 						"nullable": true
 					},
@@ -2419,7 +3087,7 @@
 						"type": "string",
 						"nullable": true
 					},
-					"auditTrail": {
+					"revisionHistory": {
 						"type": "string",
 						"nullable": true
 					},
@@ -2437,44 +3105,10 @@
 				},
 				"additionalProperties": false
 			},
-			"Common.SearchClinicalStudy": {
-				"type": "object",
-				"properties": {
-					"uuid": {
-						"type": "string",
-						"nullable": true
-					},
-					"studyTitle": {
-						"type": "string",
-						"nullable": true
-					},
-					"studyType": {
-						"$ref": "#/components/schemas/Common.CommonCode"
-					},
-					"studyPhase": {
-						"$ref": "#/components/schemas/Common.CommonCode"
-					},
-					"studyIdentifiers": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/Common.CommonStudyIdentifiers"
-						},
-						"nullable": true
-					},
-					"studyDesigns": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/Common.CommonStudyDesign"
-						},
-						"nullable": true
-					}
-				},
-				"additionalProperties": false
-			},
 			"Common.SearchParameters": {
 				"type": "object",
 				"properties": {
-					"studyId": {
+					"sponsorId": {
 						"type": "string",
 						"nullable": true
 					},
@@ -2493,6 +3127,13 @@
 					"phase": {
 						"type": "string",
 						"nullable": true
+					},
+					"usdmVersion": {
+						"type": "string",
+						"nullable": true
+					},
+					"validateUsdmVersion": {
+						"type": "boolean"
 					},
 					"fromDate": {
 						"type": "string",
@@ -2523,14 +3164,48 @@
 			"Common.SearchResponse": {
 				"type": "object",
 				"properties": {
-					"clinicalStudy": {
-						"$ref": "#/components/schemas/Common.SearchClinicalStudy"
+					"study": {
+						"$ref": "#/components/schemas/Common.SearchStudy"
 					},
 					"auditTrail": {
 						"$ref": "#/components/schemas/Common.AuditTrail"
 					},
 					"links": {
 						"$ref": "#/components/schemas/Common.LinksForUI"
+					}
+				},
+				"additionalProperties": false
+			},
+			"Common.SearchStudy": {
+				"type": "object",
+				"properties": {
+					"studyId": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyTitle": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyType": {
+						"$ref": "#/components/schemas/Common.CommonCode"
+					},
+					"studyPhase": {
+						"$ref": "#/components/schemas/Common.CommonCode"
+					},
+					"studyIdentifiers": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/Common.CommonStudyIdentifiers"
+						},
+						"nullable": true
+					},
+					"studyDesigns": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/Common.CommonStudyDesign"
+						},
+						"nullable": true
 					}
 				},
 				"additionalProperties": false
@@ -2553,27 +3228,6 @@
 				},
 				"additionalProperties": false
 			},
-			"Common.SearchTitleClinicalStudy": {
-				"type": "object",
-				"properties": {
-					"uuid": {
-						"type": "string",
-						"nullable": true
-					},
-					"studyTitle": {
-						"type": "string",
-						"nullable": true
-					},
-					"studyIdentifiers": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/Common.CommonStudyIdentifiers"
-						},
-						"nullable": true
-					}
-				},
-				"additionalProperties": false
-			},
 			"Common.SearchTitleParameters": {
 				"type": "object",
 				"properties": {
@@ -2581,7 +3235,7 @@
 						"type": "string",
 						"nullable": true
 					},
-					"studyId": {
+					"sponsorId": {
 						"type": "string",
 						"nullable": true
 					},
@@ -2618,14 +3272,35 @@
 			"Common.SearchTitleResponse": {
 				"type": "object",
 				"properties": {
-					"clinicalStudy": {
-						"$ref": "#/components/schemas/Common.SearchTitleClinicalStudy"
+					"study": {
+						"$ref": "#/components/schemas/Common.SearchTitleStudy"
 					},
 					"auditTrail": {
 						"$ref": "#/components/schemas/Common.SearchTitleAuditTrail"
 					},
 					"links": {
 						"$ref": "#/components/schemas/Common.LinksForUI"
+					}
+				},
+				"additionalProperties": false
+			},
+			"Common.SearchTitleStudy": {
+				"type": "object",
+				"properties": {
+					"studyId": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyTitle": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyIdentifiers": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/Common.CommonStudyIdentifiers"
+						},
+						"nullable": true
 					}
 				},
 				"additionalProperties": false
@@ -2667,6 +3342,10 @@
 					"uploadVersion": {
 						"type": "integer",
 						"format": "int32"
+					},
+					"entryDateTime": {
+						"type": "string",
+						"format": "date-time"
 					},
 					"studyTitle": {
 						"type": "string",
@@ -2878,51 +3557,6 @@
 					"SDRUploadVersion": {
 						"type": "integer",
 						"format": "int32"
-					}
-				},
-				"additionalProperties": false
-			},
-			"StudyV1.ClinicalStudy": {
-				"type": "object",
-				"properties": {
-					"uuid": {
-						"type": "string",
-						"nullable": true
-					},
-					"studyTitle": {
-						"type": "string",
-						"nullable": true
-					},
-					"studyType": {
-						"$ref": "#/components/schemas/StudyV1.Code"
-					},
-					"studyIdentifiers": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/StudyV1.StudyIdentifier"
-						},
-						"nullable": true
-					},
-					"studyPhase": {
-						"$ref": "#/components/schemas/StudyV1.Code"
-					},
-					"studyProtocolVersions": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/StudyV1.StudyProtocolVersion"
-						},
-						"nullable": true
-					},
-					"studyDesigns": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/StudyV1.StudyDesign"
-						},
-						"nullable": true
-					},
-					"studyVersion": {
-						"type": "string",
-						"nullable": true
 					}
 				},
 				"additionalProperties": false
@@ -3267,14 +3901,44 @@
 			"StudyV1.Study": {
 				"type": "object",
 				"properties": {
-					"clinicalStudy": {
-						"$ref": "#/components/schemas/StudyV1.ClinicalStudy"
+					"uuid": {
+						"type": "string",
+						"nullable": true
 					},
-					"auditTrail": {
-						"$ref": "#/components/schemas/StudyV1.AuditTrail"
+					"studyTitle": {
+						"type": "string",
+						"nullable": true
 					},
-					"links": {
-						"$ref": "#/components/schemas/Common.LinksForUI"
+					"studyType": {
+						"$ref": "#/components/schemas/StudyV1.Code"
+					},
+					"studyIdentifiers": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.StudyIdentifier"
+						},
+						"nullable": true
+					},
+					"studyPhase": {
+						"$ref": "#/components/schemas/StudyV1.Code"
+					},
+					"studyProtocolVersions": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.StudyProtocolVersion"
+						},
+						"nullable": true
+					},
+					"studyDesigns": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV1.StudyDesign"
+						},
+						"nullable": true
+					},
+					"studyVersion": {
+						"type": "string",
+						"nullable": true
 					}
 				},
 				"additionalProperties": false
@@ -3356,6 +4020,21 @@
 					"crfLink": {
 						"type": "string",
 						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV1.StudyDefinitions": {
+				"type": "object",
+				"properties": {
+					"clinicalStudy": {
+						"$ref": "#/components/schemas/StudyV1.Study"
+					},
+					"auditTrail": {
+						"$ref": "#/components/schemas/StudyV1.AuditTrail"
+					},
+					"links": {
+						"$ref": "#/components/schemas/Common.LinksForUI"
 					}
 				},
 				"additionalProperties": false
@@ -3752,7 +4431,6 @@
 						"nullable": true
 					},
 					"activityIsConditional": {
-						"type": "boolean",
 						"nullable": true
 					},
 					"activityIsConditionalReason": {
@@ -3997,66 +4675,6 @@
 					},
 					"bcSurrogateReference": {
 						"type": "string",
-						"nullable": true
-					}
-				},
-				"additionalProperties": false
-			},
-			"StudyV2.ClinicalStudy": {
-				"type": "object",
-				"properties": {
-					"studyId": {
-						"type": "string",
-						"nullable": true
-					},
-					"studyTitle": {
-						"type": "string",
-						"nullable": true
-					},
-					"studyVersion": {
-						"type": "string",
-						"nullable": true
-					},
-					"studyType": {
-						"$ref": "#/components/schemas/StudyV2.Code"
-					},
-					"studyRationale": {
-						"type": "string",
-						"nullable": true
-					},
-					"studyAcronym": {
-						"type": "string",
-						"nullable": true
-					},
-					"studyIdentifiers": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/StudyV2.StudyIdentifier"
-						},
-						"nullable": true
-					},
-					"studyPhase": {
-						"$ref": "#/components/schemas/StudyV2.AliasCode"
-					},
-					"businessTherapeuticAreas": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/StudyV2.Code"
-						},
-						"nullable": true
-					},
-					"studyProtocolVersions": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/StudyV2.StudyProtocolVersion"
-						},
-						"nullable": true
-					},
-					"studyDesigns": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/StudyV2.StudyDesign"
-						},
 						"nullable": true
 					}
 				},
@@ -4321,7 +4939,6 @@
 						"nullable": true
 					},
 					"procedureIsConditional": {
-						"type": "boolean",
 						"nullable": true
 					},
 					"procedureIsConditionalReason": {
@@ -4417,8 +5034,6 @@
 						"nullable": true
 					},
 					"scheduleSequenceNumber": {
-						"type": "integer",
-						"format": "int32",
 						"nullable": true
 					},
 					"scheduledInstanceTimings": {
@@ -4438,14 +5053,59 @@
 			"StudyV2.Study": {
 				"type": "object",
 				"properties": {
-					"clinicalStudy": {
-						"$ref": "#/components/schemas/StudyV2.ClinicalStudy"
+					"studyId": {
+						"type": "string",
+						"nullable": true
 					},
-					"auditTrail": {
-						"$ref": "#/components/schemas/StudyV2.AuditTrail"
+					"studyTitle": {
+						"type": "string",
+						"nullable": true
 					},
-					"links": {
-						"$ref": "#/components/schemas/Common.LinksForUI"
+					"studyVersion": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyType": {
+						"$ref": "#/components/schemas/StudyV2.Code"
+					},
+					"studyRationale": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyAcronym": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyIdentifiers": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.StudyIdentifier"
+						},
+						"nullable": true
+					},
+					"studyPhase": {
+						"$ref": "#/components/schemas/StudyV2.AliasCode"
+					},
+					"businessTherapeuticAreas": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.Code"
+						},
+						"nullable": true
+					},
+					"studyProtocolVersions": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.StudyProtocolVersion"
+						},
+						"nullable": true
+					},
+					"studyDesigns": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV2.StudyDesign"
+						},
+						"nullable": true
 					}
 				},
 				"additionalProperties": false
@@ -4497,6 +5157,21 @@
 							"$ref": "#/components/schemas/StudyV2.StudyElement"
 						},
 						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV2.StudyDefinitions": {
+				"type": "object",
+				"properties": {
+					"clinicalStudy": {
+						"$ref": "#/components/schemas/StudyV2.Study"
+					},
+					"auditTrail": {
+						"$ref": "#/components/schemas/StudyV2.AuditTrail"
+					},
+					"links": {
+						"$ref": "#/components/schemas/Common.LinksForUI"
 					}
 				},
 				"additionalProperties": false
@@ -4646,8 +5321,6 @@
 						"nullable": true
 					},
 					"plannedNumberOfParticipants": {
-						"type": "integer",
-						"format": "int32",
 						"nullable": true
 					},
 					"plannedMaximumAgeOfParticipants": {
@@ -4819,6 +5492,1151 @@
 				"additionalProperties": false
 			},
 			"StudyV2.TransitionRule": {
+				"type": "object",
+				"properties": {
+					"transitionRuleId": {
+						"type": "string",
+						"nullable": true
+					},
+					"transitionRuleDescription": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.Activity": {
+				"type": "object",
+				"properties": {
+					"activityId": {
+						"type": "string",
+						"nullable": true
+					},
+					"activityDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"activityName": {
+						"type": "string",
+						"nullable": true
+					},
+					"definedProcedures": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.Procedure"
+						},
+						"nullable": true
+					},
+					"nextActivityId": {
+						"type": "string",
+						"nullable": true
+					},
+					"previousActivityId": {
+						"type": "string",
+						"nullable": true
+					},
+					"activityIsConditional": {
+						"nullable": true
+					},
+					"activityIsConditionalReason": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcCategoryIds": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"nullable": true
+					},
+					"bcSurrogateIds": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"nullable": true
+					},
+					"biomedicalConceptIds": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"nullable": true
+					},
+					"activityTimelineId": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.Address": {
+				"type": "object",
+				"properties": {
+					"addressId": {
+						"type": "string",
+						"nullable": true
+					},
+					"text": {
+						"type": "string",
+						"nullable": true
+					},
+					"line": {
+						"type": "string",
+						"nullable": true
+					},
+					"city": {
+						"type": "string",
+						"nullable": true
+					},
+					"district": {
+						"type": "string",
+						"nullable": true
+					},
+					"state": {
+						"type": "string",
+						"nullable": true
+					},
+					"postalCode": {
+						"type": "string",
+						"nullable": true
+					},
+					"country": {
+						"$ref": "#/components/schemas/StudyV3.Code"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.AliasCode": {
+				"type": "object",
+				"properties": {
+					"aliasCodeId": {
+						"type": "string",
+						"nullable": true
+					},
+					"standardCode": {
+						"$ref": "#/components/schemas/StudyV3.Code"
+					},
+					"standardCodeAliases": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.Code"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.AnalysisPopulation": {
+				"type": "object",
+				"properties": {
+					"analysisPopulationId": {
+						"type": "string",
+						"nullable": true
+					},
+					"populationDescription": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.AuditTrail": {
+				"type": "object",
+				"properties": {
+					"entryDateTime": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"usdmVersion": {
+						"type": "string",
+						"nullable": true
+					},
+					"SDRUploadVersion": {
+						"type": "integer",
+						"format": "int32"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.BiomedicalConcept": {
+				"type": "object",
+				"properties": {
+					"biomedicalConceptId": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcName": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcSynonyms": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"nullable": true
+					},
+					"bcReference": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcProperties": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.BiomedicalConceptProperty"
+						},
+						"nullable": true
+					},
+					"bcConceptCode": {
+						"$ref": "#/components/schemas/StudyV3.AliasCode"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.BiomedicalConceptCategory": {
+				"type": "object",
+				"properties": {
+					"biomedicalConceptCategoryId": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcCategoryChildIds": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"nullable": true
+					},
+					"bcCategoryName": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcCategoryDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcCategoryMemberIds": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"nullable": true
+					},
+					"bcCategoryCode": {
+						"$ref": "#/components/schemas/StudyV3.AliasCode"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.BiomedicalConceptProperty": {
+				"type": "object",
+				"properties": {
+					"bcPropertyId": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcPropertyName": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcPropertyRequired": {
+						"nullable": true
+					},
+					"bcPropertyEnabled": {
+						"nullable": true
+					},
+					"bcPropertyDataType": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcPropertyResponseCodes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.ResponseCode"
+						},
+						"nullable": true
+					},
+					"bcPropertyConceptCode": {
+						"$ref": "#/components/schemas/StudyV3.AliasCode"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.BiomedicalConceptSurrogate": {
+				"type": "object",
+				"properties": {
+					"bcSurrogateId": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcSurrogateName": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcSurrogateDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"bcSurrogateReference": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.Code": {
+				"type": "object",
+				"properties": {
+					"codeId": {
+						"type": "string",
+						"nullable": true
+					},
+					"code": {
+						"type": "string",
+						"nullable": true
+					},
+					"codeSystem": {
+						"type": "string",
+						"nullable": true
+					},
+					"codeSystemVersion": {
+						"type": "string",
+						"nullable": true
+					},
+					"decode": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.Encounter": {
+				"type": "object",
+				"properties": {
+					"encounterId": {
+						"type": "string",
+						"nullable": true
+					},
+					"encounterContactModes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.Code"
+						},
+						"nullable": true
+					},
+					"encounterDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"encounterEnvironmentalSetting": {
+						"$ref": "#/components/schemas/StudyV3.Code"
+					},
+					"encounterName": {
+						"type": "string",
+						"nullable": true
+					},
+					"encounterType": {
+						"$ref": "#/components/schemas/StudyV3.Code"
+					},
+					"nextEncounterId": {
+						"type": "string",
+						"nullable": true
+					},
+					"previousEncounterId": {
+						"type": "string",
+						"nullable": true
+					},
+					"encounterScheduledAtTimingId": {
+						"type": "string",
+						"nullable": true
+					},
+					"transitionStartRule": {
+						"$ref": "#/components/schemas/StudyV3.TransitionRule"
+					},
+					"transitionEndRule": {
+						"$ref": "#/components/schemas/StudyV3.TransitionRule"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.Endpoint": {
+				"type": "object",
+				"properties": {
+					"endpointId": {
+						"type": "string",
+						"nullable": true
+					},
+					"endpointDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"endpointPurposeDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"endpointLevel": {
+						"$ref": "#/components/schemas/StudyV3.Code"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.Estimand": {
+				"type": "object",
+				"properties": {
+					"estimandId": {
+						"type": "string",
+						"nullable": true
+					},
+					"treatment": {
+						"type": "string",
+						"nullable": true
+					},
+					"summaryMeasure": {
+						"type": "string",
+						"nullable": true
+					},
+					"analysisPopulation": {
+						"$ref": "#/components/schemas/StudyV3.AnalysisPopulation"
+					},
+					"variableOfInterest": {
+						"type": "string",
+						"nullable": true
+					},
+					"intercurrentEvents": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.InterCurrentEvent"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.Indication": {
+				"type": "object",
+				"properties": {
+					"indicationId": {
+						"type": "string",
+						"nullable": true
+					},
+					"indicationDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"codes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.Code"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.InterCurrentEvent": {
+				"type": "object",
+				"properties": {
+					"intercurrentEventId": {
+						"type": "string",
+						"nullable": true
+					},
+					"intercurrentEventDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"intercurrentEventName": {
+						"type": "string",
+						"nullable": true
+					},
+					"intercurrentEventStrategy": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.InvestigationalIntervention": {
+				"type": "object",
+				"properties": {
+					"investigationalInterventionId": {
+						"type": "string",
+						"nullable": true
+					},
+					"interventionDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"codes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.Code"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.Objective": {
+				"type": "object",
+				"properties": {
+					"objectiveId": {
+						"type": "string",
+						"nullable": true
+					},
+					"objectiveDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"objectiveLevel": {
+						"$ref": "#/components/schemas/StudyV3.Code"
+					},
+					"objectiveEndpoints": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.Endpoint"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.Organisation": {
+				"type": "object",
+				"properties": {
+					"organisationId": {
+						"type": "string",
+						"nullable": true
+					},
+					"organisationIdentifier": {
+						"type": "string",
+						"nullable": true
+					},
+					"organisationIdentifierScheme": {
+						"type": "string",
+						"nullable": true
+					},
+					"organisationName": {
+						"type": "string",
+						"nullable": true
+					},
+					"organisationType": {
+						"$ref": "#/components/schemas/StudyV3.Code"
+					},
+					"organizationLegalAddress": {
+						"$ref": "#/components/schemas/StudyV3.Address"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.Procedure": {
+				"type": "object",
+				"properties": {
+					"procedureId": {
+						"type": "string",
+						"nullable": true
+					},
+					"procedureName": {
+						"type": "string",
+						"nullable": true
+					},
+					"procedureDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"procedureType": {
+						"type": "string",
+						"nullable": true
+					},
+					"procedureCode": {
+						"$ref": "#/components/schemas/StudyV3.Code"
+					},
+					"procedureIsConditional": {
+						"nullable": true
+					},
+					"procedureIsConditionalReason": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.ResponseCode": {
+				"type": "object",
+				"properties": {
+					"responseCodeId": {
+						"type": "string",
+						"nullable": true
+					},
+					"responseCodeEnabled": {
+						"nullable": true
+					},
+					"code": {
+						"$ref": "#/components/schemas/StudyV3.Code"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.ScheduleTimeline": {
+				"type": "object",
+				"properties": {
+					"scheduleTimelineId": {
+						"type": "string",
+						"nullable": true
+					},
+					"scheduleTimelineName": {
+						"type": "string",
+						"nullable": true
+					},
+					"scheduleTimelineDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"entryCondition": {
+						"type": "string",
+						"nullable": true
+					},
+					"scheduleTimelineEntryId": {
+						"type": "string",
+						"nullable": true
+					},
+					"scheduleTimelineExits": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.ScheduleTimelineExit"
+						},
+						"nullable": true
+					},
+					"mainTimeline": {
+						"nullable": true
+					},
+					"scheduleTimelineInstances": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.ScheduledInstance"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.ScheduleTimelineExit": {
+				"type": "object",
+				"properties": {
+					"scheduleTimelineExitId": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.ScheduledInstance": {
+				"type": "object",
+				"properties": {
+					"scheduledInstanceId": {
+						"type": "string",
+						"nullable": true
+					},
+					"scheduleTimelineExitId": {
+						"type": "string",
+						"nullable": true
+					},
+					"scheduledInstanceTimelineId": {
+						"type": "string",
+						"nullable": true
+					},
+					"defaultConditionId": {
+						"type": "string",
+						"nullable": true
+					},
+					"epochId": {
+						"type": "string",
+						"nullable": true
+					},
+					"scheduledInstanceTimings": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.Timing"
+						},
+						"nullable": true
+					},
+					"scheduledInstanceType": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.Study": {
+				"type": "object",
+				"properties": {
+					"studyId": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyTitle": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyVersion": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyType": {
+						"$ref": "#/components/schemas/StudyV3.Code"
+					},
+					"studyRationale": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyAcronym": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyIdentifiers": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.StudyIdentifier"
+						},
+						"nullable": true
+					},
+					"studyPhase": {
+						"$ref": "#/components/schemas/StudyV3.AliasCode"
+					},
+					"businessTherapeuticAreas": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.Code"
+						},
+						"nullable": true
+					},
+					"studyProtocolVersions": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.StudyProtocolVersion"
+						},
+						"nullable": true
+					},
+					"studyDesigns": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.StudyDesign"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.StudyArm": {
+				"type": "object",
+				"properties": {
+					"studyArmId": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyArmDataOriginDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyArmDataOriginType": {
+						"$ref": "#/components/schemas/StudyV3.Code"
+					},
+					"studyArmDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyArmName": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyArmType": {
+						"$ref": "#/components/schemas/StudyV3.Code"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.StudyCell": {
+				"type": "object",
+				"properties": {
+					"studyCellId": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyArmId": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyEpochId": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyElementIds": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.StudyDefinitions": {
+				"type": "object",
+				"properties": {
+					"study": {
+						"$ref": "#/components/schemas/StudyV3.Study"
+					},
+					"auditTrail": {
+						"$ref": "#/components/schemas/StudyV3.AuditTrail"
+					},
+					"links": {
+						"$ref": "#/components/schemas/Common.LinksForUI"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.StudyDesign": {
+				"type": "object",
+				"properties": {
+					"studyDesignId": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyDesignName": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyDesignDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"trialIntentTypes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.Code"
+						},
+						"nullable": true
+					},
+					"trialType": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.Code"
+						},
+						"nullable": true
+					},
+					"interventionModel": {
+						"$ref": "#/components/schemas/StudyV3.Code"
+					},
+					"studyCells": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.StudyCell"
+						},
+						"nullable": true
+					},
+					"studyIndications": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.Indication"
+						},
+						"nullable": true
+					},
+					"studyInvestigationalInterventions": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.InvestigationalIntervention"
+						},
+						"nullable": true
+					},
+					"studyPopulations": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.StudyDesignPopulation"
+						},
+						"nullable": true
+					},
+					"studyObjectives": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.Objective"
+						},
+						"nullable": true
+					},
+					"studyScheduleTimelines": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.ScheduleTimeline"
+						},
+						"nullable": true
+					},
+					"therapeuticAreas": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.Code"
+						},
+						"nullable": true
+					},
+					"studyEstimands": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.Estimand"
+						},
+						"nullable": true
+					},
+					"encounters": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.Encounter"
+						},
+						"nullable": true
+					},
+					"activities": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.Activity"
+						},
+						"nullable": true
+					},
+					"studyDesignRationale": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyDesignBlindingScheme": {
+						"$ref": "#/components/schemas/StudyV3.AliasCode"
+					},
+					"biomedicalConcepts": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.BiomedicalConcept"
+						},
+						"nullable": true
+					},
+					"bcCategories": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.BiomedicalConceptCategory"
+						},
+						"nullable": true
+					},
+					"bcSurrogates": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.BiomedicalConceptSurrogate"
+						},
+						"nullable": true
+					},
+					"studyArms": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.StudyArm"
+						},
+						"nullable": true
+					},
+					"studyEpochs": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.StudyEpoch"
+						},
+						"nullable": true
+					},
+					"studyElements": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.StudyElement"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.StudyDesignPopulation": {
+				"type": "object",
+				"properties": {
+					"studyDesignPopulationId": {
+						"type": "string",
+						"nullable": true
+					},
+					"populationDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"plannedNumberOfParticipants": {
+						"nullable": true
+					},
+					"plannedMaximumAgeOfParticipants": {
+						"type": "string",
+						"nullable": true
+					},
+					"plannedMinimumAgeOfParticipants": {
+						"type": "string",
+						"nullable": true
+					},
+					"plannedSexOfParticipants": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/StudyV3.Code"
+						},
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.StudyElement": {
+				"type": "object",
+				"properties": {
+					"studyElementId": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyElementDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyElementName": {
+						"type": "string",
+						"nullable": true
+					},
+					"transitionStartRule": {
+						"$ref": "#/components/schemas/StudyV3.TransitionRule"
+					},
+					"transitionEndRule": {
+						"$ref": "#/components/schemas/StudyV3.TransitionRule"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.StudyEpoch": {
+				"type": "object",
+				"properties": {
+					"studyEpochId": {
+						"type": "string",
+						"nullable": true
+					},
+					"nextStudyEpochId": {
+						"type": "string",
+						"nullable": true
+					},
+					"previousStudyEpochId": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyEpochDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyEpochName": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyEpochType": {
+						"$ref": "#/components/schemas/StudyV3.Code"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.StudyIdentifier": {
+				"type": "object",
+				"properties": {
+					"studyIdentifierId": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyIdentifier": {
+						"type": "string",
+						"nullable": true
+					},
+					"studyIdentifierScope": {
+						"$ref": "#/components/schemas/StudyV3.Organisation"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.StudyProtocolVersion": {
+				"type": "object",
+				"properties": {
+					"studyProtocolVersionId": {
+						"type": "string",
+						"nullable": true
+					},
+					"briefTitle": {
+						"type": "string",
+						"nullable": true
+					},
+					"officialTitle": {
+						"type": "string",
+						"nullable": true
+					},
+					"protocolAmendment": {
+						"type": "string",
+						"nullable": true
+					},
+					"protocolEffectiveDate": {
+						"type": "string",
+						"nullable": true
+					},
+					"protocolStatus": {
+						"$ref": "#/components/schemas/StudyV3.Code"
+					},
+					"protocolVersion": {
+						"type": "string",
+						"nullable": true
+					},
+					"publicTitle": {
+						"type": "string",
+						"nullable": true
+					},
+					"scientificTitle": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.Timing": {
+				"type": "object",
+				"properties": {
+					"timingId": {
+						"type": "string",
+						"nullable": true
+					},
+					"timingType": {
+						"$ref": "#/components/schemas/StudyV3.Code"
+					},
+					"timingValue": {
+						"type": "string",
+						"nullable": true
+					},
+					"timingDescription": {
+						"type": "string",
+						"nullable": true
+					},
+					"timingWindow": {
+						"type": "string",
+						"nullable": true
+					},
+					"relativeToScheduledInstanceId": {
+						"type": "string",
+						"nullable": true
+					},
+					"relativeFromScheduledInstanceId": {
+						"type": "string",
+						"nullable": true
+					},
+					"timingWindowLower": {
+						"type": "string",
+						"nullable": true
+					},
+					"timingWindowUpper": {
+						"type": "string",
+						"nullable": true
+					},
+					"timingRelativeToFrom": {
+						"$ref": "#/components/schemas/StudyV3.Code"
+					}
+				},
+				"additionalProperties": false
+			},
+			"StudyV3.TransitionRule": {
 				"type": "object",
 				"properties": {
 					"transitionRuleId": {

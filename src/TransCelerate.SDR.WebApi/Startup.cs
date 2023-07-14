@@ -1,5 +1,5 @@
 using Azure.Messaging.ServiceBus;
-using Moq;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Moq;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -30,6 +31,7 @@ using TransCelerate.SDR.RuleEngine;
 using TransCelerate.SDR.RuleEngine.Common;
 using TransCelerate.SDR.RuleEngineV1;
 using TransCelerate.SDR.RuleEngineV2;
+using TransCelerate.SDR.RuleEngineV3;
 using TransCelerate.SDR.WebApi.DependencyInjection;
 using TransCelerate.SDR.WebApi.Mappers;
 
@@ -72,7 +74,7 @@ namespace TransCelerate.SDR.WebApi
             //Swagger          
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Transcelerate SDR", Version = "v1" });
+                c.SwaggerDoc("v3", new OpenApiInfo { Title = "Transcelerate SDR", Version = "v3" });
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
@@ -121,14 +123,11 @@ namespace TransCelerate.SDR.WebApi
             services.AddControllers(config =>
             {
                 config.Filters.Add<ActionFilter>();
-            }).AddFluentValidation(fv =>
-            {
-                fv.DisableDataAnnotationsValidation = true;
-                fv.ImplicitlyValidateChildProperties = true;
-                fv.ImplicitlyValidateRootCollectionElements = true;
-                fv.ValidatorOptions.DisplayNameResolver = (type, memberInfo, expression) => string.Concat(memberInfo.Name.Replace(" ", "")[..1]?.ToLower(), memberInfo.Name.Replace(" ", "").AsSpan(1));
-                fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             });
+
+            services.AddFluentValidationAutoValidation();
+            ValidatorOptions.Global.DisplayNameResolver = (type, memberInfo, expression) => string.Concat(memberInfo.Name.Replace(" ", "")[..1]?.ToLower(), memberInfo.Name.Replace(" ", "").AsSpan(1));
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
             //Enabling CORS
             services.AddCors();
@@ -136,17 +135,17 @@ namespace TransCelerate.SDR.WebApi
             //Dependency Injection of interfaces
             services.AddApplicationDependencies();
 
-            //AutoMapper Profile
-            services.AddAutoMapper(typeof(AutoMapperProfies).Assembly);
+            //AutoMapper Profile            
             services.AddAutoMapper(typeof(AutoMapperProfilesV1).Assembly);
             services.AddAutoMapper(typeof(AutoMapperProfilesV2).Assembly);
+            services.AddAutoMapper(typeof(AutoMapperProfilesV3).Assembly);
             services.AddAutoMapper(typeof(SharedAutoMapperProfiles).Assembly);
 
             //API to use MVC with validation handling and JSON response
-            services.AddMvc().AddNewtonsoftJson();
-            services.AddValidationDependencies();
+            services.AddMvc().AddNewtonsoftJson();            
             services.AddValidationDependenciesV1();
             services.AddValidationDependenciesV2();
+            services.AddValidationDependenciesV3();
             services.AddValidationDependenciesCommon();
             services.Configure<ApiBehaviorOptions>(options =>
             {
@@ -188,7 +187,7 @@ namespace TransCelerate.SDR.WebApi
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Transcelerate SDR");
+                c.SwaggerEndpoint("/swagger/v3/swagger.json", "Transcelerate SDR");
                 //c.DefaultModelsExpandDepth(-1);
             });
 
@@ -209,14 +208,7 @@ namespace TransCelerate.SDR.WebApi
                     string request = string.Empty;
                     string response = string.Empty;
                     context.Request.EnableBuffering();
-                    string usdmVersionValidationErrors = HeaderValidationHelper.ValidateUsdmVersionHeaderMvp(context, null);
-                    if (usdmVersionValidationErrors != null)
-                    {
-                        if (String.IsNullOrWhiteSpace(context.Response.Headers["Content-Type"]))
-                            context.Response.Headers.Add("Content-Type", "application/json");
-                        await context.Response.WriteAsync(JsonConvert.SerializeObject(ErrorResponseHelper.BadRequest(usdmVersionValidationErrors), new JsonSerializerSettings { ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver() }));
-                        return;
-                    }
+                    
                     using (StreamReader reader = new(context.Request.Body))
                     {
                         if (!context.Request.Path.Value.Contains(Route.Token) && !context.Request.Path.Value.Contains(Route.CommonToken))

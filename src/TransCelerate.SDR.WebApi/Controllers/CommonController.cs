@@ -101,75 +101,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             {
                 _logger.LogInformation($"Ended Controller : {nameof(CommonController)}; Method : {nameof(GetRawJson)};");
             }
-        }
-
-        /// <summary>
-        /// GET All Elements For a Study
-        /// </summary>
-        /// <param name="studyId">Study ID</param>
-        /// <param name="sdruploadversion">Version of study</param> 
-        /// <param name="studydesignId">studyDesignId</param> 
-        /// <response code="200">Returns Study</response>
-        /// <response code="400">Bad Request</response>
-        /// <response code="404">The Study for the studyId is Not Found</response>
-        [HttpGet]
-        [Route(Route.GeteCPT)]
-        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
-        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
-        [Produces("application/json")]
-        public async Task<IActionResult> GeteCPT(string studyId, int sdruploadversion, string studydesignId)
-        {
-            try
-            {
-                _logger.LogInformation($"Started Controller : {nameof(CommonController)}; Method : {nameof(GeteCPT)};");
-                if (!String.IsNullOrWhiteSpace(studyId))
-                {
-                    _logger.LogInformation($"Inputs : studyId = {studyId}; sdruploadversion = {sdruploadversion};");
-
-                    LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
-
-                    var study = await _commonService.GeteCPT(studyId, sdruploadversion, studydesignId, user);
-
-                    if (study == null)
-                    {
-                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
-                    }
-                    else if (study.ToString() == Constants.ErrorMessages.Forbidden)
-                    {
-                        return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
-                    }
-                    else if (study.ToString() == Constants.ErrorMessages.eCPTError)
-                    {
-                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.eCPTError)).Value);
-                    }
-                    else if (study.ToString() == Constants.ErrorMessages.StudyDesignNotFoundCPT)
-                    {
-                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyDesignNotFoundCPT)).Value);
-                    }
-                    else if (study.ToString() == Constants.ErrorMessages.StudyDesignIdNotFoundCPT)
-                    {
-                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyDesignIdNotFoundCPT)).Value);
-                    }
-                    else
-                    {
-                        return Ok(study);
-                    }
-                }
-                else
-                {
-                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Exception occured. Exception : {ex}");
-                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
-            }
-            finally
-            {
-                _logger.LogInformation($"Ended Controller : {nameof(CommonController)}; Method : {nameof(GeteCPT)};");
-            }
-        }
+        }      
 
         /// <summary>
         /// GET API -> USDM Version Mapping
@@ -205,7 +137,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         }
 
         /// <summary>
-        /// GET Audit Trail of a study
+        /// GET Revision History of a study
         /// </summary>
         /// <param name="fromDate">Start Date for Date Filter</param>
         /// <param name="toDate">End Date for Date Filter</param>
@@ -214,7 +146,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Audit trail for the study is Not Found</response>
         [HttpGet]
-        [Route(Route.GetAudiTrail)]
+        [Route(Route.GetRevisionHistory)]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IEnumerable<AuditTrailResponseDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
@@ -406,7 +338,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 {
                     if (String.IsNullOrWhiteSpace(searchparameters.Indication)
                        && String.IsNullOrWhiteSpace(searchparameters.InterventionModel) && String.IsNullOrWhiteSpace(searchparameters.Phase)
-                       && String.IsNullOrWhiteSpace(searchparameters.StudyId) && String.IsNullOrWhiteSpace(searchparameters.StudyTitle)
+                       && String.IsNullOrWhiteSpace(searchparameters.SponsorId) && String.IsNullOrWhiteSpace(searchparameters.StudyTitle)
                        && String.IsNullOrWhiteSpace(searchparameters.FromDate) && String.IsNullOrWhiteSpace(searchparameters.ToDate))
                     {
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ValidationErrorMessage.AnyOneFieldError)).Value);
@@ -473,7 +405,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
                 if (searchparameters != null)
                 {
-                    if (String.IsNullOrWhiteSpace(searchparameters.StudyTitle) && String.IsNullOrWhiteSpace(searchparameters.StudyId)
+                    if (String.IsNullOrWhiteSpace(searchparameters.StudyTitle) && String.IsNullOrWhiteSpace(searchparameters.SponsorId)
                        && String.IsNullOrWhiteSpace(searchparameters.FromDate) && String.IsNullOrWhiteSpace(searchparameters.ToDate))
                     {
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ValidationErrorMessage.AnyOneFieldError)).Value);

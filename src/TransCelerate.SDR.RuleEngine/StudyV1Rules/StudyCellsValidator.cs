@@ -10,7 +10,14 @@ namespace TransCelerate.SDR.RuleEngineV1
     {
         public StudyCellsValidator()
         {
+            RuleFor(x => x.StudyArm)
+                .SetValidator(new StudyArmValidator());
 
+            RuleFor(x => x.StudyEpoch)
+                .SetValidator(new StudyEpochValidator());
+
+            RuleFor(x => x.StudyElements)
+                .ForEach(x => x.SetValidator(new StudyElementsValidator()));
         }
     }
 }

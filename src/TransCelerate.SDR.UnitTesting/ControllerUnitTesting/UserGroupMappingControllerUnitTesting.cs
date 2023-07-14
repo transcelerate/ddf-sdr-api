@@ -97,8 +97,10 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 Oid = "aw2dq254wfdsf",
                 Groups = groupList
             };
-            List<PostUserToGroupsDTO> postUserToGroups = new();
-            postUserToGroups.Add(postUserToGroupsDTO);
+            List<PostUserToGroupsDTO> postUserToGroups = new()
+            {
+                postUserToGroupsDTO
+            };
             IEnumerable<PostUserToGroupsDTO> postUserToGroupsIenum = JsonConvert.DeserializeObject<IEnumerable<PostUserToGroupsDTO>>(
                                                                     JsonConvert.SerializeObject(postUserToGroups));
             return postUserToGroupsIenum;
@@ -109,7 +111,10 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         {
             var mockMapper = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new AutoMapperProfies());
+                cfg.AddProfile(new AutoMapperProfilesV1());
+                cfg.AddProfile(new AutoMapperProfilesV2());
+                cfg.AddProfile(new AutoMapperProfilesV3());
+                cfg.AddProfile(new SharedAutoMapperProfiles());
             });
         }
         #endregion

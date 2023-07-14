@@ -34,6 +34,8 @@ namespace TransCelerate.SDR.RuleEngineV2
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(IndicationValidator), nameof(IndicationDto.Codes)), ApplyConditionTo.AllValidators)
                .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
+            RuleForEach(x => x.Codes)
+                .SetValidator(new CodeValidator(_httpContextAccessor));
         }
     }
 }

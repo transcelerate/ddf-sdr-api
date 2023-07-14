@@ -6,14 +6,13 @@ namespace TransCelerate.SDR.Core.DTO.Common
 {
     public class SearchResponseDto
     {
-        public SearchClinicalStudy ClinicalStudy { get; set; }
+        public SearchStudy Study { get; set; }
         public AuditTrailDto AuditTrail { get; set; }
         public LinksForUIDto Links { get; set; }
     }
 
-    public class SearchClinicalStudy
-    {
-        [JsonProperty(IdFieldPropertyName.StudyV1.Uuid)]
+    public class SearchStudy
+    {        
         public string StudyId { get; set; }
         public string StudyTitle { get; set; }
         public CommonCodeDto StudyType { get; set; }
@@ -28,8 +27,7 @@ namespace TransCelerate.SDR.Core.DTO.Common
         public List<CommonStudyIndication> StudyIndications { get; set; }
     }
     public class CommonStudyIndication
-    {
-        [JsonProperty(IdFieldPropertyName.StudyV1.IndicationDesc)]
+    {        
         public string IndicationDescription { get; set; }
     }
 }

@@ -6,7 +6,7 @@ namespace TransCelerate.SDR.Core.Entities.Common
     [BsonIgnoreExtraElements]
     public class GetRawJsonEntity
     {
-        public object ClinicalStudy { get; set; }
+        public object Study { get; set; }
 
         public AuditTrailEntity AuditTrail { get; set; }
     }

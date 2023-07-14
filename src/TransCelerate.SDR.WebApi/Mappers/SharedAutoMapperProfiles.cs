@@ -53,8 +53,8 @@ namespace TransCelerate.SDR.WebApi.Mappers
             //Mapper for Search Titke
             CreateMap<SearchTitleParametersDto, SearchTitleParametersEntity>();
             CreateMap<SearchTitleResponseDto, SearchTitleResponseEntity>()
-               .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.ClinicalStudy.StudyId))
-               .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.ClinicalStudy.StudyTitle))
+               .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.Study.StudyId))
+               .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.Study.StudyTitle))
                .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))
                .ForMember(dest => dest.UsdmVersion, opt => opt.MapFrom(src => src.AuditTrail.UsdmVersion))
                .ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.AuditTrail.EntryDateTime)).ReverseMap();
@@ -71,37 +71,83 @@ namespace TransCelerate.SDR.WebApi.Mappers
             //Mapper for Search
             CreateMap<SearchParametersDto, SearchParametersEntity>();
 
+            //Mapper for Common Search
             CreateMap<SearchResponseDto, SearchResponseEntity>()
-                .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.ClinicalStudy.StudyId))
-                .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.ClinicalStudy.StudyTitle))
+                .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.Study.StudyId))
+                .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.Study.StudyTitle))
+                .ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.AuditTrail.EntryDateTime))
+                .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))
+                .ForMember(dest => dest.UsdmVersion, opt => opt.MapFrom(src => src.AuditTrail.UsdmVersion))
+                .ReverseMap();            
+
+            //Mapper for Search V1
+            CreateMap<SearchResponseDto, Core.Entities.StudyV1.SearchResponseEntity>()
+                .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.Study.StudyId))
+                .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.Study.StudyTitle))
+                .ForMember(dest => dest.StudyType, opt => opt.MapFrom(src => src.Study.StudyType))
+                .ForMember(dest => dest.StudyPhase, opt => opt.MapFrom(src => src.Study.StudyPhase))
                 .ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.AuditTrail.EntryDateTime))
                 .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))
                 .ForMember(dest => dest.UsdmVersion, opt => opt.MapFrom(src => src.AuditTrail.UsdmVersion))
                 .ReverseMap();
 
-            //ECPT Mapper
-            CreateMap<TransCelerate.SDR.Core.DTO.StudyV2.EndpointDto, TransCelerate.SDR.Core.DTO.eCPT.ObjectiveEndpointDto>()
-                 .ForMember(dest => dest.EndpointLevel, opt => opt.MapFrom(src => src.EndpointLevel != null ? src.EndpointLevel.Decode : null))
-                 .ReverseMap();
-
-            CreateMap<TransCelerate.SDR.Core.DTO.StudyV2.ObjectiveDto, TransCelerate.SDR.Core.DTO.eCPT.ObjectivesDto>()
-                  .ForMember(dest => dest.ObjectiveLevel, opt => opt.MapFrom(src => src.ObjectiveLevel != null ? src.ObjectiveLevel.Decode : null))
-                  .ReverseMap();
-
-            CreateMap<TransCelerate.SDR.Core.DTO.StudyV2.StudyArmDto, TransCelerate.SDR.Core.DTO.eCPT.StudyArmDto>()
-                    .ForMember(dest => dest.ArmName, opt => opt.MapFrom(src => src.StudyArmName))
-                    .ForMember(dest => dest.ArmDescription, opt => opt.MapFrom(src => src.StudyArmDescription))
-                    .ForMember(dest => dest.ArmType, opt => opt.MapFrom(src => src.StudyArmType != null ? src.StudyArmType.Decode : null))
-                    .ReverseMap();
-
-            CreateMap<TransCelerate.SDR.Core.DTO.StudyV2.InvestigationalInterventionDto, TransCelerate.SDR.Core.DTO.eCPT.StudyInterventionsAdministeredDto>()
-                .ForMember(dest => dest.InterventionDescription, opt => opt.MapFrom(src => src.InterventionDescription))
+            CreateMap<CommonStudyIdentifiersDto, Core.Entities.StudyV1.StudyIdentifierEntity>()
+                .ReverseMap();
+            CreateMap<CommonOrganisationDto, Core.Entities.StudyV1.StudyIdentifierScopeEntity>()
+                .ReverseMap();
+            CreateMap<CommonStudyIdentifiersDto, Core.Entities.StudyV1.StudyIdentifierEntity>()
+                .ReverseMap();
+            CreateMap<CommonCodeDto, Core.Entities.StudyV1.CodeEntity>()
                 .ReverseMap();
 
+            CreateMap<Core.DTO.Common.CommonStudyIndication, Core.Entities.StudyV1.IndicationEntity>()
+                .ForMember(dest => dest.IndicationDesc, opt => opt.MapFrom(src => src.IndicationDescription))
+                .ReverseMap();
 
+            //Mapper for Search V2
+            CreateMap<SearchResponseDto, Core.Entities.StudyV2.SearchResponseEntity>()
+                .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.Study.StudyId))
+                .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.Study.StudyTitle))
+                .ForMember(dest => dest.StudyType, opt => opt.MapFrom(src => src.Study.StudyType))                
+                .ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.AuditTrail.EntryDateTime))
+                .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))
+                .ForMember(dest => dest.UsdmVersion, opt => opt.MapFrom(src => src.AuditTrail.UsdmVersion))
+                .ReverseMap();
 
+            CreateMap<CommonCodeDto, Core.Entities.StudyV2.CodeEntity>()
+                .ReverseMap();
+            CreateMap<CommonStudyIdentifiersDto, Core.Entities.StudyV2.StudyIdentifierEntity>()
+                .ReverseMap();
+            CreateMap<CommonOrganisationDto, Core.Entities.StudyV2.OrganisationEntity>()
+                .ReverseMap();
+            CreateMap<Core.DTO.Common.CommonStudyIndication, Core.Entities.StudyV2.IndicationEntity>()
+                .ForMember(dest => dest.IndicationDescription, opt => opt.MapFrom(src => src.IndicationDescription))
+                .ReverseMap();
 
+            //Mapper for Search V3
+            CreateMap<SearchResponseDto, Core.Entities.StudyV3.SearchResponseEntity>()
+                .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.Study.StudyId))
+                .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.Study.StudyTitle))
+                .ForMember(dest => dest.StudyType, opt => opt.MapFrom(src => src.Study.StudyType))
+                .ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.AuditTrail.EntryDateTime))
+                .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))
+                .ForMember(dest => dest.UsdmVersion, opt => opt.MapFrom(src => src.AuditTrail.UsdmVersion))
+                .ReverseMap();
 
+            CreateMap<CommonCodeDto, Core.Entities.StudyV3.CodeEntity>()
+                .ReverseMap();
+            CreateMap<CommonStudyIdentifiersDto, Core.Entities.StudyV3.StudyIdentifierEntity>()
+                .ReverseMap();
+            CreateMap<CommonOrganisationDto, Core.Entities.StudyV3.OrganisationEntity>()
+                .ReverseMap();
+            CreateMap<Core.DTO.Common.CommonStudyIndication, Core.Entities.StudyV3.IndicationEntity>()
+                .ForMember(dest => dest.IndicationDescription, opt => opt.MapFrom(src => src.IndicationDescription))
+                .ReverseMap();
+
+            //ChangeAudit
+            CreateMap<ChangeAuditStudyDto, ChangeAuditStudyEntity>().ReverseMap();
+            CreateMap<ChangeAuditDto, ChangeAuditEntity>().ReverseMap();
+            CreateMap<ChangesDto, ChangesEntity>().ReverseMap();
         }
     }
 }

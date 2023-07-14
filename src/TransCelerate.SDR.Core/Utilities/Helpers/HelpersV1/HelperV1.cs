@@ -33,21 +33,21 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         /// </summary>
         /// <param name="study">Study Entity</param>
         /// <returns></returns>
-        public StudyEntity GeneratedSectionId(StudyEntity study)
+        public StudyDefinitionsEntity GeneratedSectionId(StudyDefinitionsEntity study)
         {
-            study.ClinicalStudy.Uuid = IdGenerator.GenerateId();
+            study.Study.Uuid = IdGenerator.GenerateId();
 
-            if (study.ClinicalStudy.StudyType is not null)
-                study.ClinicalStudy.StudyType.Uuid = IdGenerator.GenerateId();
+            if (study.Study.StudyType is not null)
+                study.Study.StudyType.Uuid = IdGenerator.GenerateId();
 
-            study.ClinicalStudy.StudyIdentifiers = GenerateIdForStudyIdentifier(study.ClinicalStudy.StudyIdentifiers);
+            study.Study.StudyIdentifiers = GenerateIdForStudyIdentifier(study.Study.StudyIdentifiers);
 
-            if (study.ClinicalStudy.StudyPhase is not null)
-                study.ClinicalStudy.StudyPhase.Uuid = IdGenerator.GenerateId();
+            if (study.Study.StudyPhase is not null)
+                study.Study.StudyPhase.Uuid = IdGenerator.GenerateId();
 
-            study.ClinicalStudy.StudyProtocolVersions = GenerateIdForStudyProtocol(study.ClinicalStudy.StudyProtocolVersions);
+            study.Study.StudyProtocolVersions = GenerateIdForStudyProtocol(study.Study.StudyProtocolVersions);
 
-            study.ClinicalStudy.StudyDesigns = GenerateIdForStudyDesign(study.ClinicalStudy.StudyDesigns);
+            study.Study.StudyDesigns = GenerateIdForStudyDesign(study.Study.StudyDesigns);
 
             return study;
         }
@@ -300,8 +300,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                                     y.WorkflowItemActivity.DefinedProcedures.ForEach(procedure =>
                                     {
                                         procedure.Uuid = IdGenerator.GenerateId();
-                                        if (procedure.ProcedureCode is not null)
-                                            procedure.ProcedureCode.ForEach(y => y.Uuid = IdGenerator.GenerateId());
+                                        procedure.ProcedureCode?.ForEach(y => y.Uuid = IdGenerator.GenerateId());
                                     });
                                 }
                                 if (y.WorkflowItemActivity.StudyDataCollection is not null && y.WorkflowItemActivity.StudyDataCollection.Any())
@@ -384,21 +383,21 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         /// </summary>
         /// <param name="study"></param>
         /// <returns></returns>
-        public StudyEntity RemovedSectionId(StudyEntity study)
+        public StudyDefinitionsEntity RemovedSectionId(StudyDefinitionsEntity study)
         {
-            study.ClinicalStudy.Uuid = null;
+            study.Study.Uuid = null;
 
-            if (study.ClinicalStudy.StudyType is not null)
-                study.ClinicalStudy.StudyType.Uuid = null;
+            if (study.Study.StudyType is not null)
+                study.Study.StudyType.Uuid = null;
 
-            study.ClinicalStudy.StudyIdentifiers = RemoveIdForStudyIdentifier(study.ClinicalStudy.StudyIdentifiers);
+            study.Study.StudyIdentifiers = RemoveIdForStudyIdentifier(study.Study.StudyIdentifiers);
 
-            if (study.ClinicalStudy.StudyPhase is not null)
-                study.ClinicalStudy.StudyPhase.Uuid = null;
+            if (study.Study.StudyPhase is not null)
+                study.Study.StudyPhase.Uuid = null;
 
-            study.ClinicalStudy.StudyProtocolVersions = RemoveIdForStudyProtocol(study.ClinicalStudy.StudyProtocolVersions);
+            study.Study.StudyProtocolVersions = RemoveIdForStudyProtocol(study.Study.StudyProtocolVersions);
 
-            study.ClinicalStudy.StudyDesigns = RemoveIdForStudyDesign(study.ClinicalStudy.StudyDesigns);
+            study.Study.StudyDesigns = RemoveIdForStudyDesign(study.Study.StudyDesigns);
 
             return study;
         }
@@ -651,8 +650,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                                     {
 
                                         procedure.Uuid = null;
-                                        if (procedure.ProcedureCode is not null)
-                                            procedure.ProcedureCode.ForEach(y => y.Uuid = null);
+                                        procedure.ProcedureCode?.ForEach(y => y.Uuid = null);
                                     });
                                 }
                                 if (y.WorkflowItemActivity.StudyDataCollection is not null && y.WorkflowItemActivity.StudyDataCollection.Any())
@@ -736,12 +734,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         /// <param name="incoming"></param>
         /// <param name="existing"></param>
         /// <returns></returns>
-        public bool IsSameStudy(StudyEntity incoming, StudyEntity existing)
+        public bool IsSameStudy(StudyDefinitionsEntity incoming, StudyDefinitionsEntity existing)
         {
             try
             {
-                var duplicateExistingStudy = JsonConvert.DeserializeObject<StudyEntity>(JsonConvert.SerializeObject(existing)); // Creating duplicates for existing entity
-                var duplicateIncomingStudy = JsonConvert.DeserializeObject<StudyEntity>(JsonConvert.SerializeObject(incoming)); // Creating duplicates for incoming entity
+                var duplicateExistingStudy = JsonConvert.DeserializeObject<StudyDefinitionsEntity>(JsonConvert.SerializeObject(existing)); // Creating duplicates for existing entity
+                var duplicateIncomingStudy = JsonConvert.DeserializeObject<StudyDefinitionsEntity>(JsonConvert.SerializeObject(incoming)); // Creating duplicates for incoming entity
 
                 duplicateIncomingStudy.AuditTrail = duplicateExistingStudy.AuditTrail = null;
                 duplicateIncomingStudy.Id = duplicateExistingStudy.Id = null;
@@ -780,26 +778,26 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
         /// <param name="incoming"></param>
         /// <param name="existing"></param>
         /// <returns></returns>
-        public StudyEntity CheckForSections(StudyEntity incoming, StudyEntity existing)
+        public StudyDefinitionsEntity CheckForSections(StudyDefinitionsEntity incoming, StudyDefinitionsEntity existing)
         {
             //For StudyType
-            if (existing.ClinicalStudy.StudyType is null && incoming.ClinicalStudy.StudyType is not null)
-                incoming.ClinicalStudy.StudyType.Uuid = IdGenerator.GenerateId();
-            else if (existing.ClinicalStudy.StudyType is not null && incoming.ClinicalStudy.StudyType is not null)
-                incoming.ClinicalStudy.StudyType.Uuid = String.IsNullOrWhiteSpace(incoming.ClinicalStudy.StudyType.Uuid) ? IdGenerator.GenerateId() : incoming.ClinicalStudy.StudyType.Uuid;
+            if (existing.Study.StudyType is null && incoming.Study.StudyType is not null)
+                incoming.Study.StudyType.Uuid = IdGenerator.GenerateId();
+            else if (existing.Study.StudyType is not null && incoming.Study.StudyType is not null)
+                incoming.Study.StudyType.Uuid = String.IsNullOrWhiteSpace(incoming.Study.StudyType.Uuid) ? IdGenerator.GenerateId() : incoming.Study.StudyType.Uuid;
 
             //For StudyPhase
-            if (existing.ClinicalStudy.StudyPhase is null && incoming.ClinicalStudy.StudyPhase is not null)
-                incoming.ClinicalStudy.StudyPhase.Uuid = IdGenerator.GenerateId();
-            else if (existing.ClinicalStudy.StudyPhase is not null && incoming.ClinicalStudy.StudyPhase is not null)
-                incoming.ClinicalStudy.StudyPhase.Uuid = String.IsNullOrWhiteSpace(incoming.ClinicalStudy.StudyPhase.Uuid) ? IdGenerator.GenerateId() : incoming.ClinicalStudy.StudyPhase.Uuid;
+            if (existing.Study.StudyPhase is null && incoming.Study.StudyPhase is not null)
+                incoming.Study.StudyPhase.Uuid = IdGenerator.GenerateId();
+            else if (existing.Study.StudyPhase is not null && incoming.Study.StudyPhase is not null)
+                incoming.Study.StudyPhase.Uuid = String.IsNullOrWhiteSpace(incoming.Study.StudyPhase.Uuid) ? IdGenerator.GenerateId() : incoming.Study.StudyPhase.Uuid;
 
-            incoming.ClinicalStudy.StudyIdentifiers = CheckForStudyIdentifierSection(incoming.ClinicalStudy.StudyIdentifiers,
-                                                                                     existing.ClinicalStudy.StudyIdentifiers);
+            incoming.Study.StudyIdentifiers = CheckForStudyIdentifierSection(incoming.Study.StudyIdentifiers,
+                                                                                     existing.Study.StudyIdentifiers);
 
-            incoming.ClinicalStudy.StudyProtocolVersions = CheckForStudyProtocolSection(incoming.ClinicalStudy.StudyProtocolVersions,
-                                                                                     existing.ClinicalStudy.StudyProtocolVersions);
-            incoming.ClinicalStudy.StudyDesigns = CheckForStudyDesignSection(incoming.ClinicalStudy.StudyDesigns, existing.ClinicalStudy.StudyDesigns);
+            incoming.Study.StudyProtocolVersions = CheckForStudyProtocolSection(incoming.Study.StudyProtocolVersions,
+                                                                                     existing.Study.StudyProtocolVersions);
+            incoming.Study.StudyDesigns = CheckForStudyDesignSection(incoming.Study.StudyDesigns, existing.Study.StudyDesigns);
 
             return incoming;
         }
@@ -1473,8 +1471,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                                     x.WorkflowItemActivity.DefinedProcedures.ForEach(y =>
                                     {
                                         y.Uuid = IdGenerator.GenerateId();
-                                        if (y.ProcedureCode is not null)
-                                            y.ProcedureCode.ForEach(z => z.Uuid = IdGenerator.GenerateId());
+                                        y.ProcedureCode?.ForEach(z => z.Uuid = IdGenerator.GenerateId());
                                     });
                                 }
                                 if (x.WorkflowItemActivity.StudyDataCollection is not null && x.WorkflowItemActivity.StudyDataCollection.Any())
@@ -1497,8 +1494,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                                 x.WorkflowItemActivity.DefinedProcedures.ForEach(y =>
                                 {
                                     y.Uuid = IdGenerator.GenerateId();
-                                    if (y.ProcedureCode is not null)
-                                        y.ProcedureCode.ForEach(z => z.Uuid = IdGenerator.GenerateId());
+                                    y.ProcedureCode?.ForEach(z => z.Uuid = IdGenerator.GenerateId());
                                 });
                             }
                             if (x.WorkflowItemActivity.StudyDataCollection is not null && x.WorkflowItemActivity.StudyDataCollection.Any())
@@ -1531,8 +1527,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                                 x.WorkflowItemActivity.DefinedProcedures.ForEach(y =>
                                 {
                                     y.Uuid = IdGenerator.GenerateId();
-                                    if (y.ProcedureCode is not null)
-                                        y.ProcedureCode.ForEach(z => z.Uuid = IdGenerator.GenerateId());
+                                    y.ProcedureCode?.ForEach(z => z.Uuid = IdGenerator.GenerateId());
                                 });
                             }
                             if (x.WorkflowItemActivity.StudyDataCollection is not null && x.WorkflowItemActivity.StudyDataCollection.Any())
@@ -1569,8 +1564,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1
                             x.WorkflowItemActivity.DefinedProcedures.ForEach(y =>
                             {
                                 y.Uuid = IdGenerator.GenerateId();
-                                if (y.ProcedureCode is not null)
-                                    y.ProcedureCode.ForEach(z => z.Uuid = IdGenerator.GenerateId());
+                                y.ProcedureCode?.ForEach(z => z.Uuid = IdGenerator.GenerateId());
                             });
                         }
                         if (x.WorkflowItemActivity.StudyDataCollection is not null && x.WorkflowItemActivity.StudyDataCollection.Any())

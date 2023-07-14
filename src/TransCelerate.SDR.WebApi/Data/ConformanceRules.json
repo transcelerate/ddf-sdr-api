@@ -77,7 +77,7 @@
           ]
         },
         {
-          "entity": "ClinicalStudy",
+          "entity": "Study",
           "required": [
             "StudyTitle",
             "StudyType",
@@ -194,7 +194,7 @@
         {
           "entity": "ScheduledDecisionInstance",
           "required": [
-            "Id",            
+            "Id",
             "ScheduleSequenceNumber",
             "ScheduledInstanceType"
           ]
@@ -212,7 +212,7 @@
           "required": [
             "Id",
             "ScheduleTimelineName",
-            "ScheduleTimelineDescription",                        
+            "ScheduleTimelineDescription",
             "EntryCondition"
           ]
         },
@@ -307,9 +307,9 @@
           ]
         },
         {
-          "entity": "Study",
+          "entity": "StudyDefinitions",
           "required": [
-            "ClinicalStudy"
+            "Study"
           ]
         },
         {
@@ -321,6 +321,341 @@
             "RelativeFromScheduledInstanceId",
             "RelativeToScheduledInstanceId",
             "TimingWindow",
+            "TimingRelativeToFrom"
+          ]
+        },
+        {
+          "entity": "TransitionRule",
+          "required": [
+            "Id",
+            "TransitionRuleDescription"
+          ]
+        },
+        {
+          "entity": "WorkflowItem",
+          "required": [
+            "Id",
+            "WorkflowItemDescription"
+          ]
+        },
+        {
+          "entity": "Workflow",
+          "required": [
+            "Id",
+            "WorkflowDescription"
+          ]
+        }
+      ]
+    },
+    {
+      "usdmVersion": "2.0",
+      "rules": [
+        {
+          "entity": "Activity",
+          "required": [
+            "Id",          
+            "ActivityName",
+            "ActivityIsConditional"
+          ]
+        },
+        {
+          "entity": "Address",
+          "required": [
+            "Id",
+            "Text",
+            "Line",
+            "City",
+            "District",
+            "State",
+            "PostalCode",
+            "Country"
+          ]
+        },
+        {
+          "entity": "AliasCode",
+          "required": [
+            "Id",
+            "StandardCode"
+          ]
+        },
+        {
+          "entity": "AnalysisPopulation",
+          "required": [
+            "Id",
+            "PopulationDescription"
+          ]
+        },
+        {
+          "entity": "BiomedicalConcept",
+          "required": [
+            "Id",
+            "BcName",
+            "BcReference",
+            "BcConceptCode"
+          ]
+        },
+        {
+          "entity": "BiomedicalConceptCategory",
+          "required": [
+            "Id",
+            "BcCategoryName"
+          ]
+        },
+        {
+          "entity": "BiomedicalConceptSurrogate",
+          "required": [
+            "Id",
+            "BcSurrogateName",
+            "BcSurrogateReference"
+          ]
+        },
+        {
+          "entity": "BiomedicalConceptProperty",
+          "required": [
+            "Id",
+            "BcPropertyName",
+            "BcPropertyRequired",
+            "BcPropertyDataType",
+            "BcPropertyEnabled",
+            "BcPropertyConceptCode"
+          ]
+        },
+        {
+          "entity": "Study",
+          "required": [
+            "StudyTitle",
+            "StudyType",
+            "StudyIdentifiers",
+            "StudyPhase",
+            "StudyVersion",
+            "StudyAcronym",
+            "StudyRationale"
+          ]
+        },
+        {
+          "entity": "Code",
+          "required": [
+            "Id",
+            "Code",
+            "Decode",
+            "CodeSystem",
+            "CodeSystemVersion"
+          ]
+        },
+
+        {
+          "entity": "Encounter",
+          "required": [
+            "Id",
+            "EncounterName"
+          ]
+        },
+        {
+          "entity": "Endpoint",
+          "required": [
+            "Id",
+            "EndpointDescription",
+            "EndpointPurposeDescription"
+          ]
+        },
+        {
+          "entity": "Indication",
+          "required": [
+            "Id",
+            "IndicationDescription"
+          ]
+        },
+        {
+          "entity": "InterCurrentEvents",
+          "required": [
+            "Id",
+            "IntercurrentEventName",
+            "IntercurrentEventStrategy"
+          ]
+        },
+        {
+          "entity": "InvestigationalIntervention",
+          "required": [
+            "Id",
+            "InterventionDescription"
+          ]
+        },
+        {
+          "entity": "Organisation",
+          "required": [
+            "Id",
+            "OrganisationIdentifier",
+            "OrganisationIdentifierScheme",
+            "OrganisationName",
+            "OrganisationType"
+          ]
+        },
+        {
+          "entity": "Procedure",
+          "required": [
+            "Id",
+            "ProcedureName",
+            "ProcedureType",
+            "ProcedureCode",
+            "ProcedureIsConditional"
+          ]
+        },
+        {
+          "entity": "ResponseCode",
+          "required": [
+            "Id",
+            "Code",
+            "ResponseCodeEnabled"
+          ]
+        },
+        {
+          "entity": "StudyArm",
+          "required": [
+            "Id",
+            "StudyArmDataOriginDescription",
+            "StudyArmDataOriginType",
+            "StudyArmType",
+            "StudyArmName"
+          ]
+        },
+        {
+          "entity": "ScheduleTimelineExit",
+          "required": [
+            "Id"
+          ]
+        },
+        {
+          "entity": "ScheduledActivityInstance",
+          "required": [
+            "Id",
+            "ScheduledInstanceType"
+          ]
+        },
+        {
+          "entity": "ScheduledDecisionInstance",
+          "required": [
+            "Id",
+            "ScheduledInstanceType"
+          ]
+        },
+        {
+          "entity": "ScheduledInstance",
+          "required": [
+            "Id",
+            "ScheduledInstanceType"
+          ]
+        },
+        {
+          "entity": "ScheduleTimelines",
+          "required": [
+            "Id",
+            "ScheduleTimelineName",
+            "EntryCondition",
+            "MainTimeline"
+          ]
+        },
+        {
+          "entity": "StudyCells",
+          "required": [
+            "Id",
+            "StudyArmId",
+            "StudyEpochId"
+          ]
+        },
+        {
+          "entity": "StudyDataCollection",
+          "required": [
+            "Id",
+            "EcrfLink",
+            "StudyDataName",
+            "StudyDataDescription"
+          ]
+        },
+        {
+          "entity": "StudyDesignPopulation",
+          "required": [
+            "Id",
+            "PopulationDescription",
+            "PlannedNumberOfParticipants",
+            "PlannedMaximumAgeOfParticipants",
+            "PlannedMinimumAgeOfParticipants"
+          ]
+        },
+        {
+          "entity": "StudyDesign",
+          "required": [
+            "Id",
+            "InterventionModel",
+            "StudyDesignName",
+            "StudyDesignRationale",
+            "StudyCells",
+            "StudyArms",
+            "StudyEpochs"
+          ]
+        },
+        {
+          "entity": "StudyElements",
+          "required": [
+            "Id",
+            "StudyElementName"
+          ]
+        },
+        {
+          "entity": "StudyEpoch",
+          "required": [
+            "Id",
+            "StudyEpochName",
+            "StudyEpochType"
+          ]
+        },
+        {
+          "entity": "StudyEstimands",
+          "required": [
+            "Id",
+            "SummaryMeasure",
+            "AnalysisPopulation"
+          ]
+        },
+        {
+          "entity": "StudyIdentifiers",
+          "required": [
+            "Id",
+            "StudyIdentifier",
+            "StudyIdentifierScope"
+          ]
+        },
+        {
+          "entity": "Objective",
+          "required": [
+            "Id",
+            "ObjectiveDescription"
+          ]
+        },
+        {
+          "entity": "StudyProtocolVersions",
+          "required": [
+            "Id",
+            "BriefTitle",
+            "OfficialTitle",
+            "ProtocolEffectiveDate",
+            "ProtocolStatus",
+            "ProtocolVersion",
+            "PublicTitle",
+            "ScientificTitle"
+          ]
+        },
+        {
+          "entity": "StudyDefinitions",
+          "required": [
+            "Study"
+          ]
+        },
+        {
+          "entity": "Timing",
+          "required": [
+            "Id",
+            "TimingType",
+            "TimingValue",
             "TimingRelativeToFrom"
           ]
         },

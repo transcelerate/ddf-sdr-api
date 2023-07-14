@@ -49,6 +49,8 @@ namespace TransCelerate.SDR.RuleEngineV2
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ScheduleTimelinesValidator), nameof(ScheduleTimelineDto.ScheduleTimelineExits)), ApplyConditionTo.AllValidators)
                .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
+            RuleForEach(x => x.ScheduleTimelineExits)
+                .SetValidator(new ScheduleTimelineExitValidator(_httpContextAccessor));
 
             RuleFor(x => x.ScheduleTimelineInstances)
                 .Cascade(CascadeMode.Stop)
@@ -57,10 +59,13 @@ namespace TransCelerate.SDR.RuleEngineV2
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ScheduleTimelinesValidator), nameof(ScheduleTimelineDto.ScheduleTimelineInstances)), ApplyConditionTo.AllValidators)
                 .Must(x => UniquenessArrayValidator.ValidateArrayV2(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
+            RuleForEach(x => x.ScheduleTimelineInstances)
+                .SetValidator(new ScheduledInstanceValidator(_httpContextAccessor));
+
             RuleForEach(x => x.ScheduleTimelineInstances).SetInheritanceValidator(v =>
             {
-                v.Add<ScheduledActivityInstanceDto>(new ScheduledActivityInstanceValidator(_httpContextAccessor));
-                v.Add<ScheduledDecisionInstanceDto>(new ScheduledDecisionInstanceValidator(_httpContextAccessor));
+                v.Add(new ScheduledActivityInstanceValidator(_httpContextAccessor));
+                v.Add(new ScheduledDecisionInstanceValidator(_httpContextAccessor));
             });
         }
     }

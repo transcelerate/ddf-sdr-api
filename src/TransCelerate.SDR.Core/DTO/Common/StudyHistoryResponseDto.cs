@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.DTO.Common
@@ -16,6 +17,7 @@ namespace TransCelerate.SDR.Core.DTO.Common
     public class UploadVersionDto
     {
         public int UploadVersion { get; set; }
+        public DateTime EntryDateTime { get; set; }
         public string StudyTitle { get; set; }
         public string StudyVersion { get; set; }
         public object StudyIdentifiers { get; set; }
