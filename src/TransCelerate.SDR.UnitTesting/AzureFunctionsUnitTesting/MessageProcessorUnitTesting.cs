@@ -13,6 +13,7 @@ using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3;
+using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4;
 
 namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
 {
@@ -22,6 +23,7 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
         private readonly ILogHelper _mockLogger = Mock.Of<ILogHelper>();
         private readonly Mock<IHelperV2> _mockHelperV2 = new(MockBehavior.Loose);
         private readonly Mock<IHelperV3> _mockHelperV3 = new(MockBehavior.Loose);
+        private readonly Mock<IHelperV4> _mockHelperV4 = new(MockBehavior.Loose);
         private readonly Mock<IChangeAuditRepository> _mockChangeAuditRepository = new(MockBehavior.Loose);
         private readonly ILogHelper _mockLogger1 = Mock.Of<ILogHelper>();
         private readonly Mock<IMessageProcessor> _messageProcessor = new(MockBehavior.Loose);
@@ -36,7 +38,11 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV3.json");
             return JsonConvert.DeserializeObject<Core.Entities.StudyV3.StudyDefinitionsEntity>(jsonData);
         }
-
+        public static Core.Entities.StudyV4.StudyDefinitionsEntity GetEntityDataFromStaticJsonV4()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV4.json");
+            return JsonConvert.DeserializeObject<Core.Entities.StudyV4.StudyDefinitionsEntity>(jsonData);
+        }
         public static ChangeAuditStudyEntity GetChangeAuditDataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ChangeAuditData.json");
@@ -81,9 +87,11 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
                 .Returns(difference);
             _mockHelperV3.Setup(x => x.GetChangedValues(It.IsAny<Core.Entities.StudyV3.StudyDefinitionsEntity>(), It.IsAny<Core.Entities.StudyV3.StudyDefinitionsEntity>()))
                 .Returns(difference);
+            _mockHelperV4.Setup(x => x.GetChangedValues(It.IsAny<Core.Entities.StudyV4.StudyDefinitionsEntity>(), It.IsAny<Core.Entities.StudyV4.StudyDefinitionsEntity>()))
+                .Returns(difference);
 
 
-            MessageProcessor processor = new(_mockChangeAuditRepository.Object, _mockHelperV2.Object, _mockHelperV3.Object);
+            MessageProcessor processor = new(_mockChangeAuditRepository.Object, _mockHelperV2.Object, _mockHelperV3.Object, _mockHelperV4.Object);
 
             string message = "{\"Study_uuid\":\"aaed3efe-7d70-4c9e-90e2-3446e936c291\",\"CurrentVersion\":2}";
 
@@ -224,7 +232,7 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
                 .Returns(difference);
 
 
-            MessageProcessor processor = new(_mockChangeAuditRepository.Object, _mockHelperV2.Object, _mockHelperV3.Object);
+            MessageProcessor processor = new(_mockChangeAuditRepository.Object, _mockHelperV2.Object, _mockHelperV3.Object, _mockHelperV4.Object);
 
             string message = "{\"Study_uuid\":\"aaed3efe-7d70-4c9e-90e2-3446e936c291\",\"CurrentVersion\":2}";
 

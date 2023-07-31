@@ -78,7 +78,7 @@ namespace TransCelerate.SDR.Services.Services
                         if (!await CheckAccessForAStudy(studyId, (string)jsonObject["studyType"]["decode"], user))
                             return Constants.ErrorMessages.Forbidden;
                     }
-                    else if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.V2)
+                    else if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.V2 || study.AuditTrail.UsdmVersion == Constants.USDMVersions.V2_1)
                     {
                         if (!await CheckAccessForAStudy(studyId, (string)jsonObject["studyType"]["decode"], user))
                             return Constants.ErrorMessages.Forbidden;
@@ -521,6 +521,31 @@ namespace TransCelerate.SDR.Services.Services
             if (searchParameters.UsdmVersion == Constants.USDMVersions.V2)
             {
                 var searchResponse = await _commonRepository.SearchStudyV3(searchParameters, loggedInUser);
+                var searchResponseDtos = _mapper.Map<List<SearchResponseDto>>(searchResponse);
+
+                if (searchResponseDtos.Any())
+                {
+                    searchResponseDtos.ForEach(searchResponseDto =>
+                    {
+                        var searchResponseV2 = searchResponse.FirstOrDefault(x => x.StudyId == searchResponseDto.Study.StudyId && x.SDRUploadVersion == searchResponseDto.AuditTrail.SDRUploadVersion);
+
+                        searchResponseDto.Study.StudyIdentifiers = _mapper.Map<List<CommonStudyIdentifiersDto>>(searchResponseV2.StudyIdentifiers);
+                        searchResponseDto.Study.StudyPhase = _mapper.Map<CommonCodeDto>(searchResponseV2.StudyPhase?.StandardCode);
+                        searchResponseDto.Study.StudyDesigns = new List<CommonStudyDesign> { new CommonStudyDesign
+                        {
+                            InterventionModel = _mapper.Map<List<CommonCodeDto>>(searchResponseV2.InterventionModel?.ToList()),
+                            StudyIndications = _mapper.Map<List<Core.DTO.Common.CommonStudyIndication>>(searchResponseV2.StudyIndications?.Where(x => x != null && x.Any()).SelectMany(x=>x).ToList())
+                        } };
+                        searchResponseDto.Links = LinksHelper.GetLinksForUi(searchResponseDto.Study.StudyId, searchResponseV2.StudyDesignIds?.ToList(), searchResponseDto.AuditTrail.UsdmVersion, searchResponseDto.AuditTrail.SDRUploadVersion);
+                    });
+                    return searchResponseDtos;
+                }
+
+                return null;
+            }
+            if (searchParameters.UsdmVersion == Constants.USDMVersions.V2_1)
+            {
+                var searchResponse = await _commonRepository.SearchStudyV4(searchParameters, loggedInUser);
                 var searchResponseDtos = _mapper.Map<List<SearchResponseDto>>(searchResponse);
 
                 if (searchResponseDtos.Any())

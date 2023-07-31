@@ -76,6 +76,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string V1 = "1.0";
             public const string V1_9 = "1.9";
             public const string V2 = "2.0";
+            public const string V2_1 = "2.1";
         }
         public struct ApiVersions
         {
@@ -83,6 +84,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string V1 = "v1";
             public const string V2 = "v2";
             public const string V3 = "v3";
+            public const string V4 = "v4";
         }
         public struct DbFilter
         {
@@ -294,6 +296,44 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         };
 
         public static readonly string[] StudyDesignElementsV3 = {
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyDesignName),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyDesignDescription),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.TherapeuticAreas),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.TrialType),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyInvestigationalInterventions),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.TrialIntentTypes),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.InterventionModel),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyIndications),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyPopulations),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyObjectives),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyCells),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyArms),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyEpochs),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyElements),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyScheduleTimelines),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyEstimands),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.Activities),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.Encounters),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyDesignRationale),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.StudyDesignBlindingScheme),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.BiomedicalConcepts),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.BcCategories),
+            nameof(Core.DTO.StudyV3.StudyDesignDto.BcSurrogates)
+        };
+        public static readonly string[] StudyElementsV4 = {
+            nameof(Core.DTO.StudyV3.StudyDto.StudyTitle),
+            nameof(Core.DTO.StudyV3.StudyDto.StudyIdentifiers),
+            nameof(Core.DTO.StudyV3.StudyDto.StudyProtocolVersions),
+            nameof(Core.DTO.StudyV3.StudyDto.StudyVersion),
+            nameof(Core.DTO.StudyV3.StudyDto.StudyPhase),
+            nameof(Core.DTO.StudyV3.StudyDto.StudyType),
+            nameof(Core.DTO.StudyV3.StudyDto.BusinessTherapeuticAreas),
+            nameof(Core.DTO.StudyV3.StudyDto.StudyDesigns),
+            nameof(Core.DTO.StudyV3.StudyDto.StudyAcronym),
+            nameof(Core.DTO.StudyV3.StudyDto.StudyRationale),
+        };
+
+        public static readonly string[] StudyDesignElementsV4 = {
             nameof(Core.DTO.StudyV3.StudyDesignDto.StudyDesignName),
             nameof(Core.DTO.StudyV3.StudyDesignDto.StudyDesignDescription),
             nameof(Core.DTO.StudyV3.StudyDesignDto.TherapeuticAreas),

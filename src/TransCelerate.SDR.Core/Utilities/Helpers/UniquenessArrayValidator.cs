@@ -37,7 +37,16 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             }
             return true;
         }
-
+        public static bool ValidateArrayV4<T>(List<T> arrayElement) where T : class, Core.DTO.StudyV4.IId
+        {
+            if (arrayElement is not null && arrayElement.Any())
+            {
+                var ids = arrayElement.Select(x => x.Id).ToList();
+                ids.RemoveAll(x => String.IsNullOrWhiteSpace(x));
+                return ids.Distinct().Count() == ids.Count;
+            }
+            return true;
+        }
         public static bool ValidateStringList(List<string> arrayElement)
         {
             if (arrayElement is not null && arrayElement.Any())

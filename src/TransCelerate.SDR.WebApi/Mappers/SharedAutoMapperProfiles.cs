@@ -144,6 +144,26 @@ namespace TransCelerate.SDR.WebApi.Mappers
                 .ForMember(dest => dest.IndicationDescription, opt => opt.MapFrom(src => src.IndicationDescription))
                 .ReverseMap();
 
+            //Mapper for Search V4
+            CreateMap<SearchResponseDto, Core.Entities.StudyV4.SearchResponseEntity>()
+                .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.Study.StudyId))
+                .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.Study.StudyTitle))
+                .ForMember(dest => dest.StudyType, opt => opt.MapFrom(src => src.Study.StudyType))
+                .ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.AuditTrail.EntryDateTime))
+                .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))
+                .ForMember(dest => dest.UsdmVersion, opt => opt.MapFrom(src => src.AuditTrail.UsdmVersion))
+                .ReverseMap();
+
+            CreateMap<CommonCodeDto, Core.Entities.StudyV4.CodeEntity>()
+                .ReverseMap();
+            CreateMap<CommonStudyIdentifiersDto, Core.Entities.StudyV4.StudyIdentifierEntity>()
+                .ReverseMap();
+            CreateMap<CommonOrganisationDto, Core.Entities.StudyV4.OrganisationEntity>()
+                .ReverseMap();
+            CreateMap<Core.DTO.Common.CommonStudyIndication, Core.Entities.StudyV4.IndicationEntity>()
+                .ForMember(dest => dest.IndicationDescription, opt => opt.MapFrom(src => src.IndicationDescription))
+                .ReverseMap();
+
             //ChangeAudit
             CreateMap<ChangeAuditStudyDto, ChangeAuditStudyEntity>().ReverseMap();
             CreateMap<ChangeAuditDto, ChangeAuditEntity>().ReverseMap();

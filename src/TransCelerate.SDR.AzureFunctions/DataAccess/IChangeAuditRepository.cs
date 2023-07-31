@@ -31,6 +31,16 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
         List<Core.Entities.StudyV2.StudyDefinitionsEntity> GetStudyItemsAsyncV2(string studyId, int sdruploadversion);
+
+        /// <summary>
+        /// Get Current and previous version of study for study Id for V4 API Version
+        /// </summary>
+        /// <param name="studyId">Study UUID</param>
+        /// <param name="sdruploadversion">current version</param>
+        /// <returns> A <see cref="List{StudyEntity}"/> with matching studyId
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        List<Core.Entities.StudyV4.StudyDefinitionsEntity> GetStudyItemsAsyncV4(string studyId, int sdruploadversion);
         /// <summary>
         /// Insert a Change Audit for a study
         /// </summary>
