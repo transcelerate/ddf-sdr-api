@@ -47,10 +47,8 @@
   - [GetProjectionForPartialStudyDesignElementsFullStudy()](#M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV3-GetProjectionForPartialStudyDesignElementsFullStudy 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV3.GetProjectionForPartialStudyDesignElementsFullStudy')
   - [GetProjectionForPartialStudyElements(listofelementsArray)](#M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV3-GetProjectionForPartialStudyElements-System-String[]- 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV3.GetProjectionForPartialStudyElements(System.String[])')
 - [DataFiltersV4](#T-TransCelerate-SDR-DataAccess-Filters-DataFiltersV4 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV4')
-  - [GetFiltersForGetAudTrail(studyId,fromDate,toDate)](#M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV4-GetFiltersForGetAudTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV4.GetFiltersForGetAudTrail(System.String,System.DateTime,System.DateTime)')
   - [GetFiltersForGetAuditTrailOfAStudy(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV4-GetFiltersForGetAuditTrailOfAStudy-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV4.GetFiltersForGetAuditTrailOfAStudy(System.String,System.Int32)')
   - [GetFiltersForGetStudy(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV4-GetFiltersForGetStudy-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV4.GetFiltersForGetStudy(System.String,System.Int32)')
-  - [GetFiltersForStudyHistory(fromDate,toDate,studyTitle)](#M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV4-GetFiltersForStudyHistory-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV4.GetFiltersForStudyHistory(System.DateTime,System.DateTime,System.String)')
   - [GetProjectionForPartialStudyDesignElementsFullStudy()](#M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV4-GetProjectionForPartialStudyDesignElementsFullStudy 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV4.GetProjectionForPartialStudyDesignElementsFullStudy')
   - [GetProjectionForPartialStudyElements(listofelementsArray)](#M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV4-GetProjectionForPartialStudyElements-System-String[]- 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV4.GetProjectionForPartialStudyElements(System.String[])')
 - [ICommonRepository](#T-TransCelerate-SDR-DataAccess-Interfaces-ICommonRepository 'TransCelerate.SDR.DataAccess.Interfaces.ICommonRepository')
@@ -898,25 +896,6 @@ TransCelerate.SDR.DataAccess.Filters
 
 DataFilters for getting data from data base
 
-<a name='M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV4-GetFiltersForGetAudTrail-System-String,System-DateTime,System-DateTime-'></a>
-### GetFiltersForGetAudTrail(studyId,fromDate,toDate) `method`
-
-##### Summary
-
-Get filters for AuditTrail API
-
-##### Returns
-
-
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
-| fromDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') |  |
-| toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') |  |
-
 <a name='M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV4-GetFiltersForGetAuditTrailOfAStudy-System-String,System-Int32-'></a>
 ### GetFiltersForGetAuditTrailOfAStudy(studyId,sdruploadversion) `method`
 
@@ -952,25 +931,6 @@ Get filters for GET StudyDefinitons API
 | ---- | ---- | ----------- |
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
-
-<a name='M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV4-GetFiltersForStudyHistory-System-DateTime,System-DateTime,System-String-'></a>
-### GetFiltersForStudyHistory(fromDate,toDate,studyTitle) `method`
-
-##### Summary
-
-Get filters for StudyHistory API
-
-##### Returns
-
-
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| fromDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') |  |
-| toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') |  |
-| studyTitle | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
 <a name='M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV4-GetProjectionForPartialStudyDesignElementsFullStudy'></a>
 ### GetProjectionForPartialStudyDesignElementsFullStudy() `method`

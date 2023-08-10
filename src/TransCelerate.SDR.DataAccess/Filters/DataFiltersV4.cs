@@ -21,7 +21,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
         {
             FilterDefinitionBuilder<StudyDefinitionsEntity> builder = Builders<StudyDefinitionsEntity>.Filter;
             FilterDefinition<StudyDefinitionsEntity> filter = builder.Empty;
-            filter &= builder.Where(s => s.AuditTrail.UsdmVersion == Constants.USDMVersions.V2);
+            filter &= builder.Where(s => s.AuditTrail.UsdmVersion == Constants.USDMVersions.V2_1);
             filter &= builder.Where(s => s.Study.StudyId == studyId);
 
             if (sdruploadversion != 0)
@@ -52,50 +52,6 @@ namespace TransCelerate.SDR.DataAccess.Filters
             FilterDefinitionBuilder<Core.Entities.Common.ChangeAuditStudyEntity> builder = Builders<Core.Entities.Common.ChangeAuditStudyEntity>.Filter;
             FilterDefinition<Core.Entities.Common.ChangeAuditStudyEntity> filter = builder.Empty;
             filter &= builder.Where(s => s.ChangeAudit.StudyId == studyId);
-
-            return filter;
-        }
-        /// <summary>
-        /// Get filters for StudyHistory API
-        /// </summary>
-        /// <param name="fromDate"></param>
-        /// <param name="toDate"></param>
-        /// <param name="studyTitle"></param>
-        /// <returns></returns>
-        public static FilterDefinition<StudyDefinitionsEntity> GetFiltersForStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle)
-        {
-            FilterDefinitionBuilder<StudyDefinitionsEntity> builder = Builders<StudyDefinitionsEntity>.Filter;
-            FilterDefinition<StudyDefinitionsEntity> filter = builder.Empty;
-            //Filter for Date Range
-            filter &= builder.Where(x => x.AuditTrail.EntryDateTime >= fromDate
-                                         && x.AuditTrail.EntryDateTime <= toDate);
-
-            //Filter for StudyTitle
-            if (!String.IsNullOrWhiteSpace(studyTitle))
-                filter &= builder.Where(x => x.Study.StudyTitle.ToLower().Contains(studyTitle.ToLower()));
-
-
-            return filter;
-        }
-
-        /// <summary>
-        /// Get filters for AuditTrail API
-        /// </summary>
-        /// <param name="studyId"></param>
-        /// <param name="fromDate"></param>
-        /// <param name="toDate"></param>
-        /// <returns></returns>
-        public static FilterDefinition<StudyDefinitionsEntity> GetFiltersForGetAudTrail(string studyId, DateTime fromDate, DateTime toDate)
-        {
-            FilterDefinitionBuilder<StudyDefinitionsEntity> builder = Builders<StudyDefinitionsEntity>.Filter;
-            FilterDefinition<StudyDefinitionsEntity> filter = builder.Empty;
-            filter &= builder.Where(s => s.AuditTrail.UsdmVersion == Constants.USDMVersions.V2);
-            filter &= builder.Where(s => s.Study.StudyId == studyId);
-
-            //Filter for Date Range
-            filter &= builder.Where(x => x.AuditTrail.EntryDateTime >= fromDate
-                                         && x.AuditTrail.EntryDateTime <= toDate);
-
 
             return filter;
         }

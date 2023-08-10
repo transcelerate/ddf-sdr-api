@@ -222,7 +222,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                                     ProtocolVersions = x.Study.StudyProtocolVersions.Select(x => x.ProtocolVersion),
                                                                     StudyVersion = x.Study.StudyVersion,
                                                                     UsdmVersion = x.AuditTrail.UsdmVersion,
-                                                                    StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null                                                                    
+                                                                    StudyDesignIds = x.AuditTrail.UsdmVersion == Constants.USDMVersions.V2_1 ? x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid ) : x.Study.StudyDesigns.Select(x => x.Id) ?? null                                                                    
                                                                 })  //Project only the required fields                                                        
                                                         .ToListAsync().ConfigureAwait(false);
 

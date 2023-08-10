@@ -35,6 +35,7 @@ namespace TransCelerate.SDR.Core.Entities.Common
     {
         public string StudyDesignId { get; set; }
         public string Uuid { get; set; }
+        public string Id { get; set; }
         public object InterventionModel { get; set; }
         public List<CommonStudyIndication> StudyIndications { get; set; }
     }
