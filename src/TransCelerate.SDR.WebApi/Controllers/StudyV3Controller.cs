@@ -15,10 +15,11 @@ using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3;
 using TransCelerate.SDR.Services.Interfaces;
+using TransCelerate.SDR.Core.Filters;
 
 namespace TransCelerate.SDR.WebApi.Controllers
 {
-    [Authorize]
+    [AuthorizationFilter]
     [ApiController]
     public class StudyV3Controller : ControllerBase
     {

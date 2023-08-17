@@ -122,7 +122,7 @@ namespace TransCelerate.SDR.WebApi
             services.AddHttpContextAccessor();
             services.AddControllers(config =>
             {
-                config.Filters.Add<ActionFilter>();
+                config.Filters.Add<ActionFilter>();                
             });
 
             services.AddFluentValidationAutoValidation();
