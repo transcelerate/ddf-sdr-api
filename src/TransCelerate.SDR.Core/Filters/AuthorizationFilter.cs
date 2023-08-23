@@ -1,12 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Azure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 
 namespace TransCelerate.SDR.Core.Filters
@@ -14,17 +17,21 @@ namespace TransCelerate.SDR.Core.Filters
     [AttributeUsage(AttributeTargets.All)]
     public class AuthorizationFilter : Attribute, IAuthorizationFilter
     {
+        public string Roles { get; set; }
         public async void OnAuthorization(AuthorizationFilterContext context)
         {
             if (context != null)
             {
                 // Auth logic
-                if (context.HttpContext.Request.Headers.TryGetValue("x-api-key", out var apiKey))
-                {
+                if (context.HttpContext.Request.Headers.TryGetValue(Constants.DefaultHeaders.ApiKeyAuthenticationHeader, out var apiKey)
+                    && Roles != Constants.Roles.Org_Admin)
+                {                    
                     // check for valid api-key
-                    ClaimsIdentity claims = new();
-                    claims.AddClaim(new Claim("string", "app.user"));
-                    context.HttpContext.User.AddIdentity(claims);                    
+                    context.HttpContext.User = new ClaimsPrincipal();                    
+                    ClaimsIdentity claims = new("ApiKeyAuthentication");
+                    claims.AddClaim(new Claim(ClaimTypes.Role, Constants.Roles.App_User));
+                    claims.AddClaim(new Claim(ClaimTypes.Email, "ApiKeyUser"));                    
+                    context.HttpContext.User.AddIdentity(claims);                                                                                                  
                     return;
                 }
 
@@ -35,7 +42,7 @@ namespace TransCelerate.SDR.Core.Filters
                         context.Result = new UnauthorizedResult();
                         context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                         string response = string.Empty;
-                        response = await HttpContextResponseHelper.Response(context.HttpContext, response);                        
+                        await HttpContextResponseHelper.Response(context.HttpContext, response);                        
                     }
                     return;
                 }                
