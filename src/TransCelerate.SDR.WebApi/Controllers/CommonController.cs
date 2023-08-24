@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Common;
 using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.ErrorModels;
+using TransCelerate.SDR.Core.Filters;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
@@ -18,7 +19,7 @@ using TransCelerate.SDR.Services.Interfaces;
 
 namespace TransCelerate.SDR.WebApi.Controllers
 {
-    [Authorize]
+    [AuthorizationFilter]
     [ApiVersionNeutral]
     [ApiController]
     public class CommonController : ControllerBase
