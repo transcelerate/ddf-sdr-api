@@ -23,7 +23,7 @@ namespace TransCelerate.SDR.Core.Filters
             if (context != null)
             {
                 // Auth logic
-                if (context.HttpContext.Request.Headers.TryGetValue(Constants.DefaultHeaders.ApiKeyAuthenticationHeader, out var apiKey)
+                if (context.HttpContext.Request.Headers.TryGetValue(Constants.DefaultHeaders.ApiKeyAuthenticationHeader, out var apiKey) && !apiKey.Any(x => x == string.Empty )
                     && Roles != Constants.Roles.Org_Admin)
                 {                    
                     // check for valid api-key
