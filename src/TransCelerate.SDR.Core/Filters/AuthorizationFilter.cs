@@ -39,7 +39,7 @@ namespace TransCelerate.SDR.Core.Filters
                     if (!apiKey.Any(x => x == string.Empty) && Roles == Constants.Roles.Org_Admin)
                     {
                         context.Result = new ForbidResult();
-                        context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                        //context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Forbidden;
                         string response = string.Empty;
                         await HttpContextResponseHelper.Response(context.HttpContext, response);                        
                     }
@@ -48,14 +48,14 @@ namespace TransCelerate.SDR.Core.Filters
                         if (!context.HttpContext.User.Identity.IsAuthenticated)
                         {
                             context.Result = new UnauthorizedResult();
-                            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                            //context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                             string response = string.Empty;
                             await HttpContextResponseHelper.Response(context.HttpContext, response);
                         }
                         if (context.HttpContext.User.Identity.IsAuthenticated && Roles == Constants.Roles.Org_Admin && context.HttpContext.User?.FindFirst(ClaimTypes.Role)?.Value == Constants.Roles.App_User)
                         {
                             context.Result = new ForbidResult();
-                            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                            //context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Forbidden;
                             string response = string.Empty;
                             await HttpContextResponseHelper.Response(context.HttpContext, response);
                         }
