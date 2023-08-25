@@ -20,8 +20,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <param name="response">Response string</param>
         /// <returns></returns>
         public static async Task<string> Response(HttpContext context, string response)
-        {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+        {            
             var jsonSettings = new JsonSerializerSettings 
             { 
                 ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver() 
