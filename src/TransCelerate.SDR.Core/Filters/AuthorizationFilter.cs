@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Azure;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +18,10 @@ using TransCelerate.SDR.Core.Utilities.Helpers;
 namespace TransCelerate.SDR.Core.Filters
 {
     [AttributeUsage(AttributeTargets.All)]
-    public class AuthorizationFilter : Attribute, IAsyncAuthorizationFilter
+    public class AuthorizationFilter : Attribute, IAuthorizationFilter
     {
         public string Roles { get; set; }
-        public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
+        public void OnAuthorization(AuthorizationFilterContext context)
         {
             if (context != null)
             {
@@ -36,28 +39,45 @@ namespace TransCelerate.SDR.Core.Filters
 
                 else
                 {
-                    if (!apiKey.Any(x => x == string.Empty) && Roles == Constants.Roles.Org_Admin)
+                    var jsonSettings = new JsonSerializerSettings
                     {
-                        context.Result = new ForbidResult();
-                        //context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Forbidden;
-                        string response = string.Empty;
-                        await HttpContextResponseHelper.Response(context.HttpContext, response);                        
+                        ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
+                    };
+                    //If Api Key is available in the request but the api which is requested needs admin access
+                    if (apiKey.Any() && !apiKey.Any(x => x == string.Empty) && Roles == Constants.Roles.Org_Admin)
+                    {
+                        if (String.IsNullOrWhiteSpace(context.HttpContext.Response.Headers["AuthFilter"]))
+                            context.HttpContext.Response.Headers.Add("AuthFilter", "True");
+                        if (String.IsNullOrWhiteSpace(context.HttpContext.Response.Headers["Content-Type"]))
+                            context.HttpContext.Response.Headers.Add("Content-Type", "application/json");
+
+                        context.Result = new UnauthorizedObjectResult(new JsonResult(ErrorResponseHelper.Forbidden()).Value);
+                        (context.Result as UnauthorizedObjectResult).StatusCode = (int)HttpStatusCode.Forbidden;                        
                     }
+                    //If Api Key is not available in the request
                     else
                     {
+                        //If the JWT is not valid or expired
                         if (!context.HttpContext.User.Identity.IsAuthenticated)
                         {
-                            context.Result = new UnauthorizedResult();
-                            //context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                            string response = string.Empty;
-                            await HttpContextResponseHelper.Response(context.HttpContext, response);
+                            if (String.IsNullOrWhiteSpace(context.HttpContext.Response.Headers["AuthFilter"]))
+                                context.HttpContext.Response.Headers.Add("AuthFilter", "True");
+                            if (String.IsNullOrWhiteSpace(context.HttpContext.Response.Headers["Content-Type"]))
+                                context.HttpContext.Response.Headers.Add("Content-Type", "application/json");
+
+                            context.Result = new UnauthorizedObjectResult(new JsonResult(ErrorResponseHelper.UnAuthorizedAccess()).Value);
+
                         }
+                        // If the JWT is valid but the user does not have admin access but requested for admin Apis
                         if (context.HttpContext.User.Identity.IsAuthenticated && Roles == Constants.Roles.Org_Admin && context.HttpContext.User?.FindFirst(ClaimTypes.Role)?.Value == Constants.Roles.App_User)
                         {
-                            context.Result = new ForbidResult();
-                            //context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Forbidden;
-                            string response = string.Empty;
-                            await HttpContextResponseHelper.Response(context.HttpContext, response);
+                            if (String.IsNullOrWhiteSpace(context.HttpContext.Response.Headers["AuthFilter"]))
+                                context.HttpContext.Response.Headers.Add("AuthFilter", "True");
+                            if (String.IsNullOrWhiteSpace(context.HttpContext.Response.Headers["Content-Type"]))
+                                context.HttpContext.Response.Headers.Add("Content-Type", "application/json");
+
+                            context.Result = new UnauthorizedObjectResult(new JsonResult(ErrorResponseHelper.Forbidden()).Value);
+                            (context.Result as UnauthorizedObjectResult).StatusCode = (int)HttpStatusCode.Forbidden;                            
                         }
                     }                    
                 }                

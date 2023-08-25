@@ -19,7 +19,7 @@ using TransCelerate.SDR.Services.Interfaces;
 
 namespace TransCelerate.SDR.WebApi.Controllers
 {
-    [Authorize]
+    [AuthorizationFilter]
     [ApiController]
     public class StudyV2Controller : ControllerBase
     {
