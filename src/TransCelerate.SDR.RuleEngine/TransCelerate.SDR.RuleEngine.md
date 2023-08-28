@@ -3,7 +3,6 @@
 
 ## Contents
 
-- [ActivityValidator](#T-TransCelerate-SDR-RuleEngineV1-ActivityValidator 'TransCelerate.SDR.RuleEngineV1.ActivityValidator')
 - [ActivityValidator](#T-TransCelerate-SDR-RuleEngineV2-ActivityValidator 'TransCelerate.SDR.RuleEngineV2.ActivityValidator')
 - [ActivityValidator](#T-TransCelerate-SDR-RuleEngineV3-ActivityValidator 'TransCelerate.SDR.RuleEngineV3.ActivityValidator')
 - [ActivityValidator](#T-TransCelerate-SDR-RuleEngineV4-ActivityValidator 'TransCelerate.SDR.RuleEngineV4.ActivityValidator')
@@ -13,7 +12,6 @@
 - [AliasCodeValidator](#T-TransCelerate-SDR-RuleEngineV2-AliasCodeValidator 'TransCelerate.SDR.RuleEngineV2.AliasCodeValidator')
 - [AliasCodeValidator](#T-TransCelerate-SDR-RuleEngineV3-AliasCodeValidator 'TransCelerate.SDR.RuleEngineV3.AliasCodeValidator')
 - [AliasCodeValidator](#T-TransCelerate-SDR-RuleEngineV4-AliasCodeValidator 'TransCelerate.SDR.RuleEngineV4.AliasCodeValidator')
-- [AnalysisPopulationValidator](#T-TransCelerate-SDR-RuleEngineV1-AnalysisPopulationValidator 'TransCelerate.SDR.RuleEngineV1.AnalysisPopulationValidator')
 - [AnalysisPopulationValidator](#T-TransCelerate-SDR-RuleEngineV2-AnalysisPopulationValidator 'TransCelerate.SDR.RuleEngineV2.AnalysisPopulationValidator')
 - [AnalysisPopulationValidator](#T-TransCelerate-SDR-RuleEngineV3-AnalysisPopulationValidator 'TransCelerate.SDR.RuleEngineV3.AnalysisPopulationValidator')
 - [AnalysisPopulationValidator](#T-TransCelerate-SDR-RuleEngineV4-AnalysisPopulationValidator 'TransCelerate.SDR.RuleEngineV4.AnalysisPopulationValidator')
@@ -29,30 +27,24 @@
 - [BiomedicalConceptValidator](#T-TransCelerate-SDR-RuleEngineV2-BiomedicalConceptValidator 'TransCelerate.SDR.RuleEngineV2.BiomedicalConceptValidator')
 - [BiomedicalConceptValidator](#T-TransCelerate-SDR-RuleEngineV3-BiomedicalConceptValidator 'TransCelerate.SDR.RuleEngineV3.BiomedicalConceptValidator')
 - [BiomedicalConceptValidator](#T-TransCelerate-SDR-RuleEngineV4-BiomedicalConceptValidator 'TransCelerate.SDR.RuleEngineV4.BiomedicalConceptValidator')
-- [CodeValidator](#T-TransCelerate-SDR-RuleEngineV1-CodeValidator 'TransCelerate.SDR.RuleEngineV1.CodeValidator')
 - [CodeValidator](#T-TransCelerate-SDR-RuleEngineV2-CodeValidator 'TransCelerate.SDR.RuleEngineV2.CodeValidator')
 - [CodeValidator](#T-TransCelerate-SDR-RuleEngineV3-CodeValidator 'TransCelerate.SDR.RuleEngineV3.CodeValidator')
 - [CodeValidator](#T-TransCelerate-SDR-RuleEngineV4-CodeValidator 'TransCelerate.SDR.RuleEngineV4.CodeValidator')
-- [EncounterValidator](#T-TransCelerate-SDR-RuleEngineV1-EncounterValidator 'TransCelerate.SDR.RuleEngineV1.EncounterValidator')
 - [EncounterValidator](#T-TransCelerate-SDR-RuleEngineV2-EncounterValidator 'TransCelerate.SDR.RuleEngineV2.EncounterValidator')
 - [EncounterValidator](#T-TransCelerate-SDR-RuleEngineV3-EncounterValidator 'TransCelerate.SDR.RuleEngineV3.EncounterValidator')
 - [EncounterValidator](#T-TransCelerate-SDR-RuleEngineV4-EncounterValidator 'TransCelerate.SDR.RuleEngineV4.EncounterValidator')
-- [EndpointValidator](#T-TransCelerate-SDR-RuleEngineV1-EndpointValidator 'TransCelerate.SDR.RuleEngineV1.EndpointValidator')
 - [EndpointValidator](#T-TransCelerate-SDR-RuleEngineV2-EndpointValidator 'TransCelerate.SDR.RuleEngineV2.EndpointValidator')
 - [EndpointValidator](#T-TransCelerate-SDR-RuleEngineV3-EndpointValidator 'TransCelerate.SDR.RuleEngineV3.EndpointValidator')
 - [EndpointValidator](#T-TransCelerate-SDR-RuleEngineV4-EndpointValidator 'TransCelerate.SDR.RuleEngineV4.EndpointValidator')
 - [GroupFilterValidator](#T-TransCelerate-SDR-RuleEngine-GroupFilterValidator 'TransCelerate.SDR.RuleEngine.GroupFilterValidator')
 - [GroupFilterValuesValidator](#T-TransCelerate-SDR-RuleEngine-GroupFilterValuesValidator 'TransCelerate.SDR.RuleEngine.GroupFilterValuesValidator')
 - [GroupsValidator](#T-TransCelerate-SDR-RuleEngine-GroupsValidator 'TransCelerate.SDR.RuleEngine.GroupsValidator')
-- [IndicationValidator](#T-TransCelerate-SDR-RuleEngineV1-IndicationValidator 'TransCelerate.SDR.RuleEngineV1.IndicationValidator')
 - [IndicationValidator](#T-TransCelerate-SDR-RuleEngineV2-IndicationValidator 'TransCelerate.SDR.RuleEngineV2.IndicationValidator')
 - [IndicationValidator](#T-TransCelerate-SDR-RuleEngineV3-IndicationValidator 'TransCelerate.SDR.RuleEngineV3.IndicationValidator')
 - [IndicationValidator](#T-TransCelerate-SDR-RuleEngineV4-IndicationValidator 'TransCelerate.SDR.RuleEngineV4.IndicationValidator')
-- [InterCurrentEventsValidator](#T-TransCelerate-SDR-RuleEngineV1-InterCurrentEventsValidator 'TransCelerate.SDR.RuleEngineV1.InterCurrentEventsValidator')
 - [InterCurrentEventsValidator](#T-TransCelerate-SDR-RuleEngineV2-InterCurrentEventsValidator 'TransCelerate.SDR.RuleEngineV2.InterCurrentEventsValidator')
 - [InterCurrentEventsValidator](#T-TransCelerate-SDR-RuleEngineV3-InterCurrentEventsValidator 'TransCelerate.SDR.RuleEngineV3.InterCurrentEventsValidator')
 - [InterCurrentEventsValidator](#T-TransCelerate-SDR-RuleEngineV4-InterCurrentEventsValidator 'TransCelerate.SDR.RuleEngineV4.InterCurrentEventsValidator')
-- [InvestigationalInterventionValidator](#T-TransCelerate-SDR-RuleEngineV1-InvestigationalInterventionValidator 'TransCelerate.SDR.RuleEngineV1.InvestigationalInterventionValidator')
 - [InvestigationalInterventionValidator](#T-TransCelerate-SDR-RuleEngineV2-InvestigationalInterventionValidator 'TransCelerate.SDR.RuleEngineV2.InvestigationalInterventionValidator')
 - [InvestigationalInterventionValidator](#T-TransCelerate-SDR-RuleEngineV3-InvestigationalInterventionValidator 'TransCelerate.SDR.RuleEngineV3.InvestigationalInterventionValidator')
 - [InvestigationalInterventionValidator](#T-TransCelerate-SDR-RuleEngineV4-InvestigationalInterventionValidator 'TransCelerate.SDR.RuleEngineV4.InvestigationalInterventionValidator')
@@ -63,62 +55,45 @@
 - [OrganisationValidator](#T-TransCelerate-SDR-RuleEngineV3-OrganisationValidator 'TransCelerate.SDR.RuleEngineV3.OrganisationValidator')
 - [OrganisationValidator](#T-TransCelerate-SDR-RuleEngineV4-OrganisationValidator 'TransCelerate.SDR.RuleEngineV4.OrganisationValidator')
 - [PostUserToGroupValidator](#T-TransCelerate-SDR-RuleEngine-PostUserToGroupValidator 'TransCelerate.SDR.RuleEngine.PostUserToGroupValidator')
-- [ProcedureValidator](#T-TransCelerate-SDR-RuleEngineV1-ProcedureValidator 'TransCelerate.SDR.RuleEngineV1.ProcedureValidator')
 - [ProcedureValidator](#T-TransCelerate-SDR-RuleEngineV2-ProcedureValidator 'TransCelerate.SDR.RuleEngineV2.ProcedureValidator')
 - [ProcedureValidator](#T-TransCelerate-SDR-RuleEngineV3-ProcedureValidator 'TransCelerate.SDR.RuleEngineV3.ProcedureValidator')
 - [ProcedureValidator](#T-TransCelerate-SDR-RuleEngineV4-ProcedureValidator 'TransCelerate.SDR.RuleEngineV4.ProcedureValidator')
 - [ResponseCodeValidator](#T-TransCelerate-SDR-RuleEngineV2-ResponseCodeValidator 'TransCelerate.SDR.RuleEngineV2.ResponseCodeValidator')
 - [ResponseCodeValidator](#T-TransCelerate-SDR-RuleEngineV3-ResponseCodeValidator 'TransCelerate.SDR.RuleEngineV3.ResponseCodeValidator')
 - [ResponseCodeValidator](#T-TransCelerate-SDR-RuleEngineV4-ResponseCodeValidator 'TransCelerate.SDR.RuleEngineV4.ResponseCodeValidator')
-- [SearchParametersValidator](#T-TransCelerate-SDR-RuleEngineV1-SearchParametersValidator 'TransCelerate.SDR.RuleEngineV1.SearchParametersValidator')
-- [StudyArmValidator](#T-TransCelerate-SDR-RuleEngineV1-StudyArmValidator 'TransCelerate.SDR.RuleEngineV1.StudyArmValidator')
 - [StudyArmValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyArmValidator 'TransCelerate.SDR.RuleEngineV2.StudyArmValidator')
 - [StudyArmValidator](#T-TransCelerate-SDR-RuleEngineV3-StudyArmValidator 'TransCelerate.SDR.RuleEngineV3.StudyArmValidator')
 - [StudyArmValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyArmValidator 'TransCelerate.SDR.RuleEngineV4.StudyArmValidator')
-- [StudyCellsValidator](#T-TransCelerate-SDR-RuleEngineV1-StudyCellsValidator 'TransCelerate.SDR.RuleEngineV1.StudyCellsValidator')
 - [StudyCellsValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyCellsValidator 'TransCelerate.SDR.RuleEngineV2.StudyCellsValidator')
 - [StudyCellsValidator](#T-TransCelerate-SDR-RuleEngineV3-StudyCellsValidator 'TransCelerate.SDR.RuleEngineV3.StudyCellsValidator')
 - [StudyCellsValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyCellsValidator 'TransCelerate.SDR.RuleEngineV4.StudyCellsValidator')
-- [StudyDataCollectionValidator](#T-TransCelerate-SDR-RuleEngineV1-StudyDataCollectionValidator 'TransCelerate.SDR.RuleEngineV1.StudyDataCollectionValidator')
-- [StudyDefinitionsValidator](#T-TransCelerate-SDR-RuleEngineV1-StudyDefinitionsValidator 'TransCelerate.SDR.RuleEngineV1.StudyDefinitionsValidator')
 - [StudyDefinitionsValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyDefinitionsValidator 'TransCelerate.SDR.RuleEngineV2.StudyDefinitionsValidator')
 - [StudyDefinitionsValidator](#T-TransCelerate-SDR-RuleEngineV3-StudyDefinitionsValidator 'TransCelerate.SDR.RuleEngineV3.StudyDefinitionsValidator')
 - [StudyDefinitionsValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyDefinitionsValidator 'TransCelerate.SDR.RuleEngineV4.StudyDefinitionsValidator')
-- [StudyDesignPopulationValidator](#T-TransCelerate-SDR-RuleEngineV1-StudyDesignPopulationValidator 'TransCelerate.SDR.RuleEngineV1.StudyDesignPopulationValidator')
 - [StudyDesignPopulationValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyDesignPopulationValidator 'TransCelerate.SDR.RuleEngineV2.StudyDesignPopulationValidator')
 - [StudyDesignPopulationValidator](#T-TransCelerate-SDR-RuleEngineV3-StudyDesignPopulationValidator 'TransCelerate.SDR.RuleEngineV3.StudyDesignPopulationValidator')
 - [StudyDesignPopulationValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyDesignPopulationValidator 'TransCelerate.SDR.RuleEngineV4.StudyDesignPopulationValidator')
-- [StudyDesignValidator](#T-TransCelerate-SDR-RuleEngineV1-StudyDesignValidator 'TransCelerate.SDR.RuleEngineV1.StudyDesignValidator')
 - [StudyDesignValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyDesignValidator 'TransCelerate.SDR.RuleEngineV2.StudyDesignValidator')
 - [StudyDesignValidator](#T-TransCelerate-SDR-RuleEngineV3-StudyDesignValidator 'TransCelerate.SDR.RuleEngineV3.StudyDesignValidator')
 - [StudyDesignValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyDesignValidator 'TransCelerate.SDR.RuleEngineV4.StudyDesignValidator')
-- [StudyElementsValidator](#T-TransCelerate-SDR-RuleEngineV1-StudyElementsValidator 'TransCelerate.SDR.RuleEngineV1.StudyElementsValidator')
 - [StudyElementsValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyElementsValidator 'TransCelerate.SDR.RuleEngineV2.StudyElementsValidator')
 - [StudyElementsValidator](#T-TransCelerate-SDR-RuleEngineV3-StudyElementsValidator 'TransCelerate.SDR.RuleEngineV3.StudyElementsValidator')
 - [StudyElementsValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyElementsValidator 'TransCelerate.SDR.RuleEngineV4.StudyElementsValidator')
-- [StudyEpochValidator](#T-TransCelerate-SDR-RuleEngineV1-StudyEpochValidator 'TransCelerate.SDR.RuleEngineV1.StudyEpochValidator')
 - [StudyEpochValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyEpochValidator 'TransCelerate.SDR.RuleEngineV2.StudyEpochValidator')
 - [StudyEpochValidator](#T-TransCelerate-SDR-RuleEngineV3-StudyEpochValidator 'TransCelerate.SDR.RuleEngineV3.StudyEpochValidator')
 - [StudyEpochValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyEpochValidator 'TransCelerate.SDR.RuleEngineV4.StudyEpochValidator')
-- [StudyEstimandsValidator](#T-TransCelerate-SDR-RuleEngineV1-StudyEstimandsValidator 'TransCelerate.SDR.RuleEngineV1.StudyEstimandsValidator')
 - [StudyEstimandsValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyEstimandsValidator 'TransCelerate.SDR.RuleEngineV2.StudyEstimandsValidator')
 - [StudyEstimandsValidator](#T-TransCelerate-SDR-RuleEngineV3-StudyEstimandsValidator 'TransCelerate.SDR.RuleEngineV3.StudyEstimandsValidator')
 - [StudyEstimandsValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyEstimandsValidator 'TransCelerate.SDR.RuleEngineV4.StudyEstimandsValidator')
-- [StudyIdentifierScopeValidator](#T-TransCelerate-SDR-RuleEngineV1-StudyIdentifierScopeValidator 'TransCelerate.SDR.RuleEngineV1.StudyIdentifierScopeValidator')
-- [StudyIdentifiersValidator](#T-TransCelerate-SDR-RuleEngineV1-StudyIdentifiersValidator 'TransCelerate.SDR.RuleEngineV1.StudyIdentifiersValidator')
 - [StudyIdentifiersValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyIdentifiersValidator 'TransCelerate.SDR.RuleEngineV2.StudyIdentifiersValidator')
 - [StudyIdentifiersValidator](#T-TransCelerate-SDR-RuleEngineV3-StudyIdentifiersValidator 'TransCelerate.SDR.RuleEngineV3.StudyIdentifiersValidator')
 - [StudyIdentifiersValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyIdentifiersValidator 'TransCelerate.SDR.RuleEngineV4.StudyIdentifiersValidator')
-- [StudyObjectiveValidator](#T-TransCelerate-SDR-RuleEngineV1-StudyObjectiveValidator 'TransCelerate.SDR.RuleEngineV1.StudyObjectiveValidator')
-- [StudyProtocolVersionsValidator](#T-TransCelerate-SDR-RuleEngineV1-StudyProtocolVersionsValidator 'TransCelerate.SDR.RuleEngineV1.StudyProtocolVersionsValidator')
 - [StudyProtocolVersionsValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyProtocolVersionsValidator 'TransCelerate.SDR.RuleEngineV2.StudyProtocolVersionsValidator')
 - [StudyProtocolVersionsValidator](#T-TransCelerate-SDR-RuleEngineV3-StudyProtocolVersionsValidator 'TransCelerate.SDR.RuleEngineV3.StudyProtocolVersionsValidator')
 - [StudyProtocolVersionsValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyProtocolVersionsValidator 'TransCelerate.SDR.RuleEngineV4.StudyProtocolVersionsValidator')
-- [StudyValidator](#T-TransCelerate-SDR-RuleEngineV1-StudyValidator 'TransCelerate.SDR.RuleEngineV1.StudyValidator')
 - [StudyValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyValidator 'TransCelerate.SDR.RuleEngineV2.StudyValidator')
 - [StudyValidator](#T-TransCelerate-SDR-RuleEngineV3-StudyValidator 'TransCelerate.SDR.RuleEngineV3.StudyValidator')
 - [StudyValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyValidator 'TransCelerate.SDR.RuleEngineV4.StudyValidator')
-- [TransitionRuleValidator](#T-TransCelerate-SDR-RuleEngineV1-TransitionRuleValidator 'TransCelerate.SDR.RuleEngineV1.TransitionRuleValidator')
 - [TransitionRuleValidator](#T-TransCelerate-SDR-RuleEngineV2-TransitionRuleValidator 'TransCelerate.SDR.RuleEngineV2.TransitionRuleValidator')
 - [TransitionRuleValidator](#T-TransCelerate-SDR-RuleEngineV3-TransitionRuleValidator 'TransCelerate.SDR.RuleEngineV3.TransitionRuleValidator')
 - [TransitionRuleValidator](#T-TransCelerate-SDR-RuleEngineV4-TransitionRuleValidator 'TransCelerate.SDR.RuleEngineV4.TransitionRuleValidator')
@@ -126,27 +101,12 @@
 - [UserLoginValidator](#T-TransCelerate-SDR-RuleEngine-UserLoginValidator 'TransCelerate.SDR.RuleEngine.UserLoginValidator')
 - [ValidationDependenciesCommon](#T-TransCelerate-SDR-RuleEngine-Common-ValidationDependenciesCommon 'TransCelerate.SDR.RuleEngine.Common.ValidationDependenciesCommon')
   - [AddValidationDependenciesCommon(services)](#M-TransCelerate-SDR-RuleEngine-Common-ValidationDependenciesCommon-AddValidationDependenciesCommon-Microsoft-Extensions-DependencyInjection-IServiceCollection- 'TransCelerate.SDR.RuleEngine.Common.ValidationDependenciesCommon.AddValidationDependenciesCommon(Microsoft.Extensions.DependencyInjection.IServiceCollection)')
-- [ValidationDependenciesV1](#T-TransCelerate-SDR-RuleEngineV1-ValidationDependenciesV1 'TransCelerate.SDR.RuleEngineV1.ValidationDependenciesV1')
-  - [AddValidationDependenciesV1(services)](#M-TransCelerate-SDR-RuleEngineV1-ValidationDependenciesV1-AddValidationDependenciesV1-Microsoft-Extensions-DependencyInjection-IServiceCollection- 'TransCelerate.SDR.RuleEngineV1.ValidationDependenciesV1.AddValidationDependenciesV1(Microsoft.Extensions.DependencyInjection.IServiceCollection)')
 - [ValidationDependenciesV2](#T-TransCelerate-SDR-RuleEngineV2-ValidationDependenciesV2 'TransCelerate.SDR.RuleEngineV2.ValidationDependenciesV2')
   - [AddValidationDependenciesV2(services)](#M-TransCelerate-SDR-RuleEngineV2-ValidationDependenciesV2-AddValidationDependenciesV2-Microsoft-Extensions-DependencyInjection-IServiceCollection- 'TransCelerate.SDR.RuleEngineV2.ValidationDependenciesV2.AddValidationDependenciesV2(Microsoft.Extensions.DependencyInjection.IServiceCollection)')
 - [ValidationDependenciesV3](#T-TransCelerate-SDR-RuleEngineV3-ValidationDependenciesV3 'TransCelerate.SDR.RuleEngineV3.ValidationDependenciesV3')
   - [AddValidationDependenciesV3(services)](#M-TransCelerate-SDR-RuleEngineV3-ValidationDependenciesV3-AddValidationDependenciesV3-Microsoft-Extensions-DependencyInjection-IServiceCollection- 'TransCelerate.SDR.RuleEngineV3.ValidationDependenciesV3.AddValidationDependenciesV3(Microsoft.Extensions.DependencyInjection.IServiceCollection)')
 - [ValidationDependenciesV4](#T-TransCelerate-SDR-RuleEngineV4-ValidationDependenciesV4 'TransCelerate.SDR.RuleEngineV4.ValidationDependenciesV4')
   - [AddValidationDependenciesV4(services)](#M-TransCelerate-SDR-RuleEngineV4-ValidationDependenciesV4-AddValidationDependenciesV4-Microsoft-Extensions-DependencyInjection-IServiceCollection- 'TransCelerate.SDR.RuleEngineV4.ValidationDependenciesV4.AddValidationDependenciesV4(Microsoft.Extensions.DependencyInjection.IServiceCollection)')
-- [WorkflowItemValidator](#T-TransCelerate-SDR-RuleEngineV1-WorkflowItemValidator 'TransCelerate.SDR.RuleEngineV1.WorkflowItemValidator')
-- [WorkflowValidator](#T-TransCelerate-SDR-RuleEngineV1-WorkflowValidator 'TransCelerate.SDR.RuleEngineV1.WorkflowValidator')
-
-<a name='T-TransCelerate-SDR-RuleEngineV1-ActivityValidator'></a>
-## ActivityValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for Activity
 
 <a name='T-TransCelerate-SDR-RuleEngineV2-ActivityValidator'></a>
 ## ActivityValidator `type`
@@ -246,17 +206,6 @@ TransCelerate.SDR.RuleEngineV4
 ##### Summary
 
 This Class is the validator for AliasCode
-
-<a name='T-TransCelerate-SDR-RuleEngineV1-AnalysisPopulationValidator'></a>
-## AnalysisPopulationValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for Analysis Population
 
 <a name='T-TransCelerate-SDR-RuleEngineV2-AnalysisPopulationValidator'></a>
 ## AnalysisPopulationValidator `type`
@@ -423,17 +372,6 @@ TransCelerate.SDR.RuleEngineV4
 
 This Class is the validator for Activity
 
-<a name='T-TransCelerate-SDR-RuleEngineV1-CodeValidator'></a>
-## CodeValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for Code
-
 <a name='T-TransCelerate-SDR-RuleEngineV2-CodeValidator'></a>
 ## CodeValidator `type`
 
@@ -467,17 +405,6 @@ TransCelerate.SDR.RuleEngineV4
 
 This Class is the validator for Code
 
-<a name='T-TransCelerate-SDR-RuleEngineV1-EncounterValidator'></a>
-## EncounterValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for Encounter
-
 <a name='T-TransCelerate-SDR-RuleEngineV2-EncounterValidator'></a>
 ## EncounterValidator `type`
 
@@ -510,17 +437,6 @@ TransCelerate.SDR.RuleEngineV4
 ##### Summary
 
 This Class is the validator for Encounter
-
-<a name='T-TransCelerate-SDR-RuleEngineV1-EndpointValidator'></a>
-## EndpointValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for Endpoint
 
 <a name='T-TransCelerate-SDR-RuleEngineV2-EndpointValidator'></a>
 ## EndpointValidator `type`
@@ -588,17 +504,6 @@ TransCelerate.SDR.RuleEngine
 
 This Class is the validator for POST Group Endpoint
 
-<a name='T-TransCelerate-SDR-RuleEngineV1-IndicationValidator'></a>
-## IndicationValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for Indication
-
 <a name='T-TransCelerate-SDR-RuleEngineV2-IndicationValidator'></a>
 ## IndicationValidator `type`
 
@@ -632,17 +537,6 @@ TransCelerate.SDR.RuleEngineV4
 
 This Class is the validator for Indication
 
-<a name='T-TransCelerate-SDR-RuleEngineV1-InterCurrentEventsValidator'></a>
-## InterCurrentEventsValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for InterCurrent Events
-
 <a name='T-TransCelerate-SDR-RuleEngineV2-InterCurrentEventsValidator'></a>
 ## InterCurrentEventsValidator `type`
 
@@ -675,17 +569,6 @@ TransCelerate.SDR.RuleEngineV4
 ##### Summary
 
 This Class is the validator for InterCurrent Events
-
-<a name='T-TransCelerate-SDR-RuleEngineV1-InvestigationalInterventionValidator'></a>
-## InvestigationalInterventionValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for InvestigationalIntervention
 
 <a name='T-TransCelerate-SDR-RuleEngineV2-InvestigationalInterventionValidator'></a>
 ## InvestigationalInterventionValidator `type`
@@ -797,17 +680,6 @@ TransCelerate.SDR.RuleEngine
 
 This Class is the validator for POST User Endpoint
 
-<a name='T-TransCelerate-SDR-RuleEngineV1-ProcedureValidator'></a>
-## ProcedureValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for Procedure
-
 <a name='T-TransCelerate-SDR-RuleEngineV2-ProcedureValidator'></a>
 ## ProcedureValidator `type`
 
@@ -874,28 +746,6 @@ TransCelerate.SDR.RuleEngineV4
 
 This Class is the validator for Activity
 
-<a name='T-TransCelerate-SDR-RuleEngineV1-SearchParametersValidator'></a>
-## SearchParametersValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for SearchParameters
-
-<a name='T-TransCelerate-SDR-RuleEngineV1-StudyArmValidator'></a>
-## StudyArmValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for StudyArm
-
 <a name='T-TransCelerate-SDR-RuleEngineV2-StudyArmValidator'></a>
 ## StudyArmValidator `type`
 
@@ -928,17 +778,6 @@ TransCelerate.SDR.RuleEngineV4
 ##### Summary
 
 This Class is the validator for StudyArm
-
-<a name='T-TransCelerate-SDR-RuleEngineV1-StudyCellsValidator'></a>
-## StudyCellsValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for StudyCells
 
 <a name='T-TransCelerate-SDR-RuleEngineV2-StudyCellsValidator'></a>
 ## StudyCellsValidator `type`
@@ -973,28 +812,6 @@ TransCelerate.SDR.RuleEngineV4
 
 This Class is the validator for StudyCells
 
-<a name='T-TransCelerate-SDR-RuleEngineV1-StudyDataCollectionValidator'></a>
-## StudyDataCollectionValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for StudyDataCollection
-
-<a name='T-TransCelerate-SDR-RuleEngineV1-StudyDefinitionsValidator'></a>
-## StudyDefinitionsValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for Study
-
 <a name='T-TransCelerate-SDR-RuleEngineV2-StudyDefinitionsValidator'></a>
 ## StudyDefinitionsValidator `type`
 
@@ -1027,17 +844,6 @@ TransCelerate.SDR.RuleEngineV4
 ##### Summary
 
 This Class is the validator for Study
-
-<a name='T-TransCelerate-SDR-RuleEngineV1-StudyDesignPopulationValidator'></a>
-## StudyDesignPopulationValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for StudyDesignPopulation
 
 <a name='T-TransCelerate-SDR-RuleEngineV2-StudyDesignPopulationValidator'></a>
 ## StudyDesignPopulationValidator `type`
@@ -1072,17 +878,6 @@ TransCelerate.SDR.RuleEngineV4
 
 This Class is the validator for StudyDesignPopulation
 
-<a name='T-TransCelerate-SDR-RuleEngineV1-StudyDesignValidator'></a>
-## StudyDesignValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for StudyDesign
-
 <a name='T-TransCelerate-SDR-RuleEngineV2-StudyDesignValidator'></a>
 ## StudyDesignValidator `type`
 
@@ -1115,17 +910,6 @@ TransCelerate.SDR.RuleEngineV4
 ##### Summary
 
 This Class is the validator for StudyDesign
-
-<a name='T-TransCelerate-SDR-RuleEngineV1-StudyElementsValidator'></a>
-## StudyElementsValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for StudyElements
 
 <a name='T-TransCelerate-SDR-RuleEngineV2-StudyElementsValidator'></a>
 ## StudyElementsValidator `type`
@@ -1160,17 +944,6 @@ TransCelerate.SDR.RuleEngineV4
 
 This Class is the validator for StudyElements
 
-<a name='T-TransCelerate-SDR-RuleEngineV1-StudyEpochValidator'></a>
-## StudyEpochValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for StudyEpoch
-
 <a name='T-TransCelerate-SDR-RuleEngineV2-StudyEpochValidator'></a>
 ## StudyEpochValidator `type`
 
@@ -1203,17 +976,6 @@ TransCelerate.SDR.RuleEngineV4
 ##### Summary
 
 This Class is the validator for StudyEpoch
-
-<a name='T-TransCelerate-SDR-RuleEngineV1-StudyEstimandsValidator'></a>
-## StudyEstimandsValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for StudyEstimands
 
 <a name='T-TransCelerate-SDR-RuleEngineV2-StudyEstimandsValidator'></a>
 ## StudyEstimandsValidator `type`
@@ -1248,28 +1010,6 @@ TransCelerate.SDR.RuleEngineV4
 
 This Class is the validator for StudyEstimands
 
-<a name='T-TransCelerate-SDR-RuleEngineV1-StudyIdentifierScopeValidator'></a>
-## StudyIdentifierScopeValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for StudyIdentifierScope
-
-<a name='T-TransCelerate-SDR-RuleEngineV1-StudyIdentifiersValidator'></a>
-## StudyIdentifiersValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for StudyIdentifiers
-
 <a name='T-TransCelerate-SDR-RuleEngineV2-StudyIdentifiersValidator'></a>
 ## StudyIdentifiersValidator `type`
 
@@ -1302,28 +1042,6 @@ TransCelerate.SDR.RuleEngineV4
 ##### Summary
 
 This Class is the validator for StudyIdentifiers
-
-<a name='T-TransCelerate-SDR-RuleEngineV1-StudyObjectiveValidator'></a>
-## StudyObjectiveValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for StudyObjectives
-
-<a name='T-TransCelerate-SDR-RuleEngineV1-StudyProtocolVersionsValidator'></a>
-## StudyProtocolVersionsValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for StudyProtocolVersions
 
 <a name='T-TransCelerate-SDR-RuleEngineV2-StudyProtocolVersionsValidator'></a>
 ## StudyProtocolVersionsValidator `type`
@@ -1358,17 +1076,6 @@ TransCelerate.SDR.RuleEngineV4
 
 This Class is the validator for StudyProtocolVersions
 
-<a name='T-TransCelerate-SDR-RuleEngineV1-StudyValidator'></a>
-## StudyValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for Study
-
 <a name='T-TransCelerate-SDR-RuleEngineV2-StudyValidator'></a>
 ## StudyValidator `type`
 
@@ -1401,17 +1108,6 @@ TransCelerate.SDR.RuleEngineV4
 ##### Summary
 
 This Class is the validator for Study
-
-<a name='T-TransCelerate-SDR-RuleEngineV1-TransitionRuleValidator'></a>
-## TransitionRuleValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for TransitionRule
 
 <a name='T-TransCelerate-SDR-RuleEngineV2-TransitionRuleValidator'></a>
 ## TransitionRuleValidator `type`
@@ -1477,30 +1173,6 @@ TransCelerate.SDR.RuleEngine.Common
 
 <a name='M-TransCelerate-SDR-RuleEngine-Common-ValidationDependenciesCommon-AddValidationDependenciesCommon-Microsoft-Extensions-DependencyInjection-IServiceCollection-'></a>
 ### AddValidationDependenciesCommon(services) `method`
-
-##### Summary
-
-Add all the dependencies for validations
-
-##### Returns
-
-
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| services | [Microsoft.Extensions.DependencyInjection.IServiceCollection](#T-Microsoft-Extensions-DependencyInjection-IServiceCollection 'Microsoft.Extensions.DependencyInjection.IServiceCollection') |  |
-
-<a name='T-TransCelerate-SDR-RuleEngineV1-ValidationDependenciesV1'></a>
-## ValidationDependenciesV1 `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-<a name='M-TransCelerate-SDR-RuleEngineV1-ValidationDependenciesV1-AddValidationDependenciesV1-Microsoft-Extensions-DependencyInjection-IServiceCollection-'></a>
-### AddValidationDependenciesV1(services) `method`
 
 ##### Summary
 
@@ -1587,25 +1259,3 @@ Add all the dependencies for validations
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | services | [Microsoft.Extensions.DependencyInjection.IServiceCollection](#T-Microsoft-Extensions-DependencyInjection-IServiceCollection 'Microsoft.Extensions.DependencyInjection.IServiceCollection') |  |
-
-<a name='T-TransCelerate-SDR-RuleEngineV1-WorkflowItemValidator'></a>
-## WorkflowItemValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for WorkFlowItems
-
-<a name='T-TransCelerate-SDR-RuleEngineV1-WorkflowValidator'></a>
-## WorkflowValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV1
-
-##### Summary
-
-This Class is the validator for WorkFlows

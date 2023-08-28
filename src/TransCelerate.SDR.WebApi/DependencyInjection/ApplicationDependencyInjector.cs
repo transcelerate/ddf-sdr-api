@@ -3,7 +3,6 @@ using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
-using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV1;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4;
@@ -20,16 +19,13 @@ namespace TransCelerate.SDR.WebApi.DependencyInjection
         {
             services.AddTransient<IUserGroupMappingRepository, UserGroupMappingRepository>();
             services.AddTransient<IUserGroupMappingService, UserGroupMappingService>();
-            services.AddTransient<ILogHelper, LogHelper>();
-            services.AddTransient<IHelperV1, HelperV1>();
+            services.AddTransient<ILogHelper, LogHelper>();            
             services.AddTransient<IHelperV2, HelperV2>();
             services.AddTransient<IHelperV3, HelperV3>();
-            services.AddTransient<IHelperV4, HelperV4>();
-            services.AddTransient<IStudyRepositoryV1, StudyRepositoryV1>();
+            services.AddTransient<IHelperV4, HelperV4>();            
             services.AddTransient<IStudyRepositoryV2, StudyRepositoryV2>();
             services.AddTransient<IStudyRepositoryV3, StudyRepositoryV3>();
-            services.AddTransient<IStudyRepositoryV4, StudyRepositoryV4>();
-            services.AddTransient<IStudyServiceV1, StudyServiceV1>();
+            services.AddTransient<IStudyRepositoryV4, StudyRepositoryV4>();            
             services.AddTransient<IStudyServiceV2, StudyServiceV2>();
             services.AddTransient<IStudyServiceV3, StudyServiceV3>();
             services.AddTransient<IStudyServiceV4, StudyServiceV4>();

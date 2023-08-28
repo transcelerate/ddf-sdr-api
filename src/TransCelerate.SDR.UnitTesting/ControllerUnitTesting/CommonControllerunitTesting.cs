@@ -37,12 +37,12 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
         public static CommonStudyDefinitionsEntity GetData(string usdmVersion)
         {
-            if (usdmVersion == Constants.USDMVersions.V1)
+            if (usdmVersion == Constants.USDMVersions.V2_1)
             {
-                string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV1.json");
+                string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV4.json");
                 jsonData = jsonData.Replace($"{IdFieldPropertyName.ParentElement.ClinicalStudy.ChangeToCamelCase()}", $"{nameof(CommonStudyDefinitionsEntity.Study).ChangeToCamelCase()}");
-                var v1 = JsonConvert.DeserializeObject<CommonStudyDefinitionsEntity>(jsonData);
-                return v1;
+                var v4 = JsonConvert.DeserializeObject<CommonStudyDefinitionsEntity>(jsonData);
+                return v4;
             }
             else if (usdmVersion == Constants.USDMVersions.V1_9)
             {
@@ -403,7 +403,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         public void SearchStudyTitleSuccessUnitTesting()
         {
             CommonStudyDefinitionsEntity mvp = GetData(Constants.USDMVersions.V2);
-            CommonStudyDefinitionsEntity v1 = GetData(Constants.USDMVersions.V1);
+            CommonStudyDefinitionsEntity v1 = GetData(Constants.USDMVersions.V2_1);
             CommonStudyDefinitionsEntity v2 = GetData(Constants.USDMVersions.V1_9);
             List<SearchTitleResponseEntity> studyList = new()
             {
@@ -627,7 +627,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         [Test]
         public void SearchStudySuccessUnitTesting()
         {            
-            CommonStudyDefinitionsEntity v1 = GetData(Constants.USDMVersions.V1);
+            CommonStudyDefinitionsEntity v1 = GetData(Constants.USDMVersions.V2_1);
             CommonStudyDefinitionsEntity v2 = GetData(Constants.USDMVersions.V1_9);
             CommonStudyDefinitionsEntity v3 = GetData(Constants.USDMVersions.V2);
             List<SearchResponseEntity> studyList = new()
@@ -841,7 +841,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 StudyId = "1",
                 SDRUploadVersion = 1,
                 UsdmVersion = Constants.USDMVersions.V1_9,
-                Links = LinksHelper.GetLinksForEndpoint("1", Constants.USDMVersions.V1, 1)
+                Links = LinksHelper.GetLinksForEndpoint("1", Constants.USDMVersions.V2_1, 1)
             };
             links.Links = LinksHelper.GetLinksForEndpoint("1", Constants.USDMVersions.MVP, 1);
             var link = LinksHelper.GetLinks("1", null, Constants.USDMVersions.MVP, 1);

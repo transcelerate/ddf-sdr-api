@@ -467,32 +467,7 @@ namespace TransCelerate.SDR.Services.Services
         }
 
         public async Task<object> GetSearchResultsWithUsdmVersionFilter(SearchParametersEntity searchParameters, LoggedInUser loggedInUser)
-        {            
-            if (searchParameters.UsdmVersion == Constants.USDMVersions.V1)
-            {
-                var searchResponse = await _commonRepository.SearchStudyV1(searchParameters, loggedInUser);
-                var searchResponseDtos = _mapper.Map<List<SearchResponseDto>>(searchResponse);
-
-                if (searchResponseDtos.Any())
-                {
-                    searchResponseDtos.ForEach(searchResponseDto =>
-                    {
-                        var searchResponseV1 = searchResponse.FirstOrDefault(x => x.StudyId == searchResponseDto.Study.StudyId && x.SDRUploadVersion == searchResponseDto.AuditTrail.SDRUploadVersion);
-
-                        searchResponseDto.Study.StudyIdentifiers = _mapper.Map<List<CommonStudyIdentifiersDto>>(searchResponseV1.StudyIdentifiers);
-
-                        searchResponseDto.Study.StudyDesigns = new List<CommonStudyDesign> { new CommonStudyDesign
-                        {
-                            InterventionModel = _mapper.Map<List<CommonCodeDto>>(searchResponseV1.InterventionModel?.Where(x=>x !=null && x.Any()).SelectMany(x=>x).ToList()),
-                            StudyIndications = _mapper.Map<List<Core.DTO.Common.CommonStudyIndication>>(searchResponseV1.StudyIndications?.Where(x => x != null && x.Any()).SelectMany(x=>x).ToList())
-                        } };
-                        searchResponseDto.Links = LinksHelper.GetLinksForUi(searchResponseDto.Study.StudyId, searchResponseV1.StudyDesignIds?.ToList(), searchResponseDto.AuditTrail.UsdmVersion, searchResponseDto.AuditTrail.SDRUploadVersion);
-                    });
-                    return searchResponseDtos;
-                }
-
-                return null;
-            }
+        {                        
             if (searchParameters.UsdmVersion == Constants.USDMVersions.V1_9)
             {
                 var searchResponse = await _commonRepository.SearchStudyV2(searchParameters, loggedInUser);
@@ -654,7 +629,7 @@ namespace TransCelerate.SDR.Services.Services
                                         NamingStrategy = new CamelCaseNamingStrategy()
                                     }
                                 }));
-                                if (study.UsdmVersion == Constants.USDMVersions.V1)
+                                if (study.UsdmVersion == Constants.USDMVersions.V2_1)
                                 {
                                     if (!groupFilters.Item1.Contains((string)jsonObject["studyType"]["decode"].ToString().ToLower()))
                                         study.HasAccess = false;
@@ -732,7 +707,7 @@ namespace TransCelerate.SDR.Services.Services
                                 }));
                                 if (groupFilters.Item2.Contains(study.StudyId))
                                     study.HasAccess = true;
-                                if (study.UsdmVersion == Constants.USDMVersions.V1)
+                                if (study.UsdmVersion == Constants.USDMVersions.V2_1)
                                 {
                                     if (!groupFilters.Item1.Contains((string)jsonObject["studyType"]["decode"].ToString().ToLower()))
                                         study.HasAccess = false;

@@ -23,18 +23,16 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         private readonly ILogHelper _logger;
 
         private readonly IMongoClient _client;
-        private readonly IMongoDatabase _database;
-        private readonly IStudyRepositoryV1 _studyRepositoryV1;        
+        private readonly IMongoDatabase _database;              
 
         #endregion
 
         #region Constructor      
-        public CommonRepository(IMongoClient client, ILogHelper logger,IStudyRepositoryV1 studyRepositoryV1)
+        public CommonRepository(IMongoClient client, ILogHelper logger)
         {
             _client = client;
             _database = _client.GetDatabase(_databaseName);
-            _logger = logger;
-            _studyRepositoryV1 = studyRepositoryV1;            
+            _logger = logger;                   
             var conventionPack = new ConventionPack
             {
                 new CamelCaseElementNameConvention()
@@ -203,7 +201,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// </returns>
         public async Task<List<StudyHistoryResponseEntity>> GetStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle, LoggedInUser user)
         {
-            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV1)}; Method : {nameof(GetStudyHistory)};");
+            _logger.LogInformation($"Started Repository : {nameof(CommonRepository)}; Method : {nameof(GetStudyHistory)};");
             try
             {
                 var collection = _database.GetCollection<CommonStudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
@@ -242,7 +240,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV1)}; Method : {nameof(GetStudyHistory)};");
+                _logger.LogInformation($"Ended Repository : {nameof(CommonRepository)}; Method : {nameof(GetStudyHistory)};");
             }
         }
         #endregion
@@ -323,57 +321,6 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 _logger.LogInformation($"Ended Repository : {nameof(CommonRepository)}; Method : {nameof(SearchStudy)};");
             }
         }        
-
-        /// <summary>
-        /// Search the collection based on search criteria
-        /// </summary>
-        /// <param name="searchParameters">Parameters to search in database</param>        
-        /// <param name="user">Loggedin User</param>        
-        /// <returns>
-        /// A <see cref="List{SearchResponseEntity}"/> with matching studyId <br></br> <br></br>
-        /// <see langword="null"/> If no study is matching with studyId
-        /// </returns>
-        public async Task<List<Core.Entities.StudyV1.SearchResponseEntity>> SearchStudyV1(SearchParametersEntity searchParameters, LoggedInUser user)
-        {
-            try
-            {
-                _logger.LogInformation($"Started Repository : {nameof(CommonRepository)}; Method : {nameof(SearchStudyV1)};");
-                IMongoCollection<Core.Entities.StudyV1.StudyDefinitionsEntity> collection = _database.GetCollection<Core.Entities.StudyV1.StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
-
-
-                List<Core.Entities.StudyV1.SearchResponseEntity> studies = await collection.Aggregate()
-                                              .Match(DataFilterCommon.GetFiltersForSearchV1(searchParameters, GetGroupsOfUser(user).Result, user))
-                                              .Project(x => new Core.Entities.StudyV1.SearchResponseEntity
-                                              {
-                                                  StudyId = x.Study.Uuid,
-                                                  StudyTitle = x.Study.StudyTitle,
-                                                  StudyType = x.Study.StudyType,
-                                                  StudyPhase = x.Study.StudyPhase,
-                                                  StudyIdentifiers = x.Study.StudyIdentifiers,
-                                                  InterventionModel = x.Study.StudyDesigns.Select(y => y.InterventionModel) ?? null,
-                                                  StudyIndications = x.Study.StudyDesigns.Select(y => y.StudyIndications) ?? null,
-                                                  EntryDateTime = x.AuditTrail.EntryDateTime,
-                                                  SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
-                                                  UsdmVersion = x.AuditTrail.UsdmVersion,
-                                                  StudyDesignIds = x.Study.StudyDesigns.Select(x => x.Uuid) ?? null,
-                                              })
-                                              .ToListAsync()
-                                              .ConfigureAwait(false);
-
-                return _studyRepositoryV1.SortSearchResults(studies, searchParameters.Header, searchParameters.Asc)
-                                                 .Skip((searchParameters.PageNumber - 1) * searchParameters.PageSize)
-                                                 .Take(searchParameters.PageSize)
-                                                 .ToList();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                _logger.LogInformation($"Ended Repository : {nameof(CommonRepository)}; Method : {nameof(SearchStudyV1)};");
-            }
-        }
 
         /// <summary>
         /// Search the collection based on search criteria
@@ -541,7 +488,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         {
             try
             {
-                _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV1)}; Method : {nameof(SearchTitle)};");
+                _logger.LogInformation($"Started Repository : {nameof(CommonRepository)}; Method : {nameof(SearchTitle)};");
                 IMongoCollection<CommonStudyDefinitionsEntity> collection = _database.GetCollection<CommonStudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
 
                 List<SearchTitleResponseEntity> studies = new();
@@ -593,7 +540,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV1)}; Method : {nameof(SearchTitle)};");
+                _logger.LogInformation($"Ended Repository : {nameof(CommonRepository)}; Method : {nameof(SearchTitle)};");
             }
         }
         #endregion
