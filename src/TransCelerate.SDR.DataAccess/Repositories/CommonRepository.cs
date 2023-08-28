@@ -122,7 +122,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                       EntryDateTime = x.AuditTrail.EntryDateTime,
                                                       SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
                                                       UsdmVersion = x.AuditTrail.UsdmVersion,
-                                                      StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null,                                                      
+                                                      StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Id) ?? null,                                                      
                                                       HasAccess = true
                                                   })
                                                   .SortByDescending(s => s.EntryDateTime) // Sort by descending on entryDateTime
@@ -222,7 +222,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                                     ProtocolVersions = x.Study.StudyProtocolVersions.Select(x => x.ProtocolVersion),
                                                                     StudyVersion = x.Study.StudyVersion,
                                                                     UsdmVersion = x.AuditTrail.UsdmVersion,
-                                                                    StudyDesignIds = x.AuditTrail.UsdmVersion == Constants.USDMVersions.V2_1 ? x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid ) : x.Study.StudyDesigns.Select(x => x.Id) ?? null                                                                    
+                                                                    StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Id),
                                                                 })  //Project only the required fields                                                        
                                                         .ToListAsync().ConfigureAwait(false);
 
@@ -282,7 +282,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                   EntryDateTime = x.AuditTrail.EntryDateTime,
                                                   SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
                                                   UsdmVersion = x.AuditTrail.UsdmVersion,
-                                                  StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null,                                                  
+                                                  StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Id) ?? null,                                                  
                                               })
                                               .ToListAsync()
                                               .ConfigureAwait(false);
@@ -303,7 +303,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                   EntryDateTime = x.AuditTrail.EntryDateTime,
                                                   SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
                                                   UsdmVersion = x.AuditTrail.UsdmVersion,
-                                                  StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null,                                                  
+                                                  StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Id) ?? null,                                                  
                                               })
                                               .Sort(DataFilterCommon.GetSorterForSearchStudy(searchParameters))
                                               .Skip((searchParameters.PageNumber - 1) * searchParameters.PageSize)
@@ -558,7 +558,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                   StudyType = x.Study.StudyType,
                                                   EntryDateTime = x.AuditTrail.EntryDateTime,
                                                   SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
-                                                  StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null,
+                                                  StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Id) ?? null,
                                                   UsdmVersion = x.AuditTrail.UsdmVersion
                                               })
                                               .ToListAsync()
@@ -576,7 +576,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                  StudyType = x.Study.StudyType,
                                                  EntryDateTime = x.AuditTrail.EntryDateTime,
                                                  SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
-                                                 StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null,
+                                                 StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Id) ?? null,
                                                  UsdmVersion = x.AuditTrail.UsdmVersion
                                              })
                                              .Sort(DataFilterCommon.GetSorterForSearchStudyTitle(searchParameters))

@@ -31,6 +31,7 @@ namespace TransCelerate.SDR.Core.Entities.Common
         public string ProtocolVersion { get; set; }
     }
     [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
+    [MongoDB.Bson.Serialization.Attributes.BsonNoId]
     public class CommonStudyDesigns
     {
         public string StudyDesignId { get; set; }
