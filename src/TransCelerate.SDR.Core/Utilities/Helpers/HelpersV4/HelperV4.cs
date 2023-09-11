@@ -708,13 +708,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
         {
             try
             {
-                var duplicateExistingStudy = JsonConvert.DeserializeObject<StudyDefinitionsEntity>(JsonConvert.SerializeObject(existing)); // Creating duplicates for existing entity
-                var duplicateIncomingStudy = JsonConvert.DeserializeObject<StudyDefinitionsEntity>(JsonConvert.SerializeObject(incoming)); // Creating duplicates for incoming entity
-
-                duplicateIncomingStudy.AuditTrail = duplicateExistingStudy.AuditTrail = null;
-                duplicateIncomingStudy.Id = duplicateExistingStudy.Id = null;
-
-                return JsonObjectCheck(RemovedSectionId(duplicateIncomingStudy), RemovedSectionId(duplicateExistingStudy));
+                return JsonObjectCheck(incoming.Study, existing.Study);
             }
             catch (Exception)
             {
