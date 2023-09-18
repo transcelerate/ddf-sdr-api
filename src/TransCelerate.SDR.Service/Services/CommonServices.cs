@@ -274,7 +274,10 @@ namespace TransCelerate.SDR.Services.Services
                                                     {
                                                         Study = g.Where(x => x.AuditTrail.SDRUploadVersion == g.Max(x => x.AuditTrail.SDRUploadVersion)).Select(x => x.Study).FirstOrDefault(),
                                                         AuditTrail = g.Where(x => x.AuditTrail.SDRUploadVersion == g.Max(x => x.AuditTrail.SDRUploadVersion)).Select(x => x.AuditTrail).FirstOrDefault()
-                                                    }).ToList();
+                                                    })
+                                                    .Skip((searchParametersDTO.PageNumber - 1) * searchParametersDTO.PageSize)
+                                                    .Take(searchParametersDTO.PageSize)
+                                                    .ToList();
                 }
                 searchTitleDTOList = AssignStudyIdentifiers(searchTitleDTOList, searchResponse);
 

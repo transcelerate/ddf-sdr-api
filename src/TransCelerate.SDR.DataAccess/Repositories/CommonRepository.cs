@@ -514,7 +514,26 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                               .ToListAsync()
                                               .ConfigureAwait(false);
                 }
-                else
+                else if (searchParameters.GroupByStudyId)
+                {
+                    studies = await collection.Aggregate()
+                                             .Match(DataFilterCommon.GetFiltersForSearchTitle(searchParameters, GetGroupsOfUser(user).Result, user))
+                                             .Project(x => new SearchTitleResponseEntity
+                                             {
+                                                 StudyId = x.Study.StudyId,
+                                                 StudyTitle = x.Study.StudyTitle,
+                                                 StudyIdentifiers = x.Study.StudyIdentifiers,
+                                                 StudyType = x.Study.StudyType,
+                                                 EntryDateTime = x.AuditTrail.EntryDateTime,
+                                                 SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+                                                 StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Uuid) ?? null,
+                                                 UsdmVersion = x.AuditTrail.UsdmVersion
+                                             })
+                                             .Sort(DataFilterCommon.GetSorterForSearchStudyTitle(searchParameters))
+                                             .ToListAsync()
+                                             .ConfigureAwait(false);
+                }
+                else 
                 {
                     studies = await collection.Aggregate()
                                              .Match(DataFilterCommon.GetFiltersForSearchTitle(searchParameters, GetGroupsOfUser(user).Result, user))
