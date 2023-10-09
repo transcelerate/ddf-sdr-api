@@ -58,6 +58,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         public struct DefaultHeaders
         {
             public const string AppInsightsApiKey = "x-api-key";
+            public const string ApiKeyAuthenticationHeader = "x-api-key";
         }
         public struct Roles
         {
