@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Reports;
 using TransCelerate.SDR.Core.ErrorModels;
+using TransCelerate.SDR.Core.Filters;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Enums;
@@ -19,7 +20,7 @@ using TransCelerate.SDR.Core.Utilities.Helpers;
 
 namespace TransCelerate.SDR.WebApi.Controllers
 {
-    [Authorize(Roles = Constants.Roles.Org_Admin)]
+    [AuthorizationFilter(Roles = Constants.Roles.Org_Admin)]
     [ApiVersionNeutral]
     [ApiController]
     public class ReportsController : ControllerBase

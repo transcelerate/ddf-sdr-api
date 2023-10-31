@@ -16,14 +16,14 @@ Study Definition Repository (SDR) Reference Implementation is TransCelerate’s 
 
 This is a .NET 6 Web API project that is designed to expose APIs which upstream/downstream systems can utilize to store and retrieve study definitions from SDR. The latest Release of SDR (Release V2.0.1) supports study definitions conformant with USDM V1.0, USDM 1.9 and USDM V2.0.
 
-This [Process Flow Document](https://github.com/transcelerate/ddf-sdr-platform/blob/main/documents/sdr-release-v2.0.1/ddf-sdr-ri-process-flows-v4.0.pdf) provides information regarding user interface functions and system interactions with the SDR at a high level. Please also refer to the [DDF SDR API User Guide](documents/sdr-release-v2.0.1/ddf-sdr-ri-api-user-guide-v5.0.pdf) to get started, and the [DDF SDR RI API Demo video](https://www.youtube.com/playlist?list=PLMXS-Xt7Ou1KNUF-HQKQRRzqfPQEXWb1u). 
+This [Process Flow Document](https://github.com/transcelerate/ddf-sdr-platform/blob/main/documents/sdr-release-v2.0.2/ddf-sdr-ri-process-flows-v4.0.pdf) provides information regarding user interface functions and system interactions with the SDR at a high level. Please also refer to the [DDF SDR API User Guide](documents/sdr-release-v2.0.2/ddf-sdr-ri-api-user-guide-v6.0.pdf) to get started, and the [DDF SDR RI API Demo video](https://www.youtube.com/playlist?list=PLMXS-Xt7Ou1KNUF-HQKQRRzqfPQEXWb1u). 
 
 **NOTES:** 
 - These materials and information are provided by TransCelerate Biopharma Inc. AS IS.  Any party using or relying on this information and these materials do so entirely at their own risk.  Neither TransCelerate nor its members will bear any responsibility or liability for any harm, including indirect or consequential harm, that a user may incur from use or misuse of this information or materials.
 - Please be advised that if you implement the code as written, the functionality is designed to collect and store certain personal data (user credentials, email address, IP address) for authentication and audit log purposes.  None of this information will be shared with TransCelerate or Accenture for any purpose.  Neither TransCelerate nor Accenture bears any responsibility for any collection, use or misuse of personal data that occurs from any implementation of this source code.  If you or your organization employ any of the features that collect personal data, you are responsible for compliance with any relevant privacy laws or regulations in any applicable jurisdiction.  
 - Please be aware that any information you put into the provided tools (including the UI or API) will be visible to all users, so we recommend not using commercially sensitive or confidential information.  You and/or your employer bear all responsibility for anything you share with this project.  TransCelerate, its member companies and any vendors affiliated with the DDF project are not responsible for any harm or loss you occur as a result of uploading any information or code: commercially sensitive, confidential or otherwise.
 - To the extent that the SDR Reference Implementation incorporates or relies on any specific branded products or services, such as Azure, this resulted out of the practical necessities associated with making a reference implementation available to demonstrate the SDR’s capabilities.  Users are free to download the source code for the SDR from GitHub and design their own implementations.  Those implementations can be in an environment of the user’s choice, and do not have to be on Azure. 
-- As of July 2023, the DDF initiative is still the process of setting up operations, and any pull requests submitted will not be triaged at this point in time.
+- As of October 2023, the DDF initiative is still the process of setting up operations, and any pull requests submitted will not be triaged at this point in time.
 
 ## Requirements to Contribute and Propose Changes
 Before participating, you must acknowledge the Contribution License Agreement (CLA).
@@ -41,7 +41,7 @@ NOTE: Keep a copy for your records.
 For those looking to evaluate the USDM with a sample data set, please see the following files in the Data Model folder:
 - [USDM V1.0 conformant Sample JSON](data-model/sdr-release-v0.5/SDR%20Study%20Sample-JSON-V1.0.json)
 - [USDM V1.9 conformant Sample JSON](data-model/sdr-release-v2.0/ddf-sdr-api-study-sample-json-v1.9.json)
-- [USDM V2.0 conformant Sample JSON](data-model/sdr-release-v2.0.1/ddf-sdr-api-study-sample-json-v2.0.json)
+- [USDM V2.0 conformant Sample JSON](data-model/sdr-release-v2.0.2/ddf-sdr-api-study-sample-json-v2.0.json)
 
 # Code setup and debugging
 ## Pre-requisites
@@ -338,7 +338,7 @@ To view the API specifications and to run the endpoints locally, the below swagg
 ```
 https://localhost:44358/swagger/index.html
 ```
-**Note**: Refer **[DDF SDR API User Guide](documents/sdr-release-v2.0.1/ddf-sdr-ri-api-user-guide-v5.0.pdf)** for detailed information on all the endpoints.
+**Note**: Refer **[DDF SDR API User Guide](documents/sdr-release-v2.0.2/ddf-sdr-ri-api-user-guide-v6.0.pdf)** for detailed information on all the endpoints.
 
 ## API Versioning
 SDR APIs are defined in such a way that an API version can handle more than one USDM Version. If there are no breaking changes between the USDM Versions, with same API version, more than one USDM Versions can be handled. But, when there is a breaking change in a new USDM Version, a new API version must be created to support the new USDM Version. Below are the list of changes that are required when creating a new API version.
