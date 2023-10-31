@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "a6ac7ddf-706b-4306-b919-de87d9c36141",
-		"name": "Demo",
+		"_postman_id": "eff8bef5-4491-4566-8ba3-c52839159aea",
+		"name": "Demo API Key",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "15473443"
 	},
@@ -763,19 +763,19 @@
 					"response": []
 				},
 				{
-					"name": "Common AuditTrail",
+					"name": "Common Revision History",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/studydefinitions/{studyId}/audittrail",
+							"raw": "{{URL}}/studydefinitions/{studyId}/revisionhistory",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"studydefinitions",
 								"{studyId}",
-								"audittrail"
+								"revisionhistory"
 							]
 						}
 					},
