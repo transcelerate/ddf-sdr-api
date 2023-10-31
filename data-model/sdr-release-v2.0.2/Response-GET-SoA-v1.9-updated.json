@@ -1,0 +1,542 @@
+{
+  "studyId": "ed021bf5-c2db-4dbc-adbe-1e5fb6c621c6",
+  "studyTitle": "Study of Stage III Biliary Duct Cancer",
+  "studyDesigns": [
+    {
+      "studyDesignId": "SD01",
+      "studyDesignName": "Design for Stage III",
+      "studyDesignDescription": "Stage III Biliary Duct Cancer",
+      "studyScheduleTimelines": [
+        {
+          "scheduleTimelineId": "Timeline01",
+          "scheduleTimelineName": "name",
+          "scheduleTimelineDescription": "Timeline for Stage III",
+          "entryCondition": "condition",
+          "scheduleTimelineSoA": {
+            "orderOfActivities": [
+              {
+                "activityId": "ACT001",
+                "activityDescription": "Informed consents",
+                "activityName": "Informed consent",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "Reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT002",
+                "activityDescription": "Informed consent",
+                "activityName": "Eligibility criteria",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT003",
+                "activityDescription": "Informed consent",
+                "activityName": "Demography",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT005",
+                "activityDescription": "Informed consent",
+                "activityName": "Disease characteristics",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT006",
+                "activityDescription": "Informed consent",
+                "activityName": "Physical exam",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT007",
+                "activityDescription": "Informed consent",
+                "activityName": "Height",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT008",
+                "activityDescription": "Informed consent",
+                "activityName": "12-lead ECG",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT009",
+                "activityDescription": "Informed consent",
+                "activityName": "Hematology (predose)",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT010",
+                "activityDescription": "Informed consent",
+                "activityName": "Chemistry (predose)",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT011",
+                "activityDescription": "Informed consent",
+                "activityName": "Serology",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT012",
+                "activityDescription": "Informed consent",
+                "activityName": "Urinalysis",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT013",
+                "activityDescription": "Informed consent",
+                "activityName": "Pregnancy test",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT014",
+                "activityDescription": "Informed consent",
+                "activityName": "Ensure availability of medication X",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT015",
+                "activityDescription": "Informed consent",
+                "activityName": "Hospitalization",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT016",
+                "activityDescription": "Informed consent",
+                "activityName": "Weight",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT017",
+                "activityDescription": "Informed consent",
+                "activityName": "Vital signs",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT018",
+                "activityDescription": "Informed consent",
+                "activityName": "adverse events",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "ACT019",
+                "activityDescription": "Informed consent",
+                "activityName": "Concomitant medications",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "reason",
+                "biomedicalConcepts": [
+                  "Diastolic Blood Pressure "
+                ],
+                "activityTimelineId": "Timeline01",
+                "activityTimelineName": "name",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              }
+            ],
+            "SoA": [
+              {
+                "encounterId": "VIS11",
+                "encounterName": "SCREENING VISIT",
+                "encounterScheduledAtTimingValue": "Day 1",
+                "timings": [
+                  {
+                    "timingValue": "Day 1",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT001",
+                      "ACT002",
+                      "ACT003",
+                      "ACT005",
+                      "ACT008",
+                      "ACT009",
+                      "ACT011",
+                      "ACT018"
+                    ]
+                  },
+                  {
+                    "timingValue": "Day 15",
+                    "timingWindow": "window",
+                    "timingType": "Before",
+                    "activities": [
+                      "ACT001",
+                      "ACT002",
+                      "ACT003",
+                      "ACT005",
+                      "ACT008",
+                      "ACT009",
+                      "ACT011",
+                      "ACT018"
+                    ]
+                  }
+                ]
+              },
+              {
+                "encounterId": "VIS12",
+                "encounterName": "RUN-IN VISIT 1",
+                "encounterScheduledAtTimingValue": "Day 15",
+                "timings": [
+                  {
+                    "timingValue": "Day 1",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT003",
+                      "ACT002"
+                    ]
+                  },
+                  {
+                    "timingValue": "Day 15",
+                    "timingWindow": "window",
+                    "timingType": "Before",
+                    "activities": [
+                      "ACT003",
+                      "ACT002"
+                    ]
+                  }
+                ]
+              },
+              {
+                "encounterId": "VIS13",
+                "encounterName": "RUN-IN VISIT 2",
+                "encounterScheduledAtTimingValue": "Day 1",
+                "timings": [
+                  {
+                    "timingValue": "Day 10",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT005",
+                      "ACT006"
+                    ]
+                  }
+                ]
+              },
+              {
+                "encounterId": "VIS14",
+                "encounterName": "RUN-IN VISIT 3",
+                "encounterScheduledAtTimingValue": "Day 15",
+                "timings": [
+                  {
+                    "timingValue": "Day 18",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT006",
+                      "ACT007"
+                    ]
+                  }
+                ]
+              },
+              {
+                "encounterId": "VIS15",
+                "encounterName": "CYCLE 1, TREATMENT 1",
+                "encounterScheduledAtTimingValue": "Day 1",
+                "timings": [
+                  {
+                    "timingValue": "Day 20",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT008",
+                      "ACT009"
+                    ]
+                  }
+                ]
+              },
+              {
+                "encounterId": "VIS16",
+                "encounterName": "CYCLE 1, TREATMENT 2",
+                "encounterScheduledAtTimingValue": "Day 10",
+                "timings": [
+                  {
+                    "timingValue": "Day 23",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT010",
+                      "ACT011"
+                    ]
+                  }
+                ]
+              },
+              {
+                "encounterId": "VIS17",
+                "encounterName": "CYCLE 1, TREATMENT 3",
+                "encounterScheduledAtTimingValue": "Day 18",
+                "timings": [
+                  {
+                    "timingValue": "Day 25",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT012",
+                      "ACT013"
+                    ]
+                  }
+                ]
+              },
+              {
+                "encounterId": "VIS18",
+                "encounterName": "CYCLE 2, TREATMENT 1",
+                "encounterScheduledAtTimingValue": "Day 20",
+                "timings": [
+                  {
+                    "timingValue": "Day 30",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT013",
+                      "ACT014"
+                    ]
+                  }
+                ]
+              },
+              {
+                "encounterId": "VIS19",
+                "encounterName": "CYCLE 2, TREATMENT 2",
+                "encounterScheduledAtTimingValue": "Day 23",
+                "timings": [
+                  {
+                    "timingValue": "Day 35",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT015",
+                      "ACT016"
+                    ]
+                  }
+                ]
+              },
+              {
+                "encounterId": "VIS20",
+                "encounterName": "CYCLE 3, TREATMENT 1",
+                "encounterScheduledAtTimingValue": "Day 25",
+                "timings": [
+                  {
+                    "timingValue": "WEEK 1",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT017",
+                      "ACT018"
+                    ]
+                  }
+                ]
+              },
+              {
+                "encounterId": "VIS21",
+                "encounterName": "CYCLE 3, TREATMENT 2",
+                "encounterScheduledAtTimingValue": "Day 30",
+                "timings": [
+                  {
+                    "timingValue": "WEEK 3",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT018",
+                      "ACT019"
+                    ]
+                  }
+                ]
+              },
+              {
+                "encounterId": "VIS22",
+                "encounterName": "FU 1",
+                "encounterScheduledAtTimingValue": "WEEK 6",
+                "timings": [
+                  {
+                    "timingValue": "WEEK 5",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT019",
+                      "ACT002"
+                    ]
+                  }
+                ]
+              },
+              {
+                "encounterId": "VIS23",
+                "encounterName": "FU 2",
+                "encounterScheduledAtTimingValue": "MONTH 1",
+                "timings": [
+                  {
+                    "timingValue": "WEEK 6",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT003",
+                      "ACT001"
+                    ]
+                  },
+                  {
+                    "timingValue": "MONTH 1",
+                    "timingWindow": "window",
+                    "timingType": "After",
+                    "activities": [
+                      "ACT005",
+                      "ACT002"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
