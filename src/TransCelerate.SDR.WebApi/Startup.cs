@@ -121,7 +121,7 @@ namespace TransCelerate.SDR.WebApi
             services.AddHttpContextAccessor();
             services.AddControllers(config =>
             {
-                config.Filters.Add<ActionFilter>();
+                config.Filters.Add<ActionFilter>();                
             });
 
             services.AddFluentValidationAutoValidation();
@@ -220,7 +220,7 @@ namespace TransCelerate.SDR.WebApi
                         var actionTask = Task.Run(() => next());
                         await Task.WhenAll(actionTask, logTask); // Adding request logging as Task to execute in parallel along with request                        
                     }
-                    if (String.IsNullOrWhiteSpace(context.Response.Headers["Controller"]) && String.IsNullOrWhiteSpace(context.Response.Headers["InvalidInput"]))
+                    if (String.IsNullOrWhiteSpace(context.Response.Headers["Controller"]) && String.IsNullOrWhiteSpace(context.Response.Headers["InvalidInput"]) && String.IsNullOrWhiteSpace(context.Response.Headers["AuthFilter"]))
                     {
                         response = await HttpContextResponseHelper.Response(context, response);
                         var AuthToken = context.Request.Headers["Authorization"];
@@ -241,7 +241,7 @@ namespace TransCelerate.SDR.WebApi
             //Enable Authenticationa and Authorization for the Endpoints
             app.UseAuthentication();
             app.UseAuthorization();
-
+            
             //Map Endpoints with authorization
             app.UseEndpoints(endpoints =>
             {
