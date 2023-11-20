@@ -1,6 +1,6 @@
 {
   "study": {
-    "studyId": "aaed3efe-7d70-4c9e-90e2-3446e936c291",
+    "id": "aaed3efe-7d70-4c9e-90e2-3446e936c291",
     "studyTitle": "Study Of Lung Cancer",
     "studyRationale": "Rational",
     "studyAcronym": "Acronym",
@@ -979,6 +979,6 @@
   "auditTrail": {
     "entryDateTime": "2022-10-18T11:44:11.0529109Z",
     "SDRUploadVersion": 1,
-    "usdmVersion": "2.1"
+    "usdmVersion": "3.0"
   }
 }

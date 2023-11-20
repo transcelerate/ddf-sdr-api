@@ -78,7 +78,7 @@ namespace TransCelerate.SDR.Services.Services
                         if (!await CheckAccessForAStudy(studyId, (string)jsonObject["studyType"]["decode"], user))
                             return Constants.ErrorMessages.Forbidden;
                     }
-                    else if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.V2 || study.AuditTrail.UsdmVersion == Constants.USDMVersions.V2_1)
+                    else if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.V2 || study.AuditTrail.UsdmVersion == Constants.USDMVersions.V3)
                     {
                         if (!await CheckAccessForAStudy(studyId, (string)jsonObject["studyType"]["decode"], user))
                             return Constants.ErrorMessages.Forbidden;
@@ -518,7 +518,7 @@ namespace TransCelerate.SDR.Services.Services
 
                 return null;
             }
-            if (searchParameters.UsdmVersion == Constants.USDMVersions.V2_1)
+            if (searchParameters.UsdmVersion == Constants.USDMVersions.V3)
             {
                 var searchResponse = await _commonRepository.SearchStudyV4(searchParameters, loggedInUser);
                 var searchResponseDtos = _mapper.Map<List<SearchResponseDto>>(searchResponse);
@@ -629,7 +629,7 @@ namespace TransCelerate.SDR.Services.Services
                                         NamingStrategy = new CamelCaseNamingStrategy()
                                     }
                                 }));
-                                if (study.UsdmVersion == Constants.USDMVersions.V2_1)
+                                if (study.UsdmVersion == Constants.USDMVersions.V3)
                                 {
                                     if (!groupFilters.Item1.Contains((string)jsonObject["studyType"]["decode"].ToString().ToLower()))
                                         study.HasAccess = false;
@@ -707,7 +707,7 @@ namespace TransCelerate.SDR.Services.Services
                                 }));
                                 if (groupFilters.Item2.Contains(study.StudyId))
                                     study.HasAccess = true;
-                                if (study.UsdmVersion == Constants.USDMVersions.V2_1)
+                                if (study.UsdmVersion == Constants.USDMVersions.V3)
                                 {
                                     if (!groupFilters.Item1.Contains((string)jsonObject["studyType"]["decode"].ToString().ToLower()))
                                         study.HasAccess = false;

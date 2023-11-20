@@ -669,7 +669,7 @@
       ]
     },
     {
-      "usdmVersion": "2.1",
+      "usdmVersion": "3.0",
       "rules": [
         {
           "entity": "Activity",

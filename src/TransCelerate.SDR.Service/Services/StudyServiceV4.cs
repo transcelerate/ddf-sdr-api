@@ -73,7 +73,7 @@ namespace TransCelerate.SDR.Services.Services
                     if (checkStudy == null)
                         return Constants.ErrorMessages.Forbidden;
                     var studyDTO = _mapper.Map<StudyDefinitionsDto>(study);  //Mapping Entity to Dto
-                    studyDTO.Links = LinksHelper.GetLinksForUi(study.Study.StudyId, study.Study.StudyDesigns?.Select(x => x.Id).ToList(), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion);
+                    studyDTO.Links = LinksHelper.GetLinksForUi(study.Study.Id, study.Study.StudyDesigns?.Select(x => x.Id).ToList(), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion);
                     return studyDTO;
                 }
             }
@@ -173,7 +173,7 @@ namespace TransCelerate.SDR.Services.Services
                             return new StudyDesignsResponseDto
                             {
                                 StudyDesigns = _helper.RemoveStudyDesignElements(Constants.StudyDesignElementsV4, studyDesigns, studyId),
-                                Links = LinksHelper.GetLinks(study.Study.StudyId, study.Study.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion)
+                                Links = LinksHelper.GetLinks(study.Study.Id, study.Study.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion)
                             };
 
                         return Constants.ErrorMessages.StudyDesignNotFound;
@@ -267,7 +267,7 @@ namespace TransCelerate.SDR.Services.Services
                         return Constants.ErrorMessages.Forbidden;
 
                     var soa = SoAV4(study.Study.StudyDesigns);
-                    soa.StudyId = study.Study.StudyId;
+                    soa.StudyId = study.Study.Id;
                     soa.StudyTitle = study.Study.StudyTitle;
                     if (!String.IsNullOrWhiteSpace(studyDesignId))
                     {
@@ -522,7 +522,7 @@ namespace TransCelerate.SDR.Services.Services
                                 { string.Concat(nameof(StudyDto.StudyDesigns)[..1].ToLower(), nameof(StudyDto.StudyDesigns).AsSpan(1)), JArray.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))) }
                             };
                             if (listofelements == null)
-                                jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.Study.StudyId, study.Study.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion), _helper.GetSerializerSettingsForCamelCasing())));
+                                jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.Study.Id, study.Study.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion), _helper.GetSerializerSettingsForCamelCasing())));
                             return jObject;
                         }
                         return Constants.ErrorMessages.StudyDesignNotFound;
@@ -535,7 +535,7 @@ namespace TransCelerate.SDR.Services.Services
                             { string.Concat(nameof(StudyDto.StudyDesigns)[..1].ToLower(), nameof(StudyDto.StudyDesigns).AsSpan(1)), JArray.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))) }
                         };
                         if (listofelements == null)
-                            jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.Study.StudyId, study.Study.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion), _helper.GetSerializerSettingsForCamelCasing())));
+                            jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.Study.Id, study.Study.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion), _helper.GetSerializerSettingsForCamelCasing())));
                         return study.Study.StudyDesigns is not null && study.Study.StudyDesigns.Any() ?
                             jObject : Constants.ErrorMessages.StudyDesignNotFound;
                     }
@@ -611,10 +611,10 @@ namespace TransCelerate.SDR.Services.Services
 
         public Core.DTO.eCPT.ECPTDto GetCPTDataV4(StudyDto studyDto, AuditTrailEntity auditTrail)
         {
-            var links = LinksHelper.GetLinks(studyDto.StudyId, studyDto.StudyDesigns.Select(c => c.Id).ToList(), auditTrail.UsdmVersion, auditTrail.SDRUploadVersion);
+            var links = LinksHelper.GetLinks(studyDto.Id, studyDto.StudyDesigns.Select(c => c.Id).ToList(), auditTrail.UsdmVersion, auditTrail.SDRUploadVersion);
             Core.DTO.eCPT.StudyDetailsDto studyDetailsDto = new()
             {
-                StudyId = studyDto.StudyId,
+                StudyId = studyDto.Id,
                 StudyTitle = studyDto.StudyTitle,
 
                 UsdmVersion = auditTrail.UsdmVersion,
@@ -826,16 +826,16 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else //PUT Endpoint Create New Version for the study
                 {
-                    AuditTrailEntity existingAuditTrail = await _studyRepository.GetUsdmVersionAsync(incomingStudyEntity.Study.StudyId, 0);
+                    AuditTrailEntity existingAuditTrail = await _studyRepository.GetUsdmVersionAsync(incomingStudyEntity.Study.Id, 0);
 
                     if (existingAuditTrail is null) // If PUT Endpoint and study_uuid is not valid, return not valid study
                     {
                         return Constants.ErrorMessages.NotValidStudyId;
                     }
 
-                    if (existingAuditTrail.UsdmVersion == Constants.USDMVersions.V2_1) // If previus USDM version is same as incoming
+                    if (existingAuditTrail.UsdmVersion == Constants.USDMVersions.V3) // If previus USDM version is same as incoming
                     {
-                        StudyDefinitionsEntity existingStudyEntity = await _studyRepository.GetStudyItemsAsync(incomingStudyEntity.Study.StudyId, 0);
+                        StudyDefinitionsEntity existingStudyEntity = await _studyRepository.GetStudyItemsAsync(incomingStudyEntity.Study.Id, 0);
 
                         if (_helper.IsSameStudy(incomingStudyEntity, existingStudyEntity))
                         {
@@ -844,16 +844,16 @@ namespace TransCelerate.SDR.Services.Services
                         else
                         {
                             studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity, existingStudyEntity.AuditTrail).ConfigureAwait(false);
-                            await PushMessageToServiceBus(new Core.DTO.Common.ServiceBusMessageDto { Study_uuid = incomingStudyEntity.Study.StudyId, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
+                            await PushMessageToServiceBus(new Core.DTO.Common.ServiceBusMessageDto { Study_uuid = incomingStudyEntity.Study.Id, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
                         }
                     }
                     else // If previus USDM version is different from incoming
                     {
                         studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity, existingAuditTrail).ConfigureAwait(false);
-                        await PushMessageToServiceBus(new Core.DTO.Common.ServiceBusMessageDto { Study_uuid = incomingStudyEntity.Study.StudyId, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
+                        await PushMessageToServiceBus(new Core.DTO.Common.ServiceBusMessageDto { Study_uuid = incomingStudyEntity.Study.Id, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
                     }
                 }
-                studyDTO.Links = LinksHelper.GetLinksForUi(studyDTO.Study.StudyId, studyDTO.Study.StudyDesigns?.Select(x => x.Id).ToList(), studyDTO.AuditTrail.UsdmVersion, studyDTO.AuditTrail.SDRUploadVersion);
+                studyDTO.Links = LinksHelper.GetLinksForUi(studyDTO.Study.Id, studyDTO.Study.StudyDesigns?.Select(x => x.Id).ToList(), studyDTO.AuditTrail.UsdmVersion, studyDTO.AuditTrail.SDRUploadVersion);
                 return studyDTO;
             }
             catch (Exception)
@@ -869,10 +869,10 @@ namespace TransCelerate.SDR.Services.Services
         public async Task<StudyDefinitionsDto> CreateNewStudy(StudyDefinitionsEntity studyEntity)
         {
             //studyEntity = _helper.GeneratedSectionId(studyEntity);
-            studyEntity.Study.StudyId = IdGenerator.GenerateId();
+            studyEntity.Study.Id = IdGenerator.GenerateId();
             studyEntity.AuditTrail.SDRUploadVersion = 1;
             await _studyRepository.PostStudyItemsAsync(studyEntity);
-            await _changeAuditRepositoy.InsertChangeAudit(studyEntity.Study.StudyId, studyEntity.AuditTrail.SDRUploadVersion, studyEntity.AuditTrail.EntryDateTime);
+            await _changeAuditRepositoy.InsertChangeAudit(studyEntity.Study.Id, studyEntity.AuditTrail.SDRUploadVersion, studyEntity.AuditTrail.EntryDateTime);
             return _mapper.Map<StudyDefinitionsDto>(studyEntity);
         }
 
@@ -880,7 +880,7 @@ namespace TransCelerate.SDR.Services.Services
         {
             existingStudyEntity.AuditTrail.EntryDateTime = incomingStudyEntity.AuditTrail.EntryDateTime;
             incomingStudyEntity.AuditTrail.SDRUploadVersion = existingStudyEntity.AuditTrail.SDRUploadVersion;
-            incomingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V2_1;
+            incomingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V3;
             await _studyRepository.UpdateStudyItemsAsync(incomingStudyEntity);
             return _mapper.Map<StudyDefinitionsDto>(incomingStudyEntity);
         }
@@ -889,7 +889,7 @@ namespace TransCelerate.SDR.Services.Services
         {
             //incomingStudyEntity = _helper.CheckForSections(incomingStudyEntity, existingStudyEntity);
             incomingStudyEntity.AuditTrail.SDRUploadVersion = existingAuditTrailEntity.SDRUploadVersion + 1;
-            incomingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V2_1;
+            incomingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V3;
             await _studyRepository.PostStudyItemsAsync(incomingStudyEntity);
             return _mapper.Map<StudyDefinitionsDto>(incomingStudyEntity);
         }
@@ -933,7 +933,7 @@ namespace TransCelerate.SDR.Services.Services
                     if (groups != null && groups.Count > 0)
                     {
                         Tuple<List<string>, List<string>> groupFilters = GroupFilters.GetGroupFilters(groups);
-                        if (groupFilters.Item2.Contains(study.Study.StudyId))
+                        if (groupFilters.Item2.Contains(study.Study.Id))
                             return study;
                         else if (groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
                             return study;

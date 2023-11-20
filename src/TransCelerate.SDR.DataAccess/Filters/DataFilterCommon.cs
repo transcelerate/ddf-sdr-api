@@ -601,12 +601,12 @@ namespace TransCelerate.SDR.DataAccess.Filters
                         {
                             filter &= builder.Or(
                                         builder.Regex($"{Constants.DbFilter.StudyType}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
-                                        builder.In(x => x.Study.StudyId, groupFilters.Item2)
+                                        builder.In(x => x.Study.Id, groupFilters.Item2)
                                         );
                         }
                         else
                         {
-                            filter &= builder.In(x => x.Study.StudyId, groupFilters.Item2);
+                            filter &= builder.In(x => x.Study.Id, groupFilters.Item2);
                         }
                     }
                 }

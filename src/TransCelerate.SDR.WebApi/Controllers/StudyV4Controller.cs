@@ -51,7 +51,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>
         [HttpGet]
-        [ApiVersion(Constants.USDMVersions.V2_1)]
+        [ApiVersion(Constants.USDMVersions.V3)]
         [Route(Route.StudyV4)]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDefinitionsDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
@@ -117,7 +117,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="404">The Study for the studyId is Not Found</response>
         [HttpGet]
         [Route(Route.StudyDesignV4)]
-        [ApiVersion(Constants.USDMVersions.V2_1)]
+        [ApiVersion(Constants.USDMVersions.V3)]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDefinitionsDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
@@ -184,7 +184,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="404">The Study for the studyId is Not Found</response>
         [HttpGet]
         [Route(Route.SoAV4)] 
-        [ApiVersion(Constants.USDMVersions.V2_1)]
+        [ApiVersion(Constants.USDMVersions.V3)]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDefinitionsDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
@@ -252,7 +252,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="404">The Study for the studyId is Not Found</response>
         [HttpGet]
         [Route(Route.GeteCPTV4)]
-        [ApiVersion(Constants.USDMVersions.V2_1)]
+        [ApiVersion(Constants.USDMVersions.V3)]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
         [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
         [Produces("application/json")]
@@ -321,7 +321,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>
         [HttpGet]
-        [ApiVersion(Constants.USDMVersions.V2_1)]
+        [ApiVersion(Constants.USDMVersions.V3)]
         [Route(Route.VersionCompareV4)]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDefinitionsDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
@@ -396,7 +396,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="201">Study Created</response>
         /// <response code="400">Bad Request</response>       
         [HttpPost]
-        [ApiVersion(Constants.USDMVersions.V2_1)]
+        [ApiVersion(Constants.USDMVersions.V3)]
         [Route(Route.PostElementsV4)]
         [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDefinitionsDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
@@ -434,7 +434,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         }
                         else
                         {
-                            return Created($"study/{studyDTO.Study.StudyId}", new JsonResult(response).Value);
+                            return Created($"study/{studyDTO.Study.Id}", new JsonResult(response).Value);
                         }
                     }
                 }
@@ -462,7 +462,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="201">Study Created</response>
         /// <response code="400">Bad Request</response>       
         [HttpPut]
-        [ApiVersion(Constants.USDMVersions.V2_1)]
+        [ApiVersion(Constants.USDMVersions.V3)]
         [Route(Route.StudyV4)]
         [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDefinitionsDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
@@ -481,7 +481,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         errorList.ForEach(e => _logger.LogError($"{Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse} {errorList.IndexOf(e) + 1}: {e}"));
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(errors, Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse)).Value);
                     }
-                    studyDTO.Study.StudyId = string.IsNullOrWhiteSpace(studyId) ? studyDTO.Study.StudyId : studyId;
+                    studyDTO.Study.Id = string.IsNullOrWhiteSpace(studyId) ? studyDTO.Study.Id : studyId;
 
                     LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
 
@@ -500,7 +500,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         }
                         else
                         {
-                            return Created($"study/{studyDTO.Study.StudyId}", new JsonResult(response).Value);
+                            return Created($"study/{studyDTO.Study.Id}", new JsonResult(response).Value);
                         }
                     }
                 }
@@ -530,7 +530,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="201">Study Created</response>
         /// <response code="400">Bad Request</response>       
         [HttpPost]
-        [ApiVersion(Constants.USDMVersions.V2_1)]
+        [ApiVersion(Constants.USDMVersions.V3)]
         [Route(Route.ValidateUsdmConformanceV4)]
         [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDefinitionsDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]

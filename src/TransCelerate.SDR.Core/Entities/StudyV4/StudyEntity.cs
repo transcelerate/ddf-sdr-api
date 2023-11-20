@@ -3,9 +3,10 @@
 namespace TransCelerate.SDR.Core.Entities.StudyV4
 {
     [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
+    [MongoDB.Bson.Serialization.Attributes.BsonNoId]
     public class StudyEntity
     {
-        public string StudyId { get; set; }
+        public string Id { get; set; }
         public string StudyTitle { get; set; }
         public string StudyVersion { get; set; }
         public CodeEntity StudyType { get; set; }

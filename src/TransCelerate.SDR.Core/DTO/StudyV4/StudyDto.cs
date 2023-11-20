@@ -4,7 +4,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
 {
     public class StudyDto
     {
-        public string StudyId { get; set; }
+        public string Id { get; set; }
         public string StudyTitle { get; set; }
         public string StudyVersion { get; set; }
         public CodeDto StudyType { get; set; }

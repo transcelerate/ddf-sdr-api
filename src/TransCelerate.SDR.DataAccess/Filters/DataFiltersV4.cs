@@ -21,8 +21,8 @@ namespace TransCelerate.SDR.DataAccess.Filters
         {
             FilterDefinitionBuilder<StudyDefinitionsEntity> builder = Builders<StudyDefinitionsEntity>.Filter;
             FilterDefinition<StudyDefinitionsEntity> filter = builder.Empty;
-            filter &= builder.Where(s => s.AuditTrail.UsdmVersion == Constants.USDMVersions.V2_1);
-            filter &= builder.Where(s => s.Study.StudyId == studyId);
+            filter &= builder.Where(s => s.AuditTrail.UsdmVersion == Constants.USDMVersions.V3);
+            filter &= builder.Where(s => s.Study.Id == studyId);
 
             if (sdruploadversion != 0)
                 filter &= builder.Where(x => x.AuditTrail.SDRUploadVersion == sdruploadversion);
@@ -40,7 +40,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
         {
             FilterDefinitionBuilder<StudyDefinitionsEntity> builder = Builders<StudyDefinitionsEntity>.Filter;
             FilterDefinition<StudyDefinitionsEntity> filter = builder.Empty;
-            filter &= builder.Where(s => s.Study.StudyId == studyId);
+            filter &= builder.Where(s => s.Study.Id == studyId);
 
             if (sdruploadversion != 0)
                 filter &= builder.Where(x => x.AuditTrail.SDRUploadVersion == sdruploadversion);
@@ -64,7 +64,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
         public static ProjectionDefinition<StudyDefinitionsEntity> GetProjectionForPartialStudyElements(string[] listofelementsArray)
         {
             ProjectionDefinitionBuilder<StudyDefinitionsEntity> projection = Builders<StudyDefinitionsEntity>.Projection;
-            ProjectionDefinition<StudyDefinitionsEntity> projector = projection.Include(x => x.Study.StudyId);
+            ProjectionDefinition<StudyDefinitionsEntity> projector = projection.Include(x => x.Study.Id);
             projector = projector.Include(x => x.Study.StudyType);
             projector = projector.Include(x => x.AuditTrail);
             projector = projector.Exclude(x => x.Id);
@@ -103,7 +103,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
         public static ProjectionDefinition<StudyDefinitionsEntity> GetProjectionForPartialStudyDesignElementsFullStudy()
         {
             ProjectionDefinitionBuilder<StudyDefinitionsEntity> projection = Builders<StudyDefinitionsEntity>.Projection;
-            ProjectionDefinition<StudyDefinitionsEntity> projector = projection.Include(x => x.Study.StudyId);
+            ProjectionDefinition<StudyDefinitionsEntity> projector = projection.Include(x => x.Study.Id);
             projector = projector.Include(x => x.Study.StudyType);
             projector = projector.Include(x => x.Study.StudyDesigns);
             projector = projector.Include(x => x.AuditTrail);
@@ -115,7 +115,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
         public static ProjectionDefinition<StudyDefinitionsEntity> GetProjectionForCheckAccessForAStudy()
         {
             ProjectionDefinitionBuilder<StudyDefinitionsEntity> projection = Builders<StudyDefinitionsEntity>.Projection;
-            ProjectionDefinition<StudyDefinitionsEntity> projector = projection.Include(x => x.Study.StudyId);
+            ProjectionDefinition<StudyDefinitionsEntity> projector = projection.Include(x => x.Study.Id);
             projector = projector.Include(x => x.Study.StudyType);
             projector = projector.Exclude(x => x.Id);
 

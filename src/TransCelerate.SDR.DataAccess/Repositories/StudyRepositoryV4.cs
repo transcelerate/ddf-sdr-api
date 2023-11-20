@@ -186,7 +186,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 IMongoCollection<StudyDefinitionsEntity> collection = _database.GetCollection<StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
 
                 await collection.InsertOneAsync(study).ConfigureAwait(false); //Insert One Document                
-                return (study.Study.StudyId);
+                return (study.Study.Id);
             }
             catch (Exception)
             {
@@ -218,11 +218,11 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 UpdateDefinition<StudyDefinitionsEntity> updateDefinition = Builders<StudyDefinitionsEntity>.Update
                                     .Set(s => s.Study, study.Study)
                                     .Set(s => s.AuditTrail, study.AuditTrail);
-                await collection.UpdateOneAsync(x => (x.Study.StudyId == study.Study.StudyId
+                await collection.UpdateOneAsync(x => (x.Study.Id == study.Study.Id
                                                    && x.AuditTrail.SDRUploadVersion == study.AuditTrail.SDRUploadVersion), //Match studyId and studyVersion
                                                    updateDefinition).ConfigureAwait(false); // Update study and auditTrail
 
-                return (study.Study.StudyId);
+                return (study.Study.Id);
             }
             catch (Exception)
             {
@@ -270,7 +270,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             try
             {
                 IMongoCollection<StudyDefinitionsEntity> collection = _database.GetCollection<StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
-                var builder = Builders<StudyDefinitionsEntity>.Filter.Eq(x => x.Study.StudyId, study_uuid);
+                var builder = Builders<StudyDefinitionsEntity>.Filter.Eq(x => x.Study.Id, study_uuid);
 
                 var deleteResult = await collection.DeleteManyAsync(builder).ConfigureAwait(false);
 
@@ -296,7 +296,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             try
             {
                 IMongoCollection<StudyDefinitionsEntity> collection = _database.GetCollection<StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
-                var builder = Builders<StudyDefinitionsEntity>.Filter.Eq(x => x.Study.StudyId, study_uuid);
+                var builder = Builders<StudyDefinitionsEntity>.Filter.Eq(x => x.Study.Id, study_uuid);
                 long count = await collection.CountDocumentsAsync(builder).ConfigureAwait(false);
 
                 return count;

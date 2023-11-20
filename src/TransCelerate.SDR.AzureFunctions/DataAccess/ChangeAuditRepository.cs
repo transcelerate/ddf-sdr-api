@@ -132,7 +132,7 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
                 IMongoCollection<Core.Entities.StudyV4.StudyDefinitionsEntity> collection = _database.GetCollection<Core.Entities.StudyV4.StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
 
 
-                List<Core.Entities.StudyV4.StudyDefinitionsEntity> studies = collection.Find(x => (x.Study.StudyId == studyId) &&
+                List<Core.Entities.StudyV4.StudyDefinitionsEntity> studies = collection.Find(x => (x.Study.Id == studyId) &&
                                                            (x.AuditTrail.SDRUploadVersion == sdruploadversion || x.AuditTrail.SDRUploadVersion == sdruploadversion - 1))
                                                      .SortByDescending(s => s.AuditTrail.EntryDateTime)
                                                      .Limit(2)

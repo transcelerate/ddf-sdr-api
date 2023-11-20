@@ -29,7 +29,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
             {
                 EntryDateTime = DateTime.UtcNow,
                 CreatedBy = user,
-                UsdmVersion = Constants.USDMVersions.V2_1
+                UsdmVersion = Constants.USDMVersions.V3
             };
         }
 
@@ -230,7 +230,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
         /// <returns></returns>
         public StudyDefinitionsEntity RemovedSectionId(StudyDefinitionsEntity study)
         {
-            study.Study.StudyId = null;
+            study.Study.Id = null;
 
             if (study.Study.StudyType is not null)
                 study.Study.StudyType.Id = null;
