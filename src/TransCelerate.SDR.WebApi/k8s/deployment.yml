@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: sdr-api-dev-aks-eastus
 spec:
+  progressDeadlineSeconds: 600
   selector:
     matchLabels:
       app: sdr-api-dev-aks-eastus
