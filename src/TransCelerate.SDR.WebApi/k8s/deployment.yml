@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: sdr-api-dev-aks-eastus
-        image: ${{ secrets.ACR_NAME }}/sdrapibuild:latest
+        image: {#ACR-Name#}/sdrapibuild:latest
         resources:
           limits:
             memory: "128Mi"
