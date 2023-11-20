@@ -1,0 +1,11 @@
+﻿apiVersion: v1
+kind: Service
+metadata:
+  name: sdr-api-dev-aks-eastus
+spec:
+  selector:
+    app: sdr-api-dev-aks-eastus
+  type: LoadBalancer
+  ports:
+  - port: 443
+    targetPort: 80

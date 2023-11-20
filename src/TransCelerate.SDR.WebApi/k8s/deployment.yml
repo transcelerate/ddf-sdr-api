@@ -1,0 +1,22 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sdr-api-dev-aks-eastus
+spec:
+  selector:
+    matchLabels:
+      app: sdr-api-dev-aks-eastus
+  template:
+    metadata:
+      labels:
+        app: sdr-api-dev-aks-eastus
+    spec:
+      containers:
+      - name: sdr-api-dev-aks-eastus
+        image: ${{ secrets.ACR_NAME }}/sdrapibuild:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80

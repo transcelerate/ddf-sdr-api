@@ -1,0 +1,195 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CICD_k8s_DEV
+
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the develop branch
+  push:
+    branches: [ k8s-deployment ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  
+  # This workflow contains a single job called "build"
+  Build_Deploy_DEV:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    environment: DEV
+    
+        
+    steps:     
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      # Setup JDK 11
+      with:
+          java-version: 1.11
+          
+    - name: Fetch Depth      
+      uses: actions/checkout@v2
+      with:
+          # fetch depth is used to disable shallow cloning while sonarqube analysis
+          fetch-depth: 0
+
+    - name: Dotnet Setup
+      uses: actions/setup-dotnet@v1
+      # Setup for dotnet
+      with:
+        dotnet-version: 7.0.x
+        
+    # - name: Dotnet Version    
+    #   uses: actions/setup-dotnet@v1
+    #   with:
+    #     dotnet-version: 3.1.x
+        
+    - name: Use NuGet
+      # Use Nuget for Dotnet Build
+      uses: nuget/setup-nuget@v1
+      
+    - name: NuGet restore
+      run: nuget restore '${{ github.workspace }}/src/TransCelerate.SDR.sln'      
+      
+    - name: Find and Replace User Name - Using Build Variable
+      # Replace the Keyvault value in appsettings.json
+      run: |
+        find ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/appsettings.json -type f -exec sed -i ''s@{#KeyVault-Name#}@'${{ secrets.KEYVAULT_NAME }}'@g'' {} \;
+        
+    - name: Build solution **\*.sln
+      # Build dotnet code
+      run: dotnet publish 'src/TransCelerate.SDR.sln' --configuration release
+      
+    - name: Zip publish files
+      shell: pwsh
+      # Zip the build artifact publish folder
+      run: |
+          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net7.0/publish/**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
+     
+    #- name: Zip publish files
+    #  shell: pwsh
+    #  # Zip the Function App build artifact publish folder
+    #  run: |
+    #      Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net7.0/publish/**","${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net7.0/publish/.azurefunctions" -DestinationPath "${{ github.workspace }}\FunAppPublish.zip" -Force
+    - name: 'Publish Artifact: Artifact'
+      uses: actions/upload-artifact@v2
+      # Publish the Build artifact in github
+      with:
+        path: '${{ github.workspace }}/Publish.zip'
+        name: Build-Artifact
+
+    #- name: 'Publish Function App Artifact: Artifact'
+    #  uses: actions/upload-artifact@v2
+      ## Publish the Function App Build artifact in github
+      #with:
+      #  path: '${{ github.workspace }}/FunAppPublish.zip'
+      #  name: FunctionAppBuild-Artifact
+
+    ###############################---------------NUnit Test Cases-----------------------#############################
+        
+    - name: Dotnet Test
+      # Running Dotnet test cases and also scanning the code code in sonar with using code coverage file
+      run: |
+          dotnet test 'src/TransCelerate.SDR.UnitTesting/TransCelerate.SDR.UnitTesting.csproj' --configuration release  --collect "XPlat Code Coverage" --logger trx 
+          cp ${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting/TestResults/*/coverage.cobertura.xml '${{ github.workspace }}/coverage.cobertura.xml'
+    
+    - name: Code Coverage Summary Report
+      uses: irongut/CodeCoverageSummary@v1.0.2
+      # Code Coverage report
+      with:
+        filename: coverage.cobertura.xml
+        badge: true
+        format: 'markdown'
+        output: 'both'
+        
+    - name: use this action, test solution dir
+      uses: zyborg/dotnet-tests-report@v1
+      # Publish the test cases run in Github
+      with:
+        project_path: '${{ github.workspace }}/src/TransCelerate.SDR.UnitTesting'
+        report_name: 'TransCelerate.SDR.UnitTesting'
+        report_title: API Tests Report
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
+#############################-------------Deployment----------------#####################################
+        
+    #- # "Note: the 'AZURE_SP' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
+    #  name: Azure Login
+    #  uses: azure/login@v1
+    #  with:
+    #    creds: ${{ secrets.AZURE_SP }} 
+
+    - name: Azure Kubernetes set context
+      uses: Azure/aks-set-context@v1
+      with:
+        # Azure credentials i.e. output of `az ad sp create-for-rbac --sdk-auth`
+        creds: '${{secrets.AZURE_SP}}'
+        # Resource Group Name
+        resource-group: rg-sdr-aks-eastus
+        # AKS Cluster Name
+        cluster-name: aks-sdr-dev-eastus
+      
+    # - name: 'Run Azure webapp deploy action using publish profile credentials'
+    #   env:  
+    #     # AZURE_WEBAPP_NAME is getting fetched from secrets
+    #     # AZURE_WEBAPP_PACKAGE_PATH is declared from build path
+    #     AZURE_WEBAPP_NAME: ${{ secrets.AZURE_WEBAPP_NAME }}    # set this to your application's name
+    #     AZURE_WEBAPP_PACKAGE_PATH: '${{ github.workspace }}/Publish.zip'      # set this to the path to your web app project, defaults to the repository root
+    #   uses: azure/webapps-deploy@v2
+    #   # Deploy to target machine and path
+    #   with: 
+    #     app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
+    #     package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+
+    - name: Azure Container Registry Login
+      uses: Azure/docker-login@v1
+      with:
+        # Container registry username
+        username: ${{ secrets.ACR_USERNAME }} # default is 
+        # Container registry password
+        password: ${{ secrets.ACR_PASSWORD }} # default is 
+        # Container registry server url
+        login-server: ${{ secrets.ACR_NAME }} # default is https://index.docker.io/v1/
+    - run: |
+        cp '${{ github.workspace }}/Dockerfile' '${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net7.0/publish/'
+        cd ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net7.0/publish/
+        ls
+        docker build . -t ${{ secrets.ACR_NAME }}/sdrapibuild:latest
+        docker push ${{ secrets.ACR_NAME }}/sdrapibuild:latest
+
+
+     # Deploy to k8s cluster
+    - name: Deploy to Kubernetes cluster
+      uses: Azure/k8s-deploy@v1
+      with:        
+        # Path to the manifest files which will be used for deployment.
+        manifests: |
+          ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/k8s/deployment.yml
+          ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/k8s/service.yml
+        # Fully qualified resource URL of the image(s) to be used for substitutions on the manifest files Example: contosodemo.azurecr.io/helloworld:test
+        images: '${{ secrets.ACR_NAME }}/sdrapibuild:latest'
+        # deploy/promote/reject
+        action: deploy
+        
+    #- uses: azure/webapps-deploy@v2
+    #  with:
+    #    app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+    #    images: '${{ secrets.ACR_NAME }}/sdrapibuild:latest'
+        
+    #- name: Azure Functions Action
+    #  uses: Azure/functions-action@v1.4.7
+    #  with:
+    ## Name of the Azure Function App
+    #    app-name: ${{ secrets.AZURE_FUNCTIONAPP_NAME }}  # Replace with Function app name
+    ## Path to package or folder. *.zip or a folder to deploy
+    #    package: '${{ github.workspace }}/FunAppPublish.zip'
+
+
+        
+
+
+
+
+    

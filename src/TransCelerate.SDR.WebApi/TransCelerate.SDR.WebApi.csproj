@@ -66,5 +66,14 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="k8s\deployment.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="k8s\service.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 
 </Project>
