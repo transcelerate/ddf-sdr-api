@@ -6,7 +6,9 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
     public class IndicationEntity : IId
     {        
         public string Id { get; set; }
-        public string IndicationDescription { get; set; }
+        public string Name { get; set; }
+        public string Label { get; set; }
+        public string Description { get; set; }
         public List<CodeEntity> Codes { get; set; }
     }
 }

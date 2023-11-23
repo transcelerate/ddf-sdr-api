@@ -28,11 +28,11 @@ namespace TransCelerate.SDR.RuleEngineV4
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ResponseCodeValidator), nameof(ResponseCodeDto.Code)), ApplyConditionTo.AllValidators)
                .SetValidator(new CodeValidator(_httpContextAccessor));
 
-            RuleFor(x => x.ResponseCodeEnabled)
+            RuleFor(x => x.IsEnabled)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ResponseCodeValidator), nameof(ResponseCodeDto.ResponseCodeEnabled)), ApplyConditionTo.AllValidators)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ResponseCodeValidator), nameof(ResponseCodeDto.IsEnabled)), ApplyConditionTo.AllValidators)
                 .Must(ValidateDatatype.ValidateBoolean).WithMessage(Constants.ValidationErrorMessage.BooleanValidationFailed);
         }
     }

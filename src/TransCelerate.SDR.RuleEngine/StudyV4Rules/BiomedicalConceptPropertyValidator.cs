@@ -21,47 +21,47 @@ namespace TransCelerate.SDR.RuleEngineV4
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(BiomedicalConceptPropertyValidator), nameof(BiomedicalConceptPropertyDto.Id)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.BcPropertyName)
+            RuleFor(x => x.Name)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(BiomedicalConceptPropertyValidator), nameof(BiomedicalConceptPropertyDto.BcPropertyName)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(BiomedicalConceptPropertyValidator), nameof(BiomedicalConceptPropertyDto.Name)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.BcPropertyRequired)
+            RuleFor(x => x.Required)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(BiomedicalConceptPropertyValidator), nameof(BiomedicalConceptPropertyDto.BcPropertyRequired)), ApplyConditionTo.AllValidators)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(BiomedicalConceptPropertyValidator), nameof(BiomedicalConceptPropertyDto.Required)), ApplyConditionTo.AllValidators)
                .Must(ValidateDatatype.ValidateBoolean).WithMessage(Constants.ValidationErrorMessage.BooleanValidationFailed);
 
-            RuleFor(x => x.BcPropertyEnabled)
+            RuleFor(x => x.Enabled)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(BiomedicalConceptPropertyValidator), nameof(BiomedicalConceptPropertyDto.BcPropertyEnabled)), ApplyConditionTo.AllValidators)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(BiomedicalConceptPropertyValidator), nameof(BiomedicalConceptPropertyDto.Enabled)), ApplyConditionTo.AllValidators)
                 .Must(ValidateDatatype.ValidateBoolean).WithMessage(Constants.ValidationErrorMessage.BooleanValidationFailed);
 
-            RuleFor(x => x.BcPropertyDataType)
+            RuleFor(x => x.DataType)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(BiomedicalConceptPropertyValidator), nameof(BiomedicalConceptPropertyDto.BcPropertyDataType)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(BiomedicalConceptPropertyValidator), nameof(BiomedicalConceptPropertyDto.DataType)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.BcPropertyResponseCodes)
+            RuleFor(x => x.ResponseCodes)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(BiomedicalConceptPropertyValidator), nameof(BiomedicalConceptPropertyDto.BcPropertyResponseCodes)), ApplyConditionTo.AllValidators)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(BiomedicalConceptPropertyValidator), nameof(BiomedicalConceptPropertyDto.ResponseCodes)), ApplyConditionTo.AllValidators)
                .Must(x => UniquenessArrayValidator.ValidateArrayV4(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
-            RuleForEach(x => x.BcPropertyResponseCodes)
+            RuleForEach(x => x.ResponseCodes)
                 .SetValidator(new ResponseCodeValidator(_httpContextAccessor));
 
-            RuleFor(x => x.BcPropertyConceptCode)
+            RuleFor(x => x.Code)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(BiomedicalConceptPropertyValidator), nameof(BiomedicalConceptPropertyDto.BcPropertyConceptCode)), ApplyConditionTo.AllValidators)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(BiomedicalConceptPropertyValidator), nameof(BiomedicalConceptPropertyDto.Code)), ApplyConditionTo.AllValidators)
                .SetValidator(new AliasCodeValidator(_httpContextAccessor));
         }
     }

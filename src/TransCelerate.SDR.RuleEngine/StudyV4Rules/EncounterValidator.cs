@@ -21,53 +21,53 @@ namespace TransCelerate.SDR.RuleEngineV4
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EncounterValidator), nameof(EncounterDto.Id)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.EncounterDescription)
+            RuleFor(x => x.Description)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EncounterValidator), nameof(EncounterDto.EncounterDescription)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EncounterValidator), nameof(EncounterDto.Description)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.EncounterName)
+            RuleFor(x => x.Name)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EncounterValidator), nameof(EncounterDto.EncounterName)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EncounterValidator), nameof(EncounterDto.Name)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.EncounterContactModes)
+            RuleFor(x => x.ContactModes)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EncounterValidator), nameof(EncounterDto.EncounterContactModes)), ApplyConditionTo.AllValidators)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EncounterValidator), nameof(EncounterDto.ContactModes)), ApplyConditionTo.AllValidators)
                 .Must(x => UniquenessArrayValidator.ValidateArrayV4(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
-            RuleForEach(x => x.EncounterContactModes)
+            RuleForEach(x => x.ContactModes)
                 .SetValidator(new CodeValidator(_httpContextAccessor));
 
-            RuleFor(x => x.EncounterEnvironmentalSetting)
+            RuleFor(x => x.EnvironmentalSetting)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EncounterValidator), nameof(EncounterDto.EncounterEnvironmentalSetting)), ApplyConditionTo.AllValidators)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EncounterValidator), nameof(EncounterDto.EnvironmentalSetting)), ApplyConditionTo.AllValidators)
                 .SetValidator(new CodeValidator(_httpContextAccessor));
 
-            RuleFor(x => x.EncounterType)
+            RuleFor(x => x.Type)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EncounterValidator), nameof(EncounterDto.EncounterType)), ApplyConditionTo.AllValidators)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EncounterValidator), nameof(EncounterDto.Type)), ApplyConditionTo.AllValidators)
                 .SetValidator(new CodeValidator(_httpContextAccessor));
 
-            RuleFor(x => x.NextEncounterId)
+            RuleFor(x => x.NextId)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EncounterValidator), nameof(EncounterDto.NextEncounterId)), ApplyConditionTo.AllValidators);
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EncounterValidator), nameof(EncounterDto.NextId)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.PreviousEncounterId)
+            RuleFor(x => x.PreviousId)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EncounterValidator), nameof(EncounterDto.PreviousEncounterId)), ApplyConditionTo.AllValidators);
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EncounterValidator), nameof(EncounterDto.PreviousId)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.TransitionStartRule)
                 .Cascade(CascadeMode.Stop)
@@ -83,11 +83,11 @@ namespace TransCelerate.SDR.RuleEngineV4
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EncounterValidator), nameof(EncounterDto.TransitionEndRule)), ApplyConditionTo.AllValidators)
                 .SetValidator(new TransitionRuleValidator(_httpContextAccessor));
 
-            RuleFor(x => x.EncounterScheduledAtTimingId)
+            RuleFor(x => x.ScheduledAtTimingId)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EncounterValidator), nameof(EncounterDto.EncounterScheduledAtTimingId)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EncounterValidator), nameof(EncounterDto.ScheduledAtTimingId)), ApplyConditionTo.AllValidators);
         }
     }
 }

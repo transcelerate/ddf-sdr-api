@@ -7,15 +7,16 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
     public class EncounterEntity : IId
     {        
         public string Id { get; set; }
-        public List<CodeEntity> EncounterContactModes { get; set; }
-        public string EncounterDescription { get; set; }
-        public CodeEntity EncounterEnvironmentalSetting { get; set; }
-        public string EncounterName { get; set; }
-        public CodeEntity EncounterType { get; set; }
+        public string Name { get; set; }
+        public string Label { get; set; }
+        public string Description { get; set; }
+        public List<CodeEntity> ContactModes { get; set; }        
+        public CodeEntity EnvironmentalSetting { get; set; }
+        public CodeEntity Type { get; set; }
+        public string NextId { get; set; }
+        public string PreviousId { get; set; }
+        public string ScheduledAtTimingId { get; set; }
         public TransitionRuleEntity TransitionStartRule { get; set; }
         public TransitionRuleEntity TransitionEndRule { get; set; }
-        public string NextEncounterId { get; set; }
-        public string PreviousEncounterId { get; set; }
-        public string EncounterScheduledAtTimingId { get; set; }
     }
 }

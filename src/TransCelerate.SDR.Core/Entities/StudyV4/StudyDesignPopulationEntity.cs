@@ -6,7 +6,9 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
     public class StudyDesignPopulationEntity : IId
     {        
         public string Id { get; set; }
-        public string PopulationDescription { get; set; }
+        public string Name { get; set; }
+        public string Label { get; set; }
+        public string Description { get; set; }
         public int PlannedNumberOfParticipants { get; set; }
         public string PlannedMaximumAgeOfParticipants { get; set; }
         public string PlannedMinimumAgeOfParticipants { get; set; }

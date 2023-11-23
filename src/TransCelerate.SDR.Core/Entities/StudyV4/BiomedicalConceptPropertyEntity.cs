@@ -7,11 +7,12 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
     public class BiomedicalConceptPropertyEntity : IId
     {        
         public string Id { get; set; }
-        public string BcPropertyName { get; set; }
-        public bool BcPropertyRequired { get; set; }
-        public bool BcPropertyEnabled { get; set; }
-        public string BcPropertyDataType { get; set; }
-        public List<ResponseCodeEntity> BcPropertyResponseCodes { get; set; }
-        public AliasCodeEntity BcPropertyConceptCode { get; set; }
+        public string Name { get; set; }
+        public string Label { get; set; }
+        public bool Required { get; set; }
+        public bool Enabled { get; set; }
+        public string DataType { get; set; }
+        public List<ResponseCodeEntity> ResponseCodes { get; set; }
+        public AliasCodeEntity Code { get; set; }
     }
 }

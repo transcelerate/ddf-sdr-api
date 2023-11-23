@@ -5,7 +5,7 @@
     public class ResponseCodeEntity : IId
     {       
         public string Id { get; set; }
-        public bool ResponseCodeEnabled { get; set; }
+        public bool IsEnabled { get; set; }
         public CodeEntity Code { get; set; }
     }
 }

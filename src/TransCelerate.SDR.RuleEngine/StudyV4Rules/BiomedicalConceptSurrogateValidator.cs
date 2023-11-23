@@ -21,23 +21,23 @@ namespace TransCelerate.SDR.RuleEngineV4
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(BiomedicalConceptSurrogateValidator), nameof(BiomedicalConceptSurrogateDto.Id)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.BcSurrogateName)
+            RuleFor(x => x.Name)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(BiomedicalConceptSurrogateValidator), nameof(BiomedicalConceptSurrogateDto.BcSurrogateName)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(BiomedicalConceptSurrogateValidator), nameof(BiomedicalConceptSurrogateDto.Name)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.BcSurrogateDescription)
+            RuleFor(x => x.Description)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(BiomedicalConceptSurrogateValidator), nameof(BiomedicalConceptSurrogateDto.BcSurrogateDescription)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(BiomedicalConceptSurrogateValidator), nameof(BiomedicalConceptSurrogateDto.Description)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.BcSurrogateReference)
+            RuleFor(x => x.Reference)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(BiomedicalConceptSurrogateValidator), nameof(BiomedicalConceptSurrogateDto.BcSurrogateReference)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(BiomedicalConceptSurrogateValidator), nameof(BiomedicalConceptSurrogateDto.Reference)), ApplyConditionTo.AllValidators);
         }
     }
 }

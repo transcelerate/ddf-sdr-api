@@ -3,8 +3,9 @@
     public class InterCurrentEventDto : IId
     {        
         public string Id { get; set; }
-        public string IntercurrentEventDescription { get; set; }
-        public string IntercurrentEventName { get; set; }
-        public string IntercurrentEventStrategy { get; set; }
+        public string Name { get; set; }
+        public string Label { get; set; }
+        public string Description { get; set; }
+        public string Strategy { get; set; }
     }
 }

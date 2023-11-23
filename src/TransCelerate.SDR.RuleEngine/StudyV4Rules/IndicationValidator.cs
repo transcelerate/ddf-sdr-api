@@ -21,11 +21,11 @@ namespace TransCelerate.SDR.RuleEngineV4
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(IndicationValidator), nameof(IndicationDto.Id)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.IndicationDescription)
+            RuleFor(x => x.Description)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(IndicationValidator), nameof(IndicationDto.IndicationDescription)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(IndicationValidator), nameof(IndicationDto.Description)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.Codes)
                .Cascade(CascadeMode.Stop)

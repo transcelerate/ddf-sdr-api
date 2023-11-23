@@ -5,10 +5,11 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
     public class BiomedicalConceptCategoryDto : IId
     {        
         public string Id { get; set; }
-        public List<string> BcCategoryChildIds { get; set; }
-        public string BcCategoryName { get; set; }
-        public string BcCategoryDescription { get; set; }
-        public List<string> BcCategoryMemberIds { get; set; }
-        public AliasCodeDto BcCategoryCode { get; set; }
+        public List<string> ChildrenIds  { get; set; }
+        public string Name { get; set; }
+        public string Label { get; set; }
+        public string Description { get; set; }
+        public List<string> MemberIds { get; set; }
+        public AliasCodeDto Code { get; set; }
     }
 }

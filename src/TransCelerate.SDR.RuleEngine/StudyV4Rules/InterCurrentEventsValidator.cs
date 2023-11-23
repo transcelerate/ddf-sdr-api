@@ -21,23 +21,23 @@ namespace TransCelerate.SDR.RuleEngineV4
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(InterCurrentEventsValidator), nameof(InterCurrentEventDto.Id)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.IntercurrentEventDescription)
+            RuleFor(x => x.Description)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(InterCurrentEventsValidator), nameof(InterCurrentEventDto.IntercurrentEventDescription)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(InterCurrentEventsValidator), nameof(InterCurrentEventDto.Description)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.IntercurrentEventName)
+            RuleFor(x => x.Name)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(InterCurrentEventsValidator), nameof(InterCurrentEventDto.IntercurrentEventName)), ApplyConditionTo.AllValidators);
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(InterCurrentEventsValidator), nameof(InterCurrentEventDto.Name)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.IntercurrentEventStrategy)
+            RuleFor(x => x.Strategy)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(InterCurrentEventsValidator), nameof(InterCurrentEventDto.IntercurrentEventStrategy)), ApplyConditionTo.AllValidators);
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(InterCurrentEventsValidator), nameof(InterCurrentEventDto.Strategy)), ApplyConditionTo.AllValidators);
         }
     }
 }

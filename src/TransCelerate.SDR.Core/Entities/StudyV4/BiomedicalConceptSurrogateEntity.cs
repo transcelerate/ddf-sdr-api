@@ -5,8 +5,9 @@
     public class BiomedicalConceptSurrogateEntity : IId
     {        
         public string Id { get; set; }
-        public string BcSurrogateName { get; set; }
-        public string BcSurrogateDescription { get; set; }
-        public string BcSurrogateReference { get; set; }
+        public string Name { get; set; }
+        public string Label { get; set; }
+        public string Description { get; set; }
+        public string Reference { get; set; }
     }
 }

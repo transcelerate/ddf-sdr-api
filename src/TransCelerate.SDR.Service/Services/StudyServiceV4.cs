@@ -194,16 +194,16 @@ namespace TransCelerate.SDR.Services.Services
         {
             if (encounters != null && encounters.Any())
             {
-                if (encounters.Count(x => String.IsNullOrWhiteSpace(x.PreviousEncounterId)) == 1 && encounters.Count(x => String.IsNullOrWhiteSpace(x.NextEncounterId)) == 1)
+                if (encounters.Count(x => String.IsNullOrWhiteSpace(x.PreviousId)) == 1 && encounters.Count(x => String.IsNullOrWhiteSpace(x.NextId)) == 1)
                 {
                     List<EncounterEntity> encountersLinkedList = new()
                     {
-                        encounters.Where(x => String.IsNullOrWhiteSpace(x.PreviousEncounterId)).FirstOrDefault()
+                        encounters.Where(x => String.IsNullOrWhiteSpace(x.PreviousId)).FirstOrDefault()
                     };
                     for (int i = 1; i < encounters.Count; i++)
                     {
-                        if (encounters.Where(x => x.PreviousEncounterId == encountersLinkedList[i - 1].Id).Any() && encounters.Where(x => x.PreviousEncounterId == encountersLinkedList[i - 1].Id).Count() == 1)
-                            encountersLinkedList.Add(encounters.Where(x => x.PreviousEncounterId == encountersLinkedList[i - 1].Id).First());
+                        if (encounters.Where(x => x.PreviousId == encountersLinkedList[i - 1].Id).Any() && encounters.Where(x => x.PreviousId == encountersLinkedList[i - 1].Id).Count() == 1)
+                            encountersLinkedList.Add(encounters.Where(x => x.PreviousId == encountersLinkedList[i - 1].Id).First());
                         else
                             break;
                     }
@@ -217,16 +217,16 @@ namespace TransCelerate.SDR.Services.Services
         {
             if (activities != null && activities.Any())
             {
-                if (activities.Count(x => String.IsNullOrWhiteSpace(x.PreviousActivityId)) == 1 && activities.Count(x => String.IsNullOrWhiteSpace(x.NextActivityId)) == 1)
+                if (activities.Count(x => String.IsNullOrWhiteSpace(x.PreviousId)) == 1 && activities.Count(x => String.IsNullOrWhiteSpace(x.NextId)) == 1)
                 {
                     List<ActivityEntity> activityLinkedList = new()
                     {
-                        activities.Where(x => String.IsNullOrWhiteSpace(x.PreviousActivityId)).FirstOrDefault()
+                        activities.Where(x => String.IsNullOrWhiteSpace(x.PreviousId)).FirstOrDefault()
                     };
                     for (int i = 1; i < activities.Count; i++)
                     {
-                        if (activities.Where(x => x.PreviousActivityId == activityLinkedList[i - 1].Id).Any() && activities.Where(x => x.PreviousActivityId == activityLinkedList[i - 1].Id).Count() == 1)
-                            activityLinkedList.Add(activities.Where(x => x.PreviousActivityId == activityLinkedList[i - 1].Id).First());
+                        if (activities.Where(x => x.PreviousId == activityLinkedList[i - 1].Id).Any() && activities.Where(x => x.PreviousId == activityLinkedList[i - 1].Id).Count() == 1)
+                            activityLinkedList.Add(activities.Where(x => x.PreviousId == activityLinkedList[i - 1].Id).First());
                         else
                             break;
                     }
@@ -311,30 +311,30 @@ namespace TransCelerate.SDR.Services.Services
                     StudyDesigns studyDesignSoA = new()
                     {
                         StudyDesignId = design.Id,
-                        StudyDesignName = design.StudyDesignName,
-                        StudyDesignDescription = design.StudyDesignDescription,
+                        StudyDesignName = design.Name,
+                        StudyDesignDescription = design.Description,
                         StudyScheduleTimelines = new List<ScheduleTimelines>()
                     };
                     List<EncounterEntity> encounters = GetOrderedEncounters(design.Encounters);
                     List<ActivityEntity> activities = GetOrderedActivities(design.Activities);
 
-                    if (design.StudyScheduleTimelines != null && design.StudyScheduleTimelines.Any())
+                    if (design.ScheduleTimelines != null && design.ScheduleTimelines.Any())
                     {
-                        design.StudyScheduleTimelines.ForEach(scheduleTimeline =>
+                        design.ScheduleTimelines.ForEach(scheduleTimeline =>
                         {
                             ScheduleTimelines studyTimelineSoA = _mapper.Map<ScheduleTimelines>(scheduleTimeline);
                             //Get ordered Instances
-                            List<ScheduledInstanceEntity> scheduledInstances = GetOrderedInstances(scheduleTimeline.ScheduleTimelineInstances);
+                            List<ScheduledInstanceEntity> scheduledInstances = GetOrderedInstances(scheduleTimeline.Instances);
 
-                            var scheduleActivityInstances = scheduleTimeline.ScheduleTimelineInstances?.Select(x => (x as ScheduledActivityInstanceEntity))
+                            var scheduleActivityInstances = scheduleTimeline.Instances?.Select(x => (x as ScheduledActivityInstanceEntity))
                                                                          .Where(x => x != null).ToList();
                             
                             if (scheduleActivityInstances != null && scheduleActivityInstances.Any())
                             {
                                 var activitiesMappedToTimeLine = activities is not null && activities.Any() ? activities.Where(act => scheduleActivityInstances.Where(x => x.ActivityIds is not null && x.ActivityIds.Any()).SelectMany(instance => instance.ActivityIds).Contains(act.Id)).ToList() : new List<ActivityEntity>();
-                                var encountersMappedToTimeLine = scheduleActivityInstances.Where(x => !String.IsNullOrWhiteSpace(x.ScheduledActivityInstanceEncounterId)).Select(x => x.ScheduledActivityInstanceEncounterId).ToList();
-                                var timingsMappedToTimeline = scheduleActivityInstances.Where(x => x != null && x.ScheduledInstanceTimings is not null)
-                                                                                       .SelectMany(x => x.ScheduledInstanceTimings).ToList();
+                                var encountersMappedToTimeLine = scheduleActivityInstances.Where(x => !String.IsNullOrWhiteSpace(x.EncounterId)).Select(x => x.EncounterId).ToList();
+                                var timingsMappedToTimeline = scheduleActivityInstances.Where(x => x != null && x.Timings is not null)
+                                                                                       .SelectMany(x => x.Timings).ToList();
                                 if (activitiesMappedToTimeLine.Any() || encountersMappedToTimeLine.Any() || timingsMappedToTimeline.Any())
                                 {
                                     studyTimelineSoA.ScheduleTimelineSoA = new()
@@ -343,53 +343,53 @@ namespace TransCelerate.SDR.Services.Services
                                         OrderOfActivities = activitiesMappedToTimeLine.Select(act => new OrderOfActivities
                                         {
                                             ActivityId = act.Id,
-                                            ActivityName = act.ActivityName,
-                                            ActivityDescription = act.ActivityDescription,
-                                            ActivityIsConditional = act.ActivityIsConditional,
-                                            ActivityIsConditionalReason = act.ActivityIsConditionalReason,
-                                            ActivityTimelineId = act.ActivityTimelineId,
-                                            ActivityTimelineName = String.IsNullOrWhiteSpace(act.ActivityTimelineId) ? string.Empty : design.StudyScheduleTimelines.FirstOrDefault(x => x.Id == act.ActivityTimelineId)?.ScheduleTimelineName,
-                                            BiomedicalConcepts = design.BiomedicalConcepts.Where(bc => act.BiomedicalConceptIds != null && act.BiomedicalConceptIds.Any() && act.BiomedicalConceptIds.Contains(bc.Id)).Select(bc => bc.BcName).ToList(),
+                                            ActivityName = act.Name,
+                                            ActivityDescription = act.Description,
+                                            ActivityIsConditional = act.IsConditional,
+                                            ActivityIsConditionalReason = act.IsConditionalReason,
+                                            ActivityTimelineId = act.TimelineId,
+                                            ActivityTimelineName = String.IsNullOrWhiteSpace(act.TimelineId) ? string.Empty : design.ScheduleTimelines.FirstOrDefault(x => x.Id == act.TimelineId)?.Name,
+                                            BiomedicalConcepts = design.BiomedicalConcepts.Where(bc => act.BiomedicalConceptIds != null && act.BiomedicalConceptIds.Any() && act.BiomedicalConceptIds.Contains(bc.Id)).Select(bc => bc.Name).ToList(),
                                             FootnoteId = string.Empty,
-                                            FootnoteDescription = act.ActivityIsConditional ? $"{act.ActivityName} : {act.ActivityIsConditionalReason}" : string.Empty,
+                                            FootnoteDescription = act.IsConditional ? $"{act.Name} : {act.IsConditionalReason}" : string.Empty,
                                             DefinedProcedures = act.DefinedProcedures?.Select(y => new ProcedureSoA
                                             {
                                                 ProcedureId = y.Id,
-                                                ProcedureName = y.ProcedureName,
-                                                ProcedureDescription = y.ProcedureDescription,
-                                                ProcedureIsConditional = y.ProcedureIsConditional,
-                                                ProcedureIsConditionalReason = y.ProcedureIsConditionalReason,
+                                                ProcedureName = y.Name,
+                                                ProcedureDescription = y.Description,
+                                                ProcedureIsConditional = y.IsConditional,
+                                                ProcedureIsConditionalReason = y.IsConditionalReason,
                                                 FootnoteId = string.Empty,                                                
-                                                FootnoteDescription = y.ProcedureIsConditional ? $"{y.ProcedureName} : {y.ProcedureIsConditionalReason}" : string.Empty
+                                                FootnoteDescription = y.IsConditional ? $"{y.Name} : {y.IsConditionalReason}" : string.Empty
                                             }).ToList()
                                         }).ToList()
                                     };
                                     // SoA for instances where encounter is mapped
-                                    encounters?.Where(x => scheduleActivityInstances.Select(y => y.ScheduledActivityInstanceEncounterId).Contains(x.Id)).ToList().ForEach(encounter =>
+                                    encounters?.Where(x => scheduleActivityInstances.Select(y => y.EncounterId).Contains(x.Id)).ToList().ForEach(encounter =>
                                     {
-                                        string timingValue = design.StudyScheduleTimelines.Where(x => x.ScheduleTimelineInstances != null).SelectMany(x => x.ScheduleTimelineInstances)
-                                                                                          .Where(x => x != null && x.ScheduledInstanceTimings is not null)
-                                                                                          .SelectMany(x => x.ScheduledInstanceTimings)
-                                                                                          .Where(x => x.Id == encounter.EncounterScheduledAtTimingId).FirstOrDefault()?.TimingValue;
+                                        string timingValue = design.ScheduleTimelines.Where(x => x.Instances != null).SelectMany(x => x.Instances)
+                                                                                          .Where(x => x != null && x.Timings is not null)
+                                                                                          .SelectMany(x => x.Timings)
+                                                                                          .Where(x => x.Id == encounter.ScheduledAtTimingId).FirstOrDefault()?.TimingValue;
                                         SoA soA = new()
                                         {
                                             EncounterId = encounter.Id,
-                                            EncounterName = encounter.EncounterName,
+                                            EncounterName = encounter.Name,
                                             EncounterScheduledAtTimingValue = String.IsNullOrWhiteSpace(timingValue) ? string.Empty : timingValue,
-                                            Timings = GetTimings(scheduleActivityInstances.Where(instance => instance.ScheduledActivityInstanceEncounterId == encounter.Id).ToList(), scheduledInstances)
+                                            Timings = GetTimings(scheduleActivityInstances.Where(instance => instance.EncounterId == encounter.Id).ToList(), scheduledInstances)
                                         };
 
                                         studyTimelineSoA.ScheduleTimelineSoA.SoA.Add(soA);
                                     });
                                     // SoA for instances where encounter is not mapped
-                                    if (scheduleActivityInstances.Where(x => String.IsNullOrWhiteSpace(x.ScheduledActivityInstanceEncounterId)).Any())
+                                    if (scheduleActivityInstances.Where(x => String.IsNullOrWhiteSpace(x.EncounterId)).Any())
                                     {
                                         SoA soA = new()
                                         {
                                             EncounterId = string.Empty,
                                             EncounterName = string.Empty,
                                             EncounterScheduledAtTimingValue = string.Empty,
-                                            Timings = GetTimings(scheduleActivityInstances.Where(x => String.IsNullOrWhiteSpace(x.ScheduledActivityInstanceEncounterId)).ToList(), scheduledInstances)
+                                            Timings = GetTimings(scheduleActivityInstances.Where(x => String.IsNullOrWhiteSpace(x.EncounterId)).ToList(), scheduledInstances)
                                         };
 
                                         studyTimelineSoA.ScheduleTimelineSoA.SoA.Add(soA);
@@ -419,21 +419,21 @@ namespace TransCelerate.SDR.Services.Services
                 }).ToList();                
                 //Assign sequence number for Activity Instances
                 var orderedScheduledActivityInstances = scheduledActivityInstances.Select(x => new { 
-                    x.ScheduledInstanceTimings,
+                    x.Timings,
                     x.ActivityIds,
                     scheduledInstancesWithSeqNumber.FirstOrDefault(y => y.Id == x.Id)?.SequenceNumber
                 }).ToList();
                 //Add Instances with valid timing values
-                var instances = orderedScheduledActivityInstances.Where(x => x.ScheduledInstanceTimings is not null && x.ScheduledInstanceTimings.Any()).Select(x => new
+                var instances = orderedScheduledActivityInstances.Where(x => x.Timings is not null && x.Timings.Any()).Select(x => new
                 {                    
-                    Timings = _mapper.Map<List<TimingSoA>>(x.ScheduledInstanceTimings),
+                    Timings = _mapper.Map<List<TimingSoA>>(x.Timings),
                     x.ActivityIds,
                     x.SequenceNumber
                 }).OrderBy(x => x.SequenceNumber).ToList();                
                 //Add Instances without valid timing values
-                instances.AddRange(orderedScheduledActivityInstances.Where(x => x.ScheduledInstanceTimings is null || !x.ScheduledInstanceTimings.Any()).Select(x => new
+                instances.AddRange(orderedScheduledActivityInstances.Where(x => x.Timings is null || !x.Timings.Any()).Select(x => new
                 {                    
-                    Timings = _mapper.Map<List<TimingSoA>>(x.ScheduledInstanceTimings),
+                    Timings = _mapper.Map<List<TimingSoA>>(x.Timings),
                     x.ActivityIds,
                     x.SequenceNumber
                 }).OrderBy(x => x.SequenceNumber).ToList());
@@ -635,7 +635,7 @@ namespace TransCelerate.SDR.Services.Services
                     {
                         StudyDesignId = design.Id,
                         StudyDesignLink = links.StudyDesigns.Find(x => x.StudyDesignId == design.Id).StudyDesignLink,
-                        StudyDesignName = design.StudyDesignName,
+                        StudyDesignName = design.Name,
                         ECPTData = new Core.DTO.eCPT.ECPTDataDto
                         {
                             TitlePage = new Core.DTO.eCPT.TitlePageDto
@@ -643,10 +643,10 @@ namespace TransCelerate.SDR.Services.Services
                                 Acronym = studyDto.StudyAcronym,
                                 AmendmentNumber = studyDto.StudyProtocolVersions != null && studyDto.StudyProtocolVersions.Any() ? ECPTHelper.GetOrderedStudyProtocolsV4(studyDto.StudyProtocolVersions).ProtocolAmendment : null,
                                 ApprovalDate = studyDto.StudyProtocolVersions != null && studyDto.StudyProtocolVersions.Any() ? ECPTHelper.GetOrderedStudyProtocolsV4(studyDto.StudyProtocolVersions).ProtocolEffectiveDate : null,
-                                ConditionDisease = design.StudyIndications != null && design.StudyIndications.Any() ?
-                                                   design.StudyIndications.Count == 1 ?
-                                                   design.StudyIndications.FirstOrDefault().IndicationDescription
-                                                   : $"{String.Join(", ", design.StudyIndications.Select(x => x.IndicationDescription).ToArray(), 0, design.StudyIndications.Count - 1)} and {design.StudyIndications.Select(x => x.IndicationDescription).LastOrDefault()}"
+                                ConditionDisease = design.Indications != null && design.Indications.Any() ?
+                                                   design.Indications.Count == 1 ?
+                                                   design.Indications.FirstOrDefault().Description
+                                                   : $"{String.Join(", ", design.Indications.Select(x => x.Description).ToArray(), 0, design.Indications.Count - 1)} and {design.Indications.Select(x => x.Description).LastOrDefault()}"
                                                    : null,
                                 RegulatoryAgencyIdentifierNumbers = studyDto.StudyIdentifiers.Where(x => Constants.IdType.RegulatoryAgencyIdentifierNumberConstants.Any(y => y.ToLower() == x.StudyIdentifierScope?.OrganisationType?.Decode?.ToLower())).Any() ? _mapper.Map<List<Core.DTO.eCPT.RegulatoryAgencyIdentifierNumberDto>>(studyDto.StudyIdentifiers.Where(x => Constants.IdType.RegulatoryAgencyIdentifierNumberConstants.Any(y => y.ToLower() == x.StudyIdentifierScope?.OrganisationType?.Decode?.ToLower()))) : null,
                                 SponsorName = studyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.OrganisationType.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifierScope.OrganisationName).FirstOrDefault(),
@@ -664,19 +664,19 @@ namespace TransCelerate.SDR.Services.Services
                             {
                                 Synopsis = new Core.DTO.eCPT.SynopsisDto
                                 {
-                                    NumberofParticipants = design.StudyPopulations?.Sum(x => int.Parse(Convert.ToString(x.PlannedNumberOfParticipants))).ToString(),
+                                    NumberofParticipants = design.Populations?.Sum(x => int.Parse(Convert.ToString(x.PlannedNumberOfParticipants))).ToString(),
                                     PrimaryPurpose = design.TrialIntentTypes != null && design.TrialIntentTypes.Any() ?
                                                    design.TrialIntentTypes.Count == 1 ? ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, design.TrialIntentTypes.FirstOrDefault().Code) ?? design.TrialIntentTypes.FirstOrDefault().Decode
                                                    : $"{String.Join(", ", design.TrialIntentTypes.Select(x => ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, x.Code) ?? x.Decode).ToArray(), 0, design.TrialIntentTypes.Count - 1)}" +
                                                    $" and {design.TrialIntentTypes.Select(x => ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, x.Code) ?? x.Decode).LastOrDefault()}"
                                                    : null,
-                                    EnrollmentTarget = design.StudyPopulations != null && design.StudyPopulations.Any() ?
-                                                      design.StudyPopulations.Count == 1 ? design.StudyPopulations.FirstOrDefault().PopulationDescription
-                                                      : $"{String.Join(", ", design.StudyPopulations.Select(x => x.PopulationDescription).ToArray(), 0, design.StudyPopulations.Count - 1)} and {design.StudyPopulations.Select(x => x.PopulationDescription).LastOrDefault()}"
+                                    EnrollmentTarget = design.Populations != null && design.Populations.Any() ?
+                                                      design.Populations.Count == 1 ? design.Populations.FirstOrDefault().Description
+                                                      : $"{String.Join(", ", design.Populations.Select(x => x.Description).ToArray(), 0, design.Populations.Count - 1)} and {design.Populations.Select(x => x.Description).LastOrDefault()}"
                                                       : null,
                                     InterventionModel = ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.InterventionModel, design?.InterventionModel?.Code) ?? design?.InterventionModel?.Decode,
-                                    NumberofArms = design.StudyArms != null && design.StudyArms.Any() ?
-                                                    design.StudyArms.Select(x => x.Id).Distinct().Count().ToString() : 0.ToString()
+                                    NumberofArms = design.Arms != null && design.Arms.Any() ?
+                                                    design.Arms.Select(x => x.Id).Distinct().Count().ToString() : 0.ToString()
                                 }
                             },
                             PageHeader = new Core.DTO.eCPT.PageHeaderDto
@@ -688,13 +688,13 @@ namespace TransCelerate.SDR.Services.Services
                                 InclusionCriteria = new Core.DTO.eCPT.InclusionCriteriaDto
                                 {
 
-                                    PlannedMaximumAgeofSubjects = design.StudyPopulations != null && design.StudyPopulations.Any() ?
-                                                                           ECPTHelper.CheckForMaxMin(design.StudyPopulations.Select(x => x.PlannedMaximumAgeOfParticipants).ToList(), true) : null,
+                                    PlannedMaximumAgeofSubjects = design.Populations != null && design.Populations.Any() ?
+                                                                           ECPTHelper.CheckForMaxMin(design.Populations.Select(x => x.PlannedMaximumAgeOfParticipants).ToList(), true) : null,
 
-                                    PlannedMinimumAgeofSubjects = design.StudyPopulations != null && design.StudyPopulations.Any() ?
-                                                                           ECPTHelper.CheckForMaxMin(design.StudyPopulations.Select(x => x.PlannedMinimumAgeOfParticipants).ToList(), false) : null,
+                                    PlannedMinimumAgeofSubjects = design.Populations != null && design.Populations.Any() ?
+                                                                           ECPTHelper.CheckForMaxMin(design.Populations.Select(x => x.PlannedMinimumAgeOfParticipants).ToList(), false) : null,
 
-                                    SexofParticipants = ECPTHelper.GetPlannedSexOfParticipantsV4(design.StudyPopulations)
+                                    SexofParticipants = ECPTHelper.GetPlannedSexOfParticipantsV4(design.Populations)
                                 }
                             },
                             Introduction = new Core.DTO.eCPT.IntroductionDto
@@ -703,24 +703,24 @@ namespace TransCelerate.SDR.Services.Services
                             },
                             StudyDesign = new Core.DTO.eCPT.StudyDesignCptDto
                             {
-                                ScientificRationaleForStudyDesign = design.StudyDesignRationale
+                                ScientificRationaleForStudyDesign = design.Rationale
                             },
                             StatisticalConsiderations = new Core.DTO.eCPT.StatisticalConsiderationsDto
                             {
-                                PopulationsForAnalyses = design.StudyEstimands != null && design.StudyEstimands.Any() ?
-                                                   design.StudyEstimands.Count == 1 ?
-                                                   design.StudyEstimands.FirstOrDefault().AnalysisPopulation.PopulationDescription
-                                                   : $"{String.Join(", ", design.StudyEstimands.Select(x => x.AnalysisPopulation.PopulationDescription).ToArray(), 0, design.StudyEstimands.Count - 1)} and {design.StudyEstimands.Select(x => x.AnalysisPopulation.PopulationDescription).LastOrDefault()}"
+                                PopulationsForAnalyses = design.Estimands != null && design.Estimands.Any() ?
+                                                   design.Estimands.Count == 1 ?
+                                                   design.Estimands.FirstOrDefault().AnalysisPopulation.Description
+                                                   : $"{String.Join(", ", design.Estimands.Select(x => x.AnalysisPopulation.Description).ToArray(), 0, design.Estimands.Count - 1)} and {design.Estimands.Select(x => x.AnalysisPopulation.Description).LastOrDefault()}"
                                                    : null,
                             },
-                            ObjectivesEndpointsAndEstimands = ECPTHelper.GetObjectivesEndpointsAndEstimandsDtoV4(design.StudyObjectives, _mapper),
+                            ObjectivesEndpointsAndEstimands = ECPTHelper.GetObjectivesEndpointsAndEstimandsDtoV4(design.Objectives.Select(x=> x as ObjectiveDto).ToList(), _mapper),
                             StudyInterventionsAndConcomitantTherapy = new Core.DTO.eCPT.StudyInterventionsAndConcomitantTherapyDto
                             {
-                                StudyInterventionsAdministered = design.StudyInvestigationalInterventions != null && design.StudyInvestigationalInterventions.Any() ?
-                                           _mapper.Map<List<Core.DTO.eCPT.StudyInterventionsAdministeredDto>>(design.StudyInvestigationalInterventions)
+                                StudyInterventionsAdministered = design.StudyInterventions != null && design.StudyInterventions.Any() ?
+                                           _mapper.Map<List<Core.DTO.eCPT.StudyInterventionsAdministeredDto>>(design.StudyInterventions)
                                            : null,
-                                StudyArms = design.StudyArms != null && design.StudyArms.Any() ?                                           
-                                           _mapper.Map<List<Core.DTO.eCPT.StudyArmDto>>(design.StudyArms)
+                                StudyArms = design.Arms != null && design.Arms.Any() ?                                           
+                                           _mapper.Map<List<Core.DTO.eCPT.StudyArmDto>>(design.Arms)
                                            : null
                             }
 

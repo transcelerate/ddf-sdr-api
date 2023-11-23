@@ -5,11 +5,12 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
     public class BiomedicalConceptPropertyDto : IId
     {        
         public string Id { get; set; }
-        public string BcPropertyName { get; set; }
-        public object BcPropertyRequired { get; set; }
-        public object BcPropertyEnabled { get; set; }
-        public string BcPropertyDataType { get; set; }
-        public List<ResponseCodeDto> BcPropertyResponseCodes { get; set; }
-        public AliasCodeDto BcPropertyConceptCode { get; set; }
+        public string Name { get; set; }
+        public string Label { get; set; }
+        public object Required { get; set; }
+        public object Enabled { get; set; }
+        public string DataType { get; set; }
+        public List<ResponseCodeDto> ResponseCodes { get; set; }
+        public AliasCodeDto Code { get; set; }
     }
 }

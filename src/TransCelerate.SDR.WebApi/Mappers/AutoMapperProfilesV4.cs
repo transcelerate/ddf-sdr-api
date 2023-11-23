@@ -25,7 +25,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<EstimandDto, EstimandEntity>().ReverseMap();
             CreateMap<IndicationDto, IndicationEntity>().ReverseMap();
             CreateMap<InterCurrentEventDto, InterCurrentEventEntity>().ReverseMap();
-            CreateMap<InvestigationalInterventionDto, InvestigationalInterventionEntity>().ReverseMap();
+            CreateMap<StudyInterventionDto, StudyInterventionEntity>().ReverseMap();
             CreateMap<ObjectiveDto, ObjectiveEntity>().ReverseMap();
             CreateMap<StudyArmDto, StudyArmEntity>().ReverseMap();
             CreateMap<StudyCellDto, StudyCellEntity>().ReverseMap();
@@ -65,21 +65,21 @@ namespace TransCelerate.SDR.WebApi.Mappers
 
             //ECPT Mapper
             CreateMap<EndpointDto, TransCelerate.SDR.Core.DTO.eCPT.ObjectiveEndpointDto>()
-                 .ForMember(dest => dest.EndpointLevel, opt => opt.MapFrom(src => src.EndpointLevel != null ? src.EndpointLevel.Decode : null))
+                 .ForMember(dest => dest.EndpointLevel, opt => opt.MapFrom(src => src.Level != null ? src.Level.Decode : null))
                  .ReverseMap();
 
             CreateMap<ObjectiveDto, TransCelerate.SDR.Core.DTO.eCPT.ObjectivesDto>()
-                  .ForMember(dest => dest.ObjectiveLevel, opt => opt.MapFrom(src => src.ObjectiveLevel != null ? src.ObjectiveLevel.Decode : null))
+                  .ForMember(dest => dest.ObjectiveLevel, opt => opt.MapFrom(src => src.Level != null ? src.Level.Decode : null))
                   .ReverseMap();
 
             CreateMap<StudyArmDto, TransCelerate.SDR.Core.DTO.eCPT.StudyArmDto>()
-                    .ForMember(dest => dest.ArmName, opt => opt.MapFrom(src => src.StudyArmName))
-                    .ForMember(dest => dest.ArmDescription, opt => opt.MapFrom(src => src.StudyArmDescription))
-                    .ForMember(dest => dest.ArmType, opt => opt.MapFrom(src => src.StudyArmType != null ? src.StudyArmType.Decode : null))
+                    .ForMember(dest => dest.ArmName, opt => opt.MapFrom(src => src.Name))
+                    .ForMember(dest => dest.ArmDescription, opt => opt.MapFrom(src => src.Description))
+                    .ForMember(dest => dest.ArmType, opt => opt.MapFrom(src => src.Type != null ? src.Type.Decode : null))
                     .ReverseMap();
 
-            CreateMap<InvestigationalInterventionDto, TransCelerate.SDR.Core.DTO.eCPT.StudyInterventionsAdministeredDto>()
-                .ForMember(dest => dest.InterventionDescription, opt => opt.MapFrom(src => src.InterventionDescription))
+            CreateMap<StudyInterventionDto, TransCelerate.SDR.Core.DTO.eCPT.StudyInterventionsAdministeredDto>()
+                .ForMember(dest => dest.InterventionDescription, opt => opt.MapFrom(src => src.Description))
                 .ReverseMap();
 
             CreateMap<StudyIdentifierDto, TransCelerate.SDR.Core.DTO.eCPT.RegulatoryAgencyIdentifierNumberDto>()

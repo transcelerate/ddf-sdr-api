@@ -22,11 +22,11 @@ namespace TransCelerate.SDR.RuleEngineV4
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AnalysisPopulationValidator), nameof(AnalysisPopulationDto.Id)), ApplyConditionTo.AllValidators);
 
 
-            RuleFor(x => x.PopulationDescription)
+            RuleFor(x => x.Description)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AnalysisPopulationValidator), nameof(AnalysisPopulationDto.PopulationDescription)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AnalysisPopulationValidator), nameof(AnalysisPopulationDto.Description)), ApplyConditionTo.AllValidators);
         }
     }
 }

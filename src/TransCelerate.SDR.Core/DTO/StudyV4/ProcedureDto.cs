@@ -3,12 +3,14 @@
     public class ProcedureDto : IId
     {        
         public string Id { get; set; }
-        public string ProcedureName { get; set; }
-        public string ProcedureDescription { get; set; }
-        public string ProcedureType { get; set; }
-        public CodeDto ProcedureCode { get; set; }
-        public object ProcedureIsConditional { get; set; }
-        public string ProcedureIsConditionalReason { get; set; }
+        public string Name { get; set; }
+        public string Label { get; set; }
+        public string Description { get; set; }
+        public string Type { get; set; }
+        public CodeDto Code { get; set; }
+        public object IsConditional { get; set; }
+        public string IsConditionalReason { get; set; }
+        public string StudyInterventionId { get; set; }
 
     }
 }

@@ -7,10 +7,11 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
     public class StudyEpochEntity : IId
     {        
         public string Id { get; set; }
-        public string NextStudyEpochId { get; set; }
-        public string PreviousStudyEpochId { get; set; }
-        public string StudyEpochDescription { get; set; }
-        public string StudyEpochName { get; set; }
-        public CodeEntity StudyEpochType { get; set; }
+        public string Name { get; set; }
+        public string Label { get; set; }
+        public string Description { get; set; }
+        public CodeEntity Type { get; set; }
+        public string NextId { get; set; }
+        public string PreviousId { get; set; }
     }
 }

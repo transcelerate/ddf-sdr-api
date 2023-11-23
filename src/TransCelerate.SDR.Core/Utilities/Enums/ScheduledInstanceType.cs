@@ -11,4 +11,11 @@ namespace TransCelerate.SDR.Core.Utilities
         ACTIVITY,
         DECISION
     }
+
+    public enum SyntaxTemplateInstanceType
+    {
+        ENDPOINT,
+        OBJECTIVE,
+        ELIGIBILITY_CRITERIA
+    }
 }

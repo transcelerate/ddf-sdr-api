@@ -67,62 +67,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
         /// <returns></returns>
         bool JsonObjectCheck(object incoming, object existing);
         #endregion
-        #region Remove Id for Each section
-        /// <summary>
-        /// Remode uuid for Study
-        /// </summary>
-        /// <param name="study"></param>
-        /// <returns></returns>
-        StudyDefinitionsEntity RemovedSectionId(StudyDefinitionsEntity study);
-        /// <summary>
-        /// Remove uuid for Study Investigational Interventions
-        /// </summary>
-        /// <param name="investigationalInterventions"></param>
-        /// <returns></returns>
-        List<InvestigationalInterventionEntity> RemoveIdForInvestigationalInterventions(List<InvestigationalInterventionEntity> investigationalInterventions);
-        /// <summary>
-        /// Remove uuid for Study Cells
-        /// </summary>
-        /// <param name="studyCells"></param>
-        /// <returns></returns>
-        List<StudyCellEntity> RemoveIdForStudyCells(List<StudyCellEntity> studyCells);
-        /// <summary>
-        /// Remove uuid for Study Designs
-        /// </summary>
-        /// <param name="studyDesigns"></param>
-        /// <returns></returns>
-        List<StudyDesignEntity> RemoveIdForStudyDesign(List<StudyDesignEntity> studyDesigns);
-        /// <summary>
-        /// Remove uuid for Study Estimands
-        /// </summary>
-        /// <param name="estimands"></param>
-        /// <returns></returns>
-        List<EstimandEntity> RemoveIdForStudyEstimand(List<EstimandEntity> estimands);
-        /// <summary>
-        /// Remove uuid for Study Identifier
-        /// </summary>
-        /// <param name="studyIdentifiers"></param>
-        /// <returns></returns>
-        List<StudyIdentifierEntity> RemoveIdForStudyIdentifier(List<StudyIdentifierEntity> studyIdentifiers);
-        /// <summary>
-        /// Remove uuid for Study Indications
-        /// </summary>
-        /// <param name="indications"></param>
-        /// <returns></returns>
-        List<IndicationEntity> RemoveIdForStudyIndications(List<IndicationEntity> indications);
-        /// <summary>
-        /// Remove uuid for Study Objectives
-        /// </summary>
-        /// <param name="objectives"></param>
-        /// <returns></returns>
-        List<ObjectiveEntity> RemoveIdForStudyObjectives(List<ObjectiveEntity> objectives);
-        /// <summary>
-        /// Remove uuid for Study Protocol Versions
-        /// </summary>
-        /// <param name="studyProtocolVersions"></param>
-        /// <returns></returns>
-        List<StudyProtocolVersionEntity> RemoveIdForStudyProtocol(List<StudyProtocolVersionEntity> studyProtocolVersions);
-        #endregion
 
         #region Get Difference
         List<string> GetChangedValues(StudyDefinitionsEntity currentStudyVersion, StudyDefinitionsEntity previousStudyVersion);

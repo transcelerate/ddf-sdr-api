@@ -24,7 +24,7 @@ namespace TransCelerate.SDR.RuleEngineV4
             services.AddTransient<IValidator<EstimandDto>, StudyEstimandsValidator>();
             services.AddTransient<IValidator<IndicationDto>, IndicationValidator>();
             services.AddTransient<IValidator<InterCurrentEventDto>, InterCurrentEventsValidator>();
-            services.AddTransient<IValidator<InvestigationalInterventionDto>, InvestigationalInterventionValidator>();
+            services.AddTransient<IValidator<StudyInterventionDto>, InvestigationalInterventionValidator>();
             services.AddTransient<IValidator<ObjectiveDto>, ObjectiveValidator>();
             services.AddTransient<IValidator<StudyArmDto>, StudyArmValidator>();
             services.AddTransient<IValidator<StudyCellDto>, StudyCellsValidator>();

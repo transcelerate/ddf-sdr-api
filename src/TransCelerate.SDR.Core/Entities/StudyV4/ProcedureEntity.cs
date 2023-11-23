@@ -4,11 +4,13 @@
     public class ProcedureEntity : IId
     {        
         public string Id { get; set; }
-        public string ProcedureName { get; set; }
-        public string ProcedureDescription { get; set; }
-        public string ProcedureType { get; set; }
-        public CodeEntity ProcedureCode { get; set; }
-        public bool ProcedureIsConditional { get; set; }
-        public string ProcedureIsConditionalReason { get; set; }
+        public string Name { get; set; }
+        public string Label { get; set; }
+        public string Description { get; set; }
+        public string Type { get; set; }
+        public CodeEntity Code { get; set; }
+        public bool IsConditional { get; set; }
+        public string IsConditionalReason { get; set; }
+        public string StudyInterventionId { get; set; }
     }
 }

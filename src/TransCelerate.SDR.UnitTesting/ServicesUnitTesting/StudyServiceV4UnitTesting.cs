@@ -71,7 +71,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         public static List<ScheduleTimelineEntity> GetTimelinesForSoADataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/SoASampleData.json");
-            return JsonConvert.DeserializeObject<StudyDesignEntity>(jsonData).StudyScheduleTimelines;
+            return JsonConvert.DeserializeObject<StudyDesignEntity>(jsonData).ScheduleTimelines;
         }
         readonly LoggedInUser user = new()
         {
@@ -695,14 +695,14 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             studyEntity.Study.StudyDesigns[0].Id = "Sd_1";
             studyEntity.Study.StudyDesigns[0].Encounters = GetEncountersForSoADataFromStaticJson();
             studyEntity.Study.StudyDesigns[0].Activities = GetActivitiesForSoADataFromStaticJson();
-            studyEntity.Study.StudyDesigns[0].StudyScheduleTimelines = GetTimelinesForSoADataFromStaticJson();
+            studyEntity.Study.StudyDesigns[0].ScheduleTimelines = GetTimelinesForSoADataFromStaticJson();
 
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity));
 
             StudyServiceV4 studyService = new(_mockStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockServiceBusClient.Object, _mockChangeAuditRepository.Object);
 
-            var method = studyService.GetSOAV4("1", studyEntity.Study.StudyDesigns[0].Id, studyEntity.Study.StudyDesigns[0].StudyScheduleTimelines[0].Id, 0, user);
+            var method = studyService.GetSOAV4("1", studyEntity.Study.StudyDesigns[0].Id, studyEntity.Study.StudyDesigns[0].ScheduleTimelines[0].Id, 0, user);
             method.Wait();
             var result = method.Result;
 
@@ -818,15 +818,15 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         {
             var jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV4.json");
             var data = JsonConvert.DeserializeObject<TransCelerate.SDR.Core.DTO.StudyV4.StudyDefinitionsDto>(jsonData);
-            var malePopulation = data.Study.StudyDesigns[0].StudyPopulations[0].PlannedSexOfParticipants[1];
-            data.Study.StudyDesigns[0].StudyPopulations[0].PlannedSexOfParticipants = new List<Core.DTO.StudyV4.CodeDto> { data.Study.StudyDesigns[0].StudyPopulations[0].PlannedSexOfParticipants[0], data.Study.StudyDesigns[0].StudyPopulations[0].PlannedSexOfParticipants[0] };
+            var malePopulation = data.Study.StudyDesigns[0].Populations[0].PlannedSexOfParticipants[1];
+            data.Study.StudyDesigns[0].Populations[0].PlannedSexOfParticipants = new List<Core.DTO.StudyV4.CodeDto> { data.Study.StudyDesigns[0].Populations[0].PlannedSexOfParticipants[0], data.Study.StudyDesigns[0].Populations[0].PlannedSexOfParticipants[0] };
 
-            Assert.AreEqual(Constants.PlannedSexOfParticipants.Female, Core.Utilities.Helpers.ECPTHelper.GetPlannedSexOfParticipantsV4(data.Study.StudyDesigns[0].StudyPopulations));
+            Assert.AreEqual(Constants.PlannedSexOfParticipants.Female, Core.Utilities.Helpers.ECPTHelper.GetPlannedSexOfParticipantsV4(data.Study.StudyDesigns[0].Populations));
 
-            data.Study.StudyDesigns[0].StudyPopulations[0].PlannedSexOfParticipants = new List<Core.DTO.StudyV4.CodeDto> { malePopulation, malePopulation };
-            Assert.AreEqual(Constants.PlannedSexOfParticipants.Male, Core.Utilities.Helpers.ECPTHelper.GetPlannedSexOfParticipantsV4(data.Study.StudyDesigns[0].StudyPopulations));
-            data.Study.StudyDesigns[0].StudyPopulations = null;
-            Assert.IsNull(Core.Utilities.Helpers.ECPTHelper.GetPlannedSexOfParticipantsV4(data.Study.StudyDesigns[0].StudyPopulations));
+            data.Study.StudyDesigns[0].Populations[0].PlannedSexOfParticipants = new List<Core.DTO.StudyV4.CodeDto> { malePopulation, malePopulation };
+            Assert.AreEqual(Constants.PlannedSexOfParticipants.Male, Core.Utilities.Helpers.ECPTHelper.GetPlannedSexOfParticipantsV4(data.Study.StudyDesigns[0].Populations));
+            data.Study.StudyDesigns[0].Populations = null;
+            Assert.IsNull(Core.Utilities.Helpers.ECPTHelper.GetPlannedSexOfParticipantsV4(data.Study.StudyDesigns[0].Populations));
         }
         #endregion
 

@@ -7,16 +7,17 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
     public class ActivityEntity : IId
     {        
         public string Id { get; set; }
-        public string ActivityDescription { get; set; }
-        public string ActivityName { get; set; }
+        public string Name { get; set; }
+        public string Label { get; set; }
+        public string Description { get; set; }        
         public List<ProcedureEntity> DefinedProcedures { get; set; }
-        public string NextActivityId { get; set; }
-        public string PreviousActivityId { get; set; }
-        public bool ActivityIsConditional { get; set; }
-        public string ActivityIsConditionalReason { get; set; }
+        public string NextId { get; set; }
+        public string PreviousId { get; set; }
+        public bool IsConditional { get; set; }
+        public string IsConditionalReason { get; set; }
         public List<string> BcCategoryIds { get; set; }
         public List<string> BcSurrogateIds { get; set; }
         public List<string> BiomedicalConceptIds { get; set; }
-        public string ActivityTimelineId { get; set; }
+        public string TimelineId { get; set; }
     }
 }

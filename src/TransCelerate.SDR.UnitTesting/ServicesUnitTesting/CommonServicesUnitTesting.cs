@@ -779,7 +779,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     HasAccess = true,
                     UsdmVersion = v4.AuditTrail.UsdmVersion,
                     InterventionModel = v4.Study.StudyDesigns.Select(y => y.InterventionModel) ?? null,
-                    StudyIndications = v4.Study.StudyDesigns.Select(y => y.StudyIndications.Select(z => z.IndicationDescription)) ?? null,
+                    StudyIndications = v4.Study.StudyDesigns.Select(y => y.Indications.Select(z => z.Description)) ?? null,
                     StudyDesignIds = v4.Study.StudyDesigns.Select(x => x.Id) ?? null,
                 },
                 new SearchResponseEntity
@@ -898,7 +898,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     EntryDateTime = v4.AuditTrail.EntryDateTime,                    
                     UsdmVersion = v4.AuditTrail.UsdmVersion,
                     InterventionModel = v4.Study.StudyDesigns.Select(y => y.InterventionModel) ?? null,
-                    StudyIndications = v4.Study.StudyDesigns.Select(y => y.StudyIndications) ?? null,
+                    StudyIndications = v4.Study.StudyDesigns.Select(y => y.Indications) ?? null,
                     StudyDesignIds = v4.Study.StudyDesigns.Select(x => x.Id ?? x.Id) ?? null,
                 } }));
 

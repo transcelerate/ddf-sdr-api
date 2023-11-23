@@ -624,7 +624,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             //Filter for Indication
             if (!String.IsNullOrWhiteSpace(searchParameters.Indication))
-                filter &= builder.Where(x => x.Study.StudyDesigns.Any(x => x.StudyIndications.Any(y => y.IndicationDescription.ToLower().Contains(searchParameters.Indication.ToLower()))));
+                filter &= builder.Where(x => x.Study.StudyDesigns.Any(x => x.Indications.Any(y => y.Description.ToLower().Contains(searchParameters.Indication.ToLower()))));
 
             //Filter for Intervention Model
             if (!String.IsNullOrWhiteSpace(searchParameters.InterventionModel))
@@ -653,8 +653,8 @@ namespace TransCelerate.SDR.DataAccess.Filters
                                                                                     : searchResponses.OrderByDescending(s => s.StudyIdentifiers != null ? s.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower()).Any() ? s.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower()).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : ""),
 
                     //Sort by studyIndication: description
-                    "indication" => asc ? searchResponses.OrderBy(s => (s.StudyIndications != null && s.StudyIndications.Any()) ? (s.StudyIndications.First() != null && s.StudyIndications.First().Any()) ? s.StudyIndications.First().First() != null ? s.StudyIndications.First().First().IndicationDescription ?? "" : "" : "" : "")
-                                                                                        : searchResponses.OrderByDescending(s => (s.StudyIndications != null && s.StudyIndications.Any()) ? (s.StudyIndications.First() != null && s.StudyIndications.First().Any()) ? s.StudyIndications.First().First() != null ? s.StudyIndications.First().First().IndicationDescription ?? "" : "" : "" : ""),
+                    "indication" => asc ? searchResponses.OrderBy(s => (s.StudyIndications != null && s.StudyIndications.Any()) ? (s.StudyIndications.First() != null && s.StudyIndications.First().Any()) ? s.StudyIndications.First().First() != null ? s.StudyIndications.First().First().Description ?? "" : "" : "" : "")
+                                                                                        : searchResponses.OrderByDescending(s => (s.StudyIndications != null && s.StudyIndications.Any()) ? (s.StudyIndications.First() != null && s.StudyIndications.First().Any()) ? s.StudyIndications.First().First() != null ? s.StudyIndications.First().First().Description ?? "" : "" : "" : ""),
 
                     //Sort by studyDesign: Intervention Model
                     "interventionmodel" => asc ? searchResponses.OrderBy(s => (s.InterventionModel != null && s.InterventionModel.Any()) ? s.InterventionModel.First() != null ? s.InterventionModel.First().Decode : "" : "")

@@ -449,7 +449,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                   StudyPhase = x.Study.StudyPhase,
                                                   StudyIdentifiers = x.Study.StudyIdentifiers,
                                                   InterventionModel = x.Study.StudyDesigns.Select(y => y.InterventionModel) ?? null,
-                                                  StudyIndications = x.Study.StudyDesigns.Select(y => y.StudyIndications) ?? null,
+                                                  StudyIndications = x.Study.StudyDesigns.Select(y => y.Indications) ?? null,
                                                   EntryDateTime = x.AuditTrail.EntryDateTime,
                                                   SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
                                                   UsdmVersion = x.AuditTrail.UsdmVersion,

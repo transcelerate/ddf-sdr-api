@@ -6,11 +6,12 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
     [MongoDB.Bson.Serialization.Attributes.BsonNoId]
     public class BiomedicalConceptCategoryEntity : IId
     {        
-        public string Id { get; set; }        
-        public List<string> BcCategoryChildIds { get; set; }
-        public string BcCategoryName { get; set; }
-        public string BcCategoryDescription { get; set; }
-        public List<string> BcCategoryMemberIds { get; set; }
-        public AliasCodeEntity BcCategoryCode { get; set; }
+        public string Id { get; set; }
+        public List<string> ChildrenIds { get; set; }
+        public string Name { get; set; }
+        public string Label { get; set; }
+        public string Description { get; set; }
+        public List<string> MemberIds { get; set; }
+        public AliasCodeEntity Code { get; set; }
     }
 }

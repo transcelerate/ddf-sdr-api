@@ -221,8 +221,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             if (objectives != null && objectives.Any())
             {
                 var objectiveMapping = SdrCptMapping.SdrCptMasterDataMapping.Where(x => x.Entity == Constants.SdrCptMasterDataEntities.ObjectiveLevel).FirstOrDefault().Mapping;
-                var primaryObjective = objectives.Where(x => x.ObjectiveLevel?.Code == objectiveMapping.Where(x => x.CDISC == Constants.IdType.STUDY_PRIMARY_OBJECTIVE).Select(x => x.Code).FirstOrDefault());
-                var secondaryObjective = objectives.Where(x => x.ObjectiveLevel?.Code == objectiveMapping.Where(x => x.CDISC == Constants.IdType.STUDY_SECONDARY_OBJECTIVE).Select(x => x.Code).FirstOrDefault());
+                var primaryObjective = objectives.Where(x => x.Level?.Code == objectiveMapping.Where(x => x.CDISC == Constants.IdType.STUDY_PRIMARY_OBJECTIVE).Select(x => x.Code).FirstOrDefault());
+                var secondaryObjective = objectives.Where(x => x.Level?.Code == objectiveMapping.Where(x => x.CDISC == Constants.IdType.STUDY_SECONDARY_OBJECTIVE).Select(x => x.Code).FirstOrDefault());
                 if (primaryObjective != null && primaryObjective.Any())
                 {
                     objectivesEndpointsAndEstimandsDto.PrimaryObjectives = mapper.Map<List<ObjectivesDto>>(primaryObjective);

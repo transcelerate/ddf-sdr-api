@@ -5,8 +5,8 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
     public class StudyCellDto : IId
     {        
         public string Id { get; set; }
-        public string StudyArmId { get; set; }
-        public string StudyEpochId { get; set; }
-        public List<string> StudyElementIds { get; set; }
+        public string ArmId { get; set; }
+        public string EpochId { get; set; }
+        public List<string> ElementIds { get; set; }
     }
 }

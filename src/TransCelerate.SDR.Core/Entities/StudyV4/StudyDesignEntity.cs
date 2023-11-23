@@ -7,28 +7,31 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
     public class StudyDesignEntity : IId
     {        
         public string Id { get; set; }
-        public string StudyDesignName { get; set; }
-        public string StudyDesignDescription { get; set; }
+        public string Name { get; set; }
+        public string Label { get; set; }
+        public string Description { get; set; }
         public List<CodeEntity> TrialIntentTypes { get; set; }
         public List<CodeEntity> TrialType { get; set; }
         public CodeEntity InterventionModel { get; set; }
         public List<StudyCellEntity> StudyCells { get; set; }
-        public List<IndicationEntity> StudyIndications { get; set; }
-        public List<InvestigationalInterventionEntity> StudyInvestigationalInterventions { get; set; }
-        public List<StudyDesignPopulationEntity> StudyPopulations { get; set; }
-        public List<ObjectiveEntity> StudyObjectives { get; set; }
-        public List<ScheduleTimelineEntity> StudyScheduleTimelines { get; set; }
+        public List<IndicationEntity> Indications { get; set; }
+        public List<StudyInterventionEntity> StudyInterventions { get; set; }
+        public List<StudyDesignPopulationEntity> Populations { get; set; }
+        public List<SyntaxTemplateEntity> Objectives { get; set; }
+        public List<ScheduleTimelineEntity> ScheduleTimelines { get; set; }
         public List<CodeEntity> TherapeuticAreas { get; set; }
-        public List<EstimandEntity> StudyEstimands { get; set; }
+        public List<EstimandEntity> Estimands { get; set; }
         public List<EncounterEntity> Encounters { get; set; }
         public List<ActivityEntity> Activities { get; set; }
-        public string StudyDesignRationale { get; set; }
-        public AliasCodeEntity StudyDesignBlindingScheme { get; set; }
+        public string Rationale { get; set; }
+        public AliasCodeEntity BlindingSchema { get; set; }
         public List<BiomedicalConceptEntity> BiomedicalConcepts { get; set; }
         public List<BiomedicalConceptCategoryEntity> BcCategories { get; set; }
         public List<BiomedicalConceptSurrogateEntity> BcSurrogates { get; set; }
-        public List<StudyArmEntity> StudyArms { get; set; }
-        public List<StudyEpochEntity> StudyEpochs { get; set; }
-        public List<StudyElementEntity> StudyElements { get; set; }
+        public List<StudyArmEntity> Arms { get; set; }
+        public List<StudyEpochEntity> Epochs { get; set; }
+        public List<StudyElementEntity> Elements { get; set; }
+        public List<SyntaxTemplateEntity> EligibilityCriteria { get; set; }
+        public List<SyntaxTemplateDictionaryEntity> Dictionaries { get; set; }
     }
 }

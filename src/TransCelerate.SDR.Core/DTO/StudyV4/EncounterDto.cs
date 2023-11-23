@@ -4,15 +4,16 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
 {
     public class EncounterDto : IId
     {        
-        public string Id { get; set; }
-        public List<CodeDto> EncounterContactModes { get; set; }
-        public string EncounterDescription { get; set; }
-        public CodeDto EncounterEnvironmentalSetting { get; set; }
-        public string EncounterName { get; set; }
-        public CodeDto EncounterType { get; set; }
-        public string NextEncounterId { get; set; }
-        public string PreviousEncounterId { get; set; }
-        public string EncounterScheduledAtTimingId { get; set; }
+        public string Id { get; set; }        
+        public string Name { get; set; }
+        public string Label { get; set; }
+        public string Description { get; set; }        
+        public List<CodeDto> ContactModes { get; set; }
+        public CodeDto EnvironmentalSetting { get; set; }
+        public CodeDto Type { get; set; }
+        public string NextId { get; set; }
+        public string PreviousId { get; set; }
+        public string ScheduledAtTimingId { get; set; }
         public TransitionRuleDto TransitionStartRule { get; set; }
         public TransitionRuleDto TransitionEndRule { get; set; }
     }

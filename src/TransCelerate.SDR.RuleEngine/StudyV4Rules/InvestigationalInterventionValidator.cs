@@ -9,7 +9,7 @@ namespace TransCelerate.SDR.RuleEngineV4
     /// <summary>
     /// This Class is the validator for InvestigationalIntervention
     /// </summary>
-    public class InvestigationalInterventionValidator : AbstractValidator<InvestigationalInterventionDto>
+    public class InvestigationalInterventionValidator : AbstractValidator<StudyInterventionDto>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         public InvestigationalInterventionValidator(IHttpContextAccessor httpContextAccessor)
@@ -19,19 +19,19 @@ namespace TransCelerate.SDR.RuleEngineV4
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(InvestigationalInterventionValidator), nameof(InvestigationalInterventionDto.Id)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(InvestigationalInterventionValidator), nameof(StudyInterventionDto.Id)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.InterventionDescription)
+            RuleFor(x => x.Description)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(InvestigationalInterventionValidator), nameof(InvestigationalInterventionDto.InterventionDescription)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(InvestigationalInterventionValidator), nameof(StudyInterventionDto.Description)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.Codes)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(InvestigationalInterventionValidator), nameof(InvestigationalInterventionDto.Codes)), ApplyConditionTo.AllValidators)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(InvestigationalInterventionValidator), nameof(StudyInterventionDto.Codes)), ApplyConditionTo.AllValidators)
                .Must(x => UniquenessArrayValidator.ValidateArrayV4(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
             RuleForEach(x => x.Codes)

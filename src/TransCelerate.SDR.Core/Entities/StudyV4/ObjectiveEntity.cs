@@ -3,11 +3,11 @@
 namespace TransCelerate.SDR.Core.Entities.StudyV4
 {
     [MongoDB.Bson.Serialization.Attributes.BsonNoId]
-    public class ObjectiveEntity : IId
-    {        
-        public string Id { get; set; }
-        public string ObjectiveDescription { get; set; }
-        public CodeEntity ObjectiveLevel { get; set; }
-        public List<EndpointEntity> ObjectiveEndpoints { get; set; }
+    [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
+    public class ObjectiveEntity : SyntaxTemplateEntity
+    {
+        public override string InstanceType { get; set; } = nameof(Utilities.SyntaxTemplateInstanceType.OBJECTIVE);
+        public CodeEntity Level { get; set; }
+        public List<SyntaxTemplateEntity> Endpoints { get; set; }
     }
 }
