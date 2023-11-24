@@ -36,6 +36,11 @@ namespace TransCelerate.SDR.RuleEngineV4
                .Must(ValidateDatatype.ValidateInt).WithMessage(Constants.ValidationErrorMessage.IntegerValidationFailed)
                .Must(x => Convert.ToInt32(x) >= Constants.DefaultValues.IntegerMinimumValue).WithMessage(Constants.ValidationErrorMessage.IntegerMinimumValueError);
 
+            RuleFor(x => x.Label)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignPopulationValidator), nameof(StudyDesignPopulationDto.Label)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.PlannedMaximumAgeOfParticipants)
                .Cascade(CascadeMode.Stop)

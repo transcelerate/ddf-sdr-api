@@ -57,6 +57,12 @@ namespace TransCelerate.SDR.RuleEngineV4
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ProcedureValidator), nameof(ProcedureDto.IsConditionalReason)), ApplyConditionTo.AllValidators);
+
+            RuleFor(x => x.StudyInterventionId)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ProcedureValidator), nameof(ProcedureDto.StudyInterventionId)), ApplyConditionTo.AllValidators);
         }
     }
 }

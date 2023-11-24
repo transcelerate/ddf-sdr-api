@@ -177,7 +177,7 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsTrue(Validator<EndpointDto>(new EndpointValidator(httpContextAccessor.Object), (studyDto.Study.StudyDesigns[0].Objectives[0] as ObjectiveDto).Endpoints[0] as EndpointDto));
             Assert.IsTrue(Validator<IndicationDto>(new IndicationValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].Indications[0]));
             Assert.IsTrue(Validator<InterCurrentEventDto>(new InterCurrentEventsValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].Estimands[0].IntercurrentEvents[0]));
-            Assert.IsTrue(Validator<StudyInterventionDto>(new InvestigationalInterventionValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].StudyInterventions[0]));
+            Assert.IsTrue(Validator<StudyInterventionDto>(new StudyInterventionValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].StudyInterventions[0]));
             Assert.IsTrue(Validator<ProcedureDto>(new ProcedureValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].Activities[0].DefinedProcedures[0]));            
             Assert.IsTrue(Validator<StudyCellDto>(new StudyCellsValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].StudyCells[0]));
             Assert.IsTrue(Validator<StudyDesignPopulationDto>(new StudyDesignPopulationValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].Populations[0]));

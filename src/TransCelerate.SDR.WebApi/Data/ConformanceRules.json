@@ -675,21 +675,35 @@
           "entity": "Activity",
           "required": [
             "Id",
-            "ActivityName",
-            "ActivityIsConditional"
+            "Name",
+            "IsConditional"
           ]
         },
         {
           "entity": "Address",
           "required": [
+            "Id"
+          ]
+        },
+        {
+          "entity": "AdministrationDuration",
+          "required": [
             "Id",
-            "Text",
-            "Line",
-            "City",
-            "District",
-            "State",
-            "PostalCode",
-            "Country"
+            "Quantity",
+            "Description",
+            "DurationWillVary",
+            "ReasonDurationWillVary"
+          ]
+        },
+        {
+          "entity": "AgentAdministration",
+          "required": [
+            "Id",
+            "Name",
+            "Duration",
+            "Dose",
+            "Route",
+            "Frequency"
           ]
         },
         {
@@ -703,42 +717,42 @@
           "entity": "AnalysisPopulation",
           "required": [
             "Id",
-            "PopulationDescription"
+            "Name",
+            "Text"
           ]
         },
         {
           "entity": "BiomedicalConcept",
           "required": [
             "Id",
-            "BcName",
-            "BcReference",
-            "BcConceptCode"
+            "Name",
+            "Reference",
+            "Code"
           ]
         },
         {
           "entity": "BiomedicalConceptCategory",
           "required": [
             "Id",
-            "BcCategoryName"
+            "Name"
           ]
         },
         {
           "entity": "BiomedicalConceptSurrogate",
           "required": [
             "Id",
-            "BcSurrogateName",
-            "BcSurrogateReference"
+            "Name"
           ]
         },
         {
           "entity": "BiomedicalConceptProperty",
           "required": [
             "Id",
-            "BcPropertyName",
-            "BcPropertyRequired",
-            "BcPropertyDataType",
-            "BcPropertyEnabled",
-            "BcPropertyConceptCode"
+            "Name",
+            "Required",
+            "DataType",
+            "Enabled",
+            "Code"
           ]
         },
         {
@@ -763,42 +777,63 @@
             "CodeSystemVersion"
           ]
         },
-
         {
           "entity": "Encounter",
           "required": [
             "Id",
-            "EncounterName"
+            "Name"
+          ]
+        },
+        {
+          "entity": "EligibilityCriteria",
+          "required": [
+            "Id",
+            "Name",
+            "InstanceType",
+            "Text",
+            "DictionaryId",
+            "Category",
+            "Identifier"
           ]
         },
         {
           "entity": "Endpoint",
           "required": [
             "Id",
-            "EndpointDescription",
-            "EndpointPurposeDescription"
+            "Name",
+            "InstanceType",
+            "Text",
+            "DictionaryId",
+            "Level"
           ]
         },
         {
           "entity": "Indication",
           "required": [
             "Id",
-            "IndicationDescription"
+            "Name"
           ]
         },
         {
           "entity": "InterCurrentEvents",
           "required": [
             "Id",
-            "IntercurrentEventName",
-            "IntercurrentEventStrategy"
+            "Name",
+            "Strategy"
           ]
         },
         {
-          "entity": "InvestigationalIntervention",
+          "entity": "StudyIntervention",
           "required": [
             "Id",
-            "InterventionDescription"
+            "Name",
+            "Role",
+            "Type",
+            "MinimumResponseDuration",
+            "Codes",
+            "Administrations",
+            "ProductDesignation",
+            "PharmacologicClass"
           ]
         },
         {
@@ -815,10 +850,18 @@
           "entity": "Procedure",
           "required": [
             "Id",
-            "ProcedureName",
-            "ProcedureType",
-            "ProcedureCode",
-            "ProcedureIsConditional"
+            "Name",
+            "Type",
+            "Code",
+            "IsConditional"
+          ]
+        },
+        {
+          "entity": "Quantity",
+          "required": [
+            "Id",
+            "Unit",
+            "Value"
           ]
         },
         {
@@ -826,17 +869,17 @@
           "required": [
             "Id",
             "Code",
-            "ResponseCodeEnabled"
+            "IsEnabled"
           ]
         },
         {
           "entity": "StudyArm",
           "required": [
             "Id",
-            "StudyArmDataOriginDescription",
-            "StudyArmDataOriginType",
-            "StudyArmType",
-            "StudyArmName"
+            "DataOriginDescription",
+            "DataOriginType",
+            "Type",
+            "Name"
           ]
         },
         {
@@ -849,28 +892,28 @@
           "entity": "ScheduledActivityInstance",
           "required": [
             "Id",
-            "ScheduledInstanceType"
+            "InstanceType"
           ]
         },
         {
           "entity": "ScheduledDecisionInstance",
           "required": [
             "Id",
-            "ScheduledInstanceType"
+            "InstanceType"
           ]
         },
         {
           "entity": "ScheduledInstance",
           "required": [
             "Id",
-            "ScheduledInstanceType"
+            "InstanceType"
           ]
         },
         {
           "entity": "ScheduleTimelines",
           "required": [
             "Id",
-            "ScheduleTimelineName",
+            "Name",
             "EntryCondition",
             "MainTimeline"
           ]
@@ -879,24 +922,15 @@
           "entity": "StudyCells",
           "required": [
             "Id",
-            "StudyArmId",
-            "StudyEpochId"
-          ]
-        },
-        {
-          "entity": "StudyDataCollection",
-          "required": [
-            "Id",
-            "EcrfLink",
-            "StudyDataName",
-            "StudyDataDescription"
+            "ArmId",
+            "EpochId"
           ]
         },
         {
           "entity": "StudyDesignPopulation",
           "required": [
             "Id",
-            "PopulationDescription",
+            "Name",
             "PlannedNumberOfParticipants",
             "PlannedMaximumAgeOfParticipants",
             "PlannedMinimumAgeOfParticipants"
@@ -907,26 +941,26 @@
           "required": [
             "Id",
             "InterventionModel",
-            "StudyDesignName",
-            "StudyDesignRationale",
+            "Name",
+            "Rationale",
             "StudyCells",
-            "StudyArms",
-            "StudyEpochs"
+            "Arms",
+            "Epochs"
           ]
         },
         {
           "entity": "StudyElements",
           "required": [
             "Id",
-            "StudyElementName"
+            "Name"
           ]
         },
         {
           "entity": "StudyEpoch",
           "required": [
             "Id",
-            "StudyEpochName",
-            "StudyEpochType"
+            "Name",
+            "Type"
           ]
         },
         {
@@ -934,6 +968,9 @@
           "required": [
             "Id",
             "SummaryMeasure",
+            "TreatmentId",
+            "VariableOfInterestId",
+            "IntercurrentEvents",
             "AnalysisPopulation"
           ]
         },
@@ -949,7 +986,10 @@
           "entity": "Objective",
           "required": [
             "Id",
-            "ObjectiveDescription"
+            "Name",
+            "InstanceType",
+            "Text",
+            "DictionaryId"
           ]
         },
         {
@@ -972,19 +1012,39 @@
           ]
         },
         {
+          "entity": "SyntaxTemplate",
+          "required": [
+            "Id",
+            "Name",
+            "InstanceType",
+            "Text",
+            "DictionaryId"
+          ]
+        },
+        {
+          "entity": "SyntaxTemplateDectionary",
+          "required": [
+            "Id",
+            "Name",
+            "ParameterMap"
+          ]
+        },
+        {
           "entity": "Timing",
           "required": [
             "Id",
-            "TimingType",
-            "TimingValue",
-            "TimingRelativeToFrom"
+            "Name",
+            "Type",
+            "Value",
+            "RelativeToFrom"
           ]
         },
         {
           "entity": "TransitionRule",
           "required": [
             "Id",
-            "TransitionRuleDescription"
+            "Text",
+            "Name"
           ]
         }
       ]

@@ -21,6 +21,23 @@ namespace TransCelerate.SDR.RuleEngineV4
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AnalysisPopulationValidator), nameof(AnalysisPopulationDto.Id)), ApplyConditionTo.AllValidators);
 
+            RuleFor(x => x.Name)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AnalysisPopulationValidator), nameof(AnalysisPopulationDto.Name)), ApplyConditionTo.AllValidators);
+
+            RuleFor(x => x.Label)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AnalysisPopulationValidator), nameof(AnalysisPopulationDto.Label)), ApplyConditionTo.AllValidators);
+
+            RuleFor(x => x.Text)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AnalysisPopulationValidator), nameof(AnalysisPopulationDto.Text)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.Description)
                .Cascade(CascadeMode.Stop)

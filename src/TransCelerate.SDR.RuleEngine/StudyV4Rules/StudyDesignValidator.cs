@@ -21,6 +21,12 @@ namespace TransCelerate.SDR.RuleEngineV4
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.Id)), ApplyConditionTo.AllValidators);
 
+            RuleFor(x => x.Label)
+              .Cascade(CascadeMode.Stop)
+              .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+              .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+              .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.Label)), ApplyConditionTo.AllValidators);
+
             RuleFor(x => x.InterventionModel)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
@@ -63,7 +69,7 @@ namespace TransCelerate.SDR.RuleEngineV4
                 .Must(x => UniquenessArrayValidator.ValidateArrayV4(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
             RuleForEach(x => x.StudyInterventions)
-                .SetValidator(new InvestigationalInterventionValidator(_httpContextAccessor));
+                .SetValidator(new StudyInterventionValidator(_httpContextAccessor));
 
             RuleFor(x => x.Indications)
                 .Cascade(CascadeMode.Stop)
@@ -234,6 +240,28 @@ namespace TransCelerate.SDR.RuleEngineV4
 
             RuleForEach(x => x.Elements)
                 .SetValidator(new StudyElementsValidator(_httpContextAccessor));
+
+            RuleFor(x => x.EligibilityCriteria)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.EligibilityCriteria)), ApplyConditionTo.AllValidators)
+               .Must(x => UniquenessArrayValidator.ValidateArrayV4(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleForEach(x => x.EligibilityCriteria).SetInheritanceValidator(v =>
+            {
+                v.Add(new EligibilityCriteriaValidator(_httpContextAccessor));
+            });
+
+            RuleFor(x => x.Dictionaries)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.Dictionaries)), ApplyConditionTo.AllValidators)
+               .Must(x => UniquenessArrayValidator.ValidateArrayV4(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleForEach(x => x.Dictionaries)
+                .SetValidator(new SyntaxTemplateDictionaryValidator(_httpContextAccessor));
         }
     }
 }
