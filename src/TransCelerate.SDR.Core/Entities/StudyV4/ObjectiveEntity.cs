@@ -8,6 +8,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
     {
         public override string InstanceType { get; set; } = nameof(Utilities.SyntaxTemplateInstanceType.OBJECTIVE);
         public CodeEntity Level { get; set; }
-        public List<SyntaxTemplateEntity> Endpoints { get; set; }
+        public List<EndpointEntity> Endpoints { get; set; }
     }
 }

@@ -88,10 +88,8 @@ namespace TransCelerate.SDR.RuleEngineV4
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.Objectives)), ApplyConditionTo.AllValidators)
                 .Must(x => UniquenessArrayValidator.ValidateArrayV4(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
-            RuleForEach(x => x.Objectives).SetInheritanceValidator(v =>
-            {
-                v.Add(new ObjectiveValidator(_httpContextAccessor));                
-            });
+            RuleForEach(x => x.Objectives)
+                .SetValidator(new ObjectiveValidator(_httpContextAccessor));
 
             RuleFor(x => x.Populations)
                 .Cascade(CascadeMode.Stop)
@@ -248,10 +246,8 @@ namespace TransCelerate.SDR.RuleEngineV4
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.EligibilityCriteria)), ApplyConditionTo.AllValidators)
                .Must(x => UniquenessArrayValidator.ValidateArrayV4(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
-            RuleForEach(x => x.EligibilityCriteria).SetInheritanceValidator(v =>
-            {
-                v.Add(new EligibilityCriteriaValidator(_httpContextAccessor));
-            });
+            RuleForEach(x => x.EligibilityCriteria)
+                .SetValidator(new EligibilityCriteriaValidator(_httpContextAccessor));
 
             RuleFor(x => x.Dictionaries)
                .Cascade(CascadeMode.Stop)

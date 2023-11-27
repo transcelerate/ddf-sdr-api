@@ -547,7 +547,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                 tempList.Add($"{nameof(StudyDesignEntity.BiomedicalConcepts)}.{x}");
             });
             tempList.RemoveAll(x => x.Contains($"{nameof(BiomedicalConceptEntity.Properties)}"));
-            tempList.RemoveAll(x => x.Contains($"{nameof(BiomedicalConceptEntity.ConceptCode)}"));
+            tempList.RemoveAll(x => x.Contains($"{nameof(BiomedicalConceptEntity.Code)}"));
             currentStudyDesign.BiomedicalConcepts?.ForEach(currentBc =>
             {
                 var currentBcChangedValues = new List<string>();
@@ -577,9 +577,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                             });
                         }
                     });
-                    GetDifferenceForAliasCode(currentBc.ConceptCode, previousBc.ConceptCode).ForEach(x =>
+                    GetDifferenceForAliasCode(currentBc.Code, previousBc.Code).ForEach(x =>
                     {
-                        currentBcChangedValues.Add($"{nameof(StudyDesignEntity.BiomedicalConcepts)}.{nameof(BiomedicalConceptEntity.ConceptCode)}.{x}");
+                        currentBcChangedValues.Add($"{nameof(StudyDesignEntity.BiomedicalConcepts)}.{nameof(BiomedicalConceptEntity.Code)}.{x}");
                     });
                 }
                 tempList.AddRange(currentBcChangedValues);
@@ -1140,17 +1140,17 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                     List<string> investigationalInterventionIds = design.StudyInterventions is null ? new List<string>() : design.StudyInterventions.Select(x => x.Id).ToList();
                     List<string> endpointIds = design.Objectives is null ? new List<string>() : design.Objectives.Select(x => x as ObjectiveDto).ToList().Select(x => x?.Endpoints).Where(y => y != null).SelectMany(x => x.Select(y => y.Id)).ToList();
 
-                    if (!String.IsNullOrWhiteSpace(estimand.Treatment) && !investigationalInterventionIds.Contains(estimand.Treatment))
+                    if (!String.IsNullOrWhiteSpace(estimand.TreatmentId) && !investigationalInterventionIds.Contains(estimand.TreatmentId))
                         errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
                             $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                             $"{nameof(StudyDesignDto.Estimands)}[{design.Estimands.IndexOf(estimand)}]." +
-                            $"{nameof(EstimandDto.Treatment)}");
+                            $"{nameof(EstimandDto.TreatmentId)}");
 
-                    if (!String.IsNullOrWhiteSpace(estimand.VariableOfInterest) && !endpointIds.Contains(estimand.VariableOfInterest))
+                    if (!String.IsNullOrWhiteSpace(estimand.VariableOfInterestId) && !endpointIds.Contains(estimand.VariableOfInterestId))
                         errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
                             $"{nameof(StudyDto.StudyDesigns)}[{indexOfDesign}]." +
                             $"{nameof(StudyDesignDto.Estimands)}[{design.Estimands.IndexOf(estimand)}]." +
-                            $"{nameof(EstimandDto.VariableOfInterest)}");
+                            $"{nameof(EstimandDto.VariableOfInterestId)}");
                 });
             }
 
@@ -1566,7 +1566,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                 tempList.Add($"{nameof(StudyDesignEntity.BiomedicalConcepts)}{x}");
             });
             tempList.RemoveAll(x => x.Contains($"{nameof(BiomedicalConceptEntity.Properties)}"));
-            tempList.RemoveAll(x => x.Contains($"{nameof(BiomedicalConceptEntity.ConceptCode)}"));
+            tempList.RemoveAll(x => x.Contains($"{nameof(BiomedicalConceptEntity.Code)}"));
             currentStudyDesign.BiomedicalConcepts?.ForEach(currentBc =>
             {
                 var currentBcChangedValues = new List<string>();
@@ -1596,9 +1596,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                             });
                         }
                     });
-                    GetDifferenceForAliasCodeForStudyComparison(currentBc.ConceptCode, previousBc.ConceptCode).ForEach(x =>
+                    GetDifferenceForAliasCodeForStudyComparison(currentBc.Code, previousBc.Code).ForEach(x =>
                     {
-                        currentBcChangedValues.Add($"{nameof(StudyDesignEntity.BiomedicalConcepts)}[{currentStudyDesign.BiomedicalConcepts.IndexOf(currentBc)}].{nameof(BiomedicalConceptEntity.ConceptCode)}{x}");
+                        currentBcChangedValues.Add($"{nameof(StudyDesignEntity.BiomedicalConcepts)}[{currentStudyDesign.BiomedicalConcepts.IndexOf(currentBc)}].{nameof(BiomedicalConceptEntity.Code)}{x}");
                     });
                 }
                 tempList.AddRange(currentBcChangedValues);

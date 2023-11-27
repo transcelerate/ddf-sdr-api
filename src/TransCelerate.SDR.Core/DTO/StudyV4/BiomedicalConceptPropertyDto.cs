@@ -9,7 +9,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public string Label { get; set; }
         public object Required { get; set; }
         public object Enabled { get; set; }
-        public string DataType { get; set; }
+        public string Datatype { get; set; }
         public List<ResponseCodeDto> ResponseCodes { get; set; }
         public AliasCodeDto Code { get; set; }
     }

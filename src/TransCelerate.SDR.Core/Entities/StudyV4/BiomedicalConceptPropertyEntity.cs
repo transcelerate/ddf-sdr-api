@@ -11,7 +11,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public string Label { get; set; }
         public bool Required { get; set; }
         public bool Enabled { get; set; }
-        public string DataType { get; set; }
+        public string Datatype { get; set; }
         public List<ResponseCodeEntity> ResponseCodes { get; set; }
         public AliasCodeEntity Code { get; set; }
     }

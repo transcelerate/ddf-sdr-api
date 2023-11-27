@@ -257,10 +257,10 @@ namespace TransCelerate.SDR.UnitTesting
 
             studyDto.Study.StudyDesigns[0].Estimands.Add(JsonConvert.DeserializeObject<EstimandDto>(JsonConvert.SerializeObject(studyDto.Study.StudyDesigns[0].Estimands[0])));
             studyDto.Study.StudyDesigns[0].Estimands[0].Id = "123";
-            studyDto.Study.StudyDesigns[0].Estimands[0].Treatment = "124";
+            studyDto.Study.StudyDesigns[0].Estimands[0].TreatmentId = "124";
 
             studyDto.Study.StudyDesigns[0].Estimands[0].Id = "124";
-            studyDto.Study.StudyDesigns[0].Estimands[0].Treatment = "124";
+            studyDto.Study.StudyDesigns[0].Estimands[0].TreatmentId = "124";
 
             HelperV4 helper = new();
             var result = helper.ReferenceIntegrityValidation(studyDto, out object _);

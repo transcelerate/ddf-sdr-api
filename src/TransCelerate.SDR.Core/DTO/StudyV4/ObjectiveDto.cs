@@ -6,6 +6,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
     {
         public override string InstanceType { get; set; } = nameof(Utilities.SyntaxTemplateInstanceType.OBJECTIVE);
         public CodeDto Level { get; set; }
-        public List<SyntaxTemplateDto> Endpoints { get; set; }
+        public List<EndpointDto> Endpoints { get; set; }
     }
 }

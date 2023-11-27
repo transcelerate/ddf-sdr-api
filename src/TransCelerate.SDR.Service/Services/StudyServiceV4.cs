@@ -370,7 +370,7 @@ namespace TransCelerate.SDR.Services.Services
                                         string timingValue = design.ScheduleTimelines.Where(x => x.Instances != null).SelectMany(x => x.Instances)
                                                                                           .Where(x => x != null && x.Timings is not null)
                                                                                           .SelectMany(x => x.Timings)
-                                                                                          .Where(x => x.Id == encounter.ScheduledAtTimingId).FirstOrDefault()?.TimingValue;
+                                                                                          .Where(x => x.Id == encounter.ScheduledAtTimingId).FirstOrDefault()?.Value;
                                         SoA soA = new()
                                         {
                                             EncounterId = encounter.Id,

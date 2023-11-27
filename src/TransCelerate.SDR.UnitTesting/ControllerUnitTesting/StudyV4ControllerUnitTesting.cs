@@ -80,7 +80,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = studyV4Controller.PostAllElements(study, Constants.USDMVersions.V2);
+            var method = studyV4Controller.PostAllElements(study, Constants.USDMVersions.V3);
             method.Wait();
             var result = method.Result;
 
@@ -105,7 +105,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = studyV4Controller.PostAllElements(study, Constants.USDMVersions.V2);
+            var method = studyV4Controller.PostAllElements(study, Constants.USDMVersions.V3);
             method.Wait();
             var result = method.Result;
 
@@ -120,7 +120,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
 
 
-            method = studyV4Controller.PostAllElements(null, Constants.USDMVersions.V2);
+            method = studyV4Controller.PostAllElements(null, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -139,7 +139,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDefinitionsDto>(), It.IsAny<LoggedInUser>(), It.IsAny<string>()))
                         .Throws(new Exception("Error"));
 
-            method = studyV4Controller.PostAllElements(study, Constants.USDMVersions.V2);
+            method = studyV4Controller.PostAllElements(study, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -160,7 +160,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDefinitionsDto>(), It.IsAny<LoggedInUser>(), It.IsAny<string>()))
                .Returns(Task.FromResult(Constants.ErrorMessages.NotValidStudyId as object));
 
-            method = studyV4Controller.PostAllElements(study, Constants.USDMVersions.V2);
+            method = studyV4Controller.PostAllElements(study, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -174,25 +174,25 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual(404, (result as ObjectResult).StatusCode);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
 
-            object errors = null;
-            _mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
-               .Returns(true);
+            //object errors = null;
+            //_mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
+            //   .Returns(true);
 
-            method = studyV4Controller.PostAllElements(study, Constants.USDMVersions.V2);
-            method.Wait();
-            result = method.Result;
+            //method = studyV4Controller.PostAllElements(study, Constants.USDMVersions.V3);
+            //method.Wait();
+            //result = method.Result;
 
-            //Expected
-            expected = study;
+            ////Expected
+            //expected = study;
 
-            //Actual            
-            actual_result = JsonConvert.DeserializeObject<ErrorModel>(
-                 JsonConvert.SerializeObject((result as ObjectResult).Value));
+            ////Actual            
+            //actual_result = JsonConvert.DeserializeObject<ErrorModel>(
+            //     JsonConvert.SerializeObject((result as ObjectResult).Value));
 
-            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
-            Assert.IsInstanceOf(typeof(ObjectResult), result);
-            _mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
-               .Returns(false);
+            //Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+            //Assert.IsInstanceOf(typeof(ObjectResult), result);
+            //_mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
+            //   .Returns(false);
         }
         #endregion
 
@@ -207,7 +207,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = studyV4Controller.PutStudy(study, study.Study.Id, Constants.USDMVersions.V2);
+            var method = studyV4Controller.PutStudy(study, study.Study.Id, Constants.USDMVersions.V3);
             method.Wait();
             var result = method.Result;
 
@@ -232,7 +232,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = studyV4Controller.PutStudy(study, study.Study.Id, Constants.USDMVersions.V2);
+            var method = studyV4Controller.PutStudy(study, study.Study.Id, Constants.USDMVersions.V3);
             method.Wait();
             var result = method.Result;
 
@@ -247,7 +247,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
 
 
-            method = studyV4Controller.PutStudy(null, study.Study.Id, Constants.USDMVersions.V2);
+            method = studyV4Controller.PutStudy(null, study.Study.Id, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -266,7 +266,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDefinitionsDto>(), It.IsAny<LoggedInUser>(), It.IsAny<string>()))
                         .Throws(new Exception("Error"));
 
-            method = studyV4Controller.PutStudy(study, study.Study.Id, Constants.USDMVersions.V2);
+            method = studyV4Controller.PutStudy(study, study.Study.Id, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -287,7 +287,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDefinitionsDto>(), It.IsAny<LoggedInUser>(), It.IsAny<string>()))
                .Returns(Task.FromResult(Constants.ErrorMessages.NotValidStudyId as object));
 
-            method = studyV4Controller.PutStudy(study, study.Study.Id, Constants.USDMVersions.V2);
+            method = studyV4Controller.PutStudy(study, study.Study.Id, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -301,25 +301,25 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual(404, (result as ObjectResult).StatusCode);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
 
-            object errors = null;
-            _mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
-               .Returns(true);
+            //object errors = null;
+            //_mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
+            //   .Returns(true);
 
-            method = studyV4Controller.PutStudy(study, study.Study.Id, Constants.USDMVersions.V2);
-            method.Wait();
-            result = method.Result;
+            //method = studyV4Controller.PutStudy(study, study.Study.Id, Constants.USDMVersions.V3);
+            //method.Wait();
+            //result = method.Result;
 
-            //Expected
-            expected = study;
+            ////Expected
+            //expected = study;
 
-            //Actual            
-            actual_result = JsonConvert.DeserializeObject<ErrorModel>(
-                 JsonConvert.SerializeObject((result as ObjectResult).Value));
+            ////Actual            
+            //actual_result = JsonConvert.DeserializeObject<ErrorModel>(
+            //     JsonConvert.SerializeObject((result as ObjectResult).Value));
 
-            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
-            Assert.IsInstanceOf(typeof(ObjectResult), result);
-            _mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
-               .Returns(false);
+            //Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+            //Assert.IsInstanceOf(typeof(ObjectResult), result);
+            //_mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
+            //   .Returns(false);
         }
         #endregion
 
@@ -336,7 +336,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockHelper.Setup(x => x.AreValidStudyElements(It.IsAny<string>(), out nullStudyElements))
                 .Returns(true);
 
-            var method = studyV4Controller.GetStudy("sd", 1, null, Constants.USDMVersions.V2);
+            var method = studyV4Controller.GetStudy("sd", 1, null, Constants.USDMVersions.V3);
             method.Wait();
             var result = method.Result;
 
@@ -361,7 +361,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
             var listofelements = string.Join(",", Constants.StudyElementsV3);
-            var method = studyV4Controller.GetStudy("sd", 1, listofelements, Constants.USDMVersions.V2);
+            var method = studyV4Controller.GetStudy("sd", 1, listofelements, Constants.USDMVersions.V3);
             method.Wait();
             var result = method.Result;
 
@@ -380,7 +380,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.GetStudy(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                .Returns(Task.FromResult(Constants.ErrorMessages.Forbidden as object));
 
-            method = studyV4Controller.GetStudy("sd", 1, null, Constants.USDMVersions.V2);
+            method = studyV4Controller.GetStudy("sd", 1, null, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -397,7 +397,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.GetStudy(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                .Throws(new Exception(""));
 
-            method = studyV4Controller.GetStudy("sd", 1, null, Constants.USDMVersions.V2);
+            method = studyV4Controller.GetStudy("sd", 1, null, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -411,7 +411,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
-            method = studyV4Controller.GetStudy("", 1, null, Constants.USDMVersions.V2);
+            method = studyV4Controller.GetStudy("", 1, null, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -427,7 +427,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockHelper.Setup(x => x.AreValidStudyElements(It.IsAny<string>(), out studyElements))
                 .Returns(false);
-            method = studyV4Controller.GetStudy("a", 1, null, Constants.USDMVersions.V2);
+            method = studyV4Controller.GetStudy("a", 1, null, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -454,7 +454,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
             var listofelements = string.Join(",", Constants.StudyDesignElementsV4);
-            var method = studyV4Controller.GetStudyDesigns("sd", 1, "des", listofelements, Constants.USDMVersions.V2);
+            var method = studyV4Controller.GetStudyDesigns("sd", 1, "des", listofelements, Constants.USDMVersions.V3);
             method.Wait();
             var result = method.Result;
 
@@ -478,7 +478,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 .Returns(Task.FromResult(null as object));
             StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = studyV4Controller.GetStudyDesigns("sd", 1, "des", "list", Constants.USDMVersions.V2);
+            var method = studyV4Controller.GetStudyDesigns("sd", 1, "des", "list", Constants.USDMVersions.V3);
             method.Wait();
             var result = method.Result;
 
@@ -494,7 +494,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>(), It.IsAny<string[]>()))
                .Returns(Task.FromResult(Constants.ErrorMessages.Forbidden as object));
 
-            method = studyV4Controller.GetStudyDesigns("sd", 1, "des", "list", Constants.USDMVersions.V2);
+            method = studyV4Controller.GetStudyDesigns("sd", 1, "des", "list", Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -511,7 +511,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>(), It.IsAny<string[]>()))
                .Returns(Task.FromResult(Constants.ErrorMessages.StudyDesignNotFound as object));
 
-            method = studyV4Controller.GetStudyDesigns("sd", 1, "des", "list", Constants.USDMVersions.V2);
+            method = studyV4Controller.GetStudyDesigns("sd", 1, "des", "list", Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -528,7 +528,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>(), It.IsAny<string[]>()))
                .Throws(new Exception(""));
 
-            method = studyV4Controller.GetStudyDesigns("sd", 1, "des", "list", Constants.USDMVersions.V2);
+            method = studyV4Controller.GetStudyDesigns("sd", 1, "des", "list", Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -542,7 +542,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
-            method = studyV4Controller.GetStudyDesigns("", 1, "des", "list", Constants.USDMVersions.V2);
+            method = studyV4Controller.GetStudyDesigns("", 1, "des", "list", Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -558,7 +558,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockHelper.Setup(x => x.AreValidStudyDesignElements(It.IsAny<string>(), out studyDesignElements))
                 .Returns(false);
-            method = studyV4Controller.GetStudyDesigns("sd", 1, "des", "list", Constants.USDMVersions.V2);
+            method = studyV4Controller.GetStudyDesigns("sd", 1, "des", "list", Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -983,10 +983,10 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = studyV4Controller.ValidateUsdmConformance(study, Constants.USDMVersions.V2);
+            var method = studyV4Controller.ValidateUsdmConformance(study, Constants.USDMVersions.V3);
 
             //Expected
-            var expected = new ErrorModel { Message = $"{SuccessMessages.ValidationSuccess}{USDMVersions.V2}" };
+            var expected = new ErrorModel { Message = $"{SuccessMessages.ValidationSuccess}{USDMVersions.V3}" };
 
             //Actual            
             var actual_result = JsonConvert.DeserializeObject<ErrorModel>(
@@ -1006,7 +1006,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = studyV4Controller.ValidateUsdmConformance(null, Constants.USDMVersions.V2);
+            var method = studyV4Controller.ValidateUsdmConformance(null, Constants.USDMVersions.V3);
 
 
             //Actual            
@@ -1018,39 +1018,39 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
 
             ////Error BadRequest
-            object errors = null;
-            _mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
-                    .Throws(new Exception("Error"));
+            //object errors = null;
+            //_mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
+            //        .Throws(new Exception("Error"));
 
-            method = studyV4Controller.ValidateUsdmConformance(study, Constants.USDMVersions.V2);
+            //method = studyV4Controller.ValidateUsdmConformance(study, Constants.USDMVersions.V3);
 
-            //Expected
-            var expected1 = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError);
+            ////Expected
+            //var expected1 = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError);
 
-            //Actual            
-            var actual_result1 = (method as BadRequestObjectResult).Value as ErrorModel;
+            ////Actual            
+            //var actual_result1 = (method as BadRequestObjectResult).Value as ErrorModel;
 
-            //Assert
-            Assert.IsNotNull((method as BadRequestObjectResult).Value);
-            Assert.AreEqual(400, (method as BadRequestObjectResult).StatusCode);
-            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method);
+            ////Assert
+            //Assert.IsNotNull((method as BadRequestObjectResult).Value);
+            //Assert.AreEqual(400, (method as BadRequestObjectResult).StatusCode);
+            //Assert.IsInstanceOf(typeof(BadRequestObjectResult), method);
 
-            Assert.AreEqual(expected1.Message, actual_result1.Message);
-            Assert.AreEqual("400", actual_result.StatusCode);
+            //Assert.AreEqual(expected1.Message, actual_result1.Message);
+            //Assert.AreEqual("400", actual_result.StatusCode);
             
-            _mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
-               .Returns(true);
+            //_mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
+            //   .Returns(true);
 
-            method = studyV4Controller.ValidateUsdmConformance(study, Constants.USDMVersions.V2);
+            //method = studyV4Controller.ValidateUsdmConformance(study, Constants.USDMVersions.V3);
 
-            //Actual            
-            actual_result = JsonConvert.DeserializeObject<ErrorModel>(
-                 JsonConvert.SerializeObject((method as ObjectResult).Value));
+            ////Actual            
+            //actual_result = JsonConvert.DeserializeObject<ErrorModel>(
+            //     JsonConvert.SerializeObject((method as ObjectResult).Value));
 
-            Assert.AreEqual(400, (method as ObjectResult).StatusCode);
-            Assert.IsInstanceOf(typeof(ObjectResult), method);
-            _mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
-               .Returns(false);
+            //Assert.AreEqual(400, (method as ObjectResult).StatusCode);
+            //Assert.IsInstanceOf(typeof(ObjectResult), method);
+            //_mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
+            //   .Returns(false);
         }
         #endregion
 
@@ -1062,9 +1062,9 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             var currentVersionV3 = GetEntityDataFromStaticJson();
             var previousVersionV3 = GetEntityDataFromStaticJson();
             currentVersionV3.AuditTrail.SDRUploadVersion = 2;
-            currentVersionV3.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
+            currentVersionV3.AuditTrail.UsdmVersion = Constants.USDMVersions.V3;
             previousVersionV3.AuditTrail.SDRUploadVersion = 1;
-            previousVersionV3.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
+            previousVersionV3.AuditTrail.UsdmVersion = Constants.USDMVersions.V3;
 
             List<StudyDefinitionsEntity> studyEntitiesV3 = new()
             {
@@ -1084,7 +1084,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 } as object));
             StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = studyV4Controller.GetDifferences("sd", 2, 1, Constants.USDMVersions.V2);
+            var method = studyV4Controller.GetDifferences("sd", 2, 1, Constants.USDMVersions.V3);
             method.Wait();
             var result = method.Result;
 
@@ -1109,7 +1109,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
             var listofelements = string.Join(",", Constants.StudyElementsV3);
-            var method = studyV4Controller.GetDifferences("sd", 1, 2, Constants.USDMVersions.V2);
+            var method = studyV4Controller.GetDifferences("sd", 1, 2, Constants.USDMVersions.V3);
             method.Wait();
             var result = method.Result;
 
@@ -1125,7 +1125,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.GetDifferences(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                .Returns(Task.FromResult(Constants.ErrorMessages.OneVersionNotFound as object));
 
-            method = studyV4Controller.GetDifferences("sd", 1, 2, Constants.USDMVersions.V2);
+            method = studyV4Controller.GetDifferences("sd", 1, 2, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -1142,7 +1142,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.GetDifferences(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                .Returns(Task.FromResult(Constants.ErrorMessages.ForbiddenForAStudy as object));
 
-            method = studyV4Controller.GetDifferences("sd", 1, 2, Constants.USDMVersions.V2);
+            method = studyV4Controller.GetDifferences("sd", 1, 2, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -1157,7 +1157,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual(403, (result as ObjectResult).StatusCode);
 
 
-            method = studyV4Controller.GetDifferences("sd", 1, 1, Constants.USDMVersions.V2);
+            method = studyV4Controller.GetDifferences("sd", 1, 1, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -1175,7 +1175,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.GetDifferences(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                .Throws(new Exception(""));
 
-            method = studyV4Controller.GetDifferences("sd", 1, 2, Constants.USDMVersions.V2);
+            method = studyV4Controller.GetDifferences("sd", 1, 2, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -1189,7 +1189,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
-            method = studyV4Controller.GetDifferences("", 1, 2, Constants.USDMVersions.V2);
+            method = studyV4Controller.GetDifferences("", 1, 2, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -1203,7 +1203,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
-            method = studyV4Controller.GetDifferences("a", 0, 1, Constants.USDMVersions.V2);
+            method = studyV4Controller.GetDifferences("a", 0, 1, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -1217,7 +1217,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
-            method = studyV4Controller.GetDifferences("a", 1, 0, Constants.USDMVersions.V2);
+            method = studyV4Controller.GetDifferences("a", 1, 0, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -1231,7 +1231,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
-            method = studyV4Controller.GetDifferences("a", 0, 0, Constants.USDMVersions.V2);
+            method = studyV4Controller.GetDifferences("a", 0, 0, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 

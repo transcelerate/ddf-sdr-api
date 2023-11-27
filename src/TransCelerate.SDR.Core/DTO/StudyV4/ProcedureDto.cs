@@ -6,7 +6,7 @@
         public string Name { get; set; }
         public string Label { get; set; }
         public string Description { get; set; }
-        public string Type { get; set; }
+        public string ProcedureType { get; set; }
         public CodeDto Code { get; set; }
         public object IsConditional { get; set; }
         public string IsConditionalReason { get; set; }

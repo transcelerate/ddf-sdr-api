@@ -767,21 +767,21 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             v3.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
             List<SearchResponseEntity> studyList = new()
             {                
-                new SearchResponseEntity
-                {
-                    StudyIdentifiers = JsonConvert.DeserializeObject<List<object>>(JsonConvert.SerializeObject(v4.Study.StudyIdentifiers)),
-                    StudyId = v4.Study.Id,
-                    StudyTitle = v4.Study.StudyTitle,
-                    StudyType = v4.Study.StudyType,
-                    StudyPhase = v4.Study.StudyPhase,
-                    SDRUploadVersion = v4.AuditTrail.SDRUploadVersion,
-                    EntryDateTime = v4.AuditTrail.EntryDateTime,
-                    HasAccess = true,
-                    UsdmVersion = v4.AuditTrail.UsdmVersion,
-                    InterventionModel = v4.Study.StudyDesigns.Select(y => y.InterventionModel) ?? null,
-                    StudyIndications = v4.Study.StudyDesigns.Select(y => y.Indications.Select(z => z.Description)) ?? null,
-                    StudyDesignIds = v4.Study.StudyDesigns.Select(x => x.Id) ?? null,
-                },
+                //new SearchResponseEntity
+                //{
+                //    StudyIdentifiers = JsonConvert.DeserializeObject<List<object>>(JsonConvert.SerializeObject(v4.Study.StudyIdentifiers)),
+                //    StudyId = v4.Study.Id,
+                //    StudyTitle = v4.Study.StudyTitle,
+                //    StudyType = v4.Study.StudyType,
+                //    StudyPhase = v4.Study.StudyPhase,
+                //    SDRUploadVersion = v4.AuditTrail.SDRUploadVersion,
+                //    EntryDateTime = v4.AuditTrail.EntryDateTime,
+                //    HasAccess = true,
+                //    UsdmVersion = v4.AuditTrail.UsdmVersion,
+                //    InterventionModel = v4.Study.StudyDesigns.Select(y => y.InterventionModel) ?? null,
+                //    StudyIndications = v4.Study.StudyDesigns.Select(y => y.Indications.Select(z => z.Description)) ?? null,
+                //    StudyDesignIds = v4.Study.StudyDesigns.Select(x => x.Id) ?? null,
+                //},
                 new SearchResponseEntity
                 {
                     StudyIdentifiers = JsonConvert.DeserializeObject<List<object>>(JsonConvert.SerializeObject(v2.Study.StudyIdentifiers)),
@@ -886,21 +886,21 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             Assert.IsNull(result);
 
 
-            _mockCommonRepository.Setup(x => x.SearchStudyV4(It.IsAny<SearchParametersEntity>(), user))
-                .Returns(Task.FromResult(new List<Core.Entities.StudyV4.SearchResponseEntity> { new Core.Entities.StudyV4.SearchResponseEntity
-                {
-                    StudyId = v4.Study.Id,
-                    StudyTitle = v4.Study.StudyTitle,
-                    StudyIdentifiers = v4.Study.StudyIdentifiers,
-                    StudyType = v4.Study.StudyType,
-                    StudyPhase = v4.Study.StudyPhase,
-                    SDRUploadVersion = v4.AuditTrail.SDRUploadVersion,
-                    EntryDateTime = v4.AuditTrail.EntryDateTime,                    
-                    UsdmVersion = v4.AuditTrail.UsdmVersion,
-                    InterventionModel = v4.Study.StudyDesigns.Select(y => y.InterventionModel) ?? null,
-                    StudyIndications = v4.Study.StudyDesigns.Select(y => y.Indications) ?? null,
-                    StudyDesignIds = v4.Study.StudyDesigns.Select(x => x.Id ?? x.Id) ?? null,
-                } }));
+            //_mockCommonRepository.Setup(x => x.SearchStudyV4(It.IsAny<SearchParametersEntity>(), user))
+            //    .Returns(Task.FromResult(new List<Core.Entities.StudyV4.SearchResponseEntity> { new Core.Entities.StudyV4.SearchResponseEntity
+            //    {
+            //        StudyId = v4.Study.Id,
+            //        StudyTitle = v4.Study.StudyTitle,
+            //        StudyIdentifiers = v4.Study.StudyIdentifiers,
+            //        StudyType = v4.Study.StudyType,
+            //        StudyPhase = v4.Study.StudyPhase,
+            //        SDRUploadVersion = v4.AuditTrail.SDRUploadVersion,
+            //        EntryDateTime = v4.AuditTrail.EntryDateTime,                    
+            //        UsdmVersion = v4.AuditTrail.UsdmVersion,
+            //        InterventionModel = v4.Study.StudyDesigns.Select(y => y.InterventionModel) ?? null,
+            //        StudyIndications = v4.Study.StudyDesigns.Select(y => y.Indications) ?? null,
+            //        StudyDesignIds = v4.Study.StudyDesigns.Select(x => x.Id ?? x.Id) ?? null,
+            //    } }));
 
             _mockCommonRepository.Setup(x => x.SearchStudyV2(It.IsAny<SearchParametersEntity>(), user))
                 .Returns(Task.FromResult(new List<Core.Entities.StudyV2.SearchResponseEntity> { new Core.Entities.StudyV2.SearchResponseEntity

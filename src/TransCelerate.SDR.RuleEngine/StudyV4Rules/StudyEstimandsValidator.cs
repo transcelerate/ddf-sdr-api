@@ -44,17 +44,17 @@ namespace TransCelerate.SDR.RuleEngineV4
             RuleForEach(x => x.IntercurrentEvents)
                 .SetValidator(new InterCurrentEventsValidator(_httpContextAccessor));
 
-            RuleFor(x => x.VariableOfInterest)
+            RuleFor(x => x.VariableOfInterestId)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyEstimandsValidator), nameof(EstimandDto.VariableOfInterest)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyEstimandsValidator), nameof(EstimandDto.VariableOfInterestId)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.Treatment)
+            RuleFor(x => x.TreatmentId)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyEstimandsValidator), nameof(EstimandDto.Treatment)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyEstimandsValidator), nameof(EstimandDto.TreatmentId)), ApplyConditionTo.AllValidators);
         }
     }
 }

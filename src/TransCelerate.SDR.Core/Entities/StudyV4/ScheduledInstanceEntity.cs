@@ -16,7 +16,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
     public class ScheduledInstanceEntity : IId
     {        
         public string Id { get; set; }
-        public string ExitId { get; set; }
+        public string TimelineExitId { get; set; }
         public string TimelineId { get; set; }
         public string DefaultConditionId { get; set; }
         public string EpochId { get; set; }

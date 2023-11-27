@@ -17,7 +17,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public List<IndicationEntity> Indications { get; set; }
         public List<StudyInterventionEntity> StudyInterventions { get; set; }
         public List<StudyDesignPopulationEntity> Populations { get; set; }
-        public List<SyntaxTemplateEntity> Objectives { get; set; }
+        public List<ObjectiveEntity> Objectives { get; set; }
         public List<ScheduleTimelineEntity> ScheduleTimelines { get; set; }
         public List<CodeEntity> TherapeuticAreas { get; set; }
         public List<EstimandEntity> Estimands { get; set; }
@@ -31,7 +31,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public List<StudyArmEntity> Arms { get; set; }
         public List<StudyEpochEntity> Epochs { get; set; }
         public List<StudyElementEntity> Elements { get; set; }
-        public List<SyntaxTemplateEntity> EligibilityCriteria { get; set; }
+        public List<EligibilityCriteriaEntity> EligibilityCriteria { get; set; }
         public List<SyntaxTemplateDictionaryEntity> Dictionaries { get; set; }
     }
 }

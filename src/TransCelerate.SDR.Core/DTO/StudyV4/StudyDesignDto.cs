@@ -15,7 +15,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public List<IndicationDto> Indications { get; set; }
         public List<StudyInterventionDto> StudyInterventions { get; set; }
         public List<StudyDesignPopulationDto> Populations { get; set; }
-        public List<SyntaxTemplateDto> Objectives { get; set; }
+        public List<ObjectiveDto> Objectives { get; set; }
         public List<ScheduleTimelineDto> ScheduleTimelines { get; set; }
         public List<CodeDto> TherapeuticAreas { get; set; }
         public List<EstimandDto> Estimands { get; set; }
@@ -29,7 +29,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public List<StudyArmDto> Arms { get; set; }
         public List<StudyEpochDto> Epochs { get; set; }
         public List<StudyElementDto> Elements { get; set; }
-        public List<SyntaxTemplateDto> EligibilityCriteria { get; set; }
+        public List<EligibilityCriteriaDto> EligibilityCriteria { get; set; }
         public List<SyntaxTemplateDictionaryDto> Dictionaries { get; set; }
     }
 }

@@ -12,6 +12,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public List<string> Synonyms { get; set; }
         public string Reference { get; set; }
         public List<BiomedicalConceptPropertyEntity> Properties { get; set; }
-        public AliasCodeEntity ConceptCode { get; set; }
+        public AliasCodeEntity Code { get; set; }
     }
 }

@@ -46,6 +46,9 @@
     <None Update="Data\ReportsRawData.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\SoASampleData V4.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\SoASampleData.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

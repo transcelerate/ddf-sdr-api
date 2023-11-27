@@ -59,7 +59,7 @@ namespace TransCelerate.SDR.RuleEngineV4
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EligibilityCriteriaValidator), nameof(EligibilityCriteriaDto.InstanceType)), ApplyConditionTo.AllValidators)
-               .Must(x => Enum.GetNames(typeof(SyntaxTemplateInstanceType)).Contains(x)).WithMessage(Constants.ValidationErrorMessage.ScheduledInstanceTypesError);
+               .Must(x => x == SyntaxTemplateInstanceType.ELIGIBILITY_CRITERIA.ToString()).WithMessage(Constants.ValidationErrorMessage.SyntaxTemplateInstanceTypesError);
 
             RuleFor(x => x.Category)
                .Cascade(CascadeMode.Stop)

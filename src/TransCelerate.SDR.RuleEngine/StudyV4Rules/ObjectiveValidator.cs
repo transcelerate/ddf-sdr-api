@@ -59,7 +59,7 @@ namespace TransCelerate.SDR.RuleEngineV4
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ObjectiveValidator), nameof(ObjectiveDto.InstanceType)), ApplyConditionTo.AllValidators)
-               .Must(x => Enum.GetNames(typeof(SyntaxTemplateInstanceType)).Contains(x)).WithMessage(Constants.ValidationErrorMessage.ScheduledInstanceTypesError);
+               .Must(x => x == SyntaxTemplateInstanceType.OBJECTIVE.ToString()).WithMessage(Constants.ValidationErrorMessage.SyntaxTemplateInstanceTypesError);
 
             RuleFor(x => x.Endpoints)
                .Cascade(CascadeMode.Stop)
@@ -68,10 +68,8 @@ namespace TransCelerate.SDR.RuleEngineV4
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ObjectiveValidator), nameof(ObjectiveDto.Endpoints)), ApplyConditionTo.AllValidators)
                .Must(x => UniquenessArrayValidator.ValidateArrayV4(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
-            RuleForEach(x => x.Endpoints).SetInheritanceValidator(v =>
-            {
-                v.Add(new EndpointValidator(_httpContextAccessor));
-            });
+            RuleForEach(x => x.Endpoints)
+                .SetValidator(new EndpointValidator(_httpContextAccessor));
 
             RuleFor(x => x.Level)
                .Cascade(CascadeMode.Stop)

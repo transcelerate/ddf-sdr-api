@@ -47,11 +47,11 @@ namespace TransCelerate.SDR.RuleEngineV4
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(BiomedicalConceptPropertyValidator), nameof(BiomedicalConceptPropertyDto.Enabled)), ApplyConditionTo.AllValidators)
                 .Must(ValidateDatatype.ValidateBoolean).WithMessage(Constants.ValidationErrorMessage.BooleanValidationFailed);
 
-            RuleFor(x => x.DataType)
+            RuleFor(x => x.Datatype)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(BiomedicalConceptPropertyValidator), nameof(BiomedicalConceptPropertyDto.DataType)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(BiomedicalConceptPropertyValidator), nameof(BiomedicalConceptPropertyDto.Datatype)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.ResponseCodes)
                .Cascade(CascadeMode.Stop)

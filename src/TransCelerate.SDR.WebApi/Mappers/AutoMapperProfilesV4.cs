@@ -46,21 +46,32 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<ResponseCodeDto, ResponseCodeEntity>().ReverseMap();
             CreateMap<ScheduleTimelineExitDto, ScheduleTimelineExitEntity>().ReverseMap();
             CreateMap<ScheduleTimelineDto, ScheduleTimelineEntity>().ReverseMap();
-            CreateMap<ScheduledInstanceDto, ScheduledInstanceEntity>()
-                //.ForMember(dest => dest.ScheduleInstanceType, opt => opt.MapFrom(src => src.ScheduleInstanceType.ToString()))
+            CreateMap<ScheduledInstanceDto, ScheduledInstanceEntity>()                
                 .Include<ScheduledDecisionInstanceDto, ScheduledDecisionInstanceEntity>()
                 .Include<ScheduledActivityInstanceDto, ScheduledActivityInstanceEntity>()
                 .ReverseMap();
             CreateMap<ScheduledDecisionInstanceDto, ScheduledDecisionInstanceEntity>().ReverseMap();
             CreateMap<ScheduledActivityInstanceDto, ScheduledActivityInstanceEntity>().ReverseMap();
             CreateMap<TimingDto, TimingEntity>().ReverseMap();
+            CreateMap<SyntaxTemplateDto, SyntaxTemplateEntity>()
+                .Include<ObjectiveDto, ObjectiveEntity>()
+                .Include<EndpointDto, EndpointEntity>()
+                .Include<EligibilityCriteriaDto, EligibilityCriteriaEntity>()
+                .ReverseMap();
+
+            CreateMap<SyntaxTemplateDictionaryDto, SyntaxTemplateDictionaryEntity>().ReverseMap();
+            CreateMap<QuantityDto, QuantityEntity>().ReverseMap();
+            CreateMap<AgentAdministrationDto, AgentAdministrationEntity>().ReverseMap();
+            CreateMap<AdministrationDurationDto, AdministrationDurationEntity>().ReverseMap();
+            CreateMap<EligibilityCriteriaDto, EligibilityCriteriaEntity>().ReverseMap();
+
 
             //SoA V3
             CreateMap<ScheduleTimelineEntity, ScheduleTimelines>()
                 .ForMember(dest => dest.ScheduleTimelineId, opt => opt.MapFrom(src => src.Id))
                 .ReverseMap();
             CreateMap<TimingEntity, TimingSoA>()
-                .ForMember(dest => dest.TimingType, opt => opt.MapFrom(src => src.TimingType != null ? src.TimingType.Decode : null))
+                .ForMember(dest => dest.TimingType, opt => opt.MapFrom(src => src.Type != null ? src.Type.Decode : null))
                 .ReverseMap();
 
             //ECPT Mapper
