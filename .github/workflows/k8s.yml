@@ -161,7 +161,7 @@ jobs:
         docker push ${{ secrets.ACR_NAME }}/sdrapibuild:latest
 
 
-     # Deploy to k8s cluster
+     # Deploy to AKS cluster
     - name: Deploy to Kubernetes cluster
       uses: Azure/k8s-deploy@v1
       with:        
