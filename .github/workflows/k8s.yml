@@ -130,7 +130,7 @@ jobs:
         # Resource Group Name
         resource-group: rg-sdr-aks-eastus
         # AKS Cluster Name
-        cluster-name: aks-sdr-dev-eastus
+        cluster-name: kub-sdr-dev-eastus
       
     # - name: 'Run Azure webapp deploy action using publish profile credentials'
     #   env:  
