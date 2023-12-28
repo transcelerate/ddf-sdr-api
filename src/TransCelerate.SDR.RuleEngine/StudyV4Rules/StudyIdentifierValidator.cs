@@ -9,29 +9,29 @@ namespace TransCelerate.SDR.RuleEngineV4
     /// <summary>
     /// This Class is the validator for StudyIdentifiers
     /// </summary>
-    public class StudyIdentifiersValidator : AbstractValidator<StudyIdentifierDto>
+    public class StudyIdentifierValidator : AbstractValidator<StudyIdentifierDto>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public StudyIdentifiersValidator(IHttpContextAccessor httpContextAccessor)
+        public StudyIdentifierValidator(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
             RuleFor(x => x.Id)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyIdentifiersValidator), nameof(StudyIdentifierDto.Id)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyIdentifierValidator), nameof(StudyIdentifierDto.Id)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.StudyIdentifier)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyIdentifiersValidator), nameof(StudyIdentifierDto.StudyIdentifier)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyIdentifierValidator), nameof(StudyIdentifierDto.StudyIdentifier)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.StudyIdentifierScope)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyIdentifiersValidator), nameof(StudyIdentifierDto.StudyIdentifierScope)), ApplyConditionTo.AllValidators)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyIdentifierValidator), nameof(StudyIdentifierDto.StudyIdentifierScope)), ApplyConditionTo.AllValidators)
                 .SetValidator(new OrganisationValidator(_httpContextAccessor));
         }
     }

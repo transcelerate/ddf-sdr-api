@@ -169,42 +169,42 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             return objectivesEndpointsAndEstimandsDto;
         }
 
-        public static string GetPlannedSexOfParticipantsV4(List<TransCelerate.SDR.Core.DTO.StudyV4.StudyDesignPopulationDto> studyDesignPopulations)
-        {
-            if (studyDesignPopulations != null && studyDesignPopulations.Any())
-            {
-                List<TransCelerate.SDR.Core.DTO.StudyV4.CodeDto> plannedSexofParticipants = studyDesignPopulations.Where(x => x.PlannedSexOfParticipants != null).SelectMany(x => x.PlannedSexOfParticipants).ToList();
-                if (plannedSexofParticipants.Any())
-                {
-                    if (plannedSexofParticipants.Count == 1)
-                    {
-                        return GetCptMappingValue(Constants.SdrCptMasterDataEntities.SexofParticipants, plannedSexofParticipants[0].Code) ?? plannedSexofParticipants[0].Decode;
-                    }
-                    var cptMappingForPlannedSexofParticipants = plannedSexofParticipants.Select(x => new
-                    {
-                        code = x.Code,
-                        decode = x.Decode,
-                        cptValue = GetCptMappingValue(Constants.SdrCptMasterDataEntities.SexofParticipants, x.Code)
-                    });
-                    if ((cptMappingForPlannedSexofParticipants.Any(x => x.cptValue == Constants.PlannedSexOfParticipants.Male) && cptMappingForPlannedSexofParticipants.Any(x => x.cptValue == Constants.PlannedSexOfParticipants.Female)) || cptMappingForPlannedSexofParticipants.Any(x => x.cptValue == Constants.PlannedSexOfParticipants.MaleOrFemale))
-                    {
-                        return Constants.PlannedSexOfParticipants.MaleOrFemale;
-                    }
-                    else if (cptMappingForPlannedSexofParticipants.Any(x => x.cptValue == Constants.PlannedSexOfParticipants.Male))
-                    {
-                        return Constants.PlannedSexOfParticipants.Male;
-                    }
-                    else if (cptMappingForPlannedSexofParticipants.Any(x => x.cptValue == Constants.PlannedSexOfParticipants.Female))
-                    {
-                        return Constants.PlannedSexOfParticipants.Female;
-                    }
-                    else
-                        return String.Empty;
-                }
-            }
-            return null;
-        }
-        public static TransCelerate.SDR.Core.DTO.StudyV4.StudyProtocolVersionDto GetOrderedStudyProtocolsV4(List<TransCelerate.SDR.Core.DTO.StudyV4.StudyProtocolVersionDto> studyProtocolVersions)
+        //public static string GetPlannedSexOfParticipantsV4(List<TransCelerate.SDR.Core.DTO.StudyV4.StudyDesignPopulationDto> studyDesignPopulations)
+        //{
+        //    if (studyDesignPopulations != null && studyDesignPopulations.Any())
+        //    {
+        //        List<TransCelerate.SDR.Core.DTO.StudyV4.CodeDto> plannedSexofParticipants = studyDesignPopulations.Where(x => x.PlannedSexOfParticipants != null).SelectMany(x => x.PlannedSexOfParticipants).ToList();
+        //        if (plannedSexofParticipants.Any())
+        //        {
+        //            if (plannedSexofParticipants.Count == 1)
+        //            {
+        //                return GetCptMappingValue(Constants.SdrCptMasterDataEntities.SexofParticipants, plannedSexofParticipants[0].Code) ?? plannedSexofParticipants[0].Decode;
+        //            }
+        //            var cptMappingForPlannedSexofParticipants = plannedSexofParticipants.Select(x => new
+        //            {
+        //                code = x.Code,
+        //                decode = x.Decode,
+        //                cptValue = GetCptMappingValue(Constants.SdrCptMasterDataEntities.SexofParticipants, x.Code)
+        //            });
+        //            if ((cptMappingForPlannedSexofParticipants.Any(x => x.cptValue == Constants.PlannedSexOfParticipants.Male) && cptMappingForPlannedSexofParticipants.Any(x => x.cptValue == Constants.PlannedSexOfParticipants.Female)) || cptMappingForPlannedSexofParticipants.Any(x => x.cptValue == Constants.PlannedSexOfParticipants.MaleOrFemale))
+        //            {
+        //                return Constants.PlannedSexOfParticipants.MaleOrFemale;
+        //            }
+        //            else if (cptMappingForPlannedSexofParticipants.Any(x => x.cptValue == Constants.PlannedSexOfParticipants.Male))
+        //            {
+        //                return Constants.PlannedSexOfParticipants.Male;
+        //            }
+        //            else if (cptMappingForPlannedSexofParticipants.Any(x => x.cptValue == Constants.PlannedSexOfParticipants.Female))
+        //            {
+        //                return Constants.PlannedSexOfParticipants.Female;
+        //            }
+        //            else
+        //                return String.Empty;
+        //        }
+        //    }
+        //    return null;
+        //}
+        public static TransCelerate.SDR.Core.DTO.StudyV4.StudyProtocolDocumentVersionDto GetOrderedStudyProtocolsV4(List<TransCelerate.SDR.Core.DTO.StudyV4.StudyProtocolDocumentVersionDto> studyProtocolVersions)
         {
             var protocolsWithDateAndVersions = studyProtocolVersions.Where(x => DateTime.TryParse(x.ProtocolEffectiveDate, out var date) && decimal.TryParse(x.ProtocolVersion, out decimal version)).ToList();
 

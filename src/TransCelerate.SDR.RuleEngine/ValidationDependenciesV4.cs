@@ -16,14 +16,14 @@ namespace TransCelerate.SDR.RuleEngineV4
             // Validators            
             services.AddTransient<IValidator<ActivityDto>, ActivityValidator>();
             services.AddTransient<IValidator<AnalysisPopulationDto>, AnalysisPopulationValidator>();
-            services.AddTransient<IValidator<StudyDto>, StudyValidator>();
+            services.AddTransient<IValidator<StudyVersionDto>, StudyVersionValidator>();
             services.AddTransient<IValidator<CodeDto>, CodeValidator>();
             services.AddTransient<IValidator<ProcedureDto>, ProcedureValidator>();
             services.AddTransient<IValidator<EncounterDto>, EncounterValidator>();
             services.AddTransient<IValidator<EndpointDto>, EndpointValidator>();
-            services.AddTransient<IValidator<EstimandDto>, StudyEstimandsValidator>();
+            services.AddTransient<IValidator<EstimandDto>, EstimandValidator>();
             services.AddTransient<IValidator<IndicationDto>, IndicationValidator>();
-            services.AddTransient<IValidator<InterCurrentEventDto>, InterCurrentEventsValidator>();
+            services.AddTransient<IValidator<InterCurrentEventDto>, InterCurrentEventValidator>();
             services.AddTransient<IValidator<StudyInterventionDto>, StudyInterventionValidator>();
             services.AddTransient<IValidator<ObjectiveDto>, ObjectiveValidator>();
             services.AddTransient<IValidator<StudyArmDto>, StudyArmValidator>();
@@ -33,9 +33,9 @@ namespace TransCelerate.SDR.RuleEngineV4
             services.AddTransient<IValidator<StudyDefinitionsDto>, StudyDefinitionsValidator>();
             services.AddTransient<IValidator<StudyElementDto>, StudyElementsValidator>();
             services.AddTransient<IValidator<StudyEpochDto>, StudyEpochValidator>();
-            services.AddTransient<IValidator<StudyIdentifierDto>, StudyIdentifiersValidator>();
+            services.AddTransient<IValidator<StudyIdentifierDto>, StudyIdentifierValidator>();
             services.AddTransient<IValidator<OrganisationDto>, OrganisationValidator>();
-            services.AddTransient<IValidator<StudyProtocolVersionDto>, StudyProtocolVersionsValidator>();
+            services.AddTransient<IValidator<StudyProtocolDocumentVersionDto>, StudyProtocolDocumentVersionValidator>();
             services.AddTransient<IValidator<TransitionRuleDto>, TransitionRuleValidator>();
             services.AddTransient<IValidator<AliasCodeDto>, AliasCodeValidator>();
             services.AddTransient<IValidator<AddressDto>, AddressValidator>();

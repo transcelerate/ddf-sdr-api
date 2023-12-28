@@ -11,59 +11,68 @@ namespace TransCelerate.SDR.WebApi.Mappers
             AllowNullCollections = true;
             AllowNullDestinationValues = true;
 
-            CreateMap<StudyDefinitionsEntity, StudyDefinitionsDto>().ReverseMap();
+
             CreateMap<ActivityDto, ActivityEntity>().ReverseMap();
-            CreateMap<AnalysisPopulationDto, AnalysisPopulationEntity>().ReverseMap();
-            CreateMap<AuditTrailEntity, AuditTrailDto>()
-                //.ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.EntryDateTime.ToString(Constants.DateFormats.DateFormatForAuditResponse).ToUpper()))
-                .ReverseMap();
-            CreateMap<StudyDto, StudyEntity>().ReverseMap();
-            CreateMap<CodeDto, CodeEntity>().ReverseMap();
-            CreateMap<ProcedureDto, ProcedureEntity>().ReverseMap();
-            CreateMap<EncounterDto, EncounterEntity>().ReverseMap();
-            CreateMap<EndpointEntity, EndpointDto>().ReverseMap();
-            CreateMap<EstimandDto, EstimandEntity>().ReverseMap();
-            CreateMap<IndicationDto, IndicationEntity>().ReverseMap();
-            CreateMap<InterCurrentEventDto, InterCurrentEventEntity>().ReverseMap();
-            CreateMap<StudyInterventionDto, StudyInterventionEntity>().ReverseMap();
-            CreateMap<ObjectiveDto, ObjectiveEntity>().ReverseMap();
-            CreateMap<StudyArmDto, StudyArmEntity>().ReverseMap();
-            CreateMap<StudyCellDto, StudyCellEntity>().ReverseMap();
-            CreateMap<StudyDesignDto, StudyDesignEntity>().ReverseMap();
-            CreateMap<StudyDesignPopulationDto, StudyDesignPopulationEntity>().ReverseMap();
-            CreateMap<StudyElementDto, StudyElementEntity>().ReverseMap();
-            CreateMap<StudyEpochDto, StudyEpochEntity>().ReverseMap();
-            CreateMap<StudyIdentifierDto, StudyIdentifierEntity>().ReverseMap();
-            CreateMap<OrganisationDto, OrganisationEntity>().ReverseMap();
-            CreateMap<StudyProtocolVersionDto, StudyProtocolVersionEntity>().ReverseMap();
-            CreateMap<TransitionRuleDto, TransitionRuleEntity>().ReverseMap();
-            CreateMap<AliasCodeDto, AliasCodeEntity>().ReverseMap();
             CreateMap<AddressDto, AddressEntity>().ReverseMap();
+            CreateMap<AdministrationDurationDto, AdministrationDurationEntity>().ReverseMap();
+            CreateMap<AgentAdministrationDto, AgentAdministrationEntity>().ReverseMap();
+            CreateMap<AliasCodeDto, AliasCodeEntity>().ReverseMap();
+            CreateMap<AnalysisPopulationDto, AnalysisPopulationEntity>().ReverseMap();
+            CreateMap<AuditTrailEntity, AuditTrailDto>().ReverseMap();
             CreateMap<BiomedicalConceptCategoryDto, BiomedicalConceptCategoryEntity>().ReverseMap();
             CreateMap<BiomedicalConceptDto, BiomedicalConceptEntity>().ReverseMap();
             CreateMap<BiomedicalConceptPropertyDto, BiomedicalConceptPropertyEntity>().ReverseMap();
             CreateMap<BiomedicalConceptSurrogateDto, BiomedicalConceptSurrogateEntity>().ReverseMap();
+            CreateMap<CharacteristicDto, CharacteristicEntity>().ReverseMap();
+            CreateMap<CodeDto, CodeEntity>().ReverseMap();
+            CreateMap<EligibilityCriteriaDto, EligibilityCriteriaEntity>().ReverseMap();
+            CreateMap<EncounterDto, EncounterEntity>().ReverseMap();
+            CreateMap<EndpointEntity, EndpointDto>().ReverseMap();
+            CreateMap<EstimandDto, EstimandEntity>().ReverseMap();
+            CreateMap<GeographicScopeDto, GeographicScopeEntity>().ReverseMap();
+            CreateMap<GovernanceDateDto, GovernanceDateEntity>().ReverseMap();
+            CreateMap<IndicationDto, IndicationEntity>().ReverseMap();            
+            CreateMap<InterCurrentEventDto, InterCurrentEventEntity>().ReverseMap();
+            CreateMap<NarrativeContentDto, NarrativeContentEntity>().ReverseMap();
+            CreateMap<ObjectiveDto, ObjectiveEntity>().ReverseMap();
+            CreateMap<OrganisationDto, OrganisationEntity>().ReverseMap();
+            CreateMap<PopulationDefinitionDto, PopulationDefinitionEntity>().ReverseMap();
+            CreateMap<ProcedureDto, ProcedureEntity>().ReverseMap();
+            CreateMap<QuantityDto, QuantityEntity>().ReverseMap();
+            CreateMap<RangeDto, RangeEntity>().ReverseMap();
             CreateMap<ResponseCodeDto, ResponseCodeEntity>().ReverseMap();
-            CreateMap<ScheduleTimelineExitDto, ScheduleTimelineExitEntity>().ReverseMap();
             CreateMap<ScheduleTimelineDto, ScheduleTimelineEntity>().ReverseMap();
-            CreateMap<ScheduledInstanceDto, ScheduledInstanceEntity>()                
+            CreateMap<ScheduleTimelineExitDto, ScheduleTimelineExitEntity>().ReverseMap();
+            CreateMap<ScheduledActivityInstanceDto, ScheduledActivityInstanceEntity>().ReverseMap();
+            CreateMap<ScheduledDecisionInstanceDto, ScheduledDecisionInstanceEntity>().ReverseMap();
+            CreateMap<ScheduledInstanceDto, ScheduledInstanceEntity>()
                 .Include<ScheduledDecisionInstanceDto, ScheduledDecisionInstanceEntity>()
                 .Include<ScheduledActivityInstanceDto, ScheduledActivityInstanceEntity>()
                 .ReverseMap();
-            CreateMap<ScheduledDecisionInstanceDto, ScheduledDecisionInstanceEntity>().ReverseMap();
-            CreateMap<ScheduledActivityInstanceDto, ScheduledActivityInstanceEntity>().ReverseMap();
-            CreateMap<TimingDto, TimingEntity>().ReverseMap();
+            CreateMap<StudyArmDto, StudyArmEntity>().ReverseMap();
+            CreateMap<StudyCellDto, StudyCellEntity>().ReverseMap();
+            CreateMap<StudyCohortDto, StudyCohortEntity>().ReverseMap();
+            CreateMap<StudyDefinitionsEntity, StudyDefinitionsDto>().ReverseMap();
+            CreateMap<StudyDesignDto, StudyDesignEntity>().ReverseMap();
+            CreateMap<StudyDesignPopulationDto, StudyDesignPopulationEntity>().ReverseMap();
+            CreateMap<StudyElementDto, StudyElementEntity>().ReverseMap();
+            CreateMap<StudyDto, StudyEntity>().ReverseMap();
+            CreateMap<StudyEpochDto, StudyEpochEntity>().ReverseMap();
+            CreateMap<StudyIdentifierDto, StudyIdentifierEntity>().ReverseMap();
+            CreateMap<StudyInterventionDto, StudyInterventionEntity>().ReverseMap();
+            CreateMap<StudyProtocolDocumentDto, StudyProtocolDocumentEntity>().ReverseMap();
+            CreateMap<StudyProtocolDocumentVersionDto, StudyProtocolDocumentVersionEntity>().ReverseMap();
+            CreateMap<StudyVersionDto, StudyVersionEntity>().ReverseMap();
+            CreateMap<SubjectEnrollmentDto, SubjectEnrollmentEntity>().ReverseMap();
+            CreateMap<SyntaxTemplateDictionaryDto, SyntaxTemplateDictionaryEntity>().ReverseMap();
             CreateMap<SyntaxTemplateDto, SyntaxTemplateEntity>()
                 .Include<ObjectiveDto, ObjectiveEntity>()
                 .Include<EndpointDto, EndpointEntity>()
                 .Include<EligibilityCriteriaDto, EligibilityCriteriaEntity>()
+                .Include<CharacteristicDto, CharacteristicEntity>()
                 .ReverseMap();
-
-            CreateMap<SyntaxTemplateDictionaryDto, SyntaxTemplateDictionaryEntity>().ReverseMap();
-            CreateMap<QuantityDto, QuantityEntity>().ReverseMap();
-            CreateMap<AgentAdministrationDto, AgentAdministrationEntity>().ReverseMap();
-            CreateMap<AdministrationDurationDto, AdministrationDurationEntity>().ReverseMap();
-            CreateMap<EligibilityCriteriaDto, EligibilityCriteriaEntity>().ReverseMap();
+            CreateMap<TimingDto, TimingEntity>().ReverseMap();
+            CreateMap<TransitionRuleDto, TransitionRuleEntity>().ReverseMap();
 
 
             //SoA V3

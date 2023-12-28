@@ -6,6 +6,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.StudyV4;
 using TransCelerate.SDR.Core.DTO.Token;
@@ -450,7 +451,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             StudyDefinitionsDto study = GetDtoDataFromStaticJson();
 
             _mockStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>(), It.IsAny<string[]>()))
-                .Returns(Task.FromResult(study.Study.StudyDesigns as object));
+                .Returns(Task.FromResult(study.Study.Versions.FirstOrDefault().StudyDesigns as object));
             StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
             var listofelements = string.Join(",", Constants.StudyDesignElementsV4);
@@ -459,7 +460,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             var result = method.Result;
 
             //Expected
-            var expected = study.Study.StudyDesigns;
+            var expected = study.Study.Versions.FirstOrDefault()?.StudyDesigns;
 
             //Actual            
             var actual_result = JsonConvert.DeserializeObject<List<StudyDesignDto>>(

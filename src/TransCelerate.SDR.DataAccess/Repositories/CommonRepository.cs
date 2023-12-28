@@ -443,17 +443,17 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                               .Match(DataFilterCommon.GetFiltersForSearchV4(searchParameters, GetGroupsOfUser(user).Result, user))
                                               .Project(x => new Core.Entities.StudyV4.SearchResponseEntity
                                               {
-                                                  StudyId = x.Study.Id,
-                                                  StudyTitle = x.Study.StudyTitle,
-                                                  StudyType = x.Study.StudyType,
-                                                  StudyPhase = x.Study.StudyPhase,
-                                                  StudyIdentifiers = x.Study.StudyIdentifiers,
-                                                  InterventionModel = x.Study.StudyDesigns.Select(y => y.InterventionModel) ?? null,
-                                                  StudyIndications = x.Study.StudyDesigns.Select(y => y.Indications) ?? null,
-                                                  EntryDateTime = x.AuditTrail.EntryDateTime,
-                                                  SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
-                                                  UsdmVersion = x.AuditTrail.UsdmVersion,
-                                                  StudyDesignIds = x.Study.StudyDesigns.Select(x => x.Id) ?? null,
+                                                  //StudyId = x.Study.Id,
+                                                  //StudyTitle = x.Study.StudyTitle,
+                                                  //StudyType = x.Study.StudyType,
+                                                  //StudyPhase = x.Study.StudyPhase,
+                                                  //StudyIdentifiers = x.Study.StudyIdentifiers,
+                                                  //InterventionModel = x.Study.StudyDesigns.Select(y => y.InterventionModel) ?? null,
+                                                  //StudyIndications = x.Study.StudyDesigns.Select(y => y.Indications) ?? null,
+                                                  //EntryDateTime = x.AuditTrail.EntryDateTime,
+                                                  //SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+                                                  //UsdmVersion = x.AuditTrail.UsdmVersion,
+                                                  //StudyDesignIds = x.Study.StudyDesigns.Select(x => x.Id) ?? null,
                                               })
                                               .ToListAsync()
                                               .ConfigureAwait(false);

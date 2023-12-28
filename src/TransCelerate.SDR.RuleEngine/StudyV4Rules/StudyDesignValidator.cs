@@ -129,7 +129,7 @@ namespace TransCelerate.SDR.RuleEngineV4
                 .Must(x => UniquenessArrayValidator.ValidateArrayV4(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
             RuleForEach(x => x.Estimands)
-                .SetValidator(new StudyEstimandsValidator(_httpContextAccessor));
+                .SetValidator(new EstimandValidator(_httpContextAccessor));
 
             RuleFor(x => x.TherapeuticAreas)
                 .Cascade(CascadeMode.Stop)

@@ -6,6 +6,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.StudyV4;
@@ -112,7 +113,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             StudyDefinitionsEntity studyEntity = GetEntityDataFromStaticJson();
             StudyDefinitionsEntity entity = null;
             StudyDefinitionsDto studyDto = GetDtoDataFromStaticJson();
-            studyDto.Study.StudyTitle = "New";
+            studyDto.Study.Versions.FirstOrDefault().StudyTitle = "New";
             studyDto.Study.Id = "";
             studyEntity.AuditTrail = new AuditTrailEntity { CreatedBy = user.UserName, EntryDateTime = DateTime.Now, SDRUploadVersion = 0, UsdmVersion = Constants.USDMVersions.V3 };
             studyDto.AuditTrail = new AuditTrailDto { EntryDateTime = DateTime.Now, SDRUploadVersion = 1, UsdmVersion = Constants.USDMVersions.V3 };
@@ -338,7 +339,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             user.UserName = "user1@SDR.com";
             StudyDefinitionsDto studyDto = GetDtoDataFromStaticJson();
             StudyDefinitionsEntity studyEntity = GetEntityDataFromStaticJson();
-            studyEntity.Study.StudyType.Decode = "OBSERVATIONAL";
+            studyEntity.Study.Versions.FirstOrDefault().Type.Decode = "OBSERVATIONAL";
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity));
             _mockStudyRepository.Setup(x => x.GetGroupsOfUser(user))
@@ -406,7 +407,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             Assert.AreEqual("studyId1", method.Result.Study.Id);
 
             study.Study.Id = "studyId5";
-            study.Study.StudyType.Decode = "Interventional";
+            study.Study.Versions.FirstOrDefault().Type.Decode = "Interventional";
             method = studyService.CheckAccessForAStudy(study, user);
             method.Wait();
 
@@ -448,7 +449,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             user.UserName = "user1@SDR.com";
             StudyDefinitionsDto studyDto = GetDtoDataFromStaticJson();
             StudyDefinitionsEntity studyEntity = GetEntityDataFromStaticJson();
-            studyEntity.Study.StudyType.Decode = "OBSERVATIONAL";
+            studyEntity.Study.Versions.FirstOrDefault().Type.Decode = "OBSERVATIONAL";
             _mockStudyRepository.Setup(x => x.GetPartialStudyDesignItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity));
             _mockStudyRepository.Setup(x => x.GetGroupsOfUser(user))
@@ -466,7 +467,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             //Assert          
             Assert.IsNotNull(actual_result);
 
-            studyEntity.Study.StudyDesigns = null;
+            studyEntity.Study.Versions.FirstOrDefault().StudyDesigns = null;
             _mockStudyRepository.Setup(x => x.GetPartialStudyDesignItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                     .Returns(Task.FromResult(studyEntity));
             method = studyService.GetStudyDesigns("1", null, 0, user, null);
@@ -509,7 +510,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             user.UserName = "user1@SDR.com";
             StudyDefinitionsDto studyDto = GetDtoDataFromStaticJson();
             StudyDefinitionsEntity studyEntity = GetEntityDataFromStaticJson();
-            studyEntity.Study.StudyType.Decode = "OBSERVATIONAL";
+            studyEntity.Study.Versions.FirstOrDefault().Type.Decode = "OBSERVATIONAL";
             _mockStudyRepository.Setup(x => x.GetPartialStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string[]>()))
                    .Returns(Task.FromResult(studyEntity));
             _mockStudyRepository.Setup(x => x.GetGroupsOfUser(user))
@@ -527,7 +528,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             result = method.Result;
 
             user.UserRole = Constants.Roles.App_User;
-            studyEntity.Study.StudyType.Decode = "FAILURE STUDY TYPE";
+            studyEntity.Study.Versions.FirstOrDefault().Type.Decode = "FAILURE STUDY TYPE";
             _mockStudyRepository.Setup(x => x.GetPartialStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string[]>()))
                    .Returns(Task.FromResult(studyEntity));
             method = studyService.GetPartialStudyElements("1", 0, user, Constants.StudyElementsV4);
@@ -551,7 +552,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             user.UserName = "user1@SDR.com";
             StudyDefinitionsDto studyDto = GetDtoDataFromStaticJson();
             StudyDefinitionsEntity studyEntity = GetEntityDataFromStaticJson();
-            studyEntity.Study.StudyType.Decode = "OBSERVATIONAL";
+            studyEntity.Study.Versions.FirstOrDefault().Type.Decode = "OBSERVATIONAL";
             _mockStudyRepository.Setup(x => x.GetPartialStudyDesignItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity));
             _mockStudyRepository.Setup(x => x.GetGroupsOfUser(user))
@@ -568,14 +569,14 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             method.Wait();
             result = method.Result;
 
-            studyEntity.Study.StudyDesigns[0].Id = "a";
+            studyEntity.Study.Versions.FirstOrDefault().StudyDesigns[0].Id = "a";
             _mockStudyRepository.Setup(x => x.GetPartialStudyDesignItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                     .Returns(Task.FromResult(studyEntity));
             method = studyService.GetPartialStudyDesigns("1", "b", 0, user, Constants.StudyDesignElementsV4);
             method.Wait();
 
             user.UserRole = Constants.Roles.App_User;
-            studyEntity.Study.StudyType.Decode = "FAILURE STUDY TYPE";
+            studyEntity.Study.Versions.FirstOrDefault().Type.Decode = "FAILURE STUDY TYPE";
             _mockStudyRepository.Setup(x => x.GetPartialStudyDesignItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                     .Returns(Task.FromResult(studyEntity));
             method = studyService.GetPartialStudyDesigns("1", "b", 0, user, Constants.StudyDesignElementsV4);
@@ -650,7 +651,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             user.UserName = "user1@SDR.com";
             StudyDefinitionsDto studyDto = GetDtoDataFromStaticJson();
             StudyDefinitionsEntity studyEntity = GetEntityDataFromStaticJson();
-            studyEntity.Study.StudyType.Decode = "OBSERVATIONAL";
+            studyEntity.Study.Versions.FirstOrDefault().Type.Decode = "OBSERVATIONAL";
             _mockStudyRepository.Setup(x => x.GetStudyItemsForCheckingAccessAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity));
             _mockStudyRepository.Setup(x => x.GetGroupsOfUser(user))
@@ -691,18 +692,18 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             StudyDefinitionsEntity studyEntity = GetEntityDataFromStaticJson();
             SoADto SoA = GetSOAV4DataFromStaticJson();
-            studyEntity.Study.StudyType.Decode = "OBSERVATIONAL";
-            studyEntity.Study.StudyDesigns[0].Id = "Sd_1";
-            studyEntity.Study.StudyDesigns[0].Encounters = GetEncountersForSoADataFromStaticJson();
-            studyEntity.Study.StudyDesigns[0].Activities = GetActivitiesForSoADataFromStaticJson();
-            studyEntity.Study.StudyDesigns[0].ScheduleTimelines = GetTimelinesForSoADataFromStaticJson();
+            studyEntity.Study.Versions.FirstOrDefault().Type.Decode = "OBSERVATIONAL";
+            studyEntity.Study.Versions.FirstOrDefault().StudyDesigns[0].Id = "Sd_1";
+            studyEntity.Study.Versions.FirstOrDefault().StudyDesigns[0].Encounters = GetEncountersForSoADataFromStaticJson();
+            studyEntity.Study.Versions.FirstOrDefault().StudyDesigns[0].Activities = GetActivitiesForSoADataFromStaticJson();
+            studyEntity.Study.Versions.FirstOrDefault().StudyDesigns[0].ScheduleTimelines = GetTimelinesForSoADataFromStaticJson();
 
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity));
 
             StudyServiceV4 studyService = new(_mockStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockServiceBusClient.Object, _mockChangeAuditRepository.Object);
 
-            var method = studyService.GetSOAV4("1", studyEntity.Study.StudyDesigns[0].Id, studyEntity.Study.StudyDesigns[0].ScheduleTimelines[0].Id, 0, user);
+            var method = studyService.GetSOAV4("1", studyEntity.Study.Versions.FirstOrDefault().StudyDesigns[0].Id, studyEntity.Study.Versions.FirstOrDefault().StudyDesigns[0].ScheduleTimelines[0].Id, 0, user);
             method.Wait();
             var result = method.Result;
 
@@ -714,7 +715,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             Assert.IsNotNull(actual_result);
             Assert.IsInstanceOf(typeof(SoADto), result);
 
-            method = studyService.GetSOAV4("1", studyEntity.Study.StudyDesigns[0].Id, "", 0, user);
+            method = studyService.GetSOAV4("1", studyEntity.Study.Versions.FirstOrDefault().StudyDesigns[0].Id, "", 0, user);
             method.Wait();
             result = method.Result;
 
@@ -731,7 +732,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             Assert.AreEqual(method.Result.ToString(), Constants.ErrorMessages.StudyDesignNotFound);
 
-            method = studyService.GetSOAV4("1", studyEntity.Study.StudyDesigns[0].Id, "Wf1", 0, user);
+            method = studyService.GetSOAV4("1", studyEntity.Study.Versions.FirstOrDefault().StudyDesigns[0].Id, "Wf1", 0, user);
             method.Wait();
 
             Assert.AreEqual(method.Result.ToString(), Constants.ErrorMessages.ScheduleTimelineNotFound);
@@ -760,7 +761,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             Assert.IsNull(method.Result);
 
             user.UserRole = Constants.Roles.Org_Admin;
-            studyEntity.Study.StudyDesigns = null;
+            studyEntity.Study.Versions.FirstOrDefault().StudyDesigns = null;
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                  .Returns(Task.FromResult(studyEntity));
 
@@ -781,7 +782,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             user.UserName = "user1@SDR.com";
             StudyDefinitionsDto studyDto = GetDtoDataFromStaticJson();
             StudyDefinitionsEntity studyEntity = GetEntityDataFromStaticJson();
-            studyEntity.Study.StudyType.Decode = "OBSERVATIONAL";
+            studyEntity.Study.Versions.FirstOrDefault().Type.Decode = "OBSERVATIONAL";
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity));
             _mockStudyRepository.Setup(x => x.GetGroupsOfUser(user))
@@ -816,17 +817,17 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         //[Test]
         public void SexOfParticipants_UnitTesting()
         {
-            var jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV4.json");
-            var data = JsonConvert.DeserializeObject<TransCelerate.SDR.Core.DTO.StudyV4.StudyDefinitionsDto>(jsonData);
-            var malePopulation = data.Study.StudyDesigns[0].Populations[0].PlannedSexOfParticipants[1];
-            data.Study.StudyDesigns[0].Populations[0].PlannedSexOfParticipants = new List<Core.DTO.StudyV4.CodeDto> { data.Study.StudyDesigns[0].Populations[0].PlannedSexOfParticipants[0], data.Study.StudyDesigns[0].Populations[0].PlannedSexOfParticipants[0] };
+            //var jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV4.json");
+            //var data = JsonConvert.DeserializeObject<TransCelerate.SDR.Core.DTO.StudyV4.StudyDefinitionsDto>(jsonData);
+            //var malePopulation = data.Study.StudyDesigns[0].Populations[0].PlannedSexOfParticipants[1];
+            //data.Study.StudyDesigns[0].Populations[0].PlannedSexOfParticipants = new List<Core.DTO.StudyV4.CodeDto> { data.Study.StudyDesigns[0].Populations[0].PlannedSexOfParticipants[0], data.Study.StudyDesigns[0].Populations[0].PlannedSexOfParticipants[0] };
 
-            Assert.AreEqual(Constants.PlannedSexOfParticipants.Female, Core.Utilities.Helpers.ECPTHelper.GetPlannedSexOfParticipantsV4(data.Study.StudyDesigns[0].Populations));
+            //Assert.AreEqual(Constants.PlannedSexOfParticipants.Female, Core.Utilities.Helpers.ECPTHelper.GetPlannedSexOfParticipantsV4(data.Study.StudyDesigns[0].Populations));
 
-            data.Study.StudyDesigns[0].Populations[0].PlannedSexOfParticipants = new List<Core.DTO.StudyV4.CodeDto> { malePopulation, malePopulation };
-            Assert.AreEqual(Constants.PlannedSexOfParticipants.Male, Core.Utilities.Helpers.ECPTHelper.GetPlannedSexOfParticipantsV4(data.Study.StudyDesigns[0].Populations));
-            data.Study.StudyDesigns[0].Populations = null;
-            Assert.IsNull(Core.Utilities.Helpers.ECPTHelper.GetPlannedSexOfParticipantsV4(data.Study.StudyDesigns[0].Populations));
+            //data.Study.StudyDesigns[0].Populations[0].PlannedSexOfParticipants = new List<Core.DTO.StudyV4.CodeDto> { malePopulation, malePopulation };
+            //Assert.AreEqual(Constants.PlannedSexOfParticipants.Male, Core.Utilities.Helpers.ECPTHelper.GetPlannedSexOfParticipantsV4(data.Study.StudyDesigns[0].Populations));
+            //data.Study.StudyDesigns[0].Populations = null;
+            //Assert.IsNull(Core.Utilities.Helpers.ECPTHelper.GetPlannedSexOfParticipantsV4(data.Study.StudyDesigns[0].Populations));
         }
         #endregion
 
@@ -845,8 +846,8 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             previousVersionV4.AuditTrail.SDRUploadVersion = 1;
             previousVersionV4.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
 
-            currentVersionV4.Study.StudyType.Decode = "OBSERVATIONAL";
-            previousVersionV4.Study.StudyType.Decode = "OBSERVATIONAL";
+            currentVersionV4.Study.Versions.FirstOrDefault().Type.Decode = "OBSERVATIONAL";
+            previousVersionV4.Study.Versions.FirstOrDefault().Type.Decode = "OBSERVATIONAL";
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), 1))
                    .Returns(Task.FromResult(currentVersionV4));
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), 2))
@@ -880,7 +881,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             Assert.Throws<AggregateException>(method.Wait);
 
-            currentVersionV4.Study.StudyType.Decode = "INTERVENTIONAL";
+            currentVersionV4.Study.Versions.FirstOrDefault().Type.Decode = "INTERVENTIONAL";
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), 1))
                   .Returns(Task.FromResult(currentVersionV4));
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), 2))

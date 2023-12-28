@@ -16,6 +16,12 @@ namespace TransCelerate.SDR.Core.Utilities
     {
         ENDPOINT,
         OBJECTIVE,
-        ELIGIBILITY_CRITERIA
+        ELIGIBILITY_CRITERIA,
+        CHARACTERISTIC
+    }
+    public enum GeographicScopeInstanceType
+    {
+        GEOGRAPHIC_SCOPE,
+        SUBJECT_ENROLLMENT
     }
 }

@@ -93,7 +93,7 @@ namespace TransCelerate.SDR.AzureFunctions
                     Core.Entities.StudyV4.StudyDefinitionsEntity previousStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion - 1).FirstOrDefault();
 
                     //Get the changes between current and previous version
-                    changedValues = _helperV4.GetChangedValues(currentStudyVersion, previousStudyVersion);
+                    //changedValues = _helperV4.GetChangedValues(currentStudyVersion, previousStudyVersion);
                     changedValues = FormatChangeAuditElements(changedValues);
                 }
                 //Get the change audit data for studyId

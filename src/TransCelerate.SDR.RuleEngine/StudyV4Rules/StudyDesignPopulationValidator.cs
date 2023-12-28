@@ -28,41 +28,41 @@ namespace TransCelerate.SDR.RuleEngineV4
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignPopulationValidator), nameof(StudyDesignPopulationDto.Description)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.PlannedNumberOfParticipants)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignPopulationValidator), nameof(StudyDesignPopulationDto.PlannedNumberOfParticipants)), ApplyConditionTo.AllValidators)
-               .Must(ValidateDatatype.ValidateInt).WithMessage(Constants.ValidationErrorMessage.IntegerValidationFailed)
-               .Must(x => Convert.ToInt32(x) >= Constants.DefaultValues.IntegerMinimumValue).WithMessage(Constants.ValidationErrorMessage.IntegerMinimumValueError);
+            //RuleFor(x => x.PlannedNumberOfParticipants)
+            //   .Cascade(CascadeMode.Stop)
+            //   .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+            //   .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+            //   .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignPopulationValidator), nameof(StudyDesignPopulationDto.PlannedNumberOfParticipants)), ApplyConditionTo.AllValidators)
+            //   .Must(ValidateDatatype.ValidateInt).WithMessage(Constants.ValidationErrorMessage.IntegerValidationFailed)
+            //   .Must(x => Convert.ToInt32(x) >= Constants.DefaultValues.IntegerMinimumValue).WithMessage(Constants.ValidationErrorMessage.IntegerMinimumValueError);
 
-            RuleFor(x => x.Label)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignPopulationValidator), nameof(StudyDesignPopulationDto.Label)), ApplyConditionTo.AllValidators);
+            //RuleFor(x => x.Label)
+            //   .Cascade(CascadeMode.Stop)
+            //   .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+            //   .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+            //   .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignPopulationValidator), nameof(StudyDesignPopulationDto.Label)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.PlannedMaximumAgeOfParticipants)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignPopulationValidator), nameof(StudyDesignPopulationDto.PlannedMaximumAgeOfParticipants)), ApplyConditionTo.AllValidators);
+            //RuleFor(x => x.PlannedMaximumAgeOfParticipants)
+            //   .Cascade(CascadeMode.Stop)
+            //   .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+            //   .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+            //   .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignPopulationValidator), nameof(StudyDesignPopulationDto.PlannedMaximumAgeOfParticipants)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.PlannedMinimumAgeOfParticipants)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignPopulationValidator), nameof(StudyDesignPopulationDto.PlannedMinimumAgeOfParticipants)), ApplyConditionTo.AllValidators);
+            //RuleFor(x => x.PlannedMinimumAgeOfParticipants)
+            //   .Cascade(CascadeMode.Stop)
+            //   .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+            //   .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+            //   .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignPopulationValidator), nameof(StudyDesignPopulationDto.PlannedMinimumAgeOfParticipants)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.PlannedSexOfParticipants)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignPopulationValidator), nameof(StudyDesignPopulationDto.PlannedSexOfParticipants)), ApplyConditionTo.AllValidators)
-               .Must(x => UniquenessArrayValidator.ValidateArrayV4(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+            //RuleFor(x => x.PlannedSexOfParticipants)
+            //   .Cascade(CascadeMode.Stop)
+            //   .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+            //   .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+            //   .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignPopulationValidator), nameof(StudyDesignPopulationDto.PlannedSexOfParticipants)), ApplyConditionTo.AllValidators)
+            //   .Must(x => UniquenessArrayValidator.ValidateArrayV4(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
-            RuleForEach(x => x.PlannedSexOfParticipants)
-                .SetValidator(new CodeValidator(_httpContextAccessor));
+            //RuleForEach(x => x.PlannedSexOfParticipants)
+            //    .SetValidator(new CodeValidator(_httpContextAccessor));
         }
     }
 }

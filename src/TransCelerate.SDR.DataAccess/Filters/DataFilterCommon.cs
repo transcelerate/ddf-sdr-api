@@ -616,23 +616,23 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
-                filter &= builder.Where(x => x.Study.StudyTitle.ToLower().Contains(searchParameters.StudyTitle.ToLower()));
+                filter &= builder.Where(x => x.Study.Versions.FirstOrDefault().StudyTitle.ToLower().Contains(searchParameters.StudyTitle.ToLower()));
 
             //Filter for OrgCode
             if (!String.IsNullOrWhiteSpace(searchParameters.SponsorId))
-                filter &= builder.Where(x => x.Study.StudyIdentifiers.Any(x => (x.StudyIdentifierScope.OrganisationIdentifier.ToLower().Contains(searchParameters.SponsorId.ToLower())) && (x.StudyIdentifierScope.OrganisationType.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower())));
+                filter &= builder.Where(x => x.Study.Versions.FirstOrDefault().StudyIdentifiers.Any(x => (x.StudyIdentifierScope.OrganisationIdentifier.ToLower().Contains(searchParameters.SponsorId.ToLower())) && (x.StudyIdentifierScope.OrganisationType.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower())));
 
             //Filter for Indication
             if (!String.IsNullOrWhiteSpace(searchParameters.Indication))
-                filter &= builder.Where(x => x.Study.StudyDesigns.Any(x => x.Indications.Any(y => y.Description.ToLower().Contains(searchParameters.Indication.ToLower()))));
+                filter &= builder.Where(x => x.Study.Versions.FirstOrDefault().StudyDesigns.Any(x => x.Indications.Any(y => y.Description.ToLower().Contains(searchParameters.Indication.ToLower()))));
 
             //Filter for Intervention Model
             if (!String.IsNullOrWhiteSpace(searchParameters.InterventionModel))
-                filter &= builder.Where(x => x.Study.StudyDesigns.Any(x => x.InterventionModel.Decode.ToLower().Contains(searchParameters.InterventionModel.ToLower())));
+                filter &= builder.Where(x => x.Study.Versions.FirstOrDefault().StudyDesigns.Any(x => x.InterventionModel.Decode.ToLower().Contains(searchParameters.InterventionModel.ToLower())));
 
             //Filter for Study Phase
             if (!String.IsNullOrWhiteSpace(searchParameters.Phase))
-                filter &= builder.Where(x => x.Study.StudyPhase.StandardCode.Decode.ToLower().Contains(searchParameters.Phase.ToLower()));
+                filter &= builder.Where(x => x.Study.Versions.FirstOrDefault().StudyPhase.StandardCode.Decode.ToLower().Contains(searchParameters.Phase.ToLower()));
 
 
             return filter;
