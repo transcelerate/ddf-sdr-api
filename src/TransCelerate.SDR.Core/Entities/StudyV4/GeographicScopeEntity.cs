@@ -4,7 +4,7 @@
     {
         public string Id { get; set; }
         public string InstanceType { get; set; }
-        public string Type { get; set; }
-        public CodeEntity Code { get; set; }
+        public CodeEntity Type { get; set; }
+        public AliasCodeEntity Code { get; set; }
     }
 }

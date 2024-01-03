@@ -25,14 +25,15 @@ namespace TransCelerate.SDR.RuleEngineV4
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(GeographicScopeValidator), nameof(GeographicScopeDto.Type)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(GeographicScopeValidator), nameof(GeographicScopeDto.Type)), ApplyConditionTo.AllValidators)
+               .SetValidator(new CodeValidator(_httpContextAccessor));
 
             RuleFor(x => x.Code)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(GeographicScopeValidator), nameof(GeographicScopeDto.Code)), ApplyConditionTo.AllValidators)
-                .SetValidator(new CodeValidator(_httpContextAccessor));
+                .SetValidator(new AliasCodeValidator(_httpContextAccessor));
 
             RuleFor(x => x.InstanceType)
                 .Cascade(CascadeMode.Stop)

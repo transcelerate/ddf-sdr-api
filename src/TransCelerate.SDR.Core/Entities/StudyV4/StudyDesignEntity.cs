@@ -30,8 +30,8 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public List<BiomedicalConceptSurrogateEntity> BcSurrogates { get; set; }
         public List<StudyArmEntity> Arms { get; set; }
         public List<StudyEpochEntity> Epochs { get; set; }
-        public List<StudyElementEntity> Elements { get; set; }
-        public List<EligibilityCriteriaEntity> EligibilityCriteria { get; set; }
+        public List<StudyElementEntity> Elements { get; set; }        
+        public StudyProtocolDocumentVersionEntity DocumentVersion { get; set; }
         public List<SyntaxTemplateDictionaryEntity> Dictionaries { get; set; }
     }
 }

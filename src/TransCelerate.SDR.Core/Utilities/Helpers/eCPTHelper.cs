@@ -206,14 +206,16 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         //}
         public static TransCelerate.SDR.Core.DTO.StudyV4.StudyProtocolDocumentVersionDto GetOrderedStudyProtocolsV4(List<TransCelerate.SDR.Core.DTO.StudyV4.StudyProtocolDocumentVersionDto> studyProtocolVersions)
         {
-            var protocolsWithDateAndVersions = studyProtocolVersions.Where(x => DateTime.TryParse(x.ProtocolEffectiveDate, out var date) && decimal.TryParse(x.ProtocolVersion, out decimal version)).ToList();
+            //var protocolsWithDateAndVersions = studyProtocolVersions.Where(x => DateTime.TryParse(x.ProtocolEffectiveDate, out var date) && decimal.TryParse(x.ProtocolVersion, out decimal version)).ToList();
 
-            if (!protocolsWithDateAndVersions.Any())
-                return studyProtocolVersions.FirstOrDefault();
-            else if (protocolsWithDateAndVersions.Count == 1)
-                return protocolsWithDateAndVersions.FirstOrDefault();
-            else
-                return protocolsWithDateAndVersions.OrderByDescending(x => DateTime.Parse(x.ProtocolEffectiveDate)).ThenByDescending(x => decimal.Parse(x.ProtocolVersion)).FirstOrDefault();
+            //if (!protocolsWithDateAndVersions.Any())
+            //    return studyProtocolVersions.FirstOrDefault();
+            //else if (protocolsWithDateAndVersions.Count == 1)
+            //    return protocolsWithDateAndVersions.FirstOrDefault();
+            //else
+            //    return protocolsWithDateAndVersions.OrderByDescending(x => DateTime.Parse(x.ProtocolEffectiveDate)).ThenByDescending(x => decimal.Parse(x.ProtocolVersion)).FirstOrDefault();
+
+            return studyProtocolVersions.FirstOrDefault();
         }
         public static ObjectivesEndpointsAndEstimandsDto GetObjectivesEndpointsAndEstimandsDtoV4(List<TransCelerate.SDR.Core.DTO.StudyV4.ObjectiveDto> objectives, IMapper mapper)
         {

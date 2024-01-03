@@ -814,7 +814,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             method = studyService.GeteCPTV4("a", 1, "des", user);
             Assert.Throws<AggregateException>(method.Wait);
         }
-        //[Test]
+        [Test]
         public void SexOfParticipants_UnitTesting()
         {
             //var jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV4.json");

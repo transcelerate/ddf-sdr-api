@@ -905,6 +905,15 @@
           ]
         },
         {
+          "entity": "Range",
+          "required": [
+            "IsApproximate",
+            "Id",
+            "MinValue",
+            "MaxValue"
+          ]
+        },
+        {
           "entity": "ScheduleTimelineExit",
           "required": [
             "Id"

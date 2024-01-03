@@ -66,6 +66,7 @@
 - [ProcedureValidator](#T-TransCelerate-SDR-RuleEngineV3-ProcedureValidator 'TransCelerate.SDR.RuleEngineV3.ProcedureValidator')
 - [ProcedureValidator](#T-TransCelerate-SDR-RuleEngineV4-ProcedureValidator 'TransCelerate.SDR.RuleEngineV4.ProcedureValidator')
 - [QuantityValidator](#T-TransCelerate-SDR-RuleEngineV4-QuantityValidator 'TransCelerate.SDR.RuleEngineV4.QuantityValidator')
+- [RangeValidator](#T-TransCelerate-SDR-RuleEngineV4-RangeValidator 'TransCelerate.SDR.RuleEngineV4.RangeValidator')
 - [ResponseCodeValidator](#T-TransCelerate-SDR-RuleEngineV2-ResponseCodeValidator 'TransCelerate.SDR.RuleEngineV2.ResponseCodeValidator')
 - [ResponseCodeValidator](#T-TransCelerate-SDR-RuleEngineV3-ResponseCodeValidator 'TransCelerate.SDR.RuleEngineV3.ResponseCodeValidator')
 - [ResponseCodeValidator](#T-TransCelerate-SDR-RuleEngineV4-ResponseCodeValidator 'TransCelerate.SDR.RuleEngineV4.ResponseCodeValidator')
@@ -77,6 +78,7 @@
 - [StudyCellsValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyCellsValidator 'TransCelerate.SDR.RuleEngineV2.StudyCellsValidator')
 - [StudyCellsValidator](#T-TransCelerate-SDR-RuleEngineV3-StudyCellsValidator 'TransCelerate.SDR.RuleEngineV3.StudyCellsValidator')
 - [StudyCellsValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyCellsValidator 'TransCelerate.SDR.RuleEngineV4.StudyCellsValidator')
+- [StudyCohortValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyCohortValidator 'TransCelerate.SDR.RuleEngineV4.StudyCohortValidator')
 - [StudyDefinitionsValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyDefinitionsValidator 'TransCelerate.SDR.RuleEngineV2.StudyDefinitionsValidator')
 - [StudyDefinitionsValidator](#T-TransCelerate-SDR-RuleEngineV3-StudyDefinitionsValidator 'TransCelerate.SDR.RuleEngineV3.StudyDefinitionsValidator')
 - [StudyDefinitionsValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyDefinitionsValidator 'TransCelerate.SDR.RuleEngineV4.StudyDefinitionsValidator')
@@ -816,6 +818,17 @@ TransCelerate.SDR.RuleEngineV4
 
 This Class is the validator for Code
 
+<a name='T-TransCelerate-SDR-RuleEngineV4-RangeValidator'></a>
+## RangeValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV4
+
+##### Summary
+
+This Class is the validator for Code
+
 <a name='T-TransCelerate-SDR-RuleEngineV2-ResponseCodeValidator'></a>
 ## ResponseCodeValidator `type`
 
@@ -936,6 +949,17 @@ TransCelerate.SDR.RuleEngineV4
 ##### Summary
 
 This Class is the validator for StudyCells
+
+<a name='T-TransCelerate-SDR-RuleEngineV4-StudyCohortValidator'></a>
+## StudyCohortValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV4
+
+##### Summary
+
+This Class is the validator for StudyDesignPopulation
 
 <a name='T-TransCelerate-SDR-RuleEngineV2-StudyDefinitionsValidator'></a>
 ## StudyDefinitionsValidator `type`

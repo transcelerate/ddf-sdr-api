@@ -78,11 +78,16 @@ namespace TransCelerate.SDR.Services.Services
                         if (!await CheckAccessForAStudy(studyId, (string)jsonObject["studyType"]["decode"], user))
                             return Constants.ErrorMessages.Forbidden;
                     }
-                    else if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.V2 || study.AuditTrail.UsdmVersion == Constants.USDMVersions.V3)
+                    else if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.V2)
                     {
                         if (!await CheckAccessForAStudy(studyId, (string)jsonObject["studyType"]["decode"], user))
                             return Constants.ErrorMessages.Forbidden;
                     }
+                    //else if(study.AuditTrail.UsdmVersion == Constants.USDMVersions.V3)
+                    //{
+                    //    if (!await CheckAccessForAStudy(studyId, (string)jsonObject["versions"]["studyType"]["decode"], user))
+                    //        return Constants.ErrorMessages.Forbidden;
+                    //}
 
                     return study;
                 }

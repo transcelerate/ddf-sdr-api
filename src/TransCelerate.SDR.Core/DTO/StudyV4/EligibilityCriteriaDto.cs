@@ -13,5 +13,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public string Identifier { get; set; }
         public string PreviousId { get; set; }
         public string NextId { get; set; }
+        public string ContextId { get; set; }
     }
 }

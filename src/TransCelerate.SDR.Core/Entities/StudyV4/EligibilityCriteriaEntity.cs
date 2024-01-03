@@ -15,5 +15,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public string Identifier { get; set; }
         public string PreviousId { get; set; }
         public string NextId { get; set; }
+        public string ContextId { get; set; }
     }
 }

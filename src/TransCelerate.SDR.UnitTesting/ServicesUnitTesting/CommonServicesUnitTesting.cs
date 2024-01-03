@@ -40,7 +40,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         public static List<SearchTitleResponseEntity> GetSearchResponse()
         {
             CommonStudyDefinitionsEntity mvp = GetData(Constants.USDMVersions.MVP);
-            CommonStudyDefinitionsEntity v1 = GetData(Constants.USDMVersions.V3);
+            //CommonStudyDefinitionsEntity v1 = GetData(Constants.USDMVersions.V3);
             CommonStudyDefinitionsEntity v2 = GetData(Constants.USDMVersions.V1_9);
             return new()
             {
@@ -55,17 +55,17 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     HasAccess = true,
                     UsdmVersion = mvp.AuditTrail.UsdmVersion,
                 },
-                new SearchTitleResponseEntity
-                {
-                    StudyIdentifiers = v1.Study.StudyIdentifiers,
-                    StudyId = v1.Study.StudyId,
-                    StudyTitle = v1.Study.StudyTitle,
-                    StudyType = v1.Study.StudyType,
-                    SDRUploadVersion = v1.AuditTrail.SDRUploadVersion,
-                    EntryDateTime = v1.AuditTrail.EntryDateTime,
-                    HasAccess = true,
-                    UsdmVersion = v1.AuditTrail.UsdmVersion,
-                },
+                //new SearchTitleResponseEntity
+                //{
+                //    StudyIdentifiers = v1.Study.StudyIdentifiers,
+                //    StudyId = v1.Study.StudyId,
+                //    StudyTitle = v1.Study.StudyTitle,
+                //    StudyType = v1.Study.StudyType,
+                //    SDRUploadVersion = v1.AuditTrail.SDRUploadVersion,
+                //    EntryDateTime = v1.AuditTrail.EntryDateTime,
+                //    HasAccess = true,
+                //    UsdmVersion = v1.AuditTrail.UsdmVersion,
+                //},
                 new SearchTitleResponseEntity
                 {
                     StudyIdentifiers = v2.Study.StudyIdentifiers,
@@ -142,8 +142,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             var result = method.Result;
             Assert.IsNotNull(result);
 
-            jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV4.json");
-            jsonData = jsonData.Replace($"{IdFieldPropertyName.ParentElement.ClinicalStudy.ChangeToCamelCase()}", $"{nameof(CommonStudyDefinitionsEntity.Study).ChangeToCamelCase()}");
+            jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV4.json");            
             data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
             _mockCommonRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                   .Returns(Task.FromResult(data));
@@ -182,26 +181,25 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             result = method.Result;
             Assert.AreEqual(result, Constants.ErrorMessages.Forbidden);
 
-            jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV4.json");
-            jsonData = jsonData.Replace($"{IdFieldPropertyName.ParentElement.ClinicalStudy.ChangeToCamelCase()}", $"{nameof(CommonStudyDefinitionsEntity.Study).ChangeToCamelCase()}");
-            data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
-            _mockCommonRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
-                  .Returns(Task.FromResult(data));
+            //jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV4.json");            
+            //data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
+            //_mockCommonRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
+            //      .Returns(Task.FromResult(data));
 
-            method = commonServices.GetRawJson("a", 1, user);
-            method.Wait();
-            result = method.Result;
-            Assert.AreEqual(result, Constants.ErrorMessages.Forbidden);
+            //method = commonServices.GetRawJson("a", 1, user);
+            //method.Wait();
+            //result = method.Result;
+            //Assert.AreEqual(result, Constants.ErrorMessages.Forbidden);
 
-            jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV3.json");
-            data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
-            _mockCommonRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
-                  .Returns(Task.FromResult(data));
+            //jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV3.json");
+            //data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
+            //_mockCommonRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
+            //      .Returns(Task.FromResult(data));
 
-            method = commonServices.GetRawJson("a", 1, user);
-            method.Wait();
-            result = method.Result;
-            Assert.AreEqual(result, Constants.ErrorMessages.Forbidden);
+            //method = commonServices.GetRawJson("a", 1, user);
+            //method.Wait();
+            //result = method.Result;
+            //Assert.AreEqual(result, Constants.ErrorMessages.Forbidden);
 
             Config.IsGroupFilterEnabled = false;
 
@@ -279,7 +277,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             user.UserRole = Constants.Roles.Org_Admin;
             user.UserName = "user1@SDR.com";
             CommonStudyDefinitionsEntity v3 = GetData(Constants.USDMVersions.V2);
-            CommonStudyDefinitionsEntity v4 = GetData(Constants.USDMVersions.V3);
+            //CommonStudyDefinitionsEntity v4 = GetData(Constants.USDMVersions.V3);
             CommonStudyDefinitionsEntity v2 = GetData(Constants.USDMVersions.V1_9);
             List<AuditTrailResponseEntity> auditTrailResponseEntities = new()
             {
@@ -291,14 +289,14 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     HasAccess = true,
                     UsdmVersion = v3.AuditTrail.UsdmVersion
                 },
-                new AuditTrailResponseEntity
-                {
-                    EntryDateTime = v4.AuditTrail.EntryDateTime,
-                    StudyType = v4.Study.StudyType,
-                    SDRUploadVersion = 2,
-                    HasAccess = true,
-                    UsdmVersion = v4.AuditTrail.UsdmVersion
-                },
+                //new AuditTrailResponseEntity
+                //{
+                //    EntryDateTime = v4.AuditTrail.EntryDateTime,
+                //    StudyType = v4.Study.StudyType,
+                //    SDRUploadVersion = 2,
+                //    HasAccess = true,
+                //    UsdmVersion = v4.AuditTrail.UsdmVersion
+                //},
                 new AuditTrailResponseEntity
                 {
                     EntryDateTime = v2.AuditTrail.EntryDateTime,

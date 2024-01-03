@@ -9,7 +9,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public string Name { get; set; }
         public string Label { get; set; }
         public string Description { get; set; }
-        public string Type { get; set; }
+        public CodeEntity Type { get; set; }
         public string DateValue { get; set; }
         public List<GeographicScopeEntity> GeographicScopes {  get; set; } 
     }

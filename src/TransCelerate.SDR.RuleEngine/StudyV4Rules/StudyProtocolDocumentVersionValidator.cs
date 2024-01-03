@@ -31,13 +31,7 @@ namespace TransCelerate.SDR.RuleEngineV4
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyProtocolDocumentVersionValidator), nameof(StudyProtocolDocumentVersionDto.OfficialTitle)), ApplyConditionTo.AllValidators);
-
-            RuleFor(x => x.ProtocolEffectiveDate)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyProtocolDocumentVersionValidator), nameof(StudyProtocolDocumentVersionDto.ProtocolEffectiveDate)), ApplyConditionTo.AllValidators);            
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyProtocolDocumentVersionValidator), nameof(StudyProtocolDocumentVersionDto.OfficialTitle)), ApplyConditionTo.AllValidators);            
 
             RuleFor(x => x.ProtocolStatus)
                 .Cascade(CascadeMode.Stop)
@@ -62,13 +56,7 @@ namespace TransCelerate.SDR.RuleEngineV4
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyProtocolDocumentVersionValidator), nameof(StudyProtocolDocumentVersionDto.ScientificTitle)), ApplyConditionTo.AllValidators);
-
-            RuleFor(x => x.ProtocolAmendment)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyProtocolDocumentVersionValidator), nameof(StudyProtocolDocumentVersionDto.ProtocolAmendment)), ApplyConditionTo.AllValidators);
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyProtocolDocumentVersionValidator), nameof(StudyProtocolDocumentVersionDto.ScientificTitle)), ApplyConditionTo.AllValidators);            
 
             RuleFor(x => x.ChildrenIds)
                 .Cascade(CascadeMode.Stop)

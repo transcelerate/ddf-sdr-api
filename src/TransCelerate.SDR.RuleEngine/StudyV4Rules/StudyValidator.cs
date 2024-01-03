@@ -15,6 +15,7 @@ namespace TransCelerate.SDR.RuleEngineV4
         public StudyValidator(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
+
             RuleFor(x => x.Id)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
