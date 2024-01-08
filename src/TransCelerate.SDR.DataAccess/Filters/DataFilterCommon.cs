@@ -36,7 +36,10 @@ namespace TransCelerate.SDR.DataAccess.Filters
         {
             FilterDefinitionBuilder<BsonDocument> builder = Builders<BsonDocument>.Filter;
             FilterDefinition<BsonDocument> filter = builder.Empty;
-            filter &= builder.Eq(Constants.DbFilter.StudyId, studyId);
+            filter &= builder.Or(
+                                builder.Eq(Constants.DbFilter.StudyId, studyId), 
+                                builder.Eq(Constants.DbFilter.StudyIdV4, studyId)
+                                );
 
             if (sdruploadversion != 0)
                 filter &= builder.Eq("auditTrail.SDRUploadVersion", sdruploadversion);
@@ -68,7 +71,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
         {
             FilterDefinitionBuilder<CommonStudyDefinitionsEntity> builder = Builders<CommonStudyDefinitionsEntity>.Filter;
             FilterDefinition<CommonStudyDefinitionsEntity> filter = builder.Empty;
-            filter &= builder.Where(s => s.Study.StudyId == studyId);
+            filter &= builder.Where(s => s.Study.StudyId == studyId || s.Study.Id == studyId);
 
             //Filter for supported USDM Versions
             filter &= builder.In(x => x.AuditTrail.UsdmVersion, ApiUsdmVersionMapping.SDRVersions.SelectMany(y => y.UsdmVersions).ToArray());
@@ -94,6 +97,8 @@ namespace TransCelerate.SDR.DataAccess.Filters
         {
             FilterDefinitionBuilder<CommonStudyDefinitionsEntity> builder = Builders<CommonStudyDefinitionsEntity>.Filter;
             FilterDefinition<CommonStudyDefinitionsEntity> filter = builder.Empty;
+
+            filter &= builder.Where(x => x.AuditTrail.UsdmVersion == Constants.USDMVersions.V1_9 || x.AuditTrail.UsdmVersion == Constants.USDMVersions.V2);
             //Filter for Date Range
             filter &= builder.Where(x => x.AuditTrail.EntryDateTime >= fromDate
                                          && x.AuditTrail.EntryDateTime <= toDate);
@@ -114,6 +119,61 @@ namespace TransCelerate.SDR.DataAccess.Filters
                         {
                             filter &= builder.Or(
                                         builder.Regex($"{Constants.DbFilter.StudyType}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
+                                        builder.In(x => x.Study.StudyId, groupFilters.Item2)
+                                        );
+                        }
+                        else
+                        {
+                            filter &= builder.In(x => x.Study.StudyId, groupFilters.Item2);
+                        }
+                    }
+                }
+                else
+                    filter &= builder.Where(x => x.Study == null); //if there are no groups assigned for the user
+            }
+
+            //Filter for StudyTitle
+            if (!String.IsNullOrWhiteSpace(studyTitle))
+                filter &= builder.Where(x => x.Study.StudyTitle.ToLower().Contains(studyTitle.ToLower()));
+
+
+            return filter;
+        }
+        /// <summary>
+        /// Get filters for StudyHistory API
+        /// </summary>
+        /// <param name="fromDate"></param>
+        /// <param name="toDate"></param>
+        /// <param name="studyTitle"></param>
+        /// <param name="groups"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static FilterDefinition<CommonStudyDefinitionsEntity> GetFiltersForStudyHistoryV4(DateTime fromDate, DateTime toDate, string studyTitle, List<SDRGroupsEntity> groups, LoggedInUser user)
+        {
+            FilterDefinitionBuilder<CommonStudyDefinitionsEntity> builder = Builders<CommonStudyDefinitionsEntity>.Filter;
+            FilterDefinition<CommonStudyDefinitionsEntity> filter = builder.Empty;
+
+            filter &= builder.Where(x => x.AuditTrail.UsdmVersion == Constants.USDMVersions.V3);
+            //Filter for Date Range
+            filter &= builder.Where(x => x.AuditTrail.EntryDateTime >= fromDate
+                                         && x.AuditTrail.EntryDateTime <= toDate);
+
+            //Filter for supported USDM Versions
+            filter &= builder.In(x => x.AuditTrail.UsdmVersion, ApiUsdmVersionMapping.SDRVersions.SelectMany(y => y.UsdmVersions).ToArray());
+
+            //For Data Segmentation
+            if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
+            {
+                if (groups != null && groups.Any())
+                {
+                    Tuple<List<string>, List<string>> groupFilters = Core.Utilities.Helpers.GroupFilters.GetGroupFilters(groups);
+
+                    if (!groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
+                    {
+                        if (groupFilters.Item1.Any())
+                        {
+                            filter &= builder.Or(
+                                        builder.Regex($"{Constants.DbFilter.StudyTypeV4}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
                                         builder.In(x => x.Study.StudyId, groupFilters.Item2)
                                         );
                         }

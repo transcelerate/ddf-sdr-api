@@ -73,7 +73,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 else
                 {
                     study.AuditTrail = BsonSerializer.Deserialize<AuditTrailEntity>(studyData[Constants.DbFilter.AuditTrail].AsBsonDocument);
-                    if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.V1_9 || study.AuditTrail.UsdmVersion == Constants.USDMVersions.V2)
+                    if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.V1_9 || study.AuditTrail.UsdmVersion == Constants.USDMVersions.V2 || study.AuditTrail.UsdmVersion == Constants.USDMVersions.V3)
                     {
                         study.Study = Newtonsoft.Json.JsonConvert.DeserializeObject<object>(studyData[Constants.DbFilter.Study].ToString());
                     }
@@ -120,7 +120,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                       EntryDateTime = x.AuditTrail.EntryDateTime,
                                                       SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
                                                       UsdmVersion = x.AuditTrail.UsdmVersion,
-                                                      StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Id) ?? null,                                                      
+                                                      StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Id) ?? null,
+                                                      StudyDesignIdsV4 = x.Study.Versions.Select(x => x.StudyDesigns.Select(y => y.Id)) ?? null,
                                                       HasAccess = true
                                                   })
                                                   .SortByDescending(s => s.EntryDateTime) // Sort by descending on entryDateTime
@@ -223,6 +224,25 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                                     StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Id),
                                                                 })  //Project only the required fields                                                        
                                                         .ToListAsync().ConfigureAwait(false);
+
+                List<StudyHistoryResponseEntity> studyHistoriesV4 = await collection.Aggregate()
+                                                        .Match(DataFilterCommon.GetFiltersForStudyHistoryV4(fromDate, toDate, studyTitle, GetGroupsOfUser(user).Result, user)) // Condition for matching date range
+                                                        .Project(x =>
+                                                                new StudyHistoryResponseEntity
+                                                                {
+                                                                    StudyId = x.Study.Id,
+                                                                    StudyTitle = x.Study.Versions.First().StudyTitle,
+                                                                    SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+                                                                    StudyIdentifiers = x.Study.Versions.First().StudyIdentifiers,
+                                                                    EntryDateTime = x.AuditTrail.EntryDateTime,
+                                                                    StudyType = x.Study.Versions.First().Type,
+                                                                    ProtocolVersions = x.Study.DocumentedBy.Versions.Select(x => x.ProtocolVersion),
+                                                                    StudyVersion = x.Study.Versions.First().VersionIdentifier,
+                                                                    UsdmVersion = x.AuditTrail.UsdmVersion,
+                                                                    StudyDesignIdsV4 = x.Study.Versions.Select(x=> x.StudyDesigns.Select(y=>y.Id)),
+                                                                })  //Project only the required fields                                                        
+                                                        .ToListAsync().ConfigureAwait(false);
+                studyHistories.AddRange(studyHistoriesV4);
 
                 if (studyHistories.Count == 0)
                 {

@@ -106,7 +106,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 StudyDefinitionsEntity study = await collection.Find(DataFiltersV4.GetFiltersForGetStudy(studyId, sdruploadversion))
                                                      .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
                                                      .Limit(1)                  //Taking top 1 result
-                                                     .Project<StudyDefinitionsEntity>(DataFiltersV4.GetProjectionForPartialStudyElements(listofelementsArray))
+                                                     //.Project<StudyDefinitionsEntity>(DataFiltersV4.GetProjectionForPartialStudyElements(listofelementsArray))
                                                      .SingleOrDefaultAsync().ConfigureAwait(false);
 
                 if (study == null)
@@ -144,7 +144,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
 
                 StudyDefinitionsEntity study = await collection.Find(DataFiltersV4.GetFiltersForGetStudy(studyId, sdruploadversion))
-                                                     .Project<StudyDefinitionsEntity>(DataFiltersV4.GetProjectionForPartialStudyDesignElementsFullStudy())
+                                                     //.Project<StudyDefinitionsEntity>(DataFiltersV4.GetProjectionForPartialStudyDesignElementsFullStudy())
                                                      .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
                                                      .Limit(1)                  //Taking top 1 result                                                     
                                                      .FirstOrDefaultAsync().ConfigureAwait(false);

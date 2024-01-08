@@ -46,7 +46,17 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<AuditTrailDto, AuditTrailResponseEntity>().ReverseMap();
             CreateMap<AuditTrailResponseEntity, AuditTrailResponseWithLinksDto>()
                 .ForMember(dest => dest.Links, opt => opt.MapFrom(src => LinksHelper.GetLinksForUi(src.StudyId,
-                           src.UsdmVersion == Constants.USDMVersions.MVP ? src.StudyDesignIdsMVP != null ? src.StudyDesignIdsMVP.Where(x => x != null && x.Any()).SelectMany(x => x).ToList() : null : src.StudyDesignIds != null ? src.StudyDesignIds.ToList() : null,
+                           src.UsdmVersion == Constants.USDMVersions.MVP ? 
+                                        src.StudyDesignIdsMVP != null ? 
+                                        src.StudyDesignIdsMVP.Where(x => x != null && x.Any()).SelectMany(x => x).ToList() 
+                                        : null 
+                                        : src.UsdmVersion == Constants.USDMVersions.V3 ?
+                                        src.StudyDesignIdsV4 != null ?
+                                        src.StudyDesignIdsV4.Where(x => x != null && x.Any()).SelectMany(x => x).ToList()
+                                        : null
+                                        : src.StudyDesignIds != null ? 
+                                        src.StudyDesignIds.ToList() 
+                                        : null,
                            src.UsdmVersion, src.SDRUploadVersion)))
                 .ReverseMap();
 
@@ -64,7 +74,11 @@ namespace TransCelerate.SDR.WebApi.Mappers
                  .ForMember(dest => dest.UploadVersion, opt => opt.MapFrom(src => src.SDRUploadVersion))
                  .ForMember(dest => dest.ProtocolVersions, opt => opt.MapFrom(src => src.ProtocolVersions))
                  .ForMember(dest => dest.Links, opt => opt.MapFrom(src => LinksHelper.GetLinks(src.StudyId,
-                           src.UsdmVersion == Constants.USDMVersions.MVP ? src.StudyDesignIdsMVP != null ? src.StudyDesignIdsMVP.Where(x => x != null && x.Any()).SelectMany(x => x).ToList() : null : src.StudyDesignIds,
+                           src.UsdmVersion == Constants.USDMVersions.MVP ? src.StudyDesignIdsMVP != null ? 
+                                            src.StudyDesignIdsMVP.Where(x => x != null && x.Any()).SelectMany(x => x).ToList() : 
+                                            null :
+                                            src.UsdmVersion == Constants.USDMVersions.V3 ? src.StudyDesignIdsV4.Where(x => x != null && x.Any()).SelectMany(x => x).ToList() :
+                                            src.StudyDesignIds,
                            src.UsdmVersion, src.SDRUploadVersion)))
                  .ReverseMap();
 
