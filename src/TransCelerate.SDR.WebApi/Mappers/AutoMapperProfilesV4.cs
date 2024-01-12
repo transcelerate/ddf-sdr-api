@@ -83,9 +83,13 @@ namespace TransCelerate.SDR.WebApi.Mappers
             //SoA V3
             CreateMap<ScheduleTimelineEntity, ScheduleTimelines>()
                 .ForMember(dest => dest.ScheduleTimelineId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.ScheduleTimelineName, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.ScheduleTimelineDescription, opt => opt.MapFrom(src => src.Description))
                 .ReverseMap();
             CreateMap<TimingEntity, TimingSoA>()
                 .ForMember(dest => dest.TimingType, opt => opt.MapFrom(src => src.Type != null ? src.Type.Decode : null))
+                .ForMember(dest => dest.TimingWindow, opt => opt.MapFrom(src => src.Window))
+                .ForMember(dest => dest.TimingValue, opt => opt.MapFrom(src => src.Value))
                 .ReverseMap();
 
             //ECPT Mapper
