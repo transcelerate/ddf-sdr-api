@@ -112,6 +112,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
             var jsonObject = JObject.Parse(JsonConvert.SerializeObject(studyDTO, serializer));
             jsonObject.Property(string.Concat(nameof(StudyDefinitionsEntity.AuditTrail)[..1].ToLower(), nameof(StudyDefinitionsEntity.AuditTrail).AsSpan(1))).Remove();
             jsonObject.Property("links").Remove();
+            jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDto.DocumentedBy).ChangeToCamelCase()).FirstOrDefault().Remove();
             foreach (var item in Constants.StudyElementsV4.Select(x => x.ToLower()))
             {
                 sections = sections.Select(t => t.Trim().ToLower()).ToArray();
@@ -137,6 +138,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                         jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyVersionDto.StudyAcronym).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                     else if (item == nameof(StudyVersionDto.Rationale).ToLower())
                         jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyVersionDto.Rationale).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
+                    else if (item == nameof(StudyVersionDto.DateValues).ToLower())
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyVersionDto.DateValues).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
+                    else if (item == nameof(StudyVersionDto.Amendments).ToLower())
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyVersionDto.Amendments).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());                   
                 }
             }
 
@@ -167,6 +172,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                         {
                             if (item == nameof(StudyDesignDto.InterventionModel).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.InterventionModel).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
+                            else if (item == nameof(StudyDesignDto.Name).ToLower())
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Name).ChangeToCamelCase()).FirstOrDefault().Remove();
+                            else if (item == nameof(StudyDesignDto.Label).ToLower())
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Label).ChangeToCamelCase()).FirstOrDefault().Remove();
+                            else if (item == nameof(StudyDesignDto.Description).ToLower())
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Description).ChangeToCamelCase()).FirstOrDefault().Remove();
                             else if (item == nameof(StudyDesignDto.TrialIntentTypes).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.TrialIntentTypes).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.TrialType).ToLower())
@@ -184,11 +195,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                             else if (item == nameof(StudyDesignDto.ScheduleTimelines).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.ScheduleTimelines).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Estimands).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Estimands).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.Name).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Name).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.Description).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Description).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Estimands).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());                            
                             else if (item == nameof(StudyDesignDto.TherapeuticAreas).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.TherapeuticAreas).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Activities).ToLower())
@@ -211,6 +218,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Epochs).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Elements).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Elements).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
+                            else if (item == nameof(StudyDesignDto.DocumentVersion).ToLower())
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.DocumentVersion).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
+                            else if (item == nameof(StudyDesignDto.Dictionaries).ToLower())
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Dictionaries).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                         }
                     }
                 }

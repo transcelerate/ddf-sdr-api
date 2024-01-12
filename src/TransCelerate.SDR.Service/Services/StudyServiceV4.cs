@@ -713,13 +713,13 @@ namespace TransCelerate.SDR.Services.Services
                         //                           : $"{String.Join(", ", design.Estimands.Select(x => x.AnalysisPopulation.Description).ToArray(), 0, design.Estimands.Count - 1)} and {design.Estimands.Select(x => x.AnalysisPopulation.Description).LastOrDefault()}"
                         //                           : null,
                         //    },
-                        //    ObjectivesEndpointsAndEstimands = ECPTHelper.GetObjectivesEndpointsAndEstimandsDtoV4(design.Objectives.Select(x=> x as ObjectiveDto).ToList(), _mapper),
+                        //    ObjectivesEndpointsAndEstimands = ECPTHelper.GetObjectivesEndpointsAndEstimandsDtoV4(design.Objectives.Select(x => x as ObjectiveDto).ToList(), _mapper),
                         //    StudyInterventionsAndConcomitantTherapy = new Core.DTO.eCPT.StudyInterventionsAndConcomitantTherapyDto
                         //    {
                         //        StudyInterventionsAdministered = design.StudyInterventions != null && design.StudyInterventions.Any() ?
                         //                   _mapper.Map<List<Core.DTO.eCPT.StudyInterventionsAdministeredDto>>(design.StudyInterventions)
                         //                   : null,
-                        //        StudyArms = design.Arms != null && design.Arms.Any() ?                                           
+                        //        StudyArms = design.Arms != null && design.Arms.Any() ?
                         //                   _mapper.Map<List<Core.DTO.eCPT.StudyArmDto>>(design.Arms)
                         //                   : null
                         //    }
