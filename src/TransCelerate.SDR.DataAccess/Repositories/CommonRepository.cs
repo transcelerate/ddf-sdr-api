@@ -231,15 +231,15 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                                 new StudyHistoryResponseEntity
                                                                 {
                                                                     StudyId = x.Study.Id,
-                                                                    StudyTitle = x.Study.Versions.First().StudyTitle,
+                                                                    StudyTitle = x.Study.Versions != null ? x.Study.Versions.First().StudyTitle : null,
                                                                     SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
-                                                                    StudyIdentifiers = x.Study.Versions.First().StudyIdentifiers,
+                                                                    StudyIdentifiers = x.Study.Versions != null ? x.Study.Versions.First().StudyIdentifiers : null,
                                                                     EntryDateTime = x.AuditTrail.EntryDateTime,
-                                                                    StudyType = x.Study.Versions.First().Type,
-                                                                    ProtocolVersions = x.Study.DocumentedBy.Versions.Select(x => x.ProtocolVersion),
-                                                                    StudyVersion = x.Study.Versions.First().VersionIdentifier,
+                                                                    StudyType = x.Study.Versions != null ? x.Study.Versions.First().Type : null,
+                                                                    ProtocolVersions = x.Study.DocumentedBy != null && x.Study.DocumentedBy.Versions != null ? x.Study.DocumentedBy.Versions.Select(x => x.ProtocolVersion) : null,
+                                                                    StudyVersion = x.Study.Versions != null ? x.Study.Versions.First().VersionIdentifier : null,
                                                                     UsdmVersion = x.AuditTrail.UsdmVersion,
-                                                                    StudyDesignIdsV4 = x.Study.Versions.Select(x=> x.StudyDesigns.Select(y=>y.Id)),
+                                                                    StudyDesignIdsV4 = x.Study.Versions != null ? x.Study.Versions.Select(x=> x.StudyDesigns.Select(y=>y.Id)) : null,
                                                                 })  //Project only the required fields                                                        
                                                         .ToListAsync().ConfigureAwait(false);
                 studyHistories.AddRange(studyHistoriesV4);
@@ -512,10 +512,48 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 IMongoCollection<CommonStudyDefinitionsEntity> collection = _database.GetCollection<CommonStudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
 
                 List<SearchTitleResponseEntity> studies = new();
+                List<SearchTitleResponseEntity> studiesV4 = new();
 
-                if (searchParameters.SortBy?.ToLower() == "sponsorid")
-                {
-                    studies = await collection.Aggregate()
+                //if (searchParameters.SortBy?.ToLower() == "sponsorid")
+                //{
+                //    studies = await collection.Aggregate()
+                //                              .Match(DataFilterCommon.GetFiltersForSearchTitle(searchParameters, GetGroupsOfUser(user).Result, user))
+                //                              .Project(x => new SearchTitleResponseEntity
+                //                              {
+                //                                  StudyId = x.Study.StudyId,
+                //                                  StudyTitle = x.Study.StudyTitle,
+                //                                  StudyIdentifiers = x.Study.StudyIdentifiers,
+                //                                  StudyType = x.Study.StudyType,
+                //                                  EntryDateTime = x.AuditTrail.EntryDateTime,
+                //                                  SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+                //                                  StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Id) ?? null,
+                //                                  UsdmVersion = x.AuditTrail.UsdmVersion
+                //                              })
+                //                              .ToListAsync()
+                //                              .ConfigureAwait(false);
+                //}
+                //else
+                //{
+                //    studies = await collection.Aggregate()
+                //                             .Match(DataFilterCommon.GetFiltersForSearchTitle(searchParameters, GetGroupsOfUser(user).Result, user))
+                //                             .Project(x => new SearchTitleResponseEntity
+                //                             {
+                //                                 StudyId = x.Study.StudyId,
+                //                                 StudyTitle = x.Study.StudyTitle,
+                //                                 StudyIdentifiers = x.Study.StudyIdentifiers,
+                //                                 StudyType = x.Study.StudyType,
+                //                                 EntryDateTime = x.AuditTrail.EntryDateTime,
+                //                                 SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+                //                                 StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Id) ?? null,
+                //                                 UsdmVersion = x.AuditTrail.UsdmVersion
+                //                             })
+                //                             .Sort(DataFilterCommon.GetSorterForSearchStudyTitle(searchParameters))
+                //                             .Skip((searchParameters.PageNumber - 1) * searchParameters.PageSize)
+                //                             .Limit(searchParameters.PageSize)
+                //                             .ToListAsync()
+                //                             .ConfigureAwait(false);
+                //}
+                studies = await collection.Aggregate()
                                               .Match(DataFilterCommon.GetFiltersForSearchTitle(searchParameters, GetGroupsOfUser(user).Result, user))
                                               .Project(x => new SearchTitleResponseEntity
                                               {
@@ -530,28 +568,23 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                               })
                                               .ToListAsync()
                                               .ConfigureAwait(false);
-                }
-                else
-                {
-                    studies = await collection.Aggregate()
-                                             .Match(DataFilterCommon.GetFiltersForSearchTitle(searchParameters, GetGroupsOfUser(user).Result, user))
-                                             .Project(x => new SearchTitleResponseEntity
-                                             {
-                                                 StudyId = x.Study.StudyId,
-                                                 StudyTitle = x.Study.StudyTitle,
-                                                 StudyIdentifiers = x.Study.StudyIdentifiers,
-                                                 StudyType = x.Study.StudyType,
-                                                 EntryDateTime = x.AuditTrail.EntryDateTime,
-                                                 SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
-                                                 StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Id) ?? null,
-                                                 UsdmVersion = x.AuditTrail.UsdmVersion
-                                             })
-                                             .Sort(DataFilterCommon.GetSorterForSearchStudyTitle(searchParameters))
-                                             .Skip((searchParameters.PageNumber - 1) * searchParameters.PageSize)
-                                             .Limit(searchParameters.PageSize)
-                                             .ToListAsync()
-                                             .ConfigureAwait(false);
-                }
+
+                studiesV4 = await collection.Aggregate()
+                                              .Match(DataFilterCommon.GetFiltersForSearchTitleV4(searchParameters, GetGroupsOfUser(user).Result, user))
+                                              .Project(x => new SearchTitleResponseEntity
+                                              {
+                                                  StudyId = x.Study.Id,
+                                                  StudyTitle = x.Study.Versions != null ? x.Study.Versions.First().StudyTitle : null,
+                                                  StudyIdentifiers = x.Study.Versions != null ?  x.Study.Versions.First().StudyIdentifiers : null,
+                                                  StudyType = x.Study.Versions != null ? x.Study.Versions.First().Type : null,
+                                                  EntryDateTime = x.AuditTrail.EntryDateTime,
+                                                  SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+                                                  StudyDesignIdsV4 = x.Study.Versions != null ? x.Study.Versions.Select(x => x.StudyDesigns.Select(y => y.Id)) : null,
+                                                  UsdmVersion = x.AuditTrail.UsdmVersion
+                                              })
+                                              .ToListAsync()
+                                              .ConfigureAwait(false);
+                studies.AddRange(studiesV4);
                 return studies;
             }
             catch (Exception)

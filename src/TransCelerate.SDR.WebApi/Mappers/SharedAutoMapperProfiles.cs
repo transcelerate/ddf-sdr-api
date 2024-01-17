@@ -77,7 +77,9 @@ namespace TransCelerate.SDR.WebApi.Mappers
                            src.UsdmVersion == Constants.USDMVersions.MVP ? src.StudyDesignIdsMVP != null ? 
                                             src.StudyDesignIdsMVP.Where(x => x != null && x.Any()).SelectMany(x => x).ToList() : 
                                             null :
-                                            src.UsdmVersion == Constants.USDMVersions.V3 ? src.StudyDesignIdsV4.Where(x => x != null && x.Any()).SelectMany(x => x).ToList() :
+                                            src.UsdmVersion == Constants.USDMVersions.V3 ? src.StudyDesignIdsV4 != null ? 
+                                            src.StudyDesignIdsV4.Where(x => x != null && x.Any()).SelectMany(x => x).ToList() : 
+                                            null :
                                             src.StudyDesignIds,
                            src.UsdmVersion, src.SDRUploadVersion)))
                  .ReverseMap();

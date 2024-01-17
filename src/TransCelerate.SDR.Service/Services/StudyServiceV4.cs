@@ -73,7 +73,7 @@ namespace TransCelerate.SDR.Services.Services
                     if (checkStudy == null)
                         return Constants.ErrorMessages.Forbidden;
                     var studyDTO = _mapper.Map<StudyDefinitionsDto>(study);  //Mapping Entity to Dto
-                    studyDTO.Links = LinksHelper.GetLinksForUi(study.Study.Versions.FirstOrDefault().Id, study.Study.Versions.SelectMany(x => x.StudyDesigns).Select(x => x.Id).ToList(), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion);
+                    studyDTO.Links = LinksHelper.GetLinksForUi(study.Study.Id, study.Study.Versions?.SelectMany(x => x.StudyDesigns).Select(x => x.Id).ToList(), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion);
                     return studyDTO;
                 }
             }
@@ -173,7 +173,7 @@ namespace TransCelerate.SDR.Services.Services
                             return new StudyDesignsResponseDto
                             {
                                 StudyDesigns = _helper.RemoveStudyDesignElements(Constants.StudyDesignElementsV4, studyDesigns, studyId),
-                                Links = LinksHelper.GetLinks(study.Study.Versions.FirstOrDefault().Id, study.Study.Versions.FirstOrDefault()?.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion)
+                                Links = LinksHelper.GetLinks(study.Study.Id, study.Study.Versions?.FirstOrDefault()?.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion)
                             };
 
                         return Constants.ErrorMessages.StudyDesignNotFound;
@@ -266,12 +266,12 @@ namespace TransCelerate.SDR.Services.Services
                     if (checkStudy == null)
                         return Constants.ErrorMessages.Forbidden;
 
-                    var soa = SoAV4(study.Study.Versions.FirstOrDefault()?.StudyDesigns);
+                    var soa = SoAV4(study.Study.Versions?.FirstOrDefault()?.StudyDesigns);
                     soa.StudyId = study.Study.Id;
-                    soa.StudyTitle = study.Study.Versions.FirstOrDefault()?.StudyTitle;
+                    soa.StudyTitle = study.Study.Versions?.FirstOrDefault()?.StudyTitle;
                     if (!String.IsNullOrWhiteSpace(studyDesignId))
                     {
-                        if (study.Study.Versions.FirstOrDefault()?.StudyDesigns is null || !soa.StudyDesigns.Any(x => x.StudyDesignId == studyDesignId))
+                        if (study.Study.Versions != null && study.Study.Versions.FirstOrDefault()?.StudyDesigns is null || !soa.StudyDesigns.Any(x => x.StudyDesignId == studyDesignId))
                             return Constants.ErrorMessages.StudyDesignNotFound;
 
                         if (!String.IsNullOrWhiteSpace(scheduleTimelineId))
@@ -514,7 +514,7 @@ namespace TransCelerate.SDR.Services.Services
                         return Constants.ErrorMessages.Forbidden;
                     if (!String.IsNullOrWhiteSpace(studyDesignId))
                     {
-                        if (study.Study.Versions.FirstOrDefault().StudyDesigns is not null && study.Study.Versions.FirstOrDefault().StudyDesigns.Any(x => x.Id == studyDesignId))
+                        if (study.Study.Versions != null && study.Study.Versions.FirstOrDefault().StudyDesigns is not null && study.Study.Versions.FirstOrDefault().StudyDesigns.Any(x => x.Id == studyDesignId))
                         {
                             var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy.Study.Versions.FirstOrDefault()?.StudyDesigns.Where(x => x.Id == studyDesignId).ToList());
                             JObject jObject = new()
@@ -522,7 +522,7 @@ namespace TransCelerate.SDR.Services.Services
                                 { string.Concat(nameof(StudyVersionDto.StudyDesigns)[..1].ToLower(), nameof(StudyVersionDto.StudyDesigns).AsSpan(1)), JArray.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))) }
                             };
                             if (listofelements == null)
-                                jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.Study.Id, study.Study.Versions.FirstOrDefault()?.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion), _helper.GetSerializerSettingsForCamelCasing())));
+                                jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.Study.Id, study.Study.Versions?.FirstOrDefault()?.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion), _helper.GetSerializerSettingsForCamelCasing())));
                             return jObject;
                         }
                         return Constants.ErrorMessages.StudyDesignNotFound;
@@ -535,8 +535,8 @@ namespace TransCelerate.SDR.Services.Services
                             { string.Concat(nameof(StudyVersionDto.StudyDesigns)[..1].ToLower(), nameof(StudyVersionDto.StudyDesigns).AsSpan(1)), JArray.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))) }
                         };
                         if (listofelements == null)
-                            jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.Study.Id, study.Study.Versions.FirstOrDefault()?.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion), _helper.GetSerializerSettingsForCamelCasing())));
-                        return study.Study.Versions.FirstOrDefault().StudyDesigns is not null && study.Study.Versions.FirstOrDefault().StudyDesigns.Any() ?
+                            jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.Study.Id, study.Study.Versions?.FirstOrDefault()?.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion), _helper.GetSerializerSettingsForCamelCasing())));
+                        return study.Study.Versions is not null && study.Study.Versions.FirstOrDefault().StudyDesigns is not null && study.Study.Versions.FirstOrDefault().StudyDesigns.Any() ?
                             jObject : Constants.ErrorMessages.StudyDesignNotFound;
                     }
                 }
@@ -583,18 +583,18 @@ namespace TransCelerate.SDR.Services.Services
 
                     var studyDTO = _mapper.Map<StudyDefinitionsDto>(study);
 
-                    if (studyDTO.Study.Versions.FirstOrDefault().StudyDesigns == null || !studyDTO.Study.Versions.FirstOrDefault().StudyDesigns.Any())
+                    if (studyDTO.Study.Versions != null && studyDTO.Study.Versions.FirstOrDefault().StudyDesigns == null || !studyDTO.Study.Versions.FirstOrDefault().StudyDesigns.Any())
                         return Constants.ErrorMessages.StudyDesignNotFoundCPT;
 
                     if (studyDesignId != null)
                     {
-                        if (studyDTO.Study.Versions.FirstOrDefault().StudyDesigns.Any(x => x.Id == studyDesignId))
-                            studyDTO.Study.Versions.FirstOrDefault()?.StudyDesigns.RemoveAll(x => x.Id != studyDesignId);
+                        if (studyDTO.Study.Versions != null && studyDTO.Study.Versions.FirstOrDefault().StudyDesigns.Any(x => x.Id == studyDesignId))
+                            studyDTO.Study.Versions?.FirstOrDefault()?.StudyDesigns.RemoveAll(x => x.Id != studyDesignId);
                         else
                             return Constants.ErrorMessages.StudyDesignIdNotFoundCPT;
                     }
 
-                    var eCPT = GetCPTDataV4(studyDTO.Study.Versions.FirstOrDefault(), study.AuditTrail);
+                    var eCPT = GetCPTDataV4(studyDTO.Study.Versions?.FirstOrDefault(), study.AuditTrail);
 
                     return eCPT;
                 }
@@ -853,7 +853,7 @@ namespace TransCelerate.SDR.Services.Services
                         await PushMessageToServiceBus(new Core.DTO.Common.ServiceBusMessageDto { Study_uuid = incomingStudyEntity.Study.Id, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
                     }
                 }
-                studyDTO.Links = LinksHelper.GetLinksForUi(studyDTO.Study.Id, studyDTO.Study.Versions.FirstOrDefault()?.StudyDesigns?.Select(x => x.Id).ToList(), studyDTO.AuditTrail.UsdmVersion, studyDTO.AuditTrail.SDRUploadVersion);
+                studyDTO.Links = LinksHelper.GetLinksForUi(studyDTO.Study.Id, studyDTO.Study.Versions?.FirstOrDefault()?.StudyDesigns?.Select(x => x.Id).ToList(), studyDTO.AuditTrail.UsdmVersion, studyDTO.AuditTrail.SDRUploadVersion);
                 return studyDTO;
             }
             catch (Exception)

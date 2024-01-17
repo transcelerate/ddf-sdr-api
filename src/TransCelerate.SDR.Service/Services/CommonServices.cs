@@ -289,13 +289,13 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 searchTitleDTOList = AssignStudyIdentifiers(searchTitleDTOList, searchResponse);
 
-                if (searchParameters.SortBy?.ToLower() == "sponsorid")
-                {
+                //if (searchParameters.SortBy?.ToLower() == "sponsorid")
+                //{
                     searchTitleDTOList = SortStudyTitle(searchTitleDTOList, searchParametersDTO)
                                            .Skip((searchParametersDTO.PageNumber - 1) * searchParametersDTO.PageSize)
                                            .Take(searchParametersDTO.PageSize)
                                            .ToList();
-                }
+                //}
 
                 return searchTitleDTOList;
             }
@@ -319,7 +319,7 @@ namespace TransCelerate.SDR.Services.Services
                     searchTitleDTO.Study.StudyIdentifiers = JsonConvert.DeserializeObject<List<CommonStudyIdentifiersDto>>(JsonConvert.SerializeObject(searchResponse.StudyIdentifiers));
                 }
 
-                var studyDesignIds = searchResponse.UsdmVersion == Constants.USDMVersions.MVP ? searchResponse.StudyDesignIdsMVP?.Where(x => x != null && x.Any()).SelectMany(x => x)?.ToList() : searchResponse.StudyDesignIds?.ToList();
+                var studyDesignIds = searchResponse.UsdmVersion == Constants.USDMVersions.MVP ? searchResponse.StudyDesignIdsMVP?.Where(x => x != null && x.Any()).SelectMany(x => x)?.ToList() : searchResponse.UsdmVersion == Constants.USDMVersions.V3 ? searchResponse.StudyDesignIdsV4?.Where(x => x != null && x.Any()).SelectMany(x => x)?.ToList() : searchResponse.StudyDesignIds?.ToList();
                 searchTitleDTO.Links = LinksHelper.GetLinksForUi(searchResponse.StudyId, studyDesignIds, searchResponse.UsdmVersion, searchResponse.SDRUploadVersion);
             });
 
@@ -333,7 +333,11 @@ namespace TransCelerate.SDR.Services.Services
                 return searchParametersDTO.SortBy.ToLower() switch
                 {                    
                     "sponsorid" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(s => s.Study.StudyIdentifiers != null ? s.Study.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode?.ToLower() == Constants.IdType.SPONSOR_ID_V1?.ToLower() || x.StudyIdentifierScope?.OrganisationType?.Decode?.ToLower() == Constants.IdType.SPONSOR_ID?.ToLower()).Any() ? s.Study.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode?.ToLower() == Constants.IdType.SPONSOR_ID_V1?.ToLower() || x.StudyIdentifierScope?.OrganisationType?.Decode?.ToLower() == Constants.IdType.SPONSOR_ID?.ToLower()).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : "").ToList()
-                                                                                         : searchTitleDTOs.OrderByDescending(s => s.Study.StudyIdentifiers != null ? s.Study.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode?.ToLower() == Constants.IdType.SPONSOR_ID_V1?.ToLower() || x.StudyIdentifierScope?.OrganisationType?.Decode?.ToLower() == Constants.IdType.SPONSOR_ID?.ToLower()).Any() ? s.Study.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode?.ToLower() == Constants.IdType.SPONSOR_ID_V1?.ToLower() || x.StudyIdentifierScope?.OrganisationType?.Decode?.ToLower() == Constants.IdType.SPONSOR_ID?.ToLower()).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : "").ToList(),                    
+                                                                                         : searchTitleDTOs.OrderByDescending(s => s.Study.StudyIdentifiers != null ? s.Study.StudyIdentifiers.FindAll(x => x.StudyIdentifierScope?.OrganisationType?.Decode?.ToLower() == Constants.IdType.SPONSOR_ID_V1?.ToLower() || x.StudyIdentifierScope?.OrganisationType?.Decode?.ToLower() == Constants.IdType.SPONSOR_ID?.ToLower()).Any() ? s.Study.StudyIdentifiers.Find(x => x.StudyIdentifierScope?.OrganisationType?.Decode?.ToLower() == Constants.IdType.SPONSOR_ID_V1?.ToLower() || x.StudyIdentifierScope?.OrganisationType?.Decode?.ToLower() == Constants.IdType.SPONSOR_ID?.ToLower()).StudyIdentifierScope.OrganisationIdentifier ?? "" : "" : "").ToList(),
+                    "studytitle" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(s => s.Study.StudyTitle).ToList() : searchTitleDTOs.OrderByDescending(s => s.Study.StudyTitle).ToList(),
+                    "version" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(s => s.AuditTrail.SDRUploadVersion).ToList() : searchTitleDTOs.OrderByDescending(s => s.AuditTrail.SDRUploadVersion).ToList(),
+                    "lastmodifieddate" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(s => s.AuditTrail.EntryDateTime).ToList() : searchTitleDTOs.OrderByDescending(s => s.AuditTrail.EntryDateTime).ToList(),
+                    "usdmversion" => searchParametersDTO.SortOrder == SortOrder.asc.ToString() ? searchTitleDTOs.OrderBy(s => s.AuditTrail.UsdmVersion).ToList() : searchTitleDTOs.OrderByDescending(s => s.AuditTrail.UsdmVersion).ToList(),
                     _ => searchParametersDTO.SortOrder == SortOrder.desc.ToString() ? searchTitleDTOs.OrderByDescending(x => x.Study.StudyTitle).ToList() : searchTitleDTOs.OrderBy(x => x.Study.StudyTitle).ToList(),
                 };
             }

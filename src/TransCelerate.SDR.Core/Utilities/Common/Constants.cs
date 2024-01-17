@@ -91,11 +91,13 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         {
             public const string StudyId = "study.studyId";
             public const string StudyIdV4 = "study.id";
+            public const string StudyTitleV4 = "study.versions.studyTitle";
             public const string Study = "study";
             public const string AuditTrail = "auditTrail";
             public const string StudyType = "study.studyType";
-            public const string StudyTypeV4 = "study.versions.studyType";
+            public const string StudyTypeV4 = "study.versions.type";
             public const string StudyIdentifiers = "study.studyIdentifiers";
+            public const string StudyIdentifiersV4 = "study.versions.studyIdentifiers";
             public const string StudyIdentifierOrganisationIdentifier = "studyIdentifierScope.organisationIdentifier";
             public const string StudyIdentifierOrganisationTypeDecode = "studyIdentifierScope.organisationType.decode";
             public const string StudyIdentifierIdType = "idType";
