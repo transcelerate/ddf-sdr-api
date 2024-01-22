@@ -117,10 +117,6 @@ jobs:
 #############################-------------Deployment----------------#####################################
         
     #- # "Note: the 'AZURE_SP' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
-    #  name: Azure Login
-    #  uses: azure/login@v1
-    #  with:
-    #    creds: ${{ secrets.AZURE_SP }} 
 
     - name: Azure Kubernetes set context
       uses: Azure/aks-set-context@v1
@@ -130,19 +126,7 @@ jobs:
         # Resource Group Name
         resource-group: rg-sdr-aks-eastus
         # AKS Cluster Name
-        cluster-name: kub-sdr-dev-eastus
-      
-    # - name: 'Run Azure webapp deploy action using publish profile credentials'
-    #   env:  
-    #     # AZURE_WEBAPP_NAME is getting fetched from secrets
-    #     # AZURE_WEBAPP_PACKAGE_PATH is declared from build path
-    #     AZURE_WEBAPP_NAME: ${{ secrets.AZURE_WEBAPP_NAME }}    # set this to your application's name
-    #     AZURE_WEBAPP_PACKAGE_PATH: '${{ github.workspace }}/Publish.zip'      # set this to the path to your web app project, defaults to the repository root
-    #   uses: azure/webapps-deploy@v2
-    #   # Deploy to target machine and path
-    #   with: 
-    #     app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
-    #     package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+        cluster-name: kub-sdr-dev-eastus      
 
     - name: Azure Container Registry Login
       uses: Azure/docker-login@v1
@@ -174,18 +158,7 @@ jobs:
         # deploy/promote/reject
         action: deploy
         
-    #- uses: azure/webapps-deploy@v2
-    #  with:
-    #    app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
-    #    images: '${{ secrets.ACR_NAME }}/sdrapibuild:latest'
-        
-    #- name: Azure Functions Action
-    #  uses: Azure/functions-action@v1.4.7
-    #  with:
-    ## Name of the Azure Function App
-    #    app-name: ${{ secrets.AZURE_FUNCTIONAPP_NAME }}  # Replace with Function app name
-    ## Path to package or folder. *.zip or a folder to deploy
-    #    package: '${{ github.workspace }}/FunAppPublish.zip'
+
 
 
         
