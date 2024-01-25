@@ -16,10 +16,10 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
 
         public List<StudyIdentifierEntity> StudyIdentifiers { get; set; }
 
-        public IEnumerable<List<IndicationEntity>> StudyIndications { get; set; }
+        public IEnumerable<IEnumerable<List<IndicationEntity>>> StudyIndications { get; set; }
 
-        public IEnumerable<CodeEntity> InterventionModel { get; set; }
-        public IEnumerable<string> StudyDesignIds { get; set; }
+        public IEnumerable<IEnumerable<CodeEntity>> InterventionModel { get; set; }
+        public IEnumerable<IEnumerable<string>> StudyDesignIds { get; set; }
         public DateTime EntryDateTime { get; set; }
         public int SDRUploadVersion { get; set; }
         public string UsdmVersion { get; set; }

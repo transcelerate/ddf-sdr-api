@@ -292,15 +292,22 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                               {
                                                   StudyId = x.Study.StudyId,
                                                   StudyTitle = x.Study.StudyTitle,
+                                                  StudyTitleV4 = x.Study.Versions != null ? x.Study.Versions.First().StudyTitle : null,
                                                   StudyType = x.Study.StudyType,
+                                                  StudyTypeV4 = x.Study.Versions != null ? x.Study.Versions.First().Type : null,
                                                   StudyPhase = x.Study.StudyPhase,
+                                                  StudyPhaseV4 = x.Study.Versions != null ? x.Study.Versions.First().StudyPhase : null,
                                                   StudyIdentifiers = x.Study.StudyIdentifiers,
+                                                  StudyIdentifiersV4 = x.Study.Versions != null ? x.Study.Versions.First().StudyIdentifiers : null,
                                                   InterventionModel = x.Study.StudyDesigns.Select(y => y.InterventionModel) ?? null,
-                                                  StudyIndications = x.Study.StudyDesigns.Select(y => y.StudyIndications.Select(z => z.IndicationDescription ?? z.IndicationDesc)) ?? null,                                                  
+                                                  InterventionModelV4 = x.Study.Versions != null ? x.Study.Versions.Select(x => x.StudyDesigns.Select(y => y.InterventionModel)) : null,
+                                                  StudyIndications = x.Study.StudyDesigns.Select(y => y.StudyIndications.Select(z => z.IndicationDescription ?? z.IndicationDesc)) ?? null,
+                                                  StudyIndicationsV4 = x.Study.Versions != null ? x.Study.Versions.Select(x => x.StudyDesigns.Select(y => y.Indications)) : null,
                                                   EntryDateTime = x.AuditTrail.EntryDateTime,
                                                   SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
                                                   UsdmVersion = x.AuditTrail.UsdmVersion,
-                                                  StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Id) ?? null,                                                  
+                                                  StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Id) ?? null,
+                                                  StudyDesignIdsV4 = x.Study.Versions != null ? x.Study.Versions.Select(y => y.StudyDesigns.Select(x => x.Id)) : null
                                               })
                                               .ToListAsync()
                                               .ConfigureAwait(false);
@@ -312,16 +319,24 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                               .Project(x => new SearchResponseEntity
                                               {
                                                   StudyId = x.Study.StudyId,
+                                                  StudyIdV4 = x.Study.Id,
                                                   StudyTitle = x.Study.StudyTitle,
+                                                  StudyTitleV4 = x.Study.Versions != null ? x.Study.Versions.First().StudyTitle : null,
                                                   StudyType = x.Study.StudyType,
+                                                  StudyTypeV4 = x.Study.Versions != null ? x.Study.Versions.First().Type : null,
                                                   StudyPhase = x.Study.StudyPhase,
+                                                  StudyPhaseV4 = x.Study.Versions != null ? x.Study.Versions.First().StudyPhase : null,
                                                   StudyIdentifiers = x.Study.StudyIdentifiers,
+                                                  StudyIdentifiersV4 = x.Study.Versions != null ? x.Study.Versions.First().StudyIdentifiers : null,
                                                   InterventionModel = x.Study.StudyDesigns.Select(y => y.InterventionModel) ?? null,
-                                                  StudyIndications = x.Study.StudyDesigns.Select(y => y.StudyIndications.Select(z => z.IndicationDescription ?? z.IndicationDesc)) ?? null,                                                  
+                                                  InterventionModelV4 = x.Study.Versions != null ? x.Study.Versions.Select(x => x.StudyDesigns.Select(y => y.InterventionModel)) : null,
+                                                  StudyIndications = x.Study.StudyDesigns.Select(y => y.StudyIndications.Select(z => z.IndicationDescription ?? z.IndicationDesc)) ?? null,
+                                                  StudyIndicationsV4 = x.Study.Versions != null ? x.Study.Versions.Select(x => x.StudyDesigns.Select(y => y.Indications)) : null,
                                                   EntryDateTime = x.AuditTrail.EntryDateTime,
                                                   SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
                                                   UsdmVersion = x.AuditTrail.UsdmVersion,
                                                   StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Id) ?? null,                                                  
+                                                  StudyDesignIdsV4 = x.Study.Versions != null ? x.Study.Versions.Select(y => y.StudyDesigns.Select(x => x.Id)) : null                                                 
                                               })
                                               .Sort(DataFilterCommon.GetSorterForSearchStudy(searchParameters))
                                               .Skip((searchParameters.PageNumber - 1) * searchParameters.PageSize)
@@ -463,17 +478,17 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                               .Match(DataFilterCommon.GetFiltersForSearchV4(searchParameters, GetGroupsOfUser(user).Result, user))
                                               .Project(x => new Core.Entities.StudyV4.SearchResponseEntity
                                               {
-                                                  //StudyId = x.Study.Id,
-                                                  //StudyTitle = x.Study.StudyTitle,
-                                                  //StudyType = x.Study.StudyType,
-                                                  //StudyPhase = x.Study.StudyPhase,
-                                                  //StudyIdentifiers = x.Study.StudyIdentifiers,
-                                                  //InterventionModel = x.Study.StudyDesigns.Select(y => y.InterventionModel) ?? null,
-                                                  //StudyIndications = x.Study.StudyDesigns.Select(y => y.Indications) ?? null,
-                                                  //EntryDateTime = x.AuditTrail.EntryDateTime,
-                                                  //SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
-                                                  //UsdmVersion = x.AuditTrail.UsdmVersion,
-                                                  //StudyDesignIds = x.Study.StudyDesigns.Select(x => x.Id) ?? null,
+                                                  StudyId = x.Study.Id,
+                                                  StudyTitle = x.Study.Versions != null ? x.Study.Versions.First().StudyTitle : null,
+                                                  StudyType = x.Study.Versions != null ? x.Study.Versions.First().Type : null,
+                                                  StudyPhase = x.Study.Versions != null ? x.Study.Versions.First().StudyPhase : null,
+                                                  StudyIdentifiers = x.Study.Versions != null ? x.Study.Versions.First().StudyIdentifiers : null,
+                                                  InterventionModel = x.Study.Versions != null ? x.Study.Versions.Select(y => y.StudyDesigns.Select(x=>x.InterventionModel)) : null,
+                                                  StudyIndications = x.Study.Versions != null ? x.Study.Versions.Select(y => y.StudyDesigns.Select(x => x.Indications)) : null,
+                                                  EntryDateTime = x.AuditTrail.EntryDateTime,
+                                                  SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+                                                  UsdmVersion = x.AuditTrail.UsdmVersion,
+                                                  StudyDesignIds = x.Study.Versions != null ? x.Study.Versions.Select(x => x.StudyDesigns.Select(y => y.Id)) : null,
                                               })
                                               .ToListAsync()
                                               .ConfigureAwait(false);

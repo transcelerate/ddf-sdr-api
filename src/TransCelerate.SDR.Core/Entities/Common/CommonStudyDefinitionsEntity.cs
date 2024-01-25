@@ -69,7 +69,7 @@ namespace TransCelerate.SDR.Core.Entities.Common
     {
         public string Id { get; set; }
         public object InterventionModel { get; set; }
-        public List<CommonStudyIndication> StudyIndications { get; set; }
+        public List<CommonStudyIndication> Indications { get; set; }
     }
     [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
     public class CommonCodeEntity
