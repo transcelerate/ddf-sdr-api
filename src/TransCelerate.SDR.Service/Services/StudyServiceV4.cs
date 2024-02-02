@@ -780,7 +780,7 @@ namespace TransCelerate.SDR.Services.Services
                         StudyId = studyId,
                         LHS = new VersionDetails { EntryDateTime = studyOne.AuditTrail.EntryDateTime, SDRUploadVersion = studyOne.AuditTrail.SDRUploadVersion},
                         RHS = new VersionDetails { EntryDateTime = studyTwo.AuditTrail.EntryDateTime, SDRUploadVersion = studyTwo.AuditTrail.SDRUploadVersion},
-                        //ElementsChanged = _helper.GetChangedValuesForStudyComparison(studyOne, studyTwo)
+                        ElementsChanged = _helper.GetChangedValuesForStudyComparison(studyOne, studyTwo)
                     };
                 }
             }

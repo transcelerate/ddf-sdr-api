@@ -282,38 +282,100 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
         {
             List<string> changedValues = new();
 
-        //    if (currentStudyVersion.Study.StudyTitle != previousStudyVersion.Study.StudyTitle)
-        //        changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyTitle)}");
-        //    if (currentStudyVersion.Study.StudyVersion != previousStudyVersion.Study.StudyVersion)
-        //        changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyVersion)}");
-        //    if (currentStudyVersion.Study.StudyRationale != previousStudyVersion.Study.StudyRationale)
-        //        changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyRationale)}");
-        //    if (currentStudyVersion.Study.StudyAcronym != previousStudyVersion.Study.StudyAcronym)
-        //        changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyAcronym)}");
-        //    if (GetDifferences<CodeEntity>(currentStudyVersion.Study.StudyType, previousStudyVersion.Study.StudyType).Any())
-        //        changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyType)}");
+            changedValues = GetDifferences(currentStudyVersion, previousStudyVersion);
 
-        //    //StudyPhase
-        //    GetDifferenceForAliasCode(currentStudyVersion.Study.StudyPhase, previousStudyVersion.Study.StudyPhase).ForEach(x =>
-        //    {
-        //        changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyPhase)}.{x}");
-        //    });
+            changedValues.RemoveAll(x => x.Contains(nameof(StudyEntity.Versions)));
+            changedValues.RemoveAll(x => x.Contains(nameof(StudyEntity.DocumentedBy)));
 
-        //    //BusinessTherapeuticAreas
-        //    if (GetDifferences<List<CodeEntity>>(currentStudyVersion.Study.BusinessTherapeuticAreas, previousStudyVersion.Study.BusinessTherapeuticAreas).Any())
-        //        changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.BusinessTherapeuticAreas)}");
+            changedValues.AddRange(GetChangedValuesForStudyVersion(currentStudyVersion.Study.Versions, previousStudyVersion.Study.Versions));
 
-        //    //StudyIdentifiers
-        //    changedValues.AddRange(GetDifferenceForStudyIdentifiers(currentStudyVersion.Study.StudyIdentifiers, previousStudyVersion.Study.StudyIdentifiers));
-        //    //StudyProtocolVersion
-        //    changedValues.AddRange(GetDifferenceForStudyProtocolVersions(currentStudyVersion.Study.StudyProtocolVersions, previousStudyVersion.Study.StudyProtocolVersions));
-        //    //Study Designs
-        //    changedValues.AddRange(GetDifferenceForStudyDesigns(currentStudyVersion.Study.StudyDesigns, previousStudyVersion.Study.StudyDesigns));
+            if (currentStudyVersion.Study.DocumentedBy?.Id != previousStudyVersion.Study.DocumentedBy?.Id)
+                changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.DocumentedBy)}");
+            else
+            {
+                changedValues.AddRange(GetDifferences(currentStudyVersion.Study.DocumentedBy, previousStudyVersion.Study.DocumentedBy));
+                changedValues.RemoveAll(x => x.Contains(nameof(StudyProtocolDocumentEntity.Versions)));
+                changedValues.AddRange(GetDifferenceForStudyProtocolDocumentVersions(currentStudyVersion.Study.DocumentedBy?.Versions, previousStudyVersion.Study.DocumentedBy?.Versions));
+            }
 
-
-            return changedValues;
+            return FormatVersionCompareValues(changedValues);
         }
+        public List<string> GetChangedValuesForStudyVersion(List<StudyVersionEntity> currentVersion, List<StudyVersionEntity> previousVersion)
+        {
+            List<string> changedValues = new();
+            List<string> formattedChangedValues = new();
 
+            if (currentVersion?.Count != previousVersion?.Count)
+                changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.Versions)}");
+
+            changedValues.AddRange(GetDifferenceForAListForStudyComparison(currentVersion, previousVersion));
+            changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.Type)}"));
+            changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.DateValues)}"));
+            changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.Amendments)}"));
+            changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.StudyIdentifiers)}"));
+            changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.StudyPhase)}"));
+            changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.BusinessTherapeuticAreas)}"));
+            changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.StudyDesigns)}"));
+
+            currentVersion?.ForEach(currVer =>
+            {
+                if (previousVersion != null && previousVersion.Any(x => x.Id == currVer.Id))
+                {
+                    var prevVer = previousVersion.Find(x => x.Id == currVer.Id);
+                    var currentVersionIndex = currentVersion.IndexOf(currVer);
+                    if (currVer.StudyTitle != currVer.StudyTitle)
+                        changedValues.Add($"{nameof(StudyVersionEntity.StudyTitle)}");
+                    if (currVer.VersionIdentifier != prevVer.VersionIdentifier)
+                        changedValues.Add($"{nameof(StudyVersionEntity.VersionIdentifier)}");
+                    if (currVer.Rationale != prevVer.Rationale)
+                        changedValues.Add($"{nameof(StudyVersionEntity.Rationale)}");
+                    if (currVer.StudyAcronym != prevVer.StudyAcronym)
+                        changedValues.Add($"{nameof(StudyVersionEntity.StudyAcronym)}");
+                    if (GetDifferencesForStudyComparison(currVer.Type, prevVer.Type).Any())
+                        changedValues.Add($"{nameof(StudyVersionEntity.Type)}");
+
+                    //StudyPhase
+                    GetDifferenceForAliasCode(currVer.StudyPhase, prevVer.StudyPhase).ForEach(x =>
+                    {
+                        changedValues.Add($"{nameof(StudyVersionEntity.StudyPhase)}{x}");
+                    });
+
+                    //BusinessTherapeuticAreas
+                    if (GetDifferences<List<CodeEntity>>(currVer.BusinessTherapeuticAreas, prevVer.BusinessTherapeuticAreas).Any())
+                        changedValues.Add($"{nameof(StudyVersionEntity.BusinessTherapeuticAreas)}");
+                    //StudyIdentifiers
+                    GetDifferenceForStudyIdentifiers(currVer.StudyIdentifiers, prevVer.StudyIdentifiers).ForEach(x =>
+                    {
+                        changedValues.Add($"{x}");
+                    });
+                    //DateValues
+                    GetDifferenceForGovernanceDate(currVer.DateValues, prevVer.DateValues).ForEach(x =>
+                    {
+                        changedValues.Add($"{x}");
+                    });
+                    //Ammendments
+                    GetDifferenceForStudyAmendments(currVer.Amendments, prevVer.Amendments).ForEach(x =>
+                    {
+                        changedValues.Add($"{x}");
+                    });
+                    //Study Designs
+                    GetDifferenceForStudyDesigns(currVer.StudyDesigns, prevVer.StudyDesigns).ForEach(x =>
+                    {
+                        changedValues.Add($"{x}");
+                    });
+                }
+            });
+
+            if (changedValues.Any())
+            {
+                changedValues.ForEach(x =>
+                {
+                    string addRootPath = $"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.Versions)}{x}";
+                    formattedChangedValues.Add(addRootPath);
+                });
+            }
+            return formattedChangedValues;
+        }
         public static List<string> GetDifferences<T>(T currentVersion, T previousVersion)
         {
             var comparer = new ObjectsComparer.Comparer<T>();
@@ -397,17 +459,36 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
             return tempList;
         }
 
-        public List<string> GetDifferenceForStudyProtocolVersions(List<StudyProtocolDocumentVersionEntity> currentVersion, List<StudyProtocolDocumentVersionEntity> previousVersion)
+        public List<string> GetDifferenceForStudyProtocolDocumentVersions(List<StudyProtocolDocumentVersionEntity> currentVersion, List<StudyProtocolDocumentVersionEntity> previousVersion)
         {
             var tempList = new List<string>();
-            //if ((currentVersion is null && previousVersion is not null) || (currentVersion is not null && previousVersion is null))
-            //    tempList.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyProtocolVersions)}");
-            //if (currentVersion?.Count != previousVersion?.Count)
-            //    tempList.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyProtocolVersions)}");
-            //GetDifferenceForAList<StudyProtocolDocumentVersionEntity>(currentVersion, previousVersion).ForEach(x =>
-            //{
-            //    tempList.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyProtocolVersions)}.{x}");
-            //});
+
+            if (currentVersion?.Count != previousVersion?.Count)
+                tempList.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.DocumentedBy)}.{nameof(StudyProtocolDocumentEntity.Versions)}");
+
+
+            tempList.AddRange(GetDifferenceForAList(currentVersion, previousVersion));
+
+            tempList.RemoveAll(x => x.Contains($"{nameof(StudyProtocolDocumentVersionEntity.DateValues)}"));
+            tempList.RemoveAll(x => x.Contains($"{nameof(StudyProtocolDocumentVersionEntity.Contents)}"));
+
+            currentVersion?.ForEach(currProtDocVersion =>
+            {
+                if (previousVersion != null && previousVersion.Any(x => x.Id == currProtDocVersion.Id))
+                {
+                    var prevProtDocVersion = previousVersion.Find(x => x.Id == currProtDocVersion.Id);
+
+                    GetDifferenceForGovernanceDate(currProtDocVersion.DateValues, prevProtDocVersion.DateValues).ForEach(x =>
+                    {
+                        tempList.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.DocumentedBy)}.{nameof(StudyProtocolDocumentEntity.Versions)}.{x}");
+                    });
+                    GetDifferenceForAList<NarrativeContentEntity>(currProtDocVersion.Contents, prevProtDocVersion.Contents).ForEach(x =>
+                    {
+                        tempList.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.DocumentedBy)}.{nameof(StudyProtocolDocumentEntity.Versions)}.{x}");
+                    });
+                }
+            });
+
             return tempList;
         }
 
@@ -655,6 +736,31 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
             {
                 tempList.Add($"{nameof(StudyDesignEntity.Populations)}.{x}");
             });
+            tempList.RemoveAll(x => x.Contains($"{nameof(StudyDesignPopulationEntity.Cohorts)}"));
+
+            currentStudyDesign.Populations?.ForEach(currentPopulation =>
+            {
+                if (previousStudyDesign.Populations != null && previousStudyDesign.Populations.Any(x => x.Id == currentPopulation.Id))
+                {
+                    var previousPopulation = previousStudyDesign.Populations.Find(x => x.Id == currentPopulation.Id);
+                    GetDifferenceForAList<StudyCohortEntity>(currentPopulation.Cohorts, currentPopulation.Cohorts).ForEach(x =>
+                    {
+                        tempList.Add($"{nameof(StudyDesignEntity.Populations)}.{nameof(StudyDesignPopulationEntity.Cohorts)}.{x}");
+                    });
+                    tempList.RemoveAll(x => x.Contains($"{nameof(StudyCohortEntity.Characteristics)}"));
+                    currentPopulation.Cohorts?.ForEach(currCohort =>
+                    {
+                        if (previousPopulation.Cohorts != null && previousPopulation.Cohorts.Any(x => x.Id == currCohort.Id))
+                        {
+                            var prevCohort = previousPopulation.Cohorts.Find(x => x.Id == currCohort.Id);
+                            GetDifferenceForAList<CharacteristicEntity>(currCohort.Characteristics, currCohort.Characteristics).ForEach(x =>
+                            {
+                                tempList.Add($"{nameof(StudyDesignEntity.Populations)}.{nameof(StudyDesignPopulationEntity.Cohorts)}.{nameof(StudyCohortEntity.Characteristics)}.{x}");
+                            });
+                        }
+                    });
+                }
+            });
             return tempList;
         }
 
@@ -800,6 +906,60 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                     GetDifferenceForAList<ProcedureEntity>(currentActivitiy.DefinedProcedures, previousActivity.DefinedProcedures).ForEach(x =>
                     {
                         tempList.Add($"{nameof(StudyDesignEntity.Activities)}.{nameof(ActivityEntity.DefinedProcedures)}.{x}");
+                    });
+                }
+            });
+            return tempList;
+        }
+
+        public List<string> GetDifferenceForGovernanceDate(List<GovernanceDateEntity> currentVersion, List<GovernanceDateEntity> previousVersion)
+        {
+            var tempList = new List<string>();
+            if (currentVersion?.Count != previousVersion?.Count)
+                tempList.Add($"{nameof(StudyVersionEntity.DateValues)}");
+
+            tempList.AddRange(GetDifferenceForAList(currentVersion, previousVersion));
+
+            tempList.RemoveAll(x => x.Contains($"{nameof(GovernanceDateEntity.GeographicScopes)}"));
+
+            currentVersion?.ForEach(currGovDate =>
+            {
+                if (previousVersion != null && previousVersion.Any(x => x.Id == currGovDate.Id))
+                {
+                    var prevGovDate = previousVersion.Find(x => x.Id == currGovDate.Id);
+
+                    GetDifferenceForAList<GeographicScopeEntity>(currGovDate.GeographicScopes, prevGovDate.GeographicScopes).ForEach(x =>
+                    {
+                        tempList.Add($"{nameof(StudyVersionEntity.DateValues)}.{x}");
+                    });
+                }
+            });
+            return tempList;
+        }
+        public List<string> GetDifferenceForStudyAmendments(List<StudyAmendmentEntity> currentVersion, List<StudyAmendmentEntity> previousVersion)
+        {
+            var tempList = new List<string>();
+            if (currentVersion?.Count != previousVersion?.Count)
+                tempList.Add($"{nameof(StudyVersionEntity.Amendments)}");
+
+            tempList.AddRange(GetDifferenceForAList(currentVersion, previousVersion));
+
+            tempList.RemoveAll(x => x.Contains($"{nameof(StudyAmendmentEntity.Enrollments)}"));
+            tempList.RemoveAll(x => x.Contains($"{nameof(StudyAmendmentEntity.SecondaryReasons)}"));
+
+            currentVersion?.ForEach(currAmendment =>
+            {
+                if (previousVersion != null && previousVersion.Any(x => x.Id == currAmendment.Id))
+                {
+                    var prevAmendment = previousVersion.Find(x => x.Id == currAmendment.Id);
+
+                    GetDifferenceForAList<SubjectEnrollmentEntity>(currAmendment.Enrollments, prevAmendment.Enrollments).ForEach(x =>
+                    {
+                        tempList.Add($"{nameof(StudyVersionEntity.Amendments)}.{x}");
+                    });
+                    GetDifferenceForAList<StudyAmendmentReasonEntity>(currAmendment.SecondaryReasons, prevAmendment.SecondaryReasons).ForEach(x =>
+                    {
+                        tempList.Add($"{nameof(StudyVersionEntity.Amendments)}.{x}");
                     });
                 }
             });
@@ -1234,38 +1394,103 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
         {
             List<string> changedValues = new();
 
-        //    if (currentStudyVersion.Study.StudyTitle != previousStudyVersion.Study.StudyTitle)
-        //        changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyTitle)}");
-        //    if (currentStudyVersion.Study.StudyVersion != previousStudyVersion.Study.StudyVersion)
-        //        changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyVersion)}");
-        //    if (currentStudyVersion.Study.StudyRationale != previousStudyVersion.Study.StudyRationale)
-        //        changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyRationale)}");
-        //    if (currentStudyVersion.Study.StudyAcronym != previousStudyVersion.Study.StudyAcronym)
-        //        changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyAcronym)}");
-        //    if (GetDifferencesForStudyComparison<CodeEntity>(currentStudyVersion.Study.StudyType, previousStudyVersion.Study.StudyType).Any())
-        //        changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyType)}");
+            changedValues = GetDifferencesForStudyComparison(currentStudyVersion, previousStudyVersion);
 
-        //    //StudyPhase
-        //    GetDifferenceForAliasCodeForStudyComparison(currentStudyVersion.Study.StudyPhase, previousStudyVersion.Study.StudyPhase).ForEach(x =>
-        //    {
-        //        changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyPhase)}{x}");
-        //    });
+            changedValues.RemoveAll(x => x.Contains(nameof(StudyEntity.Versions)));
+            changedValues.RemoveAll(x => x.Contains(nameof(StudyEntity.DocumentedBy)));
+            changedValues.RemoveAll(x => x.Contains(nameof(StudyDefinitionsEntity.AuditTrail)));
 
-        //    //BusinessTherapeuticAreas
-        //    if (GetDifferencesForStudyComparison<List<CodeEntity>>(currentStudyVersion.Study.BusinessTherapeuticAreas, previousStudyVersion.Study.BusinessTherapeuticAreas).Any())
-        //        changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.BusinessTherapeuticAreas)}");
+            changedValues.AddRange(GetChangedValuesForStudyVersionForStudyComparison(currentStudyVersion.Study.Versions, previousStudyVersion.Study.Versions));
 
-        //    //StudyIdentifiers
-        //    changedValues.AddRange(GetDifferenceForStudyIdentifiersForStudyComparison(currentStudyVersion.Study.StudyIdentifiers, previousStudyVersion.Study.StudyIdentifiers));
-        //    //StudyProtocolVersion
-        //    changedValues.AddRange(GetDifferenceForStudyProtocolVersionsForStudyComparison(currentStudyVersion.Study.StudyProtocolVersions, previousStudyVersion.Study.StudyProtocolVersions));
-        //    //Study Designs
-        //    changedValues.AddRange(GetDifferenceForStudyDesignsForStudyComparison(currentStudyVersion.Study.StudyDesigns, previousStudyVersion.Study.StudyDesigns));
-
+            if (currentStudyVersion.Study.DocumentedBy?.Id != previousStudyVersion.Study.DocumentedBy?.Id)
+                changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.DocumentedBy)}");
+            else
+            {
+                var tempList = new List<string>();
+                tempList.AddRange(GetDifferencesForStudyComparison(currentStudyVersion.Study.DocumentedBy, previousStudyVersion.Study.DocumentedBy));
+                tempList.RemoveAll(x => x.Contains(nameof(StudyProtocolDocumentEntity.Versions)));
+                tempList.AddRange(GetDifferenceForStudyProtocolDocumentVersionsForStudyComparison(currentStudyVersion.Study.DocumentedBy?.Versions, previousStudyVersion.Study.DocumentedBy?.Versions));
+                changedValues.AddRange(tempList);
+            }
 
             return FormatVersionCompareValues(changedValues);
         }
+        public List<string> GetChangedValuesForStudyVersionForStudyComparison(List<StudyVersionEntity> currentVersion, List<StudyVersionEntity> previousVersion)
+        {
+            List<string> changedValues = new();
+            List<string> formattedChangedValues = new();
 
+            if (currentVersion?.Count != previousVersion?.Count)
+                changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.Versions)}{Constants.VersionCompareConstants.ArrayBrackets}");
+
+            changedValues.AddRange(GetDifferenceForAListForStudyComparison(currentVersion, previousVersion));
+            changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.Type)}"));
+            changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.DateValues)}"));
+            changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.Amendments)}"));
+            changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.StudyIdentifiers)}"));
+            changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.StudyPhase)}"));
+            changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.BusinessTherapeuticAreas)}"));
+            changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.StudyDesigns)}"));
+
+            currentVersion?.ForEach(currVer =>
+            {
+                if (previousVersion != null && previousVersion.Any(x => x.Id == currVer.Id))
+                {
+                    var prevVer = previousVersion.Find(x => x.Id == currVer.Id);
+                    var currentVersionIndex = currentVersion.IndexOf(currVer);
+                    if (currVer.StudyTitle != currVer.StudyTitle)
+                        changedValues.Add($"[{currentVersionIndex}].{nameof(StudyVersionEntity.StudyTitle)}");
+                    if (currVer.VersionIdentifier != prevVer.VersionIdentifier)
+                        changedValues.Add($"[{currentVersionIndex}].{nameof(StudyVersionEntity.VersionIdentifier)}");
+                    if (currVer.Rationale != prevVer.Rationale)
+                        changedValues.Add($"[{currentVersionIndex}].{nameof(StudyVersionEntity.Rationale)}");
+                    if (currVer.StudyAcronym != prevVer.StudyAcronym)
+                        changedValues.Add($"[{currentVersionIndex}].{nameof(StudyVersionEntity.StudyAcronym)}");
+                    if (GetDifferencesForStudyComparison(currVer.Type, prevVer.Type).Any())
+                        changedValues.Add($"[{currentVersionIndex}].{nameof(StudyVersionEntity.Type)}");
+
+                    //StudyPhase
+                    GetDifferenceForAliasCodeForStudyComparison(currVer.StudyPhase, prevVer.StudyPhase).ForEach(x =>
+                    {
+                        changedValues.Add($"[{currentVersionIndex}].{nameof(StudyVersionEntity.StudyPhase)}{x}");
+                    });
+
+                    //BusinessTherapeuticAreas
+                    if (GetDifferencesForStudyComparison<List<CodeEntity>>(currVer.BusinessTherapeuticAreas, prevVer.BusinessTherapeuticAreas).Any())
+                        changedValues.Add($"[{currentVersionIndex}].{nameof(StudyVersionEntity.BusinessTherapeuticAreas)}");
+                    //StudyIdentifiers
+                    GetDifferenceForStudyIdentifiersForStudyComparison(currVer.StudyIdentifiers, prevVer.StudyIdentifiers).ForEach(x =>
+                    {
+                        changedValues.Add($"[{currentVersionIndex}].{x}");
+                    });
+                    //DateValues
+                    GetDifferenceForGovernanceDateForStudyComparison(currVer.DateValues, prevVer.DateValues).ForEach(x =>
+                    {
+                        changedValues.Add($"[{currentVersionIndex}].{x}");
+                    });
+                    //Ammendments
+                    GetDifferenceForStudyAmendmentsForStudyComparison(currVer.Amendments, prevVer.Amendments).ForEach(x =>
+                    {
+                        changedValues.Add($"[{currentVersionIndex}].{x}");
+                    });
+                    //Study Designs
+                    GetDifferenceForStudyDesignsForStudyComparison(currVer.StudyDesigns, prevVer.StudyDesigns).ForEach(x =>
+                    {
+                        changedValues.Add($"[{currentVersionIndex}].{x}");
+                    });
+                }
+            });                                    
+
+            if (changedValues.Any())
+            {
+                changedValues.ForEach(x =>
+                {
+                    string addRootPath = $"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.Versions)}{x}";
+                    formattedChangedValues.Add(addRootPath);
+                });
+            }
+            return formattedChangedValues;
+        }
         public static List<string> GetDifferencesForStudyComparison<T>(T currentVersion, T previousVersion)
         {
             var comparer = new ObjectsComparer.Comparer<T>();
@@ -1373,21 +1598,32 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                     changedValues.Add($"[{index}].{nameof(EstimandEntity.AnalysisPopulation)}");
                 }
             }
+            if (typeof(T) == typeof(GeographicScopeEntity))
+            {
+                var currentGeoScope = currentVersion as GeographicScopeEntity;
+                var previousGeoScope = previousVersion as GeographicScopeEntity;
+
+                if (currentGeoScope.Code?.Id != previousGeoScope.Code?.Id)
+                {
+                    changedValues.RemoveAll(x => x.Contains(nameof(GeographicScopeEntity.Code)));
+                    changedValues.Add($"[{index}].{nameof(GeographicScopeEntity.Code)}");
+                }
+            }
             return changedValues;
         }
         public List<string> GetDifferenceForStudyIdentifiersForStudyComparison(List<StudyIdentifierEntity> currentVersion, List<StudyIdentifierEntity> previousVersion)
         {
             var tempList = new List<string>();
             if ((currentVersion is null && previousVersion is not null) || (currentVersion is not null && previousVersion is null))
-                tempList.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyIdentifiers)}{Constants.VersionCompareConstants.ArrayBrackets}");
+                tempList.Add($"{nameof(StudyVersionEntity.StudyIdentifiers)}{Constants.VersionCompareConstants.ArrayBrackets}");
             if (currentVersion?.Count != previousVersion?.Count)
-                tempList.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyIdentifiers)}{Constants.VersionCompareConstants.ArrayBrackets}");
+                tempList.Add($"{nameof(StudyVersionEntity.StudyIdentifiers)}{Constants.VersionCompareConstants.ArrayBrackets}");
 
             var differencesForIdentifiersSubElements = GetDifferenceForAListForStudyComparison<StudyIdentifierEntity>(currentVersion, previousVersion);
 
             GetDifferenceForAListForStudyComparison<StudyIdentifierEntity>(currentVersion, previousVersion).ForEach(x =>
             {
-                tempList.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyIdentifiers)}{x}");
+                tempList.Add($"{nameof(StudyVersionEntity.StudyIdentifiers)}{x}");
             });
             return tempList;
         }
@@ -1413,18 +1649,45 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
             return tempList;
         }
 
-        public List<string> GetDifferenceForStudyProtocolVersionsForStudyComparison(List<StudyProtocolDocumentVersionEntity> currentVersion, List<StudyProtocolDocumentVersionEntity> previousVersion)
+        public List<string> GetDifferenceForStudyProtocolDocumentVersionsForStudyComparison(List<StudyProtocolDocumentVersionEntity> currentVersion, List<StudyProtocolDocumentVersionEntity> previousVersion)
         {
             var tempList = new List<string>();
-            //if ((currentVersion is null && previousVersion is not null) || (currentVersion is not null && previousVersion is null))
-            //    tempList.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyProtocolVersions)}{Constants.VersionCompareConstants.ArrayBrackets}");
-            //if (currentVersion?.Count != previousVersion?.Count)
-            //    tempList.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyProtocolVersions)}{Constants.VersionCompareConstants.ArrayBrackets}");
-            //GetDifferenceForAListForStudyComparison<StudyProtocolDocumentVersionEntity>(currentVersion, previousVersion).ForEach(x =>
-            //{
-            //    tempList.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyProtocolVersions)}{x}");
-            //});
-            return tempList;
+            var formattedChangedValues = new List<string>();
+
+            if (currentVersion?.Count != previousVersion?.Count)
+                tempList.Add($"{nameof(StudyProtocolDocumentEntity.Versions)}{Constants.VersionCompareConstants.ArrayBrackets}");
+
+
+            tempList.AddRange(GetDifferenceForAListForStudyComparison(currentVersion, previousVersion));
+
+            tempList.RemoveAll(x => x.Contains($"{nameof(StudyProtocolDocumentVersionEntity.DateValues)}"));
+            tempList.RemoveAll(x => x.Contains($"{nameof(StudyProtocolDocumentVersionEntity.Contents)}"));
+
+            currentVersion?.ForEach(currProtDocVersion =>
+            {
+                if (previousVersion != null && previousVersion.Any(x => x.Id == currProtDocVersion.Id))
+                {
+                    var prevProtDocVersion = previousVersion.Find(x => x.Id == currProtDocVersion.Id);
+
+                    GetDifferenceForGovernanceDateForStudyComparison(currProtDocVersion.DateValues, prevProtDocVersion.DateValues).ForEach(x =>
+                    {
+                        tempList.Add($"{nameof(StudyProtocolDocumentEntity.Versions)}[{currentVersion.IndexOf(currProtDocVersion)}]{x}");
+                    });
+                    GetDifferenceForAListForStudyComparison<NarrativeContentEntity>(currProtDocVersion.Contents, prevProtDocVersion.Contents).ForEach(x =>
+                    {
+                        tempList.Add($"{nameof(StudyProtocolDocumentEntity.Versions)}[{currentVersion.IndexOf(currProtDocVersion)}]{x}");
+                    });
+                }
+            });
+            if (tempList.Any())
+            {
+                tempList.ForEach(x =>
+                {
+                    string addRootPath = $"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.DocumentedBy)}{x}";
+                    formattedChangedValues.Add(addRootPath);
+                });
+            }
+            return formattedChangedValues;
         }
 
         public List<string> GetDifferenceForStudyDesignsForStudyComparison(List<StudyDesignEntity> currentVersion, List<StudyDesignEntity> previousVersion)
@@ -1433,16 +1696,16 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
             List<string> formattedChangedValues = new();
 
             if ((currentVersion is null && previousVersion is not null) || (currentVersion is not null && previousVersion is null))
-                formattedChangedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyDesigns)}{Constants.VersionCompareConstants.ArrayBrackets}");
+                formattedChangedValues.Add($"{nameof(StudyVersionEntity.StudyDesigns)}{Constants.VersionCompareConstants.ArrayBrackets}");
             if (currentVersion?.Count != previousVersion?.Count)
-                formattedChangedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyDesigns)}{Constants.VersionCompareConstants.ArrayBrackets}");
+                formattedChangedValues.Add($"{nameof(StudyVersionEntity.StudyDesigns)}{Constants.VersionCompareConstants.ArrayBrackets}");
             changedValues.AddRange(GetDifferenceForEachStudyDesignsForStudyComparison(currentVersion, previousVersion));
 
             if (changedValues.Any())
             {
                 changedValues.ForEach(x =>
                 {
-                    string addRootPath = $"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyDesigns)}{x}";
+                    string addRootPath = $"{nameof(StudyVersionEntity.StudyDesigns)}{x}";
                     formattedChangedValues.Add(addRootPath);
                 });
             }
@@ -1468,7 +1731,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                         if (currentStudyDesign.Description != previousStudyDesign.Description)
                             changedValues.Add($"{nameof(StudyDesignEntity.Description)}");
 
-                        //StudyRationale
+                        if (currentStudyDesign.Description != previousStudyDesign.Label)
+                            changedValues.Add($"{nameof(StudyDesignEntity.Label)}");
+
+                        //StudyDesignRationale
                         if (currentStudyDesign.Rationale != previousStudyDesign.Rationale)
                             changedValues.Add($"{nameof(StudyDesignEntity.Rationale)}");
 
@@ -1513,17 +1779,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                         {
                             changedValues.Add($"{nameof(StudyDesignEntity.BlindingSchema)}{x}");
                         });
-
-
                         //Encounters
                         GetDifferenceForAListForStudyComparison<EncounterEntity>(currentStudyDesign.Encounters, previousStudyDesign.Encounters).ForEach(x =>
                         {
                             changedValues.Add($"{nameof(StudyDesignEntity.Encounters)}{x}");
                         });
-
                         //Activities
                         changedValues.AddRange(GetDifferenceForActivitiesForStudyComparison(currentStudyDesign, previousStudyDesign));
-
                         //Biomedical Concept Category
                         GetDifferenceForAListForStudyComparison<BiomedicalConceptCategoryEntity>(currentStudyDesign.BcCategories, previousStudyDesign.BcCategories).ForEach(x =>
                         {
@@ -1554,8 +1816,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                         {
                             changedValues.Add($"{nameof(StudyDesignEntity.Elements)}{x}");
                         });
-
-                        changedValues.ForEach(x => formattedChangedValues.Add($"[{currentVersion.IndexOf(currentStudyDesign)}].{x}"));
+                        //Syntax Template Dictionaries
+                        GetDifferenceForAListForStudyComparison<SyntaxTemplateDictionaryEntity>(currentStudyDesign.Dictionaries, previousStudyDesign.Dictionaries).ForEach(x =>
+                        {
+                            changedValues.Add($"{nameof(StudyDesignEntity.Dictionaries)}{x}");
+                        });
+                        var currDesignIndex = currentVersion.IndexOf(currentStudyDesign);
+                        changedValues.ForEach(x => formattedChangedValues.Add($"[{currDesignIndex}].{x}"));
                     }
 
                     else if (currentVersion?.Count == previousVersion?.Count && previousVersion != null && !previousVersion.Any(x => x.Id == currentStudyDesign.Id))
@@ -1638,7 +1905,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                 tempList.Add($"{nameof(StudyDesignEntity.Objectives)}{x}");
             });
             tempList.RemoveAll(x => x.Contains($"{nameof(ObjectiveEntity.Endpoints)}"));
-            currentStudyDesign.Objectives?.Select(x => x as ObjectiveEntity).ToList().ForEach(currentObjective =>
+            currentStudyDesign.Objectives?.ForEach(currentObjective =>
             {
                 if (previousStudyDesign.Objectives != null && previousStudyDesign.Objectives.Any(x => x.Id == currentObjective.Id))
                 {
@@ -1673,6 +1940,31 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
             GetDifferenceForAListForStudyComparison<StudyDesignPopulationEntity>(currentStudyDesign.Populations, previousStudyDesign.Populations).ForEach(x =>
             {
                 tempList.Add($"{nameof(StudyDesignEntity.Populations)}{x}");
+            });
+            tempList.RemoveAll(x => x.Contains($"{nameof(StudyDesignPopulationEntity.Cohorts)}"));
+
+            currentStudyDesign.Populations?.ForEach(currentPopulation =>
+            {
+                if (previousStudyDesign.Populations != null && previousStudyDesign.Populations.Any(x => x.Id == currentPopulation.Id))
+                {
+                    var previousPopulation = previousStudyDesign.Populations.Find(x => x.Id == currentPopulation.Id);
+                    GetDifferenceForAListForStudyComparison<StudyCohortEntity>(currentPopulation.Cohorts, currentPopulation.Cohorts).ForEach(x =>
+                    {
+                        tempList.Add($"{nameof(StudyDesignEntity.Populations)}[{currentStudyDesign.Populations.IndexOf(currentPopulation)}].{nameof(StudyDesignPopulationEntity.Cohorts)}{x}");
+                    });
+                    tempList.RemoveAll(x => x.Contains($"{nameof(StudyCohortEntity.Characteristics)}"));
+                    currentPopulation.Cohorts?.ForEach(currCohort =>
+                    {
+                        if (previousPopulation.Cohorts != null && previousPopulation.Cohorts.Any(x => x.Id == currCohort.Id))
+                        {
+                            var prevCohort = previousPopulation.Cohorts.Find(x => x.Id == currCohort.Id);
+                            GetDifferenceForAListForStudyComparison<CharacteristicEntity>(currCohort.Characteristics, currCohort.Characteristics).ForEach(x =>
+                            {
+                                tempList.Add($"{nameof(StudyDesignEntity.Populations)}[{currentStudyDesign.Populations.IndexOf(currentPopulation)}].{nameof(StudyDesignPopulationEntity.Cohorts)}[{currentPopulation.Cohorts.IndexOf(currCohort)}].{nameof(StudyCohortEntity.Characteristics)}{x}");
+                            });
+                        }
+                    });
+                }
             });
             return tempList;
         }
@@ -1833,6 +2125,59 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                     GetDifferenceForAListForStudyComparison<ProcedureEntity>(currentActivitiy.DefinedProcedures, previousActivity.DefinedProcedures).ForEach(x =>
                     {
                         tempList.Add($"{nameof(StudyDesignEntity.Activities)}[{currentStudyDesign.Activities.IndexOf(currentActivitiy)}].{nameof(ActivityEntity.DefinedProcedures)}{x}");
+                    });
+                }
+            });
+            return tempList;
+        }
+        public List<string> GetDifferenceForGovernanceDateForStudyComparison(List<GovernanceDateEntity> currentVersion, List<GovernanceDateEntity> previousVersion)
+        {
+            var tempList = new List<string>();
+            if (currentVersion?.Count != previousVersion?.Count)
+                tempList.Add($"{nameof(StudyVersionEntity.DateValues)}{Constants.VersionCompareConstants.ArrayBrackets}");
+
+            tempList.AddRange(GetDifferenceForAListForStudyComparison(currentVersion, previousVersion));
+
+            tempList.RemoveAll(x => x.Contains($"{nameof(GovernanceDateEntity.GeographicScopes)}"));
+
+            currentVersion?.ForEach(currGovDate =>
+            {
+                if (previousVersion != null && previousVersion.Any(x => x.Id == currGovDate.Id))
+                {
+                    var prevGovDate = previousVersion.Find(x => x.Id == currGovDate.Id);
+
+                    GetDifferenceForAListForStudyComparison<GeographicScopeEntity>(currGovDate.GeographicScopes, prevGovDate.GeographicScopes).ForEach(x =>
+                    {
+                        tempList.Add($"{nameof(StudyVersionEntity.DateValues)}[{currentVersion.IndexOf(currGovDate)}]{x}");
+                    });
+                }
+            });
+            return tempList;
+        }
+        public List<string> GetDifferenceForStudyAmendmentsForStudyComparison(List<StudyAmendmentEntity> currentVersion, List<StudyAmendmentEntity> previousVersion)
+        {
+            var tempList = new List<string>();
+            if (currentVersion?.Count != previousVersion?.Count)
+                tempList.Add($"{nameof(StudyVersionEntity.Amendments)}{Constants.VersionCompareConstants.ArrayBrackets}");
+
+            tempList.AddRange(GetDifferenceForAListForStudyComparison(currentVersion, previousVersion));
+
+            tempList.RemoveAll(x => x.Contains($"{nameof(StudyAmendmentEntity.Enrollments)}"));
+            tempList.RemoveAll(x => x.Contains($"{nameof(StudyAmendmentEntity.SecondaryReasons)}"));
+
+            currentVersion?.ForEach(currAmendment =>
+            {
+                if (previousVersion != null && previousVersion.Any(x => x.Id == currAmendment.Id))
+                {
+                    var prevAmendment = previousVersion.Find(x => x.Id == currAmendment.Id);
+
+                    GetDifferenceForAListForStudyComparison<SubjectEnrollmentEntity>(currAmendment.Enrollments, prevAmendment.Enrollments).ForEach(x =>
+                    {
+                        tempList.Add($"{nameof(StudyVersionEntity.Amendments)}[{currentVersion.IndexOf(currAmendment)}]{x}");
+                    });
+                    GetDifferenceForAListForStudyComparison<StudyAmendmentReasonEntity>(currAmendment.SecondaryReasons, prevAmendment.SecondaryReasons).ForEach(x =>
+                    {
+                        tempList.Add($"{nameof(StudyVersionEntity.Amendments)}[{currentVersion.IndexOf(currAmendment)}]{x}");
                     });
                 }
             });
