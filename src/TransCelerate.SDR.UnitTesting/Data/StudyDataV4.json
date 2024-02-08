@@ -3333,6 +3333,7 @@
                   "codeSystemVersion": "2022-03-25",
                   "decode": "Placebo Control Arms"
                 },
+                "populationIds": [ "ef300f84-2sa479w-415b-adf1-dad41df6169cd5" ],
                 "dataOriginDescription": "Captured subject data",
                 "dataOriginType": {
                   "id": "281a3135-5ab6-47c4-a136-92fb88d57f0d",

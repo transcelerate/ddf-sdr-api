@@ -366,7 +366,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(Core.DTO.StudyV4.StudyDesignDto.BiomedicalConcepts),
             nameof(Core.DTO.StudyV4.StudyDesignDto.BcCategories),
             nameof(Core.DTO.StudyV4.StudyDesignDto.BcSurrogates),
-            nameof(Core.DTO.StudyV4.StudyDesignDto.DocumentVersion),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.DocumentVersionId),
             nameof(Core.DTO.StudyV4.StudyDesignDto.Dictionaries)
         };
         public struct FunctionAppConstants

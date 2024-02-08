@@ -29,7 +29,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public List<StudyArmDto> Arms { get; set; }
         public List<StudyEpochDto> Epochs { get; set; }
         public List<StudyElementDto> Elements { get; set; }        
-        public StudyProtocolDocumentVersionDto DocumentVersion { get; set; }
+        public string DocumentVersionId { get; set; }
         public List<SyntaxTemplateDictionaryDto> Dictionaries { get; set; }
     }
 }

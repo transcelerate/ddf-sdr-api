@@ -259,12 +259,11 @@ namespace TransCelerate.SDR.RuleEngineV4
             RuleForEach(x => x.Dictionaries)
                 .SetValidator(new SyntaxTemplateDictionaryValidator(_httpContextAccessor));
 
-            RuleFor(x => x.DocumentVersion)
+            RuleFor(x => x.DocumentVersionId)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.DocumentVersion)), ApplyConditionTo.AllValidators)
-               .SetValidator(new StudyProtocolDocumentVersionValidator(_httpContextAccessor));
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.DocumentVersionId)), ApplyConditionTo.AllValidators);
         }
     }
 }

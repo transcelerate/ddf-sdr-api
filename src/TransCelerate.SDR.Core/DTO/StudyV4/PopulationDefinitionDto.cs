@@ -13,5 +13,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public QuantityDto PlannedCompletionNumber { get; set; }
         public QuantityDto PlannedEnrollmentNumber { get; set; }
         public List<CodeDto> PlannedSex { get; set; }
+        public List<EligibilityCriteriaDto> Criteria { get; set; }
     }
 }

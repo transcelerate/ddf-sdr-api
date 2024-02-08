@@ -995,7 +995,10 @@
           "entity": "StudyCohort",
           "required": [
             "Name",
-            "Id"
+            "Id",
+            "Criteria",
+            "PlannedSex",
+            "IncludesHealthySubjects"
           ]
         },
         {
@@ -1020,7 +1023,10 @@
           "entity": "StudyDesignPopulation",
           "required": [
             "Id",
-            "Name"
+            "Name",
+            "Criteria",
+            "PlannedSex",
+            "IncludesHealthySubjects"
           ]
         },
         {

@@ -1,4 +1,6 @@
-﻿namespace TransCelerate.SDR.Core.Entities.StudyV4
+﻿using System.Collections.Generic;
+
+namespace TransCelerate.SDR.Core.Entities.StudyV4
 {
     [MongoDB.Bson.Serialization.Attributes.BsonNoId]
     public class StudyArmEntity : IId
@@ -10,5 +12,6 @@
         public CodeEntity Type { get; set; }
         public string DataOriginDescription { get; set; }
         public CodeEntity DataOriginType { get; set; }
+        public List<string> PopulationIds { get; set; }
     }
 }

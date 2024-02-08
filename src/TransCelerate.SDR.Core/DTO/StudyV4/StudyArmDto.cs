@@ -1,4 +1,6 @@
-﻿namespace TransCelerate.SDR.Core.DTO.StudyV4
+﻿using System.Collections.Generic;
+
+namespace TransCelerate.SDR.Core.DTO.StudyV4
 {
     public class StudyArmDto : IId
     {        
@@ -9,6 +11,6 @@
         public CodeDto Type { get; set; }
         public string DataOriginDescription { get; set; }
         public CodeDto DataOriginType { get; set; }
-
+        public List<string> PopulationIds { get; set; }
     }
 }
