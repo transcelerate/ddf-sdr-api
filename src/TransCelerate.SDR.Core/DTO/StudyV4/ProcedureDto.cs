@@ -11,6 +11,7 @@
         public object IsConditional { get; set; }
         public string IsConditionalReason { get; set; }
         public string StudyInterventionId { get; set; }
+        public string InstanceType { get; set; }
 
     }
 }

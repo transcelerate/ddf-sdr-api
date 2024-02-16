@@ -8,5 +8,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public string ArmId { get; set; }
         public string EpochId { get; set; }
         public List<string> ElementIds { get; set; }
+        public string InstanceType { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TransCelerate.SDR.Core.Utilities.Helpers;
 
 namespace TransCelerate.SDR.Core.DTO.StudyV4
 {
@@ -17,5 +18,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public List<string> BcSurrogateIds { get; set; }
         public List<string> BiomedicalConceptIds { get; set; }
         public string TimelineId { get; set; }
+        public string InstanceType { get; set; }
     }
 }

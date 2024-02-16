@@ -18,5 +18,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public string ScheduledAtTimingId { get; set; }
         public TransitionRuleEntity TransitionStartRule { get; set; }
         public TransitionRuleEntity TransitionEndRule { get; set; }
+        public string InstanceType { get; set; }
     }
 }

@@ -46,6 +46,7 @@ namespace TransCelerate.SDR.Core.Entities.Common
     public class CommonStudyVersions
     {
         public string Id { get; set; }
+        public List<CommonStudyTitle> Titles {  get; set; }
         public string StudyTitle { get; set; }
         public string VersionIdentifier { get; set; }        
         public object Type { get; set; }
@@ -53,6 +54,15 @@ namespace TransCelerate.SDR.Core.Entities.Common
         public List<object> StudyIdentifiers { get; set; }        
         public List<CommonStudyDesignsV4> StudyDesigns { get; set; }
     }
+
+    public class CommonStudyTitle
+    {
+        public string Id { get; set; }
+        public string Text { get; set; }
+        public CommonCodeEntity Type { get; set; }
+        public string InstanceType { get; set; }
+    }
+
     [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
     [MongoDB.Bson.Serialization.Attributes.BsonNoId]
     public class CommonStudyDesigns

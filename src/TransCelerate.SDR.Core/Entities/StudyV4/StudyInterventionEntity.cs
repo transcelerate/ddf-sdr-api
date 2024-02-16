@@ -16,5 +16,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public AgentAdministrationEntity Administrations { get; set; }
         public CodeEntity ProductDesignation { get; set; }
         public CodeEntity PharmacologicClass { get; set; }
+        public string InstanceType { get; set; }
     }
 }

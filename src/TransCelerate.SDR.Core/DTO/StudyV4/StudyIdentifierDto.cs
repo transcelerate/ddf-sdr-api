@@ -5,5 +5,6 @@
         public string Id { get; set; }
         public string StudyIdentifier { get; set; }
         public OrganisationDto StudyIdentifierScope { get; set; }
+        public string InstanceType { get; set; }
     }
 }

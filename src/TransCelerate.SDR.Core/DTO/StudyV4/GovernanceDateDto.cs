@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TransCelerate.SDR.Core.DTO.StudyV4
 {
-    public class GovernanceDateDto
+    public class GovernanceDateDto : IId
     {
         public string Id { get; set; }
         public string Name { get; set; }
@@ -14,6 +14,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public string Description { get; set; }
         public CodeDto Type { get; set; }
         public string DateValue { get; set; }
-        public List<GeographicScopeDto> GeographicScopes {  get; set; } 
+        public List<GeographicScopeDto> GeographicScopes {  get; set; }
+        public string InstanceType { get; set; }
     }
 }

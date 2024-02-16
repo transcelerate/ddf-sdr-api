@@ -16,5 +16,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public List<SubjectEnrollmentDto> Enrollments { get; set; }
         public StudyAmendmentReasonDto PrimaryReason { get; set; }
         public List<StudyAmendmentReasonDto> SecondaryReasons { get; set; }
+        public string InstanceType { get; set; }
     }
 }

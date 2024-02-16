@@ -10,5 +10,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public string Label { get; set; }
         public List<StudyVersionDto> Versions { get; set; }
         public StudyProtocolDocumentDto DocumentedBy { get; set; }
+        public string InstanceType { get; set; }
     }
 }

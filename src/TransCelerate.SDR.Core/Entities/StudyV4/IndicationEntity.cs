@@ -10,5 +10,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public string Label { get; set; }
         public string Description { get; set; }
         public List<CodeEntity> Codes { get; set; }
+        public string InstanceType { get; set; }
     }
 }

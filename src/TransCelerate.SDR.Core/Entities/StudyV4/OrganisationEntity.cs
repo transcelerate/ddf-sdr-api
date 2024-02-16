@@ -10,5 +10,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public string OrganisationName { get; set; }
         public CodeEntity OrganisationType { get; set; }
         public AddressEntity OrganizationLegalAddress { get; set; }
+        public string InstanceType { get; set; }
     }
 }

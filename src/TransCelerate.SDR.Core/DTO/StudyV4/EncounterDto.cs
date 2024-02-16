@@ -16,5 +16,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public string ScheduledAtTimingId { get; set; }
         public TransitionRuleDto TransitionStartRule { get; set; }
         public TransitionRuleDto TransitionEndRule { get; set; }
+        public string InstanceType { get; set; }
     }
 }

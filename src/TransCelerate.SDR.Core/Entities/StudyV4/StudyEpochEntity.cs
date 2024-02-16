@@ -13,5 +13,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public CodeEntity Type { get; set; }
         public string NextId { get; set; }
         public string PreviousId { get; set; }
+        public string InstanceType { get; set; }
     }
 }

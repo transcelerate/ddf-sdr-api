@@ -7,5 +7,6 @@
         public string Description { get; set; }
         public bool DurationWillVary { get; set; }
         public string ReasonDurationWillVary { get; set; }
+        public string InstanceType { get; set; }
     }
 }

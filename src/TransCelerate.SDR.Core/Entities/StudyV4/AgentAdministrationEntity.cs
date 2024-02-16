@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV4
 {
-    public class AgentAdministrationEntity
+    public class AgentAdministrationEntity : IId
     {
         public string Id { get; set; }
         public string Name { get; set; }
@@ -16,5 +16,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public QuantityEntity Dose { get; set; }
         public CodeEntity Route { get; set; }
         public CodeEntity Frequency { get; set; }
+        public string InstanceType { get; set; }
     }
 }

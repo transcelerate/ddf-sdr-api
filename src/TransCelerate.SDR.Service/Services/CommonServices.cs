@@ -89,7 +89,7 @@ namespace TransCelerate.SDR.Services.Services
                         {
                             foreach(var version in jsonObject["versions"])
                             {
-                                if (!await CheckAccessForAStudy(studyId, (string)version["type"]["decode"], user))
+                                if (!await CheckAccessForAStudy(studyId, (string)version["studyType"]["decode"], user))
                                     return Constants.ErrorMessages.Forbidden;
                             }
                         }
@@ -411,7 +411,7 @@ namespace TransCelerate.SDR.Services.Services
                 #region StudyTitle
                 if (searchResponseEntity.UsdmVersion == Constants.USDMVersions.V3)
                 {
-                    searchResponseDto.Study.StudyTitle = searchResponseEntity.StudyTitleV4;
+                    //searchResponseDto.Study.StudyTitle = searchResponseEntity.StudyTitleV4;
                 }
                 #endregion
                 #region StudyIdentifiers

@@ -19,19 +19,7 @@ namespace TransCelerate.SDR.RuleEngineV4
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyProtocolDocumentVersionValidator), nameof(StudyProtocolDocumentVersionDto.Id)), ApplyConditionTo.AllValidators);
-
-            RuleFor(x => x.BriefTitle)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyProtocolDocumentVersionValidator), nameof(StudyProtocolDocumentVersionDto.BriefTitle)), ApplyConditionTo.AllValidators);
-
-            RuleFor(x => x.OfficialTitle)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyProtocolDocumentVersionValidator), nameof(StudyProtocolDocumentVersionDto.OfficialTitle)), ApplyConditionTo.AllValidators);            
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyProtocolDocumentVersionValidator), nameof(StudyProtocolDocumentVersionDto.Id)), ApplyConditionTo.AllValidators);            
 
             RuleFor(x => x.ProtocolStatus)
                 .Cascade(CascadeMode.Stop)
@@ -44,19 +32,7 @@ namespace TransCelerate.SDR.RuleEngineV4
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyProtocolDocumentVersionValidator), nameof(StudyProtocolDocumentVersionDto.ProtocolVersion)), ApplyConditionTo.AllValidators);
-
-            RuleFor(x => x.PublicTitle)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyProtocolDocumentVersionValidator), nameof(StudyProtocolDocumentVersionDto.PublicTitle)), ApplyConditionTo.AllValidators);
-
-            RuleFor(x => x.ScientificTitle)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyProtocolDocumentVersionValidator), nameof(StudyProtocolDocumentVersionDto.ScientificTitle)), ApplyConditionTo.AllValidators);            
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyProtocolDocumentVersionValidator), nameof(StudyProtocolDocumentVersionDto.ProtocolVersion)), ApplyConditionTo.AllValidators);            
 
             RuleFor(x => x.ChildrenIds)
                 .Cascade(CascadeMode.Stop)

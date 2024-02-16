@@ -14,5 +14,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public string Datatype { get; set; }
         public List<ResponseCodeEntity> ResponseCodes { get; set; }
         public AliasCodeEntity Code { get; set; }
+        public string InstanceType { get; set; }
     }
 }

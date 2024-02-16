@@ -9,7 +9,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
     public class SearchResponseEntity
     {
         public string StudyId { get; set; }
-        public string StudyTitle { get; set; }
+        public List<StudyTitleEntity> StudyTitle { get; set; }
         public CodeEntity StudyType { get; set; }
 
         public AliasCodeEntity StudyPhase { get; set; }

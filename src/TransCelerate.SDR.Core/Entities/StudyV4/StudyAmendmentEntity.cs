@@ -16,5 +16,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public List<SubjectEnrollmentEntity> Enrollments { get; set; }
         public StudyAmendmentReasonEntity PrimaryReason { get; set; }
         public List<StudyAmendmentReasonEntity> SecondaryReasons { get; set; }
+        public string InstanceType { get; set; }
     }
 }

@@ -22,17 +22,20 @@ namespace TransCelerate.SDR.RuleEngineV4
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyVersionValidator), nameof(StudyVersionDto.Id)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.StudyTitle)
+            RuleFor(x => x.Titles)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyVersionValidator), nameof(StudyVersionDto.StudyTitle)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyVersionValidator), nameof(StudyVersionDto.Titles)), ApplyConditionTo.AllValidators);
+            
+            RuleForEach(x => x.Titles)
+                .SetValidator(new StudyTitleValidator(_httpContextAccessor));
 
-            RuleFor(x => x.Type)
+            RuleFor(x => x.StudyType)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyVersionValidator), nameof(StudyVersionDto.Type)), ApplyConditionTo.AllValidators)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyVersionValidator), nameof(StudyVersionDto.StudyType)), ApplyConditionTo.AllValidators)
                 .SetValidator(new CodeValidator(_httpContextAccessor));
 
             RuleFor(x => x.StudyIdentifiers)
@@ -56,13 +59,7 @@ namespace TransCelerate.SDR.RuleEngineV4
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyVersionValidator), nameof(StudyVersionDto.VersionIdentifier)), ApplyConditionTo.AllValidators);
-
-            RuleFor(x => x.StudyAcronym)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyVersionValidator), nameof(StudyVersionDto.StudyAcronym)), ApplyConditionTo.AllValidators);
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyVersionValidator), nameof(StudyVersionDto.VersionIdentifier)), ApplyConditionTo.AllValidators);            
 
             RuleFor(x => x.Rationale)
                .Cascade(CascadeMode.Stop)

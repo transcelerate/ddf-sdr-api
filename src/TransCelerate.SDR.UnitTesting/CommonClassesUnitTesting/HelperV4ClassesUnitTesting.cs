@@ -86,7 +86,7 @@ namespace TransCelerate.SDR.UnitTesting
 
             context.ModelState.Clear();
             studyDto = GetDtoDataFromStaticJson();
-            studyDto.Study.Versions.FirstOrDefault().StudyTitle = null;
+            studyDto.Study.Versions.FirstOrDefault().Titles = null;
 
             StudyVersionValidator studyValidator = new(httpContextAccessor.Object);
             errors = studyValidator.Validate(studyDto.Study.Versions.FirstOrDefault()).Errors;

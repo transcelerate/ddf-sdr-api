@@ -104,6 +104,7 @@
 - [StudyProtocolDocumentVersionValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyProtocolDocumentVersionValidator 'TransCelerate.SDR.RuleEngineV4.StudyProtocolDocumentVersionValidator')
 - [StudyProtocolVersionsValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyProtocolVersionsValidator 'TransCelerate.SDR.RuleEngineV2.StudyProtocolVersionsValidator')
 - [StudyProtocolVersionsValidator](#T-TransCelerate-SDR-RuleEngineV3-StudyProtocolVersionsValidator 'TransCelerate.SDR.RuleEngineV3.StudyProtocolVersionsValidator')
+- [StudyTitleValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyTitleValidator 'TransCelerate.SDR.RuleEngineV4.StudyTitleValidator')
 - [StudyValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyValidator 'TransCelerate.SDR.RuleEngineV2.StudyValidator')
 - [StudyValidator](#T-TransCelerate-SDR-RuleEngineV3-StudyValidator 'TransCelerate.SDR.RuleEngineV3.StudyValidator')
 - [StudyValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyValidator 'TransCelerate.SDR.RuleEngineV4.StudyValidator')
@@ -1235,6 +1236,17 @@ TransCelerate.SDR.RuleEngineV3
 ##### Summary
 
 This Class is the validator for StudyProtocolVersions
+
+<a name='T-TransCelerate-SDR-RuleEngineV4-StudyTitleValidator'></a>
+## StudyTitleValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV4
+
+##### Summary
+
+This Class is the validator for Address
 
 <a name='T-TransCelerate-SDR-RuleEngineV2-StudyValidator'></a>
 ## StudyValidator `type`

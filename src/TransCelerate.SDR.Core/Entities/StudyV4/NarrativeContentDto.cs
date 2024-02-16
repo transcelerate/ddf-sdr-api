@@ -15,5 +15,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public string SectionTitle { get; set; }
         public string Text { get; set; }
         public List<string> ChildrenIds { get; set; }
+        public string InstanceType { get; set; }
     }
 }

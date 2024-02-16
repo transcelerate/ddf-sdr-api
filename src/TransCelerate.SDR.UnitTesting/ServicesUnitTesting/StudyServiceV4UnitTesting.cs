@@ -112,8 +112,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         {
             StudyDefinitionsEntity studyEntity = GetEntityDataFromStaticJson();
             StudyDefinitionsEntity entity = null;
-            StudyDefinitionsDto studyDto = GetDtoDataFromStaticJson();
-            studyDto.Study.Versions.FirstOrDefault().StudyTitle = "New";
+            StudyDefinitionsDto studyDto = GetDtoDataFromStaticJson();            
             studyDto.Study.Id = "";
             studyEntity.AuditTrail = new AuditTrailEntity { CreatedBy = user.UserName, EntryDateTime = DateTime.Now, SDRUploadVersion = 0, UsdmVersion = Constants.USDMVersions.V3 };
             studyDto.AuditTrail = new AuditTrailDto { EntryDateTime = DateTime.Now, SDRUploadVersion = 1, UsdmVersion = Constants.USDMVersions.V3 };
@@ -339,7 +338,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             user.UserName = "user1@SDR.com";
             StudyDefinitionsDto studyDto = GetDtoDataFromStaticJson();
             StudyDefinitionsEntity studyEntity = GetEntityDataFromStaticJson();
-            studyEntity.Study.Versions.FirstOrDefault().Type.Decode = "OBSERVATIONAL";
+            studyEntity.Study.Versions.FirstOrDefault().StudyType.Decode = "OBSERVATIONAL";
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity));
             _mockStudyRepository.Setup(x => x.GetGroupsOfUser(user))
@@ -407,7 +406,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             Assert.AreEqual("studyId1", method.Result.Study.Id);
 
             study.Study.Id = "studyId5";
-            study.Study.Versions.FirstOrDefault().Type.Decode = "Interventional";
+            study.Study.Versions.FirstOrDefault().StudyType.Decode = "Interventional";
             method = studyService.CheckAccessForAStudy(study, user);
             method.Wait();
 
@@ -449,7 +448,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             user.UserName = "user1@SDR.com";
             StudyDefinitionsDto studyDto = GetDtoDataFromStaticJson();
             StudyDefinitionsEntity studyEntity = GetEntityDataFromStaticJson();
-            studyEntity.Study.Versions.FirstOrDefault().Type.Decode = "OBSERVATIONAL";
+            studyEntity.Study.Versions.FirstOrDefault().StudyType.Decode = "OBSERVATIONAL";
             _mockStudyRepository.Setup(x => x.GetPartialStudyDesignItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity));
             _mockStudyRepository.Setup(x => x.GetGroupsOfUser(user))
@@ -510,7 +509,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             user.UserName = "user1@SDR.com";
             StudyDefinitionsDto studyDto = GetDtoDataFromStaticJson();
             StudyDefinitionsEntity studyEntity = GetEntityDataFromStaticJson();
-            studyEntity.Study.Versions.FirstOrDefault().Type.Decode = "OBSERVATIONAL";
+            studyEntity.Study.Versions.FirstOrDefault().StudyType.Decode = "OBSERVATIONAL";
             _mockStudyRepository.Setup(x => x.GetPartialStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string[]>()))
                    .Returns(Task.FromResult(studyEntity));
             _mockStudyRepository.Setup(x => x.GetGroupsOfUser(user))
@@ -528,7 +527,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             result = method.Result;
 
             user.UserRole = Constants.Roles.App_User;
-            studyEntity.Study.Versions.FirstOrDefault().Type.Decode = "FAILURE STUDY TYPE";
+            studyEntity.Study.Versions.FirstOrDefault().StudyType.Decode = "FAILURE STUDY TYPE";
             _mockStudyRepository.Setup(x => x.GetPartialStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string[]>()))
                    .Returns(Task.FromResult(studyEntity));
             method = studyService.GetPartialStudyElements("1", 0, user, Constants.StudyElementsV4);
@@ -552,7 +551,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             user.UserName = "user1@SDR.com";
             StudyDefinitionsDto studyDto = GetDtoDataFromStaticJson();
             StudyDefinitionsEntity studyEntity = GetEntityDataFromStaticJson();
-            studyEntity.Study.Versions.FirstOrDefault().Type.Decode = "OBSERVATIONAL";
+            studyEntity.Study.Versions.FirstOrDefault().StudyType.Decode = "OBSERVATIONAL";
             _mockStudyRepository.Setup(x => x.GetPartialStudyDesignItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity));
             _mockStudyRepository.Setup(x => x.GetGroupsOfUser(user))
@@ -576,7 +575,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             method.Wait();
 
             user.UserRole = Constants.Roles.App_User;
-            studyEntity.Study.Versions.FirstOrDefault().Type.Decode = "FAILURE STUDY TYPE";
+            studyEntity.Study.Versions.FirstOrDefault().StudyType.Decode = "FAILURE STUDY TYPE";
             _mockStudyRepository.Setup(x => x.GetPartialStudyDesignItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                     .Returns(Task.FromResult(studyEntity));
             method = studyService.GetPartialStudyDesigns("1", "b", 0, user, Constants.StudyDesignElementsV4);
@@ -651,7 +650,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             user.UserName = "user1@SDR.com";
             StudyDefinitionsDto studyDto = GetDtoDataFromStaticJson();
             StudyDefinitionsEntity studyEntity = GetEntityDataFromStaticJson();
-            studyEntity.Study.Versions.FirstOrDefault().Type.Decode = "OBSERVATIONAL";
+            studyEntity.Study.Versions.FirstOrDefault().StudyType.Decode = "OBSERVATIONAL";
             _mockStudyRepository.Setup(x => x.GetStudyItemsForCheckingAccessAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity));
             _mockStudyRepository.Setup(x => x.GetGroupsOfUser(user))
@@ -692,7 +691,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             StudyDefinitionsEntity studyEntity = GetEntityDataFromStaticJson();
             SoADto SoA = GetSOAV4DataFromStaticJson();
-            studyEntity.Study.Versions.FirstOrDefault().Type.Decode = "OBSERVATIONAL";
+            studyEntity.Study.Versions.FirstOrDefault().StudyType.Decode = "OBSERVATIONAL";
             studyEntity.Study.Versions.FirstOrDefault().StudyDesigns[0].Id = "Sd_1";
             studyEntity.Study.Versions.FirstOrDefault().StudyDesigns[0].Encounters = GetEncountersForSoADataFromStaticJson();
             studyEntity.Study.Versions.FirstOrDefault().StudyDesigns[0].Activities = GetActivitiesForSoADataFromStaticJson();
@@ -782,7 +781,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             user.UserName = "user1@SDR.com";
             StudyDefinitionsDto studyDto = GetDtoDataFromStaticJson();
             StudyDefinitionsEntity studyEntity = GetEntityDataFromStaticJson();
-            studyEntity.Study.Versions.FirstOrDefault().Type.Decode = "OBSERVATIONAL";
+            studyEntity.Study.Versions.FirstOrDefault().StudyType.Decode = "OBSERVATIONAL";
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity));
             _mockStudyRepository.Setup(x => x.GetGroupsOfUser(user))
@@ -846,8 +845,8 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             previousVersionV4.AuditTrail.SDRUploadVersion = 1;
             previousVersionV4.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
 
-            currentVersionV4.Study.Versions.FirstOrDefault().Type.Decode = "OBSERVATIONAL";
-            previousVersionV4.Study.Versions.FirstOrDefault().Type.Decode = "OBSERVATIONAL";
+            currentVersionV4.Study.Versions.FirstOrDefault().StudyType.Decode = "OBSERVATIONAL";
+            previousVersionV4.Study.Versions.FirstOrDefault().StudyType.Decode = "OBSERVATIONAL";
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), 1))
                    .Returns(Task.FromResult(currentVersionV4));
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), 2))
@@ -881,7 +880,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             Assert.Throws<AggregateException>(method.Wait);
 
-            currentVersionV4.Study.Versions.FirstOrDefault().Type.Decode = "INTERVENTIONAL";
+            currentVersionV4.Study.Versions.FirstOrDefault().StudyType.Decode = "INTERVENTIONAL";
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), 1))
                   .Returns(Task.FromResult(currentVersionV4));
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), 2))

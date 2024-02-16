@@ -8,5 +8,6 @@
         public string CodeSystem { get; set; }
         public string CodeSystemVersion { get; set; }
         public string Decode { get; set; }
+        public string InstanceType { get; set; }
     }
 }

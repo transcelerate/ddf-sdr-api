@@ -31,5 +31,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public List<StudyElementDto> Elements { get; set; }        
         public string DocumentVersionId { get; set; }
         public List<SyntaxTemplateDictionaryDto> Dictionaries { get; set; }
+        public string InstanceType { get; set; }
     }
 }

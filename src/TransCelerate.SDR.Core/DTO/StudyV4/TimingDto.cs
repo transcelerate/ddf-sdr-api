@@ -12,5 +12,6 @@
         public string WindowLower { get; set; }
         public string WindowUpper { get; set; }
         public CodeDto RelativeToFrom { get; set; }
+        public string InstanceType { get; set; }
     }
 }

@@ -8,5 +8,6 @@
         public string OrganisationName { get; set; }
         public CodeDto OrganisationType { get; set; }
         public AddressDto OrganizationLegalAddress { get; set; }
+        public string InstanceType { get; set; }
     }
 }

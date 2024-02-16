@@ -11,5 +11,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public string Reference { get; set; }
         public List<BiomedicalConceptPropertyDto> Properties { get; set; }
         public AliasCodeDto Code { get; set; }
+        public string InstanceType { get; set; }
     }
 }

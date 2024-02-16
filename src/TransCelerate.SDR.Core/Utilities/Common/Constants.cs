@@ -91,7 +91,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         {
             public const string StudyId = "study.studyId";
             public const string StudyIdV4 = "study.id";
-            public const string StudyTitleV4 = "study.versions.studyTitle";
+            public const string StudyTitleV4 = "study.versions.titles.text";
             public const string Study = "study";
             public const string AuditTrail = "auditTrail";
             public const string StudyType = "study.studyType";
@@ -327,15 +327,14 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(Core.DTO.StudyV3.StudyDesignDto.BcSurrogates)
         };
         public static readonly string[] StudyElementsV4 = {
-            nameof(Core.DTO.StudyV4.StudyVersionDto.StudyTitle),
+            nameof(Core.DTO.StudyV4.StudyVersionDto.Titles),
             nameof(Core.DTO.StudyV4.StudyVersionDto.StudyIdentifiers),
             nameof(Core.DTO.StudyV4.StudyVersionDto.DocumentVersionId),
             nameof(Core.DTO.StudyV4.StudyVersionDto.VersionIdentifier),
             nameof(Core.DTO.StudyV4.StudyVersionDto.StudyPhase),
-            nameof(Core.DTO.StudyV4.StudyVersionDto.Type),
+            nameof(Core.DTO.StudyV4.StudyVersionDto.StudyType),
             nameof(Core.DTO.StudyV4.StudyVersionDto.BusinessTherapeuticAreas),
-            nameof(Core.DTO.StudyV4.StudyVersionDto.StudyDesigns),
-            nameof(Core.DTO.StudyV4.StudyVersionDto.StudyAcronym),
+            nameof(Core.DTO.StudyV4.StudyVersionDto.StudyDesigns),            
             nameof(Core.DTO.StudyV4.StudyVersionDto.Rationale),
             nameof(Core.DTO.StudyV4.StudyVersionDto.Amendments),
             nameof(Core.DTO.StudyV4.StudyVersionDto.DateValues)

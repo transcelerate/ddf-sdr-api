@@ -56,7 +56,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
         {
             ProjectionDefinitionBuilder<StudyDefinitionsEntity> projection = Builders<StudyDefinitionsEntity>.Projection;
             ProjectionDefinition<StudyDefinitionsEntity> projector = projection.Include(x => x.Study.Versions.Select(x => x.Id));
-            projector = projector.Include(x => x.Study.Versions.Select(x => x.Type));
+            projector = projector.Include(x => x.Study.Versions.Select(x => x.StudyType));
             projector = projector.Include(x => x.AuditTrail);
             projector = projector.Exclude(x => x.Id);
 
@@ -64,8 +64,8 @@ namespace TransCelerate.SDR.DataAccess.Filters
             {
                 if (elements is not null)
                 {
-                    if (elements.ToLower().Equals(nameof(StudyVersionEntity.StudyTitle).ToLower()))
-                        projector = projector.Include(x => x.Study.Versions.Select(x => x.StudyTitle));
+                    if (elements.ToLower().Equals(nameof(StudyVersionEntity.Titles).ToLower()))
+                        projector = projector.Include(x => x.Study.Versions.Select(x => x.Titles));
                     else if (elements.ToLower().Equals(nameof(StudyVersionEntity.StudyPhase).ToLower()))
                         projector = projector.Include(x => x.Study.Versions.Select(x => x.StudyPhase));
                     else if (elements.ToLower().Equals(nameof(StudyVersionEntity.VersionIdentifier).ToLower()))
@@ -80,8 +80,6 @@ namespace TransCelerate.SDR.DataAccess.Filters
                         projector = projector.Include(x => x.Study.Versions.Select(x => x.BusinessTherapeuticAreas));
                     else if (elements.ToLower().Equals(nameof(StudyVersionEntity.Rationale).ToLower()))
                         projector = projector.Include(x => x.Study.Versions.Select(x => x.Rationale));
-                    else if (elements.ToLower().Equals(nameof(StudyVersionEntity.StudyAcronym).ToLower()))
-                        projector = projector.Include(x => x.Study.Versions.Select(x => x.StudyAcronym));
                     else if (elements.ToLower().Equals(nameof(StudyVersionEntity.DateValues).ToLower()))
                         projector = projector.Include(x => x.Study.Versions.Select(x => x.DateValues));
                     else if (elements.ToLower().Equals(nameof(StudyVersionEntity.Amendments).ToLower()))
@@ -99,7 +97,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
         {
             ProjectionDefinitionBuilder<StudyDefinitionsEntity> projection = Builders<StudyDefinitionsEntity>.Projection;
             ProjectionDefinition<StudyDefinitionsEntity> projector = projection.Include(x => x.Study.Versions.Select(x => x.Id));
-            projector = projector.Include(x => x.Study.Versions.Select(x => x.Type));            
+            projector = projector.Include(x => x.Study.Versions.Select(x => x.StudyType));            
             
             projector = projector.Include(x => x.AuditTrail);
             projector = projector.Exclude(x => x.Id);
@@ -111,7 +109,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
         {
             ProjectionDefinitionBuilder<StudyDefinitionsEntity> projection = Builders<StudyDefinitionsEntity>.Projection;
             ProjectionDefinition<StudyDefinitionsEntity> projector = projection.Include(x => x.Study.Versions.Select(x => x.Id));
-            projector = projector.Include(x => x.Study.Versions.Select(x => x.Type));
+            projector = projector.Include(x => x.Study.Versions.Select(x => x.StudyType));
             projector = projector.Exclude(x => x.Id);
 
             return projector;

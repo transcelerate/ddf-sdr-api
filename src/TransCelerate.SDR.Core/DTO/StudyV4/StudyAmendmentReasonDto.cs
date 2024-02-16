@@ -12,5 +12,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public string Id { get; set; }
         public CodeDto Code { get; set; }
         public string OtherReason { get; set; }
+        public string InstanceType { get; set; }
     }
 }

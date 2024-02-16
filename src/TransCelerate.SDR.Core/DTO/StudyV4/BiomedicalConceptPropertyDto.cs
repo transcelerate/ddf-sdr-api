@@ -12,5 +12,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public string Datatype { get; set; }
         public List<ResponseCodeDto> ResponseCodes { get; set; }
         public AliasCodeDto Code { get; set; }
+        public string InstanceType { get; set; }
     }
 }

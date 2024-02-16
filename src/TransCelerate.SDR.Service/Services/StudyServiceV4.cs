@@ -268,7 +268,7 @@ namespace TransCelerate.SDR.Services.Services
 
                     var soa = SoAV4(study.Study.Versions?.FirstOrDefault()?.StudyDesigns);
                     soa.StudyId = study.Study.Id;
-                    soa.StudyTitle = study.Study.Versions?.FirstOrDefault()?.StudyTitle;
+                    //soa.StudyTitle = study.Study.Versions?.FirstOrDefault()?.Titles;
                     if (!String.IsNullOrWhiteSpace(studyDesignId))
                     {
                         if (study.Study.Versions != null && study.Study.Versions.FirstOrDefault()?.StudyDesigns is null || !soa.StudyDesigns.Any(x => x.StudyDesignId == studyDesignId))
@@ -615,7 +615,7 @@ namespace TransCelerate.SDR.Services.Services
             Core.DTO.eCPT.StudyDetailsDto studyDetailsDto = new()
             {
                 StudyId = studyDto.Id,
-                StudyTitle = studyDto.StudyTitle,
+                //StudyTitle = studyDto.Titles,
 
                 UsdmVersion = auditTrail.UsdmVersion,
                 SDRUploadVersion = auditTrail.SDRUploadVersion,
@@ -937,7 +937,7 @@ namespace TransCelerate.SDR.Services.Services
                             return study;
                         else if (groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
                             return study;
-                        else if (groupFilters.Item1.Contains(study.Study.Versions.FirstOrDefault()?.Type?.Decode?.ToLower()))
+                        else if (groupFilters.Item1.Contains(study.Study.Versions.FirstOrDefault()?.StudyType?.Decode?.ToLower()))
                             return study;
                         else
                             return null;

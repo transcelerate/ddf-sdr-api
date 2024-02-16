@@ -11,5 +11,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public AnalysisPopulationEntity AnalysisPopulation { get; set; }
         public string VariableOfInterestId { get; set; }
         public List<InterCurrentEventEntity> IntercurrentEvents { get; set; }
+        public string InstanceType { get; set; }
     }
 }

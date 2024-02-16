@@ -7,5 +7,6 @@
         public string Id { get; set; }
         public bool IsEnabled { get; set; }
         public CodeEntity Code { get; set; }
+        public string InstanceType { get; set; }
     }
 }

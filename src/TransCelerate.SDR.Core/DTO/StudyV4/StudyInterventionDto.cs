@@ -15,5 +15,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public AgentAdministrationDto Administrations { get; set; }
         public CodeDto ProductDesignation { get; set; }
         public CodeDto PharmacologicClass { get; set; }
+        public string InstanceType { get; set; }
     }
 }

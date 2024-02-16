@@ -14,5 +14,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public QuantityEntity PlannedEnrollmentNumber { get; set; }
         public List<CodeEntity> PlannedSex { get; set; }
         public List<EligibilityCriteriaEntity> Criteria { get; set; }
+        public string InstanceType { get; set; }
     }
 }

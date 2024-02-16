@@ -7,9 +7,62 @@
     "versions": [
       {
         "id": "c47737c8-c23c-4bd9-bee2-29b051d995a5",
-        "studyTitle": "Study of Stomach Cancer",
+        "titles": [
+          {
+            "id": "StudyTitle_1",
+            "text": "LZZT",
+            "type": {
+              "id": "Code_3",
+              "code": "C94108",
+              "codeSystem": "http://www.cdisc.org",
+              "codeSystemVersion": "2023-09-29",
+              "decode": "Study Acronym",
+              "instanceType": "Code"
+            },
+            "instanceType": "StudyTitle"
+          },
+          {
+            "id": "StudyTitle_2",
+            "text": "Xanomeline (LY246708)",
+            "type": {
+              "id": "Code_5",
+              "code": "C99905x1",
+              "codeSystem": "http://www.cdisc.org",
+              "codeSystemVersion": "2023-09-29",
+              "decode": "Brief Study Title",
+              "instanceType": "Code"
+            },
+            "instanceType": "StudyTitle"
+          },
+          {
+            "id": "StudyTitle_3",
+            "text": "Safety and Efficacy of the Xanomeline Transdermal Therapeutic System (TTS) in Patients with Mild to Moderate Alzheimer's Disease",
+            "type": {
+              "id": "Code_6",
+              "code": "C99905x2",
+              "codeSystem": "http://www.cdisc.org",
+              "codeSystemVersion": "2023-09-29",
+              "decode": "Official Study Title",
+              "instanceType": "Code"
+            },
+            "instanceType": "StudyTitle"
+          },
+          {
+            "id": "StudyTitle_4",
+            "text": "Safety and Efficacy of the Xanomeline Transdermal Therapeutic System (TTS) in Patients with Mild to Moderate Alzheimer's Disease",
+            "type": {
+              "id": "Code_7",
+              "code": "C99905x3",
+              "codeSystem": "http://www.cdisc.org",
+              "codeSystemVersion": "2023-09-29",
+              "decode": "Public Study Title",
+              "instanceType": "Code"
+            },
+            "instanceType": "StudyTitle"
+          }
+        ],
         "versionIdentifier": "1",
-        "type": {
+        "studyType": {
           "id": "7bbb6fd9-7e43-4dbf-90fa-3de117dc76d2",
           "code": "C98388",
           "codeSystem": "http:www.cdisc.org",
@@ -132,7 +185,6 @@
             ]
           }
         ],
-        "studyAcronym": "Acronym",
         "studyIdentifiers": [
           {
             "id": "c4663375-29be-4b37-9a7d-b2ef927fdf64",

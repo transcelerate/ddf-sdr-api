@@ -378,7 +378,10 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
-                filter &= builder.Where(x => x.Study.StudyTitle.ToLower().Contains(searchParameters.StudyTitle.ToLower()));
+                filter &= builder.Or(
+                    builder.Where(x => x.Study.StudyTitle.ToLower().Contains(searchParameters.StudyTitle.ToLower())),
+                    builder.Regex($"{Constants.DbFilter.StudyTitleV4}", new BsonRegularExpression($"/{searchParameters.StudyTitle}/i"))
+                    );
 
             //Filter for OrgCode
             if (!String.IsNullOrWhiteSpace(searchParameters.SponsorId))
@@ -750,7 +753,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
-                filter &= builder.Where(x => x.Study.Versions.FirstOrDefault().StudyTitle.ToLower().Contains(searchParameters.StudyTitle.ToLower()));
+                filter &= builder.Where(x => x.Study.Versions.FirstOrDefault().Titles.Any(x => x.Text.ToLower().Contains(searchParameters.StudyTitle.ToLower())));
 
             //Filter for OrgCode
             if (!String.IsNullOrWhiteSpace(searchParameters.SponsorId))

@@ -8,7 +8,7 @@ namespace TransCelerate.SDR.Core.Entities.Common
         public string StudyId { get; set; }
         public string StudyIdV4 { get; set; }
         public string StudyTitle { get; set; }
-        public string StudyTitleV4 { get; set; }
+        public List<CommonStudyTitle> StudyTitleV4 { get; set; }
         public object StudyType { get; set; }
         public object StudyTypeV4 { get; set; }
 

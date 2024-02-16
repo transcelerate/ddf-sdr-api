@@ -19,5 +19,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public List<string> BcSurrogateIds { get; set; }
         public List<string> BiomedicalConceptIds { get; set; }
         public string TimelineId { get; set; }
+        public string InstanceType { get; set; }
     }
 }

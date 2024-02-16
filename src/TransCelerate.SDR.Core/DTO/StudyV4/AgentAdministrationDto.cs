@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TransCelerate.SDR.Core.DTO.StudyV4
 {
-    public class AgentAdministrationDto
+    public class AgentAdministrationDto : IId
     {
         public string Id { get; set; }
         public string Name { get; set; }
@@ -16,5 +16,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public QuantityDto Dose { get; set; }
         public CodeDto Route { get; set; }
         public CodeDto Frequency { get; set; }
+        public string InstanceType { get; set; }
     }
 }

@@ -676,13 +676,15 @@
           "required": [
             "Id",
             "IsConditional",
-            "Name"
+            "Name",
+            "InstanceType"
           ]
         },
         {
           "entity": "Address",
           "required": [
-            "Id"
+            "Id",
+            "InstanceType"
           ]
         },
         {
@@ -691,6 +693,7 @@
             "Description",
             "DurationWillVary",
             "Id",
+            "InstanceType",
             "Quantity",
             "ReasonDurationWillVary"
           ]
@@ -702,6 +705,7 @@
             "Duration",
             "Frequency",
             "Id",
+            "InstanceType",
             "Name",
             "Route"
           ]
@@ -710,6 +714,7 @@
           "entity": "AliasCode",
           "required": [
             "Id",
+            "InstanceType",
             "StandardCode"
           ]
         },
@@ -717,6 +722,7 @@
           "entity": "AnalysisPopulation",
           "required": [
             "Id",
+            "InstanceType",
             "Name",
             "Text"
           ]
@@ -726,6 +732,7 @@
           "required": [
             "Code",
             "Id",
+            "InstanceType",
             "Name",
             "Reference"
           ]
@@ -734,6 +741,7 @@
           "entity": "BiomedicalConceptCategory",
           "required": [
             "Id",
+            "InstanceType",
             "Name"
           ]
         },
@@ -744,6 +752,7 @@
             "DataType",
             "Enabled",
             "Id",
+            "InstanceType",
             "Name",
             "Required"
           ]
@@ -752,6 +761,7 @@
           "entity": "BiomedicalConceptSurrogate",
           "required": [
             "Id",
+            "InstanceType",
             "Name"
           ]
         },
@@ -759,6 +769,7 @@
           "entity": "Characteristic",
           "required": [
             "Id",
+            "InstanceType",
             "InstanceType",
             "Name",
             "Text"
@@ -771,7 +782,8 @@
             "CodeSystem",
             "CodeSystemVersion",
             "Decode",
-            "Id"
+            "Id",
+            "InstanceType"
           ]
         },
         {
@@ -780,6 +792,7 @@
             "Category",
             "DictionaryId",
             "Id",
+            "InstanceType",
             "Identifier",
             "InstanceType",
             "Name",
@@ -790,6 +803,7 @@
           "entity": "Encounter",
           "required": [
             "Id",
+            "InstanceType",
             "Name"
           ]
         },
@@ -798,6 +812,7 @@
           "required": [
             "DictionaryId",
             "Id",
+            "InstanceType",
             "InstanceType",
             "Level",
             "Name",
@@ -809,6 +824,7 @@
           "required": [
             "AnalysisPopulation",
             "Id",
+            "InstanceType",
             "IntercurrentEvents",
             "SummaryMeasure",
             "TreatmentId",
@@ -820,6 +836,7 @@
           "required": [
             "Id",
             "InstanceType",
+            "InstanceType",
             "Type",
             "Code"
           ]
@@ -829,6 +846,7 @@
           "required": [
             "DateValue",
             "Id",
+            "InstanceType",
             "Type",
             "Name",
             "GeographicScopes"
@@ -838,6 +856,7 @@
           "entity": "Indication",
           "required": [
             "Id",
+            "InstanceType",
             "Name"
           ]
         },
@@ -845,6 +864,7 @@
           "entity": "InterCurrentEvent",
           "required": [
             "Id",
+            "InstanceType",
             "Name",
             "Strategy"
           ]
@@ -853,6 +873,7 @@
           "entity": "NarrativeContent",
           "required": [
             "Id",
+            "InstanceType",
             "Name",
             "SectionNumber",
             "SectionTitle"
@@ -864,6 +885,7 @@
             "DictionaryId",
             "Id",
             "InstanceType",
+            "InstanceType",
             "Name",
             "Text"
           ]
@@ -872,6 +894,7 @@
           "entity": "Organisation",
           "required": [
             "Id",
+            "InstanceType",
             "OrganisationIdentifier",
             "OrganisationIdentifierScheme",
             "OrganisationName",
@@ -883,6 +906,7 @@
           "required": [
             "Code",
             "Id",
+            "InstanceType",
             "IsConditional",
             "Name",
             "Type"
@@ -892,6 +916,7 @@
           "entity": "Quantity",
           "required": [
             "Id",
+            "InstanceType",
             "Unit",
             "Value"
           ]
@@ -901,6 +926,7 @@
           "required": [
             "Code",
             "Id",
+            "InstanceType",
             "IsEnabled"
           ]
         },
@@ -909,6 +935,7 @@
           "required": [
             "IsApproximate",
             "Id",
+            "InstanceType",
             "MinValue",
             "MaxValue"
           ]
@@ -916,7 +943,8 @@
         {
           "entity": "ScheduleTimelineExit",
           "required": [
-            "Id"
+            "Id",
+            "InstanceType"
           ]
         },
         {
@@ -924,6 +952,7 @@
           "required": [
             "EntryCondition",
             "Id",
+            "InstanceType",
             "MainTimeline",
             "Name"
           ]
@@ -932,6 +961,7 @@
           "entity": "ScheduledActivityInstance",
           "required": [
             "Id",
+            "InstanceType",
             "InstanceType"
           ]
         },
@@ -939,6 +969,7 @@
           "entity": "ScheduledDecisionInstance",
           "required": [
             "Id",
+            "InstanceType",
             "InstanceType"
           ]
         },
@@ -946,6 +977,7 @@
           "entity": "ScheduledInstance",
           "required": [
             "Id",
+            "InstanceType",
             "InstanceType"
           ]
         },
@@ -961,6 +993,7 @@
             "Number",
             "Summary",
             "Id",
+            "InstanceType",
             "Enrollments",
             "SubstantialImpact",
             "PrimaryReason"
@@ -970,7 +1003,8 @@
           "entity": "StudyAmendmentReason",
           "required": [
             "Code",
-            "Id"
+            "Id",
+            "InstanceType"
           ]
         },
         {
@@ -979,6 +1013,7 @@
             "DataOriginDescription",
             "DataOriginType",
             "Id",
+            "InstanceType",
             "Name",
             "Type"
           ]
@@ -988,7 +1023,8 @@
           "required": [
             "ArmId",
             "EpochId",
-            "Id"
+            "Id",
+            "InstanceType"
           ]
         },
         {
@@ -996,6 +1032,7 @@
           "required": [
             "Name",
             "Id",
+            "InstanceType",
             "Criteria",
             "PlannedSex",
             "IncludesHealthySubjects"
@@ -1013,6 +1050,7 @@
             "Arms",
             "Epochs",
             "Id",
+            "InstanceType",
             "InterventionModel",
             "Name",
             "Rationale",
@@ -1023,6 +1061,7 @@
           "entity": "StudyDesignPopulation",
           "required": [
             "Id",
+            "InstanceType",
             "Name",
             "Criteria",
             "PlannedSex",
@@ -1033,6 +1072,7 @@
           "entity": "StudyElements",
           "required": [
             "Id",
+            "InstanceType",
             "Name"
           ]
         },
@@ -1040,6 +1080,7 @@
           "entity": "StudyEpoch",
           "required": [
             "Id",
+            "InstanceType",
             "Name",
             "Type"
           ]
@@ -1048,6 +1089,7 @@
           "entity": "StudyIdentifier",
           "required": [
             "Id",
+            "InstanceType",
             "StudyIdentifier",
             "StudyIdentifierScope"
           ]
@@ -1058,6 +1100,7 @@
             "Administrations",
             "Codes",
             "Id",
+            "InstanceType",
             "MinimumResponseDuration",
             "Name",
             "PharmacologicClass",
@@ -1070,7 +1113,8 @@
           "entity": "StudyProtocolDocument",
           "required": [
             "Name",
-            "Id"
+            "Id",
+            "InstanceType"
           ]
         },
         {
@@ -1078,6 +1122,7 @@
           "required": [
             "BriefTitle",
             "Id",
+            "InstanceType",
             "OfficialTitle",
             "ProtocolStatus",
             "ProtocolVersion",
@@ -1086,15 +1131,24 @@
           ]
         },
         {
+          "entity": "StudyTitle",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "Type"
+          ]
+        },
+        {
           "entity": "StudyVersion",
           "required": [
             "Id",
-            "StudyAcronym",
+            "InstanceType",            
             "StudyIdentifiers",
             "StudyPhase",
             "Rationale",
-            "StudyTitle",
-            "Type",
+            "Titles",
+            "StudyType",
             "VersionIdentifier"
           ]
         },
@@ -1102,7 +1156,7 @@
           "entity": "SubjectEnrollment",
           "required": [
             "Id",
-            "InstanceType",
+            "InstanceType",            
             "Type",
             "Code"
           ]
@@ -1112,7 +1166,7 @@
           "required": [
             "DictionaryId",
             "Id",
-            "InstanceType",
+            "InstanceType",            
             "Name",
             "Text"
           ]
@@ -1121,6 +1175,7 @@
           "entity": "SyntaxTemplateDectionary",
           "required": [
             "Id",
+            "InstanceType",
             "Name",
             "ParameterMap"
           ]
@@ -1129,6 +1184,7 @@
           "entity": "Timing",
           "required": [
             "Id",
+            "InstanceType",
             "Name",
             "RelativeToFrom",
             "Type",
@@ -1139,6 +1195,7 @@
           "entity": "TransitionRule",
           "required": [
             "Id",
+            "InstanceType",
             "Name",
             "Text"
           ]

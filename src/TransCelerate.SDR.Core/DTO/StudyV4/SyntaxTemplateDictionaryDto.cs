@@ -14,5 +14,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public string Description { get; set; }
         public string Text { get; set; }
         public Dictionary<string, string> ParameterMap { get; set; }
+        public string InstanceType { get; set; }
     }
 }
