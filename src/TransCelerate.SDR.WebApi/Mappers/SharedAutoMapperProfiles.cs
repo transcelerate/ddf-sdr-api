@@ -150,7 +150,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
                 .ReverseMap();
             CreateMap<CommonStudyIdentifiersDto, Core.Entities.StudyV4.StudyIdentifierEntity>()
                 .ReverseMap();
-            CreateMap<CommonOrganisationDto, Core.Entities.StudyV4.OrganisationEntity>()
+            CreateMap<CommonOrganisationDto, Core.Entities.StudyV4.OrganizationEntity>()
                 .ReverseMap();
             CreateMap<Core.DTO.Common.CommonStudyIndication, Core.Entities.StudyV4.IndicationEntity>()
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.IndicationDescription))

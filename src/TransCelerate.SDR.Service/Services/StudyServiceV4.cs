@@ -331,70 +331,70 @@ namespace TransCelerate.SDR.Services.Services
                             
                             if (scheduleActivityInstances != null && scheduleActivityInstances.Any())
                             {
-                                var activitiesMappedToTimeLine = activities is not null && activities.Any() ? activities.Where(act => scheduleActivityInstances.Where(x => x.ActivityIds is not null && x.ActivityIds.Any()).SelectMany(instance => instance.ActivityIds).Contains(act.Id)).ToList() : new List<ActivityEntity>();
-                                var encountersMappedToTimeLine = scheduleActivityInstances.Where(x => !String.IsNullOrWhiteSpace(x.EncounterId)).Select(x => x.EncounterId).ToList();
-                                var timingsMappedToTimeline = scheduleActivityInstances.Where(x => x != null && x.Timings is not null)
-                                                                                       .SelectMany(x => x.Timings).ToList();
-                                if (activitiesMappedToTimeLine.Any() || encountersMappedToTimeLine.Any() || timingsMappedToTimeline.Any())
-                                {
-                                    studyTimelineSoA.ScheduleTimelineSoA = new()
-                                    {
-                                        SoA = new List<SoA>(),
-                                        OrderOfActivities = activitiesMappedToTimeLine.Select(act => new OrderOfActivities
-                                        {
-                                            ActivityId = act.Id,
-                                            ActivityName = act.Name,
-                                            ActivityDescription = act.Description,
-                                            ActivityIsConditional = act.IsConditional,
-                                            ActivityIsConditionalReason = act.IsConditionalReason,
-                                            ActivityTimelineId = act.TimelineId,
-                                            ActivityTimelineName = String.IsNullOrWhiteSpace(act.TimelineId) ? string.Empty : design.ScheduleTimelines.FirstOrDefault(x => x.Id == act.TimelineId)?.Name,
-                                            BiomedicalConcepts = design.BiomedicalConcepts.Where(bc => act.BiomedicalConceptIds != null && act.BiomedicalConceptIds.Any() && act.BiomedicalConceptIds.Contains(bc.Id)).Select(bc => bc.Name).ToList(),
-                                            FootnoteId = string.Empty,
-                                            FootnoteDescription = act.IsConditional ? $"{act.Name} : {act.IsConditionalReason}" : string.Empty,
-                                            DefinedProcedures = act.DefinedProcedures?.Select(y => new ProcedureSoA
-                                            {
-                                                ProcedureId = y.Id,
-                                                ProcedureName = y.Name,
-                                                ProcedureDescription = y.Description,
-                                                ProcedureIsConditional = y.IsConditional,
-                                                ProcedureIsConditionalReason = y.IsConditionalReason,
-                                                FootnoteId = string.Empty,                                                
-                                                FootnoteDescription = y.IsConditional ? $"{y.Name} : {y.IsConditionalReason}" : string.Empty
-                                            }).ToList()
-                                        }).ToList()
-                                    };
-                                    // SoA for instances where encounter is mapped
-                                    encounters?.Where(x => scheduleActivityInstances.Select(y => y.EncounterId).Contains(x.Id)).ToList().ForEach(encounter =>
-                                    {
-                                        string timingValue = design.ScheduleTimelines.Where(x => x.Instances != null).SelectMany(x => x.Instances)
-                                                                                          .Where(x => x != null && x.Timings is not null)
-                                                                                          .SelectMany(x => x.Timings)
-                                                                                          .Where(x => x.Id == encounter.ScheduledAtTimingId).FirstOrDefault()?.Value;
-                                        SoA soA = new()
-                                        {
-                                            EncounterId = encounter.Id,
-                                            EncounterName = encounter.Name,
-                                            EncounterScheduledAtTimingValue = String.IsNullOrWhiteSpace(timingValue) ? string.Empty : timingValue,
-                                            Timings = GetTimings(scheduleActivityInstances.Where(instance => instance.EncounterId == encounter.Id).ToList(), scheduledInstances)
-                                        };
+                                //var activitiesMappedToTimeLine = activities is not null && activities.Any() ? activities.Where(act => scheduleActivityInstances.Where(x => x.ActivityIds is not null && x.ActivityIds.Any()).SelectMany(instance => instance.ActivityIds).Contains(act.Id)).ToList() : new List<ActivityEntity>();
+                                //var encountersMappedToTimeLine = scheduleActivityInstances.Where(x => !String.IsNullOrWhiteSpace(x.EncounterId)).Select(x => x.EncounterId).ToList();
+                                //var timingsMappedToTimeline = scheduleActivityInstances.Where(x => x != null && x.Timings is not null)
+                                //                                                       .SelectMany(x => x.Timings).ToList();
+                                //if (activitiesMappedToTimeLine.Any() || encountersMappedToTimeLine.Any() || timingsMappedToTimeline.Any())
+                                //{
+                                //    studyTimelineSoA.ScheduleTimelineSoA = new()
+                                //    {
+                                //        SoA = new List<SoA>(),
+                                //        OrderOfActivities = activitiesMappedToTimeLine.Select(act => new OrderOfActivities
+                                //        {
+                                //            ActivityId = act.Id,
+                                //            ActivityName = act.Name,
+                                //            ActivityDescription = act.Description,
+                                //            ActivityIsConditional = act.IsConditional,
+                                //            ActivityIsConditionalReason = act.IsConditionalReason,
+                                //            ActivityTimelineId = act.TimelineId,
+                                //            ActivityTimelineName = String.IsNullOrWhiteSpace(act.TimelineId) ? string.Empty : design.ScheduleTimelines.FirstOrDefault(x => x.Id == act.TimelineId)?.Name,
+                                //            BiomedicalConcepts = design.BiomedicalConcepts.Where(bc => act.BiomedicalConceptIds != null && act.BiomedicalConceptIds.Any() && act.BiomedicalConceptIds.Contains(bc.Id)).Select(bc => bc.Name).ToList(),
+                                //            FootnoteId = string.Empty,
+                                //            FootnoteDescription = act.IsConditional ? $"{act.Name} : {act.IsConditionalReason}" : string.Empty,
+                                //            DefinedProcedures = act.DefinedProcedures?.Select(y => new ProcedureSoA
+                                //            {
+                                //                ProcedureId = y.Id,
+                                //                ProcedureName = y.Name,
+                                //                ProcedureDescription = y.Description,
+                                //                ProcedureIsConditional = y.IsConditional,
+                                //                ProcedureIsConditionalReason = y.IsConditionalReason,
+                                //                FootnoteId = string.Empty,                                                
+                                //                FootnoteDescription = y.IsConditional ? $"{y.Name} : {y.IsConditionalReason}" : string.Empty
+                                //            }).ToList()
+                                //        }).ToList()
+                                //    };
+                                //    // SoA for instances where encounter is mapped
+                                //    encounters?.Where(x => scheduleActivityInstances.Select(y => y.EncounterId).Contains(x.Id)).ToList().ForEach(encounter =>
+                                //    {
+                                //        string timingValue = design.ScheduleTimelines.Where(x => x.Instances != null).SelectMany(x => x.Instances)
+                                //                                                          .Where(x => x != null && x.Timings is not null)
+                                //                                                          .SelectMany(x => x.Timings)
+                                //                                                          .Where(x => x.Id == encounter.ScheduledAtTimingId).FirstOrDefault()?.Value;
+                                //        SoA soA = new()
+                                //        {
+                                //            EncounterId = encounter.Id,
+                                //            EncounterName = encounter.Name,
+                                //            EncounterScheduledAtTimingValue = String.IsNullOrWhiteSpace(timingValue) ? string.Empty : timingValue,
+                                //            Timings = GetTimings(scheduleActivityInstances.Where(instance => instance.EncounterId == encounter.Id).ToList(), scheduledInstances)
+                                //        };
 
-                                        studyTimelineSoA.ScheduleTimelineSoA.SoA.Add(soA);
-                                    });
-                                    // SoA for instances where encounter is not mapped
-                                    if (scheduleActivityInstances.Where(x => String.IsNullOrWhiteSpace(x.EncounterId)).Any())
-                                    {
-                                        SoA soA = new()
-                                        {
-                                            EncounterId = string.Empty,
-                                            EncounterName = string.Empty,
-                                            EncounterScheduledAtTimingValue = string.Empty,
-                                            Timings = GetTimings(scheduleActivityInstances.Where(x => String.IsNullOrWhiteSpace(x.EncounterId)).ToList(), scheduledInstances)
-                                        };
+                                //        studyTimelineSoA.ScheduleTimelineSoA.SoA.Add(soA);
+                                //    });
+                                //    // SoA for instances where encounter is not mapped
+                                //    if (scheduleActivityInstances.Where(x => String.IsNullOrWhiteSpace(x.EncounterId)).Any())
+                                //    {
+                                //        SoA soA = new()
+                                //        {
+                                //            EncounterId = string.Empty,
+                                //            EncounterName = string.Empty,
+                                //            EncounterScheduledAtTimingValue = string.Empty,
+                                //            Timings = GetTimings(scheduleActivityInstances.Where(x => String.IsNullOrWhiteSpace(x.EncounterId)).ToList(), scheduledInstances)
+                                //        };
 
-                                        studyTimelineSoA.ScheduleTimelineSoA.SoA.Add(soA);
-                                    }
-                                }
+                                //        studyTimelineSoA.ScheduleTimelineSoA.SoA.Add(soA);
+                                //    }
+                                //}
                             }
 
                             studyDesignSoA.StudyScheduleTimelines.Add(studyTimelineSoA);
@@ -408,53 +408,53 @@ namespace TransCelerate.SDR.Services.Services
         }
         public List<TimingSoA> GetTimings(List<ScheduledActivityInstanceEntity> scheduledActivityInstances,List<ScheduledInstanceEntity> scheduledInstances)
         {
-            if (scheduledActivityInstances is not null && scheduledActivityInstances.Any())
-            {                
-                //Add sequence number since the ordering based on defaultConditionId includes both ACTIVITY and DECISION Type instances
-                int sequenceNumber = 0;
-                var scheduledInstancesWithSeqNumber = scheduledInstances.Select(x => new
-                {
-                    x.Id,
-                    SequenceNumber = ++sequenceNumber
-                }).ToList();                
-                //Assign sequence number for Activity Instances
-                var orderedScheduledActivityInstances = scheduledActivityInstances.Select(x => new { 
-                    x.Timings,
-                    x.ActivityIds,
-                    scheduledInstancesWithSeqNumber.FirstOrDefault(y => y.Id == x.Id)?.SequenceNumber
-                }).ToList();
-                //Add Instances with valid timing values
-                var instances = orderedScheduledActivityInstances.Where(x => x.Timings is not null && x.Timings.Any()).Select(x => new
-                {                    
-                    Timings = _mapper.Map<List<TimingSoA>>(x.Timings),
-                    x.ActivityIds,
-                    x.SequenceNumber
-                }).OrderBy(x => x.SequenceNumber).ToList();                
-                //Add Instances without valid timing values
-                instances.AddRange(orderedScheduledActivityInstances.Where(x => x.Timings is null || !x.Timings.Any()).Select(x => new
-                {                    
-                    Timings = _mapper.Map<List<TimingSoA>>(x.Timings),
-                    x.ActivityIds,
-                    x.SequenceNumber
-                }).OrderBy(x => x.SequenceNumber).ToList());
-                //Add activities under timing for SoA Response
-                instances?.ForEach(instance =>
-                {
-                    if (instance.Timings is not null && instance.Timings.Any())
-                    {
-                        instance.Timings.ForEach(y =>
-                        {
-                            y.Activities = new List<string>();
-                            y.Activities.AddRange(instance.ActivityIds is not null && instance.ActivityIds.Any() ? instance.ActivityIds.Distinct().ToList() : new List<string>());
-                        });
-                    }
-                    else
-                    {
-                        instance.Timings.Add(new TimingSoA { Activities = instance.ActivityIds is not null && instance.ActivityIds.Any() ? instance.ActivityIds.Distinct().ToList() : new List<string>() });
-                    }
-                });
-                return instances.SelectMany(x => x.Timings).Any() ? instances.SelectMany(x => x.Timings).ToList() : new List<TimingSoA>();
-            }
+            //if (scheduledActivityInstances is not null && scheduledActivityInstances.Any())
+            //{                
+            //    //Add sequence number since the ordering based on defaultConditionId includes both ACTIVITY and DECISION Type instances
+            //    int sequenceNumber = 0;
+            //    var scheduledInstancesWithSeqNumber = scheduledInstances.Select(x => new
+            //    {
+            //        x.Id,
+            //        SequenceNumber = ++sequenceNumber
+            //    }).ToList();                
+            //    //Assign sequence number for Activity Instances
+            //    var orderedScheduledActivityInstances = scheduledActivityInstances.Select(x => new { 
+            //        x.Timings,
+            //        x.ActivityIds,
+            //        scheduledInstancesWithSeqNumber.FirstOrDefault(y => y.Id == x.Id)?.SequenceNumber
+            //    }).ToList();
+            //    //Add Instances with valid timing values
+            //    var instances = orderedScheduledActivityInstances.Where(x => x.Timings is not null && x.Timings.Any()).Select(x => new
+            //    {                    
+            //        Timings = _mapper.Map<List<TimingSoA>>(x.Timings),
+            //        x.ActivityIds,
+            //        x.SequenceNumber
+            //    }).OrderBy(x => x.SequenceNumber).ToList();                
+            //    //Add Instances without valid timing values
+            //    instances.AddRange(orderedScheduledActivityInstances.Where(x => x.Timings is null || !x.Timings.Any()).Select(x => new
+            //    {                    
+            //        Timings = _mapper.Map<List<TimingSoA>>(x.Timings),
+            //        x.ActivityIds,
+            //        x.SequenceNumber
+            //    }).OrderBy(x => x.SequenceNumber).ToList());
+            //    //Add activities under timing for SoA Response
+            //    instances?.ForEach(instance =>
+            //    {
+            //        if (instance.Timings is not null && instance.Timings.Any())
+            //        {
+            //            instance.Timings.ForEach(y =>
+            //            {
+            //                y.Activities = new List<string>();
+            //                y.Activities.AddRange(instance.ActivityIds is not null && instance.ActivityIds.Any() ? instance.ActivityIds.Distinct().ToList() : new List<string>());
+            //            });
+            //        }
+            //        else
+            //        {
+            //            instance.Timings.Add(new TimingSoA { Activities = instance.ActivityIds is not null && instance.ActivityIds.Any() ? instance.ActivityIds.Distinct().ToList() : new List<string>() });
+            //        }
+            //    });
+            //    return instances.SelectMany(x => x.Timings).Any() ? instances.SelectMany(x => x.Timings).ToList() : new List<TimingSoA>();
+            //}
             return new List<TimingSoA>();
         }
 

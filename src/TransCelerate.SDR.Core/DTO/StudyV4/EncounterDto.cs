@@ -9,7 +9,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public string Label { get; set; }
         public string Description { get; set; }        
         public List<CodeDto> ContactModes { get; set; }
-        public CodeDto EnvironmentalSetting { get; set; }
+        public List<CodeDto> EnvironmentalSetting { get; set; }
         public CodeDto Type { get; set; }
         public string NextId { get; set; }
         public string PreviousId { get; set; }

@@ -12,8 +12,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public List<ProcedureDto> DefinedProcedures { get; set; }
         public string NextId { get; set; }
         public string PreviousId { get; set; }
-        public object IsConditional { get; set; }
-        public string IsConditionalReason { get; set; }
         public List<string> BcCategoryIds { get; set; }
         public List<string> BcSurrogateIds { get; set; }
         public List<string> BiomedicalConceptIds { get; set; }

@@ -19,7 +19,14 @@ namespace TransCelerate.SDR.RuleEngineV4
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyProtocolDocumentVersionValidator), nameof(StudyProtocolDocumentVersionDto.Id)), ApplyConditionTo.AllValidators);            
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyProtocolDocumentVersionValidator), nameof(StudyProtocolDocumentVersionDto.Id)), ApplyConditionTo.AllValidators);
+
+            RuleFor(x => x.InstanceType)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyProtocolDocumentVersionValidator), nameof(StudyProtocolDocumentVersionDto.InstanceType)), ApplyConditionTo.AllValidators)
+               .Must(x => this.GetType().Name.RemoveValidator() == x).WithMessage(Constants.ValidationErrorMessage.InstanceTypeError);
 
             RuleFor(x => x.ProtocolStatus)
                 .Cascade(CascadeMode.Stop)

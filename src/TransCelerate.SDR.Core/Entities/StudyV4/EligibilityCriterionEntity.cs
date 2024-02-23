@@ -8,7 +8,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
 {
     [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
     [MongoDB.Bson.Serialization.Attributes.BsonNoId]
-    public class EligibilityCriteriaEntity : SyntaxTemplateEntity
+    public class EligibilityCriterionEntity : SyntaxTemplateEntity
     {        
         public CodeEntity Category { get; set; }
         public string Identifier { get; set; }

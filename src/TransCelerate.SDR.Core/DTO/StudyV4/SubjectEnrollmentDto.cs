@@ -2,6 +2,6 @@
 {
     public class SubjectEnrollmentDto : GeographicScopeDto
     {
-        public string Quantity { get; set; }
+        public QuantityDto Quantity { get; set; }
     }
 }

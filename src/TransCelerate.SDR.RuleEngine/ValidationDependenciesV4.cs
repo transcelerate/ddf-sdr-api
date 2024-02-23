@@ -27,7 +27,7 @@ namespace TransCelerate.SDR.RuleEngineV4
             services.AddTransient<IValidator<BiomedicalConceptSurrogateDto>, BiomedicalConceptSurrogateValidator>();
             services.AddTransient<IValidator<CharacteristicDto>, CharacteristicValidator>();
             services.AddTransient<IValidator<CodeDto>, CodeValidator>();
-            services.AddTransient<IValidator<EligibilityCriteriaDto>, EligibilityCriteriaValidator>();
+            services.AddTransient<IValidator<EligibilityCriterionDto>, EligibilityCriterionValidator>();
             services.AddTransient<IValidator<EncounterDto>, EncounterValidator>();
             services.AddTransient<IValidator<EndpointDto>, EndpointValidator>();
             services.AddTransient<IValidator<EstimandDto>, EstimandValidator>();
@@ -37,7 +37,7 @@ namespace TransCelerate.SDR.RuleEngineV4
             services.AddTransient<IValidator<InterCurrentEventDto>, InterCurrentEventValidator>();
             services.AddTransient<IValidator<NarrativeContentDto>, NarrativeContentValidator>();
             services.AddTransient<IValidator<ObjectiveDto>, ObjectiveValidator>();
-            services.AddTransient<IValidator<OrganisationDto>, OrganisationValidator>();
+            services.AddTransient<IValidator<OrganizationDto>, OrganizationValidator>();
             services.AddTransient<IValidator<ProcedureDto>, ProcedureValidator>();
             services.AddTransient<IValidator<QuantityDto>, QuantityValidator>();
             services.AddTransient<IValidator<RangeDto>, RangeValidator>();

@@ -2,6 +2,6 @@
 {
     public class SubjectEnrollmentEntity : GeographicScopeEntity
     {
-        public string Quantity { get; set; }        
+        public QuantityEntity Quantity { get; set; }        
     }
 }

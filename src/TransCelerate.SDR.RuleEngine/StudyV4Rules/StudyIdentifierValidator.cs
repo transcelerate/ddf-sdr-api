@@ -21,6 +21,13 @@ namespace TransCelerate.SDR.RuleEngineV4
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyIdentifierValidator), nameof(StudyIdentifierDto.Id)), ApplyConditionTo.AllValidators);
 
+            RuleFor(x => x.InstanceType)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyIdentifierValidator), nameof(StudyIdentifierDto.InstanceType)), ApplyConditionTo.AllValidators)
+               .Must(x => this.GetType().Name.RemoveValidator() == x).WithMessage(Constants.ValidationErrorMessage.InstanceTypeError);
+
             RuleFor(x => x.StudyIdentifier)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
@@ -32,7 +39,7 @@ namespace TransCelerate.SDR.RuleEngineV4
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyIdentifierValidator), nameof(StudyIdentifierDto.StudyIdentifierScope)), ApplyConditionTo.AllValidators)
-                .SetValidator(new OrganisationValidator(_httpContextAccessor));
+                .SetValidator(new OrganizationValidator(_httpContextAccessor));
         }
     }
 }

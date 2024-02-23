@@ -6,8 +6,8 @@ using System.Collections.Generic;
 namespace TransCelerate.SDR.Core.Entities.StudyV4
 {
     [JsonConverter(typeof(JsonSubtypes), nameof(ScheduledInstanceEntity.InstanceType))]
-    [JsonSubtypes.KnownSubType(typeof(ScheduledActivityInstanceEntity), nameof(Utilities.ScheduledInstanceType.ACTIVITY))]
-    [JsonSubtypes.KnownSubType(typeof(ScheduledDecisionInstanceEntity), nameof(Utilities.ScheduledInstanceType.DECISION))]
+    [JsonSubtypes.KnownSubType(typeof(ScheduledActivityInstanceEntity), nameof(Utilities.ScheduledInstanceTypeV4.ScheduledActivityInstance))]
+    [JsonSubtypes.KnownSubType(typeof(ScheduledDecisionInstanceEntity), nameof(Utilities.ScheduledInstanceTypeV4.ScheduledDecisionInstance))]
     [BsonIgnoreExtraElements]
     [BsonNoId]
     [BsonDiscriminator(nameof(ScheduledInstanceEntity.InstanceType))]
@@ -20,7 +20,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public string TimelineId { get; set; }
         public string DefaultConditionId { get; set; }
         public string EpochId { get; set; }
-        public List<TimingEntity> Timings { get; set; }
         public virtual string InstanceType { get; set; }
     }
 }

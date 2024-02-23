@@ -21,6 +21,13 @@ namespace TransCelerate.SDR.RuleEngineV4
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ProcedureValidator), nameof(ProcedureDto.Id)), ApplyConditionTo.AllValidators);
 
+            RuleFor(x => x.InstanceType)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ProcedureValidator), nameof(ProcedureDto.InstanceType)), ApplyConditionTo.AllValidators)
+               .Must(x => this.GetType().Name.RemoveValidator() == x).WithMessage(Constants.ValidationErrorMessage.InstanceTypeError);
+
             RuleFor(x => x.Name)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
@@ -44,19 +51,7 @@ namespace TransCelerate.SDR.RuleEngineV4
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ProcedureValidator), nameof(ProcedureDto.Code)), ApplyConditionTo.AllValidators)
-               .SetValidator(new CodeValidator(_httpContextAccessor));
-
-            RuleFor(x => x.IsConditional)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ProcedureValidator), nameof(ProcedureDto.IsConditional)), ApplyConditionTo.AllValidators)
-                .Must(ValidateDatatype.ValidateBoolean).WithMessage(Constants.ValidationErrorMessage.BooleanValidationFailed);
-
-            RuleFor(x => x.IsConditionalReason)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ProcedureValidator), nameof(ProcedureDto.IsConditionalReason)), ApplyConditionTo.AllValidators);
+               .SetValidator(new CodeValidator(_httpContextAccessor));            
 
             RuleFor(x => x.StudyInterventionId)
                .Cascade(CascadeMode.Stop)

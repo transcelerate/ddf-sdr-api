@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TransCelerate.SDR.Core.DTO.StudyV4
 {
-    public class EligibilityCriteriaDto : SyntaxTemplateDto
+    public class EligibilityCriterionDto : SyntaxTemplateDto
     {        
         public CodeDto Category { get; set; }
         public string Identifier { get; set; }

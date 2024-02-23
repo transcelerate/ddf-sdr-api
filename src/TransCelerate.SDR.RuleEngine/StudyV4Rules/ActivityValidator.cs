@@ -21,6 +21,13 @@ namespace TransCelerate.SDR.RuleEngineV4
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.Id)), ApplyConditionTo.AllValidators);
 
+            RuleFor(x => x.InstanceType)
+              .Cascade(CascadeMode.Stop)
+              .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+              .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+              .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.InstanceType)), ApplyConditionTo.AllValidators)
+              .Must(x => this.GetType().Name.RemoveValidator() == x).WithMessage(Constants.ValidationErrorMessage.InstanceTypeError);
+
             RuleFor(x => x.Description)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
@@ -46,13 +53,7 @@ namespace TransCelerate.SDR.RuleEngineV4
                .Must(x => UniquenessArrayValidator.ValidateArrayV4(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
             RuleForEach(x => x.DefinedProcedures)
-                .SetValidator(new ProcedureValidator(_httpContextAccessor));
-
-            RuleFor(x => x.IsConditional)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.IsConditional)), ApplyConditionTo.AllValidators)
-                .Must(ValidateDatatype.ValidateBoolean).WithMessage(Constants.ValidationErrorMessage.BooleanValidationFailed);
+                .SetValidator(new ProcedureValidator(_httpContextAccessor));            
 
             RuleFor(x => x.NextId)
                .Cascade(CascadeMode.Stop)
@@ -64,13 +65,7 @@ namespace TransCelerate.SDR.RuleEngineV4
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.PreviousId)), ApplyConditionTo.AllValidators);
-
-            RuleFor(x => x.IsConditionalReason)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.IsConditionalReason)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.PreviousId)), ApplyConditionTo.AllValidators);            
 
             RuleFor(x => x.BiomedicalConceptIds)
                 .Cascade(CascadeMode.Stop)

@@ -1,5 +1,4 @@
-﻿
-namespace TransCelerate.SDR.Core.Utilities
+﻿namespace TransCelerate.SDR.Core.Utilities
 {
     /// <summary>
     /// Enum for Scheduled Instance Types
@@ -10,6 +9,12 @@ namespace TransCelerate.SDR.Core.Utilities
     {
         ACTIVITY,
         DECISION
+    }
+
+    public enum ScheduledInstanceTypeV4
+    {
+        ScheduledActivityInstance,
+        ScheduledDecisionInstance
     }
 
     public enum SyntaxTemplateInstanceType

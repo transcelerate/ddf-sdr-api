@@ -21,6 +21,13 @@ namespace TransCelerate.SDR.RuleEngineV4
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.Id)), ApplyConditionTo.AllValidators);
 
+            RuleFor(x => x.InstanceType)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.InstanceType)), ApplyConditionTo.AllValidators)
+               .Must(x => this.GetType().Name.RemoveValidator() == x).WithMessage(Constants.ValidationErrorMessage.InstanceTypeError);
+
             RuleFor(x => x.Label)
               .Cascade(CascadeMode.Stop)
               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
@@ -49,6 +56,16 @@ namespace TransCelerate.SDR.RuleEngineV4
                 .Must(x => UniquenessArrayValidator.ValidateArrayV4(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
             RuleForEach(x => x.TrialIntentTypes)
+                .SetValidator(new CodeValidator(_httpContextAccessor));
+
+            RuleFor(x => x.Characteristics)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.Characteristics)), ApplyConditionTo.AllValidators)
+                .Must(x => UniquenessArrayValidator.ValidateArrayV4(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleForEach(x => x.Characteristics)
                 .SetValidator(new CodeValidator(_httpContextAccessor));
 
             RuleFor(x => x.TrialType)
@@ -91,15 +108,12 @@ namespace TransCelerate.SDR.RuleEngineV4
             RuleForEach(x => x.Objectives)
                 .SetValidator(new ObjectiveValidator(_httpContextAccessor));
 
-            RuleFor(x => x.Populations)
+            RuleFor(x => x.Population)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.Populations)), ApplyConditionTo.AllValidators)
-                .Must(x => UniquenessArrayValidator.ValidateArrayV4(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
-
-            RuleForEach(x => x.Populations)
-                .SetValidator(new StudyDesignPopulationValidator(_httpContextAccessor));
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.Population)), ApplyConditionTo.AllValidators)                
+                .SetValidator(new StudyDesignPopulationValidator(_httpContextAccessor));            
 
             RuleFor(x => x.StudyCells)
                 .Cascade(CascadeMode.Stop)
@@ -141,15 +155,15 @@ namespace TransCelerate.SDR.RuleEngineV4
             RuleForEach(x => x.TherapeuticAreas)
                 .SetValidator(new CodeValidator(_httpContextAccessor));
 
-            RuleFor(x => x.Populations)
+            RuleFor(x => x.MaskingRoles)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.Populations)), ApplyConditionTo.AllValidators)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.MaskingRoles)), ApplyConditionTo.AllValidators)
                .Must(x => UniquenessArrayValidator.ValidateArrayV4(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
-            RuleForEach(x => x.Populations)
-                .SetValidator(new StudyDesignPopulationValidator(_httpContextAccessor));
+            RuleForEach(x => x.MaskingRoles)
+                .SetValidator(new MaskingValidator(_httpContextAccessor));
 
             RuleFor(x => x.Activities)
                 .Cascade(CascadeMode.Stop)

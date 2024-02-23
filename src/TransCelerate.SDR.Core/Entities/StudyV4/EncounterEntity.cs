@@ -11,7 +11,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public string Label { get; set; }
         public string Description { get; set; }
         public List<CodeEntity> ContactModes { get; set; }        
-        public CodeEntity EnvironmentalSetting { get; set; }
+        public List<CodeEntity> EnvironmentalSetting { get; set; }
         public CodeEntity Type { get; set; }
         public string NextId { get; set; }
         public string PreviousId { get; set; }

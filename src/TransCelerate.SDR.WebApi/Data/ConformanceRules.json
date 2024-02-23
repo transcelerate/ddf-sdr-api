@@ -787,10 +787,18 @@
           ]
         },
         {
-          "entity": "EligibilityCriteria",
+          "entity": "Condition",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Text"
+          ]
+        },
+        {
+          "entity": "EligibilityCriterion",
           "required": [
             "Category",
-            "DictionaryId",
             "Id",
             "InstanceType",
             "Identifier",
@@ -827,7 +835,7 @@
             "InstanceType",
             "IntercurrentEvents",
             "SummaryMeasure",
-            "TreatmentId",
+            "InterventionId",
             "VariableOfInterestId"
           ]
         },
@@ -870,6 +878,14 @@
           ]
         },
         {
+          "entity": "Masking",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Role"
+          ]
+        },
+        {
           "entity": "NarrativeContent",
           "required": [
             "Id",
@@ -891,14 +907,14 @@
           ]
         },
         {
-          "entity": "Organisation",
+          "entity": "Organization",
           "required": [
             "Id",
             "InstanceType",
-            "OrganisationIdentifier",
-            "OrganisationIdentifierScheme",
-            "OrganisationName",
-            "OrganisationType"
+            "Identifier",
+            "IdentifierScheme",
+            "Name",
+            "OrganizationType"
           ]
         },
         {
@@ -919,6 +935,18 @@
             "InstanceType",
             "Unit",
             "Value"
+          ]
+        },
+        {
+          "entity": "ResearchOrganization",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Identifier",
+            "IdentifierScheme",
+            "Name",
+            "OrganizationType",
+            "Manages"
           ]
         },
         {
@@ -1131,6 +1159,14 @@
           ]
         },
         {
+          "entity": "StudySite",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name"
+          ]
+        },
+        {
           "entity": "StudyTitle",
           "required": [
             "Id",
@@ -1143,7 +1179,7 @@
           "entity": "StudyVersion",
           "required": [
             "Id",
-            "InstanceType",            
+            "InstanceType",
             "StudyIdentifiers",
             "StudyPhase",
             "Rationale",
@@ -1156,7 +1192,7 @@
           "entity": "SubjectEnrollment",
           "required": [
             "Id",
-            "InstanceType",            
+            "InstanceType",
             "Type",
             "Code"
           ]
@@ -1166,7 +1202,7 @@
           "required": [
             "DictionaryId",
             "Id",
-            "InstanceType",            
+            "InstanceType",
             "Name",
             "Text"
           ]

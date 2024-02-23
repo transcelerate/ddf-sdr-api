@@ -21,6 +21,12 @@ namespace TransCelerate.SDR.RuleEngineV4
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ScheduledActivityInstanceValidator), nameof(ScheduledActivityInstanceDto.Id)), ApplyConditionTo.AllValidators);
 
+            RuleFor(x => x.InstanceType)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ScheduledActivityInstanceValidator), nameof(ScheduledActivityInstanceDto.InstanceType)), ApplyConditionTo.AllValidators);
+
             RuleFor(x => x.TimelineExitId)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
@@ -45,22 +51,12 @@ namespace TransCelerate.SDR.RuleEngineV4
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ScheduledDecisionInstanceValidator), nameof(ScheduledActivityInstanceDto.EpochId)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.Timings)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ScheduledActivityInstanceValidator), nameof(ScheduledActivityInstanceDto.Timings)), ApplyConditionTo.AllValidators)
-               .Must(x => UniquenessArrayValidator.ValidateArrayV4(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
-
-            RuleForEach(x => x.Timings)
-                .SetValidator(new TimingValidator(_httpContextAccessor));
-
             RuleFor(x => x.InstanceType)
               .Cascade(CascadeMode.Stop)
               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ScheduledActivityInstanceValidator), nameof(ScheduledActivityInstanceDto.InstanceType)), ApplyConditionTo.AllValidators)
-              .Must(x => Enum.GetNames(typeof(ScheduledInstanceType)).Contains(x)).WithMessage(Constants.ValidationErrorMessage.ScheduledInstanceTypesError);
+              .Must(x => Enum.GetNames(typeof(ScheduledInstanceTypeV4)).Contains(x)).WithMessage(Constants.ValidationErrorMessage.ScheduledInstanceTypesV4Error);
 
             RuleFor(x => x.ActivityIds)
               .Cascade(CascadeMode.Stop)

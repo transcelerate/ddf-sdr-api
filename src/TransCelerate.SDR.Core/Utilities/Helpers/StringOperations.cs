@@ -17,5 +17,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             return value.Replace("Dto", "");
         }
+        public static string RemoveValidator(this string value)
+        {
+            return value.Replace("Validator", "");
+        }
     }
 }

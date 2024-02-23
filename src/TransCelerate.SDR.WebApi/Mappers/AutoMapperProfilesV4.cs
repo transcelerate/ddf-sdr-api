@@ -25,7 +25,8 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<BiomedicalConceptSurrogateDto, BiomedicalConceptSurrogateEntity>().ReverseMap();
             CreateMap<CharacteristicDto, CharacteristicEntity>().ReverseMap();
             CreateMap<CodeDto, CodeEntity>().ReverseMap();
-            CreateMap<EligibilityCriteriaDto, EligibilityCriteriaEntity>().ReverseMap();
+            CreateMap<ConditionDto, ConditionEntity>().ReverseMap();
+            CreateMap<EligibilityCriterionDto, EligibilityCriterionEntity>().ReverseMap();
             CreateMap<EncounterDto, EncounterEntity>().ReverseMap();
             CreateMap<EndpointEntity, EndpointDto>().ReverseMap();
             CreateMap<EstimandDto, EstimandEntity>().ReverseMap();
@@ -33,9 +34,10 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<GovernanceDateDto, GovernanceDateEntity>().ReverseMap();
             CreateMap<IndicationDto, IndicationEntity>().ReverseMap();            
             CreateMap<InterCurrentEventDto, InterCurrentEventEntity>().ReverseMap();
+            CreateMap<MaskingDto, MaskingEntity>().ReverseMap();
             CreateMap<NarrativeContentDto, NarrativeContentEntity>().ReverseMap();
             CreateMap<ObjectiveDto, ObjectiveEntity>().ReverseMap();
-            CreateMap<OrganisationDto, OrganisationEntity>().ReverseMap();
+            CreateMap<OrganizationDto, OrganizationEntity>().ReverseMap();
             CreateMap<PopulationDefinitionDto, PopulationDefinitionEntity>()
                 .Include<StudyDesignPopulationDto, StudyDesignPopulationEntity>()
                 .Include<StudyCohortDto, StudyCohortEntity>()
@@ -44,6 +46,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<QuantityDto, QuantityEntity>().ReverseMap();
             CreateMap<RangeDto, RangeEntity>().ReverseMap();
             CreateMap<ResponseCodeDto, ResponseCodeEntity>().ReverseMap();
+            CreateMap<ResearchOrganizationDto, ResearchOrganizationEntity>().ReverseMap();
             CreateMap<ScheduleTimelineDto, ScheduleTimelineEntity>().ReverseMap();
             CreateMap<ScheduleTimelineExitDto, ScheduleTimelineExitEntity>().ReverseMap();
             CreateMap<ScheduledActivityInstanceDto, ScheduledActivityInstanceEntity>().ReverseMap();
@@ -67,6 +70,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<StudyInterventionDto, StudyInterventionEntity>().ReverseMap();
             CreateMap<StudyProtocolDocumentDto, StudyProtocolDocumentEntity>().ReverseMap();
             CreateMap<StudyProtocolDocumentVersionDto, StudyProtocolDocumentVersionEntity>().ReverseMap();
+            CreateMap<StudySiteDto, StudySiteEntity>().ReverseMap();
             CreateMap<StudyTitleDto, StudyTitleEntity>().ReverseMap();
             CreateMap<StudyVersionDto, StudyVersionEntity>().ReverseMap();
             CreateMap<SubjectEnrollmentDto, SubjectEnrollmentEntity>().ReverseMap();
@@ -74,7 +78,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<SyntaxTemplateDto, SyntaxTemplateEntity>()
                 .Include<ObjectiveDto, ObjectiveEntity>()
                 .Include<EndpointDto, EndpointEntity>()
-                .Include<EligibilityCriteriaDto, EligibilityCriteriaEntity>()
+                .Include<EligibilityCriterionDto, EligibilityCriterionEntity>()
                 .Include<CharacteristicDto, CharacteristicEntity>()
                 .ReverseMap();
             CreateMap<TimingDto, TimingEntity>().ReverseMap();
@@ -114,7 +118,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
 
             CreateMap<StudyIdentifierDto, TransCelerate.SDR.Core.DTO.eCPT.RegulatoryAgencyIdentifierNumberDto>()
                 .ForMember(dest => dest.RegulatoryAgencyNumber, opt => opt.MapFrom(src => src.StudyIdentifier))
-                .ForMember(dest => dest.RegulatoryAgencyId, opt => opt.MapFrom(src => src.StudyIdentifierScope != null ? src.StudyIdentifierScope.OrganisationIdentifierScheme : null))
+                .ForMember(dest => dest.RegulatoryAgencyId, opt => opt.MapFrom(src => src.StudyIdentifierScope != null ? src.StudyIdentifierScope.IdentifierScheme : null))
                 .ReverseMap();
         }
     }

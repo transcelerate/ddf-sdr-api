@@ -14,7 +14,8 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public string EntryId { get; set; }
         public bool MainTimeline { get; set; }
         public List<ScheduleTimelineExitEntity> Exits { get; set; }
-        public List<ScheduledInstanceEntity> Instances { get; set; }
+        public List<TimingEntity> Timings { get; set; }
+        public List<ScheduledInstanceEntity> Instances { get; set; }        
         public string InstanceType { get; set; }
     }
 }

@@ -14,7 +14,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public string TimelineId { get; set; }
         public string DefaultConditionId { get; set; }
         public string EpochId { get; set; }
-        public List<TimingDto> Timings { get; set; }
         public virtual string InstanceType { get; set; }
     }
 }

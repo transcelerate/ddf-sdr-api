@@ -10,11 +10,12 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public string Description { get; set; }
         public List<CodeDto> TrialIntentTypes { get; set; }
         public List<CodeDto> TrialType { get; set; }
+        public List<CodeDto> Characteristics { get; set; }
         public CodeDto InterventionModel { get; set; }
         public List<StudyCellDto> StudyCells { get; set; }
         public List<IndicationDto> Indications { get; set; }
         public List<StudyInterventionDto> StudyInterventions { get; set; }
-        public List<StudyDesignPopulationDto> Populations { get; set; }
+        public StudyDesignPopulationDto Population { get; set; }
         public List<ObjectiveDto> Objectives { get; set; }
         public List<ScheduleTimelineDto> ScheduleTimelines { get; set; }
         public List<CodeDto> TherapeuticAreas { get; set; }
@@ -31,6 +32,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public List<StudyElementDto> Elements { get; set; }        
         public string DocumentVersionId { get; set; }
         public List<SyntaxTemplateDictionaryDto> Dictionaries { get; set; }
+        public List<MaskingDto> MaskingRoles { get; set; }
         public string InstanceType { get; set; }
     }
 }
