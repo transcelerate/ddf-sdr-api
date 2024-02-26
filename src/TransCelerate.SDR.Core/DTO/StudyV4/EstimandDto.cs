@@ -9,7 +9,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public string SummaryMeasure { get; set; }
         public AnalysisPopulationDto AnalysisPopulation { get; set; }
         public string VariableOfInterestId { get; set; }
-        public List<InterCurrentEventDto> IntercurrentEvents { get; set; }
+        public List<IntercurrentEventDto> IntercurrentEvents { get; set; }
         public string InstanceType { get; set; }
     }
 }

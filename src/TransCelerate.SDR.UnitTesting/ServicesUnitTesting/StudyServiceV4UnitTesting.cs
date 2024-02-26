@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Azure.Messaging.ServiceBus;
+using Microsoft.Azure.Amqp.Framing;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -34,13 +35,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         #endregion
 
         #region Setup        
-        public static StudyDefinitionsEntity GetEntityDataFromStaticJson()
-        {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV4.json");
-            var data = JsonConvert.DeserializeObject<StudyDefinitionsEntity>(jsonData);
-            data.AuditTrail.UsdmVersion = Constants.USDMVersions.V3;
-            return data;
-        }
+        
         public static StudyDefinitionsDto GetDtoDataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV4.json");
@@ -95,7 +90,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             _mockChangeAuditRepository.Setup(x => x.InsertChangeAudit(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<DateTime>()))
                 .Returns(Task.FromResult(GetDtoDataFromStaticJson().Study.Id));
             _mockStudyRepository.Setup(x => x.GetUsdmVersionAsync(It.IsAny<string>(), 0))
-                .Returns(Task.FromResult(GetEntityDataFromStaticJson().AuditTrail));
+                .Returns(Task.FromResult(_mockMapper.Map<StudyDefinitionsEntity>(GetDtoDataFromStaticJson()).AuditTrail));
             ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ApiUsdmVersionMapping.json"));
             ApiUsdmVersionMapping.SDRVersions = apiUsdmVersionMapping_NonStatic.SDRVersions;
 
@@ -110,7 +105,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         [Test]
         public void PostAllElementsUnitTesting()
         {
-            StudyDefinitionsEntity studyEntity = GetEntityDataFromStaticJson();
+            StudyDefinitionsEntity studyEntity = _mockMapper.Map<StudyDefinitionsEntity>(GetDtoDataFromStaticJson());
             StudyDefinitionsEntity entity = null;
             StudyDefinitionsDto studyDto = GetDtoDataFromStaticJson();            
             studyDto.Study.Id = "";
@@ -128,7 +123,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     .Returns(true);
             _mockHelper.Setup(x => x.GetAuditTrail(It.IsAny<string>()))
                     .Returns(new AuditTrailEntity { CreatedBy = user.UserName, EntryDateTime = DateTime.Now, SDRUploadVersion = 1, UsdmVersion = Constants.USDMVersions.V3 });
-            StudyDefinitionsEntity studyEntity1 = GetEntityDataFromStaticJson(); studyEntity1.AuditTrail.SDRUploadVersion = 1; studyEntity1.AuditTrail.UsdmVersion = Constants.USDMVersions.V3;
+            StudyDefinitionsEntity studyEntity1 = _mockMapper.Map<StudyDefinitionsEntity>(GetDtoDataFromStaticJson()); studyEntity1.AuditTrail.SDRUploadVersion = 1; studyEntity1.AuditTrail.UsdmVersion = Constants.USDMVersions.V3;
             _mockStudyRepository.Setup(x => x.GetUsdmVersionAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity1.AuditTrail));
             ServiceBusSender serviceBusSender = Mock.Of<ServiceBusSender>();
@@ -337,7 +332,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             user.UserRole = Constants.Roles.Org_Admin;
             user.UserName = "user1@SDR.com";
             StudyDefinitionsDto studyDto = GetDtoDataFromStaticJson();
-            StudyDefinitionsEntity studyEntity = GetEntityDataFromStaticJson();
+            StudyDefinitionsEntity studyEntity = _mockMapper.Map<StudyDefinitionsEntity>(GetDtoDataFromStaticJson());
             studyEntity.Study.Versions.FirstOrDefault().StudyType.Decode = "OBSERVATIONAL";
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity));
@@ -386,7 +381,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             Config.IsGroupFilterEnabled = true;
             user.UserRole = Constants.Roles.App_User;
             user.UserName = "user1@SDR.com";
-            var study = GetEntityDataFromStaticJson();
+            var study = _mockMapper.Map<StudyDefinitionsEntity>(GetDtoDataFromStaticJson());
             _mockStudyRepository.Setup(x => x.GetGroupsOfUser(It.IsAny<LoggedInUser>()))
                    .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
             StudyServiceV4 studyService = new(_mockStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockServiceBusClient.Object, _mockChangeAuditRepository.Object);
@@ -394,7 +389,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             var method = studyService.CheckAccessForAStudy(study, user);
             method.Wait();
 
-            var expected = GetEntityDataFromStaticJson();
+            var expected = _mockMapper.Map<StudyDefinitionsEntity>(GetDtoDataFromStaticJson());
 
             Assert.AreEqual(expected.Study.Id, method.Result.Study.Id);
 
@@ -447,7 +442,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             user.UserRole = Constants.Roles.Org_Admin;
             user.UserName = "user1@SDR.com";
             StudyDefinitionsDto studyDto = GetDtoDataFromStaticJson();
-            StudyDefinitionsEntity studyEntity = GetEntityDataFromStaticJson();
+            StudyDefinitionsEntity studyEntity = _mockMapper.Map<StudyDefinitionsEntity>(GetDtoDataFromStaticJson());
             studyEntity.Study.Versions.FirstOrDefault().StudyType.Decode = "OBSERVATIONAL";
             _mockStudyRepository.Setup(x => x.GetPartialStudyDesignItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity));
@@ -508,7 +503,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             user.UserRole = Constants.Roles.Org_Admin;
             user.UserName = "user1@SDR.com";
             StudyDefinitionsDto studyDto = GetDtoDataFromStaticJson();
-            StudyDefinitionsEntity studyEntity = GetEntityDataFromStaticJson();
+            StudyDefinitionsEntity studyEntity = _mockMapper.Map<StudyDefinitionsEntity>(GetDtoDataFromStaticJson());
             studyEntity.Study.Versions.FirstOrDefault().StudyType.Decode = "OBSERVATIONAL";
             _mockStudyRepository.Setup(x => x.GetPartialStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string[]>()))
                    .Returns(Task.FromResult(studyEntity));
@@ -550,7 +545,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             user.UserRole = Constants.Roles.Org_Admin;
             user.UserName = "user1@SDR.com";
             StudyDefinitionsDto studyDto = GetDtoDataFromStaticJson();
-            StudyDefinitionsEntity studyEntity = GetEntityDataFromStaticJson();
+            StudyDefinitionsEntity studyEntity = _mockMapper.Map<StudyDefinitionsEntity>(GetDtoDataFromStaticJson());
             studyEntity.Study.Versions.FirstOrDefault().StudyType.Decode = "OBSERVATIONAL";
             _mockStudyRepository.Setup(x => x.GetPartialStudyDesignItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity));
@@ -649,7 +644,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             user.UserRole = Constants.Roles.Org_Admin;
             user.UserName = "user1@SDR.com";
             StudyDefinitionsDto studyDto = GetDtoDataFromStaticJson();
-            StudyDefinitionsEntity studyEntity = GetEntityDataFromStaticJson();
+            StudyDefinitionsEntity studyEntity = _mockMapper.Map<StudyDefinitionsEntity>(GetDtoDataFromStaticJson());
             studyEntity.Study.Versions.FirstOrDefault().StudyType.Decode = "OBSERVATIONAL";
             _mockStudyRepository.Setup(x => x.GetStudyItemsForCheckingAccessAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity));
@@ -689,7 +684,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             user.UserRole = Constants.Roles.Org_Admin;
             user.UserName = "user1@SDR.com";
 
-            StudyDefinitionsEntity studyEntity = GetEntityDataFromStaticJson();
+            StudyDefinitionsEntity studyEntity = _mockMapper.Map<StudyDefinitionsEntity>(GetDtoDataFromStaticJson());
             SoADto SoA = GetSOAV4DataFromStaticJson();
             studyEntity.Study.Versions.FirstOrDefault().StudyType.Decode = "OBSERVATIONAL";
             studyEntity.Study.Versions.FirstOrDefault().StudyDesigns[0].Id = "Sd_1";
@@ -780,7 +775,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             user.UserRole = Constants.Roles.Org_Admin;
             user.UserName = "user1@SDR.com";
             StudyDefinitionsDto studyDto = GetDtoDataFromStaticJson();
-            StudyDefinitionsEntity studyEntity = GetEntityDataFromStaticJson();
+            StudyDefinitionsEntity studyEntity = _mockMapper.Map<StudyDefinitionsEntity>(GetDtoDataFromStaticJson());
             studyEntity.Study.Versions.FirstOrDefault().StudyType.Decode = "OBSERVATIONAL";
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity));
@@ -838,8 +833,8 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             user.UserRole = Constants.Roles.Org_Admin;
             user.UserName = "user1@SDR.com";
 
-            var currentVersionV4 = GetEntityDataFromStaticJson();
-            var previousVersionV4 = GetEntityDataFromStaticJson();
+            var currentVersionV4 = _mockMapper.Map<StudyDefinitionsEntity>(GetDtoDataFromStaticJson());
+            var previousVersionV4 = _mockMapper.Map<StudyDefinitionsEntity>(GetDtoDataFromStaticJson());
             currentVersionV4.AuditTrail.SDRUploadVersion = 2;
             currentVersionV4.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
             previousVersionV4.AuditTrail.SDRUploadVersion = 1;

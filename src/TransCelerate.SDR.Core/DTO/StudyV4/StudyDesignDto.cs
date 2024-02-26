@@ -9,7 +9,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public string Label { get; set; }
         public string Description { get; set; }
         public List<CodeDto> TrialIntentTypes { get; set; }
-        public List<CodeDto> TrialType { get; set; }
+        public List<CodeDto> TrialTypes { get; set; }
         public List<CodeDto> Characteristics { get; set; }
         public CodeDto InterventionModel { get; set; }
         public List<StudyCellDto> StudyCells { get; set; }

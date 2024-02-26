@@ -750,11 +750,11 @@
           "required": [
             "Code",
             "DataType",
-            "Enabled",
+            "IsEnabled",
             "Id",
             "InstanceType",
             "Name",
-            "Required"
+            "IsRequired"
           ]
         },
         {
@@ -818,9 +818,7 @@
         {
           "entity": "Endpoint",
           "required": [
-            "DictionaryId",
             "Id",
-            "InstanceType",
             "InstanceType",
             "Level",
             "Name",
@@ -843,10 +841,8 @@
           "entity": "GeographicScope",
           "required": [
             "Id",
-            "InstanceType",
-            "InstanceType",
-            "Type",
-            "Code"
+            "InstanceType",            
+            "Type"            
           ]
         },
         {
@@ -869,7 +865,7 @@
           ]
         },
         {
-          "entity": "InterCurrentEvent",
+          "entity": "IntercurrentEvent",
           "required": [
             "Id",
             "InstanceType",
@@ -897,10 +893,8 @@
         },
         {
           "entity": "Objective",
-          "required": [
-            "DictionaryId",
-            "Id",
-            "InstanceType",
+          "required": [            
+            "Id",            
             "InstanceType",
             "Name",
             "Text"
@@ -933,7 +927,6 @@
           "required": [
             "Id",
             "InstanceType",
-            "Unit",
             "Value"
           ]
         },

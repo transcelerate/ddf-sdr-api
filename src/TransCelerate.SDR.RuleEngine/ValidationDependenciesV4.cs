@@ -34,7 +34,7 @@ namespace TransCelerate.SDR.RuleEngineV4
             services.AddTransient<IValidator<GeographicScopeDto>, GeographicScopeValidator>();
             services.AddTransient<IValidator<GovernanceDateDto>, GovernanceDateValidator>();
             services.AddTransient<IValidator<IndicationDto>, IndicationValidator>();
-            services.AddTransient<IValidator<InterCurrentEventDto>, InterCurrentEventValidator>();
+            services.AddTransient<IValidator<IntercurrentEventDto>, IntercurrentEventValidator>();
             services.AddTransient<IValidator<NarrativeContentDto>, NarrativeContentValidator>();
             services.AddTransient<IValidator<ObjectiveDto>, ObjectiveValidator>();
             services.AddTransient<IValidator<OrganizationDto>, OrganizationValidator>();
@@ -42,7 +42,7 @@ namespace TransCelerate.SDR.RuleEngineV4
             services.AddTransient<IValidator<QuantityDto>, QuantityValidator>();
             services.AddTransient<IValidator<RangeDto>, RangeValidator>();
             services.AddTransient<IValidator<ResponseCodeDto>, ResponseCodeValidator>();
-            services.AddTransient<IValidator<ScheduleTimelineDto>, ScheduleTimelinesValidator>();
+            services.AddTransient<IValidator<ScheduleTimelineDto>, ScheduleTimelineValidator>();
             services.AddTransient<IValidator<ScheduledInstanceDto>, ScheduledInstanceValidator>();
             services.AddTransient<IValidator<ScheduledDecisionInstanceDto>, ScheduledDecisionInstanceValidator>();
             services.AddTransient<IValidator<ScheduledActivityInstanceDto>, ScheduledActivityInstanceValidator>();
@@ -50,12 +50,12 @@ namespace TransCelerate.SDR.RuleEngineV4
             services.AddTransient<IValidator<StudyAmendmentDto>, StudyAmendmentValidator>();
             services.AddTransient<IValidator<StudyAmendmentReasonDto>, StudyAmendmentReasonValidator>();
             services.AddTransient<IValidator<StudyArmDto>, StudyArmValidator>();
-            services.AddTransient<IValidator<StudyCellDto>, StudyCellsValidator>();
+            services.AddTransient<IValidator<StudyCellDto>, StudyCellValidator>();
             services.AddTransient<IValidator<StudyCohortDto>, StudyCohortValidator>();
             services.AddTransient<IValidator<StudyDefinitionsDto>, StudyDefinitionsValidator>();
             services.AddTransient<IValidator<StudyDesignDto>, StudyDesignValidator>();
             services.AddTransient<IValidator<StudyDesignPopulationDto>, StudyDesignPopulationValidator>();
-            services.AddTransient<IValidator<StudyElementDto>, StudyElementsValidator>();
+            services.AddTransient<IValidator<StudyElementDto>, StudyElementValidator>();
             services.AddTransient<IValidator<StudyEpochDto>, StudyEpochValidator>();
             services.AddTransient<IValidator<StudyInterventionDto>, StudyInterventionValidator>();
             services.AddTransient<IValidator<StudyIdentifierDto>, StudyIdentifierValidator>();

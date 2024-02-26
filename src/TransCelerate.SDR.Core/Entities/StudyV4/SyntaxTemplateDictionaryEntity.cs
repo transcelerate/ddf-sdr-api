@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,8 +15,8 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public string Name { get; set; }
         public string Label { get; set; }
         public string Description { get; set; }
-        public string Text { get; set; }
-        public object ParameterMap { get; set; }
+        public string Text { get; set; }        
+        public BsonDocument ParameterMap { get; set; }
         public string InstanceType { get; set; }
     }
 }

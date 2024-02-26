@@ -10,7 +10,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public string SummaryMeasure { get; set; }
         public AnalysisPopulationEntity AnalysisPopulation { get; set; }
         public string VariableOfInterestId { get; set; }
-        public List<InterCurrentEventEntity> IntercurrentEvents { get; set; }
+        public List<IntercurrentEventEntity> IntercurrentEvents { get; set; }
         public string InstanceType { get; set; }
     }
 }

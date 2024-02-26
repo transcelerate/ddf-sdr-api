@@ -415,8 +415,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     //    errorList.ForEach(e => _logger.LogError($"{Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse} {errorList.IndexOf(e) + 1}: {e}"));
                     //    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(errors, Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse)).Value);
                     //}
-
-
+                    
                     LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
 
                     var response = await _studyService.PostAllElements(studyDTO, user, Request?.Method)

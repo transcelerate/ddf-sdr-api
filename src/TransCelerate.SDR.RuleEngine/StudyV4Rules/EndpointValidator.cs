@@ -70,14 +70,7 @@ namespace TransCelerate.SDR.RuleEngineV4
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EndpointValidator), nameof(EndpointDto.Level)), ApplyConditionTo.AllValidators)
-               .SetValidator(new CodeValidator(_httpContextAccessor));
-
-            RuleFor(x => x.InstanceType)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EndpointValidator), nameof(EndpointDto.InstanceType)), ApplyConditionTo.AllValidators)
-               .Must(x => x == SyntaxTemplateInstanceType.ENDPOINT.ToString()).WithMessage(Constants.ValidationErrorMessage.SyntaxTemplateInstanceTypesError);
+               .SetValidator(new CodeValidator(_httpContextAccessor));            
         }
     }
 }

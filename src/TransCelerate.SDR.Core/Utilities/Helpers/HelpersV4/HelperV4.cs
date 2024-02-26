@@ -178,8 +178,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Description).ChangeToCamelCase()).FirstOrDefault().Remove();
                             else if (item == nameof(StudyDesignDto.TrialIntentTypes).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.TrialIntentTypes).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.TrialType).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.TrialType).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
+                            else if (item == nameof(StudyDesignDto.TrialTypes).ToLower())
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.TrialTypes).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyInterventions).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.StudyInterventions).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Indications).ToLower())
@@ -545,8 +545,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                             changedValues.Add($"{nameof(StudyDesignEntity.InterventionModel)}");
 
                         //Trial Type
-                        if (GetDifferences<List<CodeEntity>>(currentStudyDesign.TrialType, previousStudyDesign.TrialType).Any())
-                            changedValues.Add($"{nameof(StudyDesignEntity.TrialType)}");
+                        if (GetDifferences<List<CodeEntity>>(currentStudyDesign.TrialTypes, previousStudyDesign.TrialTypes).Any())
+                            changedValues.Add($"{nameof(StudyDesignEntity.TrialTypes)}");
 
                         //Trial Intent Type
                         if (GetDifferences<List<CodeEntity>>(currentStudyDesign.TrialIntentTypes, previousStudyDesign.TrialIntentTypes).Any())
@@ -783,7 +783,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                 if (previousStudyDesign.Estimands != null && previousStudyDesign.Estimands.Any(x => x.Id == currentEstimand.Id))
                 {
                     var previousEstimand = previousStudyDesign.Estimands.Find(x => x.Id == currentEstimand.Id);
-                    GetDifferenceForAList<InterCurrentEventEntity>(currentEstimand.IntercurrentEvents, previousEstimand.IntercurrentEvents).ForEach(x =>
+                    GetDifferenceForAList<IntercurrentEventEntity>(currentEstimand.IntercurrentEvents, previousEstimand.IntercurrentEvents).ForEach(x =>
                     {
                         tempList.Add($"{nameof(StudyDesignEntity.Estimands)}.{nameof(EstimandEntity.IntercurrentEvents)}.{x}");
                     });
@@ -2017,8 +2017,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                             changedValues.Add($"{nameof(StudyDesignEntity.InterventionModel)}");
 
                         //Trial Type
-                        if (GetDifferencesForStudyComparison<List<CodeEntity>>(currentStudyDesign.TrialType, previousStudyDesign.TrialType).Any())
-                            changedValues.Add($"{nameof(StudyDesignEntity.TrialType)}");
+                        if (GetDifferencesForStudyComparison<List<CodeEntity>>(currentStudyDesign.TrialTypes, previousStudyDesign.TrialTypes).Any())
+                            changedValues.Add($"{nameof(StudyDesignEntity.TrialTypes)}");
 
                         //Trial Intent Type
                         if (GetDifferencesForStudyComparison<List<CodeEntity>>(currentStudyDesign.TrialIntentTypes, previousStudyDesign.TrialIntentTypes).Any())
@@ -2258,7 +2258,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                 if (previousStudyDesign.Estimands != null && previousStudyDesign.Estimands.Any(x => x.Id == currentEstimand.Id))
                 {
                     var previousEstimand = previousStudyDesign.Estimands.Find(x => x.Id == currentEstimand.Id);
-                    GetDifferenceForAListForStudyComparison<InterCurrentEventEntity>(currentEstimand.IntercurrentEvents, previousEstimand.IntercurrentEvents).ForEach(x =>
+                    GetDifferenceForAListForStudyComparison<IntercurrentEventEntity>(currentEstimand.IntercurrentEvents, previousEstimand.IntercurrentEvents).ForEach(x =>
                     {
                         tempList.Add($"{nameof(StudyDesignEntity.Estimands)}[{currentStudyDesign.Estimands.IndexOf(currentEstimand)}].{nameof(EstimandEntity.IntercurrentEvents)}{x}");
                     });

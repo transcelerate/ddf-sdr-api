@@ -812,7 +812,7 @@ namespace TransCelerate.SDR.Services.Services
             {
                 _logger.LogInformation($"Started Service : {nameof(StudyServiceV4)}; Method : {nameof(PostAllElements)};");
                 if (!await CheckPermissionForAUser(user))
-                    return Constants.ErrorMessages.PostRestricted;
+                    return Constants.ErrorMessages.PostRestricted;                
                 StudyDefinitionsEntity incomingStudyEntity = new()
                 {
                     Study = _mapper.Map<StudyEntity>(studyDTO.Study),

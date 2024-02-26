@@ -59,14 +59,7 @@ namespace TransCelerate.SDR.RuleEngineV4
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EligibilityCriterionValidator), nameof(EligibilityCriterionDto.DictionaryId)), ApplyConditionTo.AllValidators);
-
-            RuleFor(x => x.InstanceType)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EligibilityCriterionValidator), nameof(EligibilityCriterionDto.InstanceType)), ApplyConditionTo.AllValidators)
-               .Must(x => x == SyntaxTemplateInstanceType.ELIGIBILITY_CRITERIA.ToString()).WithMessage(Constants.ValidationErrorMessage.SyntaxTemplateInstanceTypesError);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EligibilityCriterionValidator), nameof(EligibilityCriterionDto.DictionaryId)), ApplyConditionTo.AllValidators);            
 
             RuleFor(x => x.Category)
                .Cascade(CascadeMode.Stop)

@@ -31,6 +31,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         private readonly Mock<IStudyServiceV4> _mockStudyService = new(MockBehavior.Loose);
         private string[] studyElements = Constants.StudyElementsV4;
         private string[] studyDesignElements = Constants.StudyDesignElementsV4;
+        private IMapper _mockMapper;
         #endregion
 
         #region Setup               
@@ -54,8 +55,9 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         {
             var mockMapper = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new AutoMapperProfilesV3());
+                cfg.AddProfile(new AutoMapperProfilesV4());
             });
+            _mockMapper = new Mapper(mockMapper);
             ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ApiUsdmVersionMapping.json"));
             ApiUsdmVersionMapping.SDRVersions = apiUsdmVersionMapping_NonStatic.SDRVersions;
 
@@ -1060,8 +1062,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         public void GetDifferencesSuccessUnitTesting()
         {
             StudyDefinitionsDto study = GetDtoDataFromStaticJson();
-            var currentVersionV3 = GetEntityDataFromStaticJson();
-            var previousVersionV3 = GetEntityDataFromStaticJson();
+            var currentVersionV3 = _mockMapper.Map<StudyDefinitionsEntity>(GetDtoDataFromStaticJson());
+            var previousVersionV3 = _mockMapper.Map<StudyDefinitionsEntity>(GetDtoDataFromStaticJson());
             currentVersionV3.AuditTrail.SDRUploadVersion = 2;
             currentVersionV3.AuditTrail.UsdmVersion = Constants.USDMVersions.V3;
             previousVersionV3.AuditTrail.SDRUploadVersion = 1;

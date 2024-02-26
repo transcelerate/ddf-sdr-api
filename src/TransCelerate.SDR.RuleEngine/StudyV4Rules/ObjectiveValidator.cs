@@ -59,14 +59,7 @@ namespace TransCelerate.SDR.RuleEngineV4
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ObjectiveValidator), nameof(ObjectiveDto.DictionaryId)), ApplyConditionTo.AllValidators);
-
-            RuleFor(x => x.InstanceType)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ObjectiveValidator), nameof(ObjectiveDto.InstanceType)), ApplyConditionTo.AllValidators)
-               .Must(x => x == SyntaxTemplateInstanceType.OBJECTIVE.ToString()).WithMessage(Constants.ValidationErrorMessage.SyntaxTemplateInstanceTypesError);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ObjectiveValidator), nameof(ObjectiveDto.DictionaryId)), ApplyConditionTo.AllValidators);            
 
             RuleFor(x => x.Endpoints)
                .Cascade(CascadeMode.Stop)

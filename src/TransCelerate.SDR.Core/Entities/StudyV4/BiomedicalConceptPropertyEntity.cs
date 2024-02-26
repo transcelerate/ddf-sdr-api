@@ -9,8 +9,8 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public string Id { get; set; }
         public string Name { get; set; }
         public string Label { get; set; }
-        public bool Required { get; set; }
-        public bool Enabled { get; set; }
+        public bool IsRequired { get; set; }
+        public bool IsEnabled { get; set; }
         public string Datatype { get; set; }
         public List<ResponseCodeEntity> ResponseCodes { get; set; }
         public AliasCodeEntity Code { get; set; }

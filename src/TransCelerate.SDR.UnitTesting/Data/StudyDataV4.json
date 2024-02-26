@@ -268,6 +268,7 @@
             "id": "StudyDesign_1",
             "name": "Study Design 1",
             "label": "",
+            "instanceType": "StudyDesign",
             "description": "The main design for the study",
             "trialIntentTypes": [
               {
@@ -961,6 +962,7 @@
             "studyInterventions": [
               {
                 "id": "interventionId",
+                "instanceType": "StudyIntervention",
                 "name": "interventionName",
                 "label": "label",
                 "description": "interventionDesc",
@@ -1000,10 +1002,12 @@
                     "decode": "unit",
                     "instanceType": "Code"
                   },
-                  "value": 25
+                  "value": 25,
+                  "instanceType": "Quantity"
                 },
                 "administrations": {
                   "id": "adminId",
+                  "instanceType": "AgentAdministration",
                   "name": "adminname",
                   "label": "label",
                   "description": "adminDesc",
@@ -1019,11 +1023,13 @@
                         "decode": "Duration",
                         "instanceType": "Code"
                       },
-                      "value": 20
+                      "value": 20,
+                      "instanceType": "Quantity"
                     },
                     "description": "desc",
                     "durationWillVary": true,
-                    "reasonDurationWillVary": "reason"
+                    "reasonDurationWillVary": "reason",
+                    "instanceType": "AdministrationDuration"
                   },
                   "dose": {
                     "id": "doseId",
@@ -1035,7 +1041,8 @@
                       "decode": "unit",
                       "instanceType": "Code"
                     },
-                    "value": 10
+                    "value": 10,
+                    "instanceType": "Quantity"
                   },
                   "route": {
                     "id": "a387aa89-c025-438e-91dd-b08281d122d0",
@@ -1094,7 +1101,24 @@
                 "isApproximate": false,
                 "instanceType": "Range"
               },
-              "plannedSex": [],
+              "plannedSex": [
+                {
+                  "id": "61ad4d8f-527c-4f1d-b227-4bbf6141f614",
+                  "code": "C16576",
+                  "codeSystem": "http:www.cdisc.org",
+                  "codeSystemVersion": "2022-03-25",
+                  "decode": "Phase IIa Trial",
+                  "instanceType": "Code"
+                },
+                {
+                  "id": "61ad4d8f-527c-4f1d-b227-4bbf6141f616",
+                  "code": "C20197",
+                  "codeSystem": "http:www.cdisc.org",
+                  "codeSystemVersion": "2022-03-25",
+                  "decode": "Phase IIa Trial",
+                  "instanceType": "Code"
+                }
+              ],
               "criteria": [
                 {
                   "id": "EligibilityCriterion_1",
@@ -2695,6 +2719,7 @@
             "estimands": [
               {
                 "id": "0bc02031-b058-43f8-9888-0f66f59b825f",
+                "instanceType": "Estimand",
                 "interventionId": "interventionId",
                 "summaryMeasure": "TEST",
                 "analysisPopulation": {
@@ -2702,7 +2727,8 @@
                   "name": "analysisName",
                   "label": "label",
                   "description": "Population 1",
-                  "text": "text"
+                  "text": "text",
+                  "instanceType": "AnalysisPopulation"
                 },
                 "variableOfInterestId": "interventionId",
                 "intercurrentEvents": [
@@ -2711,7 +2737,8 @@
                     "name": "Event Name",
                     "label": "name",
                     "description": "Event Description",
-                    "strategy": "Strategies"
+                    "strategy": "Strategies",
+                    "instanceType": "IntercurrentEvent"
                   }
                 ]
               }
@@ -3324,7 +3351,7 @@
                         "id": "Code_278",
                         "code": "C173522",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Result",
                         "instanceType": "Code"
                       },
@@ -3361,7 +3388,7 @@
                         "id": "Code_280",
                         "code": "C44276",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Unit of Temperature",
                         "instanceType": "Code"
                       },
@@ -3384,7 +3411,7 @@
                         "id": "Code_281",
                         "code": "C83088",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Location",
                         "instanceType": "Code"
                       },
@@ -3400,7 +3427,7 @@
                     "id": "Code_277",
                     "code": "C174446",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Body Temperature",
                     "instanceType": "Code"
                   },
@@ -3432,7 +3459,7 @@
                         "id": "Code_283",
                         "code": "C173522",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Result",
                         "instanceType": "Code"
                       },
@@ -3495,7 +3522,7 @@
                         "id": "Code_287",
                         "code": "C48208",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Unit of Weight",
                         "instanceType": "Code"
                       },
@@ -3511,7 +3538,7 @@
                     "id": "Code_282",
                     "code": "C81328",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Body Weight",
                     "instanceType": "Code"
                   },
@@ -3543,7 +3570,7 @@
                         "id": "Code_289",
                         "code": "C173522",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Result",
                         "instanceType": "Code"
                       },
@@ -3619,7 +3646,7 @@
                         "id": "Code_294",
                         "code": "C168688",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Unit of Height",
                         "instanceType": "Code"
                       },
@@ -3635,7 +3662,7 @@
                     "id": "Code_288",
                     "code": "C164634",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Body Height",
                     "instanceType": "Code"
                   },
@@ -3668,7 +3695,7 @@
                         "id": "Code_296",
                         "code": "C36292",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Result",
                         "instanceType": "Code"
                       },
@@ -3691,7 +3718,7 @@
                         "id": "Code_297",
                         "code": "C83309",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Fasting Status",
                         "instanceType": "Code"
                       },
@@ -3714,7 +3741,7 @@
                         "id": "Code_298",
                         "code": "C67365",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Unit of Catalytic Activity Concentration",
                         "instanceType": "Code"
                       },
@@ -3737,7 +3764,7 @@
                         "id": "Code_299",
                         "code": "C70713",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Biospecimen Type",
                         "instanceType": "Code"
                       },
@@ -3753,7 +3780,7 @@
                     "id": "Code_295",
                     "code": "C64433",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Alanine Aminotransferase Measurement",
                     "instanceType": "Code"
                   },
@@ -3785,7 +3812,7 @@
                         "id": "Code_301",
                         "code": "C36292",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Result",
                         "instanceType": "Code"
                       },
@@ -3808,7 +3835,7 @@
                         "id": "Code_302",
                         "code": "C83309",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Fasting Status",
                         "instanceType": "Code"
                       },
@@ -3831,7 +3858,7 @@
                         "id": "Code_303",
                         "code": "C48207",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Unit of Concentration",
                         "instanceType": "Code"
                       },
@@ -3854,7 +3881,7 @@
                         "id": "Code_304",
                         "code": "C70713",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Biospecimen Type",
                         "instanceType": "Code"
                       },
@@ -3870,7 +3897,7 @@
                     "id": "Code_300",
                     "code": "C64431",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Albumin Measurement",
                     "instanceType": "Code"
                   },
@@ -3902,7 +3929,7 @@
                         "id": "Code_306",
                         "code": "C36292",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Result",
                         "instanceType": "Code"
                       },
@@ -3925,7 +3952,7 @@
                         "id": "Code_307",
                         "code": "C83309",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Fasting Status",
                         "instanceType": "Code"
                       },
@@ -3948,7 +3975,7 @@
                         "id": "Code_308",
                         "code": "C67365",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Unit of Catalytic Activity Concentration",
                         "instanceType": "Code"
                       },
@@ -3971,7 +3998,7 @@
                         "id": "Code_309",
                         "code": "C70713",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Biospecimen Type",
                         "instanceType": "Code"
                       },
@@ -3987,7 +4014,7 @@
                     "id": "Code_305",
                     "code": "C64432",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Alkaline Phosphatase Measurement",
                     "instanceType": "Code"
                   },
@@ -4020,7 +4047,7 @@
                         "id": "Code_311",
                         "code": "C36292",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Result",
                         "instanceType": "Code"
                       },
@@ -4043,7 +4070,7 @@
                         "id": "Code_312",
                         "code": "C83309",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Fasting Status",
                         "instanceType": "Code"
                       },
@@ -4066,7 +4093,7 @@
                         "id": "Code_313",
                         "code": "C67365",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Unit of Catalytic Activity Concentration",
                         "instanceType": "Code"
                       },
@@ -4089,7 +4116,7 @@
                         "id": "Code_314",
                         "code": "C70713",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Biospecimen Type",
                         "instanceType": "Code"
                       },
@@ -4105,7 +4132,7 @@
                     "id": "Code_310",
                     "code": "C64467",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Aspartate Aminotransferase Measurement",
                     "instanceType": "Code"
                   },
@@ -4137,7 +4164,7 @@
                         "id": "Code_316",
                         "code": "C36292",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Result",
                         "instanceType": "Code"
                       },
@@ -4160,7 +4187,7 @@
                         "id": "Code_317",
                         "code": "C83309",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Fasting Status",
                         "instanceType": "Code"
                       },
@@ -4183,7 +4210,7 @@
                         "id": "Code_318",
                         "code": "C48207",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Unit of Concentration",
                         "instanceType": "Code"
                       },
@@ -4206,7 +4233,7 @@
                         "id": "Code_319",
                         "code": "C70713",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Biospecimen Type",
                         "instanceType": "Code"
                       },
@@ -4222,7 +4249,7 @@
                     "id": "Code_315",
                     "code": "C64547",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Creatinine Measurement",
                     "instanceType": "Code"
                   },
@@ -4255,7 +4282,7 @@
                         "id": "Code_321",
                         "code": "C36292",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Result",
                         "instanceType": "Code"
                       },
@@ -4278,7 +4305,7 @@
                         "id": "Code_322",
                         "code": "C83309",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Fasting Status",
                         "instanceType": "Code"
                       },
@@ -4301,7 +4328,7 @@
                         "id": "Code_323",
                         "code": "C64567",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Molarity Unit",
                         "instanceType": "Code"
                       },
@@ -4324,7 +4351,7 @@
                         "id": "Code_324",
                         "code": "C70713",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Biospecimen Type",
                         "instanceType": "Code"
                       },
@@ -4340,7 +4367,7 @@
                     "id": "Code_320",
                     "code": "C64853",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Potassium Measurement",
                     "instanceType": "Code"
                   },
@@ -4373,7 +4400,7 @@
                         "id": "Code_326",
                         "code": "C36292",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Result",
                         "instanceType": "Code"
                       },
@@ -4396,7 +4423,7 @@
                         "id": "Code_327",
                         "code": "C83309",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Fasting Status",
                         "instanceType": "Code"
                       },
@@ -4419,7 +4446,7 @@
                         "id": "Code_328",
                         "code": "C64567",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Molarity Unit",
                         "instanceType": "Code"
                       },
@@ -4442,7 +4469,7 @@
                         "id": "Code_329",
                         "code": "C70713",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Biospecimen Type",
                         "instanceType": "Code"
                       },
@@ -4458,7 +4485,7 @@
                     "id": "Code_325",
                     "code": "C64809",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Sodium Measurement",
                     "instanceType": "Code"
                   },
@@ -4491,7 +4518,7 @@
                         "id": "Code_145",
                         "code": "C78541",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Adverse Event Verbatim Description",
                         "instanceType": "Code"
                       },
@@ -4514,7 +4541,7 @@
                         "id": "Code_146",
                         "code": "C83344",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Adverse Event Dictionary Derived Term",
                         "instanceType": "Code"
                       },
@@ -4537,7 +4564,7 @@
                         "id": "Code_147",
                         "code": "C83198",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Adverse Event Category",
                         "instanceType": "Code"
                       },
@@ -4560,7 +4587,7 @@
                         "id": "Code_148",
                         "code": "C83212",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Adverse Event Subcategory",
                         "instanceType": "Code"
                       },
@@ -4583,7 +4610,7 @@
                         "id": "Code_149",
                         "code": "C87840",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Adverse Event Pre-specified",
                         "instanceType": "Code"
                       },
@@ -4606,7 +4633,7 @@
                         "id": "Code_150",
                         "code": "C53253",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Severity of Adverse Event",
                         "instanceType": "Code"
                       },
@@ -4629,7 +4656,7 @@
                         "id": "Code_151",
                         "code": "C78605",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Adverse Event Toxicity Grade",
                         "instanceType": "Code"
                       },
@@ -4652,7 +4679,7 @@
                         "id": "Code_152",
                         "code": "C53252",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Seriousness of Adverse Event",
                         "instanceType": "Code"
                       },
@@ -4675,7 +4702,7 @@
                         "id": "Code_153",
                         "code": "C83013",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Adverse Event Action Taken with Study Treatment",
                         "instanceType": "Code"
                       },
@@ -4698,7 +4725,7 @@
                         "id": "Code_154",
                         "code": "C41358",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Adverse Event Attribution to Product or Procedure",
                         "instanceType": "Code"
                       },
@@ -4735,7 +4762,7 @@
                         "id": "Code_156",
                         "code": "C83208",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Adverse Event Pattern",
                         "instanceType": "Code"
                       },
@@ -4758,7 +4785,7 @@
                         "id": "Code_157",
                         "code": "C49489",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Adverse Event Outcome",
                         "instanceType": "Code"
                       },
@@ -4781,7 +4808,7 @@
                         "id": "Code_158",
                         "code": "C83215",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Adverse Event Start Date Time",
                         "instanceType": "Code"
                       },
@@ -4804,7 +4831,7 @@
                         "id": "Code_159",
                         "code": "C83201",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Adverse Event End Date Time",
                         "instanceType": "Code"
                       },
@@ -4820,7 +4847,7 @@
                     "id": "Code_144",
                     "code": "C41331",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Adverse Event",
                     "instanceType": "Code"
                   },
@@ -4852,7 +4879,7 @@
                         "id": "Code_161",
                         "code": "C173522",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Result",
                         "instanceType": "Code"
                       },
@@ -4889,7 +4916,7 @@
                         "id": "Code_163",
                         "code": "C49669",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Unit of Pressure",
                         "instanceType": "Code"
                       },
@@ -4912,7 +4939,7 @@
                         "id": "Code_164",
                         "code": "C83088",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Location",
                         "instanceType": "Code"
                       },
@@ -4935,7 +4962,7 @@
                         "id": "Code_165",
                         "code": "C123975",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Laterality",
                         "instanceType": "Code"
                       },
@@ -4958,7 +4985,7 @@
                         "id": "Code_166",
                         "code": "C82535",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Test Method",
                         "instanceType": "Code"
                       },
@@ -4981,7 +5008,7 @@
                         "id": "Code_167",
                         "code": "C83114",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Position",
                         "instanceType": "Code"
                       },
@@ -4997,7 +5024,7 @@
                     "id": "Code_160",
                     "code": "C25298",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Systolic Blood Pressure",
                     "instanceType": "Code"
                   },
@@ -5029,7 +5056,7 @@
                         "id": "Code_169",
                         "code": "C173522",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Result",
                         "instanceType": "Code"
                       },
@@ -5066,7 +5093,7 @@
                         "id": "Code_171",
                         "code": "C49669",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Unit of Pressure",
                         "instanceType": "Code"
                       },
@@ -5089,7 +5116,7 @@
                         "id": "Code_172",
                         "code": "C83088",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Location",
                         "instanceType": "Code"
                       },
@@ -5112,7 +5139,7 @@
                         "id": "Code_173",
                         "code": "C123975",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Laterality",
                         "instanceType": "Code"
                       },
@@ -5135,7 +5162,7 @@
                         "id": "Code_174",
                         "code": "C82535",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Test Method",
                         "instanceType": "Code"
                       },
@@ -5158,7 +5185,7 @@
                         "id": "Code_175",
                         "code": "C83114",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Position",
                         "instanceType": "Code"
                       },
@@ -5174,7 +5201,7 @@
                     "id": "Code_168",
                     "code": "C25299",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Diastolic Blood Pressure",
                     "instanceType": "Code"
                   },
@@ -5206,7 +5233,7 @@
                         "id": "Code_177",
                         "code": "C173522",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Result",
                         "instanceType": "Code"
                       },
@@ -5243,7 +5270,7 @@
                         "id": "Code_179",
                         "code": "C44276",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Unit of Temperature",
                         "instanceType": "Code"
                       },
@@ -5266,7 +5293,7 @@
                         "id": "Code_180",
                         "code": "C83088",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Location",
                         "instanceType": "Code"
                       },
@@ -5282,7 +5309,7 @@
                     "id": "Code_176",
                     "code": "C174446",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Body Temperature",
                     "instanceType": "Code"
                   },
@@ -5314,7 +5341,7 @@
                         "id": "Code_182",
                         "code": "C173522",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Result",
                         "instanceType": "Code"
                       },
@@ -5377,7 +5404,7 @@
                         "id": "Code_186",
                         "code": "C48208",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Unit of Weight",
                         "instanceType": "Code"
                       },
@@ -5393,7 +5420,7 @@
                     "id": "Code_181",
                     "code": "C81328",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Body Weight",
                     "instanceType": "Code"
                   },
@@ -5425,7 +5452,7 @@
                         "id": "Code_188",
                         "code": "C173522",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Result",
                         "instanceType": "Code"
                       },
@@ -5501,7 +5528,7 @@
                         "id": "Code_193",
                         "code": "C168688",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Unit of Height",
                         "instanceType": "Code"
                       },
@@ -5517,7 +5544,7 @@
                     "id": "Code_187",
                     "code": "C164634",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Body Height",
                     "instanceType": "Code"
                   },
@@ -5550,7 +5577,7 @@
                         "id": "Code_195",
                         "code": "C36292",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Result",
                         "instanceType": "Code"
                       },
@@ -5573,7 +5600,7 @@
                         "id": "Code_196",
                         "code": "C83309",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Fasting Status",
                         "instanceType": "Code"
                       },
@@ -5596,7 +5623,7 @@
                         "id": "Code_197",
                         "code": "C67365",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Unit of Catalytic Activity Concentration",
                         "instanceType": "Code"
                       },
@@ -5619,7 +5646,7 @@
                         "id": "Code_198",
                         "code": "C70713",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Biospecimen Type",
                         "instanceType": "Code"
                       },
@@ -5635,7 +5662,7 @@
                     "id": "Code_194",
                     "code": "C64433",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Alanine Aminotransferase Measurement",
                     "instanceType": "Code"
                   },
@@ -5667,7 +5694,7 @@
                         "id": "Code_200",
                         "code": "C36292",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Result",
                         "instanceType": "Code"
                       },
@@ -5690,7 +5717,7 @@
                         "id": "Code_201",
                         "code": "C83309",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Fasting Status",
                         "instanceType": "Code"
                       },
@@ -5713,7 +5740,7 @@
                         "id": "Code_202",
                         "code": "C48207",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Unit of Concentration",
                         "instanceType": "Code"
                       },
@@ -5736,7 +5763,7 @@
                         "id": "Code_203",
                         "code": "C70713",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Biospecimen Type",
                         "instanceType": "Code"
                       },
@@ -5752,7 +5779,7 @@
                     "id": "Code_199",
                     "code": "C64431",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Albumin Measurement",
                     "instanceType": "Code"
                   },
@@ -5784,7 +5811,7 @@
                         "id": "Code_205",
                         "code": "C36292",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Result",
                         "instanceType": "Code"
                       },
@@ -5807,7 +5834,7 @@
                         "id": "Code_206",
                         "code": "C83309",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Fasting Status",
                         "instanceType": "Code"
                       },
@@ -5830,7 +5857,7 @@
                         "id": "Code_207",
                         "code": "C67365",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Unit of Catalytic Activity Concentration",
                         "instanceType": "Code"
                       },
@@ -5853,7 +5880,7 @@
                         "id": "Code_208",
                         "code": "C70713",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Biospecimen Type",
                         "instanceType": "Code"
                       },
@@ -5869,7 +5896,7 @@
                     "id": "Code_204",
                     "code": "C64432",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Alkaline Phosphatase Measurement",
                     "instanceType": "Code"
                   },
@@ -5902,7 +5929,7 @@
                         "id": "Code_210",
                         "code": "C36292",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Result",
                         "instanceType": "Code"
                       },
@@ -5925,7 +5952,7 @@
                         "id": "Code_211",
                         "code": "C83309",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Fasting Status",
                         "instanceType": "Code"
                       },
@@ -5948,7 +5975,7 @@
                         "id": "Code_212",
                         "code": "C67365",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Unit of Catalytic Activity Concentration",
                         "instanceType": "Code"
                       },
@@ -5971,7 +5998,7 @@
                         "id": "Code_213",
                         "code": "C70713",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Biospecimen Type",
                         "instanceType": "Code"
                       },
@@ -5987,7 +6014,7 @@
                     "id": "Code_209",
                     "code": "C64467",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Aspartate Aminotransferase Measurement",
                     "instanceType": "Code"
                   },
@@ -6019,7 +6046,7 @@
                         "id": "Code_215",
                         "code": "C36292",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Result",
                         "instanceType": "Code"
                       },
@@ -6042,7 +6069,7 @@
                         "id": "Code_216",
                         "code": "C83309",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Fasting Status",
                         "instanceType": "Code"
                       },
@@ -6065,7 +6092,7 @@
                         "id": "Code_217",
                         "code": "C48207",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Unit of Concentration",
                         "instanceType": "Code"
                       },
@@ -6088,7 +6115,7 @@
                         "id": "Code_218",
                         "code": "C70713",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Biospecimen Type",
                         "instanceType": "Code"
                       },
@@ -6104,7 +6131,7 @@
                     "id": "Code_214",
                     "code": "C64547",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Creatinine Measurement",
                     "instanceType": "Code"
                   },
@@ -6137,7 +6164,7 @@
                         "id": "Code_220",
                         "code": "C36292",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Result",
                         "instanceType": "Code"
                       },
@@ -6160,7 +6187,7 @@
                         "id": "Code_221",
                         "code": "C83309",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Fasting Status",
                         "instanceType": "Code"
                       },
@@ -6183,7 +6210,7 @@
                         "id": "Code_222",
                         "code": "C64567",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Molarity Unit",
                         "instanceType": "Code"
                       },
@@ -6206,7 +6233,7 @@
                         "id": "Code_223",
                         "code": "C70713",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Biospecimen Type",
                         "instanceType": "Code"
                       },
@@ -6222,7 +6249,7 @@
                     "id": "Code_219",
                     "code": "C64853",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Potassium Measurement",
                     "instanceType": "Code"
                   },
@@ -6255,7 +6282,7 @@
                         "id": "Code_225",
                         "code": "C36292",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Result",
                         "instanceType": "Code"
                       },
@@ -6278,7 +6305,7 @@
                         "id": "Code_226",
                         "code": "C83309",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Laboratory Test Fasting Status",
                         "instanceType": "Code"
                       },
@@ -6301,7 +6328,7 @@
                         "id": "Code_227",
                         "code": "C64567",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Molarity Unit",
                         "instanceType": "Code"
                       },
@@ -6324,7 +6351,7 @@
                         "id": "Code_228",
                         "code": "C70713",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Biospecimen Type",
                         "instanceType": "Code"
                       },
@@ -6340,7 +6367,7 @@
                     "id": "Code_224",
                     "code": "C64809",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Sodium Measurement",
                     "instanceType": "Code"
                   },
@@ -6372,7 +6399,7 @@
                         "id": "Code_230",
                         "code": "C173522",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Result",
                         "instanceType": "Code"
                       },
@@ -6409,7 +6436,7 @@
                         "id": "Code_232",
                         "code": "C49669",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Unit of Pressure",
                         "instanceType": "Code"
                       },
@@ -6432,7 +6459,7 @@
                         "id": "Code_233",
                         "code": "C83088",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Location",
                         "instanceType": "Code"
                       },
@@ -6455,7 +6482,7 @@
                         "id": "Code_234",
                         "code": "C123975",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Laterality",
                         "instanceType": "Code"
                       },
@@ -6478,7 +6505,7 @@
                         "id": "Code_235",
                         "code": "C82535",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Test Method",
                         "instanceType": "Code"
                       },
@@ -6501,7 +6528,7 @@
                         "id": "Code_236",
                         "code": "C83114",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Position",
                         "instanceType": "Code"
                       },
@@ -6517,7 +6544,7 @@
                     "id": "Code_229",
                     "code": "C25298",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Systolic Blood Pressure",
                     "instanceType": "Code"
                   },
@@ -6549,7 +6576,7 @@
                         "id": "Code_238",
                         "code": "C173522",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Result",
                         "instanceType": "Code"
                       },
@@ -6586,7 +6613,7 @@
                         "id": "Code_240",
                         "code": "C49669",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Unit of Pressure",
                         "instanceType": "Code"
                       },
@@ -6609,7 +6636,7 @@
                         "id": "Code_241",
                         "code": "C83088",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Location",
                         "instanceType": "Code"
                       },
@@ -6632,7 +6659,7 @@
                         "id": "Code_242",
                         "code": "C123975",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Laterality",
                         "instanceType": "Code"
                       },
@@ -6655,7 +6682,7 @@
                         "id": "Code_243",
                         "code": "C82535",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Test Method",
                         "instanceType": "Code"
                       },
@@ -6678,7 +6705,7 @@
                         "id": "Code_244",
                         "code": "C83114",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Position",
                         "instanceType": "Code"
                       },
@@ -6694,7 +6721,7 @@
                     "id": "Code_237",
                     "code": "C25299",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Diastolic Blood Pressure",
                     "instanceType": "Code"
                   },
@@ -6724,7 +6751,7 @@
                         "id": "Code_246",
                         "code": "C173522",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Result",
                         "instanceType": "Code"
                       },
@@ -6761,7 +6788,7 @@
                         "id": "Code_248",
                         "code": "C73688",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Count per Minute",
                         "instanceType": "Code"
                       },
@@ -6784,7 +6811,7 @@
                         "id": "Code_249",
                         "code": "C83088",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Location",
                         "instanceType": "Code"
                       },
@@ -6807,7 +6834,7 @@
                         "id": "Code_250",
                         "code": "C123975",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Laterality",
                         "instanceType": "Code"
                       },
@@ -6830,7 +6857,7 @@
                         "id": "Code_251",
                         "code": "C82535",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Test Method",
                         "instanceType": "Code"
                       },
@@ -6853,7 +6880,7 @@
                         "id": "Code_252",
                         "code": "C83114",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Position",
                         "instanceType": "Code"
                       },
@@ -6869,7 +6896,7 @@
                     "id": "Code_245",
                     "code": "C49677",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Heart Rate",
                     "instanceType": "Code"
                   },
@@ -6901,7 +6928,7 @@
                         "id": "Code_254",
                         "code": "C173522",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Result",
                         "instanceType": "Code"
                       },
@@ -6938,7 +6965,7 @@
                         "id": "Code_256",
                         "code": "C49669",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Unit of Pressure",
                         "instanceType": "Code"
                       },
@@ -6961,7 +6988,7 @@
                         "id": "Code_257",
                         "code": "C83088",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Location",
                         "instanceType": "Code"
                       },
@@ -6984,7 +7011,7 @@
                         "id": "Code_258",
                         "code": "C123975",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Laterality",
                         "instanceType": "Code"
                       },
@@ -7007,7 +7034,7 @@
                         "id": "Code_259",
                         "code": "C82535",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Test Method",
                         "instanceType": "Code"
                       },
@@ -7030,7 +7057,7 @@
                         "id": "Code_260",
                         "code": "C83114",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Position",
                         "instanceType": "Code"
                       },
@@ -7046,7 +7073,7 @@
                     "id": "Code_253",
                     "code": "C25298",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Systolic Blood Pressure",
                     "instanceType": "Code"
                   },
@@ -7078,7 +7105,7 @@
                         "id": "Code_262",
                         "code": "C173522",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Result",
                         "instanceType": "Code"
                       },
@@ -7115,7 +7142,7 @@
                         "id": "Code_264",
                         "code": "C49669",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Unit of Pressure",
                         "instanceType": "Code"
                       },
@@ -7138,7 +7165,7 @@
                         "id": "Code_265",
                         "code": "C83088",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Location",
                         "instanceType": "Code"
                       },
@@ -7161,7 +7188,7 @@
                         "id": "Code_266",
                         "code": "C123975",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Laterality",
                         "instanceType": "Code"
                       },
@@ -7184,7 +7211,7 @@
                         "id": "Code_267",
                         "code": "C82535",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Test Method",
                         "instanceType": "Code"
                       },
@@ -7207,7 +7234,7 @@
                         "id": "Code_268",
                         "code": "C83114",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Position",
                         "instanceType": "Code"
                       },
@@ -7223,7 +7250,7 @@
                     "id": "Code_261",
                     "code": "C25299",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Diastolic Blood Pressure",
                     "instanceType": "Code"
                   },
@@ -7253,7 +7280,7 @@
                         "id": "Code_270",
                         "code": "C173522",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Result",
                         "instanceType": "Code"
                       },
@@ -7290,7 +7317,7 @@
                         "id": "Code_272",
                         "code": "C73688",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Count per Minute",
                         "instanceType": "Code"
                       },
@@ -7313,7 +7340,7 @@
                         "id": "Code_273",
                         "code": "C83088",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Location",
                         "instanceType": "Code"
                       },
@@ -7336,7 +7363,7 @@
                         "id": "Code_274",
                         "code": "C123975",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Laterality",
                         "instanceType": "Code"
                       },
@@ -7359,7 +7386,7 @@
                         "id": "Code_275",
                         "code": "C82535",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Test Method",
                         "instanceType": "Code"
                       },
@@ -7382,7 +7409,7 @@
                         "id": "Code_276",
                         "code": "C83114",
                         "codeSystem": "NCI Thesaurus",
-                        "codeSystemVersion": "",
+                        "codeSystemVersion": "1",
                         "decode": "Vital Signs Position",
                         "instanceType": "Code"
                       },
@@ -7398,7 +7425,7 @@
                     "id": "Code_269",
                     "code": "C49677",
                     "codeSystem": "NCI Thesaurus",
-                    "codeSystemVersion": "",
+                    "codeSystemVersion": "1",
                     "decode": "Heart Rate",
                     "instanceType": "Code"
                   },
@@ -7647,6 +7674,7 @@
             "bcCategories": [
               {
                 "id": "BCC1",
+                "instanceType": "BiomedicalConceptCategory",
                 "childrenIds": [
                   "BCC2"
                 ],
@@ -7658,6 +7686,7 @@
                 ],
                 "code": {
                   "id": "aliasId",
+                  "instanceType": "AliasCode",
                   "standardCode": {
                     "id": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
                     "code": "C25299",
@@ -7680,6 +7709,7 @@
               },
               {
                 "id": "BCC2",
+                "instanceType": "BiomedicalConceptCategory",
                 "childrenIds": [
                   "BCC1",
                   "BCC3"
@@ -7693,6 +7723,7 @@
                 ],
                 "code": {
                   "id": "aliasId",
+                  "instanceType": "AliasCode",
                   "standardCode": {
                     "id": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
                     "code": "C25299",
@@ -7715,6 +7746,7 @@
               },
               {
                 "id": "BCC3",
+                "instanceType": "BiomedicalConceptCategory",
                 "childrenIds": [
                   "BCC2"
                 ],
@@ -7726,6 +7758,7 @@
                 ],
                 "code": {
                   "id": "aliasId",
+                  "instanceType": "AliasCode",
                   "standardCode": {
                     "id": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
                     "code": "C25299",
@@ -7748,6 +7781,7 @@
               },
               {
                 "id": "BCC4",
+                "instanceType": "BiomedicalConceptCategory",
                 "childrenIds": [
                   "BCC2"
                 ],
@@ -7759,6 +7793,7 @@
                 ],
                 "code": {
                   "id": "aliasId",
+                  "instanceType": "AliasCode",
                   "standardCode": {
                     "id": "1f287c91-5ad2-4211-a7b7-c329ff7dd429",
                     "code": "C25299",
@@ -8003,7 +8038,7 @@
                 ],
                 "instanceType": "StudyCell"
               }
-            ]            
+            ]
           }
         ],
         "instanceType": "StudyVersion"

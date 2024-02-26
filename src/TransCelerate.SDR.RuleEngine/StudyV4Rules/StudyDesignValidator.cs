@@ -68,14 +68,14 @@ namespace TransCelerate.SDR.RuleEngineV4
             RuleForEach(x => x.Characteristics)
                 .SetValidator(new CodeValidator(_httpContextAccessor));
 
-            RuleFor(x => x.TrialType)
+            RuleFor(x => x.TrialTypes)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.TrialType)), ApplyConditionTo.AllValidators)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.TrialTypes)), ApplyConditionTo.AllValidators)
                 .Must(x => UniquenessArrayValidator.ValidateArrayV4(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
-            RuleForEach(x => x.TrialType)
+            RuleForEach(x => x.TrialTypes)
                 .SetValidator(new CodeValidator(_httpContextAccessor));
 
             RuleFor(x => x.StudyInterventions)
@@ -123,7 +123,7 @@ namespace TransCelerate.SDR.RuleEngineV4
                 .Must(x => UniquenessArrayValidator.ValidateArrayV4(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
             RuleForEach(x => x.StudyCells)
-                .SetValidator(new StudyCellsValidator(_httpContextAccessor));
+                .SetValidator(new StudyCellValidator(_httpContextAccessor));
 
             RuleFor(x => x.ScheduleTimelines)
                 .Cascade(CascadeMode.Stop)
@@ -133,7 +133,7 @@ namespace TransCelerate.SDR.RuleEngineV4
                 .Must(x => UniquenessArrayValidator.ValidateArrayV4(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
             RuleForEach(x => x.ScheduleTimelines)
-                .SetValidator(new ScheduleTimelinesValidator(_httpContextAccessor));
+                .SetValidator(new ScheduleTimelineValidator(_httpContextAccessor));
 
             RuleFor(x => x.Estimands)
                 .Cascade(CascadeMode.Stop)
@@ -261,7 +261,7 @@ namespace TransCelerate.SDR.RuleEngineV4
                 .Must(x => UniquenessArrayValidator.ValidateArrayV4(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
             RuleForEach(x => x.Elements)
-                .SetValidator(new StudyElementsValidator(_httpContextAccessor));
+                .SetValidator(new StudyElementValidator(_httpContextAccessor));
 
             RuleFor(x => x.Dictionaries)
                .Cascade(CascadeMode.Stop)

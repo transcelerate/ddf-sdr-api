@@ -1,6 +1,6 @@
 ﻿namespace TransCelerate.SDR.Core.DTO.StudyV4
 {
-    public class InterCurrentEventDto : IId
+    public class IntercurrentEventDto : IId
     {        
         public string Id { get; set; }
         public string Name { get; set; }

@@ -49,7 +49,7 @@ namespace TransCelerate.SDR.RuleEngineV4
                 .Must(x => UniquenessArrayValidator.ValidateArrayV4(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
             RuleForEach(x => x.IntercurrentEvents)
-                .SetValidator(new InterCurrentEventValidator(_httpContextAccessor));
+                .SetValidator(new IntercurrentEventValidator(_httpContextAccessor));
 
             RuleFor(x => x.VariableOfInterestId)
                 .Cascade(CascadeMode.Stop)

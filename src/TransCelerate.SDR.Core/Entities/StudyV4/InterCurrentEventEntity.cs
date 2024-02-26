@@ -1,7 +1,7 @@
 ﻿namespace TransCelerate.SDR.Core.Entities.StudyV4
 {
     [MongoDB.Bson.Serialization.Attributes.BsonNoId]
-    public class InterCurrentEventEntity : IId
+    public class IntercurrentEventEntity : IId
     {        
         public string Id { get; set; }
         public string Name { get; set; }

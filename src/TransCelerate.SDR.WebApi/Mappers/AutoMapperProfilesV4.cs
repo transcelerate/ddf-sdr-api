@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using TransCelerate.SDR.Core.DTO.StudyV4;
 using TransCelerate.SDR.Core.Entities.StudyV4;
+using TransCelerate.SDR.Core.Utilities.Helpers;
 
 namespace TransCelerate.SDR.WebApi.Mappers
 {
@@ -33,7 +36,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<GeographicScopeDto, GeographicScopeEntity>().ReverseMap();
             CreateMap<GovernanceDateDto, GovernanceDateEntity>().ReverseMap();
             CreateMap<IndicationDto, IndicationEntity>().ReverseMap();            
-            CreateMap<InterCurrentEventDto, InterCurrentEventEntity>().ReverseMap();
+            CreateMap<IntercurrentEventDto, IntercurrentEventEntity>().ReverseMap();
             CreateMap<MaskingDto, MaskingEntity>().ReverseMap();
             CreateMap<NarrativeContentDto, NarrativeContentEntity>().ReverseMap();
             CreateMap<ObjectiveDto, ObjectiveEntity>().ReverseMap();
@@ -74,7 +77,11 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<StudyTitleDto, StudyTitleEntity>().ReverseMap();
             CreateMap<StudyVersionDto, StudyVersionEntity>().ReverseMap();
             CreateMap<SubjectEnrollmentDto, SubjectEnrollmentEntity>().ReverseMap();
-            CreateMap<SyntaxTemplateDictionaryDto, SyntaxTemplateDictionaryEntity>().ReverseMap();
+            CreateMap<SyntaxTemplateDictionaryDto, SyntaxTemplateDictionaryEntity>()
+                .ForMember(dest => dest.ParameterMap, opt => opt.MapFrom(src => src.ParameterMap != null && src.ParameterMap.GetType().Name.Contains("JObject") ?
+                                                                                MongoDB.Bson.BsonDocument.Parse(src.ParameterMap.ToString()) : src.ParameterMap));
+            CreateMap<SyntaxTemplateDictionaryEntity, SyntaxTemplateDictionaryDto>()
+                .ForMember(dest => dest.ParameterMap, opt => opt.MapFrom(src => src.ParameterMap != null ? src.ParameterMap.BsonToObjectConvertor() : src.ParameterMap));                
             CreateMap<SyntaxTemplateDto, SyntaxTemplateEntity>()
                 .Include<ObjectiveDto, ObjectiveEntity>()
                 .Include<EndpointDto, EndpointEntity>()
