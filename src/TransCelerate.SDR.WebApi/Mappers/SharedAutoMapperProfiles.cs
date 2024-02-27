@@ -46,7 +46,17 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<AuditTrailDto, AuditTrailResponseEntity>().ReverseMap();
             CreateMap<AuditTrailResponseEntity, AuditTrailResponseWithLinksDto>()
                 .ForMember(dest => dest.Links, opt => opt.MapFrom(src => LinksHelper.GetLinksForUi(src.StudyId,
-                           src.UsdmVersion == Constants.USDMVersions.MVP ? src.StudyDesignIdsMVP != null ? src.StudyDesignIdsMVP.Where(x => x != null && x.Any()).SelectMany(x => x).ToList() : null : src.StudyDesignIds != null ? src.StudyDesignIds.ToList() : null,
+                           src.UsdmVersion == Constants.USDMVersions.MVP ? 
+                                        src.StudyDesignIdsMVP != null ? 
+                                        src.StudyDesignIdsMVP.Where(x => x != null && x.Any()).SelectMany(x => x).ToList() 
+                                        : null 
+                                        : src.UsdmVersion == Constants.USDMVersions.V3 ?
+                                        src.StudyDesignIdsV4 != null ?
+                                        src.StudyDesignIdsV4.Where(x => x != null && x.Any()).SelectMany(x => x).ToList()
+                                        : null
+                                        : src.StudyDesignIds != null ? 
+                                        src.StudyDesignIds.ToList() 
+                                        : null,
                            src.UsdmVersion, src.SDRUploadVersion)))
                 .ReverseMap();
 
@@ -64,7 +74,13 @@ namespace TransCelerate.SDR.WebApi.Mappers
                  .ForMember(dest => dest.UploadVersion, opt => opt.MapFrom(src => src.SDRUploadVersion))
                  .ForMember(dest => dest.ProtocolVersions, opt => opt.MapFrom(src => src.ProtocolVersions))
                  .ForMember(dest => dest.Links, opt => opt.MapFrom(src => LinksHelper.GetLinks(src.StudyId,
-                           src.UsdmVersion == Constants.USDMVersions.MVP ? src.StudyDesignIdsMVP != null ? src.StudyDesignIdsMVP.Where(x => x != null && x.Any()).SelectMany(x => x).ToList() : null : src.StudyDesignIds,
+                           src.UsdmVersion == Constants.USDMVersions.MVP ? src.StudyDesignIdsMVP != null ? 
+                                            src.StudyDesignIdsMVP.Where(x => x != null && x.Any()).SelectMany(x => x).ToList() : 
+                                            null :
+                                            src.UsdmVersion == Constants.USDMVersions.V3 ? src.StudyDesignIdsV4 != null ? 
+                                            src.StudyDesignIdsV4.Where(x => x != null && x.Any()).SelectMany(x => x).ToList() : 
+                                            null :
+                                            src.StudyDesignIds,
                            src.UsdmVersion, src.SDRUploadVersion)))
                  .ReverseMap();
 
@@ -78,31 +94,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
                 .ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.AuditTrail.EntryDateTime))
                 .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))
                 .ForMember(dest => dest.UsdmVersion, opt => opt.MapFrom(src => src.AuditTrail.UsdmVersion))
-                .ReverseMap();            
-
-            //Mapper for Search V1
-            CreateMap<SearchResponseDto, Core.Entities.StudyV1.SearchResponseEntity>()
-                .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.Study.StudyId))
-                .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.Study.StudyTitle))
-                .ForMember(dest => dest.StudyType, opt => opt.MapFrom(src => src.Study.StudyType))
-                .ForMember(dest => dest.StudyPhase, opt => opt.MapFrom(src => src.Study.StudyPhase))
-                .ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.AuditTrail.EntryDateTime))
-                .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))
-                .ForMember(dest => dest.UsdmVersion, opt => opt.MapFrom(src => src.AuditTrail.UsdmVersion))
-                .ReverseMap();
-
-            CreateMap<CommonStudyIdentifiersDto, Core.Entities.StudyV1.StudyIdentifierEntity>()
-                .ReverseMap();
-            CreateMap<CommonOrganisationDto, Core.Entities.StudyV1.StudyIdentifierScopeEntity>()
-                .ReverseMap();
-            CreateMap<CommonStudyIdentifiersDto, Core.Entities.StudyV1.StudyIdentifierEntity>()
-                .ReverseMap();
-            CreateMap<CommonCodeDto, Core.Entities.StudyV1.CodeEntity>()
-                .ReverseMap();
-
-            CreateMap<Core.DTO.Common.CommonStudyIndication, Core.Entities.StudyV1.IndicationEntity>()
-                .ForMember(dest => dest.IndicationDesc, opt => opt.MapFrom(src => src.IndicationDescription))
-                .ReverseMap();
+                .ReverseMap();                                    
 
             //Mapper for Search V2
             CreateMap<SearchResponseDto, Core.Entities.StudyV2.SearchResponseEntity>()
@@ -142,6 +134,26 @@ namespace TransCelerate.SDR.WebApi.Mappers
                 .ReverseMap();
             CreateMap<Core.DTO.Common.CommonStudyIndication, Core.Entities.StudyV3.IndicationEntity>()
                 .ForMember(dest => dest.IndicationDescription, opt => opt.MapFrom(src => src.IndicationDescription))
+                .ReverseMap();
+
+            //Mapper for Search V4
+            CreateMap<SearchResponseDto, Core.Entities.StudyV4.SearchResponseEntity>()
+                .ForMember(dest => dest.StudyId, opt => opt.MapFrom(src => src.Study.StudyId))
+                .ForMember(dest => dest.StudyTitle, opt => opt.MapFrom(src => src.Study.StudyTitle))
+                .ForMember(dest => dest.StudyType, opt => opt.MapFrom(src => src.Study.StudyType))
+                .ForMember(dest => dest.EntryDateTime, opt => opt.MapFrom(src => src.AuditTrail.EntryDateTime))
+                .ForMember(dest => dest.SDRUploadVersion, opt => opt.MapFrom(src => src.AuditTrail.SDRUploadVersion))
+                .ForMember(dest => dest.UsdmVersion, opt => opt.MapFrom(src => src.AuditTrail.UsdmVersion))
+                .ReverseMap();
+
+            CreateMap<CommonCodeDto, Core.Entities.StudyV4.CodeEntity>()
+                .ReverseMap();
+            CreateMap<CommonStudyIdentifiersDto, Core.Entities.StudyV4.StudyIdentifierEntity>()
+                .ReverseMap();
+            CreateMap<CommonOrganisationDto, Core.Entities.StudyV4.OrganizationEntity>()
+                .ReverseMap();
+            CreateMap<Core.DTO.Common.CommonStudyIndication, Core.Entities.StudyV4.IndicationEntity>()
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.IndicationDescription))
                 .ReverseMap();
 
             //ChangeAudit

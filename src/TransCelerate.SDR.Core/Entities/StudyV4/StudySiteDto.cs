@@ -1,0 +1,14 @@
+﻿using System.Collections.Generic;
+
+namespace TransCelerate.SDR.Core.Entities.StudyV4
+{
+    public class StudySiteEntity
+    {
+        public string Id { get; set; }
+        public string Name {  get; set; }
+        public string Lable {  get; set; }
+        public string Description {  get; set; }
+        public SubjectEnrollmentEntity CurrentEnrollment { get; set; }
+        public string InstanceType { get; set; }
+    }
+}

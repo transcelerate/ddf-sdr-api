@@ -77,6 +77,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string V1 = "1.0";
             public const string V1_9 = "1.9";
             public const string V2 = "2.0";
+            public const string V3 = "3.0";
         }
         public struct ApiVersions
         {
@@ -84,14 +85,19 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string V1 = "v1";
             public const string V2 = "v2";
             public const string V3 = "v3";
+            public const string V4 = "v4";
         }
         public struct DbFilter
         {
             public const string StudyId = "study.studyId";
+            public const string StudyIdV4 = "study.id";
+            public const string StudyTitleV4 = "study.versions.titles.text";
             public const string Study = "study";
             public const string AuditTrail = "auditTrail";
             public const string StudyType = "study.studyType";
+            public const string StudyTypeV4 = "study.versions.type";
             public const string StudyIdentifiers = "study.studyIdentifiers";
+            public const string StudyIdentifiersV4 = "study.versions.studyIdentifiers";
             public const string StudyIdentifierOrganisationIdentifier = "studyIdentifierScope.organisationIdentifier";
             public const string StudyIdentifierOrganisationTypeDecode = "studyIdentifierScope.organisationType.decode";
             public const string StudyIdentifierIdType = "idType";
@@ -125,8 +131,11 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string IntegerMinimumValueError = "Value must be greater than or equal to zero";
 
             public const string ScheduledInstanceTypesError = $"The value must be {nameof(Utilities.ScheduledInstanceType.ACTIVITY)}/{nameof(Utilities.ScheduledInstanceType.DECISION)}";
+            public const string ScheduledInstanceTypesV4Error = $"The value must be {nameof(Utilities.ScheduledInstanceTypeV4.ScheduledActivityInstance)}/{nameof(Utilities.ScheduledInstanceTypeV4.ScheduledDecisionInstance)}";
+            public const string SyntaxTemplateInstanceTypesError = $"The value must be {nameof(Utilities.SyntaxTemplateInstanceType.ELIGIBILITY_CRITERIA)}/{nameof(Utilities.SyntaxTemplateInstanceType.OBJECTIVE)}/{nameof(Utilities.SyntaxTemplateInstanceType.ENDPOINT)}";
 
             public const string UniquenessArrayError = "The {PropertyName} Ids are not unique";
+            public const string InstanceTypeError = "The Instance Type is incorrect";
 
             public const string GroupFilterEmptyError = "Group Filter must not be empty";
 
@@ -318,6 +327,48 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(Core.DTO.StudyV3.StudyDesignDto.BiomedicalConcepts),
             nameof(Core.DTO.StudyV3.StudyDesignDto.BcCategories),
             nameof(Core.DTO.StudyV3.StudyDesignDto.BcSurrogates)
+        };
+        public static readonly string[] StudyElementsV4 = {
+            nameof(Core.DTO.StudyV4.StudyVersionDto.Titles),
+            nameof(Core.DTO.StudyV4.StudyVersionDto.StudyIdentifiers),
+            nameof(Core.DTO.StudyV4.StudyVersionDto.DocumentVersionId),
+            nameof(Core.DTO.StudyV4.StudyVersionDto.VersionIdentifier),
+            nameof(Core.DTO.StudyV4.StudyVersionDto.StudyPhase),
+            nameof(Core.DTO.StudyV4.StudyVersionDto.StudyType),
+            nameof(Core.DTO.StudyV4.StudyVersionDto.BusinessTherapeuticAreas),
+            nameof(Core.DTO.StudyV4.StudyVersionDto.StudyDesigns),            
+            nameof(Core.DTO.StudyV4.StudyVersionDto.Rationale),
+            nameof(Core.DTO.StudyV4.StudyVersionDto.Amendments),
+            nameof(Core.DTO.StudyV4.StudyVersionDto.DateValues)
+        };
+
+        public static readonly string[] StudyDesignElementsV4 = {
+            nameof(Core.DTO.StudyV4.StudyDesignDto.Name),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.Description),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.Label),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.TherapeuticAreas),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.TrialTypes),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.Indications),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.TrialIntentTypes),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.InterventionModel),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.StudyInterventions),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.Population),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.Objectives),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.StudyCells),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.Arms),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.Epochs),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.Elements),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.ScheduleTimelines),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.Estimands),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.Activities),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.Encounters),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.Rationale),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.BlindingSchema),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.BiomedicalConcepts),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.BcCategories),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.BcSurrogates),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.DocumentVersionId),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.Dictionaries)
         };
         public struct FunctionAppConstants
         {

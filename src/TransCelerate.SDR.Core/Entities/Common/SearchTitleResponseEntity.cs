@@ -14,6 +14,7 @@ namespace TransCelerate.SDR.Core.Entities.Common
         public int SDRUploadVersion { get; set; }
         public string UsdmVersion { get; set; }
         public IEnumerable<IEnumerable<string>> StudyDesignIdsMVP { get; set; }
+        public IEnumerable<IEnumerable<string>> StudyDesignIdsV4 { get; set; }
         public IEnumerable<string> StudyDesignIds { get; set; }
         public bool HasAccess { get; set; }
     }
