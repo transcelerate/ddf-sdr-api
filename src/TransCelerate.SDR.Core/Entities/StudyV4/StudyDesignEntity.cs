@@ -35,6 +35,8 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public string DocumentVersionId { get; set; }
         public List<SyntaxTemplateDictionaryEntity> Dictionaries { get; set; }
         public List<MaskingEntity> MaskingRoles { get; set; }
+        public List<ConditionEntity> Conditions { get; set; }
+        public List<ResearchOrganizationEntity> Organizations { get; set; }
         public string InstanceType { get; set; }
     }
 }

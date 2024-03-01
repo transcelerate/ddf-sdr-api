@@ -6,7 +6,7 @@ namespace TransCelerate.SDR.Core.Entities.Common
     public class SearchTitleResponseEntity : ICheckAccess
     {
         public string StudyId { get; set; }
-        public string StudyTitle { get; set; }
+        public object StudyTitle { get; set; }
 
         public List<object> StudyIdentifiers { get; set; }
         public object StudyType { get; set; }

@@ -50,7 +50,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public string ActivityDescription { get; set; }
         public string ActivityName { get; set; }
         public List<ProcedureSoA> DefinedProcedures { get; set; }
-        public object ActivityIsConditional { get; set; }
+        public bool ActivityIsConditional { get; set; }
         public string ActivityIsConditionalReason { get; set; }
         public List<string> BiomedicalConcepts { get; set; }
         public string ActivityTimelineId { get; set; }

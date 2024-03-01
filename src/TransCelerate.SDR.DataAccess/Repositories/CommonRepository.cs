@@ -235,7 +235,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                                     SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
                                                                     StudyIdentifiers = x.Study.Versions != null ? x.Study.Versions.First().StudyIdentifiers : null,
                                                                     EntryDateTime = x.AuditTrail.EntryDateTime,
-                                                                    StudyType = x.Study.Versions != null ? x.Study.Versions.First().Type : null,
+                                                                    StudyType = x.Study.Versions != null ? x.Study.Versions.First().StudyType : null,
                                                                     ProtocolVersions = x.Study.DocumentedBy != null && x.Study.DocumentedBy.Versions != null ? x.Study.DocumentedBy.Versions.Select(x => x.ProtocolVersion) : null,
                                                                     StudyVersion = x.Study.Versions != null ? x.Study.Versions.First().VersionIdentifier : null,
                                                                     UsdmVersion = x.AuditTrail.UsdmVersion,
@@ -294,7 +294,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                   StudyTitle = x.Study.StudyTitle,
                                                   StudyTitleV4 = x.Study.Versions != null ? x.Study.Versions.First().Titles : null,
                                                   StudyType = x.Study.StudyType,
-                                                  StudyTypeV4 = x.Study.Versions != null ? x.Study.Versions.First().Type : null,
+                                                  StudyTypeV4 = x.Study.Versions != null ? x.Study.Versions.First().StudyType : null,
                                                   StudyPhase = x.Study.StudyPhase,
                                                   StudyPhaseV4 = x.Study.Versions != null ? x.Study.Versions.First().StudyPhase : null,
                                                   StudyIdentifiers = x.Study.StudyIdentifiers,
@@ -323,7 +323,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                   StudyTitle = x.Study.StudyTitle,
                                                   StudyTitleV4 = x.Study.Versions != null ? x.Study.Versions.First().Titles : null,
                                                   StudyType = x.Study.StudyType,
-                                                  StudyTypeV4 = x.Study.Versions != null ? x.Study.Versions.First().Type : null,
+                                                  StudyTypeV4 = x.Study.Versions != null ? x.Study.Versions.First().StudyType : null,
                                                   StudyPhase = x.Study.StudyPhase,
                                                   StudyPhaseV4 = x.Study.Versions != null ? x.Study.Versions.First().StudyPhase : null,
                                                   StudyIdentifiers = x.Study.StudyIdentifiers,
@@ -528,46 +528,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
                 List<SearchTitleResponseEntity> studies = new();
                 List<SearchTitleResponseEntity> studiesV4 = new();
-
-                //if (searchParameters.SortBy?.ToLower() == "sponsorid")
-                //{
-                //    studies = await collection.Aggregate()
-                //                              .Match(DataFilterCommon.GetFiltersForSearchTitle(searchParameters, GetGroupsOfUser(user).Result, user))
-                //                              .Project(x => new SearchTitleResponseEntity
-                //                              {
-                //                                  StudyId = x.Study.StudyId,
-                //                                  StudyTitle = x.Study.StudyTitle,
-                //                                  StudyIdentifiers = x.Study.StudyIdentifiers,
-                //                                  StudyType = x.Study.StudyType,
-                //                                  EntryDateTime = x.AuditTrail.EntryDateTime,
-                //                                  SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
-                //                                  StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Id) ?? null,
-                //                                  UsdmVersion = x.AuditTrail.UsdmVersion
-                //                              })
-                //                              .ToListAsync()
-                //                              .ConfigureAwait(false);
-                //}
-                //else
-                //{
-                //    studies = await collection.Aggregate()
-                //                             .Match(DataFilterCommon.GetFiltersForSearchTitle(searchParameters, GetGroupsOfUser(user).Result, user))
-                //                             .Project(x => new SearchTitleResponseEntity
-                //                             {
-                //                                 StudyId = x.Study.StudyId,
-                //                                 StudyTitle = x.Study.StudyTitle,
-                //                                 StudyIdentifiers = x.Study.StudyIdentifiers,
-                //                                 StudyType = x.Study.StudyType,
-                //                                 EntryDateTime = x.AuditTrail.EntryDateTime,
-                //                                 SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
-                //                                 StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Id) ?? null,
-                //                                 UsdmVersion = x.AuditTrail.UsdmVersion
-                //                             })
-                //                             .Sort(DataFilterCommon.GetSorterForSearchStudyTitle(searchParameters))
-                //                             .Skip((searchParameters.PageNumber - 1) * searchParameters.PageSize)
-                //                             .Limit(searchParameters.PageSize)
-                //                             .ToListAsync()
-                //                             .ConfigureAwait(false);
-                //}
+                
                 studies = await collection.Aggregate()
                                               .Match(DataFilterCommon.GetFiltersForSearchTitle(searchParameters, GetGroupsOfUser(user).Result, user))
                                               .Project(x => new SearchTitleResponseEntity
@@ -589,9 +550,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                               .Project(x => new SearchTitleResponseEntity
                                               {
                                                   StudyId = x.Study.Id,
-                                                  StudyTitle = x.Study.Versions != null ? x.Study.Versions.First().StudyTitle : null,
+                                                  StudyTitle = x.Study.Versions != null ? x.Study.Versions.First().Titles : null,
                                                   StudyIdentifiers = x.Study.Versions != null ?  x.Study.Versions.First().StudyIdentifiers : null,
-                                                  StudyType = x.Study.Versions != null ? x.Study.Versions.First().Type : null,
+                                                  StudyType = x.Study.Versions != null ? x.Study.Versions.First().StudyType : null,
                                                   EntryDateTime = x.AuditTrail.EntryDateTime,
                                                   SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
                                                   StudyDesignIdsV4 = x.Study.Versions != null ? x.Study.Versions.Select(x => x.StudyDesigns.Select(y => y.Id)) : null,

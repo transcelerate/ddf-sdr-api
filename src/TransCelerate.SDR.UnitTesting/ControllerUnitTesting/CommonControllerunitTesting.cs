@@ -443,7 +443,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             };
             var searchTitleDTOList = _mockMapper.Map<List<SearchTitleResponseDto>>(studyList);
             CommonServices CommonService = new(_mockCommonRepository.Object, _mockLogger, _mockMapper);
-            searchTitleDTOList = CommonServices.AssignStudyIdentifiers(searchTitleDTOList, studyList);
+            searchTitleDTOList = CommonService.AssignStudyIdentifiers(searchTitleDTOList, studyList);
 
             _mockCommonService.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersDto>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(searchTitleDTOList));

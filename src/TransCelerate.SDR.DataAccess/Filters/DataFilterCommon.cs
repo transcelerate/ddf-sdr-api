@@ -9,6 +9,7 @@ using TransCelerate.SDR.Core.Entities.Common;
 using TransCelerate.SDR.Core.Entities.UserGroups;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
+using static TransCelerate.SDR.Core.Utilities.Common.Constants;
 
 namespace TransCelerate.SDR.DataAccess.Filters
 {
@@ -134,7 +135,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(studyTitle))
-                filter &= builder.Where(x => x.Study.StudyTitle.ToLower().Contains(studyTitle.ToLower()));
+                filter &= builder.Regex($"{Constants.DbFilter.StudyTitle}", new BsonRegularExpression($"/{String.Join("$|", studyTitle)}$/i"));
 
 
             return filter;
@@ -217,7 +218,8 @@ namespace TransCelerate.SDR.DataAccess.Filters
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
                 filter &= builder.Or(
-                                builder.Where(x => x.Study.StudyTitle.ToLower().Contains(searchParameters.StudyTitle.ToLower()))                                
+                                builder.Regex($"{Constants.DbFilter.StudyTitleV4}", new BsonRegularExpression($"/{String.Join("$|", searchParameters.StudyTitle)}$/i")),
+                                builder.Regex($"{Constants.DbFilter.StudyTitle}", new BsonRegularExpression($"/{String.Join("$|", searchParameters.StudyTitle)}$/i"))
                                 );
                     
 
@@ -379,7 +381,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
                 filter &= builder.Or(
-                    builder.Where(x => x.Study.StudyTitle.ToLower().Contains(searchParameters.StudyTitle.ToLower())),
+                    builder.Regex($"{Constants.DbFilter.StudyTitle}", new BsonRegularExpression($"/{String.Join("$|", searchParameters.StudyTitle)}$/i")),
                     builder.Regex($"{Constants.DbFilter.StudyTitleV4}", new BsonRegularExpression($"/{searchParameters.StudyTitle}/i"))
                     );
 

@@ -2,7 +2,7 @@
 
 namespace TransCelerate.SDR.Core.Entities.StudyV4
 {
-    public class StudySiteEntity
+    public class StudySiteEntity : IId
     {
         public string Id { get; set; }
         public string Name {  get; set; }

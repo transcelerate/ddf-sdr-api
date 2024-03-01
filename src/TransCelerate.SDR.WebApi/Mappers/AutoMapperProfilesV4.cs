@@ -92,7 +92,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<TransitionRuleDto, TransitionRuleEntity>().ReverseMap();
 
 
-            //SoA V3
+            //SoA V4
             CreateMap<ScheduleTimelineEntity, ScheduleTimelines>()
                 .ForMember(dest => dest.ScheduleTimelineId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.ScheduleTimelineName, opt => opt.MapFrom(src => src.Name))
