@@ -92,6 +92,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string StudyId = "study.studyId";
             public const string StudyIdV4 = "study.id";
             public const string StudyTitleV4 = "study.versions.titles.text";
+            public const string StudyTitle = "study.studyTitle";
             public const string Study = "study";
             public const string AuditTrail = "auditTrail";
             public const string StudyType = "study.studyType";
@@ -109,6 +110,10 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string InterventionModel = "interventionModel.decode";
             public const string StudyIndicationsIndicationDescription = "studyIndications.indicationDescription";
             public const string StudyIndicationsIndicationDesc = "studyIndications.indicationDesc";
+        }
+        public struct StudyTitle
+        {
+            public const string OfficialStudyTitle = "Official Study Title";
         }
 
         public struct DefaultValues

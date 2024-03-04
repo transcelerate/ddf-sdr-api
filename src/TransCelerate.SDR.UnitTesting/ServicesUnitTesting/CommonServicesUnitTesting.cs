@@ -388,7 +388,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 {
                     y.GroupFilterValues.ForEach(z =>
                     {
-                        z.GroupFilterValueId = v3.Study.StudyId; z.Title = v3.Study.StudyTitle;
+                        z.GroupFilterValueId = v3.Study.StudyId; z.Title = v3.Study.StudyTitle is not null ? (v3.Study.StudyTitle as List<CommonStudyTitle>) is not null && (v3.Study.StudyTitle as List<CommonStudyTitle>).Any(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle) ? (v3.Study.StudyTitle as List<CommonStudyTitle>).Find(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle).Text : (string)v3.Study.StudyTitle : null;
                     });
                 });
             });
@@ -652,7 +652,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             CommonServices CommonService = new(_mockCommonRepository.Object, _mockLogger, _mockMapper);
 
             var searchTitleDTOList = _mockMapper.Map<List<SearchTitleResponseDto>>(searchTitleResponseEntity);
-            searchTitleDTOList = CommonServices.AssignStudyIdentifiers(searchTitleDTOList, searchTitleResponseEntity);
+            searchTitleDTOList = CommonService.AssignStudyIdentifiers(searchTitleDTOList, searchTitleResponseEntity);
             var method = CommonService.CheckAccessForListOfStudies(searchTitleResponseEntity, user);
             method.Wait();
             var result = method.Result;

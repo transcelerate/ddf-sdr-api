@@ -112,7 +112,19 @@
                   "decode": "Global",
                   "instanceType": "Code"
                 },
-                "code": null,
+                "code": {
+                  "id": "AliasCode_1",
+                  "standardCode": {
+                    "id": "Code_2",
+                    "code": "C15601",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2023-09-29",
+                    "decode": "Phase II Trial",
+                    "instanceType": "Code"
+                  },
+                  "standardCodeAliases": [],
+                  "instanceType": "AliasCode"
+                },
                 "instanceType": "GeographicScope"
               }
             ],
@@ -1005,62 +1017,64 @@
                   "value": 25,
                   "instanceType": "Quantity"
                 },
-                "administrations": {
-                  "id": "adminId",
-                  "instanceType": "AgentAdministration",
-                  "name": "adminname",
-                  "label": "label",
-                  "description": "adminDesc",
-                  "duration": {
-                    "id": "durationId",
-                    "quantity": {
-                      "id": "quantityId",
+                "administrations": [
+                  {
+                    "id": "adminId",
+                    "instanceType": "AgentAdministration",
+                    "name": "adminname",
+                    "label": "label",
+                    "description": "adminDesc",
+                    "duration": {
+                      "id": "durationId",
+                      "quantity": {
+                        "id": "quantityId",
+                        "unit": {
+                          "id": "a387aa89-c025-438e-91dd-b08281d122d0",
+                          "code": "C6666x",
+                          "codeSystem": "http:www.cdisc.org",
+                          "codeSystemVersion": "1",
+                          "decode": "Duration",
+                          "instanceType": "Code"
+                        },
+                        "value": 20,
+                        "instanceType": "Quantity"
+                      },
+                      "description": "desc",
+                      "durationWillVary": true,
+                      "reasonDurationWillVary": "reason",
+                      "instanceType": "AdministrationDuration"
+                    },
+                    "dose": {
+                      "id": "doseId",
                       "unit": {
                         "id": "a387aa89-c025-438e-91dd-b08281d122d0",
                         "code": "C6666x",
                         "codeSystem": "http:www.cdisc.org",
                         "codeSystemVersion": "1",
-                        "decode": "Duration",
+                        "decode": "unit",
                         "instanceType": "Code"
                       },
-                      "value": 20,
+                      "value": 10,
                       "instanceType": "Quantity"
                     },
-                    "description": "desc",
-                    "durationWillVary": true,
-                    "reasonDurationWillVary": "reason",
-                    "instanceType": "AdministrationDuration"
-                  },
-                  "dose": {
-                    "id": "doseId",
-                    "unit": {
+                    "route": {
                       "id": "a387aa89-c025-438e-91dd-b08281d122d0",
                       "code": "C6666x",
                       "codeSystem": "http:www.cdisc.org",
                       "codeSystemVersion": "1",
-                      "decode": "unit",
+                      "decode": "route",
                       "instanceType": "Code"
                     },
-                    "value": 10,
-                    "instanceType": "Quantity"
-                  },
-                  "route": {
-                    "id": "a387aa89-c025-438e-91dd-b08281d122d0",
-                    "code": "C6666x",
-                    "codeSystem": "http:www.cdisc.org",
-                    "codeSystemVersion": "1",
-                    "decode": "route",
-                    "instanceType": "Code"
-                  },
-                  "frequency": {
-                    "id": "a387aa89-c025-438e-91dd-b08281d122d0",
-                    "code": "C6666x",
-                    "codeSystem": "http:www.cdisc.org",
-                    "codeSystemVersion": "1",
-                    "decode": "freq",
-                    "instanceType": "Code"
+                    "frequency": {
+                      "id": "a387aa89-c025-438e-91dd-b08281d122d0",
+                      "code": "C6666x",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "freq",
+                      "instanceType": "Code"
+                    }
                   }
-                },
+                ],
                 "productDesignation": {
                   "id": "a387aa89-c025-438e-91dd-b08281d122d0",
                   "code": "C6666x",
@@ -2730,7 +2744,7 @@
                   "text": "text",
                   "instanceType": "AnalysisPopulation"
                 },
-                "variableOfInterestId": "interventionId",
+                "variableOfInterestId": "Endpoint_1",
                 "intercurrentEvents": [
                   {
                     "id": "1dc5c1e9-7b21-4455-9f37-ff2fadb8ac65",
@@ -7682,7 +7696,7 @@
                 "label": "name",
                 "description": "bcCategoryDesc",
                 "memberIds": [
-                  "BC11"
+                  "BiomedicalConcept_20"
                 ],
                 "code": {
                   "id": "aliasId",
@@ -7718,8 +7732,8 @@
                 "label": "name",
                 "description": "bcCatDesc",
                 "memberIds": [
-                  "BC2",
-                  "BC11"
+                  "BiomedicalConcept_20",
+                  "BiomedicalConcept_21"
                 ],
                 "code": {
                   "id": "aliasId",
@@ -7754,7 +7768,7 @@
                 "label": "name",
                 "description": "bcCateDes",
                 "memberIds": [
-                  "BC11"
+                  "BiomedicalConcept_22"
                 ],
                 "code": {
                   "id": "aliasId",
@@ -7789,7 +7803,7 @@
                 "label": "name",
                 "description": "bcCate",
                 "memberIds": [
-                  "BC2"
+                  "BiomedicalConcept_23"
                 ],
                 "code": {
                   "id": "aliasId",

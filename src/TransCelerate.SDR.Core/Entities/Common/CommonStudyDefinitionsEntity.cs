@@ -18,7 +18,7 @@ namespace TransCelerate.SDR.Core.Entities.Common
     {
         public string StudyId { get; set; }
         public string Id { get; set; }
-        public string StudyTitle { get; set; }
+        public object StudyTitle { get; set; }
         public string StudyVersion { get; set; }
         public object StudyType { get; set; }
         public object Type { get; set; }
@@ -37,6 +37,7 @@ namespace TransCelerate.SDR.Core.Entities.Common
         public string ProtocolVersion { get; set; }
     }
     [MongoDB.Bson.Serialization.Attributes.BsonNoId]
+    [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
     public class CommonStudyDocumentedBy
     {
         public List<CommonStudyProtocolVersions> Versions { get; set; }
@@ -46,15 +47,16 @@ namespace TransCelerate.SDR.Core.Entities.Common
     public class CommonStudyVersions
     {
         public string Id { get; set; }
-        public List<CommonStudyTitle> Titles {  get; set; }
-        public string StudyTitle { get; set; }
+        public object Titles {  get; set; }        
         public string VersionIdentifier { get; set; }        
-        public object Type { get; set; }
+        public object StudyType { get; set; }
         public object StudyPhase { get; set; }
         public List<object> StudyIdentifiers { get; set; }        
         public List<CommonStudyDesignsV4> StudyDesigns { get; set; }
     }
 
+    [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
+    [MongoDB.Bson.Serialization.Attributes.BsonNoId]
     public class CommonStudyTitle
     {
         public string Id { get; set; }
@@ -82,6 +84,7 @@ namespace TransCelerate.SDR.Core.Entities.Common
         public List<CommonStudyIndication> Indications { get; set; }
     }
     [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
+    [MongoDB.Bson.Serialization.Attributes.BsonNoId]
     public class CommonCodeEntity
     {
         public string Id { get; set; }
@@ -91,6 +94,7 @@ namespace TransCelerate.SDR.Core.Entities.Common
         public string Decode { get; set; }
     }
     [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
+    [MongoDB.Bson.Serialization.Attributes.BsonNoId]
     public class CommonStudyIndication
     {
         public string IndicationDescription { get; set; }
@@ -98,6 +102,7 @@ namespace TransCelerate.SDR.Core.Entities.Common
         public string Description { get; set; }
     }
     [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
+    [MongoDB.Bson.Serialization.Attributes.BsonNoId]
     public class CommonInvestigationalInterventionEntity
     {
         public string InterventionModel { get; set; }

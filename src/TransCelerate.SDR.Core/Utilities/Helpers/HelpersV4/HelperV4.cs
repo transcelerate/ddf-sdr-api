@@ -573,8 +573,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                         //Study Cells                        
                         changedValues.AddRange(GetDifferenceForStudyCells(currentStudyDesign, previousStudyDesign));
 
-                        //Workflows                        
+                        //Timelines                        
                         changedValues.AddRange(GetDifferenceForStudyScheduleTimelines(currentStudyDesign, previousStudyDesign));
+
+                        //Research Organizations                        
+                        changedValues.AddRange(GetDifferenceForResearchOrganisation(currentStudyDesign, previousStudyDesign));
 
                         //DesignBlindingScheme
                         GetDifferenceForAliasCode(currentStudyDesign.BlindingSchema, previousStudyDesign.BlindingSchema).ForEach(x =>
@@ -621,6 +624,18 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                         GetDifferenceForAList<StudyElementEntity>(currentStudyDesign.Elements, previousStudyDesign.Elements).ForEach(x =>
                         {
                             changedValues.Add($"{nameof(StudyDesignEntity.Elements)}.{x}");
+                        });
+
+                        //Masking Roles
+                        GetDifferenceForAList<MaskingEntity>(currentStudyDesign.MaskingRoles, previousStudyDesign.MaskingRoles).ForEach(x =>
+                        {
+                            changedValues.Add($"{nameof(StudyDesignEntity.MaskingRoles)}.{x}");
+                        });
+
+                        //Conditions
+                        GetDifferenceForAList<ConditionEntity>(currentStudyDesign.Conditions, previousStudyDesign.Conditions).ForEach(x =>
+                        {
+                            changedValues.Add($"{nameof(StudyDesignEntity.Conditions)}.{x}");
                         });
                     }
 
@@ -734,37 +749,39 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
         public List<string> GetDifferenceForStudyPopulations(StudyDesignEntity currentStudyDesign, StudyDesignEntity previousStudyDesign)
         {
             var tempList = new List<string>();
-            //if (currentStudyDesign.Population?.Count != previousStudyDesign.Population?.Count)
-            //    tempList.Add($"{nameof(StudyDesignEntity.Population)}");
-            //GetDifferenceForAList<StudyDesignPopulationEntity>(currentStudyDesign.Population, previousStudyDesign.Population).ForEach(x =>
-            //{
-            //    tempList.Add($"{nameof(StudyDesignEntity.Population)}.{x}");
-            //});
-            //tempList.RemoveAll(x => x.Contains($"{nameof(StudyDesignPopulationEntity.Cohorts)}"));
+            if (currentStudyDesign.Population?.Id != previousStudyDesign.Population?.Id)
+                tempList.Add($"{nameof(StudyDesignEntity.Population)}");
 
-            //currentStudyDesign.Populations?.ForEach(currentPopulation =>
-            //{
-            //    if (previousStudyDesign.Populations != null && previousStudyDesign.Populations.Any(x => x.Id == currentPopulation.Id))
-            //    {
-            //        var previousPopulation = previousStudyDesign.Populations.Find(x => x.Id == currentPopulation.Id);
-            //        GetDifferenceForAList<StudyCohortEntity>(currentPopulation.Cohorts, currentPopulation.Cohorts).ForEach(x =>
-            //        {
-            //            tempList.Add($"{nameof(StudyDesignEntity.Populations)}.{nameof(StudyDesignPopulationEntity.Cohorts)}.{x}");
-            //        });
-            //        tempList.RemoveAll(x => x.Contains($"{nameof(StudyCohortEntity.Characteristics)}"));
-            //        currentPopulation.Cohorts?.ForEach(currCohort =>
-            //        {
-            //            if (previousPopulation.Cohorts != null && previousPopulation.Cohorts.Any(x => x.Id == currCohort.Id))
-            //            {
-            //                var prevCohort = previousPopulation.Cohorts.Find(x => x.Id == currCohort.Id);
-            //                GetDifferenceForAList<CharacteristicEntity>(currCohort.Characteristics, currCohort.Characteristics).ForEach(x =>
-            //                {
-            //                    tempList.Add($"{nameof(StudyDesignEntity.Populations)}.{nameof(StudyDesignPopulationEntity.Cohorts)}.{nameof(StudyCohortEntity.Characteristics)}.{x}");
-            //                });
-            //            }
-            //        });
-            //    }
-            //});
+            else if (currentStudyDesign.Population is not null && previousStudyDesign is not null)
+            {
+                GetDifferences<StudyDesignPopulationEntity>(currentStudyDesign.Population, previousStudyDesign.Population).ForEach(x =>
+                {
+                    tempList.Add($"{nameof(StudyDesignEntity.Population)}{x}");
+                });
+                tempList.RemoveAll(x => x.Contains($"{nameof(StudyDesignPopulationEntity.Cohorts)}"));
+                tempList.RemoveAll(x => x.Contains($"{nameof(StudyDesignPopulationEntity.Criteria)}"));
+
+                GetDifferenceForAList<StudyCohortEntity>(currentStudyDesign.Population.Cohorts, previousStudyDesign.Population.Cohorts).ForEach(x =>
+                {
+                    tempList.Add($"{nameof(StudyDesignEntity.Population)}.{nameof(StudyDesignPopulationEntity.Cohorts)}{x}");
+                });
+                GetDifferenceForAList<EligibilityCriterionEntity>(currentStudyDesign.Population.Criteria, previousStudyDesign.Population.Criteria).ForEach(x =>
+                {
+                    tempList.Add($"{nameof(StudyDesignEntity.Population)}.{nameof(StudyDesignPopulationEntity.Criteria)}{x}");
+                });
+                tempList.RemoveAll(x => x.Contains($"{nameof(StudyCohortEntity.Characteristics)}"));
+                currentStudyDesign.Population.Cohorts?.ForEach(currCohort =>
+                {
+                    if (previousStudyDesign.Population.Cohorts != null && previousStudyDesign.Population.Cohorts.Any(x => x.Id == currCohort.Id))
+                    {
+                        var prevCohort = previousStudyDesign.Population.Cohorts.Find(x => x.Id == currCohort.Id);
+                        GetDifferenceForAList<CharacteristicEntity>(currCohort.Characteristics, currCohort.Characteristics).ForEach(x =>
+                        {
+                            tempList.Add($"{nameof(StudyDesignEntity.Population)}.{nameof(StudyDesignPopulationEntity.Cohorts)}.{nameof(StudyCohortEntity.Characteristics)}{x}");
+                        });
+                    }
+                });
+            }
             return tempList;
         }
 
@@ -829,21 +846,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                     {
                         scheduleTimelineChangeList.Add($"{nameof(StudyDesignEntity.ScheduleTimelines)}.{nameof(ScheduleTimelineEntity.Instances)}.{x}");
                     });
-                    //scheduleTimelineChangeList.RemoveAll(x => x.Contains($"{nameof(ScheduledInstanceEntity.Timings)}"));
-                    //currentTimeline.Instances?.ForEach(currentInstance =>
-                    //{
-                    //    var scheduleTimelineTimingChangeList = new List<string>();
-                    //    if (previousTimeline.Instances != null && previousTimeline.Instances.Any(x => x.Id == currentInstance.Id))
-                    //    {
-                    //        var previousInstance = previousTimeline.Instances.Find(x => x.Id == currentInstance.Id);
-
-                    //        GetDifferenceForAList<TimingEntity>(currentInstance.Timings, previousInstance.Timings).ForEach(x =>
-                    //        {
-                    //            scheduleTimelineTimingChangeList.Add($"{nameof(StudyDesignEntity.ScheduleTimelines)}.{nameof(ScheduleTimelineEntity.Instances)}.{nameof(ScheduledInstanceEntity.Timings)}.{x}");
-                    //        });
-                    //    }
-                    //    scheduleTimelineChangeList.AddRange(scheduleTimelineTimingChangeList);
-                    //});
+                    GetDifferenceForAList<TimingEntity>(currentTimeline.Timings, previousTimeline.Timings).ForEach(x =>
+                    {
+                        scheduleTimelineChangeList.Add($"{nameof(StudyDesignEntity.ScheduleTimelines)}.{nameof(ScheduleTimelineEntity.Timings)}.{x}");
+                    });
                 }
                 tempList.AddRange(scheduleTimelineChangeList);
             });
@@ -969,6 +975,30 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
             });
             return tempList;
         }
+        public List<string> GetDifferenceForResearchOrganisation(StudyDesignEntity currentStudyDesign, StudyDesignEntity previousStudyDesign)
+        {
+            var tempList = new List<string>();
+            if (currentStudyDesign.Organizations?.Count != previousStudyDesign.Organizations?.Count)
+                tempList.Add($"{nameof(StudyDesignEntity.Organizations)}");
+            GetDifferenceForAList<ResearchOrganizationEntity>(currentStudyDesign.Organizations, previousStudyDesign.Organizations).ForEach(x =>
+            {
+                tempList.Add($"{nameof(StudyDesignEntity.Organizations)}{x}");
+            });
+            tempList.RemoveAll(x => x.Contains($"{nameof(ResearchOrganizationEntity.Manages)}"));
+            currentStudyDesign.Organizations?.ForEach(currentOrganization =>
+            {
+                if (previousStudyDesign.Organizations != null && previousStudyDesign.Organizations.Any(x => x.Id == currentOrganization.Id))
+                {
+                    var previousOrganization = previousStudyDesign.Organizations.Find(x => x.Id == currentOrganization.Id);
+
+                    GetDifferenceForAList<StudySiteEntity>(currentOrganization.Manages, previousOrganization.Manages).ForEach(x =>
+                    {
+                        tempList.Add($"{nameof(StudyDesignEntity.Activities)}.{nameof(ResearchOrganizationEntity.Manages)}{x}");
+                    });
+                }
+            });
+            return tempList;
+        }
         #endregion
 
         #region ReferenceIntegrity
@@ -1022,7 +1052,16 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                             () => errors.AddRange(ReferenceIntegrityValidationForEligibilityCriteria(design, designIndex, studyVersionIndex, studyVersionAndDesignIds)),
 
                             //Arms
-                            () => errors.AddRange(ReferenceIntegrityValidationForStudyArms(design, designIndex, studyVersionIndex))
+                            () => errors.AddRange(ReferenceIntegrityValidationForStudyArms(design, designIndex, studyVersionIndex)),
+
+                            //Elements
+                            () => errors.AddRange(ReferenceIntegrityValidationForStudyElements(design, designIndex, studyVersionIndex)),
+
+                            //Conditions
+                            () => errors.AddRange(ReferenceIntegrityValidationForConditions(design, designIndex, studyVersionIndex)),
+
+                            //Procedures
+                            () => errors.AddRange(ReferenceIntegrityValidationForProcedures(design, designIndex, studyVersionIndex))
                          );
 
                     });
@@ -1107,7 +1146,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                         {
                             var tempContentIds = contentIds.ToList();
                             tempContentIds.RemoveAll(x => x == content.Id);
-                            content.ChildrenIds.ForEach(child =>
+                            content?.ChildrenIds?.ForEach(child =>
                             {
                                 if (!String.IsNullOrWhiteSpace(child) && !tempContentIds.Contains(child))
                                     errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
@@ -1181,19 +1220,19 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
 
             if (design.Arms != null && design.Arms.Any())
             {
-                //List<string> populationIds = design.Populations != null ? design.Populations.Select(act => act?.Id).ToList() : new();
-                //design.Arms?.ForEach(arm =>
-                //{
-                //    arm?.PopulationIds?.ForEach(popId =>
-                //    {
-                //        if (!String.IsNullOrWhiteSpace(popId) && !populationIds.Contains(popId))
-                //            errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
-                //                $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
-                //                $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
-                //                $"{nameof(StudyDesignDto.Arms)}[{design.Arms.IndexOf(arm)}]." +
-                //                $"{nameof(StudyArmDto.PopulationIds)}.[{arm.PopulationIds.IndexOf(popId)}]");
-                //    });
-                //});
+                string populationId = design.Population != null ? design.Population.Id : string.Empty;
+                design.Arms?.ForEach(arm =>
+                {
+                    arm?.PopulationIds?.ForEach(popId =>
+                    {
+                        if (!String.IsNullOrWhiteSpace(popId) && !populationId.Equals(popId))
+                            errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
+                                $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
+                                $"{nameof(StudyDesignDto.Arms)}[{design.Arms.IndexOf(arm)}]." +
+                                $"{nameof(StudyArmDto.PopulationIds)}.[{arm.PopulationIds.IndexOf(popId)}]");
+                    });
+                });
             }
 
             return errors;
@@ -1638,6 +1677,85 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
             return errors;
         }
 
+        public static List<string> ReferenceIntegrityValidationForConditions(StudyDesignDto design, int indexOfDesign, int studyVersionIndex)
+        {
+            List<String> errors = new();
+
+            if (design.Conditions != null && design.Conditions.Any())
+            {
+                List<string> biomedicalConceptIds = design.BiomedicalConcepts is null ? new List<string>() : design.BiomedicalConcepts.Select(x => x.Id).ToList();
+                List<string> bcCategoryIds = design.BcCategories is null ? new List<string>() : design.BcCategories.Select(x => x.Id).ToList();
+                List<string> bcSurrogateIds = design.BcSurrogates is null ? new List<string>() : design.BcSurrogates.Select(x => x.Id).ToList();
+                List<string> activitiesIds = design.Activities is null ? new List<string>() : design.Activities.Select(x => x.Id).ToList();
+                List<string> procedureIds = design.Activities is null ? new List<string>() : design.Activities.Where(x => x.DefinedProcedures is not null && x.DefinedProcedures.Any()).SelectMany(y => y.DefinedProcedures).Select(z=>z.Id).ToList();                
+                List<string> scheduleActivityInstanceIds = design.ScheduleTimelines is not null && design.ScheduleTimelines.Any() ? 
+                                                           design.ScheduleTimelines.SelectMany(x => x.Instances).Where(y => y.InstanceType == nameof(ScheduledActivityInstanceDto).RemoveDto())
+                                                           .Select(z => z.Id)
+                                                           .ToList() : new List<string>();
+
+                design.Conditions.ForEach(condition =>
+                {                    
+                    if (condition.AppliesToIds != null && condition.AppliesToIds.Any())
+                    {
+                        condition.AppliesToIds.ForEach(appliesTo =>
+                        {
+                            if (!String.IsNullOrWhiteSpace(appliesTo) 
+                            && !procedureIds.Contains(appliesTo) 
+                            && !activitiesIds.Contains(appliesTo)
+                            && !bcCategoryIds.Contains(appliesTo)
+                            && !biomedicalConceptIds.Contains(appliesTo)
+                            && !bcSurrogateIds.Contains(appliesTo))
+                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                    $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
+                                           $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
+                                           $"{nameof(StudyDesignDto.Activities)}[{design.Conditions.IndexOf(condition)}]." +
+                                           $"{nameof(ActivityDto.BiomedicalConceptIds)}[{condition.AppliesToIds.IndexOf(appliesTo)}]");
+                        });
+                    }
+                    if (condition.ContextIds != null && condition.ContextIds.Any())
+                    {
+                        condition.ContextIds.ForEach(contextId =>
+                        {
+                            if (!String.IsNullOrWhiteSpace(contextId) 
+                            && !activitiesIds.Contains(contextId)
+                            && !scheduleActivityInstanceIds.Contains(contextId))
+                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                    $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
+                                           $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
+                                           $"{nameof(StudyDesignDto.Activities)}[{design.Conditions.IndexOf(condition)}]." +
+                                           $"{nameof(ActivityDto.BcCategoryIds)}[{condition.ContextIds.IndexOf(contextId)}]");
+                        });
+                    }                    
+                });
+            }
+
+            return errors;
+        }
+
+        public static List<string> ReferenceIntegrityValidationForProcedures(StudyDesignDto design, int indexOfDesign, int studyVersionIndex)
+        {
+            List<String> errors = new();
+
+            if (design.Activities != null && design.Activities.Any())
+            {
+                List<string> studyInterventionIds = design.StudyInterventions != null ? design.StudyInterventions.Select(act => act?.Id).ToList() : new();
+                design.Activities.ForEach(activity =>
+                {
+                    activity.DefinedProcedures?.ForEach(proc =>
+                    {
+                        if (!String.IsNullOrWhiteSpace(proc.StudyInterventionId) && !studyInterventionIds.Contains(proc.StudyInterventionId))
+                            errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
+                                $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
+                                $"{nameof(StudyDesignDto.Activities)}[{design.Activities.IndexOf(activity)}]." +
+                                $"{nameof(ActivityDto.DefinedProcedures)}[{activity.DefinedProcedures.IndexOf(proc)}]." +
+                                $"{nameof(ProcedureDto.StudyInterventionId)}");
+                    });
+                });
+            }
+
+            return errors;
+        }
         public static object GetErrors(List<string> errorList)
         {
             JObject errors = new();
@@ -1923,6 +2041,31 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
             return tempList;
         }
 
+        public List<string> GetDifferenceForResearchOrganisationForStudyComparison(StudyDesignEntity currentStudyDesign, StudyDesignEntity previousStudyDesign)
+        {
+            var tempList = new List<string>();
+            if (currentStudyDesign.Organizations?.Count != previousStudyDesign.Organizations?.Count)
+                tempList.Add($"{nameof(StudyDesignEntity.Organizations)}{Constants.VersionCompareConstants.ArrayBrackets}");
+            GetDifferenceForAListForStudyComparison<ResearchOrganizationEntity>(currentStudyDesign.Organizations, previousStudyDesign.Organizations).ForEach(x =>
+            {
+                tempList.Add($"{nameof(StudyDesignEntity.Organizations)}{x}");
+            });
+            tempList.RemoveAll(x => x.Contains($"{nameof(ResearchOrganizationEntity.Manages)}"));
+            currentStudyDesign.Organizations?.ForEach(currentOrganization =>
+            {
+                if (previousStudyDesign.Organizations != null && previousStudyDesign.Organizations.Any(x => x.Id == currentOrganization.Id))
+                {
+                    var previousOrganization = previousStudyDesign.Organizations.Find(x => x.Id == currentOrganization.Id);
+
+                    GetDifferenceForAListForStudyComparison<StudySiteEntity>(currentOrganization.Manages, previousOrganization.Manages).ForEach(x =>
+                    {
+                        tempList.Add($"{nameof(StudyDesignEntity.Activities)}[{currentStudyDesign.Organizations.IndexOf(currentOrganization)}].{nameof(ResearchOrganizationEntity.Manages)}{x}");
+                    });
+                }
+            });
+            return tempList;
+        }
+
         public List<string> GetDifferenceForStudyProtocolDocumentVersionsForStudyComparison(List<StudyProtocolDocumentVersionEntity> currentVersion, List<StudyProtocolDocumentVersionEntity> previousVersion)
         {
             var tempList = new List<string>();
@@ -2045,8 +2188,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                         //Study Cells                        
                         changedValues.AddRange(GetDifferenceForStudyCellsForStudyComparison(currentStudyDesign, previousStudyDesign));
 
-                        //Workflows                        
+                        //Timelines                        
                         changedValues.AddRange(GetDifferenceForStudyScheduleTimelinesForStudyComparison(currentStudyDesign, previousStudyDesign));
+
+                        //Research Organizations                        
+                        changedValues.AddRange(GetDifferenceForResearchOrganisationForStudyComparison(currentStudyDesign, previousStudyDesign));
 
                         //DesignBlindingScheme
                         GetDifferenceForAliasCodeForStudyComparison(currentStudyDesign.BlindingSchema, previousStudyDesign.BlindingSchema).ForEach(x =>
@@ -2094,6 +2240,18 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                         GetDifferenceForAListForStudyComparison<SyntaxTemplateDictionaryEntity>(currentStudyDesign.Dictionaries, previousStudyDesign.Dictionaries).ForEach(x =>
                         {
                             changedValues.Add($"{nameof(StudyDesignEntity.Dictionaries)}{x}");
+                        });
+
+                        //Masking Roles
+                        GetDifferenceForAListForStudyComparison<MaskingEntity>(currentStudyDesign.MaskingRoles, previousStudyDesign.MaskingRoles).ForEach(x =>
+                        {
+                            changedValues.Add($"{nameof(StudyDesignEntity.MaskingRoles)}{x}");
+                        });
+
+                        //Conditions
+                        GetDifferenceForAListForStudyComparison<ConditionEntity>(currentStudyDesign.Conditions, previousStudyDesign.Conditions).ForEach(x =>
+                        {
+                            changedValues.Add($"{nameof(StudyDesignEntity.Conditions)}{x}");
                         });
                         var currDesignIndex = currentVersion.IndexOf(currentStudyDesign);
                         changedValues.ForEach(x => formattedChangedValues.Add($"[{currDesignIndex}].{x}"));
@@ -2209,37 +2367,39 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
         public List<string> GetDifferenceForStudyPopulationsForStudyComparison(StudyDesignEntity currentStudyDesign, StudyDesignEntity previousStudyDesign)
         {
             var tempList = new List<string>();
-            //if (currentStudyDesign.Populations?.Count != previousStudyDesign.Populations?.Count)
-            //    tempList.Add($"{nameof(StudyDesignEntity.Populations)}{Constants.VersionCompareConstants.ArrayBrackets}");
-            //GetDifferenceForAListForStudyComparison<StudyDesignPopulationEntity>(currentStudyDesign.Populations, previousStudyDesign.Populations).ForEach(x =>
-            //{
-            //    tempList.Add($"{nameof(StudyDesignEntity.Populations)}{x}");
-            //});
-            //tempList.RemoveAll(x => x.Contains($"{nameof(StudyDesignPopulationEntity.Cohorts)}"));
+            if (currentStudyDesign.Population?.Id != previousStudyDesign.Population?.Id)
+                tempList.Add($"{nameof(StudyDesignEntity.Population)}");
+            
+            else if(currentStudyDesign.Population is not null && previousStudyDesign is not null)
+            {
+                GetDifferencesForStudyComparison<StudyDesignPopulationEntity>(currentStudyDesign.Population, previousStudyDesign.Population).ForEach(x =>
+                {
+                    tempList.Add($"{nameof(StudyDesignEntity.Population)}{x}");
+                });
+                tempList.RemoveAll(x => x.Contains($"{nameof(StudyDesignPopulationEntity.Cohorts)}"));
+                tempList.RemoveAll(x => x.Contains($"{nameof(StudyDesignPopulationEntity.Criteria)}"));
 
-            //currentStudyDesign.Populations?.ForEach(currentPopulation =>
-            //{
-            //    if (previousStudyDesign.Populations != null && previousStudyDesign.Populations.Any(x => x.Id == currentPopulation.Id))
-            //    {
-            //        var previousPopulation = previousStudyDesign.Populations.Find(x => x.Id == currentPopulation.Id);
-            //        GetDifferenceForAListForStudyComparison<StudyCohortEntity>(currentPopulation.Cohorts, currentPopulation.Cohorts).ForEach(x =>
-            //        {
-            //            tempList.Add($"{nameof(StudyDesignEntity.Populations)}[{currentStudyDesign.Populations.IndexOf(currentPopulation)}].{nameof(StudyDesignPopulationEntity.Cohorts)}{x}");
-            //        });
-            //        tempList.RemoveAll(x => x.Contains($"{nameof(StudyCohortEntity.Characteristics)}"));
-            //        currentPopulation.Cohorts?.ForEach(currCohort =>
-            //        {
-            //            if (previousPopulation.Cohorts != null && previousPopulation.Cohorts.Any(x => x.Id == currCohort.Id))
-            //            {
-            //                var prevCohort = previousPopulation.Cohorts.Find(x => x.Id == currCohort.Id);
-            //                GetDifferenceForAListForStudyComparison<CharacteristicEntity>(currCohort.Characteristics, currCohort.Characteristics).ForEach(x =>
-            //                {
-            //                    tempList.Add($"{nameof(StudyDesignEntity.Populations)}[{currentStudyDesign.Populations.IndexOf(currentPopulation)}].{nameof(StudyDesignPopulationEntity.Cohorts)}[{currentPopulation.Cohorts.IndexOf(currCohort)}].{nameof(StudyCohortEntity.Characteristics)}{x}");
-            //                });
-            //            }
-            //        });
-            //    }
-            //});
+                GetDifferenceForAListForStudyComparison<StudyCohortEntity>(currentStudyDesign.Population.Cohorts, previousStudyDesign.Population.Cohorts).ForEach(x =>
+                {
+                    tempList.Add($"{nameof(StudyDesignEntity.Population)}.{nameof(StudyDesignPopulationEntity.Cohorts)}{x}");
+                });
+                GetDifferenceForAListForStudyComparison<EligibilityCriterionEntity>(currentStudyDesign.Population.Criteria, previousStudyDesign.Population.Criteria).ForEach(x =>
+                {
+                    tempList.Add($"{nameof(StudyDesignEntity.Population)}.{nameof(StudyDesignPopulationEntity.Criteria)}{x}");
+                });
+                tempList.RemoveAll(x => x.Contains($"{nameof(StudyCohortEntity.Characteristics)}"));
+                currentStudyDesign.Population.Cohorts?.ForEach(currCohort =>
+                {
+                    if (previousStudyDesign.Population.Cohorts != null && previousStudyDesign.Population.Cohorts.Any(x => x.Id == currCohort.Id))
+                    {
+                        var prevCohort = previousStudyDesign.Population.Cohorts.Find(x => x.Id == currCohort.Id);
+                        GetDifferenceForAListForStudyComparison<CharacteristicEntity>(currCohort.Characteristics, currCohort.Characteristics).ForEach(x =>
+                        {
+                            tempList.Add($"{nameof(StudyDesignEntity.Population)}.{nameof(StudyDesignPopulationEntity.Cohorts)}[{currentStudyDesign.Population.Cohorts.IndexOf(currCohort)}].{nameof(StudyCohortEntity.Characteristics)}{x}");
+                        });
+                    }
+                });
+            }
             return tempList;
         }
 
@@ -2303,22 +2463,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                     GetDifferenceForScheduledInstancesForStudyComparison(currentTimeline.Instances, previousTimeline.Instances).ForEach(x =>
                     {
                         scheduleTimelineChangeList.Add($"{nameof(StudyDesignEntity.ScheduleTimelines)}[{currentStudyDesign.ScheduleTimelines.IndexOf(currentTimeline)}].{nameof(ScheduleTimelineEntity.Instances)}{x}");
+                    });                    
+                    GetDifferenceForAListForStudyComparison<TimingEntity>(currentTimeline.Timings, previousTimeline.Timings).ForEach(x =>
+                    {
+                        scheduleTimelineChangeList.Add($"{nameof(StudyDesignEntity.ScheduleTimelines)}[{currentStudyDesign.ScheduleTimelines.IndexOf(currentTimeline)}].{nameof(ScheduleTimelineEntity.Timings)}{x}");
                     });
-                    //scheduleTimelineChangeList.RemoveAll(x => x.Contains($"{nameof(ScheduledInstanceEntity.Timings)}"));
-                    //currentTimeline.Instances?.ForEach(currentInstance =>
-                    //{
-                    //    var scheduleTimelineTimingChangeList = new List<string>();
-                    //    if (previousTimeline.Instances != null && previousTimeline.Instances.Any(x => x.Id == currentInstance.Id))
-                    //    {
-                    //        var previousInstance = previousTimeline.Instances.Find(x => x.Id == currentInstance.Id);
-
-                    //        GetDifferenceForAListForStudyComparison<TimingEntity>(currentInstance.Timings, previousInstance.Timings).ForEach(x =>
-                    //        {
-                    //            scheduleTimelineTimingChangeList.Add($"{nameof(StudyDesignEntity.ScheduleTimelines)}[{currentStudyDesign.ScheduleTimelines.IndexOf(currentTimeline)}].{nameof(ScheduleTimelineEntity.Instances)}[{currentTimeline.Instances?.IndexOf(currentInstance)}].{nameof(ScheduledInstanceEntity.Timings)}{x}");
-                    //        });
-                    //    }
-                    //    scheduleTimelineChangeList.AddRange(scheduleTimelineTimingChangeList);
-                    //});
                 }
                 tempList.AddRange(scheduleTimelineChangeList);
             });

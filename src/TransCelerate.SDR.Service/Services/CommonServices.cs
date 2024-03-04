@@ -309,14 +309,28 @@ namespace TransCelerate.SDR.Services.Services
             }
         }
 
-        public static List<SearchTitleResponseDto> AssignStudyIdentifiers(List<SearchTitleResponseDto> searchTitleDTOs, List<SearchTitleResponseEntity> searchTitleResponses)
+        public List<SearchTitleResponseDto> AssignStudyIdentifiers(List<SearchTitleResponseDto> searchTitleDTOs, List<SearchTitleResponseEntity> searchTitleResponses)
         {
             searchTitleDTOs.ForEach(searchTitleDTO =>
             {
                 var searchResponse = searchTitleResponses.Where(x => x.StudyId == searchTitleDTO.Study.StudyId && x.SDRUploadVersion == searchTitleDTO.AuditTrail.SDRUploadVersion).FirstOrDefault();
+
+                if (searchResponse.UsdmVersion == Constants.USDMVersions.V3)
+                {
+                    var studyTitleV4 = searchResponse.StudyTitle != null ? JsonConvert.DeserializeObject<List<CommonStudyTitle>>(JsonConvert.SerializeObject(searchResponse.StudyTitle)) : null;
+                    searchTitleDTO.Study.StudyTitle = studyTitleV4 != null && studyTitleV4.Any(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle) ? studyTitleV4.Find(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle).Text : null;
+                }
+
                 if (searchResponse.StudyIdentifiers != null)
                 {
-                    searchTitleDTO.Study.StudyIdentifiers = JsonConvert.DeserializeObject<List<CommonStudyIdentifiersDto>>(JsonConvert.SerializeObject(searchResponse.StudyIdentifiers));
+                    if (searchResponse.UsdmVersion == Constants.USDMVersions.V3)
+                    {
+                        searchTitleDTO.Study.StudyIdentifiers = _mapper.Map<List<CommonStudyIdentifiersDto>>(JsonConvert.DeserializeObject<List<Core.DTO.StudyV4.StudyIdentifierDto>>(JsonConvert.SerializeObject(searchResponse.StudyIdentifiers)));
+                    }
+                    else
+                    {
+                        searchTitleDTO.Study.StudyIdentifiers = JsonConvert.DeserializeObject<List<CommonStudyIdentifiersDto>>(JsonConvert.SerializeObject(searchResponse.StudyIdentifiers));
+                    }
                 }
 
                 var studyDesignIds = searchResponse.UsdmVersion == Constants.USDMVersions.MVP ? searchResponse.StudyDesignIdsMVP?.Where(x => x != null && x.Any()).SelectMany(x => x)?.ToList() : searchResponse.UsdmVersion == Constants.USDMVersions.V3 ? searchResponse.StudyDesignIdsV4?.Where(x => x != null && x.Any()).SelectMany(x => x)?.ToList() : searchResponse.StudyDesignIds?.ToList();
@@ -396,7 +410,7 @@ namespace TransCelerate.SDR.Services.Services
             }
         }
 
-        public static List<SearchResponseDto> AssignDynamicValues(List<SearchResponseDto> searchResponseDtos, List<SearchResponseEntity> searchResponseEntities)
+        public List<SearchResponseDto> AssignDynamicValues(List<SearchResponseDto> searchResponseDtos, List<SearchResponseEntity> searchResponseEntities)
         {
             searchResponseDtos.ForEach(searchResponseDto =>
             {
@@ -411,7 +425,8 @@ namespace TransCelerate.SDR.Services.Services
                 #region StudyTitle
                 if (searchResponseEntity.UsdmVersion == Constants.USDMVersions.V3)
                 {
-                    //searchResponseDto.Study.StudyTitle = searchResponseEntity.StudyTitleV4;
+                    var studyTitleV4 = searchResponseEntity.StudyTitleV4 != null ? JsonConvert.DeserializeObject<List<CommonStudyTitle>>(JsonConvert.SerializeObject(searchResponseEntity.StudyTitleV4)) : null;
+                    searchResponseDto.Study.StudyTitle = studyTitleV4 != null && studyTitleV4.Any(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle) ? studyTitleV4.Find(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle).Text : null;
                 }
                 #endregion
                 #region StudyIdentifiers
@@ -419,7 +434,7 @@ namespace TransCelerate.SDR.Services.Services
                 {
                     if (searchResponseDto.AuditTrail.UsdmVersion == Constants.USDMVersions.V3)
                     {
-                        searchResponseDto.Study.StudyIdentifiers = JsonConvert.DeserializeObject<List<CommonStudyIdentifiersDto>>(JsonConvert.SerializeObject(searchResponseEntity.StudyIdentifiersV4));
+                        searchResponseDto.Study.StudyIdentifiers = _mapper.Map<List<CommonStudyIdentifiersDto>>(JsonConvert.DeserializeObject<List<Core.DTO.StudyV4.StudyIdentifierDto>>(JsonConvert.SerializeObject(searchResponseEntity.StudyIdentifiersV4)));
                     }
                     else
                     {
@@ -580,7 +595,8 @@ namespace TransCelerate.SDR.Services.Services
                     searchResponseDtos.ForEach(searchResponseDto =>
                     {
                         var searchResponseV2 = searchResponse.FirstOrDefault(x => x.StudyId == searchResponseDto.Study.StudyId && x.SDRUploadVersion == searchResponseDto.AuditTrail.SDRUploadVersion);
-
+                        var studyTitleV4 = searchResponseV2.StudyTitle != null ? JsonConvert.DeserializeObject<List<CommonStudyTitle>>(JsonConvert.SerializeObject(searchResponseV2.StudyTitle)) : null;
+                        searchResponseDto.Study.StudyTitle = studyTitleV4 != null && studyTitleV4.Any(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle) ? studyTitleV4.Find(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle).Text : null;
                         searchResponseDto.Study.StudyIdentifiers = _mapper.Map<List<CommonStudyIdentifiersDto>>(searchResponseV2.StudyIdentifiers);
                         searchResponseDto.Study.StudyPhase = _mapper.Map<CommonCodeDto>(searchResponseV2.StudyPhase?.StandardCode);
                         searchResponseDto.Study.StudyDesigns = new List<CommonStudyDesign> { new() {
