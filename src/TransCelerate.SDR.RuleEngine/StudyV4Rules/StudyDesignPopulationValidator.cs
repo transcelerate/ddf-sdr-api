@@ -87,6 +87,16 @@ namespace TransCelerate.SDR.RuleEngineV4
 
             RuleForEach(x => x.Cohorts)
                 .SetValidator(new StudyCohortValidator(_httpContextAccessor));
+
+            RuleFor(x => x.Criteria)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignPopulationValidator), nameof(StudyDesignPopulationDto.Criteria)), ApplyConditionTo.AllValidators)
+                .Must(x => UniquenessArrayValidator.ValidateArrayV4(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleForEach(x => x.Criteria)
+                .SetValidator(new EligibilityCriterionValidator(_httpContextAccessor));
         }
     }
 }

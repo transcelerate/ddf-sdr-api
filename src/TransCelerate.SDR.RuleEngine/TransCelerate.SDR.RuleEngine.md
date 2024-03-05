@@ -115,7 +115,6 @@
 - [StudyVersionValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyVersionValidator 'TransCelerate.SDR.RuleEngineV4.StudyVersionValidator')
 - [SubjectEnrollmentValidator](#T-TransCelerate-SDR-RuleEngineV4-SubjectEnrollmentValidator 'TransCelerate.SDR.RuleEngineV4.SubjectEnrollmentValidator')
 - [SyntaxTemplateDictionaryValidator](#T-TransCelerate-SDR-RuleEngineV4-SyntaxTemplateDictionaryValidator 'TransCelerate.SDR.RuleEngineV4.SyntaxTemplateDictionaryValidator')
-- [SyntaxTemplateValidator](#T-TransCelerate-SDR-RuleEngineV4-SyntaxTemplateValidator 'TransCelerate.SDR.RuleEngineV4.SyntaxTemplateValidator')
 - [TransitionRuleValidator](#T-TransCelerate-SDR-RuleEngineV2-TransitionRuleValidator 'TransCelerate.SDR.RuleEngineV2.TransitionRuleValidator')
 - [TransitionRuleValidator](#T-TransCelerate-SDR-RuleEngineV3-TransitionRuleValidator 'TransCelerate.SDR.RuleEngineV3.TransitionRuleValidator')
 - [TransitionRuleValidator](#T-TransCelerate-SDR-RuleEngineV4-TransitionRuleValidator 'TransCelerate.SDR.RuleEngineV4.TransitionRuleValidator')
@@ -1361,17 +1360,6 @@ TransCelerate.SDR.RuleEngineV4
 ##### Summary
 
 This Class is the validator for InvestigationalIntervention
-
-<a name='T-TransCelerate-SDR-RuleEngineV4-SyntaxTemplateValidator'></a>
-## SyntaxTemplateValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV4
-
-##### Summary
-
-This Class is the validator for StudyIdentifierScope
 
 <a name='T-TransCelerate-SDR-RuleEngineV2-TransitionRuleValidator'></a>
 ## TransitionRuleValidator `type`

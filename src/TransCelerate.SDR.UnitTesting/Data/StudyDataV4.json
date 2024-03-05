@@ -1203,7 +1203,7 @@
                   "label": "",
                   "description": "The previous xanomeline TTS criterion",
                   "text": "Persons who have previously completed or withdrawn from this study or any other study investigating xanomeline TTS or the oral formulation of xanomeline.",
-                  "dictionaryId": null,
+                  "dictionaryId": "SyntaxTemplateDictionary_1",
                   "instanceType": "EligibilityCriterion",
                   "category": {
                     "id": "Code_348",
@@ -1235,7 +1235,162 @@
                 "instanceType": "Range"
               },
               "instanceType": "StudyDesignPopulation",
-              "cohorts": []
+              "cohorts": [
+                {
+                  "id": "Cohorts_1",
+                  "name": "POP1",
+                  "label": "",
+                  "description": "Patients with Probable Mild to Moderate Alzheimer's Disease",
+                  "includesHealthySubjects": false,
+                  "plannedEnrollmentNumber": {
+                    "id": "Range_2",
+                    "minValue": 300,
+                    "maxValue": 300,
+                    "unit": null,
+                    "isApproximate": false,
+                    "instanceType": "Range"
+                  },
+                  "plannedCompletionNumber": {
+                    "id": "Range_1",
+                    "minValue": 300,
+                    "maxValue": 300,
+                    "unit": null,
+                    "isApproximate": false,
+                    "instanceType": "Range"
+                  },
+                  "plannedSex": [
+                    {
+                      "id": "61ad4d8f-527c-4f1d-b227-4bbf6141f614",
+                      "code": "C16576",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "2022-03-25",
+                      "decode": "Phase IIa Trial",
+                      "instanceType": "Code"
+                    },
+                    {
+                      "id": "61ad4d8f-527c-4f1d-b227-4bbf6141f616",
+                      "code": "C20197",
+                      "codeSystem": "http:www.cdisc.org",
+                      "codeSystemVersion": "2022-03-25",
+                      "decode": "Phase IIa Trial",
+                      "instanceType": "Code"
+                    }
+                  ],
+                  "criteria": [
+                    {
+                      "id": "EligibilityCriterion_1",
+                      "name": "Age Criteria",
+                      "label": "",
+                      "description": "The study age criterion",
+                      "text": "Subjects shall be between [min_age] and [max_age]",
+                      "dictionaryId": "SyntaxTemplateDictionary_1",
+                      "instanceType": "EligibilityCriterion",
+                      "category": {
+                        "id": "Code_345",
+                        "code": "C25532",
+                        "codeSystem": "http://www.cdisc.org",
+                        "codeSystemVersion": "2023-09-29",
+                        "decode": "Inclusion Criteria",
+                        "instanceType": "Code"
+                      },
+                      "identifier": "1",
+                      "nextId": null,
+                      "previousId": null,
+                      "contextId": null
+                    },
+                    {
+                      "id": "EligibilityCriterion_2",
+                      "name": "Pop Criteria",
+                      "label": "",
+                      "description": "The study population criterion",
+                      "text": "[StudyPopulation] as defined by the NINCDS and the ADRDA guidelines (Attachment LZZT.7)",
+                      "dictionaryId": "SyntaxTemplateDictionary_1",
+                      "instanceType": "EligibilityCriterion",
+                      "category": {
+                        "id": "Code_346",
+                        "code": "C25532",
+                        "codeSystem": "http://www.cdisc.org",
+                        "codeSystemVersion": "2023-09-29",
+                        "decode": "Inclusion Criteria",
+                        "instanceType": "Code"
+                      },
+                      "identifier": "2",
+                      "nextId": null,
+                      "previousId": "EligibilityCriterion_1",
+                      "contextId": "StudyVersion_1"
+                    },
+                    {
+                      "id": "EligibilityCriterion_3",
+                      "name": "Diag Criteria",
+                      "label": "",
+                      "description": "The study diagnosis criterion",
+                      "text": "[Activity1] score of 10 to 23",
+                      "dictionaryId": "SyntaxTemplateDictionary_2",
+                      "instanceType": "EligibilityCriterion",
+                      "category": {
+                        "id": "Code_347",
+                        "code": "C25532",
+                        "codeSystem": "http://www.cdisc.org",
+                        "codeSystemVersion": "2023-09-29",
+                        "decode": "Inclusion Criteria",
+                        "instanceType": "Code"
+                      },
+                      "identifier": "3",
+                      "nextId": "EligibilityCriterion_2",
+                      "previousId": null,
+                      "contextId": null
+                    },
+                    {
+                      "id": "EligibilityCriterion_4",
+                      "name": "Previous Criteria",
+                      "label": "",
+                      "description": "The previous xanomeline TTS criterion",
+                      "text": "Persons who have previously completed or withdrawn from this study or any other study investigating xanomeline TTS or the oral formulation of xanomeline.",
+                      "dictionaryId": null,
+                      "instanceType": "EligibilityCriterion",
+                      "category": {
+                        "id": "Code_348",
+                        "code": "C25370",
+                        "codeSystem": "http://www.cdisc.org",
+                        "codeSystemVersion": "2023-09-29",
+                        "decode": "Exclusion Criteria",
+                        "instanceType": "Code"
+                      },
+                      "identifier": "9",
+                      "nextId": null,
+                      "previousId": null,
+                      "contextId": null
+                    }
+                  ],
+                  "plannedAge": {
+                    "id": "Range_3",
+                    "minValue": 50,
+                    "maxValue": 100,
+                    "unit": {
+                      "id": "Code_332",
+                      "code": "C29848",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2023-09-29",
+                      "decode": "Year",
+                      "instanceType": "Code"
+                    },
+                    "isApproximate": false,
+                    "instanceType": "Range"
+                  },
+                  "instanceType": "StudyCohort",
+                  "characteristics": [
+                    {
+                      "id": "characteristic_1",
+                      "name": "Previous Criteria",
+                      "label": "",
+                      "description": "The previous xanomeline TTS criterion",
+                      "text": "Persons who have previously completed or withdrawn from this study or any other study investigating xanomeline TTS or the oral formulation of xanomeline.",
+                      "dictionaryId": null,
+                      "instanceType": "Characteristic"
+                    }
+                  ]
+                }
+              ]
             },
             "objectives": [
               {
@@ -2674,7 +2829,7 @@
                 "label": "X",
                 "description": "Condition for X",
                 "text": "If this is true",
-                "dictionaryId": null,
+                "dictionaryId": "SyntaxTemplateDictionary_1",
                 "contextIds": [
                   "Activity_4"
                 ],
