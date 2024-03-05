@@ -836,9 +836,9 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             var currentVersionV4 = _mockMapper.Map<StudyDefinitionsEntity>(GetDtoDataFromStaticJson());
             var previousVersionV4 = _mockMapper.Map<StudyDefinitionsEntity>(GetDtoDataFromStaticJson());
             currentVersionV4.AuditTrail.SDRUploadVersion = 2;
-            currentVersionV4.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
+            currentVersionV4.AuditTrail.UsdmVersion = Constants.USDMVersions.V3;
             previousVersionV4.AuditTrail.SDRUploadVersion = 1;
-            previousVersionV4.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
+            previousVersionV4.AuditTrail.UsdmVersion = Constants.USDMVersions.V3;
 
             currentVersionV4.Study.Versions.FirstOrDefault().StudyType.Decode = "OBSERVATIONAL";
             previousVersionV4.Study.Versions.FirstOrDefault().StudyType.Decode = "OBSERVATIONAL";

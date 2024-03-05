@@ -33,11 +33,6 @@ namespace TransCelerate.SDR.UnitTesting
             UserName = "user1@SDR.com",
             UserRole = Constants.Roles.Org_Admin
         };
-        public static StudyDefinitionsEntity GetEntityDataFromStaticJson()
-        {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV4.json");
-            return JsonConvert.DeserializeObject<StudyDefinitionsEntity>(jsonData);
-        }
 
         public static StudyDefinitionsDto GetDtoDataFromStaticJson()
         {
@@ -54,7 +49,7 @@ namespace TransCelerate.SDR.UnitTesting
         #endregion
 
         #region Test Cases
-        #region HelperV3 Unit Testing
+        #region HelperV4 Unit Testing
         [Test]
         public void HelpersUnitTesting()
         {
@@ -100,20 +95,14 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void DataFiltersUnitTesting()
         {
-            var filter = DataFiltersV3.GetFiltersForGetStudy("1", 1);
+            var filter = DataFiltersV4.GetFiltersForGetStudy("1", 1);
             Assert.IsNotNull(filter);
 
-            Assert.IsNotNull(DataFiltersV3.GetProjectionForCheckAccessForAStudy());
+            Assert.IsNotNull(DataFiltersV4.GetProjectionForCheckAccessForAStudy());
 
-            Assert.IsNotNull(DataFiltersV3.GetFiltersForChangeAudit("sd"));
+            Assert.IsNotNull(DataFiltersV4.GetProjectionForPartialStudyElements(Constants.StudyElementsV3.Select(x => x.ToLower()).ToArray()));
 
-            Assert.IsNotNull(DataFiltersV3.GetFiltersForGetAudTrail("sd", DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1)));
-
-            Assert.IsNotNull(DataFiltersV3.GetFiltersForStudyHistory(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1), "sd"));
-
-            Assert.IsNotNull(DataFiltersV3.GetProjectionForPartialStudyElements(Constants.StudyElementsV3.Select(x => x.ToLower()).ToArray()));
-
-            Assert.IsNotNull(DataFiltersV3.GetProjectionForPartialStudyDesignElementsFullStudy());
+            Assert.IsNotNull(DataFiltersV4.GetProjectionForPartialStudyDesignElementsFullStudy());
         }
         #endregion
 

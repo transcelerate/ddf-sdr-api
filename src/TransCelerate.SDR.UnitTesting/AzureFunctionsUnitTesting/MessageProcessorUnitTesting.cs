@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using AutoMapper;
+using MongoDB.Driver;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -27,6 +28,7 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
         private readonly Mock<IChangeAuditRepository> _mockChangeAuditRepository = new(MockBehavior.Loose);
         private readonly ILogHelper _mockLogger1 = Mock.Of<ILogHelper>();
         private readonly Mock<IMessageProcessor> _messageProcessor = new(MockBehavior.Loose);
+        private IMapper _mockMapper;
 
         public static Core.Entities.StudyV2.StudyDefinitionsEntity GetEntityDataFromStaticJson()
         {
@@ -38,10 +40,10 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV3.json");
             return JsonConvert.DeserializeObject<Core.Entities.StudyV3.StudyDefinitionsEntity>(jsonData);
         }
-        public static Core.Entities.StudyV4.StudyDefinitionsEntity GetEntityDataFromStaticJsonV4()
+        public static Core.DTO.StudyV4.StudyDefinitionsDto GetDtoDataFromStaticJsonV4()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV4.json");
-            return JsonConvert.DeserializeObject<Core.Entities.StudyV4.StudyDefinitionsEntity>(jsonData);
+            return JsonConvert.DeserializeObject<Core.DTO.StudyV4.StudyDefinitionsDto>(jsonData);
         }
         public static ChangeAuditStudyEntity GetChangeAuditDataFromStaticJson()
         {
@@ -53,6 +55,11 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
         {
             ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ApiUsdmVersionMapping.json"));
             ApiUsdmVersionMapping.SDRVersions = apiUsdmVersionMapping_NonStatic.SDRVersions;
+            var mockMapper = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new WebApi.Mappers.AutoMapperProfilesV4());
+            });
+            _mockMapper = new Mapper(mockMapper);
         }
         [Test]
         public void ProcessMessage_UnitTesting()
@@ -154,6 +161,27 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
                 .Returns(JsonConvert.DeserializeObject<List<AuditTrailEntity>>(JsonConvert.SerializeObject(studyEntities.Select(z => z.AuditTrail).ToList())));
             processor.ProcessMessage(message);
             studyEntities[0].AuditTrail.UsdmVersion = Constants.USDMVersions.V1_9;
+
+            var currentVersionV4 = _mockMapper.Map<Core.Entities.StudyV4.StudyDefinitionsEntity>(GetDtoDataFromStaticJsonV4());
+            var previousVersionV4 = _mockMapper.Map<Core.Entities.StudyV4.StudyDefinitionsEntity>(GetDtoDataFromStaticJsonV4());
+            currentVersionV4.AuditTrail.SDRUploadVersion = 2;
+            currentVersionV4.AuditTrail.UsdmVersion = Constants.USDMVersions.V3;
+            previousVersionV4.AuditTrail.SDRUploadVersion = 1;
+            previousVersionV4.AuditTrail.UsdmVersion = Constants.USDMVersions.V3;
+
+            List<Core.Entities.StudyV4.StudyDefinitionsEntity> studyEntitiesV4 = new()
+            {
+                currentVersionV4,
+                previousVersionV4
+
+            };
+
+            _mockChangeAuditRepository.Setup(x => x.GetAuditTrailsAsync(It.IsAny<string>(), It.IsAny<int>()))
+                .Returns(JsonConvert.DeserializeObject<List<AuditTrailEntity>>(JsonConvert.SerializeObject(studyEntitiesV4.Select(z => z.AuditTrail).ToList())));
+            _mockChangeAuditRepository.Setup(x => x.GetStudyItemsAsyncV4(It.IsAny<string>(), It.IsAny<int>()))
+                .Returns(studyEntitiesV4);
+
+            processor.ProcessMessage(message);
         }
 
         [Test]
