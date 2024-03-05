@@ -389,6 +389,11 @@ namespace TransCelerate.SDR.Services.Services
                 if (searchResponseEntities is null || !searchResponseEntities.Any())
                     return null;
 
+                searchResponseEntities.ForEach(x =>
+                {
+                    if (x.UsdmVersion == Constants.USDMVersions.V3)
+                        x.StudyId = x.StudyIdV4;
+                });
                 var searchResponseDtos = _mapper.Map<List<SearchResponseDto>>(searchResponseEntities);
                 searchResponseDtos = AssignDynamicValues(searchResponseDtos, searchResponseEntities);
                 if (searchParameters.Header?.ToLower() == "phase" || searchParameters.Header?.ToLower() == "sponsorid" || searchParameters.Header?.ToLower() == "interventionmodel" || searchParameters.Header?.ToLower() == "indication")

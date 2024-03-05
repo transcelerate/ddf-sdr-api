@@ -291,6 +291,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                               .Project(x => new SearchResponseEntity
                                               {
                                                   StudyId = x.Study.StudyId,
+                                                  StudyIdV4 = x.Study.Id,
                                                   StudyTitle = x.Study.StudyTitle,
                                                   StudyTitleV4 = x.Study.Versions != null ? x.Study.Versions.First().Titles : null,
                                                   StudyType = x.Study.StudyType,

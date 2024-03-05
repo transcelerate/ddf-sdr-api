@@ -54,21 +54,21 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/SoASampleData.json");
             return JsonConvert.DeserializeObject<SoADto>(jsonData);
         }
-        public static List<ActivityEntity> GetActivitiesForSoADataFromStaticJson()
-        {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/SoASampleDataV4.json");
-            return JsonConvert.DeserializeObject<StudyDesignEntity>(jsonData).Activities;
-        }
-        public static List<EncounterEntity> GetEncountersForSoADataFromStaticJson()
-        {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/SoASampleDataV4.json");
-            return JsonConvert.DeserializeObject<StudyDesignEntity>(jsonData).Encounters;
-        }
-        public static List<ScheduleTimelineEntity> GetTimelinesForSoADataFromStaticJson()
-        {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/SoASampleDataV4.json");
-            return JsonConvert.DeserializeObject<StudyDesignEntity>(jsonData).ScheduleTimelines;
-        }
+        //public static List<ActivityEntity> GetActivitiesForSoADataFromStaticJson()
+        //{
+        //    string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/SoASampleDataV4.json");
+        //    return JsonConvert.DeserializeObject<StudyDesignEntity>(jsonData).Activities;
+        //}
+        //public static List<EncounterEntity> GetEncountersForSoADataFromStaticJson()
+        //{
+        //    string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/SoASampleDataV4.json");
+        //    return JsonConvert.DeserializeObject<StudyDesignEntity>(jsonData).Encounters;
+        //}
+        //public static List<ScheduleTimelineEntity> GetTimelinesForSoADataFromStaticJson()
+        //{
+        //    string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/SoASampleDataV4.json");
+        //    return JsonConvert.DeserializeObject<StudyDesignEntity>(jsonData).ScheduleTimelines;
+        //}
         readonly LoggedInUser user = new()
         {
             UserName = "user1@SDR.com",
@@ -677,7 +677,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         #endregion
 
         #region GET SoA
-        //[Test]
+        [Test]
         public void GetSOAV4_UnitTesting()
         {
             Config.IsGroupFilterEnabled = true;
@@ -688,9 +688,6 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             SoADto SoA = GetSOAV4DataFromStaticJson();
             studyEntity.Study.Versions.FirstOrDefault().StudyType.Decode = "OBSERVATIONAL";
             studyEntity.Study.Versions.FirstOrDefault().StudyDesigns[0].Id = "Sd_1";
-            studyEntity.Study.Versions.FirstOrDefault().StudyDesigns[0].Encounters = GetEncountersForSoADataFromStaticJson();
-            studyEntity.Study.Versions.FirstOrDefault().StudyDesigns[0].Activities = GetActivitiesForSoADataFromStaticJson();
-            studyEntity.Study.Versions.FirstOrDefault().StudyDesigns[0].ScheduleTimelines = GetTimelinesForSoADataFromStaticJson();
 
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity));
@@ -732,7 +729,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             Assert.AreEqual(method.Result.ToString(), Constants.ErrorMessages.ScheduleTimelineNotFound);
 
             user.UserRole = Constants.Roles.App_User;
-            method = studyService.GetSOAV4("1", "Sd_1", "Wf1", 0, user);
+            method = studyService.GetSOAV4("1", "StudyDesign_1", "ScheduleTimeline_4", 0, user);
             method.Wait();
 
             Assert.AreEqual(method.Result.ToString(), Constants.ErrorMessages.Forbidden);
@@ -740,7 +737,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                  .Throws(new Exception("Error"));
 
-            method = studyService.GetSOAV4("1", "Sd_1", "Wf1", 0, user);
+            method = studyService.GetSOAV4("1", "StudyDesign_1", "ScheduleTimeline_4", 0, user);
 
 
             Assert.Throws<AggregateException>(method.Wait);
@@ -749,7 +746,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                  .Returns(Task.FromResult(study));
 
-            method = studyService.GetSOAV4("1", "Sd_1", "Wf1", 0, user);
+            method = studyService.GetSOAV4("1", "StudyDesign_1", "ScheduleTimeline_4", 0, user);
             method.Wait();
 
             Assert.IsNull(method.Result);

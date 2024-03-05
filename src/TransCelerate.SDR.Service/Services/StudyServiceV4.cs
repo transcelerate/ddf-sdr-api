@@ -17,6 +17,7 @@ using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4;
 using TransCelerate.SDR.DataAccess.Interfaces;
 using TransCelerate.SDR.Services.Interfaces;
+using static TransCelerate.SDR.Core.Utilities.Common.Constants;
 
 namespace TransCelerate.SDR.Services.Services
 {
@@ -266,9 +267,10 @@ namespace TransCelerate.SDR.Services.Services
                     if (checkStudy == null)
                         return Constants.ErrorMessages.Forbidden;
 
-                    var soa = SoAV4(study.Study.Versions?.FirstOrDefault()?.StudyDesigns);
+                    var studyVersions = study.Study.Versions?.FirstOrDefault();
+                    var soa = SoAV4(studyVersions?.StudyDesigns);
                     soa.StudyId = study.Study.Id;
-                    //soa.StudyTitle = study.Study.Versions?.FirstOrDefault()?.Titles;
+                    soa.StudyTitle = studyVersions!= null && studyVersions.Titles.Any(x => x.Type.Decode == Constants.StudyTitle.OfficialStudyTitle) ? studyVersions.Titles.Find(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle).Text : null;
                     if (!String.IsNullOrWhiteSpace(studyDesignId))
                     {
                         if (study.Study.Versions != null && study.Study.Versions.FirstOrDefault()?.StudyDesigns is null || !soa.StudyDesigns.Any(x => x.StudyDesignId == studyDesignId))
