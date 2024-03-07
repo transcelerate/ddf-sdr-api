@@ -114,8 +114,15 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         public struct StudyTitle
         {
             public const string OfficialStudyTitle = "Official Study Title";
+            public const string BriefStudyTitle = "Brief Study Title";
+            public const string PublicStudyTitle = "Public Study Title";
+            public const string ScientificStudyTitle = "Scientific Study Title";
+            public const string StudyAcronym = "Study Acronym";
         }
-
+        public struct DateValue
+        {
+            public const string ProtocolEffectiveDate = "Protocol Effective Date";
+        }
         public struct DefaultValues
         {
             public const int IntegerMinimumValue = 0;

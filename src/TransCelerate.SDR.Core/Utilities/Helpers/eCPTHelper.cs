@@ -7,8 +7,9 @@ using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
 {
-    public class ECPTHelper
+    public static class ECPTHelper
     {
+        #region eCPT Helper V2
         public static string GetPlannedSexOfParticipantsV2(List<TransCelerate.SDR.Core.DTO.StudyV2.StudyDesignPopulationDto> studyDesignPopulations)
         {
             if (studyDesignPopulations != null && studyDesignPopulations.Any())
@@ -102,7 +103,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             }
             return objectivesEndpointsAndEstimandsDto;
         }
+        #endregion
 
+        #region eCPT Helper V3
         public static string GetPlannedSexOfParticipantsV3(List<TransCelerate.SDR.Core.DTO.StudyV3.StudyDesignPopulationDto> studyDesignPopulations)
         {
             if (studyDesignPopulations != null && studyDesignPopulations.Any())
@@ -168,54 +171,101 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             }
             return objectivesEndpointsAndEstimandsDto;
         }
+        #endregion
 
-        //public static string GetPlannedSexOfParticipantsV4(List<TransCelerate.SDR.Core.DTO.StudyV4.StudyDesignPopulationDto> studyDesignPopulations)
-        //{
-        //    if (studyDesignPopulations != null && studyDesignPopulations.Any())
-        //    {
-        //        List<TransCelerate.SDR.Core.DTO.StudyV4.CodeDto> plannedSexofParticipants = studyDesignPopulations.Where(x => x.PlannedSexOfParticipants != null).SelectMany(x => x.PlannedSexOfParticipants).ToList();
-        //        if (plannedSexofParticipants.Any())
-        //        {
-        //            if (plannedSexofParticipants.Count == 1)
-        //            {
-        //                return GetCptMappingValue(Constants.SdrCptMasterDataEntities.SexofParticipants, plannedSexofParticipants[0].Code) ?? plannedSexofParticipants[0].Decode;
-        //            }
-        //            var cptMappingForPlannedSexofParticipants = plannedSexofParticipants.Select(x => new
-        //            {
-        //                code = x.Code,
-        //                decode = x.Decode,
-        //                cptValue = GetCptMappingValue(Constants.SdrCptMasterDataEntities.SexofParticipants, x.Code)
-        //            });
-        //            if ((cptMappingForPlannedSexofParticipants.Any(x => x.cptValue == Constants.PlannedSexOfParticipants.Male) && cptMappingForPlannedSexofParticipants.Any(x => x.cptValue == Constants.PlannedSexOfParticipants.Female)) || cptMappingForPlannedSexofParticipants.Any(x => x.cptValue == Constants.PlannedSexOfParticipants.MaleOrFemale))
-        //            {
-        //                return Constants.PlannedSexOfParticipants.MaleOrFemale;
-        //            }
-        //            else if (cptMappingForPlannedSexofParticipants.Any(x => x.cptValue == Constants.PlannedSexOfParticipants.Male))
-        //            {
-        //                return Constants.PlannedSexOfParticipants.Male;
-        //            }
-        //            else if (cptMappingForPlannedSexofParticipants.Any(x => x.cptValue == Constants.PlannedSexOfParticipants.Female))
-        //            {
-        //                return Constants.PlannedSexOfParticipants.Female;
-        //            }
-        //            else
-        //                return String.Empty;
-        //        }
-        //    }
-        //    return null;
-        //}
-        public static TransCelerate.SDR.Core.DTO.StudyV4.StudyProtocolDocumentVersionDto GetOrderedStudyProtocolsV4(List<TransCelerate.SDR.Core.DTO.StudyV4.StudyProtocolDocumentVersionDto> studyProtocolVersions)
+        #region eCPT Helper V4
+        public static string GetPlannedSexOfParticipantsFromCodeListV4(this List<TransCelerate.SDR.Core.DTO.StudyV4.CodeDto> plannedSexofParticipants)
         {
-            //var protocolsWithDateAndVersions = studyProtocolVersions.Where(x => DateTime.TryParse(x.ProtocolEffectiveDate, out var date) && decimal.TryParse(x.ProtocolVersion, out decimal version)).ToList();
+            if (plannedSexofParticipants != null && plannedSexofParticipants.Any())
+            {                
+                if (plannedSexofParticipants.Any())
+                {
+                    if (plannedSexofParticipants.Count == 1)
+                    {
+                        return GetCptMappingValue(Constants.SdrCptMasterDataEntities.SexofParticipants, plannedSexofParticipants[0].Code) ?? plannedSexofParticipants[0].Decode;
+                    }
+                    var cptMappingForPlannedSexofParticipants = plannedSexofParticipants.Select(x => new
+                    {
+                        code = x.Code,
+                        decode = x.Decode,
+                        cptValue = GetCptMappingValue(Constants.SdrCptMasterDataEntities.SexofParticipants, x.Code)
+                    });
+                    if ((cptMappingForPlannedSexofParticipants.Any(x => x.cptValue == Constants.PlannedSexOfParticipants.Male) && cptMappingForPlannedSexofParticipants.Any(x => x.cptValue == Constants.PlannedSexOfParticipants.Female)) || cptMappingForPlannedSexofParticipants.Any(x => x.cptValue == Constants.PlannedSexOfParticipants.MaleOrFemale))
+                    {
+                        return Constants.PlannedSexOfParticipants.MaleOrFemale;
+                    }
+                    else if (cptMappingForPlannedSexofParticipants.Any(x => x.cptValue == Constants.PlannedSexOfParticipants.Male))
+                    {
+                        return Constants.PlannedSexOfParticipants.Male;
+                    }
+                    else if (cptMappingForPlannedSexofParticipants.Any(x => x.cptValue == Constants.PlannedSexOfParticipants.Female))
+                    {
+                        return Constants.PlannedSexOfParticipants.Female;
+                    }
+                    else
+                        return String.Empty;
+                }
+            }
+            return null;
+        }
+        public static TransCelerate.SDR.Core.DTO.StudyV4.StudyProtocolDocumentVersionDto GetStudyProtocolVersionsV4(this Core.DTO.StudyV4.StudyVersionDto studyVersion, List<TransCelerate.SDR.Core.DTO.StudyV4.StudyProtocolDocumentVersionDto> studyProtocolVersions)
+        {
+            if (!String.IsNullOrWhiteSpace(studyVersion.DocumentVersionId))
+            {
+                return (studyProtocolVersions.Find(x => x.Id == studyVersion.DocumentVersionId));
+            }
+            return null;
+        }
+        public static string GetNumberOfParticipantsV4(this Core.DTO.StudyV4.StudyDesignPopulationDto population)
+        {
+            if (population is not null && population.PlannedEnrollmentNumber is not null)
+            {
+                if (Convert.ToInt32(population.PlannedEnrollmentNumber.MaxValue) == Convert.ToInt32(population.PlannedEnrollmentNumber.MinValue))
+                    return population.PlannedEnrollmentNumber.MaxValue.ToString();
+                else
+                    return $"{population.PlannedEnrollmentNumber.MinValue} to {population.PlannedEnrollmentNumber.MaxValue}";
+            }
+            else if (population is not null && population.PlannedEnrollmentNumber is null)
+            {
+                if (population.Cohorts is not null && population.Cohorts.Any())
+                {
+                    var plannedEnrollmentNumbers = population.Cohorts.Where(x => x.PlannedEnrollmentNumber is not null).Select(x => x.PlannedEnrollmentNumber);
+                    if (plannedEnrollmentNumbers.Min(x => Convert.ToInt32(x.MinValue)) != plannedEnrollmentNumbers.Max(x => Convert.ToInt32(x.MaxValue)))
+                    {
+                        return $"{plannedEnrollmentNumbers.Min(x => x.MinValue)} to {plannedEnrollmentNumbers.Max(x => x.MaxValue)}";
+                    }
+                    else
+                        return $"{plannedEnrollmentNumbers.Max(x => x.MaxValue)}";
+                }
+            }
+            return null;
+        }
 
-            //if (!protocolsWithDateAndVersions.Any())
-            //    return studyProtocolVersions.FirstOrDefault();
-            //else if (protocolsWithDateAndVersions.Count == 1)
-            //    return protocolsWithDateAndVersions.FirstOrDefault();
-            //else
-            //    return protocolsWithDateAndVersions.OrderByDescending(x => DateTime.Parse(x.ProtocolEffectiveDate)).ThenByDescending(x => decimal.Parse(x.ProtocolVersion)).FirstOrDefault();
-
-            return studyProtocolVersions.FirstOrDefault();
+        public static string GetPlannedSexOfParticipantsV4(this Core.DTO.StudyV4.StudyDesignPopulationDto population)
+        {
+            if (population is not null && population.PlannedSex is not null && population.PlannedSex.Any())
+            {
+                var plannedSexOfParticipants = population.PlannedSex;
+                if (population.Cohorts is not null && population.Cohorts.Any())
+                {
+                    plannedSexOfParticipants.AddRange(population.Cohorts.Where(x => x.PlannedSex is not null && x.PlannedSex.Any()).SelectMany(x => x.PlannedSex).ToList());
+                }
+                return plannedSexOfParticipants.GetPlannedSexOfParticipantsFromCodeListV4();
+            }
+            return null;
+        }
+        public static string GetAgeV4(this Core.DTO.StudyV4.StudyDesignPopulationDto population, bool isMax)
+        {
+            if (population is not null && population.PlannedAge is not null)
+            {
+                var plannedAges = new List<Core.DTO.StudyV4.RangeDto> { population.PlannedAge };
+                if (population.Cohorts is not null && population.Cohorts.Any())
+                {
+                    plannedAges.AddRange(population.Cohorts.Where(x => x.PlannedAge is not null).Select(x => x.PlannedAge).ToList());
+                }
+                return isMax ? plannedAges.Max(x => x.MaxValue).ToString() : plannedAges.Min(x => x.MinValue).ToString();
+            }
+            return null;
         }
         public static ObjectivesEndpointsAndEstimandsDto GetObjectivesEndpointsAndEstimandsDtoV4(List<TransCelerate.SDR.Core.DTO.StudyV4.ObjectiveDto> objectives, IMapper mapper)
         {
@@ -235,6 +285,32 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 }
             }
             return objectivesEndpointsAndEstimandsDto;
+        } 
+
+        public static string GetAmendmentNumber(this List<Core.DTO.StudyV4.StudyAmendmentDto> amendments)
+        {            
+            if (amendments is not null && amendments.Any())
+            {
+                // If there is only one amendment, take the first one
+                if (amendments.Count == 1)
+                    return amendments.First().Number;
+                else
+                {
+                    // If there are more than one amendment, but the previous Id is not referred for more than one or none amendment, then take 1st amendment
+                    if (amendments.Where(x => String.IsNullOrWhiteSpace(x.PreviousId)).Count() != 1)
+                        return amendments.First().Number;
+                    else
+                    {
+                        // If there are more than one amendment, that is not referred in previousId, then take 1st amendment
+                        if (amendments.Where(x => !amendments.Select(y => y.PreviousId).Contains(x.Id)).Count() != 1)
+                            return amendments.First().Number;
+                        else
+                            return amendments.Find(x => !amendments.Select(y => y.PreviousId).Contains(x.Id)).Number;
+                    }
+                }
+            }
+            return null;
         }
+        #endregion
     }
 }

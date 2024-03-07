@@ -273,9 +273,7 @@ namespace TransCelerate.SDR.Services.Services
                 var searchParameters = _mapper.Map<SearchTitleParametersEntity>(searchParametersDTO);
 
                 var searchResponse = await _commonRepository.SearchTitle(searchParameters, user);
-                //searchResponse = await CheckAccessForListOfStudies(searchResponse, user);
-                //if (searchResponse == null)
-                //    return new List<SearchTitleResponseDto>();
+
                 var searchTitleDTOList = _mapper.Map<List<SearchTitleResponseDto>>(searchResponse);
 
                 if (searchParameters.GroupByStudyId)
@@ -289,13 +287,10 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 searchTitleDTOList = AssignStudyIdentifiers(searchTitleDTOList, searchResponse);
 
-                //if (searchParameters.SortBy?.ToLower() == "sponsorid")
-                //{
-                    searchTitleDTOList = SortStudyTitle(searchTitleDTOList, searchParametersDTO)
+                searchTitleDTOList = SortStudyTitle(searchTitleDTOList, searchParametersDTO)
                                            .Skip((searchParametersDTO.PageNumber - 1) * searchParametersDTO.PageSize)
                                            .Take(searchParametersDTO.PageSize)
                                            .ToList();
-                //}
 
                 return searchTitleDTOList;
             }
@@ -318,7 +313,7 @@ namespace TransCelerate.SDR.Services.Services
                 if (searchResponse.UsdmVersion == Constants.USDMVersions.V3)
                 {
                     var studyTitleV4 = searchResponse.StudyTitle != null ? JsonConvert.DeserializeObject<List<CommonStudyTitle>>(JsonConvert.SerializeObject(searchResponse.StudyTitle)) : null;
-                    searchTitleDTO.Study.StudyTitle = studyTitleV4 != null && studyTitleV4.Any(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle) ? studyTitleV4.Find(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle).Text : null;
+                    searchTitleDTO.Study.StudyTitle = studyTitleV4.GetStudyTitle(Constants.StudyTitle.OfficialStudyTitle);
                 }
 
                 if (searchResponse.StudyIdentifiers != null)
@@ -431,7 +426,7 @@ namespace TransCelerate.SDR.Services.Services
                 if (searchResponseEntity.UsdmVersion == Constants.USDMVersions.V3)
                 {
                     var studyTitleV4 = searchResponseEntity.StudyTitleV4 != null ? JsonConvert.DeserializeObject<List<CommonStudyTitle>>(JsonConvert.SerializeObject(searchResponseEntity.StudyTitleV4)) : null;
-                    searchResponseDto.Study.StudyTitle = studyTitleV4 != null && studyTitleV4.Any(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle) ? studyTitleV4.Find(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle).Text : null;
+                    searchResponseDto.Study.StudyTitle = studyTitleV4.GetStudyTitle(Constants.StudyTitle.OfficialStudyTitle);
                 }
                 #endregion
                 #region StudyIdentifiers
