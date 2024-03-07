@@ -1809,6 +1809,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                 changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.Versions)}{Constants.VersionCompareConstants.ArrayBrackets}");
 
             changedValues.AddRange(GetDifferenceForAListForStudyComparison(currentVersion, previousVersion));
+            changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.Titles)}"));
             changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.StudyType)}"));
             changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.DateValues)}"));
             changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.Amendments)}"));
@@ -1823,8 +1824,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                 {
                     var prevVer = previousVersion.Find(x => x.Id == currVer.Id);
                     var currentVersionIndex = currentVersion.IndexOf(currVer);
-                    if (currVer.Titles != prevVer.Titles)
-                        changedValues.Add($"[{currentVersionIndex}].{nameof(StudyVersionEntity.Titles)}");
                     if (currVer.VersionIdentifier != prevVer.VersionIdentifier)
                         changedValues.Add($"[{currentVersionIndex}].{nameof(StudyVersionEntity.VersionIdentifier)}");
                     if (currVer.Rationale != prevVer.Rationale)
@@ -2146,7 +2145,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                         if (currentStudyDesign.Description != previousStudyDesign.Description)
                             changedValues.Add($"{nameof(StudyDesignEntity.Description)}");
 
-                        if (currentStudyDesign.Description != previousStudyDesign.Label)
+                        if (currentStudyDesign.Label != previousStudyDesign.Label)
                             changedValues.Add($"{nameof(StudyDesignEntity.Label)}");
 
                         //StudyDesignRationale

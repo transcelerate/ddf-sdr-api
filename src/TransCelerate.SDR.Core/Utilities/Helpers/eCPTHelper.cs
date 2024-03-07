@@ -220,7 +220,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             if (population is not null && population.PlannedEnrollmentNumber is not null)
             {
-                if (population.PlannedEnrollmentNumber.MaxValue == population.PlannedEnrollmentNumber.MinValue)
+                if (Convert.ToInt32(population.PlannedEnrollmentNumber.MaxValue) == Convert.ToInt32(population.PlannedEnrollmentNumber.MinValue))
                     return population.PlannedEnrollmentNumber.MaxValue.ToString();
                 else
                     return $"{population.PlannedEnrollmentNumber.MinValue} to {population.PlannedEnrollmentNumber.MaxValue}";
@@ -230,7 +230,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 if (population.Cohorts is not null && population.Cohorts.Any())
                 {
                     var plannedEnrollmentNumbers = population.Cohorts.Where(x => x.PlannedEnrollmentNumber is not null).Select(x => x.PlannedEnrollmentNumber);
-                    if (plannedEnrollmentNumbers.Min(x => x.MinValue) != plannedEnrollmentNumbers.Max(x => x.MaxValue))
+                    if (plannedEnrollmentNumbers.Min(x => Convert.ToInt32(x.MinValue)) != plannedEnrollmentNumbers.Max(x => Convert.ToInt32(x.MaxValue)))
                     {
                         return $"{plannedEnrollmentNumbers.Min(x => x.MinValue)} to {plannedEnrollmentNumbers.Max(x => x.MaxValue)}";
                     }

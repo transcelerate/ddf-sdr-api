@@ -107,10 +107,14 @@ namespace TransCelerate.SDR.WebApi.Mappers
             //ECPT Mapper
             CreateMap<EndpointDto, TransCelerate.SDR.Core.DTO.eCPT.ObjectiveEndpointDto>()
                  .ForMember(dest => dest.EndpointLevel, opt => opt.MapFrom(src => src.Level != null ? src.Level.Decode : null))
+                 .ForMember(dest => dest.EndpointDescription, opt => opt.MapFrom(src => src.Description))
+                 .ForMember(dest => dest.EndpointPurposeDescription, opt => opt.MapFrom(src => src.Purpose))
                  .ReverseMap();
 
             CreateMap<ObjectiveDto, TransCelerate.SDR.Core.DTO.eCPT.ObjectivesDto>()
                   .ForMember(dest => dest.ObjectiveLevel, opt => opt.MapFrom(src => src.Level != null ? src.Level.Decode : null))
+                  .ForMember(dest => dest.ObjectiveEndpoints, opt => opt.MapFrom(src => src.Endpoints))
+                  .ForMember(dest => dest.ObjectiveDescription, opt => opt.MapFrom(src => src.Description))
                   .ReverseMap();
 
             CreateMap<StudyArmDto, TransCelerate.SDR.Core.DTO.eCPT.StudyArmDto>()
