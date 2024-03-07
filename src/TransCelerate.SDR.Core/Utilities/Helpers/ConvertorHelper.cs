@@ -23,8 +23,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             if (usdmVersion == Constants.USDMVersions.V3)
             {
-                var studyTitleV4 = studyTitles != null ? JsonConvert.DeserializeObject<List<CommonStudyTitle>>(JsonConvert.SerializeObject(studyTitles)) : null;
-                return studyTitleV4 != null && studyTitleV4.Any(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle) ? studyTitleV4.Find(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle).Text : null;
+                var studyTitleV4 = studyTitles is not null ? JsonConvert.DeserializeObject<List<CommonStudyTitle>>(JsonConvert.SerializeObject(studyTitles)) : null;
+                return studyTitleV4.GetStudyTitle(Constants.StudyTitle.OfficialStudyTitle);
             }
             return studyTitles;
         }
