@@ -1,13 +1,18 @@
 - [Introduction](#introduction)
   - [Requirements to Contribute and Propose Changes](#requirements-to-contribute-and-propose-changes)
-- [Pre-requisites](#pre-requisites)
-- [Code setup and debugging](#code-setup-and-debugging)
-- [Base solution structure](#base-solution-structure)
-- [Sample Data](#sample-data)
-- [SDR-API](#sdr-api)
-  - [List of Endpoints](#list-of-endpoints)
-  - [API Versioning](#api-versioning)
-- [Nuget packages](#nuget-packages)
+- [Intended-Audience](#intended-audience)
+- [Overview](#overview)
+- [Setup & Code Access](#setup-code-access)
+  - [Pre-requisites](#pre-requisites)
+  - [How To Setup Code](#how-to-setup-code)
+  - [How To Run](#how-to-run)
+- [Other Information](#other-information)
+  - [Base solution structure](#base-solution-structure)
+  - [Sample Data](#sample-data)
+  - [SDR-API](#sdr-api)
+    - [List of Endpoints](#list-of-endpoints)
+    - [API Versioning](#api-versioning)
+  - [Nuget packages](#nuget-packages)
 
 
 # Introduction
@@ -48,9 +53,10 @@ It assumes a good understanding of Azure concepts and services. The audience for
 
 # Overview
 The SDR Reference Implementation  implements the CDISC DDF Reference Architecture which include USDM model and API Specifications defined using the OpenAPI Specification (OAS). The API Layer of the SDR Reference Implementation complies with the OpenAPI Specification which allow systems to discover and understand the capabilities of the service without access to source code, documentation, or through network traffic inspection. When properly defined, a consumer can understand and interact with the remote service with a minimal amount of implementation logic.
+
 It follows the REST architectural style that uses HTTP requests to GET, POST and PUT data. RESTful architecture is not linked with any technology or platform, it does not dictate exactly how to build an API. Instead, it introduces the best practices known as constraints. They describe how the server processes requests and responds to them. Operating within these constraints, the system gains desirable properties such as reliability, ease of use, improved scalability and security, low latency while enhancing the system performance and helping achieve technology independence in the process.
 
-# Code setup and debugging
+# Setup & Code Access
 ## Pre-requisites
 
 1. Install [Visual Studio 2022](https://visualstudio.microsoft.com/) with default options to run the solution.
@@ -92,10 +98,10 @@ git clone "repo_url"
  },
  "isGroupFilterEnabled": true  // change value to false to disable user based data filtering,
  "isAuthEnabled": true  // change value to false to disable authorization
- "ApiVersionUsdmVersionMapping":"" // {"SDRVersions":[{"apiVersion":"v1","usdmVersions":["1.0"]},{"apiVersion":"v2","usdmVersions":["1.9"]},{"apiVersion":"v3","usdmVersions":["2.0"]}]}
+ "ApiVersionUsdmVersionMapping":"" // {"SDRVersions":[{"apiVersion":"v2","usdmVersions":["1.9"]},{"apiVersion":"v3","usdmVersions":["2.0"]},{"apiVersion":"v4","usdmVersions":["3.0"]}]}
 ```
 > **Note**  
-> **API to USDM Version mapping** - SDR supports 3 major USDM versions at a given point in time along with all their minor versions. API endpoints are up-versioned for breaking changes in USDM (API V1 -> USDM V1.0, API V2 -> USDM 1.9, API V3 -> USDM 2.0).
+> **API to USDM Version mapping** - SDR supports 3 major USDM versions at a given point in time along with all their minor versions. API endpoints are up-versioned for breaking changes in USDM (API V2 -> USDM V1.9, API V3 -> USDM 2.0, API V4 -> USDM 3.0).
 
 3. Then, In the Visual Studio IDE, on clicking the IIS Express Icon or on pressing F5, WebApi solution will start running locally.
 
@@ -129,7 +135,8 @@ git clone "repo_url"
 
 4. The browser will automatically open a console which will start listen on the Azure Service Bus Queue.
 
-# Base solution structure
+# Other Information
+## Base solution structure
 
 The solution has the following structure:
 
@@ -206,21 +213,21 @@ The solution has the following structure:
 
 **[TransCelerate.SDR.WebApi](src/TransCelerate.SDR.WebApi/TransCelerate.SDR.WebApi.md)** - contains API controllers, mappers and the startup for the application.
 
-# Sample Data
+## Sample Data
 For those looking to evaluate the USDM with a sample data set, please see the following files in the Data Model folder:
 - [USDM V1.0 conformant Sample JSON](data-model/sdr-release-v0.5/SDR%20Study%20Sample-JSON-V1.0.json)
 - [USDM V1.9 conformant Sample JSON](data-model/sdr-release-v2.0/ddf-sdr-api-study-sample-json-v1.9.json)
 - [USDM V2.0 conformant Sample JSON](data-model/sdr-release-v2.0.2/ddf-sdr-api-study-sample-json-v2.0.json)
 
-# SDR API
-## List Of Endpoints
+## SDR API
+### List Of Endpoints
 
 The below GET endpoint can be used to GET API Version -> USDM Version mapping.
 ```
 /versions
 ```
 
-### V2 Endpoints (USDM Version 1.9)
+#### V2 Endpoints (USDM Version 1.9)
 
 For V2 endpoints, the "usdmVersion" header parameter is mandatory and the header value must be "1.9"
 
@@ -255,7 +262,7 @@ The below endpoint can be used to fetch data from study definitions that help bu
 ```
 /v2/studydefinitions/{studyId}/studydesigns/soa
 ```
-### V3 Endpoints (USDM Version 2.0)
+#### V3 Endpoints (USDM Version 2.0)
 
 For V3 endpoints, the "usdmVersion" header parameter is mandatory and the header value must be "2.0"
 
@@ -298,7 +305,7 @@ The below endpoint can be used to fetch data from study definitions that help bu
 ```
 /v3/studydefinitions/{studyId}/studydesigns/soa
 ```
-### V4 Endpoints (USDM Version 3.0)
+#### V4 Endpoints (USDM Version 3.0)
 
 For V4 endpoints, the "usdmVersion" header parameter is mandatory and the header value must be "3.0"
 
@@ -341,7 +348,7 @@ The below endpoint can be used to fetch data from study definitions that help bu
 ```
 /v4/studydefinitions/{studyId}/studydesigns/soa
 ```
-### Version Neutral Endpoints
+#### Version Neutral Endpoints
 
 The below endpoints can be used to fetch the revision history for a given StudyId.
 
@@ -364,7 +371,7 @@ The below endpoint can be used to fetch the change audit details of a study defi
 /studydefinitions/{studyId}/changeaudit
 ```
 
-### API Spec
+#### API Spec
 To view the API specifications and to run the endpoints locally, the below swagger url can be used.
 
 ```
@@ -372,7 +379,7 @@ https://localhost:44358/swagger/index.html
 ```
 **Note**: Refer **[DDF SDR API User Guide](documents/sdr-release-v2.0.2/ddf-sdr-ri-api-user-guide-v6.0.pdf)** for detailed information on all the endpoints.
 
-## API Versioning
+### API Versioning
 SDR APIs are defined in such a way that an API version can handle more than one USDM Version. If there are no breaking changes between the USDM Versions, with same API version, more than one USDM Versions can be handled. But, when there is a breaking change in a new USDM Version, a new API version must be created to support the new USDM Version. Below are the list of changes that are required when creating a new API version.
 - Configuration for **ApiVersionUsdmVersionMapping** and **ConformanceRules** must be updated to support new API version.
 - Create new version for the below listed components
@@ -392,7 +399,7 @@ SDR APIs are defined in such a way that an API version can handle more than one 
  TransCelerate.SDR.Services
 ```
 
-# Nuget Packages 
+## Nuget Packages 
 
 1. **Automapper.Extensions.Microsoft.DependencyInjection** - Used for mapping two different classes.
 
