@@ -1,9 +1,9 @@
 - [Introduction](#introduction)
   - [Requirements to Contribute and Propose Changes](#requirements-to-contribute-and-propose-changes)
-- [Sample Data](#sample-data)
 - [Pre-requisites](#pre-requisites)
 - [Code setup and debugging](#code-setup-and-debugging)
 - [Base solution structure](#base-solution-structure)
+- [Sample Data](#sample-data)
 - [SDR-API](#sdr-api)
   - [List of Endpoints](#list-of-endpoints)
   - [API Versioning](#api-versioning)
@@ -37,11 +37,18 @@ To acknowledge the CLA, follow these instructions:
 
 NOTE: Keep a copy for your records.
 
-# Sample Data
-For those looking to evaluate the USDM with a sample data set, please see the following files in the Data Model folder:
-- [USDM V1.0 conformant Sample JSON](data-model/sdr-release-v0.5/SDR%20Study%20Sample-JSON-V1.0.json)
-- [USDM V1.9 conformant Sample JSON](data-model/sdr-release-v2.0/ddf-sdr-api-study-sample-json-v1.9.json)
-- [USDM V2.0 conformant Sample JSON](data-model/sdr-release-v2.0.2/ddf-sdr-api-study-sample-json-v2.0.json)
+# Intended Audience
+The contents in this repository allows users to develop SDR Reference Implementation API onto their Azure Cloud Subscription via their own GitHub Repos and Workflows. The deployment scripts (YAML Scripts) can be configured and executed from GitHub Actions, leveraging GitHub Secrets to configure target environment specific values.
+
+It assumes a good understanding of Azure concepts and services. The audience for this document should:
+- have clear understanding of C# and .NET Web APIs
+- have basic understanding of MongoDB and MongoDB C# driver
+- be aware of how to use Azure portal and basic understanding of Azure Cloud Platform
+- have basic understanding of GitHub Actions, Secrets & Yaml Scripts
+
+# Overview
+The SDR Reference Implementation  implements the CDISC DDF Reference Architecture which include USDM model and API Specifications defined using the OpenAPI Specification (OAS). The API Layer of the SDR Reference Implementation complies with the OpenAPI Specification which allow systems to discover and understand the capabilities of the service without access to source code, documentation, or through network traffic inspection. When properly defined, a consumer can understand and interact with the remote service with a minimal amount of implementation logic.
+It follows the REST architectural style that uses HTTP requests to GET, POST and PUT data. RESTful architecture is not linked with any technology or platform, it does not dictate exactly how to build an API. Instead, it introduces the best practices known as constraints. They describe how the server processes requests and responds to them. Operating within these constraints, the system gains desirable properties such as reliability, ease of use, improved scalability and security, low latency while enhancing the system performance and helping achieve technology independence in the process.
 
 # Code setup and debugging
 ## Pre-requisites
@@ -151,15 +158,16 @@ The solution has the following structure:
       │   └── TransCelerate.SDR.DataAccess.md
       ├── TransCelerate.SDR.RuleEngine
       │   ├── Common
-      │   ├── StudyRules
-      │   ├── StudyV1Rules
       │   ├── StudyV2Rules
+      │   ├── StudyV3Rules
+      │   ├── StudyV4Rules
       │   ├── Token
       │   ├── UserGroupMappingRules
       │   ├── ValidationDependencies.cs
       │   ├── ValidationDependenciesCommon.cs
-      │   ├── ValidationDependenciesV1.cs 
-      │   ├── ValidationDependenciesV2.cs
+      │   ├── ValidationDependenciesV2.cs 
+      │   ├── ValidationDependenciesV3.cs
+      │   ├── ValidationDependenciesV4.cs
       │   └── TransCelerate.SDR.RuleEngine.md
       ├── TransCelerate.SDR.Service
       │   ├── Interfaces
@@ -198,37 +206,18 @@ The solution has the following structure:
 
 **[TransCelerate.SDR.WebApi](src/TransCelerate.SDR.WebApi/TransCelerate.SDR.WebApi.md)** - contains API controllers, mappers and the startup for the application.
 
+# Sample Data
+For those looking to evaluate the USDM with a sample data set, please see the following files in the Data Model folder:
+- [USDM V1.0 conformant Sample JSON](data-model/sdr-release-v0.5/SDR%20Study%20Sample-JSON-V1.0.json)
+- [USDM V1.9 conformant Sample JSON](data-model/sdr-release-v2.0/ddf-sdr-api-study-sample-json-v1.9.json)
+- [USDM V2.0 conformant Sample JSON](data-model/sdr-release-v2.0.2/ddf-sdr-api-study-sample-json-v2.0.json)
+
 # SDR API
 ## List Of Endpoints
 
 The below GET endpoint can be used to GET API Version -> USDM Version mapping.
 ```
 /versions
-```
-
-### V1 Endpoints (USDM Version 1.0)
-
-For V1 endpoints, the "usdmVersion" header parameter is mandatory and the header value must be "1.0"
-
-**POST Endpoint**
-
-The below endpoint can be used to create new (or) update existing study definitions.
-```
-/v1/studydefinitions
-```
-
-**GET Endpoints**
-
-The below endpoint can be used to fetch all the elements for a given StudyId.
-
-```
-/v1/studydefinitions/{studyId}
-```
-
-The below endpoint can be used to fetch the sections of study design for a given StudyId.
-
-```
-​/v1​/studydesign​s?study_uuid={studyId}
 ```
 
 ### V2 Endpoints (USDM Version 1.9)
@@ -308,6 +297,49 @@ The below endpoint can be used to export study details mapped to a limited set o
 The below endpoint can be used to fetch data from study definitions that help build the Schedule of Activities matrix for a given Schedule Timeline in a Study Design
 ```
 /v3/studydefinitions/{studyId}/studydesigns/soa
+```
+### V4 Endpoints (USDM Version 3.0)
+
+For V4 endpoints, the "usdmVersion" header parameter is mandatory and the header value must be "3.0"
+
+**POST Endpoint**
+The below endpoint can be used to create new study definitions.
+```
+/v4/studydefinitions
+```
+The below endpoint can be used to validate the USDM conformance rules for a study definition
+```
+/v4/studydefinitions/validate-usdm-conformance
+```
+**PUT Endpoint**
+The below endpoint can be used to update existing study definitions (create new version for a study definition).
+```
+/v4/studydefinitions/{studyId}
+```
+**GET Endpoints**
+
+The below endpoint can be used to fetch all the elements for a given StudyId.
+
+```
+/v4/studydefinitions/{studyId}
+```
+
+The below endpoint can be used to fetch the sections of study design for a given StudyId.
+
+```
+/v4/studydesigns?studyId={studyId}
+```
+The below endpoint can be used to get the changes between two SDR Upload Versions of a specific study definition
+```
+/v4/studydefinitions/{studyId}/version-comparison?sdruploadversionone={sdruploadversionone}&sdruploadversiontwo={sdruploadversiontwo}
+```
+The below endpoint can be used to export study details mapped to a limited set of CPT Variables grouped by sections within the Common Protocol Template
+```
+/v4/studydefinitions/{studyId}/studydesigns/ecpt
+```
+The below endpoint can be used to fetch data from study definitions that help build the Schedule of Activities matrix for a given Schedule Timeline in a Study Design
+```
+/v4/studydefinitions/{studyId}/studydesigns/soa
 ```
 ### Version Neutral Endpoints
 
