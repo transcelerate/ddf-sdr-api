@@ -323,8 +323,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                 {
                     var prevVer = previousVersion.Find(x => x.Id == currVer.Id);
                     var currentVersionIndex = currentVersion.IndexOf(currVer);
-                    if (currVer.Titles != prevVer.Titles)
-                        changedValues.Add($"{nameof(StudyVersionEntity.Titles)}");
                     if (currVer.VersionIdentifier != prevVer.VersionIdentifier)
                         changedValues.Add($"{nameof(StudyVersionEntity.VersionIdentifier)}");
                     if (currVer.Rationale != prevVer.Rationale)
@@ -535,6 +533,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
 
                         if (currentStudyDesign.Description != previousStudyDesign.Description)
                             changedValues.Add($"{nameof(StudyDesignEntity.Description)}");
+
+                        if (currentStudyDesign.Label != previousStudyDesign.Label)
+                            changedValues.Add($"{nameof(StudyDesignEntity.Label)}");
 
                         //StudyRationale
                         if (currentStudyDesign.Rationale != previousStudyDesign.Rationale)

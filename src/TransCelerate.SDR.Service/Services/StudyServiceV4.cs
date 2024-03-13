@@ -375,7 +375,7 @@ namespace TransCelerate.SDR.Services.Services
                                         SoA soA = new()
                                         {
                                             EncounterId = encounter.Id,
-                                            EncounterName = encounter.Name,
+                                            EncounterName = !String.IsNullOrWhiteSpace(encounter.Label) ? $"{encounter.Name} : {encounter.Label}" : encounter.Name,
                                             EncounterScheduledAtTimingValue = timingMappedToEncounter?.Value,
                                             Timings = GetTimings(scheduleActivityInstances.Where(instance => instance.EncounterId == encounter.Id).ToList(), scheduledInstances, timingsMappedToTimeline)
                                         };

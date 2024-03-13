@@ -147,6 +147,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string SyntaxTemplateInstanceTypesError = $"The value must be {nameof(Utilities.SyntaxTemplateInstanceType.ELIGIBILITY_CRITERIA)}/{nameof(Utilities.SyntaxTemplateInstanceType.OBJECTIVE)}/{nameof(Utilities.SyntaxTemplateInstanceType.ENDPOINT)}";
 
             public const string UniquenessArrayError = "The {PropertyName} Ids are not unique";
+            public const string V4StudyVersionCountError = "Only one study version per study is allowed";
             public const string InstanceTypeError = "The Instance Type is incorrect";
 
             public const string GroupFilterEmptyError = "Group Filter must not be empty";
