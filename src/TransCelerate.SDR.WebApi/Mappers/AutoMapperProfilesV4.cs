@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
+using System;
 using TransCelerate.SDR.Core.DTO.StudyV4;
 using TransCelerate.SDR.Core.Entities.StudyV4;
 using TransCelerate.SDR.Core.Utilities.Helpers;
@@ -101,7 +102,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<TimingEntity, TimingSoA>()
                 .ForMember(dest => dest.TimingType, opt => opt.MapFrom(src => src.Type != null ? src.Type.Decode : null))
                 .ForMember(dest => dest.TimingWindow, opt => opt.MapFrom(src => src.Window))
-                .ForMember(dest => dest.TimingValue, opt => opt.MapFrom(src => src.Value))
+                .ForMember(dest => dest.TimingValue, opt => opt.MapFrom(src =>  !String.IsNullOrWhiteSpace(src.Description) ? $"{src.Value} : {src.Description}" : src.Value))
                 .ReverseMap();
 
             //ECPT Mapper
