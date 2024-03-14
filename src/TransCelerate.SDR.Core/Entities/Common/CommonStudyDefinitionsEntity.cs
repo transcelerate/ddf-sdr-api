@@ -101,10 +101,4 @@ namespace TransCelerate.SDR.Core.Entities.Common
         public string IndicationDesc { get; set; }
         public string Description { get; set; }
     }
-    [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
-    [MongoDB.Bson.Serialization.Attributes.BsonNoId]
-    public class CommonInvestigationalInterventionEntity
-    {
-        public string InterventionModel { get; set; }
-    }
 }

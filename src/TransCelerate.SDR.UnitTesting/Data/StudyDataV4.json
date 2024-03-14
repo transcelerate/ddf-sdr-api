@@ -2718,6 +2718,17 @@
                     "encounterId": null
                   },
                   {
+                    "id": "ScheduledDecisionInstance_1",
+                    "timelineId": null,
+                    "timelineExitId": null,
+                    "defaultConditionId": "",
+                    "epochId": null,
+                    "instanceType": "ScheduledDecisionInstance",
+                    "conditionAssignments": {
+                      "option": "Must be done"
+                    }
+                  },
+                  {
                     "id": "ScheduledActivityInstance_4",
                     "timelineId": null,
                     "timelineExitId": null,
