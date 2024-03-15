@@ -982,7 +982,6 @@
           "entity": "ScheduledActivityInstance",
           "required": [
             "Id",
-            "InstanceType",
             "InstanceType"
           ]
         },
@@ -991,14 +990,13 @@
           "required": [
             "Id",
             "InstanceType",
-            "InstanceType"
+            "ConditionAssignments"
           ]
         },
         {
           "entity": "ScheduledInstance",
           "required": [
             "Id",
-            "InstanceType",
             "InstanceType"
           ]
         },
