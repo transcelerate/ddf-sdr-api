@@ -1707,8 +1707,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                                 errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
                                     $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
                                            $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
-                                           $"{nameof(StudyDesignDto.Activities)}[{design.Conditions.IndexOf(condition)}]." +
-                                           $"{nameof(ActivityDto.BiomedicalConceptIds)}[{condition.AppliesToIds.IndexOf(appliesTo)}]");
+                                           $"{nameof(StudyDesignDto.Conditions)}[{design.Conditions.IndexOf(condition)}]." +
+                                           $"{nameof(ConditionDto.AppliesToIds)}[{condition.AppliesToIds.IndexOf(appliesTo)}]");
                         });
                     }
                     if (condition.ContextIds != null && condition.ContextIds.Any())
@@ -1721,8 +1721,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                                 errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
                                     $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
                                            $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
-                                           $"{nameof(StudyDesignDto.Activities)}[{design.Conditions.IndexOf(condition)}]." +
-                                           $"{nameof(ActivityDto.BcCategoryIds)}[{condition.ContextIds.IndexOf(contextId)}]");
+                                           $"{nameof(StudyDesignDto.Conditions)}[{design.Conditions.IndexOf(condition)}]." +
+                                           $"{nameof(ConditionDto.ContextIds)}[{condition.ContextIds.IndexOf(contextId)}]");
                         });
                     }                    
                 });

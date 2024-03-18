@@ -598,6 +598,14 @@ namespace TransCelerate.SDR.Services.Services
                         var studyTitleV4 = searchResponseV2.StudyTitle != null ? JsonConvert.DeserializeObject<List<CommonStudyTitle>>(JsonConvert.SerializeObject(searchResponseV2.StudyTitle)) : null;
                         searchResponseDto.Study.StudyTitle = studyTitleV4 != null && studyTitleV4.Any(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle) ? studyTitleV4.Find(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle).Text : null;
                         searchResponseDto.Study.StudyIdentifiers = _mapper.Map<List<CommonStudyIdentifiersDto>>(searchResponseV2.StudyIdentifiers);
+                        searchResponseDto.Study.StudyIdentifiers?.ForEach(x =>
+                        {
+                            var scope = searchResponseV2.StudyIdentifiers.Find(y => y.Id == x.Id).StudyIdentifierScope;
+                            x.StudyIdentifierScope.OrganisationIdentifierScheme = scope.IdentifierScheme;
+                            x.StudyIdentifierScope.OrganisationIdentifier = scope.Identifier;
+                            x.StudyIdentifierScope.OrganisationName = scope.Name;
+                            x.StudyIdentifierScope.OrganisationType = _mapper.Map<CommonCodeDto>(scope.OrganizationType);
+                        });
                         searchResponseDto.Study.StudyPhase = _mapper.Map<CommonCodeDto>(searchResponseV2.StudyPhase?.StandardCode);
                         searchResponseDto.Study.StudyDesigns = new List<CommonStudyDesign> { new() {
                             InterventionModel = _mapper.Map<List<CommonCodeDto>>(searchResponseV2.InterventionModel?.Where(x => x != null && x.Any()).SelectMany(x=>x).ToList()),
