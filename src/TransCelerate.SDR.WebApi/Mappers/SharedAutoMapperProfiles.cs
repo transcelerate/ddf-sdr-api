@@ -150,11 +150,22 @@ namespace TransCelerate.SDR.WebApi.Mappers
                 .ForMember(dest => dest.UsdmVersion, opt => opt.MapFrom(src => src.AuditTrail.UsdmVersion))
                 .ReverseMap();
 
-            CreateMap<CommonStudyIdentifiersDto, Core.DTO.StudyV4.StudyIdentifierDto>()
+
+            CreateMap<CommonCodeDto, Core.Entities.StudyV4.CodeEntity>()
+                .ReverseMap();
+            CreateMap<CommonOrganisationDto, Core.Entities.StudyV4.OrganizationEntity>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.OrganizationType, opt => opt.MapFrom(src => src.OrganisationType))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.OrganisationName))
+                .ForMember(dest => dest.IdentifierScheme, opt => opt.MapFrom(src => src.OrganisationIdentifierScheme))
+                .ForMember(dest => dest.Identifier, opt => opt.MapFrom(src => src.OrganisationIdentifier))
+                .ReverseMap();
+            CreateMap<CommonStudyIdentifiersDto, Core.Entities.StudyV4.StudyIdentifierEntity>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.StudyIdentifier, opt => opt.MapFrom(src => src.StudyIdentifier))
                 .ForMember(dest => dest.StudyIdentifierScope, opt => opt.MapFrom(src => src.StudyIdentifierScope))
                 .ReverseMap();
+            
             CreateMap<CommonOrganisationDto, Core.DTO.StudyV4.OrganizationDto>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.OrganizationType, opt => opt.MapFrom(src => src.OrganisationType))
@@ -162,9 +173,15 @@ namespace TransCelerate.SDR.WebApi.Mappers
                 .ForMember(dest => dest.IdentifierScheme, opt => opt.MapFrom(src => src.OrganisationIdentifierScheme))
                 .ForMember(dest => dest.Identifier, opt => opt.MapFrom(src => src.OrganisationIdentifier))
                 .ReverseMap();
-
-            CreateMap<CommonCodeDto, Core.Entities.StudyV4.CodeEntity>()
+            CreateMap<CommonStudyIdentifiersDto, Core.DTO.StudyV4.StudyIdentifierDto>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.StudyIdentifier, opt => opt.MapFrom(src => src.StudyIdentifier))
+                .ForMember(dest => dest.StudyIdentifierScope, opt => opt.MapFrom(src => src.StudyIdentifierScope))
+                .ForMember(dest => dest.StudyIdentifierScope, opt => opt.MapFrom(src => src.StudyIdentifierScope))
                 .ReverseMap();
+
+
+            
             CreateMap<CommonCodeDto, Core.DTO.StudyV4.CodeDto>()
                 .ReverseMap();
             CreateMap<CommonStudyIdentifiersDto, Core.Entities.StudyV4.StudyIdentifierEntity>()
