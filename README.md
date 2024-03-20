@@ -2,7 +2,7 @@
   - [Requirements to Contribute and Propose Changes](#requirements-to-contribute-and-propose-changes)
 - [Intended-Audience](#intended-audience)
 - [Overview](#overview)
-- [Setup & Code Access](#setup-code-access)
+- [Setup and Code Access](#setup-and-code-access)
   - [Pre-requisites](#pre-requisites)
   - [How To Setup Code](#how-to-setup-code)
   - [How To Run](#how-to-run)
@@ -13,7 +13,7 @@
     - [List of Endpoints](#list-of-endpoints)
     - [API Versioning](#api-versioning)
   - [Nuget packages](#nuget-packages)
-
+- [Support](#support)
 
 # Introduction
 
@@ -56,7 +56,7 @@ The SDR Reference Implementation  implements the CDISC DDF Reference Architectur
 
 It follows the REST architectural style that uses HTTP requests to GET, POST and PUT data. RESTful architecture is not linked with any technology or platform, it does not dictate exactly how to build an API. Instead, it introduces the best practices known as constraints. They describe how the server processes requests and responds to them. Operating within these constraints, the system gains desirable properties such as reliability, ease of use, improved scalability and security, low latency while enhancing the system performance and helping achieve technology independence in the process.
 
-# Setup & Code Access
+# Setup and Code Access
 ## Pre-requisites
 
 1. Install [Visual Studio 2022](https://visualstudio.microsoft.com/) with default options to run the solution.
@@ -443,8 +443,17 @@ SDR APIs are defined in such a way that an API version can handle more than one 
 
 21. **Microsoft.AspNetCore.Mvc.Versioning** - Used for API Versioning
 
+Support
+
 22. **Azure.Extensions.AspNetCore.Configuration.Secrets** - Used to get values from Key vault
 
 23. **JsonSubTypes** - Used to Serialize/Deserialize the inherited classes.
 
 24. **Microsoft.Identity.Web.MicrosoftGraph** - Used to connect with Azure AD and list the users available
+
+# Support
+
+- For any technical queries on SDR API repository, please create an issue [DDF SDR Support](https://github.com/transcelerate/ddf-sdr-support/issues/new?assignees=sdr-support&labels=techSupport&template=TechSupport.yml&title=%5BTechSupport%5D%3A).
+- [Raise Incident](https://github.com/transcelerate/ddf-sdr-support/issues/new?assignees=sdr-support&labels=incident&template=Incident.yml&title=%5BIncident%5D%3A+) faced in the SDR RI Demo Environment.
+- [Ad-hoc Database Request](https://github.com/transcelerate/ddf-sdr-support/issues/new?assignees=sdr-support&labels=dataSupport&template=DatabaseRequest.yml&title=%5BDatabaseRequest%5D%3A) for editing / deleting data in SDR RI Demo environment.
+- For any other support on DDF SDR RI, reach out to [SDR.Support@accenture.com](mailto:sdr.support@accenture.com).
