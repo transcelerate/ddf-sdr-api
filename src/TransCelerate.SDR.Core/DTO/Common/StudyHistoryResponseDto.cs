@@ -18,7 +18,7 @@ namespace TransCelerate.SDR.Core.DTO.Common
     {
         public int UploadVersion { get; set; }
         public DateTime EntryDateTime { get; set; }
-        public string StudyTitle { get; set; }
+        public object StudyTitle { get; set; }
         public string StudyVersion { get; set; }
         public object StudyIdentifiers { get; set; }
         public List<string> ProtocolVersions { get; set; }

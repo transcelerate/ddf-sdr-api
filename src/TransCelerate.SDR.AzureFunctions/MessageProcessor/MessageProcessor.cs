@@ -8,6 +8,7 @@ using TransCelerate.SDR.Core.Entities.Common;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3;
+using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4;
 
 namespace TransCelerate.SDR.AzureFunctions
 {
@@ -16,14 +17,16 @@ namespace TransCelerate.SDR.AzureFunctions
         #region Variables        
         private readonly IHelperV2 _helperV2;
         private readonly IHelperV3 _helperV3;
+        private readonly IHelperV4 _helperV4;
         private readonly IChangeAuditRepository _changeAuditReposotory;
         #endregion
         #region Constructor
-        public MessageProcessor(IChangeAuditRepository changeAuditReposotory, IHelperV2 helperV2, IHelperV3 helperV3)
+        public MessageProcessor(IChangeAuditRepository changeAuditReposotory, IHelperV2 helperV2, IHelperV3 helperV3, IHelperV4 helperV4)
         {
             _changeAuditReposotory = changeAuditReposotory;
             _helperV3 = helperV3;
             _helperV2 = helperV2;
+            _helperV4 = helperV4;
         }
         #endregion
         #region Process Message For Change Audit
@@ -81,7 +84,18 @@ namespace TransCelerate.SDR.AzureFunctions
                     changedValues = _helperV3.GetChangedValues(currentStudyVersion, previousStudyVersion);
                     changedValues = FormatChangeAuditElements(changedValues);
                 }
+                if (currentApiVersion == Constants.ApiVersions.V4)
+                {
+                    //Get the studies with current and previous version
+                    List<Core.Entities.StudyV4.StudyDefinitionsEntity> studyEntities = _changeAuditReposotory.GetStudyItemsAsyncV4(serviceBusMessageEntity.Study_uuid, serviceBusMessageEntity.CurrentVersion);
 
+                    Core.Entities.StudyV4.StudyDefinitionsEntity currentStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion).FirstOrDefault();
+                    Core.Entities.StudyV4.StudyDefinitionsEntity previousStudyVersion = studyEntities.Where(x => x.AuditTrail.SDRUploadVersion == serviceBusMessageEntity.CurrentVersion - 1).FirstOrDefault();
+
+                    //Get the changes between current and previous version
+                    changedValues = _helperV4.GetChangedValues(currentStudyVersion, previousStudyVersion);
+                    changedValues = FormatChangeAuditElements(changedValues);
+                }
                 //Get the change audit data for studyId
                 ChangeAuditStudyEntity changeAuditEntity = _changeAuditReposotory.GetChangeAuditAsync(serviceBusMessageEntity.Study_uuid);
 

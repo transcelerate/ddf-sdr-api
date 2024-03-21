@@ -6,7 +6,7 @@ namespace TransCelerate.SDR.Core.Entities.Common
     public class StudyHistoryResponseEntity
     {
         public string StudyId { get; set; }
-        public string StudyTitle { get; set; }
+        public object StudyTitle { get; set; }
         public string StudyVersion { get; set; }
         public int SDRUploadVersion { get; set; }
         public List<object> StudyIdentifiers { get; set; }
@@ -16,5 +16,6 @@ namespace TransCelerate.SDR.Core.Entities.Common
         public string UsdmVersion { get; set; }
         public IEnumerable<IEnumerable<string>> StudyDesignIdsMVP { get; set; }
         public IEnumerable<string> StudyDesignIds { get; set; }        
+        public IEnumerable<IEnumerable<string>> StudyDesignIdsV4 { get; set; }        
     }
 }

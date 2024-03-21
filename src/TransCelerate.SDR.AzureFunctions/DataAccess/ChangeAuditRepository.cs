@@ -117,6 +117,47 @@ namespace TransCelerate.SDR.AzureFunctions.DataAccess
             }
         }
         /// <summary>
+        /// Get Current and previous version of study for study Id for V3 API Version
+        /// </summary>
+        /// <param name="studyId">Study UUID</param>
+        /// <param name="sdruploadversion">current version</param>
+        /// <returns> A <see cref="List{StudyEntity}"/> with matching studyId
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        public List<Core.Entities.StudyV4.StudyDefinitionsEntity> GetStudyItemsAsyncV4(string studyId, int sdruploadversion)
+        {
+            _logger.LogInformation($"Started Repository : {nameof(ChangeAuditRepository)}; Method : {nameof(GetStudyItemsAsyncV3)};");
+            try
+            {
+                IMongoCollection<Core.Entities.StudyV4.StudyDefinitionsEntity> collection = _database.GetCollection<Core.Entities.StudyV4.StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
+
+
+                List<Core.Entities.StudyV4.StudyDefinitionsEntity> studies = collection.Find(x => (x.Study.Id == studyId) &&
+                                                           (x.AuditTrail.SDRUploadVersion == sdruploadversion || x.AuditTrail.SDRUploadVersion == sdruploadversion - 1))
+                                                     .SortByDescending(s => s.AuditTrail.EntryDateTime)
+                                                     .Limit(2)
+                                                     .ToList();
+
+                if (studies == null)
+                {
+                    _logger.LogWarning($"There are no studies with StudyId : {studyId} in {Constants.Collections.StudyV1} Collection");
+                    return null;
+                }
+                else
+                {
+                    return studies;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Repository : {nameof(ChangeAuditRepository)}; Method : {nameof(GetStudyItemsAsyncV3)};");
+            }
+        }
+        /// <summary>
         /// Get Current and previous version of study for study Id
         /// </summary>
         /// <param name="studyId">Study UUID</param>

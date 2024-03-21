@@ -23,6 +23,12 @@
       "usdmVersions": [
         "2.0"
       ]
+    },
+    {
+      "apiVersion": "v4",
+      "usdmVersions": [
+        "3.0"
+      ]
     }
   ]
 }
