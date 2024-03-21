@@ -608,7 +608,7 @@ namespace TransCelerate.SDR.Services.Services
                             return Constants.ErrorMessages.StudyDesignIdNotFoundCPT;
                     }
 
-                    var eCPT = GetCPTDataV4(studyDTO.Study.Versions.FirstOrDefault(), study.AuditTrail, studyDTO.Study.DocumentedBy?.Versions);
+                    var eCPT = GetCPTDataV4(studyDTO.Study.Versions.FirstOrDefault(), study.AuditTrail, studyDTO.Study.DocumentedBy?.Versions, studyDTO.Study.Id);
 
                     return eCPT;
                 }
@@ -623,12 +623,12 @@ namespace TransCelerate.SDR.Services.Services
             }
         }
 
-        public Core.DTO.eCPT.ECPTDto GetCPTDataV4(StudyVersionDto studyDto, AuditTrailEntity auditTrail, List<StudyProtocolDocumentVersionDto> protocolVersions)
+        public Core.DTO.eCPT.ECPTDto GetCPTDataV4(StudyVersionDto studyDto, AuditTrailEntity auditTrail, List<StudyProtocolDocumentVersionDto> protocolVersions, string studyId)
         {
             var links = LinksHelper.GetLinks(studyDto.Id, studyDto.StudyDesigns.Select(c => c.Id).ToList(), auditTrail.UsdmVersion, auditTrail.SDRUploadVersion);
             Core.DTO.eCPT.StudyDetailsDto studyDetailsDto = new()
             {
-                StudyId = studyDto.Id,
+                StudyId = studyId,
                 StudyTitle = studyDto.Titles != null && studyDto.Titles.Any(x => x.Type.Decode == Constants.StudyTitle.OfficialStudyTitle) ? studyDto.Titles.Find(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle).Text : null,
 
                 UsdmVersion = auditTrail.UsdmVersion,
@@ -698,9 +698,9 @@ namespace TransCelerate.SDR.Services.Services
                                 InclusionCriteria = new Core.DTO.eCPT.InclusionCriteriaDto
                                 {
 
-                                    PlannedMaximumAgeofSubjects = design.Population.GetAgeV4(isMax : false),
+                                    PlannedMaximumAgeofSubjects = design.Population.GetAgeV4(isMax : true),
 
-                                    PlannedMinimumAgeofSubjects = design.Population.GetAgeV4(isMax: true),
+                                    PlannedMinimumAgeofSubjects = design.Population.GetAgeV4(isMax: false),
 
                                     SexofParticipants = design.Population.GetPlannedSexOfParticipantsV4()
                                 }
