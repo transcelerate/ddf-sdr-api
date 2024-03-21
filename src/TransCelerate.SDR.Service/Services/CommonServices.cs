@@ -135,6 +135,7 @@ namespace TransCelerate.SDR.Services.Services
                     if (studies == null)
                         return Constants.ErrorMessages.Forbidden;
 
+                    studies?.ForEach(x => x.StudyId =  studyId);
                     var auditTrailDtoList = _mapper.Map<List<AuditTrailResponseWithLinksDto>>(studies); //Mapping Entity to Dto 
                     AuditTrailResponseDto getStudyAuditDto = new()
                     {
