@@ -19,7 +19,7 @@
 
 Study Definition Repository (SDR) Reference Implementation is TransCelerate’s vision to catalyze industry-level transformation, enabling digital exchange of study definition information by collaborating with technology providers and standards bodies to create a sustainable open-source Study Definition Repository.
 
-This is a .NET 6 Web API project that is designed to expose APIs which upstream/downstream systems can utilize to store and retrieve study definitions from SDR. The latest Release of SDR (Release V2.0.1) supports study definitions conformant with USDM V1.0, USDM 1.9 and USDM V2.0.
+This is a .NET 6 Web API project that is designed to expose APIs which upstream/downstream systems can utilize to store and retrieve study definitions from SDR. The latest Release of SDR (Release V3.0) supports study definitions conformant with USDM V1.9, USDM 2.0 and USDM V3.0.
 
 This [Process Flow Document](https://github.com/transcelerate/ddf-sdr-platform/blob/main/documents/sdr-release-v2.0.2/ddf-sdr-ri-process-flows-v4.0.pdf) provides information regarding user interface functions and system interactions with the SDR at a high level. Please also refer to the [DDF SDR API User Guide](documents/sdr-release-v2.0.2/ddf-sdr-ri-api-user-guide-v6.0.pdf) to get started, and the [DDF SDR RI API Demo video](https://www.youtube.com/playlist?list=PLMXS-Xt7Ou1KNUF-HQKQRRzqfPQEXWb1u). 
 
@@ -28,7 +28,7 @@ This [Process Flow Document](https://github.com/transcelerate/ddf-sdr-platform/b
 - Please be advised that if you implement the code as written, the functionality is designed to collect and store certain personal data (user credentials, email address, IP address) for authentication and audit log purposes.  None of this information will be shared with TransCelerate or Accenture for any purpose.  Neither TransCelerate nor Accenture bears any responsibility for any collection, use or misuse of personal data that occurs from any implementation of this source code.  If you or your organization employ any of the features that collect personal data, you are responsible for compliance with any relevant privacy laws or regulations in any applicable jurisdiction.  
 - Please be aware that any information you put into the provided tools (including the UI or API) will be visible to all users, so we recommend not using commercially sensitive or confidential information.  You and/or your employer bear all responsibility for anything you share with this project.  TransCelerate, its member companies and any vendors affiliated with the DDF project are not responsible for any harm or loss you occur as a result of uploading any information or code: commercially sensitive, confidential or otherwise.
 - To the extent that the SDR Reference Implementation incorporates or relies on any specific branded products or services, such as Azure, this resulted out of the practical necessities associated with making a reference implementation available to demonstrate the SDR’s capabilities.  Users are free to download the source code for the SDR from GitHub and design their own implementations.  Those implementations can be in an environment of the user’s choice, and do not have to be on Azure. 
-- As of October 2023, the DDF initiative is still the process of setting up operations, and any pull requests submitted will not be triaged at this point in time.
+- As of May 2024, the DDF initiative is still the process of setting up operations, and any pull requests submitted will not be triaged at this point in time.
 
 ## Requirements to Contribute and Propose Changes
 Before participating, you must acknowledge the Contribution License Agreement (CLA).
@@ -215,9 +215,9 @@ The solution has the following structure:
 
 ## Sample Data
 For those looking to evaluate the USDM with a sample data set, please see the following files in the Data Model folder:
-- [USDM V1.0 conformant Sample JSON](data-model/sdr-release-v0.5/SDR%20Study%20Sample-JSON-V1.0.json)
 - [USDM V1.9 conformant Sample JSON](data-model/sdr-release-v2.0/ddf-sdr-api-study-sample-json-v1.9.json)
 - [USDM V2.0 conformant Sample JSON](data-model/sdr-release-v2.0.2/ddf-sdr-api-study-sample-json-v2.0.json)
+- [USDM V3.0 conformant Sample JSON](data-model/sdr-release-v3.0/ddf-sdr-api-study-sample-json-v3.0.json)
 
 ## SDR API
 ### List Of Endpoints
