@@ -54,7 +54,7 @@ namespace TransCelerate.SDR.UnitTesting
         public void HelpersUnitTesting()
         {
             HelperV4 helper = new();
-            AuditTrailEntity auditTrailEntity = helper.GetAuditTrail(user.UserName);
+            AuditTrailEntity auditTrailEntity = helper.GetAuditTrail(user.UserName, Constants.USDMVersions.V3);
             Assert.IsInstanceOf(typeof(DateTime), auditTrailEntity.EntryDateTime);
         }
 

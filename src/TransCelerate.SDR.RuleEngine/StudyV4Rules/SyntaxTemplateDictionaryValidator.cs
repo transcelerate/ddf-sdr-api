@@ -46,11 +46,11 @@ namespace TransCelerate.SDR.RuleEngineV4
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(SyntaxTemplateDictionaryValidator), nameof(SyntaxTemplateDictionaryDto.Description)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.ParameterMap)
+            RuleFor(x => x.ParameterMaps)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(SyntaxTemplateDictionaryValidator), nameof(SyntaxTemplateDictionaryDto.ParameterMap)), ApplyConditionTo.AllValidators);        }
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(SyntaxTemplateDictionaryValidator), nameof(SyntaxTemplateDictionaryDto.ParameterMaps)), ApplyConditionTo.AllValidators);        }
     }
 }
 

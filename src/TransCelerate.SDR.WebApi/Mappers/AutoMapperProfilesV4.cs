@@ -29,6 +29,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<BiomedicalConceptSurrogateDto, BiomedicalConceptSurrogateEntity>().ReverseMap();
             CreateMap<CharacteristicDto, CharacteristicEntity>().ReverseMap();
             CreateMap<CodeDto, CodeEntity>().ReverseMap();
+            CreateMap<ConditionAssignmentDto, ConditionAssignmentEntity>().ReverseMap();
             CreateMap<ConditionDto, ConditionEntity>().ReverseMap();
             CreateMap<EligibilityCriterionDto, EligibilityCriterionEntity>().ReverseMap();
             CreateMap<EncounterDto, EncounterEntity>().ReverseMap();
@@ -42,6 +43,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<NarrativeContentDto, NarrativeContentEntity>().ReverseMap();
             CreateMap<ObjectiveDto, ObjectiveEntity>().ReverseMap();
             CreateMap<OrganizationDto, OrganizationEntity>().ReverseMap();
+            CreateMap<ParameterMaptDto, ParameterMapEntity>().ReverseMap();
             CreateMap<PopulationDefinitionDto, PopulationDefinitionEntity>()
                 .Include<StudyDesignPopulationDto, StudyDesignPopulationEntity>()
                 .Include<StudyCohortDto, StudyCohortEntity>()
@@ -78,11 +80,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<StudyTitleDto, StudyTitleEntity>().ReverseMap();
             CreateMap<StudyVersionDto, StudyVersionEntity>().ReverseMap();
             CreateMap<SubjectEnrollmentDto, SubjectEnrollmentEntity>().ReverseMap();
-            CreateMap<SyntaxTemplateDictionaryDto, SyntaxTemplateDictionaryEntity>()
-                .ForMember(dest => dest.ParameterMap, opt => opt.MapFrom(src => src.ParameterMap != null && src.ParameterMap.GetType().Name.Contains("JObject") ?
-                                                                                MongoDB.Bson.BsonDocument.Parse(src.ParameterMap.ToString()) : src.ParameterMap));
-            CreateMap<SyntaxTemplateDictionaryEntity, SyntaxTemplateDictionaryDto>()
-                .ForMember(dest => dest.ParameterMap, opt => opt.MapFrom(src => src.ParameterMap != null ? src.ParameterMap.BsonToObjectConvertor() : src.ParameterMap));                
+            CreateMap<SyntaxTemplateDictionaryDto, SyntaxTemplateDictionaryEntity>().ReverseMap();         
             CreateMap<SyntaxTemplateDto, SyntaxTemplateEntity>()
                 .Include<ObjectiveDto, ObjectiveEntity>()
                 .Include<EndpointDto, EndpointEntity>()
@@ -101,7 +99,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
                 .ReverseMap();
             CreateMap<TimingEntity, TimingSoA>()
                 .ForMember(dest => dest.TimingType, opt => opt.MapFrom(src => src.Type != null ? src.Type.Decode : null))
-                .ForMember(dest => dest.TimingWindow, opt => opt.MapFrom(src => src.Window))
+                .ForMember(dest => dest.TimingWindow, opt => opt.MapFrom(src => src.WindowLabel))
                 .ForMember(dest => dest.TimingValue, opt => opt.MapFrom(src =>  !String.IsNullOrWhiteSpace(src.Description) ? $"{src.Value} : {src.Description}" : src.Value))
                 .ReverseMap();
 

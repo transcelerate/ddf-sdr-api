@@ -14,8 +14,8 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public string Description { get; set; }
         public AdministrationDurationEntity Duration { get; set; }
         public QuantityEntity Dose { get; set; }
-        public CodeEntity Route { get; set; }
-        public CodeEntity Frequency { get; set; }
+        public AliasCodeEntity Route { get; set; }
+        public AliasCodeEntity Frequency { get; set; }
         public string InstanceType { get; set; }
     }
 }

@@ -22,14 +22,15 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
         /// Get Audit Trail fields for the POST Api
         /// </summary>
         /// <param name="user"></param>
+        /// <param name="usdmVersion"></param>
         /// <returns></returns>
-        public AuditTrailEntity GetAuditTrail(string user)
+        public AuditTrailEntity GetAuditTrail(string user, string usdmVersion)
         {
             return new AuditTrailEntity
             {
                 EntryDateTime = DateTime.UtcNow,
                 CreatedBy = user,
-                UsdmVersion = Constants.USDMVersions.V3
+                UsdmVersion = usdmVersion
             };
         }
 
@@ -1129,16 +1130,16 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                 {
                     var tempDocuVersionIds = documentVersionIds.ToList();
                     tempDocuVersionIds.RemoveAll(x => x == documentVersion.Id);
-                    if (documentVersion.ChildrenIds != null && documentVersion.ChildrenIds.Any())
+                    if (documentVersion.ChildIds != null && documentVersion.ChildIds.Any())
                     {
-                        documentVersion.ChildrenIds.ForEach(child =>
+                        documentVersion.ChildIds.ForEach(child =>
                         {
                             if (!String.IsNullOrWhiteSpace(child) && !tempDocuVersionIds.Contains(child))
                                 errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
                                            $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
                                            $"{nameof(StudyDto.DocumentedBy)}." +
                                            $"{nameof(StudyProtocolDocumentDto.Versions)}[{documentVersions.IndexOf(documentVersion)}]." +
-                                           $"{nameof(StudyProtocolDocumentVersionDto.ChildrenIds)}[{documentVersion.ChildrenIds.IndexOf(child)}]");
+                                           $"{nameof(StudyProtocolDocumentVersionDto.ChildIds)}[{documentVersion.ChildIds.IndexOf(child)}]");
                         });
                     }
                     if (documentVersion.Contents != null && documentVersion.Contents.Any())
@@ -1148,7 +1149,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                         {
                             var tempContentIds = contentIds.ToList();
                             tempContentIds.RemoveAll(x => x == content.Id);
-                            content?.ChildrenIds?.ForEach(child =>
+                            content?.ChildIds?.ForEach(child =>
                             {
                                 if (!String.IsNullOrWhiteSpace(child) && !tempContentIds.Contains(child))
                                     errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
@@ -1156,8 +1157,24 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                                                $"{nameof(StudyDto.DocumentedBy)}." +
                                                $"{nameof(StudyProtocolDocumentDto.Versions)}[{documentVersions.IndexOf(documentVersion)}]." +
                                                $"{nameof(StudyProtocolDocumentVersionDto.Contents)}.[{documentVersion.Contents.IndexOf(content)}]" +
-                                               $"{nameof(NarrativeContentDto.ChildrenIds)}[{documentVersion.ChildrenIds.IndexOf(child)}]");
+                                               $"{nameof(NarrativeContentDto.ChildIds)}[{content.ChildIds.IndexOf(child)}]");
                             });
+
+                            if (!String.IsNullOrWhiteSpace(content.PreviousId) && !tempContentIds.Contains(content.PreviousId))
+                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                    $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
+                                    $"{nameof(StudyDto.DocumentedBy)}." +
+                                    $"{nameof(StudyProtocolDocumentDto.Versions)}[{documentVersions.IndexOf(documentVersion)}]." +
+                                    $"{nameof(StudyProtocolDocumentVersionDto.Contents)}.[{documentVersion.Contents.IndexOf(content)}]" +
+                                    $"{nameof(NarrativeContentDto.PreviousId)}");
+
+                            if (!String.IsNullOrWhiteSpace(content.NextId) && !tempContentIds.Contains(content.NextId))
+                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                    $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
+                                    $"{nameof(StudyDto.DocumentedBy)}." +
+                                    $"{nameof(StudyProtocolDocumentDto.Versions)}[{documentVersions.IndexOf(documentVersion)}]." +
+                                    $"{nameof(StudyProtocolDocumentVersionDto.Contents)}.[{documentVersion.Contents.IndexOf(content)}]" +
+                                    $"{nameof(NarrativeContentDto.NextId)}");
                         });
                     }
                 });
@@ -1407,6 +1424,22 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                                         $"{nameof(ScheduledActivityInstanceDto.EncounterId)}");                                
                             }
 
+                            if (timelineInstance.GetType() == typeof(ScheduledDecisionInstanceDto))
+                            {
+                                var decisionTimelineInstance = timelineInstance as ScheduledDecisionInstanceDto;
+                                decisionTimelineInstance.ConditionAssignments.ForEach(assignment =>
+                                {
+                                    if (!String.IsNullOrWhiteSpace(assignment.ConditionTargetId) && !instanceIds.Contains(assignment.ConditionTargetId))
+                                        errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                            $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
+                                            $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
+                                            $"{nameof(StudyDesignDto.ScheduleTimelines)}[{design.ScheduleTimelines.IndexOf(scheduleTimeline)}]." +
+                                            $"{nameof(ScheduleTimelineDto.Instances)}[{scheduleTimeline.Instances.IndexOf(timelineInstance)}]." +
+                                            $"{nameof(ScheduledDecisionInstanceDto.ConditionAssignments)}[{decisionTimelineInstance.ConditionAssignments.IndexOf(assignment)}]");
+                                }
+                                );
+                            }
+
                             //if (timelineInstance.Timings is not null && timelineInstance.Timings.Any())
                             //{
                             //    timelineInstance.Timings.ForEach(timing =>
@@ -1646,16 +1679,16 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                 {
                     var tempCategoryIds = bcCategoryIds.ToList();
                     tempCategoryIds.RemoveAll(x => x == bcCat.Id);
-                    if (bcCat.ChildrenIds != null && bcCat.ChildrenIds.Any())
+                    if (bcCat.ChildIds != null && bcCat.ChildIds.Any())
                     {
-                        bcCat.ChildrenIds.ForEach(child =>
+                        bcCat.ChildIds.ForEach(child =>
                         {
                             if (!String.IsNullOrWhiteSpace(child) && !tempCategoryIds.Contains(child))
                                 errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
                                     $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
                                            $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
                                            $"{nameof(StudyDesignDto.BcCategories)}[{design.BcCategories.IndexOf(bcCat)}]." +
-                                           $"{nameof(BiomedicalConceptCategoryDto.ChildrenIds)}[{bcCat.ChildrenIds.IndexOf(child)}]");
+                                           $"{nameof(BiomedicalConceptCategoryDto.ChildIds)}[{bcCat.ChildIds.IndexOf(child)}]");
                         });
                     }
                     if (bcCat.MemberIds != null && bcCat.MemberIds.Any())

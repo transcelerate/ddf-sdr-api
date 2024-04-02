@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TransCelerate.SDR.Core.DTO.StudyV4;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV4
 {
@@ -7,6 +8,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
     public class ScheduledDecisionInstanceEntity : ScheduledInstanceEntity
     {
         public override string InstanceType { get; set; } = nameof(Utilities.ScheduledInstanceTypeV4.ScheduledDecisionInstance);
-        public Dictionary<string, string> ConditionAssignments { get; set; }
+        public List<ConditionAssignmentEntity> ConditionAssignments { get; set; }
     }
 }

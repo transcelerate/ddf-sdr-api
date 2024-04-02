@@ -73,7 +73,7 @@ namespace TransCelerate.SDR.WebApi
             //Swagger          
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v3", new OpenApiInfo { Title = "Transcelerate SDR", Version = "v3" });
+                c.SwaggerDoc("v3", new OpenApiInfo { Title = "Transcelerate SDR", Version = "v4" });
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
