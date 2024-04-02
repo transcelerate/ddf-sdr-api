@@ -167,6 +167,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string BooleanValidationFailed = "Type must be boolean (true/false)";
 
             public const string IntegerValidationFailed = "Type must be integer";
+
+            public const string UsdmVersionMismatch = "usdmVersion value must be the same value mentioned in request header";
         }
 
         public struct SuccessMessages

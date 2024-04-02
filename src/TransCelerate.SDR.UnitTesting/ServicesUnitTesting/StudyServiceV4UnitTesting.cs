@@ -121,7 +121,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                    .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
             _mockHelper.Setup(x => x.IsSameStudy(It.IsAny<StudyDefinitionsEntity>(), It.IsAny<StudyDefinitionsEntity>()))
                     .Returns(true);
-            _mockHelper.Setup(x => x.GetAuditTrail(It.IsAny<string>()))
+            _mockHelper.Setup(x => x.GetAuditTrail(It.IsAny<string>(),It.IsAny<string>()))
                     .Returns(new AuditTrailEntity { CreatedBy = user.UserName, EntryDateTime = DateTime.Now, SDRUploadVersion = 1, UsdmVersion = Constants.USDMVersions.V3 });
             StudyDefinitionsEntity studyEntity1 = _mockMapper.Map<StudyDefinitionsEntity>(GetDtoDataFromStaticJson()); studyEntity1.AuditTrail.SDRUploadVersion = 1; studyEntity1.AuditTrail.UsdmVersion = Constants.USDMVersions.V3;
             _mockStudyRepository.Setup(x => x.GetUsdmVersionAsync(It.IsAny<string>(), It.IsAny<int>()))
@@ -272,7 +272,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             //Assert          
             Assert.AreEqual(actual_result1.ToString(), Constants.ErrorMessages.PostRestricted);
 
-            _mockHelper.Setup(x => x.GetAuditTrail(user.UserName))
+            _mockHelper.Setup(x => x.GetAuditTrail(user.UserName, Constants.USDMVersions.V3))
                  .Throws(new Exception("Error"));
 
             method = studyService.PostAllElements(studyDto, user, HttpMethod.Post.Method);

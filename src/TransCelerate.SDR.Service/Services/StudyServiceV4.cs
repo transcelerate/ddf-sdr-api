@@ -824,7 +824,7 @@ namespace TransCelerate.SDR.Services.Services
                 StudyDefinitionsEntity incomingStudyEntity = new()
                 {
                     Study = _mapper.Map<StudyEntity>(studyDTO.Study),
-                    AuditTrail = _helper.GetAuditTrail(user?.UserName),
+                    AuditTrail = _helper.GetAuditTrail(user?.UserName, studyDTO.UsdmVersion),
                     Id = MongoDB.Bson.ObjectId.GenerateNewId()
                 };
 

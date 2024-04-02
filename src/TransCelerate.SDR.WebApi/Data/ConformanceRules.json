@@ -694,7 +694,6 @@
             "DurationWillVary",
             "Id",
             "InstanceType",
-            "Quantity",
             "ReasonDurationWillVary"
           ]
         },
@@ -796,6 +795,15 @@
           ]
         },
         {
+          "entity": "ConditionAssignment",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Condition",
+            "ConditionTargetId"
+          ]
+        },
+        {
           "entity": "EligibilityCriterion",
           "required": [
             "Category",
@@ -841,12 +849,12 @@
           "entity": "GeographicScope",
           "required": [
             "Id",
-            "InstanceType",            
-            "Type"            
+            "InstanceType",
+            "Type"
           ]
         },
         {
-          "entity": "GovernanaceDate",
+          "entity": "GovernanceDate",
           "required": [
             "DateValue",
             "Id",
@@ -893,11 +901,12 @@
         },
         {
           "entity": "Objective",
-          "required": [            
-            "Id",            
+          "required": [
+            "Id",
             "InstanceType",
             "Name",
-            "Text"
+            "Text",
+            "Level"
           ]
         },
         {
@@ -909,6 +918,15 @@
             "IdentifierScheme",
             "Name",
             "OrganizationType"
+          ]
+        },
+        {
+          "entity": "ParameterMap",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Tag",
+            "Reference"
           ]
         },
         {
@@ -982,6 +1000,7 @@
           "entity": "ScheduledActivityInstance",
           "required": [
             "Id",
+            "Name",
             "InstanceType"
           ]
         },
@@ -989,6 +1008,7 @@
           "entity": "ScheduledDecisionInstance",
           "required": [
             "Id",
+            "Name",
             "InstanceType",
             "ConditionAssignments"
           ]
@@ -1053,14 +1073,14 @@
             "Id",
             "InstanceType",
             "Criteria",
-            "PlannedSex",
             "IncludesHealthySubjects"
           ]
         },
         {
           "entity": "StudyDefinitions",
           "required": [
-            "Study"
+            "Study",
+            "UsdmVersion"
           ]
         },
         {
@@ -1083,7 +1103,6 @@
             "InstanceType",
             "Name",
             "Criteria",
-            "PlannedSex",
             "IncludesHealthySubjects"
           ]
         },
@@ -1116,7 +1135,6 @@
         {
           "entity": "StudyIntervention",
           "required": [
-            "Administrations",
             "Codes",
             "Id",
             "InstanceType",
@@ -1214,7 +1232,8 @@
             "Name",
             "RelativeToFrom",
             "Type",
-            "Value"
+            "Value",
+            "ValueLabel"
           ]
         },
         {
