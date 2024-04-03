@@ -1,3 +1,4 @@
+using Azure;
 using Azure.Extensions.AspNetCore.Configuration.Secrets;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
@@ -43,10 +44,12 @@ namespace TransCelerate.SDR.WebApi
                         //For getting key vault values when running the code in local:
                         //          Need to add vault Name, client Id and client secret of registered app which is linked to keyvault
                         //          and uncomment below if block.
-                        //if (!String.IsNullOrEmpty(vaultName) && !String.IsNullOrEmpty(clientId) && !String.IsNullOrEmpty(clientId))
-                        //{
-                        //    config.AddAzureKeyVault(vaultName, clientId, clientSecret);
-                        //}
+                        if (!String.IsNullOrEmpty(vaultName) && !String.IsNullOrEmpty(clientId) && !String.IsNullOrEmpty(clientSecret))
+                        {
+                            var clientSecretCredential = new ClientSecretCredential("a0dd0ad8-f419-44e2-b5ec-3de04e3d8688", clientId, clientSecret);
+                            var client = new SecretClient(new Uri(vaultName), clientSecretCredential);
+                            config.AddAzureKeyVault(client: client, new KeyVaultSecretManager());
+                        }
                     }
 
                 });

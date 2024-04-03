@@ -10,7 +10,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public string ProtocolVersion { get; set; }
         public List<GovernanceDateEntity> DateValues { get; set; }
         public List<NarrativeContentEntity> Contents { get; set; }
-        public List<string> ChildrenIds { get; set; }
+        public List<string> ChildIds { get; set; }
         public string InstanceType { get; set; }
     }
 }

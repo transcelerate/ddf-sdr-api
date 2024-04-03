@@ -18,6 +18,18 @@ namespace TransCelerate.SDR.RuleEngineV4
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(TimingValidator), nameof(TimingDto.Id)), ApplyConditionTo.AllValidators);
 
+            RuleFor(x => x.Name)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(TimingValidator), nameof(TimingDto.Name)), ApplyConditionTo.AllValidators);
+
+            RuleFor(x => x.Label)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(TimingValidator), nameof(TimingDto.Label)), ApplyConditionTo.AllValidators);
+
             RuleFor(x => x.InstanceType)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
@@ -38,6 +50,13 @@ namespace TransCelerate.SDR.RuleEngineV4
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(TimingValidator), nameof(TimingDto.Value)), ApplyConditionTo.AllValidators);
 
+            RuleFor(x => x.ValueLabel)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(TimingValidator), nameof(TimingDto.ValueLabel)), ApplyConditionTo.AllValidators);
+
+
             RuleFor(x => x.RelativeFromScheduledInstanceId)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
@@ -50,11 +69,11 @@ namespace TransCelerate.SDR.RuleEngineV4
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(TimingValidator), nameof(TimingDto.RelativeToScheduledInstanceId)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.Window)
+            RuleFor(x => x.WindowLabel)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(TimingValidator), nameof(TimingDto.Window)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(TimingValidator), nameof(TimingDto.WindowLabel)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.RelativeToFrom)
               .Cascade(CascadeMode.Stop)

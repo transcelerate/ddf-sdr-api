@@ -20,6 +20,27 @@ namespace TransCelerate.SDR.RuleEngineV4
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.RootElementMissing)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDefinitionsValidator), nameof(StudyDefinitionsDto.Study)), ApplyConditionTo.AllValidators)
                 .SetValidator(new StudyValidator(_httpContextAccessor));
+
+            RuleFor(x => x.UsdmVersion)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDefinitionsValidator), nameof(StudyDefinitionsDto.UsdmVersion)), ApplyConditionTo.AllValidators)
+                .Must(x => x == _httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion]).WithMessage(Constants.ValidationErrorMessage.UsdmVersionMismatch);
+                
+            RuleFor(x => x.SystemName)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDefinitionsValidator), nameof(StudyDefinitionsDto.SystemName)), ApplyConditionTo.AllValidators);
+
+            RuleFor(x => x.SystemVersion)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDefinitionsValidator), nameof(StudyDefinitionsDto.SystemVersion)), ApplyConditionTo.AllValidators);
+
+
         }
     }
 }

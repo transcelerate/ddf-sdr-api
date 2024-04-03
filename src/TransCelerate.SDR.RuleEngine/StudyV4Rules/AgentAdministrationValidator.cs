@@ -66,14 +66,14 @@ namespace TransCelerate.SDR.RuleEngineV4
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AgentAdministrationValidator), nameof(AgentAdministrationDto.Route)), ApplyConditionTo.AllValidators)
-                .SetValidator(new CodeValidator(_httpContextAccessor));
+                .SetValidator(new AliasCodeValidator(_httpContextAccessor));
 
             RuleFor(x => x.Frequency)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AgentAdministrationValidator), nameof(AgentAdministrationDto.Frequency)), ApplyConditionTo.AllValidators)
-                .SetValidator(new CodeValidator(_httpContextAccessor));
+                .SetValidator(new AliasCodeValidator(_httpContextAccessor));
         }
     }
 }

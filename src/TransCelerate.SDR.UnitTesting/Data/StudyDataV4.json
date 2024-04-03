@@ -1008,11 +1008,16 @@
                   "id": "quantityId",
                   "unit": {
                     "id": "a387aa89-c025-438e-91dd-b08281d122d0",
-                    "code": "C6666x",
-                    "codeSystem": "http:www.cdisc.org",
-                    "codeSystemVersion": "1",
-                    "decode": "unit",
-                    "instanceType": "Code"
+                    "standardCode": {
+                      "id": "Code_2",
+                      "code": "C6666x",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "1",
+                      "decode": "unit",
+                      "instanceType": "Code"
+                    },
+                    "standardCodeAliases": [],
+                    "instanceType": "AliasCode"
                   },
                   "value": 25,
                   "instanceType": "Quantity"
@@ -1026,19 +1031,7 @@
                     "description": "adminDesc",
                     "duration": {
                       "id": "durationId",
-                      "quantity": {
-                        "id": "quantityId",
-                        "unit": {
-                          "id": "a387aa89-c025-438e-91dd-b08281d122d0",
-                          "code": "C6666x",
-                          "codeSystem": "http:www.cdisc.org",
-                          "codeSystemVersion": "1",
-                          "decode": "Duration",
-                          "instanceType": "Code"
-                        },
-                        "value": 20,
-                        "instanceType": "Quantity"
-                      },
+                      "quantity": null,
                       "description": "desc",
                       "durationWillVary": true,
                       "reasonDurationWillVary": "reason",
@@ -1048,30 +1041,45 @@
                       "id": "doseId",
                       "unit": {
                         "id": "a387aa89-c025-438e-91dd-b08281d122d0",
-                        "code": "C6666x",
-                        "codeSystem": "http:www.cdisc.org",
-                        "codeSystemVersion": "1",
-                        "decode": "unit",
-                        "instanceType": "Code"
+                        "standardCode": {
+                          "id": "Code_2",
+                          "code": "C6666x",
+                          "codeSystem": "http://www.cdisc.org",
+                          "codeSystemVersion": "1",
+                          "decode": "unit",
+                          "instanceType": "Code"
+                        },
+                        "standardCodeAliases": [],
+                        "instanceType": "AliasCode"
                       },
                       "value": 10,
                       "instanceType": "Quantity"
                     },
                     "route": {
                       "id": "a387aa89-c025-438e-91dd-b08281d122d0",
-                      "code": "C6666x",
-                      "codeSystem": "http:www.cdisc.org",
-                      "codeSystemVersion": "1",
-                      "decode": "route",
-                      "instanceType": "Code"
+                      "standardCode": {
+                        "id": "Code_2",
+                        "code": "C6666x",
+                        "codeSystem": "http://www.cdisc.org",
+                        "codeSystemVersion": "1",
+                        "decode": "route",
+                        "instanceType": "Code"
+                      },
+                      "standardCodeAliases": [],
+                      "instanceType": "AliasCode"
                     },
                     "frequency": {
                       "id": "a387aa89-c025-438e-91dd-b08281d122d0",
-                      "code": "C6666x",
-                      "codeSystem": "http:www.cdisc.org",
-                      "codeSystemVersion": "1",
-                      "decode": "freq",
-                      "instanceType": "Code"
+                      "standardCode": {
+                        "id": "Code_2",
+                        "code": "C6666x",
+                        "codeSystem": "http://www.cdisc.org",
+                        "codeSystemVersion": "1",
+                        "decode": "route",
+                        "instanceType": "Code"
+                      },
+                      "standardCodeAliases": [],
+                      "instanceType": "AliasCode"
                     }
                   }
                 ],
@@ -1433,7 +1441,7 @@
                     "name": "END2",
                     "label": "",
                     "description": "",
-                    "text": "Video-referenced Clinician\u2019s Interview-based Impression of Change (CIBIC+) at Week 24",
+                    "text": "Video-referenced Clinician’s Interview-based Impression of Change (CIBIC+) at Week 24",
                     "dictionaryId": null,
                     "instanceType": "Endpoint",
                     "purpose": "",
@@ -1561,7 +1569,7 @@
                     "name": "END7",
                     "label": "",
                     "description": "",
-                    "text": "Video-referenced Clinician\u2019s Interview-based Impression of Change (CIBIC+) at Weeks 8 and 16",
+                    "text": "Video-referenced Clinician’s Interview-based Impression of Change (CIBIC+) at Weeks 8 and 16",
                     "dictionaryId": null,
                     "instanceType": "Endpoint",
                     "purpose": "",
@@ -1625,6 +1633,7 @@
                       "instanceType": "Code"
                     },
                     "value": "P2W",
+                    "valueLabel": "2 weeks",
                     "relativeToFrom": {
                       "id": "Code_15",
                       "code": "C201265",
@@ -1637,7 +1646,7 @@
                     "relativeToScheduledInstanceId": "ScheduledActivityInstance_11",
                     "windowLower": null,
                     "windowUpper": null,
-                    "window": "",
+                    "windowLabel": "",
                     "instanceType": "Timing"
                   },
                   {
@@ -1654,6 +1663,7 @@
                       "instanceType": "Code"
                     },
                     "value": "P2D",
+                    "valueLabel": "2 days",
                     "relativeToFrom": {
                       "id": "Code_17",
                       "code": "C201265",
@@ -1666,7 +1676,7 @@
                     "relativeToScheduledInstanceId": "ScheduledActivityInstance_11",
                     "windowLower": "PT4H",
                     "windowUpper": "PT0H",
-                    "window": "-4..0 hours",
+                    "windowLabel": "-4..0 hours",
                     "instanceType": "Timing"
                   },
                   {
@@ -1683,6 +1693,7 @@
                       "instanceType": "Code"
                     },
                     "value": "P1D",
+                    "valueLabel": "1 Day",
                     "relativeToFrom": {
                       "id": "Code_20",
                       "code": "C201265",
@@ -1695,7 +1706,7 @@
                     "relativeToScheduledInstanceId": "ScheduledActivityInstance_11",
                     "windowLower": null,
                     "windowUpper": null,
-                    "window": "",
+                    "windowLabel": "",
                     "instanceType": "Timing"
                   },
                   {
@@ -1712,6 +1723,7 @@
                       "instanceType": "Code"
                     },
                     "value": "P2W",
+                    "valueLabel": "2 Weeks",
                     "relativeToFrom": {
                       "id": "Code_22",
                       "code": "C201265",
@@ -1724,7 +1736,7 @@
                     "relativeToScheduledInstanceId": "ScheduledActivityInstance_11",
                     "windowLower": "P3D",
                     "windowUpper": "P3D",
-                    "window": "-3..3 days",
+                    "windowLabel": "-3..3 days",
                     "instanceType": "Timing"
                   },
                   {
@@ -1741,6 +1753,7 @@
                       "instanceType": "Code"
                     },
                     "value": "P4W",
+                    "valueLabel": "4 Weeks",
                     "relativeToFrom": {
                       "id": "Code_25",
                       "code": "C201265",
@@ -1753,7 +1766,7 @@
                     "relativeToScheduledInstanceId": "ScheduledActivityInstance_11",
                     "windowLower": "P3D",
                     "windowUpper": "P3D",
-                    "window": "-3..3 days",
+                    "windowLabel": "-3..3 days",
                     "instanceType": "Timing"
                   },
                   {
@@ -1770,6 +1783,7 @@
                       "instanceType": "Code"
                     },
                     "value": "P6W",
+                    "valueLabel": "6 Weeks",
                     "relativeToFrom": {
                       "id": "Code_28",
                       "code": "C201265",
@@ -1782,7 +1796,7 @@
                     "relativeToScheduledInstanceId": "ScheduledActivityInstance_11",
                     "windowLower": "P3D",
                     "windowUpper": "P3D",
-                    "window": "-3..3 days",
+                    "windowLabel": "-3..3 days",
                     "instanceType": "Timing"
                   },
                   {
@@ -1799,6 +1813,7 @@
                       "instanceType": "Code"
                     },
                     "value": "P8W",
+                    "valueLabel": "8 Weeks",
                     "relativeToFrom": {
                       "id": "Code_31",
                       "code": "C201265",
@@ -1811,7 +1826,7 @@
                     "relativeToScheduledInstanceId": "ScheduledActivityInstance_11",
                     "windowLower": "P3D",
                     "windowUpper": "P3D",
-                    "window": "-3..3 days",
+                    "windowLabel": "-3..3 days",
                     "instanceType": "Timing"
                   },
                   {
@@ -1828,6 +1843,7 @@
                       "instanceType": "Code"
                     },
                     "value": "P12W",
+                    "valueLabel": "12 Weeks",
                     "relativeToFrom": {
                       "id": "Code_36",
                       "code": "C201265",
@@ -1840,7 +1856,7 @@
                     "relativeToScheduledInstanceId": "ScheduledActivityInstance_11",
                     "windowLower": "P4D",
                     "windowUpper": "P4D",
-                    "window": "-4..4 days",
+                    "windowLabel": "-4..4 days",
                     "instanceType": "Timing"
                   },
                   {
@@ -1857,6 +1873,7 @@
                       "instanceType": "Code"
                     },
                     "value": "P16W",
+                    "valueLabel": "16 Weeks",
                     "relativeToFrom": {
                       "id": "Code_41",
                       "code": "C201265",
@@ -1869,7 +1886,7 @@
                     "relativeToScheduledInstanceId": "ScheduledActivityInstance_11",
                     "windowLower": "P4D",
                     "windowUpper": "P4D",
-                    "window": "-4..4 days",
+                    "windowLabel": "-4..4 days",
                     "instanceType": "Timing"
                   },
                   {
@@ -1886,6 +1903,7 @@
                       "instanceType": "Code"
                     },
                     "value": "P20W",
+                    "valueLabel": "20 Weeks",
                     "relativeToFrom": {
                       "id": "Code_46",
                       "code": "C201265",
@@ -1898,7 +1916,7 @@
                     "relativeToScheduledInstanceId": "ScheduledActivityInstance_11",
                     "windowLower": "P4D",
                     "windowUpper": "P4D",
-                    "window": "-4..4 days",
+                    "windowLabel": "-4..4 days",
                     "instanceType": "Timing"
                   },
                   {
@@ -1915,6 +1933,7 @@
                       "instanceType": "Code"
                     },
                     "value": "P24W",
+                    "valueLabel": "24 Weeks",
                     "relativeToFrom": {
                       "id": "Code_51",
                       "code": "C201265",
@@ -1927,7 +1946,7 @@
                     "relativeToScheduledInstanceId": "ScheduledActivityInstance_11",
                     "windowLower": "P4D",
                     "windowUpper": "P4D",
-                    "window": "-4..4 days",
+                    "windowLabel": "-4..4 days",
                     "instanceType": "Timing"
                   },
                   {
@@ -1944,6 +1963,7 @@
                       "instanceType": "Code"
                     },
                     "value": "P26W",
+                    "valueLabel": "26 Weeks",
                     "relativeToFrom": {
                       "id": "Code_54",
                       "code": "C201265",
@@ -1956,7 +1976,7 @@
                     "relativeToScheduledInstanceId": "ScheduledActivityInstance_11",
                     "windowLower": "P3D",
                     "windowUpper": "P3D",
-                    "window": "-3..3 days",
+                    "windowLabel": "-3..3 days",
                     "instanceType": "Timing"
                   },
                   {
@@ -1973,6 +1993,7 @@
                       "instanceType": "Code"
                     },
                     "value": "P2W",
+                    "valueLabel": "2 Weeks",
                     "relativeToFrom": {
                       "id": "Code_34",
                       "code": "C201265",
@@ -1985,7 +2006,7 @@
                     "relativeToScheduledInstanceId": "ScheduledActivityInstance_15",
                     "windowLower": null,
                     "windowUpper": null,
-                    "window": "",
+                    "windowLabel": "",
                     "instanceType": "Timing"
                   },
                   {
@@ -2002,6 +2023,7 @@
                       "instanceType": "Code"
                     },
                     "value": "P2W",
+                    "valueLabel": "2 Weeks",
                     "relativeToFrom": {
                       "id": "Code_39",
                       "code": "C201265",
@@ -2014,7 +2036,7 @@
                     "relativeToScheduledInstanceId": "ScheduledActivityInstance_17",
                     "windowLower": null,
                     "windowUpper": null,
-                    "window": "",
+                    "windowLabel": "",
                     "instanceType": "Timing"
                   },
                   {
@@ -2031,6 +2053,7 @@
                       "instanceType": "Code"
                     },
                     "value": "P2W",
+                    "valueLabel": "2 Weeks",
                     "relativeToFrom": {
                       "id": "Code_44",
                       "code": "C201265",
@@ -2043,7 +2066,7 @@
                     "relativeToScheduledInstanceId": "ScheduledActivityInstance_19",
                     "windowLower": null,
                     "windowUpper": null,
-                    "window": "",
+                    "windowLabel": "",
                     "instanceType": "Timing"
                   },
                   {
@@ -2060,6 +2083,7 @@
                       "instanceType": "Code"
                     },
                     "value": "P2W",
+                    "valueLabel": "2 Weeks",
                     "relativeToFrom": {
                       "id": "Code_49",
                       "code": "C201265",
@@ -2072,13 +2096,16 @@
                     "relativeToScheduledInstanceId": "ScheduledActivityInstance_21",
                     "windowLower": null,
                     "windowUpper": null,
-                    "window": "",
+                    "windowLabel": "",
                     "instanceType": "Timing"
                   }
                 ],
                 "instances": [
                   {
                     "id": "ScheduledActivityInstance_9",
+                    "name": "SCREEN1",
+                    "label": "Screen One",
+                    "description": "-",
                     "timelineId": null,
                     "timelineExitId": null,
                     "defaultConditionId": "ScheduledActivityInstance_10",
@@ -2113,6 +2140,9 @@
                   },
                   {
                     "id": "ScheduledActivityInstance_10",
+                    "name": "SCREEN2",
+                    "label": "Screen Two",
+                    "description": "-",
                     "timelineId": null,
                     "timelineExitId": null,
                     "defaultConditionId": "ScheduledActivityInstance_11",
@@ -2126,6 +2156,9 @@
                   },
                   {
                     "id": "ScheduledActivityInstance_11",
+                    "name": "DOSE",
+                    "label": "Dose",
+                    "description": "-",
                     "timelineId": null,
                     "timelineExitId": null,
                     "defaultConditionId": "ScheduledActivityInstance_12",
@@ -2147,6 +2180,9 @@
                   },
                   {
                     "id": "ScheduledActivityInstance_12",
+                    "name": "WK2",
+                    "label": "Week 2",
+                    "description": "-",
                     "timelineId": null,
                     "timelineExitId": null,
                     "defaultConditionId": "ScheduledActivityInstance_13",
@@ -2168,6 +2204,9 @@
                   },
                   {
                     "id": "ScheduledActivityInstance_13",
+                    "name": "WK4",
+                    "label": "Week 4",
+                    "description": "-",
                     "timelineId": null,
                     "timelineExitId": null,
                     "defaultConditionId": "ScheduledActivityInstance_14",
@@ -2187,6 +2226,9 @@
                   },
                   {
                     "id": "ScheduledActivityInstance_14",
+                    "name": "WK6",
+                    "label": "Week 6",
+                    "description": "-",
                     "timelineId": null,
                     "timelineExitId": null,
                     "defaultConditionId": "ScheduledActivityInstance_15",
@@ -2206,6 +2248,9 @@
                   },
                   {
                     "id": "ScheduledActivityInstance_15",
+                    "name": "WK8",
+                    "label": "Week 8",
+                    "description": "-",
                     "timelineId": null,
                     "timelineExitId": null,
                     "defaultConditionId": "ScheduledActivityInstance_16",
@@ -2227,6 +2272,9 @@
                   },
                   {
                     "id": "ScheduledActivityInstance_16",
+                    "name": "WK8N",
+                    "label": "Week NPI",
+                    "description": "-",
                     "timelineId": null,
                     "timelineExitId": null,
                     "defaultConditionId": "ScheduledActivityInstance_17",
@@ -2239,6 +2287,9 @@
                   },
                   {
                     "id": "ScheduledActivityInstance_17",
+                    "name": "WK12",
+                    "label": "Week 12",
+                    "description": "-",
                     "timelineId": null,
                     "timelineExitId": null,
                     "defaultConditionId": "ScheduledActivityInstance_18",
@@ -2259,6 +2310,9 @@
                   },
                   {
                     "id": "ScheduledActivityInstance_18",
+                    "name": "WK12N",
+                    "label": "Week 12 NPI",
+                    "description": "-",
                     "timelineId": null,
                     "timelineExitId": null,
                     "defaultConditionId": "ScheduledActivityInstance_19",
@@ -2271,6 +2325,9 @@
                   },
                   {
                     "id": "ScheduledActivityInstance_19",
+                    "name": "WK16",
+                    "label": "Week 16",
+                    "description": "-",
                     "timelineId": null,
                     "timelineExitId": null,
                     "defaultConditionId": "ScheduledActivityInstance_20",
@@ -2292,6 +2349,9 @@
                   },
                   {
                     "id": "ScheduledActivityInstance_20",
+                    "name": "WK16N",
+                    "label": "Week 16 NPI",
+                    "description": "-",
                     "timelineId": null,
                     "timelineExitId": null,
                     "defaultConditionId": "ScheduledActivityInstance_21",
@@ -2304,6 +2364,9 @@
                   },
                   {
                     "id": "ScheduledActivityInstance_21",
+                    "name": "WK20",
+                    "label": "Week 20",
+                    "description": "-",
                     "timelineId": null,
                     "timelineExitId": null,
                     "defaultConditionId": "ScheduledActivityInstance_22",
@@ -2323,6 +2386,10 @@
                   },
                   {
                     "id": "ScheduledActivityInstance_22",
+                    "id": "ScheduledActivityInstance_22",
+                    "name": "WK20N",
+                    "label": "Week 20 NPI",
+                    "description": "-",
                     "timelineId": null,
                     "timelineExitId": null,
                     "defaultConditionId": "ScheduledActivityInstance_23",
@@ -2335,6 +2402,9 @@
                   },
                   {
                     "id": "ScheduledActivityInstance_23",
+                    "name": "WK24",
+                    "label": "Week 24",
+                    "description": "-",
                     "timelineId": null,
                     "timelineExitId": null,
                     "defaultConditionId": "ScheduledActivityInstance_24",
@@ -2357,6 +2427,9 @@
                   },
                   {
                     "id": "ScheduledActivityInstance_24",
+                    "name": "WK26",
+                    "label": "Week 26",
+                    "description": "-",
                     "timelineId": null,
                     "timelineExitId": "ScheduleTimelineExit_4",
                     "defaultConditionId": null,
@@ -2407,6 +2480,7 @@
                       "instanceType": "Code"
                     },
                     "value": "P1D",
+                    "valueLabel": "1 Day",
                     "relativeToFrom": {
                       "id": "Code_57",
                       "code": "C201265",
@@ -2419,13 +2493,16 @@
                     "relativeToScheduledInstanceId": "ScheduledActivityInstance_1",
                     "windowLower": null,
                     "windowUpper": null,
-                    "window": "",
+                    "windowLabel": "",
                     "instanceType": "Timing"
                   }
                 ],
                 "instances": [
                   {
                     "id": "ScheduledActivityInstance_1",
+                    "name": "AE",
+                    "label": "Adevers Event",
+                    "description": "-",
                     "timelineId": null,
                     "timelineExitId": "ScheduleTimelineExit_1",
                     "defaultConditionId": null,
@@ -2468,6 +2545,7 @@
                       "instanceType": "Code"
                     },
                     "value": "P1D",
+                    "valueLabel": "1 Day",
                     "relativeToFrom": {
                       "id": "Code_59",
                       "code": "C201265",
@@ -2480,13 +2558,16 @@
                     "relativeToScheduledInstanceId": "ScheduledActivityInstance_2",
                     "windowLower": null,
                     "windowUpper": null,
-                    "window": "",
+                    "windowLabel": "",
                     "instanceType": "Timing"
                   }
                 ],
                 "instances": [
                   {
                     "id": "ScheduledActivityInstance_2",
+                    "name": "ET",
+                    "label": "Early Termination",
+                    "description": "-",
                     "timelineId": null,
                     "timelineExitId": "ScheduleTimelineExit_2",
                     "defaultConditionId": null,
@@ -2543,6 +2624,7 @@
                       "instanceType": "Code"
                     },
                     "value": "PT0M",
+                    "valueLabel": "0 mins",
                     "relativeToFrom": {
                       "id": "Code_61",
                       "code": "C201265",
@@ -2555,7 +2637,7 @@
                     "relativeToScheduledInstanceId": "ScheduledActivityInstance_3",
                     "windowLower": null,
                     "windowUpper": null,
-                    "window": "",
+                    "windowLabel": "",
                     "instanceType": "Timing"
                   },
                   {
@@ -2572,6 +2654,7 @@
                       "instanceType": "Code"
                     },
                     "value": "PT5M",
+                    "valueLabel": "5 mins",
                     "relativeToFrom": {
                       "id": "Code_63",
                       "code": "C201265",
@@ -2584,7 +2667,7 @@
                     "relativeToScheduledInstanceId": "ScheduledActivityInstance_3",
                     "windowLower": null,
                     "windowUpper": null,
-                    "window": "",
+                    "windowLabel": "",
                     "instanceType": "Timing"
                   },
                   {
@@ -2601,6 +2684,7 @@
                       "instanceType": "Code"
                     },
                     "value": "PT0M",
+                    "valueLabel": "0 min",
                     "relativeToFrom": {
                       "id": "Code_65",
                       "code": "C201265",
@@ -2613,7 +2697,7 @@
                     "relativeToScheduledInstanceId": "ScheduledActivityInstance_4",
                     "windowLower": null,
                     "windowUpper": null,
-                    "window": "",
+                    "windowLabel": "",
                     "instanceType": "Timing"
                   },
                   {
@@ -2630,6 +2714,7 @@
                       "instanceType": "Code"
                     },
                     "value": "PT1M",
+                    "valueLabel": "1 min",
                     "relativeToFrom": {
                       "id": "Code_67",
                       "code": "C201265",
@@ -2642,7 +2727,7 @@
                     "relativeToScheduledInstanceId": "ScheduledActivityInstance_5",
                     "windowLower": null,
                     "windowUpper": null,
-                    "window": "",
+                    "windowLabel": "",
                     "instanceType": "Timing"
                   },
                   {
@@ -2659,6 +2744,7 @@
                       "instanceType": "Code"
                     },
                     "value": "PT0M",
+                    "valueLabel": "0 min",
                     "relativeToFrom": {
                       "id": "Code_69",
                       "code": "C201265",
@@ -2671,7 +2757,7 @@
                     "relativeToScheduledInstanceId": "ScheduledActivityInstance_6",
                     "windowLower": null,
                     "windowUpper": null,
-                    "window": "",
+                    "windowLabel": "",
                     "instanceType": "Timing"
                   },
                   {
@@ -2688,6 +2774,7 @@
                       "instanceType": "Code"
                     },
                     "value": "PT2M",
+                    "valueLabel": "2 min",
                     "relativeToFrom": {
                       "id": "Code_71",
                       "code": "C201265",
@@ -2700,13 +2787,16 @@
                     "relativeToScheduledInstanceId": "ScheduledActivityInstance_7",
                     "windowLower": null,
                     "windowUpper": null,
-                    "window": "",
+                    "windowLabel": "",
                     "instanceType": "Timing"
                   }
                 ],
                 "instances": [
                   {
                     "id": "ScheduledActivityInstance_3",
+                    "name": "VS_5MIN",
+                    "label": "5 minute supine",
+                    "description": "",
                     "timelineId": null,
                     "timelineExitId": null,
                     "defaultConditionId": "ScheduledActivityInstance_4",
@@ -2719,17 +2809,28 @@
                   },
                   {
                     "id": "ScheduledDecisionInstance_1",
+                    "name": "NotAvailable",
+                    "label": "Dummy-Data",
+                    "description": "",
                     "timelineId": null,
                     "timelineExitId": null,
                     "defaultConditionId": "",
                     "epochId": null,
                     "instanceType": "ScheduledDecisionInstance",
-                    "conditionAssignments": {
-                      "option": "Must be done"
-                    }
+                    "conditionAssignments": [
+                      {
+                        "id": "ConditionAssignment_1",
+                        "condition": "Dummy-ConditionAssignment",
+                        "conditionTargetId": "ScheduledActivityInstance_5",
+                        "instanceType": "ConditionAssignment"
+                      }
+                    ]
                   },
                   {
                     "id": "ScheduledActivityInstance_4",
+                    "name": "VS_SUPINE",
+                    "label": "Vital signs supine",
+                    "description": "",
                     "timelineId": null,
                     "timelineExitId": null,
                     "defaultConditionId": "ScheduledActivityInstance_5",
@@ -2742,6 +2843,9 @@
                   },
                   {
                     "id": "ScheduledActivityInstance_5",
+                    "name": "VS_1MIN",
+                    "label": "1 minute standing",
+                    "description": "",
                     "timelineId": null,
                     "timelineExitId": null,
                     "defaultConditionId": "ScheduledActivityInstance_6",
@@ -2754,6 +2858,9 @@
                   },
                   {
                     "id": "ScheduledActivityInstance_6",
+                    "name": "VS_STAND1",
+                    "label": "Vital signs after 1 min standing",
+                    "description": "",
                     "timelineId": null,
                     "timelineExitId": null,
                     "defaultConditionId": "ScheduledActivityInstance_7",
@@ -2766,6 +2873,9 @@
                   },
                   {
                     "id": "ScheduledActivityInstance_7",
+                    "name": "VS_2MIN",
+                    "label": "2 minute standing",
+                    "description": "",
                     "timelineId": null,
                     "timelineExitId": null,
                     "defaultConditionId": "ScheduledActivityInstance_8",
@@ -2778,6 +2888,9 @@
                   },
                   {
                     "id": "ScheduledActivityInstance_8",
+                    "name": "VS_STAND3",
+                    "label": "Vital signs after 3 min standing",
+                    "description": "",
                     "timelineId": null,
                     "timelineExitId": "ScheduleTimelineExit_3",
                     "defaultConditionId": null,
@@ -2799,23 +2912,26 @@
                 "name": "IE_Dict",
                 "label": "IE Dictionary",
                 "description": "Dictionary for IE",
-                "parameterMap": {
-                  "min_age": {
-                    "klass": "Range",
-                    "id": "Range_3",
-                    "attribute": "maxValue"
+                "parameterMaps": [
+                  {
+                    "id": "ParameterMap_1",
+                    "tag": "min_age",
+                    "reference": "<usdm:ref klass=\"Range\" id=\"Range_3\" attribute=\"minValue\"></usdm:ref>",
+                    "instanceType": "ParameterMap"
                   },
-                  "max_age": {
-                    "klass": "Range",
-                    "id": "Range_3",
-                    "attribute": "minValue"
+                  {
+                    "id": "ParameterMap_2",
+                    "tag": "max_age",
+                    "reference": "<usdm:ref klass=\"Range\" id=\"Range_3\" attribute=\"maxValue\"></usdm:ref>",
+                    "instanceType": "ParameterMap"
                   },
-                  "StudyPopulation": {
-                    "klass": "StudyDesignPopulation",
-                    "id": "StudyDesignPopulation_1",
-                    "attribute": "description"
+                  {
+                    "id": "ParameterMap_3",
+                    "tag": "StudyPopulation",
+                    "reference": "<usdm:ref klass=\"StudyDesignPopulation\" id=\"StudyDesignPopulation_1\" attribute=\"description\"></usdm:ref>",
+                    "instanceType": "ParameterMap"
                   }
-                },
+                ],
                 "instanceType": "SyntaxTemplateDictionary"
               },
               {
@@ -2823,13 +2939,20 @@
                 "name": "AS_Dict",
                 "label": "Assessment Dictionary",
                 "description": "Dictionary for Study Assessments",
-                "parameterMap": {
-                  "Activity1": {
-                    "klass": "Activity",
-                    "id": "Activity_6",
-                    "attribute": "label"
+                "parameterMaps": [
+                  {
+                    "id": "ParameterMap_4",
+                    "tag": "Activity1",
+                    "reference": "<usdm:ref klass=\"Activity\" id=\"Activity_6\" attribute=\"label\"></usdm:ref>",
+                    "instanceType": "ParameterMap"
+                  },
+                  {
+                    "id": "ParameterMap_5",
+                    "tag": "Activity2",
+                    "reference": "<usdm:ref klass=\"Activity\" id=\"Activity_5\" attribute=\"label\"></usdm:ref>",
+                    "instanceType": "ParameterMap"
                   }
-                },
+                ],
                 "instanceType": "SyntaxTemplateDictionary"
               }
             ],
@@ -7751,7 +7874,7 @@
                   "name": "ELEMENT_START_RULE_2",
                   "label": null,
                   "description": null,
-                  "text": "Administration\u00a0of\u00a0first\u00a0dose",
+                  "text": "Administration of first dose",
                   "instanceType": "TransitionRule"
                 },
                 "transitionEndRule": null,
@@ -7768,7 +7891,7 @@
                   "name": "ELEMENT_START_RULE_7",
                   "label": null,
                   "description": null,
-                  "text": "End\u00a0of\u00a0last\u00a0scheduled\u00a0visit\u00a0on\u00a0study\u00a0(including\u00a0early\u00a0termination)",
+                  "text": "End of last scheduled visit on study (including early termination)",
                   "instanceType": "TransitionRule"
                 },
                 "transitionEndRule": {
@@ -7776,7 +7899,7 @@
                   "name": "ELEMENT_END_RULE_7",
                   "label": null,
                   "description": null,
-                  "text": "Completion\u00a0of\u00a0all\u00a0specified\u00a0followup\u00a0activities\u00a0(which\u00a0vary\u00a0on\u00a0a\u00a0patient-by-patient\u00a0basis)",
+                  "text": "Completion of all specified followup activities (which vary on a patient-by-patient basis)",
                   "instanceType": "TransitionRule"
                 },
                 "studyInterventionIds": [],
@@ -7792,7 +7915,7 @@
                   "name": "ELEMENT_START_RULE_3",
                   "label": null,
                   "description": null,
-                  "text": "Administration\u00a0of\u00a0first\u00a0dose",
+                  "text": "Administration of first dose",
                   "instanceType": "TransitionRule"
                 },
                 "transitionEndRule": null,
@@ -7826,7 +7949,7 @@
                   "name": "ELEMENT_START_RULE_5",
                   "label": null,
                   "description": null,
-                  "text": "Administration\u00a0of\u00a0first\u00a0dose\u00a0(from\u00a0patches\u00a0supplied\u00a0at\u00a0Visit\u00a04)",
+                  "text": "Administration of first dose (from patches supplied at Visit 4)",
                   "instanceType": "TransitionRule"
                 },
                 "transitionEndRule": null,
@@ -7843,7 +7966,7 @@
                   "name": "ELEMENT_START_RULE_6",
                   "label": null,
                   "description": null,
-                  "text": "Administration\u00a0of\u00a0first\u00a0dose\u00a0(from\u00a0patches\u00a0supplied\u00a0at\u00a0Visit\u00a012)",
+                  "text": "Administration of first dose (from patches supplied at Visit 12)",
                   "instanceType": "TransitionRule"
                 },
                 "transitionEndRule": null,
@@ -7855,7 +7978,7 @@
               {
                 "id": "BCC1",
                 "instanceType": "BiomedicalConceptCategory",
-                "childrenIds": [
+                "childIds": [
                   "BCC2"
                 ],
                 "name": "Blood pressure",
@@ -7890,7 +8013,7 @@
               {
                 "id": "BCC2",
                 "instanceType": "BiomedicalConceptCategory",
-                "childrenIds": [
+                "childIds": [
                   "BCC1",
                   "BCC3"
                 ],
@@ -7927,7 +8050,7 @@
               {
                 "id": "BCC3",
                 "instanceType": "BiomedicalConceptCategory",
-                "childrenIds": [
+                "childIds": [
                   "BCC2"
                 ],
                 "name": "Diastolic Blood Pressure",
@@ -7962,7 +8085,7 @@
               {
                 "id": "BCC4",
                 "instanceType": "BiomedicalConceptCategory",
-                "childrenIds": [
+                "childIds": [
                   "BCC2"
                 ],
                 "name": "Systolic Blood Pressure",
@@ -8311,6 +8434,8 @@
                 "NarrativeContent_132",
                 "NarrativeContent_133"
               ],
+              "previousId": null,
+              "nextId": "NarrativeContent_2",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8320,6 +8445,8 @@
               "sectionTitle": "TITLE PAGE",
               "text": "<div><usdm:section name=\"M11-title-page\"></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_1",
+              "nextId": "NarrativeContent_3",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8333,6 +8460,8 @@
                 "NarrativeContent_5",
                 "NarrativeContent_6"
               ],
+              "previousId": "NarrativeContent_2",
+              "nextId": "NarrativeContent_4",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8342,6 +8471,8 @@
               "sectionTitle": "Protocol Synopsis",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_3",
+              "nextId": "NarrativeContent_5",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8351,6 +8482,8 @@
               "sectionTitle": "Trial Schema",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_4",
+              "nextId": "NarrativeContent_6",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8360,6 +8493,8 @@
               "sectionTitle": "Schedule of Activities",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_5",
+              "nextId": "NarrativeContent_7",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8372,6 +8507,8 @@
                 "NarrativeContent_8",
                 "NarrativeContent_9"
               ],
+              "previousId": "NarrativeContent_6",
+              "nextId": "NarrativeContent_8",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8381,6 +8518,8 @@
               "sectionTitle": "Purpose of Trial",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_7",
+              "nextId": "NarrativeContent_9",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8390,6 +8529,8 @@
               "sectionTitle": "Summary of Benefits and Risks",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_8",
+              "nextId": "NarrativeContent_10",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8401,6 +8542,8 @@
               "childIds": [
                 "NarrativeContent_11"
               ],
+              "previousId": "NarrativeContent_9",
+              "nextId": "NarrativeContent_11",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8410,6 +8553,8 @@
               "sectionTitle": "Primary Objectives",
               "text": "<div><usdm:section name=\"M11-objective-endpoints\"></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_10",
+              "nextId": "NarrativeContent_12",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8424,6 +8569,8 @@
                 "NarrativeContent_19",
                 "NarrativeContent_20"
               ],
+              "previousId": "NarrativeContent_11",
+              "nextId": "NarrativeContent_13",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8435,6 +8582,8 @@
               "childIds": [
                 "NarrativeContent_14"
               ],
+              "previousId": "NarrativeContent_12",
+              "nextId": "NarrativeContent_14",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8444,6 +8593,8 @@
               "sectionTitle": "Participant Input into Design",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_13",
+              "nextId": "NarrativeContent_15",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8457,6 +8608,8 @@
                 "NarrativeContent_17",
                 "NarrativeContent_18"
               ],
+              "previousId": "NarrativeContent_14",
+              "nextId": "NarrativeContent_16",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8466,6 +8619,8 @@
               "sectionTitle": "Rationale for Comparator",
               "text": "<div><p>The parallel dosing regimen maximizes the ability to make direct comparisons between the treatment groups. The use of placebo allows for a blinded, thus minimally biased, study. The placebo treatment group is a comparator group for efficacy and safety assessment.</p><p>Two interim analyses are planned for this study. The first interim analysis will occur when 50% of the patients have completed Visit 8 (8 weeks). If required, the second interim analysis will occur when 50% of the patients have completed Visit 12 (24 weeks).</p></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_15",
+              "nextId": "NarrativeContent_17",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8475,6 +8630,8 @@
               "sectionTitle": "Rationale for Adaptive or Novel Trial Design",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_16",
+              "nextId": "NarrativeContent_18",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8484,6 +8641,8 @@
               "sectionTitle": "Other Trial Design Considerations",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_17",
+              "nextId": "NarrativeContent_19",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8493,6 +8652,8 @@
               "sectionTitle": "Access to Trial Intervention After End of Trial",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_18",
+              "nextId": "NarrativeContent_20",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8502,6 +8663,8 @@
               "sectionTitle": "Start of Trial and End of Trial",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_19",
+              "nextId": "NarrativeContent_21",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8518,6 +8681,8 @@
                 "NarrativeContent_26",
                 "NarrativeContent_31"
               ],
+              "previousId": "NarrativeContent_20",
+              "nextId": "NarrativeContent_22",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8525,8 +8690,10 @@
               "name": "SECTION 5.1",
               "sectionNumber": "5.1",
               "sectionTitle": "Selection of Trial Population",
-              "text": "<div><p>For Lilly studies, the following definitions are used:</p>\n<div>\n  <div><strong>Screen</strong></div>\n  <div>\n    <p>Screening is the act of determining if an individual meets minimum requirements to become part of a pool of potential candidates for participation in a clinical study.</p>\n    <p>In this study, <strong>screening</strong> will include asking the candidate preliminary questions (such as age and general health status) and conducting invasive or diagnostic procedures and/or tests (for example, diagnostic psychological tests, x-rays, blood draws). Patients will sign the consent at their screening visit, thereby consenting to undergo the screening procedures and to participate in the study if they qualify.</p>\n  </div>  \n</div>\n<div>\n  <div>To <strong>enter</strong></div>\n  <div>\n    <p>Patients <strong>entered</strong> into the study are those from whom informed consent for the study has been obtained. Adverse events will be reported for each patient who has <strong>entered</strong> the study, even if the patient is never assigned to a treatment group (<strong>enrolled</strong>).</p></div>\n  </div>  \n</div>\n<div>\n  <div>To <strong>enroll</strong></div>\n  <div>\n    <p>Patients who are enrolled in the study are those who have been assigned to a treatment group. Patients who are entered into the study but fail to meet criteria specified in the protocol for treatment assignment will not be enrolled in the study.</p></div>\n  </div>  \n</div>\n<p>At Visit 1, patients who meet the enrollment criteria of Mini-Mental State Examination (MMSE) score of 10 to 23 (Attachment LZZT.6), Hachinski Ischemia Score \u22644 (Attachment LZZT.8), a physical exam, safety labs, ECG, and urinalysis, will proceed to Visit 2 and Visit 3. At Visit 3, patients whose CNS imaging and other pending labs from Visit 1 satisfy the inclusion criteria (Section 3.4.2.1) will be enrolled in the study. Approximately 300 patients with a diagnosis of probable mild to moderate AD will be enrolled in the study.</p></div>",
+              "text": "<div><p>For Lilly studies, the following definitions are used:</p>\n<div>\n  <div><strong>Screen</strong></div>\n  <div>\n    <p>Screening is the act of determining if an individual meets minimum requirements to become part of a pool of potential candidates for participation in a clinical study.</p>\n    <p>In this study, <strong>screening</strong> will include asking the candidate preliminary questions (such as age and general health status) and conducting invasive or diagnostic procedures and/or tests (for example, diagnostic psychological tests, x-rays, blood draws). Patients will sign the consent at their screening visit, thereby consenting to undergo the screening procedures and to participate in the study if they qualify.</p>\n  </div>  \n</div>\n<div>\n  <div>To <strong>enter</strong></div>\n  <div>\n    <p>Patients <strong>entered</strong> into the study are those from whom informed consent for the study has been obtained. Adverse events will be reported for each patient who has <strong>entered</strong> the study, even if the patient is never assigned to a treatment group (<strong>enrolled</strong>).</p></div>\n  </div>  \n</div>\n<div>\n  <div>To <strong>enroll</strong></div>\n  <div>\n    <p>Patients who are enrolled in the study are those who have been assigned to a treatment group. Patients who are entered into the study but fail to meet criteria specified in the protocol for treatment assignment will not be enrolled in the study.</p></div>\n  </div>  \n</div>\n<p>At Visit 1, patients who meet the enrollment criteria of Mini-Mental State Examination (MMSE) score of 10 to 23 (Attachment LZZT.6), Hachinski Ischemia Score ≤4 (Attachment LZZT.8), a physical exam, safety labs, ECG, and urinalysis, will proceed to Visit 2 and Visit 3. At Visit 3, patients whose CNS imaging and other pending labs from Visit 1 satisfy the inclusion criteria (Section 3.4.2.1) will be enrolled in the study. Approximately 300 patients with a diagnosis of probable mild to moderate AD will be enrolled in the study.</p></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_21",
+              "nextId": "NarrativeContent_23",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8536,6 +8703,8 @@
               "sectionTitle": "Rationale for Trial Population",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_22",
+              "nextId": "NarrativeContent_24",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8545,6 +8714,8 @@
               "sectionTitle": "Inclusion Criteria",
               "text": "<div><usdm:section name=\"M11-inclusion\"></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_23",
+              "nextId": "NarrativeContent_25",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8554,6 +8725,8 @@
               "sectionTitle": "Exclusion Criteria",
               "text": "<div><usdm:section name=\"M11-exclusion\"></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_24",
+              "nextId": "NarrativeContent_26",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8568,6 +8741,8 @@
                 "NarrativeContent_29",
                 "NarrativeContent_30"
               ],
+              "previousId": "NarrativeContent_25",
+              "nextId": "NarrativeContent_27",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8577,6 +8752,8 @@
               "sectionTitle": "Meals and Dietary Restrictions",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_26",
+              "nextId": "NarrativeContent_28",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8586,6 +8763,8 @@
               "sectionTitle": "Caffeine, Alcohol, Tobacco, and Other Habits",
               "text": "<div><p>Not applicable</p></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_27",
+              "nextId": "NarrativeContent_29",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8595,6 +8774,8 @@
               "sectionTitle": "Physical Activity",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_28",
+              "nextId": "NarrativeContent_30",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8604,6 +8785,8 @@
               "sectionTitle": "Other Activity",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_29",
+              "nextId": "NarrativeContent_31",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8613,6 +8796,8 @@
               "sectionTitle": "Screen Failures",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_30",
+              "nextId": "NarrativeContent_32",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8631,6 +8816,8 @@
                 "NarrativeContent_46",
                 "NarrativeContent_47"
               ],
+              "previousId": "NarrativeContent_31",
+              "nextId": "NarrativeContent_33",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8640,6 +8827,8 @@
               "sectionTitle": "Description of Trial Intervention",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_32",
+              "nextId": "NarrativeContent_34",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8649,6 +8838,8 @@
               "sectionTitle": "Rationale for Trial Intervention",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_33",
+              "nextId": "NarrativeContent_35",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8660,6 +8851,8 @@
               "childIds": [
                 "NarrativeContent_36"
               ],
+              "previousId": "NarrativeContent_34",
+              "nextId": "NarrativeContent_36",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8669,6 +8862,8 @@
               "sectionTitle": "Trial Intervention Dose Modification",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_35",
+              "nextId": "NarrativeContent_37",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8678,6 +8873,8 @@
               "sectionTitle": "Treatment of Overdose",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_36",
+              "nextId": "NarrativeContent_38",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8691,6 +8888,8 @@
                 "NarrativeContent_40",
                 "NarrativeContent_41"
               ],
+              "previousId": "NarrativeContent_37",
+              "nextId": "NarrativeContent_39",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8700,6 +8899,8 @@
               "sectionTitle": "Preparation of Trial Intervention",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_38",
+              "nextId": "NarrativeContent_40",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8709,6 +8910,8 @@
               "sectionTitle": "Handling and Storage of Trial Intervention",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_39",
+              "nextId": "NarrativeContent_41",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8718,6 +8921,8 @@
               "sectionTitle": "Accountability of Trial Intervention",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_40",
+              "nextId": "NarrativeContent_42",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8731,6 +8936,8 @@
                 "NarrativeContent_44",
                 "NarrativeContent_45"
               ],
+              "previousId": "NarrativeContent_41",
+              "nextId": "NarrativeContent_43",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8740,6 +8947,8 @@
               "sectionTitle": "Participant Assignment",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_42",
+              "nextId": "NarrativeContent_44",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8749,6 +8958,8 @@
               "sectionTitle": "Randomisation",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_43",
+              "nextId": "NarrativeContent_45",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8756,8 +8967,10 @@
               "name": "SECTION 6.6.3",
               "sectionNumber": "6.6.3",
               "sectionTitle": "Blinding and Unblinding",
-              "text": "<div><p>The study will be double-blind. To further preserve the blinding of the study, only a minimum number of Lilly and CRO personnel will see the randomization table and codes before the study is complete.</p>\n<p>Emergency codes generated by a computer drug-labeling system will be available to the investigator. These codes, which reveal the patients treatment group, may be opened during the study only if the choice of follow-up treatment depends on the patient\u2019s therapy assignment.</p>\n<p>The investigator should make every effort to contact the clinical research physician prior to unblinding a patient\u2019s therapy assignment. If a patient\u2019s therapy assignment is unblinded, Lilly must be notified immediately by telephone. After the study, the investigator must return all sealed and any opened codes.</p></div>",
+              "text": "<div><p>The study will be double-blind. To further preserve the blinding of the study, only a minimum number of Lilly and CRO personnel will see the randomization table and codes before the study is complete.</p>\n<p>Emergency codes generated by a computer drug-labeling system will be available to the investigator. These codes, which reveal the patients treatment group, may be opened during the study only if the choice of follow-up treatment depends on the patient’s therapy assignment.</p>\n<p>The investigator should make every effort to contact the clinical research physician prior to unblinding a patient’s therapy assignment. If a patient’s therapy assignment is unblinded, Lilly must be notified immediately by telephone. After the study, the investigator must return all sealed and any opened codes.</p></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_44",
+              "nextId": "NarrativeContent_46",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8767,6 +8980,8 @@
               "sectionTitle": "Trial Intervention Compliance",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_45",
+              "nextId": "NarrativeContent_47",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8781,6 +8996,8 @@
                 "NarrativeContent_50",
                 "NarrativeContent_51"
               ],
+              "previousId": "NarrativeContent_46",
+              "nextId": "NarrativeContent_48",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8790,6 +9007,8 @@
               "sectionTitle": "Prohibited Concomitant Therapy",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_47",
+              "nextId": "NarrativeContent_49",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8799,6 +9018,8 @@
               "sectionTitle": "Permitted Concomitant Therapy",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_48",
+              "nextId": "NarrativeContent_50",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8808,6 +9029,8 @@
               "sectionTitle": "Rescue Therapy",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_49",
+              "nextId": "NarrativeContent_51",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8817,6 +9040,8 @@
               "sectionTitle": "Other Therapy",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_5",
+              "nextId": "NarrativeContent_5",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8831,6 +9056,8 @@
                 "NarrativeContent_58",
                 "NarrativeContent_59"
               ],
+              "previousId": "NarrativeContent_51",
+              "nextId": "NarrativeContent_53",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8844,6 +9071,8 @@
                 "NarrativeContent_55",
                 "NarrativeContent_56"
               ],
+              "previousId": "NarrativeContent_52",
+              "nextId": "NarrativeContent_54",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8853,6 +9082,8 @@
               "sectionTitle": "Criteria for Permanent Discontinuation of Trial Intervention",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_53",
+              "nextId": "NarrativeContent_55",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8862,6 +9093,8 @@
               "sectionTitle": "Temporary Discontinuation or Interruption of Trial Intervention",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_54",
+              "nextId": "NarrativeContent_56",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8871,6 +9104,8 @@
               "sectionTitle": "Rechallenge",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_55",
+              "nextId": "NarrativeContent_57",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8880,6 +9115,8 @@
               "sectionTitle": "Participant Withdrawal from the Trial",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_56",
+              "nextId": "NarrativeContent_58",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8889,6 +9126,8 @@
               "sectionTitle": "Lost to Follow-Up",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_57",
+              "nextId": "NarrativeContent_59",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8898,6 +9137,8 @@
               "sectionTitle": "Trial Stopping Rules",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_58",
+              "nextId": "NarrativeContent_60",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8918,6 +9159,8 @@
                 "NarrativeContent_91",
                 "NarrativeContent_92"
               ],
+              "previousId": "NarrativeContent_59",
+              "nextId": "NarrativeContent_61",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8927,6 +9170,8 @@
               "sectionTitle": "Screening/Baseline Assessments and Procedures",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_60",
+              "nextId": "NarrativeContent_62",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8936,6 +9181,8 @@
               "sectionTitle": "Efficacy Assessments and Procedures",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_61",
+              "nextId": "NarrativeContent_63",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8951,6 +9198,8 @@
                 "NarrativeContent_67",
                 "NarrativeContent_68"
               ],
+              "previousId": "NarrativeContent_62",
+              "nextId": "NarrativeContent_64",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8960,6 +9209,8 @@
               "sectionTitle": "Physical Examination",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_63",
+              "nextId": "NarrativeContent_65",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8969,6 +9220,8 @@
               "sectionTitle": "Vital Signs",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_64",
+              "nextId": "NarrativeContent_66",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8978,6 +9231,8 @@
               "sectionTitle": "Electrocardiograms",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_65",
+              "nextId": "NarrativeContent_67",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8987,6 +9242,8 @@
               "sectionTitle": "Clinical Laboratory Assessments",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_66",
+              "nextId": "NarrativeContent_68",
               "instanceType": "NarrativeContent"
             },
             {
@@ -8996,6 +9253,8 @@
               "sectionTitle": "Suicidal Ideation and Behaviour Risk Monitoring",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_67",
+              "nextId": "NarrativeContent_69",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9016,6 +9275,8 @@
                 "NarrativeContent_78",
                 "NarrativeContent_79"
               ],
+              "previousId": "NarrativeContent_68",
+              "nextId": "NarrativeContent_70",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9025,6 +9286,8 @@
               "sectionTitle": "Definitions of AE and SAE",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_69",
+              "nextId": "NarrativeContent_71",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9034,6 +9297,8 @@
               "sectionTitle": "Time Period and Frequency for Collecting AE and SAE Information",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_70",
+              "nextId": "NarrativeContent_72",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9043,6 +9308,8 @@
               "sectionTitle": "Identifying AEs and SAEs",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_71",
+              "nextId": "NarrativeContent_73",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9052,6 +9319,8 @@
               "sectionTitle": "Recording of AEs and SAEs",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_72",
+              "nextId": "NarrativeContent_74",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9061,6 +9330,8 @@
               "sectionTitle": "Follow-up of AEs and SAEs",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_73",
+              "nextId": "NarrativeContent_75",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9070,6 +9341,8 @@
               "sectionTitle": "Reporting of SAEs",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_74",
+              "nextId": "NarrativeContent_76",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9079,6 +9352,8 @@
               "sectionTitle": "Regulatory Reporting Requirements for SAEs",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_75",
+              "nextId": "NarrativeContent_77",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9088,6 +9363,8 @@
               "sectionTitle": "Serious and Unexpected Adverse Reaction Reporting",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_76",
+              "nextId": "NarrativeContent_78",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9097,6 +9374,8 @@
               "sectionTitle": "Adverse Events of Special Interest",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_77",
+              "nextId": "NarrativeContent_79",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9106,6 +9385,8 @@
               "sectionTitle": "Disease-related Events or Outcomes Not Qualifying as AEs or SAEs",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_78",
+              "nextId": "NarrativeContent_80",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9118,6 +9399,8 @@
                 "NarrativeContent_81",
                 "NarrativeContent_82"
               ],
+              "previousId": "NarrativeContent_79",
+              "nextId": "NarrativeContent_81",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9127,6 +9410,8 @@
               "sectionTitle": "Participants Who Become Pregnant During the Trial",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_80",
+              "nextId": "NarrativeContent_82",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9136,6 +9421,8 @@
               "sectionTitle": "Participants Whose Partners Become Pregnant",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_81",
+              "nextId": "NarrativeContent_83",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9151,6 +9438,8 @@
                 "NarrativeContent_87",
                 "NarrativeContent_88"
               ],
+              "previousId": "NarrativeContent_82",
+              "nextId": "NarrativeContent_84",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9160,6 +9449,8 @@
               "sectionTitle": "Definition of Medical Device Product Complaints",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_83",
+              "nextId": "NarrativeContent_85",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9169,6 +9460,8 @@
               "sectionTitle": "Recording of Medical Device Product Complaints",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_84",
+              "nextId": "NarrativeContent_86",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9178,6 +9471,8 @@
               "sectionTitle": "Time Period and Frequency for Collecting Medical Device Product Complaints .",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_85",
+              "nextId": "NarrativeContent_87",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9187,6 +9482,8 @@
               "sectionTitle": "Follow-Up of Medical Device Product Complaints",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_86",
+              "nextId": "NarrativeContent_88",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9196,6 +9493,8 @@
               "sectionTitle": "Regulatory Reporting Requirements for Medical Device Product Complaints",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_87",
+              "nextId": "NarrativeContent_89",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9205,6 +9504,8 @@
               "sectionTitle": "Pharmacokinetics",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_88",
+              "nextId": "NarrativeContent_90",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9214,6 +9515,8 @@
               "sectionTitle": "Genetics",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_89",
+              "nextId": "NarrativeContent_91",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9223,6 +9526,8 @@
               "sectionTitle": "Biomarkers",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_90",
+              "nextId": "NarrativeContent_92",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9234,6 +9539,8 @@
               "childIds": [
                 "NarrativeContent_93"
               ],
+              "previousId": "NarrativeContent_91",
+              "nextId": "NarrativeContent_93",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9243,6 +9550,8 @@
               "sectionTitle": "Medical Resource Utilisation and Health Economics",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_92",
+              "nextId": "NarrativeContent_94",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9262,6 +9571,8 @@
                 "NarrativeContent_107",
                 "NarrativeContent_108"
               ],
+              "previousId": "NarrativeContent_93",
+              "nextId": "NarrativeContent_95",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9271,6 +9582,8 @@
               "sectionTitle": "Analysis Sets",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_94",
+              "nextId": "NarrativeContent_96",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9286,6 +9599,8 @@
                 "NarrativeContent_100",
                 "NarrativeContent_101"
               ],
+              "previousId": "NarrativeContent_95",
+              "nextId": "NarrativeContent_97",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9295,6 +9610,8 @@
               "sectionTitle": "Statistical Model, Hypothesis, and Method of Analysis",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_96",
+              "nextId": "NarrativeContent_98",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9304,6 +9621,8 @@
               "sectionTitle": "Handling of Intercurrent Events of Primary Estimand(s)",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_97",
+              "nextId": "NarrativeContent_99",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9313,6 +9632,8 @@
               "sectionTitle": "Handling of Missing Data",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_98",
+              "nextId": "NarrativeContent_100",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9322,6 +9643,8 @@
               "sectionTitle": "Sensitivity Analysis",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_99",
+              "nextId": "NarrativeContent_101",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9331,6 +9654,8 @@
               "sectionTitle": "Supplementary Analysis",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_100",
+              "nextId": "NarrativeContent_102",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9340,6 +9665,8 @@
               "sectionTitle": "Analysis Supporting Secondary Objective(s)",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_101",
+              "nextId": "NarrativeContent_103",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9349,6 +9676,8 @@
               "sectionTitle": "Analysis of Exploratory Objective(s)",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_102",
+              "nextId": "NarrativeContent_104",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9358,6 +9687,8 @@
               "sectionTitle": "Safety Analyses",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_103",
+              "nextId": "NarrativeContent_105",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9367,6 +9698,8 @@
               "sectionTitle": "Other Analyses",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_104",
+              "nextId": "NarrativeContent_106",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9376,6 +9709,8 @@
               "sectionTitle": "Interim Analyses",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_105",
+              "nextId": "NarrativeContent_107",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9385,6 +9720,8 @@
               "sectionTitle": "Sample Size Determination",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_106",
+              "nextId": "NarrativeContent_108",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9394,6 +9731,8 @@
               "sectionTitle": "Protocol Deviations",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_107",
+              "nextId": "NarrativeContent_109",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9409,6 +9748,8 @@
                 "NarrativeContent_113",
                 "NarrativeContent_114"
               ],
+              "previousId": "NarrativeContent_108",
+              "nextId": "NarrativeContent_110",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9418,6 +9759,8 @@
               "sectionTitle": "Regulatory and Ethical Considerations",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_109",
+              "nextId": "NarrativeContent_111",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9427,6 +9770,8 @@
               "sectionTitle": "Committees",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_110",
+              "nextId": "NarrativeContent_112",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9436,6 +9781,8 @@
               "sectionTitle": "Informed Consent Process",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_111",
+              "nextId": "NarrativeContent_113",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9445,6 +9792,8 @@
               "sectionTitle": "Data Protection",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_112",
+              "nextId": "NarrativeContent_114",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9454,6 +9803,8 @@
               "sectionTitle": "Early Site Closure or Trial Termination",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_113",
+              "nextId": "NarrativeContent_115",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9467,6 +9818,8 @@
                 "NarrativeContent_117",
                 "NarrativeContent_118"
               ],
+              "previousId": "NarrativeContent_114",
+              "nextId": "NarrativeContent_116",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9476,6 +9829,8 @@
               "sectionTitle": "Quality Tolerance Limits",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_115",
+              "nextId": "NarrativeContent_117",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9485,6 +9840,8 @@
               "sectionTitle": "Data Quality Assurance",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_116",
+              "nextId": "NarrativeContent_118",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9494,6 +9851,8 @@
               "sectionTitle": "Source Data",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_117",
+              "nextId": "NarrativeContent_119",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9508,6 +9867,8 @@
                 "NarrativeContent_122",
                 "NarrativeContent_123"
               ],
+              "previousId": "NarrativeContent_118",
+              "nextId": "NarrativeContent_120",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9517,6 +9878,8 @@
               "sectionTitle": "Further Details and Clarifications on the AE Definition",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_119",
+              "nextId": "NarrativeContent_121",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9526,6 +9889,8 @@
               "sectionTitle": "Further Details and Clarifications on the SAE Definition",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_122",
+              "nextId": "NarrativeContent_124",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9535,6 +9900,8 @@
               "sectionTitle": "Severity",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_121",
+              "nextId": "NarrativeContent_123",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9544,6 +9911,8 @@
               "sectionTitle": "Causality",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_122",
+              "nextId": "NarrativeContent_124",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9558,6 +9927,8 @@
                 "NarrativeContent_130",
                 "NarrativeContent_131"
               ],
+              "previousId": "NarrativeContent_123",
+              "nextId": "NarrativeContent_125",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9571,6 +9942,8 @@
                 "NarrativeContent_127",
                 "NarrativeContent_128"
               ],
+              "previousId": "NarrativeContent_124",
+              "nextId": "NarrativeContent_126",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9580,6 +9953,8 @@
               "sectionTitle": "Definitions Related to Childbearing Potential",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_125",
+              "nextId": "NarrativeContent_127",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9589,6 +9964,8 @@
               "sectionTitle": "Contraception",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_126",
+              "nextId": "NarrativeContent_128",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9598,6 +9975,8 @@
               "sectionTitle": "Pregnancy Testing",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_127",
+              "nextId": "NarrativeContent_129",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9607,6 +9986,8 @@
               "sectionTitle": "Clinical Laboratory Tests",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_128",
+              "nextId": "NarrativeContent_130",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9616,6 +9997,8 @@
               "sectionTitle": "Country/Region-Specific Differences",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_129",
+              "nextId": "NarrativeContent_131",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9625,6 +10008,8 @@
               "sectionTitle": "Prior Protocol Amendments",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_130",
+              "nextId": "NarrativeContent_132",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9634,6 +10019,8 @@
               "sectionTitle": "APPENDIX: GLOSSARY OF TERMS",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_131",
+              "nextId": "NarrativeContent_133",
               "instanceType": "NarrativeContent"
             },
             {
@@ -9643,6 +10030,8 @@
               "sectionTitle": "APPENDIX: REFERENCES",
               "text": "<div></div>",
               "childIds": [],
+              "previousId": "NarrativeContent_132",
+              "nextId": "",
               "instanceType": "NarrativeContent"
             }
           ],
@@ -9653,6 +10042,9 @@
       "instanceType": "StudyProtocolDocument"
     }
   },
+  "usdmVersion": "3.0",
+  "systemName": "SDR-RI",
+  "systemVersion": "3.0",
   "auditTrail": {
     "entryDateTime": "2024-01-03T11:57:48.066559Z",
     "usdmVersion": "3.0",

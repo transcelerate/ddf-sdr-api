@@ -7,7 +7,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
     public class BiomedicalConceptCategoryEntity : IId
     {        
         public string Id { get; set; }
-        public List<string> ChildrenIds { get; set; }
+        public List<string> ChildIds { get; set; }
         public string Name { get; set; }
         public string Label { get; set; }
         public string Description { get; set; }

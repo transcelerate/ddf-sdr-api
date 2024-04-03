@@ -14,8 +14,8 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public string Description { get; set; }
         public AdministrationDurationDto Duration { get; set; }
         public QuantityDto Dose { get; set; }
-        public CodeDto Route { get; set; }
-        public CodeDto Frequency { get; set; }
+        public AliasCodeDto Route { get; set; }
+        public AliasCodeDto Frequency { get; set; }
         public string InstanceType { get; set; }
     }
 }

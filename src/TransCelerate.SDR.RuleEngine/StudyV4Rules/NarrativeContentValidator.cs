@@ -52,12 +52,24 @@ namespace TransCelerate.SDR.RuleEngineV4
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(NarrativeContentValidator), nameof(NarrativeContentDto.Text)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.ChildrenIds)
+            RuleFor(x => x.ChildIds)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(NarrativeContentValidator), nameof(NarrativeContentDto.ChildrenIds)), ApplyConditionTo.AllValidators)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(NarrativeContentValidator), nameof(NarrativeContentDto.ChildIds)), ApplyConditionTo.AllValidators)
                 .Must(x => UniquenessArrayValidator.ValidateStringList(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleFor(x => x.NextId)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(NarrativeContentValidator), nameof(NarrativeContentDto.NextId)), ApplyConditionTo.AllValidators);
+
+            RuleFor(x => x.PreviousId)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(NarrativeContentValidator), nameof(NarrativeContentDto.PreviousId)), ApplyConditionTo.AllValidators);
         }
     }
 }
