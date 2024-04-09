@@ -17,7 +17,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV4
         public string Label { get; set; }
         public string Description { get; set; }
         public string Text { get; set; }        
-        public List<ParameterMapDto> ParameterMap { get; set; }
+        public List<ParameterMapDto> ParameterMaps { get; set; }
         public string InstanceType { get; set; }
     }
 }
