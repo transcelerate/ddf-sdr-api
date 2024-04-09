@@ -33,6 +33,7 @@
 - [CodeValidator](#T-TransCelerate-SDR-RuleEngineV2-CodeValidator 'TransCelerate.SDR.RuleEngineV2.CodeValidator')
 - [CodeValidator](#T-TransCelerate-SDR-RuleEngineV3-CodeValidator 'TransCelerate.SDR.RuleEngineV3.CodeValidator')
 - [CodeValidator](#T-TransCelerate-SDR-RuleEngineV4-CodeValidator 'TransCelerate.SDR.RuleEngineV4.CodeValidator')
+- [ConditionAssignmentValidator](#T-TransCelerate-SDR-RuleEngineV4-ConditionAssignmentValidator 'TransCelerate.SDR.RuleEngineV4.ConditionAssignmentValidator')
 - [ConditionValidator](#T-TransCelerate-SDR-RuleEngineV4-ConditionValidator 'TransCelerate.SDR.RuleEngineV4.ConditionValidator')
 - [EligibilityCriterionValidator](#T-TransCelerate-SDR-RuleEngineV4-EligibilityCriterionValidator 'TransCelerate.SDR.RuleEngineV4.EligibilityCriterionValidator')
 - [EncounterValidator](#T-TransCelerate-SDR-RuleEngineV2-EncounterValidator 'TransCelerate.SDR.RuleEngineV2.EncounterValidator')
@@ -63,6 +64,7 @@
 - [OrganisationValidator](#T-TransCelerate-SDR-RuleEngineV2-OrganisationValidator 'TransCelerate.SDR.RuleEngineV2.OrganisationValidator')
 - [OrganisationValidator](#T-TransCelerate-SDR-RuleEngineV3-OrganisationValidator 'TransCelerate.SDR.RuleEngineV3.OrganisationValidator')
 - [OrganizationValidator](#T-TransCelerate-SDR-RuleEngineV4-OrganizationValidator 'TransCelerate.SDR.RuleEngineV4.OrganizationValidator')
+- [ParameterMapValidator](#T-TransCelerate-SDR-RuleEngineV4-ParameterMapValidator 'TransCelerate.SDR.RuleEngineV4.ParameterMapValidator')
 - [PostUserToGroupValidator](#T-TransCelerate-SDR-RuleEngine-PostUserToGroupValidator 'TransCelerate.SDR.RuleEngine.PostUserToGroupValidator')
 - [ProcedureValidator](#T-TransCelerate-SDR-RuleEngineV2-ProcedureValidator 'TransCelerate.SDR.RuleEngineV2.ProcedureValidator')
 - [ProcedureValidator](#T-TransCelerate-SDR-RuleEngineV3-ProcedureValidator 'TransCelerate.SDR.RuleEngineV3.ProcedureValidator')
@@ -459,6 +461,17 @@ TransCelerate.SDR.RuleEngineV4
 
 This Class is the validator for Code
 
+<a name='T-TransCelerate-SDR-RuleEngineV4-ConditionAssignmentValidator'></a>
+## ConditionAssignmentValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV4
+
+##### Summary
+
+This Class is the validator for StudyObjectives
+
 <a name='T-TransCelerate-SDR-RuleEngineV4-ConditionValidator'></a>
 ## ConditionValidator `type`
 
@@ -788,6 +801,17 @@ TransCelerate.SDR.RuleEngineV4
 ##### Summary
 
 This Class is the validator for StudyIdentifierScope
+
+<a name='T-TransCelerate-SDR-RuleEngineV4-ParameterMapValidator'></a>
+## ParameterMapValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV4
+
+##### Summary
+
+This Class is the validator for StudyObjectives
 
 <a name='T-TransCelerate-SDR-RuleEngine-PostUserToGroupValidator'></a>
 ## PostUserToGroupValidator `type`

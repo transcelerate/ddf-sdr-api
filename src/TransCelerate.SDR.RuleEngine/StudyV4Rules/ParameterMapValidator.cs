@@ -12,7 +12,7 @@ namespace TransCelerate.SDR.RuleEngineV4
     /// <summary>
     /// This Class is the validator for StudyObjectives
     /// </summary>
-    public class ParameterMapValidator : AbstractValidator<ParameterMaptDto>
+    public class ParameterMapValidator : AbstractValidator<ParameterMapDto>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         public ParameterMapValidator(IHttpContextAccessor httpContextAccessor)
@@ -22,26 +22,26 @@ namespace TransCelerate.SDR.RuleEngineV4
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ParameterMapValidator), nameof(ParameterMaptDto.Id)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ParameterMapValidator), nameof(ParameterMapDto.Id)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.InstanceType)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ParameterMapValidator), nameof(ParameterMaptDto.InstanceType)), ApplyConditionTo.AllValidators)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ParameterMapValidator), nameof(ParameterMapDto.InstanceType)), ApplyConditionTo.AllValidators)
                .Must(x => this.GetType().Name.RemoveValidator() == x).WithMessage(Constants.ValidationErrorMessage.InstanceTypeError);
 
             RuleFor(x => x.Tag)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ParameterMapValidator), nameof(ParameterMaptDto.Tag)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ParameterMapValidator), nameof(ParameterMapDto.Tag)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.Reference)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ParameterMapValidator), nameof(ParameterMaptDto.Reference)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ParameterMapValidator), nameof(ParameterMapDto.Reference)), ApplyConditionTo.AllValidators);
         }
     }
 }
