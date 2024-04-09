@@ -43,7 +43,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<NarrativeContentDto, NarrativeContentEntity>().ReverseMap();
             CreateMap<ObjectiveDto, ObjectiveEntity>().ReverseMap();
             CreateMap<OrganizationDto, OrganizationEntity>().ReverseMap();
-            CreateMap<ParameterMaptDto, ParameterMapEntity>().ReverseMap();
+            CreateMap<ParameterMapDto, ParameterMapEntity>().ReverseMap();
             CreateMap<PopulationDefinitionDto, PopulationDefinitionEntity>()
                 .Include<StudyDesignPopulationDto, StudyDesignPopulationEntity>()
                 .Include<StudyCohortDto, StudyCohortEntity>()
