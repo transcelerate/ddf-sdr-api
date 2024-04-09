@@ -1,6 +1,6 @@
 ﻿namespace TransCelerate.SDR.Core.DTO.StudyV4
 {
-    public class ParameterMaptDto : IId
+    public class ParameterMapDto : IId
     {        
         public string Id { get; set; }
         public string Tag { get; set; }
