@@ -354,7 +354,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(Core.DTO.StudyV4.StudyVersionDto.StudyDesigns),            
             nameof(Core.DTO.StudyV4.StudyVersionDto.Rationale),
             nameof(Core.DTO.StudyV4.StudyVersionDto.Amendments),
-            nameof(Core.DTO.StudyV4.StudyVersionDto.DateValues)
+            nameof(Core.DTO.StudyV4.StudyVersionDto.DateValues),
+            nameof(Core.DTO.StudyV4.StudyVersionDto.InstanceType)
         };
 
         public static readonly string[] StudyDesignElementsV4 = {
@@ -383,7 +384,12 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(Core.DTO.StudyV4.StudyDesignDto.BcCategories),
             nameof(Core.DTO.StudyV4.StudyDesignDto.BcSurrogates),
             nameof(Core.DTO.StudyV4.StudyDesignDto.DocumentVersionId),
-            nameof(Core.DTO.StudyV4.StudyDesignDto.Dictionaries)
+            nameof(Core.DTO.StudyV4.StudyDesignDto.Dictionaries),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.Characteristics),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.Conditions),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.InstanceType),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.MaskingRoles),
+            nameof(Core.DTO.StudyV4.StudyDesignDto.Organizations)
         };
         public struct FunctionAppConstants
         {
