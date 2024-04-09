@@ -1058,7 +1058,7 @@
           ]
         },
         {
-          "entity": "StudyCells",
+          "entity": "StudyCell",
           "required": [
             "ArmId",
             "EpochId",
