@@ -97,7 +97,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// </returns>
         public async Task<StudyDefinitionsEntity> GetPartialStudyItemsAsync(string studyId, int sdruploadversion, string[] listofelementsArray)
         {
-            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(GetPartialStudyItemsAsync)};");
+            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV4)}; Method : {nameof(GetPartialStudyItemsAsync)};");
             try
             {
                 IMongoCollection<StudyDefinitionsEntity> collection = _database.GetCollection<StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
@@ -125,7 +125,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(GetPartialStudyItemsAsync)};");
+                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV4)}; Method : {nameof(GetPartialStudyItemsAsync)};");
             }
         }
 
