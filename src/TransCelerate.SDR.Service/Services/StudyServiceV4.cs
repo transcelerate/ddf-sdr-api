@@ -371,7 +371,7 @@ namespace TransCelerate.SDR.Services.Services
                                     // SoA for instances where encounter is mapped
                                     encounters?.Where(x => scheduleActivityInstances.Select(y => y.EncounterId).Contains(x.Id)).ToList().ForEach(encounter =>
                                     {
-                                        TimingEntity timingMappedToEncounter = String.IsNullOrWhiteSpace(encounter.ScheduledAtTimingId) ? allTimings.Find(x=>x.Id == encounter.ScheduledAtTimingId) : null;
+                                        TimingEntity timingMappedToEncounter = String.IsNullOrWhiteSpace(encounter.ScheduledAtId) ? allTimings.Find(x=>x.Id == encounter.ScheduledAtId) : null;
                                         SoA soA = new()
                                         {
                                             EncounterId = encounter.Id,
