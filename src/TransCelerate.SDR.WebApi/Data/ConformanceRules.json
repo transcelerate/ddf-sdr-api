@@ -769,7 +769,6 @@
           "required": [
             "Id",
             "InstanceType",
-            "InstanceType",
             "Name",
             "Text"
           ]
@@ -1023,7 +1022,8 @@
         {
           "entity": "Study",
           "required": [
-            "Name"
+            "Name",
+            "InstanceType"
           ]
         },
         {
