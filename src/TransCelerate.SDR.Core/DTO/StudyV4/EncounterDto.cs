@@ -13,7 +13,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public CodeDto Type { get; set; }
         public string NextId { get; set; }
         public string PreviousId { get; set; }
-        public string ScheduledAtTimingId { get; set; }
+        public string ScheduledAtId { get; set; }
         public TransitionRuleDto TransitionStartRule { get; set; }
         public TransitionRuleDto TransitionEndRule { get; set; }
         public string InstanceType { get; set; }
