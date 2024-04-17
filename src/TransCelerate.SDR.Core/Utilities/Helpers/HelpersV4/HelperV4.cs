@@ -1657,12 +1657,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                           $"{nameof(StudyDesignDto.Encounters)}[{design.Encounters.IndexOf(enc)}]." +
                           $"{nameof(EncounterDto.NextId)}");
 
-                    if (!String.IsNullOrWhiteSpace(enc.ScheduledAtTimingId) && !allTimingIds.Contains(enc.ScheduledAtTimingId))
+                    if (!String.IsNullOrWhiteSpace(enc.ScheduledAtId) && !allTimingIds.Contains(enc.ScheduledAtId))
                         errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
                             $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
                           $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
                           $"{nameof(StudyDesignDto.Encounters)}[{design.Encounters.IndexOf(enc)}]." +
-                          $"{nameof(EncounterDto.ScheduledAtTimingId)}");
+                          $"{nameof(EncounterDto.ScheduledAtId)}");
                 });
             }
 
