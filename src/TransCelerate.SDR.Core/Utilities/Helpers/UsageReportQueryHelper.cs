@@ -20,6 +20,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                                  $"requests " +
                                  $"| join (traces) on operation_Id ,$left.operation_Id == $right.operation_Id " +
                                  $"| where url has \"apim\" and cloud_RoleName1 has \"apim\"" +
+                                 $"| where url !has \"/ui/\""+
                                  $"| project {Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.timestamp)}," +
                                            $"{Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.name)}," +
                                            $"{Enum.GetName(typeof(UsageReportFields), (int)UsageReportFields.customDimensions1)}," +
