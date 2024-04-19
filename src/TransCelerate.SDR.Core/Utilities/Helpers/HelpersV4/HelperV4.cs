@@ -1351,6 +1351,15 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                               $"{nameof(StudyCohortDto.Criteria)}[{coh.Criteria.IndexOf(crit)}]." +
                               $"{nameof(EligibilityCriterionDto.ContextId)}");
 
+                        if (!String.IsNullOrWhiteSpace(crit.DictionaryId) && !dictionaryIds.Contains(crit.DictionaryId))
+                            errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
+                              $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
+                              $"{nameof(StudyDesignDto.Population)}" +
+                              $"{nameof(StudyDesignPopulationDto.Cohorts)}[{design.Population.Cohorts.IndexOf(coh)}]." +
+                              $"{nameof(StudyCohortDto.Criteria)}[{coh.Criteria.IndexOf(crit)}]." +
+                              $"{nameof(EligibilityCriterionDto.DictionaryId)}");
+
                     });
 
                     coh.Characteristics.ForEach(characteristic =>
