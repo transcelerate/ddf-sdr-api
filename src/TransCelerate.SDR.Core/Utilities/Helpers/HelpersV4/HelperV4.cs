@@ -293,6 +293,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
 
             changedValues.RemoveAll(x => x.Contains(nameof(StudyEntity.Versions)));
             changedValues.RemoveAll(x => x.Contains(nameof(StudyEntity.DocumentedBy)));
+            changedValues.RemoveAll(x => x.Contains(nameof(StudyDefinitionsEntity.AuditTrail.EntryDateTime)));
+            changedValues.RemoveAll(x => x.Contains(nameof(StudyDefinitionsEntity.AuditTrail.SDRUploadVersion)));
 
             changedValues.AddRange(GetChangedValuesForStudyVersion(currentStudyVersion.Study.Versions, previousStudyVersion.Study.Versions));
 
