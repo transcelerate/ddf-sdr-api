@@ -75,7 +75,7 @@ namespace TransCelerate.SDR.Services.Services
                     if (checkStudy == null)
                         return Constants.ErrorMessages.Forbidden;
                     var studyDTO = _mapper.Map<StudyDefinitionsDto>(study);  //Mapping Entity to Dto
-                    studyDTO.Links = LinksHelper.GetLinksForUi(study.Study.Id, study.Study.Versions?.SelectMany(x => x.StudyDesigns).Select(x => x.Id).ToList(), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion);
+                    studyDTO.Links = LinksHelper.GetLinksForUi(study.Study.Id, study.Study.Versions?.Where(x => x.StudyDesigns!=null && x.StudyDesigns.Any()).SelectMany(x => x.StudyDesigns)?.Select(x => x.Id)?.ToList(), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion);
                     return studyDTO;
                 }
             }
@@ -625,7 +625,7 @@ namespace TransCelerate.SDR.Services.Services
 
         public Core.DTO.eCPT.ECPTDto GetCPTDataV4(StudyVersionDto studyDto, AuditTrailEntity auditTrail, List<StudyProtocolDocumentVersionDto> protocolVersions, string studyId)
         {
-            var links = LinksHelper.GetLinks(studyDto.Id, studyDto.StudyDesigns.Select(c => c.Id).ToList(), auditTrail.UsdmVersion, auditTrail.SDRUploadVersion);
+            var links = LinksHelper.GetLinks(studyId, studyDto.StudyDesigns.Select(c => c.Id).ToList(), auditTrail.UsdmVersion, auditTrail.SDRUploadVersion);
             Core.DTO.eCPT.StudyDetailsDto studyDetailsDto = new()
             {
                 StudyId = studyId,
