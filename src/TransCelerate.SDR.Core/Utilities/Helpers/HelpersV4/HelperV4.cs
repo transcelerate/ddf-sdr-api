@@ -141,6 +141,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                         jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyVersionDto.DateValues).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                     else if (item == nameof(StudyVersionDto.Amendments).ToLower())
                         jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyVersionDto.Amendments).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
+                    else if (item == nameof(StudyDto.Name).ToLower())
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDto.Name).ChangeToCamelCase() && attr.Parent.Path == nameof(StudyDefinitionsDto.Study).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
+                    else if (item == nameof(StudyDto.Description).ToLower())
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDto.Description).ChangeToCamelCase() && attr.Parent.Path == nameof(StudyDefinitionsDto.Study).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
+                    else if (item == nameof(StudyDto.Label).ToLower())
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDto.Label).ChangeToCamelCase() && attr.Parent.Path == nameof(StudyDefinitionsDto.Study).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                 }
             }
 
