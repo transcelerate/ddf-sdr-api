@@ -344,6 +344,9 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(Core.DTO.StudyV3.StudyDesignDto.BcSurrogates)
         };
         public static readonly string[] StudyElementsV4 = {
+            nameof(Core.DTO.StudyV4.StudyDto.Name),
+            nameof(Core.DTO.StudyV4.StudyDto.Description),
+            nameof(Core.DTO.StudyV4.StudyDto.Label),
             nameof(Core.DTO.StudyV4.StudyVersionDto.Titles),
             nameof(Core.DTO.StudyV4.StudyVersionDto.StudyIdentifiers),
             nameof(Core.DTO.StudyV4.StudyVersionDto.DocumentVersionId),
