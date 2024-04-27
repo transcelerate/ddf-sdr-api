@@ -169,6 +169,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string IntegerValidationFailed = "Type must be integer";
 
             public const string UsdmVersionMismatch = "usdmVersion value must be the same value mentioned in request header";
+
+            public const string OfficialTitleError = "Atleast one Offical Title is required";
         }
 
         public struct SuccessMessages
