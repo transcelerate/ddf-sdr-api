@@ -370,12 +370,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                     //DateValues
                     GetDifferenceForGovernanceDate(currVer.DateValues, prevVer.DateValues).ForEach(x =>
                     {
-                        changedValues.Add($"{x}");
+                        changedValues.Add($"{nameof(StudyVersionEntity.DateValues)}.{x}");
                     });
                     //Ammendments
                     GetDifferenceForStudyAmendments(currVer.Amendments, prevVer.Amendments).ForEach(x =>
                     {
-                        changedValues.Add($"{x}");
+                        changedValues.Add($"{nameof(StudyVersionEntity.Amendments)}.{x}");
                     });
                     //Study Designs
                     GetDifferenceForStudyDesigns(currVer.StudyDesigns, prevVer.StudyDesigns).ForEach(x =>
@@ -446,13 +446,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
         {
             var tempList = new List<string>();
             if ((currentVersion is null && previousVersion is not null) || (currentVersion is not null && previousVersion is null))
-                tempList.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyIdentifiers)}");
+                tempList.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.Versions)}.{nameof(StudyVersionEntity.StudyIdentifiers)}");
             if (currentVersion?.Count != previousVersion?.Count)
                 if (currentVersion?.Count != previousVersion?.Count)
-                    tempList.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyIdentifiers)}");
+                    tempList.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.Versions)}.{nameof(StudyVersionEntity.StudyIdentifiers)}");
             GetDifferenceForAList<StudyIdentifierEntity>(currentVersion, previousVersion).ForEach(x =>
             {
-                tempList.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyIdentifiers)}.{x}");
+                tempList.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.Versions)}.{nameof(StudyVersionEntity.StudyIdentifiers)}.{x}");
             });
             return tempList;
         }
@@ -517,16 +517,16 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
             List<string> formattedChangedValues = new();
 
             if ((currentVersion is null && previousVersion is not null) || (currentVersion is not null && previousVersion is null))
-                formattedChangedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyDesigns)}");
+                formattedChangedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.Versions)}.{nameof(StudyVersionEntity.StudyDesigns)}");
             if (currentVersion?.Count != previousVersion?.Count)
-                formattedChangedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyDesigns)}");
+                formattedChangedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.Versions)}.{nameof(StudyVersionEntity.StudyDesigns)}");
             changedValues.AddRange(GetDifferenceForEachStudyDesigns(currentVersion, previousVersion));
 
             if (changedValues.Any())
             {
                 changedValues.ForEach(x =>
                 {
-                    string addRootPath = $"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyVersionEntity.StudyDesigns)}.{x}";
+                    string addRootPath = $"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.Versions)}.{nameof(StudyVersionEntity.StudyDesigns)}.{x}";
                     formattedChangedValues.Add(addRootPath);
                 });
             }
@@ -944,7 +944,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
         {
             var tempList = new List<string>();
             if (currentVersion?.Count != previousVersion?.Count)
-                tempList.Add($"{nameof(StudyVersionEntity.DateValues)}");
+                tempList.Add($"");
 
             tempList.AddRange(GetDifferenceForAList(currentVersion, previousVersion));
 
@@ -958,7 +958,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
 
                     GetDifferenceForAList<GeographicScopeEntity>(currGovDate.GeographicScopes, prevGovDate.GeographicScopes).ForEach(x =>
                     {
-                        tempList.Add($"{nameof(StudyVersionEntity.DateValues)}.{x}");
+                        tempList.Add($"{x}");
                     });
                 }
             });
@@ -968,7 +968,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
         {
             var tempList = new List<string>();
             if (currentVersion?.Count != previousVersion?.Count)
-                tempList.Add($"{nameof(StudyVersionEntity.Amendments)}");
+                tempList.Add($"");
 
             tempList.AddRange(GetDifferenceForAList(currentVersion, previousVersion));
 
@@ -983,11 +983,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
 
                     GetDifferenceForAList<SubjectEnrollmentEntity>(currAmendment.Enrollments, prevAmendment.Enrollments).ForEach(x =>
                     {
-                        tempList.Add($"{nameof(StudyVersionEntity.Amendments)}.{x}");
+                        tempList.Add($"{x}");
                     });
                     GetDifferenceForAList<StudyAmendmentReasonEntity>(currAmendment.SecondaryReasons, prevAmendment.SecondaryReasons).ForEach(x =>
                     {
-                        tempList.Add($"{nameof(StudyVersionEntity.Amendments)}.{x}");
+                        tempList.Add($"{x}");
                     });
                 }
             });
