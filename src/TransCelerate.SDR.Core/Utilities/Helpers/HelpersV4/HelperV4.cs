@@ -370,12 +370,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
                     //DateValues
                     GetDifferenceForGovernanceDate(currVer.DateValues, prevVer.DateValues).ForEach(x =>
                     {
-                        changedValues.Add($"{nameof(StudyVersionEntity.DateValues)}.{x}");
+                        changedValues.Add($".{nameof(StudyVersionEntity.DateValues)}.{x}");
                     });
                     //Ammendments
                     GetDifferenceForStudyAmendments(currVer.Amendments, prevVer.Amendments).ForEach(x =>
                     {
-                        changedValues.Add($"{nameof(StudyVersionEntity.Amendments)}.{x}");
+                        changedValues.Add($".{nameof(StudyVersionEntity.Amendments)}.{x}");
                     });
                     //Study Designs
                     GetDifferenceForStudyDesigns(currVer.StudyDesigns, prevVer.StudyDesigns).ForEach(x =>
@@ -2749,6 +2749,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
             {
                 //Remove Code field values
                 var stringSegments = change.Split(".").ToList();
+                if (stringSegments.Last() == "")
+                {
+                    stringSegments.RemoveAt(stringSegments.Count - 1);
+                }
                 if (Constants.CharactersToBeRemovedForVersionCompare.ToList().Any(x => x == stringSegments.Last()))
                 {
                     //To remove code field property names
