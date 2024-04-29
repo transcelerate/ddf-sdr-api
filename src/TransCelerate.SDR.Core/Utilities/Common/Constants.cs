@@ -184,7 +184,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string OneVersionNotFound = "The requested one or more SDRUploadVersions not found";
 
-            public const string ChangeAuditNotFound = "The requested change audit is not found for the study with uuid :";
+            public const string ChangeAuditNotFound = "The requested change audit is not found for the study with id :";
 
             public const string GenericError = "An Error Occured";
 
