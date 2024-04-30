@@ -209,7 +209,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             //Filter for supported USDM Versions
             //filter &= builder.In(x => x.AuditTrail.UsdmVersion, ApiUsdmVersionMapping.SDRVersions.SelectMany(y => y.UsdmVersions).ToArray());
-            filter &= builder.Where(x => x.AuditTrail.UsdmVersion == Constants.USDMVersions.V1_9 || x.AuditTrail.UsdmVersion == Constants.USDMVersions.V2);
+            filter &= builder.Where(x => x.AuditTrail.UsdmVersion == Constants.USDMVersions.V1_9 || x.AuditTrail.UsdmVersion == Constants.USDMVersions.V2 || x.AuditTrail.UsdmVersion == Constants.USDMVersions.V3);
 
             //Filter for Date Range
             filter &= builder.Where(x => x.AuditTrail.EntryDateTime >= searchParameters.FromDate
