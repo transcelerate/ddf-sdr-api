@@ -190,7 +190,11 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(studyTitle))
-                filter &= builder.Regex($"{Constants.DbFilter.StudyTitleV4}", new BsonRegularExpression($"/{String.Join("$|", studyTitle)}$/i"));
+                filter &= builder.ElemMatch<BsonDocument>(Constants.DbFilter.StudyTitlesV4, new BsonDocument()
+                                                                {
+                                                                                    { Constants.DbFilter.StudyTitlesTextV4, new BsonRegularExpression($"/{studyTitle}/i") }
+                                                                }
+                                                         );
 
 
             return filter;
@@ -218,7 +222,6 @@ namespace TransCelerate.SDR.DataAccess.Filters
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
                 filter &= builder.Or(
-                                builder.Regex($"{Constants.DbFilter.StudyTitleV4}", new BsonRegularExpression($"/{String.Join("$|", searchParameters.StudyTitle)}$/i")),
                                 builder.Regex($"{Constants.DbFilter.StudyTitle}", new BsonRegularExpression($"/{String.Join("$|", searchParameters.StudyTitle)}$/i"))
                                 );
                     
@@ -289,10 +292,11 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
-                filter &= builder.Or(                                
-                                builder.Regex($"{Constants.DbFilter.StudyTitleV4}", new BsonRegularExpression($"/{String.Join("$|", searchParameters.StudyTitle)}$/i"))
-                                );
-
+                filter &= builder.ElemMatch<BsonDocument>(Constants.DbFilter.StudyTitlesV4, new BsonDocument()
+                                                            {
+                                                                                { Constants.DbFilter.StudyTitlesTextV4, new BsonRegularExpression($"/{searchParameters.StudyTitle}/i") }
+                                                            }
+                                                         );
 
             //Filter for OrgCode
             if (!String.IsNullOrWhiteSpace(searchParameters.SponsorId))
@@ -382,7 +386,11 @@ namespace TransCelerate.SDR.DataAccess.Filters
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
                 filter &= builder.Or(
                     builder.Regex($"{Constants.DbFilter.StudyTitle}", new BsonRegularExpression($"/{String.Join("$|", searchParameters.StudyTitle)}$/i")),
-                    builder.Regex($"{Constants.DbFilter.StudyTitleV4}", new BsonRegularExpression($"/{searchParameters.StudyTitle}/i"))
+                    builder.ElemMatch<BsonDocument>(Constants.DbFilter.StudyTitlesV4, new BsonDocument()
+                                                            {
+                                                                                { Constants.DbFilter.StudyTitlesTextV4, new BsonRegularExpression($"/{searchParameters.StudyTitle}/i") }
+                                                            }
+                                                  )
                     );
 
             //Filter for OrgCode
