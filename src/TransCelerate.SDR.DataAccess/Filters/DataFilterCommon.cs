@@ -190,7 +190,11 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(studyTitle))
-                filter &= builder.Regex($"{Constants.DbFilter.StudyTitleV4}", new BsonRegularExpression($"/{String.Join("$|", studyTitle)}$/i"));
+                filter &= builder.ElemMatch<BsonDocument>(Constants.DbFilter.StudyTitlesV4, new BsonDocument()
+                                                                {
+                                                                                    { Constants.DbFilter.StudyTitlesTextV4, new BsonRegularExpression($"/{studyTitle}/i") }
+                                                                }
+                                                         );
 
 
             return filter;
@@ -209,7 +213,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             //Filter for supported USDM Versions
             //filter &= builder.In(x => x.AuditTrail.UsdmVersion, ApiUsdmVersionMapping.SDRVersions.SelectMany(y => y.UsdmVersions).ToArray());
-            filter &= builder.Where(x => x.AuditTrail.UsdmVersion == Constants.USDMVersions.V1_9 || x.AuditTrail.UsdmVersion == Constants.USDMVersions.V2 || x.AuditTrail.UsdmVersion == Constants.USDMVersions.V3);
+            filter &= builder.Where(x => x.AuditTrail.UsdmVersion == Constants.USDMVersions.V1_9 || x.AuditTrail.UsdmVersion == Constants.USDMVersions.V2);
 
             //Filter for Date Range
             filter &= builder.Where(x => x.AuditTrail.EntryDateTime >= searchParameters.FromDate
@@ -218,7 +222,6 @@ namespace TransCelerate.SDR.DataAccess.Filters
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
                 filter &= builder.Or(
-                                builder.Regex($"{Constants.DbFilter.StudyTitleV4}", new BsonRegularExpression($"/{String.Join("$|", searchParameters.StudyTitle)}$/i")),
                                 builder.Regex($"{Constants.DbFilter.StudyTitle}", new BsonRegularExpression($"/{String.Join("$|", searchParameters.StudyTitle)}$/i"))
                                 );
                     
@@ -289,10 +292,11 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
-                filter &= builder.Or(                                
-                                builder.Regex($"{Constants.DbFilter.StudyTitleV4}", new BsonRegularExpression($"/{String.Join("$|", searchParameters.StudyTitle)}$/i"))
-                                );
-
+                filter &= builder.ElemMatch<BsonDocument>(Constants.DbFilter.StudyTitlesV4, new BsonDocument()
+                                                            {
+                                                                                { Constants.DbFilter.StudyTitlesTextV4, new BsonRegularExpression($"/{searchParameters.StudyTitle}/i") }
+                                                            }
+                                                         );
 
             //Filter for OrgCode
             if (!String.IsNullOrWhiteSpace(searchParameters.SponsorId))
@@ -382,7 +386,11 @@ namespace TransCelerate.SDR.DataAccess.Filters
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
                 filter &= builder.Or(
                     builder.Regex($"{Constants.DbFilter.StudyTitle}", new BsonRegularExpression($"/{String.Join("$|", searchParameters.StudyTitle)}$/i")),
-                    builder.Regex($"{Constants.DbFilter.StudyTitleV4}", new BsonRegularExpression($"/{searchParameters.StudyTitle}/i"))
+                    builder.ElemMatch<BsonDocument>(Constants.DbFilter.StudyTitlesV4, new BsonDocument()
+                                                            {
+                                                                                { Constants.DbFilter.StudyTitlesTextV4, new BsonRegularExpression($"/{searchParameters.StudyTitle}/i") }
+                                                            }
+                                                  )
                     );
 
             //Filter for OrgCode

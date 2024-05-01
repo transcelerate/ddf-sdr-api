@@ -91,7 +91,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         {
             public const string StudyId = "study.studyId";
             public const string StudyIdV4 = "study.id";
-            public const string StudyTitleV4 = "study.versions.titles.text";
+            public const string StudyTitlesV4 = "study.versions.titles";
+            public const string StudyTitlesTextV4 = "text";
             public const string StudyTitle = "study.studyTitle";
             public const string Study = "study";
             public const string AuditTrail = "auditTrail";
