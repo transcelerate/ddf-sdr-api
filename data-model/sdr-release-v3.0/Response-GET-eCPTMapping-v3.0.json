@@ -1,0 +1,152 @@
+{
+    "studyDetails": {
+        "studyId": "fa3350ea-9326-4cbe-9fd4-980d0747066e",
+        "studyTitle": "Safety and Efficacy of the Xanomeline Transdermal Therapeutic System (TTS) in Patients with Mild to Moderate Alzheimer's Disease",
+        "usdmVersion": "3.0",
+        "SDRUploadVersion": 1,
+        "links": {
+            "studyDefinitions": "/v4/studydefinitions/fa3350ea-9326-4cbe-9fd4-980d0747066e?sdruploadversion=1",
+            "revisionHistory": "/studydefinitions/fa3350ea-9326-4cbe-9fd4-980d0747066e/revisionhistory"
+        }
+    },
+    "studyDesign": [
+        {
+            "studyDesignId": "StudyDesign_1",
+            "studyDesignName": "Study Design 1",
+            "studyDesignLink": "/v4/studydesigns?studyid=fa3350ea-9326-4cbe-9fd4-980d0747066e&sdruploadversion=1&studydesignid=StudyDesign_1",
+            "ecptData": {
+                "titlePage": {
+                    "acronym": "LZZT",
+                    "amendmentNumber": "1",
+                    "approvalDate": "2006-07-01",
+                    "conditionDisease": "Alzheimer's disease and Alzheimer's disease",
+                    "regulatoryAgencyIdentifierNumbers": null,
+                    "sponsorLegalAddress": "Lilly Corporate Ctr,  Indianapolis , ,  IN ,  4628 , Denmark",
+                    "sponsorName": "Eli Lilly",
+                    "studyPhase": "Phase 2",
+                    "protocol": {
+                        "protocolShortTitle": "Xanomeline (LY246708)",
+                        "protocolTitle": "Safety and Efficacy of the Xanomeline Transdermal Therapeutic System (TTS) in Patients with Mild to Moderate Alzheimer's Disease",
+                        "protocolID": "H2Q-MC-LZZT"
+                    }
+                },
+                "protocolSummary": {
+                    "synopsis": {
+                        "interventionModel": "Parallel Group",
+                        "numberofParticipants": "300",
+                        "primaryPurpose": "Treatment",
+                        "enrollmentTarget": "Patients with Probable Mild to Moderate Alzheimer's Disease",
+                        "numberofArms": "3"
+                    }
+                },
+                "pageHeader": {
+                    "versionNumber": "2"
+                },
+                "studyPopulation": {
+                    "inclusionCriteria": {
+                        "plannedMaximumAgeofSubjects": "100",
+                        "plannedMinimumAgeofSubjects": "50",
+                        "sexofParticipants": "Male or Female"
+                    }
+                },
+                "introduction": {
+                    "studyRationale": "The discontinuation rate associated with this oral dosing regimen was 58.6% in previous studies, and alternative clinical strategies have been sought to improve tolerance for the compound. To that end, development of a Transdermal Therapeutic System (TTS) has been initiated."
+                },
+                "studyDesign": {
+                    "scientificRationaleForStudyDesign": "The discontinuation rate associated with this oral dosing regimen was 58.6% in previous studies, and alternative clinical strategies have been sought to improve tolerance for the compound. To that end, development of a Transdermal Therapeutic System (TTS) has been initiated."
+                },
+                "studyInterventionsAndConcomitantTherapy": {
+                    "studyInterventionsAdministered": [
+                        {
+                            "interventionDescription": "interventionDesc"
+                        }
+                    ],
+                    "studyArms": [
+                        {
+                            "armName": "Placebo",
+                            "armDescription": "Placebo",
+                            "armType": "Placebo Comparator Arm"
+                        },
+                        {
+                            "armName": "Xanomeline Low Dose",
+                            "armDescription": "Active Substance",
+                            "armType": "Active Comparator Arm"
+                        },
+                        {
+                            "armName": "Xanomeline High Dose",
+                            "armDescription": "Active Substance",
+                            "armType": "Active Comparator Arm"
+                        }
+                    ]
+                },
+                "statisticalConsiderations": {
+                    "populationsForAnalyses": "analysisName"
+                },
+                "objectivesEndpointsAndEstimands": {
+                    "primaryObjectives": [
+                        {
+                            "objectiveDescription": "Main objective",
+                            "objectiveLevel": "Trial Primary Objective",
+                            "objectiveEndpoints": [
+                                {
+                                    "endpointDescription": "",
+                                    "endpointPurposeDescription": "",
+                                    "endpointLevel": "Primary Endpoint"
+                                },
+                                {
+                                    "endpointDescription": "",
+                                    "endpointPurposeDescription": "",
+                                    "endpointLevel": "Primary Endpoint"
+                                }
+                            ]
+                        },
+                        {
+                            "objectiveDescription": "Safety",
+                            "objectiveLevel": "Trial Primary Objective",
+                            "objectiveEndpoints": [
+                                {
+                                    "endpointDescription": "",
+                                    "endpointPurposeDescription": "",
+                                    "endpointLevel": "Primary Endpoint"
+                                },
+                                {
+                                    "endpointDescription": "",
+                                    "endpointPurposeDescription": "",
+                                    "endpointLevel": "Primary Endpoint"
+                                },
+                                {
+                                    "endpointDescription": "The change from baseline laboratory value will be  calculated as the difference between the baseline lab value and the endpoint value (i.e., the value at the specified visit) or the end of treatment observation",
+                                    "endpointPurposeDescription": "",
+                                    "endpointLevel": "Primary Endpoint"
+                                }
+                            ]
+                        }
+                    ],
+                    "secondaryObjectives": [
+                        {
+                            "objectiveDescription": "Behaviour",
+                            "objectiveLevel": "Trial Secondary Objective",
+                            "objectiveEndpoints": [
+                                {
+                                    "endpointDescription": "",
+                                    "endpointPurposeDescription": "",
+                                    "endpointLevel": "Secondary Endpoint"
+                                },
+                                {
+                                    "endpointDescription": "",
+                                    "endpointPurposeDescription": "",
+                                    "endpointLevel": "Secondary Endpoint"
+                                },
+                                {
+                                    "endpointDescription": "",
+                                    "endpointPurposeDescription": "",
+                                    "endpointLevel": "Secondary Endpoint"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

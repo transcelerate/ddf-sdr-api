@@ -14,6 +14,7 @@ using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3;
+using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4;
 
 var host = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults()
@@ -47,6 +48,7 @@ var host = new HostBuilder()
         services.AddTransient<ILogHelper, LogHelper>();
         services.AddTransient<IHelperV2, HelperV2>();
         services.AddTransient<IHelperV3, HelperV3>();
+        services.AddTransient<IHelperV4, HelperV4>();
         services.AddTransient<IChangeAuditRepository, ChangeAuditRepository>();
         // Added because MongoDB 2.19 version by default supports LinqProvider.V3
         var clientSettings = MongoClientSettings.FromConnectionString(Config.ConnectionString);

@@ -1,29 +1,34 @@
 - [Introduction](#introduction)
   - [Requirements to Contribute and Propose Changes](#requirements-to-contribute-and-propose-changes)
-- [Sample Data](#sample-data)
-- [Pre-requisites](#pre-requisites)
-- [Code setup and debugging](#code-setup-and-debugging)
-- [Base solution structure](#base-solution-structure)
-- [SDR-API](#sdr-api)
-  - [List of Endpoints](#list-of-endpoints)
-  - [API Versioning](#api-versioning)
-- [Nuget packages](#nuget-packages)
-
+- [Intended-Audience](#intended-audience)
+- [Overview](#overview)
+- [Setup and Code Access](#setup-and-code-access)
+  - [Pre-requisites](#pre-requisites)
+  - [How To Setup Code](#how-to-setup-code)
+  - [How To Run](#how-to-run)
+- [Other Information](#other-information)
+  - [Base solution structure](#base-solution-structure)
+  - [Sample Data](#sample-data)
+  - [SDR-API](#sdr-api)
+    - [List of Endpoints](#list-of-endpoints)
+    - [API Versioning](#api-versioning)
+  - [Nuget packages](#nuget-packages)
+- [Support](#support)
 
 # Introduction
 
 Study Definition Repository (SDR) Reference Implementation is TransCelerate’s vision to catalyze industry-level transformation, enabling digital exchange of study definition information by collaborating with technology providers and standards bodies to create a sustainable open-source Study Definition Repository.
 
-This is a .NET 6 Web API project that is designed to expose APIs which upstream/downstream systems can utilize to store and retrieve study definitions from SDR. The latest Release of SDR (Release V2.0.1) supports study definitions conformant with USDM V1.0, USDM 1.9 and USDM V2.0.
+This is a .NET 6 Web API project that is designed to expose APIs which upstream/downstream systems can utilize to store and retrieve study definitions from SDR. The latest Release of SDR (Release V3.0) supports study definitions conformant with USDM V1.9, USDM 2.0 and USDM V3.0.
 
-This [Process Flow Document](https://github.com/transcelerate/ddf-sdr-platform/blob/main/documents/sdr-release-v2.0.2/ddf-sdr-ri-process-flows-v4.0.pdf) provides information regarding user interface functions and system interactions with the SDR at a high level. Please also refer to the [DDF SDR API User Guide](documents/sdr-release-v2.0.2/ddf-sdr-ri-api-user-guide-v6.0.pdf) to get started, and the [DDF SDR RI API Demo video](https://www.youtube.com/playlist?list=PLMXS-Xt7Ou1KNUF-HQKQRRzqfPQEXWb1u). 
+This [Process Flow Document](https://github.com/transcelerate/ddf-sdr-platform/blob/main/documents/sdr-release-v3.0/ddf-sdr-ri-process-flows-v4.0.pdf) provides information regarding user interface functions and system interactions with the SDR at a high level. Please also refer to the [DDF SDR API User Guide](documents/sdr-release-v3.0/ddf-sdr-ri-api-user-guide-v7.0.pdf) to get started, and the [DDF SDR RI API Demo video](https://www.youtube.com/playlist?list=PLMXS-Xt7Ou1KNUF-HQKQRRzqfPQEXWb1u). 
 
 **NOTES:** 
 - These materials and information are provided by TransCelerate Biopharma Inc. AS IS.  Any party using or relying on this information and these materials do so entirely at their own risk.  Neither TransCelerate nor its members will bear any responsibility or liability for any harm, including indirect or consequential harm, that a user may incur from use or misuse of this information or materials.
 - Please be advised that if you implement the code as written, the functionality is designed to collect and store certain personal data (user credentials, email address, IP address) for authentication and audit log purposes.  None of this information will be shared with TransCelerate or Accenture for any purpose.  Neither TransCelerate nor Accenture bears any responsibility for any collection, use or misuse of personal data that occurs from any implementation of this source code.  If you or your organization employ any of the features that collect personal data, you are responsible for compliance with any relevant privacy laws or regulations in any applicable jurisdiction.  
 - Please be aware that any information you put into the provided tools (including the UI or API) will be visible to all users, so we recommend not using commercially sensitive or confidential information.  You and/or your employer bear all responsibility for anything you share with this project.  TransCelerate, its member companies and any vendors affiliated with the DDF project are not responsible for any harm or loss you occur as a result of uploading any information or code: commercially sensitive, confidential or otherwise.
 - To the extent that the SDR Reference Implementation incorporates or relies on any specific branded products or services, such as Azure, this resulted out of the practical necessities associated with making a reference implementation available to demonstrate the SDR’s capabilities.  Users are free to download the source code for the SDR from GitHub and design their own implementations.  Those implementations can be in an environment of the user’s choice, and do not have to be on Azure. 
-- As of October 2023, the DDF initiative is still the process of setting up operations, and any pull requests submitted will not be triaged at this point in time.
+- As of May 2024, the DDF initiative is still the process of setting up operations, and any pull requests submitted will not be triaged at this point in time.
 
 ## Requirements to Contribute and Propose Changes
 Before participating, you must acknowledge the Contribution License Agreement (CLA).
@@ -37,13 +42,21 @@ To acknowledge the CLA, follow these instructions:
 
 NOTE: Keep a copy for your records.
 
-# Sample Data
-For those looking to evaluate the USDM with a sample data set, please see the following files in the Data Model folder:
-- [USDM V1.0 conformant Sample JSON](data-model/sdr-release-v0.5/SDR%20Study%20Sample-JSON-V1.0.json)
-- [USDM V1.9 conformant Sample JSON](data-model/sdr-release-v2.0/ddf-sdr-api-study-sample-json-v1.9.json)
-- [USDM V2.0 conformant Sample JSON](data-model/sdr-release-v2.0.2/ddf-sdr-api-study-sample-json-v2.0.json)
+# Intended Audience
+The contents in this repository allows users to develop SDR Reference Implementation API onto their Azure Cloud Subscription via their own GitHub Repos and Workflows. The deployment scripts (YAML Scripts) can be configured and executed from GitHub Actions, leveraging GitHub Secrets to configure target environment specific values.
 
-# Code setup and debugging
+It assumes a good understanding of Azure concepts and services. The audience for this document should:
+- have clear understanding of C# and .NET Web APIs
+- have basic understanding of MongoDB and MongoDB C# driver
+- be aware of how to use Azure portal and basic understanding of Azure Cloud Platform
+- have basic understanding of GitHub Actions, Secrets & Yaml Scripts
+
+# Overview
+The SDR Reference Implementation  implements the CDISC DDF Reference Architecture which include USDM model and API Specifications defined using the OpenAPI Specification (OAS). The API Layer of the SDR Reference Implementation complies with the OpenAPI Specification which allow systems to discover and understand the capabilities of the service without access to source code, documentation, or through network traffic inspection. When properly defined, a consumer can understand and interact with the remote service with a minimal amount of implementation logic.
+
+It follows the REST architectural style that uses HTTP requests to GET, POST and PUT data. RESTful architecture is not linked with any technology or platform, it does not dictate exactly how to build an API. Instead, it introduces the best practices known as constraints. They describe how the server processes requests and responds to them. Operating within these constraints, the system gains desirable properties such as reliability, ease of use, improved scalability and security, low latency while enhancing the system performance and helping achieve technology independence in the process.
+
+# Setup and Code Access
 ## Pre-requisites
 
 1. Install [Visual Studio 2022](https://visualstudio.microsoft.com/) with default options to run the solution.
@@ -85,10 +98,10 @@ git clone "repo_url"
  },
  "isGroupFilterEnabled": true  // change value to false to disable user based data filtering,
  "isAuthEnabled": true  // change value to false to disable authorization
- "ApiVersionUsdmVersionMapping":"" // {"SDRVersions":[{"apiVersion":"v1","usdmVersions":["1.0"]},{"apiVersion":"v2","usdmVersions":["1.9"]},{"apiVersion":"v3","usdmVersions":["2.0"]}]}
+ "ApiVersionUsdmVersionMapping":"" // {"SDRVersions":[{"apiVersion":"v2","usdmVersions":["1.9"]},{"apiVersion":"v3","usdmVersions":["2.0"]},{"apiVersion":"v4","usdmVersions":["3.0"]}]}
 ```
 > **Note**  
-> **API to USDM Version mapping** - SDR supports 3 major USDM versions at a given point in time along with all their minor versions. API endpoints are up-versioned for breaking changes in USDM (API V1 -> USDM V1.0, API V2 -> USDM 1.9, API V3 -> USDM 2.0).
+> **API to USDM Version mapping** - SDR supports 3 major USDM versions at a given point in time along with all their minor versions. API endpoints are up-versioned for breaking changes in USDM (API V2 -> USDM V1.9, API V3 -> USDM 2.0, API V4 -> USDM 3.0).
 
 3. Then, In the Visual Studio IDE, on clicking the IIS Express Icon or on pressing F5, WebApi solution will start running locally.
 
@@ -122,7 +135,8 @@ git clone "repo_url"
 
 4. The browser will automatically open a console which will start listen on the Azure Service Bus Queue.
 
-# Base solution structure
+# Other Information
+## Base solution structure
 
 The solution has the following structure:
 
@@ -151,15 +165,16 @@ The solution has the following structure:
       │   └── TransCelerate.SDR.DataAccess.md
       ├── TransCelerate.SDR.RuleEngine
       │   ├── Common
-      │   ├── StudyRules
-      │   ├── StudyV1Rules
       │   ├── StudyV2Rules
+      │   ├── StudyV3Rules
+      │   ├── StudyV4Rules
       │   ├── Token
       │   ├── UserGroupMappingRules
       │   ├── ValidationDependencies.cs
       │   ├── ValidationDependenciesCommon.cs
-      │   ├── ValidationDependenciesV1.cs 
-      │   ├── ValidationDependenciesV2.cs
+      │   ├── ValidationDependenciesV2.cs 
+      │   ├── ValidationDependenciesV3.cs
+      │   ├── ValidationDependenciesV4.cs
       │   └── TransCelerate.SDR.RuleEngine.md
       ├── TransCelerate.SDR.Service
       │   ├── Interfaces
@@ -198,40 +213,21 @@ The solution has the following structure:
 
 **[TransCelerate.SDR.WebApi](src/TransCelerate.SDR.WebApi/TransCelerate.SDR.WebApi.md)** - contains API controllers, mappers and the startup for the application.
 
-# SDR API
-## List Of Endpoints
+## Sample Data
+For those looking to evaluate the USDM with a sample data set, please see the following files in the Data Model folder:
+- [USDM V1.9 conformant Sample JSON](data-model/sdr-release-v2.0/ddf-sdr-api-study-sample-json-v1.9.json)
+- [USDM V2.0 conformant Sample JSON](data-model/sdr-release-v2.0.2/ddf-sdr-api-study-sample-json-v2.0.json)
+- [USDM V3.0 conformant Sample JSON](data-model/sdr-release-v3.0/ddf-sdr-api-study-sample-json-v3.0.json)
+
+## SDR API
+### List Of Endpoints
 
 The below GET endpoint can be used to GET API Version -> USDM Version mapping.
 ```
 /versions
 ```
 
-### V1 Endpoints (USDM Version 1.0)
-
-For V1 endpoints, the "usdmVersion" header parameter is mandatory and the header value must be "1.0"
-
-**POST Endpoint**
-
-The below endpoint can be used to create new (or) update existing study definitions.
-```
-/v1/studydefinitions
-```
-
-**GET Endpoints**
-
-The below endpoint can be used to fetch all the elements for a given StudyId.
-
-```
-/v1/studydefinitions/{studyId}
-```
-
-The below endpoint can be used to fetch the sections of study design for a given StudyId.
-
-```
-​/v1​/studydesign​s?study_uuid={studyId}
-```
-
-### V2 Endpoints (USDM Version 1.9)
+#### V2 Endpoints (USDM Version 1.9)
 
 For V2 endpoints, the "usdmVersion" header parameter is mandatory and the header value must be "1.9"
 
@@ -266,7 +262,7 @@ The below endpoint can be used to fetch data from study definitions that help bu
 ```
 /v2/studydefinitions/{studyId}/studydesigns/soa
 ```
-### V3 Endpoints (USDM Version 2.0)
+#### V3 Endpoints (USDM Version 2.0)
 
 For V3 endpoints, the "usdmVersion" header parameter is mandatory and the header value must be "2.0"
 
@@ -309,7 +305,50 @@ The below endpoint can be used to fetch data from study definitions that help bu
 ```
 /v3/studydefinitions/{studyId}/studydesigns/soa
 ```
-### Version Neutral Endpoints
+#### V4 Endpoints (USDM Version 3.0)
+
+For V4 endpoints, the "usdmVersion" header parameter is mandatory and the header value must be "3.0"
+
+**POST Endpoint**
+The below endpoint can be used to create new study definitions.
+```
+/v4/studydefinitions
+```
+The below endpoint can be used to validate the USDM conformance rules for a study definition
+```
+/v4/studydefinitions/validate-usdm-conformance
+```
+**PUT Endpoint**
+The below endpoint can be used to update existing study definitions (create new version for a study definition).
+```
+/v4/studydefinitions/{studyId}
+```
+**GET Endpoints**
+
+The below endpoint can be used to fetch all the elements for a given StudyId.
+
+```
+/v4/studydefinitions/{studyId}
+```
+
+The below endpoint can be used to fetch the sections of study design for a given StudyId.
+
+```
+/v4/studydesigns?studyId={studyId}
+```
+The below endpoint can be used to get the changes between two SDR Upload Versions of a specific study definition
+```
+/v4/studydefinitions/{studyId}/version-comparison?sdruploadversionone={sdruploadversionone}&sdruploadversiontwo={sdruploadversiontwo}
+```
+The below endpoint can be used to export study details mapped to a limited set of CPT Variables grouped by sections within the Common Protocol Template
+```
+/v4/studydefinitions/{studyId}/studydesigns/ecpt
+```
+The below endpoint can be used to fetch data from study definitions that help build the Schedule of Activities matrix for a given Schedule Timeline in a Study Design
+```
+/v4/studydefinitions/{studyId}/studydesigns/soa
+```
+#### Version Neutral Endpoints
 
 The below endpoints can be used to fetch the revision history for a given StudyId.
 
@@ -332,15 +371,15 @@ The below endpoint can be used to fetch the change audit details of a study defi
 /studydefinitions/{studyId}/changeaudit
 ```
 
-### API Spec
+#### API Spec
 To view the API specifications and to run the endpoints locally, the below swagger url can be used.
 
 ```
 https://localhost:44358/swagger/index.html
 ```
-**Note**: Refer **[DDF SDR API User Guide](documents/sdr-release-v2.0.2/ddf-sdr-ri-api-user-guide-v6.0.pdf)** for detailed information on all the endpoints.
+**Note**: Refer **[DDF SDR API User Guide](documents/sdr-release-v3.0/ddf-sdr-ri-api-user-guide-v7.0.pdf)** for detailed information on all the endpoints.
 
-## API Versioning
+### API Versioning
 SDR APIs are defined in such a way that an API version can handle more than one USDM Version. If there are no breaking changes between the USDM Versions, with same API version, more than one USDM Versions can be handled. But, when there is a breaking change in a new USDM Version, a new API version must be created to support the new USDM Version. Below are the list of changes that are required when creating a new API version.
 - Configuration for **ApiVersionUsdmVersionMapping** and **ConformanceRules** must be updated to support new API version.
 - Create new version for the below listed components
@@ -360,7 +399,7 @@ SDR APIs are defined in such a way that an API version can handle more than one 
  TransCelerate.SDR.Services
 ```
 
-# Nuget Packages 
+## Nuget Packages 
 
 1. **Automapper.Extensions.Microsoft.DependencyInjection** - Used for mapping two different classes.
 
@@ -404,8 +443,17 @@ SDR APIs are defined in such a way that an API version can handle more than one 
 
 21. **Microsoft.AspNetCore.Mvc.Versioning** - Used for API Versioning
 
+Support
+
 22. **Azure.Extensions.AspNetCore.Configuration.Secrets** - Used to get values from Key vault
 
 23. **JsonSubTypes** - Used to Serialize/Deserialize the inherited classes.
 
 24. **Microsoft.Identity.Web.MicrosoftGraph** - Used to connect with Azure AD and list the users available
+
+# Support
+
+- For any technical queries on SDR API repository, please create an issue [DDF SDR Support](https://github.com/transcelerate/ddf-sdr-support/issues/new?assignees=sdr-support&labels=techSupport&template=TechSupport.yml&title=%5BTechSupport%5D%3A).
+- [Raise Incident](https://github.com/transcelerate/ddf-sdr-support/issues/new?assignees=sdr-support&labels=incident&template=Incident.yml&title=%5BIncident%5D%3A+) faced in the SDR RI Demo Environment.
+- [Ad-hoc Database Request](https://github.com/transcelerate/ddf-sdr-support/issues/new?assignees=sdr-support&labels=dataSupport&template=DatabaseRequest.yml&title=%5BDatabaseRequest%5D%3A) for editing / deleting data in SDR RI Demo environment.
+- For any other support on DDF SDR RI, reach out to [SDR.Support@accenture.com](mailto:sdr.support@accenture.com).

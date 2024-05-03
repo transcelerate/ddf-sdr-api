@@ -34,6 +34,7 @@ using TransCelerate.SDR.DataAccess.Filters;
 using TransCelerate.SDR.RuleEngine;
 using TransCelerate.SDR.Services.Interfaces;
 using TransCelerate.SDR.WebApi.Controllers;
+using TransCelerate.SDR.WebApi.DependencyInjection;
 using TransCelerate.SDR.WebApi.Mappers;
 
 namespace TransCelerate.SDR.UnitTesting
@@ -60,8 +61,7 @@ namespace TransCelerate.SDR.UnitTesting
         public void Setup()
         {
             var mockMapper = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new AutoMapperProfilesV1());
+            {                
                 cfg.AddProfile(new AutoMapperProfilesV2());
                 cfg.AddProfile(new AutoMapperProfilesV3());
                 cfg.AddProfile(new SharedAutoMapperProfiles());
@@ -752,11 +752,25 @@ namespace TransCelerate.SDR.UnitTesting
                 FromDate = DateTime.Now.AddDays(-5),
                 ToDate = DateTime.Now,
             };
+            Config.IsGroupFilterEnabled = true;
+            user.UserRole = Constants.Roles.App_User;
             Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchTitle(searchParameters, GetUserDataFromStaticJson().SDRGroups, user));
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchTitleV4(searchParameters, GetUserDataFromStaticJson().SDRGroups, user));
 
             Assert.IsNotNull(DataFilterCommon.GetFiltersForGetAudTrail("sd", DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1)));
 
+           
             Assert.IsNotNull(DataFilterCommon.GetFiltersForStudyHistory(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1), "sd", GetUserDataFromStaticJson().SDRGroups, user));
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForStudyHistoryV4(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1), "sd", GetUserDataFromStaticJson().SDRGroups, user));
+
+
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForGetStudyBsonDocument("sd", 1));
+
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForGetStudyBsonDocument("sd", 0));
+
+            Assert.IsNotNull(DataFilterCommon.GetSorterForBsonDocument());
+
+            Assert.IsNotNull(DataFilterCommon.GetProjectorForBsonDocument());
 
             SearchParametersEntity searchParametersEntity = new()
             {
@@ -782,8 +796,7 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchStudy(searchParametersEntity, grps, user));
             grps[0].GroupFilter[0].GroupFieldName = GroupFieldNames.studyType.ToString();
             grps[0].GroupFilter[0].GroupFilterValues[0].GroupFilterValueId = "interventional";
-            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchStudy(searchParametersEntity, grps, user));
-            Config.IsGroupFilterEnabled = false;
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchStudy(searchParametersEntity, grps, user));            
             searchParametersEntity.Header = "studytitle";
             Assert.IsNotNull(DataFilterCommon.GetSorterForSearchStudy(searchParametersEntity));
             searchParametersEntity.Header = "sdrversion";
@@ -801,8 +814,86 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsNotNull(DataFilterCommon.GetSorterForSearchStudyTitle(searchParameters));
             searchParameters.SortBy = "usdmversion";
             Assert.IsNotNull(DataFilterCommon.GetSorterForSearchStudyTitle(searchParameters));
+
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchV2(searchParametersEntity, grps, user));
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchV3(searchParametersEntity, grps, user));
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchV4(searchParametersEntity, grps, user));
+
+            searchParameters.SortBy = "studytitle";
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, false));
+            searchParameters.SortBy = "version";
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, false));
+            searchParameters.SortBy = "lastmodifieddate";
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, false));
+            searchParameters.SortBy = "usdmversion";
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, false));
+
+            searchParameters.SortBy = "sponsorid";
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, false));
+
+            searchParameters.SortBy = "indication";
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, false));
+
+            searchParameters.SortBy = "interventionmodel";
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, false));
+
+            searchParameters.SortBy = "phase";
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, false));
+
+            Config.IsGroupFilterEnabled = false;
+            user.UserRole = Constants.Roles.Org_Admin;
         }
 
+        #endregion
+
+        #region Dependency Injector Unit Testing
+        [Test]
+        public void ApplicationDependencyInjectorUnitTesting()
+        {
+            IServiceCollection services = Mock.Of<IServiceCollection>();
+            Config.ConnectionString = "mongodb://localhost:password@localhost:10255/admin?ssl=true&retrywrites=false&maxIdleTimeMS=120000";
+            ApplicationDependencyInjector.AddApplicationDependencies(services);
+        }
         #endregion
     }
 }

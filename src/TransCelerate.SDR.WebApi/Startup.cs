@@ -27,11 +27,10 @@ using TransCelerate.SDR.Core.Filters;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
-using TransCelerate.SDR.RuleEngine;
 using TransCelerate.SDR.RuleEngine.Common;
-using TransCelerate.SDR.RuleEngineV1;
 using TransCelerate.SDR.RuleEngineV2;
 using TransCelerate.SDR.RuleEngineV3;
+using TransCelerate.SDR.RuleEngineV4;
 using TransCelerate.SDR.WebApi.DependencyInjection;
 using TransCelerate.SDR.WebApi.Mappers;
 
@@ -74,7 +73,7 @@ namespace TransCelerate.SDR.WebApi
             //Swagger          
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v3", new OpenApiInfo { Title = "Transcelerate SDR", Version = "v3" });
+                c.SwaggerDoc("v3", new OpenApiInfo { Title = "Transcelerate SDR", Version = "v4" });
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
@@ -135,17 +134,17 @@ namespace TransCelerate.SDR.WebApi
             //Dependency Injection of interfaces
             services.AddApplicationDependencies();
 
-            //AutoMapper Profile            
-            services.AddAutoMapper(typeof(AutoMapperProfilesV1).Assembly);
+            //AutoMapper Profile                        
             services.AddAutoMapper(typeof(AutoMapperProfilesV2).Assembly);
             services.AddAutoMapper(typeof(AutoMapperProfilesV3).Assembly);
+            services.AddAutoMapper(typeof(AutoMapperProfilesV4).Assembly);
             services.AddAutoMapper(typeof(SharedAutoMapperProfiles).Assembly);
 
             //API to use MVC with validation handling and JSON response
-            services.AddMvc().AddNewtonsoftJson();            
-            services.AddValidationDependenciesV1();
+            services.AddMvc().AddNewtonsoftJson();                        
             services.AddValidationDependenciesV2();
             services.AddValidationDependenciesV3();
+            services.AddValidationDependenciesV4();
             services.AddValidationDependenciesCommon();
             services.Configure<ApiBehaviorOptions>(options =>
             {

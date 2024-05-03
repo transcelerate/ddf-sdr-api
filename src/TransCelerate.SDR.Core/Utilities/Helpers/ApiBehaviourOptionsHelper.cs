@@ -24,7 +24,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         public ObjectResult ModelStateResponse(ActionContext context)
         {
             var modelState = context.ModelState.ToList();
-            modelState.RemoveAll(x => x.Value.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid);
+            modelState.RemoveAll(x => x.Value.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid || x.Value.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Skipped);
             var errors = modelState.ToDictionary(
                     kvp => kvp.Key?.Length > 2 ? string.Join(".", kvp.Key?.Split(".").Select(key => $"{key?[..1]?.ToLower()}{key?[1..]}")) : kvp.Key,
                     kvp => kvp.Value?.Errors?.Select(e => e.ErrorMessage).ToArray()

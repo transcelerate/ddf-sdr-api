@@ -38,9 +38,7 @@ namespace TransCelerate.SDR.Core.AppSettings
             ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(Config.ApiVersionUsdmVersionMapping);
             ApiUsdmVersionMapping.SDRVersions = apiUsdmVersionMapping_NonStatic.SDRVersions;
 
-            if (String.IsNullOrWhiteSpace(Config.ConformanceRules))
-                Config.ConformanceRules = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ConformanceRules.json");
-
+            Config.ConformanceRules = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ConformanceRules.json");
             ConformanceNonStatic conformanceNonStatic = JsonConvert.DeserializeObject<ConformanceNonStatic>(Config.ConformanceRules);
             Conformance.ConformanceRules = conformanceNonStatic.ConformanceRules;
 
