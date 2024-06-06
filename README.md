@@ -1,3 +1,5 @@
+<img src="https://github.com/transcelerate/ddf-home/blob/main/media/images/Repos.png">
+
 - [Introduction](#introduction)
   - [Requirements to Contribute and Propose Changes](#requirements-to-contribute-and-propose-changes)
 - [Intended-Audience](#intended-audience)
