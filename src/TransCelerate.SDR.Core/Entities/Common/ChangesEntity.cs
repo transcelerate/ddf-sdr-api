@@ -10,6 +10,9 @@ namespace TransCelerate.SDR.Core.Entities.Common
 
         [BsonElement(nameof(SDRUploadVersion))]
         public int SDRUploadVersion { get; set; }
+        //******** Added by basha
+        [BsonElement(nameof(SDRUploadFlag))]
+        public int SDRUploadFlag { get; set; }
 
         public List<string> Elements { get; set; }
     }

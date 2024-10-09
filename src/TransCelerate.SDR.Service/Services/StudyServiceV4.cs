@@ -843,10 +843,10 @@ namespace TransCelerate.SDR.Services.Services
                     {
                         return Constants.ErrorMessages.NotValidStudyId;
                     }
-
+                    StudyDefinitionsEntity existingStudyEntity = await _studyRepository.GetStudyItemsAsync(incomingStudyEntity.Study.Id, 0);
                     if (existingAuditTrail.UsdmVersion == Constants.USDMVersions.V3) // If previus USDM version is same as incoming
                     {
-                        StudyDefinitionsEntity existingStudyEntity = await _studyRepository.GetStudyItemsAsync(incomingStudyEntity.Study.Id, 0);
+                        //StudyDefinitionsEntity existingStudyEntity = await _studyRepository.GetStudyItemsAsync(incomingStudyEntity.Study.Id, 0);
 
                         if (_helper.IsSameStudy(incomingStudyEntity, existingStudyEntity))
                         {
@@ -855,12 +855,17 @@ namespace TransCelerate.SDR.Services.Services
                         else
                         {
                             studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity, existingStudyEntity.AuditTrail).ConfigureAwait(false);
+                            //****** added by Basha
+                            //studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity, existingStudyEntity ,existingStudyEntity.AuditTrail).ConfigureAwait(false);
                             await PushMessageToServiceBus(new Core.DTO.Common.ServiceBusMessageDto { Study_uuid = incomingStudyEntity.Study.Id, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
                         }
                     }
                     else // If previus USDM version is different from incoming
                     {
+                        
                         studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity, existingAuditTrail).ConfigureAwait(false);
+                        //*** added by basha
+                        //studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity, existingStudyEntity, existingAuditTrail).ConfigureAwait(false);
                         await PushMessageToServiceBus(new Core.DTO.Common.ServiceBusMessageDto { Study_uuid = incomingStudyEntity.Study.Id, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
                     }
                 }
@@ -882,8 +887,11 @@ namespace TransCelerate.SDR.Services.Services
             //studyEntity = _helper.GeneratedSectionId(studyEntity);
             studyEntity.Study.Id = IdGenerator.GenerateId();
             studyEntity.AuditTrail.SDRUploadVersion = 1;
+            studyEntity.AuditTrail.SDRUploadFlag = 1;//**** Added by Basha
+            //**** Added by Basha
+            //studyEntity.AuditTrail.SDRUploadVersion = 0;
             await _studyRepository.PostStudyItemsAsync(studyEntity);
-            await _changeAuditRepositoy.InsertChangeAudit(studyEntity.Study.Id, studyEntity.AuditTrail.SDRUploadVersion, studyEntity.AuditTrail.EntryDateTime);
+            await _changeAuditRepositoy.InsertChangeAudit(studyEntity.Study.Id, studyEntity.AuditTrail.SDRUploadVersion, studyEntity.AuditTrail.SDRUploadFlag, studyEntity.AuditTrail.EntryDateTime);
             return _mapper.Map<StudyDefinitionsDto>(studyEntity);
         }
 
@@ -900,10 +908,28 @@ namespace TransCelerate.SDR.Services.Services
         {
             //incomingStudyEntity = _helper.CheckForSections(incomingStudyEntity, existingStudyEntity);
             incomingStudyEntity.AuditTrail.SDRUploadVersion = existingAuditTrailEntity.SDRUploadVersion + 1;
+            incomingStudyEntity.AuditTrail.SDRUploadFlag = 1;// *** Added By Basha
+            //incomingStudyEntity.AuditTrail.SDRUploadVersion = existingAuditTrailEntity.SDRUploadVersion + 1; // *** Added By Basha
             incomingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V3;
             await _studyRepository.PostStudyItemsAsync(incomingStudyEntity);
             return _mapper.Map<StudyDefinitionsDto>(incomingStudyEntity);
         }
+        //**** Added by basha
+        //public async Task<StudyDefinitionsDto> CreateNewVersionForAStudy(StudyDefinitionsEntity incomingStudyEntity, StudyDefinitionsEntity existingStudyEntity, AuditTrailEntity existingAuditTrailEntity)
+        //{
+        //    //incomingStudyEntity = _helper.CheckForSections(incomingStudyEntity, existingStudyEntity);
+        //    //existingStudyEntity.AuditTrail.SDRUploadVersion = 0;
+        //    //StudyDefinitionsEntity study = await _studyRepository.GetStudyItemsAsync(incomingStudyEntity.Study.Id, incomingStudyEntity.AuditTrail.SDRUploadVersion).ConfigureAwait(false);
+        //    //study.AuditTrail.SDRUploadVersion = 0;
+        //    //await _studyRepository.UpdateStudyItemsAsync(existingStudyEntity);
+        //    //return _mapper.Map<StudyDefinitionsDto>(incomingStudyEntity);
+        //    //existingStudyEntity = existingStudyEntity;
+
+        //    incomingStudyEntity.AuditTrail.SDRUploadVersion = 1;
+        //    incomingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V3;
+        //    await _studyRepository.PostStudyItemsAsync(incomingStudyEntity);
+        //    return _mapper.Map<StudyDefinitionsDto>(incomingStudyEntity);
+        //}
 
         #region Azure ServiceBus
         private async Task PushMessageToServiceBus(Core.DTO.Common.ServiceBusMessageDto serviceBusMessageDto)

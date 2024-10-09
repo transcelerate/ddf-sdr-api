@@ -11,5 +11,9 @@ namespace TransCelerate.SDR.Core.DTO.StudyV3
 
         [JsonProperty(nameof(SDRUploadVersion))]
         public int SDRUploadVersion { get; set; }
+        //************* Added by basha
+
+        [JsonProperty(nameof(SDRUploadFlag))]
+        public int SDRUploadFlag { get; set; }
     }
 }

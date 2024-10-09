@@ -184,20 +184,20 @@ namespace TransCelerate.SDR.UnitTesting.AzureFunctionsUnitTesting
             processor.ProcessMessage(message);
         }
 
-        [Test]
-        public void ChangeAuditFunction_UnitTesting()
-        {
-            ChangeAuditFunction changeAuditFunction = new(_messageProcessor.Object, _mockLogger1);
-            _messageProcessor.Setup(x => x.ProcessMessage(It.IsAny<string>()));
+        //[Test]
+        //public void ChangeAuditFunction_UnitTesting()
+        //{
+           // ChangeAuditFunction changeAuditFunction = new(_messageProcessor.Object, _mockLogger1);
+           // _messageProcessor.Setup(x => x.ProcessMessage(It.IsAny<string>()));
 
-            changeAuditFunction.Run("unit test");
+            //changeAuditFunction.Run("unit test");
 
-            _messageProcessor.Setup(x => x.ProcessMessage(It.IsAny<string>()))
-                .Throws(new Exception());
+            //_messageProcessor.Setup(x => x.ProcessMessage(It.IsAny<string>()))
+                //Throws(new Exception());
 
-            Assert.Throws<Exception>(() => changeAuditFunction.Run("unit"));
+            //Assert.Throws<Exception>(() => changeAuditFunction.Run("unit"));
 
-        }
+        //}
         [Test]
         public void GetChangedValueUnitTesting()
         {

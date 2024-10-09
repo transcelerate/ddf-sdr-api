@@ -66,7 +66,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 _logger.LogInformation($"Ended Repository : {nameof(ChangeAuditRepository)}; Method : {nameof(GetChangeAuditAsync)};");
             }
         }
-        public async Task<string> InsertChangeAudit(string study_uuid, int sdruploadversion, DateTime entrydatetime)
+        //*********** sdruploadflag input parameter added by basha
+        public async Task<string> InsertChangeAudit(string study_uuid, int sdruploadversion,int sdruploadflag, DateTime entrydatetime)
         {
             _logger.LogInformation($"Started Repository : {nameof(ChangeAuditRepository)}; Method : {nameof(InsertChangeAudit)};");
             try
@@ -79,7 +80,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 {
                     Elements = new List<string>(),
                     EntryDateTime = entrydatetime,
-                    SDRUploadVersion = sdruploadversion
+                    SDRUploadVersion = sdruploadversion,
+                    SDRUploadFlag = sdruploadflag
                 };
 
                 var changeAuditEntity = new ChangeAuditEntity

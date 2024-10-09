@@ -3,7 +3,12 @@
     "TransCelerate.SDR.AzureFunctions": {
       "commandName": "Project",
       "commandLineArgs": "--port 7042",
-      "launchBrowser": false
+      "environmentVariables": {
+        "AZURE_FUNCTIONS_ENVIRONMENT": "Development",
+        "ConnectionStrings:ServerName": "mongodb://localhost:27017",
+        "ConnectionStrings:DatabaseName": "SDR",
+        "ApiVersionUsdmVersionMapping": "{\"SDRVersions\":[{\"apiVersion\":\"v2\",\"usdmVersions\":[\"1.9\"]},{\"apiVersion\":\"v3\",\"usdmVersions\":[\"2.0\"]},{\"apiVersion\":\"v4\",\"usdmVersions\":[\"3.0\"]}]}"
+      }
     }
   }
 }

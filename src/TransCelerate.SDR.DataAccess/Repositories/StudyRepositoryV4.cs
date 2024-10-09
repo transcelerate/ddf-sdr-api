@@ -184,7 +184,16 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             try
             {
                 IMongoCollection<StudyDefinitionsEntity> collection = _database.GetCollection<StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
+             
+                //***** Added by Basha
+                var filterOldVersion = Builders<StudyDefinitionsEntity>.Filter.Eq(s => s.Study.Id, study.Study.Id) &
+                                      Builders<StudyDefinitionsEntity>.Filter.Eq(s => s.AuditTrail.SDRUploadFlag, 1);
 
+                var updateOldVersion = Builders<StudyDefinitionsEntity>.Update
+                    .Set(s => s.AuditTrail.SDRUploadFlag, 0);
+
+                var result = await collection.UpdateOneAsync(filterOldVersion, updateOldVersion).ConfigureAwait(false);
+               // **** *****************************************
                 await collection.InsertOneAsync(study).ConfigureAwait(false); //Insert One Document                
                 return (study.Study.Id);
             }
@@ -215,13 +224,15 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             {
                 IMongoCollection<StudyDefinitionsEntity> collection = _database.GetCollection<StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
 
-                UpdateDefinition<StudyDefinitionsEntity> updateDefinition = Builders<StudyDefinitionsEntity>.Update
-                                    .Set(s => s.Study, study.Study)
-                                    .Set(s => s.AuditTrail, study.AuditTrail);
-                await collection.UpdateOneAsync(x => (x.Study.Id == study.Study.Id
-                                                   && x.AuditTrail.SDRUploadVersion == study.AuditTrail.SDRUploadVersion), //Match studyId and studyVersion
-                                                   updateDefinition).ConfigureAwait(false); // Update study and auditTrail
+               
+                    UpdateDefinition<StudyDefinitionsEntity> updateDefinition = Builders<StudyDefinitionsEntity>.Update
+                                        .Set(s => s.Study, study.Study)
+                                        .Set(s => s.AuditTrail, study.AuditTrail);
 
+                    await collection.UpdateOneAsync(x => (x.Study.Id == study.Study.Id 
+                                                       && x.AuditTrail.SDRUploadVersion == study.AuditTrail.SDRUploadVersion), //Match studyId and studyVersion
+                                                       updateDefinition).ConfigureAwait(false); // Update study and auditTrail               
+            
                 return (study.Study.Id);
             }
             catch (Exception)
@@ -233,6 +244,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(UpdateStudyItemsAsync)};");
             }
         }
+        
         #endregion
 
         #region UserGroup Mapping
