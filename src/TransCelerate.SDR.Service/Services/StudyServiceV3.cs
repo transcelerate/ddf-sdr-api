@@ -891,8 +891,9 @@ namespace TransCelerate.SDR.Services.Services
         {
             //incomingStudyEntity = _helper.CheckForSections(incomingStudyEntity, existingStudyEntity);
             incomingStudyEntity.AuditTrail.SDRUploadVersion = existingAuditTrailEntity.SDRUploadVersion + 1;
-            incomingStudyEntity.AuditTrail.SDRUploadFlag = existingAuditTrailEntity.SDRUploadFlag + 1;// *** Added By Basha
-            incomingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
+			//incomingStudyEntity.AuditTrail.SDRUploadFlag = existingAuditTrailEntity.SDRUploadFlag + 1;// *** Added By Basha
+			incomingStudyEntity.AuditTrail.SDRUploadFlag = 1;// *** Added By Swathi
+			incomingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
             await _studyRepository.PostStudyItemsAsync(incomingStudyEntity);
             return _mapper.Map<StudyDefinitionsDto>(incomingStudyEntity);
         }
