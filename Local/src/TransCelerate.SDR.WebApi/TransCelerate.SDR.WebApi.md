@@ -46,6 +46,16 @@
   - [PostAllElements(studyDTO,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-StudyV4Controller-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV4-StudyDefinitionsDto,System-String- 'TransCelerate.SDR.WebApi.Controllers.StudyV4Controller.PostAllElements(TransCelerate.SDR.Core.DTO.StudyV4.StudyDefinitionsDto,System.String)')
   - [PutStudy(studyDTO,usdmVersion,studyId)](#M-TransCelerate-SDR-WebApi-Controllers-StudyV4Controller-PutStudy-TransCelerate-SDR-Core-DTO-StudyV4-StudyDefinitionsDto,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.StudyV4Controller.PutStudy(TransCelerate.SDR.Core.DTO.StudyV4.StudyDefinitionsDto,System.String,System.String)')
   - [ValidateUsdmConformance(studyDTO,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-StudyV4Controller-ValidateUsdmConformance-TransCelerate-SDR-Core-DTO-StudyV4-StudyDefinitionsDto,System-String- 'TransCelerate.SDR.WebApi.Controllers.StudyV4Controller.ValidateUsdmConformance(TransCelerate.SDR.Core.DTO.StudyV4.StudyDefinitionsDto,System.String)')
+- [StudyV5Controller](#T-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller 'TransCelerate.SDR.WebApi.Controllers.StudyV5Controller')
+  - [DeleteStudy(studyId)](#M-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller-DeleteStudy-System-String- 'TransCelerate.SDR.WebApi.Controllers.StudyV5Controller.DeleteStudy(System.String)')
+  - [GetDifferences(studyId,sdrUploadVersionOne,sdrUploadVersionTwo,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller-GetDifferences-System-String,System-Int32,System-Int32,System-String- 'TransCelerate.SDR.WebApi.Controllers.StudyV5Controller.GetDifferences(System.String,System.Int32,System.Int32,System.String)')
+  - [GetSOAV5(studyId,studyDesignId,sdruploadversion,scheduleTimelineId)](#M-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller-GetSOAV5-System-String,System-String,System-String,System-Int32- 'TransCelerate.SDR.WebApi.Controllers.StudyV5Controller.GetSOAV5(System.String,System.String,System.String,System.Int32)')
+  - [GetStudy(studyId,sdruploadversion,listofelements,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller-GetStudy-System-String,System-Int32,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.StudyV5Controller.GetStudy(System.String,System.Int32,System.String,System.String)')
+  - [GetStudyDesigns(studyId,studyDesignId,sdruploadversion,listofelements,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller-GetStudyDesigns-System-String,System-Int32,System-String,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.StudyV5Controller.GetStudyDesigns(System.String,System.Int32,System.String,System.String,System.String)')
+  - [GeteCPTV5(studyId,sdruploadversion,studydesignId)](#M-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller-GeteCPTV5-System-String,System-Int32,System-String- 'TransCelerate.SDR.WebApi.Controllers.StudyV5Controller.GeteCPTV5(System.String,System.Int32,System.String)')
+  - [PostAllElements(studyDTO,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV5-StudyDefinitionsDto,System-String- 'TransCelerate.SDR.WebApi.Controllers.StudyV5Controller.PostAllElements(TransCelerate.SDR.Core.DTO.StudyV5.StudyDefinitionsDto,System.String)')
+  - [PutStudy(studyDTO,usdmVersion,studyId)](#M-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller-PutStudy-TransCelerate-SDR-Core-DTO-StudyV5-StudyDefinitionsDto,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.StudyV5Controller.PutStudy(TransCelerate.SDR.Core.DTO.StudyV5.StudyDefinitionsDto,System.String,System.String)')
+  - [ValidateUsdmConformance(studyDTO,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller-ValidateUsdmConformance-TransCelerate-SDR-Core-DTO-StudyV5-StudyDefinitionsDto,System-String- 'TransCelerate.SDR.WebApi.Controllers.StudyV5Controller.ValidateUsdmConformance(TransCelerate.SDR.Core.DTO.StudyV5.StudyDefinitionsDto,System.String)')
 - [TokenController](#T-TransCelerate-SDR-WebApi-Controllers-TokenController 'TransCelerate.SDR.WebApi.Controllers.TokenController')
   - [GetToken(user)](#M-TransCelerate-SDR-WebApi-Controllers-TokenController-GetToken-TransCelerate-SDR-Core-DTO-Token-UserLogin- 'TransCelerate.SDR.WebApi.Controllers.TokenController.GetToken(TransCelerate.SDR.Core.DTO.Token.UserLogin)')
 - [UserGroupsController](#T-TransCelerate-SDR-WebApi-Controllers-UserGroupsController 'TransCelerate.SDR.WebApi.Controllers.UserGroupsController')
@@ -629,6 +639,149 @@ Validate USDM Conformance rules for a Study
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | studyDTO | [TransCelerate.SDR.Core.DTO.StudyV4.StudyDefinitionsDto](#T-TransCelerate-SDR-Core-DTO-StudyV4-StudyDefinitionsDto 'TransCelerate.SDR.Core.DTO.StudyV4.StudyDefinitionsDto') | Study for Validation |
+| usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
+
+<a name='T-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller'></a>
+## StudyV5Controller `type`
+
+##### Namespace
+
+TransCelerate.SDR.WebApi.Controllers
+
+<a name='M-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller-DeleteStudy-System-String-'></a>
+### DeleteStudy(studyId) `method`
+
+##### Summary
+
+Delete a Study
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
+
+<a name='M-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller-GetDifferences-System-String,System-Int32,System-Int32,System-String-'></a>
+### GetDifferences(studyId,sdrUploadVersionOne,sdrUploadVersionTwo,usdmVersion) `method`
+
+##### Summary
+
+GET Differences between two versions of a study
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
+| sdrUploadVersionOne | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | First Version of study |
+| sdrUploadVersionTwo | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Second Version of study |
+| usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | usdm-vreison header |
+
+<a name='M-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller-GetSOAV5-System-String,System-String,System-String,System-Int32-'></a>
+### GetSOAV5(studyId,studyDesignId,sdruploadversion,scheduleTimelineId) `method`
+
+##### Summary
+
+GET SoA For a Study USDM Version 2.0
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
+| studyDesignId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study Design ID |
+| sdruploadversion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Version of study |
+| scheduleTimelineId | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Schedule Timeline Id |
+
+<a name='M-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller-GetStudy-System-String,System-Int32,System-String,System-String-'></a>
+### GetStudy(studyId,sdruploadversion,listofelements,usdmVersion) `method`
+
+##### Summary
+
+GET All Elements For a Study
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
+| sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
+| listofelements | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | List of elements with comma separated values |
+| usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | usdm-vreison header |
+
+<a name='M-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller-GetStudyDesigns-System-String,System-Int32,System-String,System-String,System-String-'></a>
+### GetStudyDesigns(studyId,studyDesignId,sdruploadversion,listofelements,usdmVersion) `method`
+
+##### Summary
+
+GET Study Designs of a Study
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
+| studyDesignId | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Study Design ID |
+| sdruploadversion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Version of study |
+| listofelements | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | List of study design elements with comma separated values |
+| usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
+
+<a name='M-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller-GeteCPTV5-System-String,System-Int32,System-String-'></a>
+### GeteCPTV5(studyId,sdruploadversion,studydesignId) `method`
+
+##### Summary
+
+GET eCPT Elements For a Study
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
+| sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of study |
+| studydesignId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | studyDesignId |
+
+<a name='M-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV5-StudyDefinitionsDto,System-String-'></a>
+### PostAllElements(studyDTO,usdmVersion) `method`
+
+##### Summary
+
+POST All Elements For a Study
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyDTO | [TransCelerate.SDR.Core.DTO.StudyV5.StudyDefinitionsDto](#T-TransCelerate-SDR-Core-DTO-StudyV5-StudyDefinitionsDto 'TransCelerate.SDR.Core.DTO.StudyV5.StudyDefinitionsDto') | Study for Inserting/Updating in Database |
+| usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
+
+<a name='M-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller-PutStudy-TransCelerate-SDR-Core-DTO-StudyV5-StudyDefinitionsDto,System-String,System-String-'></a>
+### PutStudy(studyDTO,usdmVersion,studyId) `method`
+
+##### Summary
+
+PUT All Elements For a Study
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyDTO | [TransCelerate.SDR.Core.DTO.StudyV5.StudyDefinitionsDto](#T-TransCelerate-SDR-Core-DTO-StudyV5-StudyDefinitionsDto 'TransCelerate.SDR.Core.DTO.StudyV5.StudyDefinitionsDto') | Study for Inserting/Updating in Database |
+| usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
+
+<a name='M-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller-ValidateUsdmConformance-TransCelerate-SDR-Core-DTO-StudyV5-StudyDefinitionsDto,System-String-'></a>
+### ValidateUsdmConformance(studyDTO,usdmVersion) `method`
+
+##### Summary
+
+Validate USDM Conformance rules for a Study
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyDTO | [TransCelerate.SDR.Core.DTO.StudyV5.StudyDefinitionsDto](#T-TransCelerate-SDR-Core-DTO-StudyV5-StudyDefinitionsDto 'TransCelerate.SDR.Core.DTO.StudyV5.StudyDefinitionsDto') | Study for Validation |
 | usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
 
 <a name='T-TransCelerate-SDR-WebApi-Controllers-TokenController'></a>

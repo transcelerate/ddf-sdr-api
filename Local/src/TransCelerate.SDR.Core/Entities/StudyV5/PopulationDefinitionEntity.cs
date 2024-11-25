@@ -13,7 +13,8 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public RangeEntity PlannedCompletionNumber { get; set; }
         public RangeEntity PlannedEnrollmentNumber { get; set; }
         public List<CodeEntity> PlannedSex { get; set; }
-        public List<EligibilityCriterionEntity> Criteria { get; set; }
+        public List<EligibilityCriterionEntity> Criterionids { get; set; }
         public string InstanceType { get; set; }
-    }
+		public List<CommentAnnotationEntity> Notes { get; set; }
+	}
 }

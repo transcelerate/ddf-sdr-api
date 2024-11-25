@@ -17,5 +17,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public AliasCodeEntity Route { get; set; }
         public AliasCodeEntity Frequency { get; set; }
         public string InstanceType { get; set; }
-    }
+		public List<CommentAnnotationEntity> Notes { get; set; }
+	}
 }

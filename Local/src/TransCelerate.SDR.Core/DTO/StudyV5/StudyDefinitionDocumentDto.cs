@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TransCelerate.SDR.Core.DTO.StudyV5
 {
-    internal class StudyDefinitionDocumentDto : IId
+    public class StudyDefinitionDocumentDto : IId
     {
         public string Id { get; set; }
         public string Name { get; set; }
@@ -15,7 +15,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public CodeDto Type { get; set; }
         public CodeDto language { get; set; }
         public string templateName { get; set; }
-        public List<StudyDefinitionDocumentVersionDto> versions { get; set; }
+        public List<StudyDefinitionDocumentVersionDto> Versions { get; set; }
         public List<CommentAnnotationDto> Notes { get; set; }
         public string InstanceType { get; set; }
 }

@@ -19,5 +19,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public string InstanceType { get; set; }
         public List<string> ChildIds { get; set; }
         public List<CommentAnnotationDto> Notes { get; set; }
+
     }
 }

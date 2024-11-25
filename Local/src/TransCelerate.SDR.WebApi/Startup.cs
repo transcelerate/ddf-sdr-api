@@ -1,3 +1,4 @@
+using AutoMapper;
 using Azure.Messaging.ServiceBus;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -31,6 +32,7 @@ using TransCelerate.SDR.RuleEngine.Common;
 using TransCelerate.SDR.RuleEngineV2;
 using TransCelerate.SDR.RuleEngineV3;
 using TransCelerate.SDR.RuleEngineV4;
+using TransCelerate.SDR.RuleEngineV5;
 using TransCelerate.SDR.WebApi.DependencyInjection;
 using TransCelerate.SDR.WebApi.Mappers;
 
@@ -73,8 +75,9 @@ namespace TransCelerate.SDR.WebApi
             //Swagger          
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v3", new OpenApiInfo { Title = "Transcelerate SDR", Version = "v4" });
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                //c.SwaggerDoc("v3", new OpenApiInfo { Title = "Transcelerate SDR", Version = "v4" });
+				c.SwaggerDoc("v4", new OpenApiInfo { Title = "Transcelerate SDR", Version = "v5" });
+				var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -135,17 +138,32 @@ namespace TransCelerate.SDR.WebApi
             services.AddApplicationDependencies();
 
             //AutoMapper Profile                        
-            services.AddAutoMapper(typeof(AutoMapperProfilesV2).Assembly);
+            //services.AddAutoMapper(typeof(AutoMapperProfilesV2).Assembly);
             services.AddAutoMapper(typeof(AutoMapperProfilesV3).Assembly);
             services.AddAutoMapper(typeof(AutoMapperProfilesV4).Assembly);
-            services.AddAutoMapper(typeof(SharedAutoMapperProfiles).Assembly);
+			services.AddAutoMapper(typeof(AutoMapperProfilesV5).Assembly);
+			services.AddAutoMapper(typeof(SharedAutoMapperProfiles).Assembly);
 
-            //API to use MVC with validation handling and JSON response
-            services.AddMvc().AddNewtonsoftJson();                        
-            services.AddValidationDependenciesV2();
+			var config = new MapperConfiguration(cfg =>
+			{
+				cfg.AddProfile<AutoMapperProfilesV5>();
+			});
+			config.AssertConfigurationIsValid();
+
+			//API to use MVC with validation handling and JSON response
+			services.AddMvc().AddNewtonsoftJson();                        
+            //services.AddValidationDependenciesV2();
             services.AddValidationDependenciesV3();
             services.AddValidationDependenciesV4();
-            services.AddValidationDependenciesCommon();
+			services.AddValidationDependenciesV5();
+			services.AddValidationDependenciesCommon();
+
+            //var serviceProvider = services.BuildServiceProvider();
+
+            //// Resolve IMapper and validate configuration
+            //var mapper = serviceProvider.GetService<IMapper>();
+            //mapper.ConfigurationProvider.AssertConfigurationIsValid();
+
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.InvalidModelStateResponseFactory = context =>
@@ -186,9 +204,10 @@ namespace TransCelerate.SDR.WebApi
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v3/swagger.json", "Transcelerate SDR");
-                //c.DefaultModelsExpandDepth(-1);
-            });
+				//c.SwaggerEndpoint("/swagger/v3/swagger.json", "Transcelerate SDR");
+				c.SwaggerEndpoint("/swagger/v4/swagger.json", "Transcelerate SDR");
+				////c.DefaultModelsExpandDepth(-1);
+			});
 
             //Routing
             app.UseHttpsRedirection();

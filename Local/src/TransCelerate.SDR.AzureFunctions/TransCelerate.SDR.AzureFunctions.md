@@ -9,6 +9,7 @@
   - [GetStudyItemsAsyncV2(studyId,sdruploadversion)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditRepository-GetStudyItemsAsyncV2-System-String,System-Int32- 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditRepository.GetStudyItemsAsyncV2(System.String,System.Int32)')
   - [GetStudyItemsAsyncV3(studyId,sdruploadversion)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditRepository-GetStudyItemsAsyncV3-System-String,System-Int32- 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditRepository.GetStudyItemsAsyncV3(System.String,System.Int32)')
   - [GetStudyItemsAsyncV4(studyId,sdruploadversion)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditRepository-GetStudyItemsAsyncV4-System-String,System-Int32- 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditRepository.GetStudyItemsAsyncV4(System.String,System.Int32)')
+  - [GetStudyItemsAsyncV5(studyId,sdruploadversion)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditRepository-GetStudyItemsAsyncV5-System-String,System-Int32- 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditRepository.GetStudyItemsAsyncV5(System.String,System.Int32)')
   - [InsertChangeAudit(changeAudit)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditRepository-InsertChangeAudit-TransCelerate-SDR-Core-Entities-Common-ChangeAuditStudyEntity- 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditRepository.InsertChangeAudit(TransCelerate.SDR.Core.Entities.Common.ChangeAuditStudyEntity)')
   - [UpdateChangeAudit(changeAudit)](#M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditRepository-UpdateChangeAudit-TransCelerate-SDR-Core-Entities-Common-ChangeAuditStudyEntity- 'TransCelerate.SDR.AzureFunctions.DataAccess.ChangeAuditRepository.UpdateChangeAudit(TransCelerate.SDR.Core.Entities.Common.ChangeAuditStudyEntity)')
 - [IChangeAuditRepository](#T-TransCelerate-SDR-AzureFunctions-DataAccess-IChangeAuditRepository 'TransCelerate.SDR.AzureFunctions.DataAccess.IChangeAuditRepository')
@@ -114,6 +115,25 @@ A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US
 ##### Summary
 
 Get Current and previous version of study for study Id for V3 API Version
+
+##### Returns
+
+A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') with matching studyId
+`null` If no study is matching with studyId
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study UUID |
+| sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | current version |
+
+<a name='M-TransCelerate-SDR-AzureFunctions-DataAccess-ChangeAuditRepository-GetStudyItemsAsyncV5-System-String,System-Int32-'></a>
+### GetStudyItemsAsyncV5(studyId,sdruploadversion) `method`
+
+##### Summary
+
+Get Current and previous version of study for study Id for V4 API Version
 
 ##### Returns
 

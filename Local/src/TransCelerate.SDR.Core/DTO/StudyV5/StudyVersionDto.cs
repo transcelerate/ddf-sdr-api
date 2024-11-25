@@ -9,8 +9,9 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public string VersionIdentifier { get; set; }
         public CodeDto StudyType { get; set; }
         public string Rationale { get; set; }
-        public string DocumentVersionIds { get; set; }
-        public List<GovernanceDateDto> DateValues { get; set; }
+		public string DocumentVersionIds { get; set; }
+		//public List<string> DocumentVersionIds { get; set; }
+		public List<GovernanceDateDto> DateValues { get; set; }
         public List<StudyAmendmentDto> Amendments { get; set; }        
         public List<StudyIdentifierDto> StudyIdentifiers { get; set; }
         public AliasCodeDto StudyPhase { get; set; }

@@ -78,7 +78,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string V1_9 = "1.9";
             public const string V2 = "2.0";
             public const string V3 = "3.0";
-        }
+			public const string V4 = "3.5";
+		}
         public struct ApiVersions
         {
             public const string MVP = "mvp";
@@ -86,7 +87,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string V2 = "v2";
             public const string V3 = "v3";
             public const string V4 = "v4";
-        }
+			public const string V5 = "v5";
+		}
         public struct DbFilter
         {
             public const string StudyId = "study.studyId";
@@ -363,8 +365,25 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(Core.DTO.StudyV4.StudyVersionDto.DateValues),
             nameof(Core.DTO.StudyV4.StudyVersionDto.InstanceType)
         };
+		public static readonly string[] StudyElementsV5 = {
+			nameof(Core.DTO.StudyV4.StudyDto.Name),
+			nameof(Core.DTO.StudyV4.StudyDto.Description),
+			nameof(Core.DTO.StudyV4.StudyDto.Label),
+			nameof(Core.DTO.StudyV4.StudyVersionDto.Titles),
+			nameof(Core.DTO.StudyV4.StudyVersionDto.StudyIdentifiers),
+			nameof(Core.DTO.StudyV4.StudyVersionDto.DocumentVersionId),
+			nameof(Core.DTO.StudyV4.StudyVersionDto.VersionIdentifier),
+			nameof(Core.DTO.StudyV4.StudyVersionDto.StudyPhase),
+			nameof(Core.DTO.StudyV4.StudyVersionDto.StudyType),
+			nameof(Core.DTO.StudyV4.StudyVersionDto.BusinessTherapeuticAreas),
+			nameof(Core.DTO.StudyV4.StudyVersionDto.StudyDesigns),
+			nameof(Core.DTO.StudyV4.StudyVersionDto.Rationale),
+			nameof(Core.DTO.StudyV4.StudyVersionDto.Amendments),
+			nameof(Core.DTO.StudyV4.StudyVersionDto.DateValues),
+			nameof(Core.DTO.StudyV4.StudyVersionDto.InstanceType)
+		};
 
-        public static readonly string[] StudyDesignElementsV4 = {
+		public static readonly string[] StudyDesignElementsV4 = {
             nameof(Core.DTO.StudyV4.StudyDesignDto.Name),
             nameof(Core.DTO.StudyV4.StudyDesignDto.Description),
             nameof(Core.DTO.StudyV4.StudyDesignDto.Label),
@@ -397,7 +416,41 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(Core.DTO.StudyV4.StudyDesignDto.MaskingRoles),
             nameof(Core.DTO.StudyV4.StudyDesignDto.Organizations)
         };
-        public struct FunctionAppConstants
+
+		public static readonly string[] StudyDesignElementsV5 = {
+			nameof(Core.DTO.StudyV4.StudyDesignDto.Name),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.Description),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.Label),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.TherapeuticAreas),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.TrialTypes),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.Indications),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.TrialIntentTypes),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.InterventionModel),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.StudyInterventions),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.Population),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.Objectives),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.StudyCells),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.Arms),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.Epochs),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.Elements),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.ScheduleTimelines),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.Estimands),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.Activities),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.Encounters),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.Rationale),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.BlindingSchema),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.BiomedicalConcepts),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.BcCategories),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.BcSurrogates),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.DocumentVersionId),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.Dictionaries),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.Characteristics),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.Conditions),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.InstanceType),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.MaskingRoles),
+			nameof(Core.DTO.StudyV4.StudyDesignDto.Organizations)
+		};
+		public struct FunctionAppConstants
         {
             public const string ChangeAuditFunction = "ChangeAuditFunction";
             public const string AzureServiceBusQueueName = "%AzureServiceBusQueueName%";

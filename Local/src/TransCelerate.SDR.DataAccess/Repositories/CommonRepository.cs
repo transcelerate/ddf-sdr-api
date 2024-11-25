@@ -508,19 +508,70 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 _logger.LogInformation($"Ended Repository : {nameof(CommonRepository)}; Method : {nameof(SearchStudyV2)};");
             }
         }
-        #endregion
 
-        #region Search Title
-        /// <summary>
-        /// Search the collection based on search criteria
-        /// </summary>
-        /// <param name="searchParameters">Parameters to search in database</param>        
-        /// <param name="user">LoggedIn User</param>        
-        /// <returns>
-        /// A <see cref="List{SearchTitleResponseEntity}"/> with matching studyId <br></br> <br></br>
-        /// <see langword="null"/> If no study is matching with studyId
-        /// </returns>
-        public async Task<List<SearchTitleResponseEntity>> SearchTitle(SearchTitleParametersEntity searchParameters, LoggedInUser user)
+		/// <summary>
+		/// Search the collection based on search criteria
+		/// </summary>
+		/// <param name="searchParameters">Parameters to search in database</param>        
+		/// <param name="user">Loggedin User</param>        
+		/// <returns>
+		/// A <see cref="List{SearchResponseEntity}"/> with matching studyId <br></br> <br></br>
+		/// <see langword="null"/> If no study is matching with studyId
+		/// </returns>
+		public async Task<List<Core.Entities.StudyV5.SearchResponseEntity>> SearchStudyV5(SearchParametersEntity searchParameters, LoggedInUser user)
+		{
+			try
+			{
+				_logger.LogInformation($"Started Repository : {nameof(CommonRepository)}; Method : {nameof(SearchStudyV2)};");
+				IMongoCollection<Core.Entities.StudyV5.StudyDefinitionsEntity> collection = _database.GetCollection<Core.Entities.StudyV5.StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
+
+
+				List<Core.Entities.StudyV5.SearchResponseEntity> studies = await collection.Aggregate()
+											  .Match(DataFilterCommon.GetFiltersForSearchV5(searchParameters, GetGroupsOfUser(user).Result, user))
+											  .Project(x => new Core.Entities.StudyV5.SearchResponseEntity
+											  {
+												  StudyId = x.Study.Id,
+												  StudyTitle = x.Study.Versions != null ? x.Study.Versions.First().Titles : null,
+												  StudyType = x.Study.Versions != null ? x.Study.Versions.First().StudyType : null,
+												  StudyPhase = x.Study.Versions != null ? x.Study.Versions.First().StudyPhase : null,
+												  StudyIdentifiers = x.Study.Versions != null ? x.Study.Versions.First().StudyIdentifiers : null,
+												  InterventionModel = x.Study.Versions != null ? x.Study.Versions.Select(y => y.StudyDesigns.Select(x => x.InterventionModel)) : null,
+												  StudyIndications = x.Study.Versions != null ? x.Study.Versions.Select(y => y.StudyDesigns.Select(x => x.Indications)) : null,
+												  EntryDateTime = x.AuditTrail.EntryDateTime,
+												  SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+												  UsdmVersion = x.AuditTrail.UsdmVersion,
+												  StudyDesignIds = x.Study.Versions != null ? x.Study.Versions.Select(x => x.StudyDesigns.Select(y => y.Id)) : null,
+											  })
+											  .ToListAsync()
+											  .ConfigureAwait(false);
+
+				return DataFilterCommon.SortSearchResultsV5(studies, searchParameters.Header, searchParameters.Asc)
+									   .Skip((searchParameters.PageNumber - 1) * searchParameters.PageSize)
+									   .Take(searchParameters.PageSize)
+									   .ToList();
+			}
+			catch (Exception)
+			{
+				throw;
+			}
+			finally
+			{
+				_logger.LogInformation($"Ended Repository : {nameof(CommonRepository)}; Method : {nameof(SearchStudyV2)};");
+			}
+		}
+		#endregion
+
+		#region Search Title
+		/// <summary>
+		/// Search the collection based on search criteria
+		/// </summary>
+		/// <param name="searchParameters">Parameters to search in database</param>        
+		/// <param name="user">LoggedIn User</param>        
+		/// <returns>
+		/// A <see cref="List{SearchTitleResponseEntity}"/> with matching studyId <br></br> <br></br>
+		/// <see langword="null"/> If no study is matching with studyId
+		/// </returns>
+		public async Task<List<SearchTitleResponseEntity>> SearchTitle(SearchTitleParametersEntity searchParameters, LoggedInUser user)
         {
             try
             {

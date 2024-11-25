@@ -108,10 +108,31 @@
         public const string PostElementsV4 = "/v4/studydefinitions";
 
         public const string ValidateUsdmConformanceV4 = "/v4/studydefinitions/validate-usdm-conformance";
-        #endregion
-        #endregion
-        #region User Group Routes
-        public const string GetGroups = "usergroups/getgroups";
+		#endregion
+		#endregion
+		#region Study V5 Routes
+		#region GET Method Routes
+		public const string StudyV5 = "v5/studydefinitions/{studyId}";
+
+		public const string StudyDesignV5 = "v5/studydesigns";
+
+		public const string SoAV5 = "v5/studydefinitions/{studyId}/studydesigns/soa";
+
+		public const string AuditTrailV5 = "v5/audittrail/{studyId}";
+
+		public const string GeteCPTV5 = "v5/studyDefinitions/{studyId}/studydesigns/eCPT";
+
+		public const string VersionCompareV5 = "v5/studydefinitions/{studyId}/version-comparison";
+		#endregion
+
+		#region POST Method Routes
+		public const string PostElementsV5 = "/v5/studydefinitions";
+
+		public const string ValidateUsdmConformanceV5 = "/v5/studydefinitions/validate-usdm-conformance";
+		#endregion
+		#endregion
+		#region User Group Routes
+		public const string GetGroups = "usergroups/getgroups";
 
         public const string GetUsers = "usergroups/getusers";
 

@@ -14,5 +14,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public CodeEntity DataOriginType { get; set; }
         public List<string> PopulationIds { get; set; }
         public string InstanceType { get; set; }
-    }
+		public List<CommentAnnotationEntity> Notes { get; set; }
+	}
 }

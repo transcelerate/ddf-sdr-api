@@ -19,5 +19,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public TransitionRuleEntity TransitionStartRule { get; set; }
         public TransitionRuleEntity TransitionEndRule { get; set; }
         public string InstanceType { get; set; }
-    }
+		public List<CommentAnnotationEntity> Notes { get; set; }
+	}
 }

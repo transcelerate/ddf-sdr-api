@@ -1,6 +1,7 @@
 ﻿using JsonSubTypes;
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV5
 {    
@@ -15,5 +16,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public string Text { get; set; }
         public string DictionaryId { get; set; }        
         public string InstanceType { get; set; }
-    }
+		public List<CommentAnnotationEntity> Notes { get; set; }
+	}
 }
