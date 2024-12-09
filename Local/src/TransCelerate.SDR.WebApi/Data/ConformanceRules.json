@@ -1726,7 +1726,7 @@
           ]
         },
         {
-          "entity": "StudyProtocolDocument",
+          "entity": "StudyDefinitionDocument",
           "required": [
             "Name",
             "Id",
@@ -1734,7 +1734,7 @@
           ]
         },
         {
-          "entity": "StudyProtocolDocumentVersion",
+          "entity": "StudyDefinitionDocumentVersion",
           "required": [
             "BriefTitle",
             "Id",
@@ -1828,10 +1828,20 @@
           "entity": "CommentAnnotation",
           "required": [
             "Id",
-            "InstanceType",            
+            "InstanceType",
             "Text"
           ]
-        }       
+        }
+        ,
+        {
+          "entity": "NarrativeContentItem",
+          "required": [
+            "Id",
+            "Name",
+            "InstanceType",
+            "Text"
+          ]
+        }  
       ]
     }
   ]

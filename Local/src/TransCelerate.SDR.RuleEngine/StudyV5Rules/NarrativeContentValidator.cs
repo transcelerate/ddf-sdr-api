@@ -46,11 +46,11 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(NarrativeContentValidator), nameof(NarrativeContentDto.SectionNumber)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.Text)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(NarrativeContentValidator), nameof(NarrativeContentDto.Text)), ApplyConditionTo.AllValidators);
+            //RuleFor(x => x.Text)
+            //    .Cascade(CascadeMode.Stop)
+            //    .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+            //    .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+            //    .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(NarrativeContentValidator), nameof(NarrativeContentDto.Text)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.ChildIds)
                 .Cascade(CascadeMode.Stop)

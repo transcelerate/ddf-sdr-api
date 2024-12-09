@@ -608,9 +608,21 @@ namespace TransCelerate.SDR.Services.Services
                             return Constants.ErrorMessages.StudyDesignIdNotFoundCPT;
                     }
 
-                    var eCPT = GetCPTDataV5(studyDTO.Study.Versions.FirstOrDefault(), study.AuditTrail, studyDTO.Study.DocumentedBy?.Versions, studyDTO.Study.Id);
+					//var eCPT = GetCPTDataV5(studyDTO.Study.Versions.FirstOrDefault(), study.AuditTrail, studyDTO.Study.DocumentedBy?.Versions, studyDTO.Study.Id);
+					var allVersions = studyDTO.Study.DocumentedBy?
+	                .Where(document => document.Versions != null)
+	                .SelectMany(document => document.Versions)
+	                .ToList();
 
-                    return eCPT;
+					var eCPT = GetCPTDataV5(
+						studyDTO.Study.Versions.FirstOrDefault(),
+						study.AuditTrail,
+						allVersions,
+						studyDTO.Study.Id
+					);
+
+
+					return eCPT;
                 }
             }
             catch (Exception)
@@ -820,15 +832,7 @@ namespace TransCelerate.SDR.Services.Services
             {
                 _logger.LogInformation($"Started Service : {nameof(StudyServiceV5)}; Method : {nameof(PostAllElements)};");
                 if (!await CheckPermissionForAUser(user))
-                    return Constants.ErrorMessages.PostRestricted;
-                try {
-                  var  Study = _mapper.Map<StudyEntity>(studyDTO.Study);
-				}
-                catch (AutoMapperMappingException ex)
-                {
-                }
-				//ActivityDto searchParametersDTO = new ActivityDto();
-    //            var searchParameters = _mapper.Map<ActivityEntity>(searchParametersDTO);
+                    return Constants.ErrorMessages.PostRestricted;                
 
                 StudyDefinitionsEntity incomingStudyEntity = new()
                 {

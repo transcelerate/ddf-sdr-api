@@ -59,9 +59,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<ScheduleTimelineDto, ScheduleTimelineEntity>().ReverseMap();
             CreateMap<ScheduleTimelineExitDto, ScheduleTimelineExitEntity>().ReverseMap();
             CreateMap<ScheduledActivityInstanceDto, ScheduledActivityInstanceEntity>().ReverseMap();
-			CreateMap<ScheduledDecisionInstanceDto, ScheduledDecisionInstanceEntity>()
-	//.ForMember(dest => dest.ConditionAssignments, opt => opt.MapFrom(src => src.ConditionAssignments))
-	.ForMember(dest => dest.ConditionAssignments, opt => opt.Ignore())
+			CreateMap<ScheduledDecisionInstanceDto, ScheduledDecisionInstanceEntity>()	
 	.ReverseMap();	
 
 			CreateMap<ScheduledInstanceDto, ScheduledInstanceEntity>()
@@ -85,7 +83,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
 			CreateMap<StudyElementDto, StudyElementEntity>().ReverseMap();
             //CreateMap<StudyVersionDto, StudyVersionEntity>().ReverseMap();
             CreateMap<StudyDto, StudyEntity>().ReverseMap();
-			CreateMap<StudyVersionDto, StudyVersionEntity>()
+			CreateMap<StudyVersionDto, StudyVersionEntity>().ReverseMap();
 			//.ForMember(dest => dest.DocumentVersionId, opt => opt.MapFrom(src => src.DocumentVersionIds))
 			//.ForMember(dest => dest.Notes, opt => opt.MapFrom(src => src.Notes))
 			//.ForMember(dest => dest.BusinessTherapeuticAreas, opt => opt.MapFrom(src => src.BusinessTherapeuticAreas))
@@ -98,15 +96,12 @@ namespace TransCelerate.SDR.WebApi.Mappers
 			//.ForMember(dest => dest.StudyType, opt => opt.MapFrom(src => src.StudyType))
 			//.ForMember(dest => dest.InstanceType, opt => opt.MapFrom(src => src.InstanceType))
 			// Ignore unmapped properties in the DTO
-			.ForSourceMember(src => src.Criteria, opt => opt.DoNotValidate())
-	        .ForSourceMember(src => src.NarrativeContentItem, opt => opt.DoNotValidate())
-	        .ForSourceMember(src => src.Abbreviation, opt => opt.DoNotValidate()).ReverseMap();
-
-            CreateMap<PopulationDefinitionDto, PopulationDefinitionEntity>()
-            //.ForMember(dest => dest.Criterionids, opt => opt.MapFrom(src => src.Criterionids))
-            .ReverseMap();
-			//.ForMember(dest => dest.Criterionids, opt => opt.MapFrom(src => src.Criteria));
-
+			//.ForSourceMember(src => src.Criteria, opt => opt.DoNotValidate())
+			//      .ForSourceMember(src => src.NarrativeContentItem, opt => opt.DoNotValidate())
+			//      .ForSourceMember(src => src.Abbreviation, opt => opt.DoNotValidate()).ReverseMap();
+			CreateMap<NarrativeContentItemDto, NarrativeContentItemEntity>().ReverseMap();
+			CreateMap<AbbreviationDto, AbbreviationEntity>().ReverseMap();
+			CreateMap<PopulationDefinitionDto, PopulationDefinitionEntity>().ReverseMap();            
 			CreateMap<StudyCohortDto, StudyCohortEntity>()
 				.IncludeBase<PopulationDefinitionDto, PopulationDefinitionEntity>()
 				.ReverseMap();

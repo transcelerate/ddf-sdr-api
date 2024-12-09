@@ -81,6 +81,7 @@
 - [InvestigationalInterventionValidator](#T-TransCelerate-SDR-RuleEngineV3-InvestigationalInterventionValidator 'TransCelerate.SDR.RuleEngineV3.InvestigationalInterventionValidator')
 - [MaskingValidator](#T-TransCelerate-SDR-RuleEngineV4-MaskingValidator 'TransCelerate.SDR.RuleEngineV4.MaskingValidator')
 - [MaskingValidator](#T-TransCelerate-SDR-RuleEngineV5-MaskingValidator 'TransCelerate.SDR.RuleEngineV5.MaskingValidator')
+- [NarrativeContentItemValidator](#T-TransCelerate-SDR-RuleEngineV5-NarrativeContentItemValidator 'TransCelerate.SDR.RuleEngineV5.NarrativeContentItemValidator')
 - [NarrativeContentValidator](#T-TransCelerate-SDR-RuleEngineV4-NarrativeContentValidator 'TransCelerate.SDR.RuleEngineV4.NarrativeContentValidator')
 - [NarrativeContentValidator](#T-TransCelerate-SDR-RuleEngineV5-NarrativeContentValidator 'TransCelerate.SDR.RuleEngineV5.NarrativeContentValidator')
 - [ObjectiveValidator](#T-TransCelerate-SDR-RuleEngineV2-ObjectiveValidator 'TransCelerate.SDR.RuleEngineV2.ObjectiveValidator')
@@ -122,6 +123,8 @@
 - [StudyCellsValidator](#T-TransCelerate-SDR-RuleEngineV3-StudyCellsValidator 'TransCelerate.SDR.RuleEngineV3.StudyCellsValidator')
 - [StudyCohortValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyCohortValidator 'TransCelerate.SDR.RuleEngineV4.StudyCohortValidator')
 - [StudyCohortValidator](#T-TransCelerate-SDR-RuleEngineV5-StudyCohortValidator 'TransCelerate.SDR.RuleEngineV5.StudyCohortValidator')
+- [StudyDefinitionDocumentValidator](#T-TransCelerate-SDR-RuleEngineV5-StudyDefinitionDocumentValidator 'TransCelerate.SDR.RuleEngineV5.StudyDefinitionDocumentValidator')
+- [StudyDefinitionDocumentVersionValidator](#T-TransCelerate-SDR-RuleEngineV5-StudyDefinitionDocumentVersionValidator 'TransCelerate.SDR.RuleEngineV5.StudyDefinitionDocumentVersionValidator')
 - [StudyDefinitionsValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyDefinitionsValidator 'TransCelerate.SDR.RuleEngineV2.StudyDefinitionsValidator')
 - [StudyDefinitionsValidator](#T-TransCelerate-SDR-RuleEngineV3-StudyDefinitionsValidator 'TransCelerate.SDR.RuleEngineV3.StudyDefinitionsValidator')
 - [StudyDefinitionsValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyDefinitionsValidator 'TransCelerate.SDR.RuleEngineV4.StudyDefinitionsValidator')
@@ -151,9 +154,7 @@
 - [StudyInterventionValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyInterventionValidator 'TransCelerate.SDR.RuleEngineV4.StudyInterventionValidator')
 - [StudyInterventionValidator](#T-TransCelerate-SDR-RuleEngineV5-StudyInterventionValidator 'TransCelerate.SDR.RuleEngineV5.StudyInterventionValidator')
 - [StudyProtocolDocumentValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyProtocolDocumentValidator 'TransCelerate.SDR.RuleEngineV4.StudyProtocolDocumentValidator')
-- [StudyProtocolDocumentValidator](#T-TransCelerate-SDR-RuleEngineV5-StudyProtocolDocumentValidator 'TransCelerate.SDR.RuleEngineV5.StudyProtocolDocumentValidator')
 - [StudyProtocolDocumentVersionValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyProtocolDocumentVersionValidator 'TransCelerate.SDR.RuleEngineV4.StudyProtocolDocumentVersionValidator')
-- [StudyProtocolDocumentVersionValidator](#T-TransCelerate-SDR-RuleEngineV5-StudyProtocolDocumentVersionValidator 'TransCelerate.SDR.RuleEngineV5.StudyProtocolDocumentVersionValidator')
 - [StudyProtocolVersionsValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyProtocolVersionsValidator 'TransCelerate.SDR.RuleEngineV2.StudyProtocolVersionsValidator')
 - [StudyProtocolVersionsValidator](#T-TransCelerate-SDR-RuleEngineV3-StudyProtocolVersionsValidator 'TransCelerate.SDR.RuleEngineV3.StudyProtocolVersionsValidator')
 - [StudySiteValidator](#T-TransCelerate-SDR-RuleEngineV4-StudySiteValidator 'TransCelerate.SDR.RuleEngineV4.StudySiteValidator')
@@ -725,7 +726,7 @@ TransCelerate.SDR.RuleEngineV5
 
 ##### Summary
 
-This Class is the validator for StudyObjectives
+This Class is the validator for NarrativeContentItem
 
 <a name='T-TransCelerate-SDR-RuleEngineV2-EncounterValidator'></a>
 ## EncounterValidator `type`
@@ -1045,6 +1046,17 @@ TransCelerate.SDR.RuleEngineV5
 ##### Summary
 
 This Class is the validator for Code
+
+<a name='T-TransCelerate-SDR-RuleEngineV5-NarrativeContentItemValidator'></a>
+## NarrativeContentItemValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV5
+
+##### Summary
+
+This Class is the validator for NarrativeContentItem
 
 <a name='T-TransCelerate-SDR-RuleEngineV4-NarrativeContentValidator'></a>
 ## NarrativeContentValidator `type`
@@ -1497,6 +1509,28 @@ TransCelerate.SDR.RuleEngineV5
 
 This Class is the validator for StudyDesignPopulation
 
+<a name='T-TransCelerate-SDR-RuleEngineV5-StudyDefinitionDocumentValidator'></a>
+## StudyDefinitionDocumentValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV5
+
+##### Summary
+
+This Class is the validator for StudyProtocolVersions
+
+<a name='T-TransCelerate-SDR-RuleEngineV5-StudyDefinitionDocumentVersionValidator'></a>
+## StudyDefinitionDocumentVersionValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV5
+
+##### Summary
+
+This Class is the validator for StudyProtocolVersions
+
 <a name='T-TransCelerate-SDR-RuleEngineV2-StudyDefinitionsValidator'></a>
 ## StudyDefinitionsValidator `type`
 
@@ -1816,34 +1850,12 @@ TransCelerate.SDR.RuleEngineV4
 
 This Class is the validator for StudyProtocolVersions
 
-<a name='T-TransCelerate-SDR-RuleEngineV5-StudyProtocolDocumentValidator'></a>
-## StudyProtocolDocumentValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV5
-
-##### Summary
-
-This Class is the validator for StudyProtocolVersions
-
 <a name='T-TransCelerate-SDR-RuleEngineV4-StudyProtocolDocumentVersionValidator'></a>
 ## StudyProtocolDocumentVersionValidator `type`
 
 ##### Namespace
 
 TransCelerate.SDR.RuleEngineV4
-
-##### Summary
-
-This Class is the validator for StudyProtocolVersions
-
-<a name='T-TransCelerate-SDR-RuleEngineV5-StudyProtocolDocumentVersionValidator'></a>
-## StudyProtocolDocumentVersionValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV5
 
 ##### Summary
 

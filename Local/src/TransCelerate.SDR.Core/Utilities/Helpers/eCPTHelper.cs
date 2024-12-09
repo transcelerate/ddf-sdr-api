@@ -350,11 +350,15 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         }
         public static TransCelerate.SDR.Core.DTO.StudyV5.StudyDefinitionDocumentVersionDto GetStudyProtocolVersionsV5(this Core.DTO.StudyV5.StudyVersionDto studyVersion, List<TransCelerate.SDR.Core.DTO.StudyV5.StudyDefinitionDocumentVersionDto> studyProtocolVersions)
         {
-            if (!String.IsNullOrWhiteSpace(studyVersion.DocumentVersionIds))
-            {
-                return (studyProtocolVersions.Find(x => x.Id == studyVersion.DocumentVersionIds));
-            }
-            return null;
+			//if (!String.IsNullOrWhiteSpace(studyVersion.DocumentVersionIds))
+			//{
+			//    return (studyProtocolVersions.Find(x => x.Id == studyVersion.DocumentVersionIds));
+			//}
+			if (studyVersion.DocumentVersionIds != null && studyVersion.DocumentVersionIds.Any())
+			{
+				return studyProtocolVersions.Find(x => studyVersion.DocumentVersionIds.Contains(x.Id));
+			}
+			return null;
         }
         public static string GetNumberOfParticipantsV5(this Core.DTO.StudyV5.StudyDesignPopulationDto population)
         {

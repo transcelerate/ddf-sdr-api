@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace TransCelerate.SDR.Core.Entities.StudyV5
 {
     [MongoDB.Bson.Serialization.Attributes.BsonNoId]
-    internal class NarrativeContentItemEntity :IId
+    public class NarrativeContentItemEntity :IId
     {
 
         public string Id { get; set; }

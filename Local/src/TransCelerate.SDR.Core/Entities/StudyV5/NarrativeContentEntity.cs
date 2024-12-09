@@ -13,7 +13,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public string Name { get; set; }
         public string SectionNumber { get; set; }
         public string SectionTitle { get; set; }
-        public string Text { get; set; }
         public List<string> ChildIds { get; set; }
         public string PreviousId { get; set; }
         public string NextId { get; set; }
@@ -21,5 +20,5 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public bool displaySectionNumber { get; set; }
         public bool displaySectionTitle { get; set; }
         public string contentItemId { get; set; }
-    }
+	}
 }

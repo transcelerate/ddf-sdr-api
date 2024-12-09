@@ -9,8 +9,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public string VersionIdentifier { get; set; }
         public CodeDto StudyType { get; set; }
         public string Rationale { get; set; }
-		public string DocumentVersionIds { get; set; }
-		//public List<string> DocumentVersionIds { get; set; }
+		public List<string> DocumentVersionIds { get; set; }
 		public List<GovernanceDateDto> DateValues { get; set; }
         public List<StudyAmendmentDto> Amendments { get; set; }        
         public List<StudyIdentifierDto> StudyIdentifiers { get; set; }
@@ -20,7 +19,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public string InstanceType { get; set; }
         public List<CommentAnnotationDto> Notes { get; set; }
         public List<EligibilityCriterionDto> Criteria { get; set; }
-        public List<NarrativeContentItemDto> NarrativeContentItem { get; set; }
-        public List<AbbreviationDto> Abbreviation { get; set; }
+        public List<NarrativeContentItemDto> NarrativeContentItems { get; set; }
+        public List<AbbreviationDto> Abbreviations { get; set; }
     }
 }

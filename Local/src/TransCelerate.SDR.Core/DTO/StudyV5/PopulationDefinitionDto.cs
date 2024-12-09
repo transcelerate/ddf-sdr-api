@@ -12,9 +12,9 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public RangeDto PlannedAge { get; set; }        
         public RangeDto PlannedCompletionNumber { get; set; }
         public RangeDto PlannedEnrollmentNumber { get; set; }
-        public List<CodeDto> PlannedSex { get; set; }
-        public List<EligibilityCriterionDto> Criterionids { get; set; }
-        public string InstanceType { get; set; }
+        public List<CodeDto> PlannedSex { get; set; }		
+		public List<string> Criterionids { get; set; }
+		public string InstanceType { get; set; }
         public List<CommentAnnotationDto> Notes { get; set; }
     }
 }

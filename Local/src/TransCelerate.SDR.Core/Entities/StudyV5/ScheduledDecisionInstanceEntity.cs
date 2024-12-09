@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TransCelerate.SDR.Core.DTO.StudyV4;
+using TransCelerate.SDR.Core.DTO.StudyV5;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV5
 {

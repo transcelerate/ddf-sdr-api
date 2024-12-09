@@ -11,8 +11,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public string Description { get; set; }
         public string Label { get; set; }
         public List<StudyVersionEntity> Versions { get; set; }
-        //public StudyProtocolDocumentEntity DocumentedBy { get; set; }
-        public StudyDefinitionDocumentEntity DocumentedBy { get; set; }
-		public string InstanceType { get; set; }
+        public List<StudyDefinitionDocumentEntity> DocumentedBy { get; set; }        
+        public string InstanceType { get; set; }
     }
 }
