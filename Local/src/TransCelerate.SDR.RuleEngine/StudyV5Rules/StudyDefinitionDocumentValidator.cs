@@ -6,10 +6,10 @@ using TransCelerate.SDR.Core.Utilities.Helpers;
 
 namespace TransCelerate.SDR.RuleEngineV5
 {
-    /// <summary>
-    /// This Class is the validator for StudyProtocolVersions
-    /// </summary>
-    public class StudyDefinitionDocumentValidator : AbstractValidator<StudyDefinitionDocumentDto>
+	/// <summary>
+	/// This Class is the validator for StudyDefinitionDocument
+	/// </summary>
+	public class StudyDefinitionDocumentValidator : AbstractValidator<StudyDefinitionDocumentDto>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         public StudyDefinitionDocumentValidator(IHttpContextAccessor httpContextAccessor)

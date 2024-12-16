@@ -87,7 +87,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 .Returns(Task.FromResult(GetDtoDataFromStaticJson()));
             _mockHelper.Setup(x => x.RemoveStudyDesignElements(It.IsAny<string[]>(), It.IsAny<List<StudyDesignDto>>(), It.IsAny<string>()))
                 .Returns(Task.FromResult(GetDtoDataFromStaticJson()));
-            _mockChangeAuditRepository.Setup(x => x.InsertChangeAudit(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<DateTime>()))
+            _mockChangeAuditRepository.Setup(x => x.InsertChangeAudit(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<DateTime>()))
                 .Returns(Task.FromResult(GetDtoDataFromStaticJson().Study.Id));
             _mockStudyRepository.Setup(x => x.GetUsdmVersionAsync(It.IsAny<string>(), 0))
                 .Returns(Task.FromResult(_mockMapper.Map<StudyDefinitionsEntity>(GetDtoDataFromStaticJson()).AuditTrail));

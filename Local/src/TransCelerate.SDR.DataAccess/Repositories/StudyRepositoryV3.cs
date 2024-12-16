@@ -184,8 +184,17 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             try
             {
                 IMongoCollection<StudyDefinitionsEntity> collection = _database.GetCollection<StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
+				//***** Added by Swathi for 441
+				var filterOldVersion = Builders<StudyDefinitionsEntity>.Filter.Eq(s => s.Study.StudyId, study.Study.StudyId) &
+									  Builders<StudyDefinitionsEntity>.Filter.Eq(s => s.AuditTrail.SDRUploadFlag, 1);
 
-                await collection.InsertOneAsync(study).ConfigureAwait(false); //Insert One Document                
+				var updateOldVersion = Builders<StudyDefinitionsEntity>.Update
+					.Set(s => s.AuditTrail.SDRUploadFlag, 0);
+
+				var result = await collection.UpdateOneAsync(filterOldVersion, updateOldVersion).ConfigureAwait(false);
+				// **** *****************************************
+
+				await collection.InsertOneAsync(study).ConfigureAwait(false); //Insert One Document                
                 return (study.Study.StudyId);
             }
             catch (Exception)

@@ -872,8 +872,9 @@ namespace TransCelerate.SDR.Services.Services
             //studyEntity = _helper.GeneratedSectionId(studyEntity);
             studyEntity.Study.StudyId = IdGenerator.GenerateId();
             studyEntity.AuditTrail.SDRUploadVersion = 1;
-            await _studyRepository.PostStudyItemsAsync(studyEntity);
-            await _changeAuditRepositoy.InsertChangeAudit(studyEntity.Study.StudyId, studyEntity.AuditTrail.SDRUploadVersion, studyEntity.AuditTrail.EntryDateTime);
+			studyEntity.AuditTrail.SDRUploadFlag = 1;
+			await _studyRepository.PostStudyItemsAsync(studyEntity);
+            await _changeAuditRepositoy.InsertChangeAudit(studyEntity.Study.StudyId, studyEntity.AuditTrail.SDRUploadVersion, studyEntity.AuditTrail.SDRUploadFlag, studyEntity.AuditTrail.EntryDateTime);
             return _mapper.Map<StudyDefinitionsDto>(studyEntity);
         }
 
@@ -890,7 +891,8 @@ namespace TransCelerate.SDR.Services.Services
         {
             //incomingStudyEntity = _helper.CheckForSections(incomingStudyEntity, existingStudyEntity);
             incomingStudyEntity.AuditTrail.SDRUploadVersion = existingAuditTrailEntity.SDRUploadVersion + 1;
-            incomingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
+			incomingStudyEntity.AuditTrail.SDRUploadFlag = 1;
+			incomingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
             await _studyRepository.PostStudyItemsAsync(incomingStudyEntity);
             return _mapper.Map<StudyDefinitionsDto>(incomingStudyEntity);
         }
