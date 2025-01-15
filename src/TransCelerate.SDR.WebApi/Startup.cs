@@ -61,7 +61,7 @@ namespace TransCelerate.SDR.WebApi
             // Application Insights for logs
             services.AddApplicationInsightsTelemetry(options: new ApplicationInsightsServiceOptions { ConnectionString = Config.InstrumentationKey });
 
-            // Api Versioning
+            // adding Api Versioning 
             services.AddApiVersioning(o =>
             {
                 o.AssumeDefaultVersionWhenUnspecified = false;
