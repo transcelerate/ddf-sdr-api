@@ -209,10 +209,10 @@ namespace TransCelerate.SDR.DataAccess.Filters
 		/// <param name="groups"></param>
 		/// <param name="user"></param>
 		/// <returns></returns>
-		public static FilterDefinition<CommonStudyDefinitionsEntity> GetFiltersForStudyHistoryV5(DateTime fromDate, DateTime toDate, string studyTitle, List<SDRGroupsEntity> groups, LoggedInUser user)
+		public static FilterDefinition<CommonStudyDefinitionsEntityV5> GetFiltersForStudyHistoryV5(DateTime fromDate, DateTime toDate, string studyTitle, List<SDRGroupsEntity> groups, LoggedInUser user)
 		{
-			FilterDefinitionBuilder<CommonStudyDefinitionsEntity> builder = Builders<CommonStudyDefinitionsEntity>.Filter;
-			FilterDefinition<CommonStudyDefinitionsEntity> filter = builder.Empty;
+			FilterDefinitionBuilder<CommonStudyDefinitionsEntityV5> builder = Builders<CommonStudyDefinitionsEntityV5>.Filter;
+			FilterDefinition<CommonStudyDefinitionsEntityV5> filter = builder.Empty;
 
 			filter &= builder.Where(x => x.AuditTrail.UsdmVersion == Constants.USDMVersions.V4);
 			//Filter for Date Range

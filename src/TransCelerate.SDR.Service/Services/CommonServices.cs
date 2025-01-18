@@ -607,9 +607,42 @@ namespace TransCelerate.SDR.Services.Services
 
                 return null;
             }
-            if (searchParameters.UsdmVersion == Constants.USDMVersions.V3 || searchParameters.UsdmVersion == Constants.USDMVersions.V4)
+            if (searchParameters.UsdmVersion == Constants.USDMVersions.V3)
             {
-                var searchResponse = await _commonRepository.SearchStudyV4(searchParameters, loggedInUser);
+				var searchResponse = await _commonRepository.SearchStudyV4(searchParameters, loggedInUser);
+				var searchResponseDtos = _mapper.Map<List<SearchResponseDto>>(searchResponse);
+
+				if (searchResponseDtos.Any())
+                {
+                    searchResponseDtos.ForEach(searchResponseDto =>
+                    {
+                        var searchResponseV2 = searchResponse.FirstOrDefault(x => x.StudyId == searchResponseDto.Study.StudyId && x.SDRUploadVersion == searchResponseDto.AuditTrail.SDRUploadVersion);
+                        var studyTitleV4 = searchResponseV2.StudyTitle != null ? JsonConvert.DeserializeObject<List<CommonStudyTitle>>(JsonConvert.SerializeObject(searchResponseV2.StudyTitle)) : null;
+                        searchResponseDto.Study.StudyTitle = studyTitleV4 != null && studyTitleV4.Any(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle) ? studyTitleV4.Find(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle).Text : null;
+                        searchResponseDto.Study.StudyIdentifiers = _mapper.Map<List<CommonStudyIdentifiersDto>>(searchResponseV2.StudyIdentifiers);
+                        searchResponseDto.Study.StudyIdentifiers?.ForEach(x =>
+                        {
+                            var scope = searchResponseV2.StudyIdentifiers.Find(y => y.Id == x.Id).StudyIdentifierScope;
+                            x.StudyIdentifierScope.OrganisationIdentifierScheme = scope.IdentifierScheme;
+                            x.StudyIdentifierScope.OrganisationIdentifier = scope.Identifier;
+                            x.StudyIdentifierScope.OrganisationName = scope.Name;
+                            x.StudyIdentifierScope.OrganisationType = _mapper.Map<CommonCodeDto>(scope.OrganizationType);
+                        });
+                        searchResponseDto.Study.StudyPhase = _mapper.Map<CommonCodeDto>(searchResponseV2.StudyPhase?.StandardCode);
+                        searchResponseDto.Study.StudyDesigns = new List<CommonStudyDesign> { new() {
+                            InterventionModel = _mapper.Map<List<CommonCodeDto>>(searchResponseV2.InterventionModel?.Where(x => x != null && x.Any()).SelectMany(x=>x).ToList()),
+                            StudyIndications = _mapper.Map<List<Core.DTO.Common.CommonStudyIndication>>(searchResponseV2.StudyIndications?.Where(x => x != null && x.Any()).SelectMany(x=>x).Where(x => x != null && x.Any()).SelectMany(x=>x).ToList())
+                        } };
+                        searchResponseDto.Links = LinksHelper.GetLinksForUi(searchResponseDto.Study.StudyId, searchResponseV2.StudyDesignIds?.SelectMany(x=>x).ToList(), searchResponseDto.AuditTrail.UsdmVersion, searchResponseDto.AuditTrail.SDRUploadVersion);
+                    });
+                    return searchResponseDtos;
+                }
+
+                return null;
+            }
+            if (searchParameters.UsdmVersion == Constants.USDMVersions.V4)
+            {
+                var searchResponse = await _commonRepository.SearchStudyV5(searchParameters, loggedInUser);
                 var searchResponseDtos = _mapper.Map<List<SearchResponseDto>>(searchResponse);
 
                 if (searchResponseDtos.Any())
@@ -633,7 +666,7 @@ namespace TransCelerate.SDR.Services.Services
                             InterventionModel = _mapper.Map<List<CommonCodeDto>>(searchResponseV2.InterventionModel?.Where(x => x != null && x.Any()).SelectMany(x=>x).ToList()),
                             StudyIndications = _mapper.Map<List<Core.DTO.Common.CommonStudyIndication>>(searchResponseV2.StudyIndications?.Where(x => x != null && x.Any()).SelectMany(x=>x).Where(x => x != null && x.Any()).SelectMany(x=>x).ToList())
                         } };
-                        searchResponseDto.Links = LinksHelper.GetLinksForUi(searchResponseDto.Study.StudyId, searchResponseV2.StudyDesignIds?.SelectMany(x=>x).ToList(), searchResponseDto.AuditTrail.UsdmVersion, searchResponseDto.AuditTrail.SDRUploadVersion);
+                        searchResponseDto.Links = LinksHelper.GetLinksForUi(searchResponseDto.Study.StudyId, searchResponseV2.StudyDesignIds?.SelectMany(x => x).ToList(), searchResponseDto.AuditTrail.UsdmVersion, searchResponseDto.AuditTrail.SDRUploadVersion);
                     });
                     return searchResponseDtos;
                 }
