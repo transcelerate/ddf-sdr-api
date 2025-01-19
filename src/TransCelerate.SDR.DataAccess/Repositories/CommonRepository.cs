@@ -73,7 +73,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 else
                 {
                     study.AuditTrail = BsonSerializer.Deserialize<AuditTrailEntity>(studyData[Constants.DbFilter.AuditTrail].AsBsonDocument);
-                    if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.V1_9 || study.AuditTrail.UsdmVersion == Constants.USDMVersions.V2 || study.AuditTrail.UsdmVersion == Constants.USDMVersions.V3)
+                    if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.V1_9 || study.AuditTrail.UsdmVersion == Constants.USDMVersions.V2 || study.AuditTrail.UsdmVersion == Constants.USDMVersions.V3 || study.AuditTrail.UsdmVersion == Constants.USDMVersions.V4)
                     {
                         study.Study = Newtonsoft.Json.JsonConvert.DeserializeObject<object>(studyData[Constants.DbFilter.Study].ToString());
                     }
@@ -206,6 +206,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             try
             {
                 var collection = _database.GetCollection<CommonStudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
+				var collectionV5 = _database.GetCollection<CommonStudyDefinitionsEntityV5>(Constants.Collections.StudyDefinitions);
 
                 List<StudyHistoryResponseEntity> studyHistories = await collection.Aggregate()
                                                         .Match(DataFilterCommon.GetFiltersForStudyHistory(fromDate, toDate, studyTitle, GetGroupsOfUser(user).Result, user)) // Condition for matching date range
@@ -236,13 +237,31 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                                     StudyIdentifiers = x.Study.Versions != null ? x.Study.Versions.First().StudyIdentifiers : null,
                                                                     EntryDateTime = x.AuditTrail.EntryDateTime,
                                                                     StudyType = x.Study.Versions != null ? x.Study.Versions.First().StudyType : null,
-                                                                    ProtocolVersions = x.Study.DocumentedBy != null && x.Study.DocumentedBy.Versions != null ? x.Study.DocumentedBy.Versions.Select(x => x.ProtocolVersion) : null,
+                                                                    //ProtocolVersions = x.Study.DocumentedBy != null && x.Study.DocumentedBy.Versions != null ? x.Study.DocumentedBy.Versions.Select(x => x.ProtocolVersion) : null,
                                                                     StudyVersion = x.Study.Versions != null ? x.Study.Versions.First().VersionIdentifier : null,
                                                                     UsdmVersion = x.AuditTrail.UsdmVersion,
                                                                     StudyDesignIdsV4 = x.Study.Versions != null ? x.Study.Versions.Select(x=> x.StudyDesigns.Select(y=>y.Id)) : null,
                                                                 })  //Project only the required fields                                                        
                                                         .ToListAsync().ConfigureAwait(false);
                 studyHistories.AddRange(studyHistoriesV4);
+				List<StudyHistoryResponseEntity> studyHistoriesV5 = await collectionV5.Aggregate()
+													.Match(DataFilterCommon.GetFiltersForStudyHistoryV5(fromDate, toDate, studyTitle, GetGroupsOfUser(user).Result, user)) // Condition for matching date range
+													.Project(x =>
+															new StudyHistoryResponseEntity
+															{
+																StudyId = x.Study.Id,
+																StudyTitle = x.Study.Versions != null ? x.Study.Versions.First().Titles : null,
+																SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+																StudyIdentifiers = x.Study.Versions != null ? x.Study.Versions.First().StudyIdentifiers : null,
+																EntryDateTime = x.AuditTrail.EntryDateTime,
+																StudyType = x.Study.Versions != null ? x.Study.Versions.First().StudyType : null,
+																ProtocolVersions =  x.Study.DocumentedBy.SelectMany(z => z.Versions.Select(y=>y.ProtocolVersion)) ,
+																StudyVersion = x.Study.Versions != null ? x.Study.Versions.First().VersionIdentifier : null,
+																UsdmVersion = x.AuditTrail.UsdmVersion,
+																StudyDesignIdsV4 = x.Study.Versions != null ? x.Study.Versions.Select(x => x.StudyDesigns.Select(y => y.Id)) : null,
+															})  //Project only the required fields                                                        
+													.ToListAsync().ConfigureAwait(false);
+		        studyHistories.AddRange(studyHistoriesV5);
 
                 if (studyHistories.Count == 0)
                 {
