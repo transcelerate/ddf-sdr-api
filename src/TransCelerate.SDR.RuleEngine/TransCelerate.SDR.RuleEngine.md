@@ -1518,7 +1518,7 @@ TransCelerate.SDR.RuleEngineV5
 
 ##### Summary
 
-This Class is the validator for StudyProtocolVersions
+This Class is the validator for StudyDefinitionDocument
 
 <a name='T-TransCelerate-SDR-RuleEngineV5-StudyDefinitionDocumentVersionValidator'></a>
 ## StudyDefinitionDocumentVersionValidator `type`
