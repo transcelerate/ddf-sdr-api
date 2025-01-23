@@ -45,15 +45,14 @@ jobs:
     #   uses: actions/setup-dotnet@v1
     #   with:
     #     dotnet-version: 3.1.x
-    - name: Install Mono
-      run: sudo apt-get install -y mono-complete
-        
-    - name: Use NuGet
-      # Use Nuget for Dotnet Build
-      uses: nuget/setup-nuget@v1
-      
-    - name: NuGet restore
-      run: nuget restore '${{ github.workspace }}/src/TransCelerate.SDR.sln'      
+    - name: Install Mono and MSBuild
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y mono-complete msbuild
+
+    - name: Restore NuGet Packages
+      # Use dotnet restore instead of nuget restore
+      run: dotnet restore '${{ github.workspace }}/src/TransCelerate.SDR.sln'     
       
     - name: Find and Replace User Name - Using Build Variable
       # Replace the Keyvault value in appsettings.json
