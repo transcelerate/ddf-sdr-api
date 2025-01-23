@@ -81,7 +81,7 @@ jobs:
         name: Build-Artifact
 
     - name: 'Publish Function App Artifact: Artifact'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       # Publish the Function App Build artifact in github
       with:
         path: '${{ github.workspace }}/FunAppPublish.zip'
