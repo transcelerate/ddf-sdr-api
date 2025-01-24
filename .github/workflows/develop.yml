@@ -45,20 +45,22 @@ jobs:
     #   uses: actions/setup-dotnet@v1
     #   with:
     #     dotnet-version: 3.1.x
-    - name: Install Mono and MSBuild
+    - name: Install .NET SDK
       run: |
         sudo apt-get update
-        sudo apt-get install -y wget gnupg
-        # Add Microsoft package signing key
+        sudo apt-get install -y wget
         wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
         sudo dpkg -i packages-microsoft-prod.deb
         sudo apt-get update
-        # Install Mono and MSBuild
-        sudo apt-get install -y mono-complete msbuild
+        sudo apt-get install -y apt-transport-https
+        sudo apt-get install -y dotnet-sdk-7.0
 
     - name: Restore NuGet Packages
-      # Use dotnet restore instead of nuget restore
-      run: dotnet restore '${{ github.workspace }}/src/TransCelerate.SDR.sln'     
+      run: dotnet restore '${{ github.workspace }}/src/TransCelerate.SDR.sln'
+
+    - name: Build solution
+      run: dotnet build '${{ github.workspace }}/src/TransCelerate.SDR.sln' --configuration Release
+     
       
     - name: Find and Replace User Name - Using Build Variable
       # Replace the Keyvault value in appsettings.json
