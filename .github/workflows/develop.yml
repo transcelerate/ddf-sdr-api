@@ -45,21 +45,12 @@ jobs:
     #   uses: actions/setup-dotnet@v1
     #   with:
     #     dotnet-version: 3.1.x
-    - name: Install .NET SDK
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y wget
-        wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
-        sudo dpkg -i packages-microsoft-prod.deb
-        sudo apt-get update
-        sudo apt-get install -y apt-transport-https
-        sudo apt-get install -y dotnet-sdk-7.0
-
-    - name: Restore NuGet Packages
-      run: dotnet restore '${{ github.workspace }}/src/TransCelerate.SDR.sln'
-
-    - name: Build solution
-      run: dotnet build '${{ github.workspace }}/src/TransCelerate.SDR.sln' --configuration Release
+    - name: Use NuGet
+      # Use Nuget for Dotnet Build
+      uses: nuget/setup-nuget@v1
+  
+    - name: NuGet restore
+      run: nuget restore '${{ github.workspace }}/src/TransCelerate.SDR.sln'
      
       
     - name: Find and Replace User Name - Using Build Variable
