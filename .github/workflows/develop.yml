@@ -48,10 +48,11 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y mono-complete
+        # Add the focal (20.04) repository explicitly for msbuild
         wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
         sudo dpkg -i packages-microsoft-prod.deb
-        sudo apt-get update
-        sudo apt-get install -y apt-transport-https
+        # Force usage of the 20.04 repository
+        sudo sed -i 's/noble/focal/' /etc/apt/sources.list.d/microsoft-prod.list
         sudo apt-get update
         sudo apt-get install -y msbuild
         
@@ -73,7 +74,7 @@ jobs:
         
     - name: Build solution **\*.sln
       # Build dotnet code
-      run: dotnet publish 'src/TransCelerate.SDR.sln' --configuration release
+      run: dotnet build '${{ github.workspace }}/src/TransCelerate.SDR.sln' --configuration release
       
     - name: Zip publish files
       shell: pwsh
