@@ -54,7 +54,7 @@ jobs:
         
     - name: Build solution **\*.sln
       # Build dotnet code
-      run: dotnet build '${{ github.workspace }}/src/TransCelerate.SDR.sln' --configuration Release /p:DocumentationFile=bin/Release/net7.0/<project>.xml
+      run: dotnet build '${{ github.workspace }}/src/TransCelerate.SDR.sln' --configuration Release /p:SkipVsxmd=true
       
     - name: Zip publish files
       shell: pwsh
