@@ -35,6 +35,11 @@ jobs:
           # fetch depth is used to disable shallow cloning while sonarqube analysis
           fetch-depth: 0
 
+    - name: Install Dependencies
+      run: |
+            sudo apt-get update
+            sudo apt-get install -y libssl-dev
+
     - name: Check Ubuntu Version
       run: cat /etc/os-release    
 
