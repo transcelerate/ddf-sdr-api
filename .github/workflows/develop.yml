@@ -40,6 +40,9 @@ jobs:
       # Setup for dotnet
       with:
         dotnet-version: 7.0.x
+        
+    - name: Check Ubuntu Version
+      run: cat /etc/os-release
 
     - name: Install Mono and msbuild
       run: |
