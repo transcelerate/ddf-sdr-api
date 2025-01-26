@@ -38,7 +38,7 @@ jobs:
     - name: Install Dependencies
       run: |
             sudo apt-get update
-            sudo apt-get install -y libssl-dev
+            sudo apt-get install -y libssl1.1
 
     - name: Check Ubuntu Version
       run: cat /etc/os-release    
