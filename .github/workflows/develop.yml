@@ -52,11 +52,12 @@ jobs:
       run: |
         find ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/appsettings.json -type f -exec sed -i ''s@{#KeyVault-Name#}@'${{ secrets.KEYVAULT_NAME }}'@g'' {} \;
         
-    - name: Build solution **\*.sln
-      # Build dotnet code
-      run: dotnet build '${{ github.workspace }}/src/TransCelerate.SDR.sln' --configuration Release \
-        /p:GenerateDocumentationFile=true \
-        /p:SuppressTfmSupportBuildWarnings=true
+    - name: Build Solution
+  run: |
+    dotnet build "${{ github.workspace }}/src/TransCelerate.SDR.sln" \
+      --configuration Release \
+      /p:GenerateDocumentationFile=true \
+      /p:SuppressTfmSupportBuildWarnings=true
 
     - name: Generate Markdown Documentation with Vsxmd
       run: |
