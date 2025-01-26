@@ -54,7 +54,27 @@ jobs:
         
     - name: Build solution **\*.sln
       # Build dotnet code
-      run: dotnet build '${{ github.workspace }}/src/TransCelerate.SDR.sln' --configuration Release /p:SkipVsxmd=true
+      run: dotnet build '${{ github.workspace }}/src/TransCelerate.SDR.sln' --configuration Release \
+        /p:GenerateDocumentationFile=true \
+        /p:SuppressTfmSupportBuildWarnings=true
+
+    - name: Generate Markdown Documentation with Vsxmd
+      run: |
+            "/home/runner/.nuget/packages/vsxmd/1.4.5/tools/linux-x64/Vsxmd" \
+            "${{ github.workspace }}/src/TransCelerate.SDR.Core/obj/Release/net7.0/TransCelerate.SDR.Core.xml" \
+            "${{ github.workspace }}/src/TransCelerate.SDR.Core/TransCelerate.SDR.Core.md"
+
+    - name: Archive Markdown Files
+      run: |
+       mkdir -p ${{ github.workspace }}/markdown-docs
+       find ${{ github.workspace }}/src/ -name '*.md' -exec cp {} ${{ github.workspace }}/markdown-docs/ \;
+       zip -r markdown-docs.zip ${{ github.workspace }}/markdown-docs/
+
+    - name: Publish Markdown Documentation
+      uses: actions/upload-artifact@v4
+      with:
+        name: Markdown-Documentation
+        path: markdown-docs.zip
       
     - name: Zip publish files
       shell: pwsh
