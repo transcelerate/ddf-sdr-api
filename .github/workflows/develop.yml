@@ -37,8 +37,7 @@ jobs:
 
     - name: Install Dependencies
       run: |
-            sudo apt-get update
-            sudo apt-get install -y libssl3
+            sudo apt-get update            
 
     - name: Check Ubuntu Version
       run: cat /etc/os-release    
