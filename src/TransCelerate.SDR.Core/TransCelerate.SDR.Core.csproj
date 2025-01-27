@@ -5,6 +5,7 @@
 	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
 	  <NoWarn>$(NoWarn);1591</NoWarn>
 	  <DocumentationMarkdown>$(MSBuildProjectDirectory)\TransCelerate.SDR.Core.md</DocumentationMarkdown>
+    <DocumentationFile>obj\Debug\net7.0\TransCelerate.SDR.AzureFunctions.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
