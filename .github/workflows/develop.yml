@@ -197,6 +197,7 @@ jobs:
         password: ${{ secrets.ACR_PASSWORD }} # default is 
         # Container registry server url
         login-server: ${{ secrets.ACR_NAME }} # default is https://index.docker.io/v1/
+        enable-AzPSSession: true
     - run: |
         cp '${{ github.workspace }}/Dockerfile' '${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net7.0/publish/'
         cd ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net7.0/publish/
