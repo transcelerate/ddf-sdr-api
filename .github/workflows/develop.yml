@@ -38,14 +38,8 @@ jobs:
     - name: Install Dependencies
       run: |
             sudo apt-get update  
-            sudo apt-get install -y libssl1.1            
-
-    - name: Check Ubuntu Version
-      run: cat /etc/os-release  
-
-    - name: Check OpenSSL Version
-      run: openssl version      
-
+            sudo apt-get install -y libssl1.1  
+            
     - name: Dotnet Setup
       uses: actions/setup-dotnet@v3
       # Setup for dotnet
@@ -172,7 +166,7 @@ jobs:
         
     - # "Note: the 'AZURE_SP' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
       name: Azure Login
-      uses: azure/login@v1
+      uses: azure/login@v2
       with:
         creds: ${{ secrets.AZURE_SP }}   
       
