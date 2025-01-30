@@ -164,7 +164,7 @@ jobs:
 
 #############################-------------Deployment----------------#####################################
         
-    - # "Note: the 'AZURE_SP' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
+   # "Note: the 'AZURE_SP' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
     - name: Azure Login
       uses: azure/login@v1
       with:
