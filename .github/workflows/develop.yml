@@ -30,7 +30,7 @@ jobs:
           java-version: 1.17
           
     - name: Fetch Depth      
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
           # fetch depth is used to disable shallow cloning while sonarqube analysis
           fetch-depth: 0
@@ -52,7 +52,7 @@ jobs:
     - name: Find and Replace User Name - Using Build Variable
       # Replace the Keyvault value in appsettings.json
       run: |
-        find ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/appsettings.json -type f -exec sed -i ''s@{#KeyVault-Name#}@'${{ secrets.KEYVAULT_NAME }}'@g'' {} \;
+        sed -i 's@{#KeyVault-Name#}@${{ secrets.KEYVAULT_NAME }}@g' ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/appsettings.json
         
     - name: Build Solution
       run: dotnet publish 'src/TransCelerate.SDR.sln' --configuration release            
@@ -61,13 +61,13 @@ jobs:
       shell: pwsh
       # Zip the build artifact publish folder
       run: |
-          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net7.0/publish/**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
+          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net7.0/publish/*" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
      
     - name: Zip publish files
       shell: pwsh
       # Zip the Function App build artifact publish folder
       run: |
-          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net7.0/publish/**","${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net7.0/publish/.azurefunctions" -DestinationPath "${{ github.workspace }}\FunAppPublish.zip" -Force
+          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net7.0/publish/*","${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net7.0/publish/.azurefunctions" -DestinationPath "${{ github.workspace }}\FunAppPublish.zip" -Force
     - name: 'Publish Artifact: Artifact'
       uses: actions/upload-artifact@v4
       # Publish the Build artifact in github
@@ -164,9 +164,9 @@ jobs:
 
 #############################-------------Deployment----------------#####################################
         
-    - # "Note: the 'AZURE_SP' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
+    # "Note: the 'AZURE_SP' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
     - name: Azure Login
-      uses: azure/login@v1
+      uses: azure/login@v2
       with:
         creds: ${{ secrets.AZURE_SP }} 
         # creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'       
