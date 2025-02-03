@@ -26,6 +26,9 @@ jobs:
     - name: Debug Secrets
       run: echo ${{ secrets.AZURE_CLIENT_ID }}
       
+    - name: Debug GitHub Secrets
+      run: env | grep AZURE
+      
     - name: Azure Login
       uses: azure/login@v1
       with:
