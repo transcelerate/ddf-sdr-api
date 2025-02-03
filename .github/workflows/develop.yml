@@ -22,7 +22,15 @@ jobs:
     environment: DEV
     
         
-    steps:     
+    steps:   
+    - name: Debug Secrets
+      run: echo ${{ secrets.AZURE_CLIENT_ID }}
+      
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_SP }} 
+    
     - name: Set up JDK 17
       uses: actions/setup-java@v1
       # Setup JDK 17
