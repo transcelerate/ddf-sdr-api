@@ -18,11 +18,16 @@ jobs:
   # This workflow contains a single job called "build"
   Build_Deploy_DEV:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     environment: DEV
     
         
-    steps:     
+    steps:
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_SP }} 
+    
     - name: Set up JDK 17
       uses: actions/setup-java@v1
       # Setup JDK 17
@@ -30,58 +35,53 @@ jobs:
           java-version: 1.17
           
     - name: Fetch Depth      
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
           # fetch depth is used to disable shallow cloning while sonarqube analysis
           fetch-depth: 0
 
+    - name: Install Dependencies
+      run: |
+            sudo apt-get update  
+            sudo apt-get install -y libssl1.1  
+            
     - name: Dotnet Setup
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
       # Setup for dotnet
       with:
-        dotnet-version: 7.0.x
-        
-    # - name: Dotnet Version    
-    #   uses: actions/setup-dotnet@v1
-    #   with:
-    #     dotnet-version: 3.1.x
-        
-    - name: Use NuGet
-      # Use Nuget for Dotnet Build
-      uses: nuget/setup-nuget@v1
-      
+        dotnet-version: 7.0.x    
+  
     - name: NuGet restore
-      run: nuget restore '${{ github.workspace }}/src/TransCelerate.SDR.sln'      
+      run: dotnet restore '${{ github.workspace }}/src/TransCelerate.SDR.sln'     
       
     - name: Find and Replace User Name - Using Build Variable
       # Replace the Keyvault value in appsettings.json
       run: |
-        find ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/appsettings.json -type f -exec sed -i ''s@{#KeyVault-Name#}@'${{ secrets.KEYVAULT_NAME }}'@g'' {} \;
+        sed -i 's@{#KeyVault-Name#}@${{ secrets.KEYVAULT_NAME }}@g' ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/appsettings.json
         
-    - name: Build solution **\*.sln
-      # Build dotnet code
-      run: dotnet publish 'src/TransCelerate.SDR.sln' --configuration release
+    - name: Build Solution
+      run: dotnet publish 'src/TransCelerate.SDR.sln' --configuration release            
       
     - name: Zip publish files
       shell: pwsh
       # Zip the build artifact publish folder
       run: |
-          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net7.0/publish/**" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
+          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net7.0/publish/*" -DestinationPath "${{ github.workspace }}\Publish.zip" -Force  
      
     - name: Zip publish files
       shell: pwsh
       # Zip the Function App build artifact publish folder
       run: |
-          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net7.0/publish/**","${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net7.0/publish/.azurefunctions" -DestinationPath "${{ github.workspace }}\FunAppPublish.zip" -Force
+          Compress-Archive -Path "${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net7.0/publish/*","${{ github.workspace }}/src/TransCelerate.SDR.AzureFunctions/bin/Release/net7.0/publish/.azurefunctions" -DestinationPath "${{ github.workspace }}\FunAppPublish.zip" -Force
     - name: 'Publish Artifact: Artifact'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       # Publish the Build artifact in github
       with:
         path: '${{ github.workspace }}/Publish.zip'
         name: Build-Artifact
 
     - name: 'Publish Function App Artifact: Artifact'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       # Publish the Function App Build artifact in github
       with:
         path: '${{ github.workspace }}/FunAppPublish.zip'
@@ -169,11 +169,14 @@ jobs:
 
 #############################-------------Deployment----------------#####################################
         
-    - # "Note: the 'AZURE_SP' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
-      name: Azure Login
+    # "Note: the 'AZURE_SP' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
+    - name: Azure Login
       uses: azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_SP }}   
+        creds: ${{ secrets.AZURE_SP }} 
+        # creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'       
+        # client-secret: ${{ secrets.AZURE_CLIENT_SECRET}} 
+        
       
     # - name: 'Run Azure webapp deploy action using publish profile credentials'
     #   env:  
@@ -195,7 +198,7 @@ jobs:
         # Container registry password
         password: ${{ secrets.ACR_PASSWORD }} # default is 
         # Container registry server url
-        login-server: ${{ secrets.ACR_NAME }} # default is https://index.docker.io/v1/
+        login-server: ${{ secrets.ACR_NAME }} # default is https://index.docker.io/v1/        
     - run: |
         cp '${{ github.workspace }}/Dockerfile' '${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net7.0/publish/'
         cd ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net7.0/publish/
