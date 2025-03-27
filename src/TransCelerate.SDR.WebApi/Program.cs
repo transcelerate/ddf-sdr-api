@@ -11,8 +11,7 @@ using TransCelerate.SDR.Core.Utilities.Common;
 namespace TransCelerate.SDR.WebApi
 {
     public class Program
-    {
-        // Start point of Application
+    {        
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
