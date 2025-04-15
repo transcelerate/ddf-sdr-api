@@ -454,6 +454,4 @@ Support
 # Support
 
 - For any technical queries on SDR API repository, please create an issue [DDF SDR Support](https://github.com/transcelerate/ddf-sdr-support/issues/new?assignees=sdr-support&labels=techSupport&template=TechSupport.yml&title=%5BTechSupport%5D%3A).
-- [Raise Incident](https://github.com/transcelerate/ddf-sdr-support/issues/new?assignees=sdr-support&labels=incident&template=Incident.yml&title=%5BIncident%5D%3A+) faced in the SDR RI Demo Environment.
-- [Ad-hoc Database Request](https://github.com/transcelerate/ddf-sdr-support/issues/new?assignees=sdr-support&labels=dataSupport&template=DatabaseRequest.yml&title=%5BDatabaseRequest%5D%3A) for editing / deleting data in SDR RI Demo environment.
-- For any other support on DDF SDR RI, reach out to [SDR.Support@accenture.com](mailto:sdr.support@accenture.com).
+- For any other support on DDF SDR RI, reach out to [DDF@transceleratebiopharmainc.com](mailto:DDF@transceleratebiopharmainc.com).
