@@ -103,7 +103,6 @@
 - [RangeValidator](#T-TransCelerate-SDR-RuleEngineV4-RangeValidator 'TransCelerate.SDR.RuleEngineV4.RangeValidator')
 - [RangeValidator](#T-TransCelerate-SDR-RuleEngineV5-RangeValidator 'TransCelerate.SDR.RuleEngineV5.RangeValidator')
 - [ResearchOrganizationValidator](#T-TransCelerate-SDR-RuleEngineV4-ResearchOrganizationValidator 'TransCelerate.SDR.RuleEngineV4.ResearchOrganizationValidator')
-- [ResearchOrganizationValidator](#T-TransCelerate-SDR-RuleEngineV5-ResearchOrganizationValidator 'TransCelerate.SDR.RuleEngineV5.ResearchOrganizationValidator')
 - [ResponseCodeValidator](#T-TransCelerate-SDR-RuleEngineV2-ResponseCodeValidator 'TransCelerate.SDR.RuleEngineV2.ResponseCodeValidator')
 - [ResponseCodeValidator](#T-TransCelerate-SDR-RuleEngineV3-ResponseCodeValidator 'TransCelerate.SDR.RuleEngineV3.ResponseCodeValidator')
 - [ResponseCodeValidator](#T-TransCelerate-SDR-RuleEngineV4-ResponseCodeValidator 'TransCelerate.SDR.RuleEngineV4.ResponseCodeValidator')
@@ -1283,17 +1282,6 @@ This Class is the validator for Code
 ##### Namespace
 
 TransCelerate.SDR.RuleEngineV4
-
-##### Summary
-
-This Class is the validator for StudyIdentifierScope
-
-<a name='T-TransCelerate-SDR-RuleEngineV5-ResearchOrganizationValidator'></a>
-## ResearchOrganizationValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngineV5
 
 ##### Summary
 
