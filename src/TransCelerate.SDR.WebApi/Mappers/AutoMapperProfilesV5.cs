@@ -20,7 +20,6 @@ namespace TransCelerate.SDR.WebApi.Mappers
 			CreateMap<ActivityDto, ActivityEntity>().ReverseMap();
             CreateMap<AddressDto, AddressEntity>().ReverseMap();
             CreateMap<AdministrationDurationDto, AdministrationDurationEntity>().ReverseMap();
-            CreateMap<AgentAdministrationDto, AgentAdministrationEntity>().ReverseMap();
             CreateMap<AliasCodeDto, AliasCodeEntity>().ReverseMap();
             CreateMap<AnalysisPopulationDto, AnalysisPopulationEntity>().ReverseMap();
             CreateMap<AuditTrailEntity, AuditTrailDto>().ReverseMap();
