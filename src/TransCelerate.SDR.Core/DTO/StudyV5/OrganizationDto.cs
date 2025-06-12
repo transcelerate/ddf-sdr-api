@@ -9,6 +9,7 @@
         public string IdentifierScheme { get; set; }
         public CodeDto OrganizationType { get; set; }
         public AddressDto LegalAddress { get; set; }
+        public StudySiteDto managedSites { get; set; }
         public string InstanceType { get; set; }
     }
 }

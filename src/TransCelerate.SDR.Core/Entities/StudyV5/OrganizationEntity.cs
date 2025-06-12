@@ -11,6 +11,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public string IdentifierScheme { get; set; }        
         public CodeEntity OrganizationType { get; set; }
         public AddressEntity LegalAddress { get; set; }
+        public StudySiteEntity managedSites { get; set; }
         public string InstanceType { get; set; }
     }
 }
