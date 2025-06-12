@@ -1050,19 +1050,12 @@ namespace TransCelerate.SDR.DataAccess.Filters
 				filter &= builder.Where(x => x.Study.Versions[0].Titles.Any(x => x.Text.ToLower().Contains(searchParameters.StudyTitle.ToLower())));
 
 			//Filter for OrgCode
-			if (!String.IsNullOrWhiteSpace(searchParameters.SponsorId))
+            if (!String.IsNullOrWhiteSpace(searchParameters.SponsorId))
                 filter &= builder.Where(x =>
                     x.Study.Versions[0]
                         .StudyIdentifiers.Any(x =>
-                            (
-                                x
-                                    .StudyIdentifierScope.Identifier.ToLower()
-                                    .Contains(searchParameters.SponsorId.ToLower())
-                            )
-                            && (
-                                x.StudyIdentifierScope.OrganizationType.Decode.ToLower()
-                                == Constants.IdType.SPONSOR_ID_V1.ToLower()
-                            )
+                            x.StudyIdentifierScope.Identifier.ToLower()
+                                .Contains(searchParameters.SponsorId.ToLower())
                         )
                 );
 
@@ -1088,38 +1081,24 @@ namespace TransCelerate.SDR.DataAccess.Filters
 			{
 				return property.ToLower() switch
 				{
-					//Sort by studyTitle
-					"studytitle" => asc ? searchResponses.OrderBy(s => s.StudyTitle) : searchResponses.OrderByDescending(s => s.StudyTitle),
+                    //Sort by studyTitle
+                    "studytitle" => asc ? searchResponses.OrderBy(s => s.StudyTitle) : searchResponses.OrderByDescending(s => s.StudyTitle),
 
-					//Sort by studyIdentifier: orgCode
+                    //Sort by studyIdentifier: orgCode
                     "sponsorid" => asc
                         ? searchResponses.OrderBy(s =>
                             s.StudyIdentifiers != null
-                                ? s
-                                    .StudyIdentifiers.FindAll(x =>
-                                        x.StudyIdentifierScope?.OrganizationType?.Decode?.ToLower()
-                                        == Constants.IdType.SPONSOR_ID_V1.ToLower()
-                                    )
-                                    .Any()
-                                    ? s.StudyIdentifiers.Find(x =>
-                                        x.StudyIdentifierScope?.OrganizationType?.Decode.ToLower()
-                                        == Constants.IdType.SPONSOR_ID_V1.ToLower()
-                                    ).StudyIdentifierScope.Identifier ?? ""
+                                ? s.StudyIdentifiers.Any()
+                                    ? s.StudyIdentifiers.First().StudyIdentifierScope.Identifier
+                                        ?? ""
                                     : ""
                                 : ""
                         )
                         : searchResponses.OrderByDescending(s =>
                             s.StudyIdentifiers != null
-                                ? s
-                                    .StudyIdentifiers.FindAll(x =>
-                                        x.StudyIdentifierScope?.OrganizationType?.Decode.ToLower()
-                                        == Constants.IdType.SPONSOR_ID_V1.ToLower()
-                                    )
-                                    .Any()
-                                    ? s.StudyIdentifiers.Find(x =>
-                                        x.StudyIdentifierScope?.OrganizationType?.Decode.ToLower()
-                                        == Constants.IdType.SPONSOR_ID_V1.ToLower()
-                                    ).StudyIdentifierScope.Identifier ?? ""
+                                ? s.StudyIdentifiers.Any()
+                                    ? s.StudyIdentifiers.First().StudyIdentifierScope.Identifier
+                                        ?? ""
                                     : ""
                                 : ""
                         ),

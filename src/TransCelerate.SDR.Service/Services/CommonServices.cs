@@ -659,7 +659,6 @@ namespace TransCelerate.SDR.Services.Services
                             x.StudyIdentifierScope.OrganisationIdentifierScheme = scope.IdentifierScheme;
                             x.StudyIdentifierScope.OrganisationIdentifier = scope.Identifier;
                             x.StudyIdentifierScope.OrganisationName = scope.Name;
-                            x.StudyIdentifierScope.OrganisationType = _mapper.Map<CommonCodeDto>(scope.OrganizationType);
                         });
                         searchResponseDto.Study.StudyPhase = _mapper.Map<CommonCodeDto>(searchResponseV2.StudyPhase?.StandardCode);
                         searchResponseDto.Study.StudyDesigns = new List<CommonStudyDesign> { new() {

@@ -207,7 +207,6 @@ namespace TransCelerate.SDR.WebApi.Mappers
 				.ReverseMap();
 			CreateMap<CommonOrganisationDto, Core.Entities.StudyV5.OrganizationEntity>()
 				.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-				.ForMember(dest => dest.OrganizationType, opt => opt.MapFrom(src => src.OrganisationType))
 				.ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.OrganisationName))
 				.ForMember(dest => dest.IdentifierScheme, opt => opt.MapFrom(src => src.OrganisationIdentifierScheme))
 				.ForMember(dest => dest.Identifier, opt => opt.MapFrom(src => src.OrganisationIdentifier))
@@ -220,7 +219,6 @@ namespace TransCelerate.SDR.WebApi.Mappers
 
 			CreateMap<CommonOrganisationDto, Core.DTO.StudyV5.OrganizationDto>()
 				.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-				.ForMember(dest => dest.OrganizationType, opt => opt.MapFrom(src => src.OrganisationType))
 				.ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.OrganisationName))
 				.ForMember(dest => dest.IdentifierScheme, opt => opt.MapFrom(src => src.OrganisationIdentifierScheme))
 				.ForMember(dest => dest.Identifier, opt => opt.MapFrom(src => src.OrganisationIdentifier))
