@@ -155,16 +155,6 @@ namespace TransCelerate.SDR.RuleEngineV5
             RuleForEach(x => x.TherapeuticAreas)
                 .SetValidator(new CodeValidator(_httpContextAccessor));
 
-            RuleFor(x => x.MaskingRoles)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.MaskingRoles)), ApplyConditionTo.AllValidators)
-               .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
-
-            RuleForEach(x => x.MaskingRoles)
-                .SetValidator(new MaskingValidator(_httpContextAccessor));
-
             RuleFor(x => x.Conditions)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)

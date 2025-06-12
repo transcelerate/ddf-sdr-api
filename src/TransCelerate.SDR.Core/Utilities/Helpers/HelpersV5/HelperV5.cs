@@ -231,8 +231,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Characteristics).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Conditions).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Conditions).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.MaskingRoles).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.MaskingRoles).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                         }
                     }
                 }
@@ -672,13 +670,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         {
                             changedValues.Add($"{nameof(StudyDesignEntity.Elements)}.{x}");
                         });
-
-                        //Masking Roles
-                        GetDifferenceForAList<MaskingEntity>(currentStudyDesign.MaskingRoles, previousStudyDesign.MaskingRoles).ForEach(x =>
-                        {
-                            changedValues.Add($"{nameof(StudyDesignEntity.MaskingRoles)}.{x}");
-                        });
-
                         //Conditions
                         GetDifferenceForAList<ConditionEntity>(currentStudyDesign.Conditions, previousStudyDesign.Conditions).ForEach(x =>
                         {
@@ -2428,13 +2419,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         {
                             changedValues.Add($"{nameof(StudyDesignEntity.Dictionaries)}{x}");
                         });
-
-                        //Masking Roles
-                        GetDifferenceForAListForStudyComparison<MaskingEntity>(currentStudyDesign.MaskingRoles, previousStudyDesign.MaskingRoles).ForEach(x =>
-                        {
-                            changedValues.Add($"{nameof(StudyDesignEntity.MaskingRoles)}{x}");
-                        });
-
                         //Conditions
                         GetDifferenceForAListForStudyComparison<ConditionEntity>(currentStudyDesign.Conditions, previousStudyDesign.Conditions).ForEach(x =>
                         {

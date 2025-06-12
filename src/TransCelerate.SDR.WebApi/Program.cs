@@ -14,6 +14,11 @@ namespace TransCelerate.SDR.WebApi
     {        
         public static void Main(string[] args)
         {
+            Console.WriteLine("Application starting...");
+            for (int i = 0; i < args.Length; i++)
+            {
+                Console.WriteLine($"Argument {i}: {args[i]}");
+            }
             CreateHostBuilder(args).Build().Run();
         }
 
@@ -27,6 +32,7 @@ namespace TransCelerate.SDR.WebApi
                 {
                     var builfConfig = config.Build();
                     var vaultName = builfConfig[Constants.KeyVault.Key];
+                    Console.WriteLine(vaultName);
                     var clientId = builfConfig[Constants.KeyVault.ClientId];
                     var clientSecret = builfConfig[Constants.KeyVault.ClientSecret];
 
