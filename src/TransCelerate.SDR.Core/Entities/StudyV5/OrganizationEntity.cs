@@ -9,9 +9,9 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public string Label { get; set; }
         public string Identifier { get; set; }
         public string IdentifierScheme { get; set; }        
-        public CodeEntity OrganizationType { get; set; }
+        public CodeEntity Type { get; set; }
         public AddressEntity LegalAddress { get; set; }
-        public StudySiteEntity managedSites { get; set; }
+        public StudySiteEntity ManagedSites { get; set; }
         public string InstanceType { get; set; }
     }
 }
