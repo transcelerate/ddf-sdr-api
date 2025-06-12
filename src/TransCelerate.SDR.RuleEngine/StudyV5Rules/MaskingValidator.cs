@@ -28,13 +28,6 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(MaskingValidator), nameof(MaskingDto.InstanceType)), ApplyConditionTo.AllValidators)
                 .Must(x => this.GetType().Name.RemoveValidator() == x).WithMessage(Constants.ValidationErrorMessage.InstanceTypeError);
 
-            RuleFor(x => x.Role)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(MaskingValidator), nameof(MaskingDto.Role)), ApplyConditionTo.AllValidators)
-               .SetValidator(new CodeValidator(_httpContextAccessor));
-
             RuleFor(x => x.Description)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
