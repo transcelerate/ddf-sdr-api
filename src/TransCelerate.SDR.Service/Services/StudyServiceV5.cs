@@ -673,54 +673,23 @@ namespace TransCelerate.SDR.Services.Services
                                                    design.Indications.FirstOrDefault().Description
                                                    : $"{String.Join(", ", design.Indications.Select(x => x.Description).ToArray(), 0, design.Indications.Count - 1)} and {design.Indications.Select(x => x.Description).LastOrDefault()}"
                                                    : null,
-                                RegulatoryAgencyIdentifierNumbers = studyDto
-                                    .StudyIdentifiers.Where(x =>
-                                        Constants.IdType.RegulatoryAgencyIdentifierNumberConstants.Any(
-                                            y =>
-                                                y.ToLower()
-                                                == x.StudyIdentifierScope?.OrganizationType?.Decode?.ToLower()
-                                        )
-                                    )
-                                    .Any()
+                                RegulatoryAgencyIdentifierNumbers = studyDto.StudyIdentifiers.Any()
                                     ? _mapper.Map<
                                         List<Core.DTO.eCPT.RegulatoryAgencyIdentifierNumberDto>
-                                    >(
-                                        studyDto.StudyIdentifiers.Where(x =>
-                                            Constants.IdType.RegulatoryAgencyIdentifierNumberConstants.Any(
-                                                y =>
-                                                    y.ToLower()
-                                                    == x.StudyIdentifierScope?.OrganizationType?.Decode?.ToLower()
-                                            )
-                                        )
-                                    )
+                                    >(studyDto.StudyIdentifiers)
                                     : null,
                                 SponsorName = studyDto
-                                    .StudyIdentifiers.Where(x =>
-                                        x.StudyIdentifierScope.OrganizationType.Decode.Equals(
-                                            Constants.IdType.SPONSOR_ID_V1,
-                                            StringComparison.OrdinalIgnoreCase
-                                        )
-                                    )
+                                    .StudyIdentifiers
                                     .Select(x => x.StudyIdentifierScope.Name)
                                     .FirstOrDefault(),
                                 SponsorLegalAddress =
                                     studyDto
-                                        .StudyIdentifiers.Where(x =>
-                                            x.StudyIdentifierScope.OrganizationType.Decode.Equals(
-                                                Constants.IdType.SPONSOR_ID_V1,
-                                                StringComparison.OrdinalIgnoreCase
-                                            )
-                                        )
+                                        .StudyIdentifiers
                                         .Select(x => x.StudyIdentifierScope.LegalAddress)
                                         .FirstOrDefault() == null
                                         ? null
                                         : studyDto
-                                            .StudyIdentifiers.Where(x =>
-                                                x.StudyIdentifierScope.OrganizationType.Decode.Equals(
-                                                    Constants.IdType.SPONSOR_ID_V1,
-                                                    StringComparison.OrdinalIgnoreCase
-                                                )
-                                            )
+                                            .StudyIdentifiers
                                             .Select(x => x.StudyIdentifierScope.LegalAddress)
                                             .Select(x =>
                                                 $"{x.Line}, {x.City}, {x.District}, {x.State}, {x.PostalCode}, {x.Country?.Decode}"
@@ -730,12 +699,7 @@ namespace TransCelerate.SDR.Services.Services
                                 Protocol = new Core.DTO.eCPT.ProtocolDto
                                 {
                                     ProtocolID = studyDto
-                                        .StudyIdentifiers.Where(x =>
-                                            x.StudyIdentifierScope.OrganizationType.Decode.Equals(
-                                                Constants.IdType.SPONSOR_ID_V1,
-                                                StringComparison.OrdinalIgnoreCase
-                                            )
-                                        )
+                                        .StudyIdentifiers
                                         .Select(x => x.StudyIdentifier)
                                         .FirstOrDefault(),
                                     ProtocolShortTitle = studyDto.Titles.GetStudyTitleV5(Constants.StudyTitle.BriefStudyTitle),
