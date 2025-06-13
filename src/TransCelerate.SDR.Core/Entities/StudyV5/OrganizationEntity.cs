@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 namespace TransCelerate.SDR.Core.Entities.StudyV5
 {
     [MongoDB.Bson.Serialization.Attributes.BsonNoId]
@@ -11,7 +13,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public string IdentifierScheme { get; set; }        
         public CodeEntity Type { get; set; }
         public AddressEntity LegalAddress { get; set; }
-        public StudySiteEntity ManagedSites { get; set; }
+        public List<StudySiteEntity> ManagedSites { get; set; }
         public string InstanceType { get; set; }
     }
 }
