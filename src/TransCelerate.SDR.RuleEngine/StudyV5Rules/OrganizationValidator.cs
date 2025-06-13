@@ -38,20 +38,30 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(OrganizationValidator), nameof(OrganizationDto.IdentifierScheme)), ApplyConditionTo.AllValidators);
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(OrganizationValidator), nameof(OrganizationDto.IdentifierScheme)), ApplyConditionTo.AllValidators);
+
+            RuleFor(x => x.ManagedSites)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(OrganizationValidator), nameof(OrganizationDto.ManagedSites)), ApplyConditionTo.AllValidators)
+                .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+                
+            RuleForEach(x => x.ManagedSites)
+                .SetValidator(new StudySiteValidator(_httpContextAccessor));
 
             RuleFor(x => x.Name)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(OrganizationValidator), nameof(OrganizationDto.Name)), ApplyConditionTo.AllValidators);
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(OrganizationValidator), nameof(OrganizationDto.Name)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.Type)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(OrganizationValidator), nameof(OrganizationDto.Type)), ApplyConditionTo.AllValidators)
-               .SetValidator(new CodeValidator(_httpContextAccessor));
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(OrganizationValidator), nameof(OrganizationDto.Type)), ApplyConditionTo.AllValidators)
+                .SetValidator(new CodeValidator(_httpContextAccessor));
 
             RuleFor(x => x.LegalAddress)
                 .Cascade(CascadeMode.Stop)
