@@ -43,6 +43,7 @@ namespace TransCelerate.SDR.RuleEngineV5
             services.AddTransient<IValidator<ProcedureDto>, ProcedureValidator>();
             services.AddTransient<IValidator<QuantityDto>, QuantityValidator>();
             services.AddTransient<IValidator<RangeDto>, RangeValidator>();
+            services.AddTransient<IValidator<ReferenceIdentifierDto>, ReferenceIdentifierValidator>();
             services.AddTransient<IValidator<ResponseCodeDto>, ResponseCodeValidator>();
             services.AddTransient<IValidator<ScheduleTimelineDto>, ScheduleTimelineValidator>();
             services.AddTransient<IValidator<ScheduledInstanceDto>, ScheduledInstanceValidator>();

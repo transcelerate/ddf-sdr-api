@@ -55,6 +55,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<ProcedureDto, ProcedureEntity>().ReverseMap();
             CreateMap<QuantityDto, QuantityEntity>().ReverseMap();
             CreateMap<RangeDto, RangeEntity>().ReverseMap();
+            CreateMap<ReferenceIdentifierDto, ReferenceIdentifierEntity>().ReverseMap();
             CreateMap<ResponseCodeDto, ResponseCodeEntity>().ReverseMap();
             CreateMap<ResearchOrganizationDto, ResearchOrganizationEntity>().ReverseMap();
             CreateMap<ScheduleTimelineDto, ScheduleTimelineEntity>().ReverseMap();
