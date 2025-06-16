@@ -65,6 +65,7 @@ namespace TransCelerate.SDR.RuleEngineV5
             services.AddTransient<IValidator<StudyIdentifierDto>, StudyIdentifierValidator>();			
 			services.AddTransient<IValidator<StudyDefinitionDocumentVersionDto>, StudyDefinitionDocumentVersionValidator>();
 			services.AddTransient<IValidator<StudyDefinitionDocumentDto>, StudyDefinitionDocumentValidator>();
+            services.AddTransient<IValidator<StudyRoleDto>, StudyRoleValidator>();
 			services.AddTransient<IValidator<StudyVersionDto>, StudyVersionValidator>();
             services.AddTransient<IValidator<NarrativeContentItemDto>, NarrativeContentItemValidator>();
             services.AddTransient<IValidator<SyntaxTemplateDictionaryDto>, SyntaxTemplateDictionaryValidator>();
