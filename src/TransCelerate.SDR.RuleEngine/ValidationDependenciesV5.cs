@@ -21,6 +21,7 @@ namespace TransCelerate.SDR.RuleEngineV5
             services.AddTransient<IValidator<AgentAdministrationDto>, AgentAdministrationValidator>();
             services.AddTransient<IValidator<AliasCodeDto>, AliasCodeValidator>();
             services.AddTransient<IValidator<AnalysisPopulationDto>, AnalysisPopulationValidator>();
+            services.AddTransient<IValidator<AssignedPersonDto>, AssignedPersonValidator>();
             services.AddTransient<IValidator<BiomedicalConceptDto>, BiomedicalConceptValidator>();
             services.AddTransient<IValidator<BiomedicalConceptCategoryDto>, BiomedicalConceptCategoryValidator>();
             services.AddTransient<IValidator<BiomedicalConceptPropertyDto>, BiomedicalConceptPropertyValidator>();
