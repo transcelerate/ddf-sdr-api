@@ -38,6 +38,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<EstimandDto, EstimandEntity>().ReverseMap();
             CreateMap<GeographicScopeDto, GeographicScopeEntity>().ReverseMap();
             CreateMap<GovernanceDateDto, GovernanceDateEntity>().ReverseMap();
+            CreateMap<IdentifierDto, IdentifierEntity>().ReverseMap();
             CreateMap<IndicationDto, IndicationEntity>().ReverseMap();            
             CreateMap<IntercurrentEventDto, IntercurrentEventEntity>().ReverseMap();
             CreateMap<MaskingDto, MaskingEntity>().ReverseMap();

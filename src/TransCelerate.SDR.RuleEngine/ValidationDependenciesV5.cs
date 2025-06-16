@@ -34,6 +34,7 @@ namespace TransCelerate.SDR.RuleEngineV5
             services.AddTransient<IValidator<EstimandDto>, EstimandValidator>();
             services.AddTransient<IValidator<GeographicScopeDto>, GeographicScopeValidator>();
             services.AddTransient<IValidator<GovernanceDateDto>, GovernanceDateValidator>();
+            services.AddTransient<IValidator<IdentifierDto>, IdentifierValidator>();
             services.AddTransient<IValidator<IndicationDto>, IndicationValidator>();
             services.AddTransient<IValidator<IntercurrentEventDto>, IntercurrentEventValidator>();
             services.AddTransient<IValidator<NarrativeContentDto>, NarrativeContentValidator>();
