@@ -2,6 +2,7 @@
 {
     public class SubjectEnrollmentEntity : GeographicScopeEntity
     {
-        public QuantityEntity Quantity { get; set; }        
+        public QuantityEntity Quantity { get; set; }
+        public StudySiteEntity AppliesTo { get; set; }        
     }
 }
