@@ -195,8 +195,8 @@ namespace TransCelerate.SDR.WebApi.Mappers
                 .ReverseMap();
 
             CreateMap<StudyIdentifierDto, TransCelerate.SDR.Core.DTO.eCPT.RegulatoryAgencyIdentifierNumberDto>()
-                .ForMember(dest => dest.RegulatoryAgencyNumber, opt => opt.MapFrom(src => src.StudyIdentifier))
-                .ForMember(dest => dest.RegulatoryAgencyId, opt => opt.MapFrom(src => src.StudyIdentifierScope != null ? src.StudyIdentifierScope.IdentifierScheme : null))
+                .ForMember(dest => dest.RegulatoryAgencyNumber, opt => opt.MapFrom(src => src.Text))
+                .ForMember(dest => dest.RegulatoryAgencyId, opt => opt.MapFrom(src => src.Scope != null ? src.Scope.IdentifierScheme : null))
                 .ReverseMap();            
         }
     }
