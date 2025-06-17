@@ -214,8 +214,8 @@ namespace TransCelerate.SDR.WebApi.Mappers
 				.ReverseMap();
 			CreateMap<CommonStudyIdentifiersDto, Core.Entities.StudyV5.StudyIdentifierEntity>()
 				.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-				.ForMember(dest => dest.StudyIdentifier, opt => opt.MapFrom(src => src.StudyIdentifier))
-				.ForMember(dest => dest.StudyIdentifierScope, opt => opt.MapFrom(src => src.StudyIdentifierScope))
+				.ForMember(dest => dest.Text, opt => opt.MapFrom(src => src.StudyIdentifier))
+				.ForMember(dest => dest.Scope, opt => opt.MapFrom(src => src.StudyIdentifierScope))
 				.ReverseMap();
 
 			CreateMap<CommonOrganisationDto, Core.DTO.StudyV5.OrganizationDto>()

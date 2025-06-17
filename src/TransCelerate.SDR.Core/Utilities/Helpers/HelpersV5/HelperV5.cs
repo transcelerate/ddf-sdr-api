@@ -2177,17 +2177,17 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                 var currentStudyIdentifier = currentVersion as StudyIdentifierEntity;
                 var previousStudyIdentifier = previousVersion as StudyIdentifierEntity;
 
-                if (currentStudyIdentifier.StudyIdentifierScope?.Id != previousStudyIdentifier.StudyIdentifierScope?.Id)
+                if (currentStudyIdentifier.Scope?.Id != previousStudyIdentifier.Scope?.Id)
                 {
-                    changedValues.RemoveAll(x => x.Contains(nameof(StudyIdentifierEntity.StudyIdentifierScope)));
-                    changedValues.Add($"[{index}].{nameof(StudyIdentifierEntity.StudyIdentifierScope)}");
+                    changedValues.RemoveAll(x => x.Contains(nameof(StudyIdentifierEntity.Scope)));
+                    changedValues.Add($"[{index}].{nameof(StudyIdentifierEntity.Scope)}");
                 }
                 else
                 {                    
-                    if (currentStudyIdentifier.StudyIdentifierScope?.LegalAddress?.Id != previousStudyIdentifier.StudyIdentifierScope?.LegalAddress?.Id)
+                    if (currentStudyIdentifier.Scope?.LegalAddress?.Id != previousStudyIdentifier.Scope?.LegalAddress?.Id)
                     {
                         changedValues.RemoveAll(x => x.Contains(nameof(OrganizationEntity.LegalAddress)));
-                        changedValues.Add($"[{index}].{nameof(StudyIdentifierEntity.StudyIdentifierScope)}.{nameof(OrganizationEntity.LegalAddress)}");
+                        changedValues.Add($"[{index}].{nameof(StudyIdentifierEntity.Scope)}.{nameof(OrganizationEntity.LegalAddress)}");
                     }
                 }
             }
