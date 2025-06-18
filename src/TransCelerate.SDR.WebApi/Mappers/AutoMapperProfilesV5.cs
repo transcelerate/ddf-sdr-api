@@ -19,6 +19,10 @@ namespace TransCelerate.SDR.WebApi.Mappers
 
 			CreateMap<ActivityDto, ActivityEntity>().ReverseMap();
             CreateMap<AddressDto, AddressEntity>().ReverseMap();
+            CreateMap<AdministrableProductIdentifierDto, AdministrableProductIdentifierEntity>().ReverseMap();
+            CreateMap<AdministrableProductPropertyDto, AdministrableProductPropertyEntity>().ReverseMap();
+            CreateMap<AdministrableProductDto, AdministrableProductEntity>().ReverseMap();
+            CreateMap<AdministrationDto, AdministrationEntity>().ReverseMap();
             CreateMap<AdministrationDurationDto, AdministrationDurationEntity>().ReverseMap();
             CreateMap<AgentAdministrationDto, AgentAdministrationEntity>().ReverseMap();
             CreateMap<AliasCodeDto, AliasCodeEntity>().ReverseMap();
@@ -39,6 +43,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<GeographicScopeDto, GeographicScopeEntity>().ReverseMap();
             CreateMap<GovernanceDateDto, GovernanceDateEntity>().ReverseMap();
             CreateMap<IndicationDto, IndicationEntity>().ReverseMap();            
+            CreateMap<IngredientDto, IngredientEntity>().ReverseMap();            
             CreateMap<IntercurrentEventDto, IntercurrentEventEntity>().ReverseMap();
             CreateMap<MaskingDto, MaskingEntity>().ReverseMap();
             CreateMap<NarrativeContentDto, NarrativeContentEntity>().ReverseMap();
@@ -66,6 +71,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
                 .Include<ScheduledDecisionInstanceDto, ScheduledDecisionInstanceEntity>()
                 .Include<ScheduledActivityInstanceDto, ScheduledActivityInstanceEntity>()
                 .ReverseMap();
+            CreateMap<StrengthDto, StrengthEntity>().ReverseMap();
             CreateMap<StudyArmDto, StudyArmEntity>().ReverseMap();
             CreateMap<StudyAmendmentDto, StudyAmendmentEntity>().ReverseMap();
             CreateMap<StudyAmendmentReasonDto, StudyAmendmentReasonEntity>().ReverseMap();
@@ -137,8 +143,9 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<StudyDefinitionDocumentVersionDto, StudyDefinitionDocumentVersionEntity>().ReverseMap();
             CreateMap<StudySiteDto, StudySiteEntity>().ReverseMap();
             CreateMap<StudyTitleDto, StudyTitleEntity>().ReverseMap(); 
+            CreateMap<SubstanceDto, SubstanceEntity>().ReverseMap();
 			//CreateMap<StudyVersionDto, StudyVersionEntity>().ReverseMap();
-			CreateMap<SubjectEnrollmentDto, SubjectEnrollmentEntity>().ReverseMap();
+            CreateMap<SubjectEnrollmentDto, SubjectEnrollmentEntity>().ReverseMap();
             CreateMap<SyntaxTemplateDictionaryDto, SyntaxTemplateDictionaryEntity>()
 				.ForMember(dest => dest.Text, opt => opt.Ignore())
                 .ReverseMap();
