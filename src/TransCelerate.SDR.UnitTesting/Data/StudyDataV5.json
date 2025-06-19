@@ -16235,5 +16235,10 @@
   },
   "usdmVersion": "3.6.0",
   "systemName": "CDISC USDM E2J",
-  "systemVersion": "0.53.0"
+  "systemVersion": "0.53.0",
+  "auditTrail": {
+    "entryDateTime": "2024-01-03T11:57:48.066559Z",
+    "usdmVersion": "3.0",
+    "SDRUploadVersion": 1
+  }
 }
