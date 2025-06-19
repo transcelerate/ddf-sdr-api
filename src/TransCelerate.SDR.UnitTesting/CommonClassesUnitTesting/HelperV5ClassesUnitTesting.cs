@@ -9,15 +9,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using TransCelerate.SDR.Core.DTO.StudyV4;
+using TransCelerate.SDR.Core.DTO.StudyV5;
 using TransCelerate.SDR.Core.DTO.Token;
-using TransCelerate.SDR.Core.Entities.StudyV4;
+using TransCelerate.SDR.Core.Entities.StudyV5;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
-using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4;
+using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5;
 using TransCelerate.SDR.DataAccess.Filters;
-using TransCelerate.SDR.RuleEngineV4;
+using TransCelerate.SDR.RuleEngineV5;
 
 namespace TransCelerate.SDR.UnitTesting
 {
@@ -49,11 +49,11 @@ namespace TransCelerate.SDR.UnitTesting
         #endregion
 
         #region Test Cases
-        #region HelperV4 Unit Testing
+        #region HelperV5 Unit Testing
         [Test]
         public void HelpersUnitTesting()
         {
-            HelperV4 helper = new();
+            HelperV5 helper = new();
             AuditTrailEntity auditTrailEntity = helper.GetAuditTrail(user.UserName, Constants.USDMVersions.V3);
             Assert.IsInstanceOf(typeof(DateTime), auditTrailEntity.EntryDateTime);
         }
@@ -95,14 +95,14 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void DataFiltersUnitTesting()
         {
-            var filter = DataFiltersV4.GetFiltersForGetStudy("1", 1);
+            var filter = DataFiltersV5.GetFiltersForGetStudy("1", 1);
             Assert.IsNotNull(filter);
 
-            Assert.IsNotNull(DataFiltersV4.GetProjectionForCheckAccessForAStudy());
+            Assert.IsNotNull(DataFiltersV5.GetProjectionForCheckAccessForAStudy());
 
-            Assert.IsNotNull(DataFiltersV4.GetProjectionForPartialStudyElements(Constants.StudyElementsV3.Select(x => x.ToLower()).ToArray()));
+            Assert.IsNotNull(DataFiltersV5.GetProjectionForPartialStudyElements(Constants.StudyElementsV3.Select(x => x.ToLower()).ToArray()));
 
-            Assert.IsNotNull(DataFiltersV4.GetProjectionForPartialStudyDesignElementsFullStudy());
+            Assert.IsNotNull(DataFiltersV5.GetProjectionForPartialStudyDesignElementsFullStudy());
         }
         #endregion
 
@@ -110,51 +110,51 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void AreValidStudyElementsUnitTesting()
         {
-            HelperV4 helper = new();
-            var listofelements = string.Join(",", Constants.StudyElementsV4);
+            HelperV5 helper = new();
+            var listofelements = string.Join(",", Constants.StudyElementsV5);
             Assert.IsTrue(helper.AreValidStudyElements(listofelements, out string[] _));
             Assert.IsFalse(helper.AreValidStudyElements("a,b", out _));
         }
         [Test]
         public void AreValidStudyDesignElementsUnitTesting()
         {
-            HelperV4 helper = new();
-            var listofelements = string.Join(",", Constants.StudyDesignElementsV4);
+            HelperV5 helper = new();
+            var listofelements = string.Join(",", Constants.StudyDesignElementsV5);
             Assert.IsTrue(helper.AreValidStudyDesignElements(listofelements, out string[] _));
             Assert.IsFalse(helper.AreValidStudyDesignElements("a,b", out _));
         }
         [Test]
         public void RemoveStudyElementsUnitTesting()
         {
-            HelperV4 helper = new();
-            var stringArray = Constants.StudyElementsV4.Where(x => x.StartsWith("s")).ToArray();
+            HelperV5 helper = new();
+            var stringArray = Constants.StudyElementsV5.Where(x => x.StartsWith("s")).ToArray();
 
             Assert.IsNotNull(helper.RemoveStudyElements(stringArray, GetDtoDataFromStaticJson()));
-            stringArray = Constants.StudyElementsV4.Where(x => !x.StartsWith("s")).ToArray();
+            stringArray = Constants.StudyElementsV5.Where(x => !x.StartsWith("s")).ToArray();
             Assert.IsNotNull(helper.RemoveStudyElements(stringArray, GetDtoDataFromStaticJson()));
         }
         [Test]
         public void RemoveStudyDesignElementsUnitTesting()
         {
-            HelperV4 helper = new();
-            var stringArray = Constants.StudyElementsV4.Where(x => x.StartsWith("s")).ToArray();
+            HelperV5 helper = new();
+            var stringArray = Constants.StudyElementsV5.Where(x => x.StartsWith("s")).ToArray();
 
             Assert.IsNotNull(helper.RemoveStudyDesignElements(stringArray, GetDtoDataFromStaticJson().Study.Versions.FirstOrDefault().StudyDesigns, "a"));
-            stringArray = Constants.StudyElementsV4.Where(x => !x.StartsWith("s")).ToArray();
+            stringArray = Constants.StudyElementsV5.Where(x => !x.StartsWith("s")).ToArray();
             Assert.IsNotNull(helper.RemoveStudyDesignElements(stringArray, GetDtoDataFromStaticJson().Study.Versions.FirstOrDefault().StudyDesigns, "a"));
         }
         #endregion
 
         #region Conformance V3 UnitTesting
         [Test]
-        public void ConformanceV4UnitTesting()
+        public void ConformanceV5UnitTesting()
         {
             var httpContextAccessor = new Mock<IHttpContextAccessor>();
             var context = new DefaultHttpContext();
             var usdmVersion = Constants.USDMVersions.V3;
             context.Request.Headers["usdmVersion"] = usdmVersion;
             httpContextAccessor.Setup(_ => _.HttpContext).Returns(context);
-            ValidationDependenciesV4.AddValidationDependenciesV4(serviceDescriptors);
+            ValidationDependenciesV5.AddValidationDependenciesV5(serviceDescriptors);
             var studyDto = GetDtoDataFromStaticJson();            
         }
 
@@ -165,11 +165,11 @@ namespace TransCelerate.SDR.UnitTesting
         public void UniquenessValidationHelper_UnitTesting()
         {
             var studyDto = GetDtoDataFromStaticJson();
-            Assert.IsTrue(UniquenessArrayValidator.ValidateArrayV4(studyDto.Study.Versions.FirstOrDefault().StudyIdentifiers));
+            Assert.IsTrue(UniquenessArrayValidator.ValidateArrayV5(studyDto.Study.Versions.FirstOrDefault().StudyIdentifiers));
             studyDto.Study.Versions.FirstOrDefault().StudyIdentifiers.Add(studyDto.Study.Versions.FirstOrDefault().StudyIdentifiers[0]);
-            Assert.IsFalse(UniquenessArrayValidator.ValidateArrayV4(studyDto.Study.Versions.FirstOrDefault().StudyIdentifiers));
+            Assert.IsFalse(UniquenessArrayValidator.ValidateArrayV5(studyDto.Study.Versions.FirstOrDefault().StudyIdentifiers));
             studyDto.Study.Versions.FirstOrDefault().StudyIdentifiers = null;
-            Assert.IsTrue(UniquenessArrayValidator.ValidateArrayV4(studyDto.Study.Versions.FirstOrDefault().StudyIdentifiers));
+            Assert.IsTrue(UniquenessArrayValidator.ValidateArrayV5(studyDto.Study.Versions.FirstOrDefault().StudyIdentifiers));
             Assert.IsTrue(UniquenessArrayValidator.ValidateStringList(new List<string>()));
         }
         #endregion
@@ -200,14 +200,20 @@ namespace TransCelerate.SDR.UnitTesting
             studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Encounters[1].NextId = "234";
             studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Encounters[1].PreviousId = "123";
 
-            studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands.Add(JsonConvert.DeserializeObject<EstimandDto>(JsonConvert.SerializeObject(studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands[0])));
+            studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands.Add(
+                JsonConvert.DeserializeObject<EstimandDto>(
+                    JsonConvert.SerializeObject(
+                        studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands[0]
+                        )
+                )
+            );
             studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands[0].Id = "123";
             studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands[0].InterventionId = "124";
 
             studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands[0].Id = "124";
             studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands[0].InterventionId = "124";
 
-            HelperV4 helper = new();
+            HelperV5 helper = new();
             var result = helper.ReferenceIntegrityValidation(studyDto, out object _);
             Assert.IsTrue(result);
 

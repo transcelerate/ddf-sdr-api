@@ -8,14 +8,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using TransCelerate.SDR.Core.DTO.StudyV4;
+using TransCelerate.SDR.Core.DTO.StudyV5;
 using TransCelerate.SDR.Core.DTO.Token;
-using TransCelerate.SDR.Core.Entities.StudyV4;
+using TransCelerate.SDR.Core.Entities.StudyV5;
 using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
-using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4;
+using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5;
 using TransCelerate.SDR.Services.Interfaces;
 using TransCelerate.SDR.WebApi.Controllers;
 using TransCelerate.SDR.WebApi.Mappers;
@@ -27,10 +27,10 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
     {
         #region Variables
         private readonly ILogHelper _mockLogger = Mock.Of<ILogHelper>();
-        private readonly Mock<IHelperV4> _mockHelper = new(MockBehavior.Loose);
-        private readonly Mock<IStudyServiceV4> _mockStudyService = new(MockBehavior.Loose);
-        private string[] studyElements = Constants.StudyElementsV4;
-        private string[] studyDesignElements = Constants.StudyDesignElementsV4;
+        private readonly Mock<IHelperV5> _mockHelper = new(MockBehavior.Loose);
+        private readonly Mock<IStudyServiceV5> _mockStudyService = new(MockBehavior.Loose);
+        private string[] studyElements = Constants.StudyElementsV5;
+        private string[] studyDesignElements = Constants.StudyDesignElementsV5;
         private IMapper _mockMapper;
         #endregion
 
@@ -45,7 +45,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV5.json");
             return JsonConvert.DeserializeObject<StudyDefinitionsEntity>(jsonData);
         }
-        public static SoADto GetSOAV4DataFromStaticJson()
+        public static SoADto GetSOAV5DataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/SoASampleData.json");
             return JsonConvert.DeserializeObject<SoADto>(jsonData);
@@ -55,7 +55,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         {
             var mockMapper = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new AutoMapperProfilesV4());
+                cfg.AddProfile(new AutoMapperProfilesV5());
             });
             _mockMapper = new Mapper(mockMapper);
             ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ApiUsdmVersionMapping.json"));
@@ -81,9 +81,9 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDefinitionsDto>(), It.IsAny<LoggedInUser>(), It.IsAny<string>()))
                 .Returns(Task.FromResult(study as object));
 
-            StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = studyV4Controller.PostAllElements(study, Constants.USDMVersions.V3);
+            var method = studyV5Controller.PostAllElements(study, Constants.USDMVersions.V3);
             method.Wait();
             var result = method.Result;
 
@@ -106,9 +106,9 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDefinitionsDto>(), It.IsAny<LoggedInUser>(), It.IsAny<string>()))
                 .Returns(Task.FromResult(Constants.ErrorMessages.PostRestricted as object));
 
-            StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = studyV4Controller.PostAllElements(study, Constants.USDMVersions.V3);
+            var method = studyV5Controller.PostAllElements(study, Constants.USDMVersions.V3);
             method.Wait();
             var result = method.Result;
 
@@ -123,7 +123,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
 
 
-            method = studyV4Controller.PostAllElements(null, Constants.USDMVersions.V3);
+            method = studyV5Controller.PostAllElements(null, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -142,7 +142,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDefinitionsDto>(), It.IsAny<LoggedInUser>(), It.IsAny<string>()))
                         .Throws(new Exception("Error"));
 
-            method = studyV4Controller.PostAllElements(study, Constants.USDMVersions.V3);
+            method = studyV5Controller.PostAllElements(study, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -163,7 +163,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDefinitionsDto>(), It.IsAny<LoggedInUser>(), It.IsAny<string>()))
                .Returns(Task.FromResult(Constants.ErrorMessages.NotValidStudyId as object));
 
-            method = studyV4Controller.PostAllElements(study, Constants.USDMVersions.V3);
+            method = studyV5Controller.PostAllElements(study, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -181,7 +181,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             //_mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
             //   .Returns(true);
 
-            //method = studyV4Controller.PostAllElements(study, Constants.USDMVersions.V3);
+            //method = studyV5Controller.PostAllElements(study, Constants.USDMVersions.V3);
             //method.Wait();
             //result = method.Result;
 
@@ -208,9 +208,9 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDefinitionsDto>(), It.IsAny<LoggedInUser>(), It.IsAny<string>()))
                 .Returns(Task.FromResult(study as object));
 
-            StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = studyV4Controller.PutStudy(study, study.Study.Id, Constants.USDMVersions.V3);
+            var method = studyV5Controller.PutStudy(study, study.Study.Id, Constants.USDMVersions.V3);
             method.Wait();
             var result = method.Result;
 
@@ -233,9 +233,9 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDefinitionsDto>(), It.IsAny<LoggedInUser>(), It.IsAny<string>()))
                 .Returns(Task.FromResult(Constants.ErrorMessages.PostRestricted as object));
 
-            StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = studyV4Controller.PutStudy(study, study.Study.Id, Constants.USDMVersions.V3);
+            var method = studyV5Controller.PutStudy(study, study.Study.Id, Constants.USDMVersions.V3);
             method.Wait();
             var result = method.Result;
 
@@ -250,7 +250,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
 
 
-            method = studyV4Controller.PutStudy(null, study.Study.Id, Constants.USDMVersions.V3);
+            method = studyV5Controller.PutStudy(null, study.Study.Id, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -269,7 +269,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDefinitionsDto>(), It.IsAny<LoggedInUser>(), It.IsAny<string>()))
                         .Throws(new Exception("Error"));
 
-            method = studyV4Controller.PutStudy(study, study.Study.Id, Constants.USDMVersions.V3);
+            method = studyV5Controller.PutStudy(study, study.Study.Id, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -290,7 +290,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDefinitionsDto>(), It.IsAny<LoggedInUser>(), It.IsAny<string>()))
                .Returns(Task.FromResult(Constants.ErrorMessages.NotValidStudyId as object));
 
-            method = studyV4Controller.PutStudy(study, study.Study.Id, Constants.USDMVersions.V3);
+            method = studyV5Controller.PutStudy(study, study.Study.Id, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -308,7 +308,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             //_mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
             //   .Returns(true);
 
-            //method = studyV4Controller.PutStudy(study, study.Study.Id, Constants.USDMVersions.V3);
+            //method = studyV5Controller.PutStudy(study, study.Study.Id, Constants.USDMVersions.V3);
             //method.Wait();
             //result = method.Result;
 
@@ -334,12 +334,12 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockStudyService.Setup(x => x.GetStudy(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(study as object));
-            StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
             string[] nullStudyElements = null;
             _mockHelper.Setup(x => x.AreValidStudyElements(It.IsAny<string>(), out nullStudyElements))
                 .Returns(true);
 
-            var method = studyV4Controller.GetStudy("sd", 1, null, Constants.USDMVersions.V3);
+            var method = studyV5Controller.GetStudy("sd", 1, null, Constants.USDMVersions.V3);
             method.Wait();
             var result = method.Result;
 
@@ -361,10 +361,10 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockStudyService.Setup(x => x.GetPartialStudyElements(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>(), It.IsAny<string[]>()))
                 .Returns(Task.FromResult(null as object));
-            StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
             var listofelements = string.Join(",", Constants.StudyElementsV3);
-            var method = studyV4Controller.GetStudy("sd", 1, listofelements, Constants.USDMVersions.V3);
+            var method = studyV5Controller.GetStudy("sd", 1, listofelements, Constants.USDMVersions.V3);
             method.Wait();
             var result = method.Result;
 
@@ -383,7 +383,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.GetStudy(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                .Returns(Task.FromResult(Constants.ErrorMessages.Forbidden as object));
 
-            method = studyV4Controller.GetStudy("sd", 1, null, Constants.USDMVersions.V3);
+            method = studyV5Controller.GetStudy("sd", 1, null, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -400,7 +400,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.GetStudy(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                .Throws(new Exception(""));
 
-            method = studyV4Controller.GetStudy("sd", 1, null, Constants.USDMVersions.V3);
+            method = studyV5Controller.GetStudy("sd", 1, null, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -414,7 +414,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
-            method = studyV4Controller.GetStudy("", 1, null, Constants.USDMVersions.V3);
+            method = studyV5Controller.GetStudy("", 1, null, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -430,7 +430,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockHelper.Setup(x => x.AreValidStudyElements(It.IsAny<string>(), out studyElements))
                 .Returns(false);
-            method = studyV4Controller.GetStudy("a", 1, null, Constants.USDMVersions.V3);
+            method = studyV5Controller.GetStudy("a", 1, null, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -454,10 +454,10 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>(), It.IsAny<string[]>()))
                 .Returns(Task.FromResult(study.Study.Versions.FirstOrDefault().StudyDesigns as object));
-            StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var listofelements = string.Join(",", Constants.StudyDesignElementsV4);
-            var method = studyV4Controller.GetStudyDesigns("sd", 1, "des", listofelements, Constants.USDMVersions.V3);
+            var listofelements = string.Join(",", Constants.StudyDesignElementsV5);
+            var method = studyV5Controller.GetStudyDesigns("sd", 1, "des", listofelements, Constants.USDMVersions.V3);
             method.Wait();
             var result = method.Result;
 
@@ -479,9 +479,9 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>(), It.IsAny<string[]>()))
                 .Returns(Task.FromResult(null as object));
-            StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = studyV4Controller.GetStudyDesigns("sd", 1, "des", "list", Constants.USDMVersions.V3);
+            var method = studyV5Controller.GetStudyDesigns("sd", 1, "des", "list", Constants.USDMVersions.V3);
             method.Wait();
             var result = method.Result;
 
@@ -497,7 +497,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>(), It.IsAny<string[]>()))
                .Returns(Task.FromResult(Constants.ErrorMessages.Forbidden as object));
 
-            method = studyV4Controller.GetStudyDesigns("sd", 1, "des", "list", Constants.USDMVersions.V3);
+            method = studyV5Controller.GetStudyDesigns("sd", 1, "des", "list", Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -514,7 +514,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>(), It.IsAny<string[]>()))
                .Returns(Task.FromResult(Constants.ErrorMessages.StudyDesignNotFound as object));
 
-            method = studyV4Controller.GetStudyDesigns("sd", 1, "des", "list", Constants.USDMVersions.V3);
+            method = studyV5Controller.GetStudyDesigns("sd", 1, "des", "list", Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -531,7 +531,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>(), It.IsAny<string[]>()))
                .Throws(new Exception(""));
 
-            method = studyV4Controller.GetStudyDesigns("sd", 1, "des", "list", Constants.USDMVersions.V3);
+            method = studyV5Controller.GetStudyDesigns("sd", 1, "des", "list", Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -545,7 +545,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
-            method = studyV4Controller.GetStudyDesigns("", 1, "des", "list", Constants.USDMVersions.V3);
+            method = studyV5Controller.GetStudyDesigns("", 1, "des", "list", Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -561,7 +561,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockHelper.Setup(x => x.AreValidStudyDesignElements(It.IsAny<string>(), out studyDesignElements))
                 .Returns(false);
-            method = studyV4Controller.GetStudyDesigns("sd", 1, "des", "list", Constants.USDMVersions.V3);
+            method = studyV5Controller.GetStudyDesigns("sd", 1, "des", "list", Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -584,9 +584,9 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             object deleteResult = "Delete Success";
             _mockStudyService.Setup(x => x.DeleteStudy(It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(deleteResult));
-            StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = studyV4Controller.DeleteStudy("sd");
+            var method = studyV5Controller.DeleteStudy("sd");
             method.Wait();
             var result = method.Result;
 
@@ -598,16 +598,16 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         {
             _mockStudyService.Setup(x => x.DeleteStudy(It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(Constants.ErrorMessages.NotValidStudyId as object));
-            StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = studyV4Controller.DeleteStudy("sd");
+            var method = studyV5Controller.DeleteStudy("sd");
             method.Wait();
             var result = method.Result;
 
             _mockStudyService.Setup(x => x.DeleteStudy(It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(Constants.ErrorMessages.NotValidStudyId as object));
 
-            method = studyV4Controller.DeleteStudy("");
+            method = studyV5Controller.DeleteStudy("");
             method.Wait();
             result = method.Result;
             //Expected
@@ -621,7 +621,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockStudyService.Setup(x => x.DeleteStudy(It.IsAny<string>(), It.IsAny<LoggedInUser>()))
            .Returns(Task.FromResult(Constants.ErrorMessages.Forbidden as object));
-            method = studyV4Controller.DeleteStudy("sd");
+            method = studyV5Controller.DeleteStudy("sd");
             method.Wait();
             result = method.Result;
 
@@ -639,7 +639,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.DeleteStudy(It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(null as object));
 
-            method = studyV4Controller.DeleteStudy("sd");
+            method = studyV5Controller.DeleteStudy("sd");
             method.Wait();
             result = method.Result;
             //Expected
@@ -654,7 +654,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.DeleteStudy(It.IsAny<string>(), It.IsAny<LoggedInUser>()))
               .Throws(new Exception(""));
 
-            method = studyV4Controller.DeleteStudy("sd");
+            method = studyV5Controller.DeleteStudy("sd");
             method.Wait();
             result = method.Result;
 
@@ -672,15 +672,15 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
         #region GET SoA
         [Test]
-        public void GetSOAV4SuccessUnitTesting()
+        public void GetSOAV5SuccessUnitTesting()
         {
-            SoADto SoA = GetSOAV4DataFromStaticJson();
+            SoADto SoA = GetSOAV5DataFromStaticJson();
 
-            _mockStudyService.Setup(x => x.GetSOAV4(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+            _mockStudyService.Setup(x => x.GetSOAV5(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(SoA as object));
-            StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = studyV4Controller.GetSOAV4("sd", "sd_1", "des", 1);
+            var method = studyV5Controller.GetSOAV5("sd", "sd_1", "des", 1);
             method.Wait();
             var result = method.Result;
 
@@ -696,15 +696,15 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         }
 
         [Test]
-        public void GetSOAV4FailureUnitTesting()
+        public void GetSOAV5FailureUnitTesting()
         {
-            SoADto SoA = GetSOAV4DataFromStaticJson();
+            SoADto SoA = GetSOAV5DataFromStaticJson();
 
-            _mockStudyService.Setup(x => x.GetSOAV4(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+            _mockStudyService.Setup(x => x.GetSOAV5(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(null as object));
-            StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = studyV4Controller.GetSOAV4("sd", "sd_1", "des", 1);
+            var method = studyV5Controller.GetSOAV5("sd", "sd_1", "des", 1);
             method.Wait();
             var result = method.Result;
 
@@ -717,10 +717,10 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(NotFoundObjectResult), result);
 
-            _mockStudyService.Setup(x => x.GetSOAV4(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+            _mockStudyService.Setup(x => x.GetSOAV5(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                .Returns(Task.FromResult(Constants.ErrorMessages.Forbidden as object));
 
-            method = studyV4Controller.GetSOAV4("sd", "sd_1", "des", 1);
+            method = studyV5Controller.GetSOAV5("sd", "sd_1", "des", 1);
             method.Wait();
             result = method.Result;
 
@@ -734,10 +734,10 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(403, (result as ObjectResult).StatusCode);
 
-            _mockStudyService.Setup(x => x.GetSOAV4(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+            _mockStudyService.Setup(x => x.GetSOAV5(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                .Returns(Task.FromResult(Constants.ErrorMessages.StudyDesignNotFound as object));
 
-            method = studyV4Controller.GetSOAV4("sd", "sd_1", "des", 1);
+            method = studyV5Controller.GetSOAV5("sd", "sd_1", "des", 1);
             method.Wait();
             result = method.Result;
 
@@ -751,10 +751,10 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(404, (result as ObjectResult).StatusCode);
 
-            _mockStudyService.Setup(x => x.GetSOAV4(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+            _mockStudyService.Setup(x => x.GetSOAV5(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
               .Throws(new Exception(""));
 
-            method = studyV4Controller.GetSOAV4("sd", "sd_1", "des", 1);
+            method = studyV5Controller.GetSOAV5("sd", "sd_1", "des", 1);
             method.Wait();
             result = method.Result;
 
@@ -768,7 +768,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
-            method = studyV4Controller.GetSOAV4("", "sd_1", "des", 1);
+            method = studyV5Controller.GetSOAV5("", "sd_1", "des", 1);
             method.Wait();
             result = method.Result;
 
@@ -778,14 +778,14 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             //Actual            
             actual_result = (result as ObjectResult).Value as ErrorModel;
 
-            _mockStudyService.Setup(x => x.GetSOAV4(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+            _mockStudyService.Setup(x => x.GetSOAV5(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                .Returns(Task.FromResult(Constants.ErrorMessages.ScheduleTimelineNotFound as object));
             Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
 
-            method = studyV4Controller.GetSOAV4("sd", "sd_1", "des", 1);
+            method = studyV5Controller.GetSOAV5("sd", "sd_1", "des", 1);
             method.Wait();
             result = method.Result;
 
@@ -799,14 +799,14 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(404, (result as ObjectResult).StatusCode);
 
-            _mockStudyService.Setup(x => x.GetSOAV4(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+            _mockStudyService.Setup(x => x.GetSOAV5(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                .Returns(Task.FromResult(Constants.ErrorMessages.ScheduleTimelineNotFound as object));
             Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(404, (result as ObjectResult).StatusCode);
 
 
-            method = studyV4Controller.GetSOAV4("sd", "", "WF1", 1);
+            method = studyV5Controller.GetSOAV5("sd", "", "WF1", 1);
             method.Wait();
             result = method.Result;
 
@@ -828,11 +828,11 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/DataeCPT.json");
             var data = JsonConvert.DeserializeObject<Core.DTO.eCPT.ECPTDto>(jsonData);
-            _mockStudyService.Setup(x => x.GeteCPTV4(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+            _mockStudyService.Setup(x => x.GeteCPTV5(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(data as object));
-            StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = studyV4Controller.GeteCPTV4("sd", 1, "des");
+            var method = studyV5Controller.GeteCPTV5("sd", 1, "des");
             method.Wait();
             var result = method.Result;
 
@@ -851,11 +851,11 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             data = null;
 
             //Study NotFound Case
-            _mockStudyService.Setup(x => x.GeteCPTV4(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+            _mockStudyService.Setup(x => x.GeteCPTV5(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(data as object));
-            StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = studyV4Controller.GeteCPTV4("sd", 1, "des");
+            var method = studyV5Controller.GeteCPTV5("sd", 1, "des");
             method.Wait();
             var result = method.Result;
 
@@ -871,10 +871,10 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
 
             //Forbidden  case
-            _mockStudyService.Setup(x => x.GeteCPTV4(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+            _mockStudyService.Setup(x => x.GeteCPTV5(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(Constants.ErrorMessages.Forbidden as object));
 
-            method = studyV4Controller.GeteCPTV4("sd", 1, "des");
+            method = studyV5Controller.GeteCPTV5("sd", 1, "des");
             method.Wait();
             result = method.Result;
 
@@ -889,10 +889,10 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual(403, (result as ObjectResult).StatusCode);
 
             //StudyDesignNotFound
-            _mockStudyService.Setup(x => x.GeteCPTV4(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+            _mockStudyService.Setup(x => x.GeteCPTV5(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(Constants.ErrorMessages.StudyDesignIdNotFoundCPT as object));
 
-            method = studyV4Controller.GeteCPTV4("sd", 1, "");
+            method = studyV5Controller.GeteCPTV5("sd", 1, "");
             method.Wait();
             result = method.Result;
 
@@ -907,10 +907,10 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual(404, (result as ObjectResult).StatusCode);
 
             //eCPT Error
-            _mockStudyService.Setup(x => x.GeteCPTV4(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+            _mockStudyService.Setup(x => x.GeteCPTV5(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                .Returns(Task.FromResult(Constants.ErrorMessages.eCPTError as object));
 
-            method = studyV4Controller.GeteCPTV4("sd", 1, "des");
+            method = studyV5Controller.GeteCPTV5("sd", 1, "des");
             method.Wait();
             result = method.Result;
 
@@ -924,10 +924,10 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
 
             //Exception case
-            _mockStudyService.Setup(x => x.GeteCPTV4(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+            _mockStudyService.Setup(x => x.GeteCPTV5(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
                .Throws(new Exception(""));
 
-            method = studyV4Controller.GeteCPTV4("sd", 1, "des");
+            method = studyV5Controller.GeteCPTV5("sd", 1, "des");
             method.Wait();
             result = method.Result;
 
@@ -941,9 +941,9 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
-            _mockStudyService.Setup(x => x.GeteCPTV4(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+            _mockStudyService.Setup(x => x.GeteCPTV5(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
               .Returns(Task.FromResult(Constants.ErrorMessages.StudyInputError as object));
-            method = studyV4Controller.GeteCPTV4("", 1, "des");
+            method = studyV5Controller.GeteCPTV5("", 1, "des");
             method.Wait();
             result = method.Result;
 
@@ -957,9 +957,9 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
-            _mockStudyService.Setup(x => x.GeteCPTV4(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+            _mockStudyService.Setup(x => x.GeteCPTV5(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
              .Returns(Task.FromResult(Constants.ErrorMessages.StudyDesignNotFoundCPT as object));
-            method = studyV4Controller.GeteCPTV4("sd", 1, "");
+            method = studyV5Controller.GeteCPTV5("sd", 1, "");
             method.Wait();
             result = method.Result;
 
@@ -984,9 +984,9 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDefinitionsDto>(), It.IsAny<LoggedInUser>(), It.IsAny<string>()))
                 .Returns(Task.FromResult(study as object));
 
-            StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = studyV4Controller.ValidateUsdmConformance(study, Constants.USDMVersions.V3);
+            var method = studyV5Controller.ValidateUsdmConformance(study, Constants.USDMVersions.V3);
 
             //Expected
             var expected = new ErrorModel { Message = $"{SuccessMessages.ValidationSuccess}{USDMVersions.V3}" };
@@ -1007,9 +1007,9 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDefinitionsDto>(), It.IsAny<LoggedInUser>(), It.IsAny<string>()))
                 .Returns(Task.FromResult(Constants.ErrorMessages.PostRestricted as object));
 
-            StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = studyV4Controller.ValidateUsdmConformance(null, Constants.USDMVersions.V3);
+            var method = studyV5Controller.ValidateUsdmConformance(null, Constants.USDMVersions.V3);
 
 
             //Actual            
@@ -1025,7 +1025,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             //_mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
             //        .Throws(new Exception("Error"));
 
-            //method = studyV4Controller.ValidateUsdmConformance(study, Constants.USDMVersions.V3);
+            //method = studyV5Controller.ValidateUsdmConformance(study, Constants.USDMVersions.V3);
 
             ////Expected
             //var expected1 = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError);
@@ -1044,7 +1044,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             //_mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
             //   .Returns(true);
 
-            //method = studyV4Controller.ValidateUsdmConformance(study, Constants.USDMVersions.V3);
+            //method = studyV5Controller.ValidateUsdmConformance(study, Constants.USDMVersions.V3);
 
             ////Actual            
             //actual_result = JsonConvert.DeserializeObject<ErrorModel>(
@@ -1075,7 +1075,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 previousVersionV3
 
             };
-            HelperV4 helperV3 = new();
+            HelperV5 helperV3 = new();
 
             _mockStudyService.Setup(x => x.GetDifferences(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                 .Returns(Task.FromResult(new VersionCompareDto 
@@ -1085,9 +1085,9 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                     RHS = new VersionDetails { EntryDateTime = previousVersionV3.AuditTrail.EntryDateTime},
                     ElementsChanged = helperV3.GetChangedValuesForStudyComparison(currentVersionV3, previousVersionV3)
                 } as object));
-            StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = studyV4Controller.GetDifferences("sd", 2, 1, Constants.USDMVersions.V3);
+            var method = studyV5Controller.GetDifferences("sd", 2, 1, Constants.USDMVersions.V3);
             method.Wait();
             var result = method.Result;
 
@@ -1109,10 +1109,10 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockStudyService.Setup(x => x.GetDifferences(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                .Returns(Task.FromResult(null as object));
-            StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
             var listofelements = string.Join(",", Constants.StudyElementsV3);
-            var method = studyV4Controller.GetDifferences("sd", 1, 2, Constants.USDMVersions.V3);
+            var method = studyV5Controller.GetDifferences("sd", 1, 2, Constants.USDMVersions.V3);
             method.Wait();
             var result = method.Result;
 
@@ -1128,7 +1128,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.GetDifferences(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                .Returns(Task.FromResult(Constants.ErrorMessages.OneVersionNotFound as object));
 
-            method = studyV4Controller.GetDifferences("sd", 1, 2, Constants.USDMVersions.V3);
+            method = studyV5Controller.GetDifferences("sd", 1, 2, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -1145,7 +1145,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.GetDifferences(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                .Returns(Task.FromResult(Constants.ErrorMessages.ForbiddenForAStudy as object));
 
-            method = studyV4Controller.GetDifferences("sd", 1, 2, Constants.USDMVersions.V3);
+            method = studyV5Controller.GetDifferences("sd", 1, 2, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -1160,7 +1160,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual(403, (result as ObjectResult).StatusCode);
 
 
-            method = studyV4Controller.GetDifferences("sd", 1, 1, Constants.USDMVersions.V3);
+            method = studyV5Controller.GetDifferences("sd", 1, 1, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -1178,7 +1178,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.GetDifferences(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
                .Throws(new Exception(""));
 
-            method = studyV4Controller.GetDifferences("sd", 1, 2, Constants.USDMVersions.V3);
+            method = studyV5Controller.GetDifferences("sd", 1, 2, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -1192,7 +1192,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
-            method = studyV4Controller.GetDifferences("", 1, 2, Constants.USDMVersions.V3);
+            method = studyV5Controller.GetDifferences("", 1, 2, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -1206,7 +1206,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
-            method = studyV4Controller.GetDifferences("a", 0, 1, Constants.USDMVersions.V3);
+            method = studyV5Controller.GetDifferences("a", 0, 1, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -1220,7 +1220,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
-            method = studyV4Controller.GetDifferences("a", 1, 0, Constants.USDMVersions.V3);
+            method = studyV5Controller.GetDifferences("a", 1, 0, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
@@ -1234,7 +1234,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(400, (result as ObjectResult).StatusCode);
 
-            method = studyV4Controller.GetDifferences("a", 0, 0, Constants.USDMVersions.V3);
+            method = studyV5Controller.GetDifferences("a", 0, 0, Constants.USDMVersions.V3);
             method.Wait();
             result = method.Result;
 
