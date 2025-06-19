@@ -9539,7 +9539,33 @@
                 "instanceType": "StudyElement"
               }
             ],
-            "estimands": [],
+            "estimands": [
+              {
+                "id": "0bc02031-b058-43f8-9888-0f66f59b825f",
+                "instanceType": "Estimand",
+                "interventionId": "interventionId",
+                "summaryMeasure": "TEST",
+                "analysisPopulation": {
+                  "id": "77af2751-1707-4edc-a5db-350ebe7233d8",
+                  "name": "analysisName",
+                  "label": "label",
+                  "description": "Population 1",
+                  "text": "text",
+                  "instanceType": "AnalysisPopulation"
+                },
+                "variableOfInterestId": "Endpoint_1",
+                "intercurrentEvents": [
+                  {
+                    "id": "1dc5c1e9-7b21-4455-9f37-ff2fadb8ac65",
+                    "name": "Event Name",
+                    "label": "name",
+                    "description": "Event Description",
+                    "strategy": "Strategies",
+                    "instanceType": "IntercurrentEvent"
+                  }
+                ]
+              }
+            ],
             "indications": [
               {
                 "id": "Indication_1",
