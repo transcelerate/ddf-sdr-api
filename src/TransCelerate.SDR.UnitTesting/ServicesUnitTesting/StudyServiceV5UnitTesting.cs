@@ -40,7 +40,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV5.json");
             var data = JsonConvert.DeserializeObject<StudyDefinitionsDto>(jsonData);
-            data.AuditTrail.UsdmVersion = Constants.USDMVersions.V3;
+            data.AuditTrail.UsdmVersion = Constants.USDMVersions.V4;
             return data;
         }
         public static UserGroupMappingEntity GetUserDataFromStaticJson()
@@ -109,8 +109,8 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             StudyDefinitionsEntity entity = null;
             StudyDefinitionsDto studyDto = GetDtoDataFromStaticJson();            
             studyDto.Study.Id = "";
-            studyEntity.AuditTrail = new AuditTrailEntity { CreatedBy = user.UserName, EntryDateTime = DateTime.Now, SDRUploadVersion = 0, UsdmVersion = Constants.USDMVersions.V3 };
-            studyDto.AuditTrail = new AuditTrailDto { EntryDateTime = DateTime.Now, SDRUploadVersion = 1, UsdmVersion = Constants.USDMVersions.V3 };
+            studyEntity.AuditTrail = new AuditTrailEntity { CreatedBy = user.UserName, EntryDateTime = DateTime.Now, SDRUploadVersion = 0, UsdmVersion = Constants.USDMVersions.V4 };
+            studyDto.AuditTrail = new AuditTrailDto { EntryDateTime = DateTime.Now, SDRUploadVersion = 1, UsdmVersion = Constants.USDMVersions.V4 };
             _mockStudyRepository.Setup(x => x.PostStudyItemsAsync(It.IsAny<StudyDefinitionsEntity>()))
                     .Returns(Task.FromResult(studyDto.Study.Id));
             _mockStudyRepository.Setup(x => x.UpdateStudyItemsAsync(It.IsAny<StudyDefinitionsEntity>()))
@@ -122,8 +122,8 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             _mockHelper.Setup(x => x.IsSameStudy(It.IsAny<StudyDefinitionsEntity>(), It.IsAny<StudyDefinitionsEntity>()))
                     .Returns(true);
             _mockHelper.Setup(x => x.GetAuditTrail(It.IsAny<string>(),It.IsAny<string>()))
-                    .Returns(new AuditTrailEntity { CreatedBy = user.UserName, EntryDateTime = DateTime.Now, SDRUploadVersion = 1, UsdmVersion = Constants.USDMVersions.V3 });
-            StudyDefinitionsEntity studyEntity1 = _mockMapper.Map<StudyDefinitionsEntity>(GetDtoDataFromStaticJson()); studyEntity1.AuditTrail.SDRUploadVersion = 1; studyEntity1.AuditTrail.UsdmVersion = Constants.USDMVersions.V3;
+                    .Returns(new AuditTrailEntity { CreatedBy = user.UserName, EntryDateTime = DateTime.Now, SDRUploadVersion = 1, UsdmVersion = Constants.USDMVersions.V4 });
+            StudyDefinitionsEntity studyEntity1 = _mockMapper.Map<StudyDefinitionsEntity>(GetDtoDataFromStaticJson()); studyEntity1.AuditTrail.SDRUploadVersion = 1; studyEntity1.AuditTrail.UsdmVersion = Constants.USDMVersions.V4;
             _mockStudyRepository.Setup(x => x.GetUsdmVersionAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity1.AuditTrail));
             ServiceBusSender serviceBusSender = Mock.Of<ServiceBusSender>();
@@ -197,9 +197,11 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             studyDto.Study.Id = "112233";
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), 0))
                     .Returns(Task.FromResult(studyEntity));
+            // result = await studyService.PostAllElements(studyDto, user, HttpMethod.Put.Method);
             method = studyService.PostAllElements(studyDto, user, HttpMethod.Put.Method);
             method.Wait();
             result = method.Result;
+            
 
             //Actual            
             actual_result = JsonConvert.DeserializeObject<StudyDefinitionsDto>(
@@ -272,7 +274,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             //Assert          
             Assert.AreEqual(actual_result1.ToString(), Constants.ErrorMessages.PostRestricted);
 
-            _mockHelper.Setup(x => x.GetAuditTrail(user.UserName, Constants.USDMVersions.V3))
+            _mockHelper.Setup(x => x.GetAuditTrail(user.UserName, studyDto.UsdmVersion))
                  .Throws(new Exception("Error"));
 
             method = studyService.PostAllElements(studyDto, user, HttpMethod.Post.Method);
@@ -833,9 +835,9 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             var currentVersionV5 = _mockMapper.Map<StudyDefinitionsEntity>(GetDtoDataFromStaticJson());
             var previousVersionV5 = _mockMapper.Map<StudyDefinitionsEntity>(GetDtoDataFromStaticJson());
             currentVersionV5.AuditTrail.SDRUploadVersion = 2;
-            currentVersionV5.AuditTrail.UsdmVersion = Constants.USDMVersions.V3;
+            currentVersionV5.AuditTrail.UsdmVersion = Constants.USDMVersions.V4;
             previousVersionV5.AuditTrail.SDRUploadVersion = 1;
-            previousVersionV5.AuditTrail.UsdmVersion = Constants.USDMVersions.V3;
+            previousVersionV5.AuditTrail.UsdmVersion = Constants.USDMVersions.V4;
 
             currentVersionV5.Study.Versions.FirstOrDefault().StudyType.Decode = "OBSERVATIONAL";
             previousVersionV5.Study.Versions.FirstOrDefault().StudyType.Decode = "OBSERVATIONAL";
