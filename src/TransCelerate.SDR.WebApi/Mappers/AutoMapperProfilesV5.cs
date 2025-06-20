@@ -68,6 +68,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
                 .ReverseMap();
             CreateMap<StudyArmDto, StudyArmEntity>().ReverseMap();
             CreateMap<StudyAmendmentDto, StudyAmendmentEntity>().ReverseMap();
+            CreateMap<StudyAmendmentImpactDto, StudyAmendmentImpactEntity>().ReverseMap();
             CreateMap<StudyAmendmentReasonDto, StudyAmendmentReasonEntity>().ReverseMap();
             CreateMap<StudyCellDto, StudyCellEntity>().ReverseMap();
 			//CreateMap<StudyCohortDto, StudyCohortEntity>().ReverseMap();

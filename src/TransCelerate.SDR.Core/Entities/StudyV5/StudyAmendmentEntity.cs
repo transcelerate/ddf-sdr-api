@@ -11,7 +11,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public List<GovernanceDateEntity> DateValues { get; set; }
         public List<GeographicScopeEntity> GeographicScopes { get; set; }
         public List<StudyChangeEntity> Changes { get; set; }
-        public List<StudyAmendmentImpact> Impacts { get; set; }
+        public List<StudyAmendmentImpactEntity> Impacts { get; set; }
         public List<SubjectEnrollmentEntity> Enrollments { get; set; }
         public string PreviousId { get; set; }
         public StudyAmendmentReasonEntity PrimaryReason { get; set; }

@@ -1248,7 +1248,7 @@
       ]
     },
     {
-      "usdmVersion": "3.8",
+      "usdmVersion": "3.7",
       "rules": [
         {
           "entity": "Activity",
@@ -1615,6 +1615,16 @@
             "GeographicScopes",
             "Changes",
             "PrimaryReason"
+          ]
+        },
+        {
+          "entity": "StudyAmendmentImpact",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "IsSubstantial",
+            "Type"
           ]
         },
         {

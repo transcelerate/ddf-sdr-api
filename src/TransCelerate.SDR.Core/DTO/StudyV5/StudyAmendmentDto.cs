@@ -11,7 +11,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public List<GovernanceDateDto> DateValues { get; set; }
         public List<GeographicScopeDto> GeographicScopes { get; set; }
         public List<StudyChangeDto> Changes { get; set; }
-        public List<StudyAmendmentImpact> Impacts { get; set; }
+        public List<StudyAmendmentImpactDto> Impacts { get; set; }
         public List<SubjectEnrollmentDto> Enrollments { get; set; }
         public string PreviousId { get; set; }
         public StudyAmendmentReasonDto PrimaryReason { get; set; }
