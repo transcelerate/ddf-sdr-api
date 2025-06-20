@@ -1666,6 +1666,17 @@
           ]
         },
         {
+          "entity": "StudyChange",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Rationale",
+            "Summary",
+            "ChangedSections"
+          ]
+        },
+        {
           "entity": "StudyCohort",
           "required": [
             "Name",
