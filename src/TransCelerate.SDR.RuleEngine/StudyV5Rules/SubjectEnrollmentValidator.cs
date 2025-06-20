@@ -46,13 +46,20 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(SubjectEnrollmentValidator), nameof(SubjectEnrollmentDto.InstanceType)), ApplyConditionTo.AllValidators);
-            
+
             RuleFor(x => x.Quantity)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(SubjectEnrollmentValidator), nameof(SubjectEnrollmentDto.Quantity)), ApplyConditionTo.AllValidators)
                .SetValidator(new QuantityValidator(_httpContextAccessor));
+               
+             RuleFor(x => x.AppliesTo)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(SubjectEnrollmentValidator), nameof(SubjectEnrollmentDto.AppliesTo)), ApplyConditionTo.AllValidators)
+               .SetValidator(new StudySiteValidator(_httpContextAccessor));
         }
     }
 }

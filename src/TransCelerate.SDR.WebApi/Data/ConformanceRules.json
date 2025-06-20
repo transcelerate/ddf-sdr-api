@@ -1277,18 +1277,6 @@
           ]
         },
         {
-          "entity": "AgentAdministration",
-          "required": [
-            "Dose",
-            "Duration",
-            "Frequency",
-            "Id",
-            "InstanceType",
-            "Name",
-            "Route"
-          ]
-        },
-        {
           "entity": "AliasCode",
           "required": [
             "Id",
@@ -1482,7 +1470,7 @@
           "required": [
             "Id",
             "InstanceType",
-            "Role"
+            "Description"
           ]
         },
         {
@@ -1510,10 +1498,10 @@
           "required": [
             "Id",
             "InstanceType",
+            "Name",
             "Identifier",
             "IdentifierScheme",
-            "Name",
-            "OrganizationType"
+            "Type"
           ]
         },
         {
@@ -1552,18 +1540,6 @@
             "Text",
             "Scope",
             "Type"
-          ]
-        },
-        {
-          "entity": "ResearchOrganization",
-          "required": [
-            "Id",
-            "InstanceType",
-            "Identifier",
-            "IdentifierScheme",
-            "Name",
-            "OrganizationType",
-            "Manages"
           ]
         },
         {
@@ -1747,7 +1723,6 @@
             "InstanceType",
             "MinimumResponseDuration",
             "Name",
-            "PharmacologicClass",
             "ProductDesignation",
             "Role",
             "Type"
