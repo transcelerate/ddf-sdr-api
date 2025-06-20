@@ -44,8 +44,7 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(OrganizationValidator), nameof(OrganizationDto.ManagedSites)), ApplyConditionTo.AllValidators)
-                .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(OrganizationValidator), nameof(OrganizationDto.ManagedSites)), ApplyConditionTo.AllValidators);
                 
             RuleForEach(x => x.ManagedSites)
                 .SetValidator(new StudySiteValidator(_httpContextAccessor));
