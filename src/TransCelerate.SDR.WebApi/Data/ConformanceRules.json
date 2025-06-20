@@ -1608,12 +1608,12 @@
         {
           "entity": "StudyAmendment",
           "required": [
-            "Number",
-            "Summary",
             "Id",
             "InstanceType",
-            "Enrollments",
-            "SubstantialImpact",
+            "Number",
+            "Summary",
+            "GeographicScopes",
+            "Changes",
             "PrimaryReason"
           ]
         },
