@@ -1248,7 +1248,7 @@
       ]
     },
     {
-      "usdmVersion": "3.5",
+      "usdmVersion": "3.6",
       "rules": [
         {
           "entity": "Activity",
@@ -1274,18 +1274,6 @@
             "Id",
             "InstanceType",
             "ReasonDurationWillVary"
-          ]
-        },
-        {
-          "entity": "AgentAdministration",
-          "required": [
-            "Dose",
-            "Duration",
-            "Frequency",
-            "Id",
-            "InstanceType",
-            "Name",
-            "Route"
           ]
         },
         {
@@ -1464,7 +1452,7 @@
           "required": [
             "Id",
             "InstanceType",
-            "Role"
+            "Description"
           ]
         },
         {
@@ -1492,10 +1480,10 @@
           "required": [
             "Id",
             "InstanceType",
+            "Name",
             "Identifier",
             "IdentifierScheme",
-            "Name",
-            "OrganizationType"
+            "Type"
           ]
         },
         {
@@ -1524,18 +1512,6 @@
             "Id",
             "InstanceType",
             "Value"
-          ]
-        },
-        {
-          "entity": "ResearchOrganization",
-          "required": [
-            "Id",
-            "InstanceType",
-            "Identifier",
-            "IdentifierScheme",
-            "Name",
-            "OrganizationType",
-            "Manages"
           ]
         },
         {
@@ -1719,7 +1695,6 @@
             "InstanceType",
             "MinimumResponseDuration",
             "Name",
-            "PharmacologicClass",
             "ProductDesignation",
             "Role",
             "Type"
