@@ -1248,7 +1248,7 @@
       ]
     },
     {
-      "usdmVersion": "3.5",
+      "usdmVersion": "3.8",
       "rules": [
         {
           "entity": "Activity",
