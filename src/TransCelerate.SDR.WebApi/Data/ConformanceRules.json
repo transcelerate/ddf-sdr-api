@@ -1248,7 +1248,7 @@
       ]
     },
     {
-      "usdmVersion": "3.5",
+      "usdmVersion": "3.6",
       "rules": [
         {
           "entity": "Activity",
@@ -1303,6 +1303,15 @@
             "InstanceType",
             "Name",
             "Text"
+          ]
+        },
+        {
+          "entity": "AssignedPerson",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "JobTitle"
           ]
         },
         {
@@ -1443,6 +1452,15 @@
           ]
         },
         {
+          "entity": "Identifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "Scope"
+          ]
+        },
+        {
           "entity": "Indication",
           "required": [
             "Id",
@@ -1524,6 +1542,16 @@
             "Id",
             "InstanceType",
             "Value"
+          ]
+        },
+        {
+          "entity": "ReferenceIdentifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "Scope",
+            "Type"
           ]
         },
         {
@@ -1707,8 +1735,8 @@
           "required": [
             "Id",
             "InstanceType",
-            "StudyIdentifier",
-            "StudyIdentifierScope"
+            "Text",
+            "Scope"
           ]
         },
         {
@@ -1747,6 +1775,15 @@
           ]
         },
         {
+          "entity": "StudyRole",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Code"
+          ]
+        },
+        {
           "entity": "StudySite",
           "required": [
             "Id",
@@ -1768,12 +1805,12 @@
           "required": [
             "Id",
             "InstanceType",
+            "VersionIdentifier",
+            "Rationale",
             "StudyIdentifiers",
             "StudyPhase",
-            "Rationale",
             "Titles",
-            "StudyType",
-            "VersionIdentifier"
+            "StudyType"
           ]
         },
         {
