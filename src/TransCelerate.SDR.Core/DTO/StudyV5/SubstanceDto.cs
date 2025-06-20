@@ -10,6 +10,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
 
         public string Description { get; set; }
         public string Label { get; set; }
+        public List<StrengthDto> Strengths { get; set; }
         public SubstanceDto ReferenceSubstance { get; set; }
         public List<CodeDto> Codes { get; set; }
     }

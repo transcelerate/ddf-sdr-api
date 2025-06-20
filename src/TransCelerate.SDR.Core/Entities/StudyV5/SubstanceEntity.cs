@@ -11,6 +11,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public string Name { get; set; }
         public string Description { get; set; }
         public string Label { get; set; }
+        public List<StrengthEntity> Strengths { get; set; }
         public SubstanceEntity ReferenceSubstance { get; set; }
         public List<CodeEntity> Codes { get; set; }
     }

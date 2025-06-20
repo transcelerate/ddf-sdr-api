@@ -1248,7 +1248,7 @@
       ]
     },
     {
-      "usdmVersion": "3.5",
+      "usdmVersion": "3.6",
       "rules": [
         {
           "entity": "Activity",
@@ -1264,6 +1264,43 @@
           "required": [
             "Id",
             "InstanceType"
+          ]
+        },
+        {
+          "entity": "AdministrableProduct",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "AdministrableDoseForm"
+          ]
+        },
+        {
+          "entity": "AdministrableProductIdentifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "Scope"
+          ]
+        },
+        {
+          "entity": "AdministrableProductProperty",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Text",
+            "Type"
+          ]
+        },
+        {
+          "entity": "Administration",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Duration"
           ]
         },
         {
@@ -1451,6 +1488,15 @@
           ]
         },
         {
+          "entity": "Ingredient",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Substance",
+            "Role"
+          ]
+        },
+        {
           "entity": "IntercurrentEvent",
           "required": [
             "Id",
@@ -1596,6 +1642,14 @@
           "required": [
             "Id",
             "InstanceType"
+          ]
+        },
+        {
+          "entity": "Strength",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name"
           ]
         },
         {
@@ -1782,6 +1836,15 @@
             "Id",
             "InstanceType",
             "Type"
+          ]
+        },
+        {
+          "entity": "Substance",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Strengths"
           ]
         },
         {

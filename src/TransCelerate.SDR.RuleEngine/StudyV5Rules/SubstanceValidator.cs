@@ -48,6 +48,15 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(SubstanceValidator), nameof(SubstanceDto.Label)), ApplyConditionTo.AllValidators);
 
+            RuleFor(x => x.Strengths)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(SubstanceValidator), nameof(SubstanceDto.Strengths)), ApplyConditionTo.AllValidators);
+
+            RuleForEach(x => x.Strengths)
+                .SetValidator(new StrengthValidator(_httpContextAccessor));
+
             RuleFor(x => x.ReferenceSubstance)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
