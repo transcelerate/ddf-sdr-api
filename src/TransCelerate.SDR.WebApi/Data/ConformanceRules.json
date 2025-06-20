@@ -1382,6 +1382,16 @@
           ]
         },
         {
+          "entity": "DocumentContentReference",
+          "required": [
+            "Id",
+            "InstanceType",
+            "SectionNumber",
+            "SectionTitle",
+            "AppliesTo"
+          ]
+        },
+        {
           "entity": "EligibilityCriterion",
           "required": [
             "Category",

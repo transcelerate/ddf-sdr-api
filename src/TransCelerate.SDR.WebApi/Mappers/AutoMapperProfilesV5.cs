@@ -32,6 +32,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<CodeDto, CodeEntity>().ReverseMap();
             CreateMap<ConditionAssignmentDto, ConditionAssignmentEntity>().ReverseMap();
             CreateMap<ConditionDto, ConditionEntity>().ReverseMap();
+            CreateMap<DocumentContentReferenceDto, DocumentContentReferenceEntity>().ReverseMap();
             CreateMap<EligibilityCriterionDto, EligibilityCriterionEntity>().ReverseMap();
             CreateMap<EncounterDto, EncounterEntity>().ReverseMap();
             CreateMap<EndpointEntity, EndpointDto>().ReverseMap();
