@@ -1751,7 +1751,8 @@
           "required": [
             "Id",
             "InstanceType",
-            "Name"
+            "Name",
+            "Country"
           ]
         },
         {
@@ -1781,7 +1782,9 @@
           "required": [
             "Id",
             "InstanceType",
-            "Type"
+            "Name",
+            "Label",
+            "Quantity"
           ]
         },
         {
