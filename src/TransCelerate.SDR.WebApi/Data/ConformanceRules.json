@@ -1642,13 +1642,13 @@
         {
           "entity": "StudyDesign",
           "required": [
-            "Arms",
-            "Epochs",
             "Id",
             "InstanceType",
-            "InterventionModel",
             "Name",
             "Rationale",
+            "InterventionModel",
+            "Arms",
+            "Epochs",
             "StudyCells"
           ]
         },
