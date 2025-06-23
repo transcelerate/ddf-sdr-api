@@ -11,8 +11,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public string Description { get; set; }
         public List<OrganizationDto> Organizations { get; set; }
         public CodeDto Code { get; set; }
-        public List<StudyDesignDto> AppliesTo { get; set; }
-        public StudyVersionDto StudyVersion { get; set; }
+        public List<string> AppliesToIds { get; set; }
         public MaskingDto Masking { get; set; }
         public List<AssignedPersonDto> AssignedPersons { get; set; }
     }
