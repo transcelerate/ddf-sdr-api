@@ -229,7 +229,6 @@ namespace TransCelerate.SDR.WebApi.Mappers
 				.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
 				.ForMember(dest => dest.Text, opt => opt.MapFrom(src => src.StudyIdentifier))
 				.ForMember(dest => dest.Scope, opt => opt.MapFrom(src => src.StudyIdentifierScope))
-				.ForMember(dest => dest.Scope, opt => opt.MapFrom(src => src.StudyIdentifierScope))
 				.ReverseMap();
 
 
