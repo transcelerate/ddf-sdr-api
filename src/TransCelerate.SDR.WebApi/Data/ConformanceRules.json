@@ -1402,13 +1402,14 @@
         {
           "entity": "Estimand",
           "required": [
-            "AnalysisPopulation",
             "Id",
             "InstanceType",
+            "PopulationSummary",
+            "Name",
+            "AnalysisPopulation",
+            "VariableOfInterest",
             "IntercurrentEvents",
-            "SummaryMeasure",
-            "InterventionId",
-            "VariableOfInterestId"
+            "Interventions"
           ]
         },
         {
