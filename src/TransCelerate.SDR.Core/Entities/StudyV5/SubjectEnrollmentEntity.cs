@@ -10,7 +10,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public string Description { get; set; }
         public string Label { get; set; }
         public QuantityEntity Quantity { get; set; }
-        public List<GeographicScopeEntity> GeographicScopes { get; set; } 
-        public StudySiteEntity StudySite { get; set; }   
+        public List<string> AppliesToIds { get; set; }        
     }
 }

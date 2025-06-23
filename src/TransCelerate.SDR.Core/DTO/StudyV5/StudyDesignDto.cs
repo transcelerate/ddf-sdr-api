@@ -32,9 +32,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public List<StudyElementDto> Elements { get; set; }        
         public string DocumentVersionId { get; set; }
         public List<SyntaxTemplateDictionaryDto> Dictionaries { get; set; }
-        public List<MaskingDto> MaskingRoles { get; set; }
         public List<ConditionDto> Conditions { get; set; }
-        public List<ResearchOrganizationDto> Organizations { get; set; }
         public string InstanceType { get; set; }
         public List<CommentAnnotationDto> Notes { get; set; }
     }
