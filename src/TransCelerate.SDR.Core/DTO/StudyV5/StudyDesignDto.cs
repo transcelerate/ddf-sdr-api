@@ -11,7 +11,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public List<CodeDto> TrialIntentTypes { get; set; }
         public List<CodeDto> TrialTypes { get; set; }
         public List<CodeDto> Characteristics { get; set; }
-        public CodeDto InterventionModel { get; set; }
         public List<StudyCellDto> StudyCells { get; set; }
         public List<IndicationDto> Indications { get; set; }
         public List<StudyInterventionDto> StudyInterventions { get; set; }

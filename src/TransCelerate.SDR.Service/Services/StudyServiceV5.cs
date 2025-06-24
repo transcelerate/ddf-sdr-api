@@ -696,7 +696,6 @@ namespace TransCelerate.SDR.Services.Services
                                                    $" and {design.TrialIntentTypes.Select(x => ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, x.Code) ?? x.Decode).LastOrDefault()}"
                                                    : null,
                                     EnrollmentTarget = design.Population?.Description,
-                                    InterventionModel = ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.InterventionModel, design?.InterventionModel?.Code) ?? design?.InterventionModel?.Decode,
                                     NumberofArms = design.Arms != null && design.Arms.Any() ?
                                                     design.Arms.Select(x => x.Id).Distinct().Count().ToString() : 0.ToString()
                                 }

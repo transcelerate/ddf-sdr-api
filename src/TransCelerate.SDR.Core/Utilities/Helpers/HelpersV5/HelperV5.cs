@@ -175,9 +175,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         sections = sections.Select(t => t.Trim().ToLower()).ToArray();
                         if (!sections.Contains(item))
                         {
-                            if (item == nameof(StudyDesignDto.InterventionModel).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.InterventionModel).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.Name).ToLower())
+                            if (item == nameof(StudyDesignDto.Name).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Name).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Label).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Label).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
@@ -585,10 +583,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         //StudyRationale
                         if (currentStudyDesign.Rationale != previousStudyDesign.Rationale)
                             changedValues.Add($"{nameof(StudyDesignEntity.Rationale)}");
-
-                        //Intervention Model
-                        if (GetDifferences<CodeEntity>(currentStudyDesign.InterventionModel, previousStudyDesign.InterventionModel).Any())
-                            changedValues.Add($"{nameof(StudyDesignEntity.InterventionModel)}");
 
                         //Trial Type
                         if (GetDifferences<List<CodeEntity>>(currentStudyDesign.TrialTypes, previousStudyDesign.TrialTypes).Any())
@@ -2326,10 +2320,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         //StudyDesignRationale
                         if (currentStudyDesign.Rationale != previousStudyDesign.Rationale)
                             changedValues.Add($"{nameof(StudyDesignEntity.Rationale)}");
-
-                        //Intervention Model
-                        if (GetDifferencesForStudyComparison<CodeEntity>(currentStudyDesign.InterventionModel, previousStudyDesign.InterventionModel).Any())
-                            changedValues.Add($"{nameof(StudyDesignEntity.InterventionModel)}");
 
                         //Trial Type
                         if (GetDifferencesForStudyComparison<List<CodeEntity>>(currentStudyDesign.TrialTypes, previousStudyDesign.TrialTypes).Any())

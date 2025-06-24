@@ -13,7 +13,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public List<CodeEntity> TrialIntentTypes { get; set; }
         public List<CodeEntity> TrialTypes { get; set; }
         public List<CodeEntity> Characteristics { get; set; }
-        public CodeEntity InterventionModel { get; set; }
         public List<StudyCellEntity> StudyCells { get; set; }
         public List<IndicationEntity> Indications { get; set; }
         public List<StudyInterventionEntity> StudyInterventions { get; set; }
