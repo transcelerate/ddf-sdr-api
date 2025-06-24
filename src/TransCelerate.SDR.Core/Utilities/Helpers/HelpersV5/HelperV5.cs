@@ -209,8 +209,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Encounters).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Rationale).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Rationale).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.BlindingSchema).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.BlindingSchema).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.BiomedicalConcepts).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.BiomedicalConcepts).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.BcCategories).ToLower())
@@ -623,13 +621,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
 
                         //Timelines                        
                         changedValues.AddRange(GetDifferenceForStudyScheduleTimelines(currentStudyDesign, previousStudyDesign));
-
-                        //DesignBlindingScheme
-                        GetDifferenceForAliasCode(currentStudyDesign.BlindingSchema, previousStudyDesign.BlindingSchema).ForEach(x =>
-                        {
-                            changedValues.Add($"{nameof(StudyDesignEntity.BlindingSchema)}.{x}");
-                        });
-
 
                         //Encounters
                         GetDifferenceForAList<EncounterEntity>(currentStudyDesign.Encounters, previousStudyDesign.Encounters).ForEach(x =>
@@ -2372,11 +2363,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         //Timelines                        
                         changedValues.AddRange(GetDifferenceForStudyScheduleTimelinesForStudyComparison(currentStudyDesign, previousStudyDesign));
 
-                        //DesignBlindingScheme
-                        GetDifferenceForAliasCodeForStudyComparison(currentStudyDesign.BlindingSchema, previousStudyDesign.BlindingSchema).ForEach(x =>
-                        {
-                            changedValues.Add($"{nameof(StudyDesignEntity.BlindingSchema)}{x}");
-                        });
                         //Encounters
                         GetDifferenceForAListForStudyComparison<EncounterEntity>(currentStudyDesign.Encounters, previousStudyDesign.Encounters).ForEach(x =>
                         {

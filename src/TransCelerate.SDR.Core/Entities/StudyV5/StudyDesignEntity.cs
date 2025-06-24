@@ -25,7 +25,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public List<EncounterEntity> Encounters { get; set; }
         public List<ActivityEntity> Activities { get; set; }
         public string Rationale { get; set; }
-        public AliasCodeEntity BlindingSchema { get; set; }
         public List<BiomedicalConceptEntity> BiomedicalConcepts { get; set; }
         public List<BiomedicalConceptCategoryEntity> BcCategories { get; set; }
         public List<BiomedicalConceptSurrogateEntity> BcSurrogates { get; set; }
