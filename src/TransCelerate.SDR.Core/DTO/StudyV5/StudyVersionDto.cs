@@ -13,7 +13,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
 		public List<GovernanceDateDto> DateValues { get; set; }
         public List<StudyAmendmentDto> Amendments { get; set; }        
         public List<StudyIdentifierDto> StudyIdentifiers { get; set; }
-        public AliasCodeDto StudyPhase { get; set; }
         public List<CodeDto> BusinessTherapeuticAreas { get; set; }        
         public List<StudyDesignDto> StudyDesigns { get; set; }
         public string InstanceType { get; set; }

@@ -677,7 +677,6 @@ namespace TransCelerate.SDR.Services.Services
                                 SponsorName = studyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifierScope.Name).FirstOrDefault(),
                                 SponsorLegalAddress = studyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifierScope.LegalAddress).FirstOrDefault() == null ? null
                                                                 : studyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifierScope.LegalAddress).Select(x => $"{x.Line}, {x.City}, {x.District}, {x.State}, {x.PostalCode}, {x.Country?.Decode}").FirstOrDefault(),
-                                StudyPhase = ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.StudyPhase, studyDto.StudyPhase?.StandardCode?.Code) ?? studyDto.StudyPhase?.StandardCode?.Decode,
                                 Protocol = new Core.DTO.eCPT.ProtocolDto
                                 {
                                     ProtocolID = studyDto.StudyIdentifiers.Where(x => x.StudyIdentifierScope.Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.StudyIdentifier).FirstOrDefault(),
