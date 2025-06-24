@@ -36,7 +36,8 @@
           "entity": "AnalysisPopulation",
           "required": [
             "Id",
-            "PopulationDescription"
+            "Text",
+            "Name"
           ]
         },
         {
