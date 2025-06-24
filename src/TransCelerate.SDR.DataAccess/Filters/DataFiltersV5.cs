@@ -66,6 +66,8 @@ namespace TransCelerate.SDR.DataAccess.Filters
                 {
                     if (elements.ToLower().Equals(nameof(StudyVersionEntity.Titles).ToLower()))
                         projector = projector.Include(x => x.Study.Versions.Select(x => x.Titles));
+                    else if (elements.ToLower().Equals(nameof(StudyVersionEntity.StudyPhase).ToLower()))
+                        projector = projector.Include(x => x.Study.Versions.Select(x => x.StudyPhase));
                     else if (elements.ToLower().Equals(nameof(StudyVersionEntity.VersionIdentifier).ToLower()))
                         projector = projector.Include(x => x.Study.Versions.Select(x => x.VersionIdentifier));
                     else if (elements.ToLower().Equals(nameof(StudyVersionEntity.DocumentVersionIds).ToLower()))

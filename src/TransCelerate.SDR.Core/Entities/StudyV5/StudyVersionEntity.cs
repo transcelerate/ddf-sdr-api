@@ -16,6 +16,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
 		public List<GovernanceDateEntity> DateValues { get; set; }
         public List<StudyAmendmentEntity> Amendments { get; set; }        
         public List<StudyIdentifierEntity> StudyIdentifiers { get; set; }
+        public AliasCodeEntity StudyPhase { get; set; }
         public List<CodeEntity> BusinessTherapeuticAreas { get; set; }        
         public List<StudyDesignEntity> StudyDesigns { get; set; }
         public string InstanceType { get; set; }
