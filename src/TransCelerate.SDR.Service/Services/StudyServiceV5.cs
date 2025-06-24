@@ -690,11 +690,6 @@ namespace TransCelerate.SDR.Services.Services
                                 Synopsis = new Core.DTO.eCPT.SynopsisDto
                                 {
                                     NumberofParticipants = design.Population.GetNumberOfParticipantsV5(),
-                                    PrimaryPurpose = design.TrialIntentTypes != null && design.TrialIntentTypes.Any() ?
-                                                   design.TrialIntentTypes.Count == 1 ? ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, design.TrialIntentTypes.FirstOrDefault().Code) ?? design.TrialIntentTypes.FirstOrDefault().Decode
-                                                   : $"{String.Join(", ", design.TrialIntentTypes.Select(x => ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, x.Code) ?? x.Decode).ToArray(), 0, design.TrialIntentTypes.Count - 1)}" +
-                                                   $" and {design.TrialIntentTypes.Select(x => ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, x.Code) ?? x.Decode).LastOrDefault()}"
-                                                   : null,
                                     EnrollmentTarget = design.Population?.Description,
                                     NumberofArms = design.Arms != null && design.Arms.Any() ?
                                                     design.Arms.Select(x => x.Id).Distinct().Count().ToString() : 0.ToString()

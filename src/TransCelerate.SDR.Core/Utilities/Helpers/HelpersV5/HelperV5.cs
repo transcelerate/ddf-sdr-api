@@ -181,8 +181,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Label).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Description).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Description).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.TrialIntentTypes).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.TrialIntentTypes).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.TrialTypes).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.TrialTypes).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyInterventions).ToLower())
@@ -587,10 +585,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         //Trial Type
                         if (GetDifferences<List<CodeEntity>>(currentStudyDesign.TrialTypes, previousStudyDesign.TrialTypes).Any())
                             changedValues.Add($"{nameof(StudyDesignEntity.TrialTypes)}");
-
-                        //Trial Intent Type
-                        if (GetDifferences<List<CodeEntity>>(currentStudyDesign.TrialIntentTypes, previousStudyDesign.TrialIntentTypes).Any())
-                            changedValues.Add($"{nameof(StudyDesignEntity.TrialIntentTypes)}");
 
                         //TherapeuticAreas
                         if (GetDifferences<List<CodeEntity>>(currentStudyDesign.TherapeuticAreas, previousStudyDesign.TherapeuticAreas).Any())
@@ -2324,10 +2318,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         //Trial Type
                         if (GetDifferencesForStudyComparison<List<CodeEntity>>(currentStudyDesign.TrialTypes, previousStudyDesign.TrialTypes).Any())
                             changedValues.Add($"{nameof(StudyDesignEntity.TrialTypes)}");
-
-                        //Trial Intent Type
-                        if (GetDifferencesForStudyComparison<List<CodeEntity>>(currentStudyDesign.TrialIntentTypes, previousStudyDesign.TrialIntentTypes).Any())
-                            changedValues.Add($"{nameof(StudyDesignEntity.TrialIntentTypes)}");
 
                         //TherapeuticAreas
                         if (GetDifferencesForStudyComparison<List<CodeEntity>>(currentStudyDesign.TherapeuticAreas, previousStudyDesign.TherapeuticAreas).Any())
