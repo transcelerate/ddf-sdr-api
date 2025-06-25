@@ -40,6 +40,8 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<IndicationDto, IndicationEntity>().ReverseMap();            
             CreateMap<IntercurrentEventDto, IntercurrentEventEntity>().ReverseMap();
             CreateMap<MaskingDto, MaskingEntity>().ReverseMap();
+            CreateMap<MedicalDeviceDto, MedicalDeviceEntity>().ReverseMap();
+            CreateMap<MedicalDeviceIdentifierDto, MedicalDeviceIdentifierEntity>().ReverseMap();
             CreateMap<NarrativeContentDto, NarrativeContentEntity>().ReverseMap();
             CreateMap<ObjectiveDto, ObjectiveEntity>().ReverseMap();
             CreateMap<OrganizationDto, OrganizationEntity>().ReverseMap();
@@ -51,6 +53,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
     //            .ReverseMap()
 				//.ForMember(dest => dest.Criterionids, opt => opt.MapFrom(src => src.Criteria));
             CreateMap<ProcedureDto, ProcedureEntity>().ReverseMap();
+            CreateMap<ProductOrganizationRoleDto, ProductOrganizationRoleEntity>().ReverseMap();
             CreateMap<QuantityDto, QuantityEntity>().ReverseMap();
             CreateMap<RangeDto, RangeEntity>().ReverseMap();
             CreateMap<ResponseCodeDto, ResponseCodeEntity>().ReverseMap();

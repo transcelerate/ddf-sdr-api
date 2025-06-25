@@ -1248,7 +1248,7 @@
       ]
     },
     {
-      "usdmVersion": "3.6",
+      "usdmVersion": "3.9",
       "rules": [
         {
           "entity": "Activity",
@@ -1456,6 +1456,24 @@
           ]
         },
         {
+          "entity": "MedicalDevice",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name"
+          ]
+        },
+        {
+          "entity": "MedicalDeviceIdentifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "Scope",
+            "Type"
+          ]
+        },
+        {
           "entity": "NarrativeContent",
           "required": [
             "Id",
@@ -1504,6 +1522,16 @@
             "IsConditional",
             "Name",
             "Type"
+          ]
+        },
+        {
+          "entity": "ProductOrganizationRole",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Code",
+            "Organization"
           ]
         },
         {
@@ -1695,7 +1723,6 @@
             "InstanceType",
             "MinimumResponseDuration",
             "Name",
-            "ProductDesignation",
             "Role",
             "Type"
           ]
