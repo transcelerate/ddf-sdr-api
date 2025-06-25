@@ -1267,6 +1267,43 @@
           ]
         },
         {
+          "entity": "AdministrableProduct",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "AdministrableDoseForm"
+          ]
+        },
+        {
+          "entity": "AdministrableProductIdentifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "Scope"
+          ]
+        },
+        {
+          "entity": "AdministrableProductProperty",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Text",
+            "Type"
+          ]
+        },
+        {
+          "entity": "Administration",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Duration"
+          ]
+        },
+        {
           "entity": "AdministrationDuration",
           "required": [
             "Description",
@@ -1457,6 +1494,15 @@
           ]
         },
         {
+          "entity": "Ingredient",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Substance",
+            "Role"
+          ]
+        },
+        {
           "entity": "IntercurrentEvent",
           "required": [
             "Id",
@@ -1600,6 +1646,14 @@
           "required": [
             "Id",
             "InstanceType"
+          ]
+        },
+        {
+          "entity": "Strength",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name"
           ]
         },
         {
@@ -1794,6 +1848,15 @@
             "Id",
             "InstanceType",
             "Type"
+          ]
+        },
+        {
+          "entity": "Substance",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Strengths"
           ]
         },
         {
