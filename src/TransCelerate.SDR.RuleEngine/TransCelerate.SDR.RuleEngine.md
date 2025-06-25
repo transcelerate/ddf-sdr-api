@@ -116,8 +116,8 @@
 - [ResponseCodeValidator](#T-TransCelerate-SDR-RuleEngineV3-ResponseCodeValidator 'TransCelerate.SDR.RuleEngineV3.ResponseCodeValidator')
 - [ResponseCodeValidator](#T-TransCelerate-SDR-RuleEngineV4-ResponseCodeValidator 'TransCelerate.SDR.RuleEngineV4.ResponseCodeValidator')
 - [ResponseCodeValidator](#T-TransCelerate-SDR-RuleEngineV5-ResponseCodeValidator 'TransCelerate.SDR.RuleEngineV5.ResponseCodeValidator')
-- [StudyAmendmentImpactValidator](#T-TransCelerate-SDR-RuleEngineV5-StudyAmendmentImpactValidator 'TransCelerate.SDR.RuleEngineV5.StudyAmendmentImpactValidator')
 - [StrengthValidator](#T-TransCelerate-SDR-RuleEngineV5-StrengthValidator 'TransCelerate.SDR.RuleEngineV5.StrengthValidator')
+- [StudyAmendmentImpactValidator](#T-TransCelerate-SDR-RuleEngineV5-StudyAmendmentImpactValidator 'TransCelerate.SDR.RuleEngineV5.StudyAmendmentImpactValidator')
 - [StudyAmendmentReasonValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyAmendmentReasonValidator 'TransCelerate.SDR.RuleEngineV4.StudyAmendmentReasonValidator')
 - [StudyAmendmentReasonValidator](#T-TransCelerate-SDR-RuleEngineV5-StudyAmendmentReasonValidator 'TransCelerate.SDR.RuleEngineV5.StudyAmendmentReasonValidator')
 - [StudyAmendmentValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyAmendmentValidator 'TransCelerate.SDR.RuleEngineV4.StudyAmendmentValidator')
@@ -1444,6 +1444,17 @@ TransCelerate.SDR.RuleEngineV5
 
 This Class is the validator for Activity
 
+<a name='T-TransCelerate-SDR-RuleEngineV5-StrengthValidator'></a>
+## StrengthValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV5
+
+##### Summary
+
+This Class is the validator for Strength
+
 <a name='T-TransCelerate-SDR-RuleEngineV5-StudyAmendmentImpactValidator'></a>
 ## StudyAmendmentImpactValidator `type`
 
@@ -1454,7 +1465,6 @@ TransCelerate.SDR.RuleEngineV5
 ##### Summary
 
 This Class is the validator for StudyAmendmentImpact
-
 
 <a name='T-TransCelerate-SDR-RuleEngineV4-StudyAmendmentReasonValidator'></a>
 ## StudyAmendmentReasonValidator `type`
