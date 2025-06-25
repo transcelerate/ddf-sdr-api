@@ -1267,6 +1267,43 @@
           ]
         },
         {
+          "entity": "AdministrableProduct",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "AdministrableDoseForm"
+          ]
+        },
+        {
+          "entity": "AdministrableProductIdentifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "Scope"
+          ]
+        },
+        {
+          "entity": "AdministrableProductProperty",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Text",
+            "Type"
+          ]
+        },
+        {
+          "entity": "Administration",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Duration"
+          ]
+        },
+        {
           "entity": "AdministrationDuration",
           "required": [
             "Description",
@@ -1291,6 +1328,15 @@
             "InstanceType",
             "Name",
             "Text"
+          ]
+        },
+        {
+          "entity": "AssignedPerson",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "JobTitle"
           ]
         },
         {
@@ -1431,11 +1477,29 @@
           ]
         },
         {
+          "entity": "Identifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "Scope"
+          ]
+        },
+        {
           "entity": "Indication",
           "required": [
             "Id",
             "InstanceType",
             "Name"
+          ]
+        },
+        {
+          "entity": "Ingredient",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Substance",
+            "Role"
           ]
         },
         {
@@ -1543,6 +1607,16 @@
           ]
         },
         {
+          "entity": "ReferenceIdentifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "Scope",
+            "Type"
+          ]
+        },
+        {
           "entity": "ResponseCode",
           "required": [
             "Code",
@@ -1600,6 +1674,14 @@
           "required": [
             "Id",
             "InstanceType"
+          ]
+        },
+        {
+          "entity": "Strength",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name"
           ]
         },
         {
@@ -1711,8 +1793,8 @@
           "required": [
             "Id",
             "InstanceType",
-            "StudyIdentifier",
-            "StudyIdentifierScope"
+            "Text",
+            "Scope"
           ]
         },
         {
@@ -1749,6 +1831,15 @@
           ]
         },
         {
+          "entity": "StudyRole",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Code"
+          ]
+        },
+        {
           "entity": "StudySite",
           "required": [
             "Id",
@@ -1770,12 +1861,12 @@
           "required": [
             "Id",
             "InstanceType",
+            "VersionIdentifier",
+            "Rationale",
             "StudyIdentifiers",
             "StudyPhase",
-            "Rationale",
             "Titles",
-            "StudyType",
-            "VersionIdentifier"
+            "StudyType"
           ]
         },
         {
@@ -1784,6 +1875,15 @@
             "Id",
             "InstanceType",
             "Type"
+          ]
+        },
+        {
+          "entity": "Substance",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Strengths"
           ]
         },
         {

@@ -28,17 +28,17 @@ namespace TransCelerate.SDR.RuleEngineV5
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyIdentifierValidator), nameof(StudyIdentifierDto.InstanceType)), ApplyConditionTo.AllValidators)
                .Must(x => this.GetType().Name.RemoveValidator() == x).WithMessage(Constants.ValidationErrorMessage.InstanceTypeError);
 
-            RuleFor(x => x.StudyIdentifier)
+            RuleFor(x => x.Text)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyIdentifierValidator), nameof(StudyIdentifierDto.StudyIdentifier)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyIdentifierValidator), nameof(StudyIdentifierDto.Text)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.StudyIdentifierScope)
+            RuleFor(x => x.Scope)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyIdentifierValidator), nameof(StudyIdentifierDto.StudyIdentifierScope)), ApplyConditionTo.AllValidators)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyIdentifierValidator), nameof(StudyIdentifierDto.Scope)), ApplyConditionTo.AllValidators)
                 .SetValidator(new OrganizationValidator(_httpContextAccessor));
         }
     }
