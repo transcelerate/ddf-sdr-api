@@ -1446,6 +1446,7 @@
             "Id",
             "InstanceType",
             "Name",
+            "Text",
             "Strategy"
           ]
         },
