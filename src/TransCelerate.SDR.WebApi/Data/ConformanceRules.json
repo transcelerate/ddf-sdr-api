@@ -1248,7 +1248,7 @@
       ]
     },
     {
-      "usdmVersion": "3.6",
+      "usdmVersion": "3.7",
       "rules": [
         {
           "entity": "Activity",
@@ -1413,6 +1413,16 @@
             "InstanceType",
             "Condition",
             "ConditionTargetId"
+          ]
+        },
+        {
+          "entity": "DocumentContentReference",
+          "required": [
+            "Id",
+            "InstanceType",
+            "SectionNumber",
+            "SectionTitle",
+            "AppliesTo"
           ]
         },
         {
@@ -1666,13 +1676,23 @@
         {
           "entity": "StudyAmendment",
           "required": [
-            "Number",
-            "Summary",
             "Id",
             "InstanceType",
-            "Enrollments",
-            "SubstantialImpact",
+            "Number",
+            "Summary",
+            "GeographicScopes",
+            "Changes",
             "PrimaryReason"
+          ]
+        },
+        {
+          "entity": "StudyAmendmentImpact",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "IsSubstantial",
+            "Type"
           ]
         },
         {
@@ -1701,6 +1721,17 @@
             "EpochId",
             "Id",
             "InstanceType"
+          ]
+        },
+        {
+          "entity": "StudyChange",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Rationale",
+            "Summary",
+            "ChangedSections"
           ]
         },
         {
@@ -1817,7 +1848,8 @@
           "required": [
             "Id",
             "InstanceType",
-            "Name"
+            "Name",
+            "Country"
           ]
         },
         {
@@ -1847,7 +1879,9 @@
           "required": [
             "Id",
             "InstanceType",
-            "Type"
+            "Name",
+            "Label",
+            "Quantity"
           ]
         },
         {
