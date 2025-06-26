@@ -1272,7 +1272,8 @@
             "Id",
             "InstanceType",
             "Name",
-            "AdministrableDoseForm"
+            "AdministrableDoseForm",
+            "ProductDesignation"
           ]
         },
         {
