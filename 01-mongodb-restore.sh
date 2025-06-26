@@ -21,7 +21,7 @@ if [ -z "$(mongosh --quiet --eval "db.getSiblingDB('$MONGO_INITDB_DATABASE').get
       --db $MONGO_INITDB_DATABASE \
       /mongodb_dump/$MONGO_INITDB_DATABASE
       
-    echo "Data restoraretion completed."
+    echo "Data restoration completed."
 else
     echo "$MONGO_INITDB_DATABASE Database already contains data. Skipping restoration."
 fi
