@@ -32,6 +32,7 @@ namespace TransCelerate.SDR.RuleEngineV5
             services.AddTransient<IValidator<CharacteristicDto>, CharacteristicValidator>();
             services.AddTransient<IValidator<CodeDto>, CodeValidator>();
 			services.AddTransient<IValidator<CommentAnnotationDto>, CommentAnnotationValidator>();
+			services.AddTransient<IValidator<DocumentContentReferenceDto>, DocumentContentReferenceValidator>();
 			services.AddTransient<IValidator<EligibilityCriterionDto>, EligibilityCriterionValidator>();
             services.AddTransient<IValidator<EncounterDto>, EncounterValidator>();
             services.AddTransient<IValidator<EndpointDto>, EndpointValidator>();
@@ -57,8 +58,10 @@ namespace TransCelerate.SDR.RuleEngineV5
             services.AddTransient<IValidator<ScheduleTimelineExitDto>, ScheduleTimelineExitValidator>();
             services.AddTransient<IValidator<StrengthDto>, StrengthValidator>();
             services.AddTransient<IValidator<StudyAmendmentDto>, StudyAmendmentValidator>();
+            services.AddTransient<IValidator<StudyAmendmentImpactDto>, StudyAmendmentImpactValidator>();
             services.AddTransient<IValidator<StudyAmendmentReasonDto>, StudyAmendmentReasonValidator>();
             services.AddTransient<IValidator<StudyArmDto>, StudyArmValidator>();
+            services.AddTransient<IValidator<StudyChangeDto>, StudyChangeValidator>();
             services.AddTransient<IValidator<StudyCellDto>, StudyCellValidator>();
             services.AddTransient<IValidator<StudyCohortDto>, StudyCohortValidator>();
             services.AddTransient<IValidator<StudyDefinitionsDto>, StudyDefinitionsValidator>();
