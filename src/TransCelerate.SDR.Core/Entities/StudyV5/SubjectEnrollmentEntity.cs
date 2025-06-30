@@ -3,6 +3,8 @@
     public class SubjectEnrollmentEntity : GeographicScopeEntity
     {
         public QuantityEntity Quantity { get; set; }
-        public StudySiteEntity AppliesTo { get; set; }        
+        public GeographicScopeEntity ForGeographicScope { get; set; }
+        public StudyCohortEntity ForStudyCohort { get; set; } 
+        public StudySiteEntity ForStudySite { get; set; }   
     }
 }
