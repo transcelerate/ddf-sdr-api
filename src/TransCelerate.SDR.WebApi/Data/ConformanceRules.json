@@ -1248,7 +1248,7 @@
       ]
     },
     {
-      "usdmVersion": "3.6",
+      "usdmVersion": "3.7",
       "rules": [
         {
           "entity": "Activity",
@@ -1264,6 +1264,43 @@
           "required": [
             "Id",
             "InstanceType"
+          ]
+        },
+        {
+          "entity": "AdministrableProduct",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "AdministrableDoseForm"
+          ]
+        },
+        {
+          "entity": "AdministrableProductIdentifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "Scope"
+          ]
+        },
+        {
+          "entity": "AdministrableProductProperty",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Text",
+            "Type"
+          ]
+        },
+        {
+          "entity": "Administration",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Duration"
           ]
         },
         {
@@ -1291,6 +1328,15 @@
             "InstanceType",
             "Name",
             "Text"
+          ]
+        },
+        {
+          "entity": "AssignedPerson",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "JobTitle"
           ]
         },
         {
@@ -1379,6 +1425,16 @@
           ]
         },
         {
+          "entity": "DocumentContentReference",
+          "required": [
+            "Id",
+            "InstanceType",
+            "SectionNumber",
+            "SectionTitle",
+            "AppliesTo"
+          ]
+        },
+        {
           "entity": "EligibilityCriterion",
           "required": [
             "Category",
@@ -1440,11 +1496,29 @@
           ]
         },
         {
+          "entity": "Identifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "Scope"
+          ]
+        },
+        {
           "entity": "Indication",
           "required": [
             "Id",
             "InstanceType",
             "Name"
+          ]
+        },
+        {
+          "entity": "Ingredient",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Substance",
+            "Role"
           ]
         },
         {
@@ -1553,6 +1627,16 @@
           ]
         },
         {
+          "entity": "ReferenceIdentifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "Scope",
+            "Type"
+          ]
+        },
+        {
           "entity": "ResponseCode",
           "required": [
             "Code",
@@ -1613,6 +1697,14 @@
           ]
         },
         {
+          "entity": "Strength",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name"
+          ]
+        },
+        {
           "entity": "Study",
           "required": [
             "Name",
@@ -1622,13 +1714,23 @@
         {
           "entity": "StudyAmendment",
           "required": [
-            "Number",
-            "Summary",
             "Id",
             "InstanceType",
-            "Enrollments",
-            "SubstantialImpact",
+            "Number",
+            "Summary",
+            "GeographicScopes",
+            "Changes",
             "PrimaryReason"
+          ]
+        },
+        {
+          "entity": "StudyAmendmentImpact",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "IsSubstantial",
+            "Type"
           ]
         },
         {
@@ -1657,6 +1759,17 @@
             "EpochId",
             "Id",
             "InstanceType"
+          ]
+        },
+        {
+          "entity": "StudyChange",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Rationale",
+            "Summary",
+            "ChangedSections"
           ]
         },
         {
@@ -1721,8 +1834,8 @@
           "required": [
             "Id",
             "InstanceType",
-            "StudyIdentifier",
-            "StudyIdentifierScope"
+            "Text",
+            "Scope"
           ]
         },
         {
@@ -1760,11 +1873,21 @@
           ]
         },
         {
+          "entity": "StudyRole",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Code"
+          ]
+        },
+        {
           "entity": "StudySite",
           "required": [
             "Id",
             "InstanceType",
-            "Name"
+            "Name",
+            "Country"
           ]
         },
         {
@@ -1781,12 +1904,12 @@
           "required": [
             "Id",
             "InstanceType",
+            "VersionIdentifier",
+            "Rationale",
             "StudyIdentifiers",
             "StudyPhase",
-            "Rationale",
             "Titles",
-            "StudyType",
-            "VersionIdentifier"
+            "StudyType"
           ]
         },
         {
@@ -1794,7 +1917,18 @@
           "required": [
             "Id",
             "InstanceType",
-            "Type"
+            "Name",
+            "Label",
+            "Quantity"
+          ]
+        },
+        {
+          "entity": "Substance",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Strengths"
           ]
         },
         {
