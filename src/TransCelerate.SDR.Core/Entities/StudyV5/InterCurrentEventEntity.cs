@@ -4,6 +4,5 @@
     public class IntercurrentEventEntity : SyntaxTemplateEntity
     {
         public string Strategy { get; set; }
-        public SyntaxTemplateDictionaryEntity Dictionary { get; set; }
 	}
 }
