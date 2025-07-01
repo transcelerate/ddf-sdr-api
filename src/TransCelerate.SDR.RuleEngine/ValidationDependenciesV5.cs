@@ -33,6 +33,7 @@ namespace TransCelerate.SDR.RuleEngineV5
             services.AddTransient<IValidator<CodeDto>, CodeValidator>();
 			services.AddTransient<IValidator<CommentAnnotationDto>, CommentAnnotationValidator>();
 			services.AddTransient<IValidator<EligibilityCriterionDto>, EligibilityCriterionValidator>();
+			services.AddTransient<IValidator<EligibilityCriterionItemDto>, EligibilityCriterionItemValidator>();
             services.AddTransient<IValidator<EncounterDto>, EncounterValidator>();
             services.AddTransient<IValidator<EndpointDto>, EndpointValidator>();
             services.AddTransient<IValidator<EstimandDto>, EstimandValidator>();

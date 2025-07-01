@@ -811,7 +811,7 @@
             "Identifier",
             "InstanceType",
             "Name",
-            "Text"
+            "CriterionItem"
           ]
         },
         {
@@ -1248,7 +1248,7 @@
       ]
     },
     {
-      "usdmVersion": "3.6",
+      "usdmVersion": "3.11",
       "rules": [
         {
           "entity": "Activity",
@@ -1428,6 +1428,15 @@
           ]
         },
         {
+          "entity": "EligibilityCriterionItem",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Text"
+          ]
+        },
+        {
           "entity": "Encounter",
           "required": [
             "Id",
@@ -1516,7 +1525,8 @@
           "required": [
             "Id",
             "InstanceType",
-            "Description"
+            "Text",
+            "IsMasked"
           ]
         },
         {
