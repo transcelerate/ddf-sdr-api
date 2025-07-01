@@ -33,6 +33,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public List<SyntaxTemplateDictionaryEntity> Dictionaries { get; set; }
         public List<ConditionEntity> Conditions { get; set; }
         public AliasCodeEntity StudyPhase { get; set; }
+        public CodeEntity StudyType { get; set; }
         public string InstanceType { get; set; }
     }
 }

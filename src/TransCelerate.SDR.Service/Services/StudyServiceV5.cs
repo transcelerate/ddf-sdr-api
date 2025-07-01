@@ -957,7 +957,7 @@ namespace TransCelerate.SDR.Services.Services
                             return study;
                         else if (groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
                             return study;
-                        else if (groupFilters.Item1.Contains(study.Study.Versions.FirstOrDefault()?.StudyType?.Decode?.ToLower()))
+                        else if (groupFilters.Item1.Contains(study.Study.Versions.FirstOrDefault()?.StudyDesigns?.FirstOrDefault()?.StudyType?.Decode?.ToLower()))
                             return study;
                         else
                             return null;

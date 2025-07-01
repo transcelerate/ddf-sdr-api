@@ -10,7 +10,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public string Id { get; set; }
         public List<StudyTitleEntity> Titles { get; set; }
         public string VersionIdentifier { get; set; }
-        public CodeEntity StudyType { get; set; }
         public string Rationale { get; set; }
 		public List<string> DocumentVersionIds { get; set; }
 		public List<GovernanceDateEntity> DateValues { get; set; }
