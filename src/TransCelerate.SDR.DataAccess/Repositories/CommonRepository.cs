@@ -551,7 +551,10 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 											  {
 												  StudyId = x.Study.Id,
 												  StudyTitle = x.Study.Versions != null ? x.Study.Versions.First().Titles : null,
-												  StudyType = x.Study.Versions != null ? x.Study.Versions.First().StudyType : null,
+												  StudyType = x.Study.Versions != null && x.Study.Versions.Any()
+                                                                    && x.Study.Versions.First().StudyDesigns != null
+                                                                    && x.Study.Versions.First().StudyDesigns.Any()
+                                                                    ? x.Study.Versions.First().StudyDesigns.First().StudyType : null,
 												  StudyPhase = x.Study.Versions != null && x.Study.Versions.Any()
                                                                     && x.Study.Versions.First().StudyDesigns != null
                                                                     && x.Study.Versions.First().StudyDesigns.Any()
