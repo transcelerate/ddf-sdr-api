@@ -36,7 +36,8 @@
           "entity": "AnalysisPopulation",
           "required": [
             "Id",
-            "PopulationDescription"
+            "Text",
+            "Name"
           ]
         },
         {
@@ -1459,13 +1460,14 @@
         {
           "entity": "Estimand",
           "required": [
-            "AnalysisPopulation",
             "Id",
             "InstanceType",
+            "PopulationSummary",
+            "Name",
+            "AnalysisPopulation",
+            "VariableOfInterest",
             "IntercurrentEvents",
-            "SummaryMeasure",
-            "InterventionId",
-            "VariableOfInterestId"
+            "Interventions"
           ]
         },
         {
@@ -1519,6 +1521,7 @@
             "Id",
             "InstanceType",
             "Name",
+            "Text",
             "Strategy"
           ]
         },
@@ -1783,13 +1786,13 @@
         {
           "entity": "StudyDesign",
           "required": [
-            "Arms",
-            "Epochs",
             "Id",
             "InstanceType",
-            "InterventionModel",
             "Name",
             "Rationale",
+            "InterventionModel",
+            "Arms",
+            "Epochs",
             "StudyCells"
           ]
         },
