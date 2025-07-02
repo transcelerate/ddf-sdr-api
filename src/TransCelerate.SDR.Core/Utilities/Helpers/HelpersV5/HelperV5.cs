@@ -335,7 +335,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                 changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.Versions)}");
 
             changedValues.AddRange(GetDifferenceForAListForStudyComparison(currentVersion, previousVersion));
-            changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.StudyType)}"));
             changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.DateValues)}"));
             changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.Amendments)}"));
             changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.StudyIdentifiers)}"));
@@ -352,8 +351,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         changedValues.Add($"{nameof(StudyVersionEntity.VersionIdentifier)}");
                     if (currVer.Rationale != prevVer.Rationale)
                         changedValues.Add($"{nameof(StudyVersionEntity.Rationale)}");
-                    if (GetDifferencesForStudyComparison(currVer.StudyType, prevVer.StudyType).Any())
-                        changedValues.Add($"{nameof(StudyVersionEntity.StudyType)}");
 
                     //Titles
                     GetDifferenceForAList<StudyTitleEntity>(currVer.Titles, prevVer.Titles).ForEach(x =>
@@ -645,6 +642,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         GetDifferenceForAliasCode(currentStudyDesign.StudyPhase, previousStudyDesign.StudyPhase).ForEach(x =>
                         {
                             changedValues.Add($"{nameof(StudyDesignEntity.StudyPhase)}.{x}");
+                        });
+                        //StudyType
+                        GetDifferencesForStudyComparison(currentStudyDesign.StudyType, previousStudyDesign.StudyType).ForEach(x =>
+                        {
+                            changedValues.Add($"{nameof(StudyDesignEntity.StudyType)}.{x}");
                         });
                     }
 
@@ -1955,7 +1957,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
 
             changedValues.AddRange(GetDifferenceForAListForStudyComparison(currentVersion, previousVersion));
             changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.Titles)}"));
-            changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.StudyType)}"));
             changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.DateValues)}"));
             changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.Amendments)}"));
             changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.StudyIdentifiers)}"));
@@ -1972,9 +1973,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         changedValues.Add($"[{currentVersionIndex}].{nameof(StudyVersionEntity.VersionIdentifier)}");
                     if (currVer.Rationale != prevVer.Rationale)
                         changedValues.Add($"[{currentVersionIndex}].{nameof(StudyVersionEntity.Rationale)}");
-
-                    if (GetDifferencesForStudyComparison(currVer.StudyType, prevVer.StudyType).Any())
-                        changedValues.Add($"[{currentVersionIndex}].{nameof(StudyVersionEntity.StudyType)}");
 
                     //Titles
                     GetDifferenceForAListForStudyComparison(currVer.Titles, prevVer.Titles).ForEach(x =>
@@ -2376,8 +2374,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         {
                             changedValues.Add($"{nameof(StudyDesignEntity.StudyPhase)}{x}");
                         });
-                        var currDesignIndex = currentVersion.IndexOf(currentStudyDesign);
-                        changedValues.ForEach(x => formattedChangedValues.Add($"[{currDesignIndex}].{x}"));
+                        GetDifferencesForStudyComparison(currentStudyDesign.StudyType, previousStudyDesign.StudyType).ForEach(x =>
+                        {
+                            changedValues.Add($"{nameof(StudyDesignEntity.StudyType)}");
+                        });
                     }
 
                     else if (currentVersion?.Count == previousVersion?.Count && previousVersion != null && !previousVersion.Any(x => x.Id == currentStudyDesign.Id))
