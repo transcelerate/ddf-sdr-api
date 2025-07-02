@@ -211,8 +211,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Epochs).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Elements).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Elements).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.DocumentVersionId).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.DocumentVersionId).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
+                            else if (item == nameof(StudyDesignDto.DocumentVersions).ToLower())
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.DocumentVersions).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Dictionaries).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Dictionaries).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Characteristics).ToLower())
@@ -1111,11 +1111,14 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
 
                     version.StudyDesigns?.ForEach(design =>
                     {
-                        if (!String.IsNullOrWhiteSpace(design.DocumentVersionId) && !studyDocumentVersionIds.Contains(design.DocumentVersionId))
-                            errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
-                                $"{nameof(StudyDto.Versions)}[{study.Study.Versions.IndexOf(version)}]." +
-                                $"{nameof(StudyVersionDto.StudyDesigns)}[{version.StudyDesigns.IndexOf(design)}]." +
-                                $"{nameof(StudyDesignDto.DocumentVersionId)}");
+                        design.DocumentVersions.ForEach(documentVersion =>
+                        {
+                            if (!String.IsNullOrWhiteSpace(documentVersion.Id) && !studyDocumentVersionIds.Contains(documentVersion.Id))
+                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                    $"{nameof(StudyDto.Versions)}[{study.Study.Versions.IndexOf(version)}]." +
+                                    $"{nameof(StudyVersionDto.StudyDesigns)}[{version.StudyDesigns.IndexOf(design)}]." +
+                                    $"{nameof(StudyDesignDto.DocumentVersions)}");
+                        });
                     });
                 });
             }
@@ -1682,19 +1685,22 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                     List<string> investigationalInterventionIds = design.StudyInterventions is null ? new List<string>() : design.StudyInterventions.Select(x => x.Id).ToList();
                     List<string> endpointIds = design.Objectives is null ? new List<string>() : design.Objectives.Select(x => x as ObjectiveDto).ToList().Select(x => x?.Endpoints).Where(y => y != null).SelectMany(x => x.Select(y => y.Id)).ToList();
 
-                    if (!String.IsNullOrWhiteSpace(estimand.InterventionId) && !investigationalInterventionIds.Contains(estimand.InterventionId))
-                        errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
-                            $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
-                            $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
-                            $"{nameof(StudyDesignDto.Estimands)}[{design.Estimands.IndexOf(estimand)}]." +
-                            $"{nameof(EstimandDto.InterventionId)}");
+                    estimand.Interventions.ForEach(intervention =>
+                    {
+                        if (!String.IsNullOrWhiteSpace(intervention.Id) && !investigationalInterventionIds.Contains(intervention.Id))
+                            errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
+                                $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
+                                $"{nameof(StudyDesignDto.Estimands)}[{design.Estimands.IndexOf(estimand)}]." +
+                                $"{nameof(EstimandDto.Interventions)}");
+                    });
 
-                    if (!String.IsNullOrWhiteSpace(estimand.VariableOfInterestId) && !endpointIds.Contains(estimand.VariableOfInterestId))
+                    if (!String.IsNullOrWhiteSpace(estimand.VariableOfInterest.Id) && !endpointIds.Contains(estimand.VariableOfInterest.Id))
                         errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
                             $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
                             $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
                             $"{nameof(StudyDesignDto.Estimands)}[{design.Estimands.IndexOf(estimand)}]." +
-                            $"{nameof(EstimandDto.VariableOfInterestId)}");
+                            $"{nameof(EstimandDto.VariableOfInterest)}");
                 });
             }
 
@@ -2101,17 +2107,17 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                 var currentStudyIdentifier = currentVersion as StudyIdentifierEntity;
                 var previousStudyIdentifier = previousVersion as StudyIdentifierEntity;
 
-                if (currentStudyIdentifier.StudyIdentifierScope?.Id != previousStudyIdentifier.StudyIdentifierScope?.Id)
+                if (currentStudyIdentifier.Scope?.Id != previousStudyIdentifier.Scope?.Id)
                 {
-                    changedValues.RemoveAll(x => x.Contains(nameof(StudyIdentifierEntity.StudyIdentifierScope)));
-                    changedValues.Add($"[{index}].{nameof(StudyIdentifierEntity.StudyIdentifierScope)}");
+                    changedValues.RemoveAll(x => x.Contains(nameof(StudyIdentifierEntity.Scope)));
+                    changedValues.Add($"[{index}].{nameof(StudyIdentifierEntity.Scope)}");
                 }
                 else
                 {                    
-                    if (currentStudyIdentifier.StudyIdentifierScope?.LegalAddress?.Id != previousStudyIdentifier.StudyIdentifierScope?.LegalAddress?.Id)
+                    if (currentStudyIdentifier.Scope?.LegalAddress?.Id != previousStudyIdentifier.Scope?.LegalAddress?.Id)
                     {
                         changedValues.RemoveAll(x => x.Contains(nameof(OrganizationEntity.LegalAddress)));
-                        changedValues.Add($"[{index}].{nameof(StudyIdentifierEntity.StudyIdentifierScope)}.{nameof(OrganizationEntity.LegalAddress)}");
+                        changedValues.Add($"[{index}].{nameof(StudyIdentifierEntity.Scope)}.{nameof(OrganizationEntity.LegalAddress)}");
                     }
                 }
             }

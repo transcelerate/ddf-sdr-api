@@ -36,7 +36,8 @@
           "entity": "AnalysisPopulation",
           "required": [
             "Id",
-            "PopulationDescription"
+            "Text",
+            "Name"
           ]
         },
         {
@@ -1248,7 +1249,7 @@
       ]
     },
     {
-      "usdmVersion": "3.6",
+      "usdmVersion": "3.7",
       "rules": [
         {
           "entity": "Activity",
@@ -1264,6 +1265,43 @@
           "required": [
             "Id",
             "InstanceType"
+          ]
+        },
+        {
+          "entity": "AdministrableProduct",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "AdministrableDoseForm"
+          ]
+        },
+        {
+          "entity": "AdministrableProductIdentifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "Scope"
+          ]
+        },
+        {
+          "entity": "AdministrableProductProperty",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Text",
+            "Type"
+          ]
+        },
+        {
+          "entity": "Administration",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Duration"
           ]
         },
         {
@@ -1291,6 +1329,15 @@
             "InstanceType",
             "Name",
             "Text"
+          ]
+        },
+        {
+          "entity": "AssignedPerson",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "JobTitle"
           ]
         },
         {
@@ -1379,6 +1426,16 @@
           ]
         },
         {
+          "entity": "DocumentContentReference",
+          "required": [
+            "Id",
+            "InstanceType",
+            "SectionNumber",
+            "SectionTitle",
+            "AppliesTo"
+          ]
+        },
+        {
           "entity": "EligibilityCriterion",
           "required": [
             "Category",
@@ -1411,13 +1468,14 @@
         {
           "entity": "Estimand",
           "required": [
-            "AnalysisPopulation",
             "Id",
             "InstanceType",
+            "PopulationSummary",
+            "Name",
+            "AnalysisPopulation",
+            "VariableOfInterest",
             "IntercurrentEvents",
-            "SummaryMeasure",
-            "InterventionId",
-            "VariableOfInterestId"
+            "Interventions"
           ]
         },
         {
@@ -1440,6 +1498,15 @@
           ]
         },
         {
+          "entity": "Identifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "Scope"
+          ]
+        },
+        {
           "entity": "Indication",
           "required": [
             "Id",
@@ -1448,11 +1515,21 @@
           ]
         },
         {
+          "entity": "Ingredient",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Substance",
+            "Role"
+          ]
+        },
+        {
           "entity": "IntercurrentEvent",
           "required": [
             "Id",
             "InstanceType",
             "Name",
+            "Text",
             "Strategy"
           ]
         },
@@ -1553,6 +1630,16 @@
           ]
         },
         {
+          "entity": "ReferenceIdentifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "Scope",
+            "Type"
+          ]
+        },
+        {
           "entity": "ResponseCode",
           "required": [
             "Code",
@@ -1613,6 +1700,14 @@
           ]
         },
         {
+          "entity": "Strength",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name"
+          ]
+        },
+        {
           "entity": "Study",
           "required": [
             "Name",
@@ -1622,13 +1717,23 @@
         {
           "entity": "StudyAmendment",
           "required": [
-            "Number",
-            "Summary",
             "Id",
             "InstanceType",
-            "Enrollments",
-            "SubstantialImpact",
+            "Number",
+            "Summary",
+            "GeographicScopes",
+            "Changes",
             "PrimaryReason"
+          ]
+        },
+        {
+          "entity": "StudyAmendmentImpact",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "IsSubstantial",
+            "Type"
           ]
         },
         {
@@ -1660,6 +1765,17 @@
           ]
         },
         {
+          "entity": "StudyChange",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Rationale",
+            "Summary",
+            "ChangedSections"
+          ]
+        },
+        {
           "entity": "StudyCohort",
           "required": [
             "Name",
@@ -1679,13 +1795,13 @@
         {
           "entity": "StudyDesign",
           "required": [
-            "Arms",
-            "Epochs",
             "Id",
             "InstanceType",
-            "InterventionModel",
             "Name",
             "Rationale",
+            "InterventionModel",
+            "Arms",
+            "Epochs",
             "StudyCells"
           ]
         },
@@ -1721,8 +1837,8 @@
           "required": [
             "Id",
             "InstanceType",
-            "StudyIdentifier",
-            "StudyIdentifierScope"
+            "Text",
+            "Scope"
           ]
         },
         {
@@ -1760,11 +1876,21 @@
           ]
         },
         {
+          "entity": "StudyRole",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Code"
+          ]
+        },
+        {
           "entity": "StudySite",
           "required": [
             "Id",
             "InstanceType",
-            "Name"
+            "Name",
+            "Country"
           ]
         },
         {
@@ -1781,12 +1907,12 @@
           "required": [
             "Id",
             "InstanceType",
+            "VersionIdentifier",
+            "Rationale",
             "StudyIdentifiers",
             "StudyPhase",
-            "Rationale",
             "Titles",
-            "StudyType",
-            "VersionIdentifier"
+            "StudyType"
           ]
         },
         {
@@ -1794,7 +1920,18 @@
           "required": [
             "Id",
             "InstanceType",
-            "Type"
+            "Name",
+            "Label",
+            "Quantity"
+          ]
+        },
+        {
+          "entity": "Substance",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Strengths"
           ]
         },
         {

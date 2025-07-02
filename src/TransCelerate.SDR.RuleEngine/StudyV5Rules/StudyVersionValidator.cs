@@ -36,7 +36,7 @@ namespace TransCelerate.SDR.RuleEngineV5
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyVersionValidator), nameof(StudyVersionDto.Titles)), ApplyConditionTo.AllValidators)
                .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError)
-               .Must(x => x.Where(y => y.Type!=null).Select(y => y.Type.Decode == Constants.StudyTitle.OfficialStudyTitle).Count() > 0).WithMessage(Constants.ValidationErrorMessage.OfficialTitleError);
+               .Must(x => x.Where(y => y.Type != null).Select(y => y.Type.Decode == Constants.StudyTitle.OfficialStudyTitle).Count() > 0).WithMessage(Constants.ValidationErrorMessage.OfficialTitleError);
 
             RuleForEach(x => x.Titles)
                 .SetValidator(new StudyTitleValidator(_httpContextAccessor));
@@ -55,7 +55,7 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyVersionValidator), nameof(StudyVersionDto.VersionIdentifier)), ApplyConditionTo.AllValidators);            
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyVersionValidator), nameof(StudyVersionDto.VersionIdentifier)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.Rationale)
                .Cascade(CascadeMode.Stop)
@@ -102,14 +102,23 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyVersionValidator), nameof(StudyVersionDto.DateValues)), ApplyConditionTo.AllValidators);
 
-			RuleFor(x => x.Notes)
-				.Cascade(CascadeMode.Stop)
-				.NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-				.NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-				.When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyVersionValidator), nameof(StudyVersionDto.Notes)), ApplyConditionTo.AllValidators);
+            RuleFor(x => x.Notes)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyVersionValidator), nameof(StudyVersionDto.Notes)), ApplyConditionTo.AllValidators);
 
-			RuleForEach(x => x.DateValues)
+            RuleForEach(x => x.DateValues)
                 .SetValidator(new GovernanceDateValidator(httpContextAccessor));
+
+            RuleFor(x => x.ReferenceIdentifiers)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyVersionValidator), nameof(StudyVersionDto.ReferenceIdentifiers)), ApplyConditionTo.AllValidators);
+
+            RuleForEach(x => x.ReferenceIdentifiers)
+                .SetValidator(new ReferenceIdentifierValidator(_httpContextAccessor));
         }
     }
 }

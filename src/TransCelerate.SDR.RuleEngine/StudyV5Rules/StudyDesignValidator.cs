@@ -249,12 +249,15 @@ namespace TransCelerate.SDR.RuleEngineV5
             RuleForEach(x => x.Dictionaries)
                 .SetValidator(new SyntaxTemplateDictionaryValidator(_httpContextAccessor));
 
-            RuleFor(x => x.DocumentVersionId)
+            RuleFor(x => x.DocumentVersions)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.DocumentVersionId)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.DocumentVersions)), ApplyConditionTo.AllValidators);
 
+            RuleForEach(x => x.DocumentVersions)
+                .SetValidator(new StudyDefinitionDocumentVersionValidator(_httpContextAccessor));
+            
             RuleFor(x => x.Notes)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
@@ -268,12 +271,14 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.StudyPhase)), ApplyConditionTo.AllValidators)
                 .SetValidator(new AliasCodeValidator(_httpContextAccessor));
                 
-                RuleFor(x => x.StudyType)
+            RuleFor(x => x.StudyType)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.StudyType)), ApplyConditionTo.AllValidators)
                 .SetValidator(new CodeValidator(_httpContextAccessor));
+            
+
 		}
     }
 }
