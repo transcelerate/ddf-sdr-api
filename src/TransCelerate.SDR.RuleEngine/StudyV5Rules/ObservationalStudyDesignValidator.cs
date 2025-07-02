@@ -86,13 +86,13 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ObservationalStudyDesignValidator), nameof(ObservationalStudyDesignDto.StudyType)), ApplyConditionTo.AllValidators)
                 .SetValidator(new CodeValidator(_httpContextAccessor));
 
-            RuleFor(x => x.TheraputicAreas)
+            RuleFor(x => x.TherapeuticAreas)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ObservationalStudyDesignValidator), nameof(ObservationalStudyDesignDto.TheraputicAreas)), ApplyConditionTo.AllValidators);
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ObservationalStudyDesignValidator), nameof(ObservationalStudyDesignDto.TherapeuticAreas)), ApplyConditionTo.AllValidators);
 
-            RuleForEach(x => x.TheraputicAreas)
+            RuleForEach(x => x.TherapeuticAreas)
                 .SetValidator(new CodeValidator(_httpContextAccessor));
 
             RuleFor(x => x.Characteristics)
