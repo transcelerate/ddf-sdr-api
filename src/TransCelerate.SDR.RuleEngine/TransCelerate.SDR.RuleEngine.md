@@ -54,6 +54,7 @@
 - [ConditionAssignmentValidator](#T-TransCelerate-SDR-RuleEngineV5-ConditionAssignmentValidator 'TransCelerate.SDR.RuleEngineV5.ConditionAssignmentValidator')
 - [ConditionValidator](#T-TransCelerate-SDR-RuleEngineV4-ConditionValidator 'TransCelerate.SDR.RuleEngineV4.ConditionValidator')
 - [ConditionValidator](#T-TransCelerate-SDR-RuleEngineV5-ConditionValidator 'TransCelerate.SDR.RuleEngineV5.ConditionValidator')
+- [DocumentContentReferenceValidator](#T-TransCelerate-SDR-RuleEngineV5-DocumentContentReferenceValidator 'TransCelerate.SDR.RuleEngineV5.DocumentContentReferenceValidator')
 - [EligibilityCriterionValidator](#T-TransCelerate-SDR-RuleEngineV4-EligibilityCriterionValidator 'TransCelerate.SDR.RuleEngineV4.EligibilityCriterionValidator')
 - [EligibilityCriterionValidator](#T-TransCelerate-SDR-RuleEngineV5-EligibilityCriterionValidator 'TransCelerate.SDR.RuleEngineV5.EligibilityCriterionValidator')
 - [EncounterValidator](#T-TransCelerate-SDR-RuleEngineV2-EncounterValidator 'TransCelerate.SDR.RuleEngineV2.EncounterValidator')
@@ -100,6 +101,7 @@
 - [OrganizationValidator](#T-TransCelerate-SDR-RuleEngineV5-OrganizationValidator 'TransCelerate.SDR.RuleEngineV5.OrganizationValidator')
 - [ParameterMapValidator](#T-TransCelerate-SDR-RuleEngineV4-ParameterMapValidator 'TransCelerate.SDR.RuleEngineV4.ParameterMapValidator')
 - [ParameterMapValidator](#T-TransCelerate-SDR-RuleEngineV5-ParameterMapValidator 'TransCelerate.SDR.RuleEngineV5.ParameterMapValidator')
+- [PopulationDefinitionValidator](#T-TransCelerate-SDR-RuleEngineV5-PopulationDefinitionValidator 'TransCelerate.SDR.RuleEngineV5.PopulationDefinitionValidator')
 - [PostUserToGroupValidator](#T-TransCelerate-SDR-RuleEngine-PostUserToGroupValidator 'TransCelerate.SDR.RuleEngine.PostUserToGroupValidator')
 - [ProcedureValidator](#T-TransCelerate-SDR-RuleEngineV2-ProcedureValidator 'TransCelerate.SDR.RuleEngineV2.ProcedureValidator')
 - [ProcedureValidator](#T-TransCelerate-SDR-RuleEngineV3-ProcedureValidator 'TransCelerate.SDR.RuleEngineV3.ProcedureValidator')
@@ -116,6 +118,7 @@
 - [ResponseCodeValidator](#T-TransCelerate-SDR-RuleEngineV4-ResponseCodeValidator 'TransCelerate.SDR.RuleEngineV4.ResponseCodeValidator')
 - [ResponseCodeValidator](#T-TransCelerate-SDR-RuleEngineV5-ResponseCodeValidator 'TransCelerate.SDR.RuleEngineV5.ResponseCodeValidator')
 - [StrengthValidator](#T-TransCelerate-SDR-RuleEngineV5-StrengthValidator 'TransCelerate.SDR.RuleEngineV5.StrengthValidator')
+- [StudyAmendmentImpactValidator](#T-TransCelerate-SDR-RuleEngineV5-StudyAmendmentImpactValidator 'TransCelerate.SDR.RuleEngineV5.StudyAmendmentImpactValidator')
 - [StudyAmendmentReasonValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyAmendmentReasonValidator 'TransCelerate.SDR.RuleEngineV4.StudyAmendmentReasonValidator')
 - [StudyAmendmentReasonValidator](#T-TransCelerate-SDR-RuleEngineV5-StudyAmendmentReasonValidator 'TransCelerate.SDR.RuleEngineV5.StudyAmendmentReasonValidator')
 - [StudyAmendmentValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyAmendmentValidator 'TransCelerate.SDR.RuleEngineV4.StudyAmendmentValidator')
@@ -128,6 +131,7 @@
 - [StudyCellValidator](#T-TransCelerate-SDR-RuleEngineV5-StudyCellValidator 'TransCelerate.SDR.RuleEngineV5.StudyCellValidator')
 - [StudyCellsValidator](#T-TransCelerate-SDR-RuleEngineV2-StudyCellsValidator 'TransCelerate.SDR.RuleEngineV2.StudyCellsValidator')
 - [StudyCellsValidator](#T-TransCelerate-SDR-RuleEngineV3-StudyCellsValidator 'TransCelerate.SDR.RuleEngineV3.StudyCellsValidator')
+- [StudyChangeValidator](#T-TransCelerate-SDR-RuleEngineV5-StudyChangeValidator 'TransCelerate.SDR.RuleEngineV5.StudyChangeValidator')
 - [StudyCohortValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyCohortValidator 'TransCelerate.SDR.RuleEngineV4.StudyCohortValidator')
 - [StudyCohortValidator](#T-TransCelerate-SDR-RuleEngineV5-StudyCohortValidator 'TransCelerate.SDR.RuleEngineV5.StudyCohortValidator')
 - [StudyDefinitionDocumentValidator](#T-TransCelerate-SDR-RuleEngineV5-StudyDefinitionDocumentValidator 'TransCelerate.SDR.RuleEngineV5.StudyDefinitionDocumentValidator')
@@ -759,6 +763,17 @@ TransCelerate.SDR.RuleEngineV5
 
 This Class is the validator for StudyObjectives
 
+<a name='T-TransCelerate-SDR-RuleEngineV5-DocumentContentReferenceValidator'></a>
+## DocumentContentReferenceValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV5
+
+##### Summary
+
+This Class is the validator for DocumentContentReference
+
 <a name='T-TransCelerate-SDR-RuleEngineV4-EligibilityCriterionValidator'></a>
 ## EligibilityCriterionValidator `type`
 
@@ -1265,6 +1280,17 @@ TransCelerate.SDR.RuleEngineV5
 
 This Class is the validator for StudyObjectives
 
+<a name='T-TransCelerate-SDR-RuleEngineV5-PopulationDefinitionValidator'></a>
+## PopulationDefinitionValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV5
+
+##### Summary
+
+This Class is the validator for StudyDesignPopulation
+
 <a name='T-TransCelerate-SDR-RuleEngine-PostUserToGroupValidator'></a>
 ## PostUserToGroupValidator `type`
 
@@ -1441,6 +1467,17 @@ TransCelerate.SDR.RuleEngineV5
 
 This Class is the validator for Strength
 
+<a name='T-TransCelerate-SDR-RuleEngineV5-StudyAmendmentImpactValidator'></a>
+## StudyAmendmentImpactValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV5
+
+##### Summary
+
+This Class is the validator for StudyAmendmentImpact
+
 <a name='T-TransCelerate-SDR-RuleEngineV4-StudyAmendmentReasonValidator'></a>
 ## StudyAmendmentReasonValidator `type`
 
@@ -1572,6 +1609,17 @@ TransCelerate.SDR.RuleEngineV3
 ##### Summary
 
 This Class is the validator for StudyCells
+
+<a name='T-TransCelerate-SDR-RuleEngineV5-StudyChangeValidator'></a>
+## StudyChangeValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV5
+
+##### Summary
+
+This Class is the validator for StudyDesignPopulation
 
 <a name='T-TransCelerate-SDR-RuleEngineV4-StudyCohortValidator'></a>
 ## StudyCohortValidator `type`

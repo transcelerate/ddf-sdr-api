@@ -36,6 +36,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<CodeDto, CodeEntity>().ReverseMap();
             CreateMap<ConditionAssignmentDto, ConditionAssignmentEntity>().ReverseMap();
             CreateMap<ConditionDto, ConditionEntity>().ReverseMap();
+            CreateMap<DocumentContentReferenceDto, DocumentContentReferenceEntity>().ReverseMap();
             CreateMap<EligibilityCriterionDto, EligibilityCriterionEntity>().ReverseMap();
             CreateMap<EligibilityCriterionItemDto, EligibilityCriterionItemEntity>().ReverseMap();
             CreateMap<EncounterDto, EncounterEntity>().ReverseMap();
@@ -76,8 +77,10 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<StrengthDto, StrengthEntity>().ReverseMap();
             CreateMap<StudyArmDto, StudyArmEntity>().ReverseMap();
             CreateMap<StudyAmendmentDto, StudyAmendmentEntity>().ReverseMap();
+            CreateMap<StudyAmendmentImpactDto, StudyAmendmentImpactEntity>().ReverseMap();
             CreateMap<StudyAmendmentReasonDto, StudyAmendmentReasonEntity>().ReverseMap();
             CreateMap<StudyCellDto, StudyCellEntity>().ReverseMap();
+            CreateMap<StudyChangeDto, StudyChangeEntity>().ReverseMap();
 			//CreateMap<StudyCohortDto, StudyCohortEntity>().ReverseMap();
 			CreateMap<StudyDefinitionsEntity, StudyDefinitionsDto>()
 	.ForMember(dest => dest.Links, opt => opt.Ignore())

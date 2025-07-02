@@ -28,24 +28,30 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(SubjectEnrollmentValidator), nameof(SubjectEnrollmentDto.InstanceType)), ApplyConditionTo.AllValidators)
                 .Must(x => this.GetType().Name.RemoveValidator() == x).WithMessage(Constants.ValidationErrorMessage.InstanceTypeError);
 
-            RuleFor(x => x.Type)
+            RuleFor(x => x.Name)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(SubjectEnrollmentValidator), nameof(SubjectEnrollmentDto.Type)), ApplyConditionTo.AllValidators);
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(SubjectEnrollmentValidator), nameof(SubjectEnrollmentDto.Name)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.Code)
+            RuleFor(x => x.Description)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(SubjectEnrollmentValidator), nameof(SubjectEnrollmentDto.Code)), ApplyConditionTo.AllValidators)
-                .SetValidator(new AliasCodeValidator(_httpContextAccessor));
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(SubjectEnrollmentValidator), nameof(SubjectEnrollmentDto.Description)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.InstanceType)
+            RuleFor(x => x.Label)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(SubjectEnrollmentValidator), nameof(SubjectEnrollmentDto.InstanceType)), ApplyConditionTo.AllValidators);
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(SubjectEnrollmentValidator), nameof(SubjectEnrollmentDto.Label)), ApplyConditionTo.AllValidators);
+
+            RuleFor(x => x.Quantity)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(SubjectEnrollmentValidator), nameof(SubjectEnrollmentDto.Quantity)), ApplyConditionTo.AllValidators)
+                .SetValidator(new QuantityValidator(_httpContextAccessor));
 
             RuleFor(x => x.Quantity)
                 .Cascade(CascadeMode.Stop)

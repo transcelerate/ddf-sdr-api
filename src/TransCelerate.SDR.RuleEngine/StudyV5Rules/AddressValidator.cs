@@ -35,11 +35,11 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AddressValidator), nameof(AddressDto.Text)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.Line)
+            RuleFor(x => x.Lines)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AddressValidator), nameof(AddressDto.Line)), ApplyConditionTo.AllValidators);
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AddressValidator), nameof(AddressDto.Lines)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.City)
                 .Cascade(CascadeMode.Stop)

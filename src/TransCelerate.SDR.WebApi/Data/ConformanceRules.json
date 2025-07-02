@@ -36,7 +36,8 @@
           "entity": "AnalysisPopulation",
           "required": [
             "Id",
-            "PopulationDescription"
+            "Text",
+            "Name"
           ]
         },
         {
@@ -1416,6 +1417,16 @@
           ]
         },
         {
+          "entity": "DocumentContentReference",
+          "required": [
+            "Id",
+            "InstanceType",
+            "SectionNumber",
+            "SectionTitle",
+            "AppliesTo"
+          ]
+        },
+        {
           "entity": "EligibilityCriterion",
           "required": [
             "Category",
@@ -1457,13 +1468,14 @@
         {
           "entity": "Estimand",
           "required": [
-            "AnalysisPopulation",
             "Id",
             "InstanceType",
+            "PopulationSummary",
+            "Name",
+            "AnalysisPopulation",
+            "VariableOfInterest",
             "IntercurrentEvents",
-            "SummaryMeasure",
-            "InterventionId",
-            "VariableOfInterestId"
+            "Interventions"
           ]
         },
         {
@@ -1517,6 +1529,7 @@
             "Id",
             "InstanceType",
             "Name",
+            "Text",
             "Strategy"
           ]
         },
@@ -1676,13 +1689,23 @@
         {
           "entity": "StudyAmendment",
           "required": [
-            "Number",
-            "Summary",
             "Id",
             "InstanceType",
-            "Enrollments",
-            "SubstantialImpact",
+            "Number",
+            "Summary",
+            "GeographicScopes",
+            "Changes",
             "PrimaryReason"
+          ]
+        },
+        {
+          "entity": "StudyAmendmentImpact",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "IsSubstantial",
+            "Type"
           ]
         },
         {
@@ -1714,6 +1737,17 @@
           ]
         },
         {
+          "entity": "StudyChange",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Rationale",
+            "Summary",
+            "ChangedSections"
+          ]
+        },
+        {
           "entity": "StudyCohort",
           "required": [
             "Name",
@@ -1733,13 +1767,13 @@
         {
           "entity": "StudyDesign",
           "required": [
-            "Arms",
-            "Epochs",
             "Id",
             "InstanceType",
-            "InterventionModel",
             "Name",
             "Rationale",
+            "InterventionModel",
+            "Arms",
+            "Epochs",
             "StudyCells"
           ]
         },
@@ -1827,7 +1861,8 @@
           "required": [
             "Id",
             "InstanceType",
-            "Name"
+            "Name",
+            "Country"
           ]
         },
         {
@@ -1857,7 +1892,9 @@
           "required": [
             "Id",
             "InstanceType",
-            "Type"
+            "Name",
+            "Label",
+            "Quantity"
           ]
         },
         {
