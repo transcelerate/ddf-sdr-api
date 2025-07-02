@@ -5,7 +5,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
     [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
     [MongoDB.Bson.Serialization.Attributes.BsonNoId]
     public class StudyDesignEntity : IId
-    {        
+    {
         public string Id { get; set; }
         public string InstanceType { get; set; }
         public string Name { get; set; }
@@ -29,9 +29,10 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public List<BiomedicalConceptSurrogateEntity> BcSurrogates { get; set; }
         public List<StudyArmEntity> Arms { get; set; }
         public List<StudyEpochEntity> Epochs { get; set; }
-        public List<StudyElementEntity> Elements { get; set; }        
+        public List<StudyElementEntity> Elements { get; set; }
         public List<StudyDefinitionDocumentVersionEntity> DocumentVersions { get; set; }
         public List<SyntaxTemplateDictionaryEntity> Dictionaries { get; set; }
         public List<ConditionEntity> Conditions { get; set; }
+        public List<CommentAnnotationEntity> Notes { get; set; }
     }
 }
