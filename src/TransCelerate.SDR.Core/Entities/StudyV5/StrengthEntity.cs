@@ -9,7 +9,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public string Name { get; set; }
         public string Description { get; set; }
         public string Label { get; set; }
-        public QuantityEntity Numerator { get; set; }
+        public QuantityRangeEntity Numerator { get; set; }
         public QuantityEntity Denominator { get; set; }
         public RangeEntity Range { get; set; }
     }

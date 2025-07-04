@@ -52,7 +52,7 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StrengthValidator), nameof(StrengthDto.Numerator)), ApplyConditionTo.AllValidators)
-                .SetValidator(new QuantityValidator(_httpContextAccessor));
+                .SetValidator(new QuantityRangeValidator(_httpContextAccessor));
 
             RuleFor(x => x.Denominator)
                 .Cascade(CascadeMode.Stop)
@@ -60,13 +60,6 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StrengthValidator), nameof(StrengthDto.Denominator)), ApplyConditionTo.AllValidators)
                 .SetValidator(new QuantityValidator(_httpContextAccessor));
-                
-            RuleFor(x => x.Range)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StrengthValidator), nameof(StrengthDto.Range)), ApplyConditionTo.AllValidators)     
-                .SetValidator(new RangeValidator(_httpContextAccessor));
         }
     }
 }
