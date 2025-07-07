@@ -20,7 +20,7 @@ namespace TransCelerate.SDR.Core.AppSettings
             Config.ClientSecret = Convert.ToString(config.GetSection("AzureAD-ClientSecret").Value);
             Config.ClientId = Convert.ToString(config.GetSection("AzureAD-ClientId").Value);
             Config.Scope = Convert.ToString(config.GetSection("AzureAD-Audience").Value);
-            Config.ConnectionString = Convert.ToString(config.GetSection("ConnectionStrings:ServerName").Value);
+            Config.ConnectionString = Convert.ToString(config.GetSection("ConnectionStrings:DefaultConnection").Value);
             Config.DatabaseName = Convert.ToString(config.GetSection("ConnectionStrings:DatabaseName").Value);
             Config.InstrumentationKey = Convert.ToString(config.GetSection("ApplicationInsights:InstrumentationKey").Value);
             Config.AppInsightsApiKey = Convert.ToString(config.GetSection("AppInsights-ApiKey").Value);
