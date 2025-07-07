@@ -1249,7 +1249,7 @@
       ]
     },
     {
-      "usdmVersion": "3.7",
+      "usdmVersion": "3.9",
       "rules": [
         {
           "entity": "Activity",
@@ -1273,7 +1273,8 @@
             "Id",
             "InstanceType",
             "Name",
-            "AdministrableDoseForm"
+            "AdministrableDoseForm",
+            "ProductDesignation"
           ]
         },
         {
@@ -1533,6 +1534,24 @@
           ]
         },
         {
+          "entity": "MedicalDevice",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name"
+          ]
+        },
+        {
+          "entity": "MedicalDeviceIdentifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "Scope",
+            "Type"
+          ]
+        },
+        {
           "entity": "NarrativeContent",
           "required": [
             "Id",
@@ -1581,6 +1600,16 @@
             "IsConditional",
             "Name",
             "Type"
+          ]
+        },
+        {
+          "entity": "ProductOrganizationRole",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Code",
+            "Organization"
           ]
         },
         {
@@ -1811,7 +1840,6 @@
             "InstanceType",
             "MinimumResponseDuration",
             "Name",
-            "ProductDesignation",
             "Role",
             "Type"
           ]

@@ -17,5 +17,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public QuantityEntity Dose { get; set; }
         public AdministrableProductEntity AdministrableProduct { get; set; }
         public List<CommentAnnotationEntity> Notes { get; set; }
+        public MedicalDeviceEntity MedicalDevice  { get; set; }
     }
 }
