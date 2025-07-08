@@ -1239,7 +1239,7 @@
       ]
     },
     {
-      "usdmVersion": "3.13",
+      "usdmVersion": "4.0",
       "rules": [
         {
           "entity": "Activity",
