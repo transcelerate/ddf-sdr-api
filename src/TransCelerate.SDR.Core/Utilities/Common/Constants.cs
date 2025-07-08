@@ -78,7 +78,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string V1_9 = "1.9";
             public const string V2 = "2.0";
             public const string V3 = "3.0";
-			public const string V4 = "3.9";
+			public const string V4 = "3.11";
 		}
         public struct ApiVersions
         {
