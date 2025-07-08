@@ -17,5 +17,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public List<AdministrableProductIdentifierEntity> Identifiers { get; set; }
         public AliasCodeEntity AdministrableDoseForm { get; set; }
         public CodeEntity PharmacologicClass { get; set; }
+        public CodeEntity ProductDesignation { get; set; }
+        public CodeEntity Sourcing { get; set; }
     }
 }

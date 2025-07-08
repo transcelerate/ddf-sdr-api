@@ -70,13 +70,6 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyInterventionValidator), nameof(StudyInterventionDto.Type)), ApplyConditionTo.AllValidators)
                 .SetValidator(new CodeValidator(_httpContextAccessor));
 
-            RuleFor(x => x.ProductDesignation)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyInterventionValidator), nameof(StudyInterventionDto.ProductDesignation)), ApplyConditionTo.AllValidators)
-                .SetValidator(new CodeValidator(_httpContextAccessor));
-
             RuleFor(x => x.MinimumResponseDuration)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
@@ -89,7 +82,6 @@ namespace TransCelerate.SDR.RuleEngineV5
 			   .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
 			   .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
 			   .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyInterventionValidator), nameof(StudyInterventionDto.Notes)), ApplyConditionTo.AllValidators);
-
         }
     }
 }

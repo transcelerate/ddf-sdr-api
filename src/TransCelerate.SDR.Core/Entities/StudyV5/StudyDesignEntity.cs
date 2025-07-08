@@ -33,7 +33,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public List<StudyArmEntity> Arms { get; set; }
         public List<StudyEpochEntity> Epochs { get; set; }
         public List<StudyElementEntity> Elements { get; set; }        
-        public string DocumentVersionId { get; set; }
+        public List<StudyDefinitionDocumentVersionEntity> DocumentVersions { get; set; }
         public List<SyntaxTemplateDictionaryEntity> Dictionaries { get; set; }
         public List<ConditionEntity> Conditions { get; set; }
         public string InstanceType { get; set; }

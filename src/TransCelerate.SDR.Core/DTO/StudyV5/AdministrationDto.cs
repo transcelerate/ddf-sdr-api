@@ -15,5 +15,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public QuantityDto Dose { get; set; }
         public AdministrableProductDto AdministrableProduct { get; set; }
         public List<CommentAnnotationDto> Notes { get; set; }
+        public MedicalDeviceDto MedicalDevice  { get; set; }
     }
 }

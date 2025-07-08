@@ -36,7 +36,8 @@
           "entity": "AnalysisPopulation",
           "required": [
             "Id",
-            "PopulationDescription"
+            "Text",
+            "Name"
           ]
         },
         {
@@ -1238,7 +1239,7 @@
       ]
     },
     {
-      "usdmVersion": "3.7",
+      "usdmVersion": "3.13",
       "rules": [
         {
           "entity": "Activity",
@@ -1262,7 +1263,8 @@
             "Id",
             "InstanceType",
             "Name",
-            "AdministrableDoseForm"
+            "AdministrableDoseForm",
+            "ProductDesignation"
           ]
         },
         {
@@ -1457,13 +1459,14 @@
         {
           "entity": "Estimand",
           "required": [
-            "AnalysisPopulation",
             "Id",
             "InstanceType",
+            "PopulationSummary",
+            "Name",
+            "AnalysisPopulation",
+            "VariableOfInterest",
             "IntercurrentEvents",
-            "SummaryMeasure",
-            "InterventionId",
-            "VariableOfInterestId"
+            "Interventions"
           ]
         },
         {
@@ -1517,6 +1520,7 @@
             "Id",
             "InstanceType",
             "Name",
+            "Text",
             "Strategy"
           ]
         },
@@ -1526,6 +1530,24 @@
             "Id",
             "InstanceType",
             "Description"
+          ]
+        },
+        {
+          "entity": "MedicalDevice",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name"
+          ]
+        },
+        {
+          "entity": "MedicalDeviceIdentifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "Scope",
+            "Type"
           ]
         },
         {
@@ -1584,6 +1606,16 @@
             "IsConditional",
             "Name",
             "Type"
+          ]
+        },
+        {
+          "entity": "ProductOrganizationRole",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Code",
+            "Organization"
           ]
         },
         {
@@ -1770,15 +1802,15 @@
         {
           "entity": "StudyDesign",
           "required": [
-            "Arms",
-            "Epochs",
             "Id",
             "InstanceType",
-            "InterventionModel",
             "Name",
             "Rationale",
             "StudyCells",
-            "EligibilityCriteria"
+            "EligibilityCriteria",
+            "InterventionModel",
+            "Arms",
+            "Epochs"
           ]
         },
         {
@@ -1825,7 +1857,6 @@
             "InstanceType",
             "MinimumResponseDuration",
             "Name",
-            "ProductDesignation",
             "Role",
             "Type"
           ]
