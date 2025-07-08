@@ -15,6 +15,5 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public EligibilityCriterionItemEntity CriterionItem { get; set; }    
         public string NextId { get; set; }
         public string PreviousId { get; set; }
-        public string ContextId { get; set; }
     }
 }

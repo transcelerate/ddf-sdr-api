@@ -15,6 +15,5 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public EligibilityCriterionItemDto CriterionItem { get; set; }    
         public string NextId { get; set; }
         public string PreviousId { get; set; }
-        public string ContextId { get; set; }
     }
 }
