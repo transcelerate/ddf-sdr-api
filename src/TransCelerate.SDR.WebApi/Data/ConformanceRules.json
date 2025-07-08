@@ -688,16 +688,6 @@
           ]
         },
         {
-          "entity": "AdministrationDuration",
-          "required": [
-            "Description",
-            "DurationWillVary",
-            "Id",
-            "InstanceType",
-            "ReasonDurationWillVary"
-          ]
-        },
-        {
           "entity": "AgentAdministration",
           "required": [
             "Dose",
@@ -1336,6 +1326,7 @@
             "Id",
             "InstanceType",
             "Name",
+            "PersonName",
             "JobTitle"
           ]
         },
@@ -1423,6 +1414,14 @@
             "SectionNumber",
             "SectionTitle",
             "AppliesTo"
+          ]
+        },
+        {
+          "entity": "Duration",
+          "required": [
+            "Id",
+            "InstanceType",
+            "DurationWillVary"
           ]
         },
         {
@@ -1570,6 +1569,13 @@
           ]
         },
         {
+          "entity": "PersonName",
+          "required": [
+            "Id",
+            "InstanceType"
+          ]
+        },
+        {
           "entity": "Procedure",
           "required": [
             "Code",
@@ -1589,6 +1595,13 @@
           ]
         },
         {
+          "entity": "QuantityRange",
+          "required": [
+            "Id",
+            "InstanceType"
+          ]
+        },
+        {
           "entity": "ReferenceIdentifier",
           "required": [
             "Id",
@@ -1604,6 +1617,7 @@
             "Code",
             "Id",
             "InstanceType",
+            "Name",
             "IsEnabled"
           ]
         },
@@ -1663,7 +1677,8 @@
           "required": [
             "Id",
             "InstanceType",
-            "Name"
+            "Name",
+            "Numerator"
           ]
         },
         {
@@ -1678,6 +1693,7 @@
           "required": [
             "Id",
             "InstanceType",
+            "Name",
             "Number",
             "Summary",
             "GeographicScopes",
@@ -1761,7 +1777,8 @@
             "InterventionModel",
             "Name",
             "Rationale",
-            "StudyCells"
+            "StudyCells",
+            "EligibilityCriteria"
           ]
         },
         {
