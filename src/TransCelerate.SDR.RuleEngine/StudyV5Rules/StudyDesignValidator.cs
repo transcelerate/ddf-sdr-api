@@ -175,6 +175,15 @@ namespace TransCelerate.SDR.RuleEngineV5
             RuleForEach(x => x.Activities)
                 .SetValidator(new ActivityValidator(_httpContextAccessor));
 
+            RuleFor(x => x.EligibilityCriteria)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.EligibilityCriteria)), ApplyConditionTo.AllValidators);
+
+            RuleForEach(x => x.EligibilityCriteria)
+                .SetValidator(new EligibilityCriterionValidator(_httpContextAccessor));
+
             RuleFor(x => x.Encounters)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
