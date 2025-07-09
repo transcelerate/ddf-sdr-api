@@ -1249,7 +1249,7 @@
       ]
     },
     {
-      "usdmVersion": "3.9",
+      "usdmVersion": "3.10",
       "rules": [
         {
           "entity": "Activity",
@@ -1377,6 +1377,15 @@
             "Id",
             "InstanceType",
             "Name"
+          ]
+        },
+        {
+          "entity": "BiospecimenRetention",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "IsRetained"
           ]
         },
         {
@@ -1526,6 +1535,20 @@
           ]
         },
         {
+          "entity": "InterventionalStudyDesign",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Rationale",
+            "Arms",
+            "StudyCells",
+            "Epochs",
+            "Population",
+            "Model"
+          ]
+        },
+        {
           "entity": "Masking",
           "required": [
             "Id",
@@ -1569,6 +1592,21 @@
             "Name",
             "Text",
             "Level"
+          ]
+        },
+        {
+          "entity": "ObservationalStudyDesign",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Rationale",
+            "Arms",
+            "StudyCells",
+            "Epochs",
+            "Population",
+            "Model",
+            "TimePerspective"
           ]
         },
         {
