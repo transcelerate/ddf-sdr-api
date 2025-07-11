@@ -15,5 +15,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public List<AdministrableProductIdentifierDto> Identifiers { get; set; }
         public AliasCodeDto AdministrableDoseForm { get; set; }
         public CodeDto PharmacologicClass { get; set; }
+        public CodeDto ProductDesignation { get; set; }
+        public CodeDto Sourcing { get; set; }
     }
 }

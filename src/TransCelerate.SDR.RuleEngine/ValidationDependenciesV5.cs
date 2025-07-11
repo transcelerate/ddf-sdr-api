@@ -35,6 +35,7 @@ namespace TransCelerate.SDR.RuleEngineV5
 			services.AddTransient<IValidator<CommentAnnotationDto>, CommentAnnotationValidator>();
 			services.AddTransient<IValidator<DocumentContentReferenceDto>, DocumentContentReferenceValidator>();
 			services.AddTransient<IValidator<EligibilityCriterionDto>, EligibilityCriterionValidator>();
+			services.AddTransient<IValidator<EligibilityCriterionItemDto>, EligibilityCriterionItemValidator>();
             services.AddTransient<IValidator<EncounterDto>, EncounterValidator>();
             services.AddTransient<IValidator<EndpointDto>, EndpointValidator>();
             services.AddTransient<IValidator<EstimandDto>, EstimandValidator>();
@@ -45,11 +46,14 @@ namespace TransCelerate.SDR.RuleEngineV5
             services.AddTransient<IValidator<IngredientDto>, IngredientValidator>();
             services.AddTransient<IValidator<IntercurrentEventDto>, IntercurrentEventValidator>();
             services.AddTransient<IValidator<InterventionalStudyDesignDto>, InterventionalStudyDesignValidator>();
+            services.AddTransient<IValidator<MedicalDeviceDto>, MedicalDeviceValidator>();
+            services.AddTransient<IValidator<MedicalDeviceIdentifierDto>, MedicalDeviceIdentifierValidator>();
             services.AddTransient<IValidator<NarrativeContentDto>, NarrativeContentValidator>();
             services.AddTransient<IValidator<ObjectiveDto>, ObjectiveValidator>();
             services.AddTransient<IValidator<ObservationalStudyDesignDto>, ObservationalStudyDesignValidator>();
             services.AddTransient<IValidator<OrganizationDto>, OrganizationValidator>();
             services.AddTransient<IValidator<ProcedureDto>, ProcedureValidator>();
+            services.AddTransient<IValidator<ProductOrganizationRoleDto>, ProductOrganizationRoleValidator>();
             services.AddTransient<IValidator<QuantityDto>, QuantityValidator>();
             services.AddTransient<IValidator<RangeDto>, RangeValidator>();
             services.AddTransient<IValidator<ReferenceIdentifierDto>, ReferenceIdentifierValidator>();

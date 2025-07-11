@@ -812,7 +812,7 @@
             "Identifier",
             "InstanceType",
             "Name",
-            "Text"
+            "CriterionItem"
           ]
         },
         {
@@ -1249,7 +1249,7 @@
       ]
     },
     {
-      "usdmVersion": "3.7",
+      "usdmVersion": "3.11",
       "rules": [
         {
           "entity": "Activity",
@@ -1273,7 +1273,8 @@
             "Id",
             "InstanceType",
             "Name",
-            "AdministrableDoseForm"
+            "AdministrableDoseForm",
+            "ProductDesignation"
           ]
         },
         {
@@ -1448,6 +1449,15 @@
           ]
         },
         {
+          "entity": "EligibilityCriterionItem",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Text"
+          ]
+        },
+        {
           "entity": "Encounter",
           "required": [
             "Id",
@@ -1552,7 +1562,26 @@
           "required": [
             "Id",
             "InstanceType",
-            "Description"
+            "Text",
+            "IsMasked"
+          ]
+        },
+        {
+          "entity": "MedicalDevice",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name"
+          ]
+        },
+        {
+          "entity": "MedicalDeviceIdentifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "Scope",
+            "Type"
           ]
         },
         {
@@ -1619,6 +1648,16 @@
             "IsConditional",
             "Name",
             "Type"
+          ]
+        },
+        {
+          "entity": "ProductOrganizationRole",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Code",
+            "Organization"
           ]
         },
         {
@@ -1849,7 +1888,6 @@
             "InstanceType",
             "MinimumResponseDuration",
             "Name",
-            "ProductDesignation",
             "Role",
             "Type"
           ]
