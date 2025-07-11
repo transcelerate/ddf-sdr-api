@@ -175,18 +175,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         sections = sections.Select(t => t.Trim().ToLower()).ToArray();
                         if (!sections.Contains(item))
                         {
-                            if (item == nameof(StudyDesignDto.InterventionModel).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.InterventionModel).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.Name).ToLower())
+                            if (item == nameof(StudyDesignDto.Name).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Name).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Label).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Label).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Description).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Description).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.TrialIntentTypes).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.TrialIntentTypes).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.TrialTypes).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.TrialTypes).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyInterventions).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.StudyInterventions).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Indications).ToLower())
@@ -209,8 +203,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Encounters).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Rationale).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Rationale).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.BlindingSchema).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.BlindingSchema).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.BiomedicalConcepts).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.BiomedicalConcepts).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.BcCategories).ToLower())
@@ -588,18 +580,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         if (currentStudyDesign.Rationale != previousStudyDesign.Rationale)
                             changedValues.Add($"{nameof(StudyDesignEntity.Rationale)}");
 
-                        //Intervention Model
-                        if (GetDifferences<CodeEntity>(currentStudyDesign.InterventionModel, previousStudyDesign.InterventionModel).Any())
-                            changedValues.Add($"{nameof(StudyDesignEntity.InterventionModel)}");
-
-                        //Trial Type
-                        if (GetDifferences<List<CodeEntity>>(currentStudyDesign.TrialTypes, previousStudyDesign.TrialTypes).Any())
-                            changedValues.Add($"{nameof(StudyDesignEntity.TrialTypes)}");
-
-                        //Trial Intent Type
-                        if (GetDifferences<List<CodeEntity>>(currentStudyDesign.TrialIntentTypes, previousStudyDesign.TrialIntentTypes).Any())
-                            changedValues.Add($"{nameof(StudyDesignEntity.TrialIntentTypes)}");
-
                         //TherapeuticAreas
                         if (GetDifferences<List<CodeEntity>>(currentStudyDesign.TherapeuticAreas, previousStudyDesign.TherapeuticAreas).Any())
                             changedValues.Add($"{nameof(StudyDesignEntity.TherapeuticAreas)}");
@@ -623,13 +603,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
 
                         //Timelines                        
                         changedValues.AddRange(GetDifferenceForStudyScheduleTimelines(currentStudyDesign, previousStudyDesign));
-
-                        //DesignBlindingScheme
-                        GetDifferenceForAliasCode(currentStudyDesign.BlindingSchema, previousStudyDesign.BlindingSchema).ForEach(x =>
-                        {
-                            changedValues.Add($"{nameof(StudyDesignEntity.BlindingSchema)}.{x}");
-                        });
-
 
                         //Encounters
                         GetDifferenceForAList<EncounterEntity>(currentStudyDesign.Encounters, previousStudyDesign.Encounters).ForEach(x =>
@@ -2342,18 +2315,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         if (currentStudyDesign.Rationale != previousStudyDesign.Rationale)
                             changedValues.Add($"{nameof(StudyDesignEntity.Rationale)}");
 
-                        //Intervention Model
-                        if (GetDifferencesForStudyComparison<CodeEntity>(currentStudyDesign.InterventionModel, previousStudyDesign.InterventionModel).Any())
-                            changedValues.Add($"{nameof(StudyDesignEntity.InterventionModel)}");
-
-                        //Trial Type
-                        if (GetDifferencesForStudyComparison<List<CodeEntity>>(currentStudyDesign.TrialTypes, previousStudyDesign.TrialTypes).Any())
-                            changedValues.Add($"{nameof(StudyDesignEntity.TrialTypes)}");
-
-                        //Trial Intent Type
-                        if (GetDifferencesForStudyComparison<List<CodeEntity>>(currentStudyDesign.TrialIntentTypes, previousStudyDesign.TrialIntentTypes).Any())
-                            changedValues.Add($"{nameof(StudyDesignEntity.TrialIntentTypes)}");
-
                         //TherapeuticAreas
                         if (GetDifferencesForStudyComparison<List<CodeEntity>>(currentStudyDesign.TherapeuticAreas, previousStudyDesign.TherapeuticAreas).Any())
                             changedValues.Add($"{nameof(StudyDesignEntity.TherapeuticAreas)}");
@@ -2378,11 +2339,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         //Timelines                        
                         changedValues.AddRange(GetDifferenceForStudyScheduleTimelinesForStudyComparison(currentStudyDesign, previousStudyDesign));
 
-                        //DesignBlindingScheme
-                        GetDifferenceForAliasCodeForStudyComparison(currentStudyDesign.BlindingSchema, previousStudyDesign.BlindingSchema).ForEach(x =>
-                        {
-                            changedValues.Add($"{nameof(StudyDesignEntity.BlindingSchema)}{x}");
-                        });
                         //Encounters
                         GetDifferenceForAListForStudyComparison<EncounterEntity>(currentStudyDesign.Encounters, previousStudyDesign.Encounters).ForEach(x =>
                         {

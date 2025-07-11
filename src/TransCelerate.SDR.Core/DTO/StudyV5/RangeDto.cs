@@ -4,7 +4,6 @@
     {      
         public object MinValue { get; set; }
         public object MaxValue { get; set; }
-        public CodeDto Unit { get; set; }
         public object IsApproximate { get; set; }
     }
 }

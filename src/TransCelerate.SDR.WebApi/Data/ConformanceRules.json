@@ -802,7 +802,7 @@
             "Identifier",
             "InstanceType",
             "Name",
-            "Text"
+            "CriterionItem"
           ]
         },
         {
@@ -1371,6 +1371,15 @@
           ]
         },
         {
+          "entity": "BiospecimenRetention",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "IsRetained"
+          ]
+        },
+        {
           "entity": "Characteristic",
           "required": [
             "Id",
@@ -1433,6 +1442,15 @@
             "Id",
             "InstanceType",
             "Identifier",
+            "InstanceType",
+            "Name",
+            "Text"
+          ]
+        },
+        {
+          "entity": "EligibilityCriterionItem",
+          "required": [
+            "Id",
             "InstanceType",
             "Name",
             "Text"
@@ -1525,11 +1543,26 @@
           ]
         },
         {
+          "entity": "InterventionalStudyDesign",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Rationale",
+            "Arms",
+            "StudyCells",
+            "Epochs",
+            "Population",
+            "Model"
+          ]
+        },
+        {
           "entity": "Masking",
           "required": [
             "Id",
             "InstanceType",
-            "Description"
+            "Text",
+            "IsMasked"
           ]
         },
         {
@@ -1568,6 +1601,21 @@
             "Name",
             "Text",
             "Level"
+          ]
+        },
+        {
+          "entity": "ObservationalStudyDesign",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Rationale",
+            "Arms",
+            "StudyCells",
+            "Epochs",
+            "Population",
+            "Model",
+            "TimePerspective"
           ]
         },
         {
