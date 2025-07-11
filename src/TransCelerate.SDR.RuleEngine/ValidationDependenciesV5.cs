@@ -29,6 +29,7 @@ namespace TransCelerate.SDR.RuleEngineV5
             services.AddTransient<IValidator<BiomedicalConceptCategoryDto>, BiomedicalConceptCategoryValidator>();
             services.AddTransient<IValidator<BiomedicalConceptPropertyDto>, BiomedicalConceptPropertyValidator>();
             services.AddTransient<IValidator<BiomedicalConceptSurrogateDto>, BiomedicalConceptSurrogateValidator>();
+            services.AddTransient<IValidator<BiospecimenRetentionDto>, BiospecimenRetentionValidator>();
             services.AddTransient<IValidator<CharacteristicDto>, CharacteristicValidator>();
             services.AddTransient<IValidator<CodeDto>, CodeValidator>();
 			services.AddTransient<IValidator<CommentAnnotationDto>, CommentAnnotationValidator>();
@@ -44,10 +45,12 @@ namespace TransCelerate.SDR.RuleEngineV5
             services.AddTransient<IValidator<IndicationDto>, IndicationValidator>();
             services.AddTransient<IValidator<IngredientDto>, IngredientValidator>();
             services.AddTransient<IValidator<IntercurrentEventDto>, IntercurrentEventValidator>();
+            services.AddTransient<IValidator<InterventionalStudyDesignDto>, InterventionalStudyDesignValidator>();
             services.AddTransient<IValidator<MedicalDeviceDto>, MedicalDeviceValidator>();
             services.AddTransient<IValidator<MedicalDeviceIdentifierDto>, MedicalDeviceIdentifierValidator>();
             services.AddTransient<IValidator<NarrativeContentDto>, NarrativeContentValidator>();
             services.AddTransient<IValidator<ObjectiveDto>, ObjectiveValidator>();
+            services.AddTransient<IValidator<ObservationalStudyDesignDto>, ObservationalStudyDesignValidator>();
             services.AddTransient<IValidator<OrganizationDto>, OrganizationValidator>();
             services.AddTransient<IValidator<ProcedureDto>, ProcedureValidator>();
             services.AddTransient<IValidator<ProductOrganizationRoleDto>, ProductOrganizationRoleValidator>();
