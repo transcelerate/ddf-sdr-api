@@ -812,7 +812,7 @@
             "Identifier",
             "InstanceType",
             "Name",
-            "Text"
+            "CriterionItem"
           ]
         },
         {
@@ -1249,7 +1249,7 @@
       ]
     },
     {
-      "usdmVersion": "3.7",
+      "usdmVersion": "3.11",
       "rules": [
         {
           "entity": "Activity",
@@ -1273,7 +1273,8 @@
             "Id",
             "InstanceType",
             "Name",
-            "AdministrableDoseForm"
+            "AdministrableDoseForm",
+            "ProductDesignation"
           ]
         },
         {
@@ -1379,6 +1380,15 @@
           ]
         },
         {
+          "entity": "BiospecimenRetention",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "IsRetained"
+          ]
+        },
+        {
           "entity": "Characteristic",
           "required": [
             "Id",
@@ -1433,6 +1443,15 @@
             "Id",
             "InstanceType",
             "Identifier",
+            "InstanceType",
+            "Name",
+            "Text"
+          ]
+        },
+        {
+          "entity": "EligibilityCriterionItem",
+          "required": [
+            "Id",
             "InstanceType",
             "Name",
             "Text"
@@ -1525,11 +1544,44 @@
           ]
         },
         {
+          "entity": "InterventionalStudyDesign",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Rationale",
+            "Arms",
+            "StudyCells",
+            "Epochs",
+            "Population",
+            "Model"
+          ]
+        },
+        {
           "entity": "Masking",
           "required": [
             "Id",
             "InstanceType",
-            "Description"
+            "Text",
+            "IsMasked"
+          ]
+        },
+        {
+          "entity": "MedicalDevice",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name"
+          ]
+        },
+        {
+          "entity": "MedicalDeviceIdentifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "Scope",
+            "Type"
           ]
         },
         {
@@ -1550,6 +1602,21 @@
             "Name",
             "Text",
             "Level"
+          ]
+        },
+        {
+          "entity": "ObservationalStudyDesign",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Rationale",
+            "Arms",
+            "StudyCells",
+            "Epochs",
+            "Population",
+            "Model",
+            "TimePerspective"
           ]
         },
         {
@@ -1581,6 +1648,16 @@
             "IsConditional",
             "Name",
             "Type"
+          ]
+        },
+        {
+          "entity": "ProductOrganizationRole",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Code",
+            "Organization"
           ]
         },
         {
@@ -1811,7 +1888,6 @@
             "InstanceType",
             "MinimumResponseDuration",
             "Name",
-            "ProductDesignation",
             "Role",
             "Type"
           ]

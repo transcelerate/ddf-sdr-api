@@ -32,12 +32,14 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<BiomedicalConceptDto, BiomedicalConceptEntity>().ReverseMap();
             CreateMap<BiomedicalConceptPropertyDto, BiomedicalConceptPropertyEntity>().ReverseMap();
             CreateMap<BiomedicalConceptSurrogateDto, BiomedicalConceptSurrogateEntity>().ReverseMap();
+            CreateMap<BiospecimenRetentionDto, BiospecimenRetentionEntity>().ReverseMap();
             CreateMap<CharacteristicDto, CharacteristicEntity>().ReverseMap();
             CreateMap<CodeDto, CodeEntity>().ReverseMap();
             CreateMap<ConditionAssignmentDto, ConditionAssignmentEntity>().ReverseMap();
             CreateMap<ConditionDto, ConditionEntity>().ReverseMap();
             CreateMap<DocumentContentReferenceDto, DocumentContentReferenceEntity>().ReverseMap();
             CreateMap<EligibilityCriterionDto, EligibilityCriterionEntity>().ReverseMap();
+            CreateMap<EligibilityCriterionItemDto, EligibilityCriterionItemEntity>().ReverseMap();
             CreateMap<EncounterDto, EncounterEntity>().ReverseMap();
             CreateMap<EndpointEntity, EndpointDto>().ReverseMap();
             CreateMap<EstimandDto, EstimandEntity>().ReverseMap();
@@ -47,9 +49,13 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<IndicationDto, IndicationEntity>().ReverseMap();            
             CreateMap<IngredientDto, IngredientEntity>().ReverseMap();            
             CreateMap<IntercurrentEventDto, IntercurrentEventEntity>().ReverseMap();
+            CreateMap<InterventionalStudyDesignDto, InterventionalStudyDesignEntity>().ReverseMap();
             CreateMap<MaskingDto, MaskingEntity>().ReverseMap();
+            CreateMap<MedicalDeviceDto, MedicalDeviceEntity>().ReverseMap();
+            CreateMap<MedicalDeviceIdentifierDto, MedicalDeviceIdentifierEntity>().ReverseMap();
             CreateMap<NarrativeContentDto, NarrativeContentEntity>().ReverseMap();
             CreateMap<ObjectiveDto, ObjectiveEntity>().ReverseMap();
+            CreateMap<ObservationalStudyDesignDto, ObservationalStudyDesignEntity>().ReverseMap();
             CreateMap<OrganizationDto, OrganizationEntity>().ReverseMap();
             CreateMap<ParameterMapDto, ParameterMapEntity>().ReverseMap();
     //        CreateMap<PopulationDefinitionDto, PopulationDefinitionEntity>()
@@ -59,6 +65,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
     //            .ReverseMap()
 				//.ForMember(dest => dest.Criterionids, opt => opt.MapFrom(src => src.Criteria));
             CreateMap<ProcedureDto, ProcedureEntity>().ReverseMap();
+            CreateMap<ProductOrganizationRoleDto, ProductOrganizationRoleEntity>().ReverseMap();
             CreateMap<QuantityDto, QuantityEntity>().ReverseMap();
             CreateMap<RangeDto, RangeEntity>().ReverseMap();
             CreateMap<ReferenceIdentifierDto, ReferenceIdentifierEntity>().ReverseMap();
@@ -157,7 +164,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<SyntaxTemplateDto, SyntaxTemplateEntity>()
                 .Include<ObjectiveDto, ObjectiveEntity>()
                 .Include<EndpointDto, EndpointEntity>()
-                .Include<EligibilityCriterionDto, EligibilityCriterionEntity>()
+                .Include<EligibilityCriterionItemDto, EligibilityCriterionItemEntity>()
                 .Include<CharacteristicDto, CharacteristicEntity>()
               .ReverseMap();
               

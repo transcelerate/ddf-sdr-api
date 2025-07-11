@@ -47,11 +47,11 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StrengthValidator), nameof(StrengthDto.Label)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.Numerator)
+            RuleFor(x => x.NumeratorQuantity)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StrengthValidator), nameof(StrengthDto.Numerator)), ApplyConditionTo.AllValidators)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StrengthValidator), nameof(StrengthDto.NumeratorQuantity)), ApplyConditionTo.AllValidators)
                 .SetValidator(new QuantityValidator(_httpContextAccessor));
 
             RuleFor(x => x.Denominator)
@@ -61,11 +61,11 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StrengthValidator), nameof(StrengthDto.Denominator)), ApplyConditionTo.AllValidators)
                 .SetValidator(new QuantityValidator(_httpContextAccessor));
                 
-            RuleFor(x => x.Range)
+            RuleFor(x => x.NumeratorRange)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StrengthValidator), nameof(StrengthDto.Range)), ApplyConditionTo.AllValidators)     
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StrengthValidator), nameof(StrengthDto.NumeratorRange)), ApplyConditionTo.AllValidators)     
                 .SetValidator(new RangeValidator(_httpContextAccessor));
         }
     }

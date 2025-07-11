@@ -11,7 +11,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public string Id { get; set; }        
         public object MinValue { get; set; }
         public object MaxValue { get; set; }
-        public CodeDto Unit { get; set; }
         public object IsApproximate { get; set; }
         public string InstanceType { get; set; }
     }

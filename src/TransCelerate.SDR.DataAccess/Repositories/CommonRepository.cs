@@ -554,7 +554,6 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 												  StudyType = x.Study.Versions != null ? x.Study.Versions.First().StudyType : null,
 												  StudyPhase = x.Study.Versions != null ? x.Study.Versions.First().StudyPhase : null,
 												  StudyIdentifiers = x.Study.Versions != null ? x.Study.Versions.First().StudyIdentifiers : null,
-												  InterventionModel = x.Study.Versions != null ? x.Study.Versions.Select(y => y.StudyDesigns.Select(x => x.InterventionModel)) : null,
 												  StudyIndications = x.Study.Versions != null ? x.Study.Versions.Select(y => y.StudyDesigns.Select(x => x.Indications)) : null,
 												  EntryDateTime = x.AuditTrail.EntryDateTime,
 												  SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
