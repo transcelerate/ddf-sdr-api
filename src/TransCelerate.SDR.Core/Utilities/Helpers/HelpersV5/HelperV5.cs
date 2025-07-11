@@ -1028,28 +1028,29 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                     //Document Version Id
                     errors.AddRange(ReferenceIntegrityValidationForStudyVersionAndStudyDesign(study));
 
-					//Study ProtocolVersions
-					//errors.AddRange(ReferenceIntegrityValidationForDocumentVersions(study.Study.DocumentedBy?.Versions, studyVersionIndex));
-					if (study.Study.DocumentedBy != null)
-					{
-						errors.AddRange(study.Study.DocumentedBy
-							.Where(document => document.Versions != null)
-							.SelectMany(document => ReferenceIntegrityValidationForDocumentVersions(document.Versions, studyVersionIndex)));
-					}
+                    // Study Documents
+                    if (study.Study.DocumentedBy != null)
+                    {
+                        List<string> allDocumentIds = study.Study.DocumentedBy.Select(doc => doc.Id).ToList();
+                        study.Study.DocumentedBy.ForEach(document =>
+                        {
+                            var documentIndex = study.Study.DocumentedBy.IndexOf(document);
+                            errors.AddRange(ReferenceIntegrityValidationForDocument(document, documentIndex, allDocumentIds));
+                        });
+                    }
 
-
-					//Design elements
-					var studyDesigns = study.Study.Versions.FirstOrDefault()?.StudyDesigns;
+                    //Design elements
+                    var studyDesigns = study.Study.Versions.FirstOrDefault()?.StudyDesigns;
                     studyDesigns?.ForEach(design =>
                     {
                         List<string> studyVersionAndDesignIds = study.Study.Versions.Select(x => x.Id).ToList();
                         studyVersionAndDesignIds.AddRange(studyDesigns.Select(x => x.Id));
                         var designIndex = studyDesigns.IndexOf(design);
                         Parallel.Invoke(
-                             new ParallelOptions
-                             {
-                                 MaxDegreeOfParallelism = 3
-                             },
+                            new ParallelOptions
+                            {
+                                MaxDegreeOfParallelism = 3
+                            },
                             //Study Epoch & Encounters
                             () => errors.AddRange(ReferenceIntegrityValidationForStudyEpochs(design, designIndex, studyVersionIndex)),
 
@@ -1088,7 +1089,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
 
                             //Objectives & Endpoints
                             () => errors.AddRange(ReferenceIntegrityValidationForObjectivesAndEndpoints(design, designIndex, studyVersionIndex))
-                         );
+                        );
 
                     });
                 }
@@ -1152,67 +1153,73 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
 
             return errors;
         }
-        public static List<string> ReferenceIntegrityValidationForDocumentVersions(List<StudyDefinitionDocumentVersionDto> documentVersions, int studyVersionIndex)
+        public static List<string> ReferenceIntegrityValidationForDocument(StudyDefinitionDocumentDto document, int documentIndex, List<string> allDocumentIds)
         {
-            List<String> errors = new();
+            List<string> errors = new();
+            
+            var otherDocumentIds = allDocumentIds.Where(id => id != document.Id).ToList();
 
-            if (documentVersions != null && documentVersions.Any())
+            if (document.ChildIds != null)
             {
-                List<string> documentVersionIds = documentVersions.Select(doc => doc.Id).ToList();
-                
-                documentVersions.ForEach(documentVersion =>
+                document.ChildIds.ForEach(childId =>
                 {
-                    var tempDocuVersionIds = documentVersionIds.ToList();
-                    tempDocuVersionIds.RemoveAll(x => x == documentVersion.Id);
-                    if (documentVersion.ChildIds != null && documentVersion.ChildIds.Any())
+                    if (!string.IsNullOrWhiteSpace(childId) && !otherDocumentIds.Contains(childId))
                     {
-                        documentVersion.ChildIds.ForEach(child =>
-                        {
-                            if (!String.IsNullOrWhiteSpace(child) && !tempDocuVersionIds.Contains(child))
-                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
-                                           $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
-                                           $"{nameof(StudyDto.DocumentedBy)}." +
-                                           $"{nameof(StudyDefinitionDocumentDto.Versions)}[{documentVersions.IndexOf(documentVersion)}]." +
-                                           $"{nameof(StudyDefinitionDocumentVersionDto.ChildIds)}[{documentVersion.ChildIds.IndexOf(child)}]");
-                        });
-                    }
-                    if (documentVersion.Contents != null && documentVersion.Contents.Any())
-                    {
-                        List<string> contentIds = documentVersion.Contents != null ? documentVersion.Contents.Select(x => x.Id).ToList() : new();
-                        documentVersion.Contents.ForEach(content =>
-                        {
-                            var tempContentIds = contentIds.ToList();
-                            tempContentIds.RemoveAll(x => x == content.Id);
-                            content?.ChildIds?.ForEach(child =>
-                            {
-                                if (!String.IsNullOrWhiteSpace(child) && !tempContentIds.Contains(child))
-                                    errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
-                                               $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
-                                               $"{nameof(StudyDto.DocumentedBy)}." +
-                                               $"{nameof(StudyDefinitionDocumentDto.Versions)}[{documentVersions.IndexOf(documentVersion)}]." +
-                                               $"{nameof(StudyDefinitionDocumentVersionDto.Contents)}.[{documentVersion.Contents.IndexOf(content)}]." +
-                                               $"{nameof(NarrativeContentDto.ChildIds)}[{content.ChildIds.IndexOf(child)}]");
-                            });
-
-                            if (!String.IsNullOrWhiteSpace(content.PreviousId) && !tempContentIds.Contains(content.PreviousId))
-                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
-                                    $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
-                                    $"{nameof(StudyDto.DocumentedBy)}." +
-                                    $"{nameof(StudyDefinitionDocumentDto.Versions)}[{documentVersions.IndexOf(documentVersion)}]." +
-                                    $"{nameof(StudyDefinitionDocumentVersionDto.Contents)}.[{documentVersion.Contents.IndexOf(content)}]." +
-                                    $"{nameof(NarrativeContentDto.PreviousId)}");
-
-                            if (!String.IsNullOrWhiteSpace(content.NextId) && !tempContentIds.Contains(content.NextId))
-                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
-                                    $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
-                                    $"{nameof(StudyDto.DocumentedBy)}." +
-                                    $"{nameof(StudyDefinitionDocumentDto.Versions)}[{documentVersions.IndexOf(documentVersion)}]." +
-                                    $"{nameof(StudyDefinitionDocumentVersionDto.Contents)}.[{documentVersion.Contents.IndexOf(content)}]." +
-                                    $"{nameof(NarrativeContentDto.NextId)}");
-                        });
+                        errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                $"{nameof(StudyDto.DocumentedBy)}[{documentIndex}]." +
+                                $"{nameof(StudyDefinitionDocumentDto.ChildIds)}[{document.ChildIds.IndexOf(childId)}]");
                     }
                 });
             }
+
+            if (document.Versions != null && document.Versions.Any())
+            {
+                errors.AddRange(ReferenceIntegrityValidationForDocumentVersions(document.Versions, documentIndex));
+            }
+
+            return errors;
+        }
+
+        public static List<string> ReferenceIntegrityValidationForDocumentVersions(List<StudyDefinitionDocumentVersionDto> documentVersions, int documentIndex)
+        {
+            List<String> errors = new();
+
+            documentVersions.ForEach(documentVersion =>
+            {
+                if (documentVersion.Contents != null && documentVersion.Contents.Any())
+                {
+                    List<string> contentIds = documentVersion.Contents.Select(x => x.Id).ToList();
+                    documentVersion.Contents.ForEach(content =>
+                    {
+                        var tempContentIds = contentIds.ToList();
+                        tempContentIds.RemoveAll(x => x == content.Id);
+                        
+                        content?.ChildIds?.ForEach(child =>
+                        {
+                            if (!String.IsNullOrWhiteSpace(child) && !tempContentIds.Contains(child))
+                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                        $"{nameof(StudyDto.DocumentedBy)}[{documentIndex}]." +
+                                        $"{nameof(StudyDefinitionDocumentDto.Versions)}[{documentVersions.IndexOf(documentVersion)}]." +
+                                        $"{nameof(StudyDefinitionDocumentVersionDto.Contents)}[{documentVersion.Contents.IndexOf(content)}]." +
+                                        $"{nameof(NarrativeContentDto.ChildIds)}[{content.ChildIds.IndexOf(child)}]");
+                        });
+
+                        if (!String.IsNullOrWhiteSpace(content.PreviousId) && !tempContentIds.Contains(content.PreviousId))
+                            errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                    $"{nameof(StudyDto.DocumentedBy)}[{documentIndex}]." +
+                                    $"{nameof(StudyDefinitionDocumentDto.Versions)}[{documentVersions.IndexOf(documentVersion)}]." +
+                                    $"{nameof(StudyDefinitionDocumentVersionDto.Contents)}[{documentVersion.Contents.IndexOf(content)}]." +
+                                    $"{nameof(NarrativeContentDto.PreviousId)}");
+
+                        if (!String.IsNullOrWhiteSpace(content.NextId) && !tempContentIds.Contains(content.NextId))
+                            errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                    $"{nameof(StudyDto.DocumentedBy)}[{documentIndex}]." +
+                                    $"{nameof(StudyDefinitionDocumentDto.Versions)}[{documentVersions.IndexOf(documentVersion)}]." +
+                                    $"{nameof(StudyDefinitionDocumentVersionDto.Contents)}[{documentVersion.Contents.IndexOf(content)}]." +
+                                    $"{nameof(NarrativeContentDto.NextId)}");
+                    });
+                }
+            });
 
             return errors;
         }

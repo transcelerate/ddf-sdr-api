@@ -39,14 +39,7 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDefinitionDocumentVersionValidator), nameof(StudyDefinitionDocumentVersionDto.version)), ApplyConditionTo.AllValidators);            
-
-            RuleFor(x => x.ChildIds)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDefinitionDocumentVersionValidator), nameof(StudyDefinitionDocumentVersionDto.ChildIds)), ApplyConditionTo.AllValidators)
-                .Must(x => UniquenessArrayValidator.ValidateStringList(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDefinitionDocumentVersionValidator), nameof(StudyDefinitionDocumentVersionDto.version)), ApplyConditionTo.AllValidators);            
 
             RuleFor(x => x.DateValues)
               .Cascade(CascadeMode.Stop)
