@@ -39,6 +39,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<ConditionDto, ConditionEntity>().ReverseMap();
             CreateMap<DocumentContentReferenceDto, DocumentContentReferenceEntity>().ReverseMap();
             CreateMap<EligibilityCriterionDto, EligibilityCriterionEntity>().ReverseMap();
+            CreateMap<EligibilityCriterionItemDto, EligibilityCriterionItemEntity>().ReverseMap();
             CreateMap<EncounterDto, EncounterEntity>().ReverseMap();
             CreateMap<EndpointEntity, EndpointDto>().ReverseMap();
             CreateMap<EstimandDto, EstimandEntity>().ReverseMap();
@@ -163,7 +164,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<SyntaxTemplateDto, SyntaxTemplateEntity>()
                 .Include<ObjectiveDto, ObjectiveEntity>()
                 .Include<EndpointDto, EndpointEntity>()
-                .Include<EligibilityCriterionDto, EligibilityCriterionEntity>()
+                .Include<EligibilityCriterionItemDto, EligibilityCriterionItemEntity>()
                 .Include<CharacteristicDto, CharacteristicEntity>()
               .ReverseMap();
               
