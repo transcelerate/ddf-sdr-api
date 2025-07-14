@@ -1,23 +1,8 @@
-using FluentValidation;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using Moq;
-using Newtonsoft.Json;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using TransCelerate.SDR.Core.DTO.StudyV5;
-using TransCelerate.SDR.Core.DTO.Token;
-using TransCelerate.SDR.Core.Entities.StudyV5;
-using TransCelerate.SDR.Core.Utilities;
-using TransCelerate.SDR.Core.Utilities.Common;
-using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5;
-using TransCelerate.SDR.DataAccess.Filters;
-using TransCelerate.SDR.RuleEngineV5;
 
 namespace TransCelerate.SDR.UnitTesting
 {
