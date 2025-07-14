@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using TransCelerate.SDR.Core.DTO.Token;
 
 namespace TransCelerate.SDR.Services.Interfaces
 {
@@ -9,8 +8,7 @@ namespace TransCelerate.SDR.Services.Interfaces
         /// Get Change Audit for a StudyId
         /// </summary>
         /// <param name="studyId"></param>
-        /// <param name="user"></param>
         /// <returns></returns>
-        Task<object> GetChangeAudit(string studyId, LoggedInUser user);
+        Task<object> GetChangeAudit(string studyId);
     }
 }

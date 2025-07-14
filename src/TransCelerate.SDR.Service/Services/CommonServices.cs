@@ -7,8 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Common;
-using TransCelerate.SDR.Core.DTO.eCPT;
-using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities.Common;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
@@ -41,12 +39,11 @@ namespace TransCelerate.SDR.Services.Services
         /// </summary>
         /// <param name="studyId">Study ID</param>
         /// <param name="sdruploadversion">Version of study</param>
-        /// <param name="user">Logged in user</param>
         /// <returns>
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<object> GetRawJson(string studyId, int sdruploadversion, LoggedInUser user)
+        public async Task<object> GetRawJson(string studyId, int sdruploadversion)
         {
             try
             {
@@ -62,49 +59,6 @@ namespace TransCelerate.SDR.Services.Services
                 else
                 {
                     var jsonObject = JObject.Parse(JsonConvert.SerializeObject(study.Study));
-
-                    if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.MVP)
-                    {
-                        if (!await CheckAccessForAStudy(studyId, (string)jsonObject["studyType"], user))
-                            return Constants.ErrorMessages.Forbidden;
-                    }
-                    else if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.V1)
-                    {
-                        if (!await CheckAccessForAStudy(studyId, (string)jsonObject["studyType"]["decode"], user))
-                            return Constants.ErrorMessages.Forbidden;
-                    }
-                    else if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.V1_9)
-                    {
-                        if (!await CheckAccessForAStudy(studyId, (string)jsonObject["studyType"]["decode"], user))
-                            return Constants.ErrorMessages.Forbidden;
-                    }
-                    else if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.V2)
-                    {
-                        if (!await CheckAccessForAStudy(studyId, (string)jsonObject["studyType"]["decode"], user))
-                            return Constants.ErrorMessages.Forbidden;
-                    }
-                    else if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.V3)
-                    {
-                        if (jsonObject["versions"] != null)
-                        {
-                            foreach(var version in jsonObject["versions"])
-                            {
-                                if (!await CheckAccessForAStudy(studyId, (string)version["studyType"]["decode"], user))
-                                    return Constants.ErrorMessages.Forbidden;
-                            }
-                        }
-                    }
-					else if (study.AuditTrail.UsdmVersion == Constants.USDMVersions.V4)
-					{
-						if (jsonObject["versions"] != null)
-						{
-							foreach (var version in jsonObject["versions"])
-							{
-								if (!await CheckAccessForAStudy(studyId, (string)version["studyType"]["decode"], user))
-									return Constants.ErrorMessages.Forbidden;
-							}
-						}
-					}
 
 					return study;
                 }
@@ -125,12 +79,11 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="fromDate">Start Date for Date Filter</param>
         /// <param name="toDate">End Date for Date Filter</param>
         /// <param name="studyId">Study ID</param>
-        /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<object> GetAuditTrail(string studyId, DateTime fromDate, DateTime toDate, LoggedInUser user)
+        public async Task<object> GetAuditTrail(string studyId, DateTime fromDate, DateTime toDate)
         {
             try
             {
@@ -142,7 +95,6 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {
-                    studies = await CheckAccessForStudyAudit(studyId, studies, user);
                     if (studies == null)
                         return Constants.ErrorMessages.Forbidden;
 
@@ -173,17 +125,16 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="fromDate">Start Date for Date Filter</param>
         /// <param name="toDate">End Date for Date Filter</param>
         /// <param name="studyTitle">Study Title Filter</param>
-        /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="List{StudyHistoryResponseEntity}"/> which has list of study ID's <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<List<StudyHistoryResponseDto>> GetStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle, LoggedInUser user)
+        public async Task<List<StudyHistoryResponseDto>> GetStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle)
         {
             try
             {
                 _logger.LogInformation($"Started Service : {nameof(CommonServices)}; Method : {nameof(GetStudyHistory)};");
-                List<StudyHistoryResponseEntity> studies = await _commonRepository.GetStudyHistory(fromDate, toDate, studyTitle, user); //Getting List of studyId, studyTitle and Version
+                List<StudyHistoryResponseEntity> studies = await _commonRepository.GetStudyHistory(fromDate, toDate, studyTitle); //Getting List of studyId, studyTitle and Version
                 if (studies == null)
                 {
                     return null;
@@ -223,12 +174,11 @@ namespace TransCelerate.SDR.Services.Services
         /// </summary>
         /// <param name="studyId">Study ID</param>
         /// <param name="sdruploadversion">Version of study</param>
-        /// <param name="user">Logged in user</param>
         /// <returns>
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<object> GetLinks(string studyId, int sdruploadversion, LoggedInUser user)
+        public async Task<object> GetLinks(string studyId, int sdruploadversion)
         {
             try
             {
@@ -268,23 +218,20 @@ namespace TransCelerate.SDR.Services.Services
         /// Search Study Elements with search criteria
         /// </summary>
         /// <param name="searchParametersDTO">Parameters to search in database</param>
-        /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="List{SearchTitleDTO}"/> which matches serach criteria <br></br> <br></br>
         /// <see langword="null"/> If the insert is not done
         /// </returns>
-        public async Task<List<SearchTitleResponseDto>> SearchTitle(SearchTitleParametersDto searchParametersDTO, LoggedInUser user)
+        public async Task<List<SearchTitleResponseDto>> SearchTitle(SearchTitleParametersDto searchParametersDTO)
         {
             try
             {
                 _logger.LogInformation($"Started Service : {nameof(CommonServices)}; Method : {nameof(SearchTitle)};");
                 _logger.LogInformation($"Search Parameters : {JsonConvert.SerializeObject(searchParametersDTO)}");
 
-                if (user.UserRole == Constants.Roles.App_User && searchParametersDTO.GroupByStudyId)
-                    return new List<SearchTitleResponseDto>();
                 var searchParameters = _mapper.Map<SearchTitleParametersEntity>(searchParametersDTO);
 
-                var searchResponse = await _commonRepository.SearchTitle(searchParameters, user);
+                var searchResponse = await _commonRepository.SearchTitle(searchParameters);
 
                 var searchTitleDTOList = _mapper.Map<List<SearchTitleResponseDto>>(searchResponse);
 
@@ -374,12 +321,11 @@ namespace TransCelerate.SDR.Services.Services
         /// Search Study Elements with search criteria
         /// </summary>
         /// <param name="searchParametersDto">Parameters to search in database</param>
-        /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="List{StudyDto}"/> which matches serach criteria <br></br> <br></br>
         /// <see langword="null"/> If the insert is not done
         /// </returns>
-        public async Task<object> SearchStudy(SearchParametersDto searchParametersDto, LoggedInUser user)
+        public async Task<object> SearchStudy(SearchParametersDto searchParametersDto)
         {
             try
             {
@@ -389,9 +335,9 @@ namespace TransCelerate.SDR.Services.Services
 
                 if (searchParameters.ValidateUsdmVersion)
                 {
-                    return await GetSearchResultsWithUsdmVersionFilter(searchParameters, user);
+                    return await GetSearchResultsWithUsdmVersionFilter(searchParameters);
                 }
-                List<SearchResponseEntity> searchResponseEntities = await _commonRepository.SearchStudy(searchParameters, user);
+                List<SearchResponseEntity> searchResponseEntities = await _commonRepository.SearchStudy(searchParameters);
 
                 if (searchResponseEntities is null || !searchResponseEntities.Any())
                     return null;
@@ -557,11 +503,11 @@ namespace TransCelerate.SDR.Services.Services
             }
         }
 
-        public async Task<object> GetSearchResultsWithUsdmVersionFilter(SearchParametersEntity searchParameters, LoggedInUser loggedInUser)
+        public async Task<object> GetSearchResultsWithUsdmVersionFilter(SearchParametersEntity searchParameters)
         {                        
             if (searchParameters.UsdmVersion == Constants.USDMVersions.V1_9)
             {
-                var searchResponse = await _commonRepository.SearchStudyV2(searchParameters, loggedInUser);
+                var searchResponse = await _commonRepository.SearchStudyV2(searchParameters);
                 var searchResponseDtos = _mapper.Map<List<SearchResponseDto>>(searchResponse);
 
                 if (searchResponseDtos.Any())
@@ -585,7 +531,7 @@ namespace TransCelerate.SDR.Services.Services
             }
             if (searchParameters.UsdmVersion == Constants.USDMVersions.V2)
             {
-                var searchResponse = await _commonRepository.SearchStudyV3(searchParameters, loggedInUser);
+                var searchResponse = await _commonRepository.SearchStudyV3(searchParameters);
                 var searchResponseDtos = _mapper.Map<List<SearchResponseDto>>(searchResponse);
 
                 if (searchResponseDtos.Any())
@@ -609,7 +555,7 @@ namespace TransCelerate.SDR.Services.Services
             }
             if (searchParameters.UsdmVersion == Constants.USDMVersions.V3)
             {
-				var searchResponse = await _commonRepository.SearchStudyV4(searchParameters, loggedInUser);
+				var searchResponse = await _commonRepository.SearchStudyV4(searchParameters);
 				var searchResponseDtos = _mapper.Map<List<SearchResponseDto>>(searchResponse);
 
 				if (searchResponseDtos.Any())
@@ -642,7 +588,7 @@ namespace TransCelerate.SDR.Services.Services
             }
             if (searchParameters.UsdmVersion == Constants.USDMVersions.V4)
             {
-                var searchResponse = await _commonRepository.SearchStudyV5(searchParameters, loggedInUser);
+                var searchResponse = await _commonRepository.SearchStudyV5(searchParameters);
                 var searchResponseDtos = _mapper.Map<List<SearchResponseDto>>(searchResponse);
 
                 if (searchResponseDtos.Any())
@@ -675,206 +621,6 @@ namespace TransCelerate.SDR.Services.Services
             }
             else
                 return null;
-        }
-        #endregion
-
-        #region UserGroupsMapping
-        public async Task<bool> CheckAccessForAStudy(string studyId, string studyType, LoggedInUser user)
-        {
-            try
-            {
-                _logger.LogInformation($"Started Service : {nameof(CommonServices)}; Method : {nameof(CheckAccessForAStudy)};");
-
-                if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
-                {
-                    var groups = await _commonRepository.GetGroupsOfUser(user).ConfigureAwait(false);
-
-                    if (groups != null && groups.Count > 0)
-                    {
-                        Tuple<List<string>, List<string>> groupFilters = GroupFilters.GetGroupFilters(groups);
-                        if (groupFilters.Item2.Contains(studyId))
-                            return true;
-                        else if (groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
-                            return true;
-                        else if (groupFilters.Item1.Contains(studyType.ToLower()))
-                            return true;
-                        else
-                            return false;
-                    }
-                    else
-                    {
-                        // Filter should not give any results
-                        return false;
-                    }
-                }
-                else
-                    return true;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                _logger.LogInformation($"Ended Service : {nameof(CommonServices)}; Method : {nameof(CheckAccessForAStudy)};");
-            }
-        }
-
-        /// <summary>
-        /// Check access for the Study Aduit
-        /// </summary>
-        /// <param name="studyId">StudyId of the study</param>   
-        /// <param name="studies">Study List for which user access have to be checked</param>   
-        /// <param name="user">Logged In User</param>
-        /// <returns>
-        /// A <see cref="List{AuditTrailResponseEntity}"/> if the user have access <br></br> <br></br>
-        /// <see langword="null"/> If user doesn't have access to the study
-        /// </returns>
-        public async Task<List<AuditTrailResponseEntity>> CheckAccessForStudyAudit(string studyId, List<AuditTrailResponseEntity> studies, LoggedInUser user)
-        {
-            try
-            {
-                _logger.LogInformation($"Started Service : {nameof(CommonServices)}; Method : {nameof(CheckAccessForStudyAudit)};");
-
-                if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
-                {
-                    var groups = await _commonRepository.GetGroupsOfUser(user).ConfigureAwait(false);
-
-                    if (groups != null && groups.Count > 0)
-                    {
-                        studies.ForEach(x => x.HasAccess = true);
-                        Tuple<List<string>, List<string>> groupFilters = GroupFilters.GetGroupFilters(groups);
-                        if (groupFilters.Item2.Contains(studyId))
-                            return studies;
-                        else if (groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
-                            return studies;
-                        else
-                        {
-                            studies.ForEach(study =>
-                            {
-                                var jsonObject = JObject.Parse(JsonConvert.SerializeObject(study, new JsonSerializerSettings
-                                {
-                                    ContractResolver = new DefaultContractResolver()
-                                    {
-                                        NamingStrategy = new CamelCaseNamingStrategy()
-                                    }
-                                }));
-                                if (study.UsdmVersion == Constants.USDMVersions.V3 || study.UsdmVersion == Constants.USDMVersions.V4)
-                                {
-                                    if (!groupFilters.Item1.Contains((string)jsonObject["studyType"]["decode"].ToString().ToLower()))
-                                        study.HasAccess = false;
-                                }
-                                else if (study.UsdmVersion == Constants.USDMVersions.V1_9)
-                                {
-                                    if (!groupFilters.Item1.Contains((string)jsonObject["studyType"]["decode"].ToString().ToLower()))
-                                        study.HasAccess = false;
-                                }
-                                else if (study.UsdmVersion == Constants.USDMVersions.V2)
-                                {
-                                    if (!groupFilters.Item1.Contains((string)jsonObject["studyType"]["decode"].ToString().ToLower()))
-                                        study.HasAccess = false;
-                                }
-                            });
-                            studies.RemoveAll(x => !x.HasAccess);
-
-                            return studies.Count > 0 ? studies : null;
-                        }
-                    }
-                    else
-                    {
-                        // Filter should not give any results
-                        return null;
-                    }
-                }
-                else
-                    return studies;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                _logger.LogInformation($"Ended Service : {nameof(CommonServices)}; Method : {nameof(CheckAccessForStudyAudit)};");
-            }
-        }
-
-        /// <summary>
-        /// Check access for the Study Aduit
-        /// </summary>        
-        /// <param name="studies">Study List for which user access have to be checked</param>   
-        /// <param name="user">Logged In User</param>
-        /// <returns>
-        /// A <see cref="List{AuditTrailResponseEntity}"/> if the user have access <br></br> <br></br>
-        /// <see langword="null"/> If user doesn't have access to the study
-        /// </returns>
-        public async Task<List<T>> CheckAccessForListOfStudies<T>(List<T> studies, LoggedInUser user) where T : class, ICheckAccess
-        {
-            try
-            {
-                _logger.LogInformation($"Started Service : {nameof(CommonServices)}; Method : {nameof(CheckAccessForStudyAudit)};");
-
-                if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
-                {
-                    var groups = await _commonRepository.GetGroupsOfUser(user).ConfigureAwait(false);
-
-                    if (groups != null && groups.Count > 0)
-                    {
-                        studies.ForEach(x => x.HasAccess = true);
-                        Tuple<List<string>, List<string>> groupFilters = GroupFilters.GetGroupFilters(groups);
-                        if (groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
-                            return studies;
-                        else
-                        {
-                            studies.ForEach(study =>
-                            {
-                                var jsonObject = JObject.Parse(JsonConvert.SerializeObject(study, new JsonSerializerSettings
-                                {
-                                    ContractResolver = new DefaultContractResolver()
-                                    {
-                                        NamingStrategy = new CamelCaseNamingStrategy()
-                                    }
-                                }));
-                                if (groupFilters.Item2.Contains(study.StudyId))
-                                    study.HasAccess = true;
-                                if (study.UsdmVersion == Constants.USDMVersions.V3)
-                                {
-                                    if (!groupFilters.Item1.Contains((string)jsonObject["studyType"]["decode"].ToString().ToLower()))
-                                        study.HasAccess = false;
-                                }
-                                else if (study.UsdmVersion == Constants.USDMVersions.V1_9)
-                                {
-                                    if (!groupFilters.Item1.Contains((string)jsonObject["studyType"]["decode"].ToString().ToLower()))
-                                        study.HasAccess = false;
-                                }
-                                else if (study.UsdmVersion == Constants.USDMVersions.V2)
-                                {
-                                    if (!groupFilters.Item1.Contains((string)jsonObject["studyType"]["decode"].ToString().ToLower()))
-                                        study.HasAccess = false;
-                                }
-                            });
-                            studies.RemoveAll(x => !x.HasAccess);
-
-                            return studies.Count > 0 ? studies : null;
-                        }
-                    }
-                    else
-                    {
-                        // Filter should not give any results
-                        return null;
-                    }
-                }
-                else
-                    return studies;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                _logger.LogInformation($"Ended Service : {nameof(CommonServices)}; Method : {nameof(CheckAccessForStudyAudit)};");
-            }
         }
         #endregion
     }

@@ -2,7 +2,6 @@
 using System;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Common;
-using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities.Common;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
@@ -31,7 +30,7 @@ namespace TransCelerate.SDR.Services.Services
         #endregion
 
         #region Services
-        public async Task<object> GetChangeAudit(string studyId, LoggedInUser user)
+        public async Task<object> GetChangeAudit(string studyId)
         {
             try
             {
@@ -46,7 +45,7 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {
-                    var checkAccessForStudy = await _commonService.GetRawJson(studyId, 0, user).ConfigureAwait(false);
+                    var checkAccessForStudy = await _commonService.GetRawJson(studyId, 0).ConfigureAwait(false);
 
                     return checkAccessForStudy is not null && checkAccessForStudy.ToString() != Constants.ErrorMessages.Forbidden
                                             ? _mapper.Map<ChangeAuditStudyDto>(changeAudit) : Constants.ErrorMessages.Forbidden;
