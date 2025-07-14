@@ -688,7 +688,8 @@
             "InstanceType"
           ]
         },
-        { "entity": "AdministrationDuration",
+        { 
+          "entity": "AdministrationDuration",
           "required": [
             "Description",
             "DurationWillVary",
