@@ -362,29 +362,37 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         }
         public static string GetNumberOfParticipantsV5(this Core.DTO.StudyV5.StudyDesignPopulationDto population)
         {
-            if (population is not null && population.PlannedEnrollmentNumber is not null)
+            if (population?.PlannedEnrollmentNumber is Core.DTO.StudyV5.RangeDto plannedEnrollmentNumberRange)
             {
-                if (Convert.ToInt32(population.PlannedEnrollmentNumber.MaxValue) == Convert.ToInt32(population.PlannedEnrollmentNumber.MinValue))
-                    return population.PlannedEnrollmentNumber.MaxValue.ToString();
+                if (Convert.ToInt32(plannedEnrollmentNumberRange.MaxValue) == Convert.ToInt32(plannedEnrollmentNumberRange.MinValue))
+                    return plannedEnrollmentNumberRange.MaxValue.ToString();
                 else
-                    return $"{population.PlannedEnrollmentNumber.MinValue} to {population.PlannedEnrollmentNumber.MaxValue}";
+                    return $"{plannedEnrollmentNumberRange.MinValue} to {plannedEnrollmentNumberRange.MaxValue}";
             }
-            else if (population is not null && population.PlannedEnrollmentNumber is null)
+            else if (population is not null && population.PlannedEnrollmentNumber is null && population.Cohorts?.Any() == true)
             {
-                if (population.Cohorts is not null && population.Cohorts.Any())
+                var plannedEnrollmentRanges = population.Cohorts
+                    .Where(x => x?.PlannedEnrollmentNumber is Core.DTO.StudyV5.RangeDto)
+                    .Select(x => x.PlannedEnrollmentNumber as Core.DTO.StudyV5.RangeDto)
+                    .ToList();
+
+                if (plannedEnrollmentRanges.Any())
                 {
-                    var plannedEnrollmentNumbers = population.Cohorts.Where(x => x.PlannedEnrollmentNumber is not null).Select(x => x.PlannedEnrollmentNumber);
-                    if (plannedEnrollmentNumbers.Min(x => Convert.ToInt32(x.MinValue)) != plannedEnrollmentNumbers.Max(x => Convert.ToInt32(x.MaxValue)))
+                    var minValue = plannedEnrollmentRanges.Min(x => Convert.ToInt32(x.MinValue));
+                    var maxValue = plannedEnrollmentRanges.Max(x => Convert.ToInt32(x.MaxValue));
+
+                    if (minValue != maxValue)
                     {
-                        return $"{plannedEnrollmentNumbers.Min(x => x.MinValue)} to {plannedEnrollmentNumbers.Max(x => x.MaxValue)}";
+                        return $"{minValue} to {maxValue}";
                     }
                     else
-                        return $"{plannedEnrollmentNumbers.Max(x => x.MaxValue)}";
+                    {
+                        return maxValue.ToString();
+                    }
                 }
             }
             return null;
         }
-
         public static string GetPlannedSexOfParticipantsV5(this Core.DTO.StudyV5.StudyDesignPopulationDto population)
         {
             if (population is not null && population.PlannedSex is not null && population.PlannedSex.Any())
