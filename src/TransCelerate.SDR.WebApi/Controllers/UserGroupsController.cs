@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.DTO.UserGroups;
 using TransCelerate.SDR.Core.ErrorModels;
-using TransCelerate.SDR.Core.Filters;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
@@ -19,7 +18,6 @@ using TransCelerate.SDR.Services.Interfaces;
 
 namespace TransCelerate.SDR.WebApi.Controllers
 {
-    [AuthorizationFilter(Roles = Constants.Roles.Org_Admin)]
     [ApiController]
     [ApiVersionNeutral]
     public class UserGroupsController : ControllerBase

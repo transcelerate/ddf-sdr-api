@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.StudyV2;
 using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.ErrorModels;
-using TransCelerate.SDR.Core.Filters;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
@@ -19,7 +18,6 @@ using TransCelerate.SDR.Services.Interfaces;
 
 namespace TransCelerate.SDR.WebApi.Controllers
 {
-    [AuthorizationFilter]
     [ApiController]
     public class StudyV2Controller : ControllerBase
     {
@@ -455,7 +453,6 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>
         [HttpDelete]
-        [Authorize(Roles = Constants.Roles.Org_Admin)]
         [ApiVersionNeutral]
         [Route(Route.StudyV2)]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDefinitionsDto))]

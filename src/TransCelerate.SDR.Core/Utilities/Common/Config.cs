@@ -19,7 +19,6 @@
         public static string AppInsightsAppId { get; set; }
         public static string AppInsightsRESTApiUrl { get; set; }
         public static bool IsGroupFilterEnabled { get; set; }
-        public static bool IsAuthEnabled { get; set; }
         public static string AzureServiceBusConnectionString { get; set; }
         public static string AzureServiceBusQueueName { get; set; }
         public static string ApiVersionUsdmVersionMapping { get; set; }

@@ -57,7 +57,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
         public bool AreValidStudyElements(string listofelements, out string[] listofElementsArray)
         {
             bool isValid = true;
-            listofElementsArray = listofelements?.Split(Constants.Roles.Seperator);
+            listofElementsArray = listofelements?.Split(Constants.Separators.Comma);
             if (listofelements is not null)
             {
                 if (listofElementsArray is not null)
@@ -83,7 +83,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4
         public bool AreValidStudyDesignElements(string listofelements, out string[] listofElementsArray)
         {
             bool isValid = true;
-            listofElementsArray = listofelements?.Split(Constants.Roles.Seperator);
+            listofElementsArray = listofelements?.Split(Constants.Separators.Comma);
             if (listofelements is not null)
             {
                 if (listofElementsArray is not null)

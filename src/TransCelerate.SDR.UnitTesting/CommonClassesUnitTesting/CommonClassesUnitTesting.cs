@@ -274,7 +274,6 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.AreEqual(Config.Scope, "true");
             Assert.AreEqual(Config.TenantID, "true");
             Assert.AreEqual(Config.Authority, "true");
-            Assert.AreEqual(Config.IsAuthEnabled, true);
             Assert.AreEqual(Config.IsGroupFilterEnabled, true);
             ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ApiUsdmVersionMapping.json"));
             Assert.AreEqual(apiUsdmVersionMapping_NonStatic.SDRVersions.Count, ApiUsdmVersionMapping.SDRVersions.Count);

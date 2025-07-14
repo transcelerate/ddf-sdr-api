@@ -24,7 +24,6 @@ using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.AppSettings;
-using TransCelerate.SDR.Core.Filters;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
@@ -105,11 +104,6 @@ namespace TransCelerate.SDR.WebApi
                 c.CustomSchemaIds(type => type.ToString().Replace($"{Assembly.GetAssembly(typeof(Core.ErrorModels.ErrorModel)).GetName().Name}.", "").Replace("DTO.", "").Replace("DTO", "").Replace("Dto", ""));
             });
             services.AddSwaggerGenNewtonsoftSupport();
-            if (_env.IsDevelopment())
-            {
-                if (!Config.IsAuthEnabled)
-                    services.AddTransient<IAuthorizationHandler, AllowAnonymousFilter>();
-            }
 
             #region Authorization
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -122,10 +116,6 @@ namespace TransCelerate.SDR.WebApi
 
             //Mapping EndPoints and overriding Data Annotations validation
             services.AddHttpContextAccessor();
-            services.AddControllers(config =>
-            {
-                config.Filters.Add<ActionFilter>();                
-            });
 
             services.AddFluentValidationAutoValidation();
             ValidatorOptions.Global.DisplayNameResolver = (type, memberInfo, expression) => string.Concat(memberInfo.Name.Replace(" ", "")[..1]?.ToLower(), memberInfo.Name.Replace(" ", "").AsSpan(1));
