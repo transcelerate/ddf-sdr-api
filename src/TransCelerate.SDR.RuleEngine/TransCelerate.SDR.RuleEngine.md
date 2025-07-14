@@ -43,6 +43,7 @@
 - [BiomedicalConceptValidator](#T-TransCelerate-SDR-RuleEngineV3-BiomedicalConceptValidator 'TransCelerate.SDR.RuleEngineV3.BiomedicalConceptValidator')
 - [BiomedicalConceptValidator](#T-TransCelerate-SDR-RuleEngineV4-BiomedicalConceptValidator 'TransCelerate.SDR.RuleEngineV4.BiomedicalConceptValidator')
 - [BiomedicalConceptValidator](#T-TransCelerate-SDR-RuleEngineV5-BiomedicalConceptValidator 'TransCelerate.SDR.RuleEngineV5.BiomedicalConceptValidator')
+- [BiospecimenRetentionValidator](#T-TransCelerate-SDR-RuleEngineV5-BiospecimenRetentionValidator 'TransCelerate.SDR.RuleEngineV5.BiospecimenRetentionValidator')
 - [CharacteristicValidator](#T-TransCelerate-SDR-RuleEngineV4-CharacteristicValidator 'TransCelerate.SDR.RuleEngineV4.CharacteristicValidator')
 - [CharacteristicValidator](#T-TransCelerate-SDR-RuleEngineV5-CharacteristicValidator 'TransCelerate.SDR.RuleEngineV5.CharacteristicValidator')
 - [CodeValidator](#T-TransCelerate-SDR-RuleEngineV2-CodeValidator 'TransCelerate.SDR.RuleEngineV2.CodeValidator')
@@ -55,6 +56,7 @@
 - [ConditionValidator](#T-TransCelerate-SDR-RuleEngineV4-ConditionValidator 'TransCelerate.SDR.RuleEngineV4.ConditionValidator')
 - [ConditionValidator](#T-TransCelerate-SDR-RuleEngineV5-ConditionValidator 'TransCelerate.SDR.RuleEngineV5.ConditionValidator')
 - [DocumentContentReferenceValidator](#T-TransCelerate-SDR-RuleEngineV5-DocumentContentReferenceValidator 'TransCelerate.SDR.RuleEngineV5.DocumentContentReferenceValidator')
+- [EligibilityCriterionItemValidator](#T-TransCelerate-SDR-RuleEngineV5-EligibilityCriterionItemValidator 'TransCelerate.SDR.RuleEngineV5.EligibilityCriterionItemValidator')
 - [EligibilityCriterionValidator](#T-TransCelerate-SDR-RuleEngineV4-EligibilityCriterionValidator 'TransCelerate.SDR.RuleEngineV4.EligibilityCriterionValidator')
 - [EligibilityCriterionValidator](#T-TransCelerate-SDR-RuleEngineV5-EligibilityCriterionValidator 'TransCelerate.SDR.RuleEngineV5.EligibilityCriterionValidator')
 - [EncounterValidator](#T-TransCelerate-SDR-RuleEngineV2-EncounterValidator 'TransCelerate.SDR.RuleEngineV2.EncounterValidator')
@@ -84,10 +86,13 @@
 - [InterCurrentEventsValidator](#T-TransCelerate-SDR-RuleEngineV3-InterCurrentEventsValidator 'TransCelerate.SDR.RuleEngineV3.InterCurrentEventsValidator')
 - [IntercurrentEventValidator](#T-TransCelerate-SDR-RuleEngineV4-IntercurrentEventValidator 'TransCelerate.SDR.RuleEngineV4.IntercurrentEventValidator')
 - [IntercurrentEventValidator](#T-TransCelerate-SDR-RuleEngineV5-IntercurrentEventValidator 'TransCelerate.SDR.RuleEngineV5.IntercurrentEventValidator')
+- [InterventionalStudyDesignValidator](#T-TransCelerate-SDR-RuleEngineV5-InterventionalStudyDesignValidator 'TransCelerate.SDR.RuleEngineV5.InterventionalStudyDesignValidator')
 - [InvestigationalInterventionValidator](#T-TransCelerate-SDR-RuleEngineV2-InvestigationalInterventionValidator 'TransCelerate.SDR.RuleEngineV2.InvestigationalInterventionValidator')
 - [InvestigationalInterventionValidator](#T-TransCelerate-SDR-RuleEngineV3-InvestigationalInterventionValidator 'TransCelerate.SDR.RuleEngineV3.InvestigationalInterventionValidator')
 - [MaskingValidator](#T-TransCelerate-SDR-RuleEngineV4-MaskingValidator 'TransCelerate.SDR.RuleEngineV4.MaskingValidator')
 - [MaskingValidator](#T-TransCelerate-SDR-RuleEngineV5-MaskingValidator 'TransCelerate.SDR.RuleEngineV5.MaskingValidator')
+- [MedicalDeviceIdentifierValidator](#T-TransCelerate-SDR-RuleEngineV5-MedicalDeviceIdentifierValidator 'TransCelerate.SDR.RuleEngineV5.MedicalDeviceIdentifierValidator')
+- [MedicalDeviceValidator](#T-TransCelerate-SDR-RuleEngineV5-MedicalDeviceValidator 'TransCelerate.SDR.RuleEngineV5.MedicalDeviceValidator')
 - [NarrativeContentItemValidator](#T-TransCelerate-SDR-RuleEngineV5-NarrativeContentItemValidator 'TransCelerate.SDR.RuleEngineV5.NarrativeContentItemValidator')
 - [NarrativeContentValidator](#T-TransCelerate-SDR-RuleEngineV4-NarrativeContentValidator 'TransCelerate.SDR.RuleEngineV4.NarrativeContentValidator')
 - [NarrativeContentValidator](#T-TransCelerate-SDR-RuleEngineV5-NarrativeContentValidator 'TransCelerate.SDR.RuleEngineV5.NarrativeContentValidator')
@@ -95,6 +100,7 @@
 - [ObjectiveValidator](#T-TransCelerate-SDR-RuleEngineV3-ObjectiveValidator 'TransCelerate.SDR.RuleEngineV3.ObjectiveValidator')
 - [ObjectiveValidator](#T-TransCelerate-SDR-RuleEngineV4-ObjectiveValidator 'TransCelerate.SDR.RuleEngineV4.ObjectiveValidator')
 - [ObjectiveValidator](#T-TransCelerate-SDR-RuleEngineV5-ObjectiveValidator 'TransCelerate.SDR.RuleEngineV5.ObjectiveValidator')
+- [ObservationalStudyDesignValidator](#T-TransCelerate-SDR-RuleEngineV5-ObservationalStudyDesignValidator 'TransCelerate.SDR.RuleEngineV5.ObservationalStudyDesignValidator')
 - [OrganisationValidator](#T-TransCelerate-SDR-RuleEngineV2-OrganisationValidator 'TransCelerate.SDR.RuleEngineV2.OrganisationValidator')
 - [OrganisationValidator](#T-TransCelerate-SDR-RuleEngineV3-OrganisationValidator 'TransCelerate.SDR.RuleEngineV3.OrganisationValidator')
 - [OrganizationValidator](#T-TransCelerate-SDR-RuleEngineV4-OrganizationValidator 'TransCelerate.SDR.RuleEngineV4.OrganizationValidator')
@@ -107,6 +113,7 @@
 - [ProcedureValidator](#T-TransCelerate-SDR-RuleEngineV3-ProcedureValidator 'TransCelerate.SDR.RuleEngineV3.ProcedureValidator')
 - [ProcedureValidator](#T-TransCelerate-SDR-RuleEngineV4-ProcedureValidator 'TransCelerate.SDR.RuleEngineV4.ProcedureValidator')
 - [ProcedureValidator](#T-TransCelerate-SDR-RuleEngineV5-ProcedureValidator 'TransCelerate.SDR.RuleEngineV5.ProcedureValidator')
+- [ProductOrganizationRoleValidator](#T-TransCelerate-SDR-RuleEngineV5-ProductOrganizationRoleValidator 'TransCelerate.SDR.RuleEngineV5.ProductOrganizationRoleValidator')
 - [QuantityValidator](#T-TransCelerate-SDR-RuleEngineV4-QuantityValidator 'TransCelerate.SDR.RuleEngineV4.QuantityValidator')
 - [QuantityValidator](#T-TransCelerate-SDR-RuleEngineV5-QuantityValidator 'TransCelerate.SDR.RuleEngineV5.QuantityValidator')
 - [RangeValidator](#T-TransCelerate-SDR-RuleEngineV4-RangeValidator 'TransCelerate.SDR.RuleEngineV4.RangeValidator')
@@ -642,6 +649,17 @@ TransCelerate.SDR.RuleEngineV5
 
 This Class is the validator for Activity
 
+<a name='T-TransCelerate-SDR-RuleEngineV5-BiospecimenRetentionValidator'></a>
+## BiospecimenRetentionValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV5
+
+##### Summary
+
+This Class is the validator for BiospecimenRetention
+
 <a name='T-TransCelerate-SDR-RuleEngineV4-CharacteristicValidator'></a>
 ## CharacteristicValidator `type`
 
@@ -774,6 +792,17 @@ TransCelerate.SDR.RuleEngineV5
 
 This Class is the validator for DocumentContentReference
 
+<a name='T-TransCelerate-SDR-RuleEngineV5-EligibilityCriterionItemValidator'></a>
+## EligibilityCriterionItemValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV5
+
+##### Summary
+
+This Class is the validator for EligibilityCriterionItem
+
 <a name='T-TransCelerate-SDR-RuleEngineV4-EligibilityCriterionValidator'></a>
 ## EligibilityCriterionValidator `type`
 
@@ -794,7 +823,7 @@ TransCelerate.SDR.RuleEngineV5
 
 ##### Summary
 
-This Class is the validator for NarrativeContentItem
+This Class is the validator for EligibilityCriterion
 
 <a name='T-TransCelerate-SDR-RuleEngineV2-EncounterValidator'></a>
 ## EncounterValidator `type`
@@ -1093,6 +1122,17 @@ TransCelerate.SDR.RuleEngineV5
 
 This Class is the validator for InterCurrent Events
 
+<a name='T-TransCelerate-SDR-RuleEngineV5-InterventionalStudyDesignValidator'></a>
+## InterventionalStudyDesignValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV5
+
+##### Summary
+
+This Class is the validator for InterventionalStudyDesign
+
 <a name='T-TransCelerate-SDR-RuleEngineV2-InvestigationalInterventionValidator'></a>
 ## InvestigationalInterventionValidator `type`
 
@@ -1135,7 +1175,29 @@ TransCelerate.SDR.RuleEngineV5
 
 ##### Summary
 
-This Class is the validator for Code
+This Class is the validator for Masking
+
+<a name='T-TransCelerate-SDR-RuleEngineV5-MedicalDeviceIdentifierValidator'></a>
+## MedicalDeviceIdentifierValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV5
+
+##### Summary
+
+This Class is the validator for MedicalDeviceIdentifier
+
+<a name='T-TransCelerate-SDR-RuleEngineV5-MedicalDeviceValidator'></a>
+## MedicalDeviceValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV5
+
+##### Summary
+
+This Class is the validator for MedicalDevice
 
 <a name='T-TransCelerate-SDR-RuleEngineV5-NarrativeContentItemValidator'></a>
 ## NarrativeContentItemValidator `type`
@@ -1213,6 +1275,17 @@ TransCelerate.SDR.RuleEngineV5
 ##### Summary
 
 This Class is the validator for StudyObjectives
+
+<a name='T-TransCelerate-SDR-RuleEngineV5-ObservationalStudyDesignValidator'></a>
+## ObservationalStudyDesignValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV5
+
+##### Summary
+
+This Class is the validator for ObservationalStudyDesign
 
 <a name='T-TransCelerate-SDR-RuleEngineV2-OrganisationValidator'></a>
 ## OrganisationValidator `type`
@@ -1345,6 +1418,17 @@ TransCelerate.SDR.RuleEngineV5
 ##### Summary
 
 This Class is the validator for Procedure
+
+<a name='T-TransCelerate-SDR-RuleEngineV5-ProductOrganizationRoleValidator'></a>
+## ProductOrganizationRoleValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV5
+
+##### Summary
+
+This Class is the validator for ProductOrganizationRole
 
 <a name='T-TransCelerate-SDR-RuleEngineV4-QuantityValidator'></a>
 ## QuantityValidator `type`
@@ -2158,7 +2242,7 @@ TransCelerate.SDR.RuleEngineV5
 
 ##### Summary
 
-This Class is the validator for Code
+This Class is the validator for SubjectEnrollment
 
 <a name='T-TransCelerate-SDR-RuleEngineV5-SubstanceValidator'></a>
 ## SubstanceValidator `type`
