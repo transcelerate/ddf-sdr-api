@@ -655,11 +655,11 @@ namespace TransCelerate.SDR.Services.Services
                         searchResponseDto.Study.StudyIdentifiers = _mapper.Map<List<CommonStudyIdentifiersDto>>(searchResponseV2.StudyIdentifiers);
                         searchResponseDto.Study.StudyIdentifiers?.ForEach(x =>
                         {
-                            var scope = searchResponseV2.StudyIdentifiers.Find(y => y.Id == x.Id).StudyIdentifierScope;
+                            var scope = searchResponseV2.StudyIdentifiers.Find(y => y.Id == x.Id).Scope;
                             x.StudyIdentifierScope.OrganisationIdentifierScheme = scope.IdentifierScheme;
                             x.StudyIdentifierScope.OrganisationIdentifier = scope.Identifier;
                             x.StudyIdentifierScope.OrganisationName = scope.Name;
-                            x.StudyIdentifierScope.OrganisationType = _mapper.Map<CommonCodeDto>(scope.OrganizationType);
+                            x.StudyIdentifierScope.OrganisationType = _mapper.Map<CommonCodeDto>(scope.Type);
                         });
                         searchResponseDto.Study.StudyPhase = _mapper.Map<CommonCodeDto>(searchResponseV2.StudyPhase?.StandardCode);
                         searchResponseDto.Study.StudyDesigns = new List<CommonStudyDesign> { new() {

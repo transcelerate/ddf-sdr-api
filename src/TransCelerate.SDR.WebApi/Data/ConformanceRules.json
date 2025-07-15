@@ -36,7 +36,8 @@
           "entity": "AnalysisPopulation",
           "required": [
             "Id",
-            "PopulationDescription"
+            "Text",
+            "Name"
           ]
         },
         {
@@ -687,7 +688,7 @@
             "InstanceType"
           ]
         },
-        {
+        { 
           "entity": "AdministrationDuration",
           "required": [
             "Description",
@@ -811,7 +812,7 @@
             "Identifier",
             "InstanceType",
             "Name",
-            "Text"
+            "CriterionItem"
           ]
         },
         {
@@ -1248,7 +1249,7 @@
       ]
     },
     {
-      "usdmVersion": "3.5",
+      "usdmVersion": "4.0",
       "rules": [
         {
           "entity": "Activity",
@@ -1267,25 +1268,41 @@
           ]
         },
         {
-          "entity": "AdministrationDuration",
+          "entity": "AdministrableProduct",
           "required": [
-            "Description",
-            "DurationWillVary",
-            "Id",
-            "InstanceType",
-            "ReasonDurationWillVary"
-          ]
-        },
-        {
-          "entity": "AgentAdministration",
-          "required": [
-            "Dose",
-            "Duration",
-            "Frequency",
             "Id",
             "InstanceType",
             "Name",
-            "Route"
+            "AdministrableDoseForm",
+            "ProductDesignation"
+          ]
+        },
+        {
+          "entity": "AdministrableProductIdentifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "Scope"
+          ]
+        },
+        {
+          "entity": "AdministrableProductProperty",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Text",
+            "Type"
+          ]
+        },
+        {
+          "entity": "Administration",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Duration"
           ]
         },
         {
@@ -1303,6 +1320,16 @@
             "InstanceType",
             "Name",
             "Text"
+          ]
+        },
+        {
+          "entity": "AssignedPerson",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "PersonName",
+            "JobTitle"
           ]
         },
         {
@@ -1344,6 +1371,15 @@
           ]
         },
         {
+          "entity": "BiospecimenRetention",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "IsRetained"
+          ]
+        },
+        {
           "entity": "Characteristic",
           "required": [
             "Id",
@@ -1382,12 +1418,39 @@
           ]
         },
         {
+          "entity": "DocumentContentReference",
+          "required": [
+            "Id",
+            "InstanceType",
+            "SectionNumber",
+            "SectionTitle",
+            "AppliesTo"
+          ]
+        },
+        {
+          "entity": "Duration",
+          "required": [
+            "Id",
+            "InstanceType",
+            "DurationWillVary"
+          ]
+        },
+        {
           "entity": "EligibilityCriterion",
           "required": [
             "Category",
             "Id",
             "InstanceType",
             "Identifier",
+            "InstanceType",
+            "Name",
+            "Text"
+          ]
+        },
+        {
+          "entity": "EligibilityCriterionItem",
+          "required": [
+            "Id",
             "InstanceType",
             "Name",
             "Text"
@@ -1414,13 +1477,14 @@
         {
           "entity": "Estimand",
           "required": [
-            "AnalysisPopulation",
             "Id",
             "InstanceType",
+            "PopulationSummary",
+            "Name",
+            "AnalysisPopulation",
+            "VariableOfInterest",
             "IntercurrentEvents",
-            "SummaryMeasure",
-            "InterventionId",
-            "VariableOfInterestId"
+            "Interventions"
           ]
         },
         {
@@ -1443,6 +1507,15 @@
           ]
         },
         {
+          "entity": "Identifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "Scope"
+          ]
+        },
+        {
           "entity": "Indication",
           "required": [
             "Id",
@@ -1451,12 +1524,36 @@
           ]
         },
         {
+          "entity": "Ingredient",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Substance",
+            "Role"
+          ]
+        },
+        {
           "entity": "IntercurrentEvent",
           "required": [
             "Id",
             "InstanceType",
             "Name",
+            "Text",
             "Strategy"
+          ]
+        },
+        {
+          "entity": "InterventionalStudyDesign",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Rationale",
+            "Arms",
+            "StudyCells",
+            "Epochs",
+            "Population",
+            "Model"
           ]
         },
         {
@@ -1464,7 +1561,26 @@
           "required": [
             "Id",
             "InstanceType",
-            "Role"
+            "Text",
+            "IsMasked"
+          ]
+        },
+        {
+          "entity": "MedicalDevice",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name"
+          ]
+        },
+        {
+          "entity": "MedicalDeviceIdentifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "Scope",
+            "Type"
           ]
         },
         {
@@ -1488,14 +1604,29 @@
           ]
         },
         {
+          "entity": "ObservationalStudyDesign",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Rationale",
+            "Arms",
+            "StudyCells",
+            "Epochs",
+            "Population",
+            "Model",
+            "TimePerspective"
+          ]
+        },
+        {
           "entity": "Organization",
           "required": [
             "Id",
             "InstanceType",
+            "Name",
             "Identifier",
             "IdentifierScheme",
-            "Name",
-            "OrganizationType"
+            "Type"
           ]
         },
         {
@@ -1505,6 +1636,13 @@
             "InstanceType",
             "Tag",
             "Reference"
+          ]
+        },
+        {
+          "entity": "PersonName",
+          "required": [
+            "Id",
+            "InstanceType"
           ]
         },
         {
@@ -1519,6 +1657,16 @@
           ]
         },
         {
+          "entity": "ProductOrganizationRole",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Code",
+            "Organization"
+          ]
+        },
+        {
           "entity": "Quantity",
           "required": [
             "Id",
@@ -1527,15 +1675,20 @@
           ]
         },
         {
-          "entity": "ResearchOrganization",
+          "entity": "QuantityRange",
+          "required": [
+            "Id",
+            "InstanceType"
+          ]
+        },
+        {
+          "entity": "ReferenceIdentifier",
           "required": [
             "Id",
             "InstanceType",
-            "Identifier",
-            "IdentifierScheme",
-            "Name",
-            "OrganizationType",
-            "Manages"
+            "Text",
+            "Scope",
+            "Type"
           ]
         },
         {
@@ -1544,6 +1697,7 @@
             "Code",
             "Id",
             "InstanceType",
+            "Name",
             "IsEnabled"
           ]
         },
@@ -1599,6 +1753,15 @@
           ]
         },
         {
+          "entity": "Strength",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Numerator"
+          ]
+        },
+        {
           "entity": "Study",
           "required": [
             "Name",
@@ -1608,13 +1771,24 @@
         {
           "entity": "StudyAmendment",
           "required": [
-            "Number",
-            "Summary",
             "Id",
             "InstanceType",
-            "Enrollments",
-            "SubstantialImpact",
+            "Name",
+            "Number",
+            "Summary",
+            "GeographicScopes",
+            "Changes",
             "PrimaryReason"
+          ]
+        },
+        {
+          "entity": "StudyAmendmentImpact",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "IsSubstantial",
+            "Type"
           ]
         },
         {
@@ -1646,6 +1820,17 @@
           ]
         },
         {
+          "entity": "StudyChange",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Rationale",
+            "Summary",
+            "ChangedSections"
+          ]
+        },
+        {
           "entity": "StudyCohort",
           "required": [
             "Name",
@@ -1665,14 +1850,15 @@
         {
           "entity": "StudyDesign",
           "required": [
-            "Arms",
-            "Epochs",
             "Id",
             "InstanceType",
-            "InterventionModel",
             "Name",
             "Rationale",
-            "StudyCells"
+            "StudyCells",
+            "EligibilityCriteria",
+            "InterventionModel",
+            "Arms",
+            "Epochs"
           ]
         },
         {
@@ -1707,8 +1893,8 @@
           "required": [
             "Id",
             "InstanceType",
-            "StudyIdentifier",
-            "StudyIdentifierScope"
+            "Text",
+            "Scope"
           ]
         },
         {
@@ -1719,8 +1905,6 @@
             "InstanceType",
             "MinimumResponseDuration",
             "Name",
-            "PharmacologicClass",
-            "ProductDesignation",
             "Role",
             "Type"
           ]
@@ -1747,11 +1931,21 @@
           ]
         },
         {
+          "entity": "StudyRole",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Code"
+          ]
+        },
+        {
           "entity": "StudySite",
           "required": [
             "Id",
             "InstanceType",
-            "Name"
+            "Name",
+            "Country"
           ]
         },
         {
@@ -1768,12 +1962,12 @@
           "required": [
             "Id",
             "InstanceType",
+            "VersionIdentifier",
+            "Rationale",
             "StudyIdentifiers",
             "StudyPhase",
-            "Rationale",
             "Titles",
-            "StudyType",
-            "VersionIdentifier"
+            "StudyType"
           ]
         },
         {
@@ -1781,7 +1975,18 @@
           "required": [
             "Id",
             "InstanceType",
-            "Type"
+            "Name",
+            "Label",
+            "Quantity"
+          ]
+        },
+        {
+          "entity": "Substance",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Strengths"
           ]
         },
         {

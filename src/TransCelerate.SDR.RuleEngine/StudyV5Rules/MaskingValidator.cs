@@ -7,11 +7,12 @@ using TransCelerate.SDR.Core.Utilities.Helpers;
 namespace TransCelerate.SDR.RuleEngineV5
 {
     /// <summary>
-    /// This Class is the validator for Code
+    /// This Class is the validator for Masking
     /// </summary>
     public class MaskingValidator : AbstractValidator<MaskingDto>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
+        
         public MaskingValidator(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
@@ -28,18 +29,17 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(MaskingValidator), nameof(MaskingDto.InstanceType)), ApplyConditionTo.AllValidators)
                 .Must(x => this.GetType().Name.RemoveValidator() == x).WithMessage(Constants.ValidationErrorMessage.InstanceTypeError);
 
-            RuleFor(x => x.Role)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(MaskingValidator), nameof(MaskingDto.Role)), ApplyConditionTo.AllValidators)
-               .SetValidator(new CodeValidator(_httpContextAccessor));
-
-            RuleFor(x => x.Description)
+            RuleFor(x => x.Text)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(MaskingValidator), nameof(MaskingDto.Description)), ApplyConditionTo.AllValidators);           
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(MaskingValidator), nameof(MaskingDto.Text)), ApplyConditionTo.AllValidators);
+
+            RuleFor(x => x.IsMasked)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(MaskingValidator), nameof(MaskingDto.IsMasked)), ApplyConditionTo.AllValidators);
         }
     }
 }

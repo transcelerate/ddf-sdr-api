@@ -19,32 +19,46 @@ namespace TransCelerate.SDR.WebApi.Mappers
 
 			CreateMap<ActivityDto, ActivityEntity>().ReverseMap();
             CreateMap<AddressDto, AddressEntity>().ReverseMap();
-            CreateMap<AdministrationDurationDto, AdministrationDurationEntity>().ReverseMap();
-            CreateMap<AgentAdministrationDto, AgentAdministrationEntity>().ReverseMap();
+            CreateMap<AdministrableProductIdentifierDto, AdministrableProductIdentifierEntity>().ReverseMap();
+            CreateMap<AdministrableProductPropertyDto, AdministrableProductPropertyEntity>().ReverseMap();
+            CreateMap<AdministrableProductDto, AdministrableProductEntity>().ReverseMap();
+            CreateMap<AdministrationDto, AdministrationEntity>().ReverseMap();
             CreateMap<AliasCodeDto, AliasCodeEntity>().ReverseMap();
             CreateMap<AnalysisPopulationDto, AnalysisPopulationEntity>().ReverseMap();
+            CreateMap<AssignedPersonDto, AssignedPersonEntity>().ReverseMap();
             CreateMap<AuditTrailEntity, AuditTrailDto>().ReverseMap();
             CreateMap<BiomedicalConceptCategoryDto, BiomedicalConceptCategoryEntity>().ReverseMap();
             CreateMap<BiomedicalConceptDto, BiomedicalConceptEntity>().ReverseMap();
             CreateMap<BiomedicalConceptPropertyDto, BiomedicalConceptPropertyEntity>().ReverseMap();
             CreateMap<BiomedicalConceptSurrogateDto, BiomedicalConceptSurrogateEntity>().ReverseMap();
+            CreateMap<BiospecimenRetentionDto, BiospecimenRetentionEntity>().ReverseMap();
             CreateMap<CharacteristicDto, CharacteristicEntity>().ReverseMap();
             CreateMap<CodeDto, CodeEntity>().ReverseMap();
             CreateMap<ConditionAssignmentDto, ConditionAssignmentEntity>().ReverseMap();
             CreateMap<ConditionDto, ConditionEntity>().ReverseMap();
+            CreateMap<DocumentContentReferenceDto, DocumentContentReferenceEntity>().ReverseMap();
+            CreateMap<DurationDto, DurationEntity>().ReverseMap();
             CreateMap<EligibilityCriterionDto, EligibilityCriterionEntity>().ReverseMap();
+            CreateMap<EligibilityCriterionItemDto, EligibilityCriterionItemEntity>().ReverseMap();
             CreateMap<EncounterDto, EncounterEntity>().ReverseMap();
             CreateMap<EndpointEntity, EndpointDto>().ReverseMap();
             CreateMap<EstimandDto, EstimandEntity>().ReverseMap();
             CreateMap<GeographicScopeDto, GeographicScopeEntity>().ReverseMap();
             CreateMap<GovernanceDateDto, GovernanceDateEntity>().ReverseMap();
+            CreateMap<IdentifierDto, IdentifierEntity>().ReverseMap();
             CreateMap<IndicationDto, IndicationEntity>().ReverseMap();            
+            CreateMap<IngredientDto, IngredientEntity>().ReverseMap();            
             CreateMap<IntercurrentEventDto, IntercurrentEventEntity>().ReverseMap();
+            CreateMap<InterventionalStudyDesignDto, InterventionalStudyDesignEntity>().ReverseMap();
             CreateMap<MaskingDto, MaskingEntity>().ReverseMap();
+            CreateMap<MedicalDeviceDto, MedicalDeviceEntity>().ReverseMap();
+            CreateMap<MedicalDeviceIdentifierDto, MedicalDeviceIdentifierEntity>().ReverseMap();
             CreateMap<NarrativeContentDto, NarrativeContentEntity>().ReverseMap();
             CreateMap<ObjectiveDto, ObjectiveEntity>().ReverseMap();
+            CreateMap<ObservationalStudyDesignDto, ObservationalStudyDesignEntity>().ReverseMap();
             CreateMap<OrganizationDto, OrganizationEntity>().ReverseMap();
             CreateMap<ParameterMapDto, ParameterMapEntity>().ReverseMap();
+            CreateMap<PersonNameDto, PersonNameEntity>().ReverseMap();
     //        CreateMap<PopulationDefinitionDto, PopulationDefinitionEntity>()
 				//.ForMember(dest => dest.Criteria, opt => opt.MapFrom(src => src.Criterionids))
 				//.Include<StudyDesignPopulationDto, StudyDesignPopulationEntity>()
@@ -52,24 +66,32 @@ namespace TransCelerate.SDR.WebApi.Mappers
     //            .ReverseMap()
 				//.ForMember(dest => dest.Criterionids, opt => opt.MapFrom(src => src.Criteria));
             CreateMap<ProcedureDto, ProcedureEntity>().ReverseMap();
+            CreateMap<ProductOrganizationRoleDto, ProductOrganizationRoleEntity>().ReverseMap();
             CreateMap<QuantityDto, QuantityEntity>().ReverseMap();
+            CreateMap<QuantityRangeDto, QuantityRangeEntity>()
+                .Include<QuantityDto, QuantityEntity>()
+                .Include<RangeDto, RangeEntity>()
+                .ReverseMap();
             CreateMap<RangeDto, RangeEntity>().ReverseMap();
+            CreateMap<ReferenceIdentifierDto, ReferenceIdentifierEntity>().ReverseMap();
             CreateMap<ResponseCodeDto, ResponseCodeEntity>().ReverseMap();
-            CreateMap<ResearchOrganizationDto, ResearchOrganizationEntity>().ReverseMap();
             CreateMap<ScheduleTimelineDto, ScheduleTimelineEntity>().ReverseMap();
             CreateMap<ScheduleTimelineExitDto, ScheduleTimelineExitEntity>().ReverseMap();
             CreateMap<ScheduledActivityInstanceDto, ScheduledActivityInstanceEntity>().ReverseMap();
 			CreateMap<ScheduledDecisionInstanceDto, ScheduledDecisionInstanceEntity>()	
-	.ReverseMap();	
+	            .ReverseMap();	
 
 			CreateMap<ScheduledInstanceDto, ScheduledInstanceEntity>()
                 .Include<ScheduledDecisionInstanceDto, ScheduledDecisionInstanceEntity>()
                 .Include<ScheduledActivityInstanceDto, ScheduledActivityInstanceEntity>()
                 .ReverseMap();
+            CreateMap<StrengthDto, StrengthEntity>().ReverseMap();
             CreateMap<StudyArmDto, StudyArmEntity>().ReverseMap();
             CreateMap<StudyAmendmentDto, StudyAmendmentEntity>().ReverseMap();
+            CreateMap<StudyAmendmentImpactDto, StudyAmendmentImpactEntity>().ReverseMap();
             CreateMap<StudyAmendmentReasonDto, StudyAmendmentReasonEntity>().ReverseMap();
             CreateMap<StudyCellDto, StudyCellEntity>().ReverseMap();
+            CreateMap<StudyChangeDto, StudyChangeEntity>().ReverseMap();
 			//CreateMap<StudyCohortDto, StudyCohortEntity>().ReverseMap();
 			CreateMap<StudyDefinitionsEntity, StudyDefinitionsDto>()
 	.ForMember(dest => dest.Links, opt => opt.Ignore())
@@ -135,17 +157,19 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<StudyInterventionDto, StudyInterventionEntity>().ReverseMap();
             CreateMap<StudyDefinitionDocumentDto, StudyDefinitionDocumentEntity>().ReverseMap();
             CreateMap<StudyDefinitionDocumentVersionDto, StudyDefinitionDocumentVersionEntity>().ReverseMap();
+            CreateMap<StudyRoleDto, StudyRoleEntity>().ReverseMap();
             CreateMap<StudySiteDto, StudySiteEntity>().ReverseMap();
             CreateMap<StudyTitleDto, StudyTitleEntity>().ReverseMap(); 
+            CreateMap<SubstanceDto, SubstanceEntity>().ReverseMap();
 			//CreateMap<StudyVersionDto, StudyVersionEntity>().ReverseMap();
-			CreateMap<SubjectEnrollmentDto, SubjectEnrollmentEntity>().ReverseMap();
+            CreateMap<SubjectEnrollmentDto, SubjectEnrollmentEntity>().ReverseMap();
             CreateMap<SyntaxTemplateDictionaryDto, SyntaxTemplateDictionaryEntity>()
 				.ForMember(dest => dest.Text, opt => opt.Ignore())
                 .ReverseMap();
             CreateMap<SyntaxTemplateDto, SyntaxTemplateEntity>()
                 .Include<ObjectiveDto, ObjectiveEntity>()
                 .Include<EndpointDto, EndpointEntity>()
-                .Include<EligibilityCriterionDto, EligibilityCriterionEntity>()
+                .Include<EligibilityCriterionItemDto, EligibilityCriterionItemEntity>()
                 .Include<CharacteristicDto, CharacteristicEntity>()
               .ReverseMap();
               
@@ -191,8 +215,8 @@ namespace TransCelerate.SDR.WebApi.Mappers
                 .ReverseMap();
 
             CreateMap<StudyIdentifierDto, TransCelerate.SDR.Core.DTO.eCPT.RegulatoryAgencyIdentifierNumberDto>()
-                .ForMember(dest => dest.RegulatoryAgencyNumber, opt => opt.MapFrom(src => src.StudyIdentifier))
-                .ForMember(dest => dest.RegulatoryAgencyId, opt => opt.MapFrom(src => src.StudyIdentifierScope != null ? src.StudyIdentifierScope.IdentifierScheme : null))
+                .ForMember(dest => dest.RegulatoryAgencyNumber, opt => opt.MapFrom(src => src.Text))
+                .ForMember(dest => dest.RegulatoryAgencyId, opt => opt.MapFrom(src => src.Scope != null ? src.Scope.IdentifierScheme : null))
                 .ReverseMap();            
         }
     }

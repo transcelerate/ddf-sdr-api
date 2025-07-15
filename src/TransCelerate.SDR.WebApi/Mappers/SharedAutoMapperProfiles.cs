@@ -207,29 +207,28 @@ namespace TransCelerate.SDR.WebApi.Mappers
 				.ReverseMap();
 			CreateMap<CommonOrganisationDto, Core.Entities.StudyV5.OrganizationEntity>()
 				.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-				.ForMember(dest => dest.OrganizationType, opt => opt.MapFrom(src => src.OrganisationType))
+				.ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.OrganisationType))
 				.ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.OrganisationName))
 				.ForMember(dest => dest.IdentifierScheme, opt => opt.MapFrom(src => src.OrganisationIdentifierScheme))
 				.ForMember(dest => dest.Identifier, opt => opt.MapFrom(src => src.OrganisationIdentifier))
 				.ReverseMap();
 			CreateMap<CommonStudyIdentifiersDto, Core.Entities.StudyV5.StudyIdentifierEntity>()
 				.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-				.ForMember(dest => dest.StudyIdentifier, opt => opt.MapFrom(src => src.StudyIdentifier))
-				.ForMember(dest => dest.StudyIdentifierScope, opt => opt.MapFrom(src => src.StudyIdentifierScope))
+				.ForMember(dest => dest.Text, opt => opt.MapFrom(src => src.StudyIdentifier))
+				.ForMember(dest => dest.Scope, opt => opt.MapFrom(src => src.StudyIdentifierScope))
 				.ReverseMap();
 
 			CreateMap<CommonOrganisationDto, Core.DTO.StudyV5.OrganizationDto>()
 				.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-				.ForMember(dest => dest.OrganizationType, opt => opt.MapFrom(src => src.OrganisationType))
+				.ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.OrganisationType))
 				.ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.OrganisationName))
 				.ForMember(dest => dest.IdentifierScheme, opt => opt.MapFrom(src => src.OrganisationIdentifierScheme))
 				.ForMember(dest => dest.Identifier, opt => opt.MapFrom(src => src.OrganisationIdentifier))
 				.ReverseMap();
 			CreateMap<CommonStudyIdentifiersDto, Core.DTO.StudyV5.StudyIdentifierDto>()
 				.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-				.ForMember(dest => dest.StudyIdentifier, opt => opt.MapFrom(src => src.StudyIdentifier))
-				.ForMember(dest => dest.StudyIdentifierScope, opt => opt.MapFrom(src => src.StudyIdentifierScope))
-				.ForMember(dest => dest.StudyIdentifierScope, opt => opt.MapFrom(src => src.StudyIdentifierScope))
+				.ForMember(dest => dest.Text, opt => opt.MapFrom(src => src.StudyIdentifier))
+				.ForMember(dest => dest.Scope, opt => opt.MapFrom(src => src.StudyIdentifierScope))
 				.ReverseMap();
 
 

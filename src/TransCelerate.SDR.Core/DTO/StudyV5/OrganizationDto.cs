@@ -1,4 +1,6 @@
-﻿namespace TransCelerate.SDR.Core.DTO.StudyV5
+﻿using System.Collections.Generic;
+
+namespace TransCelerate.SDR.Core.DTO.StudyV5
 {
     public class OrganizationDto : IId
     {        
@@ -7,8 +9,9 @@
         public string Label { get; set; }
         public string Identifier { get; set; }
         public string IdentifierScheme { get; set; }
-        public CodeDto OrganizationType { get; set; }
+        public CodeDto Type { get; set; }
         public AddressDto LegalAddress { get; set; }
+        public List<StudySiteDto> ManagedSites { get; set; }
         public string InstanceType { get; set; }
     }
 }

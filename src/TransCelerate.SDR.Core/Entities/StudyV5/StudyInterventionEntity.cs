@@ -13,9 +13,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public CodeEntity Role { get; set; }
         public CodeEntity Type { get; set; }
         public QuantityEntity MinimumResponseDuration { get; set; }
-        public List<AgentAdministrationEntity> Administrations { get; set; }
-        public CodeEntity ProductDesignation { get; set; }
-        public CodeEntity PharmacologicClass { get; set; }
         public string InstanceType { get; set; }
 		public List<CommentAnnotationEntity> Notes { get; set; }
 	}

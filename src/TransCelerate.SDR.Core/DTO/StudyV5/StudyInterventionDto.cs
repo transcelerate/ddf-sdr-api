@@ -12,9 +12,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public CodeDto Role { get; set; }
         public CodeDto Type { get; set; }
         public QuantityDto MinimumResponseDuration { get; set; }
-        public List<AgentAdministrationDto> Administrations { get; set; }
-        public CodeDto ProductDesignation { get; set; }
-        public CodeDto PharmacologicClass { get; set; }
         public string InstanceType { get; set; }
         public List<CommentAnnotationDto> Notes { get; set; }
     }
