@@ -1888,12 +1888,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
             
             if (studyRole?.AppliesToIds != null && studyRole.AppliesToIds.Any())
             {
-                // Collect all valid StudyVersion IDs
                 List<string> studyVersionIds = study.Study?.Versions != null 
                     ? study.Study.Versions.Select(version => version.Id).ToList() 
                     : new();
 
-                // Collect all valid StudyDesign IDs from all study versions
                 List<string> studyDesignIds = new();
                 if (study.Study?.Versions != null)
                 {
@@ -1906,16 +1904,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                     }
                 }
 
-                // Validate each AppliesToId
                 studyRole.AppliesToIds.ForEach(appliesToId =>
                 {
-                    // Check for empty, null, or whitespace-only values
                     if (string.IsNullOrWhiteSpace(appliesToId))
                     {
                         errors.Add($"{nameof(StudyRoleDto)}[{studyRoleIndex}]." +
                                 $"{nameof(StudyRoleDto.AppliesToIds)}[{studyRole.AppliesToIds.IndexOf(appliesToId)}]");
                     }
-                    // Check for invalid references (only if the ID is not empty/null/whitespace)
                     else if (!studyVersionIds.Contains(appliesToId) && !studyDesignIds.Contains(appliesToId))
                     {
                         errors.Add($"{nameof(StudyRoleDto)}[{studyRoleIndex}]." +
