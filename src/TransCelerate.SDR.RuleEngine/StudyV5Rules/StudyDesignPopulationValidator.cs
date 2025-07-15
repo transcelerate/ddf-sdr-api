@@ -52,14 +52,14 @@ namespace TransCelerate.SDR.RuleEngineV5
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignPopulationValidator), nameof(StudyDesignPopulationDto.PlannedEnrollmentNumber)), ApplyConditionTo.AllValidators)
-               .SetValidator(new RangeValidator(_httpContextAccessor));
+               .SetValidator(new QuantityRangeValidator(_httpContextAccessor));
 
             RuleFor(x => x.PlannedCompletionNumber)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignPopulationValidator), nameof(StudyDesignPopulationDto.PlannedCompletionNumber)), ApplyConditionTo.AllValidators)
-               .SetValidator(new RangeValidator(_httpContextAccessor));
+               .SetValidator(new QuantityRangeValidator(_httpContextAccessor));
 
             RuleFor(x => x.PlannedAge)
                .Cascade(CascadeMode.Stop)

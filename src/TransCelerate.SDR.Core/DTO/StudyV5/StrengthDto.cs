@@ -7,8 +7,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public string Name { get; set; }
         public string Description { get; set; }
         public string Label { get; set; }
-        public RangeDto NumeratorRange { get; set; }
-        public QuantityDto NumeratorQuantity { get; set; }
+        public QuantityRangeDto Numerator { get; set; }
         public QuantityDto Denominator { get; set; }
     }
 }

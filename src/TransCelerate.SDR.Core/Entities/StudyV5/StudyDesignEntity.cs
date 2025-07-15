@@ -22,6 +22,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public List<EstimandEntity> Estimands { get; set; }
         public List<EncounterEntity> Encounters { get; set; }
         public List<ActivityEntity> Activities { get; set; }
+        public List<EligibilityCriterionEntity> EligibilityCriteria { get; set; }
         public string Rationale { get; set; }
         public List<BiomedicalConceptEntity> BiomedicalConcepts { get; set; }
         public List<BiospecimenRetentionEntity> BiospecimenRetentions { get; set; }

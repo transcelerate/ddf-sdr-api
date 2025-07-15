@@ -5,6 +5,8 @@
     public class ResponseCodeEntity : IId
     {       
         public string Id { get; set; }
+        public string Name { get; set; }
+        public string Label { get; set; }
         public bool IsEnabled { get; set; }
         public CodeEntity Code { get; set; }
         public string InstanceType { get; set; }
