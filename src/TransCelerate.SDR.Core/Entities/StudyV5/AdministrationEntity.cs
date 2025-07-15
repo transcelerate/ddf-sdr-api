@@ -13,7 +13,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public string Label { get; set; }
         public AliasCodeEntity Frequency { get; set; }
         public AliasCodeEntity Route { get; set; }
-        public AdministrationDurationEntity Duration { get; set; }
+        public DurationEntity Duration { get; set; }
         public QuantityEntity Dose { get; set; }
         public AdministrableProductEntity AdministrableProduct { get; set; }
         public List<CommentAnnotationEntity> Notes { get; set; }

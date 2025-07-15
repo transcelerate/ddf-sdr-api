@@ -21,7 +21,6 @@ namespace TransCelerate.SDR.RuleEngineV5
             services.AddTransient<IValidator<AdministrableProductPropertyDto>, AdministrableProductPropertyValidator>();
             services.AddTransient<IValidator<AdministrableProductDto>, AdministrableProductValidator>();
             services.AddTransient<IValidator<AdministrationDto>, AdministrationValidator>();
-            services.AddTransient<IValidator<AdministrationDurationDto>, AdministrationDurationValidator>();
             services.AddTransient<IValidator<AliasCodeDto>, AliasCodeValidator>();
             services.AddTransient<IValidator<AnalysisPopulationDto>, AnalysisPopulationValidator>();
             services.AddTransient<IValidator<AssignedPersonDto>, AssignedPersonValidator>();
@@ -33,6 +32,7 @@ namespace TransCelerate.SDR.RuleEngineV5
             services.AddTransient<IValidator<CharacteristicDto>, CharacteristicValidator>();
             services.AddTransient<IValidator<CodeDto>, CodeValidator>();
 			services.AddTransient<IValidator<CommentAnnotationDto>, CommentAnnotationValidator>();
+			services.AddTransient<IValidator<DurationDto>, DurationValidator>();
 			services.AddTransient<IValidator<DocumentContentReferenceDto>, DocumentContentReferenceValidator>();
 			services.AddTransient<IValidator<EligibilityCriterionDto>, EligibilityCriterionValidator>();
 			services.AddTransient<IValidator<EligibilityCriterionItemDto>, EligibilityCriterionItemValidator>();
@@ -52,9 +52,11 @@ namespace TransCelerate.SDR.RuleEngineV5
             services.AddTransient<IValidator<ObjectiveDto>, ObjectiveValidator>();
             services.AddTransient<IValidator<ObservationalStudyDesignDto>, ObservationalStudyDesignValidator>();
             services.AddTransient<IValidator<OrganizationDto>, OrganizationValidator>();
+            services.AddTransient<IValidator<PersonNameDto>, PersonNameValidator>();
             services.AddTransient<IValidator<ProcedureDto>, ProcedureValidator>();
             services.AddTransient<IValidator<ProductOrganizationRoleDto>, ProductOrganizationRoleValidator>();
             services.AddTransient<IValidator<QuantityDto>, QuantityValidator>();
+            services.AddTransient<IValidator<QuantityRangeDto>, QuantityRangeValidator>();
             services.AddTransient<IValidator<RangeDto>, RangeValidator>();
             services.AddTransient<IValidator<ReferenceIdentifierDto>, ReferenceIdentifierValidator>();
             services.AddTransient<IValidator<ResponseCodeDto>, ResponseCodeValidator>();
