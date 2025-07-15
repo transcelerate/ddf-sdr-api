@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.DTO.StudyV5
 {
@@ -13,7 +9,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public CodeDto status { get; set; }
         public List<GovernanceDateDto> DateValues { get; set; }
         public List<NarrativeContentDto> Contents { get; set; }
-        public List<string> ChildIds { get; set; }
         public List<CommentAnnotationDto> Notes { get; set; }
         public string InstanceType { get; set; }
     }
