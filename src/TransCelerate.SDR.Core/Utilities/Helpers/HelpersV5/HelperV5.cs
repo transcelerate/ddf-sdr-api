@@ -1882,6 +1882,51 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
             return errors;
         }
 
+        public static List<string> ReferenceIntegrityValidationForStudyRole(StudyRoleDto studyRole, StudyDefinitionsDto study, int studyRoleIndex)
+        {
+            List<string> errors = new();
+            
+            if (studyRole?.AppliesToIds != null && studyRole.AppliesToIds.Any())
+            {
+                // Collect all valid StudyVersion IDs
+                List<string> studyVersionIds = study.Study?.Versions != null 
+                    ? study.Study.Versions.Select(version => version.Id).ToList() 
+                    : new();
+
+                // Collect all valid StudyDesign IDs from all study versions
+                List<string> studyDesignIds = new();
+                if (study.Study?.Versions != null)
+                {
+                    foreach (var version in study.Study.Versions)
+                    {
+                        if (version.StudyDesigns != null)
+                        {
+                            studyDesignIds.AddRange(version.StudyDesigns.Select(design => design.Id));
+                        }
+                    }
+                }
+
+                // Validate each AppliesToId
+                studyRole.AppliesToIds.ForEach(appliesToId =>
+                {
+                    // Check for empty, null, or whitespace-only values
+                    if (string.IsNullOrWhiteSpace(appliesToId))
+                    {
+                        errors.Add($"{nameof(StudyRoleDto)}[{studyRoleIndex}]." +
+                                $"{nameof(StudyRoleDto.AppliesToIds)}[{studyRole.AppliesToIds.IndexOf(appliesToId)}]");
+                    }
+                    // Check for invalid references (only if the ID is not empty/null/whitespace)
+                    else if (!studyVersionIds.Contains(appliesToId) && !studyDesignIds.Contains(appliesToId))
+                    {
+                        errors.Add($"{nameof(StudyRoleDto)}[{studyRoleIndex}]." +
+                                $"{nameof(StudyRoleDto.AppliesToIds)}[{studyRole.AppliesToIds.IndexOf(appliesToId)}]");
+                    }
+                });
+            }
+
+            return errors;
+        }
+
         public static object GetErrors(List<string> errorList)
         {
             JObject errors = new();
