@@ -11,7 +11,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public string Label { get; set; }
         public AliasCodeDto Frequency { get; set; }
         public AliasCodeDto Route { get; set; }
-        public AdministrationDurationDto Duration { get; set; }
+        public DurationDto Duration { get; set; }
         public QuantityDto Dose { get; set; }
         public AdministrableProductDto AdministrableProduct { get; set; }
         public List<CommentAnnotationDto> Notes { get; set; }

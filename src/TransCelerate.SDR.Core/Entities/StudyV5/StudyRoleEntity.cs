@@ -16,6 +16,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public List<string> AppliesToIds { get; set; }
         public MaskingEntity Masking { get; set; }
         public List<AssignedPersonEntity> AssignedPersons { get; set; }
-        
+        public List<CommentAnnotationEntity> Notes { get; set; }
     }
 }
