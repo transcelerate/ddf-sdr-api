@@ -677,7 +677,7 @@ namespace TransCelerate.SDR.Services.Services
                                 SponsorName = studyDto.StudyIdentifiers.Where(x => x.Scope.Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.Scope.Name).FirstOrDefault(),
                                 SponsorLegalAddress = studyDto.StudyIdentifiers.Where(x => x.Scope.Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.Scope.LegalAddress).FirstOrDefault() == null ? null
                                                                 : studyDto.StudyIdentifiers.Where(x => x.Scope.Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.Scope.LegalAddress).Select(x => $"{(x.Lines != null ? string.Join(", ", x.Lines) : "")}, {x.City}, {x.District}, {x.State}, {x.PostalCode}, {x.Country?.Decode}").FirstOrDefault(),
-                                StudyPhase = ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.StudyPhase, studyDto.StudyPhase?.StandardCode?.Code) ?? studyDto.StudyPhase?.StandardCode?.Decode,
+                                StudyPhase = ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.StudyPhase, design.StudyPhase?.StandardCode?.Code) ?? design.StudyPhase?.StandardCode?.Decode,
                                 Protocol = new Core.DTO.eCPT.ProtocolDto
                                 {
                                     ProtocolID = studyDto.StudyIdentifiers.Where(x => x.Scope.Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.Text).FirstOrDefault(),
@@ -957,7 +957,7 @@ namespace TransCelerate.SDR.Services.Services
                             return study;
                         else if (groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
                             return study;
-                        else if (groupFilters.Item1.Contains(study.Study.Versions.FirstOrDefault()?.StudyType?.Decode?.ToLower()))
+                        else if (groupFilters.Item1.Contains(study.Study.Versions.FirstOrDefault()?.StudyDesigns?.FirstOrDefault()?.StudyType?.Decode?.ToLower()))
                             return study;
                         else
                             return null;
