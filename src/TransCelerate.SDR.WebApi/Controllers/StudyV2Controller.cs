@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
@@ -8,7 +7,6 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.StudyV2;
-using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
@@ -69,10 +67,8 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     if (!_helper.AreValidStudyElements(listofelements, out string[] listofelementsArray))
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyElementNotValid)).Value);
 
-                    LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
-
-                    var study = listofelementsArray == null ? await _studyService.GetStudy(studyId, sdruploadversion, user).ConfigureAwait(false)
-                                                            : await _studyService.GetPartialStudyElements(studyId, sdruploadversion, user, listofelementsArray).ConfigureAwait(false);
+                    var study = listofelementsArray == null ? await _studyService.GetStudy(studyId, sdruploadversion).ConfigureAwait(false)
+                                                            : await _studyService.GetPartialStudyElements(studyId, sdruploadversion, listofelementsArray).ConfigureAwait(false);
 
                     if (study == null)
                     {
@@ -134,9 +130,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     if (!_helper.AreValidStudyDesignElements(listofelements, out string[] listofelementsArray))
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyDesignElementNotValid)).Value);
 
-                    LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
-
-                    var study = await _studyService.GetStudyDesigns(studyId, studyDesignId, sdruploadversion, user, listofelementsArray).ConfigureAwait(false);
+                    var study = await _studyService.GetStudyDesigns(studyId, studyDesignId, sdruploadversion, listofelementsArray).ConfigureAwait(false);
 
                     if (study == null)
                     {
@@ -199,9 +193,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     if (String.IsNullOrWhiteSpace(studyDesignId) && !String.IsNullOrWhiteSpace(scheduleTimelineId))
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.EnterDesignIdError)).Value);
 
-                    LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
-
-                    var SoA = await _studyService.GetSOAV2(studyId, studyDesignId, scheduleTimelineId, sdruploadversion, user).ConfigureAwait(false);
+                    var SoA = await _studyService.GetSOAV2(studyId, studyDesignId, scheduleTimelineId, sdruploadversion).ConfigureAwait(false);
 
                     if (SoA == null)
                     {
@@ -264,9 +256,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 {
                     _logger.LogInformation($"Inputs : studyId = {studyId}; sdruploadversion = {sdruploadversion};");
 
-                    LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
-
-                    var study = await _studyService.GeteCPTV2(studyId, sdruploadversion, studydesignId, user);
+                    var study = await _studyService.GeteCPTV2(studyId, sdruploadversion, studydesignId);
 
                     if (study == null)
                     {
@@ -339,10 +329,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(errors, Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse)).Value);
                     }
 
-
-                    LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
-
-                    var response = await _studyService.PostAllElements(studyDTO, user, Request?.Method)
+                    var response = await _studyService.PostAllElements(studyDTO, Request?.Method)
                                                               .ConfigureAwait(false);
 
                     if (response?.ToString() == Constants.ErrorMessages.PostRestricted)
@@ -406,9 +393,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     }
                     studyDTO.Study.StudyId = string.IsNullOrWhiteSpace(studyId) ? studyDTO.Study.StudyId : studyId;
 
-                    LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
-
-                    var response = await _studyService.PostAllElements(studyDTO, user, Request?.Method)
+                    var response = await _studyService.PostAllElements(studyDTO, Request?.Method)
                                                               .ConfigureAwait(false);
 
                     if (response?.ToString() == Constants.ErrorMessages.PostRestricted)
@@ -468,9 +453,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 {
                     _logger.LogInformation($"Inputs : studyId = {studyId};");
 
-                    LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
-
-                    var response = await _studyService.DeleteStudy(studyId, user).ConfigureAwait(false);
+                    var response = await _studyService.DeleteStudy(studyId).ConfigureAwait(false);
 
                     if (response == null)
                     {

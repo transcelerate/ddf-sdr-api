@@ -1,13 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Net;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Common;
-using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
@@ -57,12 +54,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(ChangeAuditController)}; Method : {nameof(GetChangeAudit)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
-                    LoggedInUser user = new()
-                    {
-                        UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
-                        UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
-                    };
-                    var changeAudit = await _changeAuditService.GetChangeAudit(studyId, user).ConfigureAwait(false);
+                    var changeAudit = await _changeAuditService.GetChangeAudit(studyId).ConfigureAwait(false);
 
                     if (changeAudit == null)
                     {

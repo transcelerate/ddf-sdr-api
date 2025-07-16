@@ -20,8 +20,6 @@ namespace TransCelerate.SDR.WebApi.DependencyInjection
     {
         public static IServiceCollection AddApplicationDependencies(this IServiceCollection services)
         {
-            services.AddTransient<IUserGroupMappingRepository, UserGroupMappingRepository>();
-            services.AddTransient<IUserGroupMappingService, UserGroupMappingService>();
             services.AddTransient<ILogHelper, LogHelper>();            
             //services.AddTransient<IHelperV2, HelperV2>();
             services.AddTransient<IHelperV3, HelperV3>();

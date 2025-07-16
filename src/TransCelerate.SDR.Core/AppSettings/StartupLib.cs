@@ -27,7 +27,6 @@ namespace TransCelerate.SDR.Core.AppSettings
             Config.AppInsightsAppId = Convert.ToString(config.GetSection("AppInsights-AppId").Value);
             Config.AppInsightsRESTApiUrl = Convert.ToString(config.GetSection("AppInsights-RESTApiUrl").Value);
             Config.DateRange = Convert.ToString(config.GetSection("StudyHistory:DateRange").Value);
-            Config.IsGroupFilterEnabled = Convert.ToBoolean(config.GetSection("isGroupFilterEnabled").Value);
             Config.AzureServiceBusConnectionString = Convert.ToString(config.GetSection("AzureServiceBusConnectionString").Value);
             Config.AzureServiceBusQueueName = Convert.ToString(config.GetSection("AzureServiceBusQueueName").Value);
             Config.ApiVersionUsdmVersionMapping = Convert.ToString(config.GetSection("ApiVersionUsdmVersionMapping").Value);
