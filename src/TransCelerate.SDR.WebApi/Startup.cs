@@ -4,7 +4,6 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -24,6 +23,7 @@ using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.AppSettings;
+using TransCelerate.SDR.Core.Filters;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
@@ -116,6 +116,10 @@ namespace TransCelerate.SDR.WebApi
 
             //Mapping EndPoints and overriding Data Annotations validation
             services.AddHttpContextAccessor();
+            services.AddControllers(config =>
+            {
+                config.Filters.Add<ActionFilter>();
+            });
 
             services.AddFluentValidationAutoValidation();
             ValidatorOptions.Global.DisplayNameResolver = (type, memberInfo, expression) => string.Concat(memberInfo.Name.Replace(" ", "")[..1]?.ToLower(), memberInfo.Name.Replace(" ", "").AsSpan(1));

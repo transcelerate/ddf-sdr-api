@@ -3,6 +3,7 @@
 
 ## Contents
 
+- [ActionFilter](#T-TransCelerate-SDR-Core-Filters-ActionFilter 'TransCelerate.SDR.Core.Filters.ActionFilter')
 - [ApiBehaviourOptionsHelper](#T-TransCelerate-SDR-Core-Utilities-Helpers-ApiBehaviourOptionsHelper 'TransCelerate.SDR.Core.Utilities.Helpers.ApiBehaviourOptionsHelper')
   - [ModelStateResponse(context)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ApiBehaviourOptionsHelper-ModelStateResponse-Microsoft-AspNetCore-Mvc-ActionContext- 'TransCelerate.SDR.Core.Utilities.Helpers.ApiBehaviourOptionsHelper.ModelStateResponse(Microsoft.AspNetCore.Mvc.ActionContext)')
 - [Config](#T-TransCelerate-SDR-Core-Utilities-Common-Config 'TransCelerate.SDR.Core.Utilities.Common.Config')
@@ -181,6 +182,17 @@
   - [OrderGroups(groupDetails,userGroupsQueryParameters)](#M-TransCelerate-SDR-Core-Utilities-Helpers-UserGroupSortingHelper-OrderGroups-System-Collections-Generic-IEnumerable{TransCelerate-SDR-Core-Entities-UserGroups-GroupDetailsEntity},TransCelerate-SDR-Core-DTO-UserGroups-UserGroupsQueryParameters- 'TransCelerate.SDR.Core.Utilities.Helpers.UserGroupSortingHelper.OrderGroups(System.Collections.Generic.IEnumerable{TransCelerate.SDR.Core.Entities.UserGroups.GroupDetailsEntity},TransCelerate.SDR.Core.DTO.UserGroups.UserGroupsQueryParameters)')
   - [OrderUsers(users,userGroupsQueryParameters)](#M-TransCelerate-SDR-Core-Utilities-Helpers-UserGroupSortingHelper-OrderUsers-System-Collections-Generic-IEnumerable{TransCelerate-SDR-Core-DTO-UserGroups-PostUserToGroupsDTO},TransCelerate-SDR-Core-DTO-UserGroups-UserGroupsQueryParameters- 'TransCelerate.SDR.Core.Utilities.Helpers.UserGroupSortingHelper.OrderUsers(System.Collections.Generic.IEnumerable{TransCelerate.SDR.Core.DTO.UserGroups.PostUserToGroupsDTO},TransCelerate.SDR.Core.DTO.UserGroups.UserGroupsQueryParameters)')
 - [ValidationErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-ValidationErrorModel 'TransCelerate.SDR.Core.ErrorModels.ValidationErrorModel')
+
+<a name='T-TransCelerate-SDR-Core-Filters-ActionFilter'></a>
+## ActionFilter `type`
+
+##### Namespace
+
+TransCelerate.SDR.Core.Filters
+
+##### Summary
+
+This class is an action filter which will be executed before and after an action is performed
 
 <a name='T-TransCelerate-SDR-Core-Utilities-Helpers-ApiBehaviourOptionsHelper'></a>
 ## ApiBehaviourOptionsHelper `type`
