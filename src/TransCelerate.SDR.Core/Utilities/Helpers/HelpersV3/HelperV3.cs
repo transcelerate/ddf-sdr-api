@@ -21,15 +21,14 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3
         /// <summary>
         /// Get Audit Trail fields for the POST Api
         /// </summary>
-        /// <param name="user"></param>
+        /// <param name="usdmVersion"></param>
         /// <returns></returns>
-        public AuditTrailEntity GetAuditTrail(string user)
+        public AuditTrailEntity GetAuditTrail(string usdmVersion)
         {
             return new AuditTrailEntity
             {
                 EntryDateTime = DateTime.UtcNow,
-                CreatedBy = user,
-                UsdmVersion = Constants.USDMVersions.V2
+                UsdmVersion = usdmVersion
             };
         }
 

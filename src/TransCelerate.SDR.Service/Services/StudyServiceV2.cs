@@ -8,14 +8,12 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.StudyV2;
-using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities.StudyV2;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
 using TransCelerate.SDR.DataAccess.Interfaces;
-using TransCelerate.SDR.DataAccess.Repositories;
 using TransCelerate.SDR.Services.Interfaces;
 
 namespace TransCelerate.SDR.Services.Services
@@ -49,12 +47,11 @@ namespace TransCelerate.SDR.Services.Services
         /// </summary>
         /// <param name="studyId">Study ID</param>
         /// <param name="sdruploadversion">Version of study</param>
-        /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<object> GetStudy(string studyId, int sdruploadversion, LoggedInUser user)
+        public async Task<object> GetStudy(string studyId, int sdruploadversion)
         {
             try
             {
@@ -69,9 +66,6 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {
-                    StudyDefinitionsEntity checkStudy = await CheckAccessForAStudy(study, user);
-                    if (checkStudy == null)
-                        return Constants.ErrorMessages.Forbidden;
                     var studyDTO = _mapper.Map<StudyDefinitionsDto>(study);  //Mapping Entity to Dto
                     studyDTO.Links = LinksHelper.GetLinksForUi(study.Study.StudyId, study.Study.StudyDesigns?.Select(x => x.Id).ToList(), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion);
                     return studyDTO;
@@ -93,12 +87,11 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="studyId">Study ID</param>
         /// <param name="sdruploadversion">Version of study</param>
         /// <param name="listofelements">List of elements</param>
-        /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<object> GetPartialStudyElements(string studyId, int sdruploadversion, LoggedInUser user, string[] listofelements)
+        public async Task<object> GetPartialStudyElements(string studyId, int sdruploadversion, string[] listofelements)
         {
             try
             {
@@ -113,9 +106,6 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {
-                    StudyDefinitionsEntity checkStudy = await CheckAccessForAStudy(study, user);
-                    if (checkStudy == null)
-                        return Constants.ErrorMessages.Forbidden;
                     var studyDTO = _mapper.Map<StudyDefinitionsDto>(study);  //Mapping Entity to Dto 
                     return _helper.RemoveStudyElements(listofelements, studyDTO);
                 }
@@ -137,19 +127,18 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="studyDesignId">Study Design ID</param>
         /// <param name="sdruploadversion">Version of study</param>
         /// <param name="listofelements">List of elements</param>
-        /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<object> GetStudyDesigns(string studyId, string studyDesignId, int sdruploadversion, LoggedInUser user, string[] listofelements)
+        public async Task<object> GetStudyDesigns(string studyId, string studyDesignId, int sdruploadversion, string[] listofelements)
         {
             try
             {
                 _logger.LogInformation($"Started Service : {nameof(StudyServiceV2)}; Method : {nameof(GetStudy)};");
                 if (!String.IsNullOrWhiteSpace(studyDesignId) || (listofelements is not null && listofelements.Any()))
                 {
-                    return await GetPartialStudyDesigns(studyId, studyDesignId, sdruploadversion, user, listofelements);
+                    return await GetPartialStudyDesigns(studyId, studyDesignId, sdruploadversion, listofelements);
                 }
                 else
                 {
@@ -163,11 +152,7 @@ namespace TransCelerate.SDR.Services.Services
                     }
                     else
                     {
-                        StudyDefinitionsEntity checkStudy = await CheckAccessForAStudy(study, user);
-                        if (checkStudy == null)
-                            return Constants.ErrorMessages.Forbidden;
-
-                        var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy?.Study?.StudyDesigns);  //Mapping Entity to Dto
+                        var studyDesigns = _mapper.Map<List<StudyDesignDto>>(study.Study?.StudyDesigns);  //Mapping Entity to Dto
 
                         if (studyDesigns is not null && studyDesigns.Any())
                             return new StudyDesignsResponseDto
@@ -242,12 +227,11 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="sdruploadversion">Version of study</param>
         /// <param name="scheduleTimelineId">Schedule Timeline Id</param>
         /// <param name="studyDesignId">study design Id</param>
-        /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<object> GetSOAV2(string studyId, string studyDesignId, string scheduleTimelineId, int sdruploadversion, LoggedInUser user)
+        public async Task<object> GetSOAV2(string studyId, string studyDesignId, string scheduleTimelineId, int sdruploadversion)
         {
             try
             {
@@ -261,10 +245,6 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {
-                    StudyDefinitionsEntity checkStudy = await CheckAccessForAStudy(study, user);
-                    if (checkStudy == null)
-                        return Constants.ErrorMessages.Forbidden;
-
                     var soa = SoAV2(study.Study.StudyDesigns);
                     soa.StudyId = study.Study.StudyId;
                     soa.StudyTitle = study.Study.StudyTitle;
@@ -436,12 +416,11 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="sdruploadversion">Version of study</param>
         /// <param name="studyDesignId">StudyDesign Id </param>
         /// <param name="listofelements">List of study design elements</param>
-        /// <param name="user">Logged In User</param>
         /// <returns>
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<object> GetPartialStudyDesigns(string studyId, string studyDesignId, int sdruploadversion, LoggedInUser user, string[] listofelements)
+        public async Task<object> GetPartialStudyDesigns(string studyId, string studyDesignId, int sdruploadversion, string[] listofelements)
         {
             try
             {
@@ -456,14 +435,11 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {
-                    StudyDefinitionsEntity checkStudy = await CheckAccessForAStudy(study, user);
-                    if (checkStudy == null)
-                        return Constants.ErrorMessages.Forbidden;
                     if (!String.IsNullOrWhiteSpace(studyDesignId))
                     {
                         if (study.Study.StudyDesigns is not null && study.Study.StudyDesigns.Any(x => x.Id == studyDesignId))
                         {
-                            var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy.Study.StudyDesigns.Where(x => x.Id == studyDesignId).ToList());
+                            var studyDesigns = _mapper.Map<List<StudyDesignDto>>(study.Study.StudyDesigns.Where(x => x.Id == studyDesignId).ToList());
                             JObject jObject = new()
                             {
                                 { string.Concat(nameof(StudyDto.StudyDesigns)[..1].ToLower(), nameof(StudyDto.StudyDesigns).AsSpan(1)), JArray.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))) }
@@ -476,7 +452,7 @@ namespace TransCelerate.SDR.Services.Services
                     }
                     else
                     {
-                        var studyDesigns = _mapper.Map<List<StudyDesignDto>>(checkStudy.Study.StudyDesigns);
+                        var studyDesigns = _mapper.Map<List<StudyDesignDto>>(study.Study.StudyDesigns);
                         JObject jObject = new()
                         {
                             { string.Concat(nameof(StudyDto.StudyDesigns)[..1].ToLower(), nameof(StudyDto.StudyDesigns).AsSpan(1)), JArray.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))) }
@@ -504,12 +480,11 @@ namespace TransCelerate.SDR.Services.Services
         /// <param name="studyId">Study ID</param>
         /// <param name="sdruploadversion">Version of study</param>
         /// <param name="studyDesignId">studyDesignId</param>
-        /// <param name="user">Logged in user</param>
         /// <returns>
         /// A <see cref="object"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<object> GeteCPTV2(string studyId, int sdruploadversion, string studyDesignId, LoggedInUser user)
+        public async Task<object> GeteCPTV2(string studyId, int sdruploadversion, string studyDesignId)
         {
             try
             {
@@ -524,10 +499,6 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {
-                    StudyDefinitionsEntity checkStudy = await CheckAccessForAStudy(study, user);
-                    if (checkStudy == null)
-                        return Constants.ErrorMessages.Forbidden;
-
                     var studyDTO = _mapper.Map<StudyDefinitionsDto>(study);
 
                     if (studyDTO.Study.StudyDesigns == null || !studyDTO.Study.StudyDesigns.Any())
@@ -689,24 +660,22 @@ namespace TransCelerate.SDR.Services.Services
         /// <summary>
         /// POST All Elements For a Study
         /// </summary>
-        /// <param name="studyDTO">Study for Inserting/Updating in Database</param>        
-        /// <param name="user">Logged In User</param>
+        /// <param name="studyDTO">Study for Inserting/Updating in Database</param>
         /// <param name="method">POST/PUT</param>
         /// <returns>
         /// A <see cref="object"/> which has study ID and study design ID's <br></br> <br></br>
         /// <see langword="null"/> If the insert is not done
         /// </returns>
-        public async Task<object> PostAllElements(StudyDefinitionsDto studyDTO, LoggedInUser user, string method)
+        public async Task<object> PostAllElements(StudyDefinitionsDto studyDTO, string method)
         {
             try
             {
                 _logger.LogInformation($"Started Service : {nameof(StudyServiceV2)}; Method : {nameof(PostAllElements)};");
-                if (!await CheckPermissionForAUser(user))
-                    return Constants.ErrorMessages.PostRestricted;
+
                 StudyDefinitionsEntity incomingStudyEntity = new()
                 {
                     Study = _mapper.Map<StudyEntity>(studyDTO.Study),
-                    AuditTrail = _helper.GetAuditTrail(user?.UserName),
+                    AuditTrail = _helper.GetAuditTrail(Constants.USDMVersions.V1_9),
                     Id = MongoDB.Bson.ObjectId.GenerateNewId()
                 };
 
@@ -801,112 +770,16 @@ namespace TransCelerate.SDR.Services.Services
         #endregion
         #endregion
 
-        #region UserGroups
-        /// <summary>
-        /// Check access for the study
-        /// </summary>
-        /// <param name="study">Study for which user access have to be checked</param>   
-        /// <param name="user">Logged In User</param>
-        /// <returns>
-        /// A <see cref="StudyDefinitionsEntity"/> if the user have access <br></br> <br></br>
-        /// <see langword="null"/> If user doesn't have access to the study
-        /// </returns>
-        public async Task<StudyDefinitionsEntity> CheckAccessForAStudy(StudyDefinitionsEntity study, LoggedInUser user)
-        {
-            try
-            {
-                _logger.LogInformation($"Started Service : {nameof(StudyServiceV2)}; Method : {nameof(CheckAccessForAStudy)};");
-
-                if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
-                {
-                    var groups = await _studyRepository.GetGroupsOfUser(user).ConfigureAwait(false);
-
-                    if (groups != null && groups.Count > 0)
-                    {
-                        Tuple<List<string>, List<string>> groupFilters = GroupFilters.GetGroupFilters(groups);
-                        if (groupFilters.Item2.Contains(study.Study.StudyId))
-                            return study;
-                        else if (groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
-                            return study;
-                        else if (groupFilters.Item1.Contains(study.Study.StudyType?.Decode?.ToLower()))
-                            return study;
-                        else
-                            return null;
-                    }
-                    else
-                    {
-                        // Filter should not give any results
-                        return null;
-                    }
-                }
-                else
-                    return study;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                _logger.LogInformation($"Ended Service : {nameof(StudyServiceV2)}; Method : {nameof(CheckAccessForAStudy)};");
-            }
-        }       
-
-        /// <summary>
-        /// Check READ_WRITE Permission for a user
-        /// </summary>    
-        /// <param name="user">Logged In User</param>
-        /// <returns>
-        /// <see langword="true"/> If the user have READ_WRITE access in any of the groups <br></br> <br></br>
-        /// <see langword="false"/> If the user does not have READ_WRITE access in any of the groups
-        /// </returns>
-        public async Task<bool> CheckPermissionForAUser(LoggedInUser user)
-        {
-            try
-            {
-                _logger.LogInformation($"Started Service : {nameof(StudyServiceV2)}; Method : {nameof(CheckPermissionForAUser)};");
-
-                if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
-                {
-                    var groups = await _studyRepository.GetGroupsOfUser(user).ConfigureAwait(false);
-
-                    if (groups != null && groups.Count > 0)
-                    {
-                        if (groups.Any(x => x.Permission == Permissions.READ_WRITE.ToString()))
-                            return true;
-                        else
-                            return false;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else
-                    return true;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                _logger.LogInformation($"Ended Service : {nameof(StudyServiceV2)}; Method : {nameof(CheckPermissionForAUser)};");
-            }
-        }
-        #endregion
-
         #region Delete Method
         /// <summary>
         /// GET All Elements For a Study
         /// </summary>
-        /// <param name="studyId">Study ID</param>        
-        /// <param name="user">Logged In User</param>
+        /// <param name="studyId">Study ID</param>
         /// <returns>
         /// A <see cref="object"/> Delete Object
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<object> DeleteStudy(string studyId, LoggedInUser user)
+        public async Task<object> DeleteStudy(string studyId)
         {
             try
             {
@@ -921,7 +794,7 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {
-                    _logger.LogCriitical($"Delete Request; study_uuid = {studyId} ; Requested By: {user.UserName} ; Requester Role: {user.UserRole}; Count: {count}");
+                    _logger.LogCriitical($"Delete Request; study_uuid = {studyId} ; Count: {count}");
                     var deleteResponse = await _studyRepository.DeleteStudyAsync(studyId).ConfigureAwait(false);
                     _logger.LogInformation($"Delete Completed: {deleteResponse.IsAcknowledged} ; Deleted Count : {deleteResponse.DeletedCount}");
                     return deleteResponse;
@@ -937,33 +810,6 @@ namespace TransCelerate.SDR.Services.Services
             }
         }
 
-        #endregion
-
-        #region Check Access For A Study
-        public async Task<bool> GetAccessForAStudy(string studyId, int sdruploadversion, LoggedInUser user)
-        {
-            try
-            {
-                _logger.LogInformation($"Started Service : {nameof(StudyServiceV2)}; Method : {nameof(GetAccessForAStudy)};");
-                studyId = studyId.Trim();
-
-                StudyDefinitionsEntity study = study = await _studyRepository.GetStudyItemsForCheckingAccessAsync(studyId: studyId, 0).ConfigureAwait(false);
-
-                StudyDefinitionsEntity checkStudy = await CheckAccessForAStudy(study, user);
-                if (checkStudy == null)
-                    return false;
-
-                return true;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                _logger.LogInformation($"Ended Service : {nameof(StudyServiceV2)}; Method : {nameof(GetAccessForAStudy)};");
-            }
-        }
         #endregion
     }
 }
