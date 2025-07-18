@@ -23,17 +23,6 @@ jobs:
     
         
     steps:   
-    - name: Set env as secret
-      env:
-        MY_VAL: ${{ secrets.ACR_NAME }}
-      run: |
-        import os
-        data = open("file", "w")
-        for q in (os.getenv("MY_VAL")):
-          print(q)
-          data.write(q)
-      shell: python
-
     - name: Set up JDK 17
       uses: actions/setup-java@v1
       # Setup JDK 17
