@@ -71,9 +71,6 @@
 - [GeographicScopeValidator](#T-TransCelerate-SDR-RuleEngineV5-GeographicScopeValidator 'TransCelerate.SDR.RuleEngineV5.GeographicScopeValidator')
 - [GovernanceDateValidator](#T-TransCelerate-SDR-RuleEngineV4-GovernanceDateValidator 'TransCelerate.SDR.RuleEngineV4.GovernanceDateValidator')
 - [GovernanceDateValidator](#T-TransCelerate-SDR-RuleEngineV5-GovernanceDateValidator 'TransCelerate.SDR.RuleEngineV5.GovernanceDateValidator')
-- [GroupFilterValidator](#T-TransCelerate-SDR-RuleEngine-GroupFilterValidator 'TransCelerate.SDR.RuleEngine.GroupFilterValidator')
-- [GroupFilterValuesValidator](#T-TransCelerate-SDR-RuleEngine-GroupFilterValuesValidator 'TransCelerate.SDR.RuleEngine.GroupFilterValuesValidator')
-- [GroupsValidator](#T-TransCelerate-SDR-RuleEngine-GroupsValidator 'TransCelerate.SDR.RuleEngine.GroupsValidator')
 - [IdentifierValidator](#T-TransCelerate-SDR-RuleEngineV5-IdentifierValidator 'TransCelerate.SDR.RuleEngineV5.IdentifierValidator')
 - [IndicationValidator](#T-TransCelerate-SDR-RuleEngineV2-IndicationValidator 'TransCelerate.SDR.RuleEngineV2.IndicationValidator')
 - [IndicationValidator](#T-TransCelerate-SDR-RuleEngineV3-IndicationValidator 'TransCelerate.SDR.RuleEngineV3.IndicationValidator')
@@ -102,7 +99,6 @@
 - [ParameterMapValidator](#T-TransCelerate-SDR-RuleEngineV4-ParameterMapValidator 'TransCelerate.SDR.RuleEngineV4.ParameterMapValidator')
 - [ParameterMapValidator](#T-TransCelerate-SDR-RuleEngineV5-ParameterMapValidator 'TransCelerate.SDR.RuleEngineV5.ParameterMapValidator')
 - [PopulationDefinitionValidator](#T-TransCelerate-SDR-RuleEngineV5-PopulationDefinitionValidator 'TransCelerate.SDR.RuleEngineV5.PopulationDefinitionValidator')
-- [PostUserToGroupValidator](#T-TransCelerate-SDR-RuleEngine-PostUserToGroupValidator 'TransCelerate.SDR.RuleEngine.PostUserToGroupValidator')
 - [ProcedureValidator](#T-TransCelerate-SDR-RuleEngineV2-ProcedureValidator 'TransCelerate.SDR.RuleEngineV2.ProcedureValidator')
 - [ProcedureValidator](#T-TransCelerate-SDR-RuleEngineV3-ProcedureValidator 'TransCelerate.SDR.RuleEngineV3.ProcedureValidator')
 - [ProcedureValidator](#T-TransCelerate-SDR-RuleEngineV4-ProcedureValidator 'TransCelerate.SDR.RuleEngineV4.ProcedureValidator')
@@ -189,8 +185,6 @@
 - [TransitionRuleValidator](#T-TransCelerate-SDR-RuleEngineV3-TransitionRuleValidator 'TransCelerate.SDR.RuleEngineV3.TransitionRuleValidator')
 - [TransitionRuleValidator](#T-TransCelerate-SDR-RuleEngineV4-TransitionRuleValidator 'TransCelerate.SDR.RuleEngineV4.TransitionRuleValidator')
 - [TransitionRuleValidator](#T-TransCelerate-SDR-RuleEngineV5-TransitionRuleValidator 'TransCelerate.SDR.RuleEngineV5.TransitionRuleValidator')
-- [UserGroupsQueryParametersValidator](#T-TransCelerate-SDR-RuleEngine-UserGroupsQueryParametersValidator 'TransCelerate.SDR.RuleEngine.UserGroupsQueryParametersValidator')
-- [UserLoginValidator](#T-TransCelerate-SDR-RuleEngine-UserLoginValidator 'TransCelerate.SDR.RuleEngine.UserLoginValidator')
 - [ValidationDependenciesCommon](#T-TransCelerate-SDR-RuleEngine-Common-ValidationDependenciesCommon 'TransCelerate.SDR.RuleEngine.Common.ValidationDependenciesCommon')
   - [AddValidationDependenciesCommon(services)](#M-TransCelerate-SDR-RuleEngine-Common-ValidationDependenciesCommon-AddValidationDependenciesCommon-Microsoft-Extensions-DependencyInjection-IServiceCollection- 'TransCelerate.SDR.RuleEngine.Common.ValidationDependenciesCommon.AddValidationDependenciesCommon(Microsoft.Extensions.DependencyInjection.IServiceCollection)')
 - [ValidationDependenciesV2](#T-TransCelerate-SDR-RuleEngineV2-ValidationDependenciesV2 'TransCelerate.SDR.RuleEngineV2.ValidationDependenciesV2')
@@ -950,39 +944,6 @@ TransCelerate.SDR.RuleEngineV5
 
 This Class is the validator for Code
 
-<a name='T-TransCelerate-SDR-RuleEngine-GroupFilterValidator'></a>
-## GroupFilterValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngine
-
-##### Summary
-
-This Class is the validator for Group Filter
-
-<a name='T-TransCelerate-SDR-RuleEngine-GroupFilterValuesValidator'></a>
-## GroupFilterValuesValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngine
-
-##### Summary
-
-This Class is the validator for Group Filter Values
-
-<a name='T-TransCelerate-SDR-RuleEngine-GroupsValidator'></a>
-## GroupsValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngine
-
-##### Summary
-
-This Class is the validator for POST Group Endpoint
-
 <a name='T-TransCelerate-SDR-RuleEngineV5-IdentifierValidator'></a>
 ## IdentifierValidator `type`
 
@@ -1290,17 +1251,6 @@ TransCelerate.SDR.RuleEngineV5
 ##### Summary
 
 This Class is the validator for StudyDesignPopulation
-
-<a name='T-TransCelerate-SDR-RuleEngine-PostUserToGroupValidator'></a>
-## PostUserToGroupValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngine
-
-##### Summary
-
-This Class is the validator for POST User Endpoint
 
 <a name='T-TransCelerate-SDR-RuleEngineV2-ProcedureValidator'></a>
 ## ProcedureValidator `type`
@@ -2247,28 +2197,6 @@ TransCelerate.SDR.RuleEngineV5
 ##### Summary
 
 This Class is the validator for TransitionRule
-
-<a name='T-TransCelerate-SDR-RuleEngine-UserGroupsQueryParametersValidator'></a>
-## UserGroupsQueryParametersValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngine
-
-##### Summary
-
-This Class is the validator for GET User and Groups Endpoints
-
-<a name='T-TransCelerate-SDR-RuleEngine-UserLoginValidator'></a>
-## UserLoginValidator `type`
-
-##### Namespace
-
-TransCelerate.SDR.RuleEngine
-
-##### Summary
-
-This Class is the validator for Token Endpoint
 
 <a name='T-TransCelerate-SDR-RuleEngine-Common-ValidationDependenciesCommon'></a>
 ## ValidationDependenciesCommon `type`

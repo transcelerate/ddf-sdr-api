@@ -64,10 +64,6 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     {
                         return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
                     }
-                    else if (study.ToString() == Constants.ErrorMessages.Forbidden)
-                    {
-                        return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
-                    }
                     else
                     {
                         return Ok(new GetRawJsonDto()
@@ -165,10 +161,6 @@ namespace TransCelerate.SDR.WebApi.Controllers
                         if (studyAuditResponse == null)
                         {
                             return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
-                        }
-                        else if (studyAuditResponse.ToString() == Constants.ErrorMessages.Forbidden)
-                        {
-                            return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
                         }
                         else
                         {

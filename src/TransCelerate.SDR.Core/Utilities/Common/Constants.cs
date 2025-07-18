@@ -225,10 +225,6 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string GroupNameExists = "The group name already exist";
 
-            public const string UnAuthorized = "Access Denied";
-
-            public const string Forbidden = "Access to the resource is restricted";
-
             public const string ForbiddenForAStudy = "Access to one or more SDRUploadVersions of the study is restricted";
 
             public const string ProvideDifferentVersion = "SDRUploadVersions for the Compare API must be different";
@@ -236,8 +232,6 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public static readonly string[] ProvideValidVersion = { "A valid SDRUploadVersion for ", " must be provided" };
 
             public const string InvalidCredentials = "Invalid Credentials";
-
-            public const string PostRestricted = "User does not have permission to create or update this study";
 
             public const string UsageReportNotAvailable = "System Usage Report Not Available";
 

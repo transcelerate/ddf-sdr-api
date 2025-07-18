@@ -15,21 +15,16 @@
   - [BadRequest(message)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-BadRequest-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.BadRequest(System.String)')
   - [BadRequest(validationProblemDetails,message)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-BadRequest-System-Object,System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.BadRequest(System.Object,System.String)')
   - [ErrorResponseModel(exception)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-ErrorResponseModel-System-Exception- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.ErrorResponseModel(System.Exception)')
-  - [Forbidden(message)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-Forbidden-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.Forbidden(System.String)')
   - [GatewayError()](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-GatewayError 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.GatewayError')
   - [InternalServerError(message)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-InternalServerError-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.InternalServerError(System.String)')
   - [MethodNotAllowed(message)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-MethodNotAllowed-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.MethodNotAllowed(System.String)')
   - [NotFound(message)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-NotFound-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.NotFound(System.String)')
-  - [UnAuthorizedAccess()](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-UnAuthorizedAccess-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.UnAuthorizedAccess(System.String)')
 - [FromDateToDateHelper](#T-TransCelerate-SDR-Core-Utilities-Helpers-FromDateToDateHelper 'TransCelerate.SDR.Core.Utilities.Helpers.FromDateToDateHelper')
   - [GetFromAndToDate(fromDate,toDate,range)](#M-TransCelerate-SDR-Core-Utilities-Helpers-FromDateToDateHelper-GetFromAndToDate-System-DateTime,System-DateTime,System-Int32- 'TransCelerate.SDR.Core.Utilities.Helpers.FromDateToDateHelper.GetFromAndToDate(System.DateTime,System.DateTime,System.Int32)')
-- [GroupFilters](#T-TransCelerate-SDR-Core-Utilities-Helpers-GroupFilters 'TransCelerate.SDR.Core.Utilities.Helpers.GroupFilters')
-  - [GetFilterValues(groups,field)](#M-TransCelerate-SDR-Core-Utilities-Helpers-GroupFilters-GetFilterValues-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-UserGroups-SDRGroupsEntity},System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.GroupFilters.GetFilterValues(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.UserGroups.SDRGroupsEntity},System.String)')
-  - [GetGroupFilters(groups)](#M-TransCelerate-SDR-Core-Utilities-Helpers-GroupFilters-GetGroupFilters-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-UserGroups-SDRGroupsEntity}- 'TransCelerate.SDR.Core.Utilities.Helpers.GroupFilters.GetGroupFilters(System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.UserGroups.SDRGroupsEntity})')
 - [HelperV2](#T-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2')
   - [AreValidStudyDesignElements(listofelements,listofElementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-AreValidStudyDesignElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.AreValidStudyDesignElements(System.String,System.String[]@)')
   - [AreValidStudyElements(listofelements,listofElementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-AreValidStudyElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.AreValidStudyElements(System.String,System.String[]@)')
-  - [GetAuditTrail(user)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-GetAuditTrail-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.GetAuditTrail(System.String)')
+  - [GetAuditTrail(usdmVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-GetAuditTrail-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.GetAuditTrail(System.String)')
   - [GetChangedValues(currentStudyVersion,previousStudyVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-GetChangedValues-TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.GetChangedValues(TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity)')
   - [IsSameStudy(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.IsSameStudy(TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity)')
   - [JsonObjectCheck(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-JsonObjectCheck-System-Object,System-Object- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2.JsonObjectCheck(System.Object,System.Object)')
@@ -52,7 +47,7 @@
 - [HelperV3](#T-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3')
   - [AreValidStudyDesignElements(listofelements,listofElementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-AreValidStudyDesignElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.AreValidStudyDesignElements(System.String,System.String[]@)')
   - [AreValidStudyElements(listofelements,listofElementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-AreValidStudyElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.AreValidStudyElements(System.String,System.String[]@)')
-  - [GetAuditTrail(user)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-GetAuditTrail-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.GetAuditTrail(System.String)')
+  - [GetAuditTrail(usdmVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-GetAuditTrail-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.GetAuditTrail(System.String)')
   - [GetChangedValues(currentStudyVersion,previousStudyVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-GetChangedValues-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.GetChangedValues(TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity)')
   - [GetChangedValuesForStudyComparison(currentStudyVersion,previousStudyVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-GetChangedValuesForStudyComparison-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.GetChangedValuesForStudyComparison(TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity)')
   - [IsSameStudy(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.HelperV3.IsSameStudy(TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity)')
@@ -79,7 +74,7 @@
 - [HelperV4](#T-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV4-HelperV4 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4.HelperV4')
   - [AreValidStudyDesignElements(listofelements,listofElementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV4-HelperV4-AreValidStudyDesignElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4.HelperV4.AreValidStudyDesignElements(System.String,System.String[]@)')
   - [AreValidStudyElements(listofelements,listofElementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV4-HelperV4-AreValidStudyElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4.HelperV4.AreValidStudyElements(System.String,System.String[]@)')
-  - [GetAuditTrail(user,usdmVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV4-HelperV4-GetAuditTrail-System-String,System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4.HelperV4.GetAuditTrail(System.String,System.String)')
+  - [GetAuditTrail(usdmVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV4-HelperV4-GetAuditTrail-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4.HelperV4.GetAuditTrail(System.String)')
   - [GetChangedValues(currentStudyVersion,previousStudyVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV4-HelperV4-GetChangedValues-TransCelerate-SDR-Core-Entities-StudyV4-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV4-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4.HelperV4.GetChangedValues(TransCelerate.SDR.Core.Entities.StudyV4.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV4.StudyDefinitionsEntity)')
   - [GetChangedValuesForStudyComparison(currentStudyVersion,previousStudyVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV4-HelperV4-GetChangedValuesForStudyComparison-TransCelerate-SDR-Core-Entities-StudyV4-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV4-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4.HelperV4.GetChangedValuesForStudyComparison(TransCelerate.SDR.Core.Entities.StudyV4.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV4.StudyDefinitionsEntity)')
   - [IsSameStudy(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV4-HelperV4-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV4-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV4-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4.HelperV4.IsSameStudy(TransCelerate.SDR.Core.Entities.StudyV4.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV4.StudyDefinitionsEntity)')
@@ -89,7 +84,7 @@
 - [HelperV5](#T-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-HelperV5 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.HelperV5')
   - [AreValidStudyDesignElements(listofelements,listofElementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-HelperV5-AreValidStudyDesignElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.HelperV5.AreValidStudyDesignElements(System.String,System.String[]@)')
   - [AreValidStudyElements(listofelements,listofElementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-HelperV5-AreValidStudyElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.HelperV5.AreValidStudyElements(System.String,System.String[]@)')
-  - [GetAuditTrail(user,usdmVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-HelperV5-GetAuditTrail-System-String,System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.HelperV5.GetAuditTrail(System.String,System.String)')
+  - [GetAuditTrail(usdmVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-HelperV5-GetAuditTrail-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.HelperV5.GetAuditTrail(System.String)')
   - [GetChangedValues(currentStudyVersion,previousStudyVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-HelperV5-GetChangedValues-TransCelerate-SDR-Core-Entities-StudyV5-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV5-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.HelperV5.GetChangedValues(TransCelerate.SDR.Core.Entities.StudyV5.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV5.StudyDefinitionsEntity)')
   - [GetChangedValuesForStudyComparison(currentStudyVersion,previousStudyVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-HelperV5-GetChangedValuesForStudyComparison-TransCelerate-SDR-Core-Entities-StudyV5-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV5-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.HelperV5.GetChangedValuesForStudyComparison(TransCelerate.SDR.Core.Entities.StudyV5.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV5.StudyDefinitionsEntity)')
   - [IsSameStudy(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-HelperV5-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV5-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV5-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.HelperV5.IsSameStudy(TransCelerate.SDR.Core.Entities.StudyV5.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV5.StudyDefinitionsEntity)')
@@ -101,7 +96,7 @@
 - [IHelperV2](#T-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2')
   - [AreValidStudyDesignElements(listofelements,listofelementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-AreValidStudyDesignElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.AreValidStudyDesignElements(System.String,System.String[]@)')
   - [AreValidStudyElements(listofelements,listofelementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-AreValidStudyElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.AreValidStudyElements(System.String,System.String[]@)')
-  - [GetAuditTrail(user)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-GetAuditTrail-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.GetAuditTrail(System.String)')
+  - [GetAuditTrail(usdmVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-GetAuditTrail-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.GetAuditTrail(System.String)')
   - [GetSerializerSettingsForCamelCasing()](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-GetSerializerSettingsForCamelCasing 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.GetSerializerSettingsForCamelCasing')
   - [IsSameStudy(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.IsSameStudy(TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV2.StudyDefinitionsEntity)')
   - [JsonObjectCheck(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-JsonObjectCheck-System-Object,System-Object- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.IHelperV2.JsonObjectCheck(System.Object,System.Object)')
@@ -119,7 +114,7 @@
 - [IHelperV3](#T-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3')
   - [AreValidStudyDesignElements(listofelements,listofelementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-AreValidStudyDesignElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3.AreValidStudyDesignElements(System.String,System.String[]@)')
   - [AreValidStudyElements(listofelements,listofelementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-AreValidStudyElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3.AreValidStudyElements(System.String,System.String[]@)')
-  - [GetAuditTrail(user)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-GetAuditTrail-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3.GetAuditTrail(System.String)')
+  - [GetAuditTrail(usdmVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-GetAuditTrail-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3.GetAuditTrail(System.String)')
   - [GetSerializerSettingsForCamelCasing()](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-GetSerializerSettingsForCamelCasing 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3.GetSerializerSettingsForCamelCasing')
   - [IsSameStudy(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3.IsSameStudy(TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity)')
   - [JsonObjectCheck(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-JsonObjectCheck-System-Object,System-Object- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3.IHelperV3.JsonObjectCheck(System.Object,System.Object)')
@@ -137,7 +132,7 @@
 - [IHelperV4](#T-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV4-IHelperV4 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4.IHelperV4')
   - [AreValidStudyDesignElements(listofelements,listofelementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV4-IHelperV4-AreValidStudyDesignElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4.IHelperV4.AreValidStudyDesignElements(System.String,System.String[]@)')
   - [AreValidStudyElements(listofelements,listofelementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV4-IHelperV4-AreValidStudyElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4.IHelperV4.AreValidStudyElements(System.String,System.String[]@)')
-  - [GetAuditTrail(user,usdmVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV4-IHelperV4-GetAuditTrail-System-String,System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4.IHelperV4.GetAuditTrail(System.String,System.String)')
+  - [GetAuditTrail(usdmVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV4-IHelperV4-GetAuditTrail-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4.IHelperV4.GetAuditTrail(System.String)')
   - [GetSerializerSettingsForCamelCasing()](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV4-IHelperV4-GetSerializerSettingsForCamelCasing 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4.IHelperV4.GetSerializerSettingsForCamelCasing')
   - [IsSameStudy(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV4-IHelperV4-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV4-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV4-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4.IHelperV4.IsSameStudy(TransCelerate.SDR.Core.Entities.StudyV4.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV4.StudyDefinitionsEntity)')
   - [JsonObjectCheck(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV4-IHelperV4-JsonObjectCheck-System-Object,System-Object- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4.IHelperV4.JsonObjectCheck(System.Object,System.Object)')
@@ -146,7 +141,7 @@
 - [IHelperV5](#T-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.IHelperV5')
   - [AreValidStudyDesignElements(listofelements,listofelementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-AreValidStudyDesignElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.IHelperV5.AreValidStudyDesignElements(System.String,System.String[]@)')
   - [AreValidStudyElements(listofelements,listofelementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-AreValidStudyElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.IHelperV5.AreValidStudyElements(System.String,System.String[]@)')
-  - [GetAuditTrail(user,usdmVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-GetAuditTrail-System-String,System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.IHelperV5.GetAuditTrail(System.String,System.String)')
+  - [GetAuditTrail(usdmVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-GetAuditTrail-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.IHelperV5.GetAuditTrail(System.String)')
   - [GetSerializerSettingsForCamelCasing()](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-GetSerializerSettingsForCamelCasing 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.IHelperV5.GetSerializerSettingsForCamelCasing')
   - [IsSameStudy(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV5-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV5-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.IHelperV5.IsSameStudy(TransCelerate.SDR.Core.Entities.StudyV5.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV5.StudyDefinitionsEntity)')
   - [JsonObjectCheck(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-JsonObjectCheck-System-Object,System-Object- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.IHelperV5.JsonObjectCheck(System.Object,System.Object)')
@@ -178,9 +173,6 @@
   - [ValidationSuccess()](#M-TransCelerate-SDR-Core-Utilities-Helpers-SuccessResponseHelper-ValidationSuccess-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.SuccessResponseHelper.ValidationSuccess(System.String)')
 - [UsageReportQueryHelper](#T-TransCelerate-SDR-Core-Utilities-Helpers-UsageReportQueryHelper 'TransCelerate.SDR.Core.Utilities.Helpers.UsageReportQueryHelper')
   - [FormattedQuery(reportBodyParameters)](#M-TransCelerate-SDR-Core-Utilities-Helpers-UsageReportQueryHelper-FormattedQuery-TransCelerate-SDR-Core-DTO-Reports-ReportBodyParameters- 'TransCelerate.SDR.Core.Utilities.Helpers.UsageReportQueryHelper.FormattedQuery(TransCelerate.SDR.Core.DTO.Reports.ReportBodyParameters)')
-- [UserGroupSortingHelper](#T-TransCelerate-SDR-Core-Utilities-Helpers-UserGroupSortingHelper 'TransCelerate.SDR.Core.Utilities.Helpers.UserGroupSortingHelper')
-  - [OrderGroups(groupDetails,userGroupsQueryParameters)](#M-TransCelerate-SDR-Core-Utilities-Helpers-UserGroupSortingHelper-OrderGroups-System-Collections-Generic-IEnumerable{TransCelerate-SDR-Core-Entities-UserGroups-GroupDetailsEntity},TransCelerate-SDR-Core-DTO-UserGroups-UserGroupsQueryParameters- 'TransCelerate.SDR.Core.Utilities.Helpers.UserGroupSortingHelper.OrderGroups(System.Collections.Generic.IEnumerable{TransCelerate.SDR.Core.Entities.UserGroups.GroupDetailsEntity},TransCelerate.SDR.Core.DTO.UserGroups.UserGroupsQueryParameters)')
-  - [OrderUsers(users,userGroupsQueryParameters)](#M-TransCelerate-SDR-Core-Utilities-Helpers-UserGroupSortingHelper-OrderUsers-System-Collections-Generic-IEnumerable{TransCelerate-SDR-Core-DTO-UserGroups-PostUserToGroupsDTO},TransCelerate-SDR-Core-DTO-UserGroups-UserGroupsQueryParameters- 'TransCelerate.SDR.Core.Utilities.Helpers.UserGroupSortingHelper.OrderUsers(System.Collections.Generic.IEnumerable{TransCelerate.SDR.Core.DTO.UserGroups.PostUserToGroupsDTO},TransCelerate.SDR.Core.DTO.UserGroups.UserGroupsQueryParameters)')
 - [ValidationErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-ValidationErrorModel 'TransCelerate.SDR.Core.ErrorModels.ValidationErrorModel')
 
 <a name='T-TransCelerate-SDR-Core-Filters-ActionFilter'></a>
@@ -342,23 +334,6 @@ A [ErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-ErrorModel 'TransCelerate.S
 | ---- | ---- | ----------- |
 | exception | [System.Exception](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Exception 'System.Exception') | Exception |
 
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-Forbidden-System-String-'></a>
-### Forbidden(message) `method`
-
-##### Summary
-
-Resposne Helper When the user is accessing a restricted data or APi
-
-##### Returns
-
-A [ErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-ErrorModel 'TransCelerate.SDR.Core.ErrorModels.ErrorModel')
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| message | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Message for error response |
-
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-GatewayError'></a>
 ### GatewayError() `method`
 
@@ -425,21 +400,6 @@ A [ErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-ErrorModel 'TransCelerate.S
 | ---- | ---- | ----------- |
 | message | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Message for error response |
 
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-UnAuthorizedAccess-System-String-'></a>
-### UnAuthorizedAccess() `method`
-
-##### Summary
-
-Resposne Helper When there is an Unauthorized Access
-
-##### Returns
-
-A [ErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-ErrorModel 'TransCelerate.SDR.Core.ErrorModels.ErrorModel') When there is an Unauthorized Access
-
-##### Parameters
-
-This method has no parameters.
-
 <a name='T-TransCelerate-SDR-Core-Utilities-Helpers-FromDateToDateHelper'></a>
 ## FromDateToDateHelper `type`
 
@@ -469,52 +429,6 @@ This method helps to return formatted from and to date
 | fromDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | From Date |
 | toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | To Date |
 | range | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Date Range for which the from date have to be formatted (used for studyHistory endpoint). |
-
-<a name='T-TransCelerate-SDR-Core-Utilities-Helpers-GroupFilters'></a>
-## GroupFilters `type`
-
-##### Namespace
-
-TransCelerate.SDR.Core.Utilities.Helpers
-
-##### Summary
-
-This class is used for applying group filters
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-GroupFilters-GetFilterValues-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-UserGroups-SDRGroupsEntity},System-String-'></a>
-### GetFilterValues(groups,field) `method`
-
-##### Summary
-
-Get filter values from the groups
-
-##### Returns
-
-
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| groups | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.UserGroups.SDRGroupsEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.UserGroups.SDRGroupsEntity}') | List of Groups which user was tagged into |
-| field | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | studyType or study |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-GroupFilters-GetGroupFilters-System-Collections-Generic-List{TransCelerate-SDR-Core-Entities-UserGroups-SDRGroupsEntity}-'></a>
-### GetGroupFilters(groups) `method`
-
-##### Summary
-
-This method is to return the group filter values
-
-##### Returns
-
-
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| groups | [System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.UserGroups.SDRGroupsEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.Entities.UserGroups.SDRGroupsEntity}') | List of Groups which user was tagged into |
 
 <a name='T-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2'></a>
 ## HelperV2 `type`
@@ -564,7 +478,7 @@ Check whether the the input list of study elements are valid or not
 | listofElementsArray | [System.String[]@](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[]@ 'System.String[]@') |  |
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-GetAuditTrail-System-String-'></a>
-### GetAuditTrail(user) `method`
+### GetAuditTrail(usdmVersion) `method`
 
 ##### Summary
 
@@ -578,7 +492,7 @@ Get Audit Trail fields for the POST Api
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| user | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2-GetChangedValues-TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV2-StudyDefinitionsEntity-'></a>
 ### GetChangedValues(currentStudyVersion,previousStudyVersion) `method`
@@ -957,7 +871,7 @@ Check whether the the input list of study elements are valid or not
 | listofElementsArray | [System.String[]@](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[]@ 'System.String[]@') |  |
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-GetAuditTrail-System-String-'></a>
-### GetAuditTrail(user) `method`
+### GetAuditTrail(usdmVersion) `method`
 
 ##### Summary
 
@@ -971,7 +885,7 @@ Get Audit Trail fields for the POST Api
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| user | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-HelperV3-GetChangedValues-TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV3-StudyDefinitionsEntity-'></a>
 ### GetChangedValues(currentStudyVersion,previousStudyVersion) `method`
@@ -1418,8 +1332,8 @@ Check whether the the input list of study elements are valid or not
 | listofelements | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | listofElementsArray | [System.String[]@](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[]@ 'System.String[]@') |  |
 
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV4-HelperV4-GetAuditTrail-System-String,System-String-'></a>
-### GetAuditTrail(user,usdmVersion) `method`
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV4-HelperV4-GetAuditTrail-System-String-'></a>
+### GetAuditTrail(usdmVersion) `method`
 
 ##### Summary
 
@@ -1433,7 +1347,6 @@ Get Audit Trail fields for the POST Api
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| user | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV4-HelperV4-GetChangedValues-TransCelerate-SDR-Core-Entities-StudyV4-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV4-StudyDefinitionsEntity-'></a>
@@ -1592,8 +1505,8 @@ Check whether the the input list of study elements are valid or not
 | listofelements | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | listofElementsArray | [System.String[]@](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[]@ 'System.String[]@') |  |
 
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-HelperV5-GetAuditTrail-System-String,System-String-'></a>
-### GetAuditTrail(user,usdmVersion) `method`
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-HelperV5-GetAuditTrail-System-String-'></a>
+### GetAuditTrail(usdmVersion) `method`
 
 ##### Summary
 
@@ -1607,7 +1520,6 @@ Get Audit Trail fields for the POST Api
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| user | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-HelperV5-GetChangedValues-TransCelerate-SDR-Core-Entities-StudyV5-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV5-StudyDefinitionsEntity-'></a>
@@ -1792,7 +1704,7 @@ Check whether the the input list of elements are valid or not
 | listofelementsArray | [System.String[]@](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[]@ 'System.String[]@') |  |
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-GetAuditTrail-System-String-'></a>
-### GetAuditTrail(user) `method`
+### GetAuditTrail(usdmVersion) `method`
 
 ##### Summary
 
@@ -1806,7 +1718,7 @@ Get Audit Trail fields for the POST Api
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| user | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-IHelperV2-GetSerializerSettingsForCamelCasing'></a>
 ### GetSerializerSettingsForCamelCasing() `method`
@@ -2093,7 +2005,7 @@ Check whether the the input list of elements are valid or not
 | listofelementsArray | [System.String[]@](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[]@ 'System.String[]@') |  |
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-GetAuditTrail-System-String-'></a>
-### GetAuditTrail(user) `method`
+### GetAuditTrail(usdmVersion) `method`
 
 ##### Summary
 
@@ -2107,7 +2019,7 @@ Get Audit Trail fields for the POST Api
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| user | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV3-IHelperV3-GetSerializerSettingsForCamelCasing'></a>
 ### GetSerializerSettingsForCamelCasing() `method`
@@ -2393,8 +2305,8 @@ Check whether the the input list of elements are valid or not
 | listofelements | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | listofelementsArray | [System.String[]@](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[]@ 'System.String[]@') |  |
 
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV4-IHelperV4-GetAuditTrail-System-String,System-String-'></a>
-### GetAuditTrail(user,usdmVersion) `method`
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV4-IHelperV4-GetAuditTrail-System-String-'></a>
+### GetAuditTrail(usdmVersion) `method`
 
 ##### Summary
 
@@ -2408,7 +2320,6 @@ Get Audit Trail fields for the POST Api
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| user | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV4-IHelperV4-GetSerializerSettingsForCamelCasing'></a>
@@ -2542,8 +2453,8 @@ Check whether the the input list of elements are valid or not
 | listofelements | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | listofelementsArray | [System.String[]@](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String[]@ 'System.String[]@') |  |
 
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-GetAuditTrail-System-String,System-String-'></a>
-### GetAuditTrail(user,usdmVersion) `method`
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-GetAuditTrail-System-String-'></a>
+### GetAuditTrail(usdmVersion) `method`
 
 ##### Summary
 
@@ -2557,7 +2468,6 @@ Get Audit Trail fields for the POST Api
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| user | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-GetSerializerSettingsForCamelCasing'></a>
@@ -2948,53 +2858,6 @@ This method helps to format the KQL query for system usage report
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | reportBodyParameters | [TransCelerate.SDR.Core.DTO.Reports.ReportBodyParameters](#T-TransCelerate-SDR-Core-DTO-Reports-ReportBodyParameters 'TransCelerate.SDR.Core.DTO.Reports.ReportBodyParameters') | Body parameters for usage report |
-
-<a name='T-TransCelerate-SDR-Core-Utilities-Helpers-UserGroupSortingHelper'></a>
-## UserGroupSortingHelper `type`
-
-##### Namespace
-
-TransCelerate.SDR.Core.Utilities.Helpers
-
-##### Summary
-
-This class is a helper for sorting groups and users
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-UserGroupSortingHelper-OrderGroups-System-Collections-Generic-IEnumerable{TransCelerate-SDR-Core-Entities-UserGroups-GroupDetailsEntity},TransCelerate-SDR-Core-DTO-UserGroups-UserGroupsQueryParameters-'></a>
-### OrderGroups(groupDetails,userGroupsQueryParameters) `method`
-
-##### Summary
-
-Sorting a Group List
-
-##### Returns
-
-A [IOrderedEnumerable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IOrderedEnumerable`1 'System.Linq.IOrderedEnumerable`1') after sorting the groups
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| groupDetails | [System.Collections.Generic.IEnumerable{TransCelerate.SDR.Core.Entities.UserGroups.GroupDetailsEntity}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerable 'System.Collections.Generic.IEnumerable{TransCelerate.SDR.Core.Entities.UserGroups.GroupDetailsEntity}') | Group List which needed to be sorted |
-| userGroupsQueryParameters | [TransCelerate.SDR.Core.DTO.UserGroups.UserGroupsQueryParameters](#T-TransCelerate-SDR-Core-DTO-UserGroups-UserGroupsQueryParameters 'TransCelerate.SDR.Core.DTO.UserGroups.UserGroupsQueryParameters') | parameters for sorting |
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-UserGroupSortingHelper-OrderUsers-System-Collections-Generic-IEnumerable{TransCelerate-SDR-Core-DTO-UserGroups-PostUserToGroupsDTO},TransCelerate-SDR-Core-DTO-UserGroups-UserGroupsQueryParameters-'></a>
-### OrderUsers(users,userGroupsQueryParameters) `method`
-
-##### Summary
-
-Sorting a User List
-
-##### Returns
-
-A [IOrderedEnumerable\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Linq.IOrderedEnumerable`1 'System.Linq.IOrderedEnumerable`1') after sorting the groups
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| users | [System.Collections.Generic.IEnumerable{TransCelerate.SDR.Core.DTO.UserGroups.PostUserToGroupsDTO}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerable 'System.Collections.Generic.IEnumerable{TransCelerate.SDR.Core.DTO.UserGroups.PostUserToGroupsDTO}') | User List which needed to be sorted |
-| userGroupsQueryParameters | [TransCelerate.SDR.Core.DTO.UserGroups.UserGroupsQueryParameters](#T-TransCelerate-SDR-Core-DTO-UserGroups-UserGroupsQueryParameters 'TransCelerate.SDR.Core.DTO.UserGroups.UserGroupsQueryParameters') | parameters for sorting |
 
 <a name='T-TransCelerate-SDR-Core-ErrorModels-ValidationErrorModel'></a>
 ## ValidationErrorModel `type`

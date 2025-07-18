@@ -39,17 +39,7 @@ namespace TransCelerate.SDR.Services.Services
 
                 ChangeAuditStudyEntity changeAudit = await _changeAuditRepository.GetChangeAuditAsync(studyId: studyId).ConfigureAwait(false);
 
-                if (changeAudit == null)
-                {
-                    return null;
-                }
-                else
-                {
-                    var checkAccessForStudy = await _commonService.GetRawJson(studyId, 0).ConfigureAwait(false);
-
-                    return checkAccessForStudy is not null && checkAccessForStudy.ToString() != Constants.ErrorMessages.Forbidden
-                                            ? _mapper.Map<ChangeAuditStudyDto>(changeAudit) : Constants.ErrorMessages.Forbidden;
-                }
+                return _mapper.Map<ChangeAuditStudyDto>(changeAudit);
             }
             catch (Exception)
             {

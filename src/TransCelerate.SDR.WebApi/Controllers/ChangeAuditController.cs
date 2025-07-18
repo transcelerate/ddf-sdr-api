@@ -60,10 +60,6 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     {
                         return NotFound(new JsonResult(ErrorResponseHelper.NotFound($"{Constants.ErrorMessages.ChangeAuditNotFound} {studyId}")).Value);
                     }
-                    else if (changeAudit.ToString() == Constants.ErrorMessages.Forbidden)
-                    {
-                        return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
-                    }
                     else
                     {
                         return Ok(changeAudit);

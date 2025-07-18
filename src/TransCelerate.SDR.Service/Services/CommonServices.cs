@@ -52,16 +52,7 @@ namespace TransCelerate.SDR.Services.Services
 
                 var study = await _commonRepository.GetStudyItemsAsync(studyId: studyId, sdruploadversion: sdruploadversion).ConfigureAwait(false);
 
-                if (study == null)
-                {
-                    return null;
-                }
-                else
-                {
-                    var jsonObject = JObject.Parse(JsonConvert.SerializeObject(study.Study));
-
-					return study;
-                }
+                return study;
             }
             catch (Exception)
             {
@@ -95,9 +86,6 @@ namespace TransCelerate.SDR.Services.Services
                 }
                 else
                 {
-                    if (studies == null)
-                        return Constants.ErrorMessages.Forbidden;
-
                     studies?.ForEach(x => x.StudyId =  studyId);
                     var auditTrailDtoList = _mapper.Map<List<AuditTrailResponseWithLinksDto>>(studies); //Mapping Entity to Dto 
                     AuditTrailResponseDto getStudyAuditDto = new()

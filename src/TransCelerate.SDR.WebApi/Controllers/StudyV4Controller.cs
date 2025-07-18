@@ -74,10 +74,6 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     {
                         return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
                     }
-                    else if (study.ToString() == Constants.ErrorMessages.Forbidden)
-                    {
-                        return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
-                    }
                     else
                     {
                         return Ok(study);
@@ -135,10 +131,6 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     if (study == null)
                     {
                         return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
-                    }
-                    else if (study.ToString() == Constants.ErrorMessages.Forbidden)
-                    {
-                        return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
                     }
                     else if (study.ToString() == Constants.ErrorMessages.StudyDesignNotFound)
                     {
@@ -199,10 +191,6 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     {
                         return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
                     }
-                    else if (SoA.ToString() == Constants.ErrorMessages.Forbidden)
-                    {
-                        return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
-                    }
                     else if (SoA.ToString() == Constants.ErrorMessages.StudyDesignNotFound)
                     {
                         return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyDesignNotFound)).Value);
@@ -261,10 +249,6 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     if (study == null)
                     {
                         return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
-                    }
-                    else if (study.ToString() == Constants.ErrorMessages.Forbidden)
-                    {
-                        return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
                     }
                     else if (study.ToString() == Constants.ErrorMessages.eCPTError)
                     {
@@ -348,10 +332,6 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     {
                         return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.OneVersionNotFound)).Value);
                     }
-                    else if (differences.ToString() == Constants.ErrorMessages.ForbiddenForAStudy)
-                    {
-                        return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden(Constants.ErrorMessages.ForbiddenForAStudy)).Value);
-                    }
                     else
                     {
                         return Ok(differences);
@@ -406,20 +386,13 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     var response = await _studyService.PostAllElements(studyDTO, Request?.Method)
                                                               .ConfigureAwait(false);
 
-                    if (response?.ToString() == Constants.ErrorMessages.PostRestricted)
+                    if (response?.ToString() == Constants.ErrorMessages.NotValidStudyId)
                     {
-                        return StatusCode(((int)HttpStatusCode.Unauthorized), new JsonResult(ErrorResponseHelper.UnAuthorizedAccess(Constants.ErrorMessages.PostRestricted)).Value);
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.NotValidStudyId)).Value);
                     }
                     else
                     {
-                        if (response?.ToString() == Constants.ErrorMessages.NotValidStudyId)
-                        {
-                            return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.NotValidStudyId)).Value);
-                        }
-                        else
-                        {
-                            return Created($"study/{studyDTO.Study.Id}", new JsonResult(response).Value);
-                        }
+                        return Created($"study/{studyDTO.Study.Id}", new JsonResult(response).Value);
                     }
                 }
                 else
@@ -470,20 +443,13 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     var response = await _studyService.PostAllElements(studyDTO, Request?.Method)
                                                               .ConfigureAwait(false);
 
-                    if (response?.ToString() == Constants.ErrorMessages.PostRestricted)
+                    if (response?.ToString() == Constants.ErrorMessages.NotValidStudyId)
                     {
-                        return StatusCode(((int)HttpStatusCode.Unauthorized), new JsonResult(ErrorResponseHelper.UnAuthorizedAccess(Constants.ErrorMessages.PostRestricted)).Value);
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.NotValidStudyId)).Value);
                     }
                     else
                     {
-                        if (response?.ToString() == Constants.ErrorMessages.NotValidStudyId)
-                        {
-                            return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.NotValidStudyId)).Value);
-                        }
-                        else
-                        {
-                            return Created($"study/{studyDTO.Study.Id}", new JsonResult(response).Value);
-                        }
+                        return Created($"study/{studyDTO.Study.Id}", new JsonResult(response).Value);
                     }
                 }
                 else
@@ -584,10 +550,6 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     else if (response?.ToString() == Constants.ErrorMessages.NotValidStudyId)
                     {
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.NotValidStudyId)).Value);
-                    }
-                    else if (response?.ToString() == Constants.ErrorMessages.Forbidden)
-                    {
-                        return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
                     }
                     else
                     {

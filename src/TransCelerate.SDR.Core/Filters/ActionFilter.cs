@@ -22,7 +22,6 @@ namespace TransCelerate.SDR.Core.Filters
             {
                 _logger.LogInformation($"Started Action Filter : {nameof(ActionFilter)}; Method : {nameof(OnActionExecutionAsync)};");
 
-                string response = string.Empty;
                 int statusCode = 0;
 
                 // execute any code before the action executes                             
