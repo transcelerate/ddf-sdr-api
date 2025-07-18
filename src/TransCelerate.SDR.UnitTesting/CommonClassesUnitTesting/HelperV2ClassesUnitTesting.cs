@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TransCelerate.SDR.Core.DTO.StudyV2;
-using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities.StudyV2;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
@@ -27,12 +26,8 @@ namespace TransCelerate.SDR.UnitTesting
         private readonly IServiceCollection serviceDescriptors = Mock.Of<IServiceCollection>();
         private readonly ILogHelper _mockLogger = Mock.Of<ILogHelper>();
         #endregion
+
         #region Setup
-        readonly LoggedInUser user = new()
-        {
-            UserName = "user1@SDR.com",
-            UserRole = Constants.Roles.Org_Admin
-        };
         public static StudyDefinitionsEntity GetEntityDataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
@@ -59,7 +54,7 @@ namespace TransCelerate.SDR.UnitTesting
         public void HelpersUnitTesting()
         {
             HelperV2 helper = new();
-            AuditTrailEntity auditTrailEntity = helper.GetAuditTrail(user.UserName);
+            AuditTrailEntity auditTrailEntity = helper.GetAuditTrail(Constants.USDMVersions.V1_9);
             Assert.IsInstanceOf(typeof(DateTime), auditTrailEntity.EntryDateTime);
         }
 

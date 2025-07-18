@@ -17,13 +17,8 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.AppSettings;
-using TransCelerate.SDR.Core.DTO;
 using TransCelerate.SDR.Core.DTO.Reports;
-using TransCelerate.SDR.Core.DTO.StudyV2;
-using TransCelerate.SDR.Core.DTO.Token;
-using TransCelerate.SDR.Core.DTO.UserGroups;
 using TransCelerate.SDR.Core.Entities.Common;
-using TransCelerate.SDR.Core.Entities.UserGroups;
 using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.Core.Filters;
 using TransCelerate.SDR.Core.Utilities;
@@ -31,7 +26,6 @@ using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Enums;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.DataAccess.Filters;
-using TransCelerate.SDR.RuleEngine;
 using TransCelerate.SDR.Services.Interfaces;
 using TransCelerate.SDR.WebApi.Controllers;
 using TransCelerate.SDR.WebApi.DependencyInjection;
@@ -51,12 +45,6 @@ namespace TransCelerate.SDR.UnitTesting
         private readonly Mock<IChangeAuditService> _mockChangeAuditService = new(MockBehavior.Loose);
 
         #region Setup
-        public static UserGroupMappingEntity GetUserDataFromStaticJson()
-        {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/UserGroupMappingData_ForEntity.json");
-            var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingEntity>(jsonData);
-            return userGrouppMapping;
-        }
         [SetUp]
         public void Setup()
         {
@@ -70,98 +58,10 @@ namespace TransCelerate.SDR.UnitTesting
             ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ApiUsdmVersionMapping.json"));
             ApiUsdmVersionMapping.SDRVersions = apiUsdmVersionMapping_NonStatic.SDRVersions;
         }
-        readonly LoggedInUser user = new()
-        {
-            UserName = "user1@SDR.com",
-            UserRole = Constants.Roles.Org_Admin
-        };
         public static Core.DTO.Common.ChangeAuditStudyDto GetChangeAuditDtoDataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ChangeAuditData.json");
             return JsonConvert.DeserializeObject<Core.DTO.Common.ChangeAuditStudyDto>(jsonData);
-        }
-        public static SDRGroupsDTO PostAGroupDto()
-        {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/UserGroupMappingData.json");
-            var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingDTO>(jsonData);
-            var groupDetails = JsonConvert.DeserializeObject<SDRGroupsDTO>(JsonConvert.SerializeObject(userGrouppMapping.SDRGroups[0]));
-            return groupDetails;
-        }
-        public static IEnumerable<GroupDetailsEntity> GetGroupDetails()
-        {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/UserGroupMappingData.json");
-            var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingEntity>(jsonData);
-            var groupDetails = JsonConvert.DeserializeObject<IEnumerable<GroupDetailsEntity>>(JsonConvert.SerializeObject(userGrouppMapping.SDRGroups));
-            return groupDetails;
-        }
-        public static PostUserToGroupsDTO PostUser()
-        {
-            List<GroupsTaggedToUser> groupList = new();
-            GroupsTaggedToUser groupsTaggedToUser = new()
-            {
-                GroupId = "0193a357-8519-4488-90e4-522f701658b9",
-                GroupName = "OncologyRead",
-                IsActive = true
-            };
-            GroupsTaggedToUser groupsTaggedToUser2 = new()
-            {
-                GroupId = "c50ccb41-db9b-4b97-b132-cbbfaa68af5a",
-                GroupName = "AmnesiaReadWrite",
-                IsActive = true
-            }; GroupsTaggedToUser groupsTaggedToUser3 = new()
-            {
-                GroupId = "83864612-ffbd-463f-90ce-3e8819c5d132",
-                GroupName = "AmnesiaReadWrite",
-                IsActive = true
-            };
-            groupList.Add(groupsTaggedToUser);
-            groupList.Add(groupsTaggedToUser2);
-            groupList.Add(groupsTaggedToUser3);
-            PostUserToGroupsDTO postUserToGroupsDTO = new()
-            {
-                Email = "user1@SDR.com",
-                Oid = "aw2dq254wfdsf",
-                Groups = groupList
-            };
-
-            return postUserToGroupsDTO;
-        }
-        public static IEnumerable<PostUserToGroupsDTO> UserList()
-        {
-            List<GroupsTaggedToUser> groupList = new();
-            GroupsTaggedToUser groupsTaggedToUser = new()
-            {
-                GroupId = "0193a357-8519-4488-90e4-522f701658b9",
-                GroupName = "OncologyRead",
-                IsActive = true
-            };
-            GroupsTaggedToUser groupsTaggedToUser2 = new()
-            {
-                GroupId = "c50ccb41-db9b-4b97-b132-cbbfaa68af5a",
-                GroupName = "AmnesiaReadWrite",
-                IsActive = true
-            }; GroupsTaggedToUser groupsTaggedToUser3 = new()
-            {
-                GroupId = "83864612-ffbd-463f-90ce-3e8819c5d132",
-                GroupName = "AmnesiaReadWrite",
-                IsActive = true
-            };
-            groupList.Add(groupsTaggedToUser);
-            groupList.Add(groupsTaggedToUser2);
-            groupList.Add(groupsTaggedToUser3);
-            PostUserToGroupsDTO postUserToGroupsDTO = new()
-            {
-                Email = "user1@SDR.com",
-                Oid = "aw2dq254wfdsf",
-                Groups = groupList
-            };
-            List<PostUserToGroupsDTO> postUserToGroups = new()
-            {
-                postUserToGroupsDTO
-            };
-            IEnumerable<PostUserToGroupsDTO> postUserToGroupsIenum = JsonConvert.DeserializeObject<IEnumerable<PostUserToGroupsDTO>>(
-                                                                    JsonConvert.SerializeObject(postUserToGroups));
-            return postUserToGroupsIenum;
         }
         #endregion
 
@@ -274,7 +174,6 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.AreEqual(Config.Scope, "true");
             Assert.AreEqual(Config.TenantID, "true");
             Assert.AreEqual(Config.Authority, "true");
-            Assert.AreEqual(Config.IsGroupFilterEnabled, true);
             ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ApiUsdmVersionMapping.json"));
             Assert.AreEqual(apiUsdmVersionMapping_NonStatic.SDRVersions.Count, ApiUsdmVersionMapping.SDRVersions.Count);
         }
@@ -284,12 +183,7 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void ErrorResponse_Helper_UnitTestng()
         {
-            ErrorModel errorModel = ErrorResponseHelper.UnAuthorizedAccess();
-
-            Assert.AreEqual("401", errorModel.StatusCode);
-            Assert.AreEqual("Access Denied", errorModel.Message);
-
-            errorModel = ErrorResponseHelper.MethodNotAllowed();
+            ErrorModel errorModel = ErrorResponseHelper.MethodNotAllowed();
 
             Assert.AreEqual("405", errorModel.StatusCode);
             Assert.AreEqual("Method Not Allowed", errorModel.Message);
@@ -323,37 +217,7 @@ namespace TransCelerate.SDR.UnitTesting
         #region FluentValidation Unit Testing
         [Test]
         public void FluentValidation_UnitTesting()
-        {            
-            UserGroupsQueryParameters userGroupsQueryParameters = new()
-            {
-                SortBy = "email",
-                SortOrder = "desc",
-                PageNumber = 1,
-                PageSize = 20
-            };
-            UserGroupsQueryParametersValidator userGroupsQueryParametersValidator = new();
-            Assert.IsTrue(userGroupsQueryParametersValidator.Validate(userGroupsQueryParameters).IsValid);
-
-            GroupsValidator groupsValidator = new();
-            Assert.IsTrue(groupsValidator.Validate(PostAGroupDto()).IsValid);
-
-            PostUserToGroupValidator usersValidator = new();
-            Assert.IsTrue(usersValidator.Validate(PostUser()).IsValid);
-
-            GroupFilterValidator groupFilterValidator = new();
-            Assert.IsTrue(groupFilterValidator.Validate(PostAGroupDto().GroupFilter[0]).IsValid);
-
-            GroupFilterValuesValidator groupFilterValuesValidator = new();
-            Assert.IsTrue(groupFilterValuesValidator.Validate(PostAGroupDto().GroupFilter[0].GroupFilterValues[0]).IsValid);
-
-            UserLogin user = new()
-            {
-                Username = "user",
-                Password = "password"
-            };
-            UserLoginValidator userLoginValidator = new();
-            Assert.IsTrue(userLoginValidator.Validate(user).IsValid);
-
+        {
             TransCelerate.SDR.RuleEngine.Common.ValidationDependenciesCommon.AddValidationDependenciesCommon(serviceDescriptors);
             TransCelerate.SDR.Core.DTO.Common.SearchParametersDto searchParametersCommon = new()
             {
@@ -384,46 +248,6 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsTrue(searchTitleParametersValidator.Validate(searchTitleParametersCommon).IsValid);
         }
         #endregion
-
-        #region UserGroup Sorting Unit Testing
-        [Test]
-        public void UserGroupSortingHelper_UnitTesting()
-        {
-            UserGroupsQueryParameters userGroupsQueryParameters = new()
-            {
-                SortBy = "email",
-                SortOrder = "desc",
-                PageNumber = 1,
-                PageSize = 20
-            };
-            string[] sortOrders = { SortOrder.asc.ToString(), SortOrder.desc.ToString() };
-            foreach (var sortOrder in sortOrders)
-            {
-                userGroupsQueryParameters.SortOrder = sortOrder;
-                for (int i = 0; i < 7; i++)
-                {
-                    if (i == 0)
-                        userGroupsQueryParameters.SortBy = "email";
-                    if (i == 1)
-                        userGroupsQueryParameters.SortBy = "modifiedon";
-                    if (i == 2)
-                        userGroupsQueryParameters.SortBy = "modifiedby";
-                    if (i == 3)
-                        userGroupsQueryParameters.SortBy = "createdby";
-                    if (i == 4)
-                        userGroupsQueryParameters.SortBy = "createdon";
-                    if (i == 5)
-                        userGroupsQueryParameters.SortBy = "name";
-                    if (i == 6)
-                        userGroupsQueryParameters.SortBy = "";
-                    UserGroupSortingHelper.OrderGroups(GetGroupDetails(), userGroupsQueryParameters);
-                    UserGroupSortingHelper.OrderUsers(UserList(), userGroupsQueryParameters);
-                }
-            }
-
-        }
-        #endregion
-
 
         #region HttpContext Response Helper UnitTesting
         [Test]
@@ -458,49 +282,24 @@ namespace TransCelerate.SDR.UnitTesting
         }
         #endregion
 
-
         #region Spit String Helper
         [Test]
         public void SplitStringIntoArrayHelperUnitTesting()
         {
-            var splitStringList = SplitStringIntoArrayHelper.SplitString(JsonConvert.SerializeObject(PostAGroupDto()), 100);
-            Assert.IsNotEmpty(splitStringList);
+            // Arrange
+            string input = "TestString";
+            int splitSize = 2;
+            var expected = new List<string> { "Te", "st", "St", "ri", "ng" };
+
+            // Act
+            var splitStringList = SplitStringIntoArrayHelper.SplitString(input, splitSize);
+
+            // Assert
+            CollectionAssert.AreEqual(expected, splitStringList);
         }
         #endregion
-        #region Token Controller
-        [Test]
-        public void TokenControllerUnitTesting()
-        {
-            UserLogin user = new()
-            {
-                Username = "user",
-                Password = "password"
-            };
-            TokenController tokenController = new(_mockLogHelper);
-            var method = tokenController.GetToken(user);
-            method.Wait();
 
-            //Expected
-            var expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError);
-
-            //Actual
-            var actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
-
-            //Assert          
-            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
-            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
-            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
-
-            Assert.AreEqual(expected.Message, actual_result.Message);
-            Assert.AreEqual("400", actual_result.StatusCode);
-
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/TokenRawResponse.json");
-            var responseObject = JsonConvert.DeserializeObject<TokenSuccessResponseDTO>(jsonData);
-            var tokenResponse = new { token = $"{responseObject.Token_type} {responseObject.Access_token}" };
-
-            Assert.NotNull(tokenResponse);
-        }
-
+        #region Report Controller Unit Testing
         [Test]
         public void ReportsControllerUnitTesting()
         {
@@ -635,7 +434,7 @@ namespace TransCelerate.SDR.UnitTesting
 
             Core.DTO.Common.ChangeAuditStudyDto study = GetChangeAuditDtoDataFromStaticJson();
 
-            _mockChangeAuditService.Setup(x => x.GetChangeAudit(It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+            _mockChangeAuditService.Setup(x => x.GetChangeAudit(It.IsAny<string>()))
                 .Returns(Task.FromResult(study as object));
             ChangeAuditController changeAuditController = new(_mockChangeAuditService.Object, _mockLogHelper);
             var method = changeAuditController.GetChangeAudit("sd");
@@ -732,6 +531,7 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.AreEqual((actualResult as ErrorModel).Message, Constants.ErrorMessages.UsdmVersionMapError);
         }
         #endregion
+
         #region DataFilter
         [Test]
         public void DataFiltersUnitTesting()
@@ -751,16 +551,15 @@ namespace TransCelerate.SDR.UnitTesting
                 FromDate = DateTime.Now.AddDays(-5),
                 ToDate = DateTime.Now,
             };
-            Config.IsGroupFilterEnabled = true;
-            user.UserRole = Constants.Roles.App_User;
-            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchTitle(searchParameters, GetUserDataFromStaticJson().SDRGroups, user));
-            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchTitleV4(searchParameters, GetUserDataFromStaticJson().SDRGroups, user));
+
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchTitle(searchParameters));
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchTitleV4(searchParameters));
 
             Assert.IsNotNull(DataFilterCommon.GetFiltersForGetAudTrail("sd", DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1)));
 
            
-            Assert.IsNotNull(DataFilterCommon.GetFiltersForStudyHistory(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1), "sd", GetUserDataFromStaticJson().SDRGroups, user));
-            Assert.IsNotNull(DataFilterCommon.GetFiltersForStudyHistoryV4(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1), "sd", GetUserDataFromStaticJson().SDRGroups, user));
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForStudyHistory(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1), "sd"));
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForStudyHistoryV4(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1), "sd"));
 
 
             Assert.IsNotNull(DataFilterCommon.GetFiltersForGetStudyBsonDocument("sd", 1));
@@ -787,15 +586,7 @@ namespace TransCelerate.SDR.UnitTesting
                 ValidateUsdmVersion = false
             };
 
-            Config.IsGroupFilterEnabled = true;
-            user.UserRole = Constants.Roles.App_User;
-            var grps = GetUserDataFromStaticJson().SDRGroups;
-            grps[0].GroupFilter[0].GroupFieldName = GroupFieldNames.studyType.ToString();
-            grps[0].GroupFilter[0].GroupFilterValues[0].GroupFilterValueId = "ALL";
-            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchStudy(searchParametersEntity, grps, user));
-            grps[0].GroupFilter[0].GroupFieldName = GroupFieldNames.studyType.ToString();
-            grps[0].GroupFilter[0].GroupFilterValues[0].GroupFilterValueId = "interventional";
-            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchStudy(searchParametersEntity, grps, user));            
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchStudy(searchParametersEntity));            
             searchParametersEntity.Header = "studytitle";
             Assert.IsNotNull(DataFilterCommon.GetSorterForSearchStudy(searchParametersEntity));
             searchParametersEntity.Header = "sdrversion";
@@ -814,9 +605,9 @@ namespace TransCelerate.SDR.UnitTesting
             searchParameters.SortBy = "usdmversion";
             Assert.IsNotNull(DataFilterCommon.GetSorterForSearchStudyTitle(searchParameters));
 
-            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchV2(searchParametersEntity, grps, user));
-            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchV3(searchParametersEntity, grps, user));
-            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchV4(searchParametersEntity, grps, user));
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchV2(searchParametersEntity));
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchV3(searchParametersEntity));
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchV4(searchParametersEntity));
 
             searchParameters.SortBy = "studytitle";
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
@@ -878,9 +669,6 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, false));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, false));
-
-            Config.IsGroupFilterEnabled = false;
-            user.UserRole = Constants.Roles.Org_Admin;
         }
 
         #endregion
