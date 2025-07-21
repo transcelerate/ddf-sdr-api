@@ -620,11 +620,6 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             //Assert          
             Assert.IsNotNull(actual_result);
 
-            method = studyService.GetDifferences("1", 1, 2);
-            method.Wait();
-
-            Assert.AreEqual(method.Result.ToString(), Constants.ErrorMessages.ForbiddenForAStudy);
-
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                   .Throws(new Exception("Error"));
 
@@ -636,14 +631,6 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             currentVersionV4.Study.Versions.FirstOrDefault().StudyType.Decode = "INTERVENTIONAL";
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), 1))
                   .Returns(Task.FromResult(currentVersionV4));
-            _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), 2))
-                  .Returns(Task.FromResult(previousVersionV4));
-
-            method = studyService.GetDifferences("1", 1, 2);
-            method.Wait();
-
-            Assert.AreEqual(method.Result, Constants.ErrorMessages.ForbiddenForAStudy);
-
 
             previousVersionV4 = null;
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), 2))

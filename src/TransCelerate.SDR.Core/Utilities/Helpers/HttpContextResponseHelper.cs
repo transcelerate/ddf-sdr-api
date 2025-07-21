@@ -29,7 +29,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             {
                 context.Response.Headers.Add("Content-Type", "application/json");
             }
-            else if (context.Response.StatusCode == (int)HttpStatusCode.NotFound)
+            if (context.Response.StatusCode == (int)HttpStatusCode.NotFound)
             {
                 response = JsonConvert.SerializeObject(ErrorResponseHelper.NotFound(), jsonSettings);
             }

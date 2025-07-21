@@ -966,24 +966,6 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), result);
             Assert.AreEqual(404, (result as ObjectResult).StatusCode);
 
-            _mockStudyService.Setup(x => x.GetDifferences(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
-               .Returns(Task.FromResult(Constants.ErrorMessages.ForbiddenForAStudy as object));
-
-            method = studyV3Controller.GetDifferences("sd", 1, 2, Constants.USDMVersions.V2);
-            method.Wait();
-            result = method.Result;
-
-            //Expected
-            expected = new ErrorModel { Message = Constants.ErrorMessages.ForbiddenForAStudy, StatusCode = "403" };
-
-            //Actual            
-            actual_result = (result as ObjectResult).Value as ErrorModel;
-
-            Assert.AreEqual(expected.Message, actual_result.Message);
-            Assert.IsInstanceOf(typeof(ObjectResult), result);
-            Assert.AreEqual(403, (result as ObjectResult).StatusCode);
-
-
             method = studyV3Controller.GetDifferences("sd", 1, 1, Constants.USDMVersions.V2);
             method.Wait();
             result = method.Result;

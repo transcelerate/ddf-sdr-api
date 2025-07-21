@@ -225,8 +225,6 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string GroupNameExists = "The group name already exist";
 
-            public const string ForbiddenForAStudy = "Access to one or more SDRUploadVersions of the study is restricted";
-
             public const string ProvideDifferentVersion = "SDRUploadVersions for the Compare API must be different";
 
             public static readonly string[] ProvideValidVersion = { "A valid SDRUploadVersion for ", " must be provided" };

@@ -253,23 +253,11 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void HttpContextResponseHelper_UnitTesting()
         {
-            //var mockHttpContext = Mock.Of<HttpContext>();
             var mockHttpContext = new DefaultHttpContext();
             string response = string.Empty;
-            mockHttpContext.Response.StatusCode = (int)HttpStatusCode.Forbidden;
-            var method = HttpContextResponseHelper.Response(mockHttpContext, response);
-            method.Wait();
-            response = method.Result;
-            Assert.IsTrue(response.Contains(((int)HttpStatusCode.Forbidden).ToString()));
-            mockHttpContext.Response.Headers.Remove("Content-Type");
-            mockHttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-            method = HttpContextResponseHelper.Response(mockHttpContext, response);
-            method.Wait();
-            response = method.Result;
-            Assert.IsTrue(response.Contains(((int)HttpStatusCode.Unauthorized).ToString()));
             mockHttpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
             mockHttpContext.Response.Headers.Remove("Content-Type");
-            method = HttpContextResponseHelper.Response(mockHttpContext, response);
+            var method = HttpContextResponseHelper.Response(mockHttpContext, response);
             method.Wait();
             response = method.Result;
             Assert.IsTrue(response.Contains(((int)HttpStatusCode.NotFound).ToString()));
