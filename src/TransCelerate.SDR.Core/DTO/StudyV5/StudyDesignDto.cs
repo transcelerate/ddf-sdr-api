@@ -3,7 +3,7 @@
 namespace TransCelerate.SDR.Core.DTO.StudyV5
 {
     public class StudyDesignDto : IId
-    {        
+    {
         public string Id { get; set; }
         public string Name { get; set; }
         public string Label { get; set; }
@@ -33,5 +33,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public List<ConditionDto> Conditions { get; set; }
         public string InstanceType { get; set; }
         public List<CommentAnnotationDto> Notes { get; set; }
+        public AliasCodeDto StudyPhase { get; set; }
+        public CodeDto StudyType { get; set; }
     }
 }

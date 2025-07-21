@@ -1017,7 +1017,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
 			//Filter for Study Phase
 			if (!String.IsNullOrWhiteSpace(searchParameters.Phase))
-				filter &= builder.Where(x => x.Study.Versions[0].StudyPhase.StandardCode.Decode.ToLower().Contains(searchParameters.Phase.ToLower()));
+				filter &= builder.Where(x => x.Study.Versions[0].StudyDesigns.Any(d => d.StudyPhase.StandardCode.Decode.ToLower().Contains(searchParameters.Phase.ToLower())));
 
 
 			return filter;
