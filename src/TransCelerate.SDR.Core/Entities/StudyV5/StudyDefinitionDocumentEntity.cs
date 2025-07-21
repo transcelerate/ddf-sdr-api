@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TransCelerate.SDR.Core.Entities.StudyV5;
+﻿using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV5
 {
@@ -16,6 +11,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public CodeEntity Type { get; set; }
         public CodeEntity language { get; set; }
         public string templateName { get; set; }
+        public List<string> ChildIds { get; set; }
 		public List<StudyDefinitionDocumentVersionEntity> Versions { get; set; }
 		public List<CommentAnnotationEntity> Notes { get; set; }
         public string InstanceType { get; set; }

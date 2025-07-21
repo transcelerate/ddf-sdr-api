@@ -6,6 +6,9 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
     {
         public string Id { get; set; }
         public string InstanceType { get; set; }
+        public string Name { get; set; }
+        public string Label { get; set; }
+        public string Description { get; set; }
         public string Number { get; set; }
         public string Summary { get; set; }
         public List<GovernanceDateEntity> DateValues { get; set; }

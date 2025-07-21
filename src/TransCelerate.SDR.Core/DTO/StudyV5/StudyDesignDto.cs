@@ -3,7 +3,7 @@
 namespace TransCelerate.SDR.Core.DTO.StudyV5
 {
     public class StudyDesignDto : IId
-    {        
+    {
         public string Id { get; set; }
         public string Name { get; set; }
         public string Label { get; set; }
@@ -19,6 +19,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public List<EstimandDto> Estimands { get; set; }
         public List<EncounterDto> Encounters { get; set; }
         public List<ActivityDto> Activities { get; set; }
+        public List<EligibilityCriterionDto> EligibilityCriteria { get; set; }
         public string Rationale { get; set; }
         public List<BiomedicalConceptDto> BiomedicalConcepts { get; set; }
         public List<BiospecimenRetentionDto> BiospecimenRetentions { get; set; }
@@ -32,5 +33,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public List<ConditionDto> Conditions { get; set; }
         public string InstanceType { get; set; }
         public List<CommentAnnotationDto> Notes { get; set; }
+        public AliasCodeDto StudyPhase { get; set; }
+        public CodeDto StudyType { get; set; }
     }
 }
