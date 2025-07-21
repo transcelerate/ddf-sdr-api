@@ -1887,6 +1887,46 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
             return errors;
         }
 
+        public static List<string> ReferenceIntegrityValidationForStudyRole(StudyRoleDto studyRole, StudyDefinitionsDto study, int studyRoleIndex)
+        {
+            List<string> errors = new();
+            
+            if (studyRole?.AppliesToIds != null && studyRole.AppliesToIds.Any())
+            {
+                List<string> studyVersionIds = study.Study?.Versions != null 
+                    ? study.Study.Versions.Select(version => version.Id).ToList() 
+                    : new();
+
+                List<string> studyDesignIds = new();
+                if (study.Study?.Versions != null)
+                {
+                    foreach (var version in study.Study.Versions)
+                    {
+                        if (version.StudyDesigns != null)
+                        {
+                            studyDesignIds.AddRange(version.StudyDesigns.Select(design => design.Id));
+                        }
+                    }
+                }
+
+                studyRole.AppliesToIds.ForEach(appliesToId =>
+                {
+                    if (string.IsNullOrWhiteSpace(appliesToId))
+                    {
+                        errors.Add($"{nameof(StudyRoleDto)}[{studyRoleIndex}]." +
+                                $"{nameof(StudyRoleDto.AppliesToIds)}[{studyRole.AppliesToIds.IndexOf(appliesToId)}]");
+                    }
+                    else if (!studyVersionIds.Contains(appliesToId) && !studyDesignIds.Contains(appliesToId))
+                    {
+                        errors.Add($"{nameof(StudyRoleDto)}[{studyRoleIndex}]." +
+                                $"{nameof(StudyRoleDto.AppliesToIds)}[{studyRole.AppliesToIds.IndexOf(appliesToId)}]");
+                    }
+                });
+            }
+
+            return errors;
+        }
+
         public static object GetErrors(List<string> errorList)
         {
             JObject errors = new();
