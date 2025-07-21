@@ -119,10 +119,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                 {
                     if (item == nameof(StudyVersionDto.Titles).ToLower())
                         jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyVersionDto.Titles).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                    else if (item == nameof(StudyVersionDto.StudyPhase).ToLower())
-                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyVersionDto.StudyPhase).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                    else if (item == nameof(StudyVersionDto.StudyType).ToLower())
-                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyVersionDto.StudyType).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                     else if (item == nameof(StudyVersionDto.StudyIdentifiers).ToLower())
                         jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyVersionDto.StudyIdentifiers).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                     else if (item == nameof(StudyVersionDto.StudyDesigns).ToLower())
@@ -173,18 +169,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         sections = sections.Select(t => t.Trim().ToLower()).ToArray();
                         if (!sections.Contains(item))
                         {
-                            if (item == nameof(StudyDesignDto.InterventionModel).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.InterventionModel).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.Name).ToLower())
+                            if (item == nameof(StudyDesignDto.Name).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Name).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Label).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Label).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Description).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Description).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.TrialIntentTypes).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.TrialIntentTypes).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.TrialTypes).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.TrialTypes).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyInterventions).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.StudyInterventions).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Indications).ToLower())
@@ -198,7 +188,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                             else if (item == nameof(StudyDesignDto.ScheduleTimelines).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.ScheduleTimelines).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Estimands).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Estimands).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());                            
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Estimands).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.TherapeuticAreas).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.TherapeuticAreas).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Activities).ToLower())
@@ -207,8 +197,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Encounters).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Rationale).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Rationale).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.BlindingSchema).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.BlindingSchema).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.BiomedicalConcepts).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.BiomedicalConcepts).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.BcCategories).ToLower())
@@ -229,6 +217,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Characteristics).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Conditions).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Conditions).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
+                            else if (item == nameof(StudyDesignDto.StudyPhase).ToLower())
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.StudyPhase).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
+                            else if (item == nameof(StudyDesignDto.StudyType).ToLower())
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.StudyType).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                         }
                     }
                 }
@@ -341,11 +333,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                 changedValues.Add($"{nameof(StudyDefinitionsEntity.Study)}.{nameof(StudyEntity.Versions)}");
 
             changedValues.AddRange(GetDifferenceForAListForStudyComparison(currentVersion, previousVersion));
-            changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.StudyType)}"));
             changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.DateValues)}"));
             changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.Amendments)}"));
             changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.StudyIdentifiers)}"));
-            changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.StudyPhase)}"));
             changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.BusinessTherapeuticAreas)}"));
             changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.StudyDesigns)}"));
 
@@ -359,14 +349,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         changedValues.Add($"{nameof(StudyVersionEntity.VersionIdentifier)}");
                     if (currVer.Rationale != prevVer.Rationale)
                         changedValues.Add($"{nameof(StudyVersionEntity.Rationale)}");
-                    if (GetDifferencesForStudyComparison(currVer.StudyType, prevVer.StudyType).Any())
-                        changedValues.Add($"{nameof(StudyVersionEntity.StudyType)}");
-
-                    //StudyPhase
-                    GetDifferenceForAliasCode(currVer.StudyPhase, prevVer.StudyPhase).ForEach(x =>
-                    {
-                        changedValues.Add($"{nameof(StudyVersionEntity.StudyPhase)}{x}");
-                    });
 
                     //Titles
                     GetDifferenceForAList<StudyTitleEntity>(currVer.Titles, prevVer.Titles).ForEach(x =>
@@ -586,18 +568,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         if (currentStudyDesign.Rationale != previousStudyDesign.Rationale)
                             changedValues.Add($"{nameof(StudyDesignEntity.Rationale)}");
 
-                        //Intervention Model
-                        if (GetDifferences<CodeEntity>(currentStudyDesign.InterventionModel, previousStudyDesign.InterventionModel).Any())
-                            changedValues.Add($"{nameof(StudyDesignEntity.InterventionModel)}");
-
-                        //Trial Type
-                        if (GetDifferences<List<CodeEntity>>(currentStudyDesign.TrialTypes, previousStudyDesign.TrialTypes).Any())
-                            changedValues.Add($"{nameof(StudyDesignEntity.TrialTypes)}");
-
-                        //Trial Intent Type
-                        if (GetDifferences<List<CodeEntity>>(currentStudyDesign.TrialIntentTypes, previousStudyDesign.TrialIntentTypes).Any())
-                            changedValues.Add($"{nameof(StudyDesignEntity.TrialIntentTypes)}");
-
                         //TherapeuticAreas
                         if (GetDifferences<List<CodeEntity>>(currentStudyDesign.TherapeuticAreas, previousStudyDesign.TherapeuticAreas).Any())
                             changedValues.Add($"{nameof(StudyDesignEntity.TherapeuticAreas)}");
@@ -621,13 +591,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
 
                         //Timelines                        
                         changedValues.AddRange(GetDifferenceForStudyScheduleTimelines(currentStudyDesign, previousStudyDesign));
-
-                        //DesignBlindingScheme
-                        GetDifferenceForAliasCode(currentStudyDesign.BlindingSchema, previousStudyDesign.BlindingSchema).ForEach(x =>
-                        {
-                            changedValues.Add($"{nameof(StudyDesignEntity.BlindingSchema)}.{x}");
-                        });
-
 
                         //Encounters
                         GetDifferenceForAList<EncounterEntity>(currentStudyDesign.Encounters, previousStudyDesign.Encounters).ForEach(x =>
@@ -672,6 +635,16 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         GetDifferenceForAList<ConditionEntity>(currentStudyDesign.Conditions, previousStudyDesign.Conditions).ForEach(x =>
                         {
                             changedValues.Add($"{nameof(StudyDesignEntity.Conditions)}.{x}");
+                        });
+                        //StudyPhase
+                        GetDifferenceForAliasCode(currentStudyDesign.StudyPhase, previousStudyDesign.StudyPhase).ForEach(x =>
+                        {
+                            changedValues.Add($"{nameof(StudyDesignEntity.StudyPhase)}.{x}");
+                        });
+                        //StudyType
+                        GetDifferencesForStudyComparison(currentStudyDesign.StudyType, previousStudyDesign.StudyType).ForEach(x =>
+                        {
+                            changedValues.Add($"{nameof(StudyDesignEntity.StudyType)}.{x}");
                         });
                     }
 
@@ -1026,28 +999,29 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                     //Document Version Id
                     errors.AddRange(ReferenceIntegrityValidationForStudyVersionAndStudyDesign(study));
 
-					//Study ProtocolVersions
-					//errors.AddRange(ReferenceIntegrityValidationForDocumentVersions(study.Study.DocumentedBy?.Versions, studyVersionIndex));
-					if (study.Study.DocumentedBy != null)
-					{
-						errors.AddRange(study.Study.DocumentedBy
-							.Where(document => document.Versions != null)
-							.SelectMany(document => ReferenceIntegrityValidationForDocumentVersions(document.Versions, studyVersionIndex)));
-					}
+                    // Study Documents
+                    if (study.Study.DocumentedBy != null)
+                    {
+                        List<string> allDocumentIds = study.Study.DocumentedBy.Select(doc => doc.Id).ToList();
+                        study.Study.DocumentedBy.ForEach(document =>
+                        {
+                            var documentIndex = study.Study.DocumentedBy.IndexOf(document);
+                            errors.AddRange(ReferenceIntegrityValidationForDocument(document, documentIndex, allDocumentIds));
+                        });
+                    }
 
-
-					//Design elements
-					var studyDesigns = study.Study.Versions.FirstOrDefault()?.StudyDesigns;
+                    //Design elements
+                    var studyDesigns = study.Study.Versions.FirstOrDefault()?.StudyDesigns;
                     studyDesigns?.ForEach(design =>
                     {
                         List<string> studyVersionAndDesignIds = study.Study.Versions.Select(x => x.Id).ToList();
                         studyVersionAndDesignIds.AddRange(studyDesigns.Select(x => x.Id));
                         var designIndex = studyDesigns.IndexOf(design);
                         Parallel.Invoke(
-                             new ParallelOptions
-                             {
-                                 MaxDegreeOfParallelism = 3
-                             },
+                            new ParallelOptions
+                            {
+                                MaxDegreeOfParallelism = 3
+                            },
                             //Study Epoch & Encounters
                             () => errors.AddRange(ReferenceIntegrityValidationForStudyEpochs(design, designIndex, studyVersionIndex)),
 
@@ -1086,7 +1060,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
 
                             //Objectives & Endpoints
                             () => errors.AddRange(ReferenceIntegrityValidationForObjectivesAndEndpoints(design, designIndex, studyVersionIndex))
-                         );
+                        );
 
                     });
                 }
@@ -1150,67 +1124,73 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
 
             return errors;
         }
-        public static List<string> ReferenceIntegrityValidationForDocumentVersions(List<StudyDefinitionDocumentVersionDto> documentVersions, int studyVersionIndex)
+        public static List<string> ReferenceIntegrityValidationForDocument(StudyDefinitionDocumentDto document, int documentIndex, List<string> allDocumentIds)
         {
-            List<String> errors = new();
+            List<string> errors = new();
+            
+            var otherDocumentIds = allDocumentIds.Where(id => id != document.Id).ToList();
 
-            if (documentVersions != null && documentVersions.Any())
+            if (document.ChildIds != null)
             {
-                List<string> documentVersionIds = documentVersions.Select(doc => doc.Id).ToList();
-                
-                documentVersions.ForEach(documentVersion =>
+                document.ChildIds.ForEach(childId =>
                 {
-                    var tempDocuVersionIds = documentVersionIds.ToList();
-                    tempDocuVersionIds.RemoveAll(x => x == documentVersion.Id);
-                    if (documentVersion.ChildIds != null && documentVersion.ChildIds.Any())
+                    if (!string.IsNullOrWhiteSpace(childId) && !otherDocumentIds.Contains(childId))
                     {
-                        documentVersion.ChildIds.ForEach(child =>
-                        {
-                            if (!String.IsNullOrWhiteSpace(child) && !tempDocuVersionIds.Contains(child))
-                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
-                                           $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
-                                           $"{nameof(StudyDto.DocumentedBy)}." +
-                                           $"{nameof(StudyDefinitionDocumentDto.Versions)}[{documentVersions.IndexOf(documentVersion)}]." +
-                                           $"{nameof(StudyDefinitionDocumentVersionDto.ChildIds)}[{documentVersion.ChildIds.IndexOf(child)}]");
-                        });
-                    }
-                    if (documentVersion.Contents != null && documentVersion.Contents.Any())
-                    {
-                        List<string> contentIds = documentVersion.Contents != null ? documentVersion.Contents.Select(x => x.Id).ToList() : new();
-                        documentVersion.Contents.ForEach(content =>
-                        {
-                            var tempContentIds = contentIds.ToList();
-                            tempContentIds.RemoveAll(x => x == content.Id);
-                            content?.ChildIds?.ForEach(child =>
-                            {
-                                if (!String.IsNullOrWhiteSpace(child) && !tempContentIds.Contains(child))
-                                    errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
-                                               $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
-                                               $"{nameof(StudyDto.DocumentedBy)}." +
-                                               $"{nameof(StudyDefinitionDocumentDto.Versions)}[{documentVersions.IndexOf(documentVersion)}]." +
-                                               $"{nameof(StudyDefinitionDocumentVersionDto.Contents)}.[{documentVersion.Contents.IndexOf(content)}]." +
-                                               $"{nameof(NarrativeContentDto.ChildIds)}[{content.ChildIds.IndexOf(child)}]");
-                            });
-
-                            if (!String.IsNullOrWhiteSpace(content.PreviousId) && !tempContentIds.Contains(content.PreviousId))
-                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
-                                    $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
-                                    $"{nameof(StudyDto.DocumentedBy)}." +
-                                    $"{nameof(StudyDefinitionDocumentDto.Versions)}[{documentVersions.IndexOf(documentVersion)}]." +
-                                    $"{nameof(StudyDefinitionDocumentVersionDto.Contents)}.[{documentVersion.Contents.IndexOf(content)}]." +
-                                    $"{nameof(NarrativeContentDto.PreviousId)}");
-
-                            if (!String.IsNullOrWhiteSpace(content.NextId) && !tempContentIds.Contains(content.NextId))
-                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
-                                    $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
-                                    $"{nameof(StudyDto.DocumentedBy)}." +
-                                    $"{nameof(StudyDefinitionDocumentDto.Versions)}[{documentVersions.IndexOf(documentVersion)}]." +
-                                    $"{nameof(StudyDefinitionDocumentVersionDto.Contents)}.[{documentVersion.Contents.IndexOf(content)}]." +
-                                    $"{nameof(NarrativeContentDto.NextId)}");
-                        });
+                        errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                $"{nameof(StudyDto.DocumentedBy)}[{documentIndex}]." +
+                                $"{nameof(StudyDefinitionDocumentDto.ChildIds)}[{document.ChildIds.IndexOf(childId)}]");
                     }
                 });
             }
+
+            if (document.Versions != null && document.Versions.Any())
+            {
+                errors.AddRange(ReferenceIntegrityValidationForDocumentVersions(document.Versions, documentIndex));
+            }
+
+            return errors;
+        }
+
+        public static List<string> ReferenceIntegrityValidationForDocumentVersions(List<StudyDefinitionDocumentVersionDto> documentVersions, int documentIndex)
+        {
+            List<String> errors = new();
+
+            documentVersions.ForEach(documentVersion =>
+            {
+                if (documentVersion.Contents != null && documentVersion.Contents.Any())
+                {
+                    List<string> contentIds = documentVersion.Contents.Select(x => x.Id).ToList();
+                    documentVersion.Contents.ForEach(content =>
+                    {
+                        var tempContentIds = contentIds.ToList();
+                        tempContentIds.RemoveAll(x => x == content.Id);
+                        
+                        content?.ChildIds?.ForEach(child =>
+                        {
+                            if (!String.IsNullOrWhiteSpace(child) && !tempContentIds.Contains(child))
+                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                        $"{nameof(StudyDto.DocumentedBy)}[{documentIndex}]." +
+                                        $"{nameof(StudyDefinitionDocumentDto.Versions)}[{documentVersions.IndexOf(documentVersion)}]." +
+                                        $"{nameof(StudyDefinitionDocumentVersionDto.Contents)}[{documentVersion.Contents.IndexOf(content)}]." +
+                                        $"{nameof(NarrativeContentDto.ChildIds)}[{content.ChildIds.IndexOf(child)}]");
+                        });
+
+                        if (!String.IsNullOrWhiteSpace(content.PreviousId) && !tempContentIds.Contains(content.PreviousId))
+                            errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                    $"{nameof(StudyDto.DocumentedBy)}[{documentIndex}]." +
+                                    $"{nameof(StudyDefinitionDocumentDto.Versions)}[{documentVersions.IndexOf(documentVersion)}]." +
+                                    $"{nameof(StudyDefinitionDocumentVersionDto.Contents)}[{documentVersion.Contents.IndexOf(content)}]." +
+                                    $"{nameof(NarrativeContentDto.PreviousId)}");
+
+                        if (!String.IsNullOrWhiteSpace(content.NextId) && !tempContentIds.Contains(content.NextId))
+                            errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                    $"{nameof(StudyDto.DocumentedBy)}[{documentIndex}]." +
+                                    $"{nameof(StudyDefinitionDocumentDto.Versions)}[{documentVersions.IndexOf(documentVersion)}]." +
+                                    $"{nameof(StudyDefinitionDocumentVersionDto.Contents)}[{documentVersion.Contents.IndexOf(content)}]." +
+                                    $"{nameof(NarrativeContentDto.NextId)}");
+                    });
+                }
+            });
 
             return errors;
         }
@@ -1988,11 +1968,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
 
             changedValues.AddRange(GetDifferenceForAListForStudyComparison(currentVersion, previousVersion));
             changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.Titles)}"));
-            changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.StudyType)}"));
             changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.DateValues)}"));
             changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.Amendments)}"));
             changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.StudyIdentifiers)}"));
-            changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.StudyPhase)}"));
             changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.BusinessTherapeuticAreas)}"));
             changedValues.RemoveAll(x => x.Contains($"{nameof(StudyVersionEntity.StudyDesigns)}"));
 
@@ -2006,15 +1984,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         changedValues.Add($"[{currentVersionIndex}].{nameof(StudyVersionEntity.VersionIdentifier)}");
                     if (currVer.Rationale != prevVer.Rationale)
                         changedValues.Add($"[{currentVersionIndex}].{nameof(StudyVersionEntity.Rationale)}");
-
-                    if (GetDifferencesForStudyComparison(currVer.StudyType, prevVer.StudyType).Any())
-                        changedValues.Add($"[{currentVersionIndex}].{nameof(StudyVersionEntity.StudyType)}");
-
-                    //StudyPhase
-                    GetDifferenceForAliasCodeForStudyComparison(currVer.StudyPhase, prevVer.StudyPhase).ForEach(x =>
-                    {
-                        changedValues.Add($"[{currentVersionIndex}].{nameof(StudyVersionEntity.StudyPhase)}{x}");
-                    });
 
                     //Titles
                     GetDifferenceForAListForStudyComparison(currVer.Titles, prevVer.Titles).ForEach(x =>
@@ -2340,18 +2309,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         if (currentStudyDesign.Rationale != previousStudyDesign.Rationale)
                             changedValues.Add($"{nameof(StudyDesignEntity.Rationale)}");
 
-                        //Intervention Model
-                        if (GetDifferencesForStudyComparison<CodeEntity>(currentStudyDesign.InterventionModel, previousStudyDesign.InterventionModel).Any())
-                            changedValues.Add($"{nameof(StudyDesignEntity.InterventionModel)}");
-
-                        //Trial Type
-                        if (GetDifferencesForStudyComparison<List<CodeEntity>>(currentStudyDesign.TrialTypes, previousStudyDesign.TrialTypes).Any())
-                            changedValues.Add($"{nameof(StudyDesignEntity.TrialTypes)}");
-
-                        //Trial Intent Type
-                        if (GetDifferencesForStudyComparison<List<CodeEntity>>(currentStudyDesign.TrialIntentTypes, previousStudyDesign.TrialIntentTypes).Any())
-                            changedValues.Add($"{nameof(StudyDesignEntity.TrialIntentTypes)}");
-
                         //TherapeuticAreas
                         if (GetDifferencesForStudyComparison<List<CodeEntity>>(currentStudyDesign.TherapeuticAreas, previousStudyDesign.TherapeuticAreas).Any())
                             changedValues.Add($"{nameof(StudyDesignEntity.TherapeuticAreas)}");
@@ -2376,11 +2333,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         //Timelines                        
                         changedValues.AddRange(GetDifferenceForStudyScheduleTimelinesForStudyComparison(currentStudyDesign, previousStudyDesign));
 
-                        //DesignBlindingScheme
-                        GetDifferenceForAliasCodeForStudyComparison(currentStudyDesign.BlindingSchema, previousStudyDesign.BlindingSchema).ForEach(x =>
-                        {
-                            changedValues.Add($"{nameof(StudyDesignEntity.BlindingSchema)}{x}");
-                        });
                         //Encounters
                         GetDifferenceForAListForStudyComparison<EncounterEntity>(currentStudyDesign.Encounters, previousStudyDesign.Encounters).ForEach(x =>
                         {
@@ -2428,8 +2380,15 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         {
                             changedValues.Add($"{nameof(StudyDesignEntity.Conditions)}{x}");
                         });
-                        var currDesignIndex = currentVersion.IndexOf(currentStudyDesign);
-                        changedValues.ForEach(x => formattedChangedValues.Add($"[{currDesignIndex}].{x}"));
+                        //StudyPhase
+                        GetDifferenceForAliasCodeForStudyComparison(currentStudyDesign.StudyPhase, previousStudyDesign.StudyPhase).ForEach(x =>
+                        {
+                            changedValues.Add($"{nameof(StudyDesignEntity.StudyPhase)}{x}");
+                        });
+                        GetDifferencesForStudyComparison(currentStudyDesign.StudyType, previousStudyDesign.StudyType).ForEach(x =>
+                        {
+                            changedValues.Add($"{nameof(StudyDesignEntity.StudyType)}");
+                        });
                     }
 
                     else if (currentVersion?.Count == previousVersion?.Count && previousVersion != null && !previousVersion.Any(x => x.Id == currentStudyDesign.Id))

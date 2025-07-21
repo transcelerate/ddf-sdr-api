@@ -12,6 +12,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public string EntryId { get; set; }
         public List<ScheduleTimelineExitDto> Exits { get; set; }
         public object MainTimeline { get; set; }
+        public DurationDto PlannedDuration { get; set; }
         public List<TimingDto> Timings { get; set; }
         public List<ScheduledInstanceDto> Instances { get; set; }        
         public string InstanceType { get; set; }

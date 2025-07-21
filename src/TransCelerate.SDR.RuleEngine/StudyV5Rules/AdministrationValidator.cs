@@ -67,7 +67,7 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AdministrationValidator), nameof(AdministrationDto.Duration)), ApplyConditionTo.AllValidators)
-                .SetValidator(new AdministrationDurationValidator(_httpContextAccessor));
+                .SetValidator(new DurationValidator(_httpContextAccessor));
 
             RuleFor(x => x.Dose)
                 .Cascade(CascadeMode.Stop)
@@ -91,6 +91,13 @@ namespace TransCelerate.SDR.RuleEngineV5
 
             RuleForEach(x => x.Notes)
                 .SetValidator(new CommentAnnotationValidator(_httpContextAccessor));
+
+             RuleFor(x => x.MedicalDevice)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AdministrationValidator), nameof(AdministrationDto.MedicalDevice)), ApplyConditionTo.AllValidators)
+                .SetValidator(new MedicalDeviceValidator(_httpContextAccessor));
         }
     }
 }

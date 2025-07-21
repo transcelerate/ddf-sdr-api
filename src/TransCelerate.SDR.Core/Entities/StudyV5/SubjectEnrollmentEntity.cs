@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace TransCelerate.SDR.Core.Entities.StudyV5
+﻿namespace TransCelerate.SDR.Core.Entities.StudyV5
 {
     public class SubjectEnrollmentEntity : IId
     {
@@ -10,6 +8,8 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public string Description { get; set; }
         public string Label { get; set; }
         public QuantityEntity Quantity { get; set; }
-        public List<string> AppliesToIds { get; set; }        
+        public GeographicScopeEntity ForGeographicScope { get; set; }
+        public StudyCohortEntity ForStudyCohort { get; set; } 
+        public StudySiteEntity ForStudySite { get; set; }   
     }
 }

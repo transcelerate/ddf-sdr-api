@@ -646,7 +646,7 @@ namespace TransCelerate.SDR.Services.Services
                                 SponsorName = studyDto.StudyIdentifiers.Where(x => x.Scope.Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.Scope.Name).FirstOrDefault(),
                                 SponsorLegalAddress = studyDto.StudyIdentifiers.Where(x => x.Scope.Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.Scope.LegalAddress).FirstOrDefault() == null ? null
                                                                 : studyDto.StudyIdentifiers.Where(x => x.Scope.Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.Scope.LegalAddress).Select(x => $"{(x.Lines != null ? string.Join(", ", x.Lines) : "")}, {x.City}, {x.District}, {x.State}, {x.PostalCode}, {x.Country?.Decode}").FirstOrDefault(),
-                                StudyPhase = ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.StudyPhase, studyDto.StudyPhase?.StandardCode?.Code) ?? studyDto.StudyPhase?.StandardCode?.Decode,
+                                StudyPhase = ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.StudyPhase, design.StudyPhase?.StandardCode?.Code) ?? design.StudyPhase?.StandardCode?.Decode,
                                 Protocol = new Core.DTO.eCPT.ProtocolDto
                                 {
                                     ProtocolID = studyDto.StudyIdentifiers.Where(x => x.Scope.Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.Text).FirstOrDefault(),
@@ -659,13 +659,7 @@ namespace TransCelerate.SDR.Services.Services
                                 Synopsis = new Core.DTO.eCPT.SynopsisDto
                                 {
                                     NumberofParticipants = design.Population.GetNumberOfParticipantsV5(),
-                                    PrimaryPurpose = design.TrialIntentTypes != null && design.TrialIntentTypes.Any() ?
-                                                   design.TrialIntentTypes.Count == 1 ? ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, design.TrialIntentTypes.FirstOrDefault().Code) ?? design.TrialIntentTypes.FirstOrDefault().Decode
-                                                   : $"{String.Join(", ", design.TrialIntentTypes.Select(x => ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, x.Code) ?? x.Decode).ToArray(), 0, design.TrialIntentTypes.Count - 1)}" +
-                                                   $" and {design.TrialIntentTypes.Select(x => ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, x.Code) ?? x.Decode).LastOrDefault()}"
-                                                   : null,
                                     EnrollmentTarget = design.Population?.Description,
-                                    InterventionModel = ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.InterventionModel, design?.InterventionModel?.Code) ?? design?.InterventionModel?.Decode,
                                     NumberofArms = design.Arms != null && design.Arms.Any() ?
                                                     design.Arms.Select(x => x.Id).Distinct().Count().ToString() : 0.ToString()
                                 }

@@ -10,8 +10,8 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public string Description { get; set; }       
         public bool IncludesHealthySubjects { get; set; }       
         public RangeDto PlannedAge { get; set; }        
-        public RangeDto PlannedCompletionNumber { get; set; }
-        public RangeDto PlannedEnrollmentNumber { get; set; }
+        public QuantityRangeDto PlannedCompletionNumber { get; set; }
+        public QuantityRangeDto PlannedEnrollmentNumber { get; set; }
         public List<CodeDto> PlannedSex { get; set; }		
 		public List<string> Criterionids { get; set; }
 		public string InstanceType { get; set; }

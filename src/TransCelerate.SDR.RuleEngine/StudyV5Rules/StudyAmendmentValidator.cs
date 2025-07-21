@@ -7,7 +7,7 @@ using TransCelerate.SDR.Core.Utilities.Helpers;
 namespace TransCelerate.SDR.RuleEngineV5
 {
     /// <summary>
-    /// This Class is the validator for Code
+    /// This Class is the validator for StudyAmendment
     /// </summary>
     public class StudyAmendmentValidator : AbstractValidator<StudyAmendmentDto>
     {
@@ -27,6 +27,24 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyAmendmentValidator), nameof(StudyAmendmentDto.InstanceType)), ApplyConditionTo.AllValidators)
                 .Must(x => this.GetType().Name.RemoveValidator() == x).WithMessage(Constants.ValidationErrorMessage.InstanceTypeError);
+
+            RuleFor(x => x.Name)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyAmendmentValidator), nameof(StudyAmendmentDto.Name)), ApplyConditionTo.AllValidators);
+
+            RuleFor(x => x.Label)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyAmendmentValidator), nameof(StudyAmendmentDto.Label)), ApplyConditionTo.AllValidators);
+
+            RuleFor(x => x.Description)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyAmendmentValidator), nameof(StudyAmendmentDto.Description)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.Number)
                .Cascade(CascadeMode.Stop)

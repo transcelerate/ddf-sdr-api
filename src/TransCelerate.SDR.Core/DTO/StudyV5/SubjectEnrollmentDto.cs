@@ -10,6 +10,8 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public string Description { get; set; }
         public string Label { get; set; }
         public QuantityDto Quantity { get; set; }
-        public List<string> AppliesToIds { get; set; } 
+        public GeographicScopeDto ForGeographicScope { get; set; } 
+        public StudyCohortDto ForStudyCohort { get; set; } 
+        public StudySiteDto ForStudySite { get; set; } 
     }
 }

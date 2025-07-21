@@ -14,5 +14,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public List<string> AppliesToIds { get; set; }
         public MaskingDto Masking { get; set; }
         public List<AssignedPersonDto> AssignedPersons { get; set; }
+        public List<CommentAnnotationDto> Notes { get; set; }
     }
 }

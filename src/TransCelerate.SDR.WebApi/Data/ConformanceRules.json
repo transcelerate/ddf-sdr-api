@@ -688,7 +688,7 @@
             "InstanceType"
           ]
         },
-        {
+        { 
           "entity": "AdministrationDuration",
           "required": [
             "Description",
@@ -812,7 +812,7 @@
             "Identifier",
             "InstanceType",
             "Name",
-            "Text"
+            "CriterionItem"
           ]
         },
         {
@@ -1249,7 +1249,7 @@
       ]
     },
     {
-      "usdmVersion": "3.7",
+      "usdmVersion": "4.0",
       "rules": [
         {
           "entity": "Activity",
@@ -1273,7 +1273,8 @@
             "Id",
             "InstanceType",
             "Name",
-            "AdministrableDoseForm"
+            "AdministrableDoseForm",
+            "ProductDesignation"
           ]
         },
         {
@@ -1305,16 +1306,6 @@
           ]
         },
         {
-          "entity": "AdministrationDuration",
-          "required": [
-            "Description",
-            "DurationWillVary",
-            "Id",
-            "InstanceType",
-            "ReasonDurationWillVary"
-          ]
-        },
-        {
           "entity": "AliasCode",
           "required": [
             "Id",
@@ -1337,6 +1328,7 @@
             "Id",
             "InstanceType",
             "Name",
+            "PersonName",
             "JobTitle"
           ]
         },
@@ -1376,6 +1368,15 @@
             "Id",
             "InstanceType",
             "Name"
+          ]
+        },
+        {
+          "entity": "BiospecimenRetention",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "IsRetained"
           ]
         },
         {
@@ -1427,12 +1428,29 @@
           ]
         },
         {
+          "entity": "Duration",
+          "required": [
+            "Id",
+            "InstanceType",
+            "DurationWillVary"
+          ]
+        },
+        {
           "entity": "EligibilityCriterion",
           "required": [
             "Category",
             "Id",
             "InstanceType",
             "Identifier",
+            "InstanceType",
+            "Name",
+            "Text"
+          ]
+        },
+        {
+          "entity": "EligibilityCriterionItem",
+          "required": [
+            "Id",
             "InstanceType",
             "Name",
             "Text"
@@ -1525,11 +1543,44 @@
           ]
         },
         {
+          "entity": "InterventionalStudyDesign",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Rationale",
+            "Arms",
+            "StudyCells",
+            "Epochs",
+            "Population",
+            "Model"
+          ]
+        },
+        {
           "entity": "Masking",
           "required": [
             "Id",
             "InstanceType",
-            "Description"
+            "Text",
+            "IsMasked"
+          ]
+        },
+        {
+          "entity": "MedicalDevice",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name"
+          ]
+        },
+        {
+          "entity": "MedicalDeviceIdentifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "Scope",
+            "Type"
           ]
         },
         {
@@ -1553,6 +1604,21 @@
           ]
         },
         {
+          "entity": "ObservationalStudyDesign",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Rationale",
+            "Arms",
+            "StudyCells",
+            "Epochs",
+            "Population",
+            "Model",
+            "TimePerspective"
+          ]
+        },
+        {
           "entity": "Organization",
           "required": [
             "Id",
@@ -1573,6 +1639,13 @@
           ]
         },
         {
+          "entity": "PersonName",
+          "required": [
+            "Id",
+            "InstanceType"
+          ]
+        },
+        {
           "entity": "Procedure",
           "required": [
             "Code",
@@ -1584,11 +1657,28 @@
           ]
         },
         {
+          "entity": "ProductOrganizationRole",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Code",
+            "Organization"
+          ]
+        },
+        {
           "entity": "Quantity",
           "required": [
             "Id",
             "InstanceType",
             "Value"
+          ]
+        },
+        {
+          "entity": "QuantityRange",
+          "required": [
+            "Id",
+            "InstanceType"
           ]
         },
         {
@@ -1607,6 +1697,7 @@
             "Code",
             "Id",
             "InstanceType",
+            "Name",
             "IsEnabled"
           ]
         },
@@ -1666,7 +1757,8 @@
           "required": [
             "Id",
             "InstanceType",
-            "Name"
+            "Name",
+            "Numerator"
           ]
         },
         {
@@ -1681,6 +1773,7 @@
           "required": [
             "Id",
             "InstanceType",
+            "Name",
             "Number",
             "Summary",
             "GeographicScopes",
@@ -1761,10 +1854,11 @@
             "InstanceType",
             "Name",
             "Rationale",
+            "StudyCells",
+            "EligibilityCriteria",
             "InterventionModel",
             "Arms",
-            "Epochs",
-            "StudyCells"
+            "Epochs"
           ]
         },
         {
@@ -1811,7 +1905,6 @@
             "InstanceType",
             "MinimumResponseDuration",
             "Name",
-            "ProductDesignation",
             "Role",
             "Type"
           ]
