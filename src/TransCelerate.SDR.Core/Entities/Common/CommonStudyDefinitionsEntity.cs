@@ -29,32 +29,7 @@ namespace TransCelerate.SDR.Core.Entities.Common
         public List<CommonStudyVersions> Versions { get; set; }
         public CommonStudyDocumentedBy DocumentedBy { get; set; }
     }
-	[MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
-	public class CommonStudyDefinitionsEntityV5
-	{
-		public CommonStudyEntityV5 Study { get; set; }
-
-		public AuditTrailEntity AuditTrail { get; set; }
-
-	}
-	[MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
-	[MongoDB.Bson.Serialization.Attributes.BsonNoId]
-	public class CommonStudyEntityV5
-	{
-		public string StudyId { get; set; }
-		public string Id { get; set; }
-		public object StudyTitle { get; set; }
-		public string StudyVersion { get; set; }
-		public object StudyType { get; set; }
-		public object Type { get; set; }
-		public object StudyPhase { get; set; }
-		public List<object> StudyIdentifiers { get; set; }
-		public List<CommonStudyProtocolVersions> StudyProtocolVersions { get; set; }
-		public List<CommonStudyDesigns> StudyDesigns { get; set; }
-		public List<CommonStudyVersions> Versions { get; set; }
-		public List<CommonStudyDocumentedBy> DocumentedBy { get; set; }
-	}
-
+    
 	[MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
     [MongoDB.Bson.Serialization.Attributes.BsonNoId]
     public class CommonStudyProtocolVersions
