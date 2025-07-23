@@ -208,10 +208,10 @@ namespace TransCelerate.SDR.UnitTesting
                 )
             );
             studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands[0].Id = "123";
-            studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands[0].InterventionId = "124";
+            studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands[0].Interventions[0].Id = "124";
 
             studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands[0].Id = "124";
-            studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands[0].InterventionId = "124";
+            studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands[0].Interventions[0].Id = "124";
 
             HelperV5 helper = new();
             var result = helper.ReferenceIntegrityValidation(studyDto, out object _);
