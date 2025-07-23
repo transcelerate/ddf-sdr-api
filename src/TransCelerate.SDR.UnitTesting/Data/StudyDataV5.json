@@ -298,7 +298,7 @@
               "code": "C98388",
               "codeSystem": "http://www.cdisc.org",
               "codeSystemVersion": "2024-09-27",
-              "decode": "Interventional Study",
+              "decode": "Interventional",
               "instanceType": "Code"
             },
             "studyPhase": {
