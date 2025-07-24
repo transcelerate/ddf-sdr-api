@@ -257,7 +257,7 @@
             "extensionAttributes": [],
             "text": "H2Q-MC-LZZT",
             "scopeId": "Organization_1",
-            "studyIdentifierScope": {
+            "scope": {
               "id": "Organization_1",
               "extensionAttributes": [],
               "name": "LILLY",
@@ -305,7 +305,7 @@
             "extensionAttributes": [],
             "text": "NCT12345678",
             "scopeId": "Organization_2",
-            "studyIdentifierScope":  {
+            "scope":  {
               "id": "Organization_2",
               "extensionAttributes": [],
               "name": "CT-GOV",
@@ -2280,7 +2280,19 @@
                 "label": "EST1",
                 "description": "",
                 "populationSummary": "Group mean changes from baseline in the primary efficacy parameters",
-                "analysisPopulationId": "AnalysisPopulation_1",
+                "analysisPopulation": {
+                  "id": "AnalysisPopulation_1",
+                  "extensionAttributes": [],
+                  "name": "AP_1",
+                  "label": null,
+                  "description": null,
+                  "text": "Patients with Mild to Moderate Alzheimer\u2019s Disease.",
+                  "subsetOfIds": [
+                    "StudyDesignPopulation_1"
+                  ],
+                  "notes": [],
+                  "instanceType": "AnalysisPopulation"
+                },
                 "interventions": [
                   {
                     "id": "StudyIntervention_1",
@@ -16206,21 +16218,6 @@
                 "previousId": null,
                 "notes": [],
                 "instanceType": "EligibilityCriterion"
-              }
-            ],
-            "analysisPopulations": [
-              {
-                "id": "AnalysisPopulation_1",
-                "extensionAttributes": [],
-                "name": "AP_1",
-                "label": null,
-                "description": null,
-                "text": "Patients with Mild to Moderate Alzheimer\u2019s Disease.",
-                "subsetOfIds": [
-                  "StudyDesignPopulation_1"
-                ],
-                "notes": [],
-                "instanceType": "AnalysisPopulation"
               }
             ],
             "notes": [],
