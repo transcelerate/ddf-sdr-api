@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -224,157 +224,151 @@ namespace TransCelerate.SDR.UnitTesting
 
 
         [TestFixture]
-        public class ReferenceIntegrityValidationForDocument_Method : HelperV5ClassesUnitTesting
+        public class StudyRoleReferenceIntegrityValidationTests
         {
-            #region Positive Scenarios: No Errors Expected
+            private StudyDefinitionsDto _validStudy;
 
-            [Test]
-            public void Should_Return_NoErrors_When_All_ChildIds_Are_Valid()
+            [SetUp]
+            public void SetUp()
+            {
+                _validStudy = new StudyDefinitionsDto
+                {
+                    Study = new StudyDto
+                    {
+                        Versions = new List<StudyVersionDto>
+                        {
+                            new StudyVersionDto
+                            {
+                                Id = "version-1",
+                                StudyDesigns = new List<StudyDesignDto>
+                                {
+                                    new StudyDesignDto { Id = "design-1" },
+                                    new StudyDesignDto { Id = "design-2" }
+                                }
+                            },
+                            new StudyVersionDto
+                            {
+                                Id = "version-2",
+                                StudyDesigns = new List<StudyDesignDto>
+                                {
+                                    new StudyDesignDto { Id = "design-3" }
+                                }
+                            }
+                        }
+                    }
+                };
+            }
+
+            [TestCase("version-1")]
+            [TestCase("version-2")]
+            [TestCase("design-1")]
+            [TestCase("design-2")]
+            [TestCase("design-3")]
+            public void ReferenceIntegrityValidationForStudyRole_ValidIds_ReturnsNoErrors(string validId)
             {
                 // Arrange
-                var allDocumentIds = new List<string> { "doc1", "doc2", "doc3" };
-                var documentToTest = new StudyDefinitionDocumentDto
+                var studyRole = new StudyRoleDto
                 {
-                    Id = "doc1",
-                    ChildIds = new List<string> { "doc2", "doc3" },
-                    Versions = null
+                    Id = "role-1",
+                    AppliesToIds = new List<string> { validId }
                 };
 
                 // Act
-                var errors = HelperV5.ReferenceIntegrityValidationForDocument(documentToTest, 0, allDocumentIds);
+                    var result = HelperV5.ReferenceIntegrityValidationForStudyRole(studyRole, _validStudy, 0);
 
                 // Assert
-                Assert.That(errors, Is.Empty, "Expected no errors for valid child IDs.");
+                Assert.That(result, Is.Empty);
             }
 
-            [Test]
-            public void Should_Return_NoErrors_When_ChildIds_Property_Is_Null()
-            {
-                // Arrange
-                var allDocumentIds = new List<string> { "doc1", "doc2" };
-                var documentToTest = new StudyDefinitionDocumentDto
-                {
-                    Id = "doc1",
-                    ChildIds = null, // ChildIds property is null
-                    Versions = null
-                };
-
-                // Act
-                var errors = HelperV5.ReferenceIntegrityValidationForDocument(documentToTest, 0, allDocumentIds);
-
-                // Assert
-                Assert.That(errors, Is.Empty, "Expected no errors when ChildIds list is null.");
-            }
-
-            [Test]
-            public void Should_Return_NoErrors_When_ChildIds_List_Is_Empty()
-            {
-                // Arrange
-                var allDocumentIds = new List<string> { "doc1", "doc2" };
-                var documentToTest = new StudyDefinitionDocumentDto
-                {
-                    Id = "doc1",
-                    ChildIds = new List<string>(), // Test case: ChildIds list is empty
-                    Versions = null
-                };
-
-                // Act
-                var errors = HelperV5.ReferenceIntegrityValidationForDocument(documentToTest, 0, allDocumentIds);
-
-                // Assert
-                Assert.That(errors, Is.Empty, "Expected no errors when ChildIds list is empty.");
-            }
-
-            [TestCase(null)]
             [TestCase("")]
+            [TestCase(null)]
             [TestCase("   ")]
-            public void Should_Ignore_NullOrWhitespace_ChildId_Entries(string invalidEntry)
+            [TestCase("\t")]
+            [TestCase("\n")]
+            public void ReferenceIntegrityValidationForStudyRole_EmptyOrWhitespaceIds_ReturnsError(string invalidId)
             {
                 // Arrange
-                var allDocumentIds = new List<string> { "doc1", "doc2" };
-                var documentToTest = new StudyDefinitionDocumentDto
+                var studyRole = new StudyRoleDto
                 {
-                    Id = "doc1",
-                    ChildIds = new List<string> { "doc2", invalidEntry },
-                    Versions = null
+                    Id = "role-1",
+                    AppliesToIds = new List<string> { invalidId }
                 };
 
                 // Act
-                var errors = HelperV5.ReferenceIntegrityValidationForDocument(documentToTest, 0, allDocumentIds);
+                var result = HelperV5.ReferenceIntegrityValidationForStudyRole(studyRole, _validStudy, 0);
 
                 // Assert
-                Assert.That(errors, Is.Empty, "Should ignore null or whitespace child IDs and produce no errors.");
+                Assert.That(result, Has.Count.EqualTo(1));
+                Assert.That(result[0], Is.EqualTo("StudyRoleDto[0].AppliesToIds[0]"));
             }
 
-            #endregion
-
-            #region Negative Scenarios: Errors Expected
-
-            [Test]
-            public void Should_Return_Error_When_A_ChildId_Is_Not_In_The_Valid_List()
+            [TestCase("invalid-version")]
+            [TestCase("invalid-design")]
+            [TestCase("non-existent-id")]
+            public void ReferenceIntegrityValidationForStudyRole_InvalidIds_ReturnsError(string invalidId)
             {
                 // Arrange
-                var allDocumentIds = new List<string> { "doc1", "doc2" };
-                var documentIndex = 1;
-                var documentToTest = new StudyDefinitionDocumentDto
+                var studyRole = new StudyRoleDto
                 {
-                    Id = "doc1",
-                    ChildIds = new List<string> { "invalid_id" },
-                    Versions = null
+                    Id = "role-1",
+                    AppliesToIds = new List<string> { invalidId }
                 };
-                var expectedError = $"Study.DocumentedBy[{documentIndex}].ChildIds[0]";
 
                 // Act
-                var errors = HelperV5.ReferenceIntegrityValidationForDocument(documentToTest, documentIndex, allDocumentIds);
+                var result = HelperV5.ReferenceIntegrityValidationForStudyRole(studyRole, _validStudy, 0);
 
                 // Assert
-                Assert.That(errors, Has.Count.EqualTo(1), "Expected exactly one validation error.");
-                Assert.That(errors.First(), Is.EqualTo(expectedError));
+                Assert.That(result, Has.Count.EqualTo(1));
+                Assert.That(result[0], Is.EqualTo("StudyRoleDto[0].AppliesToIds[0]"));
             }
 
             [Test]
-            public void Should_Return_Error_Only_For_The_Invalid_ChildId_In_A_Mixed_List()
+            public void ReferenceIntegrityValidationForStudyRole_MixedValidAndInvalidIds_ReturnsErrorsForInvalidOnly()
             {
                 // Arrange
-                var allDocumentIds = new List<string> { "doc1", "doc2" };
-                var documentToTest = new StudyDefinitionDocumentDto
+                var studyRole = new StudyRoleDto
                 {
-                    Id = "doc1",
-                    ChildIds = new List<string> { "doc2", "invalid_id_number_2" },
-                    Versions = null
+                    Id = "role-1",
+                    AppliesToIds = new List<string> { "version-1", "invalid-id", "", "design-1" }
                 };
-                var expectedError = $"Study.DocumentedBy[0].ChildIds[1]";
 
                 // Act
-                var errors = HelperV5.ReferenceIntegrityValidationForDocument(documentToTest, 0, allDocumentIds);
+                var result = HelperV5.ReferenceIntegrityValidationForStudyRole(studyRole, _validStudy, 0);
 
                 // Assert
-                Assert.That(errors, Has.Count.EqualTo(1));
-                Assert.That(errors.First(), Is.EqualTo(expectedError));
+                Assert.That(result, Has.Count.EqualTo(2));
+                Assert.That(result[0], Is.EqualTo("StudyRoleDto[0].AppliesToIds[1]"));
+                Assert.That(result[1], Is.EqualTo("StudyRoleDto[0].AppliesToIds[2]"));
             }
 
             [Test]
-            public void Should_Return_Error_When_A_Document_References_Itself_As_A_Child()
+            public void ReferenceIntegrityValidationForStudyRole_NullOrEmptyAppliesToIds_ReturnsNoErrors()
             {
                 // Arrange
-                var allDocumentIds = new List<string> { "doc1", "doc2" };
-                var documentToTest = new StudyDefinitionDocumentDto
-                {
-                    Id = "doc1",
-                    ChildIds = new List<string> { "doc1" }, // Document references itself
-                    Versions = null
-                };
-                var expectedError = $"Study.DocumentedBy[0].ChildIds[0]";
+                var studyRoleWithNull = new StudyRoleDto { Id = "role-1", AppliesToIds = null };
+                var studyRoleWithEmpty = new StudyRoleDto { Id = "role-2", AppliesToIds = new List<string>() };
 
                 // Act
-                var errors = HelperV5.ReferenceIntegrityValidationForDocument(documentToTest, 0, allDocumentIds);
+                var resultNull = HelperV5.ReferenceIntegrityValidationForStudyRole(studyRoleWithNull, _validStudy, 0);
+                var resultEmpty = HelperV5.ReferenceIntegrityValidationForStudyRole(studyRoleWithEmpty, _validStudy, 0);
 
                 // Assert
-                Assert.That(errors, Has.Count.EqualTo(1), "Expected an error for a self-referencing child ID.");
-                Assert.That(errors.First(), Is.EqualTo(expectedError));
+                Assert.That(resultNull, Is.Empty);
+                Assert.That(resultEmpty, Is.Empty);
             }
 
-            #endregion
+            [Test]
+            public void ReferenceIntegrityValidationForStudyRole_NullStudyRole_ReturnsNoErrors()
+            {
+                // Arrange
+                StudyRoleDto nullStudyRole = null;
+
+                // Act
+                var result = HelperV5.ReferenceIntegrityValidationForStudyRole(nullStudyRole, _validStudy, 0);
+
+                // Assert
+                Assert.That(result, Is.Empty);
+            }
         }
     }
 }
