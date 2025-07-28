@@ -174,6 +174,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string UsdmVersionMismatch = "usdmVersion value must be the same value mentioned in request header";
 
             public const string OfficialTitleError = "Atleast one Offical Title is required";
+            public const string StudyVersionHasOneClinicalStudySponsorOrganizationIdentifier = "Every study version must have exactly one study identifier with an identifier scope that references a clinical study sponsor organization";
         }
 
         public struct SuccessMessages

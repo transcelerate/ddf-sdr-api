@@ -188,6 +188,7 @@
 - [StudyValidator](#T-TransCelerate-SDR-RuleEngineV5-StudyValidator 'TransCelerate.SDR.RuleEngineV5.StudyValidator')
 - [StudyVersionValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyVersionValidator 'TransCelerate.SDR.RuleEngineV4.StudyVersionValidator')
 - [StudyVersionValidator](#T-TransCelerate-SDR-RuleEngineV5-StudyVersionValidator 'TransCelerate.SDR.RuleEngineV5.StudyVersionValidator')
+  - [HasExactlyOneClinicalStudySponsorOrganizationIdentifier(studyIdentifiers)](#M-TransCelerate-SDR-RuleEngineV5-StudyVersionValidator-HasExactlyOneClinicalStudySponsorOrganizationIdentifier-System-Collections-Generic-List{TransCelerate-SDR-Core-DTO-StudyV5-StudyIdentifierDto}- 'TransCelerate.SDR.RuleEngineV5.StudyVersionValidator.HasExactlyOneClinicalStudySponsorOrganizationIdentifier(System.Collections.Generic.List{TransCelerate.SDR.Core.DTO.StudyV5.StudyIdentifierDto})')
 - [SubjectEnrollmentValidator](#T-TransCelerate-SDR-RuleEngineV4-SubjectEnrollmentValidator 'TransCelerate.SDR.RuleEngineV4.SubjectEnrollmentValidator')
 - [SubjectEnrollmentValidator](#T-TransCelerate-SDR-RuleEngineV5-SubjectEnrollmentValidator 'TransCelerate.SDR.RuleEngineV5.SubjectEnrollmentValidator')
 - [SubstanceValidator](#T-TransCelerate-SDR-RuleEngineV5-SubstanceValidator 'TransCelerate.SDR.RuleEngineV5.SubstanceValidator')
@@ -2245,6 +2246,26 @@ TransCelerate.SDR.RuleEngineV5
 ##### Summary
 
 This Class is the validator for Study
+
+<a name='M-TransCelerate-SDR-RuleEngineV5-StudyVersionValidator-HasExactlyOneClinicalStudySponsorOrganizationIdentifier-System-Collections-Generic-List{TransCelerate-SDR-Core-DTO-StudyV5-StudyIdentifierDto}-'></a>
+### HasExactlyOneClinicalStudySponsorOrganizationIdentifier(studyIdentifiers) `method`
+
+##### Summary
+
+Validates that there is exactly one study identifier with an identifier scope that references a clinical study sponsor organization.
+
+RuleID: DDF00005
+CheckId: CHK0012
+
+##### Returns
+
+True if exactly one clinical study sponsor organization identifier exists, otherwise false
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyIdentifiers | [System.Collections.Generic.List{TransCelerate.SDR.Core.DTO.StudyV5.StudyIdentifierDto}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.DTO.StudyV5.StudyIdentifierDto}') | List of study identifiers to validate |
 
 <a name='T-TransCelerate-SDR-RuleEngineV4-SubjectEnrollmentValidator'></a>
 ## SubjectEnrollmentValidator `type`

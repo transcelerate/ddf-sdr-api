@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using TransCelerate.SDR.Core.DTO.StudyV5;
 using TransCelerate.SDR.Core.Utilities.Common;
@@ -46,7 +48,8 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyVersionValidator), nameof(StudyVersionDto.StudyIdentifiers)), ApplyConditionTo.AllValidators)
-                .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+                .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError)
+                .Must(x => HasExactlyOneClinicalStudySponsorOrganizationIdentifier(x)).WithMessage(Constants.ValidationErrorMessage.StudyVersionHasOneClinicalStudySponsorOrganizationIdentifier);
 
             RuleForEach(x => x.StudyIdentifiers)
                 .SetValidator(new StudyIdentifierValidator(_httpContextAccessor));
@@ -119,6 +122,27 @@ namespace TransCelerate.SDR.RuleEngineV5
 
             RuleForEach(x => x.ReferenceIdentifiers)
                 .SetValidator(new ReferenceIdentifierValidator(_httpContextAccessor));
+        }
+
+        /// <summary>
+        /// Validates that there is exactly one study identifier with an identifier scope that references a clinical study sponsor organization.
+        /// 
+        /// RuleID: DDF00005
+        /// CheckId: CHK0012
+        /// </summary>
+        /// <param name="studyIdentifiers">List of study identifiers to validate</param>
+        /// <returns>True if exactly one clinical study sponsor organization identifier exists, otherwise false</returns>
+        public static bool HasExactlyOneClinicalStudySponsorOrganizationIdentifier(List<StudyIdentifierDto> studyIdentifiers)
+        {
+            if (studyIdentifiers == null)
+                return false;
+
+            // Count StudyIdentifiers that have a scope referencing a clinical study sponsor organization
+            var clinicalSponsorCount = studyIdentifiers.Count(identifier => 
+                identifier?.Scope?.Type?.Decode?.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase) == true
+            );
+
+            return clinicalSponsorCount == 1;
         }
     }
 }
