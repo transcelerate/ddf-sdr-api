@@ -129,6 +129,7 @@ namespace TransCelerate.SDR.WebApi
 
             services.AddFluentValidationAutoValidation();
             ValidatorOptions.Global.DisplayNameResolver = (type, memberInfo, expression) => string.Concat(memberInfo.Name.Replace(" ", "")[..1]?.ToLower(), memberInfo.Name.Replace(" ", "").AsSpan(1));
+            ValidatorOptions.Global.DefaultRuleLevelCascadeMode = CascadeMode.Stop;
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
             //Enabling CORS
