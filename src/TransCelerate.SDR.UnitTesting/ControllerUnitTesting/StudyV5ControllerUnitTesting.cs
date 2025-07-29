@@ -304,25 +304,25 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual(404, (result as ObjectResult).StatusCode);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
 
-            //object errors = null;
-            //_mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
-            //   .Returns(true);
+            object errors = null;
+            _mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
+              .Returns(true);
 
-            //method = studyV5Controller.PutStudy(study, study.Study.Id, Constants.USDMVersions.V4);
-            //method.Wait();
-            //result = method.Result;
+            method = studyV5Controller.PutStudy(study, study.Study.Id, Constants.USDMVersions.V4);
+            method.Wait();
+            result = method.Result;
 
-            ////Expected
-            //expected = study;
+            //Expected
+            expected = study;
 
-            ////Actual            
-            //actual_result = JsonConvert.DeserializeObject<ErrorModel>(
-            //     JsonConvert.SerializeObject((result as ObjectResult).Value));
+            //Actual            
+            actual_result = JsonConvert.DeserializeObject<ErrorModel>(
+                JsonConvert.SerializeObject((result as ObjectResult).Value));
 
-            //Assert.AreEqual(400, (result as ObjectResult).StatusCode);
-            //Assert.IsInstanceOf(typeof(ObjectResult), result);
-            //_mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
-            //   .Returns(false);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            _mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
+              .Returns(false);
         }
         #endregion
 
@@ -1020,40 +1020,40 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.IsInstanceOf(typeof(ObjectResult), method);
 
 
-            ////Error BadRequest
-            //object errors = null;
-            //_mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
-            //        .Throws(new Exception("Error"));
+            //Error BadRequest
+            object errors = null;
+            _mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
+                   .Throws(new Exception("Error"));
 
-            //method = studyV5Controller.ValidateUsdmConformance(study, Constants.USDMVersions.V4);
+            method = studyV5Controller.ValidateUsdmConformance(study, Constants.USDMVersions.V4);
 
-            ////Expected
-            //var expected1 = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError);
+            //Expected
+            var expected1 = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError);
 
-            ////Actual            
-            //var actual_result1 = (method as BadRequestObjectResult).Value as ErrorModel;
+            //Actual            
+            var actual_result1 = (method as BadRequestObjectResult).Value as ErrorModel;
 
-            ////Assert
-            //Assert.IsNotNull((method as BadRequestObjectResult).Value);
-            //Assert.AreEqual(400, (method as BadRequestObjectResult).StatusCode);
-            //Assert.IsInstanceOf(typeof(BadRequestObjectResult), method);
+            //Assert
+            Assert.IsNotNull((method as BadRequestObjectResult).Value);
+            Assert.AreEqual(400, (method as BadRequestObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method);
 
-            //Assert.AreEqual(expected1.Message, actual_result1.Message);
-            //Assert.AreEqual("400", actual_result.StatusCode);
+            Assert.AreEqual(expected1.Message, actual_result1.Message);
+            Assert.AreEqual("400", actual_result.StatusCode);
             
-            //_mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
-            //   .Returns(true);
+            _mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
+              .Returns(true);
 
-            //method = studyV5Controller.ValidateUsdmConformance(study, Constants.USDMVersions.V4);
+            method = studyV5Controller.ValidateUsdmConformance(study, Constants.USDMVersions.V4);
 
-            ////Actual            
-            //actual_result = JsonConvert.DeserializeObject<ErrorModel>(
-            //     JsonConvert.SerializeObject((method as ObjectResult).Value));
+            //Actual            
+            actual_result = JsonConvert.DeserializeObject<ErrorModel>(
+                JsonConvert.SerializeObject((method as ObjectResult).Value));
 
-            //Assert.AreEqual(400, (method as ObjectResult).StatusCode);
-            //Assert.IsInstanceOf(typeof(ObjectResult), method);
-            //_mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
-            //   .Returns(false);
+            Assert.AreEqual(400, (method as ObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(ObjectResult), method);
+            _mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
+              .Returns(false);
         }
         #endregion
 
