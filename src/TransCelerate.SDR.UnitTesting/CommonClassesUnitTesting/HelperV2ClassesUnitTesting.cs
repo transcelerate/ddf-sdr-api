@@ -17,6 +17,7 @@ using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
 using TransCelerate.SDR.DataAccess.Filters;
+using TransCelerate.SDR.RuleEngine.Common;
 using TransCelerate.SDR.RuleEngineV2;
 
 namespace TransCelerate.SDR.UnitTesting

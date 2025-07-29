@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using TransCelerate.SDR.Core.DTO.StudyV5;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
+using TransCelerate.SDR.RuleEngine.Common;
 
 namespace TransCelerate.SDR.RuleEngineV5
 {
@@ -53,7 +54,7 @@ namespace TransCelerate.SDR.RuleEngineV5
                .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
             RuleForEach(x => x.DefinedProcedures)
-                .SetValidator(new ProcedureValidator(_httpContextAccessor));            
+                .SetValidator(new ProcedureValidator(_httpContextAccessor));
 
             RuleFor(x => x.NextId)
                .Cascade(CascadeMode.Stop)
@@ -65,7 +66,7 @@ namespace TransCelerate.SDR.RuleEngineV5
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.PreviousId)), ApplyConditionTo.AllValidators);            
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.PreviousId)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.BiomedicalConceptIds)
                 .Cascade(CascadeMode.Stop)
@@ -94,18 +95,18 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.TimelineId)), ApplyConditionTo.AllValidators);
 
-			RuleFor(x => x.ChildIds)
-				.Cascade(CascadeMode.Stop)
-				.NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-				.NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-				.When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.ChildIds)), ApplyConditionTo.AllValidators);
+            RuleFor(x => x.ChildIds)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.ChildIds)), ApplyConditionTo.AllValidators);
 
-			RuleFor(x => x.Notes)
-				.Cascade(CascadeMode.Stop)
-				.NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-				.NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-				.When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.Notes)), ApplyConditionTo.AllValidators);
-		}
+            RuleFor(x => x.Notes)
+                .Cascade(CascadeMode.Stop)
+                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ActivityValidator), nameof(ActivityDto.Notes)), ApplyConditionTo.AllValidators);
+        }
     }
 }
 

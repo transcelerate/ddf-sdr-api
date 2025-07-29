@@ -4,10 +4,10 @@ using TransCelerate.SDR.Core.DTO.StudyV5;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 
-namespace TransCelerate.SDR.RuleEngineV5
+namespace TransCelerate.SDR.RuleEngine.StudyV5Rules
 {
     /// <summary>
-    /// This Class is the validator for Study
+    /// This class is the validator for StudyDefinitions
     /// </summary>
     public class StudyDefinitionsValidator : AbstractValidator<StudyDefinitionsDto>
     {
@@ -15,6 +15,7 @@ namespace TransCelerate.SDR.RuleEngineV5
         public StudyDefinitionsValidator(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
+
             RuleFor(x => x.Study)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.RootElementMissing)
@@ -27,7 +28,7 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDefinitionsValidator), nameof(StudyDefinitionsDto.UsdmVersion)), ApplyConditionTo.AllValidators)
                 .Must(x => x == _httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion]).WithMessage(Constants.ValidationErrorMessage.UsdmVersionMismatch);
-                
+
             RuleFor(x => x.SystemName)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
@@ -39,8 +40,6 @@ namespace TransCelerate.SDR.RuleEngineV5
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDefinitionsValidator), nameof(StudyDefinitionsDto.SystemVersion)), ApplyConditionTo.AllValidators);
-
-
         }
     }
 }

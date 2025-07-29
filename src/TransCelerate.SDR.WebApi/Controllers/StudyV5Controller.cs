@@ -128,7 +128,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(StudyV2Controller)}; Method : {nameof(GetStudyDesigns)};");
+                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(GetStudyDesigns)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
                     _logger.LogInformation($"Inputs : study_uuid = {studyId}; sdruploadversion = {sdruploadversion}; listofelements: {listofelements}; studydesign_uuid: {studyDesignId}");
@@ -169,7 +169,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(StudyV2Controller)}; Method : {nameof(GetStudyDesigns)};");
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV5Controller)}; Method : {nameof(GetStudyDesigns)};");
             }
         }
 
@@ -184,7 +184,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>
         [HttpGet]
-        [Route(Route.SoAV5)] 
+        [Route(Route.SoAV5)]
         [ApiVersion(Constants.USDMVersions.V4)]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDefinitionsDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
@@ -194,7 +194,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(StudyV2Controller)}; Method : {nameof(GetStudyDesigns)};");
+                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(GetStudyDesigns)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
                     _logger.LogInformation($"Inputs : study_uuid = {studyId}; sdruploadversion = {sdruploadversion}; WorkflowId: {scheduleTimelineId}; studydesign_uuid: {studyDesignId}");
@@ -207,7 +207,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     //var SoA = ;
 
 
-					if (SoA == null)
+                    if (SoA == null)
                     {
                         return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
                     }
@@ -240,7 +240,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(StudyV2Controller)}; Method : {nameof(GetSOAV5)};");
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV5Controller)}; Method : {nameof(GetSOAV5)};");
             }
         }
 
@@ -309,7 +309,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(CommonController)}; Method : {nameof(GeteCPTV5  )};");
+                _logger.LogInformation($"Ended Controller : {nameof(CommonController)}; Method : {nameof(GeteCPTV5)};");
             }
         }
 
@@ -335,7 +335,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(StudyV2Controller)}; Method : {nameof(GetDifferences)};");
+                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(GetDifferences)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
                     _logger.LogInformation($"Inputs : studyId = {studyId}; sdruploadversion1 = {sdrUploadVersionOne}; sdruploadversion2 = {sdrUploadVersionTwo};");
@@ -385,7 +385,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(StudyV2Controller)}; Method : {nameof(GetDifferences)};");
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV5Controller)}; Method : {nameof(GetDifferences)};");
             }
         }
         #endregion
@@ -452,7 +452,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(StudyV2Controller)}; Method : {nameof(PostAllElements)};");
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV5Controller)}; Method : {nameof(PostAllElements)};");
             }
         }
         /// <summary>
@@ -473,7 +473,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(StudyV2Controller)}; Method : {nameof(PostAllElements)};");
+                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(PostAllElements)};");
                 if (studyDTO != null)
                 {
                     bool isInValidReferenceIntegrity = _helper.ReferenceIntegrityValidation(studyDTO, out var errors);
@@ -518,7 +518,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(StudyV2Controller)}; Method : {nameof(PostAllElements)};");
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV5Controller)}; Method : {nameof(PostAllElements)};");
             }
         }
         #endregion
@@ -541,7 +541,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(StudyV2Controller)}; Method : {nameof(PostAllElements)};");
+                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(PostAllElements)};");
                 if (studyDTO != null)
                 {
                     bool isInValidReferenceIntegrity = _helper.ReferenceIntegrityValidation(studyDTO, out var errors);
@@ -565,7 +565,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(StudyV2Controller)}; Method : {nameof(PostAllElements)};");
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV5Controller)}; Method : {nameof(PostAllElements)};");
             }
         }
         #endregion
@@ -591,7 +591,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(StudyV2Controller)}; Method : {nameof(GetStudy)};");
+                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(GetStudy)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
                     _logger.LogInformation($"Inputs : studyId = {studyId};");
@@ -629,7 +629,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(StudyV2Controller)}; Method : {nameof(GetStudy)};");
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV5Controller)}; Method : {nameof(GetStudy)};");
             }
         }
         #endregion        
