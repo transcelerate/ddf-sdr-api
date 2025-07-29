@@ -75,8 +75,9 @@ namespace TransCelerate.SDR.RuleEngine.StudyV5Rules
                .When(x => _requiredFields.Contains(nameof(StudyVersionDto.Abbreviations)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.Abbreviations)
-               .Must(x => AbbreviationValidator.ValidateAbbreviatedText(x)).WithMessage(Utilities.Common.Constants.RuleValidationErrorMessages.DDF00170)
-               .WithErrorCode(nameof(Utilities.Common.Constants.RuleValidationErrorMessages.DDF00170));
+                .Cascade(CascadeMode.Stop)
+                .Must(x => AbbreviationValidator.ValidateAbbreviatedText(x)).WithMessage(Utilities.Common.Constants.RuleValidationErrorMessages.DDF00170)
+                .WithErrorCode(nameof(Utilities.Common.Constants.RuleValidationErrorMessages.DDF00170));
 
             RuleFor(x => x.DateValues)
                 .Cascade(CascadeMode.Stop)
@@ -124,8 +125,8 @@ namespace TransCelerate.SDR.RuleEngine.StudyV5Rules
                .Must(x => x.Where(y => y.Type != null).Select(y => y.Type.Decode == Constants.StudyTitle.OfficialStudyTitle).Count() > 0).WithMessage(Constants.ValidationErrorMessage.OfficialTitleError);
 
             RuleFor(x => x.Abbreviations)
-                   .Must(x => AbbreviationValidator.ValidateExpandedText(x)).WithMessage(Utilities.Common.Constants.RuleValidationWarningMessages.DDF00171)
-                   .WithErrorCode(nameof(Utilities.Common.Constants.RuleValidationWarningMessages.DDF00171)).WithSeverity(Severity.Warning);
+                .Must(x => AbbreviationValidator.ValidateExpandedText(x)).WithMessage(Utilities.Common.Constants.RuleValidationWarningMessages.DDF00171)
+                .WithErrorCode(nameof(Utilities.Common.Constants.RuleValidationWarningMessages.DDF00171)).WithSeverity(Severity.Warning);
 
             RuleForEach(x => x.BusinessTherapeuticAreas)
                 .SetValidator(new CodeValidator(_httpContextAccessor));
