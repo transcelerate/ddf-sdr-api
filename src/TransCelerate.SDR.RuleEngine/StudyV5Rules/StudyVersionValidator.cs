@@ -6,6 +6,7 @@ using TransCelerate.SDR.Core.DTO.StudyV5;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.RuleEngine.Common;
+using TransCelerate.SDR.RuleEngine.Utilities.Common;
 using TransCelerate.SDR.RuleEngineV5;
 
 namespace TransCelerate.SDR.RuleEngine.StudyV5Rules
@@ -76,8 +77,9 @@ namespace TransCelerate.SDR.RuleEngine.StudyV5Rules
 
             RuleFor(x => x.Abbreviations)
                 .Cascade(CascadeMode.Stop)
-                .Must(x => AbbreviationValidator.ValidateAbbreviatedText(x)).WithMessage(Utilities.Common.Constants.RuleValidationErrorMessages.DDF00170)
-                .WithErrorCode(nameof(Utilities.Common.Constants.RuleValidationErrorMessages.DDF00170));
+                .Must(x => AbbreviationValidator.ValidateAbbreviatedText(x)).WithMessage(
+                    $"[Severity:Error] [Rule ID:{nameof(RuleConstants.RuleValidationErrorMessages.DDF00170)}] {RuleConstants.RuleValidationErrorMessages.DDF00170}"
+                );
 
             RuleFor(x => x.DateValues)
                 .Cascade(CascadeMode.Stop)
@@ -125,8 +127,9 @@ namespace TransCelerate.SDR.RuleEngine.StudyV5Rules
                .Must(x => x.Where(y => y.Type != null).Select(y => y.Type.Decode == Constants.StudyTitle.OfficialStudyTitle).Count() > 0).WithMessage(Constants.ValidationErrorMessage.OfficialTitleError);
 
             RuleFor(x => x.Abbreviations)
-                .Must(x => AbbreviationValidator.ValidateExpandedText(x)).WithMessage(Utilities.Common.Constants.RuleValidationWarningMessages.DDF00171)
-                .WithErrorCode(nameof(Utilities.Common.Constants.RuleValidationWarningMessages.DDF00171)).WithSeverity(Severity.Warning);
+                .Must(x => AbbreviationValidator.ValidateExpandedText(x)).WithMessage(
+                    $"[Severity:Warning] [Rule ID:{nameof(RuleConstants.RuleValidationWarningMessages.DDF00171)}] {RuleConstants.RuleValidationWarningMessages.DDF00171}"
+                );
 
             RuleForEach(x => x.BusinessTherapeuticAreas)
                 .SetValidator(new CodeValidator(_httpContextAccessor));

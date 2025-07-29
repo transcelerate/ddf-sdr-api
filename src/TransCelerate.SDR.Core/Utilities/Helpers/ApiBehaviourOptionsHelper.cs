@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using TransCelerate.SDR.Core.Utilities.Common;
@@ -25,15 +26,44 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             var modelState = context.ModelState.ToList();
             modelState.RemoveAll(x => x.Value.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid || x.Value.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Skipped);
-            var errors = modelState.ToDictionary(
-                    kvp => kvp.Key?.Length > 2 ? string.Join(".", kvp.Key?.Split(".").Select(key => $"{key?[..1]?.ToLower()}{key?[1..]}")) : kvp.Key,
-                    kvp => kvp.Value?.Errors?.Select(e => e.ErrorMessage).ToArray()
-                );
-            var errorsToList = errors.ToList();
-            
-            errors = errorsToList.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
+            var allInvalid = modelState.ToDictionary(
+
+                kvp => kvp.Key?.Length > 2 ? string.Join(".", kvp.Key?.Split(".").Select(key => $"{key?[..1]?.ToLower()}{key?[1..]}")) : kvp.Key,
+
+                kvp => kvp.Value?.Errors?.Select(e => new
+                {
+                    Message = e.ErrorMessage,
+                    IsWarning = e.ErrorMessage?.Contains("[Severity:Warning]") == true
+                }).ToArray()
+
+            );
+
+            var errors = new Dictionary<string, string[]>();
+            var warnings = new Dictionary<string, string[]>();
+
+            foreach (var kvp in allInvalid)
+            {
+                var errorMessages = kvp.Value?.Where(x => !x.IsWarning).Select(x => CleanMessage(x.Message)).ToArray();
+
+                var warningMessages = kvp.Value?.Where(x => x.IsWarning).Select(x => CleanMessage(x.Message)).ToArray();
+
+                // Add to appropriate dictionary if there are messages
+                if (errorMessages != null && errorMessages.Length > 0)
+                {
+                    errors[kvp.Key] = errorMessages;
+                }
+
+                if (warningMessages != null && warningMessages.Length > 0)
+                {
+                    warnings[kvp.Key] = warningMessages;
+                }
+            }
+
             context.HttpContext?.Response?.Headers?.Add("InvalidInput", "True");
+
             var errorList = SplitStringIntoArrayHelper.SplitString(JsonConvert.SerializeObject(errors), 32000);//since app insights limit is 32768 characters                                                              
+
             var AuthToken = context?.HttpContext?.Request?.Headers["Authorization"];
             var usdmVersion = context?.HttpContext?.Request?.Headers["usdmVersion"];
 
@@ -48,7 +78,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
 
                 errorList.ForEach(e => _logger.LogError($"Conformance Error {errorList.IndexOf(e) + 1}: {e}"));
                 _logger.LogInformation($"Status Code: {400}; UserName : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Email)?.Value}; UserRole : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Role)?.Value} URL: {context?.HttpContext?.Request?.Path}; AuthToken: {AuthToken}");
-                return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(errors,$"{Constants.ErrorMessages.ConformanceErrorMessage}{usdmVersion}"));
+                return new BadRequestObjectResult(ErrorResponseHelper.ValidationBadRequest(errors, warnings, $"{Constants.ErrorMessages.ConformanceErrorMessage}{usdmVersion}"));
             }
             //Other errors
             else
@@ -57,6 +87,15 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 _logger.LogInformation($"Status Code: {400}; UserName : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Email)?.Value}; UserRole : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Role)?.Value} URL: {context?.HttpContext?.Request?.Path}; AuthToken: {AuthToken}");
                 return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(errors, "Invalid Input"));
             }
+        }
+
+        private string CleanMessage(string message)
+        {
+            if (string.IsNullOrEmpty(message))
+                return message;
+
+            // Remove severity tag
+            return message.Replace("[Severity:Warning]", "").Replace("[Severity:Error]", "").Trim();
         }
     }
 }

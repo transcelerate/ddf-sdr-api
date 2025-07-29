@@ -1,6 +1,6 @@
 ﻿namespace TransCelerate.SDR.RuleEngine.Utilities.Common
 {
-    public static class Constants
+    public static class RuleConstants
     {
         public struct RuleValidationWarningMessages
         {
