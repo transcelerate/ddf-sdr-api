@@ -363,7 +363,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 .Returns(Task.FromResult(null as object));
             StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var listofelements = string.Join(",", Constants.StudyElementsV3);
+            var listofelements = string.Join(",", Constants.StudyElementsV5);
             var method = studyV5Controller.GetStudy("sd", 1, listofelements, Constants.USDMVersions.V4);
             method.Wait();
             var result = method.Result;
@@ -1111,7 +1111,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                .Returns(Task.FromResult(null as object));
             StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var listofelements = string.Join(",", Constants.StudyElementsV3);
+            var listofelements = string.Join(",", Constants.StudyElementsV5);
             var method = studyV5Controller.GetDifferences("sd", 1, 2, Constants.USDMVersions.V4);
             method.Wait();
             var result = method.Result;
