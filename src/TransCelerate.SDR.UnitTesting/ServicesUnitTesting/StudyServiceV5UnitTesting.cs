@@ -54,21 +54,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/SoASampleData.json");
             return JsonConvert.DeserializeObject<SoADto>(jsonData);
         }
-        //public static List<ActivityEntity> GetActivitiesForSoADataFromStaticJson()
-        //{
-        //    string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/SoASampleDataV5.json");
-        //    return JsonConvert.DeserializeObject<StudyDesignEntity>(jsonData).Activities;
-        //}
-        //public static List<EncounterEntity> GetEncountersForSoADataFromStaticJson()
-        //{
-        //    string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/SoASampleDataV5.json");
-        //    return JsonConvert.DeserializeObject<StudyDesignEntity>(jsonData).Encounters;
-        //}
-        //public static List<ScheduleTimelineEntity> GetTimelinesForSoADataFromStaticJson()
-        //{
-        //    string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/SoASampleDataV5.json");
-        //    return JsonConvert.DeserializeObject<StudyDesignEntity>(jsonData).ScheduleTimelines;
-        //}
+
         readonly LoggedInUser user = new()
         {
             UserName = "user1@SDR.com",
@@ -807,21 +793,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             method = studyService.GeteCPTV5("a", 1, "des", user);
             Assert.Throws<AggregateException>(method.Wait);
         }
-        [Test]
-        public void SexOfParticipants_UnitTesting()
-        {
-            //var jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV5.json");
-            //var data = JsonConvert.DeserializeObject<TransCelerate.SDR.Core.DTO.StudyV5.StudyDefinitionsDto>(jsonData);
-            //var malePopulation = data.Study.StudyDesigns[0].Populations[0].PlannedSexOfParticipants[1];
-            //data.Study.StudyDesigns[0].Populations[0].PlannedSexOfParticipants = new List<Core.DTO.StudyV5.CodeDto> { data.Study.StudyDesigns[0].Populations[0].PlannedSexOfParticipants[0], data.Study.StudyDesigns[0].Populations[0].PlannedSexOfParticipants[0] };
-
-            //Assert.AreEqual(Constants.PlannedSexOfParticipants.Female, Core.Utilities.Helpers.ECPTHelper.GetPlannedSexOfParticipantsV5(data.Study.StudyDesigns[0].Populations));
-
-            //data.Study.StudyDesigns[0].Populations[0].PlannedSexOfParticipants = new List<Core.DTO.StudyV5.CodeDto> { malePopulation, malePopulation };
-            //Assert.AreEqual(Constants.PlannedSexOfParticipants.Male, Core.Utilities.Helpers.ECPTHelper.GetPlannedSexOfParticipantsV5(data.Study.StudyDesigns[0].Populations));
-            //data.Study.StudyDesigns[0].Populations = null;
-            //Assert.IsNull(Core.Utilities.Helpers.ECPTHelper.GetPlannedSexOfParticipantsV5(data.Study.StudyDesigns[0].Populations));
-        }
+  
         #endregion
 
         #region GET Study
