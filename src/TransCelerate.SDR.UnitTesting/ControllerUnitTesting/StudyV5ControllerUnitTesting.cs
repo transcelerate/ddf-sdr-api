@@ -163,7 +163,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDefinitionsDto>(), It.IsAny<LoggedInUser>(), It.IsAny<string>()))
                .Returns(Task.FromResult(Constants.ErrorMessages.NotValidStudyId as object));
 
-            method = studyV5Controller.PostAllElements(study, Constants.USDMVersions.V3);
+            method = studyV5Controller.PostAllElements(study, Constants.USDMVersions.V4);
             method.Wait();
             result = method.Result;
 
@@ -177,25 +177,25 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual(404, (result as ObjectResult).StatusCode);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
 
-            //object errors = null;
-            //_mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
-            //   .Returns(true);
+            object errors = null;
+            _mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
+              .Returns(true);
 
-            //method = studyV5Controller.PostAllElements(study, Constants.USDMVersions.V3);
-            //method.Wait();
-            //result = method.Result;
+            method = studyV5Controller.PostAllElements(study, Constants.USDMVersions.V4);
+            method.Wait();
+            result = method.Result;
 
-            ////Expected
-            //expected = study;
+            //Expected
+            expected = study;
 
-            ////Actual            
-            //actual_result = JsonConvert.DeserializeObject<ErrorModel>(
-            //     JsonConvert.SerializeObject((result as ObjectResult).Value));
+            //Actual            
+            actual_result = JsonConvert.DeserializeObject<ErrorModel>(
+                JsonConvert.SerializeObject((result as ObjectResult).Value));
 
-            //Assert.AreEqual(400, (result as ObjectResult).StatusCode);
-            //Assert.IsInstanceOf(typeof(ObjectResult), result);
-            //_mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
-            //   .Returns(false);
+            Assert.AreEqual(400, (result as ObjectResult).StatusCode);
+            Assert.IsInstanceOf(typeof(ObjectResult), result);
+            _mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
+              .Returns(false);
         }
         #endregion
 
