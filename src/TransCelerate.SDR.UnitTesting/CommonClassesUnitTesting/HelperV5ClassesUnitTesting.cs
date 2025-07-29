@@ -54,7 +54,7 @@ namespace TransCelerate.SDR.UnitTesting
         public void HelpersUnitTesting()
         {
             HelperV5 helper = new();
-            AuditTrailEntity auditTrailEntity = helper.GetAuditTrail(user.UserName, Constants.USDMVersions.V3);
+            AuditTrailEntity auditTrailEntity = helper.GetAuditTrail(user.UserName, Constants.USDMVersions.V4);
             Assert.IsInstanceOf(typeof(DateTime), auditTrailEntity.EntryDateTime);
         }
 
@@ -67,7 +67,7 @@ namespace TransCelerate.SDR.UnitTesting
             studyDto.Study = null;
             var httpContextAccessor = new Mock<IHttpContextAccessor>();
             var contextAccessor = new DefaultHttpContext();
-            var usdmVersion = Constants.USDMVersions.V3;
+            var usdmVersion = Constants.USDMVersions.V4;
             contextAccessor.Request.Headers["usdmVersion"] = usdmVersion;
             httpContextAccessor.Setup(_ => _.HttpContext).Returns(contextAccessor);
 
@@ -100,7 +100,7 @@ namespace TransCelerate.SDR.UnitTesting
 
             Assert.IsNotNull(DataFiltersV5.GetProjectionForCheckAccessForAStudy());
 
-            Assert.IsNotNull(DataFiltersV5.GetProjectionForPartialStudyElements(Constants.StudyElementsV3.Select(x => x.ToLower()).ToArray()));
+            Assert.IsNotNull(DataFiltersV5.GetProjectionForPartialStudyElements(Constants.StudyElementsV5.Select(x => x.ToLower()).ToArray()));
 
             Assert.IsNotNull(DataFiltersV5.GetProjectionForPartialStudyDesignElementsFullStudy());
         }
@@ -145,13 +145,13 @@ namespace TransCelerate.SDR.UnitTesting
         }
         #endregion
 
-        #region Conformance V3 UnitTesting
+        #region Conformance V4 UnitTesting
         [Test]
         public void ConformanceV5UnitTesting()
         {
             var httpContextAccessor = new Mock<IHttpContextAccessor>();
             var context = new DefaultHttpContext();
-            var usdmVersion = Constants.USDMVersions.V3;
+            var usdmVersion = Constants.USDMVersions.V4;
             context.Request.Headers["usdmVersion"] = usdmVersion;
             httpContextAccessor.Setup(_ => _.HttpContext).Returns(context);
             ValidationDependenciesV5.AddValidationDependenciesV5(serviceDescriptors);
