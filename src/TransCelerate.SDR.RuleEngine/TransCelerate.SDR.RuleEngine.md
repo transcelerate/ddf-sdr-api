@@ -188,6 +188,7 @@
 - [StudyValidator](#T-TransCelerate-SDR-RuleEngineV5-StudyValidator 'TransCelerate.SDR.RuleEngineV5.StudyValidator')
 - [StudyVersionValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyVersionValidator 'TransCelerate.SDR.RuleEngineV4.StudyVersionValidator')
 - [StudyVersionValidator](#T-TransCelerate-SDR-RuleEngineV5-StudyVersionValidator 'TransCelerate.SDR.RuleEngineV5.StudyVersionValidator')
+  - [EveryOrganizationIdentifierUniqueWithinStudy(studyIdentifiers)](#M-TransCelerate-SDR-RuleEngineV5-StudyVersionValidator-EveryOrganizationIdentifierUniqueWithinStudy-System-Collections-Generic-List{TransCelerate-SDR-Core-DTO-StudyV5-StudyIdentifierDto}- 'TransCelerate.SDR.RuleEngineV5.StudyVersionValidator.EveryOrganizationIdentifierUniqueWithinStudy(System.Collections.Generic.List{TransCelerate.SDR.Core.DTO.StudyV5.StudyIdentifierDto})')
   - [HasExactlyOneClinicalStudySponsorOrganizationIdentifier(studyIdentifiers)](#M-TransCelerate-SDR-RuleEngineV5-StudyVersionValidator-HasExactlyOneClinicalStudySponsorOrganizationIdentifier-System-Collections-Generic-List{TransCelerate-SDR-Core-DTO-StudyV5-StudyIdentifierDto}- 'TransCelerate.SDR.RuleEngineV5.StudyVersionValidator.HasExactlyOneClinicalStudySponsorOrganizationIdentifier(System.Collections.Generic.List{TransCelerate.SDR.Core.DTO.StudyV5.StudyIdentifierDto})')
 - [SubjectEnrollmentValidator](#T-TransCelerate-SDR-RuleEngineV4-SubjectEnrollmentValidator 'TransCelerate.SDR.RuleEngineV4.SubjectEnrollmentValidator')
 - [SubjectEnrollmentValidator](#T-TransCelerate-SDR-RuleEngineV5-SubjectEnrollmentValidator 'TransCelerate.SDR.RuleEngineV5.SubjectEnrollmentValidator')
@@ -211,9 +212,9 @@
   - [AddValidationDependenciesV4(services)](#M-TransCelerate-SDR-RuleEngineV4-ValidationDependenciesV4-AddValidationDependenciesV4-Microsoft-Extensions-DependencyInjection-IServiceCollection- 'TransCelerate.SDR.RuleEngineV4.ValidationDependenciesV4.AddValidationDependenciesV4(Microsoft.Extensions.DependencyInjection.IServiceCollection)')
 - [ValidationDependenciesV5](#T-TransCelerate-SDR-RuleEngineV5-ValidationDependenciesV5 'TransCelerate.SDR.RuleEngineV5.ValidationDependenciesV5')
   - [AddValidationDependenciesV5(services)](#M-TransCelerate-SDR-RuleEngineV5-ValidationDependenciesV5-AddValidationDependenciesV5-Microsoft-Extensions-DependencyInjection-IServiceCollection- 'TransCelerate.SDR.RuleEngineV5.ValidationDependenciesV5.AddValidationDependenciesV5(Microsoft.Extensions.DependencyInjection.IServiceCollection)')
-- [ValidationRuleHelpers](#T-TransCelerate-SDR-RuleEngineV5-Common-ValidationRuleHelpers 'TransCelerate.SDR.RuleEngineV5.Common.ValidationRuleHelpers')
-  - [MustMatchValidatorInstanceType\`\`1()](#M-TransCelerate-SDR-RuleEngineV5-Common-ValidationRuleHelpers-MustMatchValidatorInstanceType``1-FluentValidation-IRuleBuilder{``0,System-String},System-String- 'TransCelerate.SDR.RuleEngineV5.Common.ValidationRuleHelpers.MustMatchValidatorInstanceType``1(FluentValidation.IRuleBuilder{``0,System.String},System.String)')
-  - [NotNullOrEmptyIfRequired\`\`2(ruleBuilder,usdmVersion,validatorClassName,propertyName)](#M-TransCelerate-SDR-RuleEngineV5-Common-ValidationRuleHelpers-NotNullOrEmptyIfRequired``2-FluentValidation-IRuleBuilder{``0,``1},System-String,System-String,System-String- 'TransCelerate.SDR.RuleEngineV5.Common.ValidationRuleHelpers.NotNullOrEmptyIfRequired``2(FluentValidation.IRuleBuilder{``0,``1},System.String,System.String,System.String)')
+- [ValidationRuleHelpers](#T-TransCelerate-SDR-RuleEngineV5-Utilities-Helpers-ValidationRuleHelpers 'TransCelerate.SDR.RuleEngineV5.Utilities.Helpers.ValidationRuleHelpers')
+  - [MustMatchValidatorInstanceType\`\`1()](#M-TransCelerate-SDR-RuleEngineV5-Utilities-Helpers-ValidationRuleHelpers-MustMatchValidatorInstanceType``1-FluentValidation-IRuleBuilder{``0,System-String},System-String- 'TransCelerate.SDR.RuleEngineV5.Utilities.Helpers.ValidationRuleHelpers.MustMatchValidatorInstanceType``1(FluentValidation.IRuleBuilder{``0,System.String},System.String)')
+  - [NotNullOrEmptyIfRequired\`\`2(ruleBuilder,usdmVersion,validatorClassName,propertyName)](#M-TransCelerate-SDR-RuleEngineV5-Utilities-Helpers-ValidationRuleHelpers-NotNullOrEmptyIfRequired``2-FluentValidation-IRuleBuilder{``0,``1},System-String,System-String,System-String- 'TransCelerate.SDR.RuleEngineV5.Utilities.Helpers.ValidationRuleHelpers.NotNullOrEmptyIfRequired``2(FluentValidation.IRuleBuilder{``0,``1},System.String,System.String,System.String)')
 
 <a name='T-TransCelerate-SDR-RuleEngineV2-ActivityValidator'></a>
 ## ActivityValidator `type`
@@ -2250,15 +2251,29 @@ TransCelerate.SDR.RuleEngineV5
 
 This Class is the validator for Study
 
+<a name='M-TransCelerate-SDR-RuleEngineV5-StudyVersionValidator-EveryOrganizationIdentifierUniqueWithinStudy-System-Collections-Generic-List{TransCelerate-SDR-Core-DTO-StudyV5-StudyIdentifierDto}-'></a>
+### EveryOrganizationIdentifierUniqueWithinStudy(studyIdentifiers) `method`
+
+##### Summary
+
+DDF00139: An identified organization is not expected to have more than one identifier for the study.
+
+##### Returns
+
+Returns true if every StudyIdentifer.Scope.Identifier is unique within the list of StudyIdentifiers of the study.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyIdentifiers | [System.Collections.Generic.List{TransCelerate.SDR.Core.DTO.StudyV5.StudyIdentifierDto}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{TransCelerate.SDR.Core.DTO.StudyV5.StudyIdentifierDto}') | List of study identifiers to validate |
+
 <a name='M-TransCelerate-SDR-RuleEngineV5-StudyVersionValidator-HasExactlyOneClinicalStudySponsorOrganizationIdentifier-System-Collections-Generic-List{TransCelerate-SDR-Core-DTO-StudyV5-StudyIdentifierDto}-'></a>
 ### HasExactlyOneClinicalStudySponsorOrganizationIdentifier(studyIdentifiers) `method`
 
 ##### Summary
 
-Validates that there is exactly one study identifier with an identifier scope that references a clinical study sponsor organization.
-
-RuleID: DDF00005
-CheckId: CHK0012
+DDF00005: Validates that there is exactly one study identifier with an identifier scope that references a clinical study sponsor organization.
 
 ##### Returns
 
@@ -2522,18 +2537,18 @@ Add all the dependencies for validations
 | ---- | ---- | ----------- |
 | services | [Microsoft.Extensions.DependencyInjection.IServiceCollection](#T-Microsoft-Extensions-DependencyInjection-IServiceCollection 'Microsoft.Extensions.DependencyInjection.IServiceCollection') |  |
 
-<a name='T-TransCelerate-SDR-RuleEngineV5-Common-ValidationRuleHelpers'></a>
+<a name='T-TransCelerate-SDR-RuleEngineV5-Utilities-Helpers-ValidationRuleHelpers'></a>
 ## ValidationRuleHelpers `type`
 
 ##### Namespace
 
-TransCelerate.SDR.RuleEngineV5.Common
+TransCelerate.SDR.RuleEngineV5.Utilities.Helpers
 
 ##### Summary
 
 Extension helper methods for validation rules
 
-<a name='M-TransCelerate-SDR-RuleEngineV5-Common-ValidationRuleHelpers-MustMatchValidatorInstanceType``1-FluentValidation-IRuleBuilder{``0,System-String},System-String-'></a>
+<a name='M-TransCelerate-SDR-RuleEngineV5-Utilities-Helpers-ValidationRuleHelpers-MustMatchValidatorInstanceType``1-FluentValidation-IRuleBuilder{``0,System-String},System-String-'></a>
 ### MustMatchValidatorInstanceType\`\`1() `method`
 
 ##### Summary
@@ -2544,7 +2559,7 @@ Validates that InstanceType matches the validator name, without the "Validator" 
 
 This method has no parameters.
 
-<a name='M-TransCelerate-SDR-RuleEngineV5-Common-ValidationRuleHelpers-NotNullOrEmptyIfRequired``2-FluentValidation-IRuleBuilder{``0,``1},System-String,System-String,System-String-'></a>
+<a name='M-TransCelerate-SDR-RuleEngineV5-Utilities-Helpers-ValidationRuleHelpers-NotNullOrEmptyIfRequired``2-FluentValidation-IRuleBuilder{``0,``1},System-String,System-String,System-String-'></a>
 ### NotNullOrEmptyIfRequired\`\`2(ruleBuilder,usdmVersion,validatorClassName,propertyName) `method`
 
 ##### Summary
