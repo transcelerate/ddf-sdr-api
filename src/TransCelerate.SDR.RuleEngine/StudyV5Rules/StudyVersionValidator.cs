@@ -4,28 +4,28 @@ using System.Collections.Generic;
 using System.Linq;
 using TransCelerate.SDR.Core.DTO.StudyV5;
 using TransCelerate.SDR.Core.Utilities.Common;
-using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.RuleEngine.Common;
 using TransCelerate.SDR.RuleEngine.Utilities.Common;
 using TransCelerate.SDR.RuleEngineV5;
+using TransCelerate.SDR.RuleEngineV5.Utilities.Helpers;
 
 namespace TransCelerate.SDR.RuleEngine.StudyV5Rules
 {
     /// <summary>
-    /// This class is the validator for Study
+    /// This class is the validator for StudyVersion
     /// </summary>
     public class StudyVersionValidator : AbstractValidator<StudyVersionDto>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        private readonly HashSet<string> _requiredFields = new()
+        private readonly HashSet<string> _requiredProperties = new()
         {
             nameof(StudyVersionDto.Id),
             nameof(StudyVersionDto.InstanceType),
             nameof(StudyVersionDto.VersionIdentifier),
             nameof(StudyVersionDto.Rationale),
             nameof(StudyVersionDto.StudyIdentifiers),
-            nameof(StudyVersionDto.Titles),
+            nameof(StudyVersionDto.Titles)
         };
 
         public StudyVersionValidator(IHttpContextAccessor httpContextAccessor)
@@ -33,98 +33,58 @@ namespace TransCelerate.SDR.RuleEngine.StudyV5Rules
             _httpContextAccessor = httpContextAccessor;
 
             RuleFor(x => x.Id)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => _requiredFields.Contains(nameof(StudyVersionDto.Id)), ApplyConditionTo.AllValidators);
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.Id), _requiredProperties);
 
             RuleFor(x => x.InstanceType)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => _requiredFields.Contains(nameof(StudyVersionDto.InstanceType)), ApplyConditionTo.AllValidators)
-                .Must(x => GetType().Name.RemoveValidator() == x).WithMessage(Constants.ValidationErrorMessage.InstanceTypeError);
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.InstanceType), _requiredProperties)
+                .MustMatchValidatorInstanceType(this.GetType().Name);
 
             RuleFor(x => x.VersionIdentifier)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => _requiredFields.Contains(nameof(StudyVersionDto.VersionIdentifier)), ApplyConditionTo.AllValidators);
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.VersionIdentifier), _requiredProperties);
 
-            RuleFor(x => x.BusinessTherapeuticAreas).Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => _requiredFields.Contains(nameof(StudyVersionDto.BusinessTherapeuticAreas)), ApplyConditionTo.AllValidators)
+            RuleFor(x => x.BusinessTherapeuticAreas)
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.BusinessTherapeuticAreas), _requiredProperties)
                 .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
             RuleFor(x => x.Rationale)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => _requiredFields.Contains(nameof(StudyVersionDto.Rationale)), ApplyConditionTo.AllValidators);
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.Rationale), _requiredProperties);
 
             RuleFor(x => x.Notes)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => _requiredFields.Contains(nameof(StudyVersionDto.Notes)), ApplyConditionTo.AllValidators);
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.Notes), _requiredProperties);
 
             RuleFor(x => x.Abbreviations)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => _requiredFields.Contains(nameof(StudyVersionDto.Abbreviations)), ApplyConditionTo.AllValidators);
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.Abbreviations), _requiredProperties);
 
             RuleFor(x => x.Abbreviations)
-                .Cascade(CascadeMode.Stop)
                 .Must(x => AbbreviationValidator.ValidateAbbreviatedText(x))
                 .WithMessage(RuleConstants.RuleValidationErrorMessages.DDF00170)
                 .WithErrorCode(nameof(RuleConstants.RuleValidationErrorMessages.DDF00170));
 
             RuleFor(x => x.DateValues)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => _requiredFields.Contains(nameof(StudyVersionDto.DateValues)), ApplyConditionTo.AllValidators);
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.DateValues), _requiredProperties);
 
             RuleFor(x => x.ReferenceIdentifiers)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => _requiredFields.Contains(nameof(StudyVersionDto.ReferenceIdentifiers)), ApplyConditionTo.AllValidators);
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.ReferenceIdentifiers), _requiredProperties);
 
-            RuleFor(x => x.Amendments).Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => _requiredFields.Contains(nameof(StudyVersionDto.Amendments)), ApplyConditionTo.AllValidators)
+            RuleFor(x => x.Amendments)
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.Amendments), _requiredProperties)
                 .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
             RuleFor(x => x.DocumentVersionIds)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => _requiredFields.Contains(nameof(StudyVersionDto.DocumentVersionIds)), ApplyConditionTo.AllValidators);
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.DocumentVersionIds), _requiredProperties);
 
-            RuleFor(x => x.StudyDesigns).Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => _requiredFields.Contains(nameof(StudyVersionDto.StudyDesigns)), ApplyConditionTo.AllValidators)
+            RuleFor(x => x.StudyDesigns)
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.StudyDesigns), _requiredProperties)
                 .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
             RuleFor(x => x.StudyIdentifiers)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => _requiredFields.Contains(nameof(StudyVersionDto.StudyIdentifiers)), ApplyConditionTo.AllValidators)
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.StudyIdentifiers), _requiredProperties)
                 .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
             RuleFor(x => x.Titles)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => _requiredFields.Contains(nameof(StudyVersionDto.Titles)), ApplyConditionTo.AllValidators)
-               .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError)
-               .Must(x => x.Where(y => y.Type != null).Select(y => y.Type.Decode == Constants.StudyTitle.OfficialStudyTitle).Count() > 0).WithMessage(Constants.ValidationErrorMessage.OfficialTitleError);
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.Titles), _requiredProperties)
+                .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError)
+                .Must(x => x.Where(y => y.Type != null).Select(y => y.Type.Decode == Constants.StudyTitle.OfficialStudyTitle).Count() > 0).WithMessage(Constants.ValidationErrorMessage.OfficialTitleError);
 
             RuleFor(x => x.Abbreviations)
                 .Must(x => AbbreviationValidator.ValidateExpandedText(x))
@@ -142,7 +102,7 @@ namespace TransCelerate.SDR.RuleEngine.StudyV5Rules
                 .SetValidator(new AbbreviationValidator());
 
             RuleForEach(x => x.DateValues)
-                .SetValidator(new GovernanceDateValidator(httpContextAccessor));
+                .SetValidator(new GovernanceDateValidator(_httpContextAccessor));
 
             RuleForEach(x => x.ReferenceIdentifiers)
                 .SetValidator(new ReferenceIdentifierValidator(_httpContextAccessor));

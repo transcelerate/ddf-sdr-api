@@ -1,4 +1,5 @@
 using FluentValidation;
+using System.Collections.Generic;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 
@@ -15,20 +16,18 @@ namespace TransCelerate.SDR.RuleEngineV5.Utilities.Helpers
         /// <typeparam name="T">The type being validated</typeparam>
         /// <typeparam name="TProperty">The property type being validated</typeparam>
         /// <param name="ruleBuilder">The rule builder</param>
-        /// <param name="usdmVersion">The USDM version from headers</param>
-        /// <param name="validatorClassName">The name of the validator class</param>
         /// <param name="propertyName">The name of the property being validated</param>
+        /// <param name="requiredProperties">Required properties for the class</param>
         /// <returns>Rule builder options for further chaining</returns>
         public static IRuleBuilderOptions<T, TProperty> NotNullOrEmptyIfRequired<T, TProperty>(
             this IRuleBuilder<T, TProperty> ruleBuilder,
-            string usdmVersion,
-            string validatorClassName,
-            string propertyName)
+            string propertyName,
+            HashSet<string> requiredProperties)
         {
             return ruleBuilder
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(usdmVersion, validatorClassName, propertyName), ApplyConditionTo.AllValidators);
+                .When(x => requiredProperties.Contains(propertyName), ApplyConditionTo.AllValidators);
         }
 
         /// <summary>
@@ -39,7 +38,7 @@ namespace TransCelerate.SDR.RuleEngineV5.Utilities.Helpers
             string validatorName)
         {
             var expectedInstanceType = validatorName.RemoveValidator();
-            
+
             return ruleBuilder
                 .Must(x => expectedInstanceType == x)
                 .WithMessage(Constants.ValidationErrorMessage.InstanceTypeError);
