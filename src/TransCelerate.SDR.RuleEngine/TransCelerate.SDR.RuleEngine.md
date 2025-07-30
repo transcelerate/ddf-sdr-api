@@ -195,6 +195,7 @@
 - [SyntaxTemplateDictionaryValidator](#T-TransCelerate-SDR-RuleEngineV5-SyntaxTemplateDictionaryValidator 'TransCelerate.SDR.RuleEngineV5.SyntaxTemplateDictionaryValidator')
 - [SyntaxTemplateValidator](#T-TransCelerate-SDR-RuleEngineV5-SyntaxTemplateValidator 'TransCelerate.SDR.RuleEngineV5.SyntaxTemplateValidator')
 - [TimingValidator](#T-TransCelerate-SDR-RuleEngineV5-TimingValidator 'TransCelerate.SDR.RuleEngineV5.TimingValidator')
+  - [FixedReferenceTimingIsRelativeToFromStartToStart()](#M-TransCelerate-SDR-RuleEngineV5-TimingValidator-FixedReferenceTimingIsRelativeToFromStartToStart-TransCelerate-SDR-Core-DTO-StudyV5-TimingDto- 'TransCelerate.SDR.RuleEngineV5.TimingValidator.FixedReferenceTimingIsRelativeToFromStartToStart(TransCelerate.SDR.Core.DTO.StudyV5.TimingDto)')
   - [HasFullyDefinedTimingWindows()](#M-TransCelerate-SDR-RuleEngineV5-TimingValidator-HasFullyDefinedTimingWindows-TransCelerate-SDR-Core-DTO-StudyV5-TimingDto- 'TransCelerate.SDR.RuleEngineV5.TimingValidator.HasFullyDefinedTimingWindows(TransCelerate.SDR.Core.DTO.StudyV5.TimingDto)')
   - [NoWindowForAnchorTiming()](#M-TransCelerate-SDR-RuleEngineV5-TimingValidator-NoWindowForAnchorTiming-TransCelerate-SDR-Core-DTO-StudyV5-TimingDto- 'TransCelerate.SDR.RuleEngineV5.TimingValidator.NoWindowForAnchorTiming(TransCelerate.SDR.Core.DTO.StudyV5.TimingDto)')
 - [TransitionRuleValidator](#T-TransCelerate-SDR-RuleEngineV2-TransitionRuleValidator 'TransCelerate.SDR.RuleEngineV2.TransitionRuleValidator')
@@ -2324,6 +2325,17 @@ This Class is the validator for InvestigationalIntervention
 ##### Namespace
 
 TransCelerate.SDR.RuleEngineV5
+
+<a name='M-TransCelerate-SDR-RuleEngineV5-TimingValidator-FixedReferenceTimingIsRelativeToFromStartToStart-TransCelerate-SDR-Core-DTO-StudyV5-TimingDto-'></a>
+### FixedReferenceTimingIsRelativeToFromStartToStart() `method`
+
+##### Summary
+
+DDF00036 - If timing type is "Fixed Reference" then the corresponding attribute relativeToFrom must be filled with "Start to Start".
+
+##### Parameters
+
+This method has no parameters.
 
 <a name='M-TransCelerate-SDR-RuleEngineV5-TimingValidator-HasFullyDefinedTimingWindows-TransCelerate-SDR-Core-DTO-StudyV5-TimingDto-'></a>
 ### HasFullyDefinedTimingWindows() `method`
