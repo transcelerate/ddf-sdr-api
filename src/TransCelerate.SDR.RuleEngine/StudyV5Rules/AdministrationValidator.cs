@@ -2,7 +2,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using TransCelerate.SDR.Core.DTO.StudyV5;
 using TransCelerate.SDR.Core.Utilities.Common;
-using TransCelerate.SDR.RuleEngineV5.Common;
+using TransCelerate.SDR.RuleEngineV5.Utilities.Helpers;
 
 namespace TransCelerate.SDR.RuleEngineV5
 {
