@@ -6,9 +6,9 @@ using TransCelerate.SDR.Core.Utilities.Helpers;
 namespace TransCelerate.SDR.RuleEngineV5.Utilities.Helpers
 {
     /// <summary>
-    /// Extension helper methods for validation rules
+    /// Extension helper methods for rule validation
     /// </summary>
-    public static class ValidationRuleHelpers
+    public static class RuleValidationHelper
     {
         /// <summary>
         /// Applies NotNull and NotEmpty validation rules conditionally based on conformance rules
