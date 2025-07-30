@@ -29,7 +29,6 @@ using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.RuleEngine.Common;
-using TransCelerate.SDR.RuleEngineV2;
 using TransCelerate.SDR.RuleEngineV3;
 using TransCelerate.SDR.RuleEngineV4;
 using TransCelerate.SDR.RuleEngineV5;
@@ -76,8 +75,8 @@ namespace TransCelerate.SDR.WebApi
             services.AddSwaggerGen(c =>
             {
                 //c.SwaggerDoc("v3", new OpenApiInfo { Title = "Transcelerate SDR", Version = "v4" });
-				c.SwaggerDoc("v4", new OpenApiInfo { Title = "Transcelerate SDR", Version = "v5" });
-				var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                c.SwaggerDoc("v4", new OpenApiInfo { Title = "Transcelerate SDR", Version = "v5" });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -124,7 +123,7 @@ namespace TransCelerate.SDR.WebApi
             services.AddHttpContextAccessor();
             services.AddControllers(config =>
             {
-                config.Filters.Add<ActionFilter>();                
+                config.Filters.Add<ActionFilter>();
             });
 
             services.AddFluentValidationAutoValidation();
@@ -141,22 +140,22 @@ namespace TransCelerate.SDR.WebApi
             //services.AddAutoMapper(typeof(AutoMapperProfilesV2).Assembly);
             services.AddAutoMapper(typeof(AutoMapperProfilesV3).Assembly);
             services.AddAutoMapper(typeof(AutoMapperProfilesV4).Assembly);
-			services.AddAutoMapper(typeof(AutoMapperProfilesV5).Assembly);
-			services.AddAutoMapper(typeof(SharedAutoMapperProfiles).Assembly);
+            services.AddAutoMapper(typeof(AutoMapperProfilesV5).Assembly);
+            services.AddAutoMapper(typeof(SharedAutoMapperProfiles).Assembly);
 
-			var config = new MapperConfiguration(cfg =>
-			{
-				cfg.AddProfile<AutoMapperProfilesV5>();
-			});
-			config.AssertConfigurationIsValid();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<AutoMapperProfilesV5>();
+            });
+            config.AssertConfigurationIsValid();
 
-			//API to use MVC with validation handling and JSON response
-			services.AddMvc().AddNewtonsoftJson();                        
+            //API to use MVC with validation handling and JSON response
+            services.AddMvc().AddNewtonsoftJson();
             //services.AddValidationDependenciesV2();
             services.AddValidationDependenciesV3();
             services.AddValidationDependenciesV4();
-			services.AddValidationDependenciesV5();
-			services.AddValidationDependenciesCommon();
+            services.AddValidationDependenciesV5();
+            services.AddValidationDependenciesCommon();
 
             //var serviceProvider = services.BuildServiceProvider();
 
@@ -175,7 +174,7 @@ namespace TransCelerate.SDR.WebApi
             });
             services.AddAzureClients(clients =>
             {
-                if(!String.IsNullOrWhiteSpace(Config.AzureServiceBusConnectionString))
+                if (!String.IsNullOrWhiteSpace(Config.AzureServiceBusConnectionString))
                 {
                     clients.AddServiceBusClient(Config.AzureServiceBusConnectionString);
                 }
@@ -204,10 +203,10 @@ namespace TransCelerate.SDR.WebApi
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-				//c.SwaggerEndpoint("/swagger/v3/swagger.json", "Transcelerate SDR");
-				c.SwaggerEndpoint("/swagger/v4/swagger.json", "Transcelerate SDR");
-				////c.DefaultModelsExpandDepth(-1);
-			});
+                //c.SwaggerEndpoint("/swagger/v3/swagger.json", "Transcelerate SDR");
+                c.SwaggerEndpoint("/swagger/v4/swagger.json", "Transcelerate SDR");
+                ////c.DefaultModelsExpandDepth(-1);
+            });
 
             //Routing
             app.UseHttpsRedirection();
@@ -226,7 +225,7 @@ namespace TransCelerate.SDR.WebApi
                     string request = string.Empty;
                     string response = string.Empty;
                     context.Request.EnableBuffering();
-                    
+
                     using (StreamReader reader = new(context.Request.Body))
                     {
                         if (!context.Request.Path.Value.Contains(Route.Token) && !context.Request.Path.Value.Contains(Route.CommonToken))
@@ -260,7 +259,7 @@ namespace TransCelerate.SDR.WebApi
             //Enable Authenticationa and Authorization for the Endpoints
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
             //Map Endpoints with authorization
             app.UseEndpoints(endpoints =>
             {
