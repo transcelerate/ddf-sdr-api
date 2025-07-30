@@ -87,7 +87,8 @@ namespace TransCelerate.SDR.RuleEngineV5
             .Must(x => HasFullyDefinedTimingWindows(x)).WithMessage(Constants.ValidationErrorMessage.DDF00006)
             .Must(x => NoWindowForAnchorTiming(x)).WithMessage(Constants.ValidationErrorMessage.DDF00025)
             .Must(x => FixedReferenceTimingIsRelativeToFromStartToStart(x)).WithMessage(Constants.ValidationErrorMessage.DDF00036)
-            .Must(x => FixedReferenceTimingPointsToOnlyOneScheduledInstance(x)).WithMessage(Constants.ValidationErrorMessage.DDF00007);
+            .Must(x => FixedReferenceTimingPointsToOnlyOneScheduledInstance(x)).WithMessage(Constants.ValidationErrorMessage.DDF00007)
+            .Must(x => NonFixedReferenceTimingsPointToTwoDifferentScheduledInstances(x)).WithMessage(Constants.ValidationErrorMessage.DDF00031);
       }
 
       /// <summary>
@@ -139,7 +140,7 @@ namespace TransCelerate.SDR.RuleEngineV5
             return true;
 
          // If it's an anchor timing, the RelativeToFrom must be filled with "Start to Start"
-         return timing.RelativeToFrom != null &&
+         return timing.RelativeToFrom != null && timing.RelativeToFrom.Decode != null &&
             timing.RelativeToFrom.Decode.Equals(Constants.TimingType.START_TO_START, StringComparison.OrdinalIgnoreCase);
       }
 
@@ -156,11 +157,30 @@ namespace TransCelerate.SDR.RuleEngineV5
 
          if (!isAnchorTiming)
             return true;
-         
+
          // If either scheduled instance reference is null, or both are equal, return true. Otherwise return false.
          return string.IsNullOrWhiteSpace(timing.RelativeToScheduledInstanceId) ||
                 string.IsNullOrWhiteSpace(timing.RelativeFromScheduledInstanceId) ||
                 timing.RelativeToScheduledInstanceId == timing.RelativeFromScheduledInstanceId;
+      }
+
+      /// <summary>
+      /// DDF00031 - If timing type is not "Fixed Reference" then it must point to two scheduled instances (e.g. the relativeFromScheduledInstance and relativeToScheduledInstance attributes must not be missing and must not be equal to each other).
+      /// </summary>
+      public static bool NonFixedReferenceTimingsPointToTwoDifferentScheduledInstances(TimingDto timing)
+      {
+         if (timing == null || timing.Type == null || string.IsNullOrWhiteSpace(timing.Type.Decode))
+            return true;
+
+         bool isAnchorTiming = timing.Type.Decode.Equals(Constants.TimingType.FIXED_REFERENCE, StringComparison.OrdinalIgnoreCase);
+
+         if (isAnchorTiming)
+            return true;
+
+         // For non-fixed reference, both IDs must be present and different
+         return !string.IsNullOrWhiteSpace(timing.RelativeFromScheduledInstanceId) &&
+                !string.IsNullOrWhiteSpace(timing.RelativeToScheduledInstanceId) &&
+                !timing.RelativeFromScheduledInstanceId.Equals(timing.RelativeToScheduledInstanceId, StringComparison.Ordinal);
       }
     }
 }

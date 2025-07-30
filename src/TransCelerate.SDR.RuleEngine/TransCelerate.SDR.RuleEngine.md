@@ -196,8 +196,10 @@
 - [SyntaxTemplateValidator](#T-TransCelerate-SDR-RuleEngineV5-SyntaxTemplateValidator 'TransCelerate.SDR.RuleEngineV5.SyntaxTemplateValidator')
 - [TimingValidator](#T-TransCelerate-SDR-RuleEngineV5-TimingValidator 'TransCelerate.SDR.RuleEngineV5.TimingValidator')
   - [FixedReferenceTimingIsRelativeToFromStartToStart()](#M-TransCelerate-SDR-RuleEngineV5-TimingValidator-FixedReferenceTimingIsRelativeToFromStartToStart-TransCelerate-SDR-Core-DTO-StudyV5-TimingDto- 'TransCelerate.SDR.RuleEngineV5.TimingValidator.FixedReferenceTimingIsRelativeToFromStartToStart(TransCelerate.SDR.Core.DTO.StudyV5.TimingDto)')
+  - [FixedReferenceTimingPointsToOnlyOneScheduledInstance()](#M-TransCelerate-SDR-RuleEngineV5-TimingValidator-FixedReferenceTimingPointsToOnlyOneScheduledInstance-TransCelerate-SDR-Core-DTO-StudyV5-TimingDto- 'TransCelerate.SDR.RuleEngineV5.TimingValidator.FixedReferenceTimingPointsToOnlyOneScheduledInstance(TransCelerate.SDR.Core.DTO.StudyV5.TimingDto)')
   - [HasFullyDefinedTimingWindows()](#M-TransCelerate-SDR-RuleEngineV5-TimingValidator-HasFullyDefinedTimingWindows-TransCelerate-SDR-Core-DTO-StudyV5-TimingDto- 'TransCelerate.SDR.RuleEngineV5.TimingValidator.HasFullyDefinedTimingWindows(TransCelerate.SDR.Core.DTO.StudyV5.TimingDto)')
   - [NoWindowForAnchorTiming()](#M-TransCelerate-SDR-RuleEngineV5-TimingValidator-NoWindowForAnchorTiming-TransCelerate-SDR-Core-DTO-StudyV5-TimingDto- 'TransCelerate.SDR.RuleEngineV5.TimingValidator.NoWindowForAnchorTiming(TransCelerate.SDR.Core.DTO.StudyV5.TimingDto)')
+  - [NonFixedReferenceTimingsPointToTwoDifferentScheduledInstances()](#M-TransCelerate-SDR-RuleEngineV5-TimingValidator-NonFixedReferenceTimingsPointToTwoDifferentScheduledInstances-TransCelerate-SDR-Core-DTO-StudyV5-TimingDto- 'TransCelerate.SDR.RuleEngineV5.TimingValidator.NonFixedReferenceTimingsPointToTwoDifferentScheduledInstances(TransCelerate.SDR.Core.DTO.StudyV5.TimingDto)')
 - [TransitionRuleValidator](#T-TransCelerate-SDR-RuleEngineV2-TransitionRuleValidator 'TransCelerate.SDR.RuleEngineV2.TransitionRuleValidator')
 - [TransitionRuleValidator](#T-TransCelerate-SDR-RuleEngineV3-TransitionRuleValidator 'TransCelerate.SDR.RuleEngineV3.TransitionRuleValidator')
 - [TransitionRuleValidator](#T-TransCelerate-SDR-RuleEngineV4-TransitionRuleValidator 'TransCelerate.SDR.RuleEngineV4.TransitionRuleValidator')
@@ -2337,6 +2339,18 @@ DDF00036 - If timing type is "Fixed Reference" then the corresponding attribute 
 
 This method has no parameters.
 
+<a name='M-TransCelerate-SDR-RuleEngineV5-TimingValidator-FixedReferenceTimingPointsToOnlyOneScheduledInstance-TransCelerate-SDR-Core-DTO-StudyV5-TimingDto-'></a>
+### FixedReferenceTimingPointsToOnlyOneScheduledInstance() `method`
+
+##### Summary
+
+DDF00007 - If timing type is "Fixed Reference" then it must point to only one scheduled instance 
+(e.g. attribute relativeToScheduledInstance must be equal to relativeFromScheduledInstance or it must be missing).
+
+##### Parameters
+
+This method has no parameters.
+
 <a name='M-TransCelerate-SDR-RuleEngineV5-TimingValidator-HasFullyDefinedTimingWindows-TransCelerate-SDR-Core-DTO-StudyV5-TimingDto-'></a>
 ### HasFullyDefinedTimingWindows() `method`
 
@@ -2354,6 +2368,17 @@ This method has no parameters.
 ##### Summary
 
 DDF00025 - A window must not be defined for an anchor timing (i.e., type is "Fixed Reference").
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-TransCelerate-SDR-RuleEngineV5-TimingValidator-NonFixedReferenceTimingsPointToTwoDifferentScheduledInstances-TransCelerate-SDR-Core-DTO-StudyV5-TimingDto-'></a>
+### NonFixedReferenceTimingsPointToTwoDifferentScheduledInstances() `method`
+
+##### Summary
+
+DDF00031 - If timing type is not "Fixed Reference" then it must point to two scheduled instances (e.g. the relativeFromScheduledInstance and relativeToScheduledInstance attributes must not be missing and must not be equal to each other).
 
 ##### Parameters
 

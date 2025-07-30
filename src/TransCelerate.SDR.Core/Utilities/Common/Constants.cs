@@ -184,6 +184,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string DDF00025 = "A window must not be defined for an anchor timing (i.e., type is \"Fixed Reference\").";
             public const string DDF00036 = "If timing type is \"Fixed Reference\" then the corresponding attribute relativeToFrom must be filled with \"Start to Start\".";
             public const string DDF00007 = "If timing type is \"Fixed Reference\" then it must point to only one scheduled instance (e.g. attribute relativeToScheduledInstance must be equal to relativeFromScheduledInstance or it must be missing).";
+            public const string DDF00031 = "If timing type is not \"Fixed Reference\" then it must point to two scheduled instances (e.g. the relativeFromScheduledInstance and relativeToScheduledInstance attributes must not be missing and must not be equal to each other).";
         }
 
         public struct SuccessMessages

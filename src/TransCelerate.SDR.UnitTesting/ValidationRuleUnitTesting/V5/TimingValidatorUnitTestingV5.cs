@@ -326,5 +326,108 @@ namespace TransCelerate.SDR.UnitTesting.ValidationRuleUnitTesting
             }
         }
 
+        [TestFixture]
+        public class NonFixedReferenceTimingsPointToTwoDifferentScheduledInstancesTests : TimingValidatorUnitTestingV5
+        {
+            [Test]
+            public void TypeIsFixedReference_ReturnsTrue()
+            {
+                var timing = new TimingDto
+                {
+                    Type = new CodeDto { Decode = Constants.TimingType.FIXED_REFERENCE },
+                    RelativeFromScheduledInstanceId = "A",
+                    RelativeToScheduledInstanceId = "B"
+                };
+
+                var result = TimingValidator.NonFixedReferenceTimingsPointToTwoDifferentScheduledInstances(timing);
+
+                Assert.IsTrue(result);
+            }
+
+            [Test]
+            public void ValidNonFixedReferenceWithDifferentIds_ReturnsTrue()
+            {
+                var timing = new TimingDto
+                {
+                    Type = new CodeDto { Decode = "Relative" },
+                    RelativeFromScheduledInstanceId = "Instance1",
+                    RelativeToScheduledInstanceId = "Instance2"
+                };
+
+                var result = TimingValidator.NonFixedReferenceTimingsPointToTwoDifferentScheduledInstances(timing);
+
+                Assert.IsTrue(result);
+            }
+
+            [TestCase(null, "Instance2")]
+            [TestCase("Instance1", null)]
+            [TestCase(null, null)]
+            public void MissingOneOrBothIds_ReturnsFalse(string fromId, string toId)
+            {
+                var timing = new TimingDto
+                {
+                    Type = new CodeDto { Decode = "Relative" },
+                    RelativeFromScheduledInstanceId = fromId,
+                    RelativeToScheduledInstanceId = toId
+                };
+
+                var result = TimingValidator.NonFixedReferenceTimingsPointToTwoDifferentScheduledInstances(timing);
+
+                Assert.IsFalse(result);
+            }
+
+            [Test]
+            public void SameIds_ReturnsFalse()
+            {
+                var timing = new TimingDto
+                {
+                    Type = new CodeDto { Decode = "Relative" },
+                    RelativeFromScheduledInstanceId = "SameInstance",
+                    RelativeToScheduledInstanceId = "SameInstance"
+                };
+
+                var result = TimingValidator.NonFixedReferenceTimingsPointToTwoDifferentScheduledInstances(timing);
+
+                Assert.IsFalse(result);
+            }
+
+            [Test]
+            public void NullTiming_ReturnsTrue()
+            {
+                var result = TimingValidator.NonFixedReferenceTimingsPointToTwoDifferentScheduledInstances(null);
+
+                Assert.IsTrue(result);
+            }
+
+            [Test]
+            public void NullType_ReturnsTrue()
+            {
+                var timing = new TimingDto
+                {
+                    Type = null,
+                    RelativeFromScheduledInstanceId = "A",
+                    RelativeToScheduledInstanceId = "B"
+                };
+
+                var result = TimingValidator.NonFixedReferenceTimingsPointToTwoDifferentScheduledInstances(timing);
+
+                Assert.IsTrue(result);
+            }
+
+            [Test]
+            public void EmptyTypeDecode_ReturnsTrue()
+            {
+                var timing = new TimingDto
+                {
+                    Type = new CodeDto { Decode = "" },
+                    RelativeFromScheduledInstanceId = "A",
+                    RelativeToScheduledInstanceId = "B"
+                };
+
+                var result = TimingValidator.NonFixedReferenceTimingsPointToTwoDifferentScheduledInstances(timing);
+
+                Assert.IsTrue(result);
+            }
+        }
     }
 }
