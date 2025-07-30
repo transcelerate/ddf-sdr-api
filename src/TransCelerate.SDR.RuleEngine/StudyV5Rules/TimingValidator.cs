@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using TransCelerate.SDR.Core.DTO.StudyV5;
 using TransCelerate.SDR.Core.Utilities.Common;
@@ -83,13 +84,17 @@ namespace TransCelerate.SDR.RuleEngineV5
            .SetValidator(new CodeValidator(_httpContextAccessor));
 
          RuleFor(x => x)
-            .Must(x => HasFullyDefinedTimingWindows(x)).WithMessage(Constants.ValidationErrorMessage.DDF00006);
+            .Must(x => HasFullyDefinedTimingWindows(x)).WithMessage(Constants.ValidationErrorMessage.DDF00006)
+            .Must(x => NoWindowForAnchorTiming(x)).WithMessage(Constants.ValidationErrorMessage.DDF00025);
       }
-      
+
+      /// <summary>
+      /// DDF00006 - Timing windows must be fully defined, if one of the window attributes (i.e., window label, window lower, and window upper) is defined then all must be specified.
+      /// </summary>
       public static bool HasFullyDefinedTimingWindows(TimingDto timing)
       {
          if (timing == null) return true;
-         
+
          bool hasWindowLabel = !string.IsNullOrWhiteSpace(timing.WindowLabel);
          bool hasWindowLower = !string.IsNullOrWhiteSpace(timing.WindowLower);
          bool hasWindowUpper = !string.IsNullOrWhiteSpace(timing.WindowUpper);
@@ -97,6 +102,26 @@ namespace TransCelerate.SDR.RuleEngineV5
          // Return true if all are specified or none are specified, otherwise return false
          return (hasWindowLabel && hasWindowLower && hasWindowUpper) ||
                (!hasWindowLabel && !hasWindowLower && !hasWindowUpper);
+      }
+
+      /// <summary>
+      /// DDF00025 - A window must not be defined for an anchor timing (i.e., type is "Fixed Reference").
+      /// </summary>
+      public static bool NoWindowForAnchorTiming(TimingDto timing)
+      {
+         
+         if (timing == null || timing.Type == null || string.IsNullOrWhiteSpace(timing.Type.Decode))
+            return true;
+
+         bool isAnchorTiming = timing.Type.Decode.Equals(Constants.TimingType.FIXED_REFERENCE, StringComparison.OrdinalIgnoreCase);
+
+         if (!isAnchorTiming)
+            return true;
+
+         // If it's an anchor timing, none of the window fields should be defined
+         return string.IsNullOrWhiteSpace(timing.WindowLabel) &&
+                string.IsNullOrWhiteSpace(timing.WindowLower) &&
+                string.IsNullOrWhiteSpace(timing.WindowUpper);
       }
     }
 }

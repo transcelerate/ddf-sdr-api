@@ -41,6 +41,11 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
         }
 
+        public struct TimingType
+        {
+            public const string FIXED_REFERENCE = "Fixed Reference";
+        }
+
         public struct LogConstant
         {
             public const string Application = "SDRLogger";
@@ -175,6 +180,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string OfficialTitleError = "Atleast one Offical Title is required";
             public const string DDF00006 = "Timing windows must be fully defined, if one of the window attributes (i.e., window label, window lower, and window upper) is defined then all must be specified.";
+            public const string DDF00025 = "A window must not be defined for an anchor timing (i.e., type is \"Fixed Reference\").";
         }
 
         public struct SuccessMessages

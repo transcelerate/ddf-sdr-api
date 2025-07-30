@@ -11,7 +11,7 @@ namespace TransCelerate.SDR.UnitTesting.ValidationRuleUnitTesting
         public class HasFullyDefinedTimingWindowsTests : TimingValidatorUnitTestingV5
         {
             [Test]
-            public void HasFullyDefinedTimingWindows_AllWindowPropertiesSpecified_ReturnsTrue()
+            public void AllWindowPropertiesSpecified_ReturnsTrue()
             {
                 // Arrange
                 var timing = new TimingDto
@@ -29,7 +29,7 @@ namespace TransCelerate.SDR.UnitTesting.ValidationRuleUnitTesting
             }
 
             [Test]
-            public void HasFullyDefinedTimingWindows_NoWindowPropertiesSpecified_ReturnsTrue()
+            public void NoWindowPropertiesSpecified_ReturnsTrue()
             {
                 // Arrange
                 var timing = new TimingDto
@@ -52,7 +52,7 @@ namespace TransCelerate.SDR.UnitTesting.ValidationRuleUnitTesting
             [TestCase("Test Label", "Lower", null, ExpectedResult = false)]
             [TestCase("Test Label", null, "Upper", ExpectedResult = false)]
             [TestCase(null, "Lower", "Upper", ExpectedResult = false)]
-            public bool HasFullyDefinedTimingWindows_IncompleteCombinations_ReturnsFalse(
+            public bool IncompleteCombinations_ReturnsFalse(
                 string windowLabel, string windowLower, string windowUpper)
             {
                 // Arrange
@@ -66,6 +66,102 @@ namespace TransCelerate.SDR.UnitTesting.ValidationRuleUnitTesting
                 // Act
                 return TimingValidator.HasFullyDefinedTimingWindows(timing);
             }
+        }
+
+        [TestFixture]
+        public class NoWindowForAnchorTimingTests : TimingValidatorUnitTestingV5
+        {           
+            [Test]
+                public void TypeIsNotFixedReference_ReturnsTrue()
+                {
+                    var timing = new TimingDto
+                    {
+                        Type = new CodeDto { Decode = "Relative" },
+                        WindowLabel = "Label",
+                        WindowLower = "Lower",
+                        WindowUpper = "Upper"
+                    };
+
+                    var result = TimingValidator.NoWindowForAnchorTiming(timing);
+
+                    Assert.IsTrue(result);
+                }
+
+                [Test]
+                public void TypeIsFixedReference_NoWindowFields_ReturnsTrue()
+                {
+                    var timing = new TimingDto
+                    {
+                        Type = new CodeDto { Decode = "Fixed Reference" },
+                        WindowLabel = null,
+                        WindowLower = null,
+                        WindowUpper = null
+                    };
+
+                    var result = TimingValidator.NoWindowForAnchorTiming(timing);
+
+                    Assert.IsTrue(result);
+                }
+
+                [TestCase("Label", null, null)]
+                [TestCase(null, "Lower", null)]
+                [TestCase(null, null, "Upper")]
+                [TestCase("Label", "Lower", null)]
+                [TestCase("Label", null, "Upper")]
+                [TestCase(null, "Lower", "Upper")]
+                [TestCase("Label", "Lower", "Upper")]
+                public void TypeIsFixedReference_WithAnyWindowField_ReturnsFalse(
+                    string windowLabel, string windowLower, string windowUpper)
+                {
+                    var timing = new TimingDto
+                    {
+                        Type = new CodeDto { Decode = "Fixed Reference" },
+                        WindowLabel = windowLabel,
+                        WindowLower = windowLower,
+                        WindowUpper = windowUpper
+                    };
+
+                    var result = TimingValidator.NoWindowForAnchorTiming(timing);
+
+                    Assert.IsFalse(result);
+                }
+
+                [Test]
+                public void NullTiming_ReturnsTrue()
+                {
+                    var result = TimingValidator.NoWindowForAnchorTiming(null);
+
+                    Assert.IsTrue(result);
+                }
+
+                [Test]
+                public void NullType_ReturnsTrue()
+                {
+                    var timing = new TimingDto
+                    {
+                        Type = null,
+                        WindowLabel = "Label"
+                    };
+
+                    var result = TimingValidator.NoWindowForAnchorTiming(timing);
+
+                    Assert.IsTrue(result);
+                }
+
+                [Test]
+                public void EmptyDecode_ReturnsTrue()
+                {
+                    var timing = new TimingDto
+                    {
+                        Type = new CodeDto { Decode = "" },
+                        WindowLabel = "Label"
+                    };
+
+                    var result = TimingValidator.NoWindowForAnchorTiming(timing);
+
+                    Assert.IsTrue(result);
+                }
+
         }
     }
 }
