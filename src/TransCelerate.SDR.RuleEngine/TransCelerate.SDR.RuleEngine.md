@@ -211,6 +211,9 @@
   - [AddValidationDependenciesV4(services)](#M-TransCelerate-SDR-RuleEngineV4-ValidationDependenciesV4-AddValidationDependenciesV4-Microsoft-Extensions-DependencyInjection-IServiceCollection- 'TransCelerate.SDR.RuleEngineV4.ValidationDependenciesV4.AddValidationDependenciesV4(Microsoft.Extensions.DependencyInjection.IServiceCollection)')
 - [ValidationDependenciesV5](#T-TransCelerate-SDR-RuleEngineV5-ValidationDependenciesV5 'TransCelerate.SDR.RuleEngineV5.ValidationDependenciesV5')
   - [AddValidationDependenciesV5(services)](#M-TransCelerate-SDR-RuleEngineV5-ValidationDependenciesV5-AddValidationDependenciesV5-Microsoft-Extensions-DependencyInjection-IServiceCollection- 'TransCelerate.SDR.RuleEngineV5.ValidationDependenciesV5.AddValidationDependenciesV5(Microsoft.Extensions.DependencyInjection.IServiceCollection)')
+- [ValidationRuleHelpers](#T-TransCelerate-SDR-RuleEngineV5-Common-ValidationRuleHelpers 'TransCelerate.SDR.RuleEngineV5.Common.ValidationRuleHelpers')
+  - [MustMatchValidatorInstanceType\`\`1()](#M-TransCelerate-SDR-RuleEngineV5-Common-ValidationRuleHelpers-MustMatchValidatorInstanceType``1-FluentValidation-IRuleBuilder{``0,System-String},System-String- 'TransCelerate.SDR.RuleEngineV5.Common.ValidationRuleHelpers.MustMatchValidatorInstanceType``1(FluentValidation.IRuleBuilder{``0,System.String},System.String)')
+  - [NotNullOrEmptyIfRequired\`\`2(ruleBuilder,usdmVersion,validatorClassName,propertyName)](#M-TransCelerate-SDR-RuleEngineV5-Common-ValidationRuleHelpers-NotNullOrEmptyIfRequired``2-FluentValidation-IRuleBuilder{``0,``1},System-String,System-String,System-String- 'TransCelerate.SDR.RuleEngineV5.Common.ValidationRuleHelpers.NotNullOrEmptyIfRequired``2(FluentValidation.IRuleBuilder{``0,``1},System.String,System.String,System.String)')
 
 <a name='T-TransCelerate-SDR-RuleEngineV2-ActivityValidator'></a>
 ## ActivityValidator `type`
@@ -2518,3 +2521,52 @@ Add all the dependencies for validations
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | services | [Microsoft.Extensions.DependencyInjection.IServiceCollection](#T-Microsoft-Extensions-DependencyInjection-IServiceCollection 'Microsoft.Extensions.DependencyInjection.IServiceCollection') |  |
+
+<a name='T-TransCelerate-SDR-RuleEngineV5-Common-ValidationRuleHelpers'></a>
+## ValidationRuleHelpers `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngineV5.Common
+
+##### Summary
+
+Extension helper methods for validation rules
+
+<a name='M-TransCelerate-SDR-RuleEngineV5-Common-ValidationRuleHelpers-MustMatchValidatorInstanceType``1-FluentValidation-IRuleBuilder{``0,System-String},System-String-'></a>
+### MustMatchValidatorInstanceType\`\`1() `method`
+
+##### Summary
+
+Validates that InstanceType matches the validator name, without the "Validator" suffix.
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-TransCelerate-SDR-RuleEngineV5-Common-ValidationRuleHelpers-NotNullOrEmptyIfRequired``2-FluentValidation-IRuleBuilder{``0,``1},System-String,System-String,System-String-'></a>
+### NotNullOrEmptyIfRequired\`\`2(ruleBuilder,usdmVersion,validatorClassName,propertyName) `method`
+
+##### Summary
+
+Applies NotNull and NotEmpty validation rules conditionally based on conformance rules
+
+##### Returns
+
+Rule builder options for further chaining
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| ruleBuilder | [FluentValidation.IRuleBuilder{\`\`0,\`\`1}](#T-FluentValidation-IRuleBuilder{``0,``1} 'FluentValidation.IRuleBuilder{``0,``1}') | The rule builder |
+| usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The USDM version from headers |
+| validatorClassName | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The name of the validator class |
+| propertyName | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The name of the property being validated |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | The type being validated |
+| TProperty | The property type being validated |
