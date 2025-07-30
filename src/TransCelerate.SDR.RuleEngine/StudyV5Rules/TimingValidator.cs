@@ -86,7 +86,8 @@ namespace TransCelerate.SDR.RuleEngineV5
          RuleFor(x => x)
             .Must(x => HasFullyDefinedTimingWindows(x)).WithMessage(Constants.ValidationErrorMessage.DDF00006)
             .Must(x => NoWindowForAnchorTiming(x)).WithMessage(Constants.ValidationErrorMessage.DDF00025)
-            .Must(x => FixedReferenceTimingIsRelativeToFromStartToStart(x)).WithMessage(Constants.ValidationErrorMessage.DDF00036);
+            .Must(x => FixedReferenceTimingIsRelativeToFromStartToStart(x)).WithMessage(Constants.ValidationErrorMessage.DDF00036)
+            .Must(x => FixedReferenceTimingPointsToOnlyOneScheduledInstance(x)).WithMessage(Constants.ValidationErrorMessage.DDF00007);
       }
 
       /// <summary>
@@ -140,6 +141,26 @@ namespace TransCelerate.SDR.RuleEngineV5
          // If it's an anchor timing, the RelativeToFrom must be filled with "Start to Start"
          return timing.RelativeToFrom != null &&
             timing.RelativeToFrom.Decode.Equals(Constants.TimingType.START_TO_START, StringComparison.OrdinalIgnoreCase);
-      } 
+      }
+
+      /// <summary>
+      /// DDF00007 - If timing type is "Fixed Reference" then it must point to only one scheduled instance 
+      /// (e.g. attribute relativeToScheduledInstance must be equal to relativeFromScheduledInstance or it must be missing).
+      /// </summary>
+      public static bool FixedReferenceTimingPointsToOnlyOneScheduledInstance(TimingDto timing)
+      {
+         if (timing == null || timing.Type == null || string.IsNullOrWhiteSpace(timing.Type.Decode))
+            return true;
+
+         bool isAnchorTiming = timing.Type.Decode.Equals(Constants.TimingType.FIXED_REFERENCE, StringComparison.OrdinalIgnoreCase);
+
+         if (!isAnchorTiming)
+            return true;
+         
+         // If either scheduled instance reference is null, or both are equal, return true. Otherwise return false.
+         return string.IsNullOrWhiteSpace(timing.RelativeToScheduledInstanceId) ||
+                string.IsNullOrWhiteSpace(timing.RelativeFromScheduledInstanceId) ||
+                timing.RelativeToScheduledInstanceId == timing.RelativeFromScheduledInstanceId;
+      }
     }
 }

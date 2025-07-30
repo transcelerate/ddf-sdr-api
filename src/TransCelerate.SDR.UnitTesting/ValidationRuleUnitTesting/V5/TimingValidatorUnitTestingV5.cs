@@ -236,6 +236,95 @@ namespace TransCelerate.SDR.UnitTesting.ValidationRuleUnitTesting
                 Assert.IsTrue(result);
             }
         }
-        
+
+        [TestFixture]
+        public class FixedReferenceTimingPointsToOnlyOneScheduledInstanceTests : TimingValidatorUnitTestingV5
+        {
+            [Test]
+            public void TypeIsNotFixedReference_ReturnsTrue()
+            {
+                var timing = new TimingDto
+                {
+                    Type = new CodeDto { Decode = "Relative" },
+                    RelativeFromScheduledInstanceId = "A",
+                    RelativeToScheduledInstanceId = "B"
+                };
+
+                var result = TimingValidator.FixedReferenceTimingPointsToOnlyOneScheduledInstance(timing);
+
+                Assert.IsTrue(result);
+            }
+
+            [Test]
+            public void TypeIsFixedReference_BothIdsEqual_ReturnsTrue()
+            {
+                var timing = new TimingDto
+                {
+                    Type = new CodeDto { Decode = Constants.TimingType.FIXED_REFERENCE },
+                    RelativeFromScheduledInstanceId = "Instance1",
+                    RelativeToScheduledInstanceId = "Instance1"
+                };
+
+                var result = TimingValidator.FixedReferenceTimingPointsToOnlyOneScheduledInstance(timing);
+
+                Assert.IsTrue(result);
+            }
+
+            [TestCase(null, "Instance1")]
+            [TestCase("Instance1", null)]
+            [TestCase(null, null)]
+            public void TypeIsFixedReference_OneOrBothIdsMissing_ReturnsTrue(string fromIdValue, string toIdValue)
+            {
+                var timing = new TimingDto
+                {
+                    Type = new CodeDto { Decode = Constants.TimingType.FIXED_REFERENCE },
+                    RelativeFromScheduledInstanceId = fromIdValue,
+                    RelativeToScheduledInstanceId = toIdValue
+                };
+
+                var result = TimingValidator.FixedReferenceTimingPointsToOnlyOneScheduledInstance(timing);
+
+                Assert.IsTrue(result);
+            }
+
+            [Test]
+            public void TypeIsFixedReference_IdsNotEqual_ReturnsFalse()
+            {
+                var timing = new TimingDto
+                {
+                    Type = new CodeDto { Decode = Constants.TimingType.FIXED_REFERENCE },
+                    RelativeFromScheduledInstanceId = "Instance1",
+                    RelativeToScheduledInstanceId = "Instance2"
+                };
+
+                var result = TimingValidator.FixedReferenceTimingPointsToOnlyOneScheduledInstance(timing);
+
+                Assert.IsFalse(result);
+            }
+
+            [Test]
+            public void NullTiming_ReturnsTrue()
+            {
+                var result = TimingValidator.FixedReferenceTimingPointsToOnlyOneScheduledInstance(null);
+
+                Assert.IsTrue(result);
+            }
+
+            [Test]
+            public void NullType_ReturnsTrue()
+            {
+                var timing = new TimingDto
+                {
+                    Type = null,
+                    RelativeFromScheduledInstanceId = "A",
+                    RelativeToScheduledInstanceId = "B"
+                };
+
+                var result = TimingValidator.FixedReferenceTimingPointsToOnlyOneScheduledInstance(timing);
+
+                Assert.IsTrue(result);
+            }
+        }
+
     }
 }
