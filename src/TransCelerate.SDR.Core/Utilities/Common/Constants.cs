@@ -174,6 +174,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string UsdmVersionMismatch = "usdmVersion value must be the same value mentioned in request header";
 
             public const string OfficialTitleError = "Atleast one Offical Title is required";
+            public const string DDF00006 = "Timing windows must be fully defined, if one of the window attributes (i.e., window label, window lower, and window upper) is defined then all must be specified.";
         }
 
         public struct SuccessMessages
