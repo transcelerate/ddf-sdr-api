@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using TransCelerate.SDR.Core.DTO.StudyV4;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
+using TransCelerate.SDR.RuleEngine.Common;
 
 namespace TransCelerate.SDR.RuleEngineV4
 {
@@ -112,8 +113,8 @@ namespace TransCelerate.SDR.RuleEngineV4
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.Population)), ApplyConditionTo.AllValidators)                
-                .SetValidator(new StudyDesignPopulationValidator(_httpContextAccessor));            
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.Population)), ApplyConditionTo.AllValidators)
+                .SetValidator(new StudyDesignPopulationValidator(_httpContextAccessor));
 
             RuleFor(x => x.StudyCells)
                 .Cascade(CascadeMode.Stop)

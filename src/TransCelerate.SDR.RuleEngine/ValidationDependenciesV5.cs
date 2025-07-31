@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using TransCelerate.SDR.Core.DTO.StudyV5;
+using TransCelerate.SDR.RuleEngine.StudyV5Rules;
 
 namespace TransCelerate.SDR.RuleEngineV5
 {
@@ -15,6 +16,7 @@ namespace TransCelerate.SDR.RuleEngineV5
         {
             // Validators
             services.AddTransient<IValidator<StudyDto>, StudyValidator>();
+            services.AddTransient<IValidator<AbbreviationDto>, AbbreviationValidator>();
             services.AddTransient<IValidator<ActivityDto>, ActivityValidator>();
             services.AddTransient<IValidator<AddressDto>, AddressValidator>();
             services.AddTransient<IValidator<AdministrableProductIdentifierDto>, AdministrableProductIdentifierValidator>();
@@ -31,11 +33,11 @@ namespace TransCelerate.SDR.RuleEngineV5
             services.AddTransient<IValidator<BiospecimenRetentionDto>, BiospecimenRetentionValidator>();
             services.AddTransient<IValidator<CharacteristicDto>, CharacteristicValidator>();
             services.AddTransient<IValidator<CodeDto>, CodeValidator>();
-			services.AddTransient<IValidator<CommentAnnotationDto>, CommentAnnotationValidator>();
-			services.AddTransient<IValidator<DurationDto>, DurationValidator>();
-			services.AddTransient<IValidator<DocumentContentReferenceDto>, DocumentContentReferenceValidator>();
-			services.AddTransient<IValidator<EligibilityCriterionDto>, EligibilityCriterionValidator>();
-			services.AddTransient<IValidator<EligibilityCriterionItemDto>, EligibilityCriterionItemValidator>();
+            services.AddTransient<IValidator<CommentAnnotationDto>, CommentAnnotationValidator>();
+            services.AddTransient<IValidator<DurationDto>, DurationValidator>();
+            services.AddTransient<IValidator<DocumentContentReferenceDto>, DocumentContentReferenceValidator>();
+            services.AddTransient<IValidator<EligibilityCriterionDto>, EligibilityCriterionValidator>();
+            services.AddTransient<IValidator<EligibilityCriterionItemDto>, EligibilityCriterionItemValidator>();
             services.AddTransient<IValidator<EncounterDto>, EncounterValidator>();
             services.AddTransient<IValidator<EndpointDto>, EndpointValidator>();
             services.AddTransient<IValidator<EstimandDto>, EstimandValidator>();
@@ -79,11 +81,11 @@ namespace TransCelerate.SDR.RuleEngineV5
             services.AddTransient<IValidator<StudyElementDto>, StudyElementValidator>();
             services.AddTransient<IValidator<StudyEpochDto>, StudyEpochValidator>();
             services.AddTransient<IValidator<StudyInterventionDto>, StudyInterventionValidator>();
-            services.AddTransient<IValidator<StudyIdentifierDto>, StudyIdentifierValidator>();			
-			services.AddTransient<IValidator<StudyDefinitionDocumentVersionDto>, StudyDefinitionDocumentVersionValidator>();
-			services.AddTransient<IValidator<StudyDefinitionDocumentDto>, StudyDefinitionDocumentValidator>();
+            services.AddTransient<IValidator<StudyIdentifierDto>, StudyIdentifierValidator>();
+            services.AddTransient<IValidator<StudyDefinitionDocumentVersionDto>, StudyDefinitionDocumentVersionValidator>();
+            services.AddTransient<IValidator<StudyDefinitionDocumentDto>, StudyDefinitionDocumentValidator>();
             services.AddTransient<IValidator<StudyRoleDto>, StudyRoleValidator>();
-			services.AddTransient<IValidator<StudyVersionDto>, StudyVersionValidator>();
+            services.AddTransient<IValidator<StudyVersionDto>, StudyVersionValidator>();
             services.AddTransient<IValidator<SubstanceDto>, SubstanceValidator>();
             services.AddTransient<IValidator<NarrativeContentItemDto>, NarrativeContentItemValidator>();
             services.AddTransient<IValidator<SyntaxTemplateDictionaryDto>, SyntaxTemplateDictionaryValidator>();

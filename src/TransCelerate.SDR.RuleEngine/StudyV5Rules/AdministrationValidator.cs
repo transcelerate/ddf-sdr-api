@@ -1,69 +1,75 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using TransCelerate.SDR.Core.DTO.StudyV5;
-using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.RuleEngineV5.Utilities.Helpers;
 
 namespace TransCelerate.SDR.RuleEngineV5
 {
     /// <summary>
-    /// This Class is the validator for Administration
+    /// This class is the validator for Administration
     /// </summary>
     public class AdministrationValidator : AbstractValidator<AdministrationDto>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 
+        private readonly HashSet<string> _requiredProperties = new()
+        {
+            nameof(AdministrationDto.Id),
+            nameof(AdministrationDto.InstanceType),
+            nameof(AdministrationDto.Name),
+            nameof(AdministrationDto.Duration)
+        };
+
         public AdministrationValidator(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
-            var usdmVersion = _httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion];
-            var validatorName = nameof(AdministrationValidator);
 
             RuleFor(x => x.Id)
-                .NotNullOrEmptyIfRequired(usdmVersion, validatorName, nameof(AdministrationDto.Id));
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.Id), _requiredProperties);
 
             RuleFor(x => x.InstanceType)
-                .NotNullOrEmptyIfRequired(usdmVersion, validatorName, nameof(AdministrationDto.InstanceType))
-                .MustMatchValidatorInstanceType(validatorName);
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.InstanceType), _requiredProperties)
+                .MustMatchValidatorInstanceType(this.GetType().Name);
 
             RuleFor(x => x.Name)
-                .NotNullOrEmptyIfRequired(usdmVersion, validatorName, nameof(AdministrationDto.Name));
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.Name), _requiredProperties);
 
             RuleFor(x => x.Description)
-                .NotNullOrEmptyIfRequired(usdmVersion, validatorName, nameof(AdministrationDto.Description));
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.Description), _requiredProperties);
 
             RuleFor(x => x.Label)
-                .NotNullOrEmptyIfRequired(usdmVersion, validatorName, nameof(AdministrationDto.Label));
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.Label), _requiredProperties);
 
             RuleFor(x => x.Frequency)
-                .NotNullOrEmptyIfRequired(usdmVersion, validatorName, nameof(AdministrationDto.Frequency))
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.Frequency), _requiredProperties)
                 .SetValidator(new AliasCodeValidator(_httpContextAccessor));
 
             RuleFor(x => x.Route)
-                .NotNullOrEmptyIfRequired(usdmVersion, validatorName, nameof(AdministrationDto.Route))
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.Route), _requiredProperties)
                 .SetValidator(new AliasCodeValidator(_httpContextAccessor));
 
             RuleFor(x => x.Duration)
-                .NotNullOrEmptyIfRequired(usdmVersion, validatorName, nameof(AdministrationDto.Duration))
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.Duration), _requiredProperties)
                 .SetValidator(new DurationValidator(_httpContextAccessor));
 
             RuleFor(x => x.Dose)
-                .NotNullOrEmptyIfRequired(usdmVersion, validatorName, nameof(AdministrationDto.Dose))
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.Dose), _requiredProperties)
                 .SetValidator(new QuantityValidator(_httpContextAccessor));
 
             RuleFor(x => x.AdministrableProduct)
-                .NotNullOrEmptyIfRequired(usdmVersion, validatorName, nameof(AdministrationDto.AdministrableProduct))
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.AdministrableProduct), _requiredProperties)
                 .SetValidator(new AdministrableProductValidator(_httpContextAccessor));
 
             RuleFor(x => x.Notes)
-                .NotNullOrEmptyIfRequired(usdmVersion, validatorName, nameof(AdministrationDto.Notes));
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.Notes), _requiredProperties);
+
+            RuleFor(x => x.MedicalDevice)
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.MedicalDevice), _requiredProperties)
+                .SetValidator(new MedicalDeviceValidator(_httpContextAccessor));
 
             RuleForEach(x => x.Notes)
                 .SetValidator(new CommentAnnotationValidator(_httpContextAccessor));
-
-            RuleFor(x => x.MedicalDevice)
-                .NotNullOrEmptyIfRequired(usdmVersion, validatorName, nameof(AdministrationDto.MedicalDevice))
-                .SetValidator(new MedicalDeviceValidator(_httpContextAccessor));
         }
     }
 }

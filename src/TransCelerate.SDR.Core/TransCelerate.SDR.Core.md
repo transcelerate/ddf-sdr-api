@@ -22,6 +22,7 @@
   - [MethodNotAllowed(message)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-MethodNotAllowed-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.MethodNotAllowed(System.String)')
   - [NotFound(message)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-NotFound-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.NotFound(System.String)')
   - [UnAuthorizedAccess()](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-UnAuthorizedAccess-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.UnAuthorizedAccess(System.String)')
+  - [ValidationBadRequest(validationErrorDetails,validationWarningDetails,message)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-ValidationBadRequest-System-Object,System-Object,System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.ValidationBadRequest(System.Object,System.Object,System.String)')
 - [FromDateToDateHelper](#T-TransCelerate-SDR-Core-Utilities-Helpers-FromDateToDateHelper 'TransCelerate.SDR.Core.Utilities.Helpers.FromDateToDateHelper')
   - [GetFromAndToDate(fromDate,toDate,range)](#M-TransCelerate-SDR-Core-Utilities-Helpers-FromDateToDateHelper-GetFromAndToDate-System-DateTime,System-DateTime,System-Int32- 'TransCelerate.SDR.Core.Utilities.Helpers.FromDateToDateHelper.GetFromAndToDate(System.DateTime,System.DateTime,System.Int32)')
 - [GroupFilters](#T-TransCelerate-SDR-Core-Utilities-Helpers-GroupFilters 'TransCelerate.SDR.Core.Utilities.Helpers.GroupFilters')
@@ -164,6 +165,7 @@
   - [LogWarning(message)](#M-TransCelerate-SDR-Core-Utilities-LogHelper-LogWarning-System-String- 'TransCelerate.SDR.Core.Utilities.LogHelper.LogWarning(System.String)')
 - [Permissions](#T-TransCelerate-SDR-Core-Utilities-Permissions 'TransCelerate.SDR.Core.Utilities.Permissions')
 - [Route](#T-TransCelerate-SDR-Core-Utilities-Common-Route 'TransCelerate.SDR.Core.Utilities.Common.Route')
+- [RuleValidationErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-RuleValidationErrorModel 'TransCelerate.SDR.Core.ErrorModels.RuleValidationErrorModel')
 - [ScheduledInstanceType](#T-TransCelerate-SDR-Core-Utilities-ScheduledInstanceType 'TransCelerate.SDR.Core.Utilities.ScheduledInstanceType')
 - [SearchTitleResponseDto](#T-TransCelerate-SDR-Core-DTO-Common-SearchTitleResponseDto 'TransCelerate.SDR.Core.DTO.Common.SearchTitleResponseDto')
 - [SortOrder](#T-TransCelerate-SDR-Core-Utilities-SortOrder 'TransCelerate.SDR.Core.Utilities.SortOrder')
@@ -451,6 +453,25 @@ A [ErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-ErrorModel 'TransCelerate.S
 ##### Parameters
 
 This method has no parameters.
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-ValidationBadRequest-System-Object,System-Object,System-String-'></a>
+### ValidationBadRequest(validationErrorDetails,validationWarningDetails,message) `method`
+
+##### Summary
+
+Validation Response Helper When there is Conformance Rule Error or Invalid Input
+
+##### Returns
+
+A [ValidationErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-ValidationErrorModel 'TransCelerate.SDR.Core.ErrorModels.ValidationErrorModel') When there is Conformance Rule Error or Invalid Input
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| validationErrorDetails | [System.Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') | Object for holding validation errors |
+| validationWarningDetails | [System.Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') | Object for holding validation warnings |
+| message | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Message for error response |
 
 <a name='T-TransCelerate-SDR-Core-Utilities-Helpers-FromDateToDateHelper'></a>
 ## FromDateToDateHelper `type`
@@ -2788,6 +2809,17 @@ TransCelerate.SDR.Core.Utilities.Common
 ##### Summary
 
 This class holds list of routes for all the endpoints
+
+<a name='T-TransCelerate-SDR-Core-ErrorModels-RuleValidationErrorModel'></a>
+## RuleValidationErrorModel `type`
+
+##### Namespace
+
+TransCelerate.SDR.Core.ErrorModels
+
+##### Summary
+
+This class is a model for rule validation errors
 
 <a name='T-TransCelerate-SDR-Core-Utilities-ScheduledInstanceType'></a>
 ## ScheduledInstanceType `type`
