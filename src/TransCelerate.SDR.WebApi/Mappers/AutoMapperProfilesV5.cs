@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using System;
 using TransCelerate.SDR.Core.DTO.StudyV5;
 using TransCelerate.SDR.Core.Entities.StudyV5;
@@ -88,8 +88,8 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<StudyAmendmentReasonDto, StudyAmendmentReasonEntity>().ReverseMap();
             CreateMap<StudyCellDto, StudyCellEntity>().ReverseMap();
             CreateMap<StudyChangeDto, StudyChangeEntity>().ReverseMap();
-            //CreateMap<StudyCohortDto, StudyCohortEntity>().ReverseMap();
-            CreateMap<StudyDefinitionsEntity, StudyDefinitionsDto>()
+			//CreateMap<StudyCohortDto, StudyCohortEntity>().ReverseMap();
+			CreateMap<StudyDefinitionsEntity, StudyDefinitionsDto>()
                 .ForMember(dest => dest.Links, opt => opt.Ignore())
                 .ReverseMap();
 

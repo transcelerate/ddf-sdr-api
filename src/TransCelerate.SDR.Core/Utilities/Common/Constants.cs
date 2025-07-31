@@ -1,4 +1,4 @@
-﻿using TransCelerate.SDR.Core.DTO.StudyV2;
+using TransCelerate.SDR.Core.DTO.StudyV2;
 using TransCelerate.SDR.Core.Entities.StudyV2;
 
 namespace TransCelerate.SDR.Core.Utilities.Common
@@ -364,23 +364,25 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(DTO.StudyV4.StudyVersionDto.DateValues),
             nameof(DTO.StudyV4.StudyVersionDto.InstanceType)
         };
-        public static readonly string[] StudyElementsV5 = {
-            nameof(DTO.StudyV4.StudyDto.Name),
-            nameof(DTO.StudyV4.StudyDto.Description),
-            nameof(DTO.StudyV4.StudyDto.Label),
-            nameof(DTO.StudyV4.StudyVersionDto.Titles),
-            nameof(DTO.StudyV4.StudyVersionDto.StudyIdentifiers),
-            nameof(DTO.StudyV4.StudyVersionDto.DocumentVersionId),
-            nameof(DTO.StudyV4.StudyVersionDto.VersionIdentifier),
-            nameof(DTO.StudyV4.StudyVersionDto.StudyPhase),
-            nameof(DTO.StudyV4.StudyVersionDto.StudyType),
-            nameof(DTO.StudyV4.StudyVersionDto.BusinessTherapeuticAreas),
-            nameof(DTO.StudyV4.StudyVersionDto.StudyDesigns),
-            nameof(DTO.StudyV4.StudyVersionDto.Rationale),
-            nameof(DTO.StudyV4.StudyVersionDto.Amendments),
-            nameof(DTO.StudyV4.StudyVersionDto.DateValues),
-            nameof(DTO.StudyV4.StudyVersionDto.InstanceType)
-        };
+		public static readonly string[] StudyElementsV5 = {
+			nameof(Core.DTO.StudyV5.StudyDto.Name),
+			nameof(Core.DTO.StudyV5.StudyDto.Description),
+			nameof(Core.DTO.StudyV5.StudyDto.Label),
+			nameof(Core.DTO.StudyV5.StudyVersionDto.Titles),
+			nameof(Core.DTO.StudyV5.StudyVersionDto.StudyIdentifiers),
+			nameof(Core.DTO.StudyV5.StudyVersionDto.ReferenceIdentifiers),
+			nameof(Core.DTO.StudyV5.StudyVersionDto.DocumentVersionIds),
+			nameof(Core.DTO.StudyV5.StudyVersionDto.VersionIdentifier),
+			nameof(Core.DTO.StudyV5.StudyVersionDto.BusinessTherapeuticAreas),
+			nameof(Core.DTO.StudyV5.StudyVersionDto.StudyDesigns),
+			nameof(Core.DTO.StudyV5.StudyVersionDto.Rationale),
+			nameof(Core.DTO.StudyV5.StudyVersionDto.Amendments),
+			nameof(Core.DTO.StudyV5.StudyVersionDto.DateValues),
+			nameof(Core.DTO.StudyV5.StudyVersionDto.NarrativeContentItems),
+			nameof(Core.DTO.StudyV5.StudyVersionDto.Abbreviations),
+			nameof(Core.DTO.StudyV5.StudyVersionDto.Notes),
+			nameof(Core.DTO.StudyV5.StudyVersionDto.InstanceType)
+		};
 
         public static readonly string[] StudyDesignElementsV4 = {
             nameof(DTO.StudyV4.StudyDesignDto.Name),
@@ -416,40 +418,35 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(DTO.StudyV4.StudyDesignDto.Organizations)
         };
 
-        public static readonly string[] StudyDesignElementsV5 = {
-            nameof(DTO.StudyV4.StudyDesignDto.Name),
-            nameof(DTO.StudyV4.StudyDesignDto.Description),
-            nameof(DTO.StudyV4.StudyDesignDto.Label),
-            nameof(DTO.StudyV4.StudyDesignDto.TherapeuticAreas),
-            nameof(DTO.StudyV4.StudyDesignDto.TrialTypes),
-            nameof(DTO.StudyV4.StudyDesignDto.Indications),
-            nameof(DTO.StudyV4.StudyDesignDto.TrialIntentTypes),
-            nameof(DTO.StudyV4.StudyDesignDto.InterventionModel),
-            nameof(DTO.StudyV4.StudyDesignDto.StudyInterventions),
-            nameof(DTO.StudyV4.StudyDesignDto.Population),
-            nameof(DTO.StudyV4.StudyDesignDto.Objectives),
-            nameof(DTO.StudyV4.StudyDesignDto.StudyCells),
-            nameof(DTO.StudyV4.StudyDesignDto.Arms),
-            nameof(DTO.StudyV4.StudyDesignDto.Epochs),
-            nameof(DTO.StudyV4.StudyDesignDto.Elements),
-            nameof(DTO.StudyV4.StudyDesignDto.ScheduleTimelines),
-            nameof(DTO.StudyV4.StudyDesignDto.Estimands),
-            nameof(DTO.StudyV4.StudyDesignDto.Activities),
-            nameof(DTO.StudyV4.StudyDesignDto.Encounters),
-            nameof(DTO.StudyV4.StudyDesignDto.Rationale),
-            nameof(DTO.StudyV4.StudyDesignDto.BlindingSchema),
-            nameof(DTO.StudyV4.StudyDesignDto.BiomedicalConcepts),
-            nameof(DTO.StudyV4.StudyDesignDto.BcCategories),
-            nameof(DTO.StudyV4.StudyDesignDto.BcSurrogates),
-            nameof(DTO.StudyV4.StudyDesignDto.DocumentVersionId),
-            nameof(DTO.StudyV4.StudyDesignDto.Dictionaries),
-            nameof(DTO.StudyV4.StudyDesignDto.Characteristics),
-            nameof(DTO.StudyV4.StudyDesignDto.Conditions),
-            nameof(DTO.StudyV4.StudyDesignDto.InstanceType),
-            nameof(DTO.StudyV4.StudyDesignDto.MaskingRoles),
-            nameof(DTO.StudyV4.StudyDesignDto.Organizations)
-        };
-        public struct FunctionAppConstants
+		public static readonly string[] StudyDesignElementsV5 = {
+            nameof(Core.DTO.StudyV5.StudyDesignDto.Name),
+            nameof(Core.DTO.StudyV5.StudyDesignDto.Description),
+            nameof(Core.DTO.StudyV5.StudyDesignDto.Label),
+            nameof(Core.DTO.StudyV5.StudyDesignDto.TherapeuticAreas),
+            nameof(Core.DTO.StudyV5.StudyDesignDto.Indications),
+            nameof(Core.DTO.StudyV5.StudyDesignDto.StudyInterventions),
+            nameof(Core.DTO.StudyV5.StudyDesignDto.Population),
+            nameof(Core.DTO.StudyV5.StudyDesignDto.Objectives),
+            nameof(Core.DTO.StudyV5.StudyDesignDto.StudyCells),
+            nameof(Core.DTO.StudyV5.StudyDesignDto.Arms),
+            nameof(Core.DTO.StudyV5.StudyDesignDto.Epochs),
+            nameof(Core.DTO.StudyV5.StudyDesignDto.Elements),
+            nameof(Core.DTO.StudyV5.StudyDesignDto.ScheduleTimelines),
+            nameof(Core.DTO.StudyV5.StudyDesignDto.Estimands),
+            nameof(Core.DTO.StudyV5.StudyDesignDto.Activities),
+            nameof(Core.DTO.StudyV5.StudyDesignDto.Encounters),
+            nameof(Core.DTO.StudyV5.StudyDesignDto.Rationale),
+            nameof(Core.DTO.StudyV5.StudyDesignDto.BiomedicalConcepts),
+            nameof(Core.DTO.StudyV5.StudyDesignDto.BcCategories),
+            nameof(Core.DTO.StudyV5.StudyDesignDto.BcSurrogates),
+            nameof(Core.DTO.StudyV5.StudyDesignDto.Dictionaries),
+            nameof(Core.DTO.StudyV5.StudyDesignDto.Characteristics),
+            nameof(Core.DTO.StudyV5.StudyDesignDto.Conditions),
+            nameof(Core.DTO.StudyV5.StudyDesignDto.InstanceType),
+            nameof(Core.DTO.StudyV5.StudyDesignDto.StudyPhase),
+			nameof(Core.DTO.StudyV5.StudyDesignDto.StudyType)
+		};
+		public struct FunctionAppConstants
         {
             public const string ChangeAuditFunction = "ChangeAuditFunction";
             public const string AzureServiceBusQueueName = "%AzureServiceBusQueueName%";
