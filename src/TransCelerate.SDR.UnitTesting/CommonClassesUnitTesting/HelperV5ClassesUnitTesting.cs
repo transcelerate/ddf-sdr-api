@@ -17,6 +17,8 @@ using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5;
 using TransCelerate.SDR.DataAccess.Filters;
+using TransCelerate.SDR.RuleEngine.Common;
+using TransCelerate.SDR.RuleEngine.StudyV5Rules;
 using TransCelerate.SDR.RuleEngineV5;
 
 namespace TransCelerate.SDR.UnitTesting
@@ -208,10 +210,10 @@ namespace TransCelerate.SDR.UnitTesting
                 )
             );
             studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands[0].Id = "123";
-            studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands[0].Interventions[0].Id = "124";
+            studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands[0].InterventionIds[0] = "124";
 
             studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands[0].Id = "124";
-            studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands[0].Interventions[0].Id = "124";
+            studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands[0].InterventionIds[0] = "124";
 
             HelperV5 helper = new();
             var result = helper.ReferenceIntegrityValidation(studyDto, out object _);

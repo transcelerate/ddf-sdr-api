@@ -1692,14 +1692,14 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                     List<string> investigationalInterventionIds = design.StudyInterventions is null ? new List<string>() : design.StudyInterventions.Select(x => x.Id).ToList();
                     List<string> endpointIds = design.Objectives is null ? new List<string>() : design.Objectives.Select(x => x as ObjectiveDto).ToList().Select(x => x?.Endpoints).Where(y => y != null).SelectMany(x => x.Select(y => y.Id)).ToList();
 
-                    estimand.Interventions.ForEach(intervention =>
+                    estimand.InterventionIds.ForEach(interventionId =>
                     {
-                        if (!String.IsNullOrWhiteSpace(intervention.Id) && !investigationalInterventionIds.Contains(intervention.Id))
+                        if (!String.IsNullOrWhiteSpace(interventionId) && !investigationalInterventionIds.Contains(interventionId))
                             errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
                                 $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
                                 $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
                                 $"{nameof(StudyDesignDto.Estimands)}[{design.Estimands.IndexOf(estimand)}]." +
-                                $"{nameof(EstimandDto.Interventions)}");
+                                $"{nameof(EstimandDto.InterventionIds)}");
                     });
 
                     if (!String.IsNullOrWhiteSpace(estimand.VariableOfInterest.Id) && !endpointIds.Contains(estimand.VariableOfInterest.Id))
