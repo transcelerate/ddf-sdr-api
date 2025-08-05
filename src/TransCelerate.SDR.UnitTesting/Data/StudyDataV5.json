@@ -2280,19 +2280,7 @@
                 "label": "EST1",
                 "description": "",
                 "populationSummary": "Group mean changes from baseline in the primary efficacy parameters",
-                "analysisPopulation": {
-                  "id": "AnalysisPopulation_1",
-                  "extensionAttributes": [],
-                  "name": "AP_1",
-                  "label": null,
-                  "description": null,
-                  "text": "Patients with Mild to Moderate Alzheimer\u2019s Disease.",
-                  "subsetOfIds": [
-                    "StudyDesignPopulation_1"
-                  ],
-                  "notes": [],
-                  "instanceType": "AnalysisPopulation"
-                },
+                "analysisPopulationId": "AnalysisPopulation_1",
                 "interventions": [
                   {
                     "id": "StudyIntervention_1",
@@ -16218,6 +16206,21 @@
                 "previousId": null,
                 "notes": [],
                 "instanceType": "EligibilityCriterion"
+              }
+            ],
+            "analysisPopulations": [
+              {
+                "id": "AnalysisPopulation_1",
+                "extensionAttributes": [],
+                "name": "AP_1",
+                "label": null,
+                "description": null,
+                "text": "Patients with Mild to Moderate Alzheimer\u2019s Disease.",
+                "subsetOfIds": [
+                  "StudyDesignPopulation_1"
+                ],
+                "notes": [],
+                "instanceType": "AnalysisPopulation"
               }
             ],
             "notes": [],

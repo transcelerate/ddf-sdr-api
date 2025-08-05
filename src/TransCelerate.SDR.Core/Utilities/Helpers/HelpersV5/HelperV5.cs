@@ -2205,10 +2205,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                 var currentStudyEstimand = currentVersion as EstimandEntity;
                 var previousStudyEstimand = previousVersion as EstimandEntity;
 
-                if (currentStudyEstimand.AnalysisPopulation?.Id != previousStudyEstimand.AnalysisPopulation?.Id)
+                if (currentStudyEstimand.AnalysisPopulationId != previousStudyEstimand.AnalysisPopulationId)
                 {
-                    changedValues.RemoveAll(x => x.Contains(nameof(EstimandEntity.AnalysisPopulation)));
-                    changedValues.Add($"[{index}].{nameof(EstimandEntity.AnalysisPopulation)}");
+                    changedValues.RemoveAll(x => x.Contains(nameof(EstimandEntity.AnalysisPopulationId)));
+                    changedValues.Add($"[{index}].{nameof(EstimandEntity.AnalysisPopulationId)}");
                 }
             }
             if (typeof(T) == typeof(GeographicScopeEntity))

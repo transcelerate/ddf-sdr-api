@@ -11,7 +11,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public string Description { get; set; }
         public string Label { get; set; }
         public List<StudyInterventionDto> Interventions { get; set; }
-        public AnalysisPopulationDto AnalysisPopulation { get; set; }
+        public string AnalysisPopulationId { get; set; }
         public List<CommentAnnotationDto> Notes { get; set; }
         public EndpointDto VariableOfInterest { get; set; }
         public List<IntercurrentEventDto> IntercurrentEvents { get; set; }

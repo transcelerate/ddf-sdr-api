@@ -37,5 +37,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public AliasCodeEntity StudyPhase { get; set; }
         public CodeEntity StudyType { get; set; }
         public List<CommentAnnotationEntity> Notes { get; set; }
+        public List<AnalysisPopulationEntity> AnalysisPopulations { get; set; }
     }
 }

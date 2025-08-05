@@ -27,7 +27,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public List<BiomedicalConceptSurrogateDto> BcSurrogates { get; set; }
         public List<StudyArmDto> Arms { get; set; }
         public List<StudyEpochDto> Epochs { get; set; }
-        public List<StudyElementDto> Elements { get; set; }        
+        public List<StudyElementDto> Elements { get; set; }
         public List<StudyDefinitionDocumentVersionDto> DocumentVersions { get; set; }
         public List<SyntaxTemplateDictionaryDto> Dictionaries { get; set; }
         public List<ConditionDto> Conditions { get; set; }
@@ -35,5 +35,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public List<CommentAnnotationDto> Notes { get; set; }
         public AliasCodeDto StudyPhase { get; set; }
         public CodeDto StudyType { get; set; }
+        
+        public List<AnalysisPopulationDto> AnalysisPopulations { get; set; }
     }
 }
