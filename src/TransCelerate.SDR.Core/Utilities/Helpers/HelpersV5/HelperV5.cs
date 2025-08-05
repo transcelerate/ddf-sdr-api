@@ -177,8 +177,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Label).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Description).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Description).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.StudyInterventions).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.StudyInterventions).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
+                            else if (item == nameof(StudyDesignDto.StudyInterventionIds).ToLower())
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.StudyInterventionIds).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Indications).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Indications).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Population).ToLower())
@@ -1232,7 +1232,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
 
             if (design.Elements != null && design.Elements.Any())
             {
-                List<string> studyInterventionIds = design.StudyInterventions != null ? design.StudyInterventions.Select(act => act?.Id).ToList() : new();
+                List<string> studyInterventionIds = design.StudyInterventionIds != null ? design.StudyInterventionIds.ToList() : new();
                 design.Elements.ForEach(element =>
                 {
                     element.StudyInterventionIds.ForEach(x =>
@@ -1689,7 +1689,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
             {
                 design.Estimands.ForEach(estimand =>
                 {
-                    List<string> investigationalInterventionIds = design.StudyInterventions is null ? new List<string>() : design.StudyInterventions.Select(x => x.Id).ToList();
+                    List<string> investigationalInterventionIds = design.StudyInterventionIds is null ? new List<string>() : design.StudyInterventionIds.ToList();
                     List<string> endpointIds = design.Objectives is null ? new List<string>() : design.Objectives.Select(x => x as ObjectiveDto).ToList().Select(x => x?.Endpoints).Where(y => y != null).SelectMany(x => x.Select(y => y.Id)).ToList();
 
                     estimand.InterventionIds.ForEach(interventionId =>
@@ -1829,7 +1829,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
 
             if (design.Activities != null && design.Activities.Any())
             {
-                List<string> studyInterventionIds = design.StudyInterventions != null ? design.StudyInterventions.Select(act => act?.Id).ToList() : new();
+                List<string> studyInterventionIds = design.StudyInterventionIds != null ? design.StudyInterventionIds.ToList() : new();
                 design.Activities.ForEach(activity =>
                 {
                     activity.DefinedProcedures?.ForEach(proc =>

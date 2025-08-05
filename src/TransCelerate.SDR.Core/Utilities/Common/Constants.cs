@@ -378,7 +378,6 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 			nameof(Core.DTO.StudyV5.StudyVersionDto.Rationale),
 			nameof(Core.DTO.StudyV5.StudyVersionDto.Amendments),
 			nameof(Core.DTO.StudyV5.StudyVersionDto.DateValues),
-			nameof(Core.DTO.StudyV5.StudyVersionDto.NarrativeContentItems),
 			nameof(Core.DTO.StudyV5.StudyVersionDto.Abbreviations),
 			nameof(Core.DTO.StudyV5.StudyVersionDto.Notes),
 			nameof(Core.DTO.StudyV5.StudyVersionDto.InstanceType)
@@ -424,7 +423,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(Core.DTO.StudyV5.StudyDesignDto.Label),
             nameof(Core.DTO.StudyV5.StudyDesignDto.TherapeuticAreas),
             nameof(Core.DTO.StudyV5.StudyDesignDto.Indications),
-            nameof(Core.DTO.StudyV5.StudyDesignDto.StudyInterventions),
+            nameof(Core.DTO.StudyV5.StudyDesignDto.StudyInterventionIds),
             nameof(Core.DTO.StudyV5.StudyDesignDto.Population),
             nameof(Core.DTO.StudyV5.StudyDesignDto.Objectives),
             nameof(Core.DTO.StudyV5.StudyDesignDto.StudyCells),

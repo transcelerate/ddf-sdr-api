@@ -642,7 +642,6 @@ namespace TransCelerate.SDR.Services.Services
             {
                 StudyId = studyId,
                 StudyTitle = studyDto.Titles != null && studyDto.Titles.Any(x => x.Type.Decode == Constants.StudyTitle.OfficialStudyTitle) ? studyDto.Titles.Find(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle).Text : null,
-
                 UsdmVersion = auditTrail.UsdmVersion,
                 SDRUploadVersion = auditTrail.SDRUploadVersion,
                 Links = new
@@ -730,9 +729,11 @@ namespace TransCelerate.SDR.Services.Services
                             ObjectivesEndpointsAndEstimands = ECPTHelper.GetObjectivesEndpointsAndEstimandsDtoV5(design.Objectives.Select(x => x as ObjectiveDto).ToList(), _mapper),
                             StudyInterventionsAndConcomitantTherapy = new Core.DTO.eCPT.StudyInterventionsAndConcomitantTherapyDto
                             {
-                                StudyInterventionsAdministered = design.StudyInterventions != null && design.StudyInterventions.Any() ?
-                                           _mapper.Map<List<Core.DTO.eCPT.StudyInterventionsAdministeredDto>>(design.StudyInterventions)
-                                           : null,
+                                StudyInterventionsAdministered = design.StudyInterventionIds != null && design.StudyInterventionIds.Any() ?
+                                           _mapper.Map<List<Core.DTO.eCPT.StudyInterventionsAdministeredDto>>(
+                                                studyDto.StudyInterventions?.Where(intervention => 
+                                                    design.StudyInterventionIds.Contains(intervention.Id)).ToList())
+                                            : null,
                                 StudyArms = design.Arms != null && design.Arms.Any() ?
                                            _mapper.Map<List<Core.DTO.eCPT.StudyArmDto>>(design.Arms)
                                            : null

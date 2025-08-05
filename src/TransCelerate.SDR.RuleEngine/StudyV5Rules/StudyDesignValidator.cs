@@ -45,15 +45,12 @@ namespace TransCelerate.SDR.RuleEngineV5
             RuleForEach(x => x.Characteristics)
                 .SetValidator(new CodeValidator(_httpContextAccessor));
 
-            RuleFor(x => x.StudyInterventions)
+            RuleFor(x => x.StudyInterventionIds)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.StudyInterventions)), ApplyConditionTo.AllValidators)
-                .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
-
-            RuleForEach(x => x.StudyInterventions)
-                .SetValidator(new StudyInterventionValidator(_httpContextAccessor));
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.StudyInterventionIds)), ApplyConditionTo.AllValidators)
+                .Must(x => UniquenessArrayValidator.ValidateStringList(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
             RuleFor(x => x.Indications)
                 .Cascade(CascadeMode.Stop)
