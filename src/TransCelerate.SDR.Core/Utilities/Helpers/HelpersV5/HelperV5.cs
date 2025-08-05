@@ -748,11 +748,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
         public List<string> GetDifferenceForStudyInvestigationalIntervention(StudyDesignEntity currentStudyDesign, StudyDesignEntity previousStudyDesign)
         {
             var tempList = new List<string>();
-            if (currentStudyDesign.StudyInterventions?.Count != previousStudyDesign.StudyInterventions?.Count)
-                tempList.Add($"{nameof(StudyDesignEntity.StudyInterventions)}");
-            GetDifferenceForAList<StudyInterventionEntity>(currentStudyDesign.StudyInterventions, previousStudyDesign.StudyInterventions).ForEach(x =>
+            if (currentStudyDesign.StudyInterventionIds?.Count != previousStudyDesign.StudyInterventionIds?.Count)
+                tempList.Add($"{nameof(StudyDesignEntity.StudyInterventionIds)}");
+            GetDifferenceForAList(currentStudyDesign.StudyInterventionIds, previousStudyDesign.StudyInterventionIds).ForEach(x =>
             {
-                tempList.Add($"{nameof(StudyDesignEntity.StudyInterventions)}.{x}");
+                tempList.Add($"{nameof(StudyDesignEntity.StudyInterventionIds)}.{x}");
             });
             return tempList;
         }
@@ -2531,11 +2531,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
         public List<string> GetDifferenceForStudyInvestigationalInterventionForStudyComparison(StudyDesignEntity currentStudyDesign, StudyDesignEntity previousStudyDesign)
         {
             var tempList = new List<string>();
-            if (currentStudyDesign.StudyInterventions?.Count != previousStudyDesign.StudyInterventions?.Count)
-                tempList.Add($"{nameof(StudyDesignEntity.StudyInterventions)}{Constants.VersionCompareConstants.ArrayBrackets}");
-            GetDifferenceForAListForStudyComparison<StudyInterventionEntity>(currentStudyDesign.StudyInterventions, previousStudyDesign.StudyInterventions).ForEach(x =>
+            if (currentStudyDesign.StudyInterventionIds?.Count != previousStudyDesign.StudyInterventionIds?.Count)
+                tempList.Add($"{nameof(StudyDesignEntity.StudyInterventionIds)}{Constants.VersionCompareConstants.ArrayBrackets}");
+            GetDifferenceForAListForStudyComparison(currentStudyDesign.StudyInterventionIds, previousStudyDesign.StudyInterventionIds).ForEach(x =>
             {
-                tempList.Add($"{nameof(StudyDesignEntity.StudyInterventions)}{x}");
+                tempList.Add($"{nameof(StudyDesignEntity.StudyInterventionIds)}{x}");
             });
             return tempList;
         }
