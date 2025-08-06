@@ -86,6 +86,11 @@ namespace TransCelerate.SDR.RuleEngine.StudyV5Rules
                 .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError)
                 .Must(x => x.Where(y => y.Type != null).Select(y => y.Type.Decode == Constants.StudyTitle.OfficialStudyTitle).Count() > 0).WithMessage(Constants.ValidationErrorMessage.OfficialTitleError);
 
+
+            RuleFor(x => x.Organizations)
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.Organizations), _requiredProperties)
+                .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
             RuleFor(x => x.Abbreviations)
                 .Must(x => AbbreviationValidator.ValidateExpandedText(x))
                 .WithMessage(RuleConstants.RuleValidationWarningMessages.DDF00171)
@@ -118,6 +123,9 @@ namespace TransCelerate.SDR.RuleEngine.StudyV5Rules
 
             RuleForEach(x => x.Titles)
                 .SetValidator(new StudyTitleValidator(_httpContextAccessor));
+                
+            RuleForEach(x => x.Organizations)
+                .SetValidator(new OrganizationValidator(_httpContextAccessor));
         }
     }
 }
