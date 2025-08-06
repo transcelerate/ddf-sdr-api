@@ -1691,6 +1691,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                 {
                     List<string> investigationalInterventionIds = design.StudyInterventions is null ? new List<string>() : design.StudyInterventions.Select(x => x.Id).ToList();
                     List<string> endpointIds = design.Objectives is null ? new List<string>() : design.Objectives.Select(x => x as ObjectiveDto).ToList().Select(x => x?.Endpoints).Where(y => y != null).SelectMany(x => x.Select(y => y.Id)).ToList();
+                    List<string> analysisPopulationIds = design.AnalysisPopulations is null ? new List<string>() : design.AnalysisPopulations.Select(x => x.Id).ToList();
 
                     estimand.Interventions.ForEach(intervention =>
                     {
@@ -1708,6 +1709,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                             $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
                             $"{nameof(StudyDesignDto.Estimands)}[{design.Estimands.IndexOf(estimand)}]." +
                             $"{nameof(EstimandDto.VariableOfInterest)}");
+
+                    if (!String.IsNullOrWhiteSpace(estimand.AnalysisPopulationId) && !analysisPopulationIds.Contains(estimand.AnalysisPopulationId))
+                        errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                            $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
+                            $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
+                            $"{nameof(StudyDesignDto.Estimands)}[{design.Estimands.IndexOf(estimand)}]." +
+                            $"{nameof(EstimandDto.AnalysisPopulationId)}");
                 });
             }
 
