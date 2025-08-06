@@ -1110,6 +1110,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                             $"{nameof(StudyAmendmentDto.PreviousId)}");
                     });
 
+                    List<string> validStudyInterventionIds = version.StudyInterventions != null ? version.StudyInterventions.Select(studyIntervention => studyIntervention.Id).ToList() : new();
+
                     version.StudyDesigns?.ForEach(design =>
                     {
                         design.DocumentVersions.ForEach(documentVersion =>
@@ -1119,6 +1121,17 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                                     $"{nameof(StudyDto.Versions)}[{study.Study.Versions.IndexOf(version)}]." +
                                     $"{nameof(StudyVersionDto.StudyDesigns)}[{version.StudyDesigns.IndexOf(design)}]." +
                                     $"{nameof(StudyDesignDto.DocumentVersions)}");
+                        });
+
+                        design.StudyInterventionIds?.ForEach(interventionId =>
+                        {
+                            if (!string.IsNullOrWhiteSpace(interventionId) && !validStudyInterventionIds.Contains(interventionId))
+                            {
+                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                    $"{nameof(StudyDto.Versions)}[{study.Study.Versions.IndexOf(version)}]." +
+                                    $"{nameof(StudyVersionDto.StudyDesigns)}[{version.StudyDesigns.IndexOf(design)}]." +
+                                    $"{nameof(StudyDesignDto.StudyInterventionIds)}[{design.StudyInterventionIds.IndexOf(interventionId)}]");
+                            }
                         });
                     });
                 });
