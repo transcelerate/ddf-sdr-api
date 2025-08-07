@@ -12,7 +12,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public PersonNameEntity PersonName { get; set; }
         public string JobTitle { get; set; }
         public string InstanceType { get; set; }
-        public OrganizationEntity Organization { get; set; }
+        public string OrganizationId { get; set; }
 	
 	}
 }
