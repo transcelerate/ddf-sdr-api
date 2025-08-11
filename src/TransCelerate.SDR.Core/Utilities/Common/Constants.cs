@@ -365,22 +365,23 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(DTO.StudyV4.StudyVersionDto.InstanceType)
         };
 		public static readonly string[] StudyElementsV5 = {
-			nameof(Core.DTO.StudyV5.StudyDto.Name),
-			nameof(Core.DTO.StudyV5.StudyDto.Description),
-			nameof(Core.DTO.StudyV5.StudyDto.Label),
-			nameof(Core.DTO.StudyV5.StudyVersionDto.Titles),
-			nameof(Core.DTO.StudyV5.StudyVersionDto.StudyIdentifiers),
-			nameof(Core.DTO.StudyV5.StudyVersionDto.ReferenceIdentifiers),
-			nameof(Core.DTO.StudyV5.StudyVersionDto.DocumentVersionIds),
-			nameof(Core.DTO.StudyV5.StudyVersionDto.VersionIdentifier),
-			nameof(Core.DTO.StudyV5.StudyVersionDto.BusinessTherapeuticAreas),
-			nameof(Core.DTO.StudyV5.StudyVersionDto.StudyDesigns),
-			nameof(Core.DTO.StudyV5.StudyVersionDto.Rationale),
-			nameof(Core.DTO.StudyV5.StudyVersionDto.Amendments),
-			nameof(Core.DTO.StudyV5.StudyVersionDto.DateValues),
-			nameof(Core.DTO.StudyV5.StudyVersionDto.Abbreviations),
-			nameof(Core.DTO.StudyV5.StudyVersionDto.Notes),
-			nameof(Core.DTO.StudyV5.StudyVersionDto.InstanceType)
+            nameof(Core.DTO.StudyV5.StudyDto.Name),
+            nameof(Core.DTO.StudyV5.StudyDto.Description),
+            nameof(Core.DTO.StudyV5.StudyDto.Label),
+            nameof(Core.DTO.StudyV5.StudyVersionDto.Titles),
+            nameof(Core.DTO.StudyV5.StudyVersionDto.StudyIdentifiers),
+            nameof(Core.DTO.StudyV5.StudyVersionDto.ReferenceIdentifiers),
+            nameof(Core.DTO.StudyV5.StudyVersionDto.DocumentVersionIds),
+            nameof(Core.DTO.StudyV5.StudyVersionDto.VersionIdentifier),
+            nameof(Core.DTO.StudyV5.StudyVersionDto.BusinessTherapeuticAreas),
+            nameof(Core.DTO.StudyV5.StudyVersionDto.StudyDesigns),
+            nameof(Core.DTO.StudyV5.StudyVersionDto.Rationale),
+            nameof(Core.DTO.StudyV5.StudyVersionDto.Amendments),
+            nameof(Core.DTO.StudyV5.StudyVersionDto.DateValues),
+            nameof(Core.DTO.StudyV5.StudyVersionDto.Abbreviations),
+            nameof(Core.DTO.StudyV5.StudyVersionDto.Notes),
+            nameof(Core.DTO.StudyV5.StudyVersionDto.InstanceType),
+            nameof(Core.DTO.StudyV5.StudyVersionDto.BiomedicalConcepts)
 		};
 
         public static readonly string[] StudyDesignElementsV4 = {
@@ -435,7 +436,6 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(Core.DTO.StudyV5.StudyDesignDto.Activities),
             nameof(Core.DTO.StudyV5.StudyDesignDto.Encounters),
             nameof(Core.DTO.StudyV5.StudyDesignDto.Rationale),
-            nameof(Core.DTO.StudyV5.StudyDesignDto.BiomedicalConcepts),
             nameof(Core.DTO.StudyV5.StudyDesignDto.BcCategories),
             nameof(Core.DTO.StudyV5.StudyDesignDto.BcSurrogates),
             nameof(Core.DTO.StudyV5.StudyDesignDto.Dictionaries),
