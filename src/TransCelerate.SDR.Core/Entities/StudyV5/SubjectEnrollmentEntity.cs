@@ -9,7 +9,7 @@
         public string Label { get; set; }
         public QuantityEntity Quantity { get; set; }
         public GeographicScopeEntity ForGeographicScope { get; set; }
-        public StudyCohortEntity ForStudyCohort { get; set; } 
-        public StudySiteEntity ForStudySite { get; set; }   
+        public string ForStudyCohortId { get; set; } 
+        public string ForStudySiteId { get; set; }   
     }
 }
