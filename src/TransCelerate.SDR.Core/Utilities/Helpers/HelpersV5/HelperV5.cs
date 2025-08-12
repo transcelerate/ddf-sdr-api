@@ -137,6 +137,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyVersionDto.DateValues).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                     else if (item == nameof(StudyVersionDto.Amendments).ToLower())
                         jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyVersionDto.Amendments).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
+                    else if (item == nameof(StudyVersionDto.Conditions).ToLower())
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyVersionDto.Conditions).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                     else if (item == nameof(StudyDto.Name).ToLower())
                         jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDto.Name).ChangeToCamelCase() && attr.Parent.Path == nameof(StudyDefinitionsDto.Study).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                     else if (item == nameof(StudyDto.Description).ToLower())
@@ -217,8 +219,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Dictionaries).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Characteristics).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Characteristics).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.Conditions).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Conditions).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyPhase).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.StudyPhase).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyType).ToLower())
@@ -1013,6 +1013,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                     }
 
                     //Design elements
+                    var studyVersion = study.Study.Versions.FirstOrDefault();
                     var studyDesigns = study.Study.Versions.FirstOrDefault()?.StudyDesigns;
                     studyDesigns?.ForEach(design =>
                     {
@@ -1055,7 +1056,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                             () => errors.AddRange(ReferenceIntegrityValidationForStudyElements(design, designIndex, studyVersionIndex)),
 
                             //Conditions
-                            () => errors.AddRange(ReferenceIntegrityValidationForConditions(design, designIndex, studyVersionIndex)),
+                            () => errors.AddRange(ReferenceIntegrityValidationForConditions(studyVersion, design, designIndex, studyVersionIndex)),
 
                             //Procedures
                             () => errors.AddRange(ReferenceIntegrityValidationForProcedures(design, designIndex, studyVersionIndex)),
@@ -1757,11 +1758,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
             return errors;
         }
 
-        public static List<string> ReferenceIntegrityValidationForConditions(StudyDesignDto design, int indexOfDesign, int studyVersionIndex)
+        public static List<string> ReferenceIntegrityValidationForConditions(StudyVersionDto version, StudyDesignDto design, int indexOfDesign, int studyVersionIndex)
         {
             List<String> errors = new();
 
-            if (design.Conditions != null && design.Conditions.Any())
+            if (version.Conditions != null && version.Conditions.Any())
             {
                 List<string> dictionaryIds = design.Dictionaries.Select(x => x.Id).ToList();
                 List<string> biomedicalConceptIds = design.BiomedicalConcepts is null ? new List<string>() : design.BiomedicalConcepts.Select(x => x.Id).ToList();
@@ -1774,7 +1775,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                                                            .Select(z => z.Id)
                                                            .ToList() : new List<string>();
 
-                design.Conditions.ForEach(condition =>
+                version.Conditions.ForEach(condition =>
                 {
                     if (condition.DictionaryId !=null)
                     {
@@ -1782,7 +1783,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                             errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
                                 $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
                               $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
-                              $"{nameof(StudyDesignDto.Conditions)}[{design.Conditions.IndexOf(condition)}]." +
+                              $"{nameof(StudyVersionDto.Conditions)}[{version.Conditions.IndexOf(condition)}]." +
                               $"{nameof(ConditionDto.DictionaryId)}");
                     }
 
@@ -1799,7 +1800,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                                 errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
                                     $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
                                            $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
-                                           $"{nameof(StudyDesignDto.Conditions)}[{design.Conditions.IndexOf(condition)}]." +
+                                           $"{nameof(StudyVersionDto.Conditions)}[{version.Conditions.IndexOf(condition)}]." +
                                            $"{nameof(ConditionDto.AppliesToIds)}[{condition.AppliesToIds.IndexOf(appliesTo)}]");
                         });
                     }
@@ -1813,7 +1814,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                                 errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
                                     $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
                                            $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
-                                           $"{nameof(StudyDesignDto.Conditions)}[{design.Conditions.IndexOf(condition)}]." +
+                                           $"{nameof(StudyVersionDto.Conditions)}[{version.Conditions.IndexOf(condition)}]." +
                                            $"{nameof(ConditionDto.ContextIds)}[{condition.ContextIds.IndexOf(contextId)}]");
                         });
                     }                    
