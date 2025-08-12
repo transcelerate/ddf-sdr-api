@@ -90,6 +90,26 @@ namespace TransCelerate.SDR.RuleEngine.StudyV5Rules
                 .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.NarrativeContentItems), _requiredProperties)
                 .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
+            RuleFor(x => x.Roles)
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.Roles), _requiredProperties)
+                .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleFor(x => x.AdministrableProducts)
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.AdministrableProducts), _requiredProperties)
+                .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleFor(x => x.ProductOrganizationRoles)
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.ProductOrganizationRoles), _requiredProperties)
+                .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleFor(x => x.MedicalDevices)
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.MedicalDevices), _requiredProperties)
+                .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleFor(x => x.EligibilityCriterionItems)
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.EligibilityCriterionItems), _requiredProperties)
+                .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
             RuleFor(x => x.Abbreviations)
                 .Must(x => AbbreviationValidator.ValidateExpandedText(x))
                 .WithMessage(RuleConstants.RuleValidationWarningMessages.DDF00171)
@@ -126,6 +146,20 @@ namespace TransCelerate.SDR.RuleEngine.StudyV5Rules
             RuleForEach(x => x.NarrativeContentItems)
                 .SetValidator(new NarrativeContentItemValidator(_httpContextAccessor));
 
+            RuleForEach(x => x.Roles)
+                .SetValidator(new StudyRoleValidator(_httpContextAccessor));
+
+            RuleForEach(x => x.AdministrableProducts)
+                .SetValidator(new AdministrableProductValidator(_httpContextAccessor));
+
+            RuleForEach(x => x.ProductOrganizationRoles)
+                .SetValidator(new ProductOrganizationRoleValidator(_httpContextAccessor));
+
+            RuleForEach(x => x.MedicalDevices)
+                .SetValidator(new MedicalDeviceValidator(_httpContextAccessor));
+
+            RuleForEach(x => x.EligibilityCriterionItems)
+                .SetValidator(new EligibilityCriterionItemValidator(_httpContextAccessor));
         }
     }
 }

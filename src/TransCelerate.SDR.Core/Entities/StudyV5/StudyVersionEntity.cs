@@ -21,5 +21,10 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public List<StudyIdentifierEntity> StudyIdentifiers { get; set; }
         public List<StudyTitleEntity> Titles { get; set; }
         public List<NarrativeContentItemEntity> NarrativeContentItems { get; set; }
+        public List<StudyRoleEntity> Roles { get; set; }
+        public List<AdministrableProductEntity> AdministrableProducts { get; set; }
+        public List<ProductOrganizationRoleEntity> ProductOrganizationRoles { get; set; }
+        public List<MedicalDeviceEntity> MedicalDevices { get; set; }
+        public List<EligibilityCriterionItemEntity> EligibilityCriterionItems { get; set; }
     }
 }
