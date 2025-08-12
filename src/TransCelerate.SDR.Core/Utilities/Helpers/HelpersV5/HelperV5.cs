@@ -386,6 +386,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                     {
                         changedValues.Add($"{nameof(StudyVersionEntity.Conditions)}.{x}");
                     });
+                    //Biomedical Concept Surrogate
+                    GetDifferenceForAList<BiomedicalConceptSurrogateEntity>(currVer.BcSurrogates, prevVer.BcSurrogates).ForEach(x =>
+                    {
+                        changedValues.Add($"{nameof(StudyVersionEntity.BcSurrogates)}.{x}");
+                    });
                 }
             });
 
@@ -612,12 +617,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         GetDifferenceForAList<BiomedicalConceptCategoryEntity>(currentStudyDesign.BcCategories, previousStudyDesign.BcCategories).ForEach(x =>
                         {
                             changedValues.Add($"{nameof(StudyDesignEntity.BcCategories)}.{x}");
-                        });
-
-                        //Biomedical Concept Surrogate
-                        GetDifferenceForAList<BiomedicalConceptSurrogateEntity>(currentStudyDesign.BcSurrogates, previousStudyDesign.BcSurrogates).ForEach(x =>
-                        {
-                            changedValues.Add($"{nameof(StudyDesignEntity.BcSurrogates)}.{x}");
                         });
 
                         //Biomedical Concepts
@@ -2062,6 +2061,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                     {
                         changedValues.Add($"[{currentVersionIndex}].{x}");
                     });
+                    //Biomedical Concept Surrogate
+                    GetDifferenceForAListForStudyComparison<BiomedicalConceptSurrogateEntity>(currVer.BcSurrogates, prevVer.BcSurrogates).ForEach(x =>
+                    {
+                        changedValues.Add($"[{currentVersionIndex}].{x}");
+                    });
                 }
             });                                    
 
@@ -2392,12 +2396,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         GetDifferenceForAListForStudyComparison<BiomedicalConceptCategoryEntity>(currentStudyDesign.BcCategories, previousStudyDesign.BcCategories).ForEach(x =>
                         {
                             changedValues.Add($"{nameof(StudyDesignEntity.BcCategories)}{x}");
-                        });
-
-                        //Biomedical Concept Surrogate
-                        GetDifferenceForAListForStudyComparison<BiomedicalConceptSurrogateEntity>(currentStudyDesign.BcSurrogates, previousStudyDesign.BcSurrogates).ForEach(x =>
-                        {
-                            changedValues.Add($"{nameof(StudyDesignEntity.BcSurrogates)}{x}");
                         });
 
                         //Biomedical Concepts
