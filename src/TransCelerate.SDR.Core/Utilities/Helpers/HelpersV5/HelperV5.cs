@@ -381,6 +381,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                     {
                         changedValues.Add($"{x}");
                     });
+                    //Conditions
+                    GetDifferenceForAList<ConditionEntity>(currVer.Conditions, prevVer.Conditions).ForEach(x =>
+                    {
+                        changedValues.Add($"{nameof(StudyVersionEntity.Conditions)}.{x}");
+                    });
                 }
             });
 
@@ -632,11 +637,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         GetDifferenceForAList<StudyElementEntity>(currentStudyDesign.Elements, previousStudyDesign.Elements).ForEach(x =>
                         {
                             changedValues.Add($"{nameof(StudyDesignEntity.Elements)}.{x}");
-                        });
-                        //Conditions
-                        GetDifferenceForAList<ConditionEntity>(currentStudyDesign.Conditions, previousStudyDesign.Conditions).ForEach(x =>
-                        {
-                            changedValues.Add($"{nameof(StudyDesignEntity.Conditions)}.{x}");
                         });
                         //StudyPhase
                         GetDifferenceForAliasCode(currentStudyDesign.StudyPhase, previousStudyDesign.StudyPhase).ForEach(x =>
@@ -2057,6 +2057,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                     {
                         changedValues.Add($"[{currentVersionIndex}].{x}");
                     });
+                    //Conditions
+                    GetDifferenceForAListForStudyComparison<ConditionEntity>(currVer.Conditions, prevVer.Conditions).ForEach(x =>
+                    {
+                        changedValues.Add($"[{currentVersionIndex}].{x}");
+                    });
                 }
             });                                    
 
@@ -2417,11 +2422,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         GetDifferenceForAListForStudyComparison<SyntaxTemplateDictionaryEntity>(currentStudyDesign.Dictionaries, previousStudyDesign.Dictionaries).ForEach(x =>
                         {
                             changedValues.Add($"{nameof(StudyDesignEntity.Dictionaries)}{x}");
-                        });
-                        //Conditions
-                        GetDifferenceForAListForStudyComparison<ConditionEntity>(currentStudyDesign.Conditions, previousStudyDesign.Conditions).ForEach(x =>
-                        {
-                            changedValues.Add($"{nameof(StudyDesignEntity.Conditions)}{x}");
                         });
                         //StudyPhase
                         GetDifferenceForAliasCodeForStudyComparison(currentStudyDesign.StudyPhase, previousStudyDesign.StudyPhase).ForEach(x =>

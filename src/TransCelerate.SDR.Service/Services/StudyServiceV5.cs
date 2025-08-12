@@ -268,10 +268,10 @@ namespace TransCelerate.SDR.Services.Services
                     if (checkStudy == null)
                         return Constants.ErrorMessages.Forbidden;
 
-                    var studyVersions = study.Study.Versions?.FirstOrDefault();
-                    var soa = SoAV5(studyVersions?.StudyDesigns);
+                    var studyVersion = study.Study.Versions?.FirstOrDefault();
+                    var soa = SoAV5(studyVersion);
                     soa.StudyId = study.Study.Id;
-                    soa.StudyTitle = studyVersions != null ? studyVersions.Titles.GetStudyTitleV5(Constants.StudyTitle.OfficialStudyTitle) : null;
+                    soa.StudyTitle = studyVersion != null ? studyVersion.Titles.GetStudyTitleV5(Constants.StudyTitle.OfficialStudyTitle) : null;
                     if (!String.IsNullOrWhiteSpace(studyDesignId))
                     {
                         if (study.Study.Versions != null && study.Study.Versions.FirstOrDefault()?.StudyDesigns is null || !soa.StudyDesigns.Any(x => x.StudyDesignId == studyDesignId))
@@ -301,8 +301,9 @@ namespace TransCelerate.SDR.Services.Services
             }
         }
 
-        public SoADto SoAV5(List<StudyDesignEntity> studyDesigns)
+        public SoADto SoAV5(StudyVersionEntity version)
         {
+            var studyDesigns = version?.StudyDesigns;
             SoADto soADto = new()
             {
                 StudyDesigns = new List<StudyDesigns>()
@@ -332,7 +333,7 @@ namespace TransCelerate.SDR.Services.Services
 
                             var scheduleActivityInstances = scheduleTimeline.Instances?.Select(x => (x as ScheduledActivityInstanceEntity))
                                                                          .Where(x => x != null).ToList();
-                            var conditions = design.Conditions is not null ? design.Conditions : new List<ConditionEntity>();
+                            var conditions = version.Conditions is not null ? version.Conditions : new List<ConditionEntity>();
                             
                             if (scheduleActivityInstances != null && scheduleActivityInstances.Any())
                             {
