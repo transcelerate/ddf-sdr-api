@@ -90,6 +90,10 @@ namespace TransCelerate.SDR.RuleEngine.StudyV5Rules
                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.Conditions), _requiredProperties)
                .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
+            RuleFor(x => x.BcSurrogates)
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.BcSurrogates), _requiredProperties)
+                .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
             RuleFor(x => x.Abbreviations)
                 .Must(x => AbbreviationValidator.ValidateExpandedText(x))
                 .WithMessage(RuleConstants.RuleValidationWarningMessages.DDF00171)
@@ -125,6 +129,9 @@ namespace TransCelerate.SDR.RuleEngine.StudyV5Rules
             
             RuleForEach(x => x.Conditions)
                 .SetValidator(new ConditionValidator(_httpContextAccessor));
+
+            RuleForEach(x => x.BcSurrogates)
+                .SetValidator(new BiomedicalConceptSurrogateValidator(_httpContextAccessor));
         }
     }
 }

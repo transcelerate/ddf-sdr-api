@@ -381,7 +381,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(Core.DTO.StudyV5.StudyVersionDto.Abbreviations),
             nameof(Core.DTO.StudyV5.StudyVersionDto.Notes),
             nameof(Core.DTO.StudyV5.StudyVersionDto.InstanceType),
-            nameof(Core.DTO.StudyV5.StudyVersionDto.Conditions)
+            nameof(Core.DTO.StudyV5.StudyVersionDto.Conditions),
+            nameof(Core.DTO.StudyV5.StudyVersionDto.BcSurrogates),
 		};
 
         public static readonly string[] StudyDesignElementsV4 = {
@@ -438,7 +439,6 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(Core.DTO.StudyV5.StudyDesignDto.Rationale),
             nameof(Core.DTO.StudyV5.StudyDesignDto.BiomedicalConcepts),
             nameof(Core.DTO.StudyV5.StudyDesignDto.BcCategories),
-            nameof(Core.DTO.StudyV5.StudyDesignDto.BcSurrogates),
             nameof(Core.DTO.StudyV5.StudyDesignDto.Dictionaries),
             nameof(Core.DTO.StudyV5.StudyDesignDto.Characteristics),
             nameof(Core.DTO.StudyV5.StudyDesignDto.InstanceType),
