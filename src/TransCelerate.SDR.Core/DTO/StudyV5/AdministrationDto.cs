@@ -14,7 +14,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public AliasCodeDto Route { get; set; }
         public DurationDto Duration { get; set; }
         public List<CommentAnnotationDto> Notes { get; set; }
-        public AdministrableProductDto AdministrableProduct { get; set; }
-        public MedicalDeviceDto MedicalDevice { get; set; }
+        public string AdministrableProductId { get; set; }
+        public string MedicalDeviceId { get; set; }
     }
 }
