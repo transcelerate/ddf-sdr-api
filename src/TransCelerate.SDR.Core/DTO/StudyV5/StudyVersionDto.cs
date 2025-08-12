@@ -20,5 +20,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public List<StudyTitleDto> Titles { get; set; }
         public List<ConditionDto> Conditions { get; set; }
         public List<BiomedicalConceptSurrogateDto> BcSurrogates { get; set; }
+        public List<BiomedicalConceptCategoryDto> BcCategories { get; set; }
     }
 }

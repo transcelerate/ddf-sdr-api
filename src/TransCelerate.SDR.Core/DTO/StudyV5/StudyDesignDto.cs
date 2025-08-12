@@ -23,7 +23,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public string Rationale { get; set; }
         public List<BiomedicalConceptDto> BiomedicalConcepts { get; set; }
         public List<BiospecimenRetentionDto> BiospecimenRetentions { get; set; }
-        public List<BiomedicalConceptCategoryDto> BcCategories { get; set; }
         public List<StudyArmDto> Arms { get; set; }
         public List<StudyEpochDto> Epochs { get; set; }
         public List<StudyElementDto> Elements { get; set; }        
