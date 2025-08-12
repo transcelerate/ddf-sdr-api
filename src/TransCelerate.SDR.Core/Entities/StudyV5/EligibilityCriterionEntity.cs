@@ -12,7 +12,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public string Identifier { get; set; }
         public CodeEntity Category { get; set; }
         public List<CommentAnnotationEntity> Notes { get; set; }
-        public EligibilityCriterionItemEntity CriterionItem { get; set; }    
+        public string CriterionItemId { get; set; }    
         public string NextId { get; set; }
         public string PreviousId { get; set; }
     }
