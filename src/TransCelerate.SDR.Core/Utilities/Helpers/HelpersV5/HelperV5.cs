@@ -2070,6 +2070,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                     {
                         changedValues.Add($"[{currentVersionIndex}].{x}");
                     });
+                    //Syntax Template Dictionaries
+                    GetDifferenceForAListForStudyComparison<SyntaxTemplateDictionaryEntity>(currVer.Dictionaries, prevVer.Dictionaries).ForEach(x =>
+                    {
+                        changedValues.Add($"{nameof(StudyVersionEntity.Dictionaries)}{x}");
+                    });
                 }
             });                                    
 
@@ -2414,11 +2419,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         GetDifferenceForAListForStudyComparison<StudyElementEntity>(currentStudyDesign.Elements, previousStudyDesign.Elements).ForEach(x =>
                         {
                             changedValues.Add($"{nameof(StudyDesignEntity.Elements)}{x}");
-                        });
-                        //Syntax Template Dictionaries
-                        GetDifferenceForAListForStudyComparison<SyntaxTemplateDictionaryEntity>(currentStudyDesign.Dictionaries, previousStudyDesign.Dictionaries).ForEach(x =>
-                        {
-                            changedValues.Add($"{nameof(StudyDesignEntity.Dictionaries)}{x}");
                         });
                         //StudyPhase
                         GetDifferenceForAliasCodeForStudyComparison(currentStudyDesign.StudyPhase, previousStudyDesign.StudyPhase).ForEach(x =>
