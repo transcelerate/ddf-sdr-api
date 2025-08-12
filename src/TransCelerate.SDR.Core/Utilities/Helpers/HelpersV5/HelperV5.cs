@@ -143,6 +143,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyVersionDto.BcSurrogates).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                     else if (item == nameof(StudyVersionDto.BcCategories).ToLower())
                         jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyVersionDto.BcCategories).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
+                    else if (item == nameof(StudyVersionDto.Dictionaries).ToLower())
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyVersionDto.Dictionaries).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                     else if (item == nameof(StudyDto.Name).ToLower())
                         jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDto.Name).ChangeToCamelCase() && attr.Parent.Path == nameof(StudyDefinitionsDto.Study).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                     else if (item == nameof(StudyDto.Description).ToLower())
@@ -215,8 +217,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Elements).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.DocumentVersions).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.DocumentVersions).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.Dictionaries).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Dictionaries).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Characteristics).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Characteristics).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyPhase).ToLower())
@@ -1047,7 +1047,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                             () => errors.AddRange(ReferenceIntegrityValidationForStudyCells(design, designIndex, studyVersionIndex)),
 
                             //Eligibility Criteria
-                            () => errors.AddRange(ReferenceIntegrityValidationForEligibilityCriteriaAndCharacteristcs(design, designIndex, studyVersionIndex, studyVersionAndDesignIds)),
+                            () => errors.AddRange(ReferenceIntegrityValidationForEligibilityCriteriaAndCharacteristcs(studyVersion, design, designIndex, studyVersionIndex, studyVersionAndDesignIds)),
 
                             //Arms
                             () => errors.AddRange(ReferenceIntegrityValidationForStudyArms(design, designIndex, studyVersionIndex)),
@@ -1062,7 +1062,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                             () => errors.AddRange(ReferenceIntegrityValidationForProcedures(design, designIndex, studyVersionIndex)),
 
                             //Objectives & Endpoints
-                            () => errors.AddRange(ReferenceIntegrityValidationForObjectivesAndEndpoints(design, designIndex, studyVersionIndex))
+                            () => errors.AddRange(ReferenceIntegrityValidationForObjectivesAndEndpoints(studyVersion, design, designIndex, studyVersionIndex))
                         );
 
                     });
@@ -1275,13 +1275,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
             return errors;
         }
 
-        public static List<string> ReferenceIntegrityValidationForEligibilityCriteriaAndCharacteristcs(StudyDesignDto design, int indexOfDesign, int studyVersionIndex, List<string> studyVersionAndDesignIds)
+        public static List<string> ReferenceIntegrityValidationForEligibilityCriteriaAndCharacteristcs(StudyVersionDto version, StudyDesignDto design, int indexOfDesign, int studyVersionIndex, List<string> studyVersionAndDesignIds)
         {
             List<String> errors = new();
 
             if (design != null && design.Population != null)
             {
-                List<string> dictionaryIds = design.Dictionaries.Select(x => x.Id).ToList();
+                List<string> dictionaryIds = version.Dictionaries.Select(x => x.Id).ToList();
                // List<string> eligibilityCriteriaIds = design.Population.Criterionids != null ? design.Population.Criterionids.Select(act => act?.Id).ToList() : new();
                 design.Population.Criterionids?.ForEach(crit =>
                 {
@@ -1764,7 +1764,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
 
             if (version.Conditions != null && version.Conditions.Any())
             {
-                List<string> dictionaryIds = design.Dictionaries.Select(x => x.Id).ToList();
+                List<string> dictionaryIds = version.Dictionaries.Select(x => x.Id).ToList();
                 List<string> biomedicalConceptIds = design.BiomedicalConcepts is null ? new List<string>() : design.BiomedicalConcepts.Select(x => x.Id).ToList();
                 List<string> bcCategoryIds = version.BcCategories is null ? new List<string>() : version.BcCategories.Select(x => x.Id).ToList();
                 List<string> bcSurrogateIds = version.BcSurrogates is null ? new List<string>() : version.BcSurrogates.Select(x => x.Id).ToList();
@@ -1850,13 +1850,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
         }
 
 
-        public static List<string> ReferenceIntegrityValidationForObjectivesAndEndpoints(StudyDesignDto design, int indexOfDesign, int studyVersionIndex)
+        public static List<string> ReferenceIntegrityValidationForObjectivesAndEndpoints(StudyVersionDto version, StudyDesignDto design, int indexOfDesign, int studyVersionIndex)
         {
             List<String> errors = new();
 
             if (design.Objectives != null && design.Objectives.Any())
             {
-                List<string> dictionaryIds = design.Dictionaries.Select(x => x.Id).ToList();
+                List<string> dictionaryIds = version.Dictionaries.Select(x => x.Id).ToList();
 
                 design.Objectives.ForEach(objective =>
                 {

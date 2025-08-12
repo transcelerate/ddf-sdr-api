@@ -219,16 +219,6 @@ namespace TransCelerate.SDR.RuleEngineV5
             RuleForEach(x => x.Elements)
                 .SetValidator(new StudyElementValidator(_httpContextAccessor));
 
-            RuleFor(x => x.Dictionaries)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyDesignValidator), nameof(StudyDesignDto.Dictionaries)), ApplyConditionTo.AllValidators)
-               .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
-
-            RuleForEach(x => x.Dictionaries)
-                .SetValidator(new SyntaxTemplateDictionaryValidator(_httpContextAccessor));
-
             RuleFor(x => x.DocumentVersions)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)

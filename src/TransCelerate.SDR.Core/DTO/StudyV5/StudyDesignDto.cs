@@ -27,7 +27,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public List<StudyEpochDto> Epochs { get; set; }
         public List<StudyElementDto> Elements { get; set; }        
         public List<StudyDefinitionDocumentVersionDto> DocumentVersions { get; set; }
-        public List<SyntaxTemplateDictionaryDto> Dictionaries { get; set; }
         public string InstanceType { get; set; }
         public List<CommentAnnotationDto> Notes { get; set; }
         public AliasCodeDto StudyPhase { get; set; }

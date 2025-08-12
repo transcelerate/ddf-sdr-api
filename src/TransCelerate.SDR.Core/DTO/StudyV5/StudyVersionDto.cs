@@ -21,5 +21,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public List<ConditionDto> Conditions { get; set; }
         public List<BiomedicalConceptSurrogateDto> BcSurrogates { get; set; }
         public List<BiomedicalConceptCategoryDto> BcCategories { get; set; }
+        public List<SyntaxTemplateDictionaryDto> Dictionaries { get; set; }
     }
 }
