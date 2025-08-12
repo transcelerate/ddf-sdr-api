@@ -391,6 +391,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                     {
                         changedValues.Add($"{nameof(StudyVersionEntity.BcSurrogates)}.{x}");
                     });
+                    //Biomedical Concept Category
+                    GetDifferenceForAList<BiomedicalConceptCategoryEntity>(currVer.BcCategories, prevVer.BcCategories).ForEach(x =>
+                    {
+                        changedValues.Add($"{nameof(StudyVersionEntity.BcCategories)}.{x}");
+                    });
                 }
             });
 
@@ -612,12 +617,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
 
                         //Activities
                         changedValues.AddRange(GetDifferenceForActivities(currentStudyDesign, previousStudyDesign));
-
-                        //Biomedical Concept Category
-                        GetDifferenceForAList<BiomedicalConceptCategoryEntity>(currentStudyDesign.BcCategories, previousStudyDesign.BcCategories).ForEach(x =>
-                        {
-                            changedValues.Add($"{nameof(StudyDesignEntity.BcCategories)}.{x}");
-                        });
 
                         //Biomedical Concepts
                         changedValues.AddRange(GetDifferenceForBiomedicalConcepts(currentStudyDesign, previousStudyDesign));
@@ -2066,6 +2065,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                     {
                         changedValues.Add($"[{currentVersionIndex}].{x}");
                     });
+                    //Biomedical Concept Category
+                    GetDifferenceForAListForStudyComparison<BiomedicalConceptCategoryEntity>(currVer.BcCategories, prevVer.BcCategories).ForEach(x =>
+                    {
+                        changedValues.Add($"[{currentVersionIndex}].{x}");
+                    });
                 }
             });                                    
 
@@ -2392,11 +2396,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         });
                         //Activities
                         changedValues.AddRange(GetDifferenceForActivitiesForStudyComparison(currentStudyDesign, previousStudyDesign));
-                        //Biomedical Concept Category
-                        GetDifferenceForAListForStudyComparison<BiomedicalConceptCategoryEntity>(currentStudyDesign.BcCategories, previousStudyDesign.BcCategories).ForEach(x =>
-                        {
-                            changedValues.Add($"{nameof(StudyDesignEntity.BcCategories)}{x}");
-                        });
 
                         //Biomedical Concepts
                         changedValues.AddRange(GetDifferenceForBiomedicalConceptsForStudyComparison(currentStudyDesign, previousStudyDesign));

@@ -26,7 +26,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public string Rationale { get; set; }
         public List<BiomedicalConceptEntity> BiomedicalConcepts { get; set; }
         public List<BiospecimenRetentionEntity> BiospecimenRetentions { get; set; }
-        public List<BiomedicalConceptCategoryEntity> BcCategories { get; set; }
         public List<StudyArmEntity> Arms { get; set; }
         public List<StudyEpochEntity> Epochs { get; set; }
         public List<StudyElementEntity> Elements { get; set; }

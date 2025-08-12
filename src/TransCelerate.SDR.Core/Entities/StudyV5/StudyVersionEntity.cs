@@ -22,5 +22,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public List<StudyTitleEntity> Titles { get; set; }
         public List<ConditionEntity> Conditions { get; set; }
         public List<BiomedicalConceptSurrogateEntity> BcSurrogates { get; set; }
+        public List<BiomedicalConceptCategoryEntity> BcCategories { get; set; }
     }
 }
