@@ -2154,18 +2154,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                 var currentStudyIdentifier = currentVersion as StudyIdentifierEntity;
                 var previousStudyIdentifier = previousVersion as StudyIdentifierEntity;
 
-                if (currentStudyIdentifier.Scope?.Id != previousStudyIdentifier.Scope?.Id)
+                if (currentStudyIdentifier.ScopeId != previousStudyIdentifier.ScopeId)
                 {
-                    changedValues.RemoveAll(x => x.Contains(nameof(StudyIdentifierEntity.Scope)));
-                    changedValues.Add($"[{index}].{nameof(StudyIdentifierEntity.Scope)}");
-                }
-                else
-                {                    
-                    if (currentStudyIdentifier.Scope?.LegalAddress?.Id != previousStudyIdentifier.Scope?.LegalAddress?.Id)
-                    {
-                        changedValues.RemoveAll(x => x.Contains(nameof(OrganizationEntity.LegalAddress)));
-                        changedValues.Add($"[{index}].{nameof(StudyIdentifierEntity.Scope)}.{nameof(OrganizationEntity.LegalAddress)}");
-                    }
+                    changedValues.RemoveAll(x => x.Contains(nameof(StudyIdentifierEntity.ScopeId)));
+                    changedValues.Add($"[{index}].{nameof(StudyIdentifierEntity.ScopeId)}");
                 }
             }
             if (typeof(T) == typeof(StudyElementEntity))

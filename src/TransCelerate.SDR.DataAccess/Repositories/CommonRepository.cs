@@ -544,7 +544,6 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 				_logger.LogInformation($"Started Repository : {nameof(CommonRepository)}; Method : {nameof(SearchStudyV2)};");
 				IMongoCollection<Core.Entities.StudyV5.StudyDefinitionsEntity> collection = _database.GetCollection<Core.Entities.StudyV5.StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
 
-
 				List<Core.Entities.StudyV5.SearchResponseEntity> studies = await collection.Aggregate()
 											  .Match(DataFilterCommon.GetFiltersForSearchV5(searchParameters, GetGroupsOfUser(user).Result, user))
 											  .Project(x => new Core.Entities.StudyV5.SearchResponseEntity
@@ -560,7 +559,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                                     && x.Study.Versions.First().StudyDesigns.Any()
                                                                     ? x.Study.Versions.First().StudyDesigns.First().StudyPhase : null,
 												  StudyIdentifiers = x.Study.Versions != null ? x.Study.Versions.First().StudyIdentifiers : null,
-												  StudyIndications = x.Study.Versions != null ? x.Study.Versions.Select(y => y.StudyDesigns.Select(x => x.Indications)) : null,
+												  Organizations = x.Study.Versions != null ? x.Study.Versions.First().Organizations : null,
+                                                  StudyIndications = x.Study.Versions != null ? x.Study.Versions.Select(y => y.StudyDesigns.Select(x => x.Indications)) : null,
 												  EntryDateTime = x.AuditTrail.EntryDateTime,
 												  SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
 												  UsdmVersion = x.AuditTrail.UsdmVersion,
