@@ -378,7 +378,6 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 			nameof(Core.DTO.StudyV5.StudyVersionDto.Rationale),
 			nameof(Core.DTO.StudyV5.StudyVersionDto.Amendments),
 			nameof(Core.DTO.StudyV5.StudyVersionDto.DateValues),
-			nameof(Core.DTO.StudyV5.StudyVersionDto.NarrativeContentItems),
 			nameof(Core.DTO.StudyV5.StudyVersionDto.Abbreviations),
 			nameof(Core.DTO.StudyV5.StudyVersionDto.Notes),
 			nameof(Core.DTO.StudyV5.StudyVersionDto.InstanceType)

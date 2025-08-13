@@ -63,7 +63,11 @@ namespace TransCelerate.SDR.UnitTesting
         public void ApiBehaviourOptionsHelper()
         {
             ApiBehaviourOptionsHelper apiBehaviourOptionsHelper = new(_mockLogger);
-            ActionContext context = new();
+            ActionContext context = new()
+            {
+                HttpContext = new DefaultHttpContext()
+            };
+
             var studyDto = GetDtoDataFromStaticJson();
             studyDto.Study = null;
             var httpContextAccessor = new Mock<IHttpContextAccessor>();
@@ -80,7 +84,10 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsInstanceOf(typeof(BadRequestObjectResult), response);
 
 
-            context.ModelState.Clear();
+            context = new()
+            {
+                HttpContext = new DefaultHttpContext()
+            };
             studyDto = GetDtoDataFromStaticJson();
             studyDto.Study.Versions.FirstOrDefault().Titles = null;
 
