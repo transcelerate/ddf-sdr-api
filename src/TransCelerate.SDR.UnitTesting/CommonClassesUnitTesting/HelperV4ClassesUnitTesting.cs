@@ -63,11 +63,7 @@ namespace TransCelerate.SDR.UnitTesting
         public void ApiBehaviourOptionsHelper()
         {
             ApiBehaviourOptionsHelper apiBehaviourOptionsHelper = new(_mockLogger);
-            ActionContext context = new()
-            {
-                HttpContext = new DefaultHttpContext()
-            };
-
+            ActionContext context = new();
             var studyDto = GetDtoDataFromStaticJson();
             studyDto.Study = null;
             var httpContextAccessor = new Mock<IHttpContextAccessor>();
@@ -84,10 +80,6 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsInstanceOf(typeof(BadRequestObjectResult), response);
 
 
-            context = new()
-            {
-                HttpContext = new DefaultHttpContext()
-            };
             studyDto = GetDtoDataFromStaticJson();
             studyDto.Study.Versions.FirstOrDefault().Titles = null;
 
@@ -163,7 +155,7 @@ namespace TransCelerate.SDR.UnitTesting
             context.Request.Headers["usdmVersion"] = usdmVersion;
             httpContextAccessor.Setup(_ => _.HttpContext).Returns(context);
             ValidationDependenciesV4.AddValidationDependenciesV4(serviceDescriptors);
-            var studyDto = GetDtoDataFromStaticJson();            
+            var studyDto = GetDtoDataFromStaticJson();
         }
 
         #endregion
