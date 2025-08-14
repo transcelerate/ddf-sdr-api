@@ -158,6 +158,7 @@
   - [LogWarning(message)](#M-TransCelerate-SDR-Core-Utilities-LogHelper-LogWarning-System-String- 'TransCelerate.SDR.Core.Utilities.LogHelper.LogWarning(System.String)')
 - [Permissions](#T-TransCelerate-SDR-Core-Utilities-Permissions 'TransCelerate.SDR.Core.Utilities.Permissions')
 - [Route](#T-TransCelerate-SDR-Core-Utilities-Common-Route 'TransCelerate.SDR.Core.Utilities.Common.Route')
+- [RuleValidationErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-RuleValidationErrorModel 'TransCelerate.SDR.Core.ErrorModels.RuleValidationErrorModel')
 - [ScheduledInstanceType](#T-TransCelerate-SDR-Core-Utilities-ScheduledInstanceType 'TransCelerate.SDR.Core.Utilities.ScheduledInstanceType')
 - [SearchTitleResponseDto](#T-TransCelerate-SDR-Core-DTO-Common-SearchTitleResponseDto 'TransCelerate.SDR.Core.DTO.Common.SearchTitleResponseDto')
 - [SortOrder](#T-TransCelerate-SDR-Core-Utilities-SortOrder 'TransCelerate.SDR.Core.Utilities.SortOrder')
@@ -2686,6 +2687,17 @@ TransCelerate.SDR.Core.Utilities.Common
 ##### Summary
 
 This class holds list of routes for all the endpoints
+
+<a name='T-TransCelerate-SDR-Core-ErrorModels-RuleValidationErrorModel'></a>
+## RuleValidationErrorModel `type`
+
+##### Namespace
+
+TransCelerate.SDR.Core.ErrorModels
+
+##### Summary
+
+This class is a model for rule validation errors
 
 <a name='T-TransCelerate-SDR-Core-Utilities-ScheduledInstanceType'></a>
 ## ScheduledInstanceType `type`

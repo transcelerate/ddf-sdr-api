@@ -62,7 +62,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                 {
                     foreach (string element in listofElementsArray)
                     {
-                        if (!Constants.StudyElementsV4.Select(x => x.ToLower()).Contains(element.ToLower()))
+                        if (!Constants.StudyElementsV5.Select(x => x.ToLower()).Contains(element.ToLower()))
                         {
                             isValid = false;
                             break;

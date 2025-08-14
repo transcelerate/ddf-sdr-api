@@ -16,6 +16,7 @@ using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
 using TransCelerate.SDR.DataAccess.Filters;
+using TransCelerate.SDR.RuleEngine.Common;
 using TransCelerate.SDR.RuleEngineV2;
 
 namespace TransCelerate.SDR.UnitTesting
@@ -71,7 +72,6 @@ namespace TransCelerate.SDR.UnitTesting
             contextAccessor.Request.Headers["usdmVersion"] = usdmVersion;
             httpContextAccessor.Setup(_ => _.HttpContext).Returns(contextAccessor);
 
-
             StudyDefinitionsValidator studyDefinitionsValidator = new(httpContextAccessor.Object);
             var errors = studyDefinitionsValidator.Validate(studyDto).Errors;
             context.ModelState.AddModelError("study", errors[0].ErrorMessage);
@@ -79,7 +79,6 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsInstanceOf(typeof(BadRequestObjectResult), response);
 
 
-            context.ModelState.Clear();
             studyDto = GetDtoDataFromStaticJson();
             studyDto.Study.StudyTitle = null;
 

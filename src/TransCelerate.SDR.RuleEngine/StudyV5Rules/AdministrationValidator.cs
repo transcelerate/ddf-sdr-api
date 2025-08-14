@@ -1,103 +1,75 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using TransCelerate.SDR.Core.DTO.StudyV5;
-using TransCelerate.SDR.Core.Utilities.Common;
-using TransCelerate.SDR.Core.Utilities.Helpers;
+using TransCelerate.SDR.RuleEngineV5.Utilities.Helpers;
 
 namespace TransCelerate.SDR.RuleEngineV5
 {
     /// <summary>
-    /// This Class is the validator for Administration
+    /// This class is the validator for Administration
     /// </summary>
     public class AdministrationValidator : AbstractValidator<AdministrationDto>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
+
+        private readonly HashSet<string> _requiredProperties = new()
+        {
+            nameof(AdministrationDto.Id),
+            nameof(AdministrationDto.InstanceType),
+            nameof(AdministrationDto.Name),
+            nameof(AdministrationDto.Duration)
+        };
 
         public AdministrationValidator(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
 
             RuleFor(x => x.Id)
-               .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AdministrationValidator), nameof(AdministrationDto.Id)), ApplyConditionTo.AllValidators);
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.Id), _requiredProperties);
 
             RuleFor(x => x.InstanceType)
-              .Cascade(CascadeMode.Stop)
-              .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-              .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-              .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AdministrationValidator), nameof(AdministrationDto.InstanceType)), ApplyConditionTo.AllValidators)
-              .Must(x => this.GetType().Name.RemoveValidator() == x).WithMessage(Constants.ValidationErrorMessage.InstanceTypeError);
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.InstanceType), _requiredProperties)
+                .MustMatchValidatorInstanceType(this.GetType().Name);
 
             RuleFor(x => x.Name)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AdministrationValidator), nameof(AdministrationDto.Name)), ApplyConditionTo.AllValidators);
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.Name), _requiredProperties);
 
             RuleFor(x => x.Description)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AdministrationValidator), nameof(AdministrationDto.Name)), ApplyConditionTo.AllValidators);
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.Description), _requiredProperties);
 
             RuleFor(x => x.Label)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AdministrationValidator), nameof(AdministrationDto.Name)), ApplyConditionTo.AllValidators);
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.Label), _requiredProperties);
 
             RuleFor(x => x.Frequency)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AdministrationValidator), nameof(AdministrationDto.Frequency)), ApplyConditionTo.AllValidators)
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.Frequency), _requiredProperties)
                 .SetValidator(new AliasCodeValidator(_httpContextAccessor));
 
             RuleFor(x => x.Route)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AdministrationValidator), nameof(AdministrationDto.Route)), ApplyConditionTo.AllValidators)
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.Route), _requiredProperties)
                 .SetValidator(new AliasCodeValidator(_httpContextAccessor));
 
             RuleFor(x => x.Duration)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AdministrationValidator), nameof(AdministrationDto.Duration)), ApplyConditionTo.AllValidators)
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.Duration), _requiredProperties)
                 .SetValidator(new DurationValidator(_httpContextAccessor));
 
             RuleFor(x => x.Dose)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AdministrationValidator), nameof(AdministrationDto.Dose)), ApplyConditionTo.AllValidators)
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.Dose), _requiredProperties)
                 .SetValidator(new QuantityValidator(_httpContextAccessor));
 
             RuleFor(x => x.AdministrableProduct)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AdministrationValidator), nameof(AdministrationDto.AdministrableProduct)), ApplyConditionTo.AllValidators)
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.AdministrableProduct), _requiredProperties)
                 .SetValidator(new AdministrableProductValidator(_httpContextAccessor));
 
             RuleFor(x => x.Notes)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AdministrationValidator), nameof(AdministrationDto.Notes)), ApplyConditionTo.AllValidators);
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.Notes), _requiredProperties);
+
+            RuleFor(x => x.MedicalDevice)
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.MedicalDevice), _requiredProperties)
+                .SetValidator(new MedicalDeviceValidator(_httpContextAccessor));
 
             RuleForEach(x => x.Notes)
                 .SetValidator(new CommentAnnotationValidator(_httpContextAccessor));
-
-             RuleFor(x => x.MedicalDevice)
-                .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(AdministrationValidator), nameof(AdministrationDto.MedicalDevice)), ApplyConditionTo.AllValidators)
-                .SetValidator(new MedicalDeviceValidator(_httpContextAccessor));
         }
     }
 }

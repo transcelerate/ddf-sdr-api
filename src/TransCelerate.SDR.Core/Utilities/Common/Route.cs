@@ -68,6 +68,7 @@
         public const string SearchTitleV2 = "v2/searchstudytitle";
         #endregion
         #endregion
+
         #region Study V3 Routes
         #region GET Method Routes
         public const string StudyV3 = "v3/studydefinitions/{studyId}";
@@ -89,6 +90,7 @@
         public const string ValidateUsdmConformanceV3 = "/v3/studydefinitions/validate-usdm-conformance";
         #endregion
         #endregion
+
         #region Study V4 Routes
         #region GET Method Routes
         public const string StudyV4 = "v4/studydefinitions/{studyId}";
@@ -108,31 +110,33 @@
         public const string PostElementsV4 = "/v4/studydefinitions";
 
         public const string ValidateUsdmConformanceV4 = "/v4/studydefinitions/validate-usdm-conformance";
-		#endregion
-		#endregion
-		#region Study V5 Routes
-		#region GET Method Routes
-		public const string StudyV5 = "v5/studydefinitions/{studyId}";
+        #endregion
+        #endregion
 
-		public const string StudyDesignV5 = "v5/studydesigns";
+        #region Study V5 Routes
+        #region GET Method Routes
+        public const string StudyV5 = "v5/studydefinitions/{studyId}";
 
-		public const string SoAV5 = "v5/studydefinitions/{studyId}/studydesigns/soa";
+        public const string StudyDesignV5 = "v5/studydesigns";
 
-		public const string AuditTrailV5 = "v5/audittrail/{studyId}";
+        public const string SoAV5 = "v5/studydefinitions/{studyId}/studydesigns/soa";
 
-		public const string GeteCPTV5 = "v5/studyDefinitions/{studyId}/studydesigns/eCPT";
+        public const string AuditTrailV5 = "v5/audittrail/{studyId}";
 
-		public const string VersionCompareV5 = "v5/studydefinitions/{studyId}/version-comparison";
-		#endregion
+        public const string GeteCPTV5 = "v5/studyDefinitions/{studyId}/studydesigns/eCPT";
 
-		#region POST Method Routes
-		public const string PostElementsV5 = "/v5/studydefinitions";
+        public const string VersionCompareV5 = "v5/studydefinitions/{studyId}/version-comparison";
+        #endregion
 
-		public const string ValidateUsdmConformanceV5 = "/v5/studydefinitions/validate-usdm-conformance";
-		#endregion
-		#endregion
-		#region User Group Routes
-		public const string GetGroups = "usergroups/getgroups";
+        #region POST Method Routes
+        public const string PostElementsV5 = "/v5/studydefinitions";
+
+        public const string ValidateUsdmConformanceV5 = "/v5/studydefinitions/validate-usdm-conformance";
+        #endregion
+        #endregion
+
+        #region User Group Routes
+        public const string GetGroups = "usergroups/getgroups";
 
         public const string GetUsers = "usergroups/getusers";
 
@@ -169,7 +173,7 @@
         public const string GetStudyHistory = "studydefinitions/history";
         public const string CommonSearch = "studydefinitions/search";
         public const string GetLinksForAStudy = "studydefinitions/{studyId}/links";
-        public const string CommonToken = "auth/token";        
+        public const string CommonToken = "auth/token";
         #endregion
     }
 }

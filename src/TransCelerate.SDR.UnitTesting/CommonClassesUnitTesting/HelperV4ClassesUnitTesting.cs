@@ -16,6 +16,7 @@ using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4;
 using TransCelerate.SDR.DataAccess.Filters;
+using TransCelerate.SDR.RuleEngine.Common;
 using TransCelerate.SDR.RuleEngineV4;
 
 namespace TransCelerate.SDR.UnitTesting
@@ -73,7 +74,6 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsInstanceOf(typeof(BadRequestObjectResult), response);
 
 
-            context.ModelState.Clear();
             studyDto = GetDtoDataFromStaticJson();
             studyDto.Study.Versions.FirstOrDefault().Titles = null;
 
@@ -149,7 +149,7 @@ namespace TransCelerate.SDR.UnitTesting
             context.Request.Headers["usdmVersion"] = usdmVersion;
             httpContextAccessor.Setup(_ => _.HttpContext).Returns(context);
             ValidationDependenciesV4.AddValidationDependenciesV4(serviceDescriptors);
-            var studyDto = GetDtoDataFromStaticJson();            
+            var studyDto = GetDtoDataFromStaticJson();
         }
 
         #endregion

@@ -101,6 +101,27 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         }
 
         /// <summary>
+        /// Validation Response Helper When there is Conformance Rule Error or Invalid Input
+        /// </summary>
+        /// <param name="validationErrorDetails">Object for holding validation errors</param>
+        /// <param name="validationWarningDetails">Object for holding validation warnings</param>
+        /// <param name="message">Message for error response</param>
+        /// <returns>
+        /// A <see cref="ValidationErrorModel"/> When there is Conformance Rule Error or Invalid Input
+        /// </returns>>
+        public static RuleValidationErrorModel ValidationBadRequest(Object validationErrorDetails, Object validationWarningDetails, string message = null)
+        {
+            RuleValidationErrorModel errorModel = new()
+            {
+                StatusCode = ((int)HttpStatusCode.BadRequest).ToString(),
+                Message = message ?? "Conformance Error",
+                Error = validationErrorDetails,
+                Warning = validationWarningDetails
+            };
+            return errorModel;
+        }
+
+        /// <summary>
         /// Resposne Helper When specific method for an API is not called. Ex: When a GET method is called with a POST request.
         /// </summary>
         /// <param name="message">Message for error response</param>

@@ -6,6 +6,7 @@ using System.Reflection.PortableExecutable;
 using TransCelerate.SDR.Core.DTO.StudyV5;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
+using TransCelerate.SDR.RuleEngine.Common;
 
 namespace TransCelerate.SDR.RuleEngineV5
 {

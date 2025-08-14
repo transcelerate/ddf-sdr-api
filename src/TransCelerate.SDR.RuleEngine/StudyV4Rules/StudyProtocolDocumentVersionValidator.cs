@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using TransCelerate.SDR.Core.DTO.StudyV4;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
+using TransCelerate.SDR.RuleEngine.Common;
 
 namespace TransCelerate.SDR.RuleEngineV4
 {
