@@ -851,7 +851,6 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             //_mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
             //        .Throws(new Exception("Error"));
 
-            //StudyV4Controller studyV4Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
             //method = studyV4Controller.ValidateUsdmConformance(study, Constants.USDMVersions.V3);
 
