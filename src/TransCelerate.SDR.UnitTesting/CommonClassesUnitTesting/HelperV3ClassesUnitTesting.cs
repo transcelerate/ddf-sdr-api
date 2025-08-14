@@ -68,11 +68,7 @@ namespace TransCelerate.SDR.UnitTesting
         public void ApiBehaviourOptionsHelper()
         {
             ApiBehaviourOptionsHelper apiBehaviourOptionsHelper = new(_mockLogger);
-            ActionContext context = new()
-            {
-                HttpContext = new DefaultHttpContext()
-            };
-
+            ActionContext context = new();
             var studyDto = GetDtoDataFromStaticJson();
             studyDto.Study = null;
             var httpContextAccessor = new Mock<IHttpContextAccessor>();
@@ -89,10 +85,6 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsInstanceOf(typeof(BadRequestObjectResult), response);
 
 
-            context = new()
-            {
-                HttpContext = new DefaultHttpContext()
-            };
             studyDto = GetDtoDataFromStaticJson();
             studyDto.Study.StudyTitle = null;
 
@@ -186,7 +178,7 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsTrue(Validator<IndicationDto>(new IndicationValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].StudyIndications[0]));
             Assert.IsTrue(Validator<InterCurrentEventDto>(new InterCurrentEventsValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].StudyEstimands[0].IntercurrentEvents[0]));
             Assert.IsTrue(Validator<InvestigationalInterventionDto>(new InvestigationalInterventionValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].StudyInvestigationalInterventions[0]));
-            Assert.IsTrue(Validator<ProcedureDto>(new ProcedureValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].Activities[0].DefinedProcedures[0]));            
+            Assert.IsTrue(Validator<ProcedureDto>(new ProcedureValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].Activities[0].DefinedProcedures[0]));
             Assert.IsTrue(Validator<StudyCellDto>(new StudyCellsValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].StudyCells[0]));
             Assert.IsTrue(Validator<StudyDesignPopulationDto>(new StudyDesignPopulationValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].StudyPopulations[0]));
             Assert.IsTrue(Validator<StudyDesignDto>(new StudyDesignValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0]));
