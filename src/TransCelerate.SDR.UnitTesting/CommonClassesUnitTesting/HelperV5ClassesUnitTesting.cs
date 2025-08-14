@@ -17,6 +17,8 @@ using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5;
 using TransCelerate.SDR.DataAccess.Filters;
+using TransCelerate.SDR.RuleEngine.Common;
+using TransCelerate.SDR.RuleEngine.StudyV5Rules;
 using TransCelerate.SDR.RuleEngineV5;
 
 namespace TransCelerate.SDR.UnitTesting
@@ -71,7 +73,6 @@ namespace TransCelerate.SDR.UnitTesting
             contextAccessor.Request.Headers["usdmVersion"] = usdmVersion;
             httpContextAccessor.Setup(_ => _.HttpContext).Returns(contextAccessor);
 
-
             StudyDefinitionsValidator studyDefinitionsValidator = new(httpContextAccessor.Object);
             var errors = studyDefinitionsValidator.Validate(studyDto).Errors;
             context.ModelState.AddModelError("study", errors[0].ErrorMessage);
@@ -79,7 +80,6 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsInstanceOf(typeof(BadRequestObjectResult), response);
 
 
-            context.ModelState.Clear();
             studyDto = GetDtoDataFromStaticJson();
             studyDto.Study.Versions.FirstOrDefault().Titles = null;
 
@@ -274,7 +274,7 @@ namespace TransCelerate.SDR.UnitTesting
                 };
 
                 // Act
-                    var result = HelperV5.ReferenceIntegrityValidationForStudyRole(studyRole, _validStudy, 0);
+                var result = HelperV5.ReferenceIntegrityValidationForStudyRole(studyRole, _validStudy, 0);
 
                 // Assert
                 Assert.That(result, Is.Empty);
