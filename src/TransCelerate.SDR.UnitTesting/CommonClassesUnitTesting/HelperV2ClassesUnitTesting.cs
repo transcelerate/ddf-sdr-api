@@ -77,7 +77,6 @@ namespace TransCelerate.SDR.UnitTesting
             contextAccessor.Request.Headers["usdmVersion"] = usdmVersion;
             httpContextAccessor.Setup(_ => _.HttpContext).Returns(contextAccessor);
 
-
             StudyDefinitionsValidator studyDefinitionsValidator = new(httpContextAccessor.Object);
             var errors = studyDefinitionsValidator.Validate(studyDto).Errors;
             context.ModelState.AddModelError("study", errors[0].ErrorMessage);
@@ -85,7 +84,6 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsInstanceOf(typeof(BadRequestObjectResult), response);
 
 
-            context.ModelState.Clear();
             studyDto = GetDtoDataFromStaticJson();
             studyDto.Study.StudyTitle = null;
 

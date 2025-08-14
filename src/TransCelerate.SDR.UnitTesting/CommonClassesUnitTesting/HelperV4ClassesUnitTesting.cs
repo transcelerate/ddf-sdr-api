@@ -80,7 +80,6 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsInstanceOf(typeof(BadRequestObjectResult), response);
 
 
-            context.ModelState.Clear();
             studyDto = GetDtoDataFromStaticJson();
             studyDto.Study.Versions.FirstOrDefault().Titles = null;
 
@@ -156,7 +155,7 @@ namespace TransCelerate.SDR.UnitTesting
             context.Request.Headers["usdmVersion"] = usdmVersion;
             httpContextAccessor.Setup(_ => _.HttpContext).Returns(context);
             ValidationDependenciesV4.AddValidationDependenciesV4(serviceDescriptors);
-            var studyDto = GetDtoDataFromStaticJson();            
+            var studyDto = GetDtoDataFromStaticJson();
         }
 
         #endregion
