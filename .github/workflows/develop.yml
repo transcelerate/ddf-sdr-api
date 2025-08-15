@@ -68,7 +68,10 @@ jobs:
     - name: Checkout Code     
       uses: actions/checkout@v4
 
-    # "Note: the 'AZURE_SP' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
+    - name: Find and Replace Key Vault - Using Build Variable
+      run: |
+        sed -i 's@{#KeyVault-Name#}@${{ secrets.KEYVAULT_NAME }}@g' ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/appsettings.json
+
     - name: Azure Login
       uses: azure/login@v1
       with:
