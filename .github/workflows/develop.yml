@@ -86,12 +86,12 @@ jobs:
       with:
         context: .
         push: true
-        tags: ghcr.io/transcelerate/sdrapibuild:latest
+        tags: ghcr.io/transcelerate/sdr-api:latest
         
     - name: Deploy to Azure WebApp
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
-        images: 'ghcr.io/transcelerate/sdrapibuild:latest'     
+        images: 'ghcr.io/transcelerate/sdr-api:latest'     
 
     
