@@ -14,22 +14,15 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build_test_deploy:
+  build_and_test:
     # The type of runner that the job will run on
     runs-on: ubuntu-22.04
     environment: DEV
     steps:   
-    # - name: Set up JDK 17
-    #   uses: actions/setup-java@v1
-    #   # Setup JDK 17
-    #   with:
-    #       java-version: 1.17
           
     - name: Fetch Depth      
-      uses: actions/checkout@v3
-      with:
-          # fetch depth is used to disable shallow cloning while sonarqube analysis
-          fetch-depth: 0
+      uses: actions/checkout@v4
+
            
     - name: Dotnet Setup
       uses: actions/setup-dotnet@v3
@@ -66,7 +59,16 @@ jobs:
         report_name: 'TransCelerate.SDR.UnitTesting'
         report_title: API Tests Report
         github_token: ${{ secrets.GITHUB_TOKEN }}
-  
+   
+  image_deploy:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-22.04
+    environment: DEV
+    steps:   
+           
+    - name: Fetch Depth      
+      uses: actions/checkout@v4
+
     # "Note: the 'AZURE_SP' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
     - name: Azure Login
       uses: azure/login@v1
@@ -80,12 +82,12 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}  
     
-    - run: |
-        cp '${{ github.workspace }}/Dockerfile' '${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net7.0/publish/'
-        cd ${{ github.workspace }}/src/TransCelerate.SDR.WebApi/bin/Release/net7.0/publish/
-        ls
-        docker build . -t ghcr.io/transcelerate/sdrapibuild:latest
-        docker push ghcr.io/transcelerate/sdrapibuild:latest
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        push: true
+        tags: ghcr.io/transcelerate/sdrapibuild:latest
         
     - uses: azure/webapps-deploy@v2
       with:
