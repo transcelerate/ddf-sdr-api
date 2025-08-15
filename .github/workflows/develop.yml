@@ -20,9 +20,8 @@ jobs:
     environment: DEV
     steps:   
           
-    - name: Fetch Depth      
+    - name: Checkout Code      
       uses: actions/checkout@v4
-
            
     - name: Dotnet Setup
       uses: actions/setup-dotnet@v3
@@ -51,7 +50,7 @@ jobs:
         format: 'markdown'
         output: 'both'
         
-    - name: use this action, test solution dir
+    - name: Test Result Reporting
       uses: zyborg/dotnet-tests-report@v1
       # Publish the test cases run in Github
       with:
@@ -66,7 +65,7 @@ jobs:
     environment: DEV
     steps:   
            
-    - name: Fetch Depth      
+    - name: Checkout Code     
       uses: actions/checkout@v4
 
     # "Note: the 'AZURE_SP' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
@@ -89,7 +88,8 @@ jobs:
         push: true
         tags: ghcr.io/transcelerate/sdrapibuild:latest
         
-    - uses: azure/webapps-deploy@v2
+    - name: Deploy to Azure WebApp
+      uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
         images: 'ghcr.io/transcelerate/sdrapibuild:latest'     
