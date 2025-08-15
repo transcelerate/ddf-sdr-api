@@ -32,7 +32,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             var errors = new Dictionary<string, string[]>();
             var warnings = new Dictionary<string, string[]>();
 
-            if (httpContext.Items.TryGetValue("FV.Errors", out var rawErrors) && rawErrors is List<ValidationFailure> failures)
+            if (httpContext?.Items.TryGetValue("FV.Errors", out var rawErrors) == true &&
+                rawErrors is List<ValidationFailure> failures)
             {
                 errors = failures
                     .Where(f => f.Severity == Severity.Error)
