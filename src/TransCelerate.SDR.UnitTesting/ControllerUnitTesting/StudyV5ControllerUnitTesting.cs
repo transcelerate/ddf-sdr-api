@@ -986,7 +986,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = studyV5Controller.ValidateUsdmConformance(study, Constants.USDMVersions.V4);
+            var method = studyV5Controller.ValidateUsdmConformanceAsync(study, Constants.USDMVersions.V4);
 
             //Expected
             var expected = new ErrorModel { Message = $"{SuccessMessages.ValidationSuccess}{USDMVersions.V4}" };
@@ -1009,7 +1009,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
 
-            var method = studyV5Controller.ValidateUsdmConformance(null, Constants.USDMVersions.V4);
+            var method = studyV5Controller.ValidateUsdmConformanceAsync(null, Constants.USDMVersions.V4);
 
 
             //Actual            
@@ -1025,7 +1025,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
                    .Throws(new Exception("Error"));
 
-            method = studyV5Controller.ValidateUsdmConformance(study, Constants.USDMVersions.V4);
+            method = studyV5Controller.ValidateUsdmConformanceAsync(study, Constants.USDMVersions.V4);
 
             //Expected
             var expected1 = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError);
@@ -1044,7 +1044,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
               .Returns(true);
 
-            method = studyV5Controller.ValidateUsdmConformance(study, Constants.USDMVersions.V4);
+            method = studyV5Controller.ValidateUsdmConformanceAsync(study, Constants.USDMVersions.V4);
 
             //Actual            
             actual_result = JsonConvert.DeserializeObject<ErrorModel>(

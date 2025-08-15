@@ -25,5 +25,6 @@
         public static string ApiVersionUsdmVersionMapping { get; set; }
         public static string ConformanceRules { get; set; }
         public static string SdrCptMasterDataMapping { get; set; }
+        public static string CdiscRulesEngine { get; set; }
     }
 }
