@@ -90,6 +90,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string V3 = "v3";
             public const string V4 = "v4";
             public const string V5 = "v5";
+        }    
 
         public struct DbFilter
         {
