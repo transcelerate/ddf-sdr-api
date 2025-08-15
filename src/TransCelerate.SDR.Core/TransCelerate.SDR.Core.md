@@ -19,6 +19,7 @@
   - [InternalServerError(message)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-InternalServerError-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.InternalServerError(System.String)')
   - [MethodNotAllowed(message)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-MethodNotAllowed-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.MethodNotAllowed(System.String)')
   - [NotFound(message)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-NotFound-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.NotFound(System.String)')
+  - [ValidationBadRequest(validationErrorDetails,validationWarningDetails,message)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-ValidationBadRequest-System-Object,System-Object,System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.ValidationBadRequest(System.Object,System.Object,System.String)')
 - [FromDateToDateHelper](#T-TransCelerate-SDR-Core-Utilities-Helpers-FromDateToDateHelper 'TransCelerate.SDR.Core.Utilities.Helpers.FromDateToDateHelper')
   - [GetFromAndToDate(fromDate,toDate,range)](#M-TransCelerate-SDR-Core-Utilities-Helpers-FromDateToDateHelper-GetFromAndToDate-System-DateTime,System-DateTime,System-Int32- 'TransCelerate.SDR.Core.Utilities.Helpers.FromDateToDateHelper.GetFromAndToDate(System.DateTime,System.DateTime,System.Int32)')
 - [HelperV2](#T-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV2-HelperV2 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2.HelperV2')
@@ -399,6 +400,25 @@ A [ErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-ErrorModel 'TransCelerate.S
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
+| message | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Message for error response |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-ValidationBadRequest-System-Object,System-Object,System-String-'></a>
+### ValidationBadRequest(validationErrorDetails,validationWarningDetails,message) `method`
+
+##### Summary
+
+Validation Response Helper When there is Conformance Rule Error or Invalid Input
+
+##### Returns
+
+A [ValidationErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-ValidationErrorModel 'TransCelerate.SDR.Core.ErrorModels.ValidationErrorModel') When there is Conformance Rule Error or Invalid Input
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| validationErrorDetails | [System.Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') | Object for holding validation errors |
+| validationWarningDetails | [System.Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') | Object for holding validation warnings |
 | message | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Message for error response |
 
 <a name='T-TransCelerate-SDR-Core-Utilities-Helpers-FromDateToDateHelper'></a>
