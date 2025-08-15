@@ -14,7 +14,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build_and_test:
+  build_test_deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-22.04
     environment: DEV
@@ -66,13 +66,7 @@ jobs:
         report_name: 'TransCelerate.SDR.UnitTesting'
         report_title: API Tests Report
         github_token: ${{ secrets.GITHUB_TOKEN }}
-   
-  image_deploy:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-22.04
-    environment: DEV
-    steps:   
-           
+  
     # "Note: the 'AZURE_SP' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
     - name: Azure Login
       uses: azure/login@v1
