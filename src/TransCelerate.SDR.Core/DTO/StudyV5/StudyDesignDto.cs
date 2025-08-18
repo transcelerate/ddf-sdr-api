@@ -21,7 +21,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public List<ActivityDto> Activities { get; set; }
         public List<EligibilityCriterionDto> EligibilityCriteria { get; set; }
         public string Rationale { get; set; }
-        public List<BiomedicalConceptDto> BiomedicalConcepts { get; set; }
         public List<BiospecimenRetentionDto> BiospecimenRetentions { get; set; }
         public List<StudyArmDto> Arms { get; set; }
         public List<StudyEpochDto> Epochs { get; set; }

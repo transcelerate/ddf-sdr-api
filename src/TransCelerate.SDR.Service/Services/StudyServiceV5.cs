@@ -354,7 +354,7 @@ namespace TransCelerate.SDR.Services.Services
                                             ActivityIsConditionalReason = GetCondition(conditions, act.Id) is not null ? GetCondition(conditions, act.Id).Text : string.Empty,
                                             ActivityTimelineId = act.TimelineId,
                                             ActivityTimelineName = String.IsNullOrWhiteSpace(act.TimelineId) ? string.Empty : design.ScheduleTimelines.FirstOrDefault(x => x.Id == act.TimelineId)?.Name,
-                                            BiomedicalConcepts = design.BiomedicalConcepts.Where(bc => act.BiomedicalConceptIds != null && act.BiomedicalConceptIds.Any() && act.BiomedicalConceptIds.Contains(bc.Id)).Select(bc => bc.Name).ToList(),
+                                            BiomedicalConcepts = version.BiomedicalConcepts.Where(bc => act.BiomedicalConceptIds != null && act.BiomedicalConceptIds.Any() && act.BiomedicalConceptIds.Contains(bc.Id)).Select(bc => bc.Name).ToList(),
                                             FootnoteId = string.Empty,
                                             FootnoteDescription = GetCondition(conditions, act.Id) is not null ? GetCondition(conditions, act.Id).Text : string.Empty,
                                             DefinedProcedures = act.DefinedProcedures?.Select(y => new ProcedureSoA

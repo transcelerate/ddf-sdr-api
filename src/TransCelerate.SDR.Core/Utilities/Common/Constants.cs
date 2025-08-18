@@ -384,7 +384,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(DTO.StudyV5.StudyVersionDto.Conditions),
             nameof(DTO.StudyV5.StudyVersionDto.BcSurrogates),
             nameof(DTO.StudyV5.StudyVersionDto.BcCategories),
-            nameof(DTO.StudyV5.StudyVersionDto.Dictionaries)
+            nameof(DTO.StudyV5.StudyVersionDto.Dictionaries),
+            nameof(DTO.StudyV5.StudyVersionDto.BiomedicalConcepts)
         };
 
         public static readonly string[] StudyDesignElementsV4 = {
@@ -439,10 +440,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(DTO.StudyV5.StudyDesignDto.Activities),
             nameof(DTO.StudyV5.StudyDesignDto.Encounters),
             nameof(DTO.StudyV5.StudyDesignDto.Rationale),
-            nameof(DTO.StudyV5.StudyDesignDto.BiomedicalConcepts),
             nameof(DTO.StudyV5.StudyDesignDto.Characteristics),
             nameof(DTO.StudyV5.StudyDesignDto.InstanceType),
-            nameof(DTO.StudyV5.StudyDesignDto.StudyPhase),
             nameof(DTO.StudyV5.StudyDesignDto.StudyType)
         };
         public struct FunctionAppConstants
