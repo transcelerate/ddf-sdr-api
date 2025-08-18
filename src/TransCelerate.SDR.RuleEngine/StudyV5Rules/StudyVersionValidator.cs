@@ -92,6 +92,13 @@ namespace TransCelerate.SDR.RuleEngine.StudyV5Rules
                 .WithErrorCode(nameof(RuleConstants.RuleValidationWarningMessages.DDF00171))
                 .WithSeverity(Severity.Warning);
 
+            RuleFor(x => x.BiomedicalConcepts)
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.BiomedicalConcepts), _requiredProperties)
+                .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleForEach(x => x.BiomedicalConcepts)
+                .SetValidator(new BiomedicalConceptValidator(_httpContextAccessor));
+
             RuleForEach(x => x.BusinessTherapeuticAreas)
                 .SetValidator(new CodeValidator(_httpContextAccessor));
 
