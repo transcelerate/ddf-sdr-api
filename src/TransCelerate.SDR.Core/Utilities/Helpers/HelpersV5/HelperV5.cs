@@ -1015,10 +1015,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                     //Design elements
                     var studyVersion = study.Study.Versions.FirstOrDefault();
                     var studyDesigns = studyVersion?.StudyDesigns;
+                    List<string> studyVersionAndDesignIds = study.Study.Versions.Select(x => x.Id).ToList();
 
                     studyDesigns?.ForEach(design =>
                     {
-                        List<string> studyVersionAndDesignIds = study.Study.Versions.Select(x => x.Id).ToList();
                         studyVersionAndDesignIds.AddRange(studyDesigns.Select(x => x.Id));
                         var designIndex = studyDesigns.IndexOf(design);
                         Parallel.Invoke(
