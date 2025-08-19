@@ -25,14 +25,19 @@ namespace TransCelerate.SDR.WebApi.Controllers
         private readonly ILogHelper _logger;
         private readonly IStudyServiceV5 _studyService;
         private readonly IHelperV5 _helper;
+        private readonly IBinaryRunner _binaryRunner;
+        private readonly IFileSystem _fileSystem;
         #endregion
 
         #region Constructor
-        public StudyV5Controller(IStudyServiceV5 studyService, ILogHelper logger, IHelperV5 helper)
+        public StudyV5Controller(IStudyServiceV5 studyService, ILogHelper logger, IHelperV5 helper,
+            IBinaryRunner binaryRunner, IFileSystem fileSystem)
         {
             _logger = logger;
             _studyService = studyService;
             _helper = helper;
+            _binaryRunner = binaryRunner;
+            _fileSystem = fileSystem;
         }
         #endregion
 
@@ -499,27 +504,26 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     var serializer = _helper.GetSerializerSettingsForCamelCasing();
                     var json = JsonConvert.SerializeObject(studyDTO, serializer);
 
-                    await System.IO.File.WriteAllTextAsync(tempInput, json);
+                    await _fileSystem.WriteAllTextAsync(tempInput, json);
 
-                    var normalizedBinaryPath = Config.CdiscRulesEngine.Replace('\\', Path.DirectorySeparatorChar).Replace('/', Path.DirectorySeparatorChar);
-                    var args = $"validate -s usdm -v 4-0 -dp {tempInput} -o {tempOutput} -of json";
-                    var (exitCode, stdOut, stdErr) = await BinaryRunner.RunAsync(normalizedBinaryPath, args);
+                    var args = new[] { "validate", "-s", "usdm", "-v", "4-0", "-dp", tempInput, "-o", tempOutput, "-of", "json" };
+                    var binaryResult = await _binaryRunner.RunAsync(Config.CdiscRulesEngine, args);
 
-                    if (exitCode != 0)
+                    if (binaryResult.ExitCode != 0)
                     {
                         return StatusCode(StatusCodes.Status500InternalServerError,
-                            new JsonResult(ErrorResponseHelper.InternalServerError($"{Constants.ErrorMessages.ErrorMessageForCdiscRulesEngineFailure}{stdErr}")).Value);
+                            new JsonResult(ErrorResponseHelper.InternalServerError($"{Constants.ErrorMessages.ErrorMessageForCdiscRulesEngineFailure}{binaryResult.StdErr}")).Value);
                     }
 
-                    if (!System.IO.File.Exists(reportFile))
+                    if (!_fileSystem.Exists(reportFile))
                     {
                         return StatusCode(StatusCodes.Status500InternalServerError,
                             new JsonResult(ErrorResponseHelper.InternalServerError(Constants.ErrorMessages.ErrorMessageForCdiscRulesEngineOutputNotFound)).Value);
                     }
 
-                    var report = await System.IO.File.ReadAllTextAsync(reportFile);
+                    var report = await _fileSystem.ReadAllTextAsync(reportFile);
 
-                    return Content(report, "application/json");
+                    return Ok(new JsonResult(report).Value);
                 }
                 else
                 {
