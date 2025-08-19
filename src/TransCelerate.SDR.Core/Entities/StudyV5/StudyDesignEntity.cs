@@ -14,7 +14,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public List<CodeEntity> Characteristics { get; set; }
         public List<StudyCellEntity> StudyCells { get; set; }
         public List<IndicationEntity> Indications { get; set; }
-        public List<StudyInterventionEntity> StudyInterventions { get; set; }
+        public List<string> StudyInterventionIds { get; set; }
         public StudyDesignPopulationEntity Population { get; set; }
         public List<ObjectiveEntity> Objectives { get; set; }
         public List<ScheduleTimelineEntity> ScheduleTimelines { get; set; }

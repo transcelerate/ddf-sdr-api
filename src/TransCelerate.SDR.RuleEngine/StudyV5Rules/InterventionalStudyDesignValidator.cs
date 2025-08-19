@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using TransCelerate.SDR.Core.DTO.StudyV5;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
+using TransCelerate.SDR.RuleEngine.Common;
 
 namespace TransCelerate.SDR.RuleEngineV5
 {
@@ -191,14 +192,12 @@ namespace TransCelerate.SDR.RuleEngineV5
             RuleForEach(x => x.Elements)
                 .SetValidator(new StudyElementValidator(_httpContextAccessor));
 
-            RuleFor(x => x.StudyInterventions)
+            RuleFor(x => x.StudyInterventionIds)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(InterventionalStudyDesignValidator), nameof(InterventionalStudyDesignDto.StudyInterventions)), ApplyConditionTo.AllValidators);
-
-            RuleForEach(x => x.StudyInterventions)
-                .SetValidator(new StudyInterventionValidator(_httpContextAccessor));
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(InterventionalStudyDesignValidator), nameof(InterventionalStudyDesignDto.StudyInterventionIds)), ApplyConditionTo.AllValidators)
+                .Must(x => UniquenessArrayValidator.ValidateStringList(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
             RuleFor(x => x.Epochs)
                 .Cascade(CascadeMode.Stop)

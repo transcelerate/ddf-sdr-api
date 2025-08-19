@@ -11,7 +11,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public List<CodeDto> Characteristics { get; set; }
         public List<StudyCellDto> StudyCells { get; set; }
         public List<IndicationDto> Indications { get; set; }
-        public List<StudyInterventionDto> StudyInterventions { get; set; }
+        public List<string> StudyInterventionIds { get; set; }
         public StudyDesignPopulationDto Population { get; set; }
         public List<ObjectiveDto> Objectives { get; set; }
         public List<ScheduleTimelineDto> ScheduleTimelines { get; set; }

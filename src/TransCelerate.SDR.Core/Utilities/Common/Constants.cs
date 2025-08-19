@@ -431,7 +431,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(DTO.StudyV4.StudyDesignDto.Indications),
             nameof(DTO.StudyV4.StudyDesignDto.TrialIntentTypes),
             nameof(DTO.StudyV4.StudyDesignDto.InterventionModel),
-            nameof(DTO.StudyV4.StudyDesignDto.StudyInterventions),
+            nameof(DTO.StudyV4.StudyDesignDto.StudyInterventionIds),
             nameof(DTO.StudyV4.StudyDesignDto.Population),
             nameof(DTO.StudyV4.StudyDesignDto.Objectives),
             nameof(DTO.StudyV4.StudyDesignDto.StudyCells),

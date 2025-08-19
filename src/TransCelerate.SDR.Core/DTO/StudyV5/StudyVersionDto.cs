@@ -18,6 +18,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public List<StudyDesignDto> StudyDesigns { get; set; }
         public List<StudyIdentifierDto> StudyIdentifiers { get; set; }
         public List<StudyTitleDto> Titles { get; set; }
+        public List<StudyInterventionDto> StudyInterventions { get; set; }
         public List<NarrativeContentItemDto> NarrativeContentItems { get; set; }
         public List<StudyRoleDto> Roles { get; set; }
         public List<AdministrableProductDto> AdministrableProducts { get; set; }

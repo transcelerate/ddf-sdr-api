@@ -81,6 +81,10 @@ namespace TransCelerate.SDR.RuleEngine.StudyV5Rules
                 .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.StudyIdentifiers), _requiredProperties)
                 .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
+            RuleFor(x => x.StudyInterventions)
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.StudyInterventions), _requiredProperties)
+                .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
             RuleFor(x => x.Titles)
                 .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.Titles), _requiredProperties)
                 .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError)
@@ -162,6 +166,9 @@ namespace TransCelerate.SDR.RuleEngine.StudyV5Rules
 
             RuleForEach(x => x.StudyIdentifiers)
                 .SetValidator(new StudyIdentifierValidator(_httpContextAccessor));
+
+            RuleForEach(x => x.StudyInterventions)
+                .SetValidator(new StudyInterventionValidator(_httpContextAccessor));
 
             RuleForEach(x => x.Titles)
                 .SetValidator(new StudyTitleValidator(_httpContextAccessor));
