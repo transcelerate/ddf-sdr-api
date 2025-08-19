@@ -1,15 +1,10 @@
 ﻿using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities.StudyV3;
-using TransCelerate.SDR.Core.Entities.UserGroups;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
-using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.DataAccess.Filters;
 using TransCelerate.SDR.DataAccess.Interfaces;
 
@@ -244,29 +239,6 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         }
         #endregion
 
-        #region UserGroup Mapping
-
-        public async Task<List<SDRGroupsEntity>> GetGroupsOfUser(LoggedInUser user)
-        {
-            try
-            {
-                var groupsCollection = _database.GetCollection<UserGroupMappingEntity>(Constants.Collections.SDRGrouping);
-
-                return await groupsCollection.Find(_ => true)
-                                                 .Project(x => x.SDRGroups
-                                                               .Where(x => x.GroupEnabled == true)
-                                                               .Where(x => x.Users != null)
-                                                               .Where(x => x.Users.Any(x => (x.Email == user.UserName && x.IsActive == true)))
-                                                               .ToList())
-                                                 .FirstOrDefaultAsync().ConfigureAwait(false);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-        #endregion
-
         #region DELETE Study
         /// <summary>
         /// Delete all versions of a study
@@ -317,42 +289,6 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             finally
             {
                 _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(CountAsync)};");
-            }
-        }
-        #endregion
-
-        #region Get only studyType
-        public async Task<StudyDefinitionsEntity> GetStudyItemsForCheckingAccessAsync(string studyId, int sdruploadversion)
-        {
-            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(GetStudyItemsForCheckingAccessAsync)};");
-            try
-            {
-                IMongoCollection<StudyDefinitionsEntity> collection = _database.GetCollection<StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
-
-
-                StudyDefinitionsEntity study = await collection.Find(DataFiltersV3.GetFiltersForGetStudy(studyId, sdruploadversion))
-                                                     .SortByDescending(s => s.AuditTrail.EntryDateTime) // Sort by descending on entryDateTime
-                                                     .Project<StudyDefinitionsEntity>(DataFiltersV3.GetProjectionForCheckAccessForAStudy())
-                                                     .Limit(1)                  //Taking top 1 result
-                                                     .SingleOrDefaultAsync().ConfigureAwait(false);
-
-                if (study == null)
-                {
-                    _logger.LogWarning($"There is no study with StudyId : {studyId} in {Constants.Collections.Study} Collection");
-                    return null;
-                }
-                else
-                {
-                    return study;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(GetStudyItemsForCheckingAccessAsync)};");
             }
         }
         #endregion

@@ -7,7 +7,6 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Common;
-using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities.Common;
 using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.Core.Utilities;
@@ -59,11 +58,6 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
             });
             _mockMapper = new Mapper(mockMapper);
         }
-        readonly LoggedInUser user = new()
-        {
-            UserName = "user1@SDR.com",
-            UserRole = Constants.Roles.Org_Admin
-        };
         #endregion
 
 
@@ -74,7 +68,7 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
         {
             ChangeAuditStudyDto study = GetChangeAuditDtoDataFromStaticJson();
 
-            _mockChangeAuditService.Setup(x => x.GetChangeAudit(It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+            _mockChangeAuditService.Setup(x => x.GetChangeAudit(It.IsAny<string>()))
                 .Returns(Task.FromResult(study as object));
             ChangeAuditController changeAuditController = new(_mockChangeAuditService.Object, _mockLogHelper);
 
@@ -95,9 +89,7 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
         [Test]
         public void ChangeAuditController_Failure_UnitTesting()
         {
-            ChangeAuditStudyDto study = GetChangeAuditDtoDataFromStaticJson();
-
-            _mockChangeAuditService.Setup(x => x.GetChangeAudit(It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+            _mockChangeAuditService.Setup(x => x.GetChangeAudit(It.IsAny<string>()))
                 .Returns(Task.FromResult(null as object));
             ChangeAuditController changeAuditController = new(_mockChangeAuditService.Object, _mockLogHelper);
 
@@ -114,20 +106,7 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
             Assert.AreEqual(expected.Message, actual_result.Message);
             Assert.IsInstanceOf(typeof(NotFoundObjectResult), result);
 
-            _mockChangeAuditService.Setup(x => x.GetChangeAudit(It.IsAny<string>(), It.IsAny<LoggedInUser>()))
-               .Returns(Task.FromResult(Constants.ErrorMessages.Forbidden as object));
-
-            method = changeAuditController.GetChangeAudit("sd");
-            method.Wait();
-            result = method.Result;
-
-            //Expected
-            expected = new ErrorModel { Message = Constants.ErrorMessages.Forbidden, StatusCode = "403" };
-
-            //Actual            
-            actual_result = (result as ObjectResult).Value as ErrorModel;
-
-            _mockChangeAuditService.Setup(x => x.GetChangeAudit(It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+            _mockChangeAuditService.Setup(x => x.GetChangeAudit(It.IsAny<string>()))
               .Throws(new Exception(""));
 
             method = changeAuditController.GetChangeAudit("sd");
@@ -166,10 +145,10 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
         {
             _mockChangeAuditRepository.Setup(x => x.GetChangeAuditAsync(It.IsAny<string>()))
                 .Returns(Task.FromResult(GetChangeAuditEntityDataFromStaticJson()));
-            _mockCommonService.Setup(x => x.GetRawJson(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+            _mockCommonService.Setup(x => x.GetRawJson(It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(Task.FromResult(GetEntityDataFromStaticJson() as object));
             ChangeAuditService changeAuditService = new(_mockChangeAuditRepository.Object, _mockMapper, _mockLogHelper, _mockCommonService.Object);
-            var method = changeAuditService.GetChangeAudit("sd", user);
+            var method = changeAuditService.GetChangeAudit("sd");
             method.Wait();
             var result = method.Result;
 
@@ -182,22 +161,11 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
             Assert.AreEqual(expected.ChangeAudit.StudyId, actual.ChangeAudit.StudyId);
 
             _mockChangeAuditRepository.Setup(x => x.GetChangeAuditAsync(It.IsAny<string>()))
-                .Returns(Task.FromResult(GetChangeAuditEntityDataFromStaticJson()));
-            _mockCommonService.Setup(x => x.GetRawJson(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
-                .Returns(Task.FromResult(null as object));
-
-            method = changeAuditService.GetChangeAudit("sd", user);
-            method.Wait();
-            result = method.Result;
-
-            Assert.AreEqual(Constants.ErrorMessages.Forbidden, result as string);
-
-            _mockChangeAuditRepository.Setup(x => x.GetChangeAuditAsync(It.IsAny<string>()))
                .Returns(Task.FromResult(null as ChangeAuditStudyEntity));
-            _mockCommonService.Setup(x => x.GetRawJson(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<LoggedInUser>()))
+            _mockCommonService.Setup(x => x.GetRawJson(It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(Task.FromResult(null as object));
 
-            method = changeAuditService.GetChangeAudit("sd", user);
+            method = changeAuditService.GetChangeAudit("sd");
             method.Wait();
             result = method.Result;
 
@@ -207,7 +175,7 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
               .Throws(new Exception());
 
 
-            method = changeAuditService.GetChangeAudit("sd", user);
+            method = changeAuditService.GetChangeAudit("sd");
 
             Assert.Throws<AggregateException>(() => method.Wait());
         }

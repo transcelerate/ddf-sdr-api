@@ -21,15 +21,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
         /// <summary>
         /// Get Audit Trail fields for the POST Api
         /// </summary>
-        /// <param name="user"></param>
         /// <param name="usdmVersion"></param>
         /// <returns></returns>
-        public AuditTrailEntity GetAuditTrail(string user, string usdmVersion)
+        public AuditTrailEntity GetAuditTrail(string usdmVersion)
         {
             return new AuditTrailEntity
             {
                 EntryDateTime = DateTime.UtcNow,
-                CreatedBy = user,
                 UsdmVersion = usdmVersion
             };
         }
@@ -57,7 +55,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
         public bool AreValidStudyElements(string listofelements, out string[] listofElementsArray)
         {
             bool isValid = true;
-            listofElementsArray = listofelements?.Split(Constants.Roles.Seperator);
+            listofElementsArray = listofelements?.Split(Constants.Separators.Comma);
             if (listofelements is not null)
             {
                 if (listofElementsArray is not null)
@@ -83,7 +81,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
         public bool AreValidStudyDesignElements(string listofelements, out string[] listofElementsArray)
         {
             bool isValid = true;
-            listofElementsArray = listofelements?.Split(Constants.Roles.Seperator);
+            listofElementsArray = listofelements?.Split(Constants.Separators.Comma);
             if (listofelements is not null)
             {
                 if (listofElementsArray is not null)
