@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TransCelerate.SDR.Core.DTO.StudyV5;
-using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities.StudyV5;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
@@ -30,11 +29,7 @@ namespace TransCelerate.SDR.UnitTesting
         private readonly ILogHelper _mockLogger = Mock.Of<ILogHelper>();
         #endregion
         #region Setup
-        readonly LoggedInUser user = new()
-        {
-            UserName = "user1@SDR.com",
-            UserRole = Constants.Roles.Org_Admin
-        };
+
 
         public static StudyDefinitionsDto GetDtoDataFromStaticJson()
         {
@@ -56,7 +51,7 @@ namespace TransCelerate.SDR.UnitTesting
         public void HelpersUnitTesting()
         {
             HelperV5 helper = new();
-            AuditTrailEntity auditTrailEntity = helper.GetAuditTrail(user.UserName, Constants.USDMVersions.V4);
+            AuditTrailEntity auditTrailEntity = helper.GetAuditTrail(Constants.USDMVersions.V4);
             Assert.IsInstanceOf(typeof(DateTime), auditTrailEntity.EntryDateTime);
         }
 
@@ -208,10 +203,10 @@ namespace TransCelerate.SDR.UnitTesting
                 )
             );
             studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands[0].Id = "123";
-            studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands[0].Interventions[0].Id = "124";
+            studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands[0].InterventionIds[0] = "124";
 
             studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands[0].Id = "124";
-            studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands[0].Interventions[0].Id = "124";
+            studyDto.Study.Versions.FirstOrDefault().StudyDesigns[0].Estimands[0].InterventionIds[0] = "124";
 
             HelperV5 helper = new();
             var result = helper.ReferenceIntegrityValidation(studyDto, out object _);

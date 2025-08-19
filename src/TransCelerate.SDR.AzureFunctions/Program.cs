@@ -24,7 +24,7 @@ var host = new HostBuilder()
     {
         if (Environment.GetEnvironmentVariable("AZURE_FUNCTIONS_ENVIRONMENT") == "Development") // Only for running in Local
         {
-            Config.ConnectionString = System.Environment.GetEnvironmentVariable("ConnectionStrings:ServerName");
+            Config.ConnectionString = System.Environment.GetEnvironmentVariable("ConnectionStrings:DefaultConnection");
             Config.DatabaseName = System.Environment.GetEnvironmentVariable("ConnectionStrings:DatabaseName");
             Config.ApiVersionUsdmVersionMapping = System.Environment.GetEnvironmentVariable("ApiVersionUsdmVersionMapping");
         }
@@ -38,7 +38,7 @@ var host = new HostBuilder()
 
 
 
-            Config.ConnectionString = Convert.ToString(buildConfig["ConnectionStrings:ServerName"]);
+            Config.ConnectionString = Convert.ToString(buildConfig["ConnectionStrings:DefaultConnection"]);
             Config.DatabaseName = Convert.ToString(buildConfig["ConnectionStrings:DatabaseName"]);
             Config.ApiVersionUsdmVersionMapping = Convert.ToString(buildConfig["ApiVersionUsdmVersionMapping"]);
         }

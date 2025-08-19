@@ -5,6 +5,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
     public class StudyCohortEntity : PopulationDefinitionEntity
     {
         public List<CharacteristicEntity> Characteristics { get; set; }
-        public List<IndicationEntity> Indications { get; set; } 
+        public List<string> IndicationIds { get; set; } 
     }
 }

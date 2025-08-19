@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace TransCelerate.SDR.Core.DTO.StudyV5
+﻿namespace TransCelerate.SDR.Core.DTO.StudyV5
 {
     public class SubjectEnrollmentDto : IId
     {
@@ -11,7 +9,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public string Label { get; set; }
         public QuantityDto Quantity { get; set; }
         public GeographicScopeDto ForGeographicScope { get; set; } 
-        public StudyCohortDto ForStudyCohort { get; set; } 
-        public StudySiteDto ForStudySite { get; set; } 
+        public string ForStudyCohortId { get; set; } 
+        public string ForStudySiteId { get; set; } 
     }
 }

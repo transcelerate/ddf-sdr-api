@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using TransCelerate.SDR.Core.DTO.StudyV5;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
+using TransCelerate.SDR.RuleEngine.Common;
 
 namespace TransCelerate.SDR.RuleEngineV5
 {
@@ -176,14 +177,11 @@ namespace TransCelerate.SDR.RuleEngineV5
             RuleForEach(x => x.StudyCells)
                 .SetValidator(new StudyCellValidator(_httpContextAccessor));
 
-            RuleFor(x => x.DocumentVersions)
+            RuleFor(x => x.DocumentVersionIds)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ObservationalStudyDesignValidator), nameof(ObservationalStudyDesignDto.DocumentVersions)), ApplyConditionTo.AllValidators);
-
-            RuleForEach(x => x.DocumentVersions)
-                .SetValidator(new StudyDefinitionDocumentVersionValidator(_httpContextAccessor));
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ObservationalStudyDesignValidator), nameof(ObservationalStudyDesignDto.DocumentVersionIds)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.Elements)
                 .Cascade(CascadeMode.Stop)
@@ -194,14 +192,12 @@ namespace TransCelerate.SDR.RuleEngineV5
             RuleForEach(x => x.Elements)
                 .SetValidator(new StudyElementValidator(_httpContextAccessor));
 
-            RuleFor(x => x.StudyInterventions)
+            RuleFor(x => x.StudyInterventionIds)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ObservationalStudyDesignValidator), nameof(ObservationalStudyDesignDto.StudyInterventions)), ApplyConditionTo.AllValidators);
-
-            RuleForEach(x => x.StudyInterventions)
-                .SetValidator(new StudyInterventionValidator(_httpContextAccessor));
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ObservationalStudyDesignValidator), nameof(ObservationalStudyDesignDto.StudyInterventionIds)), ApplyConditionTo.AllValidators)
+                .Must(x => UniquenessArrayValidator.ValidateStringList(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
             RuleFor(x => x.Epochs)
                 .Cascade(CascadeMode.Stop)

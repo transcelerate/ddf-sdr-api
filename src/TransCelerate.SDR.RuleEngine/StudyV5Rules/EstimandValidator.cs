@@ -53,14 +53,11 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EstimandValidator), nameof(EstimandDto.Label)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.Interventions)
+            RuleFor(x => x.InterventionIds)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EstimandValidator), nameof(EstimandDto.Interventions)), ApplyConditionTo.AllValidators);
-
-            RuleForEach(x => x.Interventions)
-                .SetValidator(new StudyInterventionValidator(_httpContextAccessor));
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EstimandValidator), nameof(EstimandDto.InterventionIds)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.AnalysisPopulationId)
                 .Cascade(CascadeMode.Stop)
@@ -77,12 +74,11 @@ namespace TransCelerate.SDR.RuleEngineV5
             RuleForEach(x => x.Notes)
                 .SetValidator(new CommentAnnotationValidator(_httpContextAccessor));
 
-            RuleFor(x => x.VariableOfInterest)
+            RuleFor(x => x.VariableOfInterestId)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EstimandValidator), nameof(EstimandDto.VariableOfInterest)), ApplyConditionTo.AllValidators)
-                .SetValidator(new EndpointValidator(_httpContextAccessor));
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EstimandValidator), nameof(EstimandDto.VariableOfInterestId)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.IntercurrentEvents)
                 .Cascade(CascadeMode.Stop)
