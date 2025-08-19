@@ -30,7 +30,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public List<CommentAnnotationDto> Notes { get; set; }
         public AliasCodeDto StudyPhase { get; set; }
         public CodeDto StudyType { get; set; }
-        
         public List<AnalysisPopulationDto> AnalysisPopulations { get; set; }
     }
 }
