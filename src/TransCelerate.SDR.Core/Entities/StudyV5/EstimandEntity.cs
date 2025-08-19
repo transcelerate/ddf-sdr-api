@@ -14,7 +14,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public List<StudyInterventionEntity> Interventions { get; set; }
         public AnalysisPopulationEntity AnalysisPopulation { get; set; }
         public List<CommentAnnotationEntity> Notes { get; set; }
-        public EndpointEntity VariableOfInterest { get; set; }
+        public string VariableOfInterestId { get; set; }
         public List<IntercurrentEventEntity> IntercurrentEvents { get; set; }
     }
 }

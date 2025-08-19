@@ -32,22 +32,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         }
 
         /// <summary>
-        /// Resposne Helper When there is an Unauthorized Access
-        /// </summary>
-        /// <returns>
-        /// A <see cref="ErrorModel"/> When there is an Unauthorized Access      
-        /// </returns>>
-        public static ErrorModel UnAuthorizedAccess(string message = null)
-        {
-            ErrorModel errorModel = new()
-            {
-                StatusCode = ((int)HttpStatusCode.Unauthorized).ToString(),
-                Message = message ?? Constants.ErrorMessages.UnAuthorized
-            };
-            return errorModel;
-        }
-
-        /// <summary>
         /// Resposne Helper When the resource is Not Found
         /// </summary>
         /// <param name="message">Message for error response</param>
@@ -166,22 +150,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             {
                 StatusCode = ((int)HttpStatusCode.InternalServerError).ToString(),
                 Message = message ?? "Internal Server Error"
-            };
-            return errorModel;
-        }
-        /// <summary>
-        /// Resposne Helper When the user is accessing a restricted data or APi
-        /// </summary>
-        /// <param name="message">Message for error response</param>
-        /// <returns>
-        /// A <see cref="ErrorModel"/> 
-        /// </returns>>
-        public static ErrorModel Forbidden(string message = null)
-        {
-            ErrorModel errorModel = new()
-            {
-                StatusCode = ((int)HttpStatusCode.Forbidden).ToString(),
-                Message = message ?? Constants.ErrorMessages.Forbidden
             };
             return errorModel;
         }

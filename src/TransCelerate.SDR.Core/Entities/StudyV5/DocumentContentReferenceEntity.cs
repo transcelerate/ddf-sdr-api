@@ -6,6 +6,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public string InstanceType { get; set; }
         public string SectionNumber { get; set; }
         public string SectionTitle { get; set; }
-        public StudyDefinitionDocumentEntity AppliesTo { get; set; }
+        public string AppliesToId { get; set; }
     }
 }

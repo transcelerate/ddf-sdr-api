@@ -1,13 +1,9 @@
 ﻿using AutoMapper;
-using System.Collections.Generic;
 using System.Linq;
 using TransCelerate.SDR.Core.DTO.Common;
-using TransCelerate.SDR.Core.DTO.UserGroups;
 using TransCelerate.SDR.Core.Entities.Common;
-using TransCelerate.SDR.Core.Entities.UserGroups;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
-using static TransCelerate.SDR.Core.Utilities.Common.Constants;
 
 namespace TransCelerate.SDR.WebApi.Mappers
 {
@@ -17,32 +13,6 @@ namespace TransCelerate.SDR.WebApi.Mappers
         {
             AllowNullCollections = true;
             AllowNullDestinationValues = true;
-
-            //Mapper for User Group Mapping
-            CreateMap<SDRGroupsEntity, SDRGroupsDTO>()
-                .ForMember(dest => dest.GroupCreatedOn, opt => opt.MapFrom(src => src.GroupCreatedOn.ToString(Constants.DateFormats.DateFormatForAuditResponse).ToUpper()))
-                .ForMember(dest => dest.GroupModifiedOn, opt => opt.MapFrom(src => src.GroupModifiedOn.ToString(Constants.DateFormats.DateFormatForAuditResponse).ToUpper()))
-                .AfterMap((src, dest) =>
-                {
-                    if (src.Users != null && src.Users.Count > 0)
-                    {
-                        dest.Users.ForEach(x => x.GroupName = src.GroupName);
-                        dest.Users.ForEach(x => x.GroupId = src.GroupId);
-                        dest.Users.ForEach(x => x.GroupModifiedOn = src.GroupModifiedOn);
-                    }
-                })
-                .ReverseMap();
-            CreateMap<UsersEntity, UsersDTO>().ReverseMap();
-            CreateMap<UserGroupMappingEntity, UserGroupMappingDTO>().ReverseMap();
-            CreateMap<GroupFilterEntity, GroupFilterDTO>().ReverseMap();
-            CreateMap<GroupDetailsEntity, GroupDetailsDTO>()
-                .ForMember(dest => dest.GroupCreatedOn, opt => opt.MapFrom(src => src.GroupCreatedOn.ToString(Constants.DateFormats.DateFormatForAuditResponse).ToUpper()))
-                .ForMember(dest => dest.GroupModifiedOn, opt => opt.MapFrom(src => src.GroupModifiedOn.ToString(Constants.DateFormats.DateFormatForAuditResponse).ToUpper()))
-                .ReverseMap();
-            CreateMap<GroupListEntity, GroupListDTO>().ReverseMap();
-            CreateMap<GroupFilterValuesEntity, GroupFilterValuesDTO>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.GroupFilterValueId))
-                .ReverseMap();
 
             //Mapper for AuditTrail
             CreateMap<AuditTrailDto, AuditTrailResponseEntity>().ReverseMap();
