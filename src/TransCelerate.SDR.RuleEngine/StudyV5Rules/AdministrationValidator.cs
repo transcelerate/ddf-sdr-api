@@ -57,16 +57,14 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .NotNullOrEmptyIfRequired(nameof(AdministrationDto.Dose), _requiredProperties)
                 .SetValidator(new QuantityValidator(_httpContextAccessor));
 
-            RuleFor(x => x.AdministrableProduct)
-                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.AdministrableProduct), _requiredProperties)
-                .SetValidator(new AdministrableProductValidator(_httpContextAccessor));
+            RuleFor(x => x.AdministrableProductId)
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.AdministrableProductId), _requiredProperties);
 
             RuleFor(x => x.Notes)
                 .NotNullOrEmptyIfRequired(nameof(AdministrationDto.Notes), _requiredProperties);
 
-            RuleFor(x => x.MedicalDevice)
-                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.MedicalDevice), _requiredProperties)
-                .SetValidator(new MedicalDeviceValidator(_httpContextAccessor));
+            RuleFor(x => x.MedicalDeviceId)
+                .NotNullOrEmptyIfRequired(nameof(AdministrationDto.MedicalDeviceId), _requiredProperties);
 
             RuleForEach(x => x.Notes)
                 .SetValidator(new CommentAnnotationValidator(_httpContextAccessor));

@@ -16,7 +16,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public AliasCodeEntity Route { get; set; }
         public DurationEntity Duration { get; set; }
         public List<CommentAnnotationEntity> Notes { get; set; }
-        public AdministrableProductEntity AdministrableProduct { get; set; }
-        public MedicalDeviceEntity MedicalDevice { get; set; }
+        public string AdministrableProductId { get; set; }
+        public string MedicalDeviceId { get; set; }
     }
 }

@@ -11,10 +11,10 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public string Name { get; set; }
         public string Description { get; set; }
         public string Label { get; set; }
-        public List<StudyInterventionEntity> Interventions { get; set; }
+        public List<string> InterventionIds { get; set; }
         public AnalysisPopulationEntity AnalysisPopulation { get; set; }
         public List<CommentAnnotationEntity> Notes { get; set; }
-        public EndpointEntity VariableOfInterest { get; set; }
+        public string VariableOfInterestId { get; set; }
         public List<IntercurrentEventEntity> IntercurrentEvents { get; set; }
     }
 }

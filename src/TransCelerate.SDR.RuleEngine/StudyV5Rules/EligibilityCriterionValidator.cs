@@ -72,14 +72,13 @@ namespace TransCelerate.SDR.RuleEngineV5
 
 			RuleForEach(x => x.Notes)
    			    .SetValidator(new CommentAnnotationValidator(_httpContextAccessor));
-			
-			
-			RuleFor(x => x.CriterionItem)
-			    .Cascade(CascadeMode.Stop)
-			    .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-			    .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-			    .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EligibilityCriterionValidator), nameof(EligibilityCriterionDto.CriterionItem)), ApplyConditionTo.AllValidators)
-			    .SetValidator(new EligibilityCriterionItemValidator(_httpContextAccessor));
+
+
+			RuleFor(x => x.CriterionItemId)
+				.Cascade(CascadeMode.Stop)
+				.NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+				.NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+				.When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EligibilityCriterionValidator), nameof(EligibilityCriterionDto.CriterionItemId)), ApplyConditionTo.AllValidators);
 
 			RuleFor(x => x.PreviousId)
 			   .Cascade(CascadeMode.Stop)

@@ -1,0 +1,30 @@
+# Common build artifacts
+**/bin/
+**/obj/
+**/out/
+
+# Development files
+**/.vs/
+**/.vscode/
+**/.idea/
+**/*.user
+**/*.userosscache
+**/*.dbmdl
+**/*.jfm
+
+# Git
+**/.git/
+**/.gitignore
+**/.gitattributes
+**/.github/
+
+# Docker
+**/Dockerfile*
+**/.dockerignore
+**/docker-compose*
+
+# Documentation
+**/documents/
+**/data-model/
+**/*.md
+**/LICENSE
