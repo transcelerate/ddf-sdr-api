@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.DTO.StudyV5
 {
@@ -24,5 +24,10 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public List<ProductOrganizationRoleDto> ProductOrganizationRoles { get; set; }
         public List<MedicalDeviceDto> MedicalDevices { get; set; }
         public List<EligibilityCriterionItemDto> EligibilityCriterionItems { get; set; }
+        public List<ConditionDto> Conditions { get; set; }
+        public List<BiomedicalConceptSurrogateDto> BcSurrogates { get; set; }
+        public List<BiomedicalConceptCategoryDto> BcCategories { get; set; }
+        public List<SyntaxTemplateDictionaryDto> Dictionaries { get; set; }
+        public List<BiomedicalConceptDto> BiomedicalConcepts { get; set; }
     }
 }

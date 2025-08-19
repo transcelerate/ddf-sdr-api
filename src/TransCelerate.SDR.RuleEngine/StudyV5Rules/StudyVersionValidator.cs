@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
@@ -110,11 +110,34 @@ namespace TransCelerate.SDR.RuleEngine.StudyV5Rules
                 .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.EligibilityCriterionItems), _requiredProperties)
                 .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
+            RuleFor(x => x.Conditions)
+               .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.Conditions), _requiredProperties)
+               .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleFor(x => x.BcSurrogates)
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.BcSurrogates), _requiredProperties)
+                .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleFor(x => x.BcCategories)
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.BcCategories), _requiredProperties)
+                .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleFor(x => x.Dictionaries)
+               .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.Dictionaries), _requiredProperties)
+               .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
             RuleFor(x => x.Abbreviations)
                 .Must(x => AbbreviationValidator.ValidateExpandedText(x))
                 .WithMessage(RuleConstants.RuleValidationWarningMessages.DDF00171)
                 .WithErrorCode(nameof(RuleConstants.RuleValidationWarningMessages.DDF00171))
                 .WithSeverity(Severity.Warning);
+
+            RuleFor(x => x.BiomedicalConcepts)
+                .NotNullOrEmptyIfRequired(nameof(StudyVersionDto.BiomedicalConcepts), _requiredProperties)
+                .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleForEach(x => x.BiomedicalConcepts)
+                .SetValidator(new BiomedicalConceptValidator(_httpContextAccessor));
 
             RuleForEach(x => x.BusinessTherapeuticAreas)
                 .SetValidator(new CodeValidator(_httpContextAccessor));
@@ -160,6 +183,18 @@ namespace TransCelerate.SDR.RuleEngine.StudyV5Rules
 
             RuleForEach(x => x.EligibilityCriterionItems)
                 .SetValidator(new EligibilityCriterionItemValidator(_httpContextAccessor));
+
+            RuleForEach(x => x.Conditions)
+                .SetValidator(new ConditionValidator(_httpContextAccessor));
+
+            RuleForEach(x => x.BcSurrogates)
+                .SetValidator(new BiomedicalConceptSurrogateValidator(_httpContextAccessor));
+
+            RuleForEach(x => x.BcCategories)
+                .SetValidator(new BiomedicalConceptCategoryValidator(_httpContextAccessor));
+            
+            RuleForEach(x => x.Dictionaries)
+                .SetValidator(new SyntaxTemplateDictionaryValidator(_httpContextAccessor));
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV5
 {
@@ -26,5 +26,10 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public List<ProductOrganizationRoleEntity> ProductOrganizationRoles { get; set; }
         public List<MedicalDeviceEntity> MedicalDevices { get; set; }
         public List<EligibilityCriterionItemEntity> EligibilityCriterionItems { get; set; }
+        public List<ConditionEntity> Conditions { get; set; }
+        public List<BiomedicalConceptSurrogateEntity> BcSurrogates { get; set; }
+        public List<BiomedicalConceptCategoryEntity> BcCategories { get; set; }
+        public List<SyntaxTemplateDictionaryEntity> Dictionaries { get; set; }
+        public List<BiomedicalConceptEntity> BiomedicalConcepts { get; set; }
     }
 }
