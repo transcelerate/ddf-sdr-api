@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using ObjectsComparer;
@@ -213,8 +213,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Epochs).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Elements).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Elements).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.DocumentVersions).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.DocumentVersions).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
+                            else if (item == nameof(StudyDesignDto.DocumentVersionIds).ToLower())
+                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.DocumentVersionIds).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Characteristics).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Characteristics).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyPhase).ToLower())
@@ -1110,13 +1110,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
 
                     version.StudyDesigns?.ForEach(design =>
                     {
-                        design.DocumentVersions.ForEach(documentVersion =>
+                        design.DocumentVersionIds.ForEach(documentVersionId =>
                         {
-                            if (!String.IsNullOrWhiteSpace(documentVersion.Id) && !studyDocumentVersionIds.Contains(documentVersion.Id))
+                            if (!String.IsNullOrWhiteSpace(documentVersionId) && !studyDocumentVersionIds.Contains(documentVersionId))
                                 errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
                                     $"{nameof(StudyDto.Versions)}[{study.Study.Versions.IndexOf(version)}]." +
                                     $"{nameof(StudyVersionDto.StudyDesigns)}[{version.StudyDesigns.IndexOf(design)}]." +
-                                    $"{nameof(StudyDesignDto.DocumentVersions)}");
+                                    $"{nameof(StudyDesignDto.DocumentVersionIds)}");
                         });
                     });
                 });

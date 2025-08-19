@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.DTO.StudyV5
 {
@@ -25,7 +25,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public List<StudyArmDto> Arms { get; set; }
         public List<StudyEpochDto> Epochs { get; set; }
         public List<StudyElementDto> Elements { get; set; }        
-        public List<StudyDefinitionDocumentVersionDto> DocumentVersions { get; set; }
+        public List<string> DocumentVersionIds { get; set; }
         public string InstanceType { get; set; }
         public List<CommentAnnotationDto> Notes { get; set; }
         public AliasCodeDto StudyPhase { get; set; }

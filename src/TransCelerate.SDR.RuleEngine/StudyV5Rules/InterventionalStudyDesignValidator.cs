@@ -176,14 +176,11 @@ namespace TransCelerate.SDR.RuleEngineV5
             RuleForEach(x => x.StudyCells)
                 .SetValidator(new StudyCellValidator(_httpContextAccessor));
 
-            RuleFor(x => x.DocumentVersions)
+            RuleFor(x => x.DocumentVersionIds)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(InterventionalStudyDesignValidator), nameof(InterventionalStudyDesignDto.DocumentVersions)), ApplyConditionTo.AllValidators);
-
-            RuleForEach(x => x.DocumentVersions)
-                .SetValidator(new StudyDefinitionDocumentVersionValidator(_httpContextAccessor));
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(InterventionalStudyDesignValidator), nameof(InterventionalStudyDesignDto.DocumentVersionIds)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.Elements)
                 .Cascade(CascadeMode.Stop)

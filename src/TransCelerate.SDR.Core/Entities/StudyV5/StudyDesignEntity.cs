@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV5
 {
@@ -28,7 +28,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public List<StudyArmEntity> Arms { get; set; }
         public List<StudyEpochEntity> Epochs { get; set; }
         public List<StudyElementEntity> Elements { get; set; }
-        public List<StudyDefinitionDocumentVersionEntity> DocumentVersions { get; set; }
+        public List<string> DocumentVersionIds { get; set; }
         public AliasCodeEntity StudyPhase { get; set; }
         public CodeEntity StudyType { get; set; }
         public List<CommentAnnotationEntity> Notes { get; set; }
