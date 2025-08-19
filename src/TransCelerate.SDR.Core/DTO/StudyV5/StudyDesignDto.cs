@@ -21,16 +21,11 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public List<ActivityDto> Activities { get; set; }
         public List<EligibilityCriterionDto> EligibilityCriteria { get; set; }
         public string Rationale { get; set; }
-        public List<BiomedicalConceptDto> BiomedicalConcepts { get; set; }
         public List<BiospecimenRetentionDto> BiospecimenRetentions { get; set; }
-        public List<BiomedicalConceptCategoryDto> BcCategories { get; set; }
-        public List<BiomedicalConceptSurrogateDto> BcSurrogates { get; set; }
         public List<StudyArmDto> Arms { get; set; }
         public List<StudyEpochDto> Epochs { get; set; }
         public List<StudyElementDto> Elements { get; set; }        
         public List<StudyDefinitionDocumentVersionDto> DocumentVersions { get; set; }
-        public List<SyntaxTemplateDictionaryDto> Dictionaries { get; set; }
-        public List<ConditionDto> Conditions { get; set; }
         public string InstanceType { get; set; }
         public List<CommentAnnotationDto> Notes { get; set; }
         public AliasCodeDto StudyPhase { get; set; }
