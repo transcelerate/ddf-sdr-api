@@ -9,12 +9,9 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Common;
-using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities.Common;
-using TransCelerate.SDR.Core.Entities.UserGroups;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
-using TransCelerate.SDR.Core.Utilities.Enums;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.DataAccess.Interfaces;
 using TransCelerate.SDR.Services.Services;
@@ -31,12 +28,6 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         #endregion
 
         #region Setup
-        public static UserGroupMappingEntity GetUserDataFromStaticJson()
-        {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/UserGroupMappingData_ForEntity.json");
-            var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingEntity>(jsonData);
-            return userGrouppMapping;
-        }
         public static List<SearchTitleResponseEntity> GetSearchResponse()
         {
             CommonStudyDefinitionsEntity mvp = GetData(Constants.USDMVersions.MVP);
@@ -102,11 +93,6 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 return v2;
             }
         }
-        readonly LoggedInUser user = new()
-        {
-            UserName = "user1@SDR.com",
-            UserRole = Constants.Roles.Org_Admin
-        };
         [SetUp]
         public void SetUp()
         {
@@ -115,7 +101,6 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 cfg.AddProfile(new SharedAutoMapperProfiles());
             });
             _mockMapper = new Mapper(mockMapper);
-            Config.IsGroupFilterEnabled = false;
 
             ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ApiUsdmVersionMapping.json"));
             ApiUsdmVersionMapping.SDRVersions = apiUsdmVersionMapping_NonStatic.SDRVersions;
@@ -127,9 +112,6 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         [Test]
         public void GetRawJsonUnitTesting()
         {
-            _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
-                   .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
-
             CommonServices commonServices = new(_mockCommonRepository.Object, _mockLogger, _mockMapper);
 
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
@@ -138,7 +120,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             _mockCommonRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(data));
 
-            var method = commonServices.GetRawJson("a", 1, user);
+            var method = commonServices.GetRawJson("a", 1);
             method.Wait();
             var result = method.Result;
             Assert.IsNotNull(result);
@@ -148,7 +130,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             _mockCommonRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                   .Returns(Task.FromResult(data));
 
-            method = commonServices.GetRawJson("a", 1, user);
+            method = commonServices.GetRawJson("a", 1);
             method.Wait();
             result = method.Result;
             Assert.IsNotNull(result);
@@ -158,18 +140,10 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             _mockCommonRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                   .Returns(Task.FromResult(data));
 
-            method = commonServices.GetRawJson("a", 1, user);
+            method = commonServices.GetRawJson("a", 1);
             method.Wait();
             result = method.Result;
             Assert.IsNotNull(result);
-
-
-            Config.IsGroupFilterEnabled = true;
-            user.UserRole = Constants.Roles.App_User;
-            var nullGroup = GetUserDataFromStaticJson().SDRGroups;
-            nullGroup = null;
-            _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
-                  .Returns(Task.FromResult(nullGroup));
 
             jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
             jsonData = jsonData.Replace($"{IdFieldPropertyName.ParentElement.ClinicalStudy.ChangeToCamelCase()}", $"{nameof(CommonStudyDefinitionsEntity.Study).ChangeToCamelCase()}");
@@ -177,96 +151,25 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             _mockCommonRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(data));
 
-            method = commonServices.GetRawJson("a", 1, user);
+            method = commonServices.GetRawJson("a", 1);
             method.Wait();
             result = method.Result;
-            Assert.AreEqual(result, Constants.ErrorMessages.Forbidden);
-
-            //jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV4.json");            
-            //data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
-            //_mockCommonRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
-            //      .Returns(Task.FromResult(data));
-
-            //method = commonServices.GetRawJson("a", 1, user);
-            //method.Wait();
-            //result = method.Result;
-            //Assert.AreEqual(result, Constants.ErrorMessages.Forbidden);
-
-            //jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV3.json");
-            //data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
-            //_mockCommonRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
-            //      .Returns(Task.FromResult(data));
-
-            //method = commonServices.GetRawJson("a", 1, user);
-            //method.Wait();
-            //result = method.Result;
-            //Assert.AreEqual(result, Constants.ErrorMessages.Forbidden);
-
-            Config.IsGroupFilterEnabled = false;
-
+            Assert.IsNotNull(result);
 
             data = null;
             _mockCommonRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                   .Returns(Task.FromResult(data));
 
-            method = commonServices.GetRawJson("a", 1, user);
+            method = commonServices.GetRawJson("a", 1);
             method.Wait();
             result = method.Result;
             Assert.Null(result);
 
             _mockCommonRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                     .Throws(new Exception("Error"));
-            method = commonServices.GetRawJson("a", 1, user);
+            method = commonServices.GetRawJson("a", 1);
 
             Assert.Throws<AggregateException>(method.Wait);
-        }
-        [Test]
-        public void CheckAccessForAStudy_UnitTesting()
-        {
-            Config.IsGroupFilterEnabled = true;
-            user.UserRole = Constants.Roles.App_User;
-            _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
-                   .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
-
-            CommonServices commonServices = new(_mockCommonRepository.Object, _mockLogger, _mockMapper);
-            var method = commonServices.CheckAccessForAStudy("a", "INTERVENTIONAL", user);
-            method.Wait();
-            var result = method.Result;
-            Assert.IsTrue(result);
-
-            var allGroup = GetUserDataFromStaticJson().SDRGroups;
-            allGroup[0].GroupFilter[0].GroupFilterValues[1].GroupFilterValueId = "ALL";
-            allGroup[0].GroupFilter[0].GroupFilterValues[1].Title = "ALL";
-            _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
-                  .Returns(Task.FromResult(allGroup));
-            method = commonServices.CheckAccessForAStudy("a", "INTERVENTIONAL", user);
-            method.Wait();
-            result = method.Result;
-            Assert.IsTrue(result);
-
-
-            _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
-                  .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
-            method = commonServices.CheckAccessForAStudy("studyId1", "INTERVENTIONAL", user);
-            method.Wait();
-            result = method.Result;
-            Assert.IsTrue(result);
-
-            _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
-                  .Returns(Task.FromResult(GetUserDataFromStaticJson().SDRGroups));
-            method = commonServices.CheckAccessForAStudy("Study", "A", user);
-            method.Wait();
-            result = method.Result;
-            Assert.False(result);
-
-            _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
-                   .Throws(new Exception("Error"));
-            method = commonServices.CheckAccessForAStudy("a", "INTERVENTIONAL", user);
-
-            Assert.Throws<AggregateException>(method.Wait);
-            Config.IsGroupFilterEnabled = false;
-
-
         }
         #endregion
 
@@ -274,9 +177,6 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         [Test]
         public void GetStudyAudit_UnitTesting()
         {
-            Config.IsGroupFilterEnabled = true;
-            user.UserRole = Constants.Roles.Org_Admin;
-            user.UserName = "user1@SDR.com";
             CommonStudyDefinitionsEntity v3 = GetData(Constants.USDMVersions.V2);
             CommonStudyDefinitionsEntity v4 = GetData(Constants.USDMVersions.V3);
             CommonStudyDefinitionsEntity v2 = GetData(Constants.USDMVersions.V1_9);
@@ -309,22 +209,10 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             };
             _mockCommonRepository.Setup(x => x.GetAuditTrail(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>()))
                    .Returns(Task.FromResult(auditTrailResponseEntities));
-            var grps = GetUserDataFromStaticJson().SDRGroups;
-            grps.ForEach(x =>
-            {
-                x.GroupFilter.Where(y => y.GroupFieldName == GroupFieldNames.studyType.ToString()).ToList().ForEach(y =>
-                  {
-                      y.GroupFilterValues.ForEach(z =>
-                      {
-                          z.GroupFilterValueId = "PATIENT_REGISTRY"; z.Title = "PATIENT_REGISTRY";
-                      });
-                  });
-            });
-            _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
-                   .Returns(Task.FromResult(grps));
+
             CommonServices CommonService = new(_mockCommonRepository.Object, _mockLogger, _mockMapper);
 
-            var method = CommonService.GetAuditTrail("1", DateTime.MinValue, DateTime.MinValue, user);
+            var method = CommonService.GetAuditTrail("1", DateTime.MinValue, DateTime.MinValue);
             method.Wait();
             var result = method.Result;
 
@@ -335,19 +223,11 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             //Assert          
             Assert.IsNotNull(actual_result);
 
-            //No Access Check
-            user.UserRole = Constants.Roles.App_User;
-            method = CommonService.GetAuditTrail("1", DateTime.MinValue, DateTime.MinValue, user);
-            method.Wait();
-
-            Assert.AreEqual(method.Result.ToString(), Constants.ErrorMessages.Forbidden);
-
             //Exception
             _mockCommonRepository.Setup(x => x.GetAuditTrail(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>()))
                   .Throws(new Exception("Error"));
 
-            method = CommonService.GetAuditTrail("1", DateTime.MinValue, DateTime.MinValue, user);
-
+            method = CommonService.GetAuditTrail("1", DateTime.MinValue, DateTime.MinValue);
 
             Assert.Throws<AggregateException>(method.Wait);
 
@@ -357,66 +237,10 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             _mockCommonRepository.Setup(x => x.GetAuditTrail(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>()))
                   .Returns(Task.FromResult(nullAuditTrailResponseEntities));
 
-            method = CommonService.GetAuditTrail("1", DateTime.MinValue, DateTime.MinValue, user);
+            method = CommonService.GetAuditTrail("1", DateTime.MinValue, DateTime.MinValue);
             method.Wait();
 
             Assert.IsNull(method.Result);
-
-            //Access with ALL studyType
-            grps.ForEach(x =>
-            {
-                x.GroupFilter.Where(y => y.GroupFieldName == GroupFieldNames.studyType.ToString()).ToList().ForEach(y =>
-                {
-                    y.GroupFilterValues.ForEach(z =>
-                    {
-                        z.GroupFilterValueId = "ALL"; z.Title = "ALL";
-                    });
-                });
-            });
-            _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
-                   .Returns(Task.FromResult(grps));
-            _mockCommonRepository.Setup(x => x.GetAuditTrail(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>()))
-                  .Returns(Task.FromResult(auditTrailResponseEntities));
-            method = CommonService.GetAuditTrail(v3.Study.StudyId, DateTime.MinValue, DateTime.MinValue, user);
-            method.Wait();
-
-            Assert.IsNotNull(method.Result);
-
-            //Access with studyId
-            grps.ForEach(x =>
-            {
-                x.GroupFilter.Where(y => y.GroupFieldName == GroupFieldNames.study.ToString()).ToList().ForEach(y =>
-                {
-                    y.GroupFilterValues.ForEach(z =>
-                    {
-                        z.GroupFilterValueId = v3.Study.StudyId; z.Title = v3.Study.StudyTitle is not null ? (v3.Study.StudyTitle as List<CommonStudyTitle>) is not null && (v3.Study.StudyTitle as List<CommonStudyTitle>).Any(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle) ? (v3.Study.StudyTitle as List<CommonStudyTitle>).Find(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle).Text : (string)v3.Study.StudyTitle : null;
-                    });
-                });
-            });
-            _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
-                   .Returns(Task.FromResult(grps));
-            method = CommonService.GetAuditTrail(v3.Study.StudyId, DateTime.MinValue, DateTime.MinValue, user);
-            method.Wait();
-
-            Assert.IsNotNull(method.Result);
-
-            //Groups Null
-            grps = null;
-            _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
-                   .Returns(Task.FromResult(grps));
-            method = CommonService.GetAuditTrail(v3.Study.StudyId, DateTime.MinValue, DateTime.MinValue, user);
-            method.Wait();
-
-            Assert.AreEqual(method.Result.ToString(), Constants.ErrorMessages.Forbidden);
-
-            //Error
-            _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
-                    .Throws(new Exception("Error"));
-            method = CommonService.GetAuditTrail(v3.Study.StudyId, DateTime.MinValue, DateTime.MinValue, user);
-
-            Assert.Throws<AggregateException>(method.Wait);
-
-            user.UserRole = Constants.Roles.Org_Admin;
         }
         #endregion
 
@@ -466,12 +290,12 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     UsdmVersion = Constants.USDMVersions.V1_9
                 }
             };
-            _mockCommonRepository.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+            _mockCommonRepository.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>()))
                    .Returns(Task.FromResult(studyHistories));
 
             CommonServices CommonService = new(_mockCommonRepository.Object, _mockLogger, _mockMapper);
 
-            var method = CommonService.GetStudyHistory(DateTime.Now, DateTime.MinValue, "", user);
+            var method = CommonService.GetStudyHistory(DateTime.Now, DateTime.MinValue, "");
             method.Wait();
             var result = method.Result;
 
@@ -484,17 +308,17 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             //no studies
             studyHistories = null;
-            _mockCommonRepository.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+            _mockCommonRepository.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>()))
                     .Returns(Task.FromResult(studyHistories));
-            method = CommonService.GetStudyHistory(DateTime.Now, DateTime.MinValue, "", user);
+            method = CommonService.GetStudyHistory(DateTime.Now, DateTime.MinValue, "");
             method.Wait();
 
             Assert.IsNull(method.Result);
 
-            _mockCommonRepository.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+            _mockCommonRepository.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>()))
                   .Throws(new Exception("Error"));
 
-            method = CommonService.GetStudyHistory(DateTime.Now, DateTime.MinValue, "", user);
+            method = CommonService.GetStudyHistory(DateTime.Now, DateTime.MinValue, "");
 
 
             Assert.Throws<AggregateException>(method.Wait);
@@ -505,9 +329,6 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         [Test]
         public void SearchTitleUnitTesting()
         {
-            Config.IsGroupFilterEnabled = true;
-            user.UserRole = Constants.Roles.Org_Admin;
-            user.UserName = "user1@SDR.com";
             CommonStudyDefinitionsEntity mvp = GetData(Constants.USDMVersions.MVP);
             CommonStudyDefinitionsEntity v1 = GetData(Constants.USDMVersions.V3);
             CommonStudyDefinitionsEntity v2 = GetData(Constants.USDMVersions.V1_9);
@@ -547,7 +368,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     UsdmVersion = v2.AuditTrail.UsdmVersion,
                 }
             };
-            _mockCommonRepository.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersEntity>(), user))
+            _mockCommonRepository.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersEntity>()))
                  .Returns(Task.FromResult(studyList));
             SearchTitleParametersDto searchParameters = new()
             {
@@ -561,7 +382,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             CommonServices CommonService = new(_mockCommonRepository.Object, _mockLogger, _mockMapper);
 
-            var method = CommonService.SearchTitle(searchParameters, user);
+            var method = CommonService.SearchTitle(searchParameters);
             method.Wait();
             var result = method.Result;
 
@@ -573,24 +394,24 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             Assert.IsNotNull(actual_result);
             Assert.IsNotEmpty(actual_result);
 
-            _mockCommonRepository.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersEntity>(), user))
+            _mockCommonRepository.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersEntity>()))
                 .Throws(new Exception("Error"));
 
-            method = CommonService.SearchTitle(searchParameters, user);
+            method = CommonService.SearchTitle(searchParameters);
             Assert.Throws<AggregateException>(method.Wait);
 
-            _mockCommonRepository.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersEntity>(), user))
+            _mockCommonRepository.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersEntity>()))
                 .Returns(Task.FromResult(null as List<SearchTitleResponseEntity>));
 
-            method = CommonService.SearchTitle(searchParameters, user);
+            method = CommonService.SearchTitle(searchParameters);
             method.Wait();
             result = method.Result;
             Assert.IsEmpty(result);
 
-            _mockCommonRepository.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersEntity>(), user))
+            _mockCommonRepository.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersEntity>()))
                  .Returns(Task.FromResult(studyList));
             searchParameters.GroupByStudyId = true;
-            method = CommonService.SearchTitle(searchParameters, user);
+            method = CommonService.SearchTitle(searchParameters);
             method.Wait();
             result = method.Result;
             Assert.IsNotEmpty(result);
@@ -607,145 +428,6 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     Assert.IsNotEmpty(method_sort);
                 });
             });
-
-            user.UserRole = Constants.Roles.App_User;
-            method = CommonService.SearchTitle(searchParameters, user);
-            method.Wait();
-            result = method.Result;
-            Assert.IsEmpty(result);
-            user.UserRole = Constants.Roles.Org_Admin;
-        }
-        #endregion
-
-        #region CheckAccess for List Of Studies
-        [Test]
-        public void CheckAccessForListOfStudiesUnitTesting()
-        {
-            Config.IsGroupFilterEnabled = true;
-            user.UserRole = Constants.Roles.App_User;
-            user.UserName = "user1@SDR.com";
-            CommonStudyDefinitionsEntity v3 = GetData(Constants.USDMVersions.V2);
-            CommonStudyDefinitionsEntity v4 = GetData(Constants.USDMVersions.V3);
-            CommonStudyDefinitionsEntity v2 = GetData(Constants.USDMVersions.V1_9);
-            List<SearchTitleResponseEntity> searchTitleResponseEntity = GetSearchResponse();
-
-            //No Groups Matching
-            var grps = GetUserDataFromStaticJson().SDRGroups;
-            grps.ForEach(x =>
-            {
-                x.GroupFilter.Where(y => y.GroupFieldName == GroupFieldNames.studyType.ToString()).ToList().ForEach(y =>
-                {
-                    y.GroupFilterValues.ForEach(z =>
-                    {
-                        z.GroupFilterValueId = "PATIENT_REGISTRY"; z.Title = "PATIENT_REGISTRY";
-                    });
-                });
-                x.GroupFilter.Where(y => y.GroupFieldName == GroupFieldNames.study.ToString()).ToList().ForEach(y =>
-                {
-                    y.GroupFilterValues.ForEach(z =>
-                    {
-                        z.GroupFilterValueId = "sd1"; z.Title = "sd1";
-                    });
-                });
-            });
-            _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
-                   .Returns(Task.FromResult(grps));
-            CommonServices CommonService = new(_mockCommonRepository.Object, _mockLogger, _mockMapper);
-
-            var searchTitleDTOList = _mockMapper.Map<List<SearchTitleResponseDto>>(searchTitleResponseEntity);
-            searchTitleDTOList = CommonService.AssignStudyIdentifiers(searchTitleDTOList, searchTitleResponseEntity);
-            var method = CommonService.CheckAccessForListOfStudies(searchTitleResponseEntity, user);
-            method.Wait();
-            var result = method.Result;
-
-            Assert.IsNull(result);
-
-            //ALL filter
-            grps = GetUserDataFromStaticJson().SDRGroups;
-            searchTitleResponseEntity = GetSearchResponse();
-            grps.ForEach(x =>
-            {
-                x.GroupFilter.Where(y => y.GroupFieldName == GroupFieldNames.studyType.ToString()).ToList().ForEach(y =>
-                {
-                    y.GroupFilterValues.ForEach(z =>
-                    {
-                        z.GroupFilterValueId = "ALL"; z.Title = "ALL";
-                    });
-                });
-            });
-            _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
-                   .Returns(Task.FromResult(grps));
-
-            method = CommonService.CheckAccessForListOfStudies(searchTitleResponseEntity, user);
-            method.Wait();
-            result = method.Result;
-
-            Assert.IsNotNull(result);
-
-            //Matching StudyType
-            grps = GetUserDataFromStaticJson().SDRGroups;
-            searchTitleResponseEntity = GetSearchResponse();
-            grps.ForEach(x =>
-            {
-                x.GroupFilter.Where(y => y.GroupFieldName == GroupFieldNames.studyType.ToString()).ToList().ForEach(y =>
-                {
-                    y.GroupFilterValues.ForEach(z =>
-                    {
-                        z.GroupFilterValueId = "INTERVENTIONAL"; z.Title = "INTERVENTIONAL";
-                    });
-                });
-            });
-            _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
-                   .Returns(Task.FromResult(grps));
-
-            method = CommonService.CheckAccessForListOfStudies(searchTitleResponseEntity, user);
-            method.Wait();
-            result = method.Result;
-
-            Assert.IsNotNull(result);
-
-            //Matching Study Id
-            grps = GetUserDataFromStaticJson().SDRGroups;
-            searchTitleResponseEntity = GetSearchResponse();
-            grps.ForEach(x =>
-            {
-                x.GroupFilter.Where(y => y.GroupFieldName == GroupFieldNames.study.ToString()).ToList().ForEach(y =>
-                {
-                    y.GroupFilterValues.ForEach(z =>
-                    {
-                        z.GroupFilterValueId = "aaed3efe-7d70-4c9e-90e2-3446e936c291"; z.Title = "Umbrella Study of Cancer";
-                    });
-                });
-            });
-            _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
-                   .Returns(Task.FromResult(grps));
-
-            method = CommonService.CheckAccessForListOfStudies(searchTitleResponseEntity, user);
-            method.Wait();
-            result = method.Result;
-
-            Assert.IsNotNull(result);
-
-            //No Groups
-            grps = null;
-            searchTitleResponseEntity = GetSearchResponse();
-            _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
-                   .Returns(Task.FromResult(grps));
-
-            method = CommonService.CheckAccessForListOfStudies(searchTitleResponseEntity, user);
-            method.Wait();
-            result = method.Result;
-
-            Assert.IsNull(result);
-
-            //Error
-            _mockCommonRepository.Setup(x => x.GetGroupsOfUser(user))
-                  .Throws(new Exception(""));
-
-            method = CommonService.CheckAccessForListOfStudies(searchTitleResponseEntity, user);
-
-            Assert.Throws<AggregateException>(method.Wait);
-            user.UserRole = Constants.Roles.Org_Admin;
         }
         #endregion
 
@@ -753,9 +435,6 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         [Test]
         public void SearchUnitTesting()
         {
-            Config.IsGroupFilterEnabled = true;
-            user.UserRole = Constants.Roles.Org_Admin;
-            user.UserName = "user1@SDR.com";
             var regex = new Regex(Regex.Escape(nameof(CommonStudyDefinitionsEntity.Study)));                        
             var v1_9String = regex.Replace(JsonConvert.SerializeObject(GetData(Constants.USDMVersions.V1_9)), IdFieldPropertyName.ParentElement.ClinicalStudy, 1);                        
             var v4 = JsonConvert.DeserializeObject<TransCelerate.SDR.Core.Entities.StudyV4.StudyDefinitionsEntity>(JsonConvert.SerializeObject(GetData(Constants.USDMVersions.V3)));
@@ -813,7 +492,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 }
             };
             CommonCodeEntity commonCode = JsonConvert.DeserializeObject<CommonCodeEntity>(JsonConvert.SerializeObject(v2.Study.StudyType));
-            _mockCommonRepository.Setup(x => x.SearchStudy(It.IsAny<SearchParametersEntity>(), user))
+            _mockCommonRepository.Setup(x => x.SearchStudy(It.IsAny<SearchParametersEntity>()))
                  .Returns(Task.FromResult(studyList));
 
             SearchParametersDto searchParameters = new()
@@ -834,7 +513,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             CommonServices CommonService = new(_mockCommonRepository.Object, _mockLogger, _mockMapper);
 
-            var method = CommonService.SearchStudy(searchParameters, user);
+            var method = CommonService.SearchStudy(searchParameters);
             method.Wait();
             var result = method.Result;
 
@@ -862,30 +541,22 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             Assert.IsNotNull(actual_result);
             Assert.IsNotEmpty(actual_result);
 
-            user.UserRole = Constants.Roles.App_User;
-            Config.IsGroupFilterEnabled = true;
-            //_mockCommonRepository.Setup(x => x.GetGroupsOfUser(It.IsAny<LoggedInUser>()))
-            //    .Returns(Task.FromResult(null as List<SDRGroupsEntity>));
-            //method = CommonService.SearchStudy(searchParameters, user);
-            //method.Wait();
-            //result = method.Result;
-            //Assert.IsNull(result);
-            _mockCommonRepository.Setup(x => x.SearchStudy(It.IsAny<SearchParametersEntity>(), user))
+            _mockCommonRepository.Setup(x => x.SearchStudy(It.IsAny<SearchParametersEntity>()))
                 .Throws(new Exception("Error"));
 
-            method = CommonService.SearchStudy(searchParameters, user);
+            method = CommonService.SearchStudy(searchParameters);
             Assert.Throws<AggregateException>(method.Wait);
 
-            _mockCommonRepository.Setup(x => x.SearchStudy(It.IsAny<SearchParametersEntity>(), user))
+            _mockCommonRepository.Setup(x => x.SearchStudy(It.IsAny<SearchParametersEntity>()))
                 .Returns(Task.FromResult(null as List<SearchResponseEntity>));
 
-            method = CommonService.SearchStudy(searchParameters, user);
+            method = CommonService.SearchStudy(searchParameters);
             method.Wait();
             result = method.Result;
             Assert.IsNull(result);
 
 
-            _mockCommonRepository.Setup(x => x.SearchStudyV4(It.IsAny<SearchParametersEntity>(), user))
+            _mockCommonRepository.Setup(x => x.SearchStudyV4(It.IsAny<SearchParametersEntity>()))
                 .Returns(Task.FromResult(new List<Core.Entities.StudyV4.SearchResponseEntity> { new Core.Entities.StudyV4.SearchResponseEntity
                 {
                     StudyId = v4.Study.Id,
@@ -901,7 +572,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     StudyDesignIds = v4.Study.Versions.Select(z=>z.StudyDesigns.Select(y => y.Id)) ?? null,
                 } }));
 
-            _mockCommonRepository.Setup(x => x.SearchStudyV2(It.IsAny<SearchParametersEntity>(), user))
+            _mockCommonRepository.Setup(x => x.SearchStudyV2(It.IsAny<SearchParametersEntity>()))
                 .Returns(Task.FromResult(new List<Core.Entities.StudyV2.SearchResponseEntity> { new Core.Entities.StudyV2.SearchResponseEntity
                 {                    
                     StudyId = v2.Study.StudyId,
@@ -915,7 +586,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                     InterventionModel = v2.Study.StudyDesigns.Select(y => y.InterventionModel) ?? null,                    
                     StudyDesignIds = v2.Study.StudyDesigns.Select(x => x.Id) ?? null,
                 } }));
-            _mockCommonRepository.Setup(x => x.SearchStudyV3(It.IsAny<SearchParametersEntity>(), user))
+            _mockCommonRepository.Setup(x => x.SearchStudyV3(It.IsAny<SearchParametersEntity>()))
                 .Returns(Task.FromResult(new List<Core.Entities.StudyV3.SearchResponseEntity> { new Core.Entities.StudyV3.SearchResponseEntity
                 {
                     StudyId = v3.Study.StudyId,
@@ -932,22 +603,22 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
 
             searchParameters.ValidateUsdmVersion = true;
             searchParameters.UsdmVersion = Constants.USDMVersions.MVP;
-            method = CommonService.SearchStudy(searchParameters, user);
+            method = CommonService.SearchStudy(searchParameters);
             method.Wait();
             result = method.Result;
 
             searchParameters.UsdmVersion = Constants.USDMVersions.V3;
-            method = CommonService.SearchStudy(searchParameters, user);
+            method = CommonService.SearchStudy(searchParameters);
             method.Wait();
             result = method.Result;
 
             searchParameters.UsdmVersion = Constants.USDMVersions.V1_9;
-            method = CommonService.SearchStudy(searchParameters, user);
+            method = CommonService.SearchStudy(searchParameters);
             method.Wait();
             result = method.Result;
 
             searchParameters.UsdmVersion = Constants.USDMVersions.V2;
-            method = CommonService.SearchStudy(searchParameters, user);
+            method = CommonService.SearchStudy(searchParameters);
             method.Wait();
             result = method.Result;
         }
@@ -961,20 +632,20 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                    .Returns(Task.FromResult(Constants.USDMVersions.V1_9));
             CommonServices commonServices = new(_mockCommonRepository.Object, _mockLogger, _mockMapper);
 
-            var method = commonServices.GetLinks("a", 1, user);
+            var method = commonServices.GetLinks("a", 1);
             method.Wait();
             var result = method.Result;
             Assert.IsNotNull(result);
 
             _mockCommonRepository.Setup(x => x.GetUsdmVersion(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(null as string));
-            method = commonServices.GetLinks("a", 1, user);
+            method = commonServices.GetLinks("a", 1);
             method.Wait();
             Assert.IsNull(method.Result);
 
             _mockCommonRepository.Setup(x => x.GetUsdmVersion(It.IsAny<string>(), It.IsAny<int>()))
                      .Throws(new Exception("Error"));
-            method = commonServices.GetLinks("a", 1, user);
+            method = commonServices.GetLinks("a", 1);
 
             Assert.Throws<AggregateException>(method.Wait);
         }

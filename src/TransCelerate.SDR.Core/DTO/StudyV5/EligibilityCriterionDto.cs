@@ -12,7 +12,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public string Identifier { get; set; }
         public CodeDto Category { get; set; }
         public List<CommentAnnotationDto> Notes { get; set; }
-        public EligibilityCriterionItemDto CriterionItem { get; set; }    
+        public string CriterionItemId { get; set; }    
         public string NextId { get; set; }
         public string PreviousId { get; set; }
     }
