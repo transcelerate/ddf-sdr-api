@@ -137,6 +137,14 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyVersionDto.DateValues).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                     else if (item == nameof(StudyVersionDto.Amendments).ToLower())
                         jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyVersionDto.Amendments).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
+                    else if (item == nameof(StudyVersionDto.Conditions).ToLower())
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyVersionDto.Conditions).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
+                    else if (item == nameof(StudyVersionDto.BcSurrogates).ToLower())
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyVersionDto.BcSurrogates).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
+                    else if (item == nameof(StudyVersionDto.BcCategories).ToLower())
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyVersionDto.BcCategories).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
+                    else if (item == nameof(StudyVersionDto.Dictionaries).ToLower())
+                        jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyVersionDto.Dictionaries).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                     else if (item == nameof(StudyVersionDto.BiomedicalConcepts).ToLower())
                         jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyVersionDto.BiomedicalConcepts).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                     else if (item == nameof(StudyDto.Name).ToLower())
@@ -201,10 +209,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Encounters).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Rationale).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Rationale).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.BcCategories).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.BcCategories).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.BcSurrogates).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.BcSurrogates).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Arms).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Arms).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Epochs).ToLower())
@@ -213,12 +217,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Elements).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.DocumentVersions).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.DocumentVersions).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.Dictionaries).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Dictionaries).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.Characteristics).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Characteristics).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
-                            else if (item == nameof(StudyDesignDto.Conditions).ToLower())
-                                jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.Conditions).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyPhase).ToLower())
                                 jsonObject.Descendants().OfType<JProperty>().Where(attr => attr.Name == nameof(StudyDesignDto.StudyPhase).ChangeToCamelCase()).ToList().ForEach(x => x.Remove());
                             else if (item == nameof(StudyDesignDto.StudyType).ToLower())
@@ -380,6 +380,21 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                     GetDifferenceForStudyDesigns(currVer.StudyDesigns, prevVer.StudyDesigns).ForEach(x =>
                     {
                         changedValues.Add($"{x}");
+                    });
+                    //Conditions
+                    GetDifferenceForAList<ConditionEntity>(currVer.Conditions, prevVer.Conditions).ForEach(x =>
+                    {
+                        changedValues.Add($"{nameof(StudyVersionEntity.Conditions)}.{x}");
+                    });
+                    //Biomedical Concept Surrogate
+                    GetDifferenceForAList<BiomedicalConceptSurrogateEntity>(currVer.BcSurrogates, prevVer.BcSurrogates).ForEach(x =>
+                    {
+                        changedValues.Add($"{nameof(StudyVersionEntity.BcSurrogates)}.{x}");
+                    });
+                    //Biomedical Concept Category
+                    GetDifferenceForAList<BiomedicalConceptCategoryEntity>(currVer.BcCategories, prevVer.BcCategories).ForEach(x =>
+                    {
+                        changedValues.Add($"{nameof(StudyVersionEntity.BcCategories)}.{x}");
                     });
 
                     //Biomedical Concepts
@@ -606,18 +621,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         //Activities
                         changedValues.AddRange(GetDifferenceForActivities(currentStudyDesign, previousStudyDesign));
 
-                        //Biomedical Concept Category
-                        GetDifferenceForAList<BiomedicalConceptCategoryEntity>(currentStudyDesign.BcCategories, previousStudyDesign.BcCategories).ForEach(x =>
-                        {
-                            changedValues.Add($"{nameof(StudyDesignEntity.BcCategories)}.{x}");
-                        });
-
-                        //Biomedical Concept Surrogate
-                        GetDifferenceForAList<BiomedicalConceptSurrogateEntity>(currentStudyDesign.BcSurrogates, previousStudyDesign.BcSurrogates).ForEach(x =>
-                        {
-                            changedValues.Add($"{nameof(StudyDesignEntity.BcSurrogates)}.{x}");
-                        });
-
                         //Epochs
                         GetDifferenceForAList<StudyEpochEntity>(currentStudyDesign.Epochs, previousStudyDesign.Epochs).ForEach(x =>
                         {
@@ -632,11 +635,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         GetDifferenceForAList<StudyElementEntity>(currentStudyDesign.Elements, previousStudyDesign.Elements).ForEach(x =>
                         {
                             changedValues.Add($"{nameof(StudyDesignEntity.Elements)}.{x}");
-                        });
-                        //Conditions
-                        GetDifferenceForAList<ConditionEntity>(currentStudyDesign.Conditions, previousStudyDesign.Conditions).ForEach(x =>
-                        {
-                            changedValues.Add($"{nameof(StudyDesignEntity.Conditions)}.{x}");
                         });
                         //StudyPhase
                         GetDifferenceForAliasCode(currentStudyDesign.StudyPhase, previousStudyDesign.StudyPhase).ForEach(x =>
@@ -1048,7 +1046,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                             () => errors.AddRange(ReferenceIntegrityValidationForStudyCells(design, designIndex, studyVersionIndex)),
 
                             //Eligibility Criteria
-                            () => errors.AddRange(ReferenceIntegrityValidationForEligibilityCriteriaAndCharacteristcs(design, designIndex, studyVersionIndex, studyVersionAndDesignIds)),
+                            () => errors.AddRange(ReferenceIntegrityValidationForEligibilityCriteriaAndCharacteristcs(studyVersion, design, designIndex, studyVersionIndex, studyVersionAndDesignIds)),
 
                             //Arms
                             () => errors.AddRange(ReferenceIntegrityValidationForStudyArms(design, designIndex, studyVersionIndex)),
@@ -1063,7 +1061,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                             () => errors.AddRange(ReferenceIntegrityValidationForProcedures(design, designIndex, studyVersionIndex)),
 
                             //Objectives & Endpoints
-                            () => errors.AddRange(ReferenceIntegrityValidationForObjectivesAndEndpoints(design, designIndex, studyVersionIndex))
+                            () => errors.AddRange(ReferenceIntegrityValidationForObjectivesAndEndpoints(studyVersion, design, designIndex, studyVersionIndex))
                         );
 
                     });
@@ -1276,13 +1274,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
             return errors;
         }
 
-        public static List<string> ReferenceIntegrityValidationForEligibilityCriteriaAndCharacteristcs(StudyDesignDto design, int indexOfDesign, int studyVersionIndex, List<string> studyVersionAndDesignIds)
+        public static List<string> ReferenceIntegrityValidationForEligibilityCriteriaAndCharacteristcs(StudyVersionDto version, StudyDesignDto design, int indexOfDesign, int studyVersionIndex, List<string> studyVersionAndDesignIds)
         {
             List<String> errors = new();
 
             if (design != null && design.Population != null)
             {
-                List<string> dictionaryIds = design.Dictionaries.Select(x => x.Id).ToList();
+                List<string> dictionaryIds = version.Dictionaries.Select(x => x.Id).ToList();
                // List<string> eligibilityCriteriaIds = design.Population.Criterionids != null ? design.Population.Criterionids.Select(act => act?.Id).ToList() : new();
                 design.Population.Criterionids?.ForEach(crit =>
                 {
@@ -1524,9 +1522,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
 
             if (design.Activities != null && design.Activities.Any())
             {
+                List<string> bcCategoryIds = version.BcCategories is null ? new List<string>() : version.BcCategories.Select(x => x.Id).ToList();
+                List<string> bcSurrogateIds = version.BcSurrogates is null ? new List<string>() : version.BcSurrogates.Select(x => x.Id).ToList();
                 List<string> biomedicalConceptIds = version.BiomedicalConcepts is null ? new List<string>() : version.BiomedicalConcepts.Select(x => x.Id).ToList();
-                List<string> bcCategoryIds = design.BcCategories is null ? new List<string>() : design.BcCategories.Select(x => x.Id).ToList();
-                List<string> bcSurrogateIds = design.BcSurrogates is null ? new List<string>() : design.BcSurrogates.Select(x => x.Id).ToList();
                 List<string> activitiesIds = design.Activities.Select(act => act?.Id).ToList();
                 activitiesIds.RemoveAll(x => String.IsNullOrWhiteSpace(x));
                 List<string> scheduleTimelineIds = design.ScheduleTimelines is not null && design.ScheduleTimelines.Any() ? design.ScheduleTimelines.Select(x => x.Id).ToList() : new List<string>();
@@ -1720,12 +1718,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
         {
             List<String> errors = new();
 
-            if (design.BcCategories != null && design.BcCategories.Any())
+            if (version.BcCategories != null && version.BcCategories.Any())
             {
+                List<string> bcCategoryIds = version.BcCategories is null ? new List<string>() : version.BcCategories.Select(x => x.Id).ToList();
+                List<string> bcSurrogateIds = version.BcSurrogates is null ? new List<string>() : version.BcSurrogates.Select(x => x.Id).ToList();
                 List<string> biomedicalConceptIds = version.BiomedicalConcepts is null ? new List<string>() : version.BiomedicalConcepts.Select(x => x.Id).ToList();
-                List<string> bcCategoryIds = design.BcCategories is null ? new List<string>() : design.BcCategories.Select(x => x.Id).ToList();
-                List<string> bcSurrogateIds = design.BcSurrogates is null ? new List<string>() : design.BcSurrogates.Select(x => x.Id).ToList();
-                design.BcCategories.ForEach(bcCat =>
+                version.BcCategories.ForEach(bcCat =>
                 {
                     var tempCategoryIds = bcCategoryIds.ToList();
                     tempCategoryIds.RemoveAll(x => x == bcCat.Id);
@@ -1737,7 +1735,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                                 errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
                                     $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
                                            $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
-                                           $"{nameof(StudyDesignDto.BcCategories)}[{design.BcCategories.IndexOf(bcCat)}]." +
+                                           $"{nameof(StudyVersionDto.BcCategories)}[{version.BcCategories.IndexOf(bcCat)}]." +
                                            $"{nameof(BiomedicalConceptCategoryDto.ChildIds)}[{bcCat.ChildIds.IndexOf(child)}]");
                         });
                     }
@@ -1749,7 +1747,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                                 errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
                                     $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
                                            $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
-                                           $"{nameof(StudyDesignDto.BcCategories)}[{design.BcCategories.IndexOf(bcCat)}]." +
+                                           $"{nameof(StudyVersionDto.BcCategories)}[{version.BcCategories.IndexOf(bcCat)}]." +
                                            $"{nameof(BiomedicalConceptCategoryDto.MemberIds)}[{bcCat.MemberIds.IndexOf(member)}]");
                         });
                     }
@@ -1763,12 +1761,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
         {
             List<String> errors = new();
 
-            if (design.Conditions != null && design.Conditions.Any())
+            if (version.Conditions != null && version.Conditions.Any())
             {
-                List<string> dictionaryIds = design.Dictionaries.Select(x => x.Id).ToList();
+                List<string> dictionaryIds = version.Dictionaries.Select(x => x.Id).ToList();
+                List<string> bcCategoryIds = version.BcCategories is null ? new List<string>() : version.BcCategories.Select(x => x.Id).ToList();
+                List<string> bcSurrogateIds = version.BcSurrogates is null ? new List<string>() : version.BcSurrogates.Select(x => x.Id).ToList();
                 List<string> biomedicalConceptIds = version.BiomedicalConcepts is null ? new List<string>() : version.BiomedicalConcepts.Select(x => x.Id).ToList();
-                List<string> bcCategoryIds = design.BcCategories is null ? new List<string>() : design.BcCategories.Select(x => x.Id).ToList();
-                List<string> bcSurrogateIds = design.BcSurrogates is null ? new List<string>() : design.BcSurrogates.Select(x => x.Id).ToList();
                 List<string> activitiesIds = design.Activities is null ? new List<string>() : design.Activities.Select(x => x.Id).ToList();
                 List<string> procedureIds = design.Activities is null ? new List<string>() : design.Activities.Where(x => x.DefinedProcedures is not null && x.DefinedProcedures.Any()).SelectMany(y => y.DefinedProcedures).Select(z=>z.Id).ToList();                
                 List<string> scheduleActivityInstanceIds = design.ScheduleTimelines is not null && design.ScheduleTimelines.Any() ? 
@@ -1776,7 +1774,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                                                            .Select(z => z.Id)
                                                            .ToList() : new List<string>();
 
-                design.Conditions.ForEach(condition =>
+                version.Conditions.ForEach(condition =>
                 {
                     if (condition.DictionaryId !=null)
                     {
@@ -1784,7 +1782,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                             errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
                                 $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
                               $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
-                              $"{nameof(StudyDesignDto.Conditions)}[{design.Conditions.IndexOf(condition)}]." +
+                              $"{nameof(StudyVersionDto.Conditions)}[{version.Conditions.IndexOf(condition)}]." +
                               $"{nameof(ConditionDto.DictionaryId)}");
                     }
 
@@ -1801,7 +1799,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                                 errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
                                     $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
                                            $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
-                                           $"{nameof(StudyDesignDto.Conditions)}[{design.Conditions.IndexOf(condition)}]." +
+                                           $"{nameof(StudyVersionDto.Conditions)}[{version.Conditions.IndexOf(condition)}]." +
                                            $"{nameof(ConditionDto.AppliesToIds)}[{condition.AppliesToIds.IndexOf(appliesTo)}]");
                         });
                     }
@@ -1815,7 +1813,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                                 errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
                                     $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
                                            $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
-                                           $"{nameof(StudyDesignDto.Conditions)}[{design.Conditions.IndexOf(condition)}]." +
+                                           $"{nameof(StudyVersionDto.Conditions)}[{version.Conditions.IndexOf(condition)}]." +
                                            $"{nameof(ConditionDto.ContextIds)}[{condition.ContextIds.IndexOf(contextId)}]");
                         });
                     }                    
@@ -1851,13 +1849,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
         }
 
 
-        public static List<string> ReferenceIntegrityValidationForObjectivesAndEndpoints(StudyDesignDto design, int indexOfDesign, int studyVersionIndex)
+        public static List<string> ReferenceIntegrityValidationForObjectivesAndEndpoints(StudyVersionDto version, StudyDesignDto design, int indexOfDesign, int studyVersionIndex)
         {
             List<String> errors = new();
 
             if (design.Objectives != null && design.Objectives.Any())
             {
-                List<string> dictionaryIds = design.Dictionaries.Select(x => x.Id).ToList();
+                List<string> dictionaryIds = version.Dictionaries.Select(x => x.Id).ToList();
 
                 design.Objectives.ForEach(objective =>
                 {
@@ -2057,6 +2055,26 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                     GetDifferenceForStudyDesignsForStudyComparison(currVer.StudyDesigns, prevVer.StudyDesigns).ForEach(x =>
                     {
                         changedValues.Add($"[{currentVersionIndex}].{x}");
+                    });
+                    //Conditions
+                    GetDifferenceForAListForStudyComparison<ConditionEntity>(currVer.Conditions, prevVer.Conditions).ForEach(x =>
+                    {
+                        changedValues.Add($"[{currentVersionIndex}].{x}");
+                    });
+                    //Biomedical Concept Surrogate
+                    GetDifferenceForAListForStudyComparison<BiomedicalConceptSurrogateEntity>(currVer.BcSurrogates, prevVer.BcSurrogates).ForEach(x =>
+                    {
+                        changedValues.Add($"[{currentVersionIndex}].{x}");
+                    });
+                    //Biomedical Concept Category
+                    GetDifferenceForAListForStudyComparison<BiomedicalConceptCategoryEntity>(currVer.BcCategories, prevVer.BcCategories).ForEach(x =>
+                    {
+                        changedValues.Add($"[{currentVersionIndex}].{x}");
+                    });
+                    //Syntax Template Dictionaries
+                    GetDifferenceForAListForStudyComparison<SyntaxTemplateDictionaryEntity>(currVer.Dictionaries, prevVer.Dictionaries).ForEach(x =>
+                    {
+                        changedValues.Add($"{nameof(StudyVersionEntity.Dictionaries)}{x}");
                     });
                     //Biomedical Concepts
                     changedValues.AddRange(GetDifferenceForBiomedicalConceptsForStudyComparison(currVer, prevVer));
@@ -2386,17 +2404,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         });
                         //Activities
                         changedValues.AddRange(GetDifferenceForActivitiesForStudyComparison(currentStudyDesign, previousStudyDesign));
-                        //Biomedical Concept Category
-                        GetDifferenceForAListForStudyComparison<BiomedicalConceptCategoryEntity>(currentStudyDesign.BcCategories, previousStudyDesign.BcCategories).ForEach(x =>
-                        {
-                            changedValues.Add($"{nameof(StudyDesignEntity.BcCategories)}{x}");
-                        });
-
-                        //Biomedical Concept Surrogate
-                        GetDifferenceForAListForStudyComparison<BiomedicalConceptSurrogateEntity>(currentStudyDesign.BcSurrogates, previousStudyDesign.BcSurrogates).ForEach(x =>
-                        {
-                            changedValues.Add($"{nameof(StudyDesignEntity.BcSurrogates)}{x}");
-                        });
 
                         //Epochs
                         GetDifferenceForAListForStudyComparison<StudyEpochEntity>(currentStudyDesign.Epochs, previousStudyDesign.Epochs).ForEach(x =>
@@ -2412,16 +2419,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         GetDifferenceForAListForStudyComparison<StudyElementEntity>(currentStudyDesign.Elements, previousStudyDesign.Elements).ForEach(x =>
                         {
                             changedValues.Add($"{nameof(StudyDesignEntity.Elements)}{x}");
-                        });
-                        //Syntax Template Dictionaries
-                        GetDifferenceForAListForStudyComparison<SyntaxTemplateDictionaryEntity>(currentStudyDesign.Dictionaries, previousStudyDesign.Dictionaries).ForEach(x =>
-                        {
-                            changedValues.Add($"{nameof(StudyDesignEntity.Dictionaries)}{x}");
-                        });
-                        //Conditions
-                        GetDifferenceForAListForStudyComparison<ConditionEntity>(currentStudyDesign.Conditions, previousStudyDesign.Conditions).ForEach(x =>
-                        {
-                            changedValues.Add($"{nameof(StudyDesignEntity.Conditions)}{x}");
                         });
                         //StudyPhase
                         GetDifferenceForAliasCodeForStudyComparison(currentStudyDesign.StudyPhase, previousStudyDesign.StudyPhase).ForEach(x =>

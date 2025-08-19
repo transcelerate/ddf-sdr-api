@@ -333,7 +333,7 @@ namespace TransCelerate.SDR.Services.Services
 
                             var scheduleActivityInstances = scheduleTimeline.Instances?.Select(x => (x as ScheduledActivityInstanceEntity))
                                                                          .Where(x => x != null).ToList();
-                            var conditions = design.Conditions is not null ? design.Conditions : new List<ConditionEntity>();
+                            var conditions = version.Conditions is not null ? version.Conditions : new List<ConditionEntity>();
                             
                             if (scheduleActivityInstances != null && scheduleActivityInstances.Any())
                             {

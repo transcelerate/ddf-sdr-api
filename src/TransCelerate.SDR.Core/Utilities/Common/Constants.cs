@@ -381,6 +381,10 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(DTO.StudyV5.StudyVersionDto.Abbreviations),
             nameof(DTO.StudyV5.StudyVersionDto.Notes),
             nameof(DTO.StudyV5.StudyVersionDto.InstanceType),
+            nameof(DTO.StudyV5.StudyVersionDto.Conditions),
+            nameof(DTO.StudyV5.StudyVersionDto.BcSurrogates),
+            nameof(DTO.StudyV5.StudyVersionDto.BcCategories),
+            nameof(DTO.StudyV5.StudyVersionDto.Dictionaries),
             nameof(DTO.StudyV5.StudyVersionDto.BiomedicalConcepts)
         };
 
@@ -436,13 +440,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(DTO.StudyV5.StudyDesignDto.Activities),
             nameof(DTO.StudyV5.StudyDesignDto.Encounters),
             nameof(DTO.StudyV5.StudyDesignDto.Rationale),
-            nameof(DTO.StudyV5.StudyDesignDto.BcCategories),
-            nameof(DTO.StudyV5.StudyDesignDto.BcSurrogates),
-            nameof(DTO.StudyV5.StudyDesignDto.Dictionaries),
             nameof(DTO.StudyV5.StudyDesignDto.Characteristics),
-            nameof(DTO.StudyV5.StudyDesignDto.Conditions),
             nameof(DTO.StudyV5.StudyDesignDto.InstanceType),
-            nameof(DTO.StudyV5.StudyDesignDto.StudyPhase),
             nameof(DTO.StudyV5.StudyDesignDto.StudyType)
         };
         public struct FunctionAppConstants
