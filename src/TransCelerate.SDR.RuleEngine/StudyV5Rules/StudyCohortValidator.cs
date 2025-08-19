@@ -91,14 +91,13 @@ namespace TransCelerate.SDR.RuleEngineV5
             RuleForEach(x => x.Characteristics)
                 .SetValidator(new CharacteristicValidator(_httpContextAccessor));
 
-            RuleFor(x => x.Indications)
+            RuleFor(x => x.IndicationIds)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyCohortValidator), nameof(StudyCohortDto.Indications)), ApplyConditionTo.AllValidators);
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyCohortValidator), nameof(StudyCohortDto.IndicationIds)), ApplyConditionTo.AllValidators)
+                .Must(x => UniquenessArrayValidator.ValidateStringList(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
 
-            RuleForEach(x => x.Indications)
-                .SetValidator(new IndicationValidator(_httpContextAccessor));
 
             RuleFor(x => x.Notes)
                .Cascade(CascadeMode.Stop)

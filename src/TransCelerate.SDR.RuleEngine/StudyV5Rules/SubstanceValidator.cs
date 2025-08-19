@@ -57,12 +57,13 @@ namespace TransCelerate.SDR.RuleEngineV5
             RuleForEach(x => x.Strengths)
                 .SetValidator(new StrengthValidator(_httpContextAccessor));
 
+            // Since we are using the CDISC Rules Engine for conformance validation,
+            // nested object validation is removed due to circular reference problem 
             RuleFor(x => x.ReferenceSubstance)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(SubstanceValidator), nameof(SubstanceDto.ReferenceSubstance)), ApplyConditionTo.AllValidators)
-                .SetValidator(new SubstanceValidator(_httpContextAccessor));
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(SubstanceValidator), nameof(SubstanceDto.ReferenceSubstance)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.Codes)
                 .Cascade(CascadeMode.Stop)

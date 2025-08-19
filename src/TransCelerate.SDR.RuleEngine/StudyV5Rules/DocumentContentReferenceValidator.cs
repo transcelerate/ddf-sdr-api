@@ -36,19 +36,17 @@ namespace TransCelerate.SDR.RuleEngineV5
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(DocumentContentReferenceValidator), nameof(DocumentContentReferenceDto.SectionNumber)), ApplyConditionTo.AllValidators);
 
-             RuleFor(x => x.SectionTitle)
+            RuleFor(x => x.SectionTitle)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(DocumentContentReferenceValidator), nameof(DocumentContentReferenceDto.SectionTitle)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.AppliesTo)
+            RuleFor(x => x.AppliesToId)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(DocumentContentReferenceValidator), nameof(DocumentContentReferenceDto.AppliesTo)), ApplyConditionTo.AllValidators)
-               .SetValidator(new StudyDefinitionDocumentValidator(_httpContextAccessor));
-
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(DocumentContentReferenceValidator), nameof(DocumentContentReferenceDto.AppliesToId)), ApplyConditionTo.AllValidators);
         }
     }
 }

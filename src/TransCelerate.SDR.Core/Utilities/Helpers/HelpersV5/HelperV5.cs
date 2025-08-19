@@ -1700,12 +1700,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                                 $"{nameof(EstimandDto.Interventions)}");
                     });
 
-                    if (!String.IsNullOrWhiteSpace(estimand.VariableOfInterest.Id) && !endpointIds.Contains(estimand.VariableOfInterest.Id))
+                    if (!String.IsNullOrWhiteSpace(estimand.VariableOfInterestId) && !endpointIds.Contains(estimand.VariableOfInterestId))
                         errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
                             $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
                             $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
                             $"{nameof(StudyDesignDto.Estimands)}[{design.Estimands.IndexOf(estimand)}]." +
-                            $"{nameof(EstimandDto.VariableOfInterest)}");
+                            $"{nameof(EstimandDto.VariableOfInterestId)}");
                 });
             }
 
