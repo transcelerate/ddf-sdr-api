@@ -444,7 +444,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(DTO.StudyV5.StudyDesignDto.Characteristics),
             nameof(DTO.StudyV5.StudyDesignDto.InstanceType),
             nameof(DTO.StudyV5.StudyDesignDto.StudyPhase),
-            nameof(DTO.StudyV5.StudyDesignDto.StudyType),
+            nameof(DTO.StudyV5.StudyDesignDto.StudyType)
         };
 
         public struct FunctionAppConstants
