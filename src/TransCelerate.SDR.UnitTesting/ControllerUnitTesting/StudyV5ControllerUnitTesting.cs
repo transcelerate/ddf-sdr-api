@@ -919,6 +919,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         [Test]
         public void ValidateUsdmConformanceFailureUnitTesting()
         {
+            //// Study Input Error
             // Arrange
             StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object,
                 _mockBinaryRunner.Object, _mockFileSystem.Object);
@@ -938,6 +939,59 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             string resultJson = JsonConvert.SerializeObject(resultValue);
             Assert.IsTrue(resultJson.Contains(Constants.ErrorMessages.StudyInputError));
+
+            //// Binary Failure
+            // Arrange
+            _mockBinaryRunner.Setup(x => x.RunAsync(It.IsAny<string>(), It.IsAny<IEnumerable<string>>()))
+                .ReturnsAsync(new BinaryResult(1, "", "failure"));
+
+            studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object,
+                _mockBinaryRunner.Object, _mockFileSystem.Object);
+            study = GetDtoDataFromStaticJson();
+
+            // Act
+            method = studyV5Controller.ValidateUsdmConformanceAsync(study, Constants.USDMVersions.V4);
+            method.Wait();
+            result = method.Result;
+
+            // Assert
+            Assert.IsInstanceOf<ObjectResult>(result);
+            var statusCodeResult = result as ObjectResult;
+
+            Assert.AreEqual(500, statusCodeResult.StatusCode);
+
+            resultValue = statusCodeResult.Value;
+            Assert.IsNotNull(resultValue);
+
+            resultJson = JsonConvert.SerializeObject(resultValue);
+            Assert.IsTrue(resultJson.Contains(Constants.ErrorMessages.ErrorMessageForCdiscRulesEngineFailure));
+
+            //// Report Not Found
+            // Arrange
+            _mockBinaryRunner.Setup(x => x.RunAsync(It.IsAny<string>(), It.IsAny<IEnumerable<string>>()))
+                .ReturnsAsync(new BinaryResult(0, "ok", ""));
+            _mockFileSystem.Setup(x => x.Exists(It.IsAny<string>())).Returns(false);
+
+            studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object,
+                _mockBinaryRunner.Object, _mockFileSystem.Object);
+            study = GetDtoDataFromStaticJson();
+
+            // Act
+            method = studyV5Controller.ValidateUsdmConformanceAsync(study, Constants.USDMVersions.V4);
+            method.Wait();
+            result = method.Result;
+
+            // Assert
+            Assert.IsInstanceOf<ObjectResult>(result);
+            statusCodeResult = result as ObjectResult;
+
+            Assert.AreEqual(500, statusCodeResult.StatusCode);
+
+            resultValue = statusCodeResult.Value;
+            Assert.IsNotNull(resultValue);
+
+            resultJson = JsonConvert.SerializeObject(resultValue);
+            Assert.IsTrue(resultJson.Contains(Constants.ErrorMessages.ErrorMessageForCdiscRulesEngineOutputNotFound));
         }
         #endregion
 
