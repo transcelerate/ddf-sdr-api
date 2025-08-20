@@ -59,12 +59,11 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EstimandValidator), nameof(EstimandDto.InterventionIds)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.AnalysisPopulation)
+            RuleFor(x => x.AnalysisPopulationId)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EstimandValidator), nameof(EstimandDto.AnalysisPopulation)), ApplyConditionTo.AllValidators)
-                .SetValidator(new AnalysisPopulationValidator(_httpContextAccessor));
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(EstimandValidator), nameof(EstimandDto.AnalysisPopulationId)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.Notes)
                 .Cascade(CascadeMode.Stop)

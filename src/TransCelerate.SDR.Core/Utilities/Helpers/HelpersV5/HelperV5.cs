@@ -1702,6 +1702,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                 {
                     List<string> investigationalInterventionIds = design.StudyInterventionIds is null ? new List<string>() : design.StudyInterventionIds.ToList();
                     List<string> endpointIds = design.Objectives is null ? new List<string>() : design.Objectives.Select(x => x as ObjectiveDto).ToList().Select(x => x?.Endpoints).Where(y => y != null).SelectMany(x => x.Select(y => y.Id)).ToList();
+                    List<string> analysisPopulationIds = design.AnalysisPopulations is null ? new List<string>() : design.AnalysisPopulations.Select(x => x.Id).ToList();
 
                     estimand.InterventionIds.ForEach(interventionId =>
                     {
@@ -1719,6 +1720,13 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                             $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
                             $"{nameof(StudyDesignDto.Estimands)}[{design.Estimands.IndexOf(estimand)}]." +
                             $"{nameof(EstimandDto.VariableOfInterestId)}");
+
+                    if (!String.IsNullOrWhiteSpace(estimand.AnalysisPopulationId) && !analysisPopulationIds.Contains(estimand.AnalysisPopulationId))
+                        errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                            $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
+                            $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
+                            $"{nameof(StudyDesignDto.Estimands)}[{design.Estimands.IndexOf(estimand)}]." +
+                            $"{nameof(EstimandDto.AnalysisPopulationId)}");
                 });
             }
 
@@ -2238,10 +2246,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                 var currentStudyEstimand = currentVersion as EstimandEntity;
                 var previousStudyEstimand = previousVersion as EstimandEntity;
 
-                if (currentStudyEstimand.AnalysisPopulation?.Id != previousStudyEstimand.AnalysisPopulation?.Id)
+                if (currentStudyEstimand.AnalysisPopulationId != previousStudyEstimand.AnalysisPopulationId)
                 {
-                    changedValues.RemoveAll(x => x.Contains(nameof(EstimandEntity.AnalysisPopulation)));
-                    changedValues.Add($"[{index}].{nameof(EstimandEntity.AnalysisPopulation)}");
+                    changedValues.RemoveAll(x => x.Contains(nameof(EstimandEntity.AnalysisPopulationId)));
+                    changedValues.Add($"[{index}].{nameof(EstimandEntity.AnalysisPopulationId)}");
                 }
             }
             if (typeof(T) == typeof(GeographicScopeEntity))
