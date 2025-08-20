@@ -625,8 +625,6 @@ namespace TransCelerate.SDR.Services.Services
             {
                 studyDto.StudyDesigns.ForEach(design =>
                 {
-                    string populationsForAnalyses = GetPopulationsForAnalysesFromStudyDesign(design);
-
                     Core.DTO.eCPT.StudyDesignDto studyeCPTDto = new()
                     {
                         StudyDesignId = design.Id,
@@ -699,7 +697,7 @@ namespace TransCelerate.SDR.Services.Services
                             {
                                 StudyInterventionsAdministered = design.StudyInterventionIds != null && design.StudyInterventionIds.Any() ?
                                            _mapper.Map<List<Core.DTO.eCPT.StudyInterventionsAdministeredDto>>(
-                                                studyDto.StudyInterventions?.Where(intervention => 
+                                                studyDto.StudyInterventions?.Where(intervention =>
                                                     design.StudyInterventionIds.Contains(intervention.Id)).ToList())
                                             : null,
                                 StudyArms = design.Arms != null && design.Arms.Any() ?
@@ -767,7 +765,7 @@ namespace TransCelerate.SDR.Services.Services
                 _logger.LogInformation($"Ended Service : {nameof(StudyServiceV5)}; Method : {nameof(GetDifferences)};");
             }
         }
-        
+
         private string GetPopulationsForAnalysesFromStudyDesign(StudyDesignDto design)
         {
             if (design.Estimands == null || !design.Estimands.Any())
@@ -775,7 +773,7 @@ namespace TransCelerate.SDR.Services.Services
 
             if (design.Estimands.Count == 1)
             {
-                var analysisPopulationId = design.Estimands.FirstOrDefault().AnalysisPopulationId;
+                var analysisPopulationId = design.Estimands.FirstOrDefault()?.AnalysisPopulationId;
                 var analysisPopulation = design.AnalysisPopulations?.FirstOrDefault(ap => ap.Id == analysisPopulationId);
                 return analysisPopulation?.Name;
             }
@@ -786,13 +784,19 @@ namespace TransCelerate.SDR.Services.Services
                     .Select(id => design.AnalysisPopulations?.FirstOrDefault(ap => ap.Id == id)?.Name)
                     .Where(name => !string.IsNullOrEmpty(name))
                     .ToList();
-                
-                if (populationNames.Count > 0)
+
+                if (populationNames.Count == 0)
                 {
-                    return $"{String.Join(", ", populationNames.ToArray(), 0, populationNames.Count - 1)} and {populationNames.LastOrDefault()}";
+                    return null;
                 }
-                
-                return null;
+
+                if (populationNames.Count == 1)
+                {
+                    return populationNames[0];
+
+                }
+
+                return $"{String.Join(", ", populationNames.ToArray(), 0, populationNames.Count - 1)} and {populationNames.LastOrDefault()}";
             }
         }
         #endregion
