@@ -11,7 +11,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public string Name { get; set; }
         public string Label { get; set; }
         public string Description { get; set; }
-        public List<OrganizationEntity> Organizations { get; set; }
+        public List<string> OrganizationIds { get; set; }
         public CodeEntity Code { get; set; }
         public List<string> AppliesToIds { get; set; }
         public MaskingEntity Masking { get; set; }
