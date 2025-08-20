@@ -4,12 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities.Common;
-using TransCelerate.SDR.Core.Entities.UserGroups;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
-using static TransCelerate.SDR.Core.Utilities.Common.Constants;
 
 namespace TransCelerate.SDR.DataAccess.Filters
 {
@@ -91,10 +88,8 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// <param name="fromDate"></param>
         /// <param name="toDate"></param>
         /// <param name="studyTitle"></param>
-        /// <param name="groups"></param>
-        /// <param name="user"></param>
         /// <returns></returns>
-        public static FilterDefinition<CommonStudyDefinitionsEntity> GetFiltersForStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle, List<SDRGroupsEntity> groups, LoggedInUser user)
+        public static FilterDefinition<CommonStudyDefinitionsEntity> GetFiltersForStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle)
         {
             FilterDefinitionBuilder<CommonStudyDefinitionsEntity> builder = Builders<CommonStudyDefinitionsEntity>.Filter;
             FilterDefinition<CommonStudyDefinitionsEntity> filter = builder.Empty;
@@ -106,32 +101,6 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             //Filter for supported USDM Versions
             //filter &= builder.In(x => x.AuditTrail.UsdmVersion, ApiUsdmVersionMapping.SDRVersions.SelectMany(y => y.UsdmVersions).ToArray());
-
-            //For Data Segmentation
-            if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
-            {
-                if (groups != null && groups.Any())
-                {
-                    Tuple<List<string>, List<string>> groupFilters = Core.Utilities.Helpers.GroupFilters.GetGroupFilters(groups);
-
-                    if (!groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
-                    {
-                        if (groupFilters.Item1.Any())
-                        {
-                            filter &= builder.Or(
-                                        builder.Regex($"{Constants.DbFilter.StudyType}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
-                                        builder.In(x => x.Study.StudyId, groupFilters.Item2)
-                                        );
-                        }
-                        else
-                        {
-                            filter &= builder.In(x => x.Study.StudyId, groupFilters.Item2);
-                        }
-                    }
-                }
-                else
-                    filter &= builder.Where(x => x.Study == null); //if there are no groups assigned for the user
-            }
 
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(studyTitle))
@@ -146,10 +115,8 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// <param name="fromDate"></param>
         /// <param name="toDate"></param>
         /// <param name="studyTitle"></param>
-        /// <param name="groups"></param>
-        /// <param name="user"></param>
         /// <returns></returns>
-        public static FilterDefinition<CommonStudyDefinitionsEntity> GetFiltersForStudyHistoryV4(DateTime fromDate, DateTime toDate, string studyTitle, List<SDRGroupsEntity> groups, LoggedInUser user)
+        public static FilterDefinition<CommonStudyDefinitionsEntity> GetFiltersForStudyHistoryV4(DateTime fromDate, DateTime toDate, string studyTitle)
         {
             FilterDefinitionBuilder<CommonStudyDefinitionsEntity> builder = Builders<CommonStudyDefinitionsEntity>.Filter;
             FilterDefinition<CommonStudyDefinitionsEntity> filter = builder.Empty;
@@ -161,32 +128,6 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             //Filter for supported USDM Versions
             //filter &= builder.In(x => x.AuditTrail.UsdmVersion, ApiUsdmVersionMapping.SDRVersions.SelectMany(y => y.UsdmVersions).ToArray());
-
-            //For Data Segmentation
-            if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
-            {
-                if (groups != null && groups.Any())
-                {
-                    Tuple<List<string>, List<string>> groupFilters = Core.Utilities.Helpers.GroupFilters.GetGroupFilters(groups);
-
-                    if (!groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
-                    {
-                        if (groupFilters.Item1.Any())
-                        {
-                            filter &= builder.Or(
-                                        builder.Regex($"{Constants.DbFilter.StudyTypeV4}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
-                                        builder.In(x => x.Study.StudyId, groupFilters.Item2)
-                                        );
-                        }
-                        else
-                        {
-                            filter &= builder.In(x => x.Study.StudyId, groupFilters.Item2);
-                        }
-                    }
-                }
-                else
-                    filter &= builder.Where(x => x.Study == null); //if there are no groups assigned for the user
-            }
 
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(studyTitle))
@@ -206,10 +147,8 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// <param name="fromDate"></param>
         /// <param name="toDate"></param>
         /// <param name="studyTitle"></param>
-        /// <param name="groups"></param>
-        /// <param name="user"></param>
         /// <returns></returns>
-        public static FilterDefinition<CommonStudyDefinitionsEntityV5> GetFiltersForStudyHistoryV5(DateTime fromDate, DateTime toDate, string studyTitle, List<SDRGroupsEntity> groups, LoggedInUser user)
+        public static FilterDefinition<CommonStudyDefinitionsEntityV5> GetFiltersForStudyHistoryV5(DateTime fromDate, DateTime toDate, string studyTitle)
         {
             FilterDefinitionBuilder<CommonStudyDefinitionsEntityV5> builder = Builders<CommonStudyDefinitionsEntityV5>.Filter;
             FilterDefinition<CommonStudyDefinitionsEntityV5> filter = builder.Empty;
@@ -221,32 +160,6 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             //Filter for supported USDM Versions
             //filter &= builder.In(x => x.AuditTrail.UsdmVersion, ApiUsdmVersionMapping.SDRVersions.SelectMany(y => y.UsdmVersions).ToArray());
-
-            //For Data Segmentation
-            if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
-            {
-                if (groups != null && groups.Any())
-                {
-                    Tuple<List<string>, List<string>> groupFilters = Core.Utilities.Helpers.GroupFilters.GetGroupFilters(groups);
-
-                    if (!groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
-                    {
-                        if (groupFilters.Item1.Any())
-                        {
-                            filter &= builder.Or(
-                                        builder.Regex($"{Constants.DbFilter.StudyTypeV4}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
-                                        builder.In(x => x.Study.StudyId, groupFilters.Item2)
-                                        );
-                        }
-                        else
-                        {
-                            filter &= builder.In(x => x.Study.StudyId, groupFilters.Item2);
-                        }
-                    }
-                }
-                else
-                    filter &= builder.Where(x => x.Study == null); //if there are no groups assigned for the user
-            }
 
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(studyTitle))
@@ -263,10 +176,8 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// Get filters for Search Study Title API
         /// </summary>
         /// <param name="searchParameters"></param>
-        /// <param name="groups"></param>
-        /// <param name="user"></param>
         /// <returns></returns>
-        public static FilterDefinition<CommonStudyDefinitionsEntity> GetFiltersForSearchTitle(SearchTitleParametersEntity searchParameters, List<SDRGroupsEntity> groups, LoggedInUser user)
+        public static FilterDefinition<CommonStudyDefinitionsEntity> GetFiltersForSearchTitle(SearchTitleParametersEntity searchParameters)
         {
             FilterDefinitionBuilder<CommonStudyDefinitionsEntity> builder = Builders<CommonStudyDefinitionsEntity>.Filter;
             FilterDefinition<CommonStudyDefinitionsEntity> filter = builder.Empty;
@@ -302,42 +213,14 @@ namespace TransCelerate.SDR.DataAccess.Filters
                                     );
             }
 
-            //For Data Segmentation
-            if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
-            {
-                if (groups != null && groups.Any())
-                {
-                    Tuple<List<string>, List<string>> groupFilters = Core.Utilities.Helpers.GroupFilters.GetGroupFilters(groups);
-
-                    if (!groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
-                    {
-                        if (groupFilters.Item1.Any())
-                        {
-                            filter &= builder.Or(
-                                        builder.Regex($"{Constants.DbFilter.StudyType}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
-                                        builder.In(x => x.Study.StudyId, groupFilters.Item2)
-                                        );
-                        }
-                        else
-                        {
-                            filter &= builder.In(x => x.Study.StudyId, groupFilters.Item2);
-                        }
-                    }
-                }
-                else
-                    filter &= builder.Where(x => x.Study == null); //if there are no groups assigned for the user
-            }
-
             return filter;
         }
         /// <summary>
         /// Get filters for Search Study Title API
         /// </summary>
         /// <param name="searchParameters"></param>
-        /// <param name="groups"></param>
-        /// <param name="user"></param>
         /// <returns></returns>
-        public static FilterDefinition<CommonStudyDefinitionsEntity> GetFiltersForSearchTitleV4(SearchTitleParametersEntity searchParameters, List<SDRGroupsEntity> groups, LoggedInUser user)
+        public static FilterDefinition<CommonStudyDefinitionsEntity> GetFiltersForSearchTitleV4(SearchTitleParametersEntity searchParameters)
         {
             FilterDefinitionBuilder<CommonStudyDefinitionsEntity> builder = Builders<CommonStudyDefinitionsEntity>.Filter;
             FilterDefinition<CommonStudyDefinitionsEntity> filter = builder.Empty;
@@ -374,32 +257,6 @@ namespace TransCelerate.SDR.DataAccess.Filters
                                     );
             }
 
-            //For Data Segmentation
-            if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
-            {
-                if (groups != null && groups.Any())
-                {
-                    Tuple<List<string>, List<string>> groupFilters = Core.Utilities.Helpers.GroupFilters.GetGroupFilters(groups);
-
-                    if (!groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
-                    {
-                        if (groupFilters.Item1.Any())
-                        {
-                            filter &= builder.Or(
-                                        builder.Regex($"{Constants.DbFilter.StudyTypeV4}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
-                                        builder.In(x => x.Study.StudyId, groupFilters.Item2)
-                                        );
-                        }
-                        else
-                        {
-                            filter &= builder.In(x => x.Study.StudyId, groupFilters.Item2);
-                        }
-                    }
-                }
-                else
-                    filter &= builder.Where(x => x.Study == null); //if there are no groups assigned for the user
-            }
-
             return filter;
         }
 
@@ -407,10 +264,8 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// Get filters for Search Study Title API
         /// </summary>
         /// <param name="searchParameters"></param>
-        /// <param name="groups"></param>
-        /// <param name="user"></param>
         /// <returns></returns>
-        public static FilterDefinition<CommonStudyDefinitionsEntity> GetFiltersForSearchTitleV5(SearchTitleParametersEntity searchParameters, List<SDRGroupsEntity> groups, LoggedInUser user)
+        public static FilterDefinition<CommonStudyDefinitionsEntity> GetFiltersForSearchTitleV5(SearchTitleParametersEntity searchParameters)
         {
             FilterDefinitionBuilder<CommonStudyDefinitionsEntity> builder = Builders<CommonStudyDefinitionsEntity>.Filter;
             FilterDefinition<CommonStudyDefinitionsEntity> filter = builder.Empty;
@@ -447,37 +302,11 @@ namespace TransCelerate.SDR.DataAccess.Filters
                                     );
             }
 
-            //For Data Segmentation
-            if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
-            {
-                if (groups != null && groups.Any())
-                {
-                    Tuple<List<string>, List<string>> groupFilters = Core.Utilities.Helpers.GroupFilters.GetGroupFilters(groups);
-
-                    if (!groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
-                    {
-                        if (groupFilters.Item1.Any())
-                        {
-                            filter &= builder.Or(
-                                        builder.Regex($"{Constants.DbFilter.StudyTypeV4}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
-                                        builder.In(x => x.Study.StudyId, groupFilters.Item2)
-                                        );
-                        }
-                        else
-                        {
-                            filter &= builder.In(x => x.Study.StudyId, groupFilters.Item2);
-                        }
-                    }
-                }
-                else
-                    filter &= builder.Where(x => x.Study == null); //if there are no groups assigned for the user
-            }
-
             return filter;
         }
 
 
-        public static FilterDefinition<CommonStudyDefinitionsEntity> GetFiltersForSearchStudy(SearchParametersEntity searchParameters, List<SDRGroupsEntity> groups, LoggedInUser user)
+        public static FilterDefinition<CommonStudyDefinitionsEntity> GetFiltersForSearchStudy(SearchParametersEntity searchParameters)
         {
             FilterDefinitionBuilder<CommonStudyDefinitionsEntity> builder = Builders<CommonStudyDefinitionsEntity>.Filter;
             FilterDefinition<CommonStudyDefinitionsEntity> filter = builder.Empty;
@@ -488,33 +317,6 @@ namespace TransCelerate.SDR.DataAccess.Filters
             //Filter for Date Range
             filter &= builder.Where(x => x.AuditTrail.EntryDateTime >= searchParameters.FromDate
                                          && x.AuditTrail.EntryDateTime <= searchParameters.ToDate);
-
-            //For Data Segmentation
-            if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
-            {
-                if (groups != null && groups.Any())
-                {
-                    Tuple<List<string>, List<string>> groupFilters = Core.Utilities.Helpers.GroupFilters.GetGroupFilters(groups);
-
-                    if (!groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
-                    {
-                        if (groupFilters.Item1.Any())
-                        {
-                            filter &= builder.Or(
-                                        builder.Regex($"{Constants.DbFilter.StudyType}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
-                                        builder.In(x => x.Study.StudyId, groupFilters.Item2)
-                                        );
-                        }
-                        else
-                        {
-                            filter &= builder.In(x => x.Study.StudyId, groupFilters.Item2);
-                        }
-                    }
-                }
-                else
-                    filter &= builder.Where(x => x.Study == null); //if there are no groups assigned for the user
-            }
-
 
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
@@ -634,10 +436,8 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// Search Filters
         /// </summary>
         /// <param name="searchParameters"></param>
-        /// <param name="groups"></param>
-        /// <param name="user"></param>
         /// <returns></returns>
-        public static FilterDefinition<Core.Entities.StudyV2.StudyDefinitionsEntity> GetFiltersForSearchV2(SearchParametersEntity searchParameters, List<SDRGroupsEntity> groups, LoggedInUser user)
+        public static FilterDefinition<Core.Entities.StudyV2.StudyDefinitionsEntity> GetFiltersForSearchV2(SearchParametersEntity searchParameters)
         {
             FilterDefinitionBuilder<Core.Entities.StudyV2.StudyDefinitionsEntity> builder = Builders<Core.Entities.StudyV2.StudyDefinitionsEntity>.Filter;
             FilterDefinition<Core.Entities.StudyV2.StudyDefinitionsEntity> filter = builder.Empty;
@@ -648,32 +448,6 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             //Filter for usdmVersion
             filter &= builder.Where(x => x.AuditTrail.UsdmVersion.ToLower() == searchParameters.UsdmVersion.ToLower());
-
-            //For Data Segmentation
-            if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
-            {
-                if (groups != null && groups.Any())
-                {
-                    Tuple<List<string>, List<string>> groupFilters = Core.Utilities.Helpers.GroupFilters.GetGroupFilters(groups);
-
-                    if (!groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
-                    {
-                        if (groupFilters.Item1.Any())
-                        {
-                            filter &= builder.Or(
-                                        builder.Regex($"{Constants.DbFilter.StudyType}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
-                                        builder.In(x => x.Study.StudyId, groupFilters.Item2)
-                                        );
-                        }
-                        else
-                        {
-                            filter &= builder.In(x => x.Study.StudyId, groupFilters.Item2);
-                        }
-                    }
-                }
-                else
-                    filter &= builder.Where(x => x.Study == null); //if there are no groups assigned for the user
-            }
 
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
@@ -744,10 +518,8 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// Search Filters
         /// </summary>
         /// <param name="searchParameters"></param>
-        /// <param name="groups"></param>
-        /// <param name="user"></param>
         /// <returns></returns>
-        public static FilterDefinition<Core.Entities.StudyV3.StudyDefinitionsEntity> GetFiltersForSearchV3(SearchParametersEntity searchParameters, List<SDRGroupsEntity> groups, LoggedInUser user)
+        public static FilterDefinition<Core.Entities.StudyV3.StudyDefinitionsEntity> GetFiltersForSearchV3(SearchParametersEntity searchParameters)
         {
             FilterDefinitionBuilder<Core.Entities.StudyV3.StudyDefinitionsEntity> builder = Builders<Core.Entities.StudyV3.StudyDefinitionsEntity>.Filter;
             FilterDefinition<Core.Entities.StudyV3.StudyDefinitionsEntity> filter = builder.Empty;
@@ -758,32 +530,6 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             //Filter for usdmVersion
             filter &= builder.Where(x => x.AuditTrail.UsdmVersion.ToLower() == searchParameters.UsdmVersion.ToLower());
-
-            //For Data Segmentation
-            if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
-            {
-                if (groups != null && groups.Any())
-                {
-                    Tuple<List<string>, List<string>> groupFilters = Core.Utilities.Helpers.GroupFilters.GetGroupFilters(groups);
-
-                    if (!groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
-                    {
-                        if (groupFilters.Item1.Any())
-                        {
-                            filter &= builder.Or(
-                                        builder.Regex($"{Constants.DbFilter.StudyType}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
-                                        builder.In(x => x.Study.StudyId, groupFilters.Item2)
-                                        );
-                        }
-                        else
-                        {
-                            filter &= builder.In(x => x.Study.StudyId, groupFilters.Item2);
-                        }
-                    }
-                }
-                else
-                    filter &= builder.Where(x => x.Study == null); //if there are no groups assigned for the user
-            }
 
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
@@ -854,10 +600,8 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// Search Filters
         /// </summary>
         /// <param name="searchParameters"></param>
-        /// <param name="groups"></param>
-        /// <param name="user"></param>
         /// <returns></returns>
-        public static FilterDefinition<Core.Entities.StudyV4.StudyDefinitionsEntity> GetFiltersForSearchV4(SearchParametersEntity searchParameters, List<SDRGroupsEntity> groups, LoggedInUser user)
+        public static FilterDefinition<Core.Entities.StudyV4.StudyDefinitionsEntity> GetFiltersForSearchV4(SearchParametersEntity searchParameters)
         {
             FilterDefinitionBuilder<Core.Entities.StudyV4.StudyDefinitionsEntity> builder = Builders<Core.Entities.StudyV4.StudyDefinitionsEntity>.Filter;
             FilterDefinition<Core.Entities.StudyV4.StudyDefinitionsEntity> filter = builder.Empty;
@@ -868,32 +612,6 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             //Filter for usdmVersion
             filter &= builder.Where(x => x.AuditTrail.UsdmVersion.ToLower() == searchParameters.UsdmVersion.ToLower());
-
-            //For Data Segmentation
-            if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
-            {
-                if (groups != null && groups.Any())
-                {
-                    Tuple<List<string>, List<string>> groupFilters = Core.Utilities.Helpers.GroupFilters.GetGroupFilters(groups);
-
-                    if (!groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
-                    {
-                        if (groupFilters.Item1.Any())
-                        {
-                            filter &= builder.Or(
-                                        builder.Regex($"{Constants.DbFilter.StudyType}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
-                                        builder.In(x => x.Study.Id, groupFilters.Item2)
-                                        );
-                        }
-                        else
-                        {
-                            filter &= builder.In(x => x.Study.Id, groupFilters.Item2);
-                        }
-                    }
-                }
-                else
-                    filter &= builder.Where(x => x.Study == null); //if there are no groups assigned for the user
-            }
 
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
@@ -962,10 +680,8 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// Search Filters
         /// </summary>
         /// <param name="searchParameters"></param>
-        /// <param name="groups"></param>
-        /// <param name="user"></param>
         /// <returns></returns>
-        public static FilterDefinition<Core.Entities.StudyV5.StudyDefinitionsEntity> GetFiltersForSearchV5(SearchParametersEntity searchParameters, List<SDRGroupsEntity> groups, LoggedInUser user)
+        public static FilterDefinition<Core.Entities.StudyV5.StudyDefinitionsEntity> GetFiltersForSearchV5(SearchParametersEntity searchParameters)
         {
             FilterDefinitionBuilder<Core.Entities.StudyV5.StudyDefinitionsEntity> builder = Builders<Core.Entities.StudyV5.StudyDefinitionsEntity>.Filter;
             FilterDefinition<Core.Entities.StudyV5.StudyDefinitionsEntity> filter = builder.Empty;
@@ -976,32 +692,6 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             //Filter for usdmVersion
             filter &= builder.Where(x => x.AuditTrail.UsdmVersion.ToLower() == searchParameters.UsdmVersion.ToLower());
-
-            //For Data Segmentation
-            if (user.UserRole != Constants.Roles.Org_Admin && Config.IsGroupFilterEnabled)
-            {
-                if (groups != null && groups.Any())
-                {
-                    Tuple<List<string>, List<string>> groupFilters = Core.Utilities.Helpers.GroupFilters.GetGroupFilters(groups);
-
-                    if (!groupFilters.Item1.Contains(Constants.StudyType.ALL.ToLower()))
-                    {
-                        if (groupFilters.Item1.Any())
-                        {
-                            filter &= builder.Or(
-                                        builder.Regex($"{Constants.DbFilter.StudyType}.{Constants.DbFilter.StudyPhaseDecode}", new BsonRegularExpression($"/{String.Join("$|", groupFilters.Item1)}$/i")),
-                                        builder.In(x => x.Study.Id, groupFilters.Item2)
-                                        );
-                        }
-                        else
-                        {
-                            filter &= builder.In(x => x.Study.Id, groupFilters.Item2);
-                        }
-                    }
-                }
-                else
-                    filter &= builder.Where(x => x.Study == null); //if there are no groups assigned for the user
-            }
 
             //Filter for StudyTitle
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
@@ -1016,7 +706,6 @@ namespace TransCelerate.SDR.DataAccess.Filters
                         org.Identifier.ToLower().Contains(searchParameters.SponsorId.ToLower()) &&
                         org.Type.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower())));
             }
-
             //Filter for Indication
             if (!String.IsNullOrWhiteSpace(searchParameters.Indication))
                 filter &= builder.Where(x => x.Study.Versions[0].StudyDesigns.Any(x => x.Indications.Any(y => y.Description.ToLower().Contains(searchParameters.Indication.ToLower()))));
@@ -1038,8 +727,9 @@ namespace TransCelerate.SDR.DataAccess.Filters
                     //Sort by studyTitle
                     "studytitle" => asc ? searchResponses.OrderBy(s => s.StudyTitle) : searchResponses.OrderByDescending(s => s.StudyTitle),
 
+                    //Sort by studyIdentifier: orgCode
                     "sponsorid" => asc ? searchResponses.OrderBy(s => GetSponsorId(s))
-                                              : searchResponses.OrderByDescending(s => GetSponsorId(s)),
+                                       : searchResponses.OrderByDescending(s => GetSponsorId(s)),
                     //Sort by studyIndication: description
                     "indication" => asc ? searchResponses.OrderBy(s => (s.StudyIndications != null && s.StudyIndications.Any()) ? (s.StudyIndications.First() != null && s.StudyIndications.First().Any()) ? s.StudyIndications.First().First() != null && s.StudyIndications.First().First().Any() ? s.StudyIndications.First().First().First() != null ? s.StudyIndications.First().First().First().Description ?? "" : "" : "" : "" : "")
                                                                                         : searchResponses.OrderByDescending(s => (s.StudyIndications != null && s.StudyIndications.Any()) ? (s.StudyIndications.First() != null && s.StudyIndications.First().Any()) ? s.StudyIndications.First().First() != null && s.StudyIndications.First().First().Any() ? s.StudyIndications.First().First().First() != null ? s.StudyIndications.First().First().First().Description ?? "" : "" : "" : "" : ""),
@@ -1066,7 +756,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
                 return asc ? searchResponses.OrderBy(s => s.EntryDateTime) : searchResponses.OrderByDescending(s => s.EntryDateTime);
             }
         }
-
+        
         static string GetSponsorId(Core.Entities.StudyV5.SearchResponseEntity searchResponse)
         {
             if (searchResponse.StudyIdentifiers == null || searchResponse.Organizations == null)

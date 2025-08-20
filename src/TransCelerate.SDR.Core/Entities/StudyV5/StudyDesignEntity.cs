@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV5
 {
@@ -14,7 +14,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public List<CodeEntity> Characteristics { get; set; }
         public List<StudyCellEntity> StudyCells { get; set; }
         public List<IndicationEntity> Indications { get; set; }
-        public List<StudyInterventionEntity> StudyInterventions { get; set; }
+        public List<string> StudyInterventionIds { get; set; }
         public StudyDesignPopulationEntity Population { get; set; }
         public List<ObjectiveEntity> Objectives { get; set; }
         public List<ScheduleTimelineEntity> ScheduleTimelines { get; set; }
@@ -24,18 +24,14 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public List<ActivityEntity> Activities { get; set; }
         public List<EligibilityCriterionEntity> EligibilityCriteria { get; set; }
         public string Rationale { get; set; }
-        public List<BiomedicalConceptEntity> BiomedicalConcepts { get; set; }
         public List<BiospecimenRetentionEntity> BiospecimenRetentions { get; set; }
-        public List<BiomedicalConceptCategoryEntity> BcCategories { get; set; }
-        public List<BiomedicalConceptSurrogateEntity> BcSurrogates { get; set; }
         public List<StudyArmEntity> Arms { get; set; }
         public List<StudyEpochEntity> Epochs { get; set; }
         public List<StudyElementEntity> Elements { get; set; }
-        public List<StudyDefinitionDocumentVersionEntity> DocumentVersions { get; set; }
-        public List<SyntaxTemplateDictionaryEntity> Dictionaries { get; set; }
-        public List<ConditionEntity> Conditions { get; set; }
+        public List<string> DocumentVersionIds { get; set; }
         public AliasCodeEntity StudyPhase { get; set; }
         public CodeEntity StudyType { get; set; }
         public List<CommentAnnotationEntity> Notes { get; set; }
+        public List<AnalysisPopulationEntity> AnalysisPopulations { get; set; }
     }
 }

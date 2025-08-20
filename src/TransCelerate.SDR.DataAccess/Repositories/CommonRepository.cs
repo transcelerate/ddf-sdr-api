@@ -6,9 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities.Common;
-using TransCelerate.SDR.Core.Entities.UserGroups;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.DataAccess.Filters;
@@ -194,13 +192,12 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// </summary>
         /// <param name="fromDate">Start Date for Date Filter</param>
         /// <param name="toDate">End Date for Date Filter</param>
-        /// <param name="studyTitle">Study Title Filter</param>        
-        /// <param name="user">Logged in user</param>        
+        /// <param name="studyTitle">Study Title Filter</param>
         /// <returns>
         /// A <see cref="List{StudyHistoryResponseEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<List<StudyHistoryResponseEntity>> GetStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle, LoggedInUser user)
+        public async Task<List<StudyHistoryResponseEntity>> GetStudyHistory(DateTime fromDate, DateTime toDate, string studyTitle)
         {
             _logger.LogInformation($"Started Repository : {nameof(CommonRepository)}; Method : {nameof(GetStudyHistory)};");
             try
@@ -209,7 +206,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 				var collectionV5 = _database.GetCollection<CommonStudyDefinitionsEntityV5>(Constants.Collections.StudyDefinitions);
 
                 List<StudyHistoryResponseEntity> studyHistories = await collection.Aggregate()
-                                                        .Match(DataFilterCommon.GetFiltersForStudyHistory(fromDate, toDate, studyTitle, GetGroupsOfUser(user).Result, user)) // Condition for matching date range
+                                                        .Match(DataFilterCommon.GetFiltersForStudyHistory(fromDate, toDate, studyTitle)) // Condition for matching date range
                                                         .Project(x =>
                                                                 new StudyHistoryResponseEntity
                                                                 {
@@ -227,7 +224,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                         .ToListAsync().ConfigureAwait(false);
 
                 List<StudyHistoryResponseEntity> studyHistoriesV4 = await collection.Aggregate()
-                                                        .Match(DataFilterCommon.GetFiltersForStudyHistoryV4(fromDate, toDate, studyTitle, GetGroupsOfUser(user).Result, user)) // Condition for matching date range
+                                                        .Match(DataFilterCommon.GetFiltersForStudyHistoryV4(fromDate, toDate, studyTitle)) // Condition for matching date range
                                                         .Project(x =>
                                                                 new StudyHistoryResponseEntity
                                                                 {
@@ -245,7 +242,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                         .ToListAsync().ConfigureAwait(false);
                 studyHistories.AddRange(studyHistoriesV4);
 				List<StudyHistoryResponseEntity> studyHistoriesV5 = await collectionV5.Aggregate()
-													.Match(DataFilterCommon.GetFiltersForStudyHistoryV5(fromDate, toDate, studyTitle, GetGroupsOfUser(user).Result, user)) // Condition for matching date range
+													.Match(DataFilterCommon.GetFiltersForStudyHistoryV5(fromDate, toDate, studyTitle)) // Condition for matching date range
 													.Project(x =>
 															new StudyHistoryResponseEntity
 															{
@@ -288,13 +285,12 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// <summary>
         /// Search the collection based on search criteria
         /// </summary>
-        /// <param name="searchParameters">Parameters to search in database</param>        
-        /// <param name="user">Loggedin User</param>        
+        /// <param name="searchParameters">Parameters to search in database</param>   
         /// <returns>
         /// A <see cref="List{SearchResponseEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<List<SearchResponseEntity>> SearchStudy(SearchParametersEntity searchParameters, LoggedInUser user)
+        public async Task<List<SearchResponseEntity>> SearchStudy(SearchParametersEntity searchParameters)
         {
             try
             {
@@ -306,7 +302,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 if (searchParameters.Header?.ToLower() == "phase" || searchParameters.Header?.ToLower() == "sponsorid" || searchParameters.Header?.ToLower() == "interventionmodel" || searchParameters.Header?.ToLower() == "indication")
                 {
                     studies = await collection.Aggregate()
-                                              .Match(DataFilterCommon.GetFiltersForSearchStudy(searchParameters, GetGroupsOfUser(user).Result, user))
+                                              .Match(DataFilterCommon.GetFiltersForSearchStudy(searchParameters))
                                               .Project(x => new SearchResponseEntity
                                               {
                                                   StudyId = x.Study.StudyId,
@@ -335,7 +331,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 else
                 {
                     studies = await collection.Aggregate()
-                                              .Match(DataFilterCommon.GetFiltersForSearchStudy(searchParameters, GetGroupsOfUser(user).Result, user))
+                                              .Match(DataFilterCommon.GetFiltersForSearchStudy(searchParameters))
                                               .Project(x => new SearchResponseEntity
                                               {
                                                   StudyId = x.Study.StudyId,
@@ -380,13 +376,12 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// <summary>
         /// Search the collection based on search criteria
         /// </summary>
-        /// <param name="searchParameters">Parameters to search in database</param>        
-        /// <param name="user">Loggedin User</param>        
+        /// <param name="searchParameters">Parameters to search in database</param>      
         /// <returns>
         /// A <see cref="List{SearchResponseEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<List<Core.Entities.StudyV2.SearchResponseEntity>> SearchStudyV2(SearchParametersEntity searchParameters, LoggedInUser user)
+        public async Task<List<Core.Entities.StudyV2.SearchResponseEntity>> SearchStudyV2(SearchParametersEntity searchParameters)
         {
             try
             {
@@ -395,7 +390,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
 
                 List<Core.Entities.StudyV2.SearchResponseEntity> studies = await collection.Aggregate()
-                                              .Match(DataFilterCommon.GetFiltersForSearchV2(searchParameters, GetGroupsOfUser(user).Result, user))
+                                              .Match(DataFilterCommon.GetFiltersForSearchV2(searchParameters))
                                               .Project(x => new Core.Entities.StudyV2.SearchResponseEntity
                                               {
                                                   StudyId = x.Study.StudyId,
@@ -430,13 +425,12 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// <summary>
         /// Search the collection based on search criteria
         /// </summary>
-        /// <param name="searchParameters">Parameters to search in database</param>        
-        /// <param name="user">Loggedin User</param>        
+        /// <param name="searchParameters">Parameters to search in database</param>
         /// <returns>
         /// A <see cref="List{SearchResponseEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<List<Core.Entities.StudyV3.SearchResponseEntity>> SearchStudyV3(SearchParametersEntity searchParameters, LoggedInUser user)
+        public async Task<List<Core.Entities.StudyV3.SearchResponseEntity>> SearchStudyV3(SearchParametersEntity searchParameters)
         {
             try
             {
@@ -445,7 +439,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
 
                 List<Core.Entities.StudyV3.SearchResponseEntity> studies = await collection.Aggregate()
-                                              .Match(DataFilterCommon.GetFiltersForSearchV3(searchParameters, GetGroupsOfUser(user).Result, user))
+                                              .Match(DataFilterCommon.GetFiltersForSearchV3(searchParameters))
                                               .Project(x => new Core.Entities.StudyV3.SearchResponseEntity
                                               {
                                                   StudyId = x.Study.StudyId,
@@ -480,13 +474,12 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// <summary>
         /// Search the collection based on search criteria
         /// </summary>
-        /// <param name="searchParameters">Parameters to search in database</param>        
-        /// <param name="user">Loggedin User</param>        
+        /// <param name="searchParameters">Parameters to search in database</param>    
         /// <returns>
         /// A <see cref="List{SearchResponseEntity}"/> with matching studyId <br></br> <br></br>
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
-        public async Task<List<Core.Entities.StudyV4.SearchResponseEntity>> SearchStudyV4(SearchParametersEntity searchParameters, LoggedInUser user)
+        public async Task<List<Core.Entities.StudyV4.SearchResponseEntity>> SearchStudyV4(SearchParametersEntity searchParameters)
         {
             try
             {
@@ -495,7 +488,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
 
                 List<Core.Entities.StudyV4.SearchResponseEntity> studies = await collection.Aggregate()
-                                              .Match(DataFilterCommon.GetFiltersForSearchV4(searchParameters, GetGroupsOfUser(user).Result, user))
+                                              .Match(DataFilterCommon.GetFiltersForSearchV4(searchParameters))
                                               .Project(x => new Core.Entities.StudyV4.SearchResponseEntity
                                               {
                                                   StudyId = x.Study.Id,
@@ -531,13 +524,12 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 		/// <summary>
 		/// Search the collection based on search criteria
 		/// </summary>
-		/// <param name="searchParameters">Parameters to search in database</param>        
-		/// <param name="user">Loggedin User</param>        
+		/// <param name="searchParameters">Parameters to search in database</param>
 		/// <returns>
 		/// A <see cref="List{SearchResponseEntity}"/> with matching studyId <br></br> <br></br>
 		/// <see langword="null"/> If no study is matching with studyId
 		/// </returns>
-		public async Task<List<Core.Entities.StudyV5.SearchResponseEntity>> SearchStudyV5(SearchParametersEntity searchParameters, LoggedInUser user)
+		public async Task<List<Core.Entities.StudyV5.SearchResponseEntity>> SearchStudyV5(SearchParametersEntity searchParameters)
 		{
 			try
 			{
@@ -545,7 +537,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 				IMongoCollection<Core.Entities.StudyV5.StudyDefinitionsEntity> collection = _database.GetCollection<Core.Entities.StudyV5.StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
 
 				List<Core.Entities.StudyV5.SearchResponseEntity> studies = await collection.Aggregate()
-											  .Match(DataFilterCommon.GetFiltersForSearchV5(searchParameters, GetGroupsOfUser(user).Result, user))
+											  .Match(DataFilterCommon.GetFiltersForSearchV5(searchParameters))
 											  .Project(x => new Core.Entities.StudyV5.SearchResponseEntity
 											  {
 												  StudyId = x.Study.Id,
@@ -589,13 +581,12 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 		/// <summary>
 		/// Search the collection based on search criteria
 		/// </summary>
-		/// <param name="searchParameters">Parameters to search in database</param>        
-		/// <param name="user">LoggedIn User</param>        
+		/// <param name="searchParameters">Parameters to search in database</param>
 		/// <returns>
 		/// A <see cref="List{SearchTitleResponseEntity}"/> with matching studyId <br></br> <br></br>
 		/// <see langword="null"/> If no study is matching with studyId
 		/// </returns>
-		public async Task<List<SearchTitleResponseEntity>> SearchTitle(SearchTitleParametersEntity searchParameters, LoggedInUser user)
+		public async Task<List<SearchTitleResponseEntity>> SearchTitle(SearchTitleParametersEntity searchParameters)
         {
             try
             {
@@ -606,7 +597,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 List<SearchTitleResponseEntity> studiesV4 = new();
                 
                 studies = await collection.Aggregate()
-                                              .Match(DataFilterCommon.GetFiltersForSearchTitle(searchParameters, GetGroupsOfUser(user).Result, user))
+                                              .Match(DataFilterCommon.GetFiltersForSearchTitle(searchParameters))
                                               .Project(x => new SearchTitleResponseEntity
                                               {
                                                   StudyId = x.Study.StudyId,
@@ -622,7 +613,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                               .ConfigureAwait(false);
 
                 studiesV4 = await collection.Aggregate()
-                                              .Match(DataFilterCommon.GetFiltersForSearchTitleV4(searchParameters, GetGroupsOfUser(user).Result, user))
+                                              .Match(DataFilterCommon.GetFiltersForSearchTitleV4(searchParameters))
                                               .Project(x => new SearchTitleResponseEntity
                                               {
                                                   StudyId = x.Study.Id,
@@ -646,29 +637,6 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             finally
             {
                 _logger.LogInformation($"Ended Repository : {nameof(CommonRepository)}; Method : {nameof(SearchTitle)};");
-            }
-        }
-        #endregion
-
-        #region UserGroup Mapping
-
-        public async Task<List<SDRGroupsEntity>> GetGroupsOfUser(LoggedInUser user)
-        {
-            try
-            {
-                var groupsCollection = _database.GetCollection<UserGroupMappingEntity>(Constants.Collections.SDRGrouping);
-
-                return await groupsCollection.Find(_ => true)
-                                                 .Project(x => x.SDRGroups
-                                                               .Where(x => x.GroupEnabled == true)
-                                                               .Where(x => x.Users != null)
-                                                               .Where(x => x.Users.Any(x => (x.Email == user.UserName && x.IsActive == true)))
-                                                               .ToList())
-                                                 .FirstOrDefaultAsync().ConfigureAwait(false);
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
         #endregion
