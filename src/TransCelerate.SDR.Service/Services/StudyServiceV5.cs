@@ -625,29 +625,7 @@ namespace TransCelerate.SDR.Services.Services
             {
                 studyDto.StudyDesigns.ForEach(design =>
                 {
-                    string populationsForAnalyses = null;
-                    if (design.Estimands != null && design.Estimands.Any())
-                    {
-                        if (design.Estimands.Count == 1)
-                        {
-                            var analysisPopulationId = design.Estimands.FirstOrDefault().AnalysisPopulationId;
-                            var analysisPopulation = design.AnalysisPopulations?.FirstOrDefault(ap => ap.Id == analysisPopulationId);
-                            populationsForAnalyses = analysisPopulation?.Name;
-                        }
-                        else
-                        {
-                            var analysisPopulationIds = design.Estimands.Select(estimand => estimand.AnalysisPopulationId).ToList();
-                            var populationNames = analysisPopulationIds
-                                .Select(id => design.AnalysisPopulations?.FirstOrDefault(ap => ap.Id == id)?.Name)
-                                .Where(name => !string.IsNullOrEmpty(name))
-                                .ToList();
-                            
-                            if (populationNames.Count > 0)
-                            {
-                                populationsForAnalyses = $"{String.Join(", ", populationNames.ToArray(), 0, populationNames.Count - 1)} and {populationNames.LastOrDefault()}";
-                            }
-                        }
-                    }
+                    string populationsForAnalyses = GetPopulationsForAnalysesFromStudyDesign(design);
 
                     Core.DTO.eCPT.StudyDesignDto studyeCPTDto = new()
                     {
