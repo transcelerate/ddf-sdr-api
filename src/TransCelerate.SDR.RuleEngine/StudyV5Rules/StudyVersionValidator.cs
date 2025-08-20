@@ -177,13 +177,13 @@ namespace TransCelerate.SDR.RuleEngine.StudyV5Rules
 
             RuleForEach(x => x.Titles)
                 .SetValidator(new StudyTitleValidator(_httpContextAccessor));
-                
+
             RuleForEach(x => x.Organizations)
                 .SetValidator(new OrganizationValidator(_httpContextAccessor));
 
             RuleForEach(x => x.NarrativeContentItems)
                 .SetValidator(new NarrativeContentItemValidator(_httpContextAccessor));
-                
+
             RuleForEach(x => x.Roles)
                 .SetValidator(new StudyRoleValidator(_httpContextAccessor));
 
@@ -207,7 +207,7 @@ namespace TransCelerate.SDR.RuleEngine.StudyV5Rules
 
             RuleForEach(x => x.BcCategories)
                 .SetValidator(new BiomedicalConceptCategoryValidator(_httpContextAccessor));
-            
+
             RuleForEach(x => x.Dictionaries)
                 .SetValidator(new SyntaxTemplateDictionaryValidator(_httpContextAccessor));
         }
