@@ -625,6 +625,8 @@ namespace TransCelerate.SDR.Services.Services
             {
                 studyDto.StudyDesigns.ForEach(design =>
                 {
+                    string populationsForAnalyses = GetPopulationsForAnalysesFromStudyDesign(design);
+
                     Core.DTO.eCPT.StudyDesignDto studyeCPTDto = new()
                     {
                         StudyDesignId = design.Id,
@@ -690,11 +692,7 @@ namespace TransCelerate.SDR.Services.Services
                             },
                             StatisticalConsiderations = new Core.DTO.eCPT.StatisticalConsiderationsDto
                             {
-                                PopulationsForAnalyses = design.Estimands != null && design.Estimands.Any() ?
-                                                   design.Estimands.Count == 1 ?
-                                                   design.Estimands.FirstOrDefault().AnalysisPopulation.Name
-                                                   : $"{String.Join(", ", design.Estimands.Select(x => x.AnalysisPopulation.Name).ToArray(), 0, design.Estimands.Count - 1)} and {design.Estimands.Select(x => x.AnalysisPopulation.Name).LastOrDefault()}"
-                                                   : null,
+                                PopulationsForAnalyses = GetPopulationsForAnalysesFromStudyDesign(design)
                             },
                             ObjectivesEndpointsAndEstimands = ECPTHelper.GetObjectivesEndpointsAndEstimandsDtoV5(design.Objectives.Select(x => x).ToList(), _mapper),
                             StudyInterventionsAndConcomitantTherapy = new Core.DTO.eCPT.StudyInterventionsAndConcomitantTherapyDto
@@ -720,7 +718,6 @@ namespace TransCelerate.SDR.Services.Services
                 StudyDetails = studyDetailsDto
             };
         }
-
 
         /// <summary>
         /// GET Differences between two versions of a study
@@ -768,6 +765,34 @@ namespace TransCelerate.SDR.Services.Services
             finally
             {
                 _logger.LogInformation($"Ended Service : {nameof(StudyServiceV5)}; Method : {nameof(GetDifferences)};");
+            }
+        }
+        
+        private string GetPopulationsForAnalysesFromStudyDesign(StudyDesignDto design)
+        {
+            if (design.Estimands == null || !design.Estimands.Any())
+                return null;
+
+            if (design.Estimands.Count == 1)
+            {
+                var analysisPopulationId = design.Estimands.FirstOrDefault().AnalysisPopulationId;
+                var analysisPopulation = design.AnalysisPopulations?.FirstOrDefault(ap => ap.Id == analysisPopulationId);
+                return analysisPopulation?.Name;
+            }
+            else
+            {
+                var analysisPopulationIds = design.Estimands.Select(estimand => estimand.AnalysisPopulationId).ToList();
+                var populationNames = analysisPopulationIds
+                    .Select(id => design.AnalysisPopulations?.FirstOrDefault(ap => ap.Id == id)?.Name)
+                    .Where(name => !string.IsNullOrEmpty(name))
+                    .ToList();
+                
+                if (populationNames.Count > 0)
+                {
+                    return $"{String.Join(", ", populationNames.ToArray(), 0, populationNames.Count - 1)} and {populationNames.LastOrDefault()}";
+                }
+                
+                return null;
             }
         }
         #endregion
