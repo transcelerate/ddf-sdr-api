@@ -20,7 +20,6 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public List<StudyDesignEntity> StudyDesigns { get; set; }
         public List<StudyIdentifierEntity> StudyIdentifiers { get; set; }
         public List<StudyTitleEntity> Titles { get; set; }
-        public List<OrganizationEntity> Organizations { get; set; }
         public List<StudyInterventionEntity> StudyInterventions { get; set; }
         public List<NarrativeContentItemEntity> NarrativeContentItems { get; set; }
         public List<StudyRoleEntity> Roles { get; set; }

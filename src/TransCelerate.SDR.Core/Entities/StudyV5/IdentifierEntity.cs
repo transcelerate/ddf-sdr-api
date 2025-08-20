@@ -6,7 +6,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
     {
         public string Id { get; set; }
         public string Text { get; set; }
-        public string ScopeId { get; set; }
+        public OrganizationEntity Scope { get; set; }
         public string InstanceType { get; set; }
     }
 }
