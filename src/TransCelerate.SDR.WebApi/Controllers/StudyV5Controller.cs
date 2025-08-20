@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
@@ -512,7 +512,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     if (binaryResult.ExitCode != 0)
                     {
                         return StatusCode(StatusCodes.Status500InternalServerError,
-                            new JsonResult(ErrorResponseHelper.InternalServerError($"{Constants.ErrorMessages.ErrorMessageForCdiscRulesEngineFailure}{binaryResult.StdErr}")).Value);
+                            new JsonResult(ErrorResponseHelper.InternalServerError(binaryResult.StdErr, Constants.ErrorMessages.ErrorMessageForCdiscRulesEngineFailure)).Value);
                     }
 
                     if (!_fileSystem.Exists(reportFile))

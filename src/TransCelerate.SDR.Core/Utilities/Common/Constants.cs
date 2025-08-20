@@ -259,7 +259,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string ConformanceErrorMessage = "The study definition is not conformant with USDM Version : ";
 
-            public const string ErrorMessageForCdiscRulesEngineFailure = "CDISC Rules Engine failed : ";
+            public const string ErrorMessageForCdiscRulesEngineFailure = "CDISC Rules Engine failed";
 
             public const string ErrorMessageForCdiscRulesEngineOutputNotFound = "CDISC Rules Engine did not produce a report";
         }
