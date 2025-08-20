@@ -523,7 +523,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
 
                     var report = await _fileSystem.ReadAllTextAsync(reportFile);
 
-                    return Ok(new JsonResult(report).Value);
+                    return Content(report, "application/json");
                 }
                 else
                 {

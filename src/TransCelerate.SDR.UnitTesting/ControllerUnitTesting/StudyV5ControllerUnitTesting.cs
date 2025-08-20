@@ -908,10 +908,10 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             var result = method.Result;
 
             // Assert
-            Assert.IsInstanceOf<OkObjectResult>(result);
-            var okResult = result as OkObjectResult;
+            Assert.IsInstanceOf<ContentResult>(result);
+            var contentResult = result as ContentResult;
 
-            var resultValue = okResult?.Value;
+            var resultValue = contentResult.Content;
             Assert.IsNotNull(resultValue);
 
             Assert.AreEqual(mockReportContent, resultValue);
