@@ -63,12 +63,11 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ProductOrganizationRoleValidator), nameof(ProductOrganizationRoleDto.Code)), ApplyConditionTo.AllValidators)
                 .SetValidator(new CodeValidator(_httpContextAccessor));
 
-            RuleFor(x => x.Organization)
+            RuleFor(x => x.OrganizationId)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ProductOrganizationRoleValidator), nameof(ProductOrganizationRoleDto.Organization)), ApplyConditionTo.AllValidators)
-                .SetValidator(new OrganizationValidator(_httpContextAccessor));
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(ProductOrganizationRoleValidator), nameof(ProductOrganizationRoleDto.OrganizationId)), ApplyConditionTo.AllValidators);
         }
     }
 }

@@ -1281,7 +1281,7 @@
             "Id",
             "InstanceType",
             "Text",
-            "Scope"
+            "ScopeId"
           ]
         },
         {
@@ -1509,7 +1509,7 @@
             "Id",
             "InstanceType",
             "Text",
-            "Scope"
+            "ScopeId"
           ]
         },
         {
@@ -1576,7 +1576,7 @@
             "Id",
             "InstanceType",
             "Text",
-            "Scope",
+            "ScopeId",
             "Type"
           ]
         },
@@ -1660,7 +1660,7 @@
             "InstanceType",
             "Name",
             "Code",
-            "Organization"
+            "OrganizationId"
           ]
         },
         {
@@ -1684,7 +1684,7 @@
             "Id",
             "InstanceType",
             "Text",
-            "Scope",
+            "ScopeId",
             "Type"
           ]
         },
@@ -1891,7 +1891,7 @@
             "Id",
             "InstanceType",
             "Text",
-            "Scope"
+            "ScopeId"
           ]
         },
         {
