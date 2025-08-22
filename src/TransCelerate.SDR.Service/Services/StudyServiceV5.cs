@@ -508,7 +508,7 @@ namespace TransCelerate.SDR.Services.Services
                                 { string.Concat(nameof(StudyVersionDto.StudyDesigns)[..1].ToLower(), nameof(StudyVersionDto.StudyDesigns).AsSpan(1)), JArray.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))) }
                             };
                             if (listofelements == null)
-                                jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.Study.Id, study.Study.Versions?.FirstOrDefault()?.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion), _helper.GetSerializerSettingsForCamelCasing())));
+                                jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.Study.Id, study.Study.Versions?.FirstOrDefault()?.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion), _helper.GetSerializerSettingsForCamelCasingAndEscapeHandling())));
                             return jObject;
                         }
                         return Constants.ErrorMessages.StudyDesignNotFound;
@@ -521,7 +521,7 @@ namespace TransCelerate.SDR.Services.Services
                             { string.Concat(nameof(StudyVersionDto.StudyDesigns)[..1].ToLower(), nameof(StudyVersionDto.StudyDesigns).AsSpan(1)), JArray.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))) }
                         };
                         if (listofelements == null)
-                            jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.Study.Id, study.Study.Versions?.FirstOrDefault()?.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion), _helper.GetSerializerSettingsForCamelCasing())));
+                            jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.Study.Id, study.Study.Versions?.FirstOrDefault()?.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion), _helper.GetSerializerSettingsForCamelCasingAndEscapeHandling())));
                         return study.Study.Versions is not null && study.Study.Versions.FirstOrDefault().StudyDesigns is not null && study.Study.Versions.FirstOrDefault().StudyDesigns.Any() ?
                             jObject : Constants.ErrorMessages.StudyDesignNotFound;
                     }

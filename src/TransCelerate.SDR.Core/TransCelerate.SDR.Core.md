@@ -144,7 +144,7 @@
   - [AreValidStudyDesignElements(listofelements,listofelementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-AreValidStudyDesignElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.IHelperV5.AreValidStudyDesignElements(System.String,System.String[]@)')
   - [AreValidStudyElements(listofelements,listofelementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-AreValidStudyElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.IHelperV5.AreValidStudyElements(System.String,System.String[]@)')
   - [GetAuditTrail(usdmVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-GetAuditTrail-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.IHelperV5.GetAuditTrail(System.String)')
-  - [GetSerializerSettingsForCamelCasing()](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-GetSerializerSettingsForCamelCasing 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.IHelperV5.GetSerializerSettingsForCamelCasing')
+  - [GetSerializerSettingsForCamelCasingAndEscapeHandling()](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-GetSerializerSettingsForCamelCasingAndEscapeHandling 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.IHelperV5.GetSerializerSettingsForCamelCasingAndEscapeHandling')
   - [IsSameStudy(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV5-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV5-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.IHelperV5.IsSameStudy(TransCelerate.SDR.Core.Entities.StudyV5.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV5.StudyDefinitionsEntity)')
   - [JsonObjectCheck(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-JsonObjectCheck-System-Object,System-Object- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.IHelperV5.JsonObjectCheck(System.Object,System.Object)')
   - [RemoveStudyDesignElements(sections,studyDTO,study_uuid)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-RemoveStudyDesignElements-System-String[],System-Collections-Generic-List{TransCelerate-SDR-Core-DTO-StudyV5-StudyDesignDto},System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.IHelperV5.RemoveStudyDesignElements(System.String[],System.Collections.Generic.List{TransCelerate.SDR.Core.DTO.StudyV5.StudyDesignDto},System.String)')
@@ -2510,12 +2510,12 @@ Get Audit Trail fields for the POST Api
 | ---- | ---- | ----------- |
 | usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-GetSerializerSettingsForCamelCasing'></a>
-### GetSerializerSettingsForCamelCasing() `method`
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-GetSerializerSettingsForCamelCasingAndEscapeHandling'></a>
+### GetSerializerSettingsForCamelCasingAndEscapeHandling() `method`
 
 ##### Summary
 
-JSON Serializer for camel casing
+JSON Serializer for camel casing and non-ASCII escape handling
 
 ##### Returns
 

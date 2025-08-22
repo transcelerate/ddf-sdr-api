@@ -14,10 +14,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
         /// <returns></returns>
         AuditTrailEntity GetAuditTrail(string usdmVersion);
         /// <summary>
-        /// JSON Serializer for camel casing
+        /// JSON Serializer for camel casing and non-ASCII escape handling
         /// </summary>
         /// <returns></returns>
-        JsonSerializerSettings GetSerializerSettingsForCamelCasing();
+        JsonSerializerSettings GetSerializerSettingsForCamelCasingAndEscapeHandling();
 
         #region Partial Study Elements
         /// <summary>

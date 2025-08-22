@@ -501,7 +501,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(ValidateUsdmConformanceAsync)};");
                 if (studyDTO != null)
                 {
-                    var serializer = _helper.GetSerializerSettingsForCamelCasing();
+                    var serializer = _helper.GetSerializerSettingsForCamelCasingAndEscapeHandling();
                     var json = JsonConvert.SerializeObject(studyDTO, serializer);
 
                     await _fileSystem.WriteAllTextAsync(tempInput, json);
