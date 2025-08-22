@@ -212,7 +212,7 @@ namespace TransCelerate.SDR.WebApi.Mappers
 
             CreateMap<StudyIdentifierDto, TransCelerate.SDR.Core.DTO.eCPT.RegulatoryAgencyIdentifierNumberDto>()
                 .ForMember(dest => dest.RegulatoryAgencyNumber, opt => opt.MapFrom(src => src.Text))
-                .ForMember(dest => dest.RegulatoryAgencyId, opt => opt.MapFrom(src => src.ScopeId))
+                .ForMember(dest => dest.RegulatoryAgencyId, opt => opt.MapFrom(src => src.Scope != null ? src.Scope.Label : null))
                 .ReverseMap();
         }
     }

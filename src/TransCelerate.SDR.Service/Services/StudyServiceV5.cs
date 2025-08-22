@@ -508,7 +508,7 @@ namespace TransCelerate.SDR.Services.Services
                                 { string.Concat(nameof(StudyVersionDto.StudyDesigns)[..1].ToLower(), nameof(StudyVersionDto.StudyDesigns).AsSpan(1)), JArray.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))) }
                             };
                             if (listofelements == null)
-                                jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.Study.Id, study.Study.Versions?.FirstOrDefault()?.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion), _helper.GetSerializerSettingsForCamelCasing())));
+                                jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.Study.Id, study.Study.Versions?.FirstOrDefault()?.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion), _helper.GetSerializerSettingsForCamelCasingAndEscapeHandling())));
                             return jObject;
                         }
                         return Constants.ErrorMessages.StudyDesignNotFound;
@@ -521,7 +521,7 @@ namespace TransCelerate.SDR.Services.Services
                             { string.Concat(nameof(StudyVersionDto.StudyDesigns)[..1].ToLower(), nameof(StudyVersionDto.StudyDesigns).AsSpan(1)), JArray.Parse(JsonConvert.SerializeObject(_helper.RemoveStudyDesignElements(listofelements, studyDesigns, studyId))) }
                         };
                         if (listofelements == null)
-                            jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.Study.Id, study.Study.Versions?.FirstOrDefault()?.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion), _helper.GetSerializerSettingsForCamelCasing())));
+                            jObject.Add("links", JObject.Parse(JsonConvert.SerializeObject(LinksHelper.GetLinks(study.Study.Id, study.Study.Versions?.FirstOrDefault()?.StudyDesigns?.Select(x => x.Id), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion), _helper.GetSerializerSettingsForCamelCasingAndEscapeHandling())));
                         return study.Study.Versions is not null && study.Study.Versions.FirstOrDefault().StudyDesigns is not null && study.Study.Versions.FirstOrDefault().StudyDesigns.Any() ?
                             jObject : Constants.ErrorMessages.StudyDesignNotFound;
                     }
@@ -608,8 +608,6 @@ namespace TransCelerate.SDR.Services.Services
         public Core.DTO.eCPT.ECPTDto GetCPTDataV5(StudyVersionDto studyDto, AuditTrailEntity auditTrail, List<StudyDefinitionDocumentVersionDto> protocolVersions, string studyId)
         {
             var links = LinksHelper.GetLinks(studyId, studyDto.StudyDesigns.Select(c => c.Id).ToList(), auditTrail.UsdmVersion, auditTrail.SDRUploadVersion);
-            var scopeLookup = studyDto.Organizations?.ToDictionary(org => org.Id, org => org) ?? new Dictionary<string, OrganizationDto>();
-
             Core.DTO.eCPT.StudyDetailsDto studyDetailsDto = new()
             {
                 StudyId = studyId,
@@ -627,8 +625,6 @@ namespace TransCelerate.SDR.Services.Services
             {
                 studyDto.StudyDesigns.ForEach(design =>
                 {
-                    string populationsForAnalyses = GetPopulationsForAnalysesFromStudyDesign(design);
-
                     Core.DTO.eCPT.StudyDesignDto studyeCPTDto = new()
                     {
                         StudyDesignId = design.Id,
@@ -646,14 +642,14 @@ namespace TransCelerate.SDR.Services.Services
                                                    design.Indications.FirstOrDefault().Description
                                                    : $"{String.Join(", ", design.Indications.Select(x => x.Description).ToArray(), 0, design.Indications.Count - 1)} and {design.Indications.Select(x => x.Description).LastOrDefault()}"
                                                    : null,
-                                RegulatoryAgencyIdentifierNumbers = studyDto.StudyIdentifiers.Where(x => scopeLookup.ContainsKey(x.ScopeId) && Constants.IdType.RegulatoryAgencyIdentifierNumberConstants.Any(y => y.ToLower() == scopeLookup[x.ScopeId]?.Type?.Decode?.ToLower())).Any() ? _mapper.Map<List<Core.DTO.eCPT.RegulatoryAgencyIdentifierNumberDto>>(studyDto.StudyIdentifiers.Where(x => Constants.IdType.RegulatoryAgencyIdentifierNumberConstants.Any(y => y.ToLower() == scopeLookup[x.ScopeId]?.Type?.Decode?.ToLower()))) : null,
-                                SponsorName = studyDto.StudyIdentifiers.Where(x => scopeLookup.ContainsKey(x.ScopeId) && scopeLookup[x.ScopeId].Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => scopeLookup[x.ScopeId].Name).FirstOrDefault(),
-                                SponsorLegalAddress = studyDto.StudyIdentifiers.Where(x => scopeLookup.ContainsKey(x.ScopeId) && scopeLookup[x.ScopeId].Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => scopeLookup[x.ScopeId].LegalAddress).FirstOrDefault() == null ? null
-                                                                : studyDto.StudyIdentifiers.Where(x => scopeLookup[x.ScopeId].Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => scopeLookup[x.ScopeId].LegalAddress).Select(x => $"{(x.Lines != null ? string.Join(", ", x.Lines) : "")}, {x.City}, {x.District}, {x.State}, {x.PostalCode}, {x.Country?.Decode}").FirstOrDefault(),
+                                RegulatoryAgencyIdentifierNumbers = studyDto.StudyIdentifiers.Where(x => Constants.IdType.RegulatoryAgencyIdentifierNumberConstants.Any(y => y.ToLower() == x.Scope?.Type?.Decode?.ToLower())).Any() ? _mapper.Map<List<Core.DTO.eCPT.RegulatoryAgencyIdentifierNumberDto>>(studyDto.StudyIdentifiers.Where(x => Constants.IdType.RegulatoryAgencyIdentifierNumberConstants.Any(y => y.ToLower() == x.Scope?.Type?.Decode?.ToLower()))) : null,
+                                SponsorName = studyDto.StudyIdentifiers.Where(x => x.Scope.Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.Scope.Name).FirstOrDefault(),
+                                SponsorLegalAddress = studyDto.StudyIdentifiers.Where(x => x.Scope.Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.Scope.LegalAddress).FirstOrDefault() == null ? null
+                                                                : studyDto.StudyIdentifiers.Where(x => x.Scope.Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.Scope.LegalAddress).Select(x => $"{(x.Lines != null ? string.Join(", ", x.Lines) : "")}, {x.City}, {x.District}, {x.State}, {x.PostalCode}, {x.Country?.Decode}").FirstOrDefault(),
                                 StudyPhase = ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.StudyPhase, design.StudyPhase?.StandardCode?.Code) ?? design.StudyPhase?.StandardCode?.Decode,
                                 Protocol = new Core.DTO.eCPT.ProtocolDto
                                 {
-                                    ProtocolID = studyDto.StudyIdentifiers.Where(x => scopeLookup.ContainsKey(x.ScopeId) && scopeLookup[x.ScopeId].Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.Text).FirstOrDefault(),
+                                    ProtocolID = studyDto.StudyIdentifiers.Where(x => x.Scope.Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.Text).FirstOrDefault(),
                                     ProtocolShortTitle = studyDto.Titles.GetStudyTitleV5(Constants.StudyTitle.BriefStudyTitle),
                                     ProtocolTitle = studyDto.Titles.GetStudyTitleV5(Constants.StudyTitle.OfficialStudyTitle)
                                 }
@@ -701,7 +697,7 @@ namespace TransCelerate.SDR.Services.Services
                             {
                                 StudyInterventionsAdministered = design.StudyInterventionIds != null && design.StudyInterventionIds.Any() ?
                                            _mapper.Map<List<Core.DTO.eCPT.StudyInterventionsAdministeredDto>>(
-                                                studyDto.StudyInterventions?.Where(intervention => 
+                                                studyDto.StudyInterventions?.Where(intervention =>
                                                     design.StudyInterventionIds.Contains(intervention.Id)).ToList())
                                             : null,
                                 StudyArms = design.Arms != null && design.Arms.Any() ?
@@ -769,7 +765,7 @@ namespace TransCelerate.SDR.Services.Services
                 _logger.LogInformation($"Ended Service : {nameof(StudyServiceV5)}; Method : {nameof(GetDifferences)};");
             }
         }
-        
+
         private string GetPopulationsForAnalysesFromStudyDesign(StudyDesignDto design)
         {
             if (design.Estimands == null || !design.Estimands.Any())
@@ -777,7 +773,7 @@ namespace TransCelerate.SDR.Services.Services
 
             if (design.Estimands.Count == 1)
             {
-                var analysisPopulationId = design.Estimands.FirstOrDefault().AnalysisPopulationId;
+                var analysisPopulationId = design.Estimands.FirstOrDefault()?.AnalysisPopulationId;
                 var analysisPopulation = design.AnalysisPopulations?.FirstOrDefault(ap => ap.Id == analysisPopulationId);
                 return analysisPopulation?.Name;
             }
@@ -788,13 +784,19 @@ namespace TransCelerate.SDR.Services.Services
                     .Select(id => design.AnalysisPopulations?.FirstOrDefault(ap => ap.Id == id)?.Name)
                     .Where(name => !string.IsNullOrEmpty(name))
                     .ToList();
-                
-                if (populationNames.Count > 0)
+
+                if (populationNames.Count == 0)
                 {
-                    return $"{String.Join(", ", populationNames.ToArray(), 0, populationNames.Count - 1)} and {populationNames.LastOrDefault()}";
+                    return null;
                 }
-                
-                return null;
+
+                if (populationNames.Count == 1)
+                {
+                    return populationNames[0];
+
+                }
+
+                return $"{String.Join(", ", populationNames.ToArray(), 0, populationNames.Count - 1)} and {populationNames.LastOrDefault()}";
             }
         }
         #endregion

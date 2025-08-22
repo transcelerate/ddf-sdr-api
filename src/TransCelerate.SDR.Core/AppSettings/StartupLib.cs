@@ -32,6 +32,7 @@ namespace TransCelerate.SDR.Core.AppSettings
             Config.ApiVersionUsdmVersionMapping = Convert.ToString(config.GetSection("ApiVersionUsdmVersionMapping").Value);
             Config.SdrCptMasterDataMapping = Convert.ToString(config.GetSection("SdrCptMasterDataMapping").Value);
             Config.ConformanceRules = Convert.ToString(config.GetSection("ConformanceRules").Value);
+            Config.CdiscRulesEngine = Convert.ToString(config.GetSection("CdiscRulesEngine").Value);
 
             ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(Config.ApiVersionUsdmVersionMapping);
             ApiUsdmVersionMapping.SDRVersions = apiUsdmVersionMapping_NonStatic.SDRVersions;

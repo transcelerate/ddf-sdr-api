@@ -15,10 +15,10 @@ using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5;
+using TransCelerate.SDR.RuleEngine.Utilities.Common;
 using TransCelerate.SDR.Services.Interfaces;
 using TransCelerate.SDR.WebApi.Controllers;
 using TransCelerate.SDR.WebApi.Mappers;
-using static TransCelerate.SDR.Core.Utilities.Common.Constants;
 
 namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 {
@@ -28,6 +28,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         private readonly ILogHelper _mockLogger = Mock.Of<ILogHelper>();
         private readonly Mock<IHelperV5> _mockHelper = new(MockBehavior.Loose);
         private readonly Mock<IStudyServiceV5> _mockStudyService = new(MockBehavior.Loose);
+        private readonly Mock<IBinaryRunner> _mockBinaryRunner = new(MockBehavior.Loose);
+        private readonly Mock<IFileSystem> _mockFileSystem = new(MockBehavior.Loose);
         private string[] studyElements = Constants.StudyElementsV5;
         private string[] studyDesignElements = Constants.StudyDesignElementsV5;
         private IMapper _mockMapper;
@@ -80,7 +82,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDefinitionsDto>(), It.IsAny<string>()))
                 .Returns(Task.FromResult(study as object));
 
-            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object,
+                _mockBinaryRunner.Object, _mockFileSystem.Object);
 
             var method = studyV5Controller.PostAllElements(study, Constants.USDMVersions.V4);
             method.Wait();
@@ -102,7 +105,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             StudyDefinitionsDto study = GetDtoDataFromStaticJson();
 
 
-            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object,
+                _mockBinaryRunner.Object, _mockFileSystem.Object);
 
             var method = studyV5Controller.PostAllElements(null, Constants.USDMVersions.V4);
             method.Wait();
@@ -189,7 +193,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             _mockStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDefinitionsDto>(), It.IsAny<string>()))
                 .Returns(Task.FromResult(study as object));
 
-            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object,
+                _mockBinaryRunner.Object, _mockFileSystem.Object);
 
             var method = studyV5Controller.PutStudy(study, study.Study.Id, Constants.USDMVersions.V4);
             method.Wait();
@@ -210,8 +215,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         {
             StudyDefinitionsDto study = GetDtoDataFromStaticJson();
 
-            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
-
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object,
+                _mockBinaryRunner.Object, _mockFileSystem.Object);
 
             var method = studyV5Controller.PutStudy(null, study.Study.Id, Constants.USDMVersions.V4);
             method.Wait();
@@ -297,7 +302,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockStudyService.Setup(x => x.GetStudy(It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(Task.FromResult(study as object));
-            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object,
+                _mockBinaryRunner.Object, _mockFileSystem.Object);
             string[] nullStudyElements = null;
             _mockHelper.Setup(x => x.AreValidStudyElements(It.IsAny<string>(), out nullStudyElements))
                 .Returns(true);
@@ -324,7 +330,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockStudyService.Setup(x => x.GetPartialStudyElements(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string[]>()))
                 .Returns(Task.FromResult(null as object));
-            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object,
+                _mockBinaryRunner.Object, _mockFileSystem.Object);
 
             var listofelements = string.Join(",", Constants.StudyElementsV5);
             var method = studyV5Controller.GetStudy("sd", 1, listofelements, Constants.USDMVersions.V4);
@@ -401,7 +408,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string[]>()))
                 .Returns(Task.FromResult(study.Study.Versions.FirstOrDefault().StudyDesigns as object));
-            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object,
+                _mockBinaryRunner.Object, _mockFileSystem.Object);
 
             var listofelements = string.Join(",", Constants.StudyDesignElementsV5);
             var method = studyV5Controller.GetStudyDesigns("sd", 1, "des", listofelements, Constants.USDMVersions.V4);
@@ -426,7 +434,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockStudyService.Setup(x => x.GetStudyDesigns(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string[]>()))
                 .Returns(Task.FromResult(null as object));
-            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object,
+                _mockBinaryRunner.Object, _mockFileSystem.Object);
 
             var method = studyV5Controller.GetStudyDesigns("sd", 1, "des", "list", Constants.USDMVersions.V4);
             method.Wait();
@@ -516,7 +525,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             object deleteResult = "Delete Success";
             _mockStudyService.Setup(x => x.DeleteStudy(It.IsAny<string>()))
                 .Returns(Task.FromResult(deleteResult));
-            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object,
+                _mockBinaryRunner.Object, _mockFileSystem.Object);
 
             var method = studyV5Controller.DeleteStudy("sd");
             method.Wait();
@@ -530,7 +540,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         {
             _mockStudyService.Setup(x => x.DeleteStudy(It.IsAny<string>()))
                 .Returns(Task.FromResult(Constants.ErrorMessages.NotValidStudyId as object));
-            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object,
+                _mockBinaryRunner.Object, _mockFileSystem.Object);
 
             var method = studyV5Controller.DeleteStudy("sd");
             method.Wait();
@@ -602,7 +613,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockStudyService.Setup(x => x.GetSOAV5(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(Task.FromResult(SoA as object));
-            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object,
+                _mockBinaryRunner.Object, _mockFileSystem.Object);
 
             var method = studyV5Controller.GetSOAV5("sd", "sd_1", "des", 1);
             method.Wait();
@@ -626,7 +638,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockStudyService.Setup(x => x.GetSOAV5(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(Task.FromResult(null as object));
-            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object,
+                _mockBinaryRunner.Object, _mockFileSystem.Object);
 
             var method = studyV5Controller.GetSOAV5("sd", "sd_1", "des", 1);
             method.Wait();
@@ -744,7 +757,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             var data = JsonConvert.DeserializeObject<Core.DTO.eCPT.ECPTDto>(jsonData);
             _mockStudyService.Setup(x => x.GeteCPTV5(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>()))
                 .Returns(Task.FromResult(data as object));
-            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object,
+                _mockBinaryRunner.Object, _mockFileSystem.Object);
 
             var method = studyV5Controller.GeteCPTV5("sd", 1, "des");
             method.Wait();
@@ -767,7 +781,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             //Study NotFound Case
             _mockStudyService.Setup(x => x.GeteCPTV5(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>()))
                 .Returns(Task.FromResult(data as object));
-            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object,
+                _mockBinaryRunner.Object, _mockFileSystem.Object);
 
             var method = studyV5Controller.GeteCPTV5("sd", 1, "des");
             method.Wait();
@@ -875,78 +890,108 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         [Test]
         public void ValidateUsdmConformanceSuccessUnitTesting()
         {
+            // Arrange
+            _mockBinaryRunner.Setup(x => x.RunAsync(It.IsAny<string>(), It.IsAny<IEnumerable<string>>()))
+                .ReturnsAsync(new BinaryResult(0, "ok", ""));
+            _mockFileSystem.Setup(x => x.Exists(It.IsAny<string>())).Returns(true);
+
+            var mockReportContent = @"{ ""Conformance_Details"": { ""Standard"": ""USDM"", ""Version"": ""V4.0"" } }";
+            _mockFileSystem.Setup(x => x.ReadAllTextAsync(It.IsAny<string>())).ReturnsAsync(mockReportContent);
+
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object,
+                _mockBinaryRunner.Object, _mockFileSystem.Object);
             StudyDefinitionsDto study = GetDtoDataFromStaticJson();
 
-            _mockStudyService.Setup(x => x.PostAllElements(It.IsAny<StudyDefinitionsDto>(), It.IsAny<string>()))
-                .Returns(Task.FromResult(study as object));
+            // Act
+            var method = studyV5Controller.ValidateUsdmConformanceAsync(study, Constants.USDMVersions.V4);
+            method.Wait();
+            var result = method.Result;
 
-            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            // Assert
+            Assert.IsInstanceOf<ContentResult>(result);
+            var contentResult = result as ContentResult;
 
-            var method = studyV5Controller.ValidateUsdmConformance(study, Constants.USDMVersions.V4);
+            var resultValue = contentResult.Content;
+            Assert.IsNotNull(resultValue);
 
-            //Expected
-            var expected = new ErrorModel { Message = $"{SuccessMessages.ValidationSuccess}{USDMVersions.V4}" };
-
-            //Actual            
-            var actual_result = JsonConvert.DeserializeObject<ErrorModel>(
-                 JsonConvert.SerializeObject((method as OkObjectResult).Value));
-
-            Assert.AreEqual(expected.Message, actual_result.Message);
-            Assert.IsInstanceOf(typeof(OkObjectResult), method);
+            Assert.AreEqual(mockReportContent, resultValue);
         }
         [Test]
         public void ValidateUsdmConformanceFailureUnitTesting()
         {
-            StudyDefinitionsDto study = GetDtoDataFromStaticJson();
+            //// Study Input Error
+            // Arrange
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object,
+                _mockBinaryRunner.Object, _mockFileSystem.Object);
+            StudyDefinitionsDto study = null;
 
+            // Act
+            var method = studyV5Controller.ValidateUsdmConformanceAsync(study, Constants.USDMVersions.V4);
+            method.Wait();
+            var result = method.Result;
 
-            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            // Assert
+            Assert.IsInstanceOf<BadRequestObjectResult>(result);
+            var badRequestResult = result as BadRequestObjectResult;
 
-            var method = studyV5Controller.ValidateUsdmConformance(null, Constants.USDMVersions.V4);
+            var resultValue = badRequestResult.Value;
+            Assert.IsNotNull(resultValue);
 
+            string resultJson = JsonConvert.SerializeObject(resultValue);
+            Assert.IsTrue(resultJson.Contains(Constants.ErrorMessages.StudyInputError));
 
-            //Actual            
-            var actual_result = JsonConvert.DeserializeObject<ErrorModel>(
-                 JsonConvert.SerializeObject((method as ObjectResult).Value));
+            //// Binary Failure
+            // Arrange
+            _mockBinaryRunner.Setup(x => x.RunAsync(It.IsAny<string>(), It.IsAny<IEnumerable<string>>()))
+                .ReturnsAsync(new BinaryResult(1, "", "failure"));
 
-            Assert.AreEqual(400, (method as ObjectResult).StatusCode);
-            Assert.IsInstanceOf(typeof(ObjectResult), method);
+            studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object,
+                _mockBinaryRunner.Object, _mockFileSystem.Object);
+            study = GetDtoDataFromStaticJson();
 
+            // Act
+            method = studyV5Controller.ValidateUsdmConformanceAsync(study, Constants.USDMVersions.V4);
+            method.Wait();
+            result = method.Result;
 
-            //Error BadRequest
-            object errors = null;
-            _mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
-                   .Throws(new Exception("Error"));
+            // Assert
+            Assert.IsInstanceOf<ObjectResult>(result);
+            var statusCodeResult = result as ObjectResult;
 
-            method = studyV5Controller.ValidateUsdmConformance(study, Constants.USDMVersions.V4);
+            Assert.AreEqual(500, statusCodeResult.StatusCode);
 
-            //Expected
-            var expected1 = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError);
+            resultValue = statusCodeResult.Value;
+            Assert.IsNotNull(resultValue);
 
-            //Actual            
-            var actual_result1 = (method as BadRequestObjectResult).Value as ErrorModel;
+            resultJson = JsonConvert.SerializeObject(resultValue);
+            Assert.IsTrue(resultJson.Contains(Constants.ErrorMessages.ErrorMessageForCdiscRulesEngineFailure));
 
-            //Assert
-            Assert.IsNotNull((method as BadRequestObjectResult).Value);
-            Assert.AreEqual(400, (method as BadRequestObjectResult).StatusCode);
-            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method);
+            //// Report Not Found
+            // Arrange
+            _mockBinaryRunner.Setup(x => x.RunAsync(It.IsAny<string>(), It.IsAny<IEnumerable<string>>()))
+                .ReturnsAsync(new BinaryResult(0, "ok", ""));
+            _mockFileSystem.Setup(x => x.Exists(It.IsAny<string>())).Returns(false);
 
-            Assert.AreEqual(expected1.Message, actual_result1.Message);
-            Assert.AreEqual("400", actual_result.StatusCode);
-            
-            _mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
-              .Returns(true);
+            studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object,
+                _mockBinaryRunner.Object, _mockFileSystem.Object);
+            study = GetDtoDataFromStaticJson();
 
-            method = studyV5Controller.ValidateUsdmConformance(study, Constants.USDMVersions.V4);
+            // Act
+            method = studyV5Controller.ValidateUsdmConformanceAsync(study, Constants.USDMVersions.V4);
+            method.Wait();
+            result = method.Result;
 
-            //Actual            
-            actual_result = JsonConvert.DeserializeObject<ErrorModel>(
-                JsonConvert.SerializeObject((method as ObjectResult).Value));
+            // Assert
+            Assert.IsInstanceOf<ObjectResult>(result);
+            statusCodeResult = result as ObjectResult;
 
-            Assert.AreEqual(400, (method as ObjectResult).StatusCode);
-            Assert.IsInstanceOf(typeof(ObjectResult), method);
-            _mockHelper.Setup(x => x.ReferenceIntegrityValidation(It.IsAny<StudyDefinitionsDto>(), out errors))
-              .Returns(false);
+            Assert.AreEqual(500, statusCodeResult.StatusCode);
+
+            resultValue = statusCodeResult.Value;
+            Assert.IsNotNull(resultValue);
+
+            resultJson = JsonConvert.SerializeObject(resultValue);
+            Assert.IsTrue(resultJson.Contains(Constants.ErrorMessages.ErrorMessageForCdiscRulesEngineOutputNotFound));
         }
         #endregion
 
@@ -971,14 +1016,15 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             HelperV5 helperV3 = new();
 
             _mockStudyService.Setup(x => x.GetDifferences(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
-                .Returns(Task.FromResult(new VersionCompareDto 
+                .Returns(Task.FromResult(new VersionCompareDto
                 {
                     StudyId = currentVersionV5.Study.Id,
-                    LHS = new VersionDetails { EntryDateTime = currentVersionV5.AuditTrail.EntryDateTime},
-                    RHS = new VersionDetails { EntryDateTime = previousVersionV5.AuditTrail.EntryDateTime},
+                    LHS = new VersionDetails { EntryDateTime = currentVersionV5.AuditTrail.EntryDateTime },
+                    RHS = new VersionDetails { EntryDateTime = previousVersionV5.AuditTrail.EntryDateTime },
                     ElementsChanged = helperV3.GetChangedValuesForStudyComparison(currentVersionV5, previousVersionV5)
                 } as object));
-            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object,
+                _mockBinaryRunner.Object, _mockFileSystem.Object);
 
             var method = studyV5Controller.GetDifferences("sd", 2, 1, Constants.USDMVersions.V4);
             method.Wait();
@@ -1002,7 +1048,8 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             _mockStudyService.Setup(x => x.GetDifferences(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
                .Returns(Task.FromResult(null as object));
-            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object);
+            StudyV5Controller studyV5Controller = new(_mockStudyService.Object, _mockLogger, _mockHelper.Object,
+                _mockBinaryRunner.Object, _mockFileSystem.Object);
 
             var listofelements = string.Join(",", Constants.StudyElementsV5);
             var method = studyV5Controller.GetDifferences("sd", 1, 2, Constants.USDMVersions.V4);
@@ -1086,7 +1133,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             result = method.Result;
 
             //Expected
-            expected = new ErrorModel { Message = Constants.ErrorMessages.ProvideValidVersion[0] + " sdrUploadVersionOne" + Constants.ErrorMessages.ProvideValidVersion[1] ,StatusCode = "400" };
+            expected = new ErrorModel { Message = Constants.ErrorMessages.ProvideValidVersion[0] + " sdrUploadVersionOne" + Constants.ErrorMessages.ProvideValidVersion[1], StatusCode = "400" };
 
             //Actual            
             actual_result = (result as ObjectResult).Value as ErrorModel;

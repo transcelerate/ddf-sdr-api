@@ -55,7 +55,7 @@
   - [GeteCPTV5(studyId,sdruploadversion,studydesignId)](#M-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller-GeteCPTV5-System-String,System-Int32,System-String- 'TransCelerate.SDR.WebApi.Controllers.StudyV5Controller.GeteCPTV5(System.String,System.Int32,System.String)')
   - [PostAllElements(studyDTO,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV5-StudyDefinitionsDto,System-String- 'TransCelerate.SDR.WebApi.Controllers.StudyV5Controller.PostAllElements(TransCelerate.SDR.Core.DTO.StudyV5.StudyDefinitionsDto,System.String)')
   - [PutStudy(studyDTO,usdmVersion,studyId)](#M-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller-PutStudy-TransCelerate-SDR-Core-DTO-StudyV5-StudyDefinitionsDto,System-String,System-String- 'TransCelerate.SDR.WebApi.Controllers.StudyV5Controller.PutStudy(TransCelerate.SDR.Core.DTO.StudyV5.StudyDefinitionsDto,System.String,System.String)')
-  - [ValidateUsdmConformance(studyDTO,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller-ValidateUsdmConformance-TransCelerate-SDR-Core-DTO-StudyV5-StudyDefinitionsDto,System-String- 'TransCelerate.SDR.WebApi.Controllers.StudyV5Controller.ValidateUsdmConformance(TransCelerate.SDR.Core.DTO.StudyV5.StudyDefinitionsDto,System.String)')
+  - [ValidateUsdmConformanceAsync(studyDTO,usdmVersion)](#M-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller-ValidateUsdmConformanceAsync-TransCelerate-SDR-Core-DTO-StudyV5-StudyDefinitionsDto,System-String- 'TransCelerate.SDR.WebApi.Controllers.StudyV5Controller.ValidateUsdmConformanceAsync(TransCelerate.SDR.Core.DTO.StudyV5.StudyDefinitionsDto,System.String)')
 
 <a name='T-TransCelerate-SDR-WebApi-Controllers-ChangeAuditController'></a>
 ## ChangeAuditController `type`
@@ -760,8 +760,8 @@ PUT All Elements For a Study
 | usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | USDM Version |
 
-<a name='M-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller-ValidateUsdmConformance-TransCelerate-SDR-Core-DTO-StudyV5-StudyDefinitionsDto,System-String-'></a>
-### ValidateUsdmConformance(studyDTO,usdmVersion) `method`
+<a name='M-TransCelerate-SDR-WebApi-Controllers-StudyV5Controller-ValidateUsdmConformanceAsync-TransCelerate-SDR-Core-DTO-StudyV5-StudyDefinitionsDto,System-String-'></a>
+### ValidateUsdmConformanceAsync(studyDTO,usdmVersion) `method`
 
 ##### Summary
 

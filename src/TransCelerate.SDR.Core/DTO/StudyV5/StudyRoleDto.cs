@@ -9,7 +9,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public string Name { get; set; }
         public string Label { get; set; }
         public string Description { get; set; }
-        public List<string> OrganizationIds { get; set; }
+        public List<OrganizationDto> Organizations { get; set; }
         public CodeDto Code { get; set; }
         public List<string> AppliesToIds { get; set; }
         public MaskingDto Masking { get; set; }

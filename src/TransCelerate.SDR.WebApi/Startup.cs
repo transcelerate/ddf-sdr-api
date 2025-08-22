@@ -29,7 +29,6 @@ using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.RuleEngine.Common;
 using TransCelerate.SDR.RuleEngineV3;
 using TransCelerate.SDR.RuleEngineV4;
-using TransCelerate.SDR.RuleEngineV5;
 using TransCelerate.SDR.WebApi.DependencyInjection;
 using TransCelerate.SDR.WebApi.Mappers;
 
@@ -117,7 +116,10 @@ namespace TransCelerate.SDR.WebApi
             //services.AddValidationDependenciesV2();
             services.AddValidationDependenciesV3();
             services.AddValidationDependenciesV4();
-            services.AddValidationDependenciesV5();
+
+            // Fluent validation for V5 is turned off in favor of the CDISC Rules Engine
+            //services.AddValidationDependenciesV5();
+
             services.AddValidationDependenciesCommon();
 
             //var serviceProvider = services.BuildServiceProvider();

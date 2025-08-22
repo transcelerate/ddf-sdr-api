@@ -17,6 +17,7 @@
   - [ErrorResponseModel(exception)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-ErrorResponseModel-System-Exception- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.ErrorResponseModel(System.Exception)')
   - [GatewayError()](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-GatewayError 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.GatewayError')
   - [InternalServerError(message)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-InternalServerError-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.InternalServerError(System.String)')
+  - [InternalServerError(problemDetails,message)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-InternalServerError-System-Object,System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.InternalServerError(System.Object,System.String)')
   - [MethodNotAllowed(message)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-MethodNotAllowed-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.MethodNotAllowed(System.String)')
   - [NotFound(message)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-NotFound-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.NotFound(System.String)')
   - [ValidationBadRequest(validationErrorDetails,validationWarningDetails,message)](#M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-ValidationBadRequest-System-Object,System-Object,System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.ErrorResponseHelper.ValidationBadRequest(System.Object,System.Object,System.String)')
@@ -143,7 +144,7 @@
   - [AreValidStudyDesignElements(listofelements,listofelementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-AreValidStudyDesignElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.IHelperV5.AreValidStudyDesignElements(System.String,System.String[]@)')
   - [AreValidStudyElements(listofelements,listofelementsArray)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-AreValidStudyElements-System-String,System-String[]@- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.IHelperV5.AreValidStudyElements(System.String,System.String[]@)')
   - [GetAuditTrail(usdmVersion)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-GetAuditTrail-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.IHelperV5.GetAuditTrail(System.String)')
-  - [GetSerializerSettingsForCamelCasing()](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-GetSerializerSettingsForCamelCasing 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.IHelperV5.GetSerializerSettingsForCamelCasing')
+  - [GetSerializerSettingsForCamelCasingAndEscapeHandling()](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-GetSerializerSettingsForCamelCasingAndEscapeHandling 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.IHelperV5.GetSerializerSettingsForCamelCasingAndEscapeHandling')
   - [IsSameStudy(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-IsSameStudy-TransCelerate-SDR-Core-Entities-StudyV5-StudyDefinitionsEntity,TransCelerate-SDR-Core-Entities-StudyV5-StudyDefinitionsEntity- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.IHelperV5.IsSameStudy(TransCelerate.SDR.Core.Entities.StudyV5.StudyDefinitionsEntity,TransCelerate.SDR.Core.Entities.StudyV5.StudyDefinitionsEntity)')
   - [JsonObjectCheck(incoming,existing)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-JsonObjectCheck-System-Object,System-Object- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.IHelperV5.JsonObjectCheck(System.Object,System.Object)')
   - [RemoveStudyDesignElements(sections,studyDTO,study_uuid)](#M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-RemoveStudyDesignElements-System-String[],System-Collections-Generic-List{TransCelerate-SDR-Core-DTO-StudyV5-StudyDesignDto},System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5.IHelperV5.RemoveStudyDesignElements(System.String[],System.Collections.Generic.List{TransCelerate.SDR.Core.DTO.StudyV5.StudyDesignDto},System.String)')
@@ -356,7 +357,7 @@ This method has no parameters.
 
 ##### Summary
 
-Resposne Helper When there is a Internal server error
+Response helper when there is an internal server error
 
 ##### Returns
 
@@ -366,6 +367,24 @@ A [ErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-ErrorModel 'TransCelerate.S
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
+| message | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Message for error response |
+
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-InternalServerError-System-Object,System-String-'></a>
+### InternalServerError(problemDetails,message) `method`
+
+##### Summary
+
+Response helper when there is an internal server error
+
+##### Returns
+
+Status code, error message and details
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| problemDetails | [System.Object](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Object 'System.Object') | Object for holding error details |
 | message | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Message for error response |
 
 <a name='M-TransCelerate-SDR-Core-Utilities-Helpers-ErrorResponseHelper-MethodNotAllowed-System-String-'></a>
@@ -2491,12 +2510,12 @@ Get Audit Trail fields for the POST Api
 | ---- | ---- | ----------- |
 | usdmVersion | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-GetSerializerSettingsForCamelCasing'></a>
-### GetSerializerSettingsForCamelCasing() `method`
+<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-HelpersV5-IHelperV5-GetSerializerSettingsForCamelCasingAndEscapeHandling'></a>
+### GetSerializerSettingsForCamelCasingAndEscapeHandling() `method`
 
 ##### Summary
 
-JSON Serializer for camel casing
+JSON Serializer for camel casing and non-ASCII escape handling
 
 ##### Returns
 
