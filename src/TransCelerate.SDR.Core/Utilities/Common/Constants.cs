@@ -262,6 +262,8 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string ErrorMessageForCdiscRulesEngineFailure = "CDISC Rules Engine failed";
 
             public const string ErrorMessageForCdiscRulesEngineOutputNotFound = "CDISC Rules Engine did not produce a report";
+
+            public const string ErrorMessageForCdiscRulesEngineIssuesFound = "CDISC Rules Engine validate found issues";
         }
 
         public struct TokenConstants
