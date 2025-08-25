@@ -185,7 +185,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(GetStudyDesigns)};");
+                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(GetSOAV5)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
                     _logger.LogInformation($"Inputs : study_uuid = {studyId}; sdruploadversion = {sdruploadversion}; WorkflowId: {scheduleTimelineId}; studydesign_uuid: {studyDesignId}");
@@ -435,7 +435,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(PostAllElements)};");
+                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(PutStudy)};");
                 if (studyDTO != null)
                 {
                     bool isInValidReferenceIntegrity = _helper.ReferenceIntegrityValidation(studyDTO, out var errors);
@@ -471,7 +471,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(StudyV5Controller)}; Method : {nameof(PostAllElements)};");
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV5Controller)}; Method : {nameof(PutStudy)};");
             }
         }
         #endregion
@@ -488,6 +488,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [ApiVersion(Constants.USDMVersions.V4)]
         [Route(Route.ValidateUsdmConformanceV5)]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status500InternalServerError, Type = typeof(ErrorModel))]
         [Produces("application/json")]
         public async Task<IActionResult> ValidateUsdmConformanceAsync([FromBody] StudyDefinitionsDto studyDTO, [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
         {
@@ -544,7 +545,6 @@ namespace TransCelerate.SDR.WebApi.Controllers
         }
         #endregion
 
-
         #region DELETE Method
         /// <summary>
         /// Delete a Study
@@ -564,7 +564,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(GetStudy)};");
+                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(DeleteStudy)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
                     _logger.LogInformation($"Inputs : studyId = {studyId};");
@@ -596,7 +596,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(StudyV5Controller)}; Method : {nameof(GetStudy)};");
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV5Controller)}; Method : {nameof(DeleteStudy)};");
             }
         }
         #endregion        

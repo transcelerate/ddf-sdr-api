@@ -766,16 +766,15 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                     tempList.Add($"{nameof(StudyDesignEntity.Population)}{x}");
                 });
                 tempList.RemoveAll(x => x.Contains($"{nameof(StudyDesignPopulationEntity.Cohorts)}"));
-                tempList.RemoveAll(x => x.Contains($"{nameof(StudyDesignPopulationEntity.Criterionids)}"));
+                tempList.RemoveAll(x => x.Contains($"{nameof(StudyDesignPopulationEntity.CriterionIds)}"));
 
                 GetDifferenceForAList<StudyCohortEntity>(currentStudyDesign.Population.Cohorts, previousStudyDesign.Population.Cohorts).ForEach(x =>
                 {
                     tempList.Add($"{nameof(StudyDesignEntity.Population)}.{nameof(StudyDesignPopulationEntity.Cohorts)}{x}");
                 });
-                //GetDifferenceForAList<EligibilityCriterionEntity>(currentStudyDesign.Population.Criterionids, previousStudyDesign.Population.Criterionids).ForEach(x =>
-                GetDifferenceForAList(currentStudyDesign.Population.Criterionids, previousStudyDesign.Population.Criterionids).ForEach(x =>
+                GetDifferenceForAList(currentStudyDesign.Population.CriterionIds, previousStudyDesign.Population.CriterionIds).ForEach(x =>
                 {
-                    tempList.Add($"{nameof(StudyDesignEntity.Population)}.{nameof(StudyDesignPopulationEntity.Criterionids)}{x}");
+                    tempList.Add($"{nameof(StudyDesignEntity.Population)}.{nameof(StudyDesignPopulationEntity.CriterionIds)}{x}");
                 });
                 tempList.RemoveAll(x => x.Contains($"{nameof(StudyCohortEntity.Characteristics)}"));
                 currentStudyDesign.Population.Cohorts?.ForEach(currCohort =>
@@ -1292,8 +1291,8 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
             if (design != null && design.Population != null)
             {
                 List<string> dictionaryIds = version.Dictionaries.Select(x => x.Id).ToList();
-                // List<string> eligibilityCriteriaIds = design.Population.Criterionids != null ? design.Population.Criterionids.Select(act => act?.Id).ToList() : new();
-                design.Population.Criterionids?.ForEach(crit =>
+                // List<string> eligibilityCriteriaIds = design.Population.CriterionIds != null ? design.Population.CriterionIds.Select(act => act?.Id).ToList() : new();
+                design.Population.CriterionIds?.ForEach(crit =>
                 {
                     //List<string> tempEliCritIDs = eligibilityCriteriaIds.ToList();
                     // tempEliCritIDs.RemoveAll(x => x == crit.Id);
@@ -1302,7 +1301,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                     //        $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
                     //        $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
                     //        $"{nameof(StudyDesignDto.Population)}" +
-                    //        $"{nameof(StudyDesignPopulationDto.Criterionids)}[{design.Population.Criterionids.IndexOf(crit)}]." +
+                    //        $"{nameof(StudyDesignPopulationDto.CriterionIds)}[{design.Population.CriterionIds.IndexOf(crit)}]." +
                     //        $"{nameof(EligibilityCriterionDto.PreviousId)}");
 
                     //if (!String.IsNullOrWhiteSpace(crit.NextId) && !tempEliCritIDs.Contains(crit.NextId))
@@ -1310,7 +1309,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                     //        $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
                     //      $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
                     //      $"{nameof(StudyDesignDto.Population)}" +
-                    //      $"{nameof(StudyDesignPopulationDto.Criterionids)}[{design.Population.Criterionids.IndexOf(crit)}]." +
+                    //      $"{nameof(StudyDesignPopulationDto.CriterionIds)}[{design.Population.CriterionIds.IndexOf(crit)}]." +
                     //      $"{nameof(EligibilityCriterionDto.NextId)}");
 
                     //if (!String.IsNullOrWhiteSpace(crit.ContextId) && !studyVersionAndDesignIds.Contains(crit.ContextId))
@@ -1318,7 +1317,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                     //        $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
                     //      $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
                     //      $"{nameof(StudyDesignDto.Population)}" +
-                    //      $"{nameof(StudyDesignPopulationDto.Criterionids)}[{design.Population.Criterionids.IndexOf(crit)}]." +
+                    //      $"{nameof(StudyDesignPopulationDto.CriterionIds)}[{design.Population.CriterionIds.IndexOf(crit)}]." +
                     //      $"{nameof(EligibilityCriterionDto.ContextId)}");
 
                     //if (!String.IsNullOrWhiteSpace(crit.DictionaryId) && !dictionaryIds.Contains(crit.DictionaryId))
@@ -1326,15 +1325,15 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                     //        $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
                     //      $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
                     //      $"{nameof(StudyDesignDto.Population)}" +
-                    //      $"{nameof(StudyDesignPopulationDto.Criterionids)}[{design.Population.Criterionids.IndexOf(crit)}]." +
+                    //      $"{nameof(StudyDesignPopulationDto.CriterionIds)}[{design.Population.CriterionIds.IndexOf(crit)}]." +
                     //      $"{nameof(EligibilityCriterionDto.DictionaryId)}");
 
                 });
 
                 design.Population.Cohorts?.ForEach(coh =>
                 {
-                    //List<string> cohortEligCritIds = coh.Criterionids != null ? coh.Criterionids.Select(act => act?.Id).ToList() : new();
-                    coh.Criterionids?.ForEach(crit =>
+                    //List<string> cohortEligCritIds = coh.CriterionIds != null ? coh.CriterionIds.Select(act => act?.Id).ToList() : new();
+                    coh.CriterionIds?.ForEach(crit =>
                     {
                         //List<string> tempEliCritIDs = cohortEligCritIds.ToList();
                         //tempEliCritIDs.RemoveAll(x => x == crit.Id);
@@ -1344,7 +1343,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         //        $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
                         //        $"{nameof(StudyDesignDto.Population)}" +
                         //        $"{nameof(StudyDesignPopulationDto.Cohorts)}[{design.Population.Cohorts.IndexOf(coh)}]." +
-                        //        $"{nameof(StudyCohortDto.Criterionids)}[{coh.Criterionids.IndexOf(crit)}]." +
+                        //        $"{nameof(StudyCohortDto.CriterionIds)}[{coh.CriterionIds.IndexOf(crit)}]." +
                         //        $"{nameof(EligibilityCriterionDto.PreviousId)}");
 
                         //if (!String.IsNullOrWhiteSpace(crit.NextId) && !tempEliCritIDs.Contains(crit.NextId))
@@ -1353,7 +1352,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         //      $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
                         //      $"{nameof(StudyDesignDto.Population)}" +
                         //      $"{nameof(StudyDesignPopulationDto.Cohorts)}[{design.Population.Cohorts.IndexOf(coh)}]." +
-                        //      $"{nameof(StudyCohortDto.Criterionids)}[{coh.Criterionids.IndexOf(crit)}]." +
+                        //      $"{nameof(StudyCohortDto.CriterionIds)}[{coh.CriterionIds.IndexOf(crit)}]." +
                         //      $"{nameof(EligibilityCriterionDto.NextId)}");
 
                         //if (!String.IsNullOrWhiteSpace(crit.ContextId) && !studyVersionAndDesignIds.Contains(crit.ContextId))
@@ -1362,7 +1361,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         //      $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
                         //      $"{nameof(StudyDesignDto.Population)}" +
                         //      $"{nameof(StudyDesignPopulationDto.Cohorts)}[{design.Population.Cohorts.IndexOf(coh)}]." +
-                        //      $"{nameof(StudyCohortDto.Criterionids)}[{coh.Criterionids.IndexOf(crit)}]." +
+                        //      $"{nameof(StudyCohortDto.CriterionIds)}[{coh.CriterionIds.IndexOf(crit)}]." +
                         //      $"{nameof(EligibilityCriterionDto.ContextId)}");
 
                         //if (!String.IsNullOrWhiteSpace(crit.DictionaryId) && !dictionaryIds.Contains(crit.DictionaryId))
@@ -1371,7 +1370,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                         //      $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
                         //      $"{nameof(StudyDesignDto.Population)}" +
                         //      $"{nameof(StudyDesignPopulationDto.Cohorts)}[{design.Population.Cohorts.IndexOf(coh)}]." +
-                        //      $"{nameof(StudyCohortDto.Criterionids)}[{coh.Criterionids.IndexOf(crit)}]." +
+                        //      $"{nameof(StudyCohortDto.CriterionIds)}[{coh.CriterionIds.IndexOf(crit)}]." +
                         //      $"{nameof(EligibilityCriterionDto.DictionaryId)}");
 
                     });
@@ -2570,15 +2569,15 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                     tempList.Add($"{nameof(StudyDesignEntity.Population)}{x}");
                 });
                 tempList.RemoveAll(x => x.Contains($"{nameof(StudyDesignPopulationEntity.Cohorts)}"));
-                tempList.RemoveAll(x => x.Contains($"{nameof(StudyDesignPopulationEntity.Criterionids)}"));
+                tempList.RemoveAll(x => x.Contains($"{nameof(StudyDesignPopulationEntity.CriterionIds)}"));
 
                 GetDifferenceForAListForStudyComparison<StudyCohortEntity>(currentStudyDesign.Population.Cohorts, previousStudyDesign.Population.Cohorts).ForEach(x =>
                 {
                     tempList.Add($"{nameof(StudyDesignEntity.Population)}.{nameof(StudyDesignPopulationEntity.Cohorts)}{x}");
                 });
-                GetDifferenceForAListForStudyComparison(currentStudyDesign.Population.Criterionids, previousStudyDesign.Population.Criterionids).ForEach(x =>
+                GetDifferenceForAListForStudyComparison(currentStudyDesign.Population.CriterionIds, previousStudyDesign.Population.CriterionIds).ForEach(x =>
                 {
-                    tempList.Add($"{nameof(StudyDesignEntity.Population)}.{nameof(StudyDesignPopulationEntity.Criterionids)}{x}");
+                    tempList.Add($"{nameof(StudyDesignEntity.Population)}.{nameof(StudyDesignPopulationEntity.CriterionIds)}{x}");
                 });
                 tempList.RemoveAll(x => x.Contains($"{nameof(StudyCohortEntity.Characteristics)}"));
                 currentStudyDesign.Population.Cohorts?.ForEach(currCohort =>
