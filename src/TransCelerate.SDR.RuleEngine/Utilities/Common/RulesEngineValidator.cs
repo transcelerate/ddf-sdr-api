@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.Utilities.Common;
 
@@ -11,8 +12,9 @@ namespace TransCelerate.SDR.RuleEngine.Utilities.Common
     /// </summary>
     public class RulesEngineValidator : IRulesEngineValidator
     {
-        private readonly string _binaryFile = Config.CdiscRulesEngine;
+        private readonly string _binaryFile = Path.Combine(Config.CdiscRulesEngine, Config.CdiscRulesEngineRelativeBinary);
         private readonly string[] _args;
+        private readonly string _cachePath = Path.Combine(Config.CdiscRulesEngine, Config.CdiscRulesEngineRelativeCache);
 
         private readonly string _tempInput;
         private readonly string _tempOutput;
@@ -33,6 +35,12 @@ namespace TransCelerate.SDR.RuleEngine.Utilities.Common
             _reportFile = $"{_tempOutput}.json";
 
             _args = ["validate", "-s", "usdm", "-v", "4-0", "-dp", _tempInput, "-o", _tempOutput, "-of", "json"];
+
+            if (!string.IsNullOrEmpty(_cachePath) && Directory.Exists(_cachePath))
+            {
+                _args.Append("-ca");
+                _args.Append(_cachePath);
+            }
         }
 
         public async Task<BinaryResult> ValidateAsync(string json)
