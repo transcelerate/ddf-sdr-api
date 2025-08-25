@@ -2,7 +2,6 @@ using AutoMapper;
 using Azure.Messaging.ServiceBus;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -54,9 +53,6 @@ namespace TransCelerate.SDR.WebApi
         /// <param name="services"></param>        
         public void ConfigureServices(IServiceCollection services)
         {
-            // Application Insights for logs
-            services.AddApplicationInsightsTelemetry(options: new ApplicationInsightsServiceOptions { ConnectionString = Config.InstrumentationKey });
-
             // Api Versioning
             services.AddApiVersioning(o =>
             {
@@ -198,8 +194,7 @@ namespace TransCelerate.SDR.WebApi
                             request = await reader.ReadToEndAsync();
                             context.Request.Body.Position = 0;
                         }
-                        var inputArray = SplitStringIntoArrayHelper.SplitString(request, 32000);//since app insights limit is 32768 characters  
-                        var logTask = Task.Run(() => inputArray.ForEach(input => logger.LogInformation("Request Body {index}: {input}", inputArray.IndexOf(input) + 1, input)));
+                        var logTask = Task.Run(() => logger.LogInformation("Request Body: {request}", request));
                         var actionTask = Task.Run(() => next());
                         await Task.WhenAll(actionTask, logTask); // Adding request logging as Task to execute in parallel along with request                        
                     }
@@ -213,7 +208,12 @@ namespace TransCelerate.SDR.WebApi
                 catch (Exception ex)
                 {
                     if (String.IsNullOrWhiteSpace(context.Response.Headers["Content-Type"]))
-                        context.Response.Headers.Add("Content-Type", "application/json");
+                    {
+                        if (context.Response?.Headers != null)
+                        {
+                            context.Response.Headers["Content-Type"] = "application/json";
+                        }
+                    }
                     context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     logger.LogError("Exception Occurred: {ex}", ex);
                     logger.LogInformation("Status Code: {statusCode}; URL: {path}; AuthToken: {token}", context.Response.StatusCode, context.Request.Path, context.Request.Headers["Authorization"]);

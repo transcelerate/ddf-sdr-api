@@ -60,12 +60,6 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string Comma = ",";
         }
 
-        public struct DefaultHeaders
-        {
-            public const string AppInsightsApiKey = "x-api-key";
-            public const string ApiKeyAuthenticationHeader = "x-api-key";
-        }
-
         public struct StudyType
         {
             public const string ALL = "ALL";
@@ -169,8 +163,6 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string RootElementMissing = "Root Element {PropertyName} is missing";
 
-            public const string InValidDays = "Invalid Date Range";
-
             public const string BooleanValidationFailed = "Type must be boolean (true/false)";
 
             public const string IntegerValidationFailed = "Type must be integer";
@@ -199,11 +191,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string DateError = "ToDate must be greater than or equal to FromDate";
 
-            public const string DateErrorForReports = "ToDate must be greater than FromDate";
-
             public const string StudyInputError = "Kindly provide a valid input";
-
-            public const string DateMissingError = "Kindly provide a date range";
 
             public const string SearchNotFound = "No study matches the search keywords";
 
