@@ -135,32 +135,6 @@
         #endregion
         #endregion
 
-        #region User Group Routes
-        public const string GetGroups = "usergroups/getgroups";
-
-        public const string GetUsers = "usergroups/getusers";
-
-        public const string GetGroupList = "usergroups/getgrouplist";
-
-        public const string GetUsersFromAD = "usergroups/listusers";
-
-        public const string CheckGroupName = "usergroups/checkgroupname";
-
-        public const string PostAGroup = "usergroups/postgroup";
-
-        public const string PostUserToGroups = "usergroups/postuser";
-
-        public const string RemoveInActiveUsers = "usergroups/removeinactiveusers";
-        #endregion
-
-        #region Reports
-        public const string SystemUsageReport = "reports/usage";
-        #endregion
-
-        #region Token
-        public const string Token = "v1/auth/token";
-        #endregion
-
         #region ChangeAudit
         public const string ChangeAudit = "studydefinitions/{studyId}/changeaudit";
         #endregion
@@ -173,7 +147,6 @@
         public const string GetStudyHistory = "studydefinitions/history";
         public const string CommonSearch = "studydefinitions/search";
         public const string GetLinksForAStudy = "studydefinitions/{studyId}/links";
-        public const string CommonToken = "auth/token";
         #endregion
     }
 }

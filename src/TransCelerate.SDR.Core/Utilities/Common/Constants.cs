@@ -217,8 +217,6 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string InvalidCredentials = "Invalid Credentials";
 
-            public const string UsageReportNotAvailable = "System Usage Report Not Available";
-
             public const string ErrorMessageForReferenceIntegrityInResponse = "Reference Integrity Error";
 
             public const string ErrorMessageForReferenceIntegrity = "Reference Integrity Failed";
