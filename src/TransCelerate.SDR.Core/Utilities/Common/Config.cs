@@ -24,5 +24,7 @@
         public static string ConformanceRules { get; set; }
         public static string SdrCptMasterDataMapping { get; set; }
         public static string CdiscRulesEngine { get; set; }
+        public static string CdiscRulesEngineRelativeBinary { get; set; }
+        public static string CdiscRulesEngineRelativeCache { get; set; }
     }
 }
