@@ -189,11 +189,9 @@ namespace TransCelerate.SDR.WebApi
 
                     using (StreamReader reader = new(context.Request.Body))
                     {
-                        if (!context.Request.Path.Value.Contains(Route.Token) && !context.Request.Path.Value.Contains(Route.CommonToken))
-                        {
-                            request = await reader.ReadToEndAsync();
-                            context.Request.Body.Position = 0;
-                        }
+                        request = await reader.ReadToEndAsync();
+                        context.Request.Body.Position = 0;
+
                         var logTask = Task.Run(() => logger.LogInformation("Request Body: {request}", request));
                         var actionTask = Task.Run(() => next());
                         await Task.WhenAll(actionTask, logTask); // Adding request logging as Task to execute in parallel along with request                        
