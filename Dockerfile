@@ -30,7 +30,9 @@ FROM ubuntu:24.04 AS runtime
 ENV DEBIAN_FRONTEND=noninteractive \
     DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1 \
     ASPNETCORE_URLS=http://+:80 \
-    CdiscRulesEngine="/app/cdisc-rules-engine/core"
+    CdiscRulesEngine="/app/cdisc-rules-engine" \
+    CdiscRulesEngineRelativeBinary="core" \
+    CdiscRulesEngineRelativeCache="resources/cache"
 WORKDIR /app
 
 # Install dependencies
@@ -60,10 +62,11 @@ RUN LATEST_RELEASE_URL=$(curl -s --fail --retry 3 https://api.github.com/repos/c
         "$LATEST_RELEASE_URL" \
     && unzip core-ubuntu-latest.zip -d core-ubuntu-latest \
     && rm core-ubuntu-latest.zip \
-    && mkdir cdisc-rules-engine \
+    && mkdir -p cdisc-rules-engine \
     && mv core-ubuntu-latest/core/* cdisc-rules-engine/ \
     && rm -rf core-ubuntu-latest \
-    && chmod +x /app/cdisc-rules-engine/core
+    && chmod +x /app/cdisc-rules-engine/$CdiscRulesEngineRelativeBinary \
+    && mkdir -p /app/cdisc-rules-engine/$CdiscRulesEngineRelativeCache
 
 # Copy published files from build stage
 COPY --from=build /app/publish ./

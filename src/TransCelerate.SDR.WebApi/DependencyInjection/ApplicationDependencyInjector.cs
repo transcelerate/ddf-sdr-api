@@ -47,6 +47,7 @@ namespace TransCelerate.SDR.WebApi.DependencyInjection
 
             services.AddSingleton<IBinaryRunner, BinaryRunner>();
             services.AddSingleton<IFileSystem, FileSystem>();
+            services.AddSingleton<IRulesEngineValidator, RulesEngineValidator>();
 
             return services;
         }
