@@ -1,5 +1,4 @@
 using AutoMapper;
-using Azure.Messaging.ServiceBus;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -25,19 +24,17 @@ namespace TransCelerate.SDR.Services.Services
         private readonly IMapper _mapper;
         private readonly ILogHelper _logger;
         private readonly IHelperV5 _helper;
-        private readonly ServiceBusClient _serviceBusClient;
         private readonly IChangeAuditRepository _changeAuditRepositoy;
         #endregion
 
         #region Constructor
-        public StudyServiceV5(IStudyRepositoryV5 studyRepository, IMapper mapper, ILogHelper logger, IHelperV5 helper, ServiceBusClient serviceBusClient, IChangeAuditRepository changeAuditRepository)
+        public StudyServiceV5(IStudyRepositoryV5 studyRepository, IMapper mapper, ILogHelper logger, IHelperV5 helper, IChangeAuditRepository changeAuditRepository)
         {
             _changeAuditRepositoy = changeAuditRepository;
             _studyRepository = studyRepository;
             _mapper = mapper;
             _logger = logger;
             _helper = helper;
-            _serviceBusClient = serviceBusClient;
         }
         #endregion
 
@@ -850,13 +847,11 @@ namespace TransCelerate.SDR.Services.Services
                         else
                         {
                             studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity, existingStudyEntity.AuditTrail).ConfigureAwait(false);
-                            await PushMessageToServiceBus(new Core.DTO.Common.ServiceBusMessageDto { Study_uuid = incomingStudyEntity.Study.Id, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
                         }
                     }
                     else // If previus USDM version is different from incoming
                     {
                         studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity, existingAuditTrail).ConfigureAwait(false);
-                        await PushMessageToServiceBus(new Core.DTO.Common.ServiceBusMessageDto { Study_uuid = incomingStudyEntity.Study.Id, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
                     }
                 }
                 studyDTO.Links = LinksHelper.GetLinksForUi(studyDTO.Study.Id, studyDTO.Study.Versions?.FirstOrDefault()?.StudyDesigns?.Select(x => x.Id).ToList(), studyDTO.AuditTrail.UsdmVersion, studyDTO.AuditTrail.SDRUploadVersion);
@@ -901,21 +896,6 @@ namespace TransCelerate.SDR.Services.Services
             await _studyRepository.PostStudyItemsAsync(incomingStudyEntity);
             return _mapper.Map<StudyDefinitionsDto>(incomingStudyEntity);
         }
-
-        #region Azure ServiceBus
-        private async Task PushMessageToServiceBus(Core.DTO.Common.ServiceBusMessageDto serviceBusMessageDto)
-        {
-            //Execute the service bus only when Service Bus ConnectionString and Queue name are available in the configuration
-            if (!String.IsNullOrWhiteSpace(Config.AzureServiceBusConnectionString) && !String.IsNullOrWhiteSpace(Config.AzureServiceBusQueueName))
-            {
-                ServiceBusSender sender = _serviceBusClient.CreateSender(Config.AzureServiceBusQueueName);
-
-                string jsonMessageString = JsonConvert.SerializeObject(serviceBusMessageDto);
-                ServiceBusMessage serializedMessage = new(jsonMessageString);
-                await sender.SendMessageAsync(serializedMessage);
-            }
-        }
-        #endregion
         #endregion
 
         #region Delete Method

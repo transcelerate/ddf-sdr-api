@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Azure.Messaging.ServiceBus;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -24,7 +23,6 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         #region Variables
         private readonly ILogHelper _mockLogger = Mock.Of<ILogHelper>();
         private readonly Mock<IHelperV3> _mockHelper = new(MockBehavior.Loose);
-        private readonly Mock<ServiceBusClient> _mockServiceBusClient = new(MockBehavior.Loose);
         private readonly Mock<IStudyRepositoryV3> _mockStudyRepository = new(MockBehavior.Loose);
         private readonly Mock<IChangeAuditRepository> _mockChangeAuditRepository = new(MockBehavior.Loose);
         private IMapper _mockMapper;
@@ -115,14 +113,10 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             StudyDefinitionsEntity studyEntity1 = GetEntityDataFromStaticJson(); studyEntity1.AuditTrail.SDRUploadVersion = 1; studyEntity1.AuditTrail.UsdmVersion = Constants.USDMVersions.V1_9;
             _mockStudyRepository.Setup(x => x.GetUsdmVersionAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity1.AuditTrail));
-            ServiceBusSender serviceBusSender = Mock.Of<ServiceBusSender>();
-
-            _mockServiceBusClient.Setup(x => x.CreateSender(It.IsAny<string>()))
-                .Returns(serviceBusSender);
 
             //POST Unit Testing
             #region POST
-            StudyServiceV3 studyService = new(_mockStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockServiceBusClient.Object, _mockChangeAuditRepository.Object);
+            StudyServiceV3 studyService = new(_mockStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockChangeAuditRepository.Object);
 
 
             var method = studyService.PostAllElements(studyDto, HttpMethod.Post.Method);
@@ -261,7 +255,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             studyEntity.Study.StudyType.Decode = "OBSERVATIONAL";
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity));
-            StudyServiceV3 studyService = new(_mockStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockServiceBusClient.Object, _mockChangeAuditRepository.Object);
+            StudyServiceV3 studyService = new(_mockStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockChangeAuditRepository.Object);
 
             var method = studyService.GetStudy("1", 0);
             method.Wait();
@@ -303,7 +297,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             studyEntity.Study.StudyType.Decode = "OBSERVATIONAL";
             _mockStudyRepository.Setup(x => x.GetPartialStudyDesignItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity));
-            StudyServiceV3 studyService = new(_mockStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockServiceBusClient.Object, _mockChangeAuditRepository.Object);
+            StudyServiceV3 studyService = new(_mockStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockChangeAuditRepository.Object);
 
             var method = studyService.GetStudyDesigns("1", null, 0, null);
             method.Wait();
@@ -353,7 +347,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             studyEntity.Study.StudyType.Decode = "OBSERVATIONAL";
             _mockStudyRepository.Setup(x => x.GetPartialStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string[]>()))
                    .Returns(Task.FromResult(studyEntity));
-            StudyServiceV3 studyService = new(_mockStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockServiceBusClient.Object, _mockChangeAuditRepository.Object);
+            StudyServiceV3 studyService = new(_mockStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockChangeAuditRepository.Object);
 
             var method = studyService.GetPartialStudyElements("1", 0, Constants.StudyElementsV3);
             method.Wait();
@@ -389,7 +383,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             studyEntity.Study.StudyType.Decode = "OBSERVATIONAL";
             _mockStudyRepository.Setup(x => x.GetPartialStudyDesignItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity));
-            StudyServiceV3 studyService = new(_mockStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockServiceBusClient.Object, _mockChangeAuditRepository.Object);
+            StudyServiceV3 studyService = new(_mockStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockChangeAuditRepository.Object);
 
             var method = studyService.GetPartialStudyDesigns("1", "b", 0, Constants.StudyDesignElementsV3);
             method.Wait();
@@ -445,7 +439,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             _mockStudyRepository.Setup(x => x.DeleteStudyAsync(It.IsAny<string>()))
                    .Returns(Task.FromResult(deleteResult.Object));
 
-            StudyServiceV3 studyService = new(_mockStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockServiceBusClient.Object, _mockChangeAuditRepository.Object);
+            StudyServiceV3 studyService = new(_mockStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockChangeAuditRepository.Object);
 
             var method = studyService.DeleteStudy("1");
             method.Wait();
@@ -486,7 +480,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity));
 
-            StudyServiceV3 studyService = new(_mockStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockServiceBusClient.Object, _mockChangeAuditRepository.Object);
+            StudyServiceV3 studyService = new(_mockStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockChangeAuditRepository.Object);
 
             var method = studyService.GetSOAV3("1", studyEntity.Study.StudyDesigns[0].Id, studyEntity.Study.StudyDesigns[0].StudyScheduleTimelines[0].Id, 0);
             method.Wait();
@@ -561,7 +555,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), It.IsAny<int>()))
                    .Returns(Task.FromResult(studyEntity));
 
-            StudyServiceV3 studyService = new(_mockStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockServiceBusClient.Object, _mockChangeAuditRepository.Object);
+            StudyServiceV3 studyService = new(_mockStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockChangeAuditRepository.Object);
 
             var method = studyService.GeteCPTV3("a", 1, null);
             method.Wait();
@@ -616,7 +610,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                    .Returns(Task.FromResult(currentVersionV3));
             _mockStudyRepository.Setup(x => x.GetStudyItemsAsync(It.IsAny<string>(), 2))
                    .Returns(Task.FromResult(previousVersionV3));
-            StudyServiceV3 studyService = new(_mockStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockServiceBusClient.Object, _mockChangeAuditRepository.Object);
+            StudyServiceV3 studyService = new(_mockStudyRepository.Object, _mockMapper, _mockLogger, _mockHelper.Object, _mockChangeAuditRepository.Object);
 
             var method = studyService.GetDifferences("1", 1, 2);
             method.Wait();
@@ -657,7 +651,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             method = studyService.GetDifferences("1", 1, 2);
             method.Wait();
 
-            Assert.IsNull(method.Result);            
+            Assert.IsNull(method.Result);
         }
         #endregion        
         #endregion

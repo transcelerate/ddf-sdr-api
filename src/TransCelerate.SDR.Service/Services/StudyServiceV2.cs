@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Azure.Messaging.ServiceBus;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -25,19 +24,17 @@ namespace TransCelerate.SDR.Services.Services
         private readonly IMapper _mapper;
         private readonly ILogHelper _logger;
         private readonly IHelperV2 _helper;
-        private readonly ServiceBusClient _serviceBusClient;
         private readonly IChangeAuditRepository _changeAuditRepositoy;
         #endregion
 
         #region Constructor
-        public StudyServiceV2(IStudyRepositoryV2 studyRepository, IMapper mapper, ILogHelper logger, IHelperV2 helper, ServiceBusClient serviceBusClient, IChangeAuditRepository changeAuditRepository)
+        public StudyServiceV2(IStudyRepositoryV2 studyRepository, IMapper mapper, ILogHelper logger, IHelperV2 helper, IChangeAuditRepository changeAuditRepository)
         {
             _changeAuditRepositoy = changeAuditRepository;
             _studyRepository = studyRepository;
             _mapper = mapper;
             _logger = logger;
             _helper = helper;
-            _serviceBusClient = serviceBusClient;
         }
         #endregion
 
@@ -303,7 +300,7 @@ namespace TransCelerate.SDR.Services.Services
                             ScheduleTimelines studyTimelineSoA = _mapper.Map<ScheduleTimelines>(scheduleTimeline);
                             var scheduleActivityInstances = scheduleTimeline.ScheduleTimelineInstances?.Select(x => (x as ScheduledActivityInstanceEntity))
                                                                          .Where(x => x != null).ToList();
-                            
+
                             if (scheduleActivityInstances != null && scheduleActivityInstances.Any())
                             {
                                 var activitiesMappedToTimeLine = activities is not null && activities.Any() ? activities.Where(act => scheduleActivityInstances.Where(x => x.ActivityIds is not null && x.ActivityIds.Any()).SelectMany(instance => instance.ActivityIds).Contains(act.Id)).ToList() : new List<ActivityEntity>();
@@ -703,13 +700,11 @@ namespace TransCelerate.SDR.Services.Services
                         else
                         {
                             studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity, existingStudyEntity.AuditTrail).ConfigureAwait(false);
-                            await PushMessageToServiceBus(new Core.DTO.Common.ServiceBusMessageDto { Study_uuid = incomingStudyEntity.Study.StudyId, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
                         }
                     }
                     else
                     {
                         studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity, existingAuditTrail).ConfigureAwait(false);
-                        await PushMessageToServiceBus(new Core.DTO.Common.ServiceBusMessageDto { Study_uuid = incomingStudyEntity.Study.StudyId, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
                     }
                 }
                 studyDTO.Links = LinksHelper.GetLinksForUi(studyDTO.Study.StudyId, studyDTO.Study.StudyDesigns?.Select(x => x.Id).ToList(), studyDTO.AuditTrail.UsdmVersion, studyDTO.AuditTrail.SDRUploadVersion);
@@ -730,8 +725,8 @@ namespace TransCelerate.SDR.Services.Services
             //studyEntity = _helper.GeneratedSectionId(studyEntity);
             studyEntity.Study.StudyId = IdGenerator.GenerateId();
             studyEntity.AuditTrail.SDRUploadVersion = 1;
-			studyEntity.AuditTrail.SDRUploadFlag = 1;
-			await _studyRepository.PostStudyItemsAsync(studyEntity);
+            studyEntity.AuditTrail.SDRUploadFlag = 1;
+            await _studyRepository.PostStudyItemsAsync(studyEntity);
             await _changeAuditRepositoy.InsertChangeAudit(studyEntity.Study.StudyId, studyEntity.AuditTrail.SDRUploadVersion, studyEntity.AuditTrail.SDRUploadFlag, studyEntity.AuditTrail.EntryDateTime);
             return _mapper.Map<StudyDefinitionsDto>(studyEntity);
         }
@@ -753,21 +748,6 @@ namespace TransCelerate.SDR.Services.Services
             await _studyRepository.PostStudyItemsAsync(incomingStudyEntity);
             return _mapper.Map<StudyDefinitionsDto>(incomingStudyEntity);
         }
-
-        #region Azure ServiceBus
-        private async Task PushMessageToServiceBus(Core.DTO.Common.ServiceBusMessageDto serviceBusMessageDto)
-        {
-            //Execute the service bus only when Service Bus ConnectionString and Queue name are available in the configuration
-            if (!String.IsNullOrWhiteSpace(Config.AzureServiceBusConnectionString) && !String.IsNullOrWhiteSpace(Config.AzureServiceBusQueueName))
-            {
-                ServiceBusSender sender = _serviceBusClient.CreateSender(Config.AzureServiceBusQueueName);
-
-                string jsonMessageString = JsonConvert.SerializeObject(serviceBusMessageDto);
-                ServiceBusMessage serializedMessage = new(jsonMessageString);
-                await sender.SendMessageAsync(serializedMessage);
-            }
-        }
-        #endregion
         #endregion
 
         #region Delete Method
