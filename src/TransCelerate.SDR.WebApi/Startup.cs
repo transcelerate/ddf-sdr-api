@@ -143,7 +143,6 @@ namespace TransCelerate.SDR.WebApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
             }
             //Swagger
             app.UseSwagger();
