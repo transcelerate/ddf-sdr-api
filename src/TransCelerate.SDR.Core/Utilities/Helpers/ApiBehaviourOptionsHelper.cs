@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
@@ -63,29 +62,27 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     );
             }
 
-            context.HttpContext?.Response?.Headers?.Add("InvalidInput", "True");
+            if (context.HttpContext?.Response?.Headers != null)
+            {
+                context.HttpContext.Response.Headers["InvalidInput"] = "True";
+            }
 
-            var AuthToken = context?.HttpContext?.Request?.Headers["Authorization"];
             var usdmVersion = context?.HttpContext?.Request?.Headers["usdmVersion"];
-
-            var errorList = SplitStringIntoArrayHelper.SplitString(JsonConvert.SerializeObject(errors), 32000);//since app insights limit is 32768 characters   
 
             // For Conformance error
             if (HasConformanceError(errors)
-                && !JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.TokenConstants.Username.ToLower())
-                && !JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.TokenConstants.Password.ToLower())
                 && !JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ErrorMessages.InvalidUsdmVersion.ToLower())
                 && !errors.Any(key => key.Key?.ToLower() == nameof(DTO.Common.AuditTrailDto.UsdmVersion).ToLower()))
             {
-                errorList.ForEach(e => _logger.LogError($"Conformance Error {errorList.IndexOf(e) + 1}: {e}"));
-                _logger.LogInformation($"Status Code: {400}; UserName : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Email)?.Value}; UserRole : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Role)?.Value} URL: {context?.HttpContext?.Request?.Path}; AuthToken: {AuthToken}");
+                _logger.LogError($"Conformance Error: {JsonConvert.SerializeObject(errors)}");
+                _logger.LogInformation($"Status Code: {400}; URL: {context?.HttpContext?.Request?.Path}");
                 return new BadRequestObjectResult(ErrorResponseHelper.ValidationBadRequest(errors, warnings, $"{Constants.ErrorMessages.ConformanceErrorMessage}{usdmVersion}"));
             }
             // Other errors
             else
             {
-                errorList.ForEach(e => _logger.LogError($"Invalid Input {errorList.IndexOf(e) + 1}: {e}"));
-                _logger.LogInformation($"Status Code: {400}; UserName : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Email)?.Value}; UserRole : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Role)?.Value} URL: {context?.HttpContext?.Request?.Path}; AuthToken: {AuthToken}");
+                _logger.LogError($"Invalid Input: {JsonConvert.SerializeObject(errors)}");
+                _logger.LogInformation($"Status Code: {400}; URL: {context?.HttpContext?.Request?.Path}");
                 return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(errors, "Invalid Input"));
             }
         }
@@ -98,14 +95,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             {
                 Constants.ValidationErrorMessage.PropertyEmptyError,
                 Constants.ValidationErrorMessage.PropertyMissingError,
-                Constants.ValidationErrorMessage.SelectAtleastOneGroup,
-                Constants.ValidationErrorMessage.InvalidPermissionValue,
                 "unique",
                 Constants.ValidationErrorMessage.BooleanValidationFailed,
                 Constants.ValidationErrorMessage.IntegerMinimumValueError,
                 Constants.ValidationErrorMessage.IntegerValidationFailed,
-                Constants.ValidationErrorMessage.ScheduledInstanceTypesError,
-                Constants.ValidationErrorMessage.GroupFilterEmptyError
+                Constants.ValidationErrorMessage.ScheduledInstanceTypesError
             };
 
             return validationMessagesToCheck.Any(message => serializedErrors.Contains(message.ToLower()));

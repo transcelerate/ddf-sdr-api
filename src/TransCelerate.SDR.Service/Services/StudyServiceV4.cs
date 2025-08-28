@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Azure.Messaging.ServiceBus;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -25,19 +24,17 @@ namespace TransCelerate.SDR.Services.Services
         private readonly IMapper _mapper;
         private readonly ILogHelper _logger;
         private readonly IHelperV4 _helper;
-        private readonly ServiceBusClient _serviceBusClient;
         private readonly IChangeAuditRepository _changeAuditRepositoy;
         #endregion
 
         #region Constructor
-        public StudyServiceV4(IStudyRepositoryV4 studyRepository, IMapper mapper, ILogHelper logger, IHelperV4 helper, ServiceBusClient serviceBusClient, IChangeAuditRepository changeAuditRepository)
+        public StudyServiceV4(IStudyRepositoryV4 studyRepository, IMapper mapper, ILogHelper logger, IHelperV4 helper, IChangeAuditRepository changeAuditRepository)
         {
             _changeAuditRepositoy = changeAuditRepository;
             _studyRepository = studyRepository;
             _mapper = mapper;
             _logger = logger;
             _helper = helper;
-            _serviceBusClient = serviceBusClient;
         }
         #endregion
 
@@ -67,7 +64,7 @@ namespace TransCelerate.SDR.Services.Services
                 else
                 {
                     var studyDTO = _mapper.Map<StudyDefinitionsDto>(study);  //Mapping Entity to Dto
-                    studyDTO.Links = LinksHelper.GetLinksForUi(study.Study.Id, study.Study.Versions?.Where(x => x.StudyDesigns!=null && x.StudyDesigns.Any()).SelectMany(x => x.StudyDesigns)?.Select(x => x.Id)?.ToList(), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion);
+                    studyDTO.Links = LinksHelper.GetLinksForUi(study.Study.Id, study.Study.Versions?.Where(x => x.StudyDesigns != null && x.StudyDesigns.Any()).SelectMany(x => x.StudyDesigns)?.Select(x => x.Id)?.ToList(), study.AuditTrail.UsdmVersion, study.AuditTrail.SDRUploadVersion);
                     return studyDTO;
                 }
             }
@@ -249,7 +246,7 @@ namespace TransCelerate.SDR.Services.Services
                     var studyVersions = study.Study.Versions?.FirstOrDefault();
                     var soa = SoAV4(studyVersions?.StudyDesigns);
                     soa.StudyId = study.Study.Id;
-                    soa.StudyTitle = studyVersions!= null ? studyVersions.Titles.GetStudyTitle(Constants.StudyTitle.OfficialStudyTitle) : null;
+                    soa.StudyTitle = studyVersions != null ? studyVersions.Titles.GetStudyTitle(Constants.StudyTitle.OfficialStudyTitle) : null;
                     if (!String.IsNullOrWhiteSpace(studyDesignId))
                     {
                         if (study.Study.Versions != null && study.Study.Versions.FirstOrDefault()?.StudyDesigns is null || !soa.StudyDesigns.Any(x => x.StudyDesignId == studyDesignId))
@@ -311,7 +308,7 @@ namespace TransCelerate.SDR.Services.Services
                             var scheduleActivityInstances = scheduleTimeline.Instances?.Select(x => (x as ScheduledActivityInstanceEntity))
                                                                          .Where(x => x != null).ToList();
                             var conditions = design.Conditions is not null ? design.Conditions : new List<ConditionEntity>();
-                            
+
                             if (scheduleActivityInstances != null && scheduleActivityInstances.Any())
                             {
                                 var activitiesMappedToTimeLine = activities is not null && activities.Any() ? activities.Where(act => scheduleActivityInstances.Where(x => x.ActivityIds is not null && x.ActivityIds.Any()).SelectMany(instance => instance.ActivityIds).Contains(act.Id)).ToList() : new List<ActivityEntity>();
@@ -349,7 +346,7 @@ namespace TransCelerate.SDR.Services.Services
                                     // SoA for instances where encounter is mapped
                                     encounters?.Where(x => scheduleActivityInstances.Select(y => y.EncounterId).Contains(x.Id)).ToList().ForEach(encounter =>
                                     {
-                                        TimingEntity timingMappedToEncounter = String.IsNullOrWhiteSpace(encounter.ScheduledAtId) ? allTimings.Find(x=>x.Id == encounter.ScheduledAtId) : null;
+                                        TimingEntity timingMappedToEncounter = String.IsNullOrWhiteSpace(encounter.ScheduledAtId) ? allTimings.Find(x => x.Id == encounter.ScheduledAtId) : null;
                                         SoA soA = new()
                                         {
                                             EncounterId = encounter.Id,
@@ -391,7 +388,7 @@ namespace TransCelerate.SDR.Services.Services
                     condtions.Where(x => x.ContextIds.Contains(id) || x.AppliesToIds.Contains(id)).FirstOrDefault()
                     : null;
         }
-        public List<TimingSoA> GetTimings(List<ScheduledActivityInstanceEntity> scheduledActivityInstances,List<ScheduledInstanceEntity> scheduledInstances,
+        public List<TimingSoA> GetTimings(List<ScheduledActivityInstanceEntity> scheduledActivityInstances, List<ScheduledInstanceEntity> scheduledInstances,
                                           List<TimingEntity> timingsMappedToTimeline)
         {
             if (scheduledActivityInstances is not null && scheduledActivityInstances.Any())
@@ -667,7 +664,7 @@ namespace TransCelerate.SDR.Services.Services
                                 InclusionCriteria = new Core.DTO.eCPT.InclusionCriteriaDto
                                 {
 
-                                    PlannedMaximumAgeofSubjects = design.Population.GetAgeV4(isMax : true),
+                                    PlannedMaximumAgeofSubjects = design.Population.GetAgeV4(isMax: true),
 
                                     PlannedMinimumAgeofSubjects = design.Population.GetAgeV4(isMax: false),
 
@@ -690,7 +687,7 @@ namespace TransCelerate.SDR.Services.Services
                                                    : $"{String.Join(", ", design.Estimands.Select(x => x.AnalysisPopulation.Name).ToArray(), 0, design.Estimands.Count - 1)} and {design.Estimands.Select(x => x.AnalysisPopulation.Name).LastOrDefault()}"
                                                    : null,
                             },
-                            ObjectivesEndpointsAndEstimands = ECPTHelper.GetObjectivesEndpointsAndEstimandsDtoV4(design.Objectives.Select(x => x as ObjectiveDto).ToList(), _mapper),
+                            ObjectivesEndpointsAndEstimands = ECPTHelper.GetObjectivesEndpointsAndEstimandsDtoV4(design.Objectives.Select(x => x).ToList(), _mapper),
                             StudyInterventionsAndConcomitantTherapy = new Core.DTO.eCPT.StudyInterventionsAndConcomitantTherapyDto
                             {
                                 StudyInterventionsAdministered = design.StudyInterventions != null && design.StudyInterventions.Any() ?
@@ -747,8 +744,8 @@ namespace TransCelerate.SDR.Services.Services
                     return new VersionCompareDto
                     {
                         StudyId = studyId,
-                        LHS = new VersionDetails { EntryDateTime = studyOne.AuditTrail.EntryDateTime, SDRUploadVersion = studyOne.AuditTrail.SDRUploadVersion},
-                        RHS = new VersionDetails { EntryDateTime = studyTwo.AuditTrail.EntryDateTime, SDRUploadVersion = studyTwo.AuditTrail.SDRUploadVersion},
+                        LHS = new VersionDetails { EntryDateTime = studyOne.AuditTrail.EntryDateTime, SDRUploadVersion = studyOne.AuditTrail.SDRUploadVersion },
+                        RHS = new VersionDetails { EntryDateTime = studyTwo.AuditTrail.EntryDateTime, SDRUploadVersion = studyTwo.AuditTrail.SDRUploadVersion },
                         ElementsChanged = _helper.GetChangedValuesForStudyComparison(studyOne, studyTwo)
                     };
                 }
@@ -778,7 +775,7 @@ namespace TransCelerate.SDR.Services.Services
         {
             try
             {
-                _logger.LogInformation($"Started Service : {nameof(StudyServiceV4)}; Method : {nameof(PostAllElements)};");        
+                _logger.LogInformation($"Started Service : {nameof(StudyServiceV4)}; Method : {nameof(PostAllElements)};");
                 StudyDefinitionsEntity incomingStudyEntity = new()
                 {
                     Study = _mapper.Map<StudyEntity>(studyDTO.Study),
@@ -813,13 +810,11 @@ namespace TransCelerate.SDR.Services.Services
                         else
                         {
                             studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity, existingStudyEntity.AuditTrail).ConfigureAwait(false);
-                            await PushMessageToServiceBus(new Core.DTO.Common.ServiceBusMessageDto { Study_uuid = incomingStudyEntity.Study.Id, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
                         }
                     }
                     else // If previus USDM version is different from incoming
                     {
                         studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity, existingAuditTrail).ConfigureAwait(false);
-                        await PushMessageToServiceBus(new Core.DTO.Common.ServiceBusMessageDto { Study_uuid = incomingStudyEntity.Study.Id, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
                     }
                 }
                 studyDTO.Links = LinksHelper.GetLinksForUi(studyDTO.Study.Id, studyDTO.Study.Versions?.FirstOrDefault()?.StudyDesigns?.Select(x => x.Id).ToList(), studyDTO.AuditTrail.UsdmVersion, studyDTO.AuditTrail.SDRUploadVersion);
@@ -840,8 +835,8 @@ namespace TransCelerate.SDR.Services.Services
             //studyEntity = _helper.GeneratedSectionId(studyEntity);
             studyEntity.Study.Id = IdGenerator.GenerateId();
             studyEntity.AuditTrail.SDRUploadVersion = 1;
-			studyEntity.AuditTrail.SDRUploadFlag = 1;
-			await _studyRepository.PostStudyItemsAsync(studyEntity);
+            studyEntity.AuditTrail.SDRUploadFlag = 1;
+            await _studyRepository.PostStudyItemsAsync(studyEntity);
             await _changeAuditRepositoy.InsertChangeAudit(studyEntity.Study.Id, studyEntity.AuditTrail.SDRUploadVersion, studyEntity.AuditTrail.SDRUploadFlag, studyEntity.AuditTrail.EntryDateTime);
             return _mapper.Map<StudyDefinitionsDto>(studyEntity);
         }
@@ -859,26 +854,11 @@ namespace TransCelerate.SDR.Services.Services
         {
             //incomingStudyEntity = _helper.CheckForSections(incomingStudyEntity, existingStudyEntity);
             incomingStudyEntity.AuditTrail.SDRUploadVersion = existingAuditTrailEntity.SDRUploadVersion + 1;
-			incomingStudyEntity.AuditTrail.SDRUploadFlag = 1;
-			incomingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V3;
+            incomingStudyEntity.AuditTrail.SDRUploadFlag = 1;
+            incomingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V3;
             await _studyRepository.PostStudyItemsAsync(incomingStudyEntity);
             return _mapper.Map<StudyDefinitionsDto>(incomingStudyEntity);
         }
-
-        #region Azure ServiceBus
-        private async Task PushMessageToServiceBus(Core.DTO.Common.ServiceBusMessageDto serviceBusMessageDto)
-        {
-            //Execute the service bus only when Service Bus ConnectionString and Queue name are available in the configuration
-            if (!String.IsNullOrWhiteSpace(Config.AzureServiceBusConnectionString) && !String.IsNullOrWhiteSpace(Config.AzureServiceBusQueueName))
-            {
-                ServiceBusSender sender = _serviceBusClient.CreateSender(Config.AzureServiceBusQueueName);
-
-                string jsonMessageString = JsonConvert.SerializeObject(serviceBusMessageDto);
-                ServiceBusMessage serializedMessage = new(jsonMessageString);
-                await sender.SendMessageAsync(serializedMessage);
-            }
-        }
-        #endregion
         #endregion
 
         #region Delete Method

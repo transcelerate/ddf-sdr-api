@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using TransCelerate.SDR.Core.ErrorModels;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
@@ -10,7 +9,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// Response Helper for successful validation
         /// </summary>
         /// <returns>
-        /// A <see cref="ErrorModel"/> When there is an Unauthorized Access      
+        /// A <see cref="ErrorModel"/>      
         /// </returns>>
         public static ErrorModel ValidationSuccess(string message)
         {

@@ -9,6 +9,7 @@ using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5;
 using TransCelerate.SDR.DataAccess.Interfaces;
 using TransCelerate.SDR.DataAccess.Repositories;
+using TransCelerate.SDR.RuleEngine.Utilities.Common;
 using TransCelerate.SDR.RuleEngine.Utilities.Interceptors;
 using TransCelerate.SDR.Services.Interfaces;
 using TransCelerate.SDR.Services.Services;
@@ -19,7 +20,7 @@ namespace TransCelerate.SDR.WebApi.DependencyInjection
     {
         public static IServiceCollection AddApplicationDependencies(this IServiceCollection services)
         {
-            services.AddTransient<ILogHelper, LogHelper>();            
+            services.AddTransient<ILogHelper, LogHelper>();
             //services.AddTransient<IHelperV2, HelperV2>();
             services.AddTransient<IHelperV3, HelperV3>();
             services.AddTransient<IHelperV4, HelperV4>();
@@ -43,6 +44,10 @@ namespace TransCelerate.SDR.WebApi.DependencyInjection
             services.AddSingleton<IMongoClient, MongoClient>(db => new MongoClient(clientSettings));
 
             services.AddSingleton<IValidatorInterceptor, RuleValidatorInterceptor>();
+
+            services.AddSingleton<IBinaryRunner, BinaryRunner>();
+            services.AddSingleton<IFileSystem, FileSystem>();
+            services.AddSingleton<IRulesEngineValidator, RulesEngineValidator>();
 
             return services;
         }

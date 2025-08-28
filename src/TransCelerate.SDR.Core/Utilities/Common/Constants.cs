@@ -8,21 +8,9 @@ namespace TransCelerate.SDR.Core.Utilities.Common
     /// </summary>
     public static class Constants
     {
-        public struct KeyVault
-        {
-            public const string Key = "KeyVault:Vault";
-
-            public const string ClientId = "KeyVault:ClientId";
-
-            public const string ClientSecret = "KeyVault:ClientSecret";
-
-            public const string DefaultKeyVault = "https://vault.azure.net/.default";
-        }
-
         public struct Collections
         {
             public const string Study = "Study";
-            public const string SDRGrouping = "Groups";
             public const string StudyV1 = "StudyDefinitionsV1";
             public const string ChangeAudit = "ChangeAudit";
             public const string StudyDefinitions = "StudyDefinitions";
@@ -38,7 +26,6 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             };
             public const string STUDY_PRIMARY_OBJECTIVE = "Study Primary Objective";
             public const string STUDY_SECONDARY_OBJECTIVE = "Study Secondary Objective";
-
         }
 
         public struct LogConstant
@@ -55,23 +42,17 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         {
             public const string AlphaNumericsWithSpace = @"^[a-zA-Z0-9\s\.]*$";
         }
-        
+
         public struct Separators
         {
             public const string Comma = ",";
-        }
-        
-        public struct DefaultHeaders
-        {
-            public const string AppInsightsApiKey = "x-api-key";
-            public const string ApiKeyAuthenticationHeader = "x-api-key";
         }
 
         public struct StudyType
         {
             public const string ALL = "ALL";
         }
-        
+
         public struct USDMVersions
         {
             public const string MVP = "mvp";
@@ -90,7 +71,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string V3 = "v3";
             public const string V4 = "v4";
             public const string V5 = "v5";
-        }    
+        }
 
         public struct DbFilter
         {
@@ -117,7 +98,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string StudyIndicationsIndicationDescription = "studyIndications.indicationDescription";
             public const string StudyIndicationsIndicationDesc = "studyIndications.indicationDesc";
         }
-        
+
         public struct StudyTitle
         {
             public const string OfficialStudyTitle = "Official Study Title";
@@ -126,12 +107,12 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string ScientificStudyTitle = "Scientific Study Title";
             public const string StudyAcronym = "Study Acronym";
         }
-        
+
         public struct DateValue
         {
             public const string ProtocolEffectiveDate = "Protocol Effective Date";
         }
-        
+
         public struct DefaultValues
         {
             public const int IntegerMinimumValue = 0;
@@ -158,19 +139,11 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string InstanceTypeError = "The Instance Type is incorrect";
 
-            public const string GroupFilterEmptyError = "Group Filter must not be empty";
-
-            public const string SelectAtleastOneGroup = "Select Atleast One Group";
-
-            public const string InvalidPermissionValue = "Permission value is not valid";
-
             public const string InvalidSortOrder = "sortOrder value must be asc/desc";
 
             public const string EnterValidNumber = "PageNumber must be >=1";
 
             public const string RootElementMissing = "Root Element {PropertyName} is missing";
-
-            public const string InValidDays = "Invalid Date Range";
 
             public const string BooleanValidationFailed = "Type must be boolean (true/false)";
 
@@ -200,11 +173,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string DateError = "ToDate must be greater than or equal to FromDate";
 
-            public const string DateErrorForReports = "ToDate must be greater than FromDate";
-
             public const string StudyInputError = "Kindly provide a valid input";
-
-            public const string DateMissingError = "Kindly provide a date range";
 
             public const string SearchNotFound = "No study matches the search keywords";
 
@@ -214,23 +183,11 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string NotValidStudyId = "The provided studyId is not found";
 
-            public const string GroupsNotFound = "There are no user groups available";
-
-            public const string UsersNotFound = "There are no users available";
-
-            public const string GroupIdError = "The group Id is not valid";
-
-            public const string PostGroupDataNotValid = "The data on the request body is not valid";
-
-            public const string GroupNameExists = "The group name already exist";
-
             public const string ProvideDifferentVersion = "SDRUploadVersions for the Compare API must be different";
 
             public static readonly string[] ProvideValidVersion = { "A valid SDRUploadVersion for ", " must be provided" };
 
             public const string InvalidCredentials = "Invalid Credentials";
-
-            public const string UsageReportNotAvailable = "System Usage Report Not Available";
 
             public const string ErrorMessageForReferenceIntegrityInResponse = "Reference Integrity Error";
 
@@ -259,17 +216,12 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string InvalidUsdmVersion = "The provided USDM Version is invalid";
 
             public const string ConformanceErrorMessage = "The study definition is not conformant with USDM Version : ";
-        }
 
-        public struct TokenConstants
-        {
-            public const string ClientId = "client_id";
-            public const string Grant_Type = "grant_type";
-            public const string Grant_Type_Value = "password";
-            public const string Username = "username";
-            public const string Password = "password";
-            public const string Scope = "scope";
-            public const string Client_Secret = "client_secret";
+            public const string ErrorMessageForCdiscRulesEngineFailure = "CDISC Rules Engine failed";
+
+            public const string ErrorMessageForCdiscRulesEngineOutputNotFound = "CDISC Rules Engine did not produce a report";
+
+            public const string ErrorMessageForCdiscRulesEngineIssuesFound = "CDISC Rules Engine validate found issues";
         }
 
         public static readonly string[] StudyElementsV2 = {
@@ -307,7 +259,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(StudyDesignDto.BcCategories),
             nameof(StudyDesignDto.BcSurrogates)
         };
-        
+
         public static readonly string[] StudyElementsV3 = {
             nameof(DTO.StudyV3.StudyDto.StudyTitle),
             nameof(DTO.StudyV3.StudyDto.StudyIdentifiers),
@@ -346,7 +298,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(DTO.StudyV3.StudyDesignDto.BcCategories),
             nameof(DTO.StudyV3.StudyDesignDto.BcSurrogates)
         };
-        
+
         public static readonly string[] StudyElementsV4 = {
             nameof(DTO.StudyV4.StudyDto.Name),
             nameof(DTO.StudyV4.StudyDto.Description),
@@ -364,7 +316,7 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(DTO.StudyV4.StudyVersionDto.DateValues),
             nameof(DTO.StudyV4.StudyVersionDto.InstanceType)
         };
-          
+
         public static readonly string[] StudyDesignElementsV4 = {
             nameof(DTO.StudyV4.StudyDesignDto.Name),
             nameof(DTO.StudyV4.StudyDesignDto.Description),
@@ -415,49 +367,38 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(DTO.StudyV5.StudyVersionDto.DateValues),
             nameof(DTO.StudyV5.StudyVersionDto.Abbreviations),
             nameof(DTO.StudyV5.StudyVersionDto.Notes),
-            nameof(DTO.StudyV5.StudyVersionDto.InstanceType)
+            nameof(DTO.StudyV5.StudyVersionDto.InstanceType),
+            nameof(DTO.StudyV5.StudyVersionDto.Conditions),
+            nameof(DTO.StudyV5.StudyVersionDto.BcSurrogates),
+            nameof(DTO.StudyV5.StudyVersionDto.BcCategories),
+            nameof(DTO.StudyV5.StudyVersionDto.Dictionaries),
+            nameof(DTO.StudyV5.StudyVersionDto.BiomedicalConcepts)
         };
 
         public static readonly string[] StudyDesignElementsV5 = {
-            nameof(DTO.StudyV4.StudyDesignDto.Name),
-            nameof(DTO.StudyV4.StudyDesignDto.Description),
-            nameof(DTO.StudyV4.StudyDesignDto.Label),
-            nameof(DTO.StudyV4.StudyDesignDto.TherapeuticAreas),
-            nameof(DTO.StudyV4.StudyDesignDto.TrialTypes),
-            nameof(DTO.StudyV4.StudyDesignDto.Indications),
-            nameof(DTO.StudyV4.StudyDesignDto.TrialIntentTypes),
-            nameof(DTO.StudyV4.StudyDesignDto.InterventionModel),
-            nameof(DTO.StudyV4.StudyDesignDto.StudyInterventions),
-            nameof(DTO.StudyV4.StudyDesignDto.Population),
-            nameof(DTO.StudyV4.StudyDesignDto.Objectives),
-            nameof(DTO.StudyV4.StudyDesignDto.StudyCells),
-            nameof(DTO.StudyV4.StudyDesignDto.Arms),
-            nameof(DTO.StudyV4.StudyDesignDto.Epochs),
-            nameof(DTO.StudyV4.StudyDesignDto.Elements),
-            nameof(DTO.StudyV4.StudyDesignDto.ScheduleTimelines),
-            nameof(DTO.StudyV4.StudyDesignDto.Estimands),
-            nameof(DTO.StudyV4.StudyDesignDto.Activities),
-            nameof(DTO.StudyV4.StudyDesignDto.Encounters),
-            nameof(DTO.StudyV4.StudyDesignDto.Rationale),
-            nameof(DTO.StudyV4.StudyDesignDto.BlindingSchema),
-            nameof(DTO.StudyV4.StudyDesignDto.BiomedicalConcepts),
-            nameof(DTO.StudyV4.StudyDesignDto.BcCategories),
-            nameof(DTO.StudyV4.StudyDesignDto.BcSurrogates),
-            nameof(DTO.StudyV4.StudyDesignDto.DocumentVersionId),
-            nameof(DTO.StudyV4.StudyDesignDto.Dictionaries),
-            nameof(DTO.StudyV4.StudyDesignDto.Characteristics),
-            nameof(DTO.StudyV4.StudyDesignDto.Conditions),
-            nameof(DTO.StudyV4.StudyDesignDto.InstanceType),
-            nameof(DTO.StudyV4.StudyDesignDto.MaskingRoles),
-            nameof(DTO.StudyV4.StudyDesignDto.Organizations)
+            nameof(DTO.StudyV5.StudyDesignDto.Name),
+            nameof(DTO.StudyV5.StudyDesignDto.Description),
+            nameof(DTO.StudyV5.StudyDesignDto.Label),
+            nameof(DTO.StudyV5.StudyDesignDto.TherapeuticAreas),
+            nameof(DTO.StudyV5.StudyDesignDto.Indications),
+            nameof(DTO.StudyV5.StudyDesignDto.StudyInterventionIds),
+            nameof(DTO.StudyV5.StudyDesignDto.Population),
+            nameof(DTO.StudyV5.StudyDesignDto.Objectives),
+            nameof(DTO.StudyV5.StudyDesignDto.StudyCells),
+            nameof(DTO.StudyV5.StudyDesignDto.Arms),
+            nameof(DTO.StudyV5.StudyDesignDto.Epochs),
+            nameof(DTO.StudyV5.StudyDesignDto.Elements),
+            nameof(DTO.StudyV5.StudyDesignDto.ScheduleTimelines),
+            nameof(DTO.StudyV5.StudyDesignDto.Estimands),
+            nameof(DTO.StudyV5.StudyDesignDto.Activities),
+            nameof(DTO.StudyV5.StudyDesignDto.Encounters),
+            nameof(DTO.StudyV5.StudyDesignDto.Rationale),
+            nameof(DTO.StudyV5.StudyDesignDto.DocumentVersionIds),
+            nameof(DTO.StudyV5.StudyDesignDto.Characteristics),
+            nameof(DTO.StudyV5.StudyDesignDto.InstanceType),
+            nameof(DTO.StudyV5.StudyDesignDto.StudyPhase),
+            nameof(DTO.StudyV5.StudyDesignDto.StudyType)
         };
-          
-        public struct FunctionAppConstants
-        {
-            public const string ChangeAuditFunction = "ChangeAuditFunction";
-            public const string AzureServiceBusQueueName = "%AzureServiceBusQueueName%";
-            public const string AzureServiceBusConnectionString = "AzureServiceBusConnectionString";
-        }
 
         public static readonly string[] CharactersToBeRemovedForAudit =
         {
@@ -467,18 +408,18 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(CodeEntity.Code),
             "T"
         };
-        
+
         public static readonly string[] ParanthesisToBeRemovedForAudit =
         {
             "[",
             "]"
         };
-        
+
         public struct StringToBeRemovedForChangeAudit
         {
             public const string ConditionAssignmentsValue = ".Value";
         }
-        
+
         public struct ApiVersionErrorCodes
         {
             public const string ApiVersionUnspecified = "ApiVersionUnspecified";
@@ -486,26 +427,26 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string InvalidApiVersion = "InvalidApiVersion";
             public const string AmbiguousApiVersion = "AmbiguousApiVersion";
         }
-        
+
         public static readonly string[] Male =
         {
            "m",
            "male",
         };
-        
+
         public static readonly string[] Female =
         {
            "f",
            "female",
         };
-        
+
         public struct PlannedSexOfParticipants
         {
             public const string Male = "Male";
             public const string Female = "Female";
             public const string MaleOrFemale = "Male or Female";
         }
-        
+
         public struct SdrCptMasterDataEntities
         {
             public const string InterventionModel = "InterventionModel";

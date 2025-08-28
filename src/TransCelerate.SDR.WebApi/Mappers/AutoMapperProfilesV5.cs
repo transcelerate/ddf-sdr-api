@@ -56,11 +56,11 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<ParameterMapDto, ParameterMapEntity>().ReverseMap();
             CreateMap<PersonNameDto, PersonNameEntity>().ReverseMap();
             //        CreateMap<PopulationDefinitionDto, PopulationDefinitionEntity>()
-            //.ForMember(dest => dest.Criteria, opt => opt.MapFrom(src => src.Criterionids))
+            //.ForMember(dest => dest.Criteria, opt => opt.MapFrom(src => src.CriterionIds))
             //.Include<StudyDesignPopulationDto, StudyDesignPopulationEntity>()
             //            .Include<StudyCohortDto, StudyCohortEntity>()
             //            .ReverseMap()
-            //.ForMember(dest => dest.Criterionids, opt => opt.MapFrom(src => src.Criteria));
+            //.ForMember(dest => dest.CriterionIds, opt => opt.MapFrom(src => src.Criteria));
             CreateMap<ProcedureDto, ProcedureEntity>().ReverseMap();
             CreateMap<ProductOrganizationRoleDto, ProductOrganizationRoleEntity>().ReverseMap();
             CreateMap<QuantityDto, QuantityEntity>().ReverseMap();
@@ -88,16 +88,16 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<StudyAmendmentReasonDto, StudyAmendmentReasonEntity>().ReverseMap();
             CreateMap<StudyCellDto, StudyCellEntity>().ReverseMap();
             CreateMap<StudyChangeDto, StudyChangeEntity>().ReverseMap();
-			//CreateMap<StudyCohortDto, StudyCohortEntity>().ReverseMap();
-			CreateMap<StudyDefinitionsEntity, StudyDefinitionsDto>()
+            //CreateMap<StudyCohortDto, StudyCohortEntity>().ReverseMap();
+            CreateMap<StudyDefinitionsEntity, StudyDefinitionsDto>()
                 .ForMember(dest => dest.Links, opt => opt.Ignore())
                 .ReverseMap();
 
             CreateMap<StudyDesignDto, StudyDesignEntity>().ReverseMap();
             CreateMap<StudyDesignPopulationDto, StudyDesignPopulationEntity>()
-            //.ForMember(dest => dest.Criterionids, opt => opt.MapFrom(src => src.Criterionids))
+            //.ForMember(dest => dest.CriterionIds, opt => opt.MapFrom(src => src.CriterionIds))
             .ReverseMap();
-            //.ForMember(dest => dest.Criterionids, opt => opt.MapFrom(src => src.Criteria));			
+            //.ForMember(dest => dest.CriterionIds, opt => opt.MapFrom(src => src.Criteria));			
             CreateMap<StudyElementDto, StudyElementEntity>().ReverseMap();
             //CreateMap<StudyVersionDto, StudyVersionEntity>().ReverseMap();
             CreateMap<StudyDto, StudyEntity>().ReverseMap();

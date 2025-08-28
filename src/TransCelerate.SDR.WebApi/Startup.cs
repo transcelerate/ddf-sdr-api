@@ -1,20 +1,16 @@
 using AutoMapper;
-using Azure.Messaging.ServiceBus;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
-using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using Moq;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -29,7 +25,6 @@ using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.RuleEngine.Common;
 using TransCelerate.SDR.RuleEngineV3;
 using TransCelerate.SDR.RuleEngineV4;
-using TransCelerate.SDR.RuleEngineV5;
 using TransCelerate.SDR.WebApi.DependencyInjection;
 using TransCelerate.SDR.WebApi.Mappers;
 
@@ -55,9 +50,6 @@ namespace TransCelerate.SDR.WebApi
         /// <param name="services"></param>        
         public void ConfigureServices(IServiceCollection services)
         {
-            // Application Insights for logs
-            services.AddApplicationInsightsTelemetry(options: new ApplicationInsightsServiceOptions { ConnectionString = Config.InstrumentationKey });
-
             // Api Versioning
             services.AddApiVersioning(o =>
             {
@@ -117,7 +109,10 @@ namespace TransCelerate.SDR.WebApi
             //services.AddValidationDependenciesV2();
             services.AddValidationDependenciesV3();
             services.AddValidationDependenciesV4();
-            services.AddValidationDependenciesV5();
+
+            // Fluent validation for V5 is turned off in favor of the CDISC Rules Engine
+            //services.AddValidationDependenciesV5();
+
             services.AddValidationDependenciesCommon();
 
             //var serviceProvider = services.BuildServiceProvider();
@@ -135,18 +130,6 @@ namespace TransCelerate.SDR.WebApi
                     return apiBehaviourOptionsHelper.ModelStateResponse(context);
                 };
             });
-            services.AddAzureClients(clients =>
-            {
-                if (!String.IsNullOrWhiteSpace(Config.AzureServiceBusConnectionString))
-                {
-                    clients.AddServiceBusClient(Config.AzureServiceBusConnectionString);
-                }
-            });
-            //The below service dependency will be added only if there is no connection string in the configuration for Azure Service Bus
-            if (String.IsNullOrWhiteSpace(Config.AzureServiceBusConnectionString))
-            {
-                services.AddTransient<ServiceBusClient>(x => Mock.Of<ServiceBusClient>());
-            }
         }
 
         /// <summary>
@@ -160,7 +143,6 @@ namespace TransCelerate.SDR.WebApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
             }
             //Swagger
             app.UseSwagger();
@@ -191,39 +173,36 @@ namespace TransCelerate.SDR.WebApi
 
                     using (StreamReader reader = new(context.Request.Body))
                     {
-                        if (!context.Request.Path.Value.Contains(Route.Token) && !context.Request.Path.Value.Contains(Route.CommonToken))
-                        {
-                            request = await reader.ReadToEndAsync();
-                            context.Request.Body.Position = 0;
-                        }
-                        var inputArray = SplitStringIntoArrayHelper.SplitString(request, 32000);//since app insights limit is 32768 characters  
-                        var logTask = Task.Run(() => inputArray.ForEach(input => logger.LogInformation("Request Body {index}: {input}", inputArray.IndexOf(input) + 1, input)));
+                        request = await reader.ReadToEndAsync();
+                        context.Request.Body.Position = 0;
+
+                        var logTask = Task.Run(() => logger.LogInformation("Request Body: {request}", request));
                         var actionTask = Task.Run(() => next());
                         await Task.WhenAll(actionTask, logTask); // Adding request logging as Task to execute in parallel along with request                        
                     }
-                    if (String.IsNullOrWhiteSpace(context.Response.Headers["Controller"]) && String.IsNullOrWhiteSpace(context.Response.Headers["InvalidInput"]) && String.IsNullOrWhiteSpace(context.Response.Headers["AuthFilter"]))
+                    if (String.IsNullOrWhiteSpace(context.Response.Headers["Controller"]) && String.IsNullOrWhiteSpace(context.Response.Headers["InvalidInput"]))
                     {
                         response = await HttpContextResponseHelper.Response(context, response);
-                        var AuthToken = context.Request.Headers["Authorization"];
-                        logger.LogInformation("Status Code: {statusCode}; URL: {path}; AuthToken: {token}", context.Response.StatusCode, context.Request.Path, AuthToken);
+                        logger.LogInformation("Status Code: {statusCode}; URL: {path}", context.Response.StatusCode, context.Request.Path);
                     }
                 }
                 catch (Exception ex)
                 {
                     if (String.IsNullOrWhiteSpace(context.Response.Headers["Content-Type"]))
-                        context.Response.Headers.Add("Content-Type", "application/json");
+                    {
+                        if (context.Response?.Headers != null)
+                        {
+                            context.Response.Headers["Content-Type"] = "application/json";
+                        }
+                    }
                     context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     logger.LogError("Exception Occurred: {ex}", ex);
-                    logger.LogInformation("Status Code: {statusCode}; URL: {path}; AuthToken: {token}", context.Response.StatusCode, context.Request.Path, context.Request.Headers["Authorization"]);
+                    logger.LogInformation("Status Code: {statusCode}; URL: {path}", context.Response.StatusCode, context.Request.Path);
                     await context.Response.WriteAsync(JsonConvert.SerializeObject(ErrorResponseHelper.ErrorResponseModel(ex), new JsonSerializerSettings { ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver() }));
                 }
             });
 
-            //Enable Authenticationa and Authorization for the Endpoints
-            app.UseAuthentication();
-            app.UseAuthorization();
-
-            //Map Endpoints with authorization
+            //Map Endpoints
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

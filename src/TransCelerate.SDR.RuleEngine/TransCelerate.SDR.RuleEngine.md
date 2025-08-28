@@ -27,6 +27,9 @@
 - [AnalysisPopulationValidator](#T-TransCelerate-SDR-RuleEngineV4-AnalysisPopulationValidator 'TransCelerate.SDR.RuleEngineV4.AnalysisPopulationValidator')
 - [AnalysisPopulationValidator](#T-TransCelerate-SDR-RuleEngineV5-AnalysisPopulationValidator 'TransCelerate.SDR.RuleEngineV5.AnalysisPopulationValidator')
 - [AssignedPersonValidator](#T-TransCelerate-SDR-RuleEngineV5-AssignedPersonValidator 'TransCelerate.SDR.RuleEngineV5.AssignedPersonValidator')
+- [BinaryResult](#T-TransCelerate-SDR-RuleEngine-Utilities-Common-BinaryResult 'TransCelerate.SDR.RuleEngine.Utilities.Common.BinaryResult')
+- [BinaryRunner](#T-TransCelerate-SDR-RuleEngine-Utilities-Common-BinaryRunner 'TransCelerate.SDR.RuleEngine.Utilities.Common.BinaryRunner')
+  - [RunAsync(binaryFile,args)](#M-TransCelerate-SDR-RuleEngine-Utilities-Common-BinaryRunner-RunAsync-System-String,System-Collections-Generic-IEnumerable{System-String}- 'TransCelerate.SDR.RuleEngine.Utilities.Common.BinaryRunner.RunAsync(System.String,System.Collections.Generic.IEnumerable{System.String})')
 - [BiomedicalConceptCategoryValidator](#T-TransCelerate-SDR-RuleEngineV2-BiomedicalConceptCategoryValidator 'TransCelerate.SDR.RuleEngineV2.BiomedicalConceptCategoryValidator')
 - [BiomedicalConceptCategoryValidator](#T-TransCelerate-SDR-RuleEngineV3-BiomedicalConceptCategoryValidator 'TransCelerate.SDR.RuleEngineV3.BiomedicalConceptCategoryValidator')
 - [BiomedicalConceptCategoryValidator](#T-TransCelerate-SDR-RuleEngineV4-BiomedicalConceptCategoryValidator 'TransCelerate.SDR.RuleEngineV4.BiomedicalConceptCategoryValidator')
@@ -70,6 +73,7 @@
 - [EndpointValidator](#T-TransCelerate-SDR-RuleEngineV5-EndpointValidator 'TransCelerate.SDR.RuleEngineV5.EndpointValidator')
 - [EstimandValidator](#T-TransCelerate-SDR-RuleEngineV4-EstimandValidator 'TransCelerate.SDR.RuleEngineV4.EstimandValidator')
 - [EstimandValidator](#T-TransCelerate-SDR-RuleEngineV5-EstimandValidator 'TransCelerate.SDR.RuleEngineV5.EstimandValidator')
+- [FileSystem](#T-TransCelerate-SDR-RuleEngine-Utilities-Common-FileSystem 'TransCelerate.SDR.RuleEngine.Utilities.Common.FileSystem')
 - [GeographicScopeValidator](#T-TransCelerate-SDR-RuleEngineV4-GeographicScopeValidator 'TransCelerate.SDR.RuleEngineV4.GeographicScopeValidator')
 - [GeographicScopeValidator](#T-TransCelerate-SDR-RuleEngineV5-GeographicScopeValidator 'TransCelerate.SDR.RuleEngineV5.GeographicScopeValidator')
 - [GovernanceDateValidator](#T-TransCelerate-SDR-RuleEngineV4-GovernanceDateValidator 'TransCelerate.SDR.RuleEngineV4.GovernanceDateValidator')
@@ -126,6 +130,7 @@
 - [RuleValidationHelper](#T-TransCelerate-SDR-RuleEngineV5-Utilities-Helpers-RuleValidationHelper 'TransCelerate.SDR.RuleEngineV5.Utilities.Helpers.RuleValidationHelper')
   - [MustMatchValidatorInstanceType\`\`1()](#M-TransCelerate-SDR-RuleEngineV5-Utilities-Helpers-RuleValidationHelper-MustMatchValidatorInstanceType``1-FluentValidation-IRuleBuilder{``0,System-String},System-String- 'TransCelerate.SDR.RuleEngineV5.Utilities.Helpers.RuleValidationHelper.MustMatchValidatorInstanceType``1(FluentValidation.IRuleBuilder{``0,System.String},System.String)')
   - [NotNullOrEmptyIfRequired\`\`2(ruleBuilder,propertyName,requiredProperties)](#M-TransCelerate-SDR-RuleEngineV5-Utilities-Helpers-RuleValidationHelper-NotNullOrEmptyIfRequired``2-FluentValidation-IRuleBuilder{``0,``1},System-String,System-Collections-Generic-HashSet{System-String}- 'TransCelerate.SDR.RuleEngineV5.Utilities.Helpers.RuleValidationHelper.NotNullOrEmptyIfRequired``2(FluentValidation.IRuleBuilder{``0,``1},System.String,System.Collections.Generic.HashSet{System.String})')
+- [RulesEngineValidator](#T-TransCelerate-SDR-RuleEngine-Utilities-Common-RulesEngineValidator 'TransCelerate.SDR.RuleEngine.Utilities.Common.RulesEngineValidator')
 - [StrengthValidator](#T-TransCelerate-SDR-RuleEngineV5-StrengthValidator 'TransCelerate.SDR.RuleEngineV5.StrengthValidator')
 - [StudyAmendmentImpactValidator](#T-TransCelerate-SDR-RuleEngineV5-StudyAmendmentImpactValidator 'TransCelerate.SDR.RuleEngineV5.StudyAmendmentImpactValidator')
 - [StudyAmendmentReasonValidator](#T-TransCelerate-SDR-RuleEngineV4-StudyAmendmentReasonValidator 'TransCelerate.SDR.RuleEngineV4.StudyAmendmentReasonValidator')
@@ -472,6 +477,46 @@ TransCelerate.SDR.RuleEngineV5
 ##### Summary
 
 This Class is the validator for AssignedPerson
+
+<a name='T-TransCelerate-SDR-RuleEngine-Utilities-Common-BinaryResult'></a>
+## BinaryResult `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngine.Utilities.Common
+
+##### Summary
+
+Result from an external binary execution
+
+<a name='T-TransCelerate-SDR-RuleEngine-Utilities-Common-BinaryRunner'></a>
+## BinaryRunner `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngine.Utilities.Common
+
+##### Summary
+
+Utility for executing a binary file asynchronously and capturing output
+
+<a name='M-TransCelerate-SDR-RuleEngine-Utilities-Common-BinaryRunner-RunAsync-System-String,System-Collections-Generic-IEnumerable{System-String}-'></a>
+### RunAsync(binaryFile,args) `method`
+
+##### Summary
+
+Execute a binary file asynchronously with specified arguments
+
+##### Returns
+
+A [BinaryResult](#T-TransCelerate-SDR-RuleEngine-Utilities-Common-BinaryResult 'TransCelerate.SDR.RuleEngine.Utilities.Common.BinaryResult') Result from binary execution
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| binaryFile | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The full path to the binary file to execute |
+| args | [System.Collections.Generic.IEnumerable{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.IEnumerable 'System.Collections.Generic.IEnumerable{System.String}') | Command-line arguments to pass to the binary file |
 
 <a name='T-TransCelerate-SDR-RuleEngineV2-BiomedicalConceptCategoryValidator'></a>
 ## BiomedicalConceptCategoryValidator `type`
@@ -945,6 +990,17 @@ TransCelerate.SDR.RuleEngineV5
 ##### Summary
 
 This Class is the validator for StudyEstimands
+
+<a name='T-TransCelerate-SDR-RuleEngine-Utilities-Common-FileSystem'></a>
+## FileSystem `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngine.Utilities.Common
+
+##### Summary
+
+Common file system operations that delegates directly to [File](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IO.File 'System.IO.File')
 
 <a name='T-TransCelerate-SDR-RuleEngineV4-GeographicScopeValidator'></a>
 ## GeographicScopeValidator `type`
@@ -1576,6 +1632,17 @@ Rule builder options for further chaining
 | ---- | ----------- |
 | T | The type being validated |
 | TProperty | The property type being validated |
+
+<a name='T-TransCelerate-SDR-RuleEngine-Utilities-Common-RulesEngineValidator'></a>
+## RulesEngineValidator `type`
+
+##### Namespace
+
+TransCelerate.SDR.RuleEngine.Utilities.Common
+
+##### Summary
+
+Utility for executing CDISC Rules Engine Validate
 
 <a name='T-TransCelerate-SDR-RuleEngineV5-StrengthValidator'></a>
 ## StrengthValidator `type`

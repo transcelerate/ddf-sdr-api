@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Net;
@@ -12,6 +13,7 @@ using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5;
+using TransCelerate.SDR.RuleEngine.Utilities.Common;
 using TransCelerate.SDR.Services.Interfaces;
 
 namespace TransCelerate.SDR.WebApi.Controllers
@@ -23,14 +25,16 @@ namespace TransCelerate.SDR.WebApi.Controllers
         private readonly ILogHelper _logger;
         private readonly IStudyServiceV5 _studyService;
         private readonly IHelperV5 _helper;
+        private readonly IRulesEngineValidator _rulesEngineValidator;
         #endregion
 
         #region Constructor
-        public StudyV5Controller(IStudyServiceV5 studyService, ILogHelper logger, IHelperV5 helper)
+        public StudyV5Controller(IStudyServiceV5 studyService, ILogHelper logger, IHelperV5 helper, IRulesEngineValidator rulesEngineValidator)
         {
             _logger = logger;
             _studyService = studyService;
             _helper = helper;
+            _rulesEngineValidator = rulesEngineValidator;
         }
         #endregion
 
@@ -178,7 +182,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(GetStudyDesigns)};");
+                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(GetSOAV5)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
                     _logger.LogInformation($"Inputs : study_uuid = {studyId}; sdruploadversion = {sdruploadversion}; WorkflowId: {scheduleTimelineId}; studydesign_uuid: {studyDesignId}");
@@ -375,16 +379,13 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(PostAllElements)};");
                 if (studyDTO != null)
                 {
-                    bool isInValidReferenceIntegrity = _helper.ReferenceIntegrityValidation(studyDTO, out var errors);
-                    if (isInValidReferenceIntegrity)
+                    var validateResult = await RunValidateUsdmConformanceAsync(studyDTO).ConfigureAwait(false);
+                    if (validateResult is not OkObjectResult)
                     {
-                        var errorList = SplitStringIntoArrayHelper.SplitString(JsonConvert.SerializeObject(errors), 32000);//since app insights limit is 32768 characters   
-                        errorList.ForEach(e => _logger.LogError($"{Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse} {errorList.IndexOf(e) + 1}: {e}"));
-                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(errors, Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse)).Value);
+                        return validateResult;
                     }
 
-                    var response = await _studyService.PostAllElements(studyDTO, Request?.Method)
-                                                              .ConfigureAwait(false);
+                    var response = await _studyService.PostAllElements(studyDTO, Request?.Method).ConfigureAwait(false);
 
                     if (response?.ToString() == Constants.ErrorMessages.NotValidStudyId)
                     {
@@ -428,16 +429,15 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(PostAllElements)};");
+                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(PutStudy)};");
                 if (studyDTO != null)
                 {
-                    bool isInValidReferenceIntegrity = _helper.ReferenceIntegrityValidation(studyDTO, out var errors);
-                    if (isInValidReferenceIntegrity)
+                    var validateResult = await RunValidateUsdmConformanceAsync(studyDTO).ConfigureAwait(false);
+                    if (validateResult is not OkObjectResult)
                     {
-                        var errorList = SplitStringIntoArrayHelper.SplitString(JsonConvert.SerializeObject(errors), 32000);//since app insights limit is 32768 characters   
-                        errorList.ForEach(e => _logger.LogError($"{Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse} {errorList.IndexOf(e) + 1}: {e}"));
-                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(errors, Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse)).Value);
+                        return validateResult;
                     }
+
                     studyDTO.Study.Id = string.IsNullOrWhiteSpace(studyId) ? studyDTO.Study.Id : studyId;
 
                     var response = await _studyService.PostAllElements(studyDTO, Request?.Method)
@@ -464,7 +464,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(StudyV5Controller)}; Method : {nameof(PostAllElements)};");
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV5Controller)}; Method : {nameof(PutStudy)};");
             }
         }
         #endregion
@@ -480,24 +480,17 @@ namespace TransCelerate.SDR.WebApi.Controllers
         [HttpPost]
         [ApiVersion(Constants.USDMVersions.V4)]
         [Route(Route.ValidateUsdmConformanceV5)]
-        [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDefinitionsDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status500InternalServerError, Type = typeof(ErrorModel))]
         [Produces("application/json")]
-        public IActionResult ValidateUsdmConformance([FromBody] StudyDefinitionsDto studyDTO, [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
+        public async Task<IActionResult> ValidateUsdmConformanceAsync([FromBody] StudyDefinitionsDto studyDTO, [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(PostAllElements)};");
+                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(ValidateUsdmConformanceAsync)};");
                 if (studyDTO != null)
                 {
-                    bool isInValidReferenceIntegrity = _helper.ReferenceIntegrityValidation(studyDTO, out var errors);
-                    if (isInValidReferenceIntegrity)
-                    {
-                        var errorList = SplitStringIntoArrayHelper.SplitString(JsonConvert.SerializeObject(errors), 32000);//since app insights limit is 32768 characters   
-                        errorList.ForEach(e => _logger.LogError($"{Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse} {errorList.IndexOf(e) + 1}: {e}"));
-                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(errors, Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse)).Value);
-                    }
-                    return Ok(new JsonResult(SuccessResponseHelper.ValidationSuccess($"{Constants.SuccessMessages.ValidationSuccess}{usdmVersion}")).Value);
+                    return await RunValidateUsdmConformanceAsync(studyDTO).ConfigureAwait(false);
                 }
                 else
                 {
@@ -511,11 +504,10 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(StudyV5Controller)}; Method : {nameof(PostAllElements)};");
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV5Controller)}; Method : {nameof(ValidateUsdmConformanceAsync)};");
             }
         }
         #endregion
-
 
         #region DELETE Method
         /// <summary>
@@ -536,7 +528,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         {
             try
             {
-                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(GetStudy)};");
+                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(DeleteStudy)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
                     _logger.LogInformation($"Inputs : studyId = {studyId};");
@@ -568,10 +560,38 @@ namespace TransCelerate.SDR.WebApi.Controllers
             }
             finally
             {
-                _logger.LogInformation($"Ended Controller : {nameof(StudyV5Controller)}; Method : {nameof(GetStudy)};");
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV5Controller)}; Method : {nameof(DeleteStudy)};");
             }
         }
         #endregion        
         #endregion
+
+        private async Task<IActionResult> RunValidateUsdmConformanceAsync(StudyDefinitionsDto studyDTO)
+        {
+            var serializer = _helper.GetSerializerSettingsForCamelCasingAndEscapeHandling();
+            var json = JsonConvert.SerializeObject(studyDTO, serializer);
+
+            var validateResult = await _rulesEngineValidator.ValidateAsync(json);
+
+            if (validateResult.ExitCode != 0)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    new JsonResult(ErrorResponseHelper.InternalServerError(validateResult.StdErr, Constants.ErrorMessages.ErrorMessageForCdiscRulesEngineFailure)).Value);
+            }
+
+            if (!string.IsNullOrEmpty(validateResult.StdErr))
+            {
+                if (validateResult.StdErr.Contains(Constants.ErrorMessages.ErrorMessageForCdiscRulesEngineIssuesFound)
+                    && !string.IsNullOrEmpty(validateResult.StdOut))
+                {
+                    return BadRequest(JObject.Parse(new JsonResult(validateResult.StdOut).Value.ToString()));
+                }
+
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    new JsonResult(ErrorResponseHelper.InternalServerError(validateResult.StdErr)).Value);
+            }
+
+            return Ok(JObject.Parse(new JsonResult(validateResult.StdOut).Value.ToString()));
+        }
     }
 }

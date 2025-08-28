@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
-using System.Net;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Common;
 using TransCelerate.SDR.Core.ErrorModels;
@@ -40,7 +39,6 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="200">Returns Change Audit</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>
-        /// <response code="403">The Access for Study is Forbidden</response>
         [HttpGet]
         [Route(Route.ChangeAudit)]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ChangeAuditDto))]

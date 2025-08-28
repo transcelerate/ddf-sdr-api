@@ -1,7 +1,7 @@
 ﻿namespace TransCelerate.SDR.Core.Utilities
 {
     /// <summary>
-    /// Enums for Permissions
+    /// Enums for Sort Order
     /// </summary>
     public enum SortOrder
     {

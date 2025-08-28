@@ -19,13 +19,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// </returns>>
         public static ErrorModel ErrorResponseModel(Exception exception)
         {
-            string statusCode;
-            if (exception is UnauthorizedAccessException) statusCode = ((int)HttpStatusCode.Forbidden).ToString();
-            else statusCode = ((int)HttpStatusCode.BadRequest).ToString();
-
             ErrorModel errorModel = new()
             {
-                StatusCode = statusCode,
+                StatusCode = ((int)HttpStatusCode.BadRequest).ToString(),
                 Message = Constants.ErrorMessages.GenericError
             };
             return errorModel;
@@ -138,7 +134,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             return errorModel;
         }
         /// <summary>
-        /// Resposne Helper When there is a Internal server error
+        /// Response helper when there is an internal server error
         /// </summary>
         /// <param name="message">Message for error response</param>
         /// <returns>
@@ -150,6 +146,23 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             {
                 StatusCode = ((int)HttpStatusCode.InternalServerError).ToString(),
                 Message = message ?? "Internal Server Error"
+            };
+            return errorModel;
+        }
+
+        /// <summary>
+        /// Response helper when there is an internal server error
+        /// </summary>
+        /// <param name="problemDetails">Object for holding error details</param>
+        /// <param name="message">Message for error response</param>
+        /// <returns>Status code, error message and details</returns>
+        public static ValidationErrorModel InternalServerError(Object problemDetails, string message = null)
+        {
+            ValidationErrorModel errorModel = new()
+            {
+                StatusCode = ((int)HttpStatusCode.InternalServerError).ToString(),
+                Message = message ?? "Internal Server Error",
+                Error = problemDetails
             };
             return errorModel;
         }

@@ -9,6 +9,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public PersonNameDto PersonName { get; set; }
         public string JobTitle { get; set; }
         public string InstanceType { get; set; }
-        public OrganizationDto Organization { get; set; }
+        public string OrganizationId { get; set; }
 	}
 }

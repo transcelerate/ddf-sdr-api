@@ -168,7 +168,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>
         [HttpGet]
-        [Route(Route.SoAV2)] 
+        [Route(Route.SoAV2)]
         [ApiVersion(Constants.USDMVersions.V1_9)]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDefinitionsDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
@@ -308,8 +308,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     bool isInValidReferenceIntegrity = _helper.ReferenceIntegrityValidation(studyDTO, out var errors);
                     if (isInValidReferenceIntegrity)
                     {
-                        var errorList = SplitStringIntoArrayHelper.SplitString(JsonConvert.SerializeObject(errors), 32000);//since app insights limit is 32768 characters   
-                        errorList.ForEach(e => _logger.LogError($"{Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse} {errorList.IndexOf(e) + 1}: {e}"));
+                        _logger.LogError($"{Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse}: {JsonConvert.SerializeObject(errors)}");
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(errors, Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse)).Value);
                     }
 
@@ -364,8 +363,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     bool isInValidReferenceIntegrity = _helper.ReferenceIntegrityValidation(studyDTO, out var errors);
                     if (isInValidReferenceIntegrity)
                     {
-                        var errorList = SplitStringIntoArrayHelper.SplitString(JsonConvert.SerializeObject(errors), 32000);//since app insights limit is 32768 characters   
-                        errorList.ForEach(e => _logger.LogError($"{Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse} {errorList.IndexOf(e) + 1}: {e}"));
+                        _logger.LogError($"{Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse}: {JsonConvert.SerializeObject(errors)}");
                         return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(errors, Constants.ErrorMessages.ErrorMessageForReferenceIntegrityInResponse)).Value);
                     }
                     studyDTO.Study.StudyId = string.IsNullOrWhiteSpace(studyId) ? studyDTO.Study.StudyId : studyId;

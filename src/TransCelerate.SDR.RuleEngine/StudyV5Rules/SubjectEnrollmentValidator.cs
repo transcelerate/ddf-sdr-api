@@ -67,19 +67,17 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(SubjectEnrollmentValidator), nameof(SubjectEnrollmentDto.ForGeographicScope)), ApplyConditionTo.AllValidators)
                 .SetValidator(new GeographicScopeValidator(_httpContextAccessor));
 
-            RuleFor(x => x.ForStudyCohort)
+            RuleFor(x => x.ForStudyCohortId)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(SubjectEnrollmentValidator), nameof(SubjectEnrollmentDto.ForStudyCohort)), ApplyConditionTo.AllValidators)
-                .SetValidator(new StudyCohortValidator(_httpContextAccessor));
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(SubjectEnrollmentValidator), nameof(SubjectEnrollmentDto.ForStudyCohortId)), ApplyConditionTo.AllValidators);
                 
-            RuleFor(x => x.ForStudySite)
+            RuleFor(x => x.ForStudySiteId)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(SubjectEnrollmentValidator), nameof(SubjectEnrollmentDto.ForStudySite)), ApplyConditionTo.AllValidators)
-                .SetValidator(new StudySiteValidator(_httpContextAccessor));
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(SubjectEnrollmentValidator), nameof(SubjectEnrollmentDto.ForStudySiteId)), ApplyConditionTo.AllValidators);
         }
     }
 }

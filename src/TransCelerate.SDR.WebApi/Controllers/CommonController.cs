@@ -5,7 +5,6 @@ using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Common;
 using TransCelerate.SDR.Core.ErrorModels;
@@ -92,7 +91,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             {
                 _logger.LogInformation($"Ended Controller : {nameof(CommonController)}; Method : {nameof(GetRawJson)};");
             }
-        }      
+        }
 
         /// <summary>
         /// GET API -> USDM Version Mapping
@@ -210,7 +209,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             {
                 _logger.LogInformation($"Started Controller : {nameof(CommonController)}; Method : {nameof(GetStudyHistory)};");
 
-                _logger.LogInformation($"Inputs: FromDate: {fromDate}; ToDate: {toDate}; DateRange from Key Vault :{Config.DateRange}");
+                _logger.LogInformation($"Inputs: FromDate: {fromDate}; ToDate: {toDate}; DateRange: {Config.DateRange}");
 
                 Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(fromDate, toDate, Convert.ToInt32(Config.DateRange));
 
