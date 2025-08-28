@@ -71,16 +71,8 @@ RUN LATEST_RELEASE_URL=$(curl -s --fail --retry 3 https://api.github.com/repos/c
 # Copy published files from build stage
 COPY --from=build /app/publish ./
 
-# Create non-root user & group
-RUN groupadd -g 10001 apiuser \
-    && useradd -u 10001 -g apiuser -d /home/apiuser -m -s /usr/sbin/nologin apiuser
-
 # Set permissions
-RUN mkdir -p /app /tmp \
-    && chown -R apiuser:apiuser /home/apiuser /app /tmp
-
-# Switch to non-root user
-USER apiuser
+RUN mkdir -p /app /tmp
 
 # Expose port
 EXPOSE 80
