@@ -401,10 +401,10 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             method = studyService.GetPartialStudyDesigns("1", "b", 0, Constants.StudyDesignElementsV4);
             method.Wait();
 
-            //method = studyService.GetPartialStudyDesigns("1", "a", 0, user, Constants.StudyDesignElements);
+            //method = studyService.GetPartialStudyDesigns("1", "a", 0, Constants.StudyDesignElements);
             //method.Wait();
 
-            //method = studyService.GetPartialStudyDesigns("1", null, 0, user, Constants.StudyDesignElements);
+            //method = studyService.GetPartialStudyDesigns("1", null, 0, Constants.StudyDesignElements);
             //method.Wait();
 
 

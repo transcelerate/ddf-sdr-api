@@ -223,7 +223,7 @@ TransCelerate.SDR.Core.Utilities.Common
 
 ##### Summary
 
-This class holds the value from keyvault which are fetched at runtime
+This class holds the environment variables
 
 <a name='T-TransCelerate-SDR-Core-Utilities-Common-Constants'></a>
 ## Constants `type`
@@ -2755,7 +2755,7 @@ TransCelerate.SDR.Core.Utilities
 
 ##### Summary
 
-Enums for Permissions
+Enums for Sort Order
 
 <a name='T-TransCelerate-SDR-Core-Utilities-Helpers-SplitStringIntoArrayHelper'></a>
 ## SplitStringIntoArrayHelper `type`
@@ -2862,7 +2862,7 @@ Response Helper for successful validation
 
 ##### Returns
 
-A [ErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-ErrorModel 'TransCelerate.SDR.Core.ErrorModels.ErrorModel') When there is an Unauthorized Access
+A [ErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-ErrorModel 'TransCelerate.SDR.Core.ErrorModels.ErrorModel')
 
 ##### Parameters
 

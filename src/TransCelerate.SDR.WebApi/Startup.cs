@@ -181,11 +181,10 @@ namespace TransCelerate.SDR.WebApi
                         var actionTask = Task.Run(() => next());
                         await Task.WhenAll(actionTask, logTask); // Adding request logging as Task to execute in parallel along with request                        
                     }
-                    if (String.IsNullOrWhiteSpace(context.Response.Headers["Controller"]) && String.IsNullOrWhiteSpace(context.Response.Headers["InvalidInput"]) && String.IsNullOrWhiteSpace(context.Response.Headers["AuthFilter"]))
+                    if (String.IsNullOrWhiteSpace(context.Response.Headers["Controller"]) && String.IsNullOrWhiteSpace(context.Response.Headers["InvalidInput"]))
                     {
                         response = await HttpContextResponseHelper.Response(context, response);
-                        var AuthToken = context.Request.Headers["Authorization"];
-                        logger.LogInformation("Status Code: {statusCode}; URL: {path}; AuthToken: {token}", context.Response.StatusCode, context.Request.Path, AuthToken);
+                        logger.LogInformation("Status Code: {statusCode}; URL: {path}", context.Response.StatusCode, context.Request.Path);
                     }
                 }
                 catch (Exception ex)
@@ -199,16 +198,12 @@ namespace TransCelerate.SDR.WebApi
                     }
                     context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     logger.LogError("Exception Occurred: {ex}", ex);
-                    logger.LogInformation("Status Code: {statusCode}; URL: {path}; AuthToken: {token}", context.Response.StatusCode, context.Request.Path, context.Request.Headers["Authorization"]);
+                    logger.LogInformation("Status Code: {statusCode}; URL: {path}", context.Response.StatusCode, context.Request.Path);
                     await context.Response.WriteAsync(JsonConvert.SerializeObject(ErrorResponseHelper.ErrorResponseModel(ex), new JsonSerializerSettings { ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver() }));
                 }
             });
 
-            //Enable Authenticationa and Authorization for the Endpoints
-            app.UseAuthentication();
-            app.UseAuthorization();
-
-            //Map Endpoints with authorization
+            //Map Endpoints
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

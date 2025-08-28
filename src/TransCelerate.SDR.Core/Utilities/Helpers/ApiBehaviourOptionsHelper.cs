@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
@@ -68,7 +67,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 context.HttpContext.Response.Headers["InvalidInput"] = "True";
             }
 
-            var AuthToken = context?.HttpContext?.Request?.Headers["Authorization"];
             var usdmVersion = context?.HttpContext?.Request?.Headers["usdmVersion"];
 
             // For Conformance error
@@ -77,14 +75,14 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 && !errors.Any(key => key.Key?.ToLower() == nameof(DTO.Common.AuditTrailDto.UsdmVersion).ToLower()))
             {
                 _logger.LogError($"Conformance Error: {JsonConvert.SerializeObject(errors)}");
-                _logger.LogInformation($"Status Code: {400}; UserName : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Email)?.Value}; UserRole : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Role)?.Value} URL: {context?.HttpContext?.Request?.Path}; AuthToken: {AuthToken}");
+                _logger.LogInformation($"Status Code: {400}; URL: {context?.HttpContext?.Request?.Path}");
                 return new BadRequestObjectResult(ErrorResponseHelper.ValidationBadRequest(errors, warnings, $"{Constants.ErrorMessages.ConformanceErrorMessage}{usdmVersion}"));
             }
             // Other errors
             else
             {
                 _logger.LogError($"Invalid Input: {JsonConvert.SerializeObject(errors)}");
-                _logger.LogInformation($"Status Code: {400}; UserName : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Email)?.Value}; UserRole : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Role)?.Value} URL: {context?.HttpContext?.Request?.Path}; AuthToken: {AuthToken}");
+                _logger.LogInformation($"Status Code: {400}; URL: {context?.HttpContext?.Request?.Path}");
                 return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(errors, "Invalid Input"));
             }
         }

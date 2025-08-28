@@ -19,13 +19,9 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// </returns>>
         public static ErrorModel ErrorResponseModel(Exception exception)
         {
-            string statusCode;
-            if (exception is UnauthorizedAccessException) statusCode = ((int)HttpStatusCode.Forbidden).ToString();
-            else statusCode = ((int)HttpStatusCode.BadRequest).ToString();
-
             ErrorModel errorModel = new()
             {
-                StatusCode = statusCode,
+                StatusCode = ((int)HttpStatusCode.BadRequest).ToString(),
                 Message = Constants.ErrorMessages.GenericError
             };
             return errorModel;

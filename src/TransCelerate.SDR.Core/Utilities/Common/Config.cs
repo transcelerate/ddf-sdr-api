@@ -1,7 +1,7 @@
 ﻿namespace TransCelerate.SDR.Core.Utilities.Common
 {
     /// <summary>
-    /// This class holds the value from keyvault which are fetched at runtime
+    /// This class holds the environment variables
     /// </summary>
     public static class Config
     {
