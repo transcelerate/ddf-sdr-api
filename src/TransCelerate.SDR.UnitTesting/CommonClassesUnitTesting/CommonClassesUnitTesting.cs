@@ -17,13 +17,11 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.AppSettings;
-using TransCelerate.SDR.Core.DTO.Reports;
 using TransCelerate.SDR.Core.Entities.Common;
 using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.Core.Filters;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
-using TransCelerate.SDR.Core.Utilities.Enums;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.DataAccess.Filters;
 using TransCelerate.SDR.Services.Interfaces;
@@ -49,7 +47,7 @@ namespace TransCelerate.SDR.UnitTesting
         public void Setup()
         {
             var mockMapper = new MapperConfiguration(cfg =>
-            {                
+            {
                 cfg.AddProfile(new AutoMapperProfilesV2());
                 cfg.AddProfile(new AutoMapperProfilesV3());
                 cfg.AddProfile(new SharedAutoMapperProfiles());
@@ -168,12 +166,7 @@ namespace TransCelerate.SDR.UnitTesting
             StartupLib.SetConstants(_mockConfig.Object);
             Assert.AreEqual(Config.ConnectionString, "true");
             Assert.AreEqual(Config.DatabaseName, "true");
-            Assert.AreEqual(Config.InstrumentationKey, "true");
             Assert.AreEqual(Config.DateRange, "true");
-            Assert.AreEqual(Config.Audience, "true");
-            Assert.AreEqual(Config.Scope, "true");
-            Assert.AreEqual(Config.TenantID, "true");
-            Assert.AreEqual(Config.Authority, "true");
             ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ApiUsdmVersionMapping.json"));
             Assert.AreEqual(apiUsdmVersionMapping_NonStatic.SDRVersions.Count, ApiUsdmVersionMapping.SDRVersions.Count);
         }
@@ -232,14 +225,14 @@ namespace TransCelerate.SDR.UnitTesting
                 ToDate = "",
                 ValidateUsdmVersion = false
             };
-            TransCelerate.SDR.RuleEngine.Common.SearchParametersValidator searchValidator = new();            
+            TransCelerate.SDR.RuleEngine.Common.SearchParametersValidator searchValidator = new();
             Assert.IsTrue(searchValidator.Validate(searchParametersCommon).IsValid);
 
             TransCelerate.SDR.Core.DTO.Common.SearchTitleParametersDto searchTitleParametersCommon = new()
-            {                
+            {
                 StudyTitle = "Umbrella",
                 PageNumber = 1,
-                PageSize = 25,                
+                PageSize = 25,
                 SponsorId = "100",
                 FromDate = "",
                 ToDate = ""
@@ -284,131 +277,6 @@ namespace TransCelerate.SDR.UnitTesting
 
             // Assert
             CollectionAssert.AreEqual(expected, splitStringList);
-        }
-        #endregion
-
-        #region Report Controller Unit Testing
-        [Test]
-        public void ReportsControllerUnitTesting()
-        {
-            ReportBodyParameters reportBodyParameters = new()
-            {
-                Days = 10,
-                Operation = "GET",
-                PageSize = 10,
-                RecordNumber = 1,
-                ResponseCode = 200,
-                SortBy = "requestdate",
-                SortOrder = "asc"
-            };
-            ReportsController reportsController = new(_mockLogHelper, _mockMapper);
-            var method = reportsController.GetUsageReport(reportBodyParameters);
-            method.Wait();
-
-            //Expected
-            var expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError);
-
-            //Actual
-            var actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
-
-            //Assert          
-            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
-            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
-            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
-
-            Assert.AreEqual(expected.Message, actual_result.Message);
-            Assert.AreEqual("400", actual_result.StatusCode);
-
-            reportBodyParameters.PageSize = 0;
-            reportBodyParameters.SortBy = "operation";
-            method = reportsController.GetUsageReport(reportBodyParameters);
-            method.Wait();
-
-            reportBodyParameters.SortBy = "api";
-            method = reportsController.GetUsageReport(reportBodyParameters);
-            method.Wait();
-
-            reportBodyParameters.SortBy = "callerip";
-            method = reportsController.GetUsageReport(reportBodyParameters);
-            method.Wait();
-
-            reportBodyParameters.SortBy = "responsecode";
-            method = reportsController.GetUsageReport(reportBodyParameters);
-            method.Wait();
-
-            reportBodyParameters.SortBy = "operationas";
-            method = reportsController.GetUsageReport(reportBodyParameters);
-            method.Wait();
-
-            reportBodyParameters.SortBy = "";
-            method = reportsController.GetUsageReport(reportBodyParameters);
-            method.Wait();
-
-            reportBodyParameters.FilterByTime = true;
-            method = reportsController.GetUsageReport(reportBodyParameters);
-            method.Wait();
-
-            expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateMissingError);
-
-            actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
-
-            //Assert          
-            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
-            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
-            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
-
-            Assert.AreEqual(expected.Message, actual_result.Message);
-            Assert.AreEqual("400", actual_result.StatusCode);
-
-            reportBodyParameters.FilterByTime = true;
-            reportBodyParameters.FromDateTime = DateTime.Now;
-            reportBodyParameters.ToDateTime = DateTime.Now.AddDays(-1);
-            method = reportsController.GetUsageReport(reportBodyParameters);
-            method.Wait();
-
-            expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateErrorForReports);
-
-            actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
-
-            //Assert          
-            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
-            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
-            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
-
-            Assert.AreEqual(expected.Message, actual_result.Message);
-            Assert.AreEqual("400", actual_result.StatusCode);
-
-            reportBodyParameters.FilterByTime = true;
-            reportBodyParameters.FromDateTime = DateTime.Now.AddDays(-1);
-            reportBodyParameters.ToDateTime = DateTime.Now;
-            method = reportsController.GetUsageReport(reportBodyParameters);
-            method.Wait();
-
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ReportsRawData.json");
-            var rawReport = JsonConvert.DeserializeObject<SystemUsageRawReport>(jsonData);
-            List<SystemUsageReportDTO> usageReport = new();
-            rawReport.Tables[0].Rows.ForEach(rows => usageReport.Add(new SystemUsageReportDTO
-            {
-                RequestDate = rows[(int)UsageReportFields.timestamp],
-
-                Api = rows[(int)UsageReportFields.name].Split(" ")[1],
-
-                EmailId = JsonConvert.DeserializeObject<CustomDimension>(rows[(int)UsageReportFields.customDimensions1]).EmailAddress,
-
-                UserName = JsonConvert.DeserializeObject<CustomDimension>(rows[(int)UsageReportFields.customDimensions1]).UserName,
-
-                CallerIpAddress = rows[(int)UsageReportFields.client_IP],
-
-                ResponseCode = rows[(int)UsageReportFields.resultCode],
-
-                Operation = rows[(int)UsageReportFields.name].Split(" ")[0],
-
-                ResponseCodeDescription = int.TryParse(rows[(int)UsageReportFields.resultCode], out int code) == true ?
-                                                     Enum.IsDefined(typeof(HttpStatusCode), code) == true ?
-                                                     $"{code} - {Enum.GetName(typeof(HttpStatusCode), code)}"
-                                                     : null : null
-            }));
-            Assert.IsNotEmpty(usageReport);
         }
         #endregion
 
@@ -545,7 +413,7 @@ namespace TransCelerate.SDR.UnitTesting
 
             Assert.IsNotNull(DataFilterCommon.GetFiltersForGetAudTrail("sd", DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1)));
 
-           
+
             Assert.IsNotNull(DataFilterCommon.GetFiltersForStudyHistory(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1), "sd"));
             Assert.IsNotNull(DataFilterCommon.GetFiltersForStudyHistoryV4(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1), "sd"));
 
@@ -574,7 +442,7 @@ namespace TransCelerate.SDR.UnitTesting
                 ValidateUsdmVersion = false
             };
 
-            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchStudy(searchParametersEntity));            
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchStudy(searchParametersEntity));
             searchParametersEntity.Header = "studytitle";
             Assert.IsNotNull(DataFilterCommon.GetSorterForSearchStudy(searchParametersEntity));
             searchParametersEntity.Header = "sdrversion";

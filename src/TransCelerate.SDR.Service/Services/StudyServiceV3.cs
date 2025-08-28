@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Azure.Messaging.ServiceBus;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -25,19 +24,17 @@ namespace TransCelerate.SDR.Services.Services
         private readonly IMapper _mapper;
         private readonly ILogHelper _logger;
         private readonly IHelperV3 _helper;
-        private readonly ServiceBusClient _serviceBusClient;
         private readonly IChangeAuditRepository _changeAuditRepositoy;
         #endregion
 
         #region Constructor
-        public StudyServiceV3(IStudyRepositoryV3 studyRepository, IMapper mapper, ILogHelper logger, IHelperV3 helper, ServiceBusClient serviceBusClient, IChangeAuditRepository changeAuditRepository)
+        public StudyServiceV3(IStudyRepositoryV3 studyRepository, IMapper mapper, ILogHelper logger, IHelperV3 helper, IChangeAuditRepository changeAuditRepository)
         {
             _changeAuditRepositoy = changeAuditRepository;
             _studyRepository = studyRepository;
             _mapper = mapper;
             _logger = logger;
             _helper = helper;
-            _serviceBusClient = serviceBusClient;
         }
         #endregion
 
@@ -308,7 +305,7 @@ namespace TransCelerate.SDR.Services.Services
 
                             var scheduleActivityInstances = scheduleTimeline.ScheduleTimelineInstances?.Select(x => (x as ScheduledActivityInstanceEntity))
                                                                          .Where(x => x != null).ToList();
-                            
+
                             if (scheduleActivityInstances != null && scheduleActivityInstances.Any())
                             {
                                 var activitiesMappedToTimeLine = activities is not null && activities.Any() ? activities.Where(act => scheduleActivityInstances.Where(x => x.ActivityIds is not null && x.ActivityIds.Any()).SelectMany(instance => instance.ActivityIds).Contains(act.Id)).ToList() : new List<ActivityEntity>();
@@ -339,7 +336,7 @@ namespace TransCelerate.SDR.Services.Services
                                                 ProcedureDescription = y.ProcedureDescription,
                                                 ProcedureIsConditional = y.ProcedureIsConditional,
                                                 ProcedureIsConditionalReason = y.ProcedureIsConditionalReason,
-                                                FootnoteId = string.Empty,                                                
+                                                FootnoteId = string.Empty,
                                                 FootnoteDescription = y.ProcedureIsConditional ? $"{y.ProcedureName} : {y.ProcedureIsConditionalReason}" : string.Empty
                                             }).ToList()
                                         }).ToList()
@@ -386,33 +383,34 @@ namespace TransCelerate.SDR.Services.Services
 
             return soADto;
         }
-        public List<TimingSoA> GetTimings(List<ScheduledActivityInstanceEntity> scheduledActivityInstances,List<ScheduledInstanceEntity> scheduledInstances)
+        public List<TimingSoA> GetTimings(List<ScheduledActivityInstanceEntity> scheduledActivityInstances, List<ScheduledInstanceEntity> scheduledInstances)
         {
             if (scheduledActivityInstances is not null && scheduledActivityInstances.Any())
-            {                
+            {
                 //Add sequence number since the ordering based on defaultConditionId includes both ACTIVITY and DECISION Type instances
                 int sequenceNumber = 0;
                 var scheduledInstancesWithSeqNumber = scheduledInstances.Select(x => new
                 {
                     x.Id,
                     SequenceNumber = ++sequenceNumber
-                }).ToList();                
+                }).ToList();
                 //Assign sequence number for Activity Instances
-                var orderedScheduledActivityInstances = scheduledActivityInstances.Select(x => new { 
+                var orderedScheduledActivityInstances = scheduledActivityInstances.Select(x => new
+                {
                     x.ScheduledInstanceTimings,
                     x.ActivityIds,
                     scheduledInstancesWithSeqNumber.FirstOrDefault(y => y.Id == x.Id)?.SequenceNumber
                 }).ToList();
                 //Add Instances with valid timing values
                 var instances = orderedScheduledActivityInstances.Where(x => x.ScheduledInstanceTimings is not null && x.ScheduledInstanceTimings.Any()).Select(x => new
-                {                    
+                {
                     Timings = _mapper.Map<List<TimingSoA>>(x.ScheduledInstanceTimings),
                     x.ActivityIds,
                     x.SequenceNumber
-                }).OrderBy(x => x.SequenceNumber).ToList();                
+                }).OrderBy(x => x.SequenceNumber).ToList();
                 //Add Instances without valid timing values
                 instances.AddRange(orderedScheduledActivityInstances.Where(x => x.ScheduledInstanceTimings is null || !x.ScheduledInstanceTimings.Any()).Select(x => new
-                {                    
+                {
                     Timings = _mapper.Map<List<TimingSoA>>(x.ScheduledInstanceTimings),
                     x.ActivityIds,
                     x.SequenceNumber
@@ -690,7 +688,7 @@ namespace TransCelerate.SDR.Services.Services
                                 StudyInterventionsAdministered = design.StudyInvestigationalInterventions != null && design.StudyInvestigationalInterventions.Any() ?
                                            _mapper.Map<List<Core.DTO.eCPT.StudyInterventionsAdministeredDto>>(design.StudyInvestigationalInterventions)
                                            : null,
-                                StudyArms = design.StudyArms != null && design.StudyArms.Any() ?                                           
+                                StudyArms = design.StudyArms != null && design.StudyArms.Any() ?
                                            _mapper.Map<List<Core.DTO.eCPT.StudyArmDto>>(design.StudyArms)
                                            : null
                             }
@@ -741,8 +739,8 @@ namespace TransCelerate.SDR.Services.Services
                     return new VersionCompareDto
                     {
                         StudyId = studyId,
-                        LHS = new VersionDetails { EntryDateTime = studyOne.AuditTrail.EntryDateTime, SDRUploadVersion = studyOne.AuditTrail.SDRUploadVersion},
-                        RHS = new VersionDetails { EntryDateTime = studyTwo.AuditTrail.EntryDateTime, SDRUploadVersion = studyTwo.AuditTrail.SDRUploadVersion},
+                        LHS = new VersionDetails { EntryDateTime = studyOne.AuditTrail.EntryDateTime, SDRUploadVersion = studyOne.AuditTrail.SDRUploadVersion },
+                        RHS = new VersionDetails { EntryDateTime = studyTwo.AuditTrail.EntryDateTime, SDRUploadVersion = studyTwo.AuditTrail.SDRUploadVersion },
                         ElementsChanged = _helper.GetChangedValuesForStudyComparison(studyOne, studyTwo)
                     };
                 }
@@ -804,13 +802,11 @@ namespace TransCelerate.SDR.Services.Services
                         else
                         {
                             studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity, existingStudyEntity.AuditTrail).ConfigureAwait(false);
-                            await PushMessageToServiceBus(new Core.DTO.Common.ServiceBusMessageDto { Study_uuid = incomingStudyEntity.Study.StudyId, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
                         }
                     }
                     else // If previus USDM version is different from incoming
                     {
                         studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity, existingAuditTrail).ConfigureAwait(false);
-                        await PushMessageToServiceBus(new Core.DTO.Common.ServiceBusMessageDto { Study_uuid = incomingStudyEntity.Study.StudyId, CurrentVersion = incomingStudyEntity.AuditTrail.SDRUploadVersion });
                     }
                 }
                 studyDTO.Links = LinksHelper.GetLinksForUi(studyDTO.Study.StudyId, studyDTO.Study.StudyDesigns?.Select(x => x.Id).ToList(), studyDTO.AuditTrail.UsdmVersion, studyDTO.AuditTrail.SDRUploadVersion);
@@ -831,8 +827,8 @@ namespace TransCelerate.SDR.Services.Services
             //studyEntity = _helper.GeneratedSectionId(studyEntity);
             studyEntity.Study.StudyId = IdGenerator.GenerateId();
             studyEntity.AuditTrail.SDRUploadVersion = 1;
-			studyEntity.AuditTrail.SDRUploadFlag = 1;
-			await _studyRepository.PostStudyItemsAsync(studyEntity);
+            studyEntity.AuditTrail.SDRUploadFlag = 1;
+            await _studyRepository.PostStudyItemsAsync(studyEntity);
             await _changeAuditRepositoy.InsertChangeAudit(studyEntity.Study.StudyId, studyEntity.AuditTrail.SDRUploadVersion, studyEntity.AuditTrail.SDRUploadFlag, studyEntity.AuditTrail.EntryDateTime);
             return _mapper.Map<StudyDefinitionsDto>(studyEntity);
         }
@@ -850,26 +846,11 @@ namespace TransCelerate.SDR.Services.Services
         {
             //incomingStudyEntity = _helper.CheckForSections(incomingStudyEntity, existingStudyEntity);
             incomingStudyEntity.AuditTrail.SDRUploadVersion = existingAuditTrailEntity.SDRUploadVersion + 1;
-			incomingStudyEntity.AuditTrail.SDRUploadFlag = 1;
-			incomingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
+            incomingStudyEntity.AuditTrail.SDRUploadFlag = 1;
+            incomingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
             await _studyRepository.PostStudyItemsAsync(incomingStudyEntity);
             return _mapper.Map<StudyDefinitionsDto>(incomingStudyEntity);
         }
-
-        #region Azure ServiceBus
-        private async Task PushMessageToServiceBus(Core.DTO.Common.ServiceBusMessageDto serviceBusMessageDto)
-        {
-            //Execute the service bus only when Service Bus ConnectionString and Queue name are available in the configuration
-            if (!String.IsNullOrWhiteSpace(Config.AzureServiceBusConnectionString) && !String.IsNullOrWhiteSpace(Config.AzureServiceBusQueueName))
-            {
-                ServiceBusSender sender = _serviceBusClient.CreateSender(Config.AzureServiceBusQueueName);
-
-                string jsonMessageString = JsonConvert.SerializeObject(serviceBusMessageDto);
-                ServiceBusMessage serializedMessage = new(jsonMessageString);
-                await sender.SendMessageAsync(serializedMessage);
-            }
-        }
-        #endregion
         #endregion
 
         #region Delete Method

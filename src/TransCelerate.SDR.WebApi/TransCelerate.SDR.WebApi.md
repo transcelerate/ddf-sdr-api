@@ -13,8 +13,6 @@
   - [GetStudyHistory(fromDate,toDate,studyTitle)](#M-TransCelerate-SDR-WebApi-Controllers-CommonController-GetStudyHistory-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.WebApi.Controllers.CommonController.GetStudyHistory(System.DateTime,System.DateTime,System.String)')
   - [SearchStudy(searchparameters)](#M-TransCelerate-SDR-WebApi-Controllers-CommonController-SearchStudy-TransCelerate-SDR-Core-DTO-Common-SearchParametersDto- 'TransCelerate.SDR.WebApi.Controllers.CommonController.SearchStudy(TransCelerate.SDR.Core.DTO.Common.SearchParametersDto)')
   - [SearchTitle(searchparameters)](#M-TransCelerate-SDR-WebApi-Controllers-CommonController-SearchTitle-TransCelerate-SDR-Core-DTO-Common-SearchTitleParametersDto- 'TransCelerate.SDR.WebApi.Controllers.CommonController.SearchTitle(TransCelerate.SDR.Core.DTO.Common.SearchTitleParametersDto)')
-- [ReportsController](#T-TransCelerate-SDR-WebApi-Controllers-ReportsController 'TransCelerate.SDR.WebApi.Controllers.ReportsController')
-  - [GetUsageReport()](#M-TransCelerate-SDR-WebApi-Controllers-ReportsController-GetUsageReport-TransCelerate-SDR-Core-DTO-Reports-ReportBodyParameters- 'TransCelerate.SDR.WebApi.Controllers.ReportsController.GetUsageReport(TransCelerate.SDR.Core.DTO.Reports.ReportBodyParameters)')
 - [Startup](#T-TransCelerate-SDR-WebApi-Startup 'TransCelerate.SDR.WebApi.Startup')
   - [Configure(app,env,logger)](#M-TransCelerate-SDR-WebApi-Startup-Configure-Microsoft-AspNetCore-Builder-IApplicationBuilder,Microsoft-AspNetCore-Hosting-IWebHostEnvironment,Microsoft-Extensions-Logging-ILogger{TransCelerate-SDR-WebApi-Startup}- 'TransCelerate.SDR.WebApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Logging.ILogger{TransCelerate.SDR.WebApi.Startup})')
   - [ConfigureServices(services)](#M-TransCelerate-SDR-WebApi-Startup-ConfigureServices-Microsoft-Extensions-DependencyInjection-IServiceCollection- 'TransCelerate.SDR.WebApi.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)')
@@ -178,24 +176,6 @@ Search For a Study
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | searchparameters | [TransCelerate.SDR.Core.DTO.Common.SearchTitleParametersDto](#T-TransCelerate-SDR-Core-DTO-Common-SearchTitleParametersDto 'TransCelerate.SDR.Core.DTO.Common.SearchTitleParametersDto') | Parameters to search in database |
-
-<a name='T-TransCelerate-SDR-WebApi-Controllers-ReportsController'></a>
-## ReportsController `type`
-
-##### Namespace
-
-TransCelerate.SDR.WebApi.Controllers
-
-<a name='M-TransCelerate-SDR-WebApi-Controllers-ReportsController-GetUsageReport-TransCelerate-SDR-Core-DTO-Reports-ReportBodyParameters-'></a>
-### GetUsageReport() `method`
-
-##### Summary
-
-GET System Usage Report
-
-##### Parameters
-
-This method has no parameters.
 
 <a name='T-TransCelerate-SDR-WebApi-Startup'></a>
 ## Startup `type`

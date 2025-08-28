@@ -158,7 +158,6 @@
   - [LogInformation(message)](#M-TransCelerate-SDR-Core-Utilities-LogHelper-LogInformation-System-String- 'TransCelerate.SDR.Core.Utilities.LogHelper.LogInformation(System.String)')
   - [LogTrace(message)](#M-TransCelerate-SDR-Core-Utilities-LogHelper-LogTrace-System-String- 'TransCelerate.SDR.Core.Utilities.LogHelper.LogTrace(System.String)')
   - [LogWarning(message)](#M-TransCelerate-SDR-Core-Utilities-LogHelper-LogWarning-System-String- 'TransCelerate.SDR.Core.Utilities.LogHelper.LogWarning(System.String)')
-- [Permissions](#T-TransCelerate-SDR-Core-Utilities-Permissions 'TransCelerate.SDR.Core.Utilities.Permissions')
 - [Route](#T-TransCelerate-SDR-Core-Utilities-Common-Route 'TransCelerate.SDR.Core.Utilities.Common.Route')
 - [RuleValidationErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-RuleValidationErrorModel 'TransCelerate.SDR.Core.ErrorModels.RuleValidationErrorModel')
 - [ScheduledInstanceType](#T-TransCelerate-SDR-Core-Utilities-ScheduledInstanceType 'TransCelerate.SDR.Core.Utilities.ScheduledInstanceType')
@@ -174,8 +173,6 @@
 - [StudySections](#T-TransCelerate-SDR-Core-Utilities-StudySections 'TransCelerate.SDR.Core.Utilities.StudySections')
 - [SuccessResponseHelper](#T-TransCelerate-SDR-Core-Utilities-Helpers-SuccessResponseHelper 'TransCelerate.SDR.Core.Utilities.Helpers.SuccessResponseHelper')
   - [ValidationSuccess()](#M-TransCelerate-SDR-Core-Utilities-Helpers-SuccessResponseHelper-ValidationSuccess-System-String- 'TransCelerate.SDR.Core.Utilities.Helpers.SuccessResponseHelper.ValidationSuccess(System.String)')
-- [UsageReportQueryHelper](#T-TransCelerate-SDR-Core-Utilities-Helpers-UsageReportQueryHelper 'TransCelerate.SDR.Core.Utilities.Helpers.UsageReportQueryHelper')
-  - [FormattedQuery(reportBodyParameters)](#M-TransCelerate-SDR-Core-Utilities-Helpers-UsageReportQueryHelper-FormattedQuery-TransCelerate-SDR-Core-DTO-Reports-ReportBodyParameters- 'TransCelerate.SDR.Core.Utilities.Helpers.UsageReportQueryHelper.FormattedQuery(TransCelerate.SDR.Core.DTO.Reports.ReportBodyParameters)')
 - [ValidationErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-ValidationErrorModel 'TransCelerate.SDR.Core.ErrorModels.ValidationErrorModel')
 
 <a name='T-TransCelerate-SDR-Core-Filters-ActionFilter'></a>
@@ -226,7 +223,7 @@ TransCelerate.SDR.Core.Utilities.Common
 
 ##### Summary
 
-This class holds the value from keyvault which are fetched at runtime
+This class holds the environment variables
 
 <a name='T-TransCelerate-SDR-Core-Utilities-Common-Constants'></a>
 ## Constants `type`
@@ -2705,17 +2702,6 @@ Logs Warning
 | ---- | ---- | ----------- |
 | message | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | The message will be logged |
 
-<a name='T-TransCelerate-SDR-Core-Utilities-Permissions'></a>
-## Permissions `type`
-
-##### Namespace
-
-TransCelerate.SDR.Core.Utilities
-
-##### Summary
-
-Enums for Permissions
-
 <a name='T-TransCelerate-SDR-Core-Utilities-Common-Route'></a>
 ## Route `type`
 
@@ -2769,7 +2755,7 @@ TransCelerate.SDR.Core.Utilities
 
 ##### Summary
 
-Enums for Permissions
+Enums for Sort Order
 
 <a name='T-TransCelerate-SDR-Core-Utilities-Helpers-SplitStringIntoArrayHelper'></a>
 ## SplitStringIntoArrayHelper `type`
@@ -2876,39 +2862,11 @@ Response Helper for successful validation
 
 ##### Returns
 
-A [ErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-ErrorModel 'TransCelerate.SDR.Core.ErrorModels.ErrorModel') When there is an Unauthorized Access
+A [ErrorModel](#T-TransCelerate-SDR-Core-ErrorModels-ErrorModel 'TransCelerate.SDR.Core.ErrorModels.ErrorModel')
 
 ##### Parameters
 
 This method has no parameters.
-
-<a name='T-TransCelerate-SDR-Core-Utilities-Helpers-UsageReportQueryHelper'></a>
-## UsageReportQueryHelper `type`
-
-##### Namespace
-
-TransCelerate.SDR.Core.Utilities.Helpers
-
-##### Summary
-
-This is a helper class to format the KQL query
-
-<a name='M-TransCelerate-SDR-Core-Utilities-Helpers-UsageReportQueryHelper-FormattedQuery-TransCelerate-SDR-Core-DTO-Reports-ReportBodyParameters-'></a>
-### FormattedQuery(reportBodyParameters) `method`
-
-##### Summary
-
-This method helps to format the KQL query for system usage report
-
-##### Returns
-
-
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| reportBodyParameters | [TransCelerate.SDR.Core.DTO.Reports.ReportBodyParameters](#T-TransCelerate-SDR-Core-DTO-Reports-ReportBodyParameters 'TransCelerate.SDR.Core.DTO.Reports.ReportBodyParameters') | Body parameters for usage report |
 
 <a name='T-TransCelerate-SDR-Core-ErrorModels-ValidationErrorModel'></a>
 ## ValidationErrorModel `type`
