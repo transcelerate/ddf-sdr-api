@@ -167,10 +167,6 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.AreEqual(Config.ConnectionString, "true");
             Assert.AreEqual(Config.DatabaseName, "true");
             Assert.AreEqual(Config.DateRange, "true");
-            Assert.AreEqual(Config.Audience, "true");
-            Assert.AreEqual(Config.Scope, "true");
-            Assert.AreEqual(Config.TenantID, "true");
-            Assert.AreEqual(Config.Authority, "true");
             ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ApiUsdmVersionMapping.json"));
             Assert.AreEqual(apiUsdmVersionMapping_NonStatic.SDRVersions.Count, ApiUsdmVersionMapping.SDRVersions.Count);
         }

@@ -8,21 +8,9 @@ namespace TransCelerate.SDR.Core.Utilities.Common
     /// </summary>
     public static class Constants
     {
-        public struct KeyVault
-        {
-            public const string Key = "KeyVault:Vault";
-
-            public const string ClientId = "KeyVault:ClientId";
-
-            public const string ClientSecret = "KeyVault:ClientSecret";
-
-            public const string DefaultKeyVault = "https://vault.azure.net/.default";
-        }
-
         public struct Collections
         {
             public const string Study = "Study";
-            public const string SDRGrouping = "Groups";
             public const string StudyV1 = "StudyDefinitionsV1";
             public const string ChangeAudit = "ChangeAudit";
             public const string StudyDefinitions = "StudyDefinitions";
@@ -151,12 +139,6 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string InstanceTypeError = "The Instance Type is incorrect";
 
-            public const string GroupFilterEmptyError = "Group Filter must not be empty";
-
-            public const string SelectAtleastOneGroup = "Select Atleast One Group";
-
-            public const string InvalidPermissionValue = "Permission value is not valid";
-
             public const string InvalidSortOrder = "sortOrder value must be asc/desc";
 
             public const string EnterValidNumber = "PageNumber must be >=1";
@@ -201,16 +183,6 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string NotValidStudyId = "The provided studyId is not found";
 
-            public const string GroupsNotFound = "There are no user groups available";
-
-            public const string UsersNotFound = "There are no users available";
-
-            public const string GroupIdError = "The group Id is not valid";
-
-            public const string PostGroupDataNotValid = "The data on the request body is not valid";
-
-            public const string GroupNameExists = "The group name already exist";
-
             public const string ProvideDifferentVersion = "SDRUploadVersions for the Compare API must be different";
 
             public static readonly string[] ProvideValidVersion = { "A valid SDRUploadVersion for ", " must be provided" };
@@ -248,17 +220,6 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             public const string ErrorMessageForCdiscRulesEngineFailure = "CDISC Rules Engine failed";
 
             public const string ErrorMessageForCdiscRulesEngineOutputNotFound = "CDISC Rules Engine did not produce a report";
-        }
-
-        public struct TokenConstants
-        {
-            public const string ClientId = "client_id";
-            public const string Grant_Type = "grant_type";
-            public const string Grant_Type_Value = "password";
-            public const string Username = "username";
-            public const string Password = "password";
-            public const string Scope = "scope";
-            public const string Client_Secret = "client_secret";
         }
 
         public static readonly string[] StudyElementsV2 = {
@@ -436,13 +397,6 @@ namespace TransCelerate.SDR.Core.Utilities.Common
             nameof(DTO.StudyV5.StudyDesignDto.StudyPhase),
             nameof(DTO.StudyV5.StudyDesignDto.StudyType)
         };
-
-        public struct FunctionAppConstants
-        {
-            public const string ChangeAuditFunction = "ChangeAuditFunction";
-            public const string AzureServiceBusQueueName = "%AzureServiceBusQueueName%";
-            public const string AzureServiceBusConnectionString = "AzureServiceBusConnectionString";
-        }
 
         public static readonly string[] CharactersToBeRemovedForAudit =
         {

@@ -73,8 +73,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
 
             // For Conformance error
             if (HasConformanceError(errors)
-                && !JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.TokenConstants.Username.ToLower())
-                && !JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.TokenConstants.Password.ToLower())
                 && !JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ErrorMessages.InvalidUsdmVersion.ToLower())
                 && !errors.Any(key => key.Key?.ToLower() == nameof(DTO.Common.AuditTrailDto.UsdmVersion).ToLower()))
             {
@@ -99,14 +97,11 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             {
                 Constants.ValidationErrorMessage.PropertyEmptyError,
                 Constants.ValidationErrorMessage.PropertyMissingError,
-                Constants.ValidationErrorMessage.SelectAtleastOneGroup,
-                Constants.ValidationErrorMessage.InvalidPermissionValue,
                 "unique",
                 Constants.ValidationErrorMessage.BooleanValidationFailed,
                 Constants.ValidationErrorMessage.IntegerMinimumValueError,
                 Constants.ValidationErrorMessage.IntegerValidationFailed,
-                Constants.ValidationErrorMessage.ScheduledInstanceTypesError,
-                Constants.ValidationErrorMessage.GroupFilterEmptyError
+                Constants.ValidationErrorMessage.ScheduledInstanceTypesError
             };
 
             return validationMessagesToCheck.Any(message => serializedErrors.Contains(message.ToLower()));
