@@ -30,9 +30,9 @@ FROM ubuntu:24.04 AS runtime
 ENV DEBIAN_FRONTEND=noninteractive \
     DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1 \
     ASPNETCORE_URLS=http://+:80 \
-    CdiscRulesEngine="/app/cdisc-rules-engine" \
-    CdiscRulesEngineRelativeBinary="core" \
-    CdiscRulesEngineRelativeCache="resources/cache"
+    CdiscRulesEngine=/app/cdisc-rules-engine \
+    CdiscRulesEngineRelativeBinary=core \
+    CdiscRulesEngineRelativeCache=resources/cache
 WORKDIR /app
 
 # Install dependencies
