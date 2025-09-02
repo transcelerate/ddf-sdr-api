@@ -24,7 +24,7 @@ namespace TransCelerate.SDR.Core.Entities.Common
         public object StudyType { get; set; }
         public object Type { get; set; }
         public object StudyPhase { get; set; }
-        public List<object> StudyIdentifiers { get; set; }        
+        public List<object> StudyIdentifiers { get; set; }
         public List<CommonStudyProtocolVersions> StudyProtocolVersions { get; set; }
         public List<CommonStudyDesigns> StudyDesigns { get; set; }
         public List<CommonStudyVersions> Versions { get; set; }
@@ -32,16 +32,29 @@ namespace TransCelerate.SDR.Core.Entities.Common
     }
 
     [BsonIgnoreExtraElements]
-    public class CommonStudyDefinitionsEntityV5 : CommonStudyDefinitionsEntity
+    public class CommonStudyDefinitionsEntityV5
     {
-        public new CommonStudyEntityV5 Study { get; set; }
+        public CommonStudyEntityV5 Study { get; set; }
+
+        public AuditTrailEntity AuditTrail { get; set; }
     }
 
     [BsonIgnoreExtraElements]
     [BsonNoId]
-    public class CommonStudyEntityV5 : CommonStudyEntity
+    public class CommonStudyEntityV5
     {
-        public new List<CommonStudyDocumentedBy> DocumentedBy { get; set; }
+        public string StudyId { get; set; }
+        public string Id { get; set; }
+        public object StudyTitle { get; set; }
+        public string StudyVersion { get; set; }
+        public object StudyType { get; set; }
+        public object Type { get; set; }
+        public object StudyPhase { get; set; }
+        public List<object> StudyIdentifiers { get; set; }
+        public List<CommonStudyProtocolVersions> StudyProtocolVersions { get; set; }
+        public List<CommonStudyDesigns> StudyDesigns { get; set; }
+        public List<CommonStudyVersions> Versions { get; set; }
+        public List<CommonStudyDocumentedBy> DocumentedBy { get; set; }
     }
 
     [BsonIgnoreExtraElements]
@@ -61,11 +74,11 @@ namespace TransCelerate.SDR.Core.Entities.Common
     public class CommonStudyVersions
     {
         public string Id { get; set; }
-        public object Titles {  get; set; }        
-        public string VersionIdentifier { get; set; }        
+        public object Titles { get; set; }
+        public string VersionIdentifier { get; set; }
         public object StudyType { get; set; }
         public object StudyPhase { get; set; }
-        public List<object> StudyIdentifiers { get; set; }        
+        public List<object> StudyIdentifiers { get; set; }
         public List<CommonStudyDesignsV4> StudyDesigns { get; set; }
     }
 

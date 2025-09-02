@@ -21,7 +21,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         private readonly ILogHelper _logger;
 
         private readonly IMongoClient _client;
-        private readonly IMongoDatabase _database;              
+        private readonly IMongoDatabase _database;
 
         #endregion
 
@@ -30,7 +30,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         {
             _client = client;
             _database = _client.GetDatabase(_databaseName);
-            _logger = logger;                   
+            _logger = logger;
             var conventionPack = new ConventionPack
             {
                 new CamelCaseElementNameConvention()
@@ -203,7 +203,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             try
             {
                 var collection = _database.GetCollection<CommonStudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
-				var collectionV5 = _database.GetCollection<CommonStudyDefinitionsEntityV5>(Constants.Collections.StudyDefinitions);
+                var collectionV5 = _database.GetCollection<CommonStudyDefinitionsEntityV5>(Constants.Collections.StudyDefinitions);
 
                 List<StudyHistoryResponseEntity> studyHistories = await collection.Aggregate()
                                                         .Match(DataFilterCommon.GetFiltersForStudyHistory(fromDate, toDate, studyTitle)) // Condition for matching date range
@@ -237,28 +237,28 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                                     //ProtocolVersions = x.Study.DocumentedBy != null && x.Study.DocumentedBy.Versions != null ? x.Study.DocumentedBy.Versions.Select(x => x.ProtocolVersion) : null,
                                                                     StudyVersion = x.Study.Versions != null ? x.Study.Versions.First().VersionIdentifier : null,
                                                                     UsdmVersion = x.AuditTrail.UsdmVersion,
-                                                                    StudyDesignIdsV4 = x.Study.Versions != null ? x.Study.Versions.Select(x=> x.StudyDesigns.Select(y=>y.Id)) : null,
+                                                                    StudyDesignIdsV4 = x.Study.Versions != null ? x.Study.Versions.Select(x => x.StudyDesigns.Select(y => y.Id)) : null,
                                                                 })  //Project only the required fields                                                        
                                                         .ToListAsync().ConfigureAwait(false);
                 studyHistories.AddRange(studyHistoriesV4);
-				List<StudyHistoryResponseEntity> studyHistoriesV5 = await collectionV5.Aggregate()
-													.Match(DataFilterCommon.GetFiltersForStudyHistoryV5(fromDate, toDate, studyTitle)) // Condition for matching date range
-													.Project(x =>
-															new StudyHistoryResponseEntity
-															{
-																StudyId = x.Study.Id,
-																StudyTitle = x.Study.Versions != null ? x.Study.Versions.First().Titles : null,
-																SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
-																StudyIdentifiers = x.Study.Versions != null ? x.Study.Versions.First().StudyIdentifiers : null,
-																EntryDateTime = x.AuditTrail.EntryDateTime,
-																StudyType = x.Study.Versions != null ? x.Study.Versions.First().StudyType : null,
-																ProtocolVersions =  x.Study.DocumentedBy.SelectMany(z => z.Versions.Select(y=>y.ProtocolVersion)) ,
-																StudyVersion = x.Study.Versions != null ? x.Study.Versions.First().VersionIdentifier : null,
-																UsdmVersion = x.AuditTrail.UsdmVersion,
-																StudyDesignIdsV4 = x.Study.Versions != null ? x.Study.Versions.Select(x => x.StudyDesigns.Select(y => y.Id)) : null,
-															})  //Project only the required fields                                                        
-													.ToListAsync().ConfigureAwait(false);
-		        studyHistories.AddRange(studyHistoriesV5);
+                List<StudyHistoryResponseEntity> studyHistoriesV5 = await collectionV5.Aggregate()
+                                                    .Match(DataFilterCommon.GetFiltersForStudyHistoryV5(fromDate, toDate, studyTitle)) // Condition for matching date range
+                                                    .Project(x =>
+                                                            new StudyHistoryResponseEntity
+                                                            {
+                                                                StudyId = x.Study.Id,
+                                                                StudyTitle = x.Study.Versions != null ? x.Study.Versions.First().Titles : null,
+                                                                SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+                                                                StudyIdentifiers = x.Study.Versions != null ? x.Study.Versions.First().StudyIdentifiers : null,
+                                                                EntryDateTime = x.AuditTrail.EntryDateTime,
+                                                                StudyType = x.Study.Versions != null ? x.Study.Versions.First().StudyType : null,
+                                                                //ProtocolVersions = x.Study.DocumentedBy.SelectMany(z => z.Versions.Select(y => y.ProtocolVersion)),
+                                                                StudyVersion = x.Study.Versions != null ? x.Study.Versions.First().VersionIdentifier : null,
+                                                                UsdmVersion = x.AuditTrail.UsdmVersion,
+                                                                StudyDesignIdsV4 = x.Study.Versions != null ? x.Study.Versions.Select(x => x.StudyDesigns.Select(y => y.Id)) : null,
+                                                            })  //Project only the required fields                                                        
+                                                    .ToListAsync().ConfigureAwait(false);
+                studyHistories.AddRange(studyHistoriesV5);
 
                 if (studyHistories.Count == 0)
                 {
@@ -351,8 +351,8 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                   EntryDateTime = x.AuditTrail.EntryDateTime,
                                                   SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
                                                   UsdmVersion = x.AuditTrail.UsdmVersion,
-                                                  StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Id) ?? null,                                                  
-                                                  StudyDesignIdsV4 = x.Study.Versions != null ? x.Study.Versions.Select(y => y.StudyDesigns.Select(x => x.Id)) : null                                                 
+                                                  StudyDesignIds = x.Study.StudyDesigns.Select(x => x.StudyDesignId ?? x.Id) ?? null,
+                                                  StudyDesignIdsV4 = x.Study.Versions != null ? x.Study.Versions.Select(y => y.StudyDesigns.Select(x => x.Id)) : null
                                               })
                                               .Sort(DataFilterCommon.GetSorterForSearchStudy(searchParameters))
                                               .Skip((searchParameters.PageNumber - 1) * searchParameters.PageSize)
@@ -371,7 +371,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             {
                 _logger.LogInformation($"Ended Repository : {nameof(CommonRepository)}; Method : {nameof(SearchStudy)};");
             }
-        }        
+        }
 
         /// <summary>
         /// Search the collection based on search criteria
@@ -496,7 +496,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                   StudyType = x.Study.Versions != null ? x.Study.Versions.First().StudyType : null,
                                                   StudyPhase = x.Study.Versions != null ? x.Study.Versions.First().StudyPhase : null,
                                                   StudyIdentifiers = x.Study.Versions != null ? x.Study.Versions.First().StudyIdentifiers : null,
-                                                  InterventionModel = x.Study.Versions != null ? x.Study.Versions.Select(y => y.StudyDesigns.Select(x=>x.InterventionModel)) : null,
+                                                  InterventionModel = x.Study.Versions != null ? x.Study.Versions.Select(y => y.StudyDesigns.Select(x => x.InterventionModel)) : null,
                                                   StudyIndications = x.Study.Versions != null ? x.Study.Versions.Select(y => y.StudyDesigns.Select(x => x.Indications)) : null,
                                                   EntryDateTime = x.AuditTrail.EntryDateTime,
                                                   SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
@@ -521,72 +521,72 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
         }
 
-		/// <summary>
-		/// Search the collection based on search criteria
-		/// </summary>
-		/// <param name="searchParameters">Parameters to search in database</param>
-		/// <returns>
-		/// A <see cref="List{SearchResponseEntity}"/> with matching studyId <br></br> <br></br>
-		/// <see langword="null"/> If no study is matching with studyId
-		/// </returns>
-		public async Task<List<Core.Entities.StudyV5.SearchResponseEntity>> SearchStudyV5(SearchParametersEntity searchParameters)
-		{
-			try
-			{
-				_logger.LogInformation($"Started Repository : {nameof(CommonRepository)}; Method : {nameof(SearchStudyV2)};");
-				IMongoCollection<Core.Entities.StudyV5.StudyDefinitionsEntity> collection = _database.GetCollection<Core.Entities.StudyV5.StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
+        /// <summary>
+        /// Search the collection based on search criteria
+        /// </summary>
+        /// <param name="searchParameters">Parameters to search in database</param>
+        /// <returns>
+        /// A <see cref="List{SearchResponseEntity}"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        public async Task<List<Core.Entities.StudyV5.SearchResponseEntity>> SearchStudyV5(SearchParametersEntity searchParameters)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Repository : {nameof(CommonRepository)}; Method : {nameof(SearchStudyV2)};");
+                IMongoCollection<Core.Entities.StudyV5.StudyDefinitionsEntity> collection = _database.GetCollection<Core.Entities.StudyV5.StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
 
 
-				List<Core.Entities.StudyV5.SearchResponseEntity> studies = await collection.Aggregate()
-											  .Match(DataFilterCommon.GetFiltersForSearchV5(searchParameters))
-											  .Project(x => new Core.Entities.StudyV5.SearchResponseEntity
-											  {
-												  StudyId = x.Study.Id,
-												  StudyTitle = x.Study.Versions != null ? x.Study.Versions.First().Titles : null,
-												  StudyType = x.Study.Versions != null && x.Study.Versions.Any()
+                List<Core.Entities.StudyV5.SearchResponseEntity> studies = await collection.Aggregate()
+                                              .Match(DataFilterCommon.GetFiltersForSearchV5(searchParameters))
+                                              .Project(x => new Core.Entities.StudyV5.SearchResponseEntity
+                                              {
+                                                  StudyId = x.Study.Id,
+                                                  StudyTitle = x.Study.Versions != null ? x.Study.Versions.First().Titles : null,
+                                                  StudyType = x.Study.Versions != null && x.Study.Versions.Any()
                                                                     && x.Study.Versions.First().StudyDesigns != null
                                                                     && x.Study.Versions.First().StudyDesigns.Any()
                                                                     ? x.Study.Versions.First().StudyDesigns.First().StudyType : null,
-												  StudyPhase = x.Study.Versions != null && x.Study.Versions.Any()
+                                                  StudyPhase = x.Study.Versions != null && x.Study.Versions.Any()
                                                                     && x.Study.Versions.First().StudyDesigns != null
                                                                     && x.Study.Versions.First().StudyDesigns.Any()
                                                                     ? x.Study.Versions.First().StudyDesigns.First().StudyPhase : null,
-												  StudyIdentifiers = x.Study.Versions != null ? x.Study.Versions.First().StudyIdentifiers : null,
-												  StudyIndications = x.Study.Versions != null ? x.Study.Versions.Select(y => y.StudyDesigns.Select(x => x.Indications)) : null,
-												  EntryDateTime = x.AuditTrail.EntryDateTime,
-												  SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
-												  UsdmVersion = x.AuditTrail.UsdmVersion,
-												  StudyDesignIds = x.Study.Versions != null ? x.Study.Versions.Select(x => x.StudyDesigns.Select(y => y.Id)) : null,
-											  })
-											  .ToListAsync()
-											  .ConfigureAwait(false);
+                                                  StudyIdentifiers = x.Study.Versions != null ? x.Study.Versions.First().StudyIdentifiers : null,
+                                                  StudyIndications = x.Study.Versions != null ? x.Study.Versions.Select(y => y.StudyDesigns.Select(x => x.Indications)) : null,
+                                                  EntryDateTime = x.AuditTrail.EntryDateTime,
+                                                  SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+                                                  UsdmVersion = x.AuditTrail.UsdmVersion,
+                                                  StudyDesignIds = x.Study.Versions != null ? x.Study.Versions.Select(x => x.StudyDesigns.Select(y => y.Id)) : null,
+                                              })
+                                              .ToListAsync()
+                                              .ConfigureAwait(false);
 
-				return DataFilterCommon.SortSearchResultsV5(studies, searchParameters.Header, searchParameters.Asc)
-									   .Skip((searchParameters.PageNumber - 1) * searchParameters.PageSize)
-									   .Take(searchParameters.PageSize)
-									   .ToList();
-			}
-			catch (Exception)
-			{
-				throw;
-			}
-			finally
-			{
-				_logger.LogInformation($"Ended Repository : {nameof(CommonRepository)}; Method : {nameof(SearchStudyV2)};");
-			}
-		}
-		#endregion
+                return DataFilterCommon.SortSearchResultsV5(studies, searchParameters.Header, searchParameters.Asc)
+                                       .Skip((searchParameters.PageNumber - 1) * searchParameters.PageSize)
+                                       .Take(searchParameters.PageSize)
+                                       .ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Repository : {nameof(CommonRepository)}; Method : {nameof(SearchStudyV2)};");
+            }
+        }
+        #endregion
 
-		#region Search Title
-		/// <summary>
-		/// Search the collection based on search criteria
-		/// </summary>
-		/// <param name="searchParameters">Parameters to search in database</param>
-		/// <returns>
-		/// A <see cref="List{SearchTitleResponseEntity}"/> with matching studyId <br></br> <br></br>
-		/// <see langword="null"/> If no study is matching with studyId
-		/// </returns>
-		public async Task<List<SearchTitleResponseEntity>> SearchTitle(SearchTitleParametersEntity searchParameters)
+        #region Search Title
+        /// <summary>
+        /// Search the collection based on search criteria
+        /// </summary>
+        /// <param name="searchParameters">Parameters to search in database</param>
+        /// <returns>
+        /// A <see cref="List{SearchTitleResponseEntity}"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        public async Task<List<SearchTitleResponseEntity>> SearchTitle(SearchTitleParametersEntity searchParameters)
         {
             try
             {
@@ -595,7 +595,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
                 List<SearchTitleResponseEntity> studies = new();
                 List<SearchTitleResponseEntity> studiesV4 = new();
-                
+
                 studies = await collection.Aggregate()
                                               .Match(DataFilterCommon.GetFiltersForSearchTitle(searchParameters))
                                               .Project(x => new SearchTitleResponseEntity
@@ -618,7 +618,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                               {
                                                   StudyId = x.Study.Id,
                                                   StudyTitle = x.Study.Versions != null ? x.Study.Versions.First().Titles : null,
-                                                  StudyIdentifiers = x.Study.Versions != null ?  x.Study.Versions.First().StudyIdentifiers : null,
+                                                  StudyIdentifiers = x.Study.Versions != null ? x.Study.Versions.First().StudyIdentifiers : null,
                                                   StudyType = x.Study.Versions != null ? x.Study.Versions.First().StudyType : null,
                                                   EntryDateTime = x.AuditTrail.EntryDateTime,
                                                   SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
