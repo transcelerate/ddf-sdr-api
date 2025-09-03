@@ -25,12 +25,15 @@ namespace TransCelerate.SDR.Services.Services
         private readonly ILogHelper _logger;
         private readonly IHelperV3 _helper;
         private readonly IChangeAuditRepository _changeAuditRepositoy;
+        private readonly IChangeAuditService _changeAuditService;
         #endregion
 
         #region Constructor
-        public StudyServiceV3(IStudyRepositoryV3 studyRepository, IMapper mapper, ILogHelper logger, IHelperV3 helper, IChangeAuditRepository changeAuditRepository)
+        public StudyServiceV3(IStudyRepositoryV3 studyRepository, IMapper mapper, ILogHelper logger, IHelperV3 helper,
+            IChangeAuditRepository changeAuditRepository, IChangeAuditService changeAuditService)
         {
             _changeAuditRepositoy = changeAuditRepository;
+            _changeAuditService = changeAuditService;
             _studyRepository = studyRepository;
             _mapper = mapper;
             _logger = logger;
@@ -849,6 +852,7 @@ namespace TransCelerate.SDR.Services.Services
             incomingStudyEntity.AuditTrail.SDRUploadFlag = 1;
             incomingStudyEntity.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
             await _studyRepository.PostStudyItemsAsync(incomingStudyEntity);
+            await _changeAuditService.ProcessChangeAudit(incomingStudyEntity.Study.StudyId, incomingStudyEntity.AuditTrail.SDRUploadVersion);
             return _mapper.Map<StudyDefinitionsDto>(incomingStudyEntity);
         }
         #endregion
