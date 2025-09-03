@@ -90,9 +90,9 @@ jobs:
         context: .
         push: true
         build-args: |
-          CdiscRulesEngine_LATEST_RELEASE_URL=${{ env.CdiscRulesEngine_LATEST_RELEASE_URL }}
-          CdiscRulesEngine_LATEST_RELEASE_ZIP=${{ env.CdiscRulesEngine_LATEST_RELEASE_ZIP }}
-          CDISCRULESENGINERELATIVEBINARY=${{ env.CDISCRULESENGINERELATIVEBINARY }}
+          CdiscRulesEngine_LATEST_RELEASE_URL=${{ vars.CdiscRulesEngine_LATEST_RELEASE_URL }}
+          CdiscRulesEngine_LATEST_RELEASE_ZIP=${{ vars.CdiscRulesEngine_LATEST_RELEASE_ZIP }}
+          CDISCRULESENGINERELATIVEBINARY=${{ vars.CDISCRULESENGINERELATIVEBINARY }}
         tags: ghcr.io/transcelerate/sdr-api:latest
         
     - name: Deploy to Azure WebApp
