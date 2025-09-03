@@ -27,14 +27,22 @@ RUN dotnet publish TransCelerate.SDR.WebApi/TransCelerate.SDR.WebApi.csproj -c R
 
 # ------------ Runtime stage ------------
 FROM ubuntu:24.04 AS runtime
+
+ARG CdiscRulesEngine_LATEST_RELEASE_URL=https://api.github.com/repos/cdisc-org/cdisc-rules-engine/releases/latest
+ARG CdiscRulesEngine_LATEST_RELEASE_ZIP=core-ubuntu-latest.zip
+ARG CdiscRulesEngine=/app/cdisc-rules-engine
+ARG CdiscRulesEngineRelativeBinary=core
+ARG CdiscRulesEngineRelativeCache=resources/cache
+
 ENV DEBIAN_FRONTEND=noninteractive \
     DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1 \
     ASPNETCORE_URLS=http://+:80 \
-    CdiscRulesEngine_LATEST_RELEASE_URL=https://api.github.com/repos/cdisc-org/cdisc-rules-engine/releases/latest \
-    CdiscRulesEngine_LATEST_RELEASE_ZIP=core-ubuntu-latest.zip \
-    CdiscRulesEngine=/app/cdisc-rules-engine \
-    CdiscRulesEngineRelativeBinary=core \
-    CdiscRulesEngineRelativeCache=resources/cache
+    CdiscRulesEngine_LATEST_RELEASE_URL=${CdiscRulesEngine_LATEST_RELEASE_URL} \
+    CdiscRulesEngine_LATEST_RELEASE_ZIP=${CdiscRulesEngine_LATEST_RELEASE_ZIP} \
+    CdiscRulesEngine=${CdiscRulesEngine} \
+    CdiscRulesEngineRelativeBinary=${CdiscRulesEngineRelativeBinary} \
+    CdiscRulesEngineRelativeCache=${CdiscRulesEngineRelativeCache}
+
 WORKDIR /app
 
 # Install dependencies
