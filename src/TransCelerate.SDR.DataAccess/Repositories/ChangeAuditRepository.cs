@@ -1,4 +1,4 @@
-﻿using MongoDB.Bson.Serialization.Conventions;
+using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -43,8 +43,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             {
                 IMongoCollection<ChangeAuditStudyEntity> collection = _database.GetCollection<ChangeAuditStudyEntity>(Constants.Collections.ChangeAudit);
 
-
-                ChangeAuditStudyEntity changeAuditStudyEntity = await collection.Find(DataFiltersV2.GetFiltersForChangeAudit(studyId))
+                ChangeAuditStudyEntity changeAuditStudyEntity = await collection.Find(DataFilterCommon.GetFiltersForChangeAudit(studyId))
                                                                 .SingleOrDefaultAsync().ConfigureAwait(false);
 
                 if (changeAuditStudyEntity == null)
@@ -66,9 +65,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 _logger.LogInformation($"Ended Repository : {nameof(ChangeAuditRepository)}; Method : {nameof(GetChangeAuditAsync)};");
             }
         }
-		public async Task<string> InsertChangeAudit(string study_uuid, int sdruploadversion, int sdruploadflag, DateTime entrydatetime)
-		//public async Task<string> InsertChangeAudit(string study_uuid, int sdruploadversion, DateTime entrydatetime)
-		{
+
+        public async Task<string> InsertChangeAudit(string study_uuid, int sdruploadversion, int sdruploadflag, DateTime entrydatetime)
+        {
             _logger.LogInformation($"Started Repository : {nameof(ChangeAuditRepository)}; Method : {nameof(InsertChangeAudit)};");
             try
             {
