@@ -12,7 +12,6 @@ using TransCelerate.SDR.AzureFunctions;
 using TransCelerate.SDR.AzureFunctions.DataAccess;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
-using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV2;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5;
@@ -48,7 +47,6 @@ var host = new HostBuilder()
 
         services.AddTransient<IMessageProcessor, MessageProcessor>();
         services.AddTransient<ILogHelper, LogHelper>();
-        services.AddTransient<IHelperV2, HelperV2>();
         services.AddTransient<IHelperV3, HelperV3>();
         services.AddTransient<IHelperV4, HelperV4>();
 		services.AddTransient<IHelperV5, HelperV5>();

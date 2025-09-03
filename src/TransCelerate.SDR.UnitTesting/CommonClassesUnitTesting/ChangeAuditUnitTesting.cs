@@ -40,10 +40,10 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ChangeAuditData.json");
             return JsonConvert.DeserializeObject<ChangeAuditStudyDto>(jsonData);
         }
-        public static Core.Entities.StudyV2.StudyDefinitionsEntity GetEntityDataFromStaticJson()
+        public static Core.Entities.StudyV3.StudyDefinitionsEntity GetEntityDataFromStaticJson()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
-            var data = JsonConvert.DeserializeObject<Core.Entities.StudyV2.StudyDefinitionsEntity>(jsonData);
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV3.json");
+            var data = JsonConvert.DeserializeObject<Core.Entities.StudyV3.StudyDefinitionsEntity>(jsonData);
             data.AuditTrail.UsdmVersion = Constants.USDMVersions.V1_9;
             return data;
         }
@@ -53,8 +53,8 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
             var mockMapper = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new SharedAutoMapperProfiles());
-                cfg.AddProfile(new AutoMapperProfilesV2());
                 cfg.AddProfile(new AutoMapperProfilesV3());
+                cfg.AddProfile(new AutoMapperProfilesV4());
             });
             _mockMapper = new Mapper(mockMapper);
         }

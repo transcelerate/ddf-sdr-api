@@ -1,5 +1,4 @@
-using TransCelerate.SDR.Core.DTO.StudyV2;
-using TransCelerate.SDR.Core.Entities.StudyV2;
+using TransCelerate.SDR.Core.Entities.StudyV5;
 
 namespace TransCelerate.SDR.Core.Utilities.Common
 {
@@ -223,43 +222,6 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public const string ErrorMessageForCdiscRulesEngineIssuesFound = "CDISC Rules Engine validate found issues";
         }
-
-        public static readonly string[] StudyElementsV2 = {
-            nameof(StudyDto.StudyTitle),
-            nameof(StudyDto.StudyIdentifiers),
-            nameof(StudyDto.StudyProtocolVersions),
-            nameof(StudyDto.StudyVersion),
-            nameof(StudyDto.StudyPhase),
-            nameof(StudyDto.StudyType),
-            nameof(StudyDto.BusinessTherapeuticAreas),
-            nameof(StudyDto.StudyDesigns),
-            nameof(StudyDto.StudyAcronym),
-            nameof(StudyDto.StudyRationale),
-        };
-
-        public static readonly string[] StudyDesignElementsV2 = {
-            nameof(StudyDesignDto.StudyDesignName),
-            nameof(StudyDesignDto.StudyDesignDescription),
-            nameof(StudyDesignDto.TherapeuticAreas),
-            nameof(StudyDesignDto.TrialType),
-            nameof(StudyDesignDto.StudyInvestigationalInterventions),
-            nameof(StudyDesignDto.TrialIntentType),
-            nameof(StudyDesignDto.InterventionModel),
-            nameof(StudyDesignDto.StudyIndications),
-            nameof(StudyDesignDto.StudyPopulations),
-            nameof(StudyDesignDto.StudyObjectives),
-            nameof(StudyDesignDto.StudyCells),
-            nameof(StudyDesignDto.StudyScheduleTimelines),
-            nameof(StudyDesignDto.StudyEstimands),
-            nameof(StudyDesignDto.Activities),
-            nameof(StudyDesignDto.Encounters),
-            nameof(StudyDesignDto.StudyDesignRationale),
-            nameof(StudyDesignDto.StudyDesignBlindingScheme),
-            nameof(StudyDesignDto.BiomedicalConcepts),
-            nameof(StudyDesignDto.BcCategories),
-            nameof(StudyDesignDto.BcSurrogates)
-        };
-
         public static readonly string[] StudyElementsV3 = {
             nameof(DTO.StudyV3.StudyDto.StudyTitle),
             nameof(DTO.StudyV3.StudyDto.StudyIdentifiers),

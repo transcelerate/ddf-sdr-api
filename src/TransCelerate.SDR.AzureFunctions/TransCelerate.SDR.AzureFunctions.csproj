@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <AzureFunctionsVersion>v4</AzureFunctionsVersion>
     <OutputType>Exe</OutputType>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>disable</Nullable>
 	  <RootNamespace>TransCelerate.SDR.AzureFunctions</RootNamespace>
 	  <DocumentationMarkdown>$(MSBuildProjectDirectory)\TransCelerate.SDR.AzureFunctions.md</DocumentationMarkdown>
-	  <DocumentationFile>obj\Debug\net7.0\TransCelerate.SDR.AzureFunctions.xml</DocumentationFile>
+	  <DocumentationFile>obj\Debug\net8.0\TransCelerate.SDR.AzureFunctions.xml</DocumentationFile>
 	  <NoWarn>$(NoWarn);1591</NoWarn>
 	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>

@@ -5,17 +5,6 @@ namespace TransCelerate.SDR.RuleEngine.Common
 {
     public static class UniquenessArrayValidator
     {
-        public static bool ValidateArrayV2<T>(List<T> arrayElement) where T : class, Core.DTO.StudyV2.IId
-        {
-            if (arrayElement is not null && arrayElement.Any())
-            {
-                var ids = arrayElement.Select(x => x.Id).ToList();
-                ids.RemoveAll(x => string.IsNullOrWhiteSpace(x));
-                return ids.Distinct().Count() == ids.Count;
-            }
-            return true;
-        }
-
         public static bool ValidateArrayV3<T>(List<T> arrayElement) where T : class, Core.DTO.StudyV3.IId
         {
             if (arrayElement is not null && arrayElement.Any())
