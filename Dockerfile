@@ -27,12 +27,22 @@ RUN dotnet publish TransCelerate.SDR.WebApi/TransCelerate.SDR.WebApi.csproj -c R
 
 # ------------ Runtime stage ------------
 FROM ubuntu:24.04 AS runtime
+
+ARG CdiscRulesEngine_LATEST_RELEASE_URL=https://api.github.com/repos/cdisc-org/cdisc-rules-engine/releases/latest
+ARG CdiscRulesEngine_LATEST_RELEASE_ZIP=core-ubuntu-latest.zip
+ARG CdiscRulesEngine=/app/cdisc-rules-engine
+ARG CdiscRulesEngineRelativeBinary=core
+ARG CdiscRulesEngineRelativeCache=resources/cache
+
 ENV DEBIAN_FRONTEND=noninteractive \
     DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1 \
     ASPNETCORE_URLS=http://+:80 \
-    CdiscRulesEngine=/app/cdisc-rules-engine \
-    CdiscRulesEngineRelativeBinary=core \
-    CdiscRulesEngineRelativeCache=resources/cache
+    CdiscRulesEngine_LATEST_RELEASE_URL=${CdiscRulesEngine_LATEST_RELEASE_URL} \
+    CdiscRulesEngine_LATEST_RELEASE_ZIP=${CdiscRulesEngine_LATEST_RELEASE_ZIP} \
+    CdiscRulesEngine=${CdiscRulesEngine} \
+    CdiscRulesEngineRelativeBinary=${CdiscRulesEngineRelativeBinary} \
+    CdiscRulesEngineRelativeCache=${CdiscRulesEngineRelativeCache}
+
 WORKDIR /app
 
 # Install dependencies
@@ -47,7 +57,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Download CDISC Rules Engine
-RUN LATEST_RELEASE_URL=$(curl -s --fail --retry 3 https://api.github.com/repos/cdisc-org/cdisc-rules-engine/releases/latest | jq -r '.assets[] | select(.name == "core-ubuntu-latest.zip") | .browser_download_url') \
+RUN LATEST_RELEASE_URL=$(curl -s --fail --retry 3 $CdiscRulesEngine_LATEST_RELEASE_URL | jq -r --arg zip_name "$CdiscRulesEngine_LATEST_RELEASE_ZIP" '.assets[] | select(.name == $zip_name) | .browser_download_url') \
     && echo "Downloading from: $LATEST_RELEASE_URL" \
     && curl -L \
         --fail \
