@@ -539,25 +539,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
                 List<Core.Entities.StudyV5.SearchResponseEntity> studies = await collection.Aggregate()
                                               .Match(DataFilterCommon.GetFiltersForSearchV5(searchParameters))
-                                              .Project(x => new Core.Entities.StudyV5.SearchResponseEntity
-                                              {
-                                                  StudyId = x.Study.Id,
-                                                  StudyTitle = x.Study.Versions != null ? x.Study.Versions.First().Titles : null,
-                                                  StudyType = x.Study.Versions != null && x.Study.Versions.Any()
-                                                                    && x.Study.Versions.First().StudyDesigns != null
-                                                                    && x.Study.Versions.First().StudyDesigns.Any()
-                                                                    ? x.Study.Versions.First().StudyDesigns.First().StudyType : null,
-                                                  StudyPhase = x.Study.Versions != null && x.Study.Versions.Any()
-                                                                    && x.Study.Versions.First().StudyDesigns != null
-                                                                    && x.Study.Versions.First().StudyDesigns.Any()
-                                                                    ? x.Study.Versions.First().StudyDesigns.First().StudyPhase : null,
-                                                  StudyIdentifiers = x.Study.Versions != null ? x.Study.Versions.First().StudyIdentifiers : null,
-                                                  StudyIndications = x.Study.Versions != null ? x.Study.Versions.Select(y => y.StudyDesigns.Select(x => x.Indications)) : null,
-                                                  EntryDateTime = x.AuditTrail.EntryDateTime,
-                                                  SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
-                                                  UsdmVersion = x.AuditTrail.UsdmVersion,
-                                                  StudyDesignIds = x.Study.Versions != null ? x.Study.Versions.Select(x => x.StudyDesigns.Select(y => y.Id)) : null,
-                                              })
+                                              .Project(x => ProjectionToSearchResponseV5(x))
                                               .ToListAsync()
                                               .ConfigureAwait(false);
 
@@ -639,6 +621,32 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 _logger.LogInformation($"Ended Repository : {nameof(CommonRepository)}; Method : {nameof(SearchTitle)};");
             }
         }
+        #endregion
+
+        #region Helper Methods
+        public static Core.Entities.StudyV5.SearchResponseEntity ProjectionToSearchResponseV5(Core.Entities.StudyV5.StudyDefinitionsEntity x)
+        {
+            return new Core.Entities.StudyV5.SearchResponseEntity
+            {
+                StudyId = x.Study.Id,
+                StudyTitle = x.Study.Versions != null ? x.Study.Versions.First().Titles : null,
+                StudyType = x.Study.Versions != null && x.Study.Versions.Any()
+                                && x.Study.Versions.First().StudyDesigns != null
+                                && x.Study.Versions.First().StudyDesigns.Any()
+                                ? x.Study.Versions.First().StudyDesigns.First().StudyType : null,
+                StudyPhase = x.Study.Versions != null && x.Study.Versions.Any()
+                                && x.Study.Versions.First().StudyDesigns != null
+                                && x.Study.Versions.First().StudyDesigns.Any()
+                                ? x.Study.Versions.First().StudyDesigns.First().StudyPhase : null,
+                StudyIdentifiers = x.Study.Versions != null ? x.Study.Versions.First().StudyIdentifiers : null,
+                StudyIndications = x.Study.Versions != null ? x.Study.Versions.Select(y => y.StudyDesigns.Select(x => x.Indications)) : null,
+                EntryDateTime = x.AuditTrail.EntryDateTime,
+                SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+                UsdmVersion = x.AuditTrail.UsdmVersion,
+                StudyDesignIds = x.Study.Versions != null ? x.Study.Versions.Select(x => x.StudyDesigns.Select(y => y.Id)) : null,
+            };
+        }
+
         #endregion
 
         #endregion
