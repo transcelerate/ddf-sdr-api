@@ -544,13 +544,13 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                   StudyId = x.Study.Id,
                                                   StudyTitle = x.Study.Versions != null ? x.Study.Versions.First().Titles : null,
                                                   StudyType = x.Study.Versions != null && x.Study.Versions.Any()
-                                                                    && x.Study.Versions.First().StudyDesigns != null
-                                                                    && x.Study.Versions.First().StudyDesigns.Any()
-                                                                    ? x.Study.Versions.First().StudyDesigns.First().StudyType : null,
-                                                  StudyPhase = x.Study.Versions != null && x.Study.Versions.Any()
-                                                                    && x.Study.Versions.First().StudyDesigns != null
-                                                                    && x.Study.Versions.First().StudyDesigns.Any()
-                                                                    ? x.Study.Versions.First().StudyDesigns.First().StudyPhase : null,
+                                                                && x.Study.Versions.First().StudyDesigns != null
+                                                                && x.Study.Versions.First().StudyDesigns.Any()
+                                                                ? x.Study.Versions.First().StudyDesigns.ElementAt(0).StudyType : null,
+                                              StudyPhase = x.Study.Versions != null && x.Study.Versions.Any()
+                                                                && x.Study.Versions.First().StudyDesigns != null
+                                                                && x.Study.Versions.First().StudyDesigns.Any()
+                                                                ? x.Study.Versions.First().StudyDesigns.ElementAt(0).StudyPhase : null,
                                                   StudyIdentifiers = x.Study.Versions != null ? x.Study.Versions.First().StudyIdentifiers : null,
                                                   StudyIndications = x.Study.Versions != null ? x.Study.Versions.Select(y => y.StudyDesigns.Select(x => x.Indications)) : null,
                                                   EntryDateTime = x.AuditTrail.EntryDateTime,
