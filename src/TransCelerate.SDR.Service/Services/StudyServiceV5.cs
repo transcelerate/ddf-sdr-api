@@ -839,7 +839,7 @@ namespace TransCelerate.SDR.Services.Services
                         return Constants.ErrorMessages.NotValidStudyId;
                     }
 
-                    if (existingAuditTrail.UsdmVersion == Constants.USDMVersions.V3 || existingAuditTrail.UsdmVersion == Constants.USDMVersions.V4) // If previus USDM version is same as incoming
+                    if (existingAuditTrail.UsdmVersion == Constants.USDMVersions.V4) // If previous USDM version is same as incoming
                     {
                         StudyDefinitionsEntity existingStudyEntity = await _studyRepository.GetStudyItemsAsync(incomingStudyEntity.Study.Id, 0);
 
@@ -852,7 +852,7 @@ namespace TransCelerate.SDR.Services.Services
                             studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity, existingStudyEntity.AuditTrail).ConfigureAwait(false);
                         }
                     }
-                    else // If previus USDM version is different from incoming
+                    else // If previous USDM version is different from incoming
                     {
                         studyDTO = await CreateNewVersionForAStudy(incomingStudyEntity, existingAuditTrail).ConfigureAwait(false);
                     }
