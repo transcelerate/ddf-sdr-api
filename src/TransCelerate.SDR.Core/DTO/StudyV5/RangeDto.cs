@@ -2,8 +2,8 @@
 {
     public class RangeDto : QuantityRangeDto
     {      
-        public object MinValue { get; set; }
-        public object MaxValue { get; set; }
+        public QuantityDto MinValue { get; set; }
+        public QuantityDto MaxValue { get; set; }
         public object IsApproximate { get; set; }
     }
 }

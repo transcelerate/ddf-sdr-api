@@ -33,14 +33,14 @@ namespace TransCelerate.SDR.RuleEngineV5
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(RangeValidator), nameof(RangeDto.MaxValue)), ApplyConditionTo.AllValidators)
-               .Must(ValidateDatatype.ValidateInt).WithMessage(Constants.ValidationErrorMessage.IntegerValidationFailed);
+               .SetValidator(new QuantityValidator(_httpContextAccessor));
 
             RuleFor(x => x.MaxValue)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(RangeValidator), nameof(RangeDto.MinValue)), ApplyConditionTo.AllValidators)
-                .Must(ValidateDatatype.ValidateInt).WithMessage(Constants.ValidationErrorMessage.IntegerValidationFailed);
+                .SetValidator(new QuantityValidator(_httpContextAccessor));
 
             RuleFor(x => x.IsApproximate)
                 .Cascade(CascadeMode.Stop)
