@@ -79,9 +79,6 @@ namespace TransCelerate.SDR.Services.Services
 
             if (currentApiVersion != previousApiVersion)
             {
-                // Get the change audit data for studyId
-                ChangeAuditStudyEntity changeAuditEntity = await _changeAuditRepository.GetChangeAuditAsync(studyId);
-
                 List<string> changedValues = [$"The usdmVersion have been changed from {previousUsdmVersion} to {currentUsdmVersion}"];
 
                 // Update changeAudit if exist / create changeAudit if new
@@ -127,9 +124,6 @@ namespace TransCelerate.SDR.Services.Services
                     changedValues = _helperV5.GetChangedValues(currentStudyVersion, previousStudyVersion);
                     changedValues = FormatChangeAuditElements(changedValues);
                 }
-
-                // Get the change audit data for studyId
-                ChangeAuditStudyEntity changeAuditEntity = await _changeAuditRepository.GetChangeAuditAsync(studyId);
 
                 // Update changeAudit if exist / create changeAudit if new
                 return await _changeAuditRepository.AddOrUpdateChangeAuditAsync(studyId, changedValues, auditTrailEntities.Where(x => x.SDRUploadVersion == currentVersion).FirstOrDefault());

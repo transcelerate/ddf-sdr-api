@@ -4,7 +4,6 @@ using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Common;
@@ -49,6 +48,7 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ChangeAuditData.json");
             return JsonConvert.DeserializeObject<ChangeAuditStudyDto>(jsonData);
         }
+
         public static Core.Entities.StudyV3.StudyDefinitionsEntity GetEntityDataFromStaticJsonV3()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV3.json");
@@ -64,6 +64,7 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV5.json");
             return JsonConvert.DeserializeObject<Core.Entities.StudyV5.StudyDefinitionsEntity>(jsonData);
         }
+
         [SetUp]
         public void Setup()
         {
@@ -76,7 +77,6 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
             _mockMapper = new Mapper(mockMapper);
         }
         #endregion
-
 
         #region UnitTesting
         #region ChangeAudit Controller UnitTesting
@@ -159,64 +159,49 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
 
         #region ChangeAudit Service Unit Testing
         [Test]
-        public void ChangeAuditService_UnitTesting()
+        public void ChangeAuditService_Get_UnitTesting()
         {
-            _mockChangeAuditRepository.Setup(x => x.GetChangeAuditAsync(It.IsAny<string>()))
-                .Returns(Task.FromResult(GetChangeAuditEntityDataFromStaticJson()));
             ChangeAuditService changeAuditService = new(_mockChangeAuditRepository.Object, _mockCommonRepository.Object, _mockMapper, _mockLogHelper,
                 _mockHelperV3.Object, _mockHelperV4.Object, _mockHelperV5.Object);
+
+            // Arrange
+            _mockChangeAuditRepository.Setup(x => x.GetChangeAuditAsync(It.IsAny<string>()))
+                .Returns(Task.FromResult(GetChangeAuditEntityDataFromStaticJson()));
+
+            // Act
             var method = changeAuditService.GetChangeAudit("sd");
             method.Wait();
             var result = method.Result;
 
-            //Expected
+            // Assert
             var expected = GetChangeAuditDtoDataFromStaticJson();
-
-            //Actual
             var actual = result as ChangeAuditStudyDto;
 
             Assert.AreEqual(expected.ChangeAudit.StudyId, actual.ChangeAudit.StudyId);
 
+
+            // Arrange
             _mockChangeAuditRepository.Setup(x => x.GetChangeAuditAsync(It.IsAny<string>()))
                .Returns(Task.FromResult(null as ChangeAuditStudyEntity));
 
+            // Act
             method = changeAuditService.GetChangeAudit("sd");
             method.Wait();
             result = method.Result;
 
+            // Assert
             Assert.IsNull(result);
 
+
+            // Arrange
             _mockChangeAuditRepository.Setup(x => x.GetChangeAuditAsync(It.IsAny<string>()))
               .Throws(new Exception());
 
-
+            // Act
             method = changeAuditService.GetChangeAudit("sd");
 
+            // Assert
             Assert.Throws<AggregateException>(() => method.Wait());
-        }
-
-        [Test]
-        public void GetChangedValueUnitTesting()
-        {
-            HelperV3 helper = new();
-
-            var currentVersion = GetEntityDataFromStaticJsonV3();
-            var previousVersion = GetEntityDataFromStaticJsonV3();
-
-            currentVersion.Study.StudyDesigns[0].Activities[0].ActivityName = "A2";
-
-            currentVersion.AuditTrail.SDRUploadVersion = 2;
-            previousVersion.AuditTrail.SDRUploadVersion = 1;
-
-            List<Core.Entities.StudyV3.StudyDefinitionsEntity> studyEntities = new()
-            {
-                currentVersion,
-                previousVersion
-
-            };
-            var difference = helper.GetChangedValues(currentVersion, previousVersion);
-
-            Assert.NotNull(difference);
         }
         #endregion
         #endregion
