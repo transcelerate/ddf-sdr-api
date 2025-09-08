@@ -2,8 +2,8 @@
 {
     public class RangeEntity : QuantityRangeEntity
     {      
-        public int MinValue { get; set; }
-        public int MaxValue { get; set; }
+        public QuantityEntity MinValue { get; set; }
+        public QuantityEntity MaxValue { get; set; }
         public bool IsApproximate { get; set; }
     }
 }

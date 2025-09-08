@@ -2784,16 +2784,49 @@
                 "EligibilityCriterion_31"
               ],
               "plannedAge": {
-                "id": "Range_3",
-                "minValue": 50,
-                "maxValue": 100,
-                "unit": {
-                  "id": "Code_332",
-                  "code": "C29848",
-                  "codeSystem": "http://www.cdisc.org",
-                  "codeSystemVersion": "2023-09-29",
-                  "decode": "Year",
-                  "instanceType": "Code"
+               "id": "Range_1",
+                "extensionAttributes": [],
+                "minValue": {
+                  "id": "Quantity_9",
+                  "extensionAttributes": [],
+                  "value": 50.0,
+                  "unit": {
+                    "id": "AliasCode_251",
+                    "extensionAttributes": [],
+                    "standardCode": {
+                      "id": "Code_618",
+                      "extensionAttributes": [],
+                      "code": "C29848",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2024-09-27",
+                      "decode": "Year",
+                      "instanceType": "Code"
+                    },
+                    "standardCodeAliases": [],
+                    "instanceType": "AliasCode"
+                  },
+                  "instanceType": "Quantity"
+                },
+                "maxValue": {
+                  "id": "Quantity_10",
+                  "extensionAttributes": [],
+                  "value": 100.0,
+                  "unit": {
+                    "id": "AliasCode_252",
+                    "extensionAttributes": [],
+                    "standardCode": {
+                      "id": "Code_619",
+                      "extensionAttributes": [],
+                      "code": "C29848",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2024-09-27",
+                      "decode": "Year",
+                      "instanceType": "Code"
+                    },
+                    "standardCodeAliases": [],
+                    "instanceType": "AliasCode"
+                  },
+                  "instanceType": "Quantity"
                 },
                 "isApproximate": false,
                 "instanceType": "Range"
@@ -19923,7 +19956,7 @@
     ],
     "instanceType": "Study"
   },
-  "usdmVersion": "4.0.0",
+  "usdmVersion": "4.0",
   "auditTrail": {
     "entryDateTime": "2024-01-03T11:57:48.066559Z",
     "usdmVersion": "4.0",
