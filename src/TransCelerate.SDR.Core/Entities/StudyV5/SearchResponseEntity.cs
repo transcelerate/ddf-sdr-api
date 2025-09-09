@@ -15,6 +15,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public AliasCodeEntity StudyPhase { get; set; }
 
         public List<StudyIdentifierEntity> StudyIdentifiers { get; set; }
+        public List<OrganizationEntity> Organizations { get; set; }
 
         public IEnumerable<IEnumerable<List<IndicationEntity>>> StudyIndications { get; set; }
 

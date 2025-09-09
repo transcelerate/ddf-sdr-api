@@ -257,47 +257,6 @@
             "extensionAttributes": [],
             "text": "H2Q-MC-LZZT",
             "scopeId": "Organization_1",
-            "scope": {
-              "id": "Organization_1",
-              "extensionAttributes": [],
-              "name": "LILLY",
-              "label": "Eli Lilly",
-              "type": {
-                "id": "Code_1",
-                "extensionAttributes": [],
-                "code": "C70793",
-                "codeSystem": "http://www.cdisc.org",
-                "codeSystemVersion": "2024-09-27",
-                "decode": "Clinical Study Sponsor",
-                "instanceType": "Code"
-              },
-              "identifierScheme": "DUNS",
-              "identifier": "00-642-1325",
-              "legalAddress": {
-                "id": "Address_1",
-                "extensionAttributes": [],
-                "text": "Lilly Corporate Ctr, Indianapolis, , IN, 4628, United States of America",
-                "lines": [
-                  "Lilly Corporate Ctr"
-                ],
-                "city": "Indianapolis",
-                "district": "",
-                "state": "IN",
-                "postalCode": "4628",
-                "country": {
-                  "id": "Code_2",
-                  "extensionAttributes": [],
-                  "code": "USA",
-                  "codeSystem": "ISO 3166 1 alpha3",
-                  "codeSystemVersion": "2020-08",
-                  "decode": "United States of America",
-                  "instanceType": "Code"
-                },
-                "instanceType": "Address"
-              },
-              "managedSites": [],
-              "instanceType": "Organization"
-            },
             "instanceType": "StudyIdentifier"
           },
           {
@@ -305,47 +264,6 @@
             "extensionAttributes": [],
             "text": "NCT12345678",
             "scopeId": "Organization_2",
-            "scope":  {
-              "id": "Organization_2",
-              "extensionAttributes": [],
-              "name": "CT-GOV",
-              "label": "ClinicalTrials.gov",
-              "type": {
-                "id": "Code_3",
-                "extensionAttributes": [],
-                "code": "C93453",
-                "codeSystem": "http://www.cdisc.org",
-                "codeSystemVersion": "2024-09-27",
-                "decode": "Study Registry",
-                "instanceType": "Code"
-              },
-              "identifierScheme": "USGOV",
-              "identifier": "CT-GOV",
-              "legalAddress": {
-                "id": "Address_2",
-                "extensionAttributes": [],
-                "text": "National Library of Medicine, Bethesda, 8600 Rockville Pike, MD, 20894, United States of America",
-                "lines": [
-                  "National Library of Medicine"
-                ],
-                "city": "Bethesda",
-                "district": "8600 Rockville Pike",
-                "state": "MD",
-                "postalCode": "20894",
-                "country": {
-                  "id": "Code_4",
-                  "extensionAttributes": [],
-                  "code": "USA",
-                  "codeSystem": "ISO 3166 1 alpha3",
-                  "codeSystemVersion": "2020-08",
-                  "decode": "United States of America",
-                  "instanceType": "Code"
-                },
-                "instanceType": "Address"
-              },
-              "managedSites": [],
-              "instanceType": "Organization"
-            },
             "instanceType": "StudyIdentifier"
           }
         ],
@@ -2784,16 +2702,49 @@
                 "EligibilityCriterion_31"
               ],
               "plannedAge": {
-                "id": "Range_3",
-                "minValue": 50,
-                "maxValue": 100,
-                "unit": {
-                  "id": "Code_332",
-                  "code": "C29848",
-                  "codeSystem": "http://www.cdisc.org",
-                  "codeSystemVersion": "2023-09-29",
-                  "decode": "Year",
-                  "instanceType": "Code"
+               "id": "Range_1",
+                "extensionAttributes": [],
+                "minValue": {
+                  "id": "Quantity_9",
+                  "extensionAttributes": [],
+                  "value": 50.0,
+                  "unit": {
+                    "id": "AliasCode_251",
+                    "extensionAttributes": [],
+                    "standardCode": {
+                      "id": "Code_618",
+                      "extensionAttributes": [],
+                      "code": "C29848",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2024-09-27",
+                      "decode": "Year",
+                      "instanceType": "Code"
+                    },
+                    "standardCodeAliases": [],
+                    "instanceType": "AliasCode"
+                  },
+                  "instanceType": "Quantity"
+                },
+                "maxValue": {
+                  "id": "Quantity_10",
+                  "extensionAttributes": [],
+                  "value": 100.0,
+                  "unit": {
+                    "id": "AliasCode_252",
+                    "extensionAttributes": [],
+                    "standardCode": {
+                      "id": "Code_619",
+                      "extensionAttributes": [],
+                      "code": "C29848",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2024-09-27",
+                      "decode": "Year",
+                      "instanceType": "Code"
+                    },
+                    "standardCodeAliases": [],
+                    "instanceType": "AliasCode"
+                  },
+                  "instanceType": "Quantity"
                 },
                 "isApproximate": false,
                 "instanceType": "Range"
@@ -5995,6 +5946,149 @@
             },
             "notes": [],
             "instanceType": "StudyRole"
+          }
+        ],
+         "organizations": [
+          {
+            "id": "Organization_1",
+            "extensionAttributes": [],
+            "name": "LILLY",
+            "label": "Eli Lilly",
+            "type": {
+              "id": "Code_1",
+              "extensionAttributes": [],
+              "code": "C70793",
+              "codeSystem": "http://www.cdisc.org",
+              "codeSystemVersion": "2024-09-27",
+              "decode": "Clinical Study Sponsor",
+              "instanceType": "Code"
+            },
+            "identifierScheme": "DUNS",
+            "identifier": "00-642-1325",
+            "legalAddress": {
+              "id": "Address_1",
+              "extensionAttributes": [],
+              "text": "Lilly Corporate Ctr, Indianapolis, , IN, 4628, United States of America",
+              "lines": [
+                "Lilly Corporate Ctr"
+              ],
+              "city": "Indianapolis",
+              "district": "",
+              "state": "IN",
+              "postalCode": "4628",
+              "country": {
+                "id": "Code_2",
+                "extensionAttributes": [],
+                "code": "USA",
+                "codeSystem": "ISO 3166 1 alpha3",
+                "codeSystemVersion": "2020-08",
+                "decode": "United States of America",
+                "instanceType": "Code"
+              },
+              "instanceType": "Address"
+            },
+            "managedSites": [],
+            "instanceType": "Organization"
+          },
+          {
+            "id": "Organization_2",
+            "extensionAttributes": [],
+            "name": "CT-GOV",
+            "label": "ClinicalTrials.gov",
+            "type": {
+              "id": "Code_3",
+              "extensionAttributes": [],
+              "code": "C93453",
+              "codeSystem": "http://www.cdisc.org",
+              "codeSystemVersion": "2024-09-27",
+              "decode": "Study Registry",
+              "instanceType": "Code"
+            },
+            "identifierScheme": "USGOV",
+            "identifier": "CT-GOV",
+            "legalAddress": {
+              "id": "Address_2",
+              "extensionAttributes": [],
+              "text": "National Library of Medicine, Bethesda, 8600 Rockville Pike, MD, 20894, United States of America",
+              "lines": [
+                "National Library of Medicine"
+              ],
+              "city": "Bethesda",
+              "district": "8600 Rockville Pike",
+              "state": "MD",
+              "postalCode": "20894",
+              "country": {
+                "id": "Code_4",
+                "extensionAttributes": [],
+                "code": "USA",
+                "codeSystem": "ISO 3166 1 alpha3",
+                "codeSystemVersion": "2020-08",
+                "decode": "United States of America",
+                "instanceType": "Code"
+              },
+              "instanceType": "Address"
+            },
+            "managedSites": [],
+            "instanceType": "Organization"
+          },
+          {
+            "id": "Organization_3",
+            "extensionAttributes": [],
+            "name": "SITE_ORG_1",
+            "label": "Big Hospital",
+            "type": {
+              "id": "Code_5",
+              "extensionAttributes": [],
+              "code": "C70793",
+              "codeSystem": "http://www.cdisc.org",
+              "codeSystemVersion": "2024-09-27",
+              "decode": "Clinical Study Sponsor",
+              "instanceType": "Code"
+            },
+            "identifierScheme": "DUNS",
+            "identifier": "123456789",
+            "legalAddress": {
+              "id": "Address_3",
+              "extensionAttributes": [],
+              "text": "line, city, district, state, postal_code, United Kingdom of Great Britain and Northern Ireland",
+              "lines": [
+                "line"
+              ],
+              "city": "city",
+              "district": "district",
+              "state": "state",
+              "postalCode": "postal_code",
+              "country": {
+                "id": "Code_6",
+                "extensionAttributes": [],
+                "code": "GBR",
+                "codeSystem": "ISO 3166 1 alpha3",
+                "codeSystemVersion": "2020-08",
+                "decode": "United Kingdom of Great Britain and Northern Ireland",
+                "instanceType": "Code"
+              },
+              "instanceType": "Address"
+            },
+            "managedSites": [
+              {
+                "id": "StudySite_1",
+                "extensionAttributes": [],
+                "name": "SITE_1",
+                "label": "Site One",
+                "description": "Main Site",
+                "country": {
+                  "id": "Code_669",
+                  "extensionAttributes": [],
+                  "code": "GBR",
+                  "codeSystem": "ISO 3166 1 alpha3",
+                  "codeSystemVersion": "2020-08",
+                  "decode": "United Kingdom of Great Britain and Northern Ireland",
+                  "instanceType": "Code"
+                },
+                "instanceType": "StudySite"
+              }
+            ],
+            "instanceType": "Organization"
           }
         ],
         "studyInterventions": [
@@ -19923,7 +20017,7 @@
     ],
     "instanceType": "Study"
   },
-  "usdmVersion": "4.0.0",
+  "usdmVersion": "4.0",
   "auditTrail": {
     "entryDateTime": "2024-01-03T11:57:48.066559Z",
     "usdmVersion": "4.0",

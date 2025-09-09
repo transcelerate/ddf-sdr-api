@@ -561,11 +561,12 @@ namespace TransCelerate.SDR.Services.Services
                     {
                         var searchResponseV5 = searchResponse.FirstOrDefault(x => x.StudyId == searchResponseDto.Study.StudyId && x.SDRUploadVersion == searchResponseDto.AuditTrail.SDRUploadVersion);
                         var studyTitleV5 = searchResponseV5.StudyTitle != null ? JsonConvert.DeserializeObject<List<CommonStudyTitle>>(JsonConvert.SerializeObject(searchResponseV5.StudyTitle)) : null;
+                        
                         searchResponseDto.Study.StudyTitle = studyTitleV5 != null && studyTitleV5.Any(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle) ? studyTitleV5.Find(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle).Text : null;
                         searchResponseDto.Study.StudyIdentifiers = _mapper.Map<List<CommonStudyIdentifiersDto>>(searchResponseV5.StudyIdentifiers);
                         searchResponseDto.Study.StudyIdentifiers?.ForEach(x =>
                         {
-                            var scope = searchResponseV5.StudyIdentifiers.Find(y => y.Id == x.Id).Scope;
+                            var scope = GetScopeFromSearchResponseV5(searchResponseV5, x.Id);
                             x.StudyIdentifierScope.OrganisationIdentifierScheme = scope.IdentifierScheme;
                             x.StudyIdentifierScope.OrganisationIdentifier = scope.Identifier;
                             x.StudyIdentifierScope.OrganisationName = scope.Name;
@@ -585,6 +586,21 @@ namespace TransCelerate.SDR.Services.Services
             }
             else
                 return null;
+        }
+
+        private static TransCelerate.SDR.Core.Entities.StudyV5.OrganizationEntity GetScopeFromSearchResponseV5(
+            Core.Entities.StudyV5.SearchResponseEntity searchResponseV5, 
+            string studyIdentifierId)
+        {
+            if (searchResponseV5?.StudyIdentifiers == null || searchResponseV5?.Organizations == null)
+                return null;
+
+            var organizationLookup = searchResponseV5.Organizations.ToDictionary(org => org.Id, org => org);
+            var studyIdentifier = searchResponseV5.StudyIdentifiers.Find(y => y.Id == studyIdentifierId);
+            
+            return studyIdentifier != null && organizationLookup.ContainsKey(studyIdentifier.ScopeId) 
+                ? organizationLookup[studyIdentifier.ScopeId] 
+                : null;
         }
         #endregion
     }
