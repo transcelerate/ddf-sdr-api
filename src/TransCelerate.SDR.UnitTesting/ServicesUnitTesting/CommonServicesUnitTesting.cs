@@ -79,20 +79,22 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
                 var v3 = JsonConvert.DeserializeObject<CommonStudyDefinitionsEntity>(jsonData);
                 return v3;
             }
-            else if (usdmVersion == Constants.USDMVersions.V3)
+            else
             {
                 string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV4.json");                
                 var v4 = JsonConvert.DeserializeObject<CommonStudyDefinitionsEntity>(jsonData);
                 return v4;
             }
-            else
-            {
-                string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV5.json");
-                jsonData = jsonData.Replace($"{IdFieldPropertyName.ParentElement.ClinicalStudy.ChangeToCamelCase()}", $"{nameof(CommonStudyDefinitionsEntity.Study).ChangeToCamelCase()}");
-                var v5 = JsonConvert.DeserializeObject<CommonStudyDefinitionsEntity>(jsonData);
-                return v5;
-            }
         }
+
+        public static CommonStudyDefinitionsEntityV5 GetDataV5()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV5.json");
+            jsonData = jsonData.Replace($"{IdFieldPropertyName.ParentElement.ClinicalStudy.ChangeToCamelCase()}", $"{nameof(CommonStudyDefinitionsEntity.Study).ChangeToCamelCase()}");
+            var v5 = JsonConvert.DeserializeObject<CommonStudyDefinitionsEntityV5>(jsonData);
+            return v5;
+        }
+
         [SetUp]
         public void SetUp()
         {
@@ -179,7 +181,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         {
             CommonStudyDefinitionsEntity v3 = GetData(Constants.USDMVersions.V2);
             CommonStudyDefinitionsEntity v4 = GetData(Constants.USDMVersions.V3);
-            CommonStudyDefinitionsEntity v5 = GetData(Constants.USDMVersions.V4);
+            CommonStudyDefinitionsEntityV5 v5 = GetDataV5();
             List<AuditTrailResponseEntity> auditTrailResponseEntities = new()
             {
                 new AuditTrailResponseEntity
@@ -250,7 +252,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         {
             CommonStudyDefinitionsEntity v3 = GetData(Constants.USDMVersions.V2);
             CommonStudyDefinitionsEntity v4 = GetData(Constants.USDMVersions.V3);
-            CommonStudyDefinitionsEntity v5 = GetData(Constants.USDMVersions.V4);
+            CommonStudyDefinitionsEntityV5 v5 = GetDataV5();
             List<StudyHistoryResponseEntity> studyHistories = new()
             {
                 new StudyHistoryResponseEntity
@@ -331,7 +333,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
         {
             CommonStudyDefinitionsEntity mvp = GetData(Constants.USDMVersions.MVP);
             CommonStudyDefinitionsEntity v1 = GetData(Constants.USDMVersions.V3);
-            CommonStudyDefinitionsEntity v2 = GetData(Constants.USDMVersions.V4);
+            CommonStudyDefinitionsEntityV5 v2 = GetDataV5();
             List<SearchTitleResponseEntity> studyList = new()
             {
                 new SearchTitleResponseEntity
@@ -438,7 +440,7 @@ namespace TransCelerate.SDR.UnitTesting.ServicesUnitTesting
             var regex = new Regex(Regex.Escape(nameof(CommonStudyDefinitionsEntity.Study)));                        
             var v3 = JsonConvert.DeserializeObject<TransCelerate.SDR.Core.Entities.StudyV3.StudyDefinitionsEntity>(JsonConvert.SerializeObject(GetData(Constants.USDMVersions.V2)));            
             var v4 = JsonConvert.DeserializeObject<TransCelerate.SDR.Core.Entities.StudyV4.StudyDefinitionsEntity>(JsonConvert.SerializeObject(GetData(Constants.USDMVersions.V3)));
-            var v5 = JsonConvert.DeserializeObject<TransCelerate.SDR.Core.Entities.StudyV5.StudyDefinitionsEntity>(JsonConvert.SerializeObject(GetData(Constants.USDMVersions.V4)));
+            var v5 = JsonConvert.DeserializeObject<TransCelerate.SDR.Core.Entities.StudyV5.StudyDefinitionsEntity>(JsonConvert.SerializeObject(GetDataV5()));
             v3.AuditTrail.UsdmVersion = Constants.USDMVersions.V2;
             v4.AuditTrail.UsdmVersion = Constants.USDMVersions.V3;
             v5.AuditTrail.UsdmVersion = Constants.USDMVersions.V4;

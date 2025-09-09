@@ -42,13 +42,6 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 var v4 = JsonConvert.DeserializeObject<CommonStudyDefinitionsEntity>(jsonData);
                 return v4;
             }
-            else if (usdmVersion == Constants.USDMVersions.V4)
-            {
-                string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV5.json");
-                jsonData = jsonData.Replace($"{IdFieldPropertyName.ParentElement.ClinicalStudy.ChangeToCamelCase()}", $"{nameof(CommonStudyDefinitionsEntity.Study).ChangeToCamelCase()}");
-                var v5 = JsonConvert.DeserializeObject<CommonStudyDefinitionsEntity>(jsonData);
-                return v5;
-            }
             else
             {
                 string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV3.json");
@@ -56,6 +49,15 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 return v3;
             }
         }
+
+        public static CommonStudyDefinitionsEntityV5 GetDataV5()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV5.json");
+            jsonData = jsonData.Replace($"{IdFieldPropertyName.ParentElement.ClinicalStudy.ChangeToCamelCase()}", $"{nameof(CommonStudyDefinitionsEntity.Study).ChangeToCamelCase()}");
+            var v5 = JsonConvert.DeserializeObject<CommonStudyDefinitionsEntityV5>(jsonData);
+            return v5;
+        }
+
         [SetUp]
         public void Setup()
         {
@@ -361,7 +363,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         {
             CommonStudyDefinitionsEntity mvp = GetData(Constants.USDMVersions.V2);
             CommonStudyDefinitionsEntity v1 = GetData(Constants.USDMVersions.V3);
-            CommonStudyDefinitionsEntity v2 = GetData(Constants.USDMVersions.V4);
+            CommonStudyDefinitionsEntityV5 v2 = GetDataV5();
             List<SearchTitleResponseEntity> studyList = new()
             {
                 new SearchTitleResponseEntity
@@ -585,7 +587,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         public void SearchStudySuccessUnitTesting()
         {            
             CommonStudyDefinitionsEntity v1 = GetData(Constants.USDMVersions.V3);
-            CommonStudyDefinitionsEntity v2 = GetData(Constants.USDMVersions.V4);
+            CommonStudyDefinitionsEntityV5 v2 = GetDataV5();
             CommonStudyDefinitionsEntity v3 = GetData(Constants.USDMVersions.V2);
             List<SearchResponseEntity> studyList = new()
             {
