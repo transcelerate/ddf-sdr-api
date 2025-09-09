@@ -3,8 +3,13 @@
 
 ## Contents
 
+- [ChangeAuditRepository](#T-TransCelerate-SDR-DataAccess-Repositories-ChangeAuditRepository 'TransCelerate.SDR.DataAccess.Repositories.ChangeAuditRepository')
+  - [GetStudyItemsAsyncV3(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Repositories-ChangeAuditRepository-GetStudyItemsAsyncV3-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Repositories.ChangeAuditRepository.GetStudyItemsAsyncV3(System.String,System.Int32)')
+  - [GetStudyItemsAsyncV4(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Repositories-ChangeAuditRepository-GetStudyItemsAsyncV4-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Repositories.ChangeAuditRepository.GetStudyItemsAsyncV4(System.String,System.Int32)')
+  - [GetStudyItemsAsyncV5(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Repositories-ChangeAuditRepository-GetStudyItemsAsyncV5-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Repositories.ChangeAuditRepository.GetStudyItemsAsyncV5(System.String,System.Int32)')
 - [CommonRepository](#T-TransCelerate-SDR-DataAccess-Repositories-CommonRepository 'TransCelerate.SDR.DataAccess.Repositories.CommonRepository')
   - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-GetAuditTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.DataAccess.Repositories.CommonRepository.GetAuditTrail(System.String,System.DateTime,System.DateTime)')
+  - [GetAuditTrailsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-GetAuditTrailsAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Repositories.CommonRepository.GetAuditTrailsAsync(System.String,System.Int32)')
   - [GetStudyHistory(fromDate,toDate,studyTitle)](#M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-GetStudyHistory-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.DataAccess.Repositories.CommonRepository.GetStudyHistory(System.DateTime,System.DateTime,System.String)')
   - [GetStudyItemsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-GetStudyItemsAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Repositories.CommonRepository.GetStudyItemsAsync(System.String,System.Int32)')
   - [GetUsdmVersion(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-GetUsdmVersion-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Repositories.CommonRepository.GetUsdmVersion(System.String,System.Int32)')
@@ -14,6 +19,7 @@
   - [SearchStudyV5(searchParameters)](#M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-SearchStudyV5-TransCelerate-SDR-Core-Entities-Common-SearchParametersEntity- 'TransCelerate.SDR.DataAccess.Repositories.CommonRepository.SearchStudyV5(TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity)')
   - [SearchTitle(searchParameters)](#M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-SearchTitle-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity- 'TransCelerate.SDR.DataAccess.Repositories.CommonRepository.SearchTitle(TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity)')
 - [DataFilterCommon](#T-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon')
+  - [GetFiltersForChangeAudit(studyId)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForChangeAudit-System-String- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetFiltersForChangeAudit(System.String)')
   - [GetFiltersForGetAudTrail(studyId,fromDate,toDate)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForGetAudTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetFiltersForGetAudTrail(System.String,System.DateTime,System.DateTime)')
   - [GetFiltersForGetStudy(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForGetStudy-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetFiltersForGetStudy(System.String,System.Int32)')
   - [GetFiltersForSearchTitle(searchParameters)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForSearchTitle-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetFiltersForSearchTitle(TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity)')
@@ -44,6 +50,7 @@
   - [GetProjectionForPartialStudyElements(listofelementsArray)](#M-TransCelerate-SDR-DataAccess-Filters-DataFiltersV5-GetProjectionForPartialStudyElements-System-String[]- 'TransCelerate.SDR.DataAccess.Filters.DataFiltersV5.GetProjectionForPartialStudyElements(System.String[])')
 - [ICommonRepository](#T-TransCelerate-SDR-DataAccess-Interfaces-ICommonRepository 'TransCelerate.SDR.DataAccess.Interfaces.ICommonRepository')
   - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-DataAccess-Interfaces-ICommonRepository-GetAuditTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.DataAccess.Interfaces.ICommonRepository.GetAuditTrail(System.String,System.DateTime,System.DateTime)')
+  - [GetAuditTrailsAsync(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Interfaces-ICommonRepository-GetAuditTrailsAsync-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Interfaces.ICommonRepository.GetAuditTrailsAsync(System.String,System.Int32)')
   - [GetStudyHistory(fromDate,toDate,studyTitle)](#M-TransCelerate-SDR-DataAccess-Interfaces-ICommonRepository-GetStudyHistory-System-DateTime,System-DateTime,System-String- 'TransCelerate.SDR.DataAccess.Interfaces.ICommonRepository.GetStudyHistory(System.DateTime,System.DateTime,System.String)')
   - [GetUsdmVersion(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Interfaces-ICommonRepository-GetUsdmVersion-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Interfaces.ICommonRepository.GetUsdmVersion(System.String,System.Int32)')
   - [SearchStudy(searchParameters)](#M-TransCelerate-SDR-DataAccess-Interfaces-ICommonRepository-SearchStudy-TransCelerate-SDR-Core-Entities-Common-SearchParametersEntity- 'TransCelerate.SDR.DataAccess.Interfaces.ICommonRepository.SearchStudy(TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity)')
@@ -103,6 +110,70 @@
   - [PostStudyItemsAsync(study)](#M-TransCelerate-SDR-DataAccess-Repositories-StudyRepositoryV5-PostStudyItemsAsync-TransCelerate-SDR-Core-Entities-StudyV5-StudyDefinitionsEntity- 'TransCelerate.SDR.DataAccess.Repositories.StudyRepositoryV5.PostStudyItemsAsync(TransCelerate.SDR.Core.Entities.StudyV5.StudyDefinitionsEntity)')
   - [UpdateStudyItemsAsync(study)](#M-TransCelerate-SDR-DataAccess-Repositories-StudyRepositoryV5-UpdateStudyItemsAsync-TransCelerate-SDR-Core-Entities-StudyV5-StudyDefinitionsEntity- 'TransCelerate.SDR.DataAccess.Repositories.StudyRepositoryV5.UpdateStudyItemsAsync(TransCelerate.SDR.Core.Entities.StudyV5.StudyDefinitionsEntity)')
 
+<a name='T-TransCelerate-SDR-DataAccess-Repositories-ChangeAuditRepository'></a>
+## ChangeAuditRepository `type`
+
+##### Namespace
+
+TransCelerate.SDR.DataAccess.Repositories
+
+<a name='M-TransCelerate-SDR-DataAccess-Repositories-ChangeAuditRepository-GetStudyItemsAsyncV3-System-String,System-Int32-'></a>
+### GetStudyItemsAsyncV3(studyId,sdruploadversion) `method`
+
+##### Summary
+
+Get Current and previous version of study for study Id for V3 API Version
+
+##### Returns
+
+A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') with matching studyId
+`null` If no study is matching with studyId
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study UUID |
+| sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | current version |
+
+<a name='M-TransCelerate-SDR-DataAccess-Repositories-ChangeAuditRepository-GetStudyItemsAsyncV4-System-String,System-Int32-'></a>
+### GetStudyItemsAsyncV4(studyId,sdruploadversion) `method`
+
+##### Summary
+
+Get Current and previous version of study for study Id for V4 API Version
+
+##### Returns
+
+A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') with matching studyId
+`null` If no study is matching with studyId
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study UUID |
+| sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | current version |
+
+<a name='M-TransCelerate-SDR-DataAccess-Repositories-ChangeAuditRepository-GetStudyItemsAsyncV5-System-String,System-Int32-'></a>
+### GetStudyItemsAsyncV5(studyId,sdruploadversion) `method`
+
+##### Summary
+
+Get Current and previous version of study for study Id for V5 API Version
+
+##### Returns
+
+A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') with matching studyId
+`null` If no study is matching with studyId
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study UUID |
+| sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | current version |
+
 <a name='T-TransCelerate-SDR-DataAccess-Repositories-CommonRepository'></a>
 ## CommonRepository `type`
 
@@ -128,6 +199,24 @@ A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US
 | fromDate | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Start Date for Date Filter |
 | toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | End Date for Date Filter |
 | studyId | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | Study ID |
+
+<a name='M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-GetAuditTrailsAsync-System-String,System-Int32-'></a>
+### GetAuditTrailsAsync(studyId,sdruploadversion) `method`
+
+##### Summary
+
+Get a list of study for a given study ID
+
+##### Returns
+
+A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') with matching studyId `null` If no study is matching with studyId
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
+| sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of Study |
 
 <a name='M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-GetStudyHistory-System-DateTime,System-DateTime,System-String-'></a>
 ### GetStudyHistory(fromDate,toDate,studyTitle) `method`
@@ -275,6 +364,23 @@ A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US
 ##### Namespace
 
 TransCelerate.SDR.DataAccess.Filters
+
+<a name='M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForChangeAudit-System-String-'></a>
+### GetFiltersForChangeAudit(studyId) `method`
+
+##### Summary
+
+Get filters for ChangeAudit
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
 <a name='M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForGetAudTrail-System-String,System-DateTime,System-DateTime-'></a>
 ### GetFiltersForGetAudTrail(studyId,fromDate,toDate) `method`
@@ -772,6 +878,24 @@ A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US
 | fromDate | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Start Date for Date Filter |
 | toDate | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | End Date for Date Filter |
 | studyId | [System.DateTime](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.DateTime 'System.DateTime') | Study ID |
+
+<a name='M-TransCelerate-SDR-DataAccess-Interfaces-ICommonRepository-GetAuditTrailsAsync-System-String,System-Int32-'></a>
+### GetAuditTrailsAsync(studyId,sdruploadversion) `method`
+
+##### Summary
+
+Get a list of study for a given study ID
+
+##### Returns
+
+A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List`1 'System.Collections.Generic.List`1') with matching studyId `null` If no study is matching with studyId
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
+| sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of Study |
 
 <a name='M-TransCelerate-SDR-DataAccess-Interfaces-ICommonRepository-GetStudyHistory-System-DateTime,System-DateTime,System-String-'></a>
 ### GetStudyHistory(fromDate,toDate,studyTitle) `method`

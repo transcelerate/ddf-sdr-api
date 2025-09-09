@@ -3,6 +3,8 @@
 
 ## Contents
 
+- [ChangeAuditService](#T-TransCelerate-SDR-Services-Services-ChangeAuditService 'TransCelerate.SDR.Services.Services.ChangeAuditService')
+  - [FormatChangeAuditElements(elements)](#M-TransCelerate-SDR-Services-Services-ChangeAuditService-FormatChangeAuditElements-System-Collections-Generic-List{System-String}- 'TransCelerate.SDR.Services.Services.ChangeAuditService.FormatChangeAuditElements(System.Collections.Generic.List{System.String})')
 - [CommonServices](#T-TransCelerate-SDR-Services-Services-CommonServices 'TransCelerate.SDR.Services.Services.CommonServices')
   - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-Services-Services-CommonServices-GetAuditTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.Services.Services.CommonServices.GetAuditTrail(System.String,System.DateTime,System.DateTime)')
   - [GetLinks(studyId,sdruploadversion)](#M-TransCelerate-SDR-Services-Services-CommonServices-GetLinks-System-String,System-Int32- 'TransCelerate.SDR.Services.Services.CommonServices.GetLinks(System.String,System.Int32)')
@@ -12,6 +14,7 @@
   - [SearchTitle(searchParametersDTO)](#M-TransCelerate-SDR-Services-Services-CommonServices-SearchTitle-TransCelerate-SDR-Core-DTO-Common-SearchTitleParametersDto- 'TransCelerate.SDR.Services.Services.CommonServices.SearchTitle(TransCelerate.SDR.Core.DTO.Common.SearchTitleParametersDto)')
 - [IChangeAuditService](#T-TransCelerate-SDR-Services-Interfaces-IChangeAuditService 'TransCelerate.SDR.Services.Interfaces.IChangeAuditService')
   - [GetChangeAudit(studyId)](#M-TransCelerate-SDR-Services-Interfaces-IChangeAuditService-GetChangeAudit-System-String- 'TransCelerate.SDR.Services.Interfaces.IChangeAuditService.GetChangeAudit(System.String)')
+  - [ProcessChangeAudit(studyId,currentVersion)](#M-TransCelerate-SDR-Services-Interfaces-IChangeAuditService-ProcessChangeAudit-System-String,System-Int32- 'TransCelerate.SDR.Services.Interfaces.IChangeAuditService.ProcessChangeAudit(System.String,System.Int32)')
 - [ICommonService](#T-TransCelerate-SDR-Services-Interfaces-ICommonService 'TransCelerate.SDR.Services.Interfaces.ICommonService')
   - [GetAuditTrail(fromDate,toDate,studyId)](#M-TransCelerate-SDR-Services-Interfaces-ICommonService-GetAuditTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.Services.Interfaces.ICommonService.GetAuditTrail(System.String,System.DateTime,System.DateTime)')
   - [GetLinks(studyId,sdruploadversion)](#M-TransCelerate-SDR-Services-Interfaces-ICommonService-GetLinks-System-String,System-Int32- 'TransCelerate.SDR.Services.Interfaces.ICommonService.GetLinks(System.String,System.Int32)')
@@ -79,6 +82,30 @@
   - [GetStudyDesigns(studyId,studyDesignId,sdruploadversion,listofelements)](#M-TransCelerate-SDR-Services-Services-StudyServiceV5-GetStudyDesigns-System-String,System-String,System-Int32,System-String[]- 'TransCelerate.SDR.Services.Services.StudyServiceV5.GetStudyDesigns(System.String,System.String,System.Int32,System.String[])')
   - [GeteCPTV5(studyId,sdruploadversion,studyDesignId)](#M-TransCelerate-SDR-Services-Services-StudyServiceV5-GeteCPTV5-System-String,System-Int32,System-String- 'TransCelerate.SDR.Services.Services.StudyServiceV5.GeteCPTV5(System.String,System.Int32,System.String)')
   - [PostAllElements(studyDTO,method)](#M-TransCelerate-SDR-Services-Services-StudyServiceV5-PostAllElements-TransCelerate-SDR-Core-DTO-StudyV5-StudyDefinitionsDto,System-String- 'TransCelerate.SDR.Services.Services.StudyServiceV5.PostAllElements(TransCelerate.SDR.Core.DTO.StudyV5.StudyDefinitionsDto,System.String)')
+
+<a name='T-TransCelerate-SDR-Services-Services-ChangeAuditService'></a>
+## ChangeAuditService `type`
+
+##### Namespace
+
+TransCelerate.SDR.Services.Services
+
+<a name='M-TransCelerate-SDR-Services-Services-ChangeAuditService-FormatChangeAuditElements-System-Collections-Generic-List{System-String}-'></a>
+### FormatChangeAuditElements(elements) `method`
+
+##### Summary
+
+Format the changes to store in database
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| elements | [System.Collections.Generic.List{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{System.String}') | List of changes |
 
 <a name='T-TransCelerate-SDR-Services-Services-CommonServices'></a>
 ## CommonServices `type`
@@ -218,6 +245,24 @@ Get Change Audit for a StudyId
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+<a name='M-TransCelerate-SDR-Services-Interfaces-IChangeAuditService-ProcessChangeAudit-System-String,System-Int32-'></a>
+### ProcessChangeAudit(studyId,currentVersion) `method`
+
+##### Summary
+
+Process Change Audit for a study given study ID
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Study ID |
+| currentVersion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Version of Study |
 
 <a name='T-TransCelerate-SDR-Services-Interfaces-ICommonService'></a>
 ## ICommonService `type`
