@@ -93,12 +93,12 @@ jobs:
           CdiscRulesEngine_LATEST_RELEASE_URL=${{ vars.CdiscRulesEngine_LATEST_RELEASE_URL }}
           CdiscRulesEngine_LATEST_RELEASE_ZIP=${{ vars.CdiscRulesEngine_LATEST_RELEASE_ZIP }}
           CdiscRulesEngineRelativeBinary=${{ vars.CdiscRulesEngineRelativeBinary }}
-        tags: ghcr.io/transcelerate/sdr-api:latest
+        tags: ghcr.io/transcelerate/ddf-sdr-api:latest
         
     - name: Deploy to Azure WebApp
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
-        images: 'ghcr.io/transcelerate/sdr-api:latest'     
+        images: 'ghcr.io/transcelerate/ddf-sdr-api:latest'     
 
     
