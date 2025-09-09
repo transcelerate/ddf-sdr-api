@@ -48,14 +48,11 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyRoleValidator), nameof(StudyRoleDto.Description)), ApplyConditionTo.AllValidators);
 
-            RuleFor(x => x.Organizations)
+            RuleFor(x => x.OrganizationIds)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyRoleValidator), nameof(StudyRoleDto.Organizations)), ApplyConditionTo.AllValidators);
-
-            RuleForEach(x => x.Organizations)
-                .SetValidator(new OrganizationValidator(_httpContextAccessor));
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyRoleValidator), nameof(StudyRoleDto.OrganizationIds)), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.Code)
                 .Cascade(CascadeMode.Stop)
