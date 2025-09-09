@@ -49,7 +49,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// </returns>
         public async Task<StudyDefinitionsEntity> GetStudyItemsAsync(string studyId, int sdruploadversion)
         {
-            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(GetStudyItemsAsync)};");
+            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV3)}; Method : {nameof(GetStudyItemsAsync)};");
             try
             {
                 IMongoCollection<StudyDefinitionsEntity> collection = _database.GetCollection<StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
@@ -76,7 +76,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(GetStudyItemsAsync)};");
+                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV3)}; Method : {nameof(GetStudyItemsAsync)};");
             }
         }
 
@@ -92,7 +92,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// </returns>
         public async Task<StudyDefinitionsEntity> GetPartialStudyItemsAsync(string studyId, int sdruploadversion, string[] listofelementsArray)
         {
-            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(GetPartialStudyItemsAsync)};");
+            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV3)}; Method : {nameof(GetPartialStudyItemsAsync)};");
             try
             {
                 IMongoCollection<StudyDefinitionsEntity> collection = _database.GetCollection<StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
@@ -120,7 +120,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(GetPartialStudyItemsAsync)};");
+                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV3)}; Method : {nameof(GetPartialStudyItemsAsync)};");
             }
         }
 
@@ -132,7 +132,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// <returns></returns>
         public async Task<StudyDefinitionsEntity> GetPartialStudyDesignItemsAsync(string studyId, int sdruploadversion)
         {
-            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(GetPartialStudyDesignItemsAsync)};");
+            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV3)}; Method : {nameof(GetPartialStudyDesignItemsAsync)};");
             try
             {
                 IMongoCollection<StudyDefinitionsEntity> collection = _database.GetCollection<StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
@@ -160,7 +160,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(GetPartialStudyDesignItemsAsync)};");
+                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV3)}; Method : {nameof(GetPartialStudyDesignItemsAsync)};");
             }
         }       
         #endregion
@@ -175,7 +175,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// </returns>
         public async Task<string> PostStudyItemsAsync(StudyDefinitionsEntity study)
         {
-            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(PostStudyItemsAsync)};");
+            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV3)}; Method : {nameof(PostStudyItemsAsync)};");
             try
             {
                 IMongoCollection<StudyDefinitionsEntity> collection = _database.GetCollection<StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
@@ -198,7 +198,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(PostStudyItemsAsync)};");
+                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV3)}; Method : {nameof(PostStudyItemsAsync)};");
             }
         }
         #endregion
@@ -214,7 +214,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// </returns>
         public async Task<string> UpdateStudyItemsAsync(StudyDefinitionsEntity study)
         {
-            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(UpdateStudyItemsAsync)};");
+            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV3)}; Method : {nameof(UpdateStudyItemsAsync)};");
             try
             {
                 IMongoCollection<StudyDefinitionsEntity> collection = _database.GetCollection<StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
@@ -234,7 +234,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(UpdateStudyItemsAsync)};");
+                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV3)}; Method : {nameof(UpdateStudyItemsAsync)};");
             }
         }
         #endregion
@@ -247,7 +247,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// <returns></returns>
         public async Task<DeleteResult> DeleteStudyAsync(string study_uuid)
         {
-            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(DeleteStudyAsync)};");
+            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV3)}; Method : {nameof(DeleteStudyAsync)};");
             try
             {
                 IMongoCollection<StudyDefinitionsEntity> collection = _database.GetCollection<StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
@@ -263,7 +263,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(DeleteStudyAsync)};");
+                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV3)}; Method : {nameof(DeleteStudyAsync)};");
             }
         }
         /// <summary>
@@ -273,7 +273,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// <returns></returns>
         public async Task<long> CountAsync(string study_uuid)
         {
-            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(CountAsync)};");
+            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV3)}; Method : {nameof(CountAsync)};");
             try
             {
                 IMongoCollection<StudyDefinitionsEntity> collection = _database.GetCollection<StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
@@ -288,7 +288,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(CountAsync)};");
+                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV3)}; Method : {nameof(CountAsync)};");
             }
         }
         #endregion
@@ -305,7 +305,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         /// </returns>
         public async Task<AuditTrailEntity> GetUsdmVersionAsync(string studyId, int sdruploadversion)
         {
-            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(GetUsdmVersionAsync)};");
+            _logger.LogInformation($"Started Repository : {nameof(StudyRepositoryV3)}; Method : {nameof(GetUsdmVersionAsync)};");
             try
             {
                 IMongoCollection<StudyDefinitionsEntity> collection = _database.GetCollection<StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
@@ -333,7 +333,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
             }
             finally
             {
-                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV2)}; Method : {nameof(GetUsdmVersionAsync)};");
+                _logger.LogInformation($"Ended Repository : {nameof(StudyRepositoryV3)}; Method : {nameof(GetUsdmVersionAsync)};");
             }
         }
         #endregion

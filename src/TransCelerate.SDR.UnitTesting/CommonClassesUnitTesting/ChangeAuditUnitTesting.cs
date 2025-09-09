@@ -71,8 +71,8 @@ namespace TransCelerate.SDR.UnitTesting.ChangeAudit
             var mockMapper = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new SharedAutoMapperProfiles());
-                cfg.AddProfile(new AutoMapperProfilesV2());
                 cfg.AddProfile(new AutoMapperProfilesV3());
+                cfg.AddProfile(new AutoMapperProfilesV4());
             });
             _mockMapper = new Mapper(mockMapper);
         }

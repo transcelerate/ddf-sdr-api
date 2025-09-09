@@ -21,15 +21,12 @@ namespace TransCelerate.SDR.WebApi.DependencyInjection
         public static IServiceCollection AddApplicationDependencies(this IServiceCollection services)
         {
             services.AddTransient<ILogHelper, LogHelper>();
-            //services.AddTransient<IHelperV2, HelperV2>();
             services.AddTransient<IHelperV3, HelperV3>();
             services.AddTransient<IHelperV4, HelperV4>();
             services.AddTransient<IHelperV5, HelperV5>();
-            //services.AddTransient<IStudyRepositoryV2, StudyRepositoryV2>();
             services.AddTransient<IStudyRepositoryV3, StudyRepositoryV3>();
             services.AddTransient<IStudyRepositoryV4, StudyRepositoryV4>();
             services.AddTransient<IStudyRepositoryV5, StudyRepositoryV5>();
-            //services.AddTransient<IStudyServiceV2, StudyServiceV2>();
             services.AddTransient<IStudyServiceV3, StudyServiceV3>();
             services.AddTransient<IStudyServiceV4, StudyServiceV4>();
             services.AddTransient<IStudyServiceV5, StudyServiceV5>();

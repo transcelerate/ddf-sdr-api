@@ -92,7 +92,6 @@ namespace TransCelerate.SDR.WebApi
             services.AddApplicationDependencies();
 
             //AutoMapper Profile                        
-            //services.AddAutoMapper(typeof(AutoMapperProfilesV2).Assembly);
             services.AddAutoMapper(typeof(AutoMapperProfilesV3).Assembly);
             services.AddAutoMapper(typeof(AutoMapperProfilesV4).Assembly);
             services.AddAutoMapper(typeof(AutoMapperProfilesV5).Assembly);
@@ -106,7 +105,6 @@ namespace TransCelerate.SDR.WebApi
 
             //API to use MVC with validation handling and JSON response
             services.AddMvc().AddNewtonsoftJson();
-            //services.AddValidationDependenciesV2();
             services.AddValidationDependenciesV3();
             services.AddValidationDependenciesV4();
 

@@ -42,20 +42,22 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 var v4 = JsonConvert.DeserializeObject<CommonStudyDefinitionsEntity>(jsonData);
                 return v4;
             }
-            else if (usdmVersion == Constants.USDMVersions.V1_9)
-            {
-                string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
-                jsonData = jsonData.Replace($"{IdFieldPropertyName.ParentElement.ClinicalStudy.ChangeToCamelCase()}", $"{nameof(CommonStudyDefinitionsEntity.Study).ChangeToCamelCase()}");
-                var v2 = JsonConvert.DeserializeObject<CommonStudyDefinitionsEntity>(jsonData);
-                return v2;
-            }
             else
             {
                 string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV3.json");
-                var v2 = JsonConvert.DeserializeObject<CommonStudyDefinitionsEntity>(jsonData);
-                return v2;
+                var v3 = JsonConvert.DeserializeObject<CommonStudyDefinitionsEntity>(jsonData);
+                return v3;
             }
         }
+
+        public static CommonStudyDefinitionsEntityV5 GetDataV5()
+        {
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV5.json");
+            jsonData = jsonData.Replace($"{IdFieldPropertyName.ParentElement.ClinicalStudy.ChangeToCamelCase()}", $"{nameof(CommonStudyDefinitionsEntity.Study).ChangeToCamelCase()}");
+            var v5 = JsonConvert.DeserializeObject<CommonStudyDefinitionsEntityV5>(jsonData);
+            return v5;
+        }
+
         [SetUp]
         public void Setup()
         {
@@ -73,7 +75,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         [Test]
         public void GetRawJsonUnitTesting()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV3.json");
             var data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
             _mockCommonService.Setup(x => x.GetRawJson(It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(Task.FromResult(data as object));
@@ -159,7 +161,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         [Test]
         public void GetAuditTrailSuccessUnitTesting()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV3.json");
             jsonData = jsonData.Replace($"{IdFieldPropertyName.ParentElement.ClinicalStudy.ChangeToCamelCase()}", $"{nameof(CommonStudyDefinitionsEntity.Study).ChangeToCamelCase()}");
             var data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
             AuditTrailResponseDto auditTrailResponseDto = new()
@@ -258,7 +260,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         [Test]
         public void GetStudyHistorySuccessUnitTesting()
         {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV3.json");
             var data = JsonConvert.DeserializeObject<StudyHistoryResponseEntity>(jsonData);
             List<StudyHistoryResponseDto> studyHistories = new()
             {
@@ -299,7 +301,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         public void GetStudyHistoryFailureUnitTesting()
         {
             Config.DateRange = "20";
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV2.json");
+            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV3.json");
             var data = JsonConvert.DeserializeObject<GetRawJsonEntity>(jsonData);
             List<StudyHistoryResponseDto> studyHistory = null;
             _mockCommonService.Setup(x => x.GetStudyHistory(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>()))
@@ -361,7 +363,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         {
             CommonStudyDefinitionsEntity mvp = GetData(Constants.USDMVersions.V2);
             CommonStudyDefinitionsEntity v1 = GetData(Constants.USDMVersions.V3);
-            CommonStudyDefinitionsEntity v2 = GetData(Constants.USDMVersions.V1_9);
+            CommonStudyDefinitionsEntityV5 v2 = GetDataV5();
             List<SearchTitleResponseEntity> studyList = new()
             {
                 new SearchTitleResponseEntity
@@ -585,7 +587,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         public void SearchStudySuccessUnitTesting()
         {            
             CommonStudyDefinitionsEntity v1 = GetData(Constants.USDMVersions.V3);
-            CommonStudyDefinitionsEntity v2 = GetData(Constants.USDMVersions.V1_9);
+            CommonStudyDefinitionsEntityV5 v2 = GetDataV5();
             CommonStudyDefinitionsEntity v3 = GetData(Constants.USDMVersions.V2);
             List<SearchResponseEntity> studyList = new()
             {

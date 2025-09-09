@@ -25,50 +25,6 @@
         #endregion
         #endregion
 
-        #region Study V1 Routes
-        #region GET Method Routes        
-        public const string StudyV1 = "v1/studydefinitions/{studyId}";
-
-        public const string StudyDesignV1 = "/v1/studydesigns";
-
-        public const string AuditTrailV1 = "v1/audittrail/{studyId}";
-
-        public const string StudyHistoryV1 = "/v1/studydefinitions/history";
-        #endregion
-
-        #region POST Method Routes
-        public const string PostElementsV1 = "/v1/studydefinitions";
-
-        public const string SearchElementsV1 = "v1/search";
-
-        public const string SearchTitleV1 = "v1/searchstudytitle";
-        #endregion
-        #endregion
-
-        #region Study V2 Routes
-        #region GET Method Routes        
-        public const string StudyV2 = "v2/studydefinitions/{studyId}";
-
-        public const string StudyDesignV2 = "v2/studydesigns";
-
-        public const string SoAV2 = "v2/studydefinitions/{studyId}/studydesigns/soa";
-
-        public const string AuditTrailV2 = "v2/audittrail/{studyId}";
-
-        public const string StudyHistoryV2 = "/v2/studydefinitions/history";
-
-        public const string GeteCPTV2 = "v2/studyDefinitions/{studyId}/studydesigns/eCPT";
-        #endregion
-
-        #region POST Method Routes
-        public const string PostElementsV2 = "/v2/studydefinitions";
-
-        public const string SearchElementsV2 = "v2/search";
-
-        public const string SearchTitleV2 = "v2/searchstudytitle";
-        #endregion
-        #endregion
-
         #region Study V3 Routes
         #region GET Method Routes
         public const string StudyV3 = "v3/studydefinitions/{studyId}";

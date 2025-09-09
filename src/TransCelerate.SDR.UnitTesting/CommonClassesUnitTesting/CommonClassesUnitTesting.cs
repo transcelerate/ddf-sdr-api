@@ -48,8 +48,8 @@ namespace TransCelerate.SDR.UnitTesting
         {
             var mockMapper = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new AutoMapperProfilesV2());
                 cfg.AddProfile(new AutoMapperProfilesV3());
+                cfg.AddProfile(new AutoMapperProfilesV4());
                 cfg.AddProfile(new SharedAutoMapperProfiles());
             });
             _mockMapper = new Mapper(mockMapper);
@@ -462,70 +462,70 @@ namespace TransCelerate.SDR.UnitTesting
             searchParameters.SortBy = "usdmversion";
             Assert.IsNotNull(DataFilterCommon.GetSorterForSearchStudyTitle(searchParameters));
 
-            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchV2(searchParametersEntity));
             Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchV3(searchParametersEntity));
             Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchV4(searchParametersEntity));
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchV5(searchParametersEntity));
 
             searchParameters.SortBy = "studytitle";
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, false));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, false));
             searchParameters.SortBy = "version";
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, false));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, false));
             searchParameters.SortBy = "lastmodifieddate";
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, false));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, false));
             searchParameters.SortBy = "usdmversion";
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, false));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, false));
 
             searchParameters.SortBy = "sponsorid";
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, false));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, false));
 
             searchParameters.SortBy = "indication";
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, false));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, false));
 
             searchParameters.SortBy = "interventionmodel";
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, false));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, false));
 
             searchParameters.SortBy = "phase";
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, false));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, false));
         }
 
         #endregion
