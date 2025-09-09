@@ -72,26 +72,45 @@ namespace TransCelerate.SDR.RuleEngine.Utilities.Common
             }
 
             var report = await _fileSystem.ReadAllTextAsync(_reportFile);
-            var reportJson = JObject.Parse(report);
 
-            if (reportJson.TryGetValue("Issue_Summary", out JToken token) && token is JArray issueSummaryArr)
+            if (HasFullyExecutableIssues(report))
             {
-                if (issueSummaryArr.Count > 0)
-                {
-                    // Validate found issues
-                    return new BinaryResult
-                        (
-                            0,
-                            report,
-                            Constants.ErrorMessages.ErrorMessageForCdiscRulesEngineIssuesFound
-                        );
-                }
+                // Validate found issues
+                return new BinaryResult
+                    (
+                        0,
+                        report,
+                        Constants.ErrorMessages.ErrorMessageForCdiscRulesEngineIssuesFound
+                    );
             }
 
             try { File.Delete(_tempInput); } catch { }
             try { File.Delete(_reportFile); } catch { }
 
             return new BinaryResult(0, report, string.Empty);
+        }
+
+        // Has Issue_Details "executability": "fully executable" = Error
+        private static bool HasFullyExecutableIssues(string report)
+        {
+            var reportJson = JObject.Parse(report);
+            if (reportJson.TryGetValue("Issue_Details", out JToken token) && token is JArray issueDetailsArr)
+            {
+                foreach (var issue in issueDetailsArr)
+                {
+                    JToken execToken = issue["executability"];
+                    // If executability property doesn't exist or is null, consider it fully executable
+                    // Otherwise, check if it contains "fully executable"
+                    bool isFullyExecutable = execToken == null || execToken.Type == JTokenType.Null || execToken.ToString().Contains("fully executable");
+
+                    if (isFullyExecutable)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
     }
 }
