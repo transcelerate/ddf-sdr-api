@@ -25,6 +25,19 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             return cptMappingValue;
         }
 
+        public static string CheckForMaxMin(List<string> ageOfSubjects, bool isMax)
+        {
+            if (ageOfSubjects.Count == 1)
+            {
+                return ageOfSubjects[0];
+            }
+            if (ageOfSubjects.Where(x => int.TryParse(x, out int number)).Count() != ageOfSubjects.Count)
+            {
+                return string.Empty;
+            }
+            return isMax ? ageOfSubjects.Where(x => int.TryParse(x, out int number)).Max(y => int.Parse(y)).ToString() : ageOfSubjects.Where(x => int.TryParse(x, out int number)).Min(y => int.Parse(y)).ToString();
+        }
+
         #region eCPT Helper V3
         public static string GetPlannedSexOfParticipantsV3(List<TransCelerate.SDR.Core.DTO.StudyV3.StudyDesignPopulationDto> studyDesignPopulations)
         {
