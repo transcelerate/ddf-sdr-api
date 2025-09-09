@@ -99,8 +99,6 @@ namespace TransCelerate.SDR.UnitTesting
 
             Assert.IsNotNull(DataFiltersV2.GetProjectionForCheckAccessForAStudy());
 
-            Assert.IsNotNull(DataFiltersV2.GetFiltersForChangeAudit("sd"));
-
             Assert.IsNotNull(DataFiltersV2.GetFiltersForGetAudTrail("sd", DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1)));
 
             Assert.IsNotNull(DataFiltersV2.GetFiltersForStudyHistory(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1), "sd"));

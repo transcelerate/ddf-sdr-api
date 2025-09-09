@@ -32,6 +32,17 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         Task<List<AuditTrailResponseEntity>> GetAuditTrail(string studyId, DateTime fromDate, DateTime toDate);
 
         /// <summary>
+        /// Get a list of study for a given study ID
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="sdruploadversion">Version of Study</param>
+        /// <returns>
+        /// A <see cref="List{AuditTrailEntity}"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        Task<List<AuditTrailEntity>> GetAuditTrailsAsync(string studyId, int sdruploadversion);
+
+        /// <summary>
         /// Search the collection based on search criteria
         /// </summary>
         /// <param name="searchParameters">Parameters to search in database</param>
@@ -62,10 +73,10 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
         Task<List<SearchResponseEntity>> SearchStudy(SearchParametersEntity searchParameters);
-                
+
         Task<List<Core.Entities.StudyV2.SearchResponseEntity>> SearchStudyV2(SearchParametersEntity searchParameters);
         Task<List<Core.Entities.StudyV3.SearchResponseEntity>> SearchStudyV3(SearchParametersEntity searchParameters);
         Task<List<Core.Entities.StudyV4.SearchResponseEntity>> SearchStudyV4(SearchParametersEntity searchParameters);
-		Task<List<Core.Entities.StudyV5.SearchResponseEntity>> SearchStudyV5(SearchParametersEntity searchParameters);
-	}
+        Task<List<Core.Entities.StudyV5.SearchResponseEntity>> SearchStudyV5(SearchParametersEntity searchParameters);
+    }
 }

@@ -146,6 +146,50 @@ namespace TransCelerate.SDR.DataAccess.Repositories
         }
 
         /// <summary>
+        /// Get a list of study for a given study ID
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="sdruploadversion">Version of Study</param>
+        /// <returns>
+        /// A <see cref="List{AuditTrailEntity}"/> with matching studyId <br></br> <br></br>
+        /// <see langword="null"/> If no study is matching with studyId
+        /// </returns>
+        public async Task<List<AuditTrailEntity>> GetAuditTrailsAsync(string studyId, int sdruploadversion)
+        {
+            _logger.LogInformation($"Started Repository : {nameof(CommonRepository)}; Method : {nameof(GetAuditTrailsAsync)};");
+            try
+            {
+                var collection = _database.GetCollection<CommonStudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
+
+                List<AuditTrailEntity> auditTrails = await collection.Find(
+                        x => (x.Study.StudyId == studyId || x.Study.Id == studyId)
+                        && (x.AuditTrail.SDRUploadVersion == sdruploadversion || x.AuditTrail.SDRUploadVersion == sdruploadversion - 1)
+                    ).SortByDescending(s => s.AuditTrail.EntryDateTime)
+                    .Limit(2)
+                    .Project(x => x.AuditTrail)
+                    .ToListAsync().ConfigureAwait(false);
+
+                if (auditTrails == null)
+                {
+                    _logger.LogWarning($"There are no studies with StudyId : {studyId} in {Constants.Collections.StudyDefinitions} Collection");
+                    return null;
+                }
+                else
+                {
+                    return auditTrails;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Repository : {nameof(CommonRepository)}; Method : {nameof(GetAuditTrailsAsync)};");
+            }
+        }
+
+        /// <summary>
         /// GET UsdmVersion
         /// </summary>
         /// <param name="studyId">Study ID</param>

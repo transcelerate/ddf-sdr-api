@@ -47,14 +47,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             return filter;
         }
-        public static FilterDefinition<Core.Entities.Common.ChangeAuditStudyEntity> GetFiltersForChangeAudit(string studyId)
-        {
-            FilterDefinitionBuilder<Core.Entities.Common.ChangeAuditStudyEntity> builder = Builders<Core.Entities.Common.ChangeAuditStudyEntity>.Filter;
-            FilterDefinition<Core.Entities.Common.ChangeAuditStudyEntity> filter = builder.Empty;
-            filter &= builder.Where(s => s.ChangeAudit.StudyId == studyId);
 
-            return filter;
-        }
         /// <summary>
         /// Get filters for StudyHistory API
         /// </summary>
