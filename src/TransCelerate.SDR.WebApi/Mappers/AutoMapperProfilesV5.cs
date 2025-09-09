@@ -210,10 +210,6 @@ namespace TransCelerate.SDR.WebApi.Mappers
                 .ForMember(dest => dest.InterventionDescription, opt => opt.MapFrom(src => src.Description))
                 .ReverseMap();
 
-            CreateMap<InterventionalStudyDesignDto, TransCelerate.SDR.Core.DTO.eCPT.SynopsisDto>()
-                .ForMember(dest => dest.InterventionModel, opt => opt.MapFrom(src => src.Model != null ? src.Model.Decode : null))
-                .ReverseMap();
-
             CreateMap<StudyIdentifierDto, TransCelerate.SDR.Core.DTO.eCPT.RegulatoryAgencyIdentifierNumberDto>()
                 .ForMember(dest => dest.RegulatoryAgencyNumber, opt => opt.MapFrom(src => src.Text))
                 .ForMember(dest => dest.RegulatoryAgencyId, opt => opt.MapFrom(src => src.ScopeId))
