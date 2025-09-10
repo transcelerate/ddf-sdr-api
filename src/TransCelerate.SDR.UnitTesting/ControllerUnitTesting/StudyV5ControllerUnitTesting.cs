@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using TransCelerate.SDR.Core.AppSettings;
 using TransCelerate.SDR.Core.DTO.StudyV5;
 using TransCelerate.SDR.Core.Entities.StudyV5;
 using TransCelerate.SDR.Core.ErrorModels;
@@ -28,7 +30,12 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         private readonly ILogHelper _mockLogger = Mock.Of<ILogHelper>();
         private readonly Mock<IHelperV5> _mockHelper = new(MockBehavior.Loose);
         private readonly Mock<IStudyServiceV5> _mockStudyService = new(MockBehavior.Loose);
+
+        private readonly Mock<IConfiguration> _mockConfig = new();
         private readonly Mock<IRulesEngineValidator> _mockRulesEngineValidator = new(MockBehavior.Loose);
+        private readonly Mock<IBinaryRunner> _mockBinaryRunner = new(MockBehavior.Loose);
+        private readonly Mock<IFileSystem> _mockFileSystem = new(MockBehavior.Loose);
+
         private string[] studyElements = Constants.StudyElementsV5;
         private string[] studyDesignElements = Constants.StudyDesignElementsV5;
         private IMapper _mockMapper;
@@ -161,7 +168,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual(404, (result as ObjectResult).StatusCode);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
 
-            mockReportContent = @"{""Issue_Summary"":{""dataset"":""Activity.json"",""message"":""The activity...""}}";
+            mockReportContent = @"{""Issue_Details"":[{""executability"":""fully executable""}]}";
             _mockRulesEngineValidator.Setup(x => x.ValidateAsync(It.IsAny<string>()))
                 .ReturnsAsync(new BinaryResult(0, mockReportContent, Constants.ErrorMessages.ErrorMessageForCdiscRulesEngineIssuesFound));
 
@@ -267,7 +274,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             Assert.AreEqual(404, (result as ObjectResult).StatusCode);
             Assert.IsInstanceOf(typeof(ObjectResult), result);
 
-            mockReportContent = @"{""Issue_Summary"":{""dataset"":""Activity.json"",""message"":""The activity...""}}";
+            mockReportContent = @"{""Issue_Details"":[{""executability"":""fully executable""}]}";
             _mockRulesEngineValidator.Setup(x => x.ValidateAsync(It.IsAny<string>()))
                 .ReturnsAsync(new BinaryResult(0, mockReportContent, Constants.ErrorMessages.ErrorMessageForCdiscRulesEngineIssuesFound));
 
@@ -982,7 +989,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             //// Validate found issues
             // Arrange
-            var mockReportContent = @"{""Issue_Summary"":{""dataset"":""Activity.json"",""message"":""The activity...""}}";
+            var mockReportContent = @"{""Issue_Details"":[{""executability"":""fully executable""}]}";
             _mockRulesEngineValidator.Setup(x => x.ValidateAsync(It.IsAny<string>()))
                 .ReturnsAsync(new BinaryResult(0, mockReportContent, Constants.ErrorMessages.ErrorMessageForCdiscRulesEngineIssuesFound));
 
@@ -1004,6 +1011,64 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
 
             resultJson = JsonConvert.SerializeObject(resultValue);
             Assert.AreEqual(mockReportContent, resultJson);
+        }
+        [Test]
+        public void RulesEngineValidatorUnitTesting()
+        {
+            // Arrange
+            _mockConfig.Setup(x => x.GetSection(It.IsAny<string>()).Value)
+                .Returns("true");
+            _mockConfig.Setup(x => x.GetSection("ApiVersionUsdmVersionMapping").Value)
+               .Returns(File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ApiUsdmVersionMapping.json"));
+            _mockConfig.Setup(x => x.GetSection("ConformanceRules").Value)
+               .Returns(File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ConformanceRules.json"));
+            var file = "{\"SdrCptMasterDataMapping\":[{\"entity\":\"InterventionModel\",\"mapping\":[{\"code\":\"C142568\",\"CDISC\":\"SEQUENTIAL\",\"CPT\":\"Sequential\"},{\"code\":\"C82637\",\"CDISC\":\"CROSS-OVER\",\"CPT\":\"Cross-OverGroup\"},{\"code\":\"C82638\",\"CDISC\":\"FACTORIAL\",\"CPT\":\"Factorial\"},{\"code\":\"C82639\",\"CDISC\":\"PARALLEL\",\"CPT\":\"ParallelGroup\"},{\"code\":\"C82640\",\"CDISC\":\"SINGLEGROUP\",\"CPT\":\"SingleGroup\"}]},{\"entity\":\"Study Phase\",\"mapping\":[{\"code\":\"C48660\",\"CDISC\":\"NOTAPPLICABLE\",\"CPT\":\"\"},{\"code\":\"C54721\",\"CDISC\":\"PHASE0TRIAL\",\"CPT\":\"EarlyPhase1\"},{\"code\":\"C15600\",\"CDISC\":\"PHASEITRIAL\",\"CPT\":\"Phase1\"},{\"code\":\"C15693\",\"CDISC\":\"PHASEI/IITRIAL\",\"CPT\":\"Phase1/Phase2\"},{\"code\":\"C15601\",\"CDISC\":\"PHASEIITRIAL\",\"CPT\":\"Phase2\"},{\"code\":\"C15694\",\"CDISC\":\"PHASEII/IIITRIAL\",\"CPT\":\"Phase2/Phase3\"},{\"code\":\"C49686\",\"CDISC\":\"PHASEIIATRIAL\",\"CPT\":\"Phase2\"},{\"code\":\"C49688\",\"CDISC\":\"PHASEIIBTRIAL\",\"CPT\":\"Phase2\"},{\"code\":\"C15602\",\"CDISC\":\"PHASEIIITRIAL\",\"CPT\":\"Phase3\"},{\"code\":\"C49687\",\"CDISC\":\"PHASEIIIATRIAL\",\"CPT\":\"Phase3\"},{\"code\":\"C49689\",\"CDISC\":\"PHASEIIIBTRIAL\",\"CPT\":\"Phase3\"},{\"code\":\"C15603\",\"CDISC\":\"PHASEIVTRIAL\",\"CPT\":\"Phase4\"},{\"code\":\"C47865\",\"CDISC\":\"PHASEVTRIAL\",\"CPT\":\"Phase5\"}]},{\"entity\":\"TrialIntentType\",\"mapping\":[{\"code\":\"C15714\",\"CDISC\":\"BASICSCIENCE\",\"CPT\":\"BasicScience\"},{\"code\":\"C49654\",\"CDISC\":\"CURE\",\"CPT\":\"\"},{\"code\":\"C139174\",\"CDISC\":\"DEVICEFEASIBILITY\",\"CPT\":\"DeviceFeasibility\"},{\"code\":\"C49653\",\"CDISC\":\"DIAGNOSIS\",\"CPT\":\"Diagnostic\"},{\"code\":\"C170629\",\"CDISC\":\"DISEASEMODIFYING\",\"CPT\":\"\"},{\"code\":\"C15245\",\"CDISC\":\"HEALTHSERVICESRESEARCH\",\"CPT\":\"HealthServicesResearch\"},{\"code\":\"C49655\",\"CDISC\":\"MITIGATION\",\"CPT\":\"\"},{\"code\":\"\",\"CDISC\":\"\",\"CPT\":\"Other\"},{\"code\":\"C49657\",\"CDISC\":\"PREVENTION\",\"CPT\":\"Prevention\"},{\"code\":\"C71485\",\"CDISC\":\"SCREENING\",\"CPT\":\"Screening\"},{\"code\":\"C71486\",\"CDISC\":\"SUPPORTIVECARE\",\"CPT\":\"SupportiveCare\"},{\"code\":\"C49656\",\"CDISC\":\"TREATMENT\",\"CPT\":\"Treatment\"}]},{\"entity\":\"Objective Level\",\"mapping\":[{\"code\":\"C85826\",\"CDISC\":\"StudyPrimaryObjective\",\"CPT\":\"\"},{\"code\":\"C85827\",\"CDISC\":\"StudySecondaryObjective\",\"CPT\":\"\"}]}]}";
+            _mockConfig.Setup(x => x.GetSection("SdrCptMasterDataMapping").Value)
+              .Returns(file);
+            StartupLib.SetConstants(_mockConfig.Object);
+
+            _mockFileSystem.Setup(x => x.WriteAllTextAsync(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(Task.CompletedTask);
+            _mockBinaryRunner.Setup(x => x.RunAsync(It.IsAny<string>(), It.IsAny<IEnumerable<string>>()))
+                .ReturnsAsync(new BinaryResult(0, "Validation complete", string.Empty));
+            _mockFileSystem.Setup(x => x.Exists(It.IsAny<string>()))
+                .Returns(true);
+
+            //// Validate found errors
+            var mockReportContent = @"{""Issue_Details"":[{""executability"":""fully executable""}]}";
+            _mockFileSystem.Setup(x => x.ReadAllTextAsync(It.IsAny<string>()))
+                .ReturnsAsync(mockReportContent);
+
+            // Act
+            RulesEngineValidator rulesEngine = new(_mockBinaryRunner.Object, _mockFileSystem.Object);
+
+            var study = GetDtoDataFromStaticJson();
+            var json = JsonConvert.SerializeObject(study);
+
+            var method = rulesEngine.ValidateAsync(json);
+            method.Wait();
+            var result = method.Result;
+
+            // Assert
+            Assert.IsInstanceOf<BinaryResult>(result);
+            Assert.AreEqual(Constants.ErrorMessages.ErrorMessageForCdiscRulesEngineIssuesFound, result.StdErr);
+
+            //// Validate found warnings
+            // Arrange
+            mockReportContent = @"{""Issue_Details"":[{""executability"":""partially executable - possible overreporting""}]}";
+            _mockFileSystem.Setup(x => x.ReadAllTextAsync(It.IsAny<string>()))
+                .ReturnsAsync(mockReportContent);
+
+            // Act
+            method = rulesEngine.ValidateAsync(json);
+            method.Wait();
+            result = method.Result;
+
+            // Assert
+            Assert.IsInstanceOf<BinaryResult>(result);
+            Assert.AreEqual(0, result.ExitCode);
+            Assert.AreEqual(mockReportContent, result.StdOut);
+            Assert.AreEqual(string.Empty, result.StdErr);
         }
         #endregion
 
