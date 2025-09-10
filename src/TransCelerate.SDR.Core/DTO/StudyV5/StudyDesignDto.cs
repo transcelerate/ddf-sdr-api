@@ -1,13 +1,14 @@
 using JsonSubTypes;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using TransCelerate.SDR.Core.Utilities;
 
 namespace TransCelerate.SDR.Core.DTO.StudyV5
 {
-    [JsonConverter(typeof(JsonSubtypes), "instanceType")]
-    [JsonSubtypes.KnownSubType(typeof(InterventionalStudyDesignDto), "InterventionalStudyDesign")]
-    [JsonSubtypes.KnownSubType(typeof(ObservationalStudyDesignDto), "ObservationalStudyDesign")]
-    public abstract class StudyDesignDto : IId
+    [JsonConverter(typeof(JsonSubtypes), nameof(InstanceType))]
+    [JsonSubtypes.KnownSubType(typeof(InterventionalStudyDesignDto), nameof(StudyDesignInstanceTypeV5.InterventionalStudyDesign))]
+    [JsonSubtypes.KnownSubType(typeof(ObservationalStudyDesignDto), nameof(StudyDesignInstanceTypeV5.ObservationalStudyDesign))]
+    public class StudyDesignDto : IId
     {
         public string Id { get; set; }
         public string Name { get; set; }

@@ -1,20 +1,20 @@
 ﻿using JsonSubTypes;
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
-using System.Collections.Generic;
+using TransCelerate.SDR.Core.Utilities;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV5
 {
-    [JsonConverter(typeof(JsonSubtypes), nameof(ScheduledInstanceEntity.InstanceType))]
-    [JsonSubtypes.KnownSubType(typeof(ScheduledActivityInstanceEntity), nameof(Utilities.ScheduledInstanceTypeV4.ScheduledActivityInstance))]
-    [JsonSubtypes.KnownSubType(typeof(ScheduledDecisionInstanceEntity), nameof(Utilities.ScheduledInstanceTypeV4.ScheduledDecisionInstance))]
+    [JsonConverter(typeof(JsonSubtypes), nameof(InstanceType))]
+    [JsonSubtypes.KnownSubType(typeof(ScheduledActivityInstanceEntity), nameof(ScheduledInstanceTypeV5.ScheduledActivityInstance))]
+    [JsonSubtypes.KnownSubType(typeof(ScheduledDecisionInstanceEntity), nameof(ScheduledInstanceTypeV5.ScheduledDecisionInstance))]
     [BsonIgnoreExtraElements]
     [BsonNoId]
-    [BsonDiscriminator(nameof(ScheduledInstanceEntity.InstanceType))]
+    [BsonDiscriminator(nameof(InstanceType))]
     [BsonKnownTypes(typeof(ScheduledActivityInstanceEntity))]
     [BsonKnownTypes(typeof(ScheduledDecisionInstanceEntity))]
     public class ScheduledInstanceEntity : IId
-    {        
+    {
         public string Id { get; set; }
         public string Name { get; set; }
         public string Label { get; set; }

@@ -1,14 +1,15 @@
 using JsonSubTypes;
 using Newtonsoft.Json;
+using TransCelerate.SDR.Core.Utilities;
 
 namespace TransCelerate.SDR.Core.DTO.StudyV5
 {
-    [JsonConverter(typeof(JsonSubtypes), "instanceType")]
-    [JsonSubtypes.KnownSubType(typeof(StudyIdentifierDto), "StudyIdentifier")]
-    [JsonSubtypes.KnownSubType(typeof(ReferenceIdentifierDto), "ReferenceIdentifier")]
-    [JsonSubtypes.KnownSubType(typeof(MedicalDeviceIdentifierDto), "MedicalDeviceIdentifier")]
-    [JsonSubtypes.KnownSubType(typeof(AdministrableProductIdentifierDto), "AdministrableProductIdentifier")]
-    public abstract class IdentifierDto : IId
+    [JsonConverter(typeof(JsonSubtypes), nameof(InstanceType))]
+    [JsonSubtypes.KnownSubType(typeof(StudyIdentifierDto), nameof(IdentifierInstanceTypeV5.StudyIdentifier))]
+    [JsonSubtypes.KnownSubType(typeof(ReferenceIdentifierDto), nameof(IdentifierInstanceTypeV5.ReferenceIdentifier))]
+    [JsonSubtypes.KnownSubType(typeof(MedicalDeviceIdentifierDto), nameof(IdentifierInstanceTypeV5.MedicalDeviceIdentifier))]
+    [JsonSubtypes.KnownSubType(typeof(AdministrableProductIdentifierDto), nameof(IdentifierInstanceTypeV5.AdministrableProductIdentifier))]
+    public class IdentifierDto : IId
     {
         public string Id { get; set; }
         public string Text { get; set; }
