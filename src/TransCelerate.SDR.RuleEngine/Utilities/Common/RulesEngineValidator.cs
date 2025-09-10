@@ -101,7 +101,9 @@ namespace TransCelerate.SDR.RuleEngine.Utilities.Common
                     JToken execToken = issue["executability"];
                     // If executability property doesn't exist or is null, consider it fully executable
                     // Otherwise, check if it contains "fully executable"
-                    bool isFullyExecutable = execToken == null || execToken.Type == JTokenType.Null || execToken.ToString().Contains("fully executable");
+                    bool isFullyExecutable = execToken == null
+                        || execToken.Type == JTokenType.Null
+                        || execToken.ToString().Contains("fully executable", StringComparison.OrdinalIgnoreCase);
 
                     if (isFullyExecutable)
                     {
