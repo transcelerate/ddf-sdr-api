@@ -2,7 +2,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
 {
     [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
     [MongoDB.Bson.Serialization.Attributes.BsonNoId]
-    public abstract class QuantityRangeEntity : IId
+    public class QuantityRangeEntity : IId
     {
         public string Id { get; set; }
         public string InstanceType { get; set; }

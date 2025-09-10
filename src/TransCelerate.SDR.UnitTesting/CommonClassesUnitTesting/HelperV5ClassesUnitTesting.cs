@@ -237,8 +237,8 @@ namespace TransCelerate.SDR.UnitTesting
                                 Id = "version-1",
                                 StudyDesigns = new List<StudyDesignDto>
                                 {
-                                    new StudyDesignDto { Id = "design-1" },
-                                    new StudyDesignDto { Id = "design-2" }
+                                    new InterventionalStudyDesignDto { Id = "design-1" },
+                                    new InterventionalStudyDesignDto { Id = "design-2" }
                                 }
                             },
                             new StudyVersionDto
@@ -246,7 +246,7 @@ namespace TransCelerate.SDR.UnitTesting
                                 Id = "version-2",
                                 StudyDesigns = new List<StudyDesignDto>
                                 {
-                                    new StudyDesignDto { Id = "design-3" }
+                                    new ObservationalStudyDesignDto { Id = "design-3" }
                                 }
                             }
                         }

@@ -46,13 +46,11 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<IndicationDto, IndicationEntity>().ReverseMap();
             CreateMap<IngredientDto, IngredientEntity>().ReverseMap();
             CreateMap<IntercurrentEventDto, IntercurrentEventEntity>().ReverseMap();
-            CreateMap<InterventionalStudyDesignDto, InterventionalStudyDesignEntity>().ReverseMap();
             CreateMap<MaskingDto, MaskingEntity>().ReverseMap();
             CreateMap<MedicalDeviceDto, MedicalDeviceEntity>().ReverseMap();
             CreateMap<MedicalDeviceIdentifierDto, MedicalDeviceIdentifierEntity>().ReverseMap();
             CreateMap<NarrativeContentDto, NarrativeContentEntity>().ReverseMap();
             CreateMap<ObjectiveDto, ObjectiveEntity>().ReverseMap();
-            CreateMap<ObservationalStudyDesignDto, ObservationalStudyDesignEntity>().ReverseMap();
             CreateMap<OrganizationDto, OrganizationEntity>().ReverseMap();
             CreateMap<ParameterMapDto, ParameterMapEntity>().ReverseMap();
             CreateMap<PersonNameDto, PersonNameEntity>().ReverseMap();
@@ -99,8 +97,18 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<StudyDefinitionsEntity, StudyDefinitionsDto>()
                 .ForMember(dest => dest.Links, opt => opt.Ignore())
                 .ReverseMap();
-
-            CreateMap<StudyDesignDto, StudyDesignEntity>().ReverseMap();
+            CreateMap<InterventionalStudyDesignDto, InterventionalStudyDesignEntity>().ReverseMap();
+            CreateMap<ObservationalStudyDesignDto, ObservationalStudyDesignEntity>().ReverseMap();
+            CreateMap<StudyDesignDto, StudyDesignEntity>()
+                .ConstructUsing((src, ctx) => src.InstanceType switch
+                {
+                    "InterventionalStudyDesign" => new InterventionalStudyDesignEntity(),
+                    "ObservationalStudyDesign" => new ObservationalStudyDesignEntity(),
+                    _ => throw new AutoMapperMappingException(Constants.ValidationErrorMessage.InstanceTypeError)
+                })
+                .Include<InterventionalStudyDesignDto, InterventionalStudyDesignEntity>()
+                .Include<ObservationalStudyDesignDto, ObservationalStudyDesignEntity>()
+                .ReverseMap();
             CreateMap<StudyDesignPopulationDto, StudyDesignPopulationEntity>()
             //.ForMember(dest => dest.CriterionIds, opt => opt.MapFrom(src => src.CriterionIds))
             .ReverseMap();
