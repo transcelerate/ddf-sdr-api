@@ -16,7 +16,6 @@ namespace TransCelerate.SDR.WebApi.Mappers
 
             CreateMap<ActivityDto, ActivityEntity>().ReverseMap();
             CreateMap<AddressDto, AddressEntity>().ReverseMap();
-            CreateMap<AdministrableProductIdentifierDto, AdministrableProductIdentifierEntity>().ReverseMap();
             CreateMap<AdministrableProductPropertyDto, AdministrableProductPropertyEntity>().ReverseMap();
             CreateMap<AdministrableProductDto, AdministrableProductEntity>().ReverseMap();
             CreateMap<AdministrationDto, AdministrationEntity>().ReverseMap();
@@ -42,13 +41,29 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<EstimandDto, EstimandEntity>().ReverseMap();
             CreateMap<GeographicScopeDto, GeographicScopeEntity>().ReverseMap();
             CreateMap<GovernanceDateDto, GovernanceDateEntity>().ReverseMap();
-            CreateMap<IdentifierDto, IdentifierEntity>().ReverseMap();
+            CreateMap<StudyIdentifierDto, StudyIdentifierEntity>().ReverseMap();
+            CreateMap<ReferenceIdentifierDto, ReferenceIdentifierEntity>().ReverseMap();
+            CreateMap<MedicalDeviceIdentifierDto, MedicalDeviceIdentifierEntity>().ReverseMap();
+            CreateMap<AdministrableProductIdentifierDto, AdministrableProductIdentifierEntity>().ReverseMap();
+            CreateMap<IdentifierDto, IdentifierEntity>()
+                .ConstructUsing((src, ctx) => src.InstanceType switch
+                {
+                    "StudyIdentifier" => new StudyIdentifierEntity(),
+                    "ReferenceIdentifier" => new ReferenceIdentifierEntity(),
+                    "MedicalDeviceIdentifier" => new MedicalDeviceIdentifierEntity(),
+                    "AdministrableProductIdentifier" => new AdministrableProductIdentifierEntity(),
+                    _ => throw new AutoMapperMappingException(Constants.ValidationErrorMessage.InstanceTypeError)
+                })
+                .Include<StudyIdentifierDto, StudyIdentifierEntity>()
+                .Include<ReferenceIdentifierDto, ReferenceIdentifierEntity>()
+                .Include<MedicalDeviceIdentifierDto, MedicalDeviceIdentifierEntity>()
+                .Include<AdministrableProductIdentifierDto, AdministrableProductIdentifierEntity>()
+                .ReverseMap();
             CreateMap<IndicationDto, IndicationEntity>().ReverseMap();
             CreateMap<IngredientDto, IngredientEntity>().ReverseMap();
             CreateMap<IntercurrentEventDto, IntercurrentEventEntity>().ReverseMap();
             CreateMap<MaskingDto, MaskingEntity>().ReverseMap();
             CreateMap<MedicalDeviceDto, MedicalDeviceEntity>().ReverseMap();
-            CreateMap<MedicalDeviceIdentifierDto, MedicalDeviceIdentifierEntity>().ReverseMap();
             CreateMap<NarrativeContentDto, NarrativeContentEntity>().ReverseMap();
             CreateMap<ObjectiveDto, ObjectiveEntity>().ReverseMap();
             CreateMap<OrganizationDto, OrganizationEntity>().ReverseMap();
@@ -74,7 +89,6 @@ namespace TransCelerate.SDR.WebApi.Mappers
                 .Include<QuantityDto, QuantityEntity>()
                 .Include<RangeDto, RangeEntity>()
                 .ReverseMap();
-            CreateMap<ReferenceIdentifierDto, ReferenceIdentifierEntity>().ReverseMap();
             CreateMap<ResponseCodeDto, ResponseCodeEntity>().ReverseMap();
             CreateMap<ScheduleTimelineDto, ScheduleTimelineEntity>().ReverseMap();
             CreateMap<ScheduleTimelineExitDto, ScheduleTimelineExitEntity>().ReverseMap();
@@ -164,7 +178,6 @@ namespace TransCelerate.SDR.WebApi.Mappers
             //      .ForMember(dest => dest.DocumentedBy, opt => opt.MapFrom(src => src.DocumentedBy ?? new StudyProtocolDocumentDto()))
             //.ReverseMap(); ---
             CreateMap<StudyEpochDto, StudyEpochEntity>().ReverseMap();
-            CreateMap<StudyIdentifierDto, StudyIdentifierEntity>().ReverseMap();
             CreateMap<StudyInterventionDto, StudyInterventionEntity>().ReverseMap();
             CreateMap<StudyDefinitionDocumentDto, StudyDefinitionDocumentEntity>().ReverseMap();
             CreateMap<StudyDefinitionDocumentVersionDto, StudyDefinitionDocumentVersionEntity>().ReverseMap();
