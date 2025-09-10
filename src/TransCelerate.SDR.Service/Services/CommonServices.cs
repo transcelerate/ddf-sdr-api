@@ -392,25 +392,29 @@ namespace TransCelerate.SDR.Services.Services
                             JsonConvert.SerializeObject(searchResponseEntity.StudyIdentifiersV4));
 
                         var commonStudyIdentifiers = new List<CommonStudyIdentifiersDto>();
-                        foreach (var studyIdentifier in studyIdentifiersV5)
+
+                        if (studyIdentifiersV5 != null)
                         {
-                            var scope = GetScopeFromSearchResponseV5(searchResponse, studyIdentifier.Id);
-
-                            var commonOrganization = new CommonOrganisationDto();
-                            commonOrganization.Id = scope.Id;
-                            commonOrganization.OrganisationIdentifier = scope.Identifier;
-                            commonOrganization.OrganisationIdentifierScheme = scope.IdentifierScheme;
-                            commonOrganization.OrganisationName = scope.Name;
-                            commonOrganization.OrganisationType = _mapper.Map<CommonCodeDto>(scope.Type);
-
-                            var commonStudyIdentifier = new CommonStudyIdentifiersDto
+                            foreach (var studyIdentifier in studyIdentifiersV5)
                             {
-                                Id = studyIdentifier.Id,
-                                StudyIdentifier = studyIdentifier.Text,
-                                StudyIdentifierScope = commonOrganization
-                            };
+                                var scope = GetScopeFromSearchResponseV5(searchResponse, studyIdentifier.Id);
 
-                            commonStudyIdentifiers.Add(commonStudyIdentifier);
+                                var commonOrganization = new CommonOrganisationDto();
+                                commonOrganization.Id = scope.Id;
+                                commonOrganization.OrganisationIdentifier = scope.Identifier;
+                                commonOrganization.OrganisationIdentifierScheme = scope.IdentifierScheme;
+                                commonOrganization.OrganisationName = scope.Name;
+                                commonOrganization.OrganisationType = _mapper.Map<CommonCodeDto>(scope.Type);
+
+                                var commonStudyIdentifier = new CommonStudyIdentifiersDto
+                                {
+                                    Id = studyIdentifier.Id,
+                                    StudyIdentifier = studyIdentifier.Text,
+                                    StudyIdentifierScope = commonOrganization
+                                };
+
+                                commonStudyIdentifiers.Add(commonStudyIdentifier);
+                            }
                         }
 
                         searchResponseDto.Study.StudyIdentifiers = commonStudyIdentifiers;
