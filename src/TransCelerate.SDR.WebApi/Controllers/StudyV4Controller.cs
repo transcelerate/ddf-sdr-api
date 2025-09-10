@@ -158,7 +158,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
         }
 
         /// <summary>
-        /// GET SoA For a Study USDM Version 2.0
+        /// GET SoA For a Study
         /// </summary>
         /// <param name="studyId">Study ID</param>
         /// <param name="studyDesignId">Study Design ID</param>
