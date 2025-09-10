@@ -40,7 +40,7 @@ namespace TransCelerate.SDR.RuleEngineV5
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyInterventionValidator), nameof(StudyInterventionDto.Label)), ApplyConditionTo.AllValidators);
-           
+
             RuleFor(x => x.Description)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
@@ -78,11 +78,21 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyInterventionValidator), nameof(StudyInterventionDto.MinimumResponseDuration)), ApplyConditionTo.AllValidators)
                 .SetValidator(new QuantityValidator(_httpContextAccessor));
 
-			RuleFor(x => x.Notes)
-			   .Cascade(CascadeMode.Stop)
-			   .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
-			   .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-			   .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyInterventionValidator), nameof(StudyInterventionDto.Notes)), ApplyConditionTo.AllValidators);
+            RuleFor(x => x.Notes)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyInterventionValidator), nameof(StudyInterventionDto.Notes)), ApplyConditionTo.AllValidators);
+
+            RuleFor(x => x.Administrations)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
+               .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
+               .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(StudyInterventionValidator), nameof(StudyInterventionDto.Administrations)), ApplyConditionTo.AllValidators)
+               .Must(x => UniquenessArrayValidator.ValidateArrayV5(x)).WithMessage(Constants.ValidationErrorMessage.UniquenessArrayError);
+
+            RuleForEach(x => x.Administrations)
+                .SetValidator(new AdministrationValidator(_httpContextAccessor));
         }
     }
 }

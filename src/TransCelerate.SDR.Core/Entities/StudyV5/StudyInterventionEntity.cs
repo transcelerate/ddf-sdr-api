@@ -14,6 +14,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public CodeEntity Type { get; set; }
         public QuantityEntity MinimumResponseDuration { get; set; }
         public string InstanceType { get; set; }
-		public List<CommentAnnotationEntity> Notes { get; set; }
-	}
+        public List<CommentAnnotationEntity> Notes { get; set; }
+        public List<AdministrationEntity> Administrations { get; set; }
+    }
 }

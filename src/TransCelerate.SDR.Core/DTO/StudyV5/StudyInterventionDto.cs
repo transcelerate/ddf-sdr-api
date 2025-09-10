@@ -14,5 +14,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public QuantityDto MinimumResponseDuration { get; set; }
         public string InstanceType { get; set; }
         public List<CommentAnnotationDto> Notes { get; set; }
+        public List<AdministrationDto> Administrations { get; set; }
     }
 }
