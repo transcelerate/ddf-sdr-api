@@ -19,11 +19,12 @@
   - [SearchStudyV5(searchParameters)](#M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-SearchStudyV5-TransCelerate-SDR-Core-Entities-Common-SearchParametersEntity- 'TransCelerate.SDR.DataAccess.Repositories.CommonRepository.SearchStudyV5(TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity)')
   - [SearchTitle(searchParameters)](#M-TransCelerate-SDR-DataAccess-Repositories-CommonRepository-SearchTitle-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity- 'TransCelerate.SDR.DataAccess.Repositories.CommonRepository.SearchTitle(TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity)')
 - [DataFilterCommon](#T-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon')
+  - [GetCommonFiltersForSearchTitle(searchParameters)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetCommonFiltersForSearchTitle-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetCommonFiltersForSearchTitle(TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity)')
+  - [GetCommonFiltersForSearchTitleV4(searchParameters)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetCommonFiltersForSearchTitleV4-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetCommonFiltersForSearchTitleV4(TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity)')
+  - [GetCommonFiltersForSearchTitleV5(searchParameters)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetCommonFiltersForSearchTitleV5-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetCommonFiltersForSearchTitleV5(TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity)')
   - [GetFiltersForChangeAudit(studyId)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForChangeAudit-System-String- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetFiltersForChangeAudit(System.String)')
   - [GetFiltersForGetAudTrail(studyId,fromDate,toDate)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForGetAudTrail-System-String,System-DateTime,System-DateTime- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetFiltersForGetAudTrail(System.String,System.DateTime,System.DateTime)')
   - [GetFiltersForGetStudy(studyId,sdruploadversion)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForGetStudy-System-String,System-Int32- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetFiltersForGetStudy(System.String,System.Int32)')
-  - [GetFiltersForSearchTitle(searchParameters)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForSearchTitle-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetFiltersForSearchTitle(TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity)')
-  - [GetFiltersForSearchTitleV4(searchParameters)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForSearchTitleV4-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetFiltersForSearchTitleV4(TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity)')
   - [GetFiltersForSearchTitleV5(searchParameters)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForSearchTitleV5-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetFiltersForSearchTitleV5(TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity)')
   - [GetFiltersForSearchV3(searchParameters)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForSearchV3-TransCelerate-SDR-Core-Entities-Common-SearchParametersEntity- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetFiltersForSearchV3(TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity)')
   - [GetFiltersForSearchV4(searchParameters)](#M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForSearchV4-TransCelerate-SDR-Core-Entities-Common-SearchParametersEntity- 'TransCelerate.SDR.DataAccess.Filters.DataFilterCommon.GetFiltersForSearchV4(TransCelerate.SDR.Core.Entities.Common.SearchParametersEntity)')
@@ -365,6 +366,57 @@ A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US
 
 TransCelerate.SDR.DataAccess.Filters
 
+<a name='M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetCommonFiltersForSearchTitle-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity-'></a>
+### GetCommonFiltersForSearchTitle(searchParameters) `method`
+
+##### Summary
+
+Get filters for Search Study Title API
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| searchParameters | [TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity](#T-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity 'TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity') |  |
+
+<a name='M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetCommonFiltersForSearchTitleV4-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity-'></a>
+### GetCommonFiltersForSearchTitleV4(searchParameters) `method`
+
+##### Summary
+
+Get filters for Search Study Title API
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| searchParameters | [TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity](#T-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity 'TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity') |  |
+
+<a name='M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetCommonFiltersForSearchTitleV5-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity-'></a>
+### GetCommonFiltersForSearchTitleV5(searchParameters) `method`
+
+##### Summary
+
+Get filters for Search Study Title API
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| searchParameters | [TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity](#T-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity 'TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity') |  |
+
 <a name='M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForChangeAudit-System-String-'></a>
 ### GetFiltersForChangeAudit(studyId) `method`
 
@@ -419,46 +471,12 @@ Get filters for GET StudyDefinitons API
 | studyId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | sdruploadversion | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') |  |
 
-<a name='M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForSearchTitle-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity-'></a>
-### GetFiltersForSearchTitle(searchParameters) `method`
-
-##### Summary
-
-Get filters for Search Study Title API
-
-##### Returns
-
-
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| searchParameters | [TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity](#T-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity 'TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity') |  |
-
-<a name='M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForSearchTitleV4-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity-'></a>
-### GetFiltersForSearchTitleV4(searchParameters) `method`
-
-##### Summary
-
-Get filters for Search Study Title API
-
-##### Returns
-
-
-
-##### Parameters
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| searchParameters | [TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity](#T-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity 'TransCelerate.SDR.Core.Entities.Common.SearchTitleParametersEntity') |  |
-
 <a name='M-TransCelerate-SDR-DataAccess-Filters-DataFilterCommon-GetFiltersForSearchTitleV5-TransCelerate-SDR-Core-Entities-Common-SearchTitleParametersEntity-'></a>
 ### GetFiltersForSearchTitleV5(searchParameters) `method`
 
 ##### Summary
 
-Get filters for Search Study Title API
+Get V5 filters for Search Study Title API
 
 ##### Returns
 

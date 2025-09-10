@@ -191,7 +191,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// </summary>
         /// <param name="searchParameters"></param>
         /// <returns></returns>
-        public static FilterDefinition<CommonStudyDefinitionsEntity> GetFiltersForSearchTitle(SearchTitleParametersEntity searchParameters)
+        public static FilterDefinition<CommonStudyDefinitionsEntity> GetCommonFiltersForSearchTitle(SearchTitleParametersEntity searchParameters)
         {
             FilterDefinitionBuilder<CommonStudyDefinitionsEntity> builder = Builders<CommonStudyDefinitionsEntity>.Filter;
             FilterDefinition<CommonStudyDefinitionsEntity> filter = builder.Empty;
@@ -234,7 +234,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// </summary>
         /// <param name="searchParameters"></param>
         /// <returns></returns>
-        public static FilterDefinition<CommonStudyDefinitionsEntity> GetFiltersForSearchTitleV4(SearchTitleParametersEntity searchParameters)
+        public static FilterDefinition<CommonStudyDefinitionsEntity> GetCommonFiltersForSearchTitleV4(SearchTitleParametersEntity searchParameters)
         {
             FilterDefinitionBuilder<CommonStudyDefinitionsEntity> builder = Builders<CommonStudyDefinitionsEntity>.Filter;
             FilterDefinition<CommonStudyDefinitionsEntity> filter = builder.Empty;
@@ -279,14 +279,14 @@ namespace TransCelerate.SDR.DataAccess.Filters
         /// </summary>
         /// <param name="searchParameters"></param>
         /// <returns></returns>
-        public static FilterDefinition<CommonStudyDefinitionsEntity> GetFiltersForSearchTitleV5(SearchTitleParametersEntity searchParameters)
+        public static FilterDefinition<CommonStudyDefinitionsEntity> GetCommonFiltersForSearchTitleV5(SearchTitleParametersEntity searchParameters)
         {
             FilterDefinitionBuilder<CommonStudyDefinitionsEntity> builder = Builders<CommonStudyDefinitionsEntity>.Filter;
             FilterDefinition<CommonStudyDefinitionsEntity> filter = builder.Empty;
 
             //Filter for supported USDM Versions
             //filter &= builder.In(x => x.AuditTrail.UsdmVersion, ApiUsdmVersionMapping.SDRVersions.SelectMany(y => y.UsdmVersions).ToArray());
-            filter &= builder.Where(x => x.AuditTrail.UsdmVersion == Constants.USDMVersions.V3);
+            filter &= builder.Where(x => x.AuditTrail.UsdmVersion == Constants.USDMVersions.V4);
 
             //Filter for Date Range
             filter &= builder.Where(x => x.AuditTrail.EntryDateTime >= searchParameters.FromDate
@@ -319,6 +319,50 @@ namespace TransCelerate.SDR.DataAccess.Filters
             return filter;
         }
 
+        /// <summary>
+        /// Get V5 filters for Search Study Title API
+        /// </summary>
+        /// <param name="searchParameters"></param>
+        /// <returns></returns>
+        public static FilterDefinition<Core.Entities.StudyV5.StudyDefinitionsEntity> GetFiltersForSearchTitleV5(SearchTitleParametersEntity searchParameters)
+        {
+            FilterDefinitionBuilder<Core.Entities.StudyV5.StudyDefinitionsEntity> builder = Builders<Core.Entities.StudyV5.StudyDefinitionsEntity>.Filter;
+            FilterDefinition<Core.Entities.StudyV5.StudyDefinitionsEntity> filter = builder.Empty;
+
+            //Filter for supported USDM Versions
+            //filter &= builder.In(x => x.AuditTrail.UsdmVersion, ApiUsdmVersionMapping.SDRVersions.SelectMany(y => y.UsdmVersions).ToArray());
+            filter &= builder.Where(x => x.AuditTrail.UsdmVersion == Constants.USDMVersions.V4);
+
+            //Filter for Date Range
+            filter &= builder.Where(x => x.AuditTrail.EntryDateTime >= searchParameters.FromDate
+                                         && x.AuditTrail.EntryDateTime <= searchParameters.ToDate);
+
+            //Filter for StudyTitle
+            if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
+                filter &= builder.ElemMatch<BsonDocument>(Constants.DbFilter.StudyTitlesV4, new BsonDocument()
+                                                            {
+                                                                                { Constants.DbFilter.StudyTitlesTextV4, new BsonRegularExpression($"/{searchParameters.StudyTitle}/i") }
+                                                            }
+                                                         );
+
+            //Filter for OrgCode
+            if (!String.IsNullOrWhiteSpace(searchParameters.SponsorId))
+            {
+                searchParameters.SponsorId = Regex.Escape(searchParameters.SponsorId);
+                filter &= builder.Or(
+                                     builder.And(
+                                             builder.ElemMatch<BsonDocument>(Constants.DbFilter.StudyIdentifiersV4, new BsonDocument()
+                                                     {
+                                                         { Constants.DbFilter.StudyIdentifierOrganisationIdentifier, new BsonRegularExpression($"/{searchParameters.SponsorId}/i") } ,
+                                                         { Constants.DbFilter.StudyIdentifierOrganisationTypeDecode, new BsonRegularExpression($"/{Constants.IdType.SPONSOR_ID_V1}$/i")}
+                                                     }
+                                                 )
+                                             )
+                                    );
+            }
+
+            return filter;
+        }
 
         public static FilterDefinition<CommonStudyDefinitionsEntity> GetFiltersForSearchStudy(SearchParametersEntity searchParameters)
         {
@@ -688,7 +732,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
                 return asc ? searchResponses.OrderBy(s => s.EntryDateTime) : searchResponses.OrderByDescending(s => s.EntryDateTime);
             }
         }
-        
+
         static string GetSponsorId(Core.Entities.StudyV5.SearchResponseEntity searchResponse)
         {
             if (searchResponse.StudyIdentifiers == null || searchResponse.Organizations == null)
@@ -697,12 +741,12 @@ namespace TransCelerate.SDR.DataAccess.Filters
             var scopeLookup = searchResponse.Organizations.ToDictionary(org => org.Id, org => org);
 
             var sponsorIdentifier = searchResponse.StudyIdentifiers
-                .FirstOrDefault(x => scopeLookup.ContainsKey(x.ScopeId) && 
+                .FirstOrDefault(x => scopeLookup.ContainsKey(x.ScopeId) &&
                                     scopeLookup[x.ScopeId]?.Type?.Decode?.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower());
 
-            return sponsorIdentifier != null && scopeLookup.ContainsKey(sponsorIdentifier.ScopeId) 
-                ? scopeLookup[sponsorIdentifier.ScopeId]?.Identifier ?? "" 
+            return sponsorIdentifier != null && scopeLookup.ContainsKey(sponsorIdentifier.ScopeId)
+                ? scopeLookup[sponsorIdentifier.ScopeId]?.Identifier ?? ""
                 : "";
         }
-	}
+    }
 }

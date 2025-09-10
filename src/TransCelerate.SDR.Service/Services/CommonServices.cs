@@ -232,7 +232,7 @@ namespace TransCelerate.SDR.Services.Services
                                                         AuditTrail = g.Where(x => x.AuditTrail.SDRUploadVersion == g.Max(x => x.AuditTrail.SDRUploadVersion)).Select(x => x.AuditTrail).FirstOrDefault()
                                                     }).ToList();
                 }
-                searchTitleDTOList = AssignStudyIdentifiers(searchTitleDTOList, searchResponse);
+                searchTitleDTOList = await AssignStudyIdentifiersAsync(searchParameters, searchTitleDTOList, searchResponse);
 
                 searchTitleDTOList = SortStudyTitle(searchTitleDTOList, searchParametersDTO)
                                            .Skip((searchParametersDTO.PageNumber - 1) * searchParametersDTO.PageSize)
@@ -251,13 +251,15 @@ namespace TransCelerate.SDR.Services.Services
             }
         }
 
-        public List<SearchTitleResponseDto> AssignStudyIdentifiers(List<SearchTitleResponseDto> searchTitleDTOs, List<SearchTitleResponseEntity> searchTitleResponses)
+        public async Task<List<SearchTitleResponseDto>> AssignStudyIdentifiersAsync(SearchTitleParametersEntity searchTitleParameters, List<SearchTitleResponseDto> searchTitleDTOs, List<SearchTitleResponseEntity> searchTitleResponses)
         {
+            var searchResponseV5 = await _commonRepository.SearchTitleStudyV5(searchTitleParameters);
+
             searchTitleDTOs.ForEach(searchTitleDTO =>
             {
                 var searchResponse = searchTitleResponses.Where(x => x.StudyId == searchTitleDTO.Study.StudyId && x.SDRUploadVersion == searchTitleDTO.AuditTrail.SDRUploadVersion).FirstOrDefault();
 
-                if (searchResponse.UsdmVersion == Constants.USDMVersions.V3)
+                if ((searchResponse.UsdmVersion == Constants.USDMVersions.V3) || (searchResponse.UsdmVersion == Constants.USDMVersions.V4))
                 {
                     var studyTitleV4 = searchResponse.StudyTitle != null ? JsonConvert.DeserializeObject<List<CommonStudyTitle>>(JsonConvert.SerializeObject(searchResponse.StudyTitle)) : null;
                     searchTitleDTO.Study.StudyTitle = studyTitleV4.GetStudyTitle(Constants.StudyTitle.OfficialStudyTitle);
@@ -265,9 +267,43 @@ namespace TransCelerate.SDR.Services.Services
 
                 if (searchResponse.StudyIdentifiers != null)
                 {
-                    if ((searchResponse.UsdmVersion == Constants.USDMVersions.V3) || (searchResponse.UsdmVersion == Constants.USDMVersions.V4))
+                    if (searchResponse.UsdmVersion == Constants.USDMVersions.V3)
                     {
                         searchTitleDTO.Study.StudyIdentifiers = _mapper.Map<List<CommonStudyIdentifiersDto>>(JsonConvert.DeserializeObject<List<Core.DTO.StudyV4.StudyIdentifierDto>>(JsonConvert.SerializeObject(searchResponse.StudyIdentifiers)));
+                    }
+                    else if (searchResponse.UsdmVersion == Constants.USDMVersions.V4)
+                    {
+                        var studyIdentifiersV5 = JsonConvert.DeserializeObject<List<Core.DTO.StudyV5.StudyIdentifierDto>>(
+                            JsonConvert.SerializeObject(searchResponse.StudyIdentifiers));
+                        var studySearchResponseV5 = searchResponseV5.FirstOrDefault(x => x.StudyId == searchTitleDTO.Study.StudyId && x.SDRUploadVersion == searchTitleDTO.AuditTrail.SDRUploadVersion);
+
+                        var commonStudyIdentifiers = new List<CommonStudyIdentifiersDto>();
+
+                        if (studyIdentifiersV5 != null)
+                        {
+                            foreach (var studyIdentifier in studyIdentifiersV5)
+                            {
+                                var scope = GetScopeFromSearchResponseV5(studySearchResponseV5, studyIdentifier.Id);
+
+                                var commonOrganization = new CommonOrganisationDto();
+                                commonOrganization.Id = scope.Id;
+                                commonOrganization.OrganisationIdentifier = scope.Identifier;
+                                commonOrganization.OrganisationIdentifierScheme = scope.IdentifierScheme;
+                                commonOrganization.OrganisationName = scope.Name;
+                                commonOrganization.OrganisationType = _mapper.Map<CommonCodeDto>(scope.Type);
+
+                                var commonStudyIdentifier = new CommonStudyIdentifiersDto
+                                {
+                                    Id = studyIdentifier.Id,
+                                    StudyIdentifier = studyIdentifier.Text,
+                                    StudyIdentifierScope = commonOrganization
+                                };
+
+                                commonStudyIdentifiers.Add(commonStudyIdentifier);
+                            }
+                        }
+
+                        searchTitleDTO.Study.StudyIdentifiers = commonStudyIdentifiers;
                     }
                     else
                     {
@@ -275,7 +311,7 @@ namespace TransCelerate.SDR.Services.Services
                     }
                 }
 
-                var studyDesignIds = searchResponse.UsdmVersion == Constants.USDMVersions.MVP ? searchResponse.StudyDesignIdsMVP?.Where(x => x != null && x.Any()).SelectMany(x => x)?.ToList() : searchResponse.UsdmVersion == Constants.USDMVersions.V3 ? searchResponse.StudyDesignIdsV4?.Where(x => x != null && x.Any()).SelectMany(x => x)?.ToList() : searchResponse.StudyDesignIds?.ToList();
+                var studyDesignIds = (searchResponse.UsdmVersion == Constants.USDMVersions.V3) || (searchResponse.UsdmVersion == Constants.USDMVersions.V4) ? searchResponse.StudyDesignIdsV4?.Where(x => x != null && x.Any()).SelectMany(x => x).ToList() : searchResponse.StudyDesignIds?.ToList();
                 searchTitleDTO.Links = LinksHelper.GetLinksForUi(searchResponse.StudyId, studyDesignIds, searchResponse.UsdmVersion, searchResponse.SDRUploadVersion);
             });
 
@@ -387,9 +423,9 @@ namespace TransCelerate.SDR.Services.Services
                     }
                     else if (searchResponseDto.AuditTrail.UsdmVersion == Constants.USDMVersions.V4)
                     {
-                        var searchResponse = searchResponseV5.FirstOrDefault(x => x.StudyId == searchResponseDto.Study.StudyId && x.SDRUploadVersion == searchResponseDto.AuditTrail.SDRUploadVersion);
                         var studyIdentifiersV5 = JsonConvert.DeserializeObject<List<Core.DTO.StudyV5.StudyIdentifierDto>>(
                             JsonConvert.SerializeObject(searchResponseEntity.StudyIdentifiersV4));
+                        var searchResponse = searchResponseV5.FirstOrDefault(x => x.StudyId == searchResponseDto.Study.StudyId && x.SDRUploadVersion == searchResponseDto.AuditTrail.SDRUploadVersion);
 
                         var commonStudyIdentifiers = new List<CommonStudyIdentifiersDto>();
 
@@ -600,15 +636,34 @@ namespace TransCelerate.SDR.Services.Services
                         var studyTitleV5 = searchResponseV5.StudyTitle != null ? JsonConvert.DeserializeObject<List<CommonStudyTitle>>(JsonConvert.SerializeObject(searchResponseV5.StudyTitle)) : null;
 
                         searchResponseDto.Study.StudyTitle = studyTitleV5 != null && studyTitleV5.Any(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle) ? studyTitleV5.Find(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle).Text : null;
-                        searchResponseDto.Study.StudyIdentifiers = _mapper.Map<List<CommonStudyIdentifiersDto>>(searchResponseV5.StudyIdentifiers);
-                        searchResponseDto.Study.StudyIdentifiers?.ForEach(x =>
+
+                        var commonStudyIdentifiers = new List<CommonStudyIdentifiersDto>();
+                        if (searchResponseV5.StudyIdentifiers != null)
                         {
-                            var scope = GetScopeFromSearchResponseV5(searchResponseV5, x.Id);
-                            x.StudyIdentifierScope.OrganisationIdentifierScheme = scope.IdentifierScheme;
-                            x.StudyIdentifierScope.OrganisationIdentifier = scope.Identifier;
-                            x.StudyIdentifierScope.OrganisationName = scope.Name;
-                            x.StudyIdentifierScope.OrganisationType = _mapper.Map<CommonCodeDto>(scope.Type);
-                        });
+                            foreach (var studyIdentifier in searchResponseV5.StudyIdentifiers)
+                            {
+                                var scope = GetScopeFromSearchResponseV5(searchResponseV5, studyIdentifier.Id);
+
+                                var commonOrganization = new CommonOrganisationDto();
+                                commonOrganization.Id = scope.Id;
+                                commonOrganization.OrganisationIdentifier = scope.Identifier;
+                                commonOrganization.OrganisationIdentifierScheme = scope.IdentifierScheme;
+                                commonOrganization.OrganisationName = scope.Name;
+                                commonOrganization.OrganisationType = _mapper.Map<CommonCodeDto>(scope.Type);
+
+                                var commonStudyIdentifier = new CommonStudyIdentifiersDto
+                                {
+                                    Id = studyIdentifier.Id,
+                                    StudyIdentifier = studyIdentifier.Text,
+                                    StudyIdentifierScope = commonOrganization
+                                };
+
+                                commonStudyIdentifiers.Add(commonStudyIdentifier);
+                            }
+
+                            searchResponseDto.Study.StudyIdentifiers = commonStudyIdentifiers;
+                        }
+
                         searchResponseDto.Study.StudyPhase = _mapper.Map<CommonCodeDto>(searchResponseV5.StudyPhase?.StandardCode);
                         searchResponseDto.Study.StudyDesigns = new List<CommonStudyDesign> { new() {
                             InterventionModel = _mapper.Map<List<CommonCodeDto>>(searchResponseV5.InterventionModel?.Where(x => x != null && x.Any()).SelectMany(x=>x).ToList()),
