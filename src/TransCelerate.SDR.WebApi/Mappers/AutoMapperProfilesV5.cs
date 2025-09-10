@@ -2,6 +2,7 @@ using AutoMapper;
 using System;
 using TransCelerate.SDR.Core.DTO.StudyV5;
 using TransCelerate.SDR.Core.Entities.StudyV5;
+using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.WebApi.Mappers
 {
@@ -64,11 +65,17 @@ namespace TransCelerate.SDR.WebApi.Mappers
             CreateMap<ProcedureDto, ProcedureEntity>().ReverseMap();
             CreateMap<ProductOrganizationRoleDto, ProductOrganizationRoleEntity>().ReverseMap();
             CreateMap<QuantityDto, QuantityEntity>().ReverseMap();
+            CreateMap<RangeDto, RangeEntity>().ReverseMap();
             CreateMap<QuantityRangeDto, QuantityRangeEntity>()
+                .ConstructUsing((src, ctx) => src.InstanceType switch
+                {
+                    "Quantity" => new QuantityEntity(),
+                    "Range" => new RangeEntity(),
+                    _ => throw new AutoMapperMappingException(Constants.ValidationErrorMessage.InstanceTypeError)
+                })
                 .Include<QuantityDto, QuantityEntity>()
                 .Include<RangeDto, RangeEntity>()
                 .ReverseMap();
-            CreateMap<RangeDto, RangeEntity>().ReverseMap();
             CreateMap<ReferenceIdentifierDto, ReferenceIdentifierEntity>().ReverseMap();
             CreateMap<ResponseCodeDto, ResponseCodeEntity>().ReverseMap();
             CreateMap<ScheduleTimelineDto, ScheduleTimelineEntity>().ReverseMap();
