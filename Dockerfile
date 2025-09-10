@@ -41,7 +41,8 @@ ENV DEBIAN_FRONTEND=noninteractive \
     CdiscRulesEngine_LATEST_RELEASE_ZIP=${CdiscRulesEngine_LATEST_RELEASE_ZIP} \
     CdiscRulesEngine=${CdiscRulesEngine} \
     CdiscRulesEngineRelativeBinary=${CdiscRulesEngineRelativeBinary} \
-    CdiscRulesEngineRelativeCache=${CdiscRulesEngineRelativeCache}
+    CdiscRulesEngineRelativeCache=${CdiscRulesEngineRelativeCache} \
+    ApiVersionUsdmVersionMapping='{"SDRVersions":[{"apiVersion":"v2","usdmVersions":["1.9"]},{"apiVersion":"v3","usdmVersions":["2.0"]},{"apiVersion":"v4","usdmVersions":["3.0"]},{"apiVersion":"v5","usdmVersions":["4.0"]}]}'
 
 WORKDIR /app
 
