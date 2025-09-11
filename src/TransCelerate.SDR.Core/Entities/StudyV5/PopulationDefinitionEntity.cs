@@ -1,7 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using JsonSubTypes;
+using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using TransCelerate.SDR.Core.Utilities;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV5
 {
+    [JsonConverter(typeof(JsonSubtypes), nameof(InstanceType))]
+    [JsonSubtypes.KnownSubType(typeof(StudyCohortEntity), nameof(PopulationDefinitionInstanceTypeV5.StudyCohort))]
+    [JsonSubtypes.KnownSubType(typeof(StudyDesignPopulationEntity), nameof(PopulationDefinitionInstanceTypeV5.StudyDesignPopulation))]
+    [BsonIgnoreExtraElements]
+    [BsonNoId]
+    [BsonDiscriminator(nameof(InstanceType))]
+    [BsonKnownTypes(typeof(StudyCohortEntity))]
+    [BsonKnownTypes(typeof(StudyDesignPopulationEntity))]
     public class PopulationDefinitionEntity : IId
     {
         public string Id { get; set; }

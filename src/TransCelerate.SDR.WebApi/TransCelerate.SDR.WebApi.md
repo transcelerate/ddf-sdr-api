@@ -245,7 +245,7 @@ GET Differences between two versions of a study
 
 ##### Summary
 
-GET SoA For a Study USDM Version 2.0
+GET SoA For a Study
 
 ##### Parameters
 
@@ -388,7 +388,7 @@ GET Differences between two versions of a study
 
 ##### Summary
 
-GET SoA For a Study USDM Version 2.0
+GET SoA For a Study
 
 ##### Parameters
 
@@ -531,7 +531,7 @@ GET Differences between two versions of a study
 
 ##### Summary
 
-GET SoA For a Study USDM Version 2.0
+GET SoA For a Study
 
 ##### Parameters
 

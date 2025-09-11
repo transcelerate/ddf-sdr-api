@@ -1,9 +1,19 @@
+using JsonSubTypes;
+using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using TransCelerate.SDR.Core.Utilities;
 
 namespace TransCelerate.SDR.Core.Entities.StudyV5
 {
-    [MongoDB.Bson.Serialization.Attributes.BsonIgnoreExtraElements]
-    [MongoDB.Bson.Serialization.Attributes.BsonNoId]
+    [JsonConverter(typeof(JsonSubtypes), nameof(InstanceType))]
+    [JsonSubtypes.KnownSubType(typeof(InterventionalStudyDesignEntity), nameof(StudyDesignInstanceTypeV5.InterventionalStudyDesign))]
+    [JsonSubtypes.KnownSubType(typeof(ObservationalStudyDesignEntity), nameof(StudyDesignInstanceTypeV5.ObservationalStudyDesign))]
+    [BsonIgnoreExtraElements]
+    [BsonNoId]
+    [BsonDiscriminator(nameof(InstanceType))]
+    [BsonKnownTypes(typeof(InterventionalStudyDesignEntity))]
+    [BsonKnownTypes(typeof(ObservationalStudyDesignEntity))]
     public class StudyDesignEntity : IId
     {
         public string Id { get; set; }

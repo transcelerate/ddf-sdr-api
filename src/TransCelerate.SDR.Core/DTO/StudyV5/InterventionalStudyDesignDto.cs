@@ -7,6 +7,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public List<CodeDto> SubTypes { get; set; }
         public List<CodeDto> IntentTypes { get; set; }
         public CodeDto Model { get; set; }
-        public CodeDto BlindingSchema { get; set; }
-	}
+        public AliasCodeDto BlindingSchema { get; set; }
+    }
 }

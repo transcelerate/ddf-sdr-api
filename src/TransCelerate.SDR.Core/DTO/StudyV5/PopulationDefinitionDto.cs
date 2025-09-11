@@ -1,7 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using JsonSubTypes;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using TransCelerate.SDR.Core.Utilities;
 
 namespace TransCelerate.SDR.Core.DTO.StudyV5
 {
+    [JsonConverter(typeof(JsonSubtypes), nameof(InstanceType))]
+    [JsonSubtypes.KnownSubType(typeof(StudyCohortDto), nameof(PopulationDefinitionInstanceTypeV5.StudyCohort))]
+    [JsonSubtypes.KnownSubType(typeof(StudyDesignPopulationDto), nameof(PopulationDefinitionInstanceTypeV5.StudyDesignPopulation))]
     public class PopulationDefinitionDto : IId
     {
         public string Id { get; set; }

@@ -29,4 +29,41 @@
         GEOGRAPHIC_SCOPE,
         SUBJECT_ENROLLMENT
     }
+
+    public enum IdentifierInstanceTypeV5
+    {
+        StudyIdentifier,
+        ReferenceIdentifier,
+        MedicalDeviceIdentifier,
+        AdministrableProductIdentifier
+    }
+    public enum SyntaxTemplateInstanceTypeV5
+    {
+        Characteristic,
+        EligibilityCriterionItem,
+        Condition,
+        IntercurrentEvent,
+        Endpoint,
+        Objective
+    }
+    public enum StudyDesignInstanceTypeV5
+    {
+        InterventionalStudyDesign,
+        ObservationalStudyDesign
+    }
+    public enum ScheduledInstanceTypeV5
+    {
+        ScheduledActivityInstance,
+        ScheduledDecisionInstance
+    }
+    public enum PopulationDefinitionInstanceTypeV5
+    {
+        StudyCohort,
+        StudyDesignPopulation
+    }
+    public enum QuantityRangeInstanceTypeV5
+    {
+        Quantity,
+        Range
+    }
 }

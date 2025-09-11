@@ -1,7 +1,13 @@
+using JsonSubTypes;
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using TransCelerate.SDR.Core.Utilities;
 
 namespace TransCelerate.SDR.Core.DTO.StudyV5
 {
+    [JsonConverter(typeof(JsonSubtypes), nameof(InstanceType))]
+    [JsonSubtypes.KnownSubType(typeof(InterventionalStudyDesignDto), nameof(StudyDesignInstanceTypeV5.InterventionalStudyDesign))]
+    [JsonSubtypes.KnownSubType(typeof(ObservationalStudyDesignDto), nameof(StudyDesignInstanceTypeV5.ObservationalStudyDesign))]
     public class StudyDesignDto : IId
     {
         public string Id { get; set; }
@@ -24,7 +30,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public List<BiospecimenRetentionDto> BiospecimenRetentions { get; set; }
         public List<StudyArmDto> Arms { get; set; }
         public List<StudyEpochDto> Epochs { get; set; }
-        public List<StudyElementDto> Elements { get; set; }        
+        public List<StudyElementDto> Elements { get; set; }
         public List<string> DocumentVersionIds { get; set; }
         public string InstanceType { get; set; }
         public List<CommentAnnotationDto> Notes { get; set; }
