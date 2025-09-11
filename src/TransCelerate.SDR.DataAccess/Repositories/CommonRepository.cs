@@ -570,6 +570,50 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 _logger.LogInformation($"Ended Repository : {nameof(CommonRepository)}; Method : {nameof(SearchStudyV5)};");
             }
         }
+
+        public async Task<List<Core.Entities.StudyV5.SearchResponseEntity>> SearchTitleStudyV5(SearchTitleParametersEntity searchTitleParameters)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Repository : {nameof(CommonRepository)}; Method : {nameof(SearchStudyV5)};");
+                IMongoCollection<Core.Entities.StudyV5.StudyDefinitionsEntity> collection = _database.GetCollection<Core.Entities.StudyV5.StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
+
+                List<Core.Entities.StudyV5.SearchResponseEntity> studies = await collection.Aggregate()
+                                              .Match(DataFilterCommon.GetFiltersForSearchTitleV5(searchTitleParameters))
+                                              .Project(x => new Core.Entities.StudyV5.SearchResponseEntity
+                                              {
+                                                  StudyId = x.Study.Id,
+                                                  StudyTitle = x.Study.Versions != null ? x.Study.Versions.First().Titles : null,
+                                                  StudyType = x.Study.Versions != null && x.Study.Versions.Any()
+                                                                    && x.Study.Versions.First().StudyDesigns != null
+                                                                    && x.Study.Versions.First().StudyDesigns.Any()
+                                                                    ? x.Study.Versions.First().StudyDesigns.ElementAt(0).StudyType : null,
+                                                  StudyPhase = x.Study.Versions != null && x.Study.Versions.Any()
+                                                                    && x.Study.Versions.First().StudyDesigns != null
+                                                                    && x.Study.Versions.First().StudyDesigns.Any()
+                                                                    ? x.Study.Versions.First().StudyDesigns.ElementAt(0).StudyPhase : null,
+                                                  StudyIdentifiers = x.Study.Versions != null ? x.Study.Versions.First().StudyIdentifiers : null,
+                                                  Organizations = x.Study.Versions != null ? x.Study.Versions.First().Organizations : null,
+                                                  StudyIndications = x.Study.Versions != null ? x.Study.Versions.Select(y => y.StudyDesigns.Select(x => x.Indications)) : null,
+                                                  EntryDateTime = x.AuditTrail.EntryDateTime,
+                                                  SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+                                                  UsdmVersion = x.AuditTrail.UsdmVersion,
+                                                  StudyDesignIds = x.Study.Versions != null ? x.Study.Versions.Select(x => x.StudyDesigns.Select(y => y.Id)) : null,
+                                              })
+                                              .ToListAsync()
+                                              .ConfigureAwait(false);
+
+                return studies;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Repository : {nameof(CommonRepository)}; Method : {nameof(SearchStudyV5)};");
+            }
+        }
         #endregion
 
         #region Search Title
@@ -590,9 +634,10 @@ namespace TransCelerate.SDR.DataAccess.Repositories
 
                 List<SearchTitleResponseEntity> studies = new();
                 List<SearchTitleResponseEntity> studiesV4 = new();
+                List<SearchTitleResponseEntity> studiesV5 = new();
 
                 studies = await collection.Aggregate()
-                                              .Match(DataFilterCommon.GetFiltersForSearchTitle(searchParameters))
+                                              .Match(DataFilterCommon.GetCommonFiltersForSearchTitle(searchParameters))
                                               .Project(x => new SearchTitleResponseEntity
                                               {
                                                   StudyId = x.Study.StudyId,
@@ -608,7 +653,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                               .ConfigureAwait(false);
 
                 studiesV4 = await collection.Aggregate()
-                                              .Match(DataFilterCommon.GetFiltersForSearchTitleV4(searchParameters))
+                                              .Match(DataFilterCommon.GetCommonFiltersForSearchTitleV4(searchParameters))
                                               .Project(x => new SearchTitleResponseEntity
                                               {
                                                   StudyId = x.Study.Id,
@@ -623,6 +668,24 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                               .ToListAsync()
                                               .ConfigureAwait(false);
                 studies.AddRange(studiesV4);
+
+                studiesV5 = await collection.Aggregate()
+                                              .Match(DataFilterCommon.GetCommonFiltersForSearchTitleV5(searchParameters))
+                                              .Project(x => new SearchTitleResponseEntity
+                                              {
+                                                  StudyId = x.Study.Id,
+                                                  StudyTitle = x.Study.Versions != null ? x.Study.Versions.First().Titles : null,
+                                                  StudyIdentifiers = x.Study.Versions != null ? x.Study.Versions.First().StudyIdentifiers : null,
+                                                  StudyType = x.Study.Versions != null ? x.Study.Versions.First().StudyType : null,
+                                                  EntryDateTime = x.AuditTrail.EntryDateTime,
+                                                  SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+                                                  StudyDesignIdsV4 = x.Study.Versions != null ? x.Study.Versions.Select(x => x.StudyDesigns.Select(y => y.Id)) : null,
+                                                  UsdmVersion = x.AuditTrail.UsdmVersion
+                                              })
+                                              .ToListAsync()
+                                              .ConfigureAwait(false);
+                studies.AddRange(studiesV5);
+
                 return studies;
             }
             catch (Exception)

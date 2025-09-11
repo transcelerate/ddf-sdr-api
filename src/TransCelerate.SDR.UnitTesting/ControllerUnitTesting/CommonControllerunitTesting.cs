@@ -400,9 +400,25 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                     UsdmVersion = v2.AuditTrail.UsdmVersion,
                 }
             };
+
+            SearchTitleParametersEntity searchParametersEntity = new()
+            {
+                StudyTitle = "Umbrella",
+                PageNumber = 1,
+                PageSize = 25,
+                SortBy = "version",
+                SortOrder = "asc",
+                GroupByStudyId = true,
+                SponsorId = "100",
+                FromDate = DateTime.Now.AddDays(-5),
+                ToDate = DateTime.Now,
+            };
+
             var searchTitleDTOList = _mockMapper.Map<List<SearchTitleResponseDto>>(studyList);
             CommonServices CommonService = new(_mockCommonRepository.Object, _mockLogger, _mockMapper);
-            searchTitleDTOList = CommonService.AssignStudyIdentifiers(searchTitleDTOList, studyList);
+            var studyIdentifierMethod = CommonService.AssignStudyIdentifiersAsync(searchParametersEntity, searchTitleDTOList, studyList);
+            studyIdentifierMethod.Wait();
+            searchTitleDTOList = studyIdentifierMethod.Result;
 
             _mockCommonService.Setup(x => x.SearchTitle(It.IsAny<SearchTitleParametersDto>()))
                 .Returns(Task.FromResult(searchTitleDTOList));
@@ -417,7 +433,6 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
                 ToDate = DateTime.Now.ToString()
             };
 
-
             var method = commonController.SearchTitle(searchParameters);
             method.Wait();
 
@@ -429,7 +444,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
             //Actual Result            
             var actual_result = JsonConvert.DeserializeObject<List<SearchTitleResponseDto>>(
                  JsonConvert.SerializeObject((result as ObjectResult).Value));
-            
+
             Assert.IsInstanceOf(typeof(ObjectResult), result);
         }
 
@@ -585,7 +600,7 @@ namespace TransCelerate.SDR.UnitTesting.ControllerUnitTesting
         #region Search StudyDefintions
         [Test]
         public void SearchStudySuccessUnitTesting()
-        {            
+        {
             CommonStudyDefinitionsEntity v1 = GetData(Constants.USDMVersions.V3);
             CommonStudyDefinitionsEntityV5 v2 = GetDataV5();
             CommonStudyDefinitionsEntity v3 = GetData(Constants.USDMVersions.V2);

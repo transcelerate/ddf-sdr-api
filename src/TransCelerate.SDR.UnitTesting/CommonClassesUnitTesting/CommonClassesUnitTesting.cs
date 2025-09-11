@@ -408,8 +408,8 @@ namespace TransCelerate.SDR.UnitTesting
                 ToDate = DateTime.Now,
             };
 
-            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchTitle(searchParameters));
-            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchTitleV4(searchParameters));
+            Assert.IsNotNull(DataFilterCommon.GetCommonFiltersForSearchTitle(searchParameters));
+            Assert.IsNotNull(DataFilterCommon.GetCommonFiltersForSearchTitleV4(searchParameters));
 
             Assert.IsNotNull(DataFilterCommon.GetFiltersForGetAudTrail("sd", DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1)));
 

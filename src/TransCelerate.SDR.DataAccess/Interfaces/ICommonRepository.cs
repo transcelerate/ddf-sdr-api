@@ -73,9 +73,10 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// <see langword="null"/> If no study is matching with studyId
         /// </returns>
         Task<List<SearchResponseEntity>> SearchStudy(SearchParametersEntity searchParameters);
-                
+
         Task<List<Core.Entities.StudyV3.SearchResponseEntity>> SearchStudyV3(SearchParametersEntity searchParameters);
         Task<List<Core.Entities.StudyV4.SearchResponseEntity>> SearchStudyV4(SearchParametersEntity searchParameters);
         Task<List<Core.Entities.StudyV5.SearchResponseEntity>> SearchStudyV5(SearchParametersEntity searchParameters);
+        Task<List<Core.Entities.StudyV5.SearchResponseEntity>> SearchTitleStudyV5(SearchTitleParametersEntity searchTitleParameters);
     }
 }
