@@ -302,6 +302,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 else
                     return $"{plannedEnrollmentNumberRange.MinValue} to {plannedEnrollmentNumberRange.MaxValue}";
             }
+            else if (population?.PlannedEnrollmentNumber is Core.DTO.StudyV5.QuantityDto plannedEnrollmentNumberQuantity)
+            {
+                return plannedEnrollmentNumberQuantity.Value.ToString();
+            }
             else if (population is not null && population.PlannedEnrollmentNumber is null && population.Cohorts?.Any() == true)
             {
                 var plannedEnrollmentRanges = population.Cohorts
