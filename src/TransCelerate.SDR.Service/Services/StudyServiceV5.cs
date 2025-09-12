@@ -627,6 +627,8 @@ namespace TransCelerate.SDR.Services.Services
             {
                 studyDto.StudyDesigns.ForEach(design =>
                 {
+                    var interventionalDesign = design?.InstanceType == nameof(StudyDesignInstanceTypeV5.InterventionalStudyDesign) && design is InterventionalStudyDesignDto ? design as InterventionalStudyDesignDto : null;
+
                     Core.DTO.eCPT.StudyDesignDto studyeCPTDto = new()
                     {
                         StudyDesignId = design.Id,
@@ -661,7 +663,11 @@ namespace TransCelerate.SDR.Services.Services
                                 Synopsis = new Core.DTO.eCPT.SynopsisDto
                                 {
                                     NumberofParticipants = design.Population.GetNumberOfParticipantsV5(),
+                                    PrimaryPurpose = interventionalDesign?.IntentTypes?.GetPrimaryPurposeFromIntentTypes(),
                                     EnrollmentTarget = design.Population?.Description,
+                                    InterventionModel = interventionalDesign != null
+                                        ? ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.InterventionModel, interventionalDesign.Model?.Code) ?? interventionalDesign.Model?.Decode
+                                        : null,
                                     NumberofArms = design.Arms != null && design.Arms.Any() ?
                                                     design.Arms.Select(x => x.Id).Distinct().Count().ToString() : 0.ToString()
                                 }
