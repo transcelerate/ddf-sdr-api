@@ -563,6 +563,11 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                                      && x.Study.Versions.First().StudyDesigns.Any()
                                                      ? x.Study.Versions.First().StudyDesigns.ElementAt(0).StudyPhase : null,
                                    StudyIdentifiers = x.Study.Versions != null ? x.Study.Versions.First().StudyIdentifiers : null,
+                                   InterventionModel = x.Study.Versions?.Select(v => v.StudyDesigns
+                                                            .Where(d => d.InstanceType == nameof(StudyDesignInstanceTypeV5.InterventionalStudyDesign) &&
+                                                                       d is Core.Entities.StudyV5.InterventionalStudyDesignEntity)
+                                                            .Select(d => (d as Core.Entities.StudyV5.InterventionalStudyDesignEntity).Model)
+                                                        ),
                                    Organizations = x.Study.Versions != null ? x.Study.Versions.First().Organizations : null,
                                    StudyIndications = x.Study.Versions != null ? x.Study.Versions.Select(y => y.StudyDesigns.Select(x => x.Indications)) : null,
                                    EntryDateTime = x.AuditTrail.EntryDateTime,
