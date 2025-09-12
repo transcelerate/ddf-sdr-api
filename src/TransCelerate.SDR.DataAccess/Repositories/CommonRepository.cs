@@ -531,32 +531,45 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                 _logger.LogInformation($"Started Repository : {nameof(CommonRepository)}; Method : {nameof(SearchStudyV5)};");
                 IMongoCollection<Core.Entities.StudyV5.StudyDefinitionsEntity> collection = _database.GetCollection<Core.Entities.StudyV5.StudyDefinitionsEntity>(Constants.Collections.StudyDefinitions);
 
-                List<Core.Entities.StudyV5.SearchResponseEntity> studies = await collection.Aggregate()
+                var studies = await collection.Aggregate()
                                               .Match(DataFilterCommon.GetFiltersForSearchV5(searchParameters))
-                                              .Project(x => new Core.Entities.StudyV5.SearchResponseEntity
-                                              {
-                                                  StudyId = x.Study.Id,
-                                                  StudyTitle = x.Study.Versions != null ? x.Study.Versions.First().Titles : null,
-                                                  StudyType = x.Study.Versions != null && x.Study.Versions.Any()
-                                                                    && x.Study.Versions.First().StudyDesigns != null
-                                                                    && x.Study.Versions.First().StudyDesigns.Any()
-                                                                    ? x.Study.Versions.First().StudyDesigns.ElementAt(0).StudyType : null,
-                                                  StudyPhase = x.Study.Versions != null && x.Study.Versions.Any()
-                                                                    && x.Study.Versions.First().StudyDesigns != null
-                                                                    && x.Study.Versions.First().StudyDesigns.Any()
-                                                                    ? x.Study.Versions.First().StudyDesigns.ElementAt(0).StudyPhase : null,
-                                                  StudyIdentifiers = x.Study.Versions != null ? x.Study.Versions.First().StudyIdentifiers : null,
-                                                  Organizations = x.Study.Versions != null ? x.Study.Versions.First().Organizations : null,
-                                                  StudyIndications = x.Study.Versions != null ? x.Study.Versions.Select(y => y.StudyDesigns.Select(x => x.Indications)) : null,
-                                                  EntryDateTime = x.AuditTrail.EntryDateTime,
-                                                  SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
-                                                  UsdmVersion = x.AuditTrail.UsdmVersion,
-                                                  StudyDesignIds = x.Study.Versions != null ? x.Study.Versions.Select(x => x.StudyDesigns.Select(y => y.Id)) : null,
-                                              })
                                               .ToListAsync()
                                               .ConfigureAwait(false);
 
-                return DataFilterCommon.SortSearchResultsV5(studies, searchParameters.Header, searchParameters.Asc)
+                //Data Filter for OrgCode (SponsorId) is simplified for query optimization so applying a stricter filter here
+                studies = studies.Where(x =>
+                    x.Study.Versions[0].StudyIdentifiers.Any(identifier =>
+                        x.Study.Versions[0].Organizations.Any(org =>
+                            org.Id == identifier.ScopeId &&
+                            org.Identifier.Contains(searchParameters.SponsorId, StringComparison.OrdinalIgnoreCase) &&
+                            org.Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)
+                        )
+                    )).ToList();
+
+                List<Core.Entities.StudyV5.SearchResponseEntity> searchResponse = studies
+                               .Select(x => new Core.Entities.StudyV5.SearchResponseEntity
+                               {
+                                   StudyId = x.Study.Id,
+                                   StudyTitle = x.Study.Versions != null ? x.Study.Versions.First().Titles : null,
+                                   StudyType = x.Study.Versions != null && x.Study.Versions.Any()
+                                                     && x.Study.Versions.First().StudyDesigns != null
+                                                     && x.Study.Versions.First().StudyDesigns.Any()
+                                                     ? x.Study.Versions.First().StudyDesigns.ElementAt(0).StudyType : null,
+                                   StudyPhase = x.Study.Versions != null && x.Study.Versions.Any()
+                                                     && x.Study.Versions.First().StudyDesigns != null
+                                                     && x.Study.Versions.First().StudyDesigns.Any()
+                                                     ? x.Study.Versions.First().StudyDesigns.ElementAt(0).StudyPhase : null,
+                                   StudyIdentifiers = x.Study.Versions != null ? x.Study.Versions.First().StudyIdentifiers : null,
+                                   Organizations = x.Study.Versions != null ? x.Study.Versions.First().Organizations : null,
+                                   StudyIndications = x.Study.Versions != null ? x.Study.Versions.Select(y => y.StudyDesigns.Select(x => x.Indications)) : null,
+                                   EntryDateTime = x.AuditTrail.EntryDateTime,
+                                   SDRUploadVersion = x.AuditTrail.SDRUploadVersion,
+                                   UsdmVersion = x.AuditTrail.UsdmVersion,
+                                   StudyDesignIds = x.Study.Versions != null ? x.Study.Versions.Select(x => x.StudyDesigns.Select(y => y.Id)) : null,
+                               })
+                               .ToList();
+
+                return DataFilterCommon.SortSearchResultsV5(searchResponse, searchParameters.Header, searchParameters.Asc)
                                        .Skip((searchParameters.PageNumber - 1) * searchParameters.PageSize)
                                        .Take(searchParameters.PageSize)
                                        .ToList();

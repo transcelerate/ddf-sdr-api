@@ -1,4 +1,4 @@
-﻿using MongoDB.Bson;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -673,15 +673,17 @@ namespace TransCelerate.SDR.DataAccess.Filters
             if (!String.IsNullOrWhiteSpace(searchParameters.StudyTitle))
                 filter &= builder.Where(x => x.Study.Versions[0].Titles.Any(x => x.Text.ToLower().Contains(searchParameters.StudyTitle.ToLower())));
 
-            //Filter for OrgCode
+            //Filter for OrgCode (SponsorId)
             if (!String.IsNullOrWhiteSpace(searchParameters.SponsorId))
             {
-                filter &= builder.Where(x => x.Study.Versions[0].StudyIdentifiers.Any(identifier =>
+                filter &= builder.Where(x =>
                     x.Study.Versions[0].Organizations.Any(org =>
-                        org.Id == identifier.ScopeId &&
                         org.Identifier.ToLower().Contains(searchParameters.SponsorId.ToLower()) &&
-                        org.Type.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower())));
+                        org.Type.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower()
+                    )
+                );
             }
+
             //Filter for Indication
             if (!String.IsNullOrWhiteSpace(searchParameters.Indication))
                 filter &= builder.Where(x => x.Study.Versions[0].StudyDesigns.Any(x => x.Indications.Any(y => y.Description.ToLower().Contains(searchParameters.Indication.ToLower()))));
@@ -689,7 +691,6 @@ namespace TransCelerate.SDR.DataAccess.Filters
             //Filter for Study Phase
             if (!String.IsNullOrWhiteSpace(searchParameters.Phase))
                 filter &= builder.Where(x => x.Study.Versions[0].StudyDesigns.Any(d => d.StudyPhase.StandardCode.Decode.ToLower().Contains(searchParameters.Phase.ToLower())));
-
 
             return filter;
         }
