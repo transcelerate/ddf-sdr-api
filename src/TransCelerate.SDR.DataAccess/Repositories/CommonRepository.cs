@@ -537,7 +537,9 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                                               .ConfigureAwait(false);
 
                 //Data Filter for OrgCode (SponsorId) is simplified for query optimization so applying a stricter filter here
-                studies = studies.Where(x =>
+                if (!String.IsNullOrWhiteSpace(searchParameters.SponsorId))
+                {
+                    studies = studies.Where(x =>
                     x.Study.Versions[0].StudyIdentifiers.Any(identifier =>
                         x.Study.Versions[0].Organizations.Any(org =>
                             org.Id == identifier.ScopeId &&
@@ -545,6 +547,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                             org.Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)
                         )
                     )).ToList();
+                }
 
                 List<Core.Entities.StudyV5.SearchResponseEntity> searchResponse = studies
                                .Select(x => new Core.Entities.StudyV5.SearchResponseEntity
