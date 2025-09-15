@@ -627,6 +627,8 @@ namespace TransCelerate.SDR.Services.Services
             {
                 studyDto.StudyDesigns.ForEach(design =>
                 {
+                    var interventionalDesign = design?.InstanceType == nameof(StudyDesignInstanceTypeV5.InterventionalStudyDesign) && design is InterventionalStudyDesignDto ? design as InterventionalStudyDesignDto : null;
+
                     Core.DTO.eCPT.StudyDesignDto studyeCPTDto = new()
                     {
                         StudyDesignId = design.Id,
@@ -645,13 +647,14 @@ namespace TransCelerate.SDR.Services.Services
                                                    : $"{String.Join(", ", design.Indications.Select(x => x.Description).ToArray(), 0, design.Indications.Count - 1)} and {design.Indications.Select(x => x.Description).LastOrDefault()}"
                                                    : null,
                                 RegulatoryAgencyIdentifierNumbers = studyDto.StudyIdentifiers.Where(x => scopeLookup.ContainsKey(x.ScopeId) && Constants.IdType.RegulatoryAgencyIdentifierNumberConstants.Any(y => y.ToLower() == scopeLookup[x.ScopeId]?.Type?.Decode?.ToLower())).Any() ? _mapper.Map<List<Core.DTO.eCPT.RegulatoryAgencyIdentifierNumberDto>>(studyDto.StudyIdentifiers.Where(x => Constants.IdType.RegulatoryAgencyIdentifierNumberConstants.Any(y => y.ToLower() == scopeLookup[x.ScopeId]?.Type?.Decode?.ToLower()))) : null,
-                                SponsorName = studyDto.StudyIdentifiers.Where(x => scopeLookup.ContainsKey(x.ScopeId) && scopeLookup[x.ScopeId].Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => scopeLookup[x.ScopeId].Name).FirstOrDefault(),
-                                SponsorLegalAddress = studyDto.StudyIdentifiers.Where(x => scopeLookup.ContainsKey(x.ScopeId) && scopeLookup[x.ScopeId].Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => scopeLookup[x.ScopeId].LegalAddress).FirstOrDefault() == null ? null
-                                                                : studyDto.StudyIdentifiers.Where(x => scopeLookup[x.ScopeId].Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => scopeLookup[x.ScopeId].LegalAddress).Select(x => $"{(x.Lines != null ? string.Join(", ", x.Lines) : "")}, {x.City}, {x.District}, {x.State}, {x.PostalCode}, {x.Country?.Decode}").FirstOrDefault(),
+                                SponsorName = studyDto.StudyIdentifiers.Where(x => scopeLookup.ContainsKey(x.ScopeId) && CodeValueHelper.IsSponsorDecode(scopeLookup[x.ScopeId].Type.Decode)).Select(x => scopeLookup[x.ScopeId].Name).FirstOrDefault(),
+                                SponsorLegalAddress = studyDto.StudyIdentifiers.Where(x => scopeLookup.ContainsKey(x.ScopeId) && CodeValueHelper.IsSponsorDecode(scopeLookup[x.ScopeId].Type.Decode)).Select(x => scopeLookup[x.ScopeId].LegalAddress).FirstOrDefault() == null
+                                                        ? null
+                                                        : studyDto.StudyIdentifiers.Where(x => CodeValueHelper.IsSponsorDecode(scopeLookup[x.ScopeId].Type.Decode)).Select(x => scopeLookup[x.ScopeId].LegalAddress).Select(x => $"{(x.Lines != null ? string.Join(", ", x.Lines) : "")}, {x.City}, {x.District}, {x.State}, {x.PostalCode}, {x.Country?.Decode}").FirstOrDefault(),
                                 StudyPhase = ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.StudyPhase, design.StudyPhase?.StandardCode?.Code) ?? design.StudyPhase?.StandardCode?.Decode,
                                 Protocol = new Core.DTO.eCPT.ProtocolDto
                                 {
-                                    ProtocolID = studyDto.StudyIdentifiers.Where(x => scopeLookup.ContainsKey(x.ScopeId) && scopeLookup[x.ScopeId].Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)).Select(x => x.Text).FirstOrDefault(),
+                                    ProtocolID = studyDto.StudyIdentifiers.Where(x => scopeLookup.ContainsKey(x.ScopeId) && CodeValueHelper.IsSponsorDecode(scopeLookup[x.ScopeId].Type.Decode)).Select(x => x.Text).FirstOrDefault(),
                                     ProtocolShortTitle = studyDto.Titles.GetStudyTitleV5(Constants.StudyTitle.BriefStudyTitle),
                                     ProtocolTitle = studyDto.Titles.GetStudyTitleV5(Constants.StudyTitle.OfficialStudyTitle)
                                 }
@@ -661,7 +664,11 @@ namespace TransCelerate.SDR.Services.Services
                                 Synopsis = new Core.DTO.eCPT.SynopsisDto
                                 {
                                     NumberofParticipants = design.Population.GetNumberOfParticipantsV5(),
+                                    PrimaryPurpose = interventionalDesign?.IntentTypes?.GetPrimaryPurposeFromIntentTypes(),
                                     EnrollmentTarget = design.Population?.Description,
+                                    InterventionModel = interventionalDesign != null
+                                        ? ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.InterventionModel, interventionalDesign.Model?.Code) ?? interventionalDesign.Model?.Decode
+                                        : null,
                                     NumberofArms = design.Arms != null && design.Arms.Any() ?
                                                     design.Arms.Select(x => x.Id).Distinct().Count().ToString() : 0.ToString()
                                 }
