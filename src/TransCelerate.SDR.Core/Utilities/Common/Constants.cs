@@ -19,6 +19,13 @@ namespace TransCelerate.SDR.Core.Utilities.Common
         {
             public const string SPONSOR_ID = "SPONSOR_ID";
             public const string SPONSOR_ID_V1 = "Clinical Study Sponsor";
+            public const string SPONSOR_ID_V2 = "SPONSOR";
+
+            public static readonly string[] SponsorIdentifierConstants =
+            {
+                SPONSOR_ID, SPONSOR_ID_V1, SPONSOR_ID_V2
+            };
+            
             public static readonly string[] RegulatoryAgencyIdentifierNumberConstants =
             {
                 "Regulatory Agency","Clinical Study Registry"

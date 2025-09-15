@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
 {
@@ -41,6 +42,14 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 return protocolVersion.DateValues.Find(x => x.Type?.Decode == decode).DateValue;
             }
             return null;
+        }
+
+        public static bool IsSponsorDecode(string decode)
+        {
+            if (string.IsNullOrEmpty(decode))
+                return false;
+
+            return Constants.IdType.SponsorIdentifierConstants.Contains(decode, StringComparer.OrdinalIgnoreCase);
         }
     }
 }

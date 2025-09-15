@@ -110,7 +110,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         public static string GetPlannedSexOfParticipantsFromCodeListV4(this List<TransCelerate.SDR.Core.DTO.StudyV4.CodeDto> plannedSexofParticipants)
         {
             if (plannedSexofParticipants != null && plannedSexofParticipants.Any())
-            {                
+            {
                 if (plannedSexofParticipants.Any())
                 {
                     if (plannedSexofParticipants.Count == 1)
@@ -218,10 +218,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 }
             }
             return objectivesEndpointsAndEstimandsDto;
-        } 
+        }
 
         public static string GetAmendmentNumber(this List<Core.DTO.StudyV4.StudyAmendmentDto> amendments)
-        {            
+        {
             if (amendments is not null && amendments.Any())
             {
                 // If there is only one amendment, take the first one
@@ -250,7 +250,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         public static string GetPlannedSexOfParticipantsFromCodeListV5(this List<TransCelerate.SDR.Core.DTO.StudyV5.CodeDto> plannedSexofParticipants)
         {
             if (plannedSexofParticipants != null && plannedSexofParticipants.Any())
-            {                
+            {
                 if (plannedSexofParticipants.Any())
                 {
                     if (plannedSexofParticipants.Count == 1)
@@ -283,15 +283,15 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         }
         public static TransCelerate.SDR.Core.DTO.StudyV5.StudyDefinitionDocumentVersionDto GetStudyProtocolVersionsV5(this Core.DTO.StudyV5.StudyVersionDto studyVersion, List<TransCelerate.SDR.Core.DTO.StudyV5.StudyDefinitionDocumentVersionDto> studyProtocolVersions)
         {
-			//if (!String.IsNullOrWhiteSpace(studyVersion.DocumentVersionIds))
-			//{
-			//    return (studyProtocolVersions.Find(x => x.Id == studyVersion.DocumentVersionIds));
-			//}
-			if (studyVersion.DocumentVersionIds != null && studyVersion.DocumentVersionIds.Any())
-			{
-				return studyProtocolVersions.Find(x => studyVersion.DocumentVersionIds.Contains(x.Id));
-			}
-			return null;
+            //if (!String.IsNullOrWhiteSpace(studyVersion.DocumentVersionIds))
+            //{
+            //    return (studyProtocolVersions.Find(x => x.Id == studyVersion.DocumentVersionIds));
+            //}
+            if (studyVersion.DocumentVersionIds != null && studyVersion.DocumentVersionIds.Any())
+            {
+                return studyProtocolVersions.Find(x => studyVersion.DocumentVersionIds.Contains(x.Id));
+            }
+            return null;
         }
         public static string GetNumberOfParticipantsV5(this Core.DTO.StudyV5.StudyDesignPopulationDto population)
         {
@@ -301,6 +301,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                     return plannedEnrollmentNumberRange.MaxValue.ToString();
                 else
                     return $"{plannedEnrollmentNumberRange.MinValue} to {plannedEnrollmentNumberRange.MaxValue}";
+            }
+            else if (population?.PlannedEnrollmentNumber is Core.DTO.StudyV5.QuantityDto plannedEnrollmentNumberQuantity)
+            {
+                return plannedEnrollmentNumberQuantity.Value.ToString();
             }
             else if (population is not null && population.PlannedEnrollmentNumber is null && population.Cohorts?.Any() == true)
             {
@@ -370,10 +374,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 }
             }
             return objectivesEndpointsAndEstimandsDto;
-        } 
+        }
 
         public static string GetAmendmentNumber(this List<Core.DTO.StudyV5.StudyAmendmentDto> amendments)
-        {            
+        {
             if (amendments is not null && amendments.Any())
             {
                 // If there is only one amendment, take the first one
@@ -396,6 +400,25 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             }
             return null;
         }
+
+        public static string GetPrimaryPurposeFromIntentTypes(this List<TransCelerate.SDR.Core.DTO.StudyV5.CodeDto> intentTypes)
+        {
+            if (intentTypes != null && intentTypes.Any())
+            {
+                if (intentTypes.Count == 1)
+                {
+                    return GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, intentTypes.FirstOrDefault()?.Code) ?? intentTypes.FirstOrDefault()?.Decode;
+                }
+                else
+                {
+                    return $"{String.Join(", ", intentTypes.Select(x => ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, x.Code) ?? x.Decode).ToArray(), 0, intentTypes.Count - 1)}" +
+                           $" and {intentTypes.Select(x => ECPTHelper.GetCptMappingValue(Constants.SdrCptMasterDataEntities.TrialIntentType, x.Code) ?? x.Decode).LastOrDefault()}";
+                }
+            }
+
+            return null;
+        }
+
         #endregion
     }
 }
