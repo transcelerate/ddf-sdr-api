@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using TransCelerate.SDR.Core.Entities.Common;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
+using TransCelerate.SDR.Core.Utilities.Helpers;
 
 namespace TransCelerate.SDR.DataAccess.Filters
 {
@@ -680,7 +681,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
                     x.Study.Versions[0].Organizations.Any(org =>
                         org.Id == identifier.ScopeId &&
                         org.Identifier.ToLower().Contains(searchParameters.SponsorId.ToLower()) &&
-                        org.Type.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower())));
+                        CodeValueHelper.IsSponsorDecode(org.Type.Decode))));
             }
             //Filter for Indication
             if (!String.IsNullOrWhiteSpace(searchParameters.Indication))
@@ -742,7 +743,7 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             var sponsorIdentifier = searchResponse.StudyIdentifiers
                 .FirstOrDefault(x => scopeLookup.ContainsKey(x.ScopeId) &&
-                                    scopeLookup[x.ScopeId]?.Type?.Decode?.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower());
+                        CodeValueHelper.IsSponsorDecode(scopeLookup[x.ScopeId]?.Type?.Decode));
 
             return sponsorIdentifier != null && scopeLookup.ContainsKey(sponsorIdentifier.ScopeId)
                 ? scopeLookup[sponsorIdentifier.ScopeId]?.Identifier ?? ""
