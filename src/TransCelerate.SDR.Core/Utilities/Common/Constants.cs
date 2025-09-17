@@ -23,9 +23,9 @@ namespace TransCelerate.SDR.Core.Utilities.Common
 
             public static readonly string[] SponsorIdentifierConstants =
             {
-                SPONSOR_ID, SPONSOR_ID_V1, SPONSOR_ID_V2
+                SPONSOR_ID_V1, SPONSOR_ID_V2
             };
-            
+
             public static readonly string[] RegulatoryAgencyIdentifierNumberConstants =
             {
                 "Regulatory Agency","Clinical Study Registry"

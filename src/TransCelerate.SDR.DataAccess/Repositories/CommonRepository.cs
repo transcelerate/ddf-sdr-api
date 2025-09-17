@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using TransCelerate.SDR.Core.Entities.Common;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
+using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.DataAccess.Filters;
 using TransCelerate.SDR.DataAccess.Interfaces;
 
@@ -544,7 +545,7 @@ namespace TransCelerate.SDR.DataAccess.Repositories
                         x.Study.Versions[0].Organizations.Any(org =>
                             org.Id == identifier.ScopeId &&
                             org.Identifier.Contains(searchParameters.SponsorId, StringComparison.OrdinalIgnoreCase) &&
-                            org.Type.Decode.Equals(Constants.IdType.SPONSOR_ID_V1, StringComparison.OrdinalIgnoreCase)
+                            CodeValueHelper.IsSponsorDecode(org.Type.Decode)
                         )
                     )).ToList();
                 }
