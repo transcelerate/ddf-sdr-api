@@ -679,7 +679,12 @@ namespace TransCelerate.SDR.DataAccess.Filters
                 filter &= builder.Where(x =>
                     x.Study.Versions[0].Organizations.Any(org =>
                         org.Identifier.ToLower().Contains(searchParameters.SponsorId.ToLower()) &&
-                        org.Type.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower()));
+                        (
+                            org.Type.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower() ||
+                            org.Type.Decode.ToLower() == Constants.IdType.SPONSOR_ID_V2.ToLower()
+                        )
+                    )
+                );
             }
 
             //Filter for Indication
@@ -741,7 +746,11 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             var sponsorIdentifier = searchResponse.StudyIdentifiers
                 .FirstOrDefault(x => scopeLookup.ContainsKey(x.ScopeId) &&
-                                    scopeLookup[x.ScopeId]?.Type?.Decode?.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower());
+                    (
+                        scopeLookup[x.ScopeId]?.Type?.Decode?.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower() ||
+                        scopeLookup[x.ScopeId]?.Type?.Decode?.ToLower() == Constants.IdType.SPONSOR_ID_V2.ToLower()
+                    )
+                );
 
             return sponsorIdentifier != null && scopeLookup.ContainsKey(sponsorIdentifier.ScopeId)
                 ? scopeLookup[sponsorIdentifier.ScopeId]?.Identifier ?? ""
