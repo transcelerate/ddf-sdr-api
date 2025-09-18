@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using TransCelerate.SDR.Core.Entities.Common;
+using TransCelerate.SDR.Core.Entities.StudyV5;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 
@@ -418,7 +419,8 @@ namespace TransCelerate.SDR.DataAccess.Filters
             {
                 searchParameters.InterventionModel = Regex.Escape(searchParameters.InterventionModel);
                 filter &= builder.Or(
-                     builder.Regex($"{Constants.DbFilter.StudyDesigns}.{Constants.DbFilter.InterventionModel}", new BsonRegularExpression($"/{searchParameters.InterventionModel}/i"))
+                     builder.Regex($"{Constants.DbFilter.StudyDesigns}.{Constants.DbFilter.InterventionModel}", new BsonRegularExpression($"/{searchParameters.InterventionModel}/i")),
+                     builder.Regex($"{Constants.DbFilter.StudyDesigns}.{Constants.DbFilter.InterventionModelV5}", new BsonRegularExpression($"/{searchParameters.InterventionModel}/i"))
                     );
             }
 
@@ -436,10 +438,10 @@ namespace TransCelerate.SDR.DataAccess.Filters
 
             return filter;
         }
-        public static SortDefinition<SearchResponseEntity> GetSorterForSearchStudy(SearchParametersEntity searchParameters)
+        public static SortDefinition<Core.Entities.Common.SearchResponseEntity> GetSorterForSearchStudy(SearchParametersEntity searchParameters)
         {
-            SortDefinitionBuilder<SearchResponseEntity> builder = Builders<SearchResponseEntity>.Sort;
-            SortDefinition<SearchResponseEntity> sorter = builder.Descending(x => x.EntryDateTime);
+            SortDefinitionBuilder<Core.Entities.Common.SearchResponseEntity> builder = Builders<Core.Entities.Common.SearchResponseEntity>.Sort;
+            SortDefinition<Core.Entities.Common.SearchResponseEntity> sorter = builder.Descending(x => x.EntryDateTime);
 
             if (!String.IsNullOrWhiteSpace(searchParameters.Header))
             {
@@ -690,6 +692,17 @@ namespace TransCelerate.SDR.DataAccess.Filters
             //Filter for Indication
             if (!String.IsNullOrWhiteSpace(searchParameters.Indication))
                 filter &= builder.Where(x => x.Study.Versions[0].StudyDesigns.Any(x => x.Indications.Any(y => y.Description.ToLower().Contains(searchParameters.Indication.ToLower()))));
+
+            //Filter for Intervention Model
+            if (!String.IsNullOrWhiteSpace(searchParameters.InterventionModel))
+            {
+                filter &= builder.Where(x => x.Study.Versions[0].StudyDesigns.Any(design =>
+                        design.InstanceType == "InterventionalStudyDesign" &&
+                        ((InterventionalStudyDesignEntity)design).Model != null &&
+                        ((InterventionalStudyDesignEntity)design).Model.Decode.ToLower().Contains(searchParameters.InterventionModel.ToLower())
+                    )
+                );
+            }
 
             //Filter for Study Phase
             if (!String.IsNullOrWhiteSpace(searchParameters.Phase))
