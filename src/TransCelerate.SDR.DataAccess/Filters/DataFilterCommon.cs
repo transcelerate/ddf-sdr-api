@@ -696,17 +696,11 @@ namespace TransCelerate.SDR.DataAccess.Filters
             //Filter for Intervention Model
             if (!String.IsNullOrWhiteSpace(searchParameters.InterventionModel))
             {
-                filter &= builder.Or(
-                    builder.Where(x => x.Study.Versions[0].StudyDesigns.Any(design =>
+                filter &= builder.Where(x => x.Study.Versions[0].StudyDesigns.Any(design =>
                         design.InstanceType == "InterventionalStudyDesign" &&
                         ((InterventionalStudyDesignEntity)design).Model != null &&
                         ((InterventionalStudyDesignEntity)design).Model.Decode.ToLower().Contains(searchParameters.InterventionModel.ToLower())
-                    )),
-                    builder.Where(x => x.Study.Versions[0].StudyDesigns.Any(design =>
-                        design.InstanceType == "ObservationalStudyDesign" &&
-                        ((ObservationalStudyDesignEntity)design).Model != null &&
-                        ((ObservationalStudyDesignEntity)design).Model.Decode.ToLower().Contains(searchParameters.InterventionModel.ToLower())
-                    ))
+                    )
                 );
             }
 
