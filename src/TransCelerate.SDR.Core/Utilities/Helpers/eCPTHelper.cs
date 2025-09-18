@@ -297,10 +297,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         {
             if (population?.PlannedEnrollmentNumber is Core.DTO.StudyV5.RangeDto plannedEnrollmentNumberRange)
             {
-                if (Convert.ToInt32(plannedEnrollmentNumberRange.MaxValue) == Convert.ToInt32(plannedEnrollmentNumberRange.MinValue))
-                    return plannedEnrollmentNumberRange.MaxValue.ToString();
+                if (Convert.ToInt32(plannedEnrollmentNumberRange.MaxValue.Value) == Convert.ToInt32(plannedEnrollmentNumberRange.MinValue.Value))
+                    return plannedEnrollmentNumberRange.MaxValue.Value.ToString();
                 else
-                    return $"{plannedEnrollmentNumberRange.MinValue} to {plannedEnrollmentNumberRange.MaxValue}";
+                    return $"{plannedEnrollmentNumberRange.MinValue.Value} to {plannedEnrollmentNumberRange.MaxValue.Value}";
             }
             else if (population?.PlannedEnrollmentNumber is Core.DTO.StudyV5.QuantityDto plannedEnrollmentNumberQuantity)
             {
@@ -352,7 +352,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 {
                     plannedAges.AddRange(population.Cohorts.Where(x => x.PlannedAge is not null).Select(x => x.PlannedAge).ToList());
                 }
-                return isMax ? plannedAges.Max(x => x.MaxValue).ToString() : plannedAges.Min(x => x.MinValue).ToString();
+                return isMax ? plannedAges.Max(x => x.MaxValue.Value).ToString() : plannedAges.Min(x => x.MinValue.Value).ToString();
             }
             return null;
         }
