@@ -17,5 +17,8 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public string PreviousId { get; set; }
         public string NextId { get; set; }
         public string InstanceType { get; set; }
+        public bool displaySectionNumber { get; set; }
+        public bool displaySectionTitle { get; set; }
+        public NarrativeContentItemDto contentItem { get; set; }
     }
 }

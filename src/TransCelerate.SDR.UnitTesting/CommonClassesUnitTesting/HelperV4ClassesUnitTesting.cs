@@ -10,13 +10,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TransCelerate.SDR.Core.DTO.StudyV4;
-using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities.StudyV4;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV4;
 using TransCelerate.SDR.DataAccess.Filters;
+using TransCelerate.SDR.RuleEngine.Common;
 using TransCelerate.SDR.RuleEngineV4;
 
 namespace TransCelerate.SDR.UnitTesting
@@ -27,13 +27,8 @@ namespace TransCelerate.SDR.UnitTesting
         private readonly IServiceCollection serviceDescriptors = Mock.Of<IServiceCollection>();
         private readonly ILogHelper _mockLogger = Mock.Of<ILogHelper>();
         #endregion
-        #region Setup
-        readonly LoggedInUser user = new()
-        {
-            UserName = "user1@SDR.com",
-            UserRole = Constants.Roles.Org_Admin
-        };
 
+        #region Setup
         public static StudyDefinitionsDto GetDtoDataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV4.json");
@@ -54,7 +49,7 @@ namespace TransCelerate.SDR.UnitTesting
         public void HelpersUnitTesting()
         {
             HelperV4 helper = new();
-            AuditTrailEntity auditTrailEntity = helper.GetAuditTrail(user.UserName, Constants.USDMVersions.V3);
+            AuditTrailEntity auditTrailEntity = helper.GetAuditTrail(Constants.USDMVersions.V3);
             Assert.IsInstanceOf(typeof(DateTime), auditTrailEntity.EntryDateTime);
         }
 
@@ -79,7 +74,6 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsInstanceOf(typeof(BadRequestObjectResult), response);
 
 
-            context.ModelState.Clear();
             studyDto = GetDtoDataFromStaticJson();
             studyDto.Study.Versions.FirstOrDefault().Titles = null;
 
@@ -155,7 +149,7 @@ namespace TransCelerate.SDR.UnitTesting
             context.Request.Headers["usdmVersion"] = usdmVersion;
             httpContextAccessor.Setup(_ => _.HttpContext).Returns(context);
             ValidationDependenciesV4.AddValidationDependenciesV4(serviceDescriptors);
-            var studyDto = GetDtoDataFromStaticJson();            
+            var studyDto = GetDtoDataFromStaticJson();
         }
 
         #endregion

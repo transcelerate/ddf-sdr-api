@@ -1,4 +1,6 @@
-﻿namespace TransCelerate.SDR.Core.DTO.StudyV4
+﻿using System.Collections.Generic;
+
+namespace TransCelerate.SDR.Core.DTO.StudyV4
 {
     public class ProcedureDto : IId
     {        
@@ -10,6 +12,7 @@
         public CodeDto Code { get; set; }
         public string StudyInterventionId { get; set; }
         public string InstanceType { get; set; }
+        public List<CommentAnnotationDto> Notes { get; set; }
 
     }
 }

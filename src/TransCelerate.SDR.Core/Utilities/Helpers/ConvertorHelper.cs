@@ -26,7 +26,12 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
                 var studyTitleV4 = studyTitles is not null ? JsonConvert.DeserializeObject<List<CommonStudyTitle>>(JsonConvert.SerializeObject(studyTitles)) : null;
                 return studyTitleV4.GetStudyTitle(Constants.StudyTitle.OfficialStudyTitle);
             }
-            return studyTitles;
+			if (usdmVersion == Constants.USDMVersions.V4)
+			{
+				var studyTitleV5 = studyTitles is not null ? JsonConvert.DeserializeObject<List<CommonStudyTitle>>(JsonConvert.SerializeObject(studyTitles)) : null;
+				return studyTitleV5.GetStudyTitleV5(Constants.StudyTitle.OfficialStudyTitle);
+			}
+			return studyTitles;
         }
     }
 }

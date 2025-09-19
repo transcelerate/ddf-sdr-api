@@ -17,5 +17,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public TransitionRuleDto TransitionStartRule { get; set; }
         public TransitionRuleDto TransitionEndRule { get; set; }
         public string InstanceType { get; set; }
+        public List<CommentAnnotationDto> Notes { get; set; }
     }
 }

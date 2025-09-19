@@ -15,5 +15,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public List<CodeDto> PlannedSex { get; set; }
         public List<EligibilityCriterionDto> Criteria { get; set; }
         public string InstanceType { get; set; }
+        public List<CommentAnnotationDto> Notes { get; set; }
     }
 }

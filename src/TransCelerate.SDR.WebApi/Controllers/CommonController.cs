@@ -1,17 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Common;
-using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.ErrorModels;
-using TransCelerate.SDR.Core.Filters;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
@@ -19,7 +15,6 @@ using TransCelerate.SDR.Services.Interfaces;
 
 namespace TransCelerate.SDR.WebApi.Controllers
 {
-    [AuthorizationFilter]
     [ApiVersionNeutral]
     [ApiController]
     public class CommonController : ControllerBase
@@ -62,17 +57,11 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 {
                     _logger.LogInformation($"Inputs : studyId = {studyId}; sdruploadversion = {sdruploadversion};");
 
-                    LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
-
-                    var study = await _commonService.GetRawJson(studyId, sdruploadversion, user);
+                    var study = await _commonService.GetRawJson(studyId, sdruploadversion);
 
                     if (study == null)
                     {
                         return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
-                    }
-                    else if (study.ToString() == Constants.ErrorMessages.Forbidden)
-                    {
-                        return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
                     }
                     else
                     {
@@ -102,7 +91,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             {
                 _logger.LogInformation($"Ended Controller : {nameof(CommonController)}; Method : {nameof(GetRawJson)};");
             }
-        }      
+        }
 
         /// <summary>
         /// GET API -> USDM Version Mapping
@@ -160,7 +149,6 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
                     _logger.LogInformation($"Inputs : studyId = {studyId}; fromDate = {fromDate}; toDate = {toDate}");
-                    LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
 
                     Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(fromDate, toDate, -1);
 
@@ -168,14 +156,10 @@ namespace TransCelerate.SDR.WebApi.Controllers
                     toDate = fromAndToDate.Item2;
                     if (fromDate <= toDate)
                     {
-                        var studyAuditResponse = await _commonService.GetAuditTrail(studyId, fromDate, toDate, user);
+                        var studyAuditResponse = await _commonService.GetAuditTrail(studyId, fromDate, toDate);
                         if (studyAuditResponse == null)
                         {
                             return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
-                        }
-                        else if (studyAuditResponse.ToString() == Constants.ErrorMessages.Forbidden)
-                        {
-                            return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
                         }
                         else
                         {
@@ -225,9 +209,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             {
                 _logger.LogInformation($"Started Controller : {nameof(CommonController)}; Method : {nameof(GetStudyHistory)};");
 
-                LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
-
-                _logger.LogInformation($"Inputs: FromDate: {fromDate}; ToDate: {toDate}; DateRange from Key Vault :{Config.DateRange}");
+                _logger.LogInformation($"Inputs: FromDate: {fromDate}; ToDate: {toDate}; DateRange: {Config.DateRange}");
 
                 Tuple<DateTime, DateTime> fromAndToDate = FromDateToDateHelper.GetFromAndToDate(fromDate, toDate, Convert.ToInt32(Config.DateRange));
 
@@ -236,7 +218,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
 
                 if (fromDate <= toDate)
                 {
-                    var studyHistoryResponse = await _commonService.GetStudyHistory(fromDate, toDate, studyTitle, user);
+                    var studyHistoryResponse = await _commonService.GetStudyHistory(fromDate, toDate, studyTitle);
                     if (studyHistoryResponse == null)
                     {
                         return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
@@ -284,9 +266,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 {
                     _logger.LogInformation($"Inputs : studyId = {studyId}; sdruploadversion = {sdruploadversion};");
 
-                    LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
-
-                    var study = await _commonService.GetLinks(studyId, sdruploadversion, user);
+                    var study = await _commonService.GetLinks(studyId, sdruploadversion);
 
                     if (study == null)
                     {
@@ -334,7 +314,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(CommonController)}; Method : {nameof(SearchStudy)};");
-                LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
+
                 if (searchparameters != null)
                 {
                     if (String.IsNullOrWhiteSpace(searchparameters.Indication)
@@ -357,7 +337,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                             return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError)).Value);
                         }
                     }
-                    var response = await _commonService.SearchStudy(searchparameters, user).ConfigureAwait(false);
+                    var response = await _commonService.SearchStudy(searchparameters).ConfigureAwait(false);
 
                     if (response == null)
                     {
@@ -403,7 +383,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
             try
             {
                 _logger.LogInformation($"Started Controller : {nameof(CommonController)}; Method : {nameof(SearchTitle)};");
-                LoggedInUser user = LoggedInUserHelper.GetLoggedInUser(User);
+
                 if (searchparameters != null)
                 {
                     if (String.IsNullOrWhiteSpace(searchparameters.StudyTitle) && String.IsNullOrWhiteSpace(searchparameters.SponsorId)
@@ -423,7 +403,7 @@ namespace TransCelerate.SDR.WebApi.Controllers
                             return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateError)).Value);
                         }
                     }
-                    var response = await _commonService.SearchTitle(searchparameters, user).ConfigureAwait(false);
+                    var response = await _commonService.SearchTitle(searchparameters).ConfigureAwait(false);
 
                     if (response == null || response.Count == 0)
                     {

@@ -10,5 +10,8 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public string Description { get; set; }
         public List<CodeDto> Codes { get; set; }
         public string InstanceType { get; set; }
+        public bool isRareDisease { get; set; }
+        public List<CommentAnnotationDto> Notes { get; set; }
+
     }
 }

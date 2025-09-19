@@ -10,13 +10,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TransCelerate.SDR.Core.DTO.StudyV3;
-using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities.StudyV3;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV3;
 using TransCelerate.SDR.DataAccess.Filters;
+using TransCelerate.SDR.RuleEngine.Common;
 using TransCelerate.SDR.RuleEngineV3;
 
 namespace TransCelerate.SDR.UnitTesting
@@ -27,12 +27,8 @@ namespace TransCelerate.SDR.UnitTesting
         private readonly IServiceCollection serviceDescriptors = Mock.Of<IServiceCollection>();
         private readonly ILogHelper _mockLogger = Mock.Of<ILogHelper>();
         #endregion
+
         #region Setup
-        readonly LoggedInUser user = new()
-        {
-            UserName = "user1@SDR.com",
-            UserRole = Constants.Roles.Org_Admin
-        };
         public static StudyDefinitionsEntity GetEntityDataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/StudyDataV3.json");
@@ -59,7 +55,7 @@ namespace TransCelerate.SDR.UnitTesting
         public void HelpersUnitTesting()
         {
             HelperV3 helper = new();
-            AuditTrailEntity auditTrailEntity = helper.GetAuditTrail(user.UserName);
+            AuditTrailEntity auditTrailEntity = helper.GetAuditTrail(Constants.USDMVersions.V2);
             Assert.IsInstanceOf(typeof(DateTime), auditTrailEntity.EntryDateTime);
         }
 
@@ -72,7 +68,7 @@ namespace TransCelerate.SDR.UnitTesting
             studyDto.Study = null;
             var httpContextAccessor = new Mock<IHttpContextAccessor>();
             var contextAccessor = new DefaultHttpContext();
-            var usdmVersion = Constants.USDMVersions.V1_9;
+            var usdmVersion = Constants.USDMVersions.V2;
             contextAccessor.Request.Headers["usdmVersion"] = usdmVersion;
             httpContextAccessor.Setup(_ => _.HttpContext).Returns(contextAccessor);
 
@@ -84,7 +80,6 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsInstanceOf(typeof(BadRequestObjectResult), response);
 
 
-            context.ModelState.Clear();
             studyDto = GetDtoDataFromStaticJson();
             studyDto.Study.StudyTitle = null;
 
@@ -178,7 +173,7 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.IsTrue(Validator<IndicationDto>(new IndicationValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].StudyIndications[0]));
             Assert.IsTrue(Validator<InterCurrentEventDto>(new InterCurrentEventsValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].StudyEstimands[0].IntercurrentEvents[0]));
             Assert.IsTrue(Validator<InvestigationalInterventionDto>(new InvestigationalInterventionValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].StudyInvestigationalInterventions[0]));
-            Assert.IsTrue(Validator<ProcedureDto>(new ProcedureValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].Activities[0].DefinedProcedures[0]));            
+            Assert.IsTrue(Validator<ProcedureDto>(new ProcedureValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].Activities[0].DefinedProcedures[0]));
             Assert.IsTrue(Validator<StudyCellDto>(new StudyCellsValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].StudyCells[0]));
             Assert.IsTrue(Validator<StudyDesignPopulationDto>(new StudyDesignPopulationValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0].StudyPopulations[0]));
             Assert.IsTrue(Validator<StudyDesignDto>(new StudyDesignValidator(httpContextAccessor.Object), studyDto.Study.StudyDesigns[0]));

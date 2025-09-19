@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransCelerate.SDR.Services"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransCelerate.SDR.RuleEngine", "TransCelerate.SDR.RuleEngine\TransCelerate.SDR.RuleEngine.csproj", "{FC722F3A-20A4-4C0A-BEE2-DC87C736D593}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransCelerate.SDR.AzureFunctions", "TransCelerate.SDR.AzureFunctions\TransCelerate.SDR.AzureFunctions.csproj", "{F5C69AF1-320D-41E6-AA7F-EAB923B49B05}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

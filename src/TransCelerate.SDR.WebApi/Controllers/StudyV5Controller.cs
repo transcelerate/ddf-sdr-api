@@ -1,0 +1,597 @@
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Swashbuckle.AspNetCore.Annotations;
+using System;
+using System.Net;
+using System.Threading.Tasks;
+using TransCelerate.SDR.Core.DTO.StudyV5;
+using TransCelerate.SDR.Core.ErrorModels;
+using TransCelerate.SDR.Core.Utilities;
+using TransCelerate.SDR.Core.Utilities.Common;
+using TransCelerate.SDR.Core.Utilities.Helpers;
+using TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5;
+using TransCelerate.SDR.RuleEngine.Utilities.Common;
+using TransCelerate.SDR.Services.Interfaces;
+
+namespace TransCelerate.SDR.WebApi.Controllers
+{
+    [ApiController]
+    public class StudyV5Controller : ControllerBase
+    {
+        #region Variables        
+        private readonly ILogHelper _logger;
+        private readonly IStudyServiceV5 _studyService;
+        private readonly IHelperV5 _helper;
+        private readonly IRulesEngineValidator _rulesEngineValidator;
+        #endregion
+
+        #region Constructor
+        public StudyV5Controller(IStudyServiceV5 studyService, ILogHelper logger, IHelperV5 helper, IRulesEngineValidator rulesEngineValidator)
+        {
+            _logger = logger;
+            _studyService = studyService;
+            _helper = helper;
+            _rulesEngineValidator = rulesEngineValidator;
+        }
+        #endregion
+
+        #region Action Methods
+
+        #region GET Methods
+        /// <summary>
+        /// GET All Elements For a Study
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="sdruploadversion">Version of study</param> 
+        /// <param name="listofelements">List of elements with comma separated values</param>
+        /// <param name="usdmVersion">usdm-vreison header</param>
+        /// <response code="200">Returns Study</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">The Study for the studyId is Not Found</response>
+        [HttpGet]
+        [ApiVersion(Constants.USDMVersions.V4)]
+        [Route(Route.StudyV5)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDefinitionsDto))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> GetStudy(string studyId, int sdruploadversion, string listofelements,
+                                                  [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(GetStudy)};");
+                if (!String.IsNullOrWhiteSpace(studyId))
+                {
+                    _logger.LogInformation($"Inputs : studyId = {studyId}; sdruploadversion = {sdruploadversion}; listofelements: {listofelements}");
+
+                    if (!_helper.AreValidStudyElements(listofelements, out string[] listofelementsArray))
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyElementNotValid)).Value);
+
+                    var study = listofelementsArray == null ? await _studyService.GetStudy(studyId, sdruploadversion).ConfigureAwait(false)
+                                                            : await _studyService.GetPartialStudyElements(studyId, sdruploadversion, listofelementsArray).ConfigureAwait(false);
+
+                    if (study == null)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
+                    }
+                    else
+                    {
+                        return Ok(study);
+                    }
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV5Controller)}; Method : {nameof(GetStudy)};");
+            }
+        }
+
+        /// <summary>
+        /// GET Study Designs of a Study
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="studyDesignId">Study Design ID</param>
+        /// <param name="sdruploadversion">Version of study</param>
+        /// <param name="listofelements">List of study design elements with comma separated values</param>
+        /// <param name="usdmVersion">USDM Version</param>
+        /// <response code="200">Returns Study</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">The Study for the studyId is Not Found</response>
+        [HttpGet]
+        [Route(Route.StudyDesignV5)]
+        [ApiVersion(Constants.USDMVersions.V4)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDefinitionsDto))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> GetStudyDesigns(string studyId, int sdruploadversion, string studyDesignId, string listofelements,
+                                                  [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(GetStudyDesigns)};");
+                if (!String.IsNullOrWhiteSpace(studyId))
+                {
+                    _logger.LogInformation($"Inputs : study_uuid = {studyId}; sdruploadversion = {sdruploadversion}; listofelements: {listofelements}; studydesign_uuid: {studyDesignId}");
+
+                    if (!_helper.AreValidStudyDesignElements(listofelements, out string[] listofelementsArray))
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyDesignElementNotValid)).Value);
+
+                    var study = await _studyService.GetStudyDesigns(studyId, studyDesignId, sdruploadversion, listofelementsArray).ConfigureAwait(false);
+
+                    if (study == null)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
+                    }
+                    else if (study.ToString() == Constants.ErrorMessages.StudyDesignNotFound)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyDesignNotFound)).Value);
+                    }
+                    else
+                    {
+                        return Ok(study);
+                    }
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV5Controller)}; Method : {nameof(GetStudyDesigns)};");
+            }
+        }
+
+        /// <summary>
+        /// GET SoA For a Study
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="studyDesignId">Study Design ID</param>
+        /// <param name="sdruploadversion">Version of study</param>
+        /// <param name="scheduleTimelineId">Schedule Timeline Id</param>
+        /// <response code="200">Returns Study</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">The Study for the studyId is Not Found</response>
+        [HttpGet]
+        [Route(Route.SoAV5)]
+        [ApiVersion(Constants.USDMVersions.V4)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDefinitionsDto))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> GetSOAV5(string studyId, string studyDesignId, string scheduleTimelineId, int sdruploadversion)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(GetSOAV5)};");
+                if (!String.IsNullOrWhiteSpace(studyId))
+                {
+                    _logger.LogInformation($"Inputs : study_uuid = {studyId}; sdruploadversion = {sdruploadversion}; WorkflowId: {scheduleTimelineId}; studydesign_uuid: {studyDesignId}");
+                    if (String.IsNullOrWhiteSpace(studyDesignId) && !String.IsNullOrWhiteSpace(scheduleTimelineId))
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.EnterDesignIdError)).Value);
+
+                    var SoA = await _studyService.GetSOAV5(studyId, studyDesignId, scheduleTimelineId, sdruploadversion).ConfigureAwait(false);
+
+                    if (SoA == null)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
+                    }
+                    else if (SoA.ToString() == Constants.ErrorMessages.StudyDesignNotFound)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyDesignNotFound)).Value);
+                    }
+                    else if (SoA.ToString() == Constants.ErrorMessages.ScheduleTimelineNotFound)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.ScheduleTimelineNotFound)).Value);
+                    }
+                    else
+                    {
+                        return Ok(SoA);
+                    }
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV5Controller)}; Method : {nameof(GetSOAV5)};");
+            }
+        }
+
+        /// <summary>
+        /// GET eCPT Elements For a Study
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="sdruploadversion">Version of study</param> 
+        /// <param name="studydesignId">studyDesignId</param> 
+        /// <response code="200">Returns Study</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">The Study for the studyId is Not Found</response>
+        [HttpGet]
+        [Route(Route.GeteCPTV5)]
+        [ApiVersion(Constants.USDMVersions.V4)]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> GeteCPTV5(string studyId, int sdruploadversion, string studydesignId)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(CommonController)}; Method : {nameof(GeteCPTV5)};");
+                if (!String.IsNullOrWhiteSpace(studyId))
+                {
+                    _logger.LogInformation($"Inputs : studyId = {studyId}; sdruploadversion = {sdruploadversion};");
+
+                    var study = await _studyService.GeteCPTV5(studyId, sdruploadversion, studydesignId);
+
+                    if (study == null)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
+                    }
+                    else if (study.ToString() == Constants.ErrorMessages.eCPTError)
+                    {
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.eCPTError)).Value);
+                    }
+                    else if (study.ToString() == Constants.ErrorMessages.StudyDesignNotFoundCPT)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyDesignNotFoundCPT)).Value);
+                    }
+                    else if (study.ToString() == Constants.ErrorMessages.StudyDesignIdNotFoundCPT)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyDesignIdNotFoundCPT)).Value);
+                    }
+                    else
+                    {
+                        return Ok(study);
+                    }
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(CommonController)}; Method : {nameof(GeteCPTV5)};");
+            }
+        }
+
+        /// <summary>
+        /// GET Differences between two versions of a study
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <param name="sdrUploadVersionOne">First Version of study</param> 
+        /// <param name="sdrUploadVersionTwo">Second Version of study</param>
+        /// <param name="usdmVersion">usdm-vreison header</param>
+        /// <response code="200">Returns Study</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">The Study for the studyId is Not Found</response>
+        [HttpGet]
+        [ApiVersion(Constants.USDMVersions.V4)]
+        [Route(Route.VersionCompareV5)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDefinitionsDto))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> GetDifferences(string studyId, int sdrUploadVersionOne, int sdrUploadVersionTwo,
+                                                  [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(GetDifferences)};");
+                if (!String.IsNullOrWhiteSpace(studyId))
+                {
+                    _logger.LogInformation($"Inputs : studyId = {studyId}; sdruploadversion1 = {sdrUploadVersionOne}; sdruploadversion2 = {sdrUploadVersionTwo};");
+
+                    if (sdrUploadVersionOne == 0 && sdrUploadVersionTwo == 0)
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest($"{Constants.ErrorMessages.ProvideValidVersion[0]} {nameof(sdrUploadVersionOne)} and {nameof(sdrUploadVersionTwo)}{Constants.ErrorMessages.ProvideValidVersion[1]}")).Value);
+
+                    if (sdrUploadVersionOne == 0)
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest($"{Constants.ErrorMessages.ProvideValidVersion[0]} {nameof(sdrUploadVersionOne)}{Constants.ErrorMessages.ProvideValidVersion[1]}")).Value);
+
+                    if (sdrUploadVersionTwo == 0)
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest($"{Constants.ErrorMessages.ProvideValidVersion[0]} {nameof(sdrUploadVersionTwo)}{Constants.ErrorMessages.ProvideValidVersion[1]}")).Value);
+
+                    if (sdrUploadVersionOne == sdrUploadVersionTwo)
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.ProvideDifferentVersion)).Value);
+
+                    var differences = await _studyService.GetDifferences(studyId, sdrUploadVersionOne: Math.Min(sdrUploadVersionOne, sdrUploadVersionTwo), sdrUploadVersionTwo: Math.Max(sdrUploadVersionOne, sdrUploadVersionTwo));
+
+                    if (differences == null)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.StudyNotFound)).Value);
+                    }
+                    if (differences.ToString() == Constants.ErrorMessages.OneVersionNotFound)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.OneVersionNotFound)).Value);
+                    }
+                    else
+                    {
+                        return Ok(differences);
+                    }
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV5Controller)}; Method : {nameof(GetDifferences)};");
+            }
+        }
+        #endregion
+
+        #region POST/PUT Methods
+        /// <summary>
+        /// POST All Elements For a Study  
+        /// </summary>        
+        /// <param name="studyDTO">Study for Inserting/Updating in Database</param>        
+        /// <param name="usdmVersion">USDM Version</param>        
+        /// <response code="201">Study Created</response>
+        /// <response code="400">Bad Request</response>       
+        [HttpPost]
+        [ApiVersion(Constants.USDMVersions.V4)]
+        [Route(Route.PostElementsV5)]
+        [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDefinitionsDto))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> PostAllElements([FromBody] StudyDefinitionsDto studyDTO, [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(PostAllElements)};");
+                if (studyDTO != null)
+                {
+                    var validateResult = await RunValidateUsdmConformanceAsync(studyDTO).ConfigureAwait(false);
+                    if (validateResult is not OkObjectResult)
+                    {
+                        return validateResult;
+                    }
+
+                    var response = await _studyService.PostAllElements(studyDTO, Request?.Method).ConfigureAwait(false);
+
+                    if (response?.ToString() == Constants.ErrorMessages.NotValidStudyId)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.NotValidStudyId)).Value);
+                    }
+                    else
+                    {
+                        return Created($"study/{studyDTO.Study.Id}", new JsonResult(response).Value);
+                    }
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV5Controller)}; Method : {nameof(PostAllElements)};");
+            }
+        }
+        /// <summary>
+        /// PUT All Elements For a Study  
+        /// </summary>        
+        /// <param name="studyDTO">Study for Inserting/Updating in Database</param>        
+        /// <param name="usdmVersion">USDM Version</param>        
+        /// <param name="studyId">USDM Version</param>        
+        /// <response code="201">Study Created</response>
+        /// <response code="400">Bad Request</response>       
+        [HttpPut]
+        [ApiVersion(Constants.USDMVersions.V4)]
+        [Route(Route.StudyV5)]
+        [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(StudyDefinitionsDto))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> PutStudy([FromBody] StudyDefinitionsDto studyDTO, string studyId, [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(PutStudy)};");
+                if (studyDTO != null)
+                {
+                    var validateResult = await RunValidateUsdmConformanceAsync(studyDTO).ConfigureAwait(false);
+                    if (validateResult is not OkObjectResult)
+                    {
+                        return validateResult;
+                    }
+
+                    studyDTO.Study.Id = string.IsNullOrWhiteSpace(studyId) ? studyDTO.Study.Id : studyId;
+
+                    var response = await _studyService.PostAllElements(studyDTO, Request?.Method)
+                                                              .ConfigureAwait(false);
+
+                    if (response?.ToString() == Constants.ErrorMessages.NotValidStudyId)
+                    {
+                        return NotFound(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.NotValidStudyId)).Value);
+                    }
+                    else
+                    {
+                        return Created($"study/{studyDTO.Study.Id}", new JsonResult(response).Value);
+                    }
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV5Controller)}; Method : {nameof(PutStudy)};");
+            }
+        }
+        #endregion
+
+        #region USDM Conformance Validation
+        /// <summary>
+        /// Validate USDM Conformance rules for a Study
+        /// </summary>        
+        /// <param name="studyDTO">Study for Validation</param>        
+        /// <param name="usdmVersion">USDM Version</param>        
+        /// <response code="201">Study Created</response>
+        /// <response code="400">Bad Request</response>       
+        [HttpPost]
+        [ApiVersion(Constants.USDMVersions.V4)]
+        [Route(Route.ValidateUsdmConformanceV5)]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status500InternalServerError, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> ValidateUsdmConformanceAsync([FromBody] StudyDefinitionsDto studyDTO, [FromHeader(Name = IdFieldPropertyName.Common.UsdmVersion)][BindRequired] string usdmVersion)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(ValidateUsdmConformanceAsync)};");
+                if (studyDTO != null)
+                {
+                    return await RunValidateUsdmConformanceAsync(studyDTO).ConfigureAwait(false);
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV5Controller)}; Method : {nameof(ValidateUsdmConformanceAsync)};");
+            }
+        }
+        #endregion
+
+        #region DELETE Method
+        /// <summary>
+        /// Delete a Study
+        /// </summary>
+        /// <param name="studyId">Study ID</param>
+        /// <response code="200">Deleted all versions of Study with the mentioned studyId</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="404">The Study for the studyId is Not Found</response>
+        [HttpDelete]
+        [ApiVersionNeutral]
+        [Route(Route.StudyV5)]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StudyDefinitionsDto))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ErrorModel))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Type = typeof(ErrorModel))]
+        [Produces("application/json")]
+        public async Task<IActionResult> DeleteStudy(string studyId)
+        {
+            try
+            {
+                _logger.LogInformation($"Started Controller : {nameof(StudyV5Controller)}; Method : {nameof(DeleteStudy)};");
+                if (!String.IsNullOrWhiteSpace(studyId))
+                {
+                    _logger.LogInformation($"Inputs : studyId = {studyId};");
+
+                    var response = await _studyService.DeleteStudy(studyId).ConfigureAwait(false);
+
+                    if (response == null)
+                    {
+                        return BadRequest(new JsonResult(ErrorResponseHelper.NotFound(Constants.ErrorMessages.GenericError)).Value);
+                    }
+                    else if (response?.ToString() == Constants.ErrorMessages.NotValidStudyId)
+                    {
+                        return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.NotValidStudyId)).Value);
+                    }
+                    else
+                    {
+                        return Ok(new { statusCode = ((int)HttpStatusCode.OK).ToString(), message = $"All versions of study definition with uuid : '{studyId}' are deleted" });
+                    }
+                }
+                else
+                {
+                    return BadRequest(new JsonResult(ErrorResponseHelper.BadRequest(Constants.ErrorMessages.StudyInputError)).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception occured. Exception : {ex}");
+                return BadRequest(new JsonResult(ErrorResponseHelper.ErrorResponseModel(ex)).Value);
+            }
+            finally
+            {
+                _logger.LogInformation($"Ended Controller : {nameof(StudyV5Controller)}; Method : {nameof(DeleteStudy)};");
+            }
+        }
+        #endregion        
+        #endregion
+
+        private async Task<IActionResult> RunValidateUsdmConformanceAsync(StudyDefinitionsDto studyDTO)
+        {
+            var serializer = _helper.GetSerializerSettingsForCamelCasingAndEscapeHandling();
+            var json = JsonConvert.SerializeObject(studyDTO, serializer);
+
+            var validateResult = await _rulesEngineValidator.ValidateAsync(json);
+
+            if (validateResult.ExitCode != 0)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    new JsonResult(ErrorResponseHelper.InternalServerError(validateResult.StdErr, Constants.ErrorMessages.ErrorMessageForCdiscRulesEngineFailure)).Value);
+            }
+
+            if (!string.IsNullOrEmpty(validateResult.StdErr))
+            {
+                if (validateResult.StdErr.Contains(Constants.ErrorMessages.ErrorMessageForCdiscRulesEngineIssuesFound)
+                    && !string.IsNullOrEmpty(validateResult.StdOut))
+                {
+                    return BadRequest(JObject.Parse(new JsonResult(validateResult.StdOut).Value.ToString()));
+                }
+
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    new JsonResult(ErrorResponseHelper.InternalServerError(validateResult.StdErr)).Value);
+            }
+
+            return Ok(JObject.Parse(new JsonResult(validateResult.StdOut).Value.ToString()));
+        }
+    }
+}

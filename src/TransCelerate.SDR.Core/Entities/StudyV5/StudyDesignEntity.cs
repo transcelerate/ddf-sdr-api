@@ -1,0 +1,47 @@
+using JsonSubTypes;
+using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using TransCelerate.SDR.Core.Utilities;
+
+namespace TransCelerate.SDR.Core.Entities.StudyV5
+{
+    [JsonConverter(typeof(JsonSubtypes), nameof(InstanceType))]
+    [JsonSubtypes.KnownSubType(typeof(InterventionalStudyDesignEntity), nameof(StudyDesignInstanceTypeV5.InterventionalStudyDesign))]
+    [JsonSubtypes.KnownSubType(typeof(ObservationalStudyDesignEntity), nameof(StudyDesignInstanceTypeV5.ObservationalStudyDesign))]
+    [BsonIgnoreExtraElements]
+    [BsonNoId]
+    [BsonDiscriminator(nameof(InstanceType))]
+    [BsonKnownTypes(typeof(InterventionalStudyDesignEntity))]
+    [BsonKnownTypes(typeof(ObservationalStudyDesignEntity))]
+    public class StudyDesignEntity : IId
+    {
+        public string Id { get; set; }
+        public string InstanceType { get; set; }
+        public string Name { get; set; }
+        public string Label { get; set; }
+        public string Description { get; set; }
+        public List<CodeEntity> Characteristics { get; set; }
+        public List<StudyCellEntity> StudyCells { get; set; }
+        public List<IndicationEntity> Indications { get; set; }
+        public List<string> StudyInterventionIds { get; set; }
+        public StudyDesignPopulationEntity Population { get; set; }
+        public List<ObjectiveEntity> Objectives { get; set; }
+        public List<ScheduleTimelineEntity> ScheduleTimelines { get; set; }
+        public List<CodeEntity> TherapeuticAreas { get; set; }
+        public List<EstimandEntity> Estimands { get; set; }
+        public List<EncounterEntity> Encounters { get; set; }
+        public List<ActivityEntity> Activities { get; set; }
+        public List<EligibilityCriterionEntity> EligibilityCriteria { get; set; }
+        public string Rationale { get; set; }
+        public List<BiospecimenRetentionEntity> BiospecimenRetentions { get; set; }
+        public List<StudyArmEntity> Arms { get; set; }
+        public List<StudyEpochEntity> Epochs { get; set; }
+        public List<StudyElementEntity> Elements { get; set; }
+        public List<string> DocumentVersionIds { get; set; }
+        public AliasCodeEntity StudyPhase { get; set; }
+        public CodeEntity StudyType { get; set; }
+        public List<CommentAnnotationEntity> Notes { get; set; }
+        public List<AnalysisPopulationEntity> AnalysisPopulations { get; set; }
+    }
+}

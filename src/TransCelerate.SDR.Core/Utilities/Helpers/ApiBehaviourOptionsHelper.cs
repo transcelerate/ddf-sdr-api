@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using TransCelerate.SDR.Core.Utilities.Common;
 
 namespace TransCelerate.SDR.Core.Utilities.Helpers
@@ -23,40 +26,83 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// <returns></returns>
         public ObjectResult ModelStateResponse(ActionContext context)
         {
-            var modelState = context.ModelState.ToList();
-            modelState.RemoveAll(x => x.Value.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid || x.Value.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Skipped);
-            var errors = modelState.ToDictionary(
-                    kvp => kvp.Key?.Length > 2 ? string.Join(".", kvp.Key?.Split(".").Select(key => $"{key?[..1]?.ToLower()}{key?[1..]}")) : kvp.Key,
-                    kvp => kvp.Value?.Errors?.Select(e => e.ErrorMessage).ToArray()
-                );
-            var errorsToList = errors.ToList();
-            
-            errors = errorsToList.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-            context.HttpContext?.Response?.Headers?.Add("InvalidInput", "True");
-            var errorList = SplitStringIntoArrayHelper.SplitString(JsonConvert.SerializeObject(errors), 32000);//since app insights limit is 32768 characters                                                              
-            var AuthToken = context?.HttpContext?.Request?.Headers["Authorization"];
-            var usdmVersion = context?.HttpContext?.Request?.Headers["usdmVersion"];
+            var httpContext = context.HttpContext;
 
-            //For Conformance error
-            if ((JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyEmptyError.ToLower()) || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.PropertyMissingError.ToLower())
-                || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.SelectAtleastOneGroup.ToLower()) || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.InvalidPermissionValue.ToLower())
-                || JsonConvert.SerializeObject(errors).ToLower().Contains("unique") || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.BooleanValidationFailed.ToLower()) || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.IntegerMinimumValueError.ToLower())
-                || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.IntegerValidationFailed.ToLower()) || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.ScheduledInstanceTypesError.ToLower())
-                || JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ValidationErrorMessage.GroupFilterEmptyError.ToLower())) && !JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.TokenConstants.Username.ToLower()) && !JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.TokenConstants.Password.ToLower())
-                && !JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ErrorMessages.InvalidUsdmVersion.ToLower()) && !errors.Any(key => key.Key?.ToLower() == nameof(Core.DTO.Common.AuditTrailDto.UsdmVersion).ToLower()))
+            var errors = new Dictionary<string, string[]>();
+            var warnings = new Dictionary<string, string[]>();
+
+            if (httpContext?.Items.TryGetValue("FV.Errors", out var rawErrors) == true &&
+                rawErrors is List<ValidationFailure> failures)
             {
+                errors = failures
+                    .Where(f => f.Severity == Severity.Error)
+                    .GroupBy(f => f.PropertyName)
+                        .ToDictionary(
+                            kvp => kvp.Key?.Length > 2 ? string.Join(".", kvp.Key?.Split(".").Select(key => $"{key?[..1]?.ToLower()}{key?[1..]}")) : kvp.Key,
+                            kvp => kvp.Select(e => e.ErrorCode.StartsWith("DDF") ? $"{e.ErrorCode}: {e.ErrorMessage}" : e.ErrorMessage).ToArray()
+                        );
 
-                errorList.ForEach(e => _logger.LogError($"Conformance Error {errorList.IndexOf(e) + 1}: {e}"));
-                _logger.LogInformation($"Status Code: {400}; UserName : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Email)?.Value}; UserRole : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Role)?.Value} URL: {context?.HttpContext?.Request?.Path}; AuthToken: {AuthToken}");
-                return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(errors,$"{Constants.ErrorMessages.ConformanceErrorMessage}{usdmVersion}"));
+                warnings = failures
+                    .Where(f => f.Severity == Severity.Warning)
+                    .GroupBy(f => f.PropertyName)
+                        .ToDictionary(
+                            kvp => kvp.Key?.Length > 2 ? string.Join(".", kvp.Key?.Split(".").Select(key => $"{key?[..1]?.ToLower()}{key?[1..]}")) : kvp.Key,
+                            kvp => kvp.Select(e => e.ErrorCode.StartsWith("DDF") ? $"{e.ErrorCode}: {e.ErrorMessage}" : e.ErrorMessage).ToArray()
+                        );
             }
-            //Other errors
             else
             {
-                errorList.ForEach(e => _logger.LogError($"Invalid Input {errorList.IndexOf(e) + 1}: {e}"));
-                _logger.LogInformation($"Status Code: {400}; UserName : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Email)?.Value}; UserRole : {context?.HttpContext?.User?.FindFirst(ClaimTypes.Role)?.Value} URL: {context?.HttpContext?.Request?.Path}; AuthToken: {AuthToken}");
+                var modelState = context.ModelState.ToList();
+                modelState.RemoveAll(x => x.Value.ValidationState == ModelValidationState.Valid || x.Value.ValidationState == ModelValidationState.Skipped);
+
+                errors = modelState
+                    .ToDictionary(
+                        kvp => kvp.Key?.Length > 2 ? string.Join(".", kvp.Key?.Split(".").Select(key => $"{key?[..1]?.ToLower()}{key?[1..]}")) : kvp.Key,
+                        kvp => kvp.Value?.Errors?.Select(e => e.ErrorMessage).ToArray()
+                    );
+            }
+
+            if (context.HttpContext?.Response?.Headers != null)
+            {
+                context.HttpContext.Response.Headers["InvalidInput"] = "True";
+            }
+
+            var usdmVersion = context?.HttpContext?.Request?.Headers["usdmVersion"];
+
+            // For Conformance error
+            if (HasConformanceError(errors)
+                && !JsonConvert.SerializeObject(errors).ToLower().Contains(Constants.ErrorMessages.InvalidUsdmVersion.ToLower())
+                && !errors.Any(key => key.Key?.ToLower() == nameof(DTO.Common.AuditTrailDto.UsdmVersion).ToLower()))
+            {
+                _logger.LogError($"Conformance Error: {JsonConvert.SerializeObject(errors)}");
+                _logger.LogInformation($"Status Code: {400}; URL: {context?.HttpContext?.Request?.Path}");
+                return new BadRequestObjectResult(ErrorResponseHelper.ValidationBadRequest(errors, warnings, $"{Constants.ErrorMessages.ConformanceErrorMessage}{usdmVersion}"));
+            }
+            // Other errors
+            else
+            {
+                _logger.LogError($"Invalid Input: {JsonConvert.SerializeObject(errors)}");
+                _logger.LogInformation($"Status Code: {400}; URL: {context?.HttpContext?.Request?.Path}");
                 return new BadRequestObjectResult(ErrorResponseHelper.BadRequest(errors, "Invalid Input"));
             }
+        }
+
+        public static bool HasConformanceError(Dictionary<string, string[]> errors)
+        {
+            string serializedErrors = JsonConvert.SerializeObject(errors).ToLower();
+
+            var validationMessagesToCheck = new[]
+            {
+                Constants.ValidationErrorMessage.PropertyEmptyError,
+                Constants.ValidationErrorMessage.PropertyMissingError,
+                "unique",
+                Constants.ValidationErrorMessage.BooleanValidationFailed,
+                Constants.ValidationErrorMessage.IntegerMinimumValueError,
+                Constants.ValidationErrorMessage.IntegerValidationFailed,
+                Constants.ValidationErrorMessage.ScheduledInstanceTypesError
+            };
+
+            return validationMessagesToCheck.Any(message => serializedErrors.Contains(message.ToLower()));
         }
     }
 }
