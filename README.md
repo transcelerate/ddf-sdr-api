@@ -69,8 +69,8 @@ Our published Docker image is the recommended way to run an instance of the SDR 
 
 ```bash
 docker run \
-    -e ConnectionStrings__DefaultConnection=’<CONNECTION_STRING>’ \
-    -e ConnectionStrings__DatabaseName=’SDR’ \
+    -e ConnectionStrings__DefaultConnection='<CONNECTION_STRING>' \
+    -e ConnectionStrings__DatabaseName='SDR' \
     ghcr.io/transcelerate/ddf-sdr-api:latest
 ```
 
