@@ -366,15 +366,13 @@ SDR APIs are defined in such a way that an API version can handle more than one 
 
 12. **Microsoft.AspNetCore.Mvc.Core** - Contains common action result types, attribute routing, application model conventions, API explorer, application parts, filters, formatters, model binding, and more.
 
-13. **Microsoft.AspNetCore.Authorization** - Used for API Authorization
+13. **Vsxmd** - Used for Converting xml comments into markdown file
 
-14. **Vsxmd** - Used for Converting xml comments into markdown file
+14. **ObjectsComparer** - Used for comparing two objects of same type and return the differences
 
-15. **ObjectsComparer** - Used for comparing two objects of same type and return the differences
+15. **Microsoft.AspNetCore.Mvc.Versioning** - Used for API Versioning Support
 
-16. **Microsoft.AspNetCore.Mvc.Versioning** - Used for API Versioning
-
-17. **JsonSubTypes** - Used to Serialize/Deserialize the inherited classes.
+16. **JsonSubTypes** - Used to Serialize/Deserialize the inherited classes.
 
 # Changes for Release V5.0 (September 2025)
 
