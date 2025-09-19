@@ -1,0 +1,1016 @@
+{
+  "Conformance_Details": {
+    "CORE_Engine_Version": "0.12.0",
+    "Report_Generation": "2025-09-19T20:30:07",
+    "Total_Runtime": "12.18 seconds",
+    "Standard": "USDM",
+    "Version": "V4.0",
+    "Substandard": null,
+    "CT_Version": "",
+    "Define_XML_Version": null,
+    "UNII_Version": null,
+    "Med-RT_Version": null,
+    "Meddra_Version": null,
+    "WHODRUG_Version": null,
+    "LOINC_Version": null,
+    "SNOMED_Version": null
+  },
+  "Dataset_Details": [
+    {
+      "filename": "Study.json",
+      "label": "Study",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/Study.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 1
+    },
+    {
+      "filename": "string.json",
+      "label": "string",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/string.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 9477
+    },
+    {
+      "filename": "null.json",
+      "label": "null",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/null.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 542
+    },
+    {
+      "filename": "StudyVersion.json",
+      "label": "StudyVersion",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/StudyVersion.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 1
+    },
+    {
+      "filename": "StudyDefinitionDocument.json",
+      "label": "StudyDefinitionDocument",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/StudyDefinitionDocument.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 3
+    },
+    {
+      "filename": "Code.json",
+      "label": "Code",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/Code.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 658
+    },
+    {
+      "filename": "GovernanceDate.json",
+      "label": "GovernanceDate",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/GovernanceDate.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 4
+    },
+    {
+      "filename": "ReferenceIdentifier.json",
+      "label": "ReferenceIdentifier",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/ReferenceIdentifier.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 1
+    },
+    {
+      "filename": "StudyAmendment.json",
+      "label": "StudyAmendment",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/StudyAmendment.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 1
+    },
+    {
+      "filename": "StudyDefinitionDocumentVersion.json",
+      "label": "StudyDefinitionDocumentVersion",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/StudyDefinitionDocumentVersion.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 4
+    },
+    {
+      "filename": "InterventionalStudyDesign.json",
+      "label": "InterventionalStudyDesign",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/InterventionalStudyDesign.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 1
+    },
+    {
+      "filename": "StudyIdentifier.json",
+      "label": "StudyIdentifier",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/StudyIdentifier.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 2
+    },
+    {
+      "filename": "StudyTitle.json",
+      "label": "StudyTitle",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/StudyTitle.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 4
+    },
+    {
+      "filename": "Organization.json",
+      "label": "Organization",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/Organization.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 7
+    },
+    {
+      "filename": "StudyIntervention.json",
+      "label": "StudyIntervention",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/StudyIntervention.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 3
+    },
+    {
+      "filename": "NarrativeContentItem.json",
+      "label": "NarrativeContentItem",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/NarrativeContentItem.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 170
+    },
+    {
+      "filename": "StudyRole.json",
+      "label": "StudyRole",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/StudyRole.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 1
+    },
+    {
+      "filename": "EligibilityCriterionItem.json",
+      "label": "EligibilityCriterionItem",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/EligibilityCriterionItem.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 62
+    },
+    {
+      "filename": "Condition.json",
+      "label": "Condition",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/Condition.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 2
+    },
+    {
+      "filename": "BiomedicalConceptSurrogate.json",
+      "label": "BiomedicalConceptSurrogate",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/BiomedicalConceptSurrogate.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 2
+    },
+    {
+      "filename": "SyntaxTemplateDictionary.json",
+      "label": "SyntaxTemplateDictionary",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/SyntaxTemplateDictionary.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 6
+    },
+    {
+      "filename": "BiomedicalConcept.json",
+      "label": "BiomedicalConcept",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/BiomedicalConcept.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 104
+    },
+    {
+      "filename": "GeographicScope.json",
+      "label": "GeographicScope",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/GeographicScope.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 6
+    },
+    {
+      "filename": "StudyChange.json",
+      "label": "StudyChange",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/StudyChange.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 1
+    },
+    {
+      "filename": "StudyAmendmentImpact.json",
+      "label": "StudyAmendmentImpact",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/StudyAmendmentImpact.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 1
+    },
+    {
+      "filename": "SubjectEnrollment.json",
+      "label": "SubjectEnrollment",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/SubjectEnrollment.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 1
+    },
+    {
+      "filename": "StudyAmendmentReason.json",
+      "label": "StudyAmendmentReason",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/StudyAmendmentReason.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 2
+    },
+    {
+      "filename": "DocumentContentReference.json",
+      "label": "DocumentContentReference",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/DocumentContentReference.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 1
+    },
+    {
+      "filename": "boolean.json",
+      "label": "boolean",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/boolean.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 1070
+    },
+    {
+      "filename": "Quantity.json",
+      "label": "Quantity",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/Quantity.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 10
+    },
+    {
+      "filename": "float.json",
+      "label": "float",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/float.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 10
+    },
+    {
+      "filename": "AliasCode.json",
+      "label": "AliasCode",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/AliasCode.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 233
+    },
+    {
+      "filename": "StudyCell.json",
+      "label": "StudyCell",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/StudyCell.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 15
+    },
+    {
+      "filename": "Indication.json",
+      "label": "Indication",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/Indication.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 2
+    },
+    {
+      "filename": "StudyDesignPopulation.json",
+      "label": "StudyDesignPopulation",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/StudyDesignPopulation.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 2
+    },
+    {
+      "filename": "Objective.json",
+      "label": "Objective",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/Objective.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 6
+    },
+    {
+      "filename": "ScheduleTimeline.json",
+      "label": "ScheduleTimeline",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/ScheduleTimeline.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 6
+    },
+    {
+      "filename": "Estimand.json",
+      "label": "Estimand",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/Estimand.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 1
+    },
+    {
+      "filename": "Encounter.json",
+      "label": "Encounter",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/Encounter.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 50
+    },
+    {
+      "filename": "Activity.json",
+      "label": "Activity",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/Activity.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 255
+    },
+    {
+      "filename": "EligibilityCriterion.json",
+      "label": "EligibilityCriterion",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/EligibilityCriterion.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 62
+    },
+    {
+      "filename": "StudyArm.json",
+      "label": "StudyArm",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/StudyArm.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 18
+    },
+    {
+      "filename": "StudyEpoch.json",
+      "label": "StudyEpoch",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/StudyEpoch.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 44
+    },
+    {
+      "filename": "StudyElement.json",
+      "label": "StudyElement",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/StudyElement.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 22
+    },
+    {
+      "filename": "AnalysisPopulation.json",
+      "label": "AnalysisPopulation",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/AnalysisPopulation.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 2
+    },
+    {
+      "filename": "Range.json",
+      "label": "Range",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/Range.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 1
+    },
+    {
+      "filename": "Endpoint.json",
+      "label": "Endpoint",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/Endpoint.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 12
+    },
+    {
+      "filename": "ScheduledActivityInstance.json",
+      "label": "ScheduledActivityInstance",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/ScheduledActivityInstance.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 98
+    },
+    {
+      "filename": "ScheduleTimelineExit.json",
+      "label": "ScheduleTimelineExit",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/ScheduleTimelineExit.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 8
+    },
+    {
+      "filename": "Timing.json",
+      "label": "Timing",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/Timing.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 34
+    },
+    {
+      "filename": "IntercurrentEvent.json",
+      "label": "IntercurrentEvent",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/IntercurrentEvent.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 1
+    },
+    {
+      "filename": "TransitionRule.json",
+      "label": "TransitionRule",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/TransitionRule.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 15
+    },
+    {
+      "filename": "Procedure.json",
+      "label": "Procedure",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/Procedure.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 3
+    },
+    {
+      "filename": "Address.json",
+      "label": "Address",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/Address.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 3
+    },
+    {
+      "filename": "StudySite.json",
+      "label": "StudySite",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/StudySite.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 1
+    },
+    {
+      "filename": "Administration.json",
+      "label": "Administration",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/Administration.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 2
+    },
+    {
+      "filename": "Duration.json",
+      "label": "Duration",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/Duration.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 2
+    },
+    {
+      "filename": "Masking.json",
+      "label": "Masking",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/Masking.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 1
+    },
+    {
+      "filename": "ParameterMap.json",
+      "label": "ParameterMap",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/ParameterMap.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 5
+    },
+    {
+      "filename": "BiomedicalConceptProperty.json",
+      "label": "BiomedicalConceptProperty",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/BiomedicalConceptProperty.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 185
+    },
+    {
+      "filename": "ResponseCode.json",
+      "label": "ResponseCode",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/ResponseCode.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 226
+    },
+    {
+      "filename": "NarrativeContent.json",
+      "label": "NarrativeContent",
+      "path": "/tmp/e44e8288-eaba-4d4d-a732-8345a78a00c8.json/NarrativeContent.json",
+      "modification_date": "2025-09-19T20:29:44.887308",
+      "size_kb": 0.0,
+      "length": 888
+    }
+  ],
+  "Issue_Summary": [],
+  "Issue_Details": [],
+  "Rules_Report": [
+    {
+      "core_id": "",
+      "version": "1",
+      "cdisc_rule_id": "DDF00156",
+      "fda_rule_id": "",
+      "message": "The environmental settings of the encounter are not unique - the same code is used more than once with the same codeSystem and codeSystemVersion.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000402",
+      "version": "1",
+      "cdisc_rule_id": "DDF00006",
+      "fda_rule_id": "",
+      "message": "One or more of the window attributes (windowLabel, windowLower, windowUpper) is missing.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000403",
+      "version": "1",
+      "cdisc_rule_id": "DDF00007",
+      "fda_rule_id": "",
+      "message": "The Timing type is \"Fixed Reference\" but it does not point to only one scheduled instance - relativeToScheduledInstanceId is not missing and does not contain the same value as relativeFromScheduledInstanceId.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000404",
+      "version": "1",
+      "cdisc_rule_id": "DDF00008",
+      "fda_rule_id": "",
+      "message": "The defaultConditionId and timelineExitId attributes are either both populated or both empty.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000408",
+      "version": "1",
+      "cdisc_rule_id": "DDF00013",
+      "fda_rule_id": "",
+      "message": "A required biomedical concept property (isRequired=true) is not enabled (isEnabled is not true), or a disabled biomedical concept property (isEnabled=false) is required (isRequired is not false).",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000413",
+      "version": "1",
+      "cdisc_rule_id": "DDF00020",
+      "fda_rule_id": "",
+      "message": "Population of otherReason is not consistent with code - code.code is C17649 ('Other') but otherReason is blank, or otherReason is present but code.code is not C17649 ('Other').",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000414",
+      "version": "1",
+      "cdisc_rule_id": "DDF00021",
+      "fda_rule_id": "",
+      "message": "An instance of a class is referencing itself as its previous instance.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000416",
+      "version": "1",
+      "cdisc_rule_id": "DDF00023",
+      "fda_rule_id": "",
+      "message": "The next and previous relationships are not reciprocal - the instance is the \"previous\" instance (parent_rel is \"previousId\") for an instance that is not its \"next\" instance (nextId is not the same as parent_id), or vice versa.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000417",
+      "version": "1",
+      "cdisc_rule_id": "DDF00025",
+      "fda_rule_id": "",
+      "message": "One or more of the window attributes (windowLabel, windowLower, windowUpper) contains a value for a Fixed Reference timing.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000419",
+      "version": "1",
+      "cdisc_rule_id": "DDF00027",
+      "fda_rule_id": "",
+      "message": "The same instance is referenced more than once as previous or next - nextId or previousId values are not unique.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000423",
+      "version": "1",
+      "cdisc_rule_id": "DDF00031",
+      "fda_rule_id": "",
+      "message": "The Timing type is not \"Fixed Reference\" but it does not point to two different scheduled instances - relativeFromScheduledInstanceId and/or relativeToScheduledInstanceId is missing, or they both contain the same value.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000424",
+      "version": "1",
+      "cdisc_rule_id": "DDF00032",
+      "fda_rule_id": "",
+      "message": "The business therapeutic areas of the study version are not unique - the same code is used more than once with the same codeSystem and codeSystemVersion.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000427",
+      "version": "1",
+      "cdisc_rule_id": "DDF00035",
+      "fda_rule_id": "",
+      "message": "There is not a one-to-one relationship between code and decode within a codeSytem and corresponding codeSystemVersion",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000428",
+      "version": "1",
+      "cdisc_rule_id": "DDF00036",
+      "fda_rule_id": "",
+      "message": "Type is \"Fixed Reference\" for the timing but relativeToFrom is not \"Start to Start\" (case sensitive)",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000449",
+      "version": "1",
+      "cdisc_rule_id": "DDF00040",
+      "fda_rule_id": "",
+      "message": "The study element is not referenced by any study cell.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000804",
+      "version": "1",
+      "cdisc_rule_id": "DDF00046",
+      "fda_rule_id": "",
+      "message": "The relative to/from scheduled instance of a timing was not defined within the same timeline as the timing: the parent_id of the scheduled instance ($parent_of_scheduled_instance) is not the same as parent_id of the timing (parent_id.Timing).",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000805",
+      "version": "1",
+      "cdisc_rule_id": "DDF00042",
+      "fda_rule_id": "",
+      "message": "The planned age range is marked as approximate, which is not expected.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000806",
+      "version": "1",
+      "cdisc_rule_id": "DDF00017",
+      "fda_rule_id": "",
+      "message": "The unit for a subject enrollement quantity is not empty or coded as % (codeSystem = http://www.cdisc.org, code = C25613 and decode = %).",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000807",
+      "version": "1",
+      "cdisc_rule_id": "DDF00037",
+      "fda_rule_id": "",
+      "message": "The schedule timeline does not have a defined exit: none of its scheduled activity instances has a timeline exit.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000808",
+      "version": "1",
+      "cdisc_rule_id": "DDF00073",
+      "fda_rule_id": "",
+      "message": "More than one code system version is used for the code system.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000809",
+      "version": "1",
+      "cdisc_rule_id": "DDF00047",
+      "fda_rule_id": "",
+      "message": "The study element is referenced by a study cell but was not defined within the same study design as the study cell: the parent_id of the study element ($parent_of_study_element) is not the same as parent_id of the study cell (parent_id.StudyCell).",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000810",
+      "version": "1",
+      "cdisc_rule_id": "DDF00075",
+      "fda_rule_id": "",
+      "message": "The activity does not refer to any procedure, biomedical concept, biomedical concept category or biomedical concept surrogate.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000811",
+      "version": "1",
+      "cdisc_rule_id": "DDF00090",
+      "fda_rule_id": "",
+      "message": "The biomedical concept category is referenced more than once from the same activity.",
+      "status": "SKIPPED"
+    },
+    {
+      "core_id": "CORE-000812",
+      "version": "1",
+      "cdisc_rule_id": "DDF00014",
+      "fda_rule_id": "",
+      "message": "The biomedical concept category does not have any members or children.",
+      "status": "SKIPPED"
+    },
+    {
+      "core_id": "CORE-000813",
+      "version": "1",
+      "cdisc_rule_id": "DDF00052",
+      "fda_rule_id": "",
+      "message": "The standard code aliases of the alias code are not unique - the same code is used more than once with the same codeSystem and codeSystemVersion.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000814",
+      "version": "1",
+      "cdisc_rule_id": "DDF00094",
+      "fda_rule_id": "",
+      "message": "The study version has a type of governance date with a global geographic scope and either another date of the same type or additional geographic scope(s) defined for the date.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000815",
+      "version": "1",
+      "cdisc_rule_id": "DDF00097",
+      "fda_rule_id": "",
+      "message": "Planned age has not been specified for either the study population or the cohort, or it has been specified for both.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000816",
+      "version": "1",
+      "cdisc_rule_id": "DDF00099",
+      "fda_rule_id": "",
+      "message": "The epoch is not referenced by any scheduled activity instances.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000817",
+      "version": "1",
+      "cdisc_rule_id": "DDF00100",
+      "fda_rule_id": "",
+      "message": "There is more than one title of the same type code or decode.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000818",
+      "version": "1",
+      "cdisc_rule_id": "DDF00026",
+      "fda_rule_id": "",
+      "message": "The scheduled activity instance is referencing its parent timeline as its sub-timeline.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000819",
+      "version": "1",
+      "cdisc_rule_id": "DDF00102",
+      "fda_rule_id": "",
+      "message": "The scheduled activity instance references a timeline exit that is not defined within the same schedule timeline as the scheduled activity instance.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000820",
+      "version": "1",
+      "cdisc_rule_id": "DDF00060",
+      "fda_rule_id": "",
+      "message": "The value attribute of the timing is not a non-negative duration in ISO 8601 format.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000821",
+      "version": "1",
+      "cdisc_rule_id": "DDF00044",
+      "fda_rule_id": "",
+      "message": "The condition assignment's target is the same as its parent.",
+      "status": "SKIPPED"
+    },
+    {
+      "core_id": "CORE-000822",
+      "version": "1",
+      "cdisc_rule_id": "DDF00108",
+      "fda_rule_id": "",
+      "message": "There is no exit defined for the timeline.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000823",
+      "version": "1",
+      "cdisc_rule_id": "DDF00115",
+      "fda_rule_id": "",
+      "message": "The study version does not have a title of type \"Official Study Title\" (type.code = C207616 or type.decode = \"Official Study Title\", both case insensitive).",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000824",
+      "version": "1",
+      "cdisc_rule_id": "DDF00019",
+      "fda_rule_id": "",
+      "message": "A scheduled activity/decision instance is referencing itself as its default condition.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000825",
+      "version": "1",
+      "cdisc_rule_id": "DDF00061",
+      "fda_rule_id": "",
+      "message": "The lower limit of the timing window (windowLower) is not a non-negative duration in ISO 8601 format.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000826",
+      "version": "1",
+      "cdisc_rule_id": "DDF00062",
+      "fda_rule_id": "",
+      "message": "The upper limit of the timing window (windowUpper) is not a non-negative duration in ISO 8601 format.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000827",
+      "version": "1",
+      "cdisc_rule_id": "DDF00127",
+      "fda_rule_id": "",
+      "message": "The encounter is scheduled at a timing that either is not defined in the same study design (the parent_id of the timing's parent schedule timeline does not match the parent_id of the encounter) or is invalid (schedulateAtId does not match the id of any timing).",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000828",
+      "version": "1",
+      "cdisc_rule_id": "DDF00063",
+      "fda_rule_id": "",
+      "message": "The standard code alias is the same as the standard code - the same combination of code system, code system version and either code or decode is used for both the standard code and the standard code alias (case insensitive).",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000829",
+      "version": "1",
+      "cdisc_rule_id": "DDF00054",
+      "fda_rule_id": "",
+      "message": "The contact modes of the encounter are not unique - the same code is used more than once with the same codeSystem and codeSystemVersion.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000830",
+      "version": "1",
+      "cdisc_rule_id": "DDF00011",
+      "fda_rule_id": "",
+      "message": "The timing has a type of \"Fixed Reference\" but it is not related to a scheduled activity instance via a relativeFromScheduledInstance relationship - the value of relativeFromScheduledInstanceId is missing or it does not match the id value of a ScheduledActivityInstance.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000831",
+      "version": "1",
+      "cdisc_rule_id": "DDF00058",
+      "fda_rule_id": "",
+      "message": "The codes of the indication are not unique - the same code is used more than once with the same codeSystem and codeSystemVersion.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000832",
+      "version": "1",
+      "cdisc_rule_id": "DDF00059",
+      "fda_rule_id": "",
+      "message": "The codes of the study intervention are not unique - the same code is used more than once with the same codeSystem and codeSystemVersion.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000833",
+      "version": "1",
+      "cdisc_rule_id": "DDF00137",
+      "fda_rule_id": "",
+      "message": "The reference is not a fixed value (it contains \"usdm:ref\") but it is not specified in the correct format.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000834",
+      "version": "1",
+      "cdisc_rule_id": "DDF00151",
+      "fda_rule_id": "",
+      "message": "The governance date has more than one geographic scope defined, at least one of which has type of \"Global\" (type.code = C68846 or type.decode = \"Global\", both case insensitive).",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000835",
+      "version": "1",
+      "cdisc_rule_id": "DDF00071",
+      "fda_rule_id": "",
+      "message": "The study cell references an arm that is not defined within the same study design as the study cell.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000836",
+      "version": "1",
+      "cdisc_rule_id": "DDF00072",
+      "fda_rule_id": "",
+      "message": "The study cell references an epoch that is not defined within the same study design as the study cell.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000837",
+      "version": "1",
+      "cdisc_rule_id": "DDF00028",
+      "fda_rule_id": "",
+      "message": "The activity references a previous or next activity that is not specified within the same study design.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000838",
+      "version": "1",
+      "cdisc_rule_id": "DDF00029",
+      "fda_rule_id": "",
+      "message": "The encounter references a previous or next encounter that is not specified within the same study design.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000839",
+      "version": "1",
+      "cdisc_rule_id": "DDF00024",
+      "fda_rule_id": "",
+      "message": "The epoch references a previous or next epoch that is not specified within the same study design.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000840",
+      "version": "1",
+      "cdisc_rule_id": "DDF00152",
+      "fda_rule_id": "",
+      "message": "The activity references a timeline that is not specified within the same study design.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000849",
+      "version": "1",
+      "cdisc_rule_id": "DDF00022",
+      "fda_rule_id": "",
+      "message": "An instance of a class is referencing itself as its next instance.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000851",
+      "version": "1",
+      "cdisc_rule_id": "DDF00018",
+      "fda_rule_id": "",
+      "message": "An instance of a class is being referenced as one of its own children.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000854",
+      "version": "1",
+      "cdisc_rule_id": "DDF00110",
+      "fda_rule_id": "",
+      "message": "The eligibility criterion's category is not specified using the Category of Inclusion/Exclusion (C66797) SDTM codelist - codeSystem is not \"http://www.cdisc.org\", codeSystemVersion is not a valid terminology package date, the code or decode is found in the codelist (case insensitive) but the corresponding decode or code does not match the codelist value (case sensitive), and/or neither code nor decode is found in the codelist.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000855",
+      "version": "1",
+      "cdisc_rule_id": "DDF00128",
+      "fda_rule_id": "",
+      "message": "The study intervention's type is not specified using the Intervention Type Response (C99078) SDTM codelist - codeSystem is not \"http://www.cdisc.org\", codeSystemVersion is not a valid terminology package date, the code or decode is found in the codelist (case insensitive) but the corresponding decode or code does not match the codelist value (case sensitive), and/or neither code nor decode is found in the codelist.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000856",
+      "version": "1",
+      "cdisc_rule_id": "DDF00136",
+      "fda_rule_id": "",
+      "message": "The encounter's contact mode is not specified according to the extensible Mode of Subject Contact (C171445) SDTM codelist - codeSystem is not \"http://www.cdisc.org\", codeSystemVersion is not a valid terminology package date, and/or the code or decode is found in the codelist (case insensitive) but the corresponding decode or code does not match the codelist value (case sensitive).",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000857",
+      "version": "1",
+      "cdisc_rule_id": "DDF00141",
+      "fda_rule_id": "",
+      "message": "The planned sex is not specified using the Sex of Participants (C66732) SDTM codelist - codeSystem is not \"http://www.cdisc.org\", codeSystemVersion is not a valid terminology package date, the code or decode is found in the codelist (case insensitive) but the corresponding decode or code does not match the codelist value (case sensitive), and/or neither code nor decode is found in the codelist.",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000858",
+      "version": "1",
+      "cdisc_rule_id": "DDF00157",
+      "fda_rule_id": "",
+      "message": "The encounter's environmental setting is not specified according to the extensible Environmental Setting (C127262) SDTM codelist - codeSystem is not \"http://www.cdisc.org\", codeSystemVersion is not a valid terminology package date, and/or the code or decode is found in the codelist (case insensitive) but the corresponding decode or code does not match the codelist value (case sensitive).",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000859",
+      "version": "1",
+      "cdisc_rule_id": "DDF00175",
+      "fda_rule_id": "",
+      "message": "The administration's frequency is not specified according to the extensible Frequency (C71113) SDTM codelist - codeSystem is not \"http://www.cdisc.org\", codeSystemVersion is not a valid terminology package date, and/or the code or decode is found in the codelist (case insensitive) but the corresponding decode or code does not match the codelist value (case sensitive).",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000860",
+      "version": "1",
+      "cdisc_rule_id": "DDF00176",
+      "fda_rule_id": "",
+      "message": "The administration's route is not specified according to the extensible Route of Administration Response (C66729) SDTM codelist - codeSystem is not \"http://www.cdisc.org\", codeSystemVersion is not a valid terminology package date, and/or the code or decode is found in the codelist (case insensitive) but the corresponding decode or code does not match the codelist value (case sensitive).",
+      "status": "SUCCESS"
+    },
+    {
+      "core_id": "CORE-000861",
+      "version": "1",
+      "cdisc_rule_id": "DDF00179",
+      "fda_rule_id": "",
+      "message": "The administrable dose form is not specified according to the extensible Pharmaceutical Dosage Form (C66726) SDTM codelist - codeSystem is not \"http://www.cdisc.org\", codeSystemVersion is not a valid terminology package date, and/or the code or decode is found in the codelist (case insensitive) but the corresponding decode or code does not match the codelist value (case sensitive).",
+      "status": "SKIPPED"
+    }
+  ]
+}

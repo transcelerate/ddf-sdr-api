@@ -1,0 +1,1157 @@
+{
+  "studyId": "9e4c6d51-1267-459d-868a-2a16d9cab15c",
+  "studyTitle": "Safety and Efficacy of the Xanomeline Transdermal Therapeutic System (TTS) in Patients with Mild to Moderate Alzheimer's Disease",
+  "studyDesigns": [
+    {
+      "studyDesignId": "InterventionalStudyDesign_1",
+      "studyDesignName": "Study Design 1",
+      "studyDesignDescription": "The main design for the study",
+      "studyScheduleTimelines": [
+        {
+          "scheduleTimelineId": "ScheduleTimeline_4",
+          "scheduleTimelineName": "Main Timeline",
+          "scheduleTimelineDescription": "This is the main timeline for the study design.",
+          "entryCondition": "Potential subject identified",
+          "scheduleTimelineSoA": {
+            "orderOfActivities": [
+              {
+                "activityId": "Activity_1",
+                "activityDescription": "",
+                "activityName": "Informed consent",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_2",
+                "activityDescription": "",
+                "activityName": "Inclusion/exclusion criteria",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_3",
+                "activityDescription": "",
+                "activityName": "Patient number assigned",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_4",
+                "activityDescription": "",
+                "activityName": "Demographics",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_5",
+                "activityDescription": "",
+                "activityName": "Hachinski",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_6",
+                "activityDescription": "",
+                "activityName": "MMSE",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_7",
+                "activityDescription": "",
+                "activityName": "Physical examination",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_8",
+                "activityDescription": "",
+                "activityName": "Medical history",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_9",
+                "activityDescription": "",
+                "activityName": "Habits",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_10",
+                "activityDescription": "",
+                "activityName": "Chest X-ray",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_11",
+                "activityDescription": "",
+                "activityName": "Apo E genotyping",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_12",
+                "activityDescription": "",
+                "activityName": "Patient randomised",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_13",
+                "activityDescription": "",
+                "activityName": "Vital signs / Temperature",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Temperature", "Weight", "Height"],
+                "activityTimelineId": "ScheduleTimeline_3",
+                "activityTimelineName": "Vital Sign Blood Pressure Timeline",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_14",
+                "activityDescription": "",
+                "activityName": "Ambulatory ECG placed",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_15",
+                "activityDescription": "",
+                "activityName": "Ambulatory ECG removed",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_16",
+                "activityDescription": "",
+                "activityName": "ECG",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_17",
+                "activityDescription": "",
+                "activityName": "Placebo TTS test",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_18",
+                "activityDescription": "",
+                "activityName": "CT scan",
+                "definedProcedures": [
+                  {
+                    "procedureId": "Procedure_1",
+                    "procedureName": "PR1",
+                    "procedureDescription": "CT Scan",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  }
+                ],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": [],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_19",
+                "activityDescription": "",
+                "activityName": "Concomitant medications",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_20",
+                "activityDescription": "",
+                "activityName": "Hematology",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_21",
+                "activityDescription": "",
+                "activityName": "Chemistry",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": [
+                  "Alanine Aminotransferase Concentration in Serum/Plasma",
+                  "Albumin Presence in Urine",
+                  "Alkaline Phosphatase Concentration in Serum/Plasma",
+                  "Aspartate Aminotransferase in Serum/Plasma",
+                  "Creatinine Concentration in Urine",
+                  "Potassium Concentration in Urine",
+                  "Sodium Concentration in Urine"
+                ],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_22",
+                "activityDescription": "",
+                "activityName": "Uninalysis",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_23",
+                "activityDescription": "",
+                "activityName": "Plasma Specimen (Xanomeline)",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_24",
+                "activityDescription": "",
+                "activityName": "Hemoglobin A1C",
+                "definedProcedures": [],
+                "activityIsConditional": true,
+                "activityIsConditionalReason": "Performed if patient is an insulin-dependent diabetic",
+                "biomedicalConcepts": ["Hemoglobin A1C Concentration in Blood"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": "Performed if patient is an insulin-dependent diabetic"
+              },
+              {
+                "activityId": "Activity_25",
+                "activityDescription": "",
+                "activityName": "Study drug",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_26",
+                "activityDescription": "",
+                "activityName": "TTS Acceptability Survey",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_27",
+                "activityDescription": "",
+                "activityName": "ADAS-Cog",
+                "definedProcedures": [],
+                "activityIsConditional": true,
+                "activityIsConditionalReason": "Practice only - It is recommended that a sampling of the CIBIC+, ADAS-Cog, DAD, and NPI-X be administered at Visit 1. Data from this sampling would not be considered as study data and would not be collected.",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": "Practice only - It is recommended that a sampling of the CIBIC+, ADAS-Cog, DAD, and NPI-X be administered at Visit 1. Data from this sampling would not be considered as study data and would not be collected."
+              },
+              {
+                "activityId": "Activity_28",
+                "activityDescription": "",
+                "activityName": "CIBIC+",
+                "definedProcedures": [],
+                "activityIsConditional": true,
+                "activityIsConditionalReason": "Practice only - It is recommended that a sampling of the CIBIC+, ADAS-Cog, DAD, and NPI-X be administered at Visit 1. Data from this sampling would not be considered as study data and would not be collected.",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": "Practice only - It is recommended that a sampling of the CIBIC+, ADAS-Cog, DAD, and NPI-X be administered at Visit 1. Data from this sampling would not be considered as study data and would not be collected."
+              },
+              {
+                "activityId": "Activity_29",
+                "activityDescription": "",
+                "activityName": "DAD",
+                "definedProcedures": [],
+                "activityIsConditional": true,
+                "activityIsConditionalReason": "Practice only - It is recommended that a sampling of the CIBIC+, ADAS-Cog, DAD, and NPI-X be administered at Visit 1. Data from this sampling would not be considered as study data and would not be collected.",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": "Practice only - It is recommended that a sampling of the CIBIC+, ADAS-Cog, DAD, and NPI-X be administered at Visit 1. Data from this sampling would not be considered as study data and would not be collected."
+              },
+              {
+                "activityId": "Activity_30",
+                "activityDescription": "",
+                "activityName": "NPI-X",
+                "definedProcedures": [],
+                "activityIsConditional": true,
+                "activityIsConditionalReason": "Practice only - It is recommended that a sampling of the CIBIC+, ADAS-Cog, DAD, and NPI-X be administered at Visit 1. Data from this sampling would not be considered as study data and would not be collected.",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": "Practice only - It is recommended that a sampling of the CIBIC+, ADAS-Cog, DAD, and NPI-X be administered at Visit 1. Data from this sampling would not be considered as study data and would not be collected."
+              }
+            ],
+            "SoA": [
+              {
+                "encounterId": "Encounter_1",
+                "encounterName": "E1 : Screening 1",
+                "encounterScheduledAtTimingValue": null,
+                "timings": [
+                  {
+                    "timingValue": "P2W : Screening timing",
+                    "timingWindow": "",
+                    "timingType": "Before",
+                    "activities": [
+                      "Activity_1",
+                      "Activity_2",
+                      "Activity_3",
+                      "Activity_4",
+                      "Activity_5",
+                      "Activity_6",
+                      "Activity_7",
+                      "Activity_8",
+                      "Activity_9",
+                      "Activity_10",
+                      "Activity_13",
+                      "Activity_16",
+                      "Activity_17",
+                      "Activity_18",
+                      "Activity_19",
+                      "Activity_20",
+                      "Activity_21",
+                      "Activity_22",
+                      "Activity_24",
+                      "Activity_27",
+                      "Activity_28",
+                      "Activity_29",
+                      "Activity_30"
+                    ]
+                  }
+                ]
+              },
+              {
+                "encounterId": "Encounter_2",
+                "encounterName": "E2 : Screening 2",
+                "encounterScheduledAtTimingValue": null,
+                "timings": [
+                  {
+                    "timingValue": "P2D : Pre dose timing",
+                    "timingWindow": "-4..0 hours",
+                    "timingType": "Before",
+                    "activities": ["Activity_13", "Activity_14"]
+                  }
+                ]
+              },
+              {
+                "encounterId": "Encounter_3",
+                "encounterName": "E3 : Baseline",
+                "encounterScheduledAtTimingValue": null,
+                "timings": [
+                  {
+                    "timingValue": "P1D : Dosing anchor",
+                    "timingWindow": "",
+                    "timingType": "Fixed Reference",
+                    "activities": [
+                      "Activity_12",
+                      "Activity_13",
+                      "Activity_15",
+                      "Activity_19",
+                      "Activity_23",
+                      "Activity_25",
+                      "Activity_27",
+                      "Activity_28",
+                      "Activity_29",
+                      "Activity_30"
+                    ]
+                  }
+                ]
+              },
+              {
+                "encounterId": "Encounter_4",
+                "encounterName": "E4 : Week 2",
+                "encounterScheduledAtTimingValue": null,
+                "timings": [
+                  {
+                    "timingValue": "P2W : Week 2 timing",
+                    "timingWindow": "-3..3 days",
+                    "timingType": "After",
+                    "activities": [
+                      "Activity_11",
+                      "Activity_13",
+                      "Activity_16",
+                      "Activity_19",
+                      "Activity_20",
+                      "Activity_21",
+                      "Activity_22",
+                      "Activity_23",
+                      "Activity_25",
+                      "Activity_30"
+                    ]
+                  }
+                ]
+              },
+              {
+                "encounterId": "Encounter_5",
+                "encounterName": "E5 : Week 4",
+                "encounterScheduledAtTimingValue": null,
+                "timings": [
+                  {
+                    "timingValue": "P4W : Week 4 timing",
+                    "timingWindow": "-3..3 days",
+                    "timingType": "After",
+                    "activities": [
+                      "Activity_13",
+                      "Activity_16",
+                      "Activity_19",
+                      "Activity_20",
+                      "Activity_21",
+                      "Activity_23",
+                      "Activity_25",
+                      "Activity_30"
+                    ]
+                  }
+                ]
+              },
+              {
+                "encounterId": "Encounter_6",
+                "encounterName": "E7 : Week 6",
+                "encounterScheduledAtTimingValue": null,
+                "timings": [
+                  {
+                    "timingValue": "P6W : Week 6 timing",
+                    "timingWindow": "-3..3 days",
+                    "timingType": "After",
+                    "activities": [
+                      "Activity_13",
+                      "Activity_16",
+                      "Activity_19",
+                      "Activity_20",
+                      "Activity_21",
+                      "Activity_23",
+                      "Activity_25",
+                      "Activity_30"
+                    ]
+                  }
+                ]
+              },
+              {
+                "encounterId": "Encounter_7",
+                "encounterName": "E8 : Week 8",
+                "encounterScheduledAtTimingValue": null,
+                "timings": [
+                  {
+                    "timingValue": "P8W : Week 8 timing",
+                    "timingWindow": "-3..3 days",
+                    "timingType": "After",
+                    "activities": [
+                      "Activity_13",
+                      "Activity_16",
+                      "Activity_19",
+                      "Activity_20",
+                      "Activity_21",
+                      "Activity_25",
+                      "Activity_27",
+                      "Activity_28",
+                      "Activity_29",
+                      "Activity_30"
+                    ]
+                  },
+                  {
+                    "timingValue": "P2W : Week 8 at home timing",
+                    "timingWindow": "",
+                    "timingType": "After",
+                    "activities": ["Activity_30"]
+                  }
+                ]
+              },
+              {
+                "encounterId": "Encounter_8",
+                "encounterName": "E9 : Week 12",
+                "encounterScheduledAtTimingValue": null,
+                "timings": [
+                  {
+                    "timingValue": "P12W : Week 12 timing",
+                    "timingWindow": "-4..4 days",
+                    "timingType": "After",
+                    "activities": [
+                      "Activity_13",
+                      "Activity_16",
+                      "Activity_19",
+                      "Activity_20",
+                      "Activity_21",
+                      "Activity_22",
+                      "Activity_23",
+                      "Activity_25",
+                      "Activity_30"
+                    ]
+                  },
+                  {
+                    "timingValue": "P2W : Week 12 at home timing",
+                    "timingWindow": "",
+                    "timingType": "After",
+                    "activities": ["Activity_30"]
+                  }
+                ]
+              },
+              {
+                "encounterId": "Encounter_9",
+                "encounterName": "E10 : Week 16",
+                "encounterScheduledAtTimingValue": null,
+                "timings": [
+                  {
+                    "timingValue": "P16W : Week 16 timing",
+                    "timingWindow": "-4..4 days",
+                    "timingType": "After",
+                    "activities": [
+                      "Activity_13",
+                      "Activity_16",
+                      "Activity_19",
+                      "Activity_20",
+                      "Activity_21",
+                      "Activity_25",
+                      "Activity_27",
+                      "Activity_28",
+                      "Activity_29",
+                      "Activity_30"
+                    ]
+                  },
+                  {
+                    "timingValue": "P2W : Week 16 at home timing",
+                    "timingWindow": "",
+                    "timingType": "After",
+                    "activities": ["Activity_30"]
+                  }
+                ]
+              },
+              {
+                "encounterId": "Encounter_10",
+                "encounterName": "E11 : Week 20",
+                "encounterScheduledAtTimingValue": null,
+                "timings": [
+                  {
+                    "timingValue": "P20W : Week 20 timing",
+                    "timingWindow": "-4..4 days",
+                    "timingType": "After",
+                    "activities": [
+                      "Activity_13",
+                      "Activity_16",
+                      "Activity_19",
+                      "Activity_20",
+                      "Activity_21",
+                      "Activity_23",
+                      "Activity_25",
+                      "Activity_30"
+                    ]
+                  },
+                  {
+                    "timingValue": "P2W : Week 20 at home timing",
+                    "timingWindow": "",
+                    "timingType": "After",
+                    "activities": ["Activity_30"]
+                  }
+                ]
+              },
+              {
+                "encounterId": "Encounter_11",
+                "encounterName": "E12 : Week 24",
+                "encounterScheduledAtTimingValue": null,
+                "timings": [
+                  {
+                    "timingValue": "P24W : Week 24 timing",
+                    "timingWindow": "-4..4 days",
+                    "timingType": "After",
+                    "activities": [
+                      "Activity_13",
+                      "Activity_16",
+                      "Activity_19",
+                      "Activity_20",
+                      "Activity_21",
+                      "Activity_22",
+                      "Activity_25",
+                      "Activity_27",
+                      "Activity_28",
+                      "Activity_29",
+                      "Activity_30"
+                    ]
+                  }
+                ]
+              },
+              {
+                "encounterId": "Encounter_12",
+                "encounterName": "E13 : Week 26",
+                "encounterScheduledAtTimingValue": null,
+                "timings": [
+                  {
+                    "timingValue": "P26W : Week 26 timing",
+                    "timingWindow": "-3..3 days",
+                    "timingType": "After",
+                    "activities": [
+                      "Activity_7",
+                      "Activity_13",
+                      "Activity_16",
+                      "Activity_19",
+                      "Activity_20",
+                      "Activity_21",
+                      "Activity_25",
+                      "Activity_26",
+                      "Activity_30"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "scheduleTimelineId": "ScheduleTimeline_1",
+          "scheduleTimelineName": "Adverse Event Timeline",
+          "scheduleTimelineDescription": "This is the adverse event timeline",
+          "entryCondition": "Subject suffers an adverse event",
+          "scheduleTimelineSoA": {
+            "orderOfActivities": [
+              {
+                "activityId": "Activity_31",
+                "activityDescription": "",
+                "activityName": "Adverse events",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Adverse Event Prespecified"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              }
+            ],
+            "SoA": [
+              {
+                "encounterId": "",
+                "encounterName": "",
+                "encounterScheduledAtTimingValue": "",
+                "timings": [
+                  {
+                    "timingValue": "P1D : Adverse Event",
+                    "timingWindow": "",
+                    "timingType": "Fixed Reference",
+                    "activities": ["Activity_31"]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "scheduleTimelineId": "ScheduleTimeline_2",
+          "scheduleTimelineName": "Early Termination Timeline",
+          "scheduleTimelineDescription": "This is the early termination processing",
+          "entryCondition": "Subject terminates the study early",
+          "scheduleTimelineSoA": {
+            "orderOfActivities": [
+              {
+                "activityId": "Activity_7",
+                "activityDescription": "",
+                "activityName": "Physical examination",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_13",
+                "activityDescription": "",
+                "activityName": "Vital signs / Temperature",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Temperature", "Weight", "Height"],
+                "activityTimelineId": "ScheduleTimeline_3",
+                "activityTimelineName": "Vital Sign Blood Pressure Timeline",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_16",
+                "activityDescription": "",
+                "activityName": "ECG",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_19",
+                "activityDescription": "",
+                "activityName": "Concomitant medications",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_20",
+                "activityDescription": "",
+                "activityName": "Hematology",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_21",
+                "activityDescription": "",
+                "activityName": "Chemistry",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": [
+                  "Alanine Aminotransferase Concentration in Serum/Plasma",
+                  "Albumin Presence in Urine",
+                  "Alkaline Phosphatase Concentration in Serum/Plasma",
+                  "Aspartate Aminotransferase in Serum/Plasma",
+                  "Creatinine Concentration in Urine",
+                  "Potassium Concentration in Urine",
+                  "Sodium Concentration in Urine"
+                ],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_22",
+                "activityDescription": "",
+                "activityName": "Uninalysis",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_23",
+                "activityDescription": "",
+                "activityName": "Plasma Specimen (Xanomeline)",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_25",
+                "activityDescription": "",
+                "activityName": "Study drug",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_26",
+                "activityDescription": "",
+                "activityName": "TTS Acceptability Survey",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_27",
+                "activityDescription": "",
+                "activityName": "ADAS-Cog",
+                "definedProcedures": [],
+                "activityIsConditional": true,
+                "activityIsConditionalReason": "Practice only - It is recommended that a sampling of the CIBIC+, ADAS-Cog, DAD, and NPI-X be administered at Visit 1. Data from this sampling would not be considered as study data and would not be collected.",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": "Practice only - It is recommended that a sampling of the CIBIC+, ADAS-Cog, DAD, and NPI-X be administered at Visit 1. Data from this sampling would not be considered as study data and would not be collected."
+              },
+              {
+                "activityId": "Activity_28",
+                "activityDescription": "",
+                "activityName": "CIBIC+",
+                "definedProcedures": [],
+                "activityIsConditional": true,
+                "activityIsConditionalReason": "Practice only - It is recommended that a sampling of the CIBIC+, ADAS-Cog, DAD, and NPI-X be administered at Visit 1. Data from this sampling would not be considered as study data and would not be collected.",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": "Practice only - It is recommended that a sampling of the CIBIC+, ADAS-Cog, DAD, and NPI-X be administered at Visit 1. Data from this sampling would not be considered as study data and would not be collected."
+              },
+              {
+                "activityId": "Activity_29",
+                "activityDescription": "",
+                "activityName": "DAD",
+                "definedProcedures": [],
+                "activityIsConditional": true,
+                "activityIsConditionalReason": "Practice only - It is recommended that a sampling of the CIBIC+, ADAS-Cog, DAD, and NPI-X be administered at Visit 1. Data from this sampling would not be considered as study data and would not be collected.",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": "Practice only - It is recommended that a sampling of the CIBIC+, ADAS-Cog, DAD, and NPI-X be administered at Visit 1. Data from this sampling would not be considered as study data and would not be collected."
+              },
+              {
+                "activityId": "Activity_30",
+                "activityDescription": "",
+                "activityName": "NPI-X",
+                "definedProcedures": [],
+                "activityIsConditional": true,
+                "activityIsConditionalReason": "Practice only - It is recommended that a sampling of the CIBIC+, ADAS-Cog, DAD, and NPI-X be administered at Visit 1. Data from this sampling would not be considered as study data and would not be collected.",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": "Practice only - It is recommended that a sampling of the CIBIC+, ADAS-Cog, DAD, and NPI-X be administered at Visit 1. Data from this sampling would not be considered as study data and would not be collected."
+              },
+              {
+                "activityId": "Activity_32",
+                "activityDescription": "",
+                "activityName": "Check adverse events",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": ["Sex", "Race"],
+                "activityTimelineId": "ScheduleTimeline_1",
+                "activityTimelineName": "Adverse Event Timeline",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              }
+            ],
+            "SoA": [
+              {
+                "encounterId": "",
+                "encounterName": "",
+                "encounterScheduledAtTimingValue": "",
+                "timings": [
+                  {
+                    "timingValue": "P1D : Early Termination",
+                    "timingWindow": "",
+                    "timingType": "Fixed Reference",
+                    "activities": [
+                      "Activity_7",
+                      "Activity_13",
+                      "Activity_16",
+                      "Activity_19",
+                      "Activity_20",
+                      "Activity_21",
+                      "Activity_22",
+                      "Activity_23",
+                      "Activity_25",
+                      "Activity_26",
+                      "Activity_27",
+                      "Activity_28",
+                      "Activity_29",
+                      "Activity_30",
+                      "Activity_32"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "scheduleTimelineId": "ScheduleTimeline_3",
+          "scheduleTimelineName": "Vital Sign Blood Pressure Timeline",
+          "scheduleTimelineDescription": "BP Profile",
+          "entryCondition": "Automatic execution",
+          "scheduleTimelineSoA": {
+            "orderOfActivities": [
+              {
+                "activityId": "Activity_33",
+                "activityDescription": "",
+                "activityName": "Supine",
+                "definedProcedures": [
+                  {
+                    "procedureId": "Procedure_2",
+                    "procedureName": "PR_SUPINE",
+                    "procedureDescription": "Subject Supine",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  }
+                ],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": [],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_34",
+                "activityDescription": "",
+                "activityName": "Vital Signs Supine",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": [
+                  "Systolic Blood Pressure",
+                  "Diastolic Blood Pressure",
+                  "Heart Rate"
+                ],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_35",
+                "activityDescription": "",
+                "activityName": "Stand",
+                "definedProcedures": [
+                  {
+                    "procedureId": "Procedure_3",
+                    "procedureName": "PR_STAND",
+                    "procedureDescription": "Subject Standing",
+                    "procedureIsConditional": false,
+                    "procedureIsConditionalReason": "",
+                    "footnoteId": "",
+                    "footnoteDescription": ""
+                  }
+                ],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": [],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              },
+              {
+                "activityId": "Activity_36",
+                "activityDescription": "",
+                "activityName": "Vital Signs Standing",
+                "definedProcedures": [],
+                "activityIsConditional": false,
+                "activityIsConditionalReason": "",
+                "biomedicalConcepts": [
+                  "Systolic Blood Pressure",
+                  "Diastolic Blood Pressure",
+                  "Heart Rate"
+                ],
+                "activityTimelineId": null,
+                "activityTimelineName": "",
+                "footnoteId": "",
+                "footnoteDescription": ""
+              }
+            ],
+            "SoA": [
+              {
+                "encounterId": "",
+                "encounterName": "",
+                "encounterScheduledAtTimingValue": "",
+                "timings": [
+                  {
+                    "timingValue": "PT0M : Supine",
+                    "timingWindow": "",
+                    "timingType": "Fixed Reference",
+                    "activities": ["Activity_33"]
+                  },
+                  {
+                    "timingValue": "PT5M : VS while supine",
+                    "timingWindow": "",
+                    "timingType": "After",
+                    "activities": ["Activity_34"]
+                  },
+                  {
+                    "timingValue": "PT0M : Standing",
+                    "timingWindow": "",
+                    "timingType": "After",
+                    "activities": ["Activity_35"]
+                  },
+                  {
+                    "timingValue": "PT1M : VS while standing",
+                    "timingWindow": "",
+                    "timingType": "After",
+                    "activities": ["Activity_36"]
+                  },
+                  {
+                    "timingValue": "PT0M : Standing",
+                    "timingWindow": "",
+                    "timingType": "After",
+                    "activities": ["Activity_35"]
+                  },
+                  {
+                    "timingValue": "PT2M : VS while standing",
+                    "timingWindow": "",
+                    "timingType": "After",
+                    "activities": ["Activity_36"]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
