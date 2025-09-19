@@ -1,15 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
-using System.Net;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.DTO.Common;
-using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.ErrorModels;
-using TransCelerate.SDR.Core.Filters;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
@@ -17,7 +12,6 @@ using TransCelerate.SDR.Services.Interfaces;
 
 namespace TransCelerate.SDR.WebApi.Controllers
 {
-    [AuthorizationFilter]
     [ApiVersionNeutral]
     [ApiController]
     public class ChangeAuditController : ControllerBase
@@ -45,7 +39,6 @@ namespace TransCelerate.SDR.WebApi.Controllers
         /// <response code="200">Returns Change Audit</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">The Study for the studyId is Not Found</response>
-        /// <response code="403">The Access for Study is Forbidden</response>
         [HttpGet]
         [Route(Route.ChangeAudit)]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ChangeAuditDto))]
@@ -59,20 +52,11 @@ namespace TransCelerate.SDR.WebApi.Controllers
                 _logger.LogInformation($"Started Controller : {nameof(ChangeAuditController)}; Method : {nameof(GetChangeAudit)};");
                 if (!String.IsNullOrWhiteSpace(studyId))
                 {
-                    LoggedInUser user = new()
-                    {
-                        UserName = User?.FindFirst(ClaimTypes.Email)?.Value,
-                        UserRole = User?.FindFirst(ClaimTypes.Role)?.Value
-                    };
-                    var changeAudit = await _changeAuditService.GetChangeAudit(studyId, user).ConfigureAwait(false);
+                    var changeAudit = await _changeAuditService.GetChangeAudit(studyId).ConfigureAwait(false);
 
                     if (changeAudit == null)
                     {
                         return NotFound(new JsonResult(ErrorResponseHelper.NotFound($"{Constants.ErrorMessages.ChangeAuditNotFound} {studyId}")).Value);
-                    }
-                    else if (changeAudit.ToString() == Constants.ErrorMessages.Forbidden)
-                    {
-                        return StatusCode(((int)HttpStatusCode.Forbidden), new JsonResult(ErrorResponseHelper.Forbidden()).Value);
                     }
                     else
                     {

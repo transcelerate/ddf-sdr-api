@@ -1,11 +1,6 @@
 ﻿using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using TransCelerate.SDR.Core.DTO.Token;
 using TransCelerate.SDR.Core.Entities.StudyV4;
-using TransCelerate.SDR.Core.Entities.UserGroups;
-
 
 namespace TransCelerate.SDR.DataAccess.Interfaces
 {
@@ -61,7 +56,6 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// </returns>
         Task<string> UpdateStudyItemsAsync(StudyDefinitionsEntity study);
 
-        Task<List<SDRGroupsEntity>> GetGroupsOfUser(LoggedInUser user);
         /// <summary>
         /// Delete all version of a study
         /// </summary>
@@ -75,8 +69,6 @@ namespace TransCelerate.SDR.DataAccess.Interfaces
         /// <param name="study_uuid"> Study Id</param>
         /// <returns></returns>
         Task<long> CountAsync(string study_uuid);
-
-        Task<StudyDefinitionsEntity> GetStudyItemsForCheckingAccessAsync(string studyId, int sdruploadversion);
 
         /// <summary>
         /// GET a Study for a study ID with version filter

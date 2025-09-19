@@ -17,5 +17,6 @@ namespace TransCelerate.SDR.Core.DTO.StudyV4
         public AliasCodeDto Route { get; set; }
         public AliasCodeDto Frequency { get; set; }
         public string InstanceType { get; set; }
+        public List<CommentAnnotationDto> Notes { get; set; }
     }
 }

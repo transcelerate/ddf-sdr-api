@@ -25,49 +25,6 @@
         #endregion
         #endregion
 
-        #region Study V1 Routes
-        #region GET Method Routes        
-        public const string StudyV1 = "v1/studydefinitions/{studyId}";
-
-        public const string StudyDesignV1 = "/v1/studydesigns";
-
-        public const string AuditTrailV1 = "v1/audittrail/{studyId}";
-
-        public const string StudyHistoryV1 = "/v1/studydefinitions/history";
-        #endregion
-
-        #region POST Method Routes
-        public const string PostElementsV1 = "/v1/studydefinitions";
-
-        public const string SearchElementsV1 = "v1/search";
-
-        public const string SearchTitleV1 = "v1/searchstudytitle";
-        #endregion
-        #endregion
-
-        #region Study V2 Routes
-        #region GET Method Routes        
-        public const string StudyV2 = "v2/studydefinitions/{studyId}";
-
-        public const string StudyDesignV2 = "v2/studydesigns";
-
-        public const string SoAV2 = "v2/studydefinitions/{studyId}/studydesigns/soa";
-
-        public const string AuditTrailV2 = "v2/audittrail/{studyId}";
-
-        public const string StudyHistoryV2 = "/v2/studydefinitions/history";
-
-        public const string GeteCPTV2 = "v2/studyDefinitions/{studyId}/studydesigns/eCPT";
-        #endregion
-
-        #region POST Method Routes
-        public const string PostElementsV2 = "/v2/studydefinitions";
-
-        public const string SearchElementsV2 = "v2/search";
-
-        public const string SearchTitleV2 = "v2/searchstudytitle";
-        #endregion
-        #endregion
         #region Study V3 Routes
         #region GET Method Routes
         public const string StudyV3 = "v3/studydefinitions/{studyId}";
@@ -89,6 +46,7 @@
         public const string ValidateUsdmConformanceV3 = "/v3/studydefinitions/validate-usdm-conformance";
         #endregion
         #endregion
+
         #region Study V4 Routes
         #region GET Method Routes
         public const string StudyV4 = "v4/studydefinitions/{studyId}";
@@ -110,30 +68,27 @@
         public const string ValidateUsdmConformanceV4 = "/v4/studydefinitions/validate-usdm-conformance";
         #endregion
         #endregion
-        #region User Group Routes
-        public const string GetGroups = "usergroups/getgroups";
 
-        public const string GetUsers = "usergroups/getusers";
+        #region Study V5 Routes
+        #region GET Method Routes
+        public const string StudyV5 = "v5/studydefinitions/{studyId}";
 
-        public const string GetGroupList = "usergroups/getgrouplist";
+        public const string StudyDesignV5 = "v5/studydesigns";
 
-        public const string GetUsersFromAD = "usergroups/listusers";
+        public const string SoAV5 = "v5/studydefinitions/{studyId}/studydesigns/soa";
 
-        public const string CheckGroupName = "usergroups/checkgroupname";
+        public const string AuditTrailV5 = "v5/audittrail/{studyId}";
 
-        public const string PostAGroup = "usergroups/postgroup";
+        public const string GeteCPTV5 = "v5/studyDefinitions/{studyId}/studydesigns/eCPT";
 
-        public const string PostUserToGroups = "usergroups/postuser";
-
-        public const string RemoveInActiveUsers = "usergroups/removeinactiveusers";
+        public const string VersionCompareV5 = "v5/studydefinitions/{studyId}/version-comparison";
         #endregion
 
-        #region Reports
-        public const string SystemUsageReport = "reports/usage";
-        #endregion
+        #region POST Method Routes
+        public const string PostElementsV5 = "/v5/studydefinitions";
 
-        #region Token
-        public const string Token = "v1/auth/token";
+        public const string ValidateUsdmConformanceV5 = "/v5/studydefinitions/validate-usdm-conformance";
+        #endregion
         #endregion
 
         #region ChangeAudit
@@ -148,7 +103,6 @@
         public const string GetStudyHistory = "studydefinitions/history";
         public const string CommonSearch = "studydefinitions/search";
         public const string GetLinksForAStudy = "studydefinitions/{studyId}/links";
-        public const string CommonToken = "auth/token";        
         #endregion
     }
 }

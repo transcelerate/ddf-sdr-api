@@ -19,30 +19,10 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         /// </returns>>
         public static ErrorModel ErrorResponseModel(Exception exception)
         {
-            string statusCode;
-            if (exception is UnauthorizedAccessException) statusCode = ((int)HttpStatusCode.Forbidden).ToString();
-            else statusCode = ((int)HttpStatusCode.BadRequest).ToString();
-
             ErrorModel errorModel = new()
             {
-                StatusCode = statusCode,
+                StatusCode = ((int)HttpStatusCode.BadRequest).ToString(),
                 Message = Constants.ErrorMessages.GenericError
-            };
-            return errorModel;
-        }
-
-        /// <summary>
-        /// Resposne Helper When there is an Unauthorized Access
-        /// </summary>
-        /// <returns>
-        /// A <see cref="ErrorModel"/> When there is an Unauthorized Access      
-        /// </returns>>
-        public static ErrorModel UnAuthorizedAccess(string message = null)
-        {
-            ErrorModel errorModel = new()
-            {
-                StatusCode = ((int)HttpStatusCode.Unauthorized).ToString(),
-                Message = message ?? Constants.ErrorMessages.UnAuthorized
             };
             return errorModel;
         }
@@ -117,6 +97,27 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
         }
 
         /// <summary>
+        /// Validation Response Helper When there is Conformance Rule Error or Invalid Input
+        /// </summary>
+        /// <param name="validationErrorDetails">Object for holding validation errors</param>
+        /// <param name="validationWarningDetails">Object for holding validation warnings</param>
+        /// <param name="message">Message for error response</param>
+        /// <returns>
+        /// A <see cref="ValidationErrorModel"/> When there is Conformance Rule Error or Invalid Input
+        /// </returns>>
+        public static RuleValidationErrorModel ValidationBadRequest(Object validationErrorDetails, Object validationWarningDetails, string message = null)
+        {
+            RuleValidationErrorModel errorModel = new()
+            {
+                StatusCode = ((int)HttpStatusCode.BadRequest).ToString(),
+                Message = message ?? "Conformance Error",
+                Error = validationErrorDetails,
+                Warning = validationWarningDetails
+            };
+            return errorModel;
+        }
+
+        /// <summary>
         /// Resposne Helper When specific method for an API is not called. Ex: When a GET method is called with a POST request.
         /// </summary>
         /// <param name="message">Message for error response</param>
@@ -133,7 +134,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             return errorModel;
         }
         /// <summary>
-        /// Resposne Helper When there is a Internal server error
+        /// Response helper when there is an internal server error
         /// </summary>
         /// <param name="message">Message for error response</param>
         /// <returns>
@@ -148,19 +149,20 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             };
             return errorModel;
         }
+
         /// <summary>
-        /// Resposne Helper When the user is accessing a restricted data or APi
+        /// Response helper when there is an internal server error
         /// </summary>
+        /// <param name="problemDetails">Object for holding error details</param>
         /// <param name="message">Message for error response</param>
-        /// <returns>
-        /// A <see cref="ErrorModel"/> 
-        /// </returns>>
-        public static ErrorModel Forbidden(string message = null)
+        /// <returns>Status code, error message and details</returns>
+        public static ValidationErrorModel InternalServerError(Object problemDetails, string message = null)
         {
-            ErrorModel errorModel = new()
+            ValidationErrorModel errorModel = new()
             {
-                StatusCode = ((int)HttpStatusCode.Forbidden).ToString(),
-                Message = message ?? Constants.ErrorMessages.Forbidden
+                StatusCode = ((int)HttpStatusCode.InternalServerError).ToString(),
+                Message = message ?? "Internal Server Error",
+                Error = problemDetails
             };
             return errorModel;
         }

@@ -29,15 +29,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers
             {
                 context.Response.Headers.Add("Content-Type", "application/json");
             }
-            if (context.Response.StatusCode == (int)HttpStatusCode.Unauthorized)
-            {
-                response = JsonConvert.SerializeObject(ErrorResponseHelper.UnAuthorizedAccess(), jsonSettings);
-            }
-            else if (context.Response.StatusCode == (int)HttpStatusCode.Forbidden)
-            {
-                response = JsonConvert.SerializeObject(ErrorResponseHelper.Forbidden(Constants.ErrorMessages.Forbidden), jsonSettings);
-            }
-            else if (context.Response.StatusCode == (int)HttpStatusCode.NotFound)
+            if (context.Response.StatusCode == (int)HttpStatusCode.NotFound)
             {
                 response = JsonConvert.SerializeObject(ErrorResponseHelper.NotFound(), jsonSettings);
             }

@@ -1,353 +1,6 @@
 {
   "ConformanceRules": [
     {
-      "usdmVersion": "1.9",
-      "rules": [
-        {
-          "entity": "Activity",
-          "required": [
-            "Id",
-            "ActivityDescription",
-            "ActivityName",
-            "ActivityIsConditionalReason",
-            "ActivityIsConditional"
-          ]
-        },
-        {
-          "entity": "Address",
-          "required": [
-            "Text",
-            "Line",
-            "City",
-            "District",
-            "State",
-            "PostalCode",
-            "Country"
-          ]
-        },
-        {
-          "entity": "AliasCode",
-          "required": [
-            "Id",
-            "StandardCode"
-          ]
-        },
-        {
-          "entity": "AnalysisPopulation",
-          "required": [
-            "Id",
-            "PopulationDescription"
-          ]
-        },
-        {
-          "entity": "BiomedicalConcept",
-          "required": [
-            "Id",
-            "BcName",
-            "BcReference",
-            "BcConceptCode"
-          ]
-        },
-        {
-          "entity": "BiomedicalConceptCategory",
-          "required": [
-            "Id",
-            "BcCategoryName",
-            "BcCategoryDescription"
-          ]
-        },
-        {
-          "entity": "BiomedicalConceptSurrogate",
-          "required": [
-            "Id",
-            "BcSurrogateName",
-            "BcSurrogateDescription",
-            "BcSurrogateReference"
-          ]
-        },
-        {
-          "entity": "BiomedicalConceptProperty",
-          "required": [
-            "Id",
-            "BcPropertyName",
-            "BcPropertyRequired",
-            "BcPropertyDataType",
-            "BcPropertyEnabled",
-            "BcPropertyConceptCode"
-          ]
-        },
-        {
-          "entity": "Study",
-          "required": [
-            "StudyTitle",
-            "StudyType",
-            "StudyIdentifiers",
-            "StudyPhase",
-            "StudyVersion",
-            "StudyAcronym",
-            "StudyRationale"
-          ]
-        },
-        {
-          "entity": "Code",
-          "required": [
-            "Id",
-            "Code",
-            "Decode",
-            "CodeSystem",
-            "CodeSystemVersion"
-          ]
-        },
-
-        {
-          "entity": "Encounter",
-          "required": [
-            "Id",
-            "EncounterDescription",
-            "EncounterName"
-          ]
-        },
-        {
-          "entity": "Endpoint",
-          "required": [
-            "Id",
-            "EndpointDescription",
-            "EndpointPurposeDescription"
-          ]
-        },
-        {
-          "entity": "Indication",
-          "required": [
-            "Id",
-            "IndicationDescription"
-          ]
-        },
-        {
-          "entity": "InterCurrentEvents",
-          "required": [
-            "Id",
-            "IntercurrentEventDescription",
-            "IntercurrentEventName",
-            "IntercurrentEventStrategy"
-          ]
-        },
-        {
-          "entity": "InvestigationalIntervention",
-          "required": [
-            "Id",
-            "InterventionDescription"
-          ]
-        },
-        {
-          "entity": "Organisation",
-          "required": [
-            "Id",
-            "OrganisationIdentifier",
-            "OrganisationIdentifierScheme",
-            "OrganisationName",
-            "OrganisationType"
-          ]
-        },
-        {
-          "entity": "Procedure",
-          "required": [
-            "Id",
-            "ProcedureType",
-            "ProcedureCode",
-            "ProcedureIsConditionalReason",
-            "ProcedureIsConditional"
-          ]
-        },
-        {
-          "entity": "ResponseCode",
-          "required": [
-            "Id",
-            "Code",
-            "ResponseCodeEnabled"
-          ]
-        },
-        {
-          "entity": "StudyArm",
-          "required": [
-            "Id",
-            "StudyArmDataOriginDescription",
-            "StudyArmDataOriginType",
-            "StudyArmDescription",
-            "StudyArmType",
-            "StudyArmName"
-          ]
-        },
-        {
-          "entity": "ScheduleTimelineExit",
-          "required": [
-            "Id"
-          ]
-        },
-        {
-          "entity": "ScheduledActivityInstance",
-          "required": [
-            "Id",
-            "ScheduleSequenceNumber",
-            "ScheduledInstanceType"
-          ]
-        },
-        {
-          "entity": "ScheduledDecisionInstance",
-          "required": [
-            "Id",
-            "ScheduleSequenceNumber",
-            "ScheduledInstanceType"
-          ]
-        },
-        {
-          "entity": "ScheduledInstance",
-          "required": [
-            "Id",
-            "ScheduleSequenceNumber",
-            "ScheduledInstanceType"
-          ]
-        },
-        {
-          "entity": "ScheduleTimelines",
-          "required": [
-            "Id",
-            "ScheduleTimelineName",
-            "ScheduleTimelineDescription",
-            "EntryCondition"
-          ]
-        },
-        {
-          "entity": "StudyCells",
-          "required": [
-            "Id"
-          ]
-        },
-        {
-          "entity": "StudyDataCollection",
-          "required": [
-            "Id",
-            "EcrfLink",
-            "StudyDataName",
-            "StudyDataDescription"
-          ]
-        },
-        {
-          "entity": "StudyDesignPopulation",
-          "required": [
-            "Id",
-            "PopulationDescription",
-            "PlannedNumberOfParticipants",
-            "PlannedMaximumAgeOfParticipants",
-            "PlannedMinimumAgeOfParticipants"
-          ]
-        },
-        {
-          "entity": "StudyDesign",
-          "required": [
-            "Id",
-            "InterventionModel",
-            "StudyDesignName",
-            "StudyDesignDescription",
-            "StudyDesignRationale"
-          ]
-        },
-        {
-          "entity": "StudyElements",
-          "required": [
-            "Id",
-            "StudyElementDescription",
-            "StudyElementName"
-          ]
-        },
-        {
-          "entity": "StudyEpoch",
-          "required": [
-            "Id",
-            "StudyEpochName",
-            "StudyEpochDescription",
-            "StudyEpochType",
-            "NextStudyEpochId",
-            "PreviousStudyEpochId"
-          ]
-        },
-        {
-          "entity": "StudyEstimands",
-          "required": [
-            "Id",
-            "SummaryMeasure",
-            "AnalysisPopulation"
-          ]
-        },
-        {
-          "entity": "StudyIdentifiers",
-          "required": [
-            "Id",
-            "StudyIdentifier",
-            "StudyIdentifierScope"
-          ]
-        },
-        {
-          "entity": "Objective",
-          "required": [
-            "Id",
-            "ObjectiveDescription"
-          ]
-        },
-        {
-          "entity": "StudyProtocolVersions",
-          "required": [
-            "Id",
-            "BriefTitle",
-            "OfficialTitle",
-            "ProtocolEffectiveDate",
-            "ProtocolStatus",
-            "ProtocolVersion",
-            "PublicTitle",
-            "ScientificTitle"
-          ]
-        },
-        {
-          "entity": "StudyDefinitions",
-          "required": [
-            "Study"
-          ]
-        },
-        {
-          "entity": "Timing",
-          "required": [
-            "Id",
-            "TimingType",
-            "TimingValue",
-            "RelativeFromScheduledInstanceId",
-            "RelativeToScheduledInstanceId",
-            "TimingWindow",
-            "TimingRelativeToFrom"
-          ]
-        },
-        {
-          "entity": "TransitionRule",
-          "required": [
-            "Id",
-            "TransitionRuleDescription"
-          ]
-        },
-        {
-          "entity": "WorkflowItem",
-          "required": [
-            "Id",
-            "WorkflowItemDescription"
-          ]
-        },
-        {
-          "entity": "Workflow",
-          "required": [
-            "Id",
-            "WorkflowDescription"
-          ]
-        }
-      ]
-    },
-    {
       "usdmVersion": "2.0",
       "rules": [
         {
@@ -810,8 +463,7 @@
             "InstanceType",
             "Identifier",
             "InstanceType",
-            "Name",
-            "Text"
+            "Name"
           ]
         },
         {
@@ -1245,6 +897,806 @@
             "Text"
           ]
         }
+      ]
+    },
+    {
+      "usdmVersion": "4.0",
+      "rules": [
+        {
+          "entity": "Activity",
+          "required": [
+            "Id",
+            "IsConditional",
+            "Name",
+            "InstanceType"
+          ]
+        },
+        {
+          "entity": "Address",
+          "required": [
+            "Id",
+            "InstanceType"
+          ]
+        },
+        {
+          "entity": "AdministrableProduct",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "AdministrableDoseForm",
+            "ProductDesignation"
+          ]
+        },
+        {
+          "entity": "AdministrableProductIdentifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "ScopeId"
+          ]
+        },
+        {
+          "entity": "AdministrableProductProperty",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Text",
+            "Type"
+          ]
+        },
+        {
+          "entity": "Administration",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Duration"
+          ]
+        },
+        {
+          "entity": "AliasCode",
+          "required": [
+            "Id",
+            "InstanceType",
+            "StandardCode"
+          ]
+        },
+        {
+          "entity": "AnalysisPopulation",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Text"
+          ]
+        },
+        {
+          "entity": "AssignedPerson",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "PersonName",
+            "JobTitle"
+          ]
+        },
+        {
+          "entity": "BiomedicalConcept",
+          "required": [
+            "Code",
+            "Id",
+            "InstanceType",
+            "Name",
+            "Reference"
+          ]
+        },
+        {
+          "entity": "BiomedicalConceptCategory",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name"
+          ]
+        },
+        {
+          "entity": "BiomedicalConceptProperty",
+          "required": [
+            "Code",
+            "DataType",
+            "IsEnabled",
+            "Id",
+            "InstanceType",
+            "Name",
+            "IsRequired"
+          ]
+        },
+        {
+          "entity": "BiomedicalConceptSurrogate",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name"
+          ]
+        },
+        {
+          "entity": "BiospecimenRetention",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "IsRetained"
+          ]
+        },
+        {
+          "entity": "Characteristic",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Text"
+          ]
+        },
+        {
+          "entity": "Code",
+          "required": [
+            "Code",
+            "CodeSystem",
+            "CodeSystemVersion",
+            "Decode",
+            "Id",
+            "InstanceType"
+          ]
+        },
+        {
+          "entity": "Condition",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Text"
+          ]
+        },
+        {
+          "entity": "ConditionAssignment",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Condition",
+            "ConditionTargetId"
+          ]
+        },
+        {
+          "entity": "DocumentContentReference",
+          "required": [
+            "Id",
+            "InstanceType",
+            "SectionNumber",
+            "SectionTitle",
+            "AppliesTo"
+          ]
+        },
+        {
+          "entity": "Duration",
+          "required": [
+            "Id",
+            "InstanceType",
+            "DurationWillVary"
+          ]
+        },
+        {
+          "entity": "EligibilityCriterion",
+          "required": [
+            "Category",
+            "Id",
+            "InstanceType",
+            "Identifier",
+            "Name",
+            "CriterionItem"
+          ]
+        },
+        {
+          "entity": "EligibilityCriterionItem",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Text"
+          ]
+        },
+        {
+          "entity": "Encounter",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name"
+          ]
+        },
+        {
+          "entity": "Endpoint",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Level",
+            "Name",
+            "Text"
+          ]
+        },
+        {
+          "entity": "Estimand",
+          "required": [
+            "Id",
+            "InstanceType",
+            "PopulationSummary",
+            "Name",
+            "AnalysisPopulation",
+            "VariableOfInterest",
+            "IntercurrentEvents",
+            "Interventions"
+          ]
+        },
+        {
+          "entity": "GeographicScope",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Type"
+          ]
+        },
+        {
+          "entity": "GovernanceDate",
+          "required": [
+            "DateValue",
+            "Id",
+            "InstanceType",
+            "Type",
+            "Name",
+            "GeographicScopes"
+          ]
+        },
+        {
+          "entity": "Identifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "ScopeId"
+          ]
+        },
+        {
+          "entity": "Indication",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name"
+          ]
+        },
+        {
+          "entity": "Ingredient",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Substance",
+            "Role"
+          ]
+        },
+        {
+          "entity": "IntercurrentEvent",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Text",
+            "Strategy"
+          ]
+        },
+        {
+          "entity": "InterventionalStudyDesign",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Rationale",
+            "Arms",
+            "StudyCells",
+            "Epochs",
+            "Population",
+            "Model"
+          ]
+        },
+        {
+          "entity": "Masking",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "IsMasked"
+          ]
+        },
+        {
+          "entity": "MedicalDevice",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name"
+          ]
+        },
+        {
+          "entity": "MedicalDeviceIdentifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "ScopeId",
+            "Type"
+          ]
+        },
+        {
+          "entity": "NarrativeContent",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "SectionNumber",
+            "SectionTitle"
+          ]
+        },
+        {
+          "entity": "Objective",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Text",
+            "Level"
+          ]
+        },
+        {
+          "entity": "ObservationalStudyDesign",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Rationale",
+            "Arms",
+            "StudyCells",
+            "Epochs",
+            "Population",
+            "Model",
+            "TimePerspective"
+          ]
+        },
+        {
+          "entity": "Organization",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Identifier",
+            "IdentifierScheme",
+            "Type"
+          ]
+        },
+        {
+          "entity": "ParameterMap",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Tag",
+            "Reference"
+          ]
+        },
+        {
+          "entity": "PersonName",
+          "required": [
+            "Id",
+            "InstanceType"
+          ]
+        },
+        {
+          "entity": "Procedure",
+          "required": [
+            "Code",
+            "Id",
+            "InstanceType",
+            "IsConditional",
+            "Name",
+            "Type"
+          ]
+        },
+        {
+          "entity": "ProductOrganizationRole",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Code",
+            "OrganizationId"
+          ]
+        },
+        {
+          "entity": "Quantity",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Value"
+          ]
+        },
+        {
+          "entity": "QuantityRange",
+          "required": [
+            "Id",
+            "InstanceType"
+          ]
+        },
+        {
+          "entity": "ReferenceIdentifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "ScopeId",
+            "Type"
+          ]
+        },
+        {
+          "entity": "ResponseCode",
+          "required": [
+            "Code",
+            "Id",
+            "InstanceType",
+            "Name",
+            "IsEnabled"
+          ]
+        },
+        {
+          "entity": "Range",
+          "required": [
+            "IsApproximate",
+            "Id",
+            "InstanceType",
+            "MinValue",
+            "MaxValue"
+          ]
+        },
+        {
+          "entity": "ScheduleTimelineExit",
+          "required": [
+            "Id",
+            "InstanceType"
+          ]
+        },
+        {
+          "entity": "ScheduleTimelines",
+          "required": [
+            "EntryCondition",
+            "Id",
+            "InstanceType",
+            "MainTimeline",
+            "Name"
+          ]
+        },
+        {
+          "entity": "ScheduledActivityInstance",
+          "required": [
+            "Id",
+            "Name",
+            "InstanceType"
+          ]
+        },
+        {
+          "entity": "ScheduledDecisionInstance",
+          "required": [
+            "Id",
+            "Name",
+            "InstanceType",
+            "ConditionAssignments"
+          ]
+        },
+        {
+          "entity": "ScheduledInstance",
+          "required": [
+            "Id",
+            "InstanceType"
+          ]
+        },
+        {
+          "entity": "Strength",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Numerator"
+          ]
+        },
+        {
+          "entity": "Study",
+          "required": [
+            "Name",
+            "InstanceType"
+          ]
+        },
+        {
+          "entity": "StudyAmendment",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Number",
+            "Summary",
+            "GeographicScopes",
+            "Changes",
+            "PrimaryReason"
+          ]
+        },
+        {
+          "entity": "StudyAmendmentImpact",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "IsSubstantial",
+            "Type"
+          ]
+        },
+        {
+          "entity": "StudyAmendmentReason",
+          "required": [
+            "Code",
+            "Id",
+            "InstanceType"
+          ]
+        },
+        {
+          "entity": "StudyArm",
+          "required": [
+            "DataOriginDescription",
+            "DataOriginType",
+            "Id",
+            "InstanceType",
+            "Name",
+            "Type"
+          ]
+        },
+        {
+          "entity": "StudyCell",
+          "required": [
+            "ArmId",
+            "EpochId",
+            "Id",
+            "InstanceType"
+          ]
+        },
+        {
+          "entity": "StudyChange",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Rationale",
+            "Summary",
+            "ChangedSections"
+          ]
+        },
+        {
+          "entity": "StudyCohort",
+          "required": [
+            "Name",
+            "Id",
+            "InstanceType",
+            "Criteria",
+            "IncludesHealthySubjects"
+          ]
+        },
+        {
+          "entity": "StudyDefinitions",
+          "required": [
+            "Study",
+            "UsdmVersion"
+          ]
+        },
+        {
+          "entity": "StudyDesign",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Rationale",
+            "StudyCells",
+            "EligibilityCriteria",
+            "InterventionModel",
+            "Arms",
+            "Epochs"
+          ]
+        },
+        {
+          "entity": "StudyDesignPopulation",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Criteria",
+            "IncludesHealthySubjects"
+          ]
+        },
+        {
+          "entity": "StudyElements",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name"
+          ]
+        },
+        {
+          "entity": "StudyEpoch",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Type"
+          ]
+        },
+        {
+          "entity": "StudyIdentifier",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "ScopeId"
+          ]
+        },
+        {
+          "entity": "StudyIntervention",
+          "required": [
+            "Codes",
+            "Id",
+            "InstanceType",
+            "MinimumResponseDuration",
+            "Name",
+            "Role",
+            "Type"
+          ]
+        },
+        {
+          "entity": "StudyDefinitionDocument",
+          "required": [
+            "Name",
+            "Id",
+            "InstanceType"
+          ]
+        },
+        {
+          "entity": "StudyDefinitionDocumentVersion",
+          "required": [
+            "BriefTitle",
+            "Id",
+            "InstanceType",
+            "OfficialTitle",
+            "ProtocolStatus",
+            "ProtocolVersion",
+            "PublicTitle",
+            "ScientificTitle"
+          ]
+        },
+        {
+          "entity": "StudyRole",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Code"
+          ]
+        },
+        {
+          "entity": "StudySite",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Country"
+          ]
+        },
+        {
+          "entity": "StudyTitle",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text",
+            "Type"
+          ]
+        },
+        {
+          "entity": "StudyVersion",
+          "required": [
+            "Id",
+            "InstanceType",
+            "VersionIdentifier",
+            "Rationale",
+            "StudyIdentifiers",
+            "StudyPhase",
+            "Titles",
+            "StudyType"
+          ]
+        },
+        {
+          "entity": "SubjectEnrollment",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Label",
+            "Quantity"
+          ]
+        },
+        {
+          "entity": "Substance",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Strengths"
+          ]
+        },
+        {
+          "entity": "SyntaxTemplate",
+          "required": [
+            "DictionaryId",
+            "Id",
+            "InstanceType",
+            "Name",
+            "Text"
+          ]
+        },
+        {
+          "entity": "SyntaxTemplateDectionary",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "ParameterMap"
+          ]
+        },
+        {
+          "entity": "Timing",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "RelativeToFrom",
+            "Type",
+            "Value",
+            "ValueLabel"
+          ]
+        },
+        {
+          "entity": "TransitionRule",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Name",
+            "Text"
+          ]
+        },
+        {
+          "entity": "CommentAnnotation",
+          "required": [
+            "Id",
+            "InstanceType",
+            "Text"
+          ]
+        }
+        ,
+        {
+          "entity": "NarrativeContentItem",
+          "required": [
+            "Id",
+            "Name",
+            "InstanceType",
+            "Text"
+          ]
+        }  
       ]
     }
   ]

@@ -17,21 +17,13 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using TransCelerate.SDR.Core.AppSettings;
-using TransCelerate.SDR.Core.DTO;
-using TransCelerate.SDR.Core.DTO.Reports;
-using TransCelerate.SDR.Core.DTO.StudyV2;
-using TransCelerate.SDR.Core.DTO.Token;
-using TransCelerate.SDR.Core.DTO.UserGroups;
 using TransCelerate.SDR.Core.Entities.Common;
-using TransCelerate.SDR.Core.Entities.UserGroups;
 using TransCelerate.SDR.Core.ErrorModels;
 using TransCelerate.SDR.Core.Filters;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
-using TransCelerate.SDR.Core.Utilities.Enums;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.DataAccess.Filters;
-using TransCelerate.SDR.RuleEngine;
 using TransCelerate.SDR.Services.Interfaces;
 using TransCelerate.SDR.WebApi.Controllers;
 using TransCelerate.SDR.WebApi.DependencyInjection;
@@ -51,117 +43,23 @@ namespace TransCelerate.SDR.UnitTesting
         private readonly Mock<IChangeAuditService> _mockChangeAuditService = new(MockBehavior.Loose);
 
         #region Setup
-        public static UserGroupMappingEntity GetUserDataFromStaticJson()
-        {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/UserGroupMappingData_ForEntity.json");
-            var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingEntity>(jsonData);
-            return userGrouppMapping;
-        }
         [SetUp]
         public void Setup()
         {
             var mockMapper = new MapperConfiguration(cfg =>
-            {                
-                cfg.AddProfile(new AutoMapperProfilesV2());
+            {
                 cfg.AddProfile(new AutoMapperProfilesV3());
+                cfg.AddProfile(new AutoMapperProfilesV4());
                 cfg.AddProfile(new SharedAutoMapperProfiles());
             });
             _mockMapper = new Mapper(mockMapper);
             ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ApiUsdmVersionMapping.json"));
             ApiUsdmVersionMapping.SDRVersions = apiUsdmVersionMapping_NonStatic.SDRVersions;
         }
-        readonly LoggedInUser user = new()
-        {
-            UserName = "user1@SDR.com",
-            UserRole = Constants.Roles.Org_Admin
-        };
         public static Core.DTO.Common.ChangeAuditStudyDto GetChangeAuditDtoDataFromStaticJson()
         {
             string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ChangeAuditData.json");
             return JsonConvert.DeserializeObject<Core.DTO.Common.ChangeAuditStudyDto>(jsonData);
-        }
-        public static SDRGroupsDTO PostAGroupDto()
-        {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/UserGroupMappingData.json");
-            var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingDTO>(jsonData);
-            var groupDetails = JsonConvert.DeserializeObject<SDRGroupsDTO>(JsonConvert.SerializeObject(userGrouppMapping.SDRGroups[0]));
-            return groupDetails;
-        }
-        public static IEnumerable<GroupDetailsEntity> GetGroupDetails()
-        {
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/UserGroupMappingData.json");
-            var userGrouppMapping = JsonConvert.DeserializeObject<UserGroupMappingEntity>(jsonData);
-            var groupDetails = JsonConvert.DeserializeObject<IEnumerable<GroupDetailsEntity>>(JsonConvert.SerializeObject(userGrouppMapping.SDRGroups));
-            return groupDetails;
-        }
-        public static PostUserToGroupsDTO PostUser()
-        {
-            List<GroupsTaggedToUser> groupList = new();
-            GroupsTaggedToUser groupsTaggedToUser = new()
-            {
-                GroupId = "0193a357-8519-4488-90e4-522f701658b9",
-                GroupName = "OncologyRead",
-                IsActive = true
-            };
-            GroupsTaggedToUser groupsTaggedToUser2 = new()
-            {
-                GroupId = "c50ccb41-db9b-4b97-b132-cbbfaa68af5a",
-                GroupName = "AmnesiaReadWrite",
-                IsActive = true
-            }; GroupsTaggedToUser groupsTaggedToUser3 = new()
-            {
-                GroupId = "83864612-ffbd-463f-90ce-3e8819c5d132",
-                GroupName = "AmnesiaReadWrite",
-                IsActive = true
-            };
-            groupList.Add(groupsTaggedToUser);
-            groupList.Add(groupsTaggedToUser2);
-            groupList.Add(groupsTaggedToUser3);
-            PostUserToGroupsDTO postUserToGroupsDTO = new()
-            {
-                Email = "user1@SDR.com",
-                Oid = "aw2dq254wfdsf",
-                Groups = groupList
-            };
-
-            return postUserToGroupsDTO;
-        }
-        public static IEnumerable<PostUserToGroupsDTO> UserList()
-        {
-            List<GroupsTaggedToUser> groupList = new();
-            GroupsTaggedToUser groupsTaggedToUser = new()
-            {
-                GroupId = "0193a357-8519-4488-90e4-522f701658b9",
-                GroupName = "OncologyRead",
-                IsActive = true
-            };
-            GroupsTaggedToUser groupsTaggedToUser2 = new()
-            {
-                GroupId = "c50ccb41-db9b-4b97-b132-cbbfaa68af5a",
-                GroupName = "AmnesiaReadWrite",
-                IsActive = true
-            }; GroupsTaggedToUser groupsTaggedToUser3 = new()
-            {
-                GroupId = "83864612-ffbd-463f-90ce-3e8819c5d132",
-                GroupName = "AmnesiaReadWrite",
-                IsActive = true
-            };
-            groupList.Add(groupsTaggedToUser);
-            groupList.Add(groupsTaggedToUser2);
-            groupList.Add(groupsTaggedToUser3);
-            PostUserToGroupsDTO postUserToGroupsDTO = new()
-            {
-                Email = "user1@SDR.com",
-                Oid = "aw2dq254wfdsf",
-                Groups = groupList
-            };
-            List<PostUserToGroupsDTO> postUserToGroups = new()
-            {
-                postUserToGroupsDTO
-            };
-            IEnumerable<PostUserToGroupsDTO> postUserToGroupsIenum = JsonConvert.DeserializeObject<IEnumerable<PostUserToGroupsDTO>>(
-                                                                    JsonConvert.SerializeObject(postUserToGroups));
-            return postUserToGroupsIenum;
         }
         #endregion
 
@@ -268,14 +166,7 @@ namespace TransCelerate.SDR.UnitTesting
             StartupLib.SetConstants(_mockConfig.Object);
             Assert.AreEqual(Config.ConnectionString, "true");
             Assert.AreEqual(Config.DatabaseName, "true");
-            Assert.AreEqual(Config.InstrumentationKey, "true");
             Assert.AreEqual(Config.DateRange, "true");
-            Assert.AreEqual(Config.Audience, "true");
-            Assert.AreEqual(Config.Scope, "true");
-            Assert.AreEqual(Config.TenantID, "true");
-            Assert.AreEqual(Config.Authority, "true");
-            Assert.AreEqual(Config.IsAuthEnabled, true);
-            Assert.AreEqual(Config.IsGroupFilterEnabled, true);
             ApiUsdmVersionMapping_NonStatic apiUsdmVersionMapping_NonStatic = JsonConvert.DeserializeObject<ApiUsdmVersionMapping_NonStatic>(File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ApiUsdmVersionMapping.json"));
             Assert.AreEqual(apiUsdmVersionMapping_NonStatic.SDRVersions.Count, ApiUsdmVersionMapping.SDRVersions.Count);
         }
@@ -285,12 +176,7 @@ namespace TransCelerate.SDR.UnitTesting
         [Test]
         public void ErrorResponse_Helper_UnitTestng()
         {
-            ErrorModel errorModel = ErrorResponseHelper.UnAuthorizedAccess();
-
-            Assert.AreEqual("401", errorModel.StatusCode);
-            Assert.AreEqual("Access Denied", errorModel.Message);
-
-            errorModel = ErrorResponseHelper.MethodNotAllowed();
+            ErrorModel errorModel = ErrorResponseHelper.MethodNotAllowed();
 
             Assert.AreEqual("405", errorModel.StatusCode);
             Assert.AreEqual("Method Not Allowed", errorModel.Message);
@@ -324,37 +210,7 @@ namespace TransCelerate.SDR.UnitTesting
         #region FluentValidation Unit Testing
         [Test]
         public void FluentValidation_UnitTesting()
-        {            
-            UserGroupsQueryParameters userGroupsQueryParameters = new()
-            {
-                SortBy = "email",
-                SortOrder = "desc",
-                PageNumber = 1,
-                PageSize = 20
-            };
-            UserGroupsQueryParametersValidator userGroupsQueryParametersValidator = new();
-            Assert.IsTrue(userGroupsQueryParametersValidator.Validate(userGroupsQueryParameters).IsValid);
-
-            GroupsValidator groupsValidator = new();
-            Assert.IsTrue(groupsValidator.Validate(PostAGroupDto()).IsValid);
-
-            PostUserToGroupValidator usersValidator = new();
-            Assert.IsTrue(usersValidator.Validate(PostUser()).IsValid);
-
-            GroupFilterValidator groupFilterValidator = new();
-            Assert.IsTrue(groupFilterValidator.Validate(PostAGroupDto().GroupFilter[0]).IsValid);
-
-            GroupFilterValuesValidator groupFilterValuesValidator = new();
-            Assert.IsTrue(groupFilterValuesValidator.Validate(PostAGroupDto().GroupFilter[0].GroupFilterValues[0]).IsValid);
-
-            UserLogin user = new()
-            {
-                Username = "user",
-                Password = "password"
-            };
-            UserLoginValidator userLoginValidator = new();
-            Assert.IsTrue(userLoginValidator.Validate(user).IsValid);
-
+        {
             TransCelerate.SDR.RuleEngine.Common.ValidationDependenciesCommon.AddValidationDependenciesCommon(serviceDescriptors);
             TransCelerate.SDR.Core.DTO.Common.SearchParametersDto searchParametersCommon = new()
             {
@@ -369,14 +225,14 @@ namespace TransCelerate.SDR.UnitTesting
                 ToDate = "",
                 ValidateUsdmVersion = false
             };
-            TransCelerate.SDR.RuleEngine.Common.SearchParametersValidator searchValidator = new();            
+            TransCelerate.SDR.RuleEngine.Common.SearchParametersValidator searchValidator = new();
             Assert.IsTrue(searchValidator.Validate(searchParametersCommon).IsValid);
 
             TransCelerate.SDR.Core.DTO.Common.SearchTitleParametersDto searchTitleParametersCommon = new()
-            {                
+            {
                 StudyTitle = "Umbrella",
                 PageNumber = 1,
-                PageSize = 25,                
+                PageSize = 25,
                 SponsorId = "100",
                 FromDate = "",
                 ToDate = ""
@@ -386,67 +242,15 @@ namespace TransCelerate.SDR.UnitTesting
         }
         #endregion
 
-        #region UserGroup Sorting Unit Testing
-        [Test]
-        public void UserGroupSortingHelper_UnitTesting()
-        {
-            UserGroupsQueryParameters userGroupsQueryParameters = new()
-            {
-                SortBy = "email",
-                SortOrder = "desc",
-                PageNumber = 1,
-                PageSize = 20
-            };
-            string[] sortOrders = { SortOrder.asc.ToString(), SortOrder.desc.ToString() };
-            foreach (var sortOrder in sortOrders)
-            {
-                userGroupsQueryParameters.SortOrder = sortOrder;
-                for (int i = 0; i < 7; i++)
-                {
-                    if (i == 0)
-                        userGroupsQueryParameters.SortBy = "email";
-                    if (i == 1)
-                        userGroupsQueryParameters.SortBy = "modifiedon";
-                    if (i == 2)
-                        userGroupsQueryParameters.SortBy = "modifiedby";
-                    if (i == 3)
-                        userGroupsQueryParameters.SortBy = "createdby";
-                    if (i == 4)
-                        userGroupsQueryParameters.SortBy = "createdon";
-                    if (i == 5)
-                        userGroupsQueryParameters.SortBy = "name";
-                    if (i == 6)
-                        userGroupsQueryParameters.SortBy = "";
-                    UserGroupSortingHelper.OrderGroups(GetGroupDetails(), userGroupsQueryParameters);
-                    UserGroupSortingHelper.OrderUsers(UserList(), userGroupsQueryParameters);
-                }
-            }
-
-        }
-        #endregion
-
-
         #region HttpContext Response Helper UnitTesting
         [Test]
         public void HttpContextResponseHelper_UnitTesting()
         {
-            //var mockHttpContext = Mock.Of<HttpContext>();
             var mockHttpContext = new DefaultHttpContext();
             string response = string.Empty;
-            mockHttpContext.Response.StatusCode = (int)HttpStatusCode.Forbidden;
-            var method = HttpContextResponseHelper.Response(mockHttpContext, response);
-            method.Wait();
-            response = method.Result;
-            Assert.IsTrue(response.Contains(((int)HttpStatusCode.Forbidden).ToString()));
-            mockHttpContext.Response.Headers.Remove("Content-Type");
-            mockHttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-            method = HttpContextResponseHelper.Response(mockHttpContext, response);
-            method.Wait();
-            response = method.Result;
-            Assert.IsTrue(response.Contains(((int)HttpStatusCode.Unauthorized).ToString()));
             mockHttpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
             mockHttpContext.Response.Headers.Remove("Content-Type");
-            method = HttpContextResponseHelper.Response(mockHttpContext, response);
+            var method = HttpContextResponseHelper.Response(mockHttpContext, response);
             method.Wait();
             response = method.Result;
             Assert.IsTrue(response.Contains(((int)HttpStatusCode.NotFound).ToString()));
@@ -459,170 +263,20 @@ namespace TransCelerate.SDR.UnitTesting
         }
         #endregion
 
-
         #region Spit String Helper
         [Test]
         public void SplitStringIntoArrayHelperUnitTesting()
         {
-            var splitStringList = SplitStringIntoArrayHelper.SplitString(JsonConvert.SerializeObject(PostAGroupDto()), 100);
-            Assert.IsNotEmpty(splitStringList);
-        }
-        #endregion
-        #region Token Controller
-        [Test]
-        public void TokenControllerUnitTesting()
-        {
-            UserLogin user = new()
-            {
-                Username = "user",
-                Password = "password"
-            };
-            TokenController tokenController = new(_mockLogHelper);
-            var method = tokenController.GetToken(user);
-            method.Wait();
+            // Arrange
+            string input = "TestString";
+            int splitSize = 2;
+            var expected = new List<string> { "Te", "st", "St", "ri", "ng" };
 
-            //Expected
-            var expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError);
+            // Act
+            var splitStringList = SplitStringIntoArrayHelper.SplitString(input, splitSize);
 
-            //Actual
-            var actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
-
-            //Assert          
-            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
-            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
-            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
-
-            Assert.AreEqual(expected.Message, actual_result.Message);
-            Assert.AreEqual("400", actual_result.StatusCode);
-
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/TokenRawResponse.json");
-            var responseObject = JsonConvert.DeserializeObject<TokenSuccessResponseDTO>(jsonData);
-            var tokenResponse = new { token = $"{responseObject.Token_type} {responseObject.Access_token}" };
-
-            Assert.NotNull(tokenResponse);
-        }
-
-        [Test]
-        public void ReportsControllerUnitTesting()
-        {
-            ReportBodyParameters reportBodyParameters = new()
-            {
-                Days = 10,
-                Operation = "GET",
-                PageSize = 10,
-                RecordNumber = 1,
-                ResponseCode = 200,
-                SortBy = "requestdate",
-                SortOrder = "asc"
-            };
-            ReportsController reportsController = new(_mockLogHelper, _mockMapper);
-            var method = reportsController.GetUsageReport(reportBodyParameters);
-            method.Wait();
-
-            //Expected
-            var expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.GenericError);
-
-            //Actual
-            var actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
-
-            //Assert          
-            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
-            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
-            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
-
-            Assert.AreEqual(expected.Message, actual_result.Message);
-            Assert.AreEqual("400", actual_result.StatusCode);
-
-            reportBodyParameters.PageSize = 0;
-            reportBodyParameters.SortBy = "operation";
-            method = reportsController.GetUsageReport(reportBodyParameters);
-            method.Wait();
-
-            reportBodyParameters.SortBy = "api";
-            method = reportsController.GetUsageReport(reportBodyParameters);
-            method.Wait();
-
-            reportBodyParameters.SortBy = "callerip";
-            method = reportsController.GetUsageReport(reportBodyParameters);
-            method.Wait();
-
-            reportBodyParameters.SortBy = "responsecode";
-            method = reportsController.GetUsageReport(reportBodyParameters);
-            method.Wait();
-
-            reportBodyParameters.SortBy = "operationas";
-            method = reportsController.GetUsageReport(reportBodyParameters);
-            method.Wait();
-
-            reportBodyParameters.SortBy = "";
-            method = reportsController.GetUsageReport(reportBodyParameters);
-            method.Wait();
-
-            reportBodyParameters.FilterByTime = true;
-            method = reportsController.GetUsageReport(reportBodyParameters);
-            method.Wait();
-
-            expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateMissingError);
-
-            actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
-
-            //Assert          
-            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
-            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
-            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
-
-            Assert.AreEqual(expected.Message, actual_result.Message);
-            Assert.AreEqual("400", actual_result.StatusCode);
-
-            reportBodyParameters.FilterByTime = true;
-            reportBodyParameters.FromDateTime = DateTime.Now;
-            reportBodyParameters.ToDateTime = DateTime.Now.AddDays(-1);
-            method = reportsController.GetUsageReport(reportBodyParameters);
-            method.Wait();
-
-            expected = ErrorResponseHelper.BadRequest(Constants.ErrorMessages.DateErrorForReports);
-
-            actual_result = (method.Result as BadRequestObjectResult).Value as ErrorModel;
-
-            //Assert          
-            Assert.IsNotNull((method.Result as BadRequestObjectResult).Value);
-            Assert.AreEqual(400, (method.Result as BadRequestObjectResult).StatusCode);
-            Assert.IsInstanceOf(typeof(BadRequestObjectResult), method.Result);
-
-            Assert.AreEqual(expected.Message, actual_result.Message);
-            Assert.AreEqual("400", actual_result.StatusCode);
-
-            reportBodyParameters.FilterByTime = true;
-            reportBodyParameters.FromDateTime = DateTime.Now.AddDays(-1);
-            reportBodyParameters.ToDateTime = DateTime.Now;
-            method = reportsController.GetUsageReport(reportBodyParameters);
-            method.Wait();
-
-            string jsonData = File.ReadAllText(Directory.GetCurrentDirectory() + @"/Data/ReportsRawData.json");
-            var rawReport = JsonConvert.DeserializeObject<SystemUsageRawReport>(jsonData);
-            List<SystemUsageReportDTO> usageReport = new();
-            rawReport.Tables[0].Rows.ForEach(rows => usageReport.Add(new SystemUsageReportDTO
-            {
-                RequestDate = rows[(int)UsageReportFields.timestamp],
-
-                Api = rows[(int)UsageReportFields.name].Split(" ")[1],
-
-                EmailId = JsonConvert.DeserializeObject<CustomDimension>(rows[(int)UsageReportFields.customDimensions1]).EmailAddress,
-
-                UserName = JsonConvert.DeserializeObject<CustomDimension>(rows[(int)UsageReportFields.customDimensions1]).UserName,
-
-                CallerIpAddress = rows[(int)UsageReportFields.client_IP],
-
-                ResponseCode = rows[(int)UsageReportFields.resultCode],
-
-                Operation = rows[(int)UsageReportFields.name].Split(" ")[0],
-
-                ResponseCodeDescription = int.TryParse(rows[(int)UsageReportFields.resultCode], out int code) == true ?
-                                                     Enum.IsDefined(typeof(HttpStatusCode), code) == true ?
-                                                     $"{code} - {Enum.GetName(typeof(HttpStatusCode), code)}"
-                                                     : null : null
-            }));
-            Assert.IsNotEmpty(usageReport);
+            // Assert
+            CollectionAssert.AreEqual(expected, splitStringList);
         }
         #endregion
 
@@ -636,7 +290,7 @@ namespace TransCelerate.SDR.UnitTesting
 
             Core.DTO.Common.ChangeAuditStudyDto study = GetChangeAuditDtoDataFromStaticJson();
 
-            _mockChangeAuditService.Setup(x => x.GetChangeAudit(It.IsAny<string>(), It.IsAny<LoggedInUser>()))
+            _mockChangeAuditService.Setup(x => x.GetChangeAudit(It.IsAny<string>()))
                 .Returns(Task.FromResult(study as object));
             ChangeAuditController changeAuditController = new(_mockChangeAuditService.Object, _mockLogHelper);
             var method = changeAuditController.GetChangeAudit("sd");
@@ -733,6 +387,7 @@ namespace TransCelerate.SDR.UnitTesting
             Assert.AreEqual((actualResult as ErrorModel).Message, Constants.ErrorMessages.UsdmVersionMapError);
         }
         #endregion
+
         #region DataFilter
         [Test]
         public void DataFiltersUnitTesting()
@@ -752,16 +407,16 @@ namespace TransCelerate.SDR.UnitTesting
                 FromDate = DateTime.Now.AddDays(-5),
                 ToDate = DateTime.Now,
             };
-            Config.IsGroupFilterEnabled = true;
-            user.UserRole = Constants.Roles.App_User;
-            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchTitle(searchParameters, GetUserDataFromStaticJson().SDRGroups, user));
-            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchTitleV4(searchParameters, GetUserDataFromStaticJson().SDRGroups, user));
+
+            Assert.IsNotNull(DataFilterCommon.GetCommonFiltersForSearchTitle(searchParameters));
+            Assert.IsNotNull(DataFilterCommon.GetCommonFiltersForSearchTitleV4(searchParameters));
 
             Assert.IsNotNull(DataFilterCommon.GetFiltersForGetAudTrail("sd", DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1)));
 
-           
-            Assert.IsNotNull(DataFilterCommon.GetFiltersForStudyHistory(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1), "sd", GetUserDataFromStaticJson().SDRGroups, user));
-            Assert.IsNotNull(DataFilterCommon.GetFiltersForStudyHistoryV4(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1), "sd", GetUserDataFromStaticJson().SDRGroups, user));
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForChangeAudit("sd"));
+
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForStudyHistory(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1), "sd"));
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForStudyHistoryV4(DateTime.Now.AddDays(-1), DateTime.Now.AddDays(1), "sd"));
 
 
             Assert.IsNotNull(DataFilterCommon.GetFiltersForGetStudyBsonDocument("sd", 1));
@@ -788,15 +443,7 @@ namespace TransCelerate.SDR.UnitTesting
                 ValidateUsdmVersion = false
             };
 
-            Config.IsGroupFilterEnabled = true;
-            user.UserRole = Constants.Roles.App_User;
-            var grps = GetUserDataFromStaticJson().SDRGroups;
-            grps[0].GroupFilter[0].GroupFieldName = GroupFieldNames.studyType.ToString();
-            grps[0].GroupFilter[0].GroupFilterValues[0].GroupFilterValueId = "ALL";
-            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchStudy(searchParametersEntity, grps, user));
-            grps[0].GroupFilter[0].GroupFieldName = GroupFieldNames.studyType.ToString();
-            grps[0].GroupFilter[0].GroupFilterValues[0].GroupFilterValueId = "interventional";
-            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchStudy(searchParametersEntity, grps, user));            
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchStudy(searchParametersEntity));
             searchParametersEntity.Header = "studytitle";
             Assert.IsNotNull(DataFilterCommon.GetSorterForSearchStudy(searchParametersEntity));
             searchParametersEntity.Header = "sdrversion";
@@ -815,73 +462,70 @@ namespace TransCelerate.SDR.UnitTesting
             searchParameters.SortBy = "usdmversion";
             Assert.IsNotNull(DataFilterCommon.GetSorterForSearchStudyTitle(searchParameters));
 
-            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchV2(searchParametersEntity, grps, user));
-            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchV3(searchParametersEntity, grps, user));
-            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchV4(searchParametersEntity, grps, user));
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchV3(searchParametersEntity));
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchV4(searchParametersEntity));
+            Assert.IsNotNull(DataFilterCommon.GetFiltersForSearchV5(searchParametersEntity));
 
             searchParameters.SortBy = "studytitle";
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, false));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, false));
             searchParameters.SortBy = "version";
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, false));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, false));
             searchParameters.SortBy = "lastmodifieddate";
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, false));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, false));
             searchParameters.SortBy = "usdmversion";
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, false));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, false));
 
             searchParameters.SortBy = "sponsorid";
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, false));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, false));
 
             searchParameters.SortBy = "indication";
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, false));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, false));
 
             searchParameters.SortBy = "interventionmodel";
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, false));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, false));
 
             searchParameters.SortBy = "phase";
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, true));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, true));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, true));
             Assert.IsNotNull(DataFilterCommon.SortSearchResultsV3(new List<Core.Entities.StudyV3.SearchResponseEntity>(), searchParameters.SortBy, false));
-            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV2(new List<Core.Entities.StudyV2.SearchResponseEntity>(), searchParameters.SortBy, false));
-
-            Config.IsGroupFilterEnabled = false;
-            user.UserRole = Constants.Roles.Org_Admin;
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV4(new List<Core.Entities.StudyV4.SearchResponseEntity>(), searchParameters.SortBy, false));
+            Assert.IsNotNull(DataFilterCommon.SortSearchResultsV5(new List<Core.Entities.StudyV5.SearchResponseEntity>(), searchParameters.SortBy, false));
         }
 
         #endregion

@@ -1,21 +1,16 @@
-using Azure.Messaging.ServiceBus;
+using AutoMapper;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
-using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using Moq;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -28,7 +23,6 @@ using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
 using TransCelerate.SDR.Core.Utilities.Helpers;
 using TransCelerate.SDR.RuleEngine.Common;
-using TransCelerate.SDR.RuleEngineV2;
 using TransCelerate.SDR.RuleEngineV3;
 using TransCelerate.SDR.RuleEngineV4;
 using TransCelerate.SDR.WebApi.DependencyInjection;
@@ -56,10 +50,7 @@ namespace TransCelerate.SDR.WebApi
         /// <param name="services"></param>        
         public void ConfigureServices(IServiceCollection services)
         {
-            // Application Insights for logs
-            services.AddApplicationInsightsTelemetry(options: new ApplicationInsightsServiceOptions { ConnectionString = Config.InstrumentationKey });
-
-            //Api Versioning
+            // Api Versioning
             services.AddApiVersioning(o =>
             {
                 o.AssumeDefaultVersionWhenUnspecified = false;
@@ -73,59 +64,25 @@ namespace TransCelerate.SDR.WebApi
             //Swagger          
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v3", new OpenApiInfo { Title = "Transcelerate SDR", Version = "v4" });
+                //c.SwaggerDoc("v3", new OpenApiInfo { Title = "Transcelerate SDR", Version = "v4" });
+                c.SwaggerDoc("v4", new OpenApiInfo { Title = "Transcelerate SDR", Version = "v5" });
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    Description = "JWT Authorization header using the Bearer scheme (Example: 'Bearer 12345abcdef')",
-                    Name = "Authorization",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer"
-                });
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                {
-                    new OpenApiSecurityScheme
-                    {
-                        Reference = new OpenApiReference
-                        {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = "Bearer"
-                        }
-                    },
-                    Array.Empty<string>()
-                }
-                });
                 c.CustomSchemaIds(type => type.ToString().Replace($"{Assembly.GetAssembly(typeof(Core.ErrorModels.ErrorModel)).GetName().Name}.", "").Replace("DTO.", "").Replace("DTO", "").Replace("Dto", ""));
             });
             services.AddSwaggerGenNewtonsoftSupport();
-            if (_env.IsDevelopment())
-            {
-                if (!Config.IsAuthEnabled)
-                    services.AddTransient<IAuthorizationHandler, AllowAnonymousFilter>();
-            }
-
-            #region Authorization
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                        .AddJwtBearer(o =>
-                        {
-                            o.Audience = Config.Audience;
-                            o.Authority = Config.Authority;
-                        });
-            #endregion
 
             //Mapping EndPoints and overriding Data Annotations validation
             services.AddHttpContextAccessor();
             services.AddControllers(config =>
             {
-                config.Filters.Add<ActionFilter>();                
+                config.Filters.Add<ActionFilter>();
             });
 
             services.AddFluentValidationAutoValidation();
             ValidatorOptions.Global.DisplayNameResolver = (type, memberInfo, expression) => string.Concat(memberInfo.Name.Replace(" ", "")[..1]?.ToLower(), memberInfo.Name.Replace(" ", "").AsSpan(1));
+            ValidatorOptions.Global.DefaultRuleLevelCascadeMode = CascadeMode.Stop;
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
             //Enabling CORS
@@ -135,17 +92,33 @@ namespace TransCelerate.SDR.WebApi
             services.AddApplicationDependencies();
 
             //AutoMapper Profile                        
-            services.AddAutoMapper(typeof(AutoMapperProfilesV2).Assembly);
             services.AddAutoMapper(typeof(AutoMapperProfilesV3).Assembly);
             services.AddAutoMapper(typeof(AutoMapperProfilesV4).Assembly);
+            services.AddAutoMapper(typeof(AutoMapperProfilesV5).Assembly);
             services.AddAutoMapper(typeof(SharedAutoMapperProfiles).Assembly);
 
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<AutoMapperProfilesV5>();
+            });
+            config.AssertConfigurationIsValid();
+
             //API to use MVC with validation handling and JSON response
-            services.AddMvc().AddNewtonsoftJson();                        
-            services.AddValidationDependenciesV2();
+            services.AddMvc().AddNewtonsoftJson();
             services.AddValidationDependenciesV3();
             services.AddValidationDependenciesV4();
+
+            // Fluent validation for V5 is turned off in favor of the CDISC Rules Engine
+            //services.AddValidationDependenciesV5();
+
             services.AddValidationDependenciesCommon();
+
+            //var serviceProvider = services.BuildServiceProvider();
+
+            //// Resolve IMapper and validate configuration
+            //var mapper = serviceProvider.GetService<IMapper>();
+            //mapper.ConfigurationProvider.AssertConfigurationIsValid();
+
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.InvalidModelStateResponseFactory = context =>
@@ -155,18 +128,6 @@ namespace TransCelerate.SDR.WebApi
                     return apiBehaviourOptionsHelper.ModelStateResponse(context);
                 };
             });
-            services.AddAzureClients(clients =>
-            {
-                if(!String.IsNullOrWhiteSpace(Config.AzureServiceBusConnectionString))
-                {
-                    clients.AddServiceBusClient(Config.AzureServiceBusConnectionString);
-                }
-            });
-            //The below service dependency will be added only if there is no connection string in the configuration for Azure Service Bus
-            if (String.IsNullOrWhiteSpace(Config.AzureServiceBusConnectionString))
-            {
-                services.AddTransient<ServiceBusClient>(x => Mock.Of<ServiceBusClient>());
-            }
         }
 
         /// <summary>
@@ -180,14 +141,14 @@ namespace TransCelerate.SDR.WebApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
             }
             //Swagger
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v3/swagger.json", "Transcelerate SDR");
-                //c.DefaultModelsExpandDepth(-1);
+                //c.SwaggerEndpoint("/swagger/v3/swagger.json", "Transcelerate SDR");
+                c.SwaggerEndpoint("/swagger/v4/swagger.json", "Transcelerate SDR");
+                ////c.DefaultModelsExpandDepth(-1);
             });
 
             //Routing
@@ -207,42 +168,39 @@ namespace TransCelerate.SDR.WebApi
                     string request = string.Empty;
                     string response = string.Empty;
                     context.Request.EnableBuffering();
-                    
+
                     using (StreamReader reader = new(context.Request.Body))
                     {
-                        if (!context.Request.Path.Value.Contains(Route.Token) && !context.Request.Path.Value.Contains(Route.CommonToken))
-                        {
-                            request = await reader.ReadToEndAsync();
-                            context.Request.Body.Position = 0;
-                        }
-                        var inputArray = SplitStringIntoArrayHelper.SplitString(request, 32000);//since app insights limit is 32768 characters  
-                        var logTask = Task.Run(() => inputArray.ForEach(input => logger.LogInformation("Request Body {index}: {input}", inputArray.IndexOf(input) + 1, input)));
+                        request = await reader.ReadToEndAsync();
+                        context.Request.Body.Position = 0;
+
+                        var logTask = Task.Run(() => logger.LogInformation("Request Body: {request}", request));
                         var actionTask = Task.Run(() => next());
                         await Task.WhenAll(actionTask, logTask); // Adding request logging as Task to execute in parallel along with request                        
                     }
-                    if (String.IsNullOrWhiteSpace(context.Response.Headers["Controller"]) && String.IsNullOrWhiteSpace(context.Response.Headers["InvalidInput"]) && String.IsNullOrWhiteSpace(context.Response.Headers["AuthFilter"]))
+                    if (String.IsNullOrWhiteSpace(context.Response.Headers["Controller"]) && String.IsNullOrWhiteSpace(context.Response.Headers["InvalidInput"]))
                     {
                         response = await HttpContextResponseHelper.Response(context, response);
-                        var AuthToken = context.Request.Headers["Authorization"];
-                        logger.LogInformation("Status Code: {statusCode}; URL: {path}; AuthToken: {token}", context.Response.StatusCode, context.Request.Path, AuthToken);
+                        logger.LogInformation("Status Code: {statusCode}; URL: {path}", context.Response.StatusCode, context.Request.Path);
                     }
                 }
                 catch (Exception ex)
                 {
                     if (String.IsNullOrWhiteSpace(context.Response.Headers["Content-Type"]))
-                        context.Response.Headers.Add("Content-Type", "application/json");
+                    {
+                        if (context.Response?.Headers != null)
+                        {
+                            context.Response.Headers["Content-Type"] = "application/json";
+                        }
+                    }
                     context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     logger.LogError("Exception Occurred: {ex}", ex);
-                    logger.LogInformation("Status Code: {statusCode}; URL: {path}; AuthToken: {token}", context.Response.StatusCode, context.Request.Path, context.Request.Headers["Authorization"]);
+                    logger.LogInformation("Status Code: {statusCode}; URL: {path}", context.Response.StatusCode, context.Request.Path);
                     await context.Response.WriteAsync(JsonConvert.SerializeObject(ErrorResponseHelper.ErrorResponseModel(ex), new JsonSerializerSettings { ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver() }));
                 }
             });
 
-            //Enable Authenticationa and Authorization for the Endpoints
-            app.UseAuthentication();
-            app.UseAuthorization();
-            
-            //Map Endpoints with authorization
+            //Map Endpoints
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
