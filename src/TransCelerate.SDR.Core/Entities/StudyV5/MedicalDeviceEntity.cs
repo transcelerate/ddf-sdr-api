@@ -15,7 +15,7 @@ namespace TransCelerate.SDR.Core.Entities.StudyV5
         public string SoftwareVersion { get; set; }
         public AdministrableProductEntity EmbeddedProduct { get; set; }
         public CodeEntity Sourcing { get; set; }
-        public CommentAnnotationEntity Notes { get; set; }
+        public List<CommentAnnotationEntity> Notes { get; set; }
         public List<MedicalDeviceIdentifierEntity> Identifiers { get; set; }
     }
 }

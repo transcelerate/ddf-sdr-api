@@ -13,7 +13,7 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public string SoftwareVersion { get; set; }
         public AdministrableProductDto EmbeddedProduct  { get; set; }
         public CodeDto Sourcing  { get; set; }
-        public CommentAnnotationDto Notes { get; set; }
+        public List<CommentAnnotationDto> Notes { get; set; }
         public List<MedicalDeviceIdentifierDto> Identifiers { get; set; }
     }
 }

@@ -78,7 +78,9 @@ namespace TransCelerate.SDR.RuleEngineV5
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage(Constants.ValidationErrorMessage.PropertyMissingError)
                 .NotEmpty().WithMessage(Constants.ValidationErrorMessage.PropertyEmptyError)
-                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(MedicalDeviceValidator), nameof(MedicalDeviceDto.Notes)), ApplyConditionTo.AllValidators)
+                .When(x => RulesHelper.GetConformanceRules(_httpContextAccessor.HttpContext.Request.Headers[IdFieldPropertyName.Common.UsdmVersion], nameof(MedicalDeviceValidator), nameof(MedicalDeviceDto.Notes)), ApplyConditionTo.AllValidators);
+            
+            RuleForEach(x => x.Notes)
                 .SetValidator(new CommentAnnotationValidator(_httpContextAccessor));
 
             RuleFor(x => x.Identifiers)
