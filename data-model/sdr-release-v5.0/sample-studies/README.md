@@ -6,7 +6,7 @@ Available as JSON and PDF:
 - CDISC Pilot Study (LZZT)
 - An Eli Lilly Diabetes Study (NCT03421379)
 - An Alexion Wilson's Disease Study (NCT04573309)
-- A Bayer Stroke Study protocol 
+- A Bayer Stroke Study protocol (NCT04304508)
 
 In addition, two temporary examples have been included. The data contained within these examples is test data and does not map directly to an existing protocol.
 
