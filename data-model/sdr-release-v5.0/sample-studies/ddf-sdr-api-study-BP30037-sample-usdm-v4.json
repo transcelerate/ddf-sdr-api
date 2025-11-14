@@ -1,0 +1,4420 @@
+{
+  "study": {
+    "id": "c6f50208-5ea3-416c-b1db-55b5f072d67f",
+    "name": "BP30037 (Copy for Transcelerate)",
+    "description": "A Multi-Center, Randomized, Double-Blind, Placebo-Controlled, Parallel Group Phase 2A Study to Assess the Efficacy of RO5459072 in Patients With Primary Sjogren's Syndrome",
+    "label": "null",
+    "extensionAttributes": [],
+    "versions": [
+      {
+        "id": "StudyVersion_1",
+        "extensionAttributes": [],
+        "versionIdentifier": "1.0",
+        "rationale": "A Multi-Center, Randomized, Double-Blind, Placebo-Controlled, Parallel Group Phase 2A Study to Assess the Efficacy of RO5459072 in Patients With Primary Sjogren's Syndrome",
+        "documentVersionIds": [
+          "StudyDefinitionDocumentVersion_1"
+        ],
+        "dateValues": [
+          {
+            "id": "GovernanceDate_1",
+            "extensionAttributes": [],
+            "name": "Protocol Approval",
+            "label": "Protocol Approval",
+            "description": "Protocol document approval date",
+            "type": {
+              "id": "Code_1",
+              "extensionAttributes": [],
+              "code": "C132352",
+              "codeSystem": "http://www.cdisc.org",
+              "codeSystemVersion": "2025-09-26",
+              "decode": "Sponsor Approval Date",
+              "instanceType": "Code"
+            },
+            "dateValue": "2024-01-01",
+            "geographicScopes": [
+              {
+                "id": "GeographicScope_1",
+                "extensionAttributes": [],
+                "type": {
+                  "id": "Code_101",
+                  "extensionAttributes": [],
+                  "code": "C68846",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Global",
+                  "instanceType": "Code"
+                },
+                "code": null,
+                "instanceType": "GeographicScope"
+              }
+            ],
+            "instanceType": "GovernanceDate"
+          }
+        ],
+        "amendments": [],
+        "studyIdentifiers": [
+          {
+            "id": "StudyIdentifier_1",
+            "extensionAttributes": [],
+            "text": "BP30037",
+			"scopeID": "Organization_1",
+            "instanceType": "StudyIdentifier"
+          }
+        ],
+        "businessTherapeuticAreas": [
+          {
+            "id": "Code_301",
+            "extensionAttributes": [],
+            "code": "C301",
+            "codeSystem": "http://www.cdisc.org",
+            "codeSystemVersion": "2025-09-26",
+            "decode": "Not Specified",
+            "instanceType": "Code"
+          }
+        ],
+        "studyInterventions": [
+          {
+            "id": "StudyIntervention_1",
+            "extensionAttributes": [],
+            "name": "Intervention 1",
+            "label": "Intervention 1",
+            "description": "RO5459072 100mg (Route: Oral)",
+            "interventionModel": {
+              "id": "Code_501",
+              "extensionAttributes": [],
+              "code": "C1908",
+              "codeSystem": "http://www.cdisc.org",
+              "codeSystemVersion": "2025-09-26",
+              "decode": "Drug",
+              "instanceType": "Code"
+            },
+            "instanceType": "StudyIntervention"
+          },
+          {
+            "id": "StudyIntervention_2",
+            "extensionAttributes": [],
+            "name": "Placebo",
+            "label": "Placebo",
+            "description": "Placebo (Route: Oral)",
+            "interventionModel": {
+              "id": "Code_502",
+              "extensionAttributes": [],
+              "code": "C49648",
+              "codeSystem": "http://www.cdisc.org",
+              "codeSystemVersion": "2025-09-26",
+              "decode": "Placebo",
+              "instanceType": "Code"
+            },
+            "instanceType": "StudyIntervention"
+          }
+        ],
+        "titles": [
+          {
+            "id": "StudyTitle_1",
+            "extensionAttributes": [],
+            "text": "BP30037 (Copy for Transcelerate)",
+            "type": {
+              "id": "Code_2001",
+              "extensionAttributes": [],
+              "code": "C99905x1",
+              "codeSystem": "http://www.cdisc.org",
+              "codeSystemVersion": "2025-09-26",
+              "decode": "Brief Study Title",
+              "instanceType": "Code"
+            },
+            "instanceType": "StudyTitle"
+          },
+          {
+            "id": "StudyTitle_2",
+            "extensionAttributes": [],
+            "text": "BP30037 (Copy for Transcelerate)",
+            "type": {
+              "id": "Code_2002",
+              "extensionAttributes": [],
+              "code": "C99905x2",
+              "codeSystem": "http://www.cdisc.org",
+              "codeSystemVersion": "2025-09-26",
+              "decode": "Official Study Title",
+              "instanceType": "Code"
+            },
+			"instanceType": "StudyTitle"
+		  }		  
+        ],
+        "organizations": [
+          {
+            "id": "Organization_1",
+            "extensionAttributes": [],
+            "name": "Sponsor Organization",
+            "type": {
+              "id": "Code_2101",
+              "extensionAttributes": [],
+              "code": "C70793",
+              "codeSystem": "http://www.cdisc.org",
+              "codeSystemVersion": "2025-09-26",
+              "decode": "Sponsor",
+              "instanceType": "Code"
+            },
+            "instanceType": "Organization"
+          }
+        ],
+        "roles": [
+          {
+            "id": "Role_1",
+            "extensionAttributes": [],
+            "name": "Principal Investigator",
+            "code": {
+              "id": "Code_2201",
+              "extensionAttributes": [],
+              "code": "C25936",
+              "codeSystem": "http://www.cdisc.org",
+              "codeSystemVersion": "2025-09-26",
+              "decode": "Principal Investigator",
+              "instanceType": "Code"
+            },
+            "instanceType": "Role"
+          }
+        ],
+        "referenceIdentifiers": [],
+        "abbreviations": [],
+        "administrableProducts": [],
+        "biomedicalConcepts": [],
+        "bcCategories": [],
+        "bcSurrogates": [],
+        "conditions": [],
+        "dictionaries": [],
+        "eligibilityCriterionItems": [
+          {
+            "id": "EligibilityCriterionItem_1",
+            "extensionAttributes": [],
+            "name": "IN01",
+            "label": null,
+            "description": null,
+            "text": "Males and females 18 to 75 years of age, inclusive.",
+            "dictionaryId": null,
+            "notes": [],
+            "instanceType": "EligibilityCriterionItem"
+          },
+          {
+            "id": "EligibilityCriterionItem_2",
+            "extensionAttributes": [],
+            "name": "IN02",
+            "label": null,
+            "description": null,
+            "text": "Patient willing to give written informed consent and to comply with the study procedures and restrictions.",
+            "dictionaryId": null,
+            "notes": [],
+            "instanceType": "EligibilityCriterionItem"
+          },
+          {
+            "id": "EligibilityCriterionItem_3",
+            "extensionAttributes": [],
+            "name": "IN03",
+            "label": null,
+            "description": null,
+            "text": "Primary Sj\u00f6gren&#39;s syndrome diagnosed previously according to the revised American-European Consensus Group (AECG) criteria.",
+            "dictionaryId": null,
+            "notes": [],
+            "instanceType": "EligibilityCriterionItem"
+          },
+          {
+            "id": "EligibilityCriterionItem_4",
+            "extensionAttributes": [],
+            "name": "IN04",
+            "label": null,
+            "description": null,
+            "text": "European League against Rheumatism (EULAR) Sj\u00f6gren&#39;s Syndrome Disease Activity Index (ESSDAI) score \u2265 5.",
+            "dictionaryId": null,
+            "notes": [],
+            "instanceType": "EligibilityCriterionItem"
+          },
+          {
+            "id": "EligibilityCriterionItem_5",
+            "extensionAttributes": [],
+            "name": "IN05",
+            "label": null,
+            "description": null,
+            "text": "EULAR Sj\u00f6gren\u2019s Syndrome Patient Reported Index (ESSPRI) score \u2265 5.",
+            "dictionaryId": null,
+            "notes": [],
+            "instanceType": "EligibilityCriterionItem"
+          },
+          {
+            "id": "EligibilityCriterionItem_6",
+            "extensionAttributes": [],
+            "name": "IN06",
+            "label": null,
+            "description": null,
+            "text": "Elevated serum titers at screening of anti-Sj\u00f6gren&#39;s-syndrome-related antigen A (anti-SSA) and/or anti-SSB antibodies at screening.",
+            "dictionaryId": null,
+            "notes": [],
+            "instanceType": "EligibilityCriterionItem"
+          },
+          {
+            "id": "EligibilityCriterionItem_7",
+            "extensionAttributes": [],
+            "name": "IN07",
+            "label": null,
+            "description": null,
+            "text": "Negative pregnancy test at screening and baseline (women only), and agreement to comply with measures to prevent pregnancy and restrictions on sperm donation",
+            "dictionaryId": null,
+            "notes": [],
+            "instanceType": "EligibilityCriterionItem"
+          },
+          {
+            "id": "EligibilityCriterionItem_8",
+            "extensionAttributes": [],
+            "name": "EX01",
+            "label": null,
+            "description": null,
+            "text": "A diagnosis of secondary Sj\u00f6gren&#39;s syndrome according to the revised AECG criteria.",
+            "dictionaryId": null,
+            "notes": [],
+            "instanceType": "EligibilityCriterionItem"
+          },
+          {
+            "id": "EligibilityCriterionItem_9",
+            "extensionAttributes": [],
+            "name": "EX02",
+            "label": null,
+            "description": null,
+            "text": "Severe complications of Sj\u00f6gren&#39;s syndrome, such as vasculitis with renal, neurologic or cardiac involvement; interstitial lung disease and severe myositis,",
+            "dictionaryId": null,
+            "notes": [],
+            "instanceType": "EligibilityCriterionItem"
+          },
+          {
+            "id": "EligibilityCriterionItem_10",
+            "extensionAttributes": [],
+            "name": "EX03",
+            "label": null,
+            "description": null,
+            "text": "Systemic immunosuppressant therapy (e.g., abatacept, azathioprine, ciclosporin, etanercept, tofacitinib), cyclophosphamide or B cell depleting therapy (e.g., rituximab anti-CD20 therapy) within 6...",
+            "dictionaryId": null,
+            "notes": [],
+            "instanceType": "EligibilityCriterionItem"
+          },
+          {
+            "id": "EligibilityCriterionItem_11",
+            "extensionAttributes": [],
+            "name": "EX04",
+            "label": null,
+            "description": null,
+            "text": "Corticosteroid therapy exceeding 7.5 mg prednisone equivalents per day.",
+            "dictionaryId": null,
+            "notes": [],
+            "instanceType": "EligibilityCriterionItem"
+          },
+          {
+            "id": "EligibilityCriterionItem_12",
+            "extensionAttributes": [],
+            "name": "EX05",
+            "label": null,
+            "description": null,
+            "text": "Mechanically stimulated whole salivary flow rate at baseline of &lt; 0.1 mL/min.",
+            "dictionaryId": null,
+            "notes": [],
+            "instanceType": "EligibilityCriterionItem"
+          },
+          {
+            "id": "EligibilityCriterionItem_13",
+            "extensionAttributes": [],
+            "name": "EX06",
+            "label": null,
+            "description": null,
+            "text": "A positive test result for hepatitis B (HBV), hepatitis C (HCV), or human immunodeficiency virus (HIV), or tuberculosis, or any other active viral, fungal, yeast or bacterial infection at the...",
+            "dictionaryId": null,
+            "notes": [],
+            "instanceType": "EligibilityCriterionItem"
+          },
+          {
+            "id": "EligibilityCriterionItem_14",
+            "extensionAttributes": [],
+            "name": "EX07",
+            "label": null,
+            "description": null,
+            "text": "A history of recurring or chronic infections, any other indication of reduced immune function considered to be clinically significant by the Investigator, or any other underlying conditions which...",
+            "dictionaryId": null,
+            "notes": [],
+            "instanceType": "EligibilityCriterionItem"
+          },
+          {
+            "id": "EligibilityCriterionItem_15",
+            "extensionAttributes": [],
+            "name": "EX08",
+            "label": null,
+            "description": null,
+            "text": "A history of lymphoma, myeloma (monoclonal hypergammaglobulinemia) or monoclonal gammopathy of unknown significance (MGUS), or any other malignancies within the past 5 years (except basal cell or...",
+            "dictionaryId": null,
+            "notes": [],
+            "instanceType": "EligibilityCriterionItem"
+          },
+          {
+            "id": "EligibilityCriterionItem_16",
+            "extensionAttributes": [],
+            "name": "EX09",
+            "label": null,
+            "description": null,
+            "text": "A diagnosis of fibromyalgia, or a diagnosis of significant depression or anxiety that in the opinion of the investigator would confound the interpretation of the study results.",
+            "dictionaryId": null,
+            "notes": [],
+            "instanceType": "EligibilityCriterionItem"
+          },
+          {
+            "id": "EligibilityCriterionItem_17",
+            "extensionAttributes": [],
+            "name": "EX10",
+            "label": null,
+            "description": null,
+            "text": "Severe renal impairment (e.g., estimated glomerular filtration rate &lt; 30 mL/min), moderate or severe hepatic impairment (e.g., Child-Pugh B or C) or other clinically significant hepatic disease...",
+            "dictionaryId": null,
+            "notes": [],
+            "instanceType": "EligibilityCriterionItem"
+          },
+          {
+            "id": "EligibilityCriterionItem_18",
+            "extensionAttributes": [],
+            "name": "EX11",
+            "label": null,
+            "description": null,
+            "text": "Current or a history of severe, progressive or uncontrolled hematologic, gastrointestinal, endocrine, pulmonary, cardiac, or neurologic disease, or any other concomitant disease or condition or...",
+            "dictionaryId": null,
+            "notes": [],
+            "instanceType": "EligibilityCriterionItem"
+          },
+          {
+            "id": "EligibilityCriterionItem_19",
+            "extensionAttributes": [],
+            "name": "EX12",
+            "label": null,
+            "description": null,
+            "text": "Participation in an investigational drug or device study within 3 months prior to screening.",
+            "dictionaryId": null,
+            "notes": [],
+            "instanceType": "EligibilityCriterionItem"
+          },
+          {
+            "id": "EligibilityCriterionItem_20",
+            "extensionAttributes": [],
+            "name": "EX13",
+            "label": null,
+            "description": null,
+            "text": "Inability to comply with the study protocol for any other reason.",
+            "dictionaryId": null,
+            "notes": [],
+            "instanceType": "EligibilityCriterionItem"
+          },
+          {
+            "id": "EligibilityCriterionItem_21",
+            "extensionAttributes": [],
+            "name": "EX14",
+            "label": null,
+            "description": null,
+            "text": "Women who are lactating, breastfeeding or planning to nurse.",
+            "dictionaryId": null,
+            "notes": [],
+            "instanceType": "EligibilityCriterionItem"
+          },
+          {
+            "id": "EligibilityCriterionItem_22",
+            "extensionAttributes": [],
+            "name": "EX15",
+            "label": null,
+            "description": null,
+            "text": "Using other prohibited medication (moderate or potent inhibitors of CYP3A4; strong inducers of CYP3A4; strong inhibitors of the transporter P-glycoprotein [P-gp]; sensitive substrates of CYP3A4...",
+            "dictionaryId": null,
+            "notes": [],
+            "instanceType": "EligibilityCriterionItem"
+          }
+        ],
+        "medicalDevices": [],
+        "narrativeContentItems": [],
+        "productOrganizationRoles": [],
+        "studyDesigns": [
+          {
+            "id": "StudyDesign_1",
+            "extensionAttributes": [],
+            "name": "Main Study Design",
+            "description": "A Multi-Center, Randomized, Double-Blind, Placebo-Controlled, Parallel Group Phase 2A Study to Assess the Efficacy of RO5459072 in Patients With Primary Sjogren's Syndrome",
+            "label": "Main Study Design",
+            "rationale": "A Multi-Center, Randomized, Double-Blind, Placebo-Controlled, Parallel Group Phase 2A Study to Assess the Efficacy of RO5459072 in Patients With Primary Sjogren's Syndrome",
+            "documentVersionIds": [
+              "StudyDefinitionDocumentVersion_1"
+            ],
+            "studyType": {
+              "id": "Code_3001",
+              "extensionAttributes": [],
+              "code": "C98388",
+              "codeSystem": "http://www.cdisc.org",
+              "codeSystemVersion": "2025-09-26",
+              "decode": "Interventional Study",
+              "instanceType": "Code"
+            },
+            "studyPhase": {
+              "id": "AliasCode_3002",
+              "extensionAttributes": [],
+              "standardCode": {
+                "id": "Code_3003",
+                "extensionAttributes": [],
+                "code": "C15602",
+                "codeSystem": "http://www.cdisc.org",
+                "codeSystemVersion": "2025-09-26",
+                "decode": "Phase II Trial",
+                "instanceType": "Code"
+              },
+              "standardCodeAliases": [],
+              "instanceType": "AliasCode"
+            },
+            "model": {
+              "id": "Code_3004",
+              "extensionAttributes": [],
+              "code": "C82640",
+              "codeSystem": "http://www.cdisc.org",
+              "codeSystemVersion": "2025-09-26",
+              "decode": "Single Group Study",
+              "instanceType": "Code"
+            },
+            "blindingSchema": {
+              "id": "AliasCode_3005",
+              "extensionAttributes": [],
+              "standardCode": {
+                "id": "Code_3006",
+                "extensionAttributes": [],
+                "code": "C49659",
+                "codeSystem": "http://www.cdisc.org",
+                "codeSystemVersion": "2025-09-26",
+                "decode": "Open Label Study",
+                "instanceType": "Code"
+              },
+              "standardCodeAliases": [],
+              "instanceType": "AliasCode"
+            },
+            "therapeuticAreas": [
+              {
+                "id": "Code_3100",
+                "extensionAttributes": [],
+                "code": "C3100",
+                "codeSystem": "http://www.cdisc.org",
+                "codeSystemVersion": "2025-09-26",
+                "decode": "Rheumatology",
+                "instanceType": "Code"
+              }
+            ],
+            "indications": [
+              {
+                "id": "Code_3200",
+                "extensionAttributes": [],
+                "code": "C3200",
+                "codeSystem": "http://www.cdisc.org",
+                "codeSystemVersion": "2025-09-26",
+                "decode": "Sjogren's Syndrome",
+                "instanceType": "Code"
+              }
+            ],
+            "intentTypes": [
+              {
+                "id": "Code_3301",
+                "extensionAttributes": [],
+                "code": "C15632",
+                "codeSystem": "http://www.cdisc.org",
+                "codeSystemVersion": "2025-09-26",
+                "decode": "Treatment Study",
+                "instanceType": "Code"
+              }
+            ],
+            "analysisPopulations": [],
+            "biospecimenRetentions": [],
+            "characteristics": [],
+            "elements": [],
+            "eligibilityCriteria": [
+              {
+                "id": "EligibilityCriterion_1",
+                "extensionAttributes": [],
+                "name": "IN01",
+                "label": "Males and females 18 to 75 years of age, inclusive.",
+                "description": "",
+                "category": {
+                  "id": "Code_751",
+                  "extensionAttributes": [],
+                  "code": "C25532",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Inclusion Criteria",
+                  "instanceType": "Code"
+                },
+                "identifier": "1",
+                "criterionItemId": "EligibilityCriterionItem_1",
+                "nextId": null,
+                "previousId": null,
+                "notes": [],
+                "instanceType": "EligibilityCriterion"
+              },
+              {
+                "id": "EligibilityCriterion_2",
+                "extensionAttributes": [],
+                "name": "IN02",
+                "label": "Patient willing to give written informed consent and to comply with the study procedures and restrictions.",
+                "description": "",
+                "category": {
+                  "id": "Code_752",
+                  "extensionAttributes": [],
+                  "code": "C25532",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Inclusion Criteria",
+                  "instanceType": "Code"
+                },
+                "identifier": "2",
+                "criterionItemId": "EligibilityCriterionItem_2",
+                "nextId": null,
+                "previousId": null,
+                "notes": [],
+                "instanceType": "EligibilityCriterion"
+              },
+              {
+                "id": "EligibilityCriterion_3",
+                "extensionAttributes": [],
+                "name": "IN03",
+                "label": "Primary Sj\u00f6gren&#39;s syndrome diagnosed previously according to the revised American-European Consensus Group (AECG) criteria.",
+                "description": "",
+                "category": {
+                  "id": "Code_753",
+                  "extensionAttributes": [],
+                  "code": "C25532",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Inclusion Criteria",
+                  "instanceType": "Code"
+                },
+                "identifier": "3",
+                "criterionItemId": "EligibilityCriterionItem_3",
+                "nextId": null,
+                "previousId": null,
+                "notes": [],
+                "instanceType": "EligibilityCriterion"
+              },
+              {
+                "id": "EligibilityCriterion_4",
+                "extensionAttributes": [],
+                "name": "IN04",
+                "label": "European League against Rheumatism (EULAR) Sj\u00f6gren&#39;s Syndrome Disease Activity Index (ESSDAI) score \u2265 5.",
+                "description": "",
+                "category": {
+                  "id": "Code_754",
+                  "extensionAttributes": [],
+                  "code": "C25532",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Inclusion Criteria",
+                  "instanceType": "Code"
+                },
+                "identifier": "4",
+                "criterionItemId": "EligibilityCriterionItem_4",
+                "nextId": null,
+                "previousId": null,
+                "notes": [],
+                "instanceType": "EligibilityCriterion"
+              },
+              {
+                "id": "EligibilityCriterion_5",
+                "extensionAttributes": [],
+                "name": "IN05",
+                "label": "EULAR Sj\u00f6gren\u2019s Syndrome Patient Reported Index (ESSPRI) score \u2265 5.",
+                "description": "",
+                "category": {
+                  "id": "Code_755",
+                  "extensionAttributes": [],
+                  "code": "C25532",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Inclusion Criteria",
+                  "instanceType": "Code"
+                },
+                "identifier": "5",
+                "criterionItemId": "EligibilityCriterionItem_5",
+                "nextId": null,
+                "previousId": null,
+                "notes": [],
+                "instanceType": "EligibilityCriterion"
+              },
+              {
+                "id": "EligibilityCriterion_6",
+                "extensionAttributes": [],
+                "name": "IN06",
+                "label": "Elevated serum titers at screening of anti-Sj\u00f6gren&#39;s-syndrome-related antigen A (anti-SSA) and/or anti-SSB antibodies at screening.",
+                "description": "",
+                "category": {
+                  "id": "Code_756",
+                  "extensionAttributes": [],
+                  "code": "C25532",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Inclusion Criteria",
+                  "instanceType": "Code"
+                },
+                "identifier": "6",
+                "criterionItemId": "EligibilityCriterionItem_6",
+                "nextId": null,
+                "previousId": null,
+                "notes": [],
+                "instanceType": "EligibilityCriterion"
+              },
+              {
+                "id": "EligibilityCriterion_7",
+                "extensionAttributes": [],
+                "name": "IN07",
+                "label": "Negative pregnancy test at screening and baseline (women only), and agreement to comply with measures to prevent pregnancy and restrictions on sperm donation",
+                "description": "",
+                "category": {
+                  "id": "Code_757",
+                  "extensionAttributes": [],
+                  "code": "C25532",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Inclusion Criteria",
+                  "instanceType": "Code"
+                },
+                "identifier": "7",
+                "criterionItemId": "EligibilityCriterionItem_7",
+                "nextId": null,
+                "previousId": null,
+                "notes": [],
+                "instanceType": "EligibilityCriterion"
+              },
+              {
+                "id": "EligibilityCriterion_8",
+                "extensionAttributes": [],
+                "name": "EX01",
+                "label": "A diagnosis of secondary Sj\u00f6gren&#39;s syndrome according to the revised AECG criteria.",
+                "description": "",
+                "category": {
+                  "id": "Code_758",
+                  "extensionAttributes": [],
+                  "code": "C25370",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Exclusion Criteria",
+                  "instanceType": "Code"
+                },
+                "identifier": "8",
+                "criterionItemId": "EligibilityCriterionItem_8",
+                "nextId": null,
+                "previousId": null,
+                "notes": [],
+                "instanceType": "EligibilityCriterion"
+              },
+              {
+                "id": "EligibilityCriterion_9",
+                "extensionAttributes": [],
+                "name": "EX02",
+                "label": "Severe complications of Sj\u00f6gren&#39;s syndrome, such as vasculitis with renal, neurologic or cardiac involvement; interstitial lung disease and severe myositis,",
+                "description": "",
+                "category": {
+                  "id": "Code_759",
+                  "extensionAttributes": [],
+                  "code": "C25370",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Exclusion Criteria",
+                  "instanceType": "Code"
+                },
+                "identifier": "9",
+                "criterionItemId": "EligibilityCriterionItem_9",
+                "nextId": null,
+                "previousId": null,
+                "notes": [],
+                "instanceType": "EligibilityCriterion"
+              },
+              {
+                "id": "EligibilityCriterion_10",
+                "extensionAttributes": [],
+                "name": "EX03",
+                "label": "Systemic immunosuppressant therapy (e.g., abatacept, azathioprine, ciclosporin, etanercept, tofacitinib), cyclophosphamide or B cell depleting therapy (e.g., rituximab anti-CD20 therapy) within 6 months prior to the screening visit. Low dose methotrexate treatment (i.e., oral doses \u2264 20 mg weekly) is, however, permitted.",
+                "description": "",
+                "category": {
+                  "id": "Code_760",
+                  "extensionAttributes": [],
+                  "code": "C25370",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Exclusion Criteria",
+                  "instanceType": "Code"
+                },
+                "identifier": "10",
+                "criterionItemId": "EligibilityCriterionItem_10",
+                "nextId": null,
+                "previousId": null,
+                "notes": [],
+                "instanceType": "EligibilityCriterion"
+              },
+              {
+                "id": "EligibilityCriterion_11",
+                "extensionAttributes": [],
+                "name": "EX04",
+                "label": "Corticosteroid therapy exceeding 7.5 mg prednisone equivalents per day.",
+                "description": "",
+                "category": {
+                  "id": "Code_761",
+                  "extensionAttributes": [],
+                  "code": "C25370",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Exclusion Criteria",
+                  "instanceType": "Code"
+                },
+                "identifier": "11",
+                "criterionItemId": "EligibilityCriterionItem_11",
+                "nextId": null,
+                "previousId": null,
+                "notes": [],
+                "instanceType": "EligibilityCriterion"
+              },
+              {
+                "id": "EligibilityCriterion_12",
+                "extensionAttributes": [],
+                "name": "EX05",
+                "label": "Mechanically stimulated whole salivary flow rate at baseline of &lt; 0.1 mL/min.",
+                "description": "",
+                "category": {
+                  "id": "Code_762",
+                  "extensionAttributes": [],
+                  "code": "C25370",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Exclusion Criteria",
+                  "instanceType": "Code"
+                },
+                "identifier": "12",
+                "criterionItemId": "EligibilityCriterionItem_12",
+                "nextId": null,
+                "previousId": null,
+                "notes": [],
+                "instanceType": "EligibilityCriterion"
+              },
+              {
+                "id": "EligibilityCriterion_13",
+                "extensionAttributes": [],
+                "name": "EX06",
+                "label": "A positive test result for hepatitis B (HBV), hepatitis C (HCV), or human immunodeficiency virus (HIV), or tuberculosis, or any other active viral, fungal, yeast or bacterial infection at the screening visit.",
+                "description": "",
+                "category": {
+                  "id": "Code_763",
+                  "extensionAttributes": [],
+                  "code": "C25370",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Exclusion Criteria",
+                  "instanceType": "Code"
+                },
+                "identifier": "13",
+                "criterionItemId": "EligibilityCriterionItem_13",
+                "nextId": null,
+                "previousId": null,
+                "notes": [],
+                "instanceType": "EligibilityCriterion"
+              },
+              {
+                "id": "EligibilityCriterion_14",
+                "extensionAttributes": [],
+                "name": "EX07",
+                "label": "A history of recurring or chronic infections, any other indication of reduced immune function considered to be clinically significant by the Investigator, or any other underlying conditions which may further predispose patients to serious infection.",
+                "description": "",
+                "category": {
+                  "id": "Code_764",
+                  "extensionAttributes": [],
+                  "code": "C25370",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Exclusion Criteria",
+                  "instanceType": "Code"
+                },
+                "identifier": "14",
+                "criterionItemId": "EligibilityCriterionItem_14",
+                "nextId": null,
+                "previousId": null,
+                "notes": [],
+                "instanceType": "EligibilityCriterion"
+              },
+              {
+                "id": "EligibilityCriterion_15",
+                "extensionAttributes": [],
+                "name": "EX08",
+                "label": "A history of lymphoma, myeloma (monoclonal hypergammaglobulinemia) or monoclonal gammopathy of unknown significance (MGUS), or any other malignancies within the past 5 years (except basal cell or squamous cell carcinoma of the skin that has been cured).",
+                "description": "",
+                "category": {
+                  "id": "Code_765",
+                  "extensionAttributes": [],
+                  "code": "C25370",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Exclusion Criteria",
+                  "instanceType": "Code"
+                },
+                "identifier": "15",
+                "criterionItemId": "EligibilityCriterionItem_15",
+                "nextId": null,
+                "previousId": null,
+                "notes": [],
+                "instanceType": "EligibilityCriterion"
+              },
+              {
+                "id": "EligibilityCriterion_16",
+                "extensionAttributes": [],
+                "name": "EX09",
+                "label": "A diagnosis of fibromyalgia, or a diagnosis of significant depression or anxiety that in the opinion of the investigator would confound the interpretation of the study results.",
+                "description": "",
+                "category": {
+                  "id": "Code_766",
+                  "extensionAttributes": [],
+                  "code": "C25370",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Exclusion Criteria",
+                  "instanceType": "Code"
+                },
+                "identifier": "16",
+                "criterionItemId": "EligibilityCriterionItem_16",
+                "nextId": null,
+                "previousId": null,
+                "notes": [],
+                "instanceType": "EligibilityCriterion"
+              },
+              {
+                "id": "EligibilityCriterion_17",
+                "extensionAttributes": [],
+                "name": "EX10",
+                "label": "Severe renal impairment (e.g., estimated glomerular filtration rate &lt; 30 mL/min), moderate or severe hepatic impairment (e.g., Child-Pugh B or C) or other clinically significant hepatic disease (e.g., AST, ALT or GGT &gt; 2x upper limit of normal).",
+                "description": "",
+                "category": {
+                  "id": "Code_767",
+                  "extensionAttributes": [],
+                  "code": "C25370",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Exclusion Criteria",
+                  "instanceType": "Code"
+                },
+                "identifier": "17",
+                "criterionItemId": "EligibilityCriterionItem_17",
+                "nextId": null,
+                "previousId": null,
+                "notes": [],
+                "instanceType": "EligibilityCriterion"
+              },
+              {
+                "id": "EligibilityCriterion_18",
+                "extensionAttributes": [],
+                "name": "EX11",
+                "label": "Current or a history of severe, progressive or uncontrolled hematologic, gastrointestinal, endocrine, pulmonary, cardiac, or neurologic disease, or any other concomitant disease or condition or any clinically significant finding at screening that could interfere with, or for which the treatment of might interfere with, the conduct of the study, or that would, in the opinion of the Investigator, pose an unacceptable risk to the individual in this study.",
+                "description": "",
+                "category": {
+                  "id": "Code_768",
+                  "extensionAttributes": [],
+                  "code": "C25370",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Exclusion Criteria",
+                  "instanceType": "Code"
+                },
+                "identifier": "18",
+                "criterionItemId": "EligibilityCriterionItem_18",
+                "nextId": null,
+                "previousId": null,
+                "notes": [],
+                "instanceType": "EligibilityCriterion"
+              },
+              {
+                "id": "EligibilityCriterion_19",
+                "extensionAttributes": [],
+                "name": "EX12",
+                "label": "Participation in an investigational drug or device study within 3 months prior to screening.",
+                "description": "",
+                "category": {
+                  "id": "Code_769",
+                  "extensionAttributes": [],
+                  "code": "C25370",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Exclusion Criteria",
+                  "instanceType": "Code"
+                },
+                "identifier": "19",
+                "criterionItemId": "EligibilityCriterionItem_19",
+                "nextId": null,
+                "previousId": null,
+                "notes": [],
+                "instanceType": "EligibilityCriterion"
+              },
+              {
+                "id": "EligibilityCriterion_20",
+                "extensionAttributes": [],
+                "name": "EX13",
+                "label": "Inability to comply with the study protocol for any other reason.",
+                "description": "",
+                "category": {
+                  "id": "Code_770",
+                  "extensionAttributes": [],
+                  "code": "C25370",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Exclusion Criteria",
+                  "instanceType": "Code"
+                },
+                "identifier": "20",
+                "criterionItemId": "EligibilityCriterionItem_20",
+                "nextId": null,
+                "previousId": null,
+                "notes": [],
+                "instanceType": "EligibilityCriterion"
+              },
+              {
+                "id": "EligibilityCriterion_21",
+                "extensionAttributes": [],
+                "name": "EX14",
+                "label": "Women who are lactating, breastfeeding or planning to nurse.",
+                "description": "",
+                "category": {
+                  "id": "Code_771",
+                  "extensionAttributes": [],
+                  "code": "C25370",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Exclusion Criteria",
+                  "instanceType": "Code"
+                },
+                "identifier": "21",
+                "criterionItemId": "EligibilityCriterionItem_21",
+                "nextId": null,
+                "previousId": null,
+                "notes": [],
+                "instanceType": "EligibilityCriterion"
+              },
+              {
+                "id": "EligibilityCriterion_22",
+                "extensionAttributes": [],
+                "name": "EX15",
+                "label": "Using other prohibited medication (moderate or potent inhibitors of CYP3A4; strong inducers of CYP3A4; strong inhibitors of the transporter P-glycoprotein [P-gp]; sensitive substrates of CYP3A4 with a narrow therapeutic index).",
+                "description": "",
+                "category": {
+                  "id": "Code_772",
+                  "extensionAttributes": [],
+                  "code": "C25370",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Exclusion Criteria",
+                  "instanceType": "Code"
+                },
+                "identifier": "22",
+                "criterionItemId": "EligibilityCriterionItem_22",
+                "nextId": null,
+                "previousId": null,
+                "notes": [],
+                "instanceType": "EligibilityCriterion"
+              }
+            ],
+            "estimands": [
+              {
+                "id": "Estimand_1",
+                "extensionAttributes": [],
+                "name": "Primary Estimand for Endpoint 1",
+                "label": "Primary Estimand 1",
+                "description": "Estimand derived from primary objective: Proportion of patients showing a clinically relevant decrease in ESSDAI score from baseline...",
+                "analysisStrategy": {
+                  "id": "Code_4501",
+                  "extensionAttributes": [],
+                  "code": "C133434",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "While on Treatment",
+                  "instanceType": "Code"
+                },
+                "summaryMeasure": "Mean Difference",
+                "analysisPopulationId": "",
+                "variableOfInterestId": "",
+                "intercurrentEvents": [],
+                "notes": [],
+                "instanceType": "Estimand"
+              },
+              {
+                "id": "Estimand_2",
+                "extensionAttributes": [],
+                "name": "Secondary Estimand for Endpoint 1",
+                "label": "Secondary Estimand 2",
+                "description": "Estimand derived from secondary objective: Proportion of individuals showing a clinically relevant decrease in ESSPRI score after 12 weeks...",
+                "analysisStrategy": {
+                  "id": "Code_4502",
+                  "extensionAttributes": [],
+                  "code": "C133434",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "While on Treatment",
+                  "instanceType": "Code"
+                },
+                "summaryMeasure": "Mean Difference",
+                "analysisPopulationId": "",
+                "variableOfInterestId": "",
+                "intercurrentEvents": [],
+                "notes": [],
+                "instanceType": "Estimand"
+              },
+              {
+                "id": "Estimand_3",
+                "extensionAttributes": [],
+                "name": "Secondary Estimand for Endpoint 2",
+                "label": "Secondary Estimand 3",
+                "description": "Estimand derived from secondary objective: Change from baseline in ESSDAI, ESSPRI and SF-36 scores after 12 weeks.",
+                "analysisStrategy": {
+                  "id": "Code_4503",
+                  "extensionAttributes": [],
+                  "code": "C133434",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "While on Treatment",
+                  "instanceType": "Code"
+                },
+                "summaryMeasure": "Mean Difference",
+                "analysisPopulationId": "",
+                "variableOfInterestId": "",
+                "intercurrentEvents": [],
+                "notes": [],
+                "instanceType": "Estimand"
+              },
+              {
+                "id": "Estimand_4",
+                "extensionAttributes": [],
+                "name": "Secondary Estimand for Endpoint 3",
+                "label": "Secondary Estimand 4",
+                "description": "Estimand derived from secondary objective: Change from baseline in each of the individual components of the ESSPRI (dryness, fatigue and...",
+                "analysisStrategy": {
+                  "id": "Code_4504",
+                  "extensionAttributes": [],
+                  "code": "C133434",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "While on Treatment",
+                  "instanceType": "Code"
+                },
+                "summaryMeasure": "Mean Difference",
+                "analysisPopulationId": "",
+                "variableOfInterestId": "",
+                "intercurrentEvents": [],
+                "notes": [],
+                "instanceType": "Estimand"
+              },
+              {
+                "id": "Estimand_5",
+                "extensionAttributes": [],
+                "name": "Secondary Estimand for Endpoint 1",
+                "label": "Secondary Estimand 5",
+                "description": "Estimand derived from secondary objective: RO5459072 plasma concentration data will be pooled with data from other studies (Study WP29542...",
+                "analysisStrategy": {
+                  "id": "Code_4505",
+                  "extensionAttributes": [],
+                  "code": "C133434",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "While on Treatment",
+                  "instanceType": "Code"
+                },
+                "summaryMeasure": "Mean Difference",
+                "analysisPopulationId": "",
+                "variableOfInterestId": "",
+                "intercurrentEvents": [],
+                "notes": [],
+                "instanceType": "Estimand"
+              },
+              {
+                "id": "Estimand_6",
+                "extensionAttributes": [],
+                "name": "Secondary Estimand for Endpoint 1",
+                "label": "Secondary Estimand 6",
+                "description": "Estimand derived from secondary objective: The incidence and severity of AEs.",
+                "analysisStrategy": {
+                  "id": "Code_4506",
+                  "extensionAttributes": [],
+                  "code": "C133434",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "While on Treatment",
+                  "instanceType": "Code"
+                },
+                "summaryMeasure": "Mean Difference",
+                "analysisPopulationId": "",
+                "variableOfInterestId": "",
+                "intercurrentEvents": [],
+                "notes": [],
+                "instanceType": "Estimand"
+              },
+              {
+                "id": "Estimand_7",
+                "extensionAttributes": [],
+                "name": "Secondary Estimand for Endpoint 2",
+                "label": "Secondary Estimand 7",
+                "description": "Estimand derived from secondary objective: The incidence of SAEs or withdrawals because of AEs.",
+                "analysisStrategy": {
+                  "id": "Code_4507",
+                  "extensionAttributes": [],
+                  "code": "C133434",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "While on Treatment",
+                  "instanceType": "Code"
+                },
+                "summaryMeasure": "Mean Difference",
+                "analysisPopulationId": "",
+                "variableOfInterestId": "",
+                "intercurrentEvents": [],
+                "notes": [],
+                "instanceType": "Estimand"
+              },
+              {
+                "id": "Estimand_8",
+                "extensionAttributes": [],
+                "name": "Secondary Estimand for Endpoint 3",
+                "label": "Secondary Estimand 8",
+                "description": "Estimand derived from secondary objective: The incidence of out-of-reference-range values for vital signs and ECGs, and laboratory tests.",
+                "analysisStrategy": {
+                  "id": "Code_4508",
+                  "extensionAttributes": [],
+                  "code": "C133434",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "While on Treatment",
+                  "instanceType": "Code"
+                },
+                "summaryMeasure": "Mean Difference",
+                "analysisPopulationId": "",
+                "variableOfInterestId": "",
+                "intercurrentEvents": [],
+                "notes": [],
+                "instanceType": "Estimand"
+              },
+              {
+                "id": "Estimand_9",
+                "extensionAttributes": [],
+                "name": "Secondary Estimand for Endpoint 4",
+                "label": "Secondary Estimand 9",
+                "description": "Estimand derived from secondary objective: Change from baseline in vital signs and ECGs, and laboratory tests by visit.",
+                "analysisStrategy": {
+                  "id": "Code_4509",
+                  "extensionAttributes": [],
+                  "code": "C133434",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "While on Treatment",
+                  "instanceType": "Code"
+                },
+                "summaryMeasure": "Mean Difference",
+                "analysisPopulationId": "",
+                "variableOfInterestId": "",
+                "intercurrentEvents": [],
+                "notes": [],
+                "instanceType": "Estimand"
+              },
+              {
+                "id": "Estimand_10",
+                "extensionAttributes": [],
+                "name": "Exploratory Estimand for Endpoint 1",
+                "label": "Exploratory Estimand 10",
+                "description": "Estimand derived from exploratory objective: Comparisons of the performance of alternative composite endpoints (e.g., Sj\u00f6gren\u2019s response...",
+                "analysisStrategy": {
+                  "id": "Code_4510",
+                  "extensionAttributes": [],
+                  "code": "C133434",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "While on Treatment",
+                  "instanceType": "Code"
+                },
+                "summaryMeasure": "Mean Difference",
+                "analysisPopulationId": "",
+                "variableOfInterestId": "",
+                "intercurrentEvents": [],
+                "notes": [],
+                "instanceType": "Estimand"
+              },
+              {
+                "id": "Estimand_11",
+                "extensionAttributes": [],
+                "name": "Exploratory Estimand for Endpoint 1",
+                "label": "Exploratory Estimand 11",
+                "description": "Estimand derived from exploratory objective: Change from Week 12 to follow-up for ESSDAI, ESSPRI and SF-36 scores in each treatment group.",
+                "analysisStrategy": {
+                  "id": "Code_4511",
+                  "extensionAttributes": [],
+                  "code": "C133434",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "While on Treatment",
+                  "instanceType": "Code"
+                },
+                "summaryMeasure": "Mean Difference",
+                "analysisPopulationId": "",
+                "variableOfInterestId": "",
+                "intercurrentEvents": [],
+                "notes": [],
+                "instanceType": "Estimand"
+              },
+              {
+                "id": "Estimand_12",
+                "extensionAttributes": [],
+                "name": "Exploratory Estimand for Endpoint 1",
+                "label": "Exploratory Estimand 12",
+                "description": "Estimand derived from exploratory objective: Comparisons of drug treatment effects between genotypes.",
+                "analysisStrategy": {
+                  "id": "Code_4512",
+                  "extensionAttributes": [],
+                  "code": "C133434",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "While on Treatment",
+                  "instanceType": "Code"
+                },
+                "summaryMeasure": "Mean Difference",
+                "analysisPopulationId": "",
+                "variableOfInterestId": "",
+                "intercurrentEvents": [],
+                "notes": [],
+                "instanceType": "Estimand"
+              },
+              {
+                "id": "Estimand_13",
+                "extensionAttributes": [],
+                "name": "Exploratory Estimand for Endpoint 1",
+                "label": "Exploratory Estimand 13",
+                "description": "Estimand derived from exploratory objective: Patterns of use of selected concomitant medications.",
+                "analysisStrategy": {
+                  "id": "Code_4513",
+                  "extensionAttributes": [],
+                  "code": "C133434",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "While on Treatment",
+                  "instanceType": "Code"
+                },
+                "summaryMeasure": "Mean Difference",
+                "analysisPopulationId": "",
+                "variableOfInterestId": "",
+                "intercurrentEvents": [],
+                "notes": [],
+                "instanceType": "Estimand"
+              },
+              {
+                "id": "Estimand_14",
+                "extensionAttributes": [],
+                "name": "Exploratory Estimand for Endpoint 1",
+                "label": "Exploratory Estimand 14",
+                "description": "Estimand derived from exploratory objective: Change from Week 12 to follow-up for ESSDAI, ESSPRI and SF-36 scores in each treatment group.",
+                "analysisStrategy": {
+                  "id": "Code_4514",
+                  "extensionAttributes": [],
+                  "code": "C133434",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "While on Treatment",
+                  "instanceType": "Code"
+                },
+                "summaryMeasure": "Mean Difference",
+                "analysisPopulationId": "",
+                "variableOfInterestId": "",
+                "intercurrentEvents": [],
+                "notes": [],
+                "instanceType": "Estimand"
+              }
+            ],
+            "population": 
+              {
+                "id": "StudyPopulation_1",
+                "extensionAttributes": [],
+                "name": "Sjogren's Syndrome",
+                "label": "Sjogren's Syndrome",
+                "description": "Study population: Sjogren's Syndrome",
+                "plannedEnrollmentNumber": 
+				  {
+				    "id": "PlannedEnrollment_1",
+					"value": "70",
+					"instanceType": "Quantity"
+				  },
+				"plannedAge": {
+				  "id": "Range_1",
+				  "extensionAttributes": [],
+				  "minValue": {
+				    "id": "Quantity_9",
+				    "extensionAttributes": [],
+				    "value": 50.0,
+				    "unit": {
+				   	  "id": "AliasCode_251",
+					  "extensionAttributes": [],
+					  "standardCode": {
+					    "id": "Code_618",
+						"extensionAttributes": [],
+					    "code": "C29848",
+					    "codeSystem": "http://www.cdisc.org",
+					    "codeSystemVersion": "2025-09-26",
+				        "decode": "Year",
+					    "instanceType": "Code"
+					  },
+					  "standardCodeAliases": [],
+					  "instanceType": "AliasCode"
+				    },
+					"instanceType": "Quantity"
+				  },
+				  "maxValue": {
+				    "id": "Quantity_10",
+				    "extensionAttributes": [],
+				    "value": 100.0,
+				    "unit": {
+				   	  "id": "AliasCode_252",
+					  "extensionAttributes": [],
+					  "standardCode": {
+					    "id": "Code_619",
+						"extensionAttributes": [],
+					    "code": "C29848",
+					    "codeSystem": "http://www.cdisc.org",
+					    "codeSystemVersion": "2025-09-26",
+					    "decode": "Year",
+					    "instanceType": "Code"
+					  },
+					  "standardCodeAliases": [],
+					  "instanceType": "AliasCode"
+					},
+				    "instanceType": "Quantity"
+				  },
+			      "isApproximate": false,
+				  "instanceType": "Range"
+				},	
+                "plannedSex": [
+                  {
+                    "id": "Code_521",
+                    "extensionAttributes": [],
+                    "code": "C49636",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2025-09-26",
+                    "decode": "Both",
+                    "instanceType": "Code"
+                  }
+                ],				  
+                "includesHealthySubjects": true,
+                "notes": [],
+                "instanceType": "StudyDesignPopulation"
+              },
+            "scheduleTimelines": [
+              {
+                "id": "ScheduleTimeline_1",
+                "extensionAttributes": [],
+                "name": "Main",
+                "label": "Main",
+                "description": "Timeline for Main",
+                "mainTimeline": true,
+                "entryCondition": "Subject enrolled in study arm",
+                "entryId": null,
+                "exits": [
+                  {
+                    "id": "Exit_1",
+                    "extensionAttributes": [],
+                    "condition": "Study completion or early termination",
+                    "instanceType": "Exit"
+                  }
+                ],
+                "timings": [
+                  {
+                    "id": "Schedule_1_Timing_1",
+                    "extensionAttributes": [],
+                    "name": "TIM1",
+                    "label": "Screening & Baseline Day -1.0",
+                    "description": "Timing from previous to Screening & Baseline, Day -1.0",                    
+                    "type": {
+                      "id": "Code_401",
+                      "extensionAttributes": [],
+                      "code": "C201358",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Fixed Reference",
+                      "instanceType": "Code"
+                    },                    
+					"value": "P1D",
+                    "valueLabel": "1 day",
+                    "relativeToFrom": {
+                      "id": "Code_402",
+                      "extensionAttributes": [],
+                      "code": "C201355",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Start to Start",
+                      "instanceType": "Code"
+                    },                    
+					"relativeFromScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_1",
+                    "relativeToScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_1",                    
+					"windowLowerBound": "-P1D",
+                    "windowLowerBoundLabel": "-1 day",
+                    "windowUpperBound": "P1D",
+                    "windowUpperBoundLabel": "+1 day",
+                    "instanceType": "Timing"
+                  },
+                  {
+                    "id": "Schedule_1_Timing_2",
+                    "extensionAttributes": [],
+                    "name": "TIM2",
+                    "label": "Treatment Day 14.0",
+                    "description": "Timing from previous to Treatment, Day 14",					
+                    "type": {
+                      "id": "Code_403",
+                      "extensionAttributes": [],
+                      "code": "C201356",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "After",
+                      "instanceType": "Code"
+                    },                    
+					"value": "P1D",
+                    "valueLabel": "1 day",
+                    "relativeToFrom": {
+                      "id": "Code_404",
+                      "extensionAttributes": [],
+                      "code": "C201355",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Start to Start",
+                      "instanceType": "Code"
+                    },                    
+					"relativeFromScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_3",
+                    "relativeToScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_2",
+                    "windowLowerBound": "-P1D",
+                    "windowLowerBoundLabel": "-1 day",
+                    "windowUpperBound": "P1D",
+                    "windowUpperBoundLabel": "+1 day",
+                    "instanceType": "Timing"
+                  },
+                  {
+                    "id": "Schedule_1_Timing_3",
+                    "extensionAttributes": [],
+                    "name": "TIM3",
+                    "label": "Treatment Day 42.0",
+                    "description": "Timing from previous to Treatment, Day 42",					
+                    "type": {
+                      "id": "Code_405",
+                      "extensionAttributes": [],
+                      "code": "C201356",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "After",
+                      "instanceType": "Code"
+                    },					
+                    "value": "P1D",
+                    "valueLabel": "1 day",
+                    "relativeToFrom": {
+                      "id": "Code_406",
+                      "extensionAttributes": [],
+                      "code": "C201355",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Start to Start",
+                      "instanceType": "Code"
+                    },					
+                    "relativeFromScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_4",
+                    "relativeToScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_3",
+                    "windowLowerBound": "-P1D",
+                    "windowLowerBoundLabel": "-1 day",
+                    "windowUpperBound": "P1D",
+                    "windowUpperBoundLabel": "+1 day",
+                    "instanceType": "Timing"
+                  },
+                  {
+                    "id": "Schedule_1_Timing_4",
+                    "extensionAttributes": [],
+                    "name": "TIM4",
+                    "label": "Treatment Day 63.0",
+                    "description": "Timing from previous to Treatment, Day 63",					
+                    "type": {
+                      "id": "Code_407",
+                      "extensionAttributes": [],
+                      "code": "C201356",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "After",
+                      "instanceType": "Code"
+                    },					
+                    "value": "P1D",
+                    "valueLabel": "1 day",
+                    "relativeToFrom": {
+                      "id": "Code_408",
+                      "extensionAttributes": [],
+                      "code": "C201355",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Start to Start",
+                      "instanceType": "Code"
+                    },										
+                    "relativeFromScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_5",
+                    "relativeToScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_4",
+                    "windowLowerBound": "-P1D",
+                    "windowLowerBoundLabel": "-1 day",
+                    "windowUpperBound": "P1D",
+                    "windowUpperBoundLabel": "+1 day",
+                    "instanceType": "Timing"
+                  },
+                  {
+                    "id": "Schedule_1_Timing_5",
+                    "extensionAttributes": [],
+                    "name": "TIM5",
+                    "label": "Treatment Day 84.0",
+                    "description": "Timing from previous to Treatment, Day 84",					
+                    "type": {
+                      "id": "Code_409",
+                      "extensionAttributes": [],
+                      "code": "C201356",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "After",
+                      "instanceType": "Code"
+                    },					
+                    "value": "P1D",
+                    "valueLabel": "1 day",					
+                    "relativeToFrom": {
+                      "id": "Code_410",
+                      "extensionAttributes": [],
+                      "code": "C201355",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Start to Start",
+                      "instanceType": "Code"
+                    },					
+                    "relativeFromScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_6",
+                    "relativeToScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_5",
+                    "windowLowerBound": "-P1D",
+                    "windowLowerBoundLabel": "-1 day",
+                    "windowUpperBound": "P1D",
+                    "windowUpperBoundLabel": "+1 day",
+                    "instanceType": "Timing"
+                  },
+                  {
+                    "id": "Schedule_1_Timing_6",
+                    "extensionAttributes": [],
+                    "name": "TIM6",
+                    "label": "Unknown Epoch Day 14.0",
+                    "description": "Timing from previous to Unknown Epoch, Day 14",					
+                    "type": {
+                      "id": "Code_411",
+                      "extensionAttributes": [],
+                      "code": "C201356",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "After",
+                      "instanceType": "Code"
+                    },					
+                    "value": "P1D",
+                    "valueLabel": "1 day",					
+                    "relativeToFrom": {
+                      "id": "Code_412",
+                      "extensionAttributes": [],
+                      "code": "C201355",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Start to Start",
+                      "instanceType": "Code"
+                    },					
+                    "relativeFromScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_7",
+                    "relativeToScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_6",
+                    "windowLowerBound": "-P1D",
+                    "windowLowerBoundLabel": "-1 day",
+                    "windowUpperBound": "P1D",
+                    "windowUpperBoundLabel": "+1 day",
+                    "instanceType": "Timing"
+                  },
+                  {
+                    "id": "Schedule_1_Timing_7",
+                    "extensionAttributes": [],
+                    "name": "TIM7",
+                    "label": "Unknown Epoch",
+                    "description": "Timing from previous to Unknown Epoch, Day Unknown",					
+                    "type": {
+                      "id": "Code_413",
+                      "extensionAttributes": [],
+                      "code": "C201356",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "After",
+                      "instanceType": "Code"
+                    },					
+                    "value": "P1D",
+                    "valueLabel": "1 day",					
+                    "relativeToFrom": {
+                      "id": "Code_414",
+                      "extensionAttributes": [],
+                      "code": "C201355",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Start to Start",
+                      "instanceType": "Code"
+                    },					
+                    "relativeFromScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_8",
+                    "relativeToScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_7",
+                    "windowLowerBound": "-P1D",
+                    "windowLowerBoundLabel": "-1 day",
+                    "windowUpperBound": "P1D",
+                    "windowUpperBoundLabel": "+1 day",
+                    "instanceType": "Timing"
+                  }
+                ],
+                "instances": [
+                  {
+                    "id": "Schedule_1_ScheduledActivityInstance_1",
+                    "extensionAttributes": [],
+                    "name": "DAY_8",
+                    "label": "8",
+                    "description": "Screening & Baseline, Day -8.0",
+                    "defaultConditionId": "Schedule_1_ScheduledActivityInstance_2",
+                    "epochId": "StudyEpoch_1",
+                    "encounterId": "Schedule_1_Encounter_1",
+                    "activityIds": [
+                      "Activity_14",
+                      "Activity_32",
+                      "Activity_6",
+                      "Activity_30",
+                      "Activity_10",
+                      "Activity_1",
+                      "Activity_17",
+                      "Activity_43",
+                      "Activity_56",
+                      "Activity_11",
+                      "Activity_53",
+                      "Activity_22",
+                      "Activity_48",
+                      "Activity_5",
+                      "Activity_27",
+                      "Activity_29",
+                      "Activity_3",
+                      "Activity_38",
+                      "Activity_9",
+                      "Activity_49",
+                      "Activity_25",
+                      "Activity_46",
+                      "Activity_24",
+                      "Activity_50",
+                      "Activity_34",
+                      "Activity_40",
+                      "Activity_4",
+                      "Activity_44",
+                      "Activity_42",
+                      "Activity_13",
+                      "Activity_36",
+                      "Activity_45",
+                      "Activity_41",
+                      "Activity_19"
+                    ],
+                    "scheduledAtTimingId": null,
+                    "defaultDuration": "PT162M",
+                    "timeSlots": 14,
+                    "instanceType": "ScheduledActivityInstance"
+                  },
+                  {
+                    "id": "Schedule_1_ScheduledActivityInstance_2",
+                    "extensionAttributes": [],
+                    "name": "DAY_1",
+                    "label": "1",
+                    "description": "Screening & Baseline, Day -1.0",
+                    "defaultConditionId": "Schedule_1_ScheduledActivityInstance_3",
+                    "epochId": "StudyEpoch_1",
+                    "encounterId": "Schedule_1_Encounter_2",
+                    "activityIds": [
+                      "Activity_47",
+                      "Activity_55",
+                      "Activity_32",
+                      "Activity_43",
+                      "Activity_52",
+                      "Activity_23",
+                      "Activity_22",
+                      "Activity_48",
+                      "Activity_54",
+                      "Activity_51",
+                      "Activity_21",
+                      "Activity_26",
+                      "Activity_18",
+                      "Activity_8",
+                      "Activity_5",
+                      "Activity_27",
+                      "Activity_29",
+                      "Activity_3",
+                      "Activity_38",
+                      "Activity_9",
+                      "Activity_49",
+                      "Activity_37",
+                      "Activity_33",
+                      "Activity_16",
+                      "Activity_39",
+                      "Activity_7",
+                      "Activity_35",
+                      "Activity_12",
+                      "Activity_25",
+                      "Activity_46",
+                      "Activity_24",
+                      "Activity_50",
+                      "Activity_34",
+                      "Activity_40",
+                      "Activity_4",
+                      "Activity_44",
+                      "Activity_42",
+                      "Activity_13",
+                      "Activity_36",
+                      "Activity_45",
+                      "Activity_28",
+                      "Activity_17",
+                      "Activity_41",
+                      "Activity_31",
+                      "Activity_2"
+                    ],
+                    "scheduledAtTimingId": null,
+                    "defaultDuration": "PT225M",
+                    "timeSlots": 17,
+                    "instanceType": "ScheduledActivityInstance"
+                  },
+                  {
+                    "id": "Schedule_1_ScheduledActivityInstance_3",
+                    "extensionAttributes": [],
+                    "name": "DAY_14",
+                    "label": "14",
+                    "description": "Treatment, Day 14",
+                    "defaultConditionId": "Schedule_1_ScheduledActivityInstance_4",
+                    "epochId": "StudyEpoch_2",
+                    "encounterId": "Schedule_1_Encounter_3",
+                    "activityIds": [
+                      "Activity_55",
+                      "Activity_43",
+                      "Activity_52",
+                      "Activity_48",
+                      "Activity_51",
+                      "Activity_21",
+                      "Activity_26",
+                      "Activity_18",
+                      "Activity_8",
+                      "Activity_33",
+                      "Activity_16",
+                      "Activity_39",
+                      "Activity_7",
+                      "Activity_35",
+                      "Activity_37",
+                      "Activity_12",
+                      "Activity_2",
+                      "Activity_20",
+                      "Activity_25",
+                      "Activity_46",
+                      "Activity_24",
+                      "Activity_50",
+                      "Activity_34",
+                      "Activity_40",
+                      "Activity_4",
+                      "Activity_44",
+                      "Activity_42",
+                      "Activity_13",
+                      "Activity_36",
+                      "Activity_45",
+                      "Activity_17",
+                      "Activity_41",
+                      "Activity_31"
+                    ],
+                    "scheduledAtTimingId": null,
+                    "defaultDuration": "PT110M",
+                    "timeSlots": 13,
+                    "instanceType": "ScheduledActivityInstance"
+                  },
+                  {
+                    "id": "Schedule_1_ScheduledActivityInstance_4",
+                    "extensionAttributes": [],
+                    "name": "DAY_42",
+                    "label": "42",
+                    "description": "Treatment, Day 42",
+                    "defaultConditionId": "Schedule_1_ScheduledActivityInstance_5",
+                    "epochId": "StudyEpoch_2",
+                    "encounterId": "Schedule_1_Encounter_4",
+                    "activityIds": [
+                      "Activity_55",
+                      "Activity_15",
+                      "Activity_43",
+                      "Activity_52",
+                      "Activity_22",
+                      "Activity_48",
+                      "Activity_54",
+                      "Activity_51",
+                      "Activity_21",
+                      "Activity_26",
+                      "Activity_18",
+                      "Activity_8",
+                      "Activity_27",
+                      "Activity_5",
+                      "Activity_29",
+                      "Activity_3",
+                      "Activity_38",
+                      "Activity_9",
+                      "Activity_49",
+                      "Activity_33",
+                      "Activity_16",
+                      "Activity_39",
+                      "Activity_7",
+                      "Activity_35",
+                      "Activity_37",
+                      "Activity_12",
+                      "Activity_2",
+                      "Activity_20",
+                      "Activity_25",
+                      "Activity_46",
+                      "Activity_24",
+                      "Activity_50",
+                      "Activity_34",
+                      "Activity_40",
+                      "Activity_4",
+                      "Activity_44",
+                      "Activity_42",
+                      "Activity_13",
+                      "Activity_36",
+                      "Activity_45",
+                      "Activity_17",
+                      "Activity_41",
+                      "Activity_31"
+                    ],
+                    "scheduledAtTimingId": null,
+                    "defaultDuration": "PT140M",
+                    "timeSlots": 16,
+                    "instanceType": "ScheduledActivityInstance"
+                  },
+                  {
+                    "id": "Schedule_1_ScheduledActivityInstance_5",
+                    "extensionAttributes": [],
+                    "name": "DAY_63",
+                    "label": "63",
+                    "description": "Treatment, Day 63",
+                    "defaultConditionId": "Schedule_1_ScheduledActivityInstance_6",
+                    "epochId": "StudyEpoch_2",
+                    "encounterId": "Schedule_1_Encounter_5",
+                    "activityIds": [
+                      "Activity_43",
+                      "Activity_52",
+                      "Activity_48",
+                      "Activity_25",
+                      "Activity_46",
+                      "Activity_24",
+                      "Activity_50",
+                      "Activity_34",
+                      "Activity_40",
+                      "Activity_4",
+                      "Activity_44",
+                      "Activity_42",
+                      "Activity_13",
+                      "Activity_36",
+                      "Activity_45",
+                      "Activity_17",
+                      "Activity_41",
+                      "Activity_31"
+                    ],
+                    "scheduledAtTimingId": null,
+                    "defaultDuration": "PT70M",
+                    "timeSlots": 7,
+                    "instanceType": "ScheduledActivityInstance"
+                  },
+                  {
+                    "id": "Schedule_1_ScheduledActivityInstance_6",
+                    "extensionAttributes": [],
+                    "name": "DAY_84",
+                    "label": "84",
+                    "description": "Treatment, Day 84",
+                    "defaultConditionId": "Schedule_1_ScheduledActivityInstance_7",
+                    "epochId": "StudyEpoch_2",
+                    "encounterId": "Schedule_1_Encounter_6",
+                    "activityIds": [
+                      "Activity_15",
+                      "Activity_43",
+                      "Activity_52",
+                      "Activity_22",
+                      "Activity_48",
+                      "Activity_54",
+                      "Activity_51",
+                      "Activity_21",
+                      "Activity_26",
+                      "Activity_18",
+                      "Activity_8",
+                      "Activity_27",
+                      "Activity_29",
+                      "Activity_3",
+                      "Activity_38",
+                      "Activity_9",
+                      "Activity_49",
+                      "Activity_5",
+                      "Activity_33",
+                      "Activity_16",
+                      "Activity_39",
+                      "Activity_7",
+                      "Activity_35",
+                      "Activity_37",
+                      "Activity_12",
+                      "Activity_2",
+                      "Activity_20",
+                      "Activity_25",
+                      "Activity_46",
+                      "Activity_24",
+                      "Activity_50",
+                      "Activity_34",
+                      "Activity_40",
+                      "Activity_4",
+                      "Activity_44",
+                      "Activity_42",
+                      "Activity_13",
+                      "Activity_36",
+                      "Activity_28",
+                      "Activity_45",
+                      "Activity_17",
+                      "Activity_41",
+                      "Activity_31"
+                    ],
+                    "scheduledAtTimingId": null,
+                    "defaultDuration": "PT235M",
+                    "timeSlots": 16,
+                    "instanceType": "ScheduledActivityInstance"
+                  },
+                  {
+                    "id": "Schedule_1_ScheduledActivityInstance_7",
+                    "extensionAttributes": [],
+                    "name": "DAY_14",
+                    "label": "14",
+                    "description": "Unknown Epoch, Day 14",
+                    "defaultConditionId": "Schedule_1_ScheduledActivityInstance_8",
+                    "epochId": "StudyEpoch_3",
+                    "encounterId": "Schedule_1_Encounter_7",
+                    "activityIds": [
+                      "Activity_10",
+                      "Activity_1",
+                      "Activity_17",
+                      "Activity_43",
+                      "Activity_52",
+                      "Activity_22",
+                      "Activity_48",
+                      "Activity_27",
+                      "Activity_5",
+                      "Activity_29",
+                      "Activity_3",
+                      "Activity_38",
+                      "Activity_9",
+                      "Activity_49",
+                      "Activity_25",
+                      "Activity_46",
+                      "Activity_24",
+                      "Activity_50",
+                      "Activity_34",
+                      "Activity_40",
+                      "Activity_4",
+                      "Activity_44",
+                      "Activity_42",
+                      "Activity_13",
+                      "Activity_36",
+                      "Activity_45",
+                      "Activity_41",
+                      "Activity_31"
+                    ],
+                    "scheduledAtTimingId": null,
+                    "defaultDuration": "PT117M",
+                    "timeSlots": 10,
+                    "instanceType": "ScheduledActivityInstance"
+                  },
+                  {
+                    "id": "Schedule_1_ScheduledActivityInstance_8",
+                    "extensionAttributes": [],
+                    "name": "DAY_UNK_8",
+                    "label": "Unknown",
+                    "description": "Unknown Epoch, Day Unknown",
+                    "epochId": "StudyEpoch_3",
+                    "encounterId": "Schedule_1_Encounter_8",
+					"timelineExitId": "Exit_1",					
+                    "activityIds": [
+                      "Activity_15",
+                      "Activity_10",
+                      "Activity_1",
+                      "Activity_17",
+                      "Activity_43",
+                      "Activity_52",
+                      "Activity_22",
+                      "Activity_48",
+                      "Activity_27",
+                      "Activity_5",
+                      "Activity_29",
+                      "Activity_3",
+                      "Activity_38",
+                      "Activity_9",
+                      "Activity_49",
+                      "Activity_25",
+                      "Activity_46",
+                      "Activity_24",
+                      "Activity_50",
+                      "Activity_34",
+                      "Activity_40",
+                      "Activity_4",
+                      "Activity_44",
+                      "Activity_42",
+                      "Activity_13",
+                      "Activity_36",
+                      "Activity_45",
+                      "Activity_41",
+                      "Activity_31"
+                    ],
+                    "scheduledAtTimingId": null,
+                    "defaultDuration": "PT122M",
+                    "timeSlots": 11,
+                    "instanceType": "ScheduledActivityInstance"
+                  }
+                ],
+                "instanceType": "ScheduleTimeline"
+              }
+            ],
+            "studyCells": [],
+            "studyInterventionIds": [],
+            "subTypes": [],
+            "notes": [],
+            "objectives": [
+              {
+                "id": "Objective_1",
+                "extensionAttributes": [],
+                "name": "Primary Objective 1",
+                "description": "To investigate the effects of RO5459072 treatment on disease activity and symptoms of primary Sj\u00f6gren\u2019s syndrome.",
+                "level": {
+                  "id": "Code_501",
+                  "extensionAttributes": [],
+                  "code": "C98772",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Primary Objective",
+                  "instanceType": "Code"
+                },
+                "endpoints": [
+                  {
+                    "id": "Endpoint_1",
+                    "extensionAttributes": [],
+                    "name": "Endpoint 1",
+                    "description": "Proportion of patients showing a clinically relevant decrease in ESSDAI score from baseline after 12 weeks.",
+					"text": "",
+					"purpose": "",
+                    "level": {
+                      "id": "Code_601",
+                      "extensionAttributes": [],
+                      "code": "C98772",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Primary Endpoint",
+                      "instanceType": "Code"
+                    },
+                    "instanceType": "Endpoint"
+                  }
+                ],
+                "instanceType": "Objective"
+              },
+              {
+                "id": "Objective_2",
+                "extensionAttributes": [],
+                "name": "Secondary Objective 2",
+                "description": "To investigate the effects of RO5459072 treatment on:quality of life measures.auto-antibody concentrations.pharmacodynamic measures of exocrine gland function.",
+                "level": {
+                  "id": "Code_502",
+                  "extensionAttributes": [],
+                  "code": "C98781",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Secondary Objective",
+                  "instanceType": "Code"
+                },
+                "endpoints": [
+                  {
+                    "id": "Endpoint_1",
+                    "extensionAttributes": [],
+                    "name": "Endpoint 1",
+                    "description": "Proportion of individuals showing a clinically relevant decrease in ESSPRI score after 12 weeks where a clinically relevant decrease in ESSPRI score is defined as a decrease of \u2265 1 point.",
+					"text": "",
+					"purpose": "",
+                    "level": {
+                      "id": "Code_601",
+                      "extensionAttributes": [],
+                      "code": "C98781",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Secondary Endpoint",
+                      "instanceType": "Code"
+                    },
+                    "instanceType": "Endpoint"
+                  },
+                  {
+                    "id": "Endpoint_2",
+                    "extensionAttributes": [],
+                    "name": "Endpoint 2",
+                    "description": "Change from baseline in ESSDAI, ESSPRI and SF-36 scores after 12 weeks.",
+					"text": "",
+					"purpose": "",
+                    "level": {
+                      "id": "Code_602",
+                      "extensionAttributes": [],
+                      "code": "C98781",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Secondary Endpoint",
+                      "instanceType": "Code"
+                    },
+                    "instanceType": "Endpoint"
+                  },
+                  {
+                    "id": "Endpoint_3",
+                    "extensionAttributes": [],
+                    "name": "Endpoint 3",
+                    "description": "Change from baseline in each of the individual components of the ESSPRI (dryness, fatigue and pain) after 12 weeks.",
+					"text": "",
+					"purpose": "",
+                    "level": {
+                      "id": "Code_603",
+                      "extensionAttributes": [],
+                      "code": "C98781",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Secondary Endpoint",
+                      "instanceType": "Code"
+                    },
+                    "instanceType": "Endpoint"
+                  }
+                ],
+                "instanceType": "Objective"
+              },
+              {
+                "id": "Objective_3",
+                "extensionAttributes": [],
+                "name": "Secondary Objective 3",
+                "description": "To collect samples for population modelling of RO5459072 pharmacokinetics.",
+                "level": {
+                  "id": "Code_503",
+                  "extensionAttributes": [],
+                  "code": "C98781",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Secondary Objective",
+                  "instanceType": "Code"
+                },
+                "endpoints": [
+                  {
+                    "id": "Endpoint_1",
+                    "extensionAttributes": [],
+                    "name": "Endpoint 1",
+                    "description": "RO5459072 plasma concentration data will be pooled with data from other studies (Study WP29542 and Study BP29772) for population pharmacokinetic modelling. The modelling results will be reported separately.",
+					"text": "",
+					"purpose": "",
+                    "level": {
+                      "id": "Code_601",
+                      "extensionAttributes": [],
+                      "code": "C98781",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Secondary Endpoint",
+                      "instanceType": "Code"
+                    },
+                    "instanceType": "Endpoint"
+                  }
+                ],
+                "instanceType": "Objective"
+              },
+              {
+                "id": "Objective_4",
+                "extensionAttributes": [],
+                "name": "Secondary Objective 4",
+                "description": "To investigate the safety and tolerability of RO5459072 treatment.",
+                "level": {
+                  "id": "Code_504",
+                  "extensionAttributes": [],
+                  "code": "C98781",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Secondary Objective",
+                  "instanceType": "Code"
+                },
+                "endpoints": [
+                  {
+                    "id": "Endpoint_1",
+                    "extensionAttributes": [],
+                    "name": "Endpoint 1",
+                    "description": "The incidence and severity of AEs.",
+					"text": "",
+					"purpose": "",
+                    "level": {
+                      "id": "Code_601",
+                      "extensionAttributes": [],
+                      "code": "C98781",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Secondary Endpoint",
+                      "instanceType": "Code"
+                    },
+                    "instanceType": "Endpoint"
+                  },
+                  {
+                    "id": "Endpoint_2",
+                    "extensionAttributes": [],
+                    "name": "Endpoint 2",
+                    "description": "The incidence of SAEs or withdrawals because of AEs.",
+					"text": "",
+					"purpose": "",
+                    "level": {
+                      "id": "Code_602",
+                      "extensionAttributes": [],
+                      "code": "C98781",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Secondary Endpoint",
+                      "instanceType": "Code"
+                    },
+                    "instanceType": "Endpoint"
+                  },
+                  {
+                    "id": "Endpoint_3",
+                    "extensionAttributes": [],
+                    "name": "Endpoint 3",
+                    "description": "The incidence of out-of-reference-range values for vital signs and ECGs, and laboratory tests.",
+					"text": "",
+					"purpose": "",
+                    "level": {
+                      "id": "Code_603",
+                      "extensionAttributes": [],
+                      "code": "C98781",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Secondary Endpoint",
+                      "instanceType": "Code"
+                    },
+                    "instanceType": "Endpoint"
+                  },
+                  {
+                    "id": "Endpoint_4",
+                    "extensionAttributes": [],
+                    "name": "Endpoint 4",
+                    "description": "Change from baseline in vital signs and ECGs, and laboratory tests by visit.",
+					"text": "",
+					"purpose": "",
+                    "level": {
+                      "id": "Code_604",
+                      "extensionAttributes": [],
+                      "code": "C98781",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Secondary Endpoint",
+                      "instanceType": "Code"
+                    },
+                    "instanceType": "Endpoint"
+                  }
+                ],
+                "instanceType": "Objective"
+              },
+              {
+                "id": "Objective_5",
+                "extensionAttributes": [],
+                "name": "Exploratory Objective 5",
+                "description": "To investigate the effects of RO5459072 treatment on:cathepsin S enzyme mass and activity.sub-populations of circulating white blood cells.biomarkers connected to Sj\u00f6gren\u2019s syndrome.biomarkers of extracellular matrix degradation.",
+                "level": {
+                  "id": "Code_505",
+                  "extensionAttributes": [],
+                  "code": "C98783",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Exploratory Objective",
+                  "instanceType": "Code"
+                },
+                "endpoints": [
+                  {
+                    "id": "Endpoint_1",
+                    "extensionAttributes": [],
+                    "name": "Endpoint 1",
+                    "description": "Comparisons of the performance of alternative composite endpoints (e.g., Sj\u00f6gren\u2019s response index [SSRI-30]) as predictive markers of drug treatment response.",
+					"text": "",
+					"purpose": "",
+                    "level": {
+                      "id": "Code_601",
+                      "extensionAttributes": [],
+                      "code": "C98783",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Exploratory Endpoint",
+                      "instanceType": "Code"
+                    },
+                    "instanceType": "Endpoint"
+                  }
+                ],
+                "instanceType": "Objective"
+              },
+              {
+                "id": "Objective_6",
+                "extensionAttributes": [],
+                "name": "Exploratory Objective 6",
+                "description": "To explore the influence of covariates on the effects of RO5459072 treatment.",
+                "level": {
+                  "id": "Code_506",
+                  "extensionAttributes": [],
+                  "code": "C98783",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Exploratory Objective",
+                  "instanceType": "Code"
+                },
+                "endpoints": [
+                  {
+                    "id": "Endpoint_1",
+                    "extensionAttributes": [],
+                    "name": "Endpoint 1",
+                    "description": "Change from Week 12 to follow-up for ESSDAI, ESSPRI and SF-36 scores in each treatment group.",
+					"text": "",
+					"purpose": "",
+                    "level": {
+                      "id": "Code_601",
+                      "extensionAttributes": [],
+                      "code": "C98783",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Exploratory Endpoint",
+                      "instanceType": "Code"
+                    },
+                    "instanceType": "Endpoint"
+                  }
+                ],
+                "instanceType": "Objective"
+              },
+              {
+                "id": "Objective_7",
+                "extensionAttributes": [],
+                "name": "Exploratory Objective 7",
+                "description": "To explore alternative composite endpoints as measures for evaluating effects of drug treatment.",
+                "level": {
+                  "id": "Code_507",
+                  "extensionAttributes": [],
+                  "code": "C98783",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Exploratory Objective",
+                  "instanceType": "Code"
+                },
+                "endpoints": [
+                  {
+                    "id": "Endpoint_1",
+                    "extensionAttributes": [],
+                    "name": "Endpoint 1",
+                    "description": "Comparisons of drug treatment effects between genotypes.",
+					"text": "",
+					"purpose": "",
+                    "level": {
+                      "id": "Code_601",
+                      "extensionAttributes": [],
+                      "code": "C98783",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Exploratory Endpoint",
+                      "instanceType": "Code"
+                    },
+                    "instanceType": "Endpoint"
+                  }
+                ],
+                "instanceType": "Objective"
+              },
+              {
+                "id": "Objective_8",
+                "extensionAttributes": [],
+                "name": "Exploratory Objective 8",
+                "description": "To explore the effects of RO5459072 treatment on the use of concomitant medications.",
+                "level": {
+                  "id": "Code_508",
+                  "extensionAttributes": [],
+                  "code": "C98783",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Exploratory Objective",
+                  "instanceType": "Code"
+                },
+                "endpoints": [
+                  {
+                    "id": "Endpoint_1",
+                    "extensionAttributes": [],
+                    "name": "Endpoint 1",
+                    "description": "Patterns of use of selected concomitant medications.",
+					"text": "",
+					"purpose": "",
+                    "level": {
+                      "id": "Code_601",
+                      "extensionAttributes": [],
+                      "code": "C98783",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Exploratory Endpoint",
+                      "instanceType": "Code"
+                    },
+                    "instanceType": "Endpoint"
+                  }
+                ],
+                "instanceType": "Objective"
+              },
+              {
+                "id": "Objective_9",
+                "extensionAttributes": [],
+                "name": "Exploratory Objective 9",
+                "description": "To explore the occurrence of acute rebound phenomena on disease activity and symptoms following discontinuation of study drug treatment.",
+                "level": {
+                  "id": "Code_509",
+                  "extensionAttributes": [],
+                  "code": "C98783",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Exploratory Objective",
+                  "instanceType": "Code"
+                },
+                "endpoints": [
+                  {
+                    "id": "Endpoint_1",
+                    "extensionAttributes": [],
+                    "name": "Endpoint 1",
+                    "description": "Change from Week 12 to follow-up for ESSDAI, ESSPRI and SF-36 scores in each treatment group.",
+					"text": "",
+					"purpose": "",
+                    "level": {
+                      "id": "Code_601",
+                      "extensionAttributes": [],
+                      "code": "C98783",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Exploratory Endpoint",
+                      "instanceType": "Code"
+                    },
+                    "instanceType": "Endpoint"
+                  }
+                ],
+                "instanceType": "Objective"
+              }
+            ],
+            "epochs": [
+              {
+                "id": "StudyEpoch_1",
+                "extensionAttributes": [],
+                "name": "Screening & Baseline",
+                "description": "",
+                "type": {
+                  "id": "Code_3701",
+                  "extensionAttributes": [],
+                  "code": "C202481",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Screening",
+                  "instanceType": "Code"
+                },
+                "instanceType": "StudyEpoch"
+              },
+              {
+                "id": "StudyEpoch_2",
+                "extensionAttributes": [],
+                "name": "Treatment",
+                "description": "",
+                "type": {
+                  "id": "Code_3702",
+                  "extensionAttributes": [],
+                  "code": "C202482",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Treatment",
+                  "instanceType": "Code"
+                },
+                "instanceType": "StudyEpoch"
+              },
+              {
+                "id": "StudyEpoch_3",
+                "extensionAttributes": [],
+                "name": "Follow Up",
+                "description": "",
+                "type": {
+                  "id": "Code_3703",
+                  "extensionAttributes": [],
+                  "code": "C202483",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Follow Up",
+                  "instanceType": "Code"
+                },
+                "instanceType": "StudyEpoch"
+              }
+            ],
+            "arms": [
+              {
+                "id": "StudyArm_1",
+                "extensionAttributes": [],
+                "name": "Main",
+                "label": "Main",
+                "description": "Timeline for Main",
+                "type": {
+                  "id": "Code_3801",
+                  "extensionAttributes": [],
+                  "code": "C15538",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Protocol Treatment Arm",
+                  "instanceType": "Code"
+                },
+                "dataOriginDescription": "Data collected from subjects",
+                "dataOriginType": {
+                  "id": "Code_3802",
+                  "extensionAttributes": [],
+                  "code": "C188866",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Data Generated Within Study",
+                  "instanceType": "Code"
+                },
+                "populationIds": [],
+                "notes": [],
+                "instanceType": "StudyArm"
+              }
+            ],
+            "encounters": [
+              {
+                "id": "Schedule_1_Encounter_1",
+                "extensionAttributes": [],
+                "name": "E1_neg1_to_neg7",
+                "label": "Main Day -1 to -7",
+                "description": "Study encounter for Main Day -1 to -7",
+                "type": {
+                  "id": "Code_3901",
+                  "extensionAttributes": [],
+                  "code": "C25716",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Visit",
+                  "instanceType": "Code"
+                },
+                "epochId": "StudyEpoch_1",
+                "scheduledAtId": "Schedule_1_Timing_1",
+                "environmentalSettings": [
+                  {
+                    "id": "Code_3951",
+                    "extensionAttributes": [],
+                    "code": "C51282",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2025-09-26",
+                    "decode": "Clinic",
+                    "instanceType": "Code"
+                  }
+                ],
+                "contactModes": [
+                  {
+                    "id": "Code_4001",
+                    "extensionAttributes": [],
+                    "code": "C175574",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2025-09-26",
+                    "decode": "In Person",
+                    "instanceType": "Code"
+                  }
+                ],
+                "notes": [],
+                "instanceType": "Encounter"
+              },
+              {
+                "id": "Schedule_1_Encounter_2",
+                "extensionAttributes": [],
+                "name": "E2_neg8_to_neg28",
+                "label": "Main Day -8 to -28",
+                "description": "Study encounter for Main Day -8 to -28",
+                "type": {
+                  "id": "Code_3902",
+                  "extensionAttributes": [],
+                  "code": "C25716",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Visit",
+                  "instanceType": "Code"
+                },
+                "epochId": "StudyEpoch_1",
+                "scheduledAtId": "Schedule_1_Timing_2",
+                "environmentalSettings": [
+                  {
+                    "id": "Code_3952",
+                    "extensionAttributes": [],
+                    "code": "C51282",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2025-09-26",
+                    "decode": "Clinic",
+                    "instanceType": "Code"
+                  }
+                ],
+                "contactModes": [
+                  {
+                    "id": "Code_4002",
+                    "extensionAttributes": [],
+                    "code": "C175574",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2025-09-26",
+                    "decode": "In Person",
+                    "instanceType": "Code"
+                  }
+                ],
+                "notes": [],
+                "instanceType": "Encounter"
+              },
+              {
+                "id": "Schedule_1_Encounter_3",
+                "extensionAttributes": [],
+                "name": "E3_14",
+                "label": "Main Day 14",
+                "description": "Study encounter for Main Day 14",
+                "type": {
+                  "id": "Code_3903",
+                  "extensionAttributes": [],
+                  "code": "C25716",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Visit",
+                  "instanceType": "Code"
+                },
+                "epochId": "StudyEpoch_1",
+                "scheduledAtId": "Schedule_1_Timing_3",
+                "environmentalSettings": [
+                  {
+                    "id": "Code_3953",
+                    "extensionAttributes": [],
+                    "code": "C51282",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2025-09-26",
+                    "decode": "Clinic",
+                    "instanceType": "Code"
+                  }
+                ],
+                "contactModes": [
+                  {
+                    "id": "Code_4003",
+                    "extensionAttributes": [],
+                    "code": "C175574",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2025-09-26",
+                    "decode": "In Person",
+                    "instanceType": "Code"
+                  }
+                ],
+                "notes": [],
+                "instanceType": "Encounter"
+              },
+              {
+                "id": "Schedule_1_Encounter_4",
+                "extensionAttributes": [],
+                "name": "E4_42",
+                "label": "Main Day 42",
+                "description": "Study encounter for Main Day 42",
+                "type": {
+                  "id": "Code_3904",
+                  "extensionAttributes": [],
+                  "code": "C25716",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Visit",
+                  "instanceType": "Code"
+                },
+                "epochId": "StudyEpoch_1",
+                "scheduledAtId": "Schedule_1_Timing_4",
+                "environmentalSettings": [
+                  {
+                    "id": "Code_3954",
+                    "extensionAttributes": [],
+                    "code": "C51282",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2025-09-26",
+                    "decode": "Clinic",
+                    "instanceType": "Code"
+                  }
+                ],
+                "contactModes": [
+                  {
+                    "id": "Code_4004",
+                    "extensionAttributes": [],
+                    "code": "C175574",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2025-09-26",
+                    "decode": "In Person",
+                    "instanceType": "Code"
+                  }
+                ],
+                "notes": [],
+                "instanceType": "Encounter"
+              },
+              {
+                "id": "Schedule_1_Encounter_5",
+                "extensionAttributes": [],
+                "name": "E5_63",
+                "label": "Main Day 63",
+                "description": "Study encounter for Main Day 63",
+                "type": {
+                  "id": "Code_3905",
+                  "extensionAttributes": [],
+                  "code": "C25716",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Visit",
+                  "instanceType": "Code"
+                },
+                "epochId": "StudyEpoch_1",
+                "scheduledAtId": "Schedule_1_Timing_5",
+                "environmentalSettings": [
+                  {
+                    "id": "Code_3955",
+                    "extensionAttributes": [],
+                    "code": "C51282",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2025-09-26",
+                    "decode": "Clinic",
+                    "instanceType": "Code"
+                  }
+                ],
+                "contactModes": [
+                  {
+                    "id": "Code_4005",
+                    "extensionAttributes": [],
+                    "code": "C175574",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2025-09-26",
+                    "decode": "In Person",
+                    "instanceType": "Code"
+                  }
+                ],
+                "notes": [],
+                "instanceType": "Encounter"
+              },
+              {
+                "id": "Schedule_1_Encounter_6",
+                "extensionAttributes": [],
+                "name": "E6_84",
+                "label": "Main Day 84",
+                "description": "Study encounter for Main Day 84",
+                "type": {
+                  "id": "Code_3906",
+                  "extensionAttributes": [],
+                  "code": "C25716",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Visit",
+                  "instanceType": "Code"
+                },
+                "epochId": "StudyEpoch_1",
+                "scheduledAtId": "Schedule_1_Timing_6",
+                "environmentalSettings": [
+                  {
+                    "id": "Code_3956",
+                    "extensionAttributes": [],
+                    "code": "C51282",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2025-09-26",
+                    "decode": "Clinic",
+                    "instanceType": "Code"
+                  }
+                ],
+                "contactModes": [
+                  {
+                    "id": "Code_4006",
+                    "extensionAttributes": [],
+                    "code": "C175574",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2025-09-26",
+                    "decode": "In Person",
+                    "instanceType": "Code"
+                  }
+                ],
+                "notes": [],
+                "instanceType": "Encounter"
+              },
+              {
+                "id": "Schedule_1_Encounter_7",
+                "extensionAttributes": [],
+                "name": "E7_98",
+                "label": "Main Day 98",
+                "description": "Study encounter for Main Day 98",
+                "type": {
+                  "id": "Code_3907",
+                  "extensionAttributes": [],
+                  "code": "C25716",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Visit",
+                  "instanceType": "Code"
+                },
+                "epochId": "StudyEpoch_1",
+                "scheduledAtId": "Schedule_1_Timing_7",
+                "environmentalSettings": [
+                  {
+                    "id": "Code_3957",
+                    "extensionAttributes": [],
+                    "code": "C51282",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2025-09-26",
+                    "decode": "Clinic",
+                    "instanceType": "Code"
+                  }
+                ],
+                "contactModes": [
+                  {
+                    "id": "Code_4007",
+                    "extensionAttributes": [],
+                    "code": "C175574",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2025-09-26",
+                    "decode": "In Person",
+                    "instanceType": "Code"
+                  }
+                ],
+                "notes": [],
+                "instanceType": "Encounter"
+              }
+            ],
+            "activities": [
+              {
+                "id": "Activity_1",
+                "extensionAttributes": [],
+                "name": "Sjogrens Syndrome-B ENA [Unit/Vol] by Immunoassay, Serum",
+                "label": "Sjogrens Syndrome-B ENA [Unit/Vol] by Immunoassay, Serum",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_1",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_2",
+                "extensionAttributes": [],
+                "name": "Medical History, General (Lifetime)",
+                "label": "Medical History, General (Lifetime)",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_2",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_2"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_3",
+                "extensionAttributes": [],
+                "name": "Cryoglobulin IgA+IgG+IgM+C3 Panel, Serum",
+                "label": "Cryoglobulin IgA+IgG+IgM+C3 Panel, Serum",
+                "description": "This panel contains terms to measure cyroglobulin immunoglobulins IgA, IgG, IgM, and cyroglobulin C3.",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_3",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_4",
+                "extensionAttributes": [],
+                "name": "IRT-Eligibility Checklist",
+                "label": "IRT-Eligibility Checklist",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_4",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_2"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_5",
+                "extensionAttributes": [],
+                "name": "C Reactive Protein [Mass/Vol] by HSM, Serum or Plasma",
+                "label": "C Reactive Protein [Mass/Vol] by HSM, Serum or Plasma",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_5",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_5",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_6",
+                "extensionAttributes": [],
+                "name": "Rheumatoid Factor [Presence], Serum",
+                "label": "Rheumatoid Factor [Presence], Serum",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_6",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_7",
+                "extensionAttributes": [],
+                "name": "Nuclear Ab [Presence], Serum",
+                "label": "Nuclear Ab [Presence], Serum",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_7",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_8",
+                "extensionAttributes": [],
+                "name": "Erythrocyte Sedimentation Rate, Blood",
+                "label": "Erythrocyte Sedimentation Rate, Blood",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_8",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_6"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_9",
+                "extensionAttributes": [],
+                "name": "IgG [Mass/Vol], Serum",
+                "label": "IgG [Mass/Vol], Serum",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_9",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_10",
+                "extensionAttributes": [],
+                "name": "HIV 1+2 Ab [Presence], Serum",
+                "label": "HIV 1+2 Ab [Presence], Serum",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_10",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_2"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_11",
+                "extensionAttributes": [],
+                "name": "Sjogrens Syndrome-A ENA [Unit/Vol] by Immunoassay, Serum",
+                "label": "Sjogrens Syndrome-A ENA [Unit/Vol] by Immunoassay, Serum",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_11",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_12",
+                "extensionAttributes": [],
+                "name": "Prior/Concomitant Medications",
+                "label": "Prior/Concomitant Medications",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_12",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_2"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_13",
+                "extensionAttributes": [],
+                "name": "IRT-Randomization",
+                "label": "IRT-Randomization",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_13",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_14",
+                "extensionAttributes": [],
+                "name": "4-\u03b2-hydroxycholesterol/Cholesterol [Mass/Vol], Plasma",
+                "label": "4-\u03b2-hydroxycholesterol/Cholesterol [Mass/Vol], Plasma",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_14",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_6"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_15",
+                "extensionAttributes": [],
+                "name": "12 Lead ECG (Triplicate)",
+                "label": "12 Lead ECG (Triplicate)",
+                "description": "Subject must be in supine position in a rested and calm state for at least 5 minutes before ECG assessment is conducted. If the subject is unable to be in the supine position, the subject should be in most recumbent position as possible. ECGs should be performed in a standardized method, in triplicate, and run consecutively. Each triplicate, which consists of three 10-second tracings, should be completed within a total of five minutes from the start of the first to the completion of the third, prior to blood draws or other invasive procedures. Each ECG must include the following measurements: QRS, QT, QTc, RR, and PR intervals. - Baseline ECGs should be collected at 3 timepoints \u2265 [5] minutes apart, with each baseline ECG performed in triplicate, and with at least [5] minutes between the end of each triplicate and the start of the next (total 9 ECGs) - Each post-dose ECG should be performed in triplicate (total 3 ECGs)Baseline is defined as [study to define]. The PI [or (eg, designated site physician, central reader)] will review all ECGs. ECGs will be transferred electronically to an ECG central vendor [eg, for storage or for analysis]. Once signed, the original ECG tracing will be retained with the subject's source documents. At the request of the sponsor, a copy of the original ECG will be made available to the Sponsor. Standard ECG machines should be used for all study-related ECG requirements. In certain circumstances, the Sponsor may be able to provide a standard ECG machine if a site is unable to provide one. Study team to decide if wording is to be included in the protocol in this regard.",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_15",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_5",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_16",
+                "extensionAttributes": [],
+                "name": "CBC W Differential Panel by Unspecified Method, Blood",
+                "label": "CBC W Differential Panel by Unspecified Method, Blood",
+                "description": "In the Western world, most labs perform automated counts and we recommend that you use 57782-5.",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_16",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_5",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_17",
+                "extensionAttributes": [],
+                "name": "Stimulated Salivary Flow Test",
+                "label": "Stimulated Salivary Flow Test",
+                "description": "Stimulated saliva collection with paraffin wax involves the subject drooling into a funnel while chewing the wax for 3 minutes.  Stimulated saliva collection with sugar-free lemon drop candy involves the subject drooling into a funnel while chewing the candy for 3 minutes. An unstimulated salivary flow rate of 0.1 to 0.2 ml/min and a paraffin wax stimulated flow rate of 0.7 ml/min or less is considered to be abnormally low flow rates indicative of salivary gland hypofunction.  Dentists may also measure the salivary flow rate using a sialometer.",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_17",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_6"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_18",
+                "extensionAttributes": [],
+                "name": "IRT-Investigational Product Dispensation",
+                "label": "IRT-Investigational Product Dispensation",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_18",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_19",
+                "extensionAttributes": [],
+                "name": "Desmosine [Mass/Vol], Plasma",
+                "label": "Desmosine [Mass/Vol], Plasma",
+                "description": "Desmosine is an amino acid found uniquely in elastin, a protein found in connective tissue such as skin, lungs, and elastic arteries. Desmosine is a component of elastin and cross links with its isomer, isodesmosine, giving elasticity to the tissue.",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_19",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_6"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_20",
+                "extensionAttributes": [],
+                "name": "Cytokines Panel, Plasma",
+                "label": "Cytokines Panel, Plasma",
+                "description": "Used to report results for various cytokines, including Interferon gamma (IFN-gamma), Interleukin-1 beta (IL-1 beta), Interleukin-10 (IL-10), Interleukin-12 (IL-12), Interleukin-13 (IL-13), Interleukin-2 (IL-2), Interleukin-2 Receptor (IL-2R), Interleukin-4 (IL-4), Interleukin-5 (IL-5), Interleukin-6 (IL-6), Interleukin-8 (IL-8), Interleukin-17A (IL-17A), and Tumor Necrosis Factor alpha (TNF alpha). The cytokines or other immunoactive molecules included in the panel may vary across labs and within a lab over time. Those selected may also be based on the individual condition(s) being studied. Results are used to understand the pathophysiology of immune, infectious, or inflammatory disorders, or may be used for research purposes.",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_20",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_6"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_21",
+                "extensionAttributes": [],
+                "name": "HCG Beta Subunit (Pregnancy Test) [Presence], Serum",
+                "label": "HCG Beta Subunit (Pregnancy Test) [Presence], Serum",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_21",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_5",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_22",
+                "extensionAttributes": [],
+                "name": "Vital Signs",
+                "label": "Vital Signs",
+                "description": "This panel was created to collect the set of vital sign observations that was originally defined by HITSP and called the \"Vital Sign Result Value Set\" in the C80 Clinical Document and Message Terminology Component (Value Set OID: 2.16.840.1.113883.3.88.12.80.62), but it is not limited for use in that context. This collection includes the standard vital sign measurements (heart and respiratory rate, blood pressure and body temperature) along with measurements for height, weight, head circumference (OFC), and oximetry.",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_22",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_5",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_23",
+                "extensionAttributes": [],
+                "name": "Adverse Events",
+                "label": "Adverse Events",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_23",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_5",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_24",
+                "extensionAttributes": [],
+                "name": "QuantiFERON-TB Gold Test, Blood",
+                "label": "QuantiFERON-TB Gold Test, Blood",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_24",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_2"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_25",
+                "extensionAttributes": [],
+                "name": "HCG Beta Subunit (Pregnancy Test) [Presence], Urine",
+                "label": "HCG Beta Subunit (Pregnancy Test) [Presence], Urine",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_25",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_5",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_26",
+                "extensionAttributes": [],
+                "name": "EULAR Sjogren's Syndrome Patient Reported Index (ESSPRI)",
+                "label": "EULAR Sjogren's Syndrome Patient Reported Index (ESSPRI)",
+                "description": "The ESSPRI is a patient-reported index designed to assess the severity of patients' symptoms in primary SS",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_26",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_5",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_27",
+                "extensionAttributes": [],
+                "name": "36-Item Short Form Survey (SF-36)",
+                "label": "36-Item Short Form Survey (SF-36)",
+                "description": "The SF-36 is a set of patient reported quality of life measures widely utilized for routine monitoring and assessment of care outcomes in adult patients.",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_27",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_6"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_28",
+                "extensionAttributes": [],
+                "name": "EULAR Sj\u00f6gren\u2019s Syndrome Disease Activity Index (ESSDAI)",
+                "label": "EULAR Sj\u00f6gren\u2019s Syndrome Disease Activity Index (ESSDAI)",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_28",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_29",
+                "extensionAttributes": [],
+                "name": "Whole mRNA Transcriptome Sequence Analysis, Blood",
+                "label": "Whole mRNA Transcriptome Sequence Analysis, Blood",
+                "description": "Whole mRNA transcriptome analysis by sequencing (RNA-Seq) is performed to determine what effect, if any, variants of unknown significance (VUS) may have on gene expression under specific circumstances or in a specific cell. Effect on the transcripts include a splice site defect, an inclusion of a pseudo-exon, exclusion of a real exon or loss of expression of the gene. Whole RNA transcriptome analysis is used in cancer diagnostics as well as other conditions to assess the functional impact of a variant on gene expression. While RNA-Seq studies looks at RNA transcribed from (mostly) exonic regions of DNA, whole exome sequencing studies [LOINC: 86205-2] look directly at the DNA contained in exonic regions of the genome. This term was created for, but not limited in use to, the submitter's MNG Whole Transcriptome assay, which is used to assess all genes in mRNA that are expressed in the specimen and identify changes that could be associated with the patient's clinical presentation. It is recommended that RNA-Seq assays are performed in the context of DNA sequencing results since some variants may not be detected in RNA.",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_29",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_6"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_30",
+                "extensionAttributes": [],
+                "name": "Creatine Kinase [Act/Vol], Serum or Plasma",
+                "label": "Creatine Kinase [Act/Vol], Serum or Plasma",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_30",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_5",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_31",
+                "extensionAttributes": [],
+                "name": "Complement C3 and C4 Panel [Mass/Vol], Serum or Plasma",
+                "label": "Complement C3 and C4 Panel [Mass/Vol], Serum or Plasma",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_31",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_5",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_32",
+                "extensionAttributes": [],
+                "name": "Body Weight",
+                "label": "Body Weight",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_32",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_33",
+                "extensionAttributes": [],
+                "name": "Concomitant Medications",
+                "label": "Concomitant Medications",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_33",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_5",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_34",
+                "extensionAttributes": [],
+                "name": "Investigational Product Return",
+                "label": "Investigational Product Return",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_34",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_6"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_35",
+                "extensionAttributes": [],
+                "name": "BAFF-R Cells/100 CD19 Cells, Blood",
+                "label": "BAFF-R Cells/100 CD19 Cells, Blood",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_35",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_6"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_36",
+                "extensionAttributes": [],
+                "name": "Physical Exam",
+                "label": "Physical Exam",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_36",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_37",
+                "extensionAttributes": [],
+                "name": "Archived Sample, Saliva",
+                "label": "Archived Sample, Saliva",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_37",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_6"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_38",
+                "extensionAttributes": [],
+                "name": "Coagulation Panel (PT/INR, aPTT), Platelet poor plasma",
+                "label": "Coagulation Panel (PT/INR, aPTT), Platelet poor plasma",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_38",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_5",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_39",
+                "extensionAttributes": [],
+                "name": "PK Sampling, Plasma",
+                "label": "PK Sampling, Plasma",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_39",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_6"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_40",
+                "extensionAttributes": [],
+                "name": "Troponin I Cardiac [Mass/Vol], Serum or Plasma",
+                "label": "Troponin I Cardiac [Mass/Vol], Serum or Plasma",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_40",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_5",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_41",
+                "extensionAttributes": [],
+                "name": "Lipid Panel (CHEM), Serum or Plasma",
+                "label": "Lipid Panel (CHEM), Serum or Plasma",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_41",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_5",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_42",
+                "extensionAttributes": [],
+                "name": "Cathepsin S [Mass/Vol], Serum or Plasma",
+                "label": "Cathepsin S [Mass/Vol], Serum or Plasma",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_42",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_6"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_43",
+                "extensionAttributes": [],
+                "name": "Urinalysis Macro Panel by Dipstick, Urine",
+                "label": "Urinalysis Macro Panel by Dipstick, Urine",
+                "description": "Depending upon the dipstick, the results for glucose, bilirubin, ketones and protein may be reported as an ordinal (present, absent or None, 1+, 2+, 3+,) or as a quantitative value (e.g. 25 mg/dL). The panel includes both versions to accommodate these two variations. However, one of each of the following four pairs must be included in the panel, so the required status is marked as \"R-a\" (Required with alternatives) to remind users that if one item in the pair is not included in the panel the other must be:        1) Glucose [Mass/volume], Glucose [Presence]        2) Bilirubin [Mass/volume], Bilirubin [Presence]         3) Ketones [Mass/volume], Ketones [Presence]        4) Protein [Mass/volume], Protein [Presence]",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_43",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_5",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_44",
+                "extensionAttributes": [],
+                "name": "Beta-2-Microglobulin [Mass/Vol], Plasma",
+                "label": "Beta-2-Microglobulin [Mass/Vol], Plasma",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_44",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_6"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_45",
+                "extensionAttributes": [],
+                "name": "HBV and HCV Screening and Diagnosis, Serum",
+                "label": "HBV and HCV Screening and Diagnosis, Serum",
+                "description": "This panel includes tests that are used to distinguish between hepatitis B and C infection in patients that have had symptoms of hepatitis for at least 6 months.",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_45",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_2"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_46",
+                "extensionAttributes": [],
+                "name": "DNA, Blood",
+                "label": "DNA, Blood",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_46",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_47",
+                "extensionAttributes": [],
+                "name": "Archived Sample, Tear",
+                "label": "Archived Sample, Tear",
+                "description": "Tear sample is taken and then may be placed into storage before future analysis",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_47",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_6"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_48",
+                "extensionAttributes": [],
+                "name": "Biopsy, Salivary Gland",
+                "label": "Biopsy, Salivary Gland",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_48",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_6"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_49",
+                "extensionAttributes": [],
+                "name": "IP Administration - Oral Capsule",
+                "label": "IP Administration - Oral Capsule",
+                "description": "A capsule taken by mouth",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_49",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_50",
+                "extensionAttributes": [],
+                "name": "Phosphate [Mass/Vol], Serum or Plasma",
+                "label": "Phosphate [Mass/Vol], Serum or Plasma",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_50",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_5",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_51",
+                "extensionAttributes": [],
+                "name": "Chemistry Panel (CHEM-14), Serum or Plasma",
+                "label": "Chemistry Panel (CHEM-14), Serum or Plasma",
+                "description": "The components of this panel were defined by HCFA (now CMS)",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_51",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_5",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_52",
+                "extensionAttributes": [],
+                "name": "Gamma Glutamyl Transferase [Act/Vol], Serum or Plasma",
+                "label": "Gamma Glutamyl Transferase [Act/Vol], Serum or Plasma",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_52",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_5",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_53",
+                "extensionAttributes": [],
+                "name": "IgM [Mass/Vol], Serum",
+                "label": "IgM [Mass/Vol], Serum",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_53",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_2",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_6",
+                  "Schedule_1_Encounter_7"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_54",
+                "extensionAttributes": [],
+                "name": "Lymphocyte T-Cell, B-Cell and NK Subsets Panel, Blood",
+                "label": "Lymphocyte T-Cell, B-Cell and NK Subsets Panel, Blood",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_54",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_6"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_55",
+                "extensionAttributes": [],
+                "name": "Demographics",
+                "label": "Demographics",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_55",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_2"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_56",
+                "extensionAttributes": [],
+                "name": "Informed Consent Obtained",
+                "label": "Informed Consent Obtained",
+                "description": "",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_56",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_2"
+                ],
+                "instanceType": "Activity"
+              },
+              {
+                "id": "Activity_57",
+                "extensionAttributes": [],
+                "name": "Schirmer Test",
+                "label": "Schirmer Test",
+                "description": "The Schirmer test or Schirmer tear test (STT) is used to assess tear production, especially in patients with suspected keratoconjunctivitis sicca, dry eye, or tear overproduction.",
+                "isConditional": false,
+                "isOptional": false,
+                "locations": [
+                  {
+                    "id": "Location_57",
+                    "extensionAttributes": [],
+                    "name": "Clinic",
+                    "code": "clinic",
+                    "instanceType": "Location"
+                  }
+                ],
+                "analysisLocations": [],
+                "encounterIds": [
+                  "Schedule_1_Encounter_1",
+                  "Schedule_1_Encounter_3",
+                  "Schedule_1_Encounter_4",
+                  "Schedule_1_Encounter_6"
+                ],
+                "instanceType": "Activity"
+              }
+            ],
+            "instanceType": "StudyDesign"
+          }
+        ],
+        "notes": [],
+        "instanceType": "StudyVersion"
+      }
+    ],
+    "documentedBy": [
+      {
+        "id": "StudyDefinitionDocument_1",
+        "extensionAttributes": [],
+        "name": "BP30037 (Copy for Transcelerate)",
+        "label": null,
+        "description": null,
+        "language": {
+          "id": "Code_611",
+          "extensionAttributes": [],
+          "code": "en",
+          "codeSystem": "ISO",
+          "codeSystemVersion": "1",
+          "decode": "English",
+          "instanceType": "Code"
+        },
+        "type": {
+          "id": "Code_612",
+          "extensionAttributes": [],
+          "code": "C12345",
+          "codeSystem": "http://www.cdisc.org",
+          "codeSystemVersion": "2025-09-26",
+          "decode": "Protocol Document",
+          "instanceType": "Code"
+        },
+        "templateName": "SPONSOR",
+        "versions": [
+          {
+            "id": "StudyDefinitionDocumentVersion_1",
+            "extensionAttributes": [],
+            "version": "1.0",
+            "status": {
+              "id": "Code_16",
+              "extensionAttributes": [],
+              "code": "C25508",
+              "codeSystem": "http://www.cdisc.org",
+              "codeSystemVersion": "2025-09-26",
+              "decode": "Final",
+              "instanceType": "Code"
+            },
+            "instanceType": "StudyDefinitionDocumentVersion"
+          }
+        ],
+        "childIds": [],
+        "notes": [],
+        "instanceType": "StudyDefinitionDocument"
+      }
+    ],
+    "instanceType": "Study"
+  },
+  "usdmVersion": "4.0",
+  "systemName": "USDM Template v12",
+  "systemVersion": "12.0.0"
+}
