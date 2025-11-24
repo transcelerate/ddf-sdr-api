@@ -9,6 +9,7 @@ Available as JSON and PDF:
 - An Alexion Wilson's Disease Study (NCT04573309)
 - A Bayer Stroke Study protocol (NCT04304508)
 - A Roche Phase 2a study (NCT02701985)
+- Allergan depression study (NCT03739203)
 
 In addition, two temporary examples have been included. The data contained within these examples is test data and does not map directly to an existing protocol.
 
