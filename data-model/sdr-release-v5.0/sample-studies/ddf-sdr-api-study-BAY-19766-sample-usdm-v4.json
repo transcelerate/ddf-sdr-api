@@ -1,7 +1,7 @@
 {
   "study": {
-    "id": "40b8d118-a2de-449d-9eb8-30ab30ad1545",
-    "name": "BAY19766 (Bayer) - Move to Production - UPDATE",
+    "id": "0f355702-3b06-4ecb-8ad0-978f6312fec4",
+    "name": "BAY19766 (Bayer) - Move to Production",
     "description": "Multicenter, Randomized, Placebo-controlled, Double-blind, Parallel Group, Dose-finding Phase 2 Study to Evaluate Efficacy and Safety of BAY2433334 in Patients Following an Acute Non-cardioembolic Ischemic Stroke",
     "label": "PACIFIC-STROKE",
     "extensionAttributes": [],
@@ -56,10 +56,17 @@
           {
             "id": "StudyIdentifier_1",
             "extensionAttributes": [],
-            "text": "BAY19766 (Bayer)",
+            "text": "19766",
             "scopeId": "Organization_1",
             "instanceType": "StudyIdentifier"
           },
+          {
+            "id": "StudyIdentifier_2",
+            "extensionAttributes": [],
+            "text": "NCT04304508",
+            "scopeId": "Organization_2",
+            "instanceType": "StudyIdentifier"
+          }
         ],
         "businessTherapeuticAreas": [
           {
@@ -161,7 +168,7 @@
           {
             "id": "StudyTitle_2",
             "extensionAttributes": [],
-            "text": "BAY19766 (Bayer) - Move to Production",
+            "text": "Multicenter, Randomized, Placebo-controlled, Double-blind, Parallel Group, Dose-finding Phase 2 Study to Evaluate Efficacy and Safety of BAY2433334 in Patients Following an Acute Non-cardioembolic Ischemic Stroke",
             "type": {
               "id": "Code_2002",
               "extensionAttributes": [],
@@ -171,23 +178,8 @@
               "decode": "Official Study Title",
               "instanceType": "Code"
             },
-			"instanceType": "StudyTitle"
-		  },
-          {
-            "id": "StudyTitle_3",
-            "extensionAttributes": [],
-            "text": "BAY19766 (Bayer) - Move to Production",
-            "type": {
-              "id": "Code_2003",
-              "extensionAttributes": [],
-              "code": "C99905x3",
-              "codeSystem": "http://www.cdisc.org",
-              "codeSystemVersion": "2025-09-26",
-              "decode": "Public Study Title",
-              "instanceType": "Code"
-            },
-			"instanceType": "StudyTitle"
-		  }
+            "instanceType": "StudyTitle"
+          }
         ],
         "organizations": [
           {
@@ -1953,82 +1945,81 @@
                 "instanceType": "Estimand"
               }
             ],
-            "population": 
-              {
-                "id": "StudyPopulation_1",
+            "population": {
+              "id": "StudyDesignPopulation_1",
+              "extensionAttributes": [],
+              "name": "Participants with acute non-cardioembolic ischemic stroke",
+              "label": "Participants with acute non-cardioembolic ischemic stroke",
+              "description": "Study population",
+              "includesHealthySubjects": false,
+              "plannedEnrollmentNumber": {
+                "id": "PlannedEnrollment_1",
                 "extensionAttributes": [],
-                "name": "Participants with acute non-cardioembolic ischemic stroke",
-                "label": "Participants with acute non-cardioembolic ischemic stroke",
-                "description": "Study population: Participants with acute non-cardioembolic ischemic stroke",
-                "plannedEnrollmentNumber": 
-				  {
-				    "id": "PlannedEnrollment_1",
-					"value": "1800",
-					"instanceType": "Quantity"
-				  },
-				"plannedAge": {
-				  "id": "Range_1",
-				  "extensionAttributes": [],
-				  "minValue": {
-				    "id": "Quantity_9",
-				    "extensionAttributes": [],
-				    "value": 50.0,
-				    "unit": {
-				   	  "id": "AliasCode_251",
-					  "extensionAttributes": [],
-					  "standardCode": {
-					    "id": "Code_618",
-						"extensionAttributes": [],
-					    "code": "C29848",
-					    "codeSystem": "http://www.cdisc.org",
-					    "codeSystemVersion": "2025-09-26",
-				        "decode": "Year",
-					    "instanceType": "Code"
-					  },
-					  "standardCodeAliases": [],
-					  "instanceType": "AliasCode"
-				    },
-					"instanceType": "Quantity"
-				  },
-				  "maxValue": {
-				    "id": "Quantity_10",
-				    "extensionAttributes": [],
-				    "value": 100.0,
-				    "unit": {
-				   	  "id": "AliasCode_252",
-					  "extensionAttributes": [],
-					  "standardCode": {
-					    "id": "Code_619",
-						"extensionAttributes": [],
-					    "code": "C29848",
-					    "codeSystem": "http://www.cdisc.org",
-					    "codeSystemVersion": "2025-09-26",
-					    "decode": "Year",
-					    "instanceType": "Code"
-					  },
-					  "standardCodeAliases": [],
-					  "instanceType": "AliasCode"
-					},
-				    "instanceType": "Quantity"
-				  },
-			      "isApproximate": false,
-				  "instanceType": "Range"
-				},	
-                "plannedSex": [
-                  {
-                    "id": "Code_521",
-                    "extensionAttributes": [],
-                    "code": "C49636",
-                    "codeSystem": "http://www.cdisc.org",
-                    "codeSystemVersion": "2025-09-26",
-                    "decode": "Both",
-                    "instanceType": "Code"
-                  }
-                ],
-                "includesHealthySubjects": true,
-                "notes": [],
-                "instanceType": "StudyDesignPopulation"
+                "value": 1800,
+                "instanceType": "Quantity"
               },
+              "plannedAge": {
+                "id": "Range_1",
+                "extensionAttributes": [],
+                "minValue": {
+                  "id": "Quantity_9",
+                  "extensionAttributes": [],
+                  "value": 45.0,
+                  "unit": {
+                    "id": "AliasCode_251",
+                    "extensionAttributes": [],
+                    "standardCode": {
+                      "id": "Code_618",
+                      "extensionAttributes": [],
+                      "code": "C29848",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Year",
+                      "instanceType": "Code"
+                    },
+                    "standardCodeAliases": [],
+                    "instanceType": "AliasCode"
+                  },
+                  "instanceType": "Quantity"
+                },
+                "maxValue": {
+                  "id": "Quantity_10",
+                  "extensionAttributes": [],
+                  "value": 100.0,
+                  "unit": {
+                    "id": "AliasCode_252",
+                    "extensionAttributes": [],
+                    "standardCode": {
+                      "id": "Code_619",
+                      "extensionAttributes": [],
+                      "code": "C29848",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Year",
+                      "instanceType": "Code"
+                    },
+                    "standardCodeAliases": [],
+                    "instanceType": "AliasCode"
+                  },
+                  "instanceType": "Quantity"
+                },
+                "isApproximate": false,
+                "instanceType": "Range"
+              },
+              "plannedSex": [
+                {
+                  "id": "Code_521",
+                  "extensionAttributes": [],
+                  "code": "C49636",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Both",
+                  "instanceType": "Code"
+                }
+              ],			  
+              "notes": [],
+              "instanceType": "StudyDesignPopulation"
+            },
             "scheduleTimelines": [
               {
                 "id": "ScheduleTimeline_1",
@@ -2055,7 +2046,7 @@
                     "label": "Intervention Period Day 1.0",
                     "description": "Timing from previous to Intervention Period, Day 1",
                     "type": {
-                      "id": "Code_401",
+                      "id": "Code_5001",
                       "extensionAttributes": [],
                       "code": "C201358",
                       "codeSystem": "http://www.cdisc.org",
@@ -2066,14 +2057,14 @@
                     "value": "P1D",
                     "valueLabel": "1 day",
                     "relativeToFrom": {
-                      "id": "Code_402",
+                      "id": "Code_5101",
                       "extensionAttributes": [],
                       "code": "C201355",
                       "codeSystem": "http://www.cdisc.org",
                       "codeSystemVersion": "2025-09-26",
                       "decode": "Start to Start",
                       "instanceType": "Code"
-                    },					
+                    },
                     "relativeFromScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_1",
                     "relativeToScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_1",
                     "windowLowerBound": "-P1D",
@@ -2089,7 +2080,7 @@
                     "label": "Intervention Period Day 15.0",
                     "description": "Timing from previous to Intervention Period, Day 15",
                     "type": {
-                      "id": "Code_403",
+                      "id": "Code_5002",
                       "extensionAttributes": [],
                       "code": "C201356",
                       "codeSystem": "http://www.cdisc.org",
@@ -2100,14 +2091,14 @@
                     "value": "P1D",
                     "valueLabel": "1 day",
                     "relativeToFrom": {
-                      "id": "Code_404",
+                      "id": "Code_5102",
                       "extensionAttributes": [],
                       "code": "C201355",
                       "codeSystem": "http://www.cdisc.org",
                       "codeSystemVersion": "2025-09-26",
                       "decode": "Start to Start",
                       "instanceType": "Code"
-                    },					
+                    },
                     "relativeFromScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_3",
                     "relativeToScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_2",
                     "windowLowerBound": "-P1D",
@@ -2123,7 +2114,7 @@
                     "label": "Intervention Period Day 29.0",
                     "description": "Timing from previous to Intervention Period, Day 29",
                     "type": {
-                      "id": "Code_405",
+                      "id": "Code_5003",
                       "extensionAttributes": [],
                       "code": "C201356",
                       "codeSystem": "http://www.cdisc.org",
@@ -2134,14 +2125,14 @@
                     "value": "P1D",
                     "valueLabel": "1 day",
                     "relativeToFrom": {
-                      "id": "Code_406",
+                      "id": "Code_5103",
                       "extensionAttributes": [],
                       "code": "C201355",
                       "codeSystem": "http://www.cdisc.org",
                       "codeSystemVersion": "2025-09-26",
                       "decode": "Start to Start",
                       "instanceType": "Code"
-                    },					
+                    },
                     "relativeFromScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_4",
                     "relativeToScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_3",
                     "windowLowerBound": "-P1D",
@@ -2157,7 +2148,7 @@
                     "label": "Intervention Period Day 57.0",
                     "description": "Timing from previous to Intervention Period, Day 57",
                     "type": {
-                      "id": "Code_407",
+                      "id": "Code_5004",
                       "extensionAttributes": [],
                       "code": "C201356",
                       "codeSystem": "http://www.cdisc.org",
@@ -2168,14 +2159,14 @@
                     "value": "P1D",
                     "valueLabel": "1 day",
                     "relativeToFrom": {
-                      "id": "Code_408",
+                      "id": "Code_5104",
                       "extensionAttributes": [],
                       "code": "C201355",
                       "codeSystem": "http://www.cdisc.org",
                       "codeSystemVersion": "2025-09-26",
                       "decode": "Start to Start",
                       "instanceType": "Code"
-                    },					
+                    },
                     "relativeFromScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_5",
                     "relativeToScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_4",
                     "windowLowerBound": "-P1D",
@@ -2191,7 +2182,7 @@
                     "label": "Intervention Period Day 92.0",
                     "description": "Timing from previous to Intervention Period, Day 92",
                     "type": {
-                      "id": "Code_409",
+                      "id": "Code_5005",
                       "extensionAttributes": [],
                       "code": "C201356",
                       "codeSystem": "http://www.cdisc.org",
@@ -2201,8 +2192,8 @@
                     },
                     "value": "P1D",
                     "valueLabel": "1 day",
-				    "relativeToFrom": {
-                      "id": "Code_410",
+                    "relativeToFrom": {
+                      "id": "Code_5105",
                       "extensionAttributes": [],
                       "code": "C201355",
                       "codeSystem": "http://www.cdisc.org",
@@ -2225,7 +2216,7 @@
                     "label": "Intervention Period Day 141.0",
                     "description": "Timing from previous to Intervention Period, Day 141",
                     "type": {
-                      "id": "Code_411",
+                      "id": "Code_5006",
                       "extensionAttributes": [],
                       "code": "C201356",
                       "codeSystem": "http://www.cdisc.org",
@@ -2236,7 +2227,7 @@
                     "value": "P1D",
                     "valueLabel": "1 day",
                     "relativeToFrom": {
-                      "id": "Code_412",
+                      "id": "Code_5106",
                       "extensionAttributes": [],
                       "code": "C201355",
                       "codeSystem": "http://www.cdisc.org",
@@ -2259,7 +2250,7 @@
                     "label": "Intervention Period Day 183.0",
                     "description": "Timing from previous to Intervention Period, Day 183",
                     "type": {
-                      "id": "Code_413",
+                      "id": "Code_5007",
                       "extensionAttributes": [],
                       "code": "C201356",
                       "codeSystem": "http://www.cdisc.org",
@@ -2270,7 +2261,7 @@
                     "value": "P1D",
                     "valueLabel": "1 day",
                     "relativeToFrom": {
-                      "id": "Code_414",
+                      "id": "Code_5107",
                       "extensionAttributes": [],
                       "code": "C201355",
                       "codeSystem": "http://www.cdisc.org",
@@ -2293,7 +2284,7 @@
                     "label": "Intervention Period Day 225.0",
                     "description": "Timing from previous to Intervention Period, Day 225",
                     "type": {
-                      "id": "Code_415",
+                      "id": "Code_5008",
                       "extensionAttributes": [],
                       "code": "C201356",
                       "codeSystem": "http://www.cdisc.org",
@@ -2304,7 +2295,7 @@
                     "value": "P1D",
                     "valueLabel": "1 day",
                     "relativeToFrom": {
-                      "id": "Code_416",
+                      "id": "Code_5108",
                       "extensionAttributes": [],
                       "code": "C201355",
                       "codeSystem": "http://www.cdisc.org",
@@ -2327,7 +2318,7 @@
                     "label": "Intervention Period Day 274.0",
                     "description": "Timing from previous to Intervention Period, Day 274",
                     "type": {
-                      "id": "Code_417",
+                      "id": "Code_5009",
                       "extensionAttributes": [],
                       "code": "C201356",
                       "codeSystem": "http://www.cdisc.org",
@@ -2338,7 +2329,7 @@
                     "value": "P1D",
                     "valueLabel": "1 day",
                     "relativeToFrom": {
-                      "id": "Code_418",
+                      "id": "Code_5109",
                       "extensionAttributes": [],
                       "code": "C201355",
                       "codeSystem": "http://www.cdisc.org",
@@ -2361,7 +2352,7 @@
                     "label": "Intervention Period Day 323.0",
                     "description": "Timing from previous to Intervention Period, Day 323",
                     "type": {
-                      "id": "Code_419",
+                      "id": "Code_5010",
                       "extensionAttributes": [],
                       "code": "C201356",
                       "codeSystem": "http://www.cdisc.org",
@@ -2372,7 +2363,7 @@
                     "value": "P1D",
                     "valueLabel": "1 day",
                     "relativeToFrom": {
-                      "id": "Code_420",
+                      "id": "Code_5110",
                       "extensionAttributes": [],
                       "code": "C201355",
                       "codeSystem": "http://www.cdisc.org",
@@ -2395,7 +2386,7 @@
                     "label": "Intervention Period Day 365.0",
                     "description": "Timing from previous to Intervention Period, Day 365",
                     "type": {
-                      "id": "Code_421",
+                      "id": "Code_5011",
                       "extensionAttributes": [],
                       "code": "C201356",
                       "codeSystem": "http://www.cdisc.org",
@@ -2406,7 +2397,7 @@
                     "value": "P1D",
                     "valueLabel": "1 day",
                     "relativeToFrom": {
-                      "id": "Code_422",
+                      "id": "Code_5111",
                       "extensionAttributes": [],
                       "code": "C201355",
                       "codeSystem": "http://www.cdisc.org",
@@ -2429,7 +2420,7 @@
                     "label": "Intervention Period",
                     "description": "Timing from previous to Intervention Period, Day Unknown",
                     "type": {
-                      "id": "Code_423",
+                      "id": "Code_5012",
                       "extensionAttributes": [],
                       "code": "C201356",
                       "codeSystem": "http://www.cdisc.org",
@@ -2440,7 +2431,7 @@
                     "value": "P1D",
                     "valueLabel": "1 day",
                     "relativeToFrom": {
-                      "id": "Code_424",
+                      "id": "Code_5112",
                       "extensionAttributes": [],
                       "code": "C201355",
                       "codeSystem": "http://www.cdisc.org",
@@ -2463,7 +2454,7 @@
                     "label": "Safety Follow-up (SFU) Day 14.0",
                     "description": "Timing from previous to Safety Follow-up (SFU), Day 14",
                     "type": {
-                      "id": "Code_425",
+                      "id": "Code_5013",
                       "extensionAttributes": [],
                       "code": "C201356",
                       "codeSystem": "http://www.cdisc.org",
@@ -2474,7 +2465,41 @@
                     "value": "P1D",
                     "valueLabel": "1 day",
                     "relativeToFrom": {
-                      "id": "Code_426",
+                      "id": "Code_5113",
+                      "extensionAttributes": [],
+                      "code": "C201355",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Start to Start",
+                      "instanceType": "Code"
+                    },
+                    "relativeFromScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_14",
+                    "relativeToScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_13",
+                    "windowLowerBound": "-P1D",
+                    "windowLowerBoundLabel": "-1 day",
+                    "windowUpperBound": "P1D",
+                    "windowUpperBoundLabel": "+1 day",
+                    "instanceType": "Timing"
+                  },
+                  {
+                    "id": "Schedule_1_Timing_14",
+                    "extensionAttributes": [],
+                    "name": "TIM14",
+                    "label": "Safety Follow-up (SFU) Day 14.0",
+                    "description": "Timing from previous to Safety Follow-up (SFU), Day 14",
+                    "type": {
+                      "id": "Code_5013",
+                      "extensionAttributes": [],
+                      "code": "C201356",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "After",
+                      "instanceType": "Code"
+                    },
+                    "value": "P1D",
+                    "valueLabel": "1 day",
+                    "relativeToFrom": {
+                      "id": "Code_5113",
                       "extensionAttributes": [],
                       "code": "C201355",
                       "codeSystem": "http://www.cdisc.org",
@@ -2495,10 +2520,10 @@
                   {
                     "id": "Schedule_1_ScheduledActivityInstance_1",
                     "extensionAttributes": [],
-                    "name": "DAY_neg1_to_neg14",
-                    "label": "-1 to -14",
-                    "description": "Study activities for Day -1 to -14",
-					"defaultConditionId": "Schedule_1_ScheduledActivityInstance_2",
+                    "name": "DAY_1",
+                    "label": "1",
+                    "description": "Screening, Day -1.0",
+                    "defaultConditionId": "Schedule_1_ScheduledActivityInstance_2",
                     "epochId": "StudyEpoch_1",
                     "encounterId": "Schedule_1_Encounter_1",
                     "activityIds": [
@@ -2515,6 +2540,7 @@
                       "Activity_47",
                       "Activity_32",
                       "Activity_12",
+                      "Activity_30",
                       "Activity_6",
                       "Activity_28",
                       "Activity_24",
@@ -2526,9 +2552,9 @@
                       "Activity_38",
                       "Activity_7"
                     ],
-                    "scheduledAtTimingId": "Schedule_1_Timing_1",
-                    "defaultDuration": "PT230M",
-                    "timeSlots": 23,
+                    "scheduledAtTimingId": null,
+                    "defaultDuration": "PT165M",
+                    "timeSlots": 18,
                     "instanceType": "ScheduledActivityInstance"
                   },
                   {
@@ -2536,18 +2562,21 @@
                     "extensionAttributes": [],
                     "name": "DAY_1",
                     "label": "1",
-                    "description": "Study activities for Day 1",
-					"defaultConditionId": "Schedule_1_ScheduledActivityInstance_4",
+                    "description": "Intervention Period, Day 1",
+                    "defaultConditionId": "Schedule_1_ScheduledActivityInstance_3",
                     "epochId": "StudyEpoch_2",
                     "encounterId": "Schedule_1_Encounter_2",
                     "activityIds": [
+                      "Activity_14",
                       "Activity_34",
-                      "Activity_30",
                       "Activity_47",
                       "Activity_32",
                       "Activity_12",
+                      "Activity_30",
                       "Activity_6",
                       "Activity_28",
+                      "Activity_15",
+                      "Activity_1",
                       "Activity_3",
                       "Activity_44",
                       "Activity_39",
@@ -2555,156 +2584,123 @@
                       "Activity_41",
                       "Activity_38",
                       "Activity_7",
-                      "Activity_14",
-                      "Activity_15",
-                      "Activity_1",
-                      "Activity_43",
-                      "Activity_18",
-                      "Activity_50",
-                      "Activity_5",
-                      "Activity_35",
                       "Activity_17",
+                      "Activity_50",
                       "Activity_25",
                       "Activity_29",
+                      "Activity_35",
                       "Activity_16",
                       "Activity_48",
                       "Activity_23",
-                      "Activity_21",
-                      "Activity_27",
-                      "Activity_20",
+                      "Activity_43",
+                      "Activity_18",
+                      "Activity_5",
                       "Activity_37",
+                      "Activity_21",
+                      "Activity_46",
                       "Activity_42",
-                      "Activity_46"
+                      "Activity_20",
+                      "Activity_27"
                     ],
-                    "scheduledAtTimingId": "Schedule_1_Timing_2",
-                    "defaultDuration": "PT340M",
-                    "timeSlots": 34,
+                    "scheduledAtTimingId": null,
+                    "defaultDuration": "PT214M",
+                    "timeSlots": 15,
                     "instanceType": "ScheduledActivityInstance"
                   },
                   {
                     "id": "Schedule_1_ScheduledActivityInstance_3",
                     "extensionAttributes": [],
-                    "name": "DAY_141",
-                    "label": "141",
-                    "description": "Study activities for Day 141",
-					"defaultConditionId": "Schedule_1_ScheduledActivityInstance_5",
+                    "name": "DAY_15",
+                    "label": "15",
+                    "description": "Intervention Period, Day 15",
+                    "defaultConditionId": "Schedule_1_ScheduledActivityInstance_4",
                     "epochId": "StudyEpoch_2",
                     "encounterId": "Schedule_1_Encounter_3",
                     "activityIds": [
+                      "Activity_14",
                       "Activity_6",
                       "Activity_28",
-                      "Activity_14",
                       "Activity_31"
                     ],
-                    "scheduledAtTimingId": "Schedule_1_Timing_3",
-                    "defaultDuration": "PT40M",
+                    "scheduledAtTimingId": null,
+                    "defaultDuration": "PT36M",
                     "timeSlots": 4,
                     "instanceType": "ScheduledActivityInstance"
                   },
                   {
                     "id": "Schedule_1_ScheduledActivityInstance_4",
                     "extensionAttributes": [],
-                    "name": "DAY_15",
-                    "label": "15",
-                    "description": "Study activities for Day 15",
-					"defaultConditionId": "Schedule_1_ScheduledActivityInstance_8",
-					"epochId": "StudyEpoch_2",
+                    "name": "DAY_29",
+                    "label": "29",
+                    "description": "Intervention Period, Day 29",
+                    "defaultConditionId": "Schedule_1_ScheduledActivityInstance_5",
+                    "epochId": "StudyEpoch_2",
                     "encounterId": "Schedule_1_Encounter_4",
                     "activityIds": [
+                      "Activity_14",
+                      "Activity_30",
                       "Activity_6",
                       "Activity_28",
-                      "Activity_14",
-                      "Activity_31"
+                      "Activity_3",
+                      "Activity_44",
+                      "Activity_39",
+                      "Activity_13",
+                      "Activity_41",
+                      "Activity_38",
+                      "Activity_7",
+                      "Activity_49",
+                      "Activity_17",
+                      "Activity_18",
+                      "Activity_37",
+                      "Activity_21",
+                      "Activity_46",
+                      "Activity_42",
+                      "Activity_20",
+                      "Activity_27"
                     ],
-                    "scheduledAtTimingId": "Schedule_1_Timing_4",
-                    "defaultDuration": "PT40M",
-                    "timeSlots": 4,
+                    "scheduledAtTimingId": null,
+                    "defaultDuration": "PT306M",
+                    "timeSlots": 10,
                     "instanceType": "ScheduledActivityInstance"
                   },
                   {
                     "id": "Schedule_1_ScheduledActivityInstance_5",
                     "extensionAttributes": [],
-                    "name": "DAY_183",
-                    "label": "183",
-                    "description": "Study activities for Day 183",
-					"defaultConditionId": "Schedule_1_ScheduledActivityInstance_6",
+                    "name": "DAY_57",
+                    "label": "57",
+                    "description": "Intervention Period, Day 57",
+                    "defaultConditionId": "Schedule_1_ScheduledActivityInstance_6",
                     "epochId": "StudyEpoch_2",
                     "encounterId": "Schedule_1_Encounter_5",
                     "activityIds": [
-                      "Activity_30",
-                      "Activity_47",
-                      "Activity_32",
+                      "Activity_14",
                       "Activity_6",
                       "Activity_28",
-                      "Activity_24",
-                      "Activity_3",
-                      "Activity_44",
-                      "Activity_39",
-                      "Activity_13",
-                      "Activity_41",
-                      "Activity_38",
-                      "Activity_7",
-                      "Activity_14",
-                      "Activity_15",
-                      "Activity_43",
-                      "Activity_18",
-                      "Activity_50",
-                      "Activity_5",
-                      "Activity_35",
-                      "Activity_17",
-                      "Activity_25",
-                      "Activity_29",
-                      "Activity_16",
-                      "Activity_48",
-                      "Activity_23",
-                      "Activity_21",
-                      "Activity_27",
-                      "Activity_20",
-                      "Activity_37",
-                      "Activity_42",
-                      "Activity_46",
-                      "Activity_49",
-                      "Activity_2",
-                      "Activity_9"
+                      "Activity_31"
                     ],
-                    "scheduledAtTimingId": "Schedule_1_Timing_5",
-                    "defaultDuration": "PT350M",
-                    "timeSlots": 35,
+                    "scheduledAtTimingId": null,
+                    "defaultDuration": "PT36M",
+                    "timeSlots": 4,
                     "instanceType": "ScheduledActivityInstance"
                   },
                   {
                     "id": "Schedule_1_ScheduledActivityInstance_6",
                     "extensionAttributes": [],
-                    "name": "DAY_225",
-                    "label": "225",
-                    "description": "Study activities for Day 225",
-					"defaultConditionId": "Schedule_1_ScheduledActivityInstance_7",
+                    "name": "DAY_92",
+                    "label": "92",
+                    "description": "Intervention Period, Day 92",
+                    "defaultConditionId": "Schedule_1_ScheduledActivityInstance_7",
                     "epochId": "StudyEpoch_2",
                     "encounterId": "Schedule_1_Encounter_6",
                     "activityIds": [
-                      "Activity_6",
-                      "Activity_28",
                       "Activity_14",
-                      "Activity_31"
-                    ],
-                    "scheduledAtTimingId": "Schedule_1_Timing_6",
-                    "defaultDuration": "PT40M",
-                    "timeSlots": 4,
-                    "instanceType": "ScheduledActivityInstance"
-                  },
-                  {
-                    "id": "Schedule_1_ScheduledActivityInstance_7",
-                    "extensionAttributes": [],
-                    "name": "DAY_274",
-                    "label": "274",
-                    "description": "Study activities for Day 274",
-					"defaultConditionId": "Schedule_1_ScheduledActivityInstance_9",
-                    "epochId": "StudyEpoch_2",
-                    "encounterId": "Schedule_1_Encounter_7",
-                    "activityIds": [
+                      "Activity_47",
+                      "Activity_32",
+                      "Activity_12",
                       "Activity_30",
                       "Activity_6",
                       "Activity_28",
+                      "Activity_15",
                       "Activity_24",
                       "Activity_3",
                       "Activity_44",
@@ -2713,29 +2709,54 @@
                       "Activity_41",
                       "Activity_38",
                       "Activity_7",
-                      "Activity_14",
                       "Activity_43",
                       "Activity_2",
-                      "Activity_9"
+                      "Activity_9",
+                      "Activity_5"
                     ],
-                    "scheduledAtTimingId": "Schedule_1_Timing_7",
-                    "defaultDuration": "PT150M",
-                    "timeSlots": 15,
+                    "scheduledAtTimingId": null,
+                    "defaultDuration": "PT198M",
+                    "timeSlots": 14,
+                    "instanceType": "ScheduledActivityInstance"
+                  },
+                  {
+                    "id": "Schedule_1_ScheduledActivityInstance_7",
+                    "extensionAttributes": [],
+                    "name": "DAY_141",
+                    "label": "141",
+                    "description": "Intervention Period, Day 141",
+                    "defaultConditionId": "Schedule_1_ScheduledActivityInstance_8",
+                    "epochId": "StudyEpoch_2",
+                    "encounterId": "Schedule_1_Encounter_7",
+                    "activityIds": [
+                      "Activity_14",
+                      "Activity_6",
+                      "Activity_28",
+                      "Activity_31"
+                    ],
+                    "scheduledAtTimingId": null,
+                    "defaultDuration": "PT36M",
+                    "timeSlots": 4,
                     "instanceType": "ScheduledActivityInstance"
                   },
                   {
                     "id": "Schedule_1_ScheduledActivityInstance_8",
                     "extensionAttributes": [],
-                    "name": "DAY_29",
-                    "label": "29",
-                    "description": "Study activities for Day 29",
-					"defaultConditionId": "Schedule_1_ScheduledActivityInstance_12",
+                    "name": "DAY_183",
+                    "label": "183",
+                    "description": "Intervention Period, Day 183",
+                    "defaultConditionId": "Schedule_1_ScheduledActivityInstance_9",
                     "epochId": "StudyEpoch_2",
                     "encounterId": "Schedule_1_Encounter_8",
                     "activityIds": [
+                      "Activity_14",
+                      "Activity_47",
+                      "Activity_32",
                       "Activity_30",
                       "Activity_6",
                       "Activity_28",
+                      "Activity_15",
+                      "Activity_24",
                       "Activity_3",
                       "Activity_44",
                       "Activity_39",
@@ -2743,56 +2764,64 @@
                       "Activity_41",
                       "Activity_38",
                       "Activity_7",
-                      "Activity_14",
-                      "Activity_18",
+                      "Activity_49",
                       "Activity_17",
-                      "Activity_21",
-                      "Activity_27",
-                      "Activity_20",
+                      "Activity_25",
+                      "Activity_29",
+                      "Activity_35",
+                      "Activity_16",
+                      "Activity_48",
+                      "Activity_23",
+                      "Activity_43",
+                      "Activity_18",
+                      "Activity_2",
+                      "Activity_9",
+                      "Activity_5",
                       "Activity_37",
-                      "Activity_42",
+                      "Activity_21",
                       "Activity_46",
-                      "Activity_49"
+                      "Activity_42",
+                      "Activity_20",
+                      "Activity_27",
+                      "Activity_50"
                     ],
-                    "scheduledAtTimingId": "Schedule_1_Timing_8",
-                    "defaultDuration": "PT200M",
-                    "timeSlots": 20,
+                    "scheduledAtTimingId": null,
+                    "defaultDuration": "PT196M",
+                    "timeSlots": 15,
                     "instanceType": "ScheduledActivityInstance"
                   },
                   {
                     "id": "Schedule_1_ScheduledActivityInstance_9",
                     "extensionAttributes": [],
-                    "name": "DAY_323",
-                    "label": "323",
-                    "description": "Study activities for Day 323",
-					"defaultConditionId": "Schedule_1_ScheduledActivityInstance_10",
-                    "epochId": "StudyEpoch_3",
+                    "name": "DAY_225",
+                    "label": "225",
+                    "description": "Intervention Period, Day 225",
+                    "defaultConditionId": "Schedule_1_ScheduledActivityInstance_10",
+                    "epochId": "StudyEpoch_2",
                     "encounterId": "Schedule_1_Encounter_9",
                     "activityIds": [
+                      "Activity_14",
                       "Activity_6",
                       "Activity_28",
-                      "Activity_14",
                       "Activity_31"
                     ],
-                    "scheduledAtTimingId": "Schedule_1_Timing_9",
-                    "defaultDuration": "PT40M",
+                    "scheduledAtTimingId": null,
+                    "defaultDuration": "PT36M",
                     "timeSlots": 4,
                     "instanceType": "ScheduledActivityInstance"
                   },
                   {
                     "id": "Schedule_1_ScheduledActivityInstance_10",
                     "extensionAttributes": [],
-                    "name": "DAY_365",
-                    "label": "365",
-                    "description": "Study activities for Day 365",
-					"defaultConditionId": "Schedule_1_ScheduledActivityInstance_11",
-                    "epochId": "StudyEpoch_3",
+                    "name": "DAY_274",
+                    "label": "274",
+                    "description": "Intervention Period, Day 274",
+                    "defaultConditionId": "Schedule_1_ScheduledActivityInstance_11",
+                    "epochId": "StudyEpoch_2",
                     "encounterId": "Schedule_1_Encounter_10",
                     "activityIds": [
+                      "Activity_14",
                       "Activity_30",
-                      "Activity_47",
-                      "Activity_32",
-                      "Activity_12",
                       "Activity_6",
                       "Activity_28",
                       "Activity_24",
@@ -2803,69 +2832,50 @@
                       "Activity_41",
                       "Activity_38",
                       "Activity_7",
-                      "Activity_14",
+                      "Activity_43",
                       "Activity_2",
                       "Activity_9"
                     ],
-                    "scheduledAtTimingId": "Schedule_1_Timing_10",
-                    "defaultDuration": "PT170M",
-                    "timeSlots": 17,
+                    "scheduledAtTimingId": null,
+                    "defaultDuration": "PT55M",
+                    "timeSlots": 9,
                     "instanceType": "ScheduledActivityInstance"
                   },
                   {
                     "id": "Schedule_1_ScheduledActivityInstance_11",
                     "extensionAttributes": [],
-                    "name": "DAY_379",
-                    "label": "379",
-                    "description": "Study activities for Day 379",
-                    "defaultCondition": "Subject enrolled",
-                    "epochId": "StudyEpoch_3",
+                    "name": "DAY_323",
+                    "label": "323",
+                    "description": "Intervention Period, Day 323",
+                    "defaultConditionId": "Schedule_1_ScheduledActivityInstance_12",
+                    "epochId": "StudyEpoch_2",
                     "encounterId": "Schedule_1_Encounter_11",
-					"timelineExitId": "Exit_1",
                     "activityIds": [
+                      "Activity_14",
                       "Activity_6",
                       "Activity_28",
-                      "Activity_14"
+                      "Activity_31"
                     ],
-                    "scheduledAtTimingId": "Schedule_1_Timing_11",
-                    "defaultDuration": "PT30M",
-                    "timeSlots": 3,
+                    "scheduledAtTimingId": null,
+                    "defaultDuration": "PT36M",
+                    "timeSlots": 4,
                     "instanceType": "ScheduledActivityInstance"
                   },
                   {
                     "id": "Schedule_1_ScheduledActivityInstance_12",
                     "extensionAttributes": [],
-                    "name": "DAY_57",
-                    "label": "57",
-                    "description": "Study activities for Day 57",
-					"defaultConditionId": "Schedule_1_ScheduledActivityInstance_13",
+                    "name": "DAY_365",
+                    "label": "365",
+                    "description": "Intervention Period, Day 365",
+                    "defaultConditionId": "Schedule_1_ScheduledActivityInstance_13",
                     "epochId": "StudyEpoch_2",
                     "encounterId": "Schedule_1_Encounter_12",
                     "activityIds": [
-                      "Activity_6",
-                      "Activity_28",
                       "Activity_14",
-                      "Activity_31"
-                    ],
-                    "scheduledAtTimingId": "Schedule_1_Timing_12",
-                    "defaultDuration": "PT40M",
-                    "timeSlots": 4,
-                    "instanceType": "ScheduledActivityInstance"
-                  },
-                  {
-                    "id": "Schedule_1_ScheduledActivityInstance_13",
-                    "extensionAttributes": [],
-                    "name": "DAY_92",
-                    "label": "92",
-                    "description": "Study activities for Day 92",
-					"defaultConditionId": "Schedule_1_ScheduledActivityInstance_3",
-                    "epochId": "StudyEpoch_2",
-                    "encounterId": "Schedule_1_Encounter_13",
-                    "activityIds": [
-                      "Activity_30",
                       "Activity_47",
                       "Activity_32",
                       "Activity_12",
+                      "Activity_30",
                       "Activity_6",
                       "Activity_28",
                       "Activity_24",
@@ -2876,16 +2886,81 @@
                       "Activity_41",
                       "Activity_38",
                       "Activity_7",
-                      "Activity_14",
-                      "Activity_15",
-                      "Activity_43",
-                      "Activity_5",
                       "Activity_2",
                       "Activity_9"
                     ],
-                    "scheduledAtTimingId": "Schedule_1_Timing_13",
-                    "defaultDuration": "PT200M",
-                    "timeSlots": 20,
+                    "scheduledAtTimingId": null,
+                    "defaultDuration": "PT78M",
+                    "timeSlots": 11,
+                    "instanceType": "ScheduledActivityInstance"
+                  },
+                  {
+                    "id": "Schedule_1_ScheduledActivityInstance_13",
+                    "extensionAttributes": [],
+                    "name": "DAY_UNK_13",
+                    "label": "Unknown",
+                    "description": "Intervention Period, Day Unknown",
+                    "defaultConditionId": "Schedule_1_ScheduledActivityInstance_14",
+                    "epochId": "StudyEpoch_2",
+                    "encounterId": "Schedule_1_Encounter_13",
+                    "activityIds": [
+                      "Activity_30",
+                      "Activity_14",
+                      "Activity_47",
+                      "Activity_32",
+                      "Activity_12",
+                      "Activity_30",
+                      "Activity_6",
+                      "Activity_28",
+                      "Activity_15",
+                      "Activity_24",
+                      "Activity_3",
+                      "Activity_44",
+                      "Activity_13",
+                      "Activity_41",
+                      "Activity_38",
+                      "Activity_7",
+                      "Activity_39",
+                      "Activity_49",
+                      "Activity_17",
+                      "Activity_25",
+                      "Activity_29",
+                      "Activity_35",
+                      "Activity_16",
+                      "Activity_48",
+                      "Activity_23",
+                      "Activity_2",
+                      "Activity_9",
+                      "Activity_5",
+                      "Activity_37",
+                      "Activity_21",
+                      "Activity_46",
+                      "Activity_42",
+                      "Activity_20",
+                      "Activity_27"
+                    ],
+                    "scheduledAtTimingId": null,
+                    "defaultDuration": "PT213M",
+                    "timeSlots": 14,
+                    "instanceType": "ScheduledActivityInstance"
+                  },
+                  {
+                    "id": "Schedule_1_ScheduledActivityInstance_14",
+                    "extensionAttributes": [],
+                    "name": "DAY_14",
+                    "label": "14",
+                    "description": "Safety Follow-up (SFU), Day 14",
+                    "timelineExitId": "Exit_1",
+                    "epochId": "StudyEpoch_3",
+                    "encounterId": "Schedule_1_Encounter_14",
+                    "activityIds": [
+                      "Activity_14",
+                      "Activity_6",
+                      "Activity_28"
+                    ],
+                    "scheduledAtTimingId": null,
+                    "defaultDuration": "PT30M",
+                    "timeSlots": 3,
                     "instanceType": "ScheduledActivityInstance"
                   }
                 ],
@@ -2917,8 +2992,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 1",
                     "description": "composite of symptomatic ischemic stroke and covert brain infarcts detected by MRI",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_601",
                       "extensionAttributes": [],
@@ -2953,8 +3028,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 1",
                     "description": "composite of International Society on Thrombosis and Hemostasis (ISTH) major bleeding and clinically relevant non-major (CRNM) bleeding",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_601",
                       "extensionAttributes": [],
@@ -2989,8 +3064,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 1",
                     "description": "composite of symptomatic ischemic stroke and covert brain infarcts detected by MRI, CV death, myocardial infarction and systemic embolism",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_601",
                       "extensionAttributes": [],
@@ -3007,8 +3082,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 2",
                     "description": "symptomatic ischemic stroke",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_602",
                       "extensionAttributes": [],
@@ -3025,8 +3100,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 3",
                     "description": "covert brain infarcts detected by MRI",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_603",
                       "extensionAttributes": [],
@@ -3043,8 +3118,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 4",
                     "description": "symptomatic ischemic stroke, CV death, myocardial infarction",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_604",
                       "extensionAttributes": [],
@@ -3061,8 +3136,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 5",
                     "description": "symptomatic ischemic and hemorrhagic stroke",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_605",
                       "extensionAttributes": [],
@@ -3079,8 +3154,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 6",
                     "description": "disabling stroke (mRS\u22654)",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_606",
                       "extensionAttributes": [],
@@ -3097,8 +3172,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 7",
                     "description": "all-cause mortality",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_607",
                       "extensionAttributes": [],
@@ -3133,8 +3208,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 1",
                     "description": "all bleeding",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_601",
                       "extensionAttributes": [],
@@ -3151,8 +3226,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 2",
                     "description": "ISTH major bleeding",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_602",
                       "extensionAttributes": [],
@@ -3169,8 +3244,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 3",
                     "description": "ISTH CRNM bleeding",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_603",
                       "extensionAttributes": [],
@@ -3187,8 +3262,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 4",
                     "description": "ISTH minor bleeding",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_604",
                       "extensionAttributes": [],
@@ -3205,8 +3280,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 5",
                     "description": "Intracerebral hemorrhage (non-traumatic)",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_605",
                       "extensionAttributes": [],
@@ -3241,8 +3316,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 1",
                     "description": "TIMI clinically significant bleeding",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_601",
                       "extensionAttributes": [],
@@ -3259,8 +3334,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 2",
                     "description": "TIMI major bleeding",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_602",
                       "extensionAttributes": [],
@@ -3277,8 +3352,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 3",
                     "description": "TIMI minor bleeding",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_603",
                       "extensionAttributes": [],
@@ -3295,8 +3370,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 4",
                     "description": "BARC bleeding definition Type 2, 3, 5",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_604",
                       "extensionAttributes": [],
@@ -3313,8 +3388,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 5",
                     "description": "BARC bleeding definition Type 3, 5",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_605",
                       "extensionAttributes": [],
@@ -3331,8 +3406,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 6",
                     "description": "BARC bleeding definition Type 1, 2, 3, 5",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_606",
                       "extensionAttributes": [],
@@ -3367,8 +3442,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 1",
                     "description": "Pharmacokinetics",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_601",
                       "extensionAttributes": [],
@@ -3385,8 +3460,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 2",
                     "description": "Various biomarkers and genetics may be explored (e.g. diagnostic, safety, PD, monitoring, or potentially predictive biomarkers)",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_602",
                       "extensionAttributes": [],
@@ -3421,8 +3496,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 1",
                     "description": "FXIa inhibition, aPTT",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_601",
                       "extensionAttributes": [],
@@ -3439,8 +3514,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 2",
                     "description": "Various biomarkers and genetics may be explored (e.g. diagnostic, safety, PD, monitoring, or potentially predictive biomarkers)",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_602",
                       "extensionAttributes": [],
@@ -3541,9 +3616,9 @@
               {
                 "id": "Schedule_1_Encounter_1",
                 "extensionAttributes": [],
-                "name": "E1_neg1_to_neg14",
-                "label": "Main Day -1 to -14",
-                "description": "Study encounter for Main Day -1 to -14",
+                "name": "E1_1",
+                "label": "Main Day 274",
+                "description": "Study encounter for Main Day 274",
                 "type": {
                   "id": "Code_3901",
                   "extensionAttributes": [],
@@ -3553,7 +3628,7 @@
                   "decode": "Visit",
                   "instanceType": "Code"
                 },
-                "epochId": "StudyEpoch_1",
+                "epochId": "StudyEpoch_4",
                 "scheduledAtId": "Schedule_1_Timing_1",
                 "environmentalSettings": [
                   {
@@ -3583,9 +3658,9 @@
               {
                 "id": "Schedule_1_Encounter_2",
                 "extensionAttributes": [],
-                "name": "E2_1",
-                "label": "Main Day 1",
-                "description": "Study encounter for Main Day 1",
+                "name": "E1_2",
+                "label": "Main Day 183",
+                "description": "Study encounter for Main Day 183",
                 "type": {
                   "id": "Code_3902",
                   "extensionAttributes": [],
@@ -3595,7 +3670,7 @@
                   "decode": "Visit",
                   "instanceType": "Code"
                 },
-                "epochId": "StudyEpoch_1",
+                "epochId": "StudyEpoch_4",
                 "scheduledAtId": "Schedule_1_Timing_2",
                 "environmentalSettings": [
                   {
@@ -3625,9 +3700,9 @@
               {
                 "id": "Schedule_1_Encounter_3",
                 "extensionAttributes": [],
-                "name": "E3_141",
-                "label": "Main Day 141",
-                "description": "Study encounter for Main Day 141",
+                "name": "E1_3",
+                "label": "Main Day 365",
+                "description": "Study encounter for Main Day 365",
                 "type": {
                   "id": "Code_3903",
                   "extensionAttributes": [],
@@ -3637,7 +3712,7 @@
                   "decode": "Visit",
                   "instanceType": "Code"
                 },
-                "epochId": "StudyEpoch_1",
+                "epochId": "StudyEpoch_5",
                 "scheduledAtId": "Schedule_1_Timing_3",
                 "environmentalSettings": [
                   {
@@ -3667,9 +3742,9 @@
               {
                 "id": "Schedule_1_Encounter_4",
                 "extensionAttributes": [],
-                "name": "E4_15",
-                "label": "Main Day 15",
-                "description": "Study encounter for Main Day 15",
+                "name": "E1_4",
+                "label": "Main Day 92",
+                "description": "Study encounter for Main Day 92",
                 "type": {
                   "id": "Code_3904",
                   "extensionAttributes": [],
@@ -3679,7 +3754,7 @@
                   "decode": "Visit",
                   "instanceType": "Code"
                 },
-                "epochId": "StudyEpoch_1",
+                "epochId": "StudyEpoch_3",
                 "scheduledAtId": "Schedule_1_Timing_4",
                 "environmentalSettings": [
                   {
@@ -3709,9 +3784,9 @@
               {
                 "id": "Schedule_1_Encounter_5",
                 "extensionAttributes": [],
-                "name": "E5_183",
-                "label": "Main Day 183",
-                "description": "Study encounter for Main Day 183",
+                "name": "E1_5",
+                "label": "Main Day 1",
+                "description": "Study encounter for Main Day 1",
                 "type": {
                   "id": "Code_3905",
                   "extensionAttributes": [],
@@ -3751,9 +3826,9 @@
               {
                 "id": "Schedule_1_Encounter_6",
                 "extensionAttributes": [],
-                "name": "E6_225",
-                "label": "Main Day 225",
-                "description": "Study encounter for Main Day 225",
+                "name": "E1_6",
+                "label": "Main Day 14",
+                "description": "Study encounter for Main Day 14",
                 "type": {
                   "id": "Code_3906",
                   "extensionAttributes": [],
@@ -3763,7 +3838,7 @@
                   "decode": "Visit",
                   "instanceType": "Code"
                 },
-                "epochId": "StudyEpoch_1",
+                "epochId": "StudyEpoch_2",
                 "scheduledAtId": "Schedule_1_Timing_6",
                 "environmentalSettings": [
                   {
@@ -3793,9 +3868,9 @@
               {
                 "id": "Schedule_1_Encounter_7",
                 "extensionAttributes": [],
-                "name": "E7_274",
-                "label": "Main Day 274",
-                "description": "Study encounter for Main Day 274",
+                "name": "E1_7",
+                "label": "Main Day 29",
+                "description": "Study encounter for Main Day 29",
                 "type": {
                   "id": "Code_3907",
                   "extensionAttributes": [],
@@ -3805,7 +3880,7 @@
                   "decode": "Visit",
                   "instanceType": "Code"
                 },
-                "epochId": "StudyEpoch_1",
+                "epochId": "StudyEpoch_3",
                 "scheduledAtId": "Schedule_1_Timing_7",
                 "environmentalSettings": [
                   {
@@ -3835,9 +3910,9 @@
               {
                 "id": "Schedule_1_Encounter_8",
                 "extensionAttributes": [],
-                "name": "E8_29",
-                "label": "Main Day 29",
-                "description": "Study encounter for Main Day 29",
+                "name": "E1_8",
+                "label": "Main Day 1",
+                "description": "Study encounter for Main Day 1",
                 "type": {
                   "id": "Code_3908",
                   "extensionAttributes": [],
@@ -3877,7 +3952,7 @@
               {
                 "id": "Schedule_1_Encounter_9",
                 "extensionAttributes": [],
-                "name": "E9_323",
+                "name": "E1_9",
                 "label": "Main Day 323",
                 "description": "Study encounter for Main Day 323",
                 "type": {
@@ -3889,7 +3964,7 @@
                   "decode": "Visit",
                   "instanceType": "Code"
                 },
-                "epochId": "StudyEpoch_1",
+                "epochId": "StudyEpoch_5",
                 "scheduledAtId": "Schedule_1_Timing_9",
                 "environmentalSettings": [
                   {
@@ -3919,9 +3994,9 @@
               {
                 "id": "Schedule_1_Encounter_10",
                 "extensionAttributes": [],
-                "name": "E10_365",
-                "label": "Main Day 365",
-                "description": "Study encounter for Main Day 365",
+                "name": "E1_10",
+                "label": "Main Day 141",
+                "description": "Study encounter for Main Day 141",
                 "type": {
                   "id": "Code_3910",
                   "extensionAttributes": [],
@@ -3931,7 +4006,7 @@
                   "decode": "Visit",
                   "instanceType": "Code"
                 },
-                "epochId": "StudyEpoch_1",
+                "epochId": "StudyEpoch_4",
                 "scheduledAtId": "Schedule_1_Timing_10",
                 "environmentalSettings": [
                   {
@@ -3961,9 +4036,9 @@
               {
                 "id": "Schedule_1_Encounter_11",
                 "extensionAttributes": [],
-                "name": "E11_379",
-                "label": "Main Day 379",
-                "description": "Study encounter for Main Day 379",
+                "name": "E1_11",
+                "label": "Main Day 225",
+                "description": "Study encounter for Main Day 225",
                 "type": {
                   "id": "Code_3911",
                   "extensionAttributes": [],
@@ -3973,7 +4048,7 @@
                   "decode": "Visit",
                   "instanceType": "Code"
                 },
-                "epochId": "StudyEpoch_1",
+                "epochId": "StudyEpoch_4",
                 "scheduledAtId": "Schedule_1_Timing_11",
                 "environmentalSettings": [
                   {
@@ -4003,9 +4078,9 @@
               {
                 "id": "Schedule_1_Encounter_12",
                 "extensionAttributes": [],
-                "name": "E12_57",
-                "label": "Main Day 57",
-                "description": "Study encounter for Main Day 57",
+                "name": "E1_12",
+                "label": "Main Day 15",
+                "description": "Study encounter for Main Day 15",
                 "type": {
                   "id": "Code_3912",
                   "extensionAttributes": [],
@@ -4015,7 +4090,7 @@
                   "decode": "Visit",
                   "instanceType": "Code"
                 },
-                "epochId": "StudyEpoch_1",
+                "epochId": "StudyEpoch_2",
                 "scheduledAtId": "Schedule_1_Timing_12",
                 "environmentalSettings": [
                   {
@@ -4045,9 +4120,9 @@
               {
                 "id": "Schedule_1_Encounter_13",
                 "extensionAttributes": [],
-                "name": "E13_92",
-                "label": "Main Day 92",
-                "description": "Study encounter for Main Day 92",
+                "name": "E1_13",
+                "label": "Main Day 57",
+                "description": "Study encounter for Main Day 57",
                 "type": {
                   "id": "Code_3913",
                   "extensionAttributes": [],
@@ -4057,7 +4132,7 @@
                   "decode": "Visit",
                   "instanceType": "Code"
                 },
-                "epochId": "StudyEpoch_1",
+                "epochId": "StudyEpoch_3",
                 "scheduledAtId": "Schedule_1_Timing_13",
                 "environmentalSettings": [
                   {
@@ -4073,6 +4148,48 @@
                 "contactModes": [
                   {
                     "id": "Code_4013",
+                    "extensionAttributes": [],
+                    "code": "C175574",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2025-09-26",
+                    "decode": "In Person",
+                    "instanceType": "Code"
+                  }
+                ],
+                "notes": [],
+                "instanceType": "Encounter"
+              },
+              {
+                "id": "Schedule_1_Encounter_14",
+                "extensionAttributes": [],
+                "name": "E1_14",
+                "label": "Main Day 14",
+                "description": "Study encounter for Main Day 14",
+                "type": {
+                  "id": "Code_3914",
+                  "extensionAttributes": [],
+                  "code": "C25716",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Visit",
+                  "instanceType": "Code"
+                },
+                "epochId": "StudyEpoch_2",
+                "scheduledAtId": "Schedule_1_Timing_14",
+                "environmentalSettings": [
+                  {
+                    "id": "Code_3964",
+                    "extensionAttributes": [],
+                    "code": "C51282",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2025-09-26",
+                    "decode": "Clinic",
+                    "instanceType": "Code"
+                  }
+                ],
+                "contactModes": [
+                  {
+                    "id": "Code_4014",
                     "extensionAttributes": [],
                     "code": "C175574",
                     "codeSystem": "http://www.cdisc.org",
@@ -4104,9 +4221,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4127,12 +4242,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_7",
-                  "Schedule_1_Encounter_10",
-                  "Schedule_1_Encounter_13"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4153,15 +4263,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_7",
-                  "Schedule_1_Encounter_8",
-                  "Schedule_1_Encounter_10",
-                  "Schedule_1_Encounter_13"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4182,9 +4284,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4205,11 +4305,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_13"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4230,21 +4326,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7",
-                  "Schedule_1_Encounter_8",
-                  "Schedule_1_Encounter_9",
-                  "Schedule_1_Encounter_10",
-                  "Schedule_1_Encounter_11",
-                  "Schedule_1_Encounter_12",
-                  "Schedule_1_Encounter_13"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4265,15 +4347,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_7",
-                  "Schedule_1_Encounter_8",
-                  "Schedule_1_Encounter_10",
-                  "Schedule_1_Encounter_13"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4315,12 +4389,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_7",
-                  "Schedule_1_Encounter_10",
-                  "Schedule_1_Encounter_13"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4341,9 +4410,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4364,9 +4431,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4387,12 +4452,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_10",
-                  "Schedule_1_Encounter_13"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4413,15 +4473,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_7",
-                  "Schedule_1_Encounter_8",
-                  "Schedule_1_Encounter_10",
-                  "Schedule_1_Encounter_13"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4442,20 +4494,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7",
-                  "Schedule_1_Encounter_8",
-                  "Schedule_1_Encounter_9",
-                  "Schedule_1_Encounter_10",
-                  "Schedule_1_Encounter_11",
-                  "Schedule_1_Encounter_12",
-                  "Schedule_1_Encounter_13"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4476,11 +4515,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_13"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4501,10 +4536,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4525,11 +4557,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_8"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4550,11 +4578,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_8"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4575,9 +4599,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4598,11 +4620,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_8"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4623,11 +4641,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_8"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4648,9 +4662,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4671,10 +4683,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4695,13 +4704,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_7",
-                  "Schedule_1_Encounter_10",
-                  "Schedule_1_Encounter_13"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4722,10 +4725,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4746,9 +4746,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4769,11 +4767,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_8"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4794,21 +4788,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7",
-                  "Schedule_1_Encounter_8",
-                  "Schedule_1_Encounter_9",
-                  "Schedule_1_Encounter_10",
-                  "Schedule_1_Encounter_11",
-                  "Schedule_1_Encounter_12",
-                  "Schedule_1_Encounter_13"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4829,10 +4809,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4853,15 +4830,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_7",
-                  "Schedule_1_Encounter_8",
-                  "Schedule_1_Encounter_10",
-                  "Schedule_1_Encounter_13"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4882,13 +4851,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_9",
-                  "Schedule_1_Encounter_12"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4909,13 +4872,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_10",
-                  "Schedule_1_Encounter_13"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4936,9 +4893,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4959,10 +4914,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4983,10 +4935,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -5007,9 +4956,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -5030,11 +4977,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_8"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -5055,15 +4998,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_7",
-                  "Schedule_1_Encounter_8",
-                  "Schedule_1_Encounter_10",
-                  "Schedule_1_Encounter_13"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -5084,15 +5019,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_7",
-                  "Schedule_1_Encounter_8",
-                  "Schedule_1_Encounter_10",
-                  "Schedule_1_Encounter_13"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -5134,15 +5061,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_7",
-                  "Schedule_1_Encounter_8",
-                  "Schedule_1_Encounter_10",
-                  "Schedule_1_Encounter_13"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -5163,11 +5082,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_8"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -5188,12 +5103,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_7",
-                  "Schedule_1_Encounter_13"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -5214,15 +5124,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_7",
-                  "Schedule_1_Encounter_8",
-                  "Schedule_1_Encounter_10",
-                  "Schedule_1_Encounter_13"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -5264,11 +5166,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_8"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -5289,13 +5187,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_10",
-                  "Schedule_1_Encounter_13"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -5316,10 +5208,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -5340,10 +5229,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_8"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -5364,10 +5250,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_5"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               }
             ],
@@ -5428,7 +5311,7 @@
     ],
     "instanceType": "Study"
   },
-  "usdmVersion": "4.0",
+  "usdmVersion": "4.0.0",
   "systemName": "USDM Template v12",
   "systemVersion": "12.0.0"
 }

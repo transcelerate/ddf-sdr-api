@@ -57,7 +57,14 @@
             "id": "StudyIdentifier_1",
             "extensionAttributes": [],
             "text": "BP30037",
-			"scopeID": "Organization_1",
+            "scopeId": "Organization_1",
+            "instanceType": "StudyIdentifier"
+          },
+          {
+            "id": "StudyIdentifier_2",
+            "extensionAttributes": [],
+            "text": "NCT02701985",
+            "scopeId": "Organization_2",
             "instanceType": "StudyIdentifier"
           }
         ],
@@ -127,7 +134,7 @@
           {
             "id": "StudyTitle_2",
             "extensionAttributes": [],
-            "text": "BP30037 (Copy for Transcelerate)",
+            "text": "A Multi-Center, Randomized, Double-Blind, Placebo-Controlled, Parallel Group Phase 2A Study to Assess the Efficacy of RO5459072 in Patients With Primary Sjogren's Syndrome",
             "type": {
               "id": "Code_2002",
               "extensionAttributes": [],
@@ -137,8 +144,8 @@
               "decode": "Official Study Title",
               "instanceType": "Code"
             },
-			"instanceType": "StudyTitle"
-		  }		  
+            "instanceType": "StudyTitle"
+          }
         ],
         "organizations": [
           {
@@ -1321,82 +1328,81 @@
                 "instanceType": "Estimand"
               }
             ],
-            "population": 
-              {
-                "id": "StudyPopulation_1",
+            "population": {
+              "id": "StudyDesignPopulation_1",
+              "extensionAttributes": [],
+              "name": "Sjogren's Syndrome",
+              "label": "Sjogren's Syndrome",
+              "description": "Study population",
+              "includesHealthySubjects": false,
+              "plannedEnrollmentNumber": {
+                "id": "PlannedEnrollment_1",
                 "extensionAttributes": [],
-                "name": "Sjogren's Syndrome",
-                "label": "Sjogren's Syndrome",
-                "description": "Study population: Sjogren's Syndrome",
-                "plannedEnrollmentNumber": 
-				  {
-				    "id": "PlannedEnrollment_1",
-					"value": "70",
-					"instanceType": "Quantity"
-				  },
-				"plannedAge": {
-				  "id": "Range_1",
-				  "extensionAttributes": [],
-				  "minValue": {
-				    "id": "Quantity_9",
-				    "extensionAttributes": [],
-				    "value": 50.0,
-				    "unit": {
-				   	  "id": "AliasCode_251",
-					  "extensionAttributes": [],
-					  "standardCode": {
-					    "id": "Code_618",
-						"extensionAttributes": [],
-					    "code": "C29848",
-					    "codeSystem": "http://www.cdisc.org",
-					    "codeSystemVersion": "2025-09-26",
-				        "decode": "Year",
-					    "instanceType": "Code"
-					  },
-					  "standardCodeAliases": [],
-					  "instanceType": "AliasCode"
-				    },
-					"instanceType": "Quantity"
-				  },
-				  "maxValue": {
-				    "id": "Quantity_10",
-				    "extensionAttributes": [],
-				    "value": 100.0,
-				    "unit": {
-				   	  "id": "AliasCode_252",
-					  "extensionAttributes": [],
-					  "standardCode": {
-					    "id": "Code_619",
-						"extensionAttributes": [],
-					    "code": "C29848",
-					    "codeSystem": "http://www.cdisc.org",
-					    "codeSystemVersion": "2025-09-26",
-					    "decode": "Year",
-					    "instanceType": "Code"
-					  },
-					  "standardCodeAliases": [],
-					  "instanceType": "AliasCode"
-					},
-				    "instanceType": "Quantity"
-				  },
-			      "isApproximate": false,
-				  "instanceType": "Range"
-				},	
-                "plannedSex": [
-                  {
-                    "id": "Code_521",
-                    "extensionAttributes": [],
-                    "code": "C49636",
-                    "codeSystem": "http://www.cdisc.org",
-                    "codeSystemVersion": "2025-09-26",
-                    "decode": "Both",
-                    "instanceType": "Code"
-                  }
-                ],				  
-                "includesHealthySubjects": true,
-                "notes": [],
-                "instanceType": "StudyDesignPopulation"
+                "value": 70,
+                "instanceType": "Quantity"
               },
+              "plannedAge": {
+                "id": "Range_1",
+                "extensionAttributes": [],
+                "minValue": {
+                  "id": "Quantity_9",
+                  "extensionAttributes": [],
+                  "value": 18.0,
+                  "unit": {
+                    "id": "AliasCode_251",
+                    "extensionAttributes": [],
+                    "standardCode": {
+                      "id": "Code_618",
+                      "extensionAttributes": [],
+                      "code": "C29848",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Year",
+                      "instanceType": "Code"
+                    },
+                    "standardCodeAliases": [],
+                    "instanceType": "AliasCode"
+                  },
+                  "instanceType": "Quantity"
+                },
+                "maxValue": {
+                  "id": "Quantity_10",
+                  "extensionAttributes": [],
+                  "value": 75,
+                  "unit": {
+                    "id": "AliasCode_252",
+                    "extensionAttributes": [],
+                    "standardCode": {
+                      "id": "Code_619",
+                      "extensionAttributes": [],
+                      "code": "C29848",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Year",
+                      "instanceType": "Code"
+                    },
+                    "standardCodeAliases": [],
+                    "instanceType": "AliasCode"
+                  },
+                  "instanceType": "Quantity"
+                },
+                "isApproximate": false,
+                "instanceType": "Range"
+              },
+			  "plannedSex": [
+			    {
+				  "id": "Code_521",
+				  "extensionAttributes": [],
+				  "code": "C49636",
+				  "codeSystem": "http://www.cdisc.org",
+				  "codeSystemVersion": "2025-09-26",
+				  "decode": "Both",
+				  "instanceType": "Code"
+			    }
+			  ],              
+			  "notes": [],
+              "instanceType": "StudyDesignPopulation"
+            },
             "scheduleTimelines": [
               {
                 "id": "ScheduleTimeline_1",
@@ -1421,30 +1427,30 @@
                     "extensionAttributes": [],
                     "name": "TIM1",
                     "label": "Screening & Baseline Day -1.0",
-                    "description": "Timing from previous to Screening & Baseline, Day -1.0",                    
+                    "description": "Timing from previous to Screening & Baseline, Day -1.0",
                     "type": {
-                      "id": "Code_401",
+                      "id": "Code_5001",
                       "extensionAttributes": [],
                       "code": "C201358",
                       "codeSystem": "http://www.cdisc.org",
                       "codeSystemVersion": "2025-09-26",
                       "decode": "Fixed Reference",
                       "instanceType": "Code"
-                    },                    
-					"value": "P1D",
+                    },
+                    "value": "P1D",
                     "valueLabel": "1 day",
                     "relativeToFrom": {
-                      "id": "Code_402",
+                      "id": "Code_5101",
                       "extensionAttributes": [],
                       "code": "C201355",
                       "codeSystem": "http://www.cdisc.org",
                       "codeSystemVersion": "2025-09-26",
                       "decode": "Start to Start",
                       "instanceType": "Code"
-                    },                    
-					"relativeFromScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_1",
-                    "relativeToScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_1",                    
-					"windowLowerBound": "-P1D",
+                    },
+                    "relativeFromScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_1",
+                    "relativeToScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_1",
+                    "windowLowerBound": "-P1D",
                     "windowLowerBoundLabel": "-1 day",
                     "windowUpperBound": "P1D",
                     "windowUpperBoundLabel": "+1 day",
@@ -1455,28 +1461,28 @@
                     "extensionAttributes": [],
                     "name": "TIM2",
                     "label": "Treatment Day 14.0",
-                    "description": "Timing from previous to Treatment, Day 14",					
+                    "description": "Timing from previous to Treatment, Day 14",
                     "type": {
-                      "id": "Code_403",
+                      "id": "Code_5002",
                       "extensionAttributes": [],
                       "code": "C201356",
                       "codeSystem": "http://www.cdisc.org",
                       "codeSystemVersion": "2025-09-26",
                       "decode": "After",
                       "instanceType": "Code"
-                    },                    
-					"value": "P1D",
+                    },
+                    "value": "P1D",
                     "valueLabel": "1 day",
                     "relativeToFrom": {
-                      "id": "Code_404",
+                      "id": "Code_5102",
                       "extensionAttributes": [],
                       "code": "C201355",
                       "codeSystem": "http://www.cdisc.org",
                       "codeSystemVersion": "2025-09-26",
                       "decode": "Start to Start",
                       "instanceType": "Code"
-                    },                    
-					"relativeFromScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_3",
+                    },
+                    "relativeFromScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_3",
                     "relativeToScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_2",
                     "windowLowerBound": "-P1D",
                     "windowLowerBoundLabel": "-1 day",
@@ -1489,27 +1495,27 @@
                     "extensionAttributes": [],
                     "name": "TIM3",
                     "label": "Treatment Day 42.0",
-                    "description": "Timing from previous to Treatment, Day 42",					
+                    "description": "Timing from previous to Treatment, Day 42",
                     "type": {
-                      "id": "Code_405",
+                      "id": "Code_5003",
                       "extensionAttributes": [],
                       "code": "C201356",
                       "codeSystem": "http://www.cdisc.org",
                       "codeSystemVersion": "2025-09-26",
                       "decode": "After",
                       "instanceType": "Code"
-                    },					
+                    },
                     "value": "P1D",
                     "valueLabel": "1 day",
                     "relativeToFrom": {
-                      "id": "Code_406",
+                      "id": "Code_5103",
                       "extensionAttributes": [],
                       "code": "C201355",
                       "codeSystem": "http://www.cdisc.org",
                       "codeSystemVersion": "2025-09-26",
                       "decode": "Start to Start",
                       "instanceType": "Code"
-                    },					
+                    },
                     "relativeFromScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_4",
                     "relativeToScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_3",
                     "windowLowerBound": "-P1D",
@@ -1523,27 +1529,27 @@
                     "extensionAttributes": [],
                     "name": "TIM4",
                     "label": "Treatment Day 63.0",
-                    "description": "Timing from previous to Treatment, Day 63",					
+                    "description": "Timing from previous to Treatment, Day 63",
                     "type": {
-                      "id": "Code_407",
+                      "id": "Code_5004",
                       "extensionAttributes": [],
                       "code": "C201356",
                       "codeSystem": "http://www.cdisc.org",
                       "codeSystemVersion": "2025-09-26",
                       "decode": "After",
                       "instanceType": "Code"
-                    },					
+                    },
                     "value": "P1D",
                     "valueLabel": "1 day",
                     "relativeToFrom": {
-                      "id": "Code_408",
+                      "id": "Code_5104",
                       "extensionAttributes": [],
                       "code": "C201355",
                       "codeSystem": "http://www.cdisc.org",
                       "codeSystemVersion": "2025-09-26",
                       "decode": "Start to Start",
                       "instanceType": "Code"
-                    },										
+                    },
                     "relativeFromScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_5",
                     "relativeToScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_4",
                     "windowLowerBound": "-P1D",
@@ -1557,27 +1563,27 @@
                     "extensionAttributes": [],
                     "name": "TIM5",
                     "label": "Treatment Day 84.0",
-                    "description": "Timing from previous to Treatment, Day 84",					
+                    "description": "Timing from previous to Treatment, Day 84",
                     "type": {
-                      "id": "Code_409",
+                      "id": "Code_5005",
                       "extensionAttributes": [],
                       "code": "C201356",
                       "codeSystem": "http://www.cdisc.org",
                       "codeSystemVersion": "2025-09-26",
                       "decode": "After",
                       "instanceType": "Code"
-                    },					
+                    },
                     "value": "P1D",
-                    "valueLabel": "1 day",					
+                    "valueLabel": "1 day",
                     "relativeToFrom": {
-                      "id": "Code_410",
+                      "id": "Code_5105",
                       "extensionAttributes": [],
                       "code": "C201355",
                       "codeSystem": "http://www.cdisc.org",
                       "codeSystemVersion": "2025-09-26",
                       "decode": "Start to Start",
                       "instanceType": "Code"
-                    },					
+                    },
                     "relativeFromScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_6",
                     "relativeToScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_5",
                     "windowLowerBound": "-P1D",
@@ -1591,27 +1597,27 @@
                     "extensionAttributes": [],
                     "name": "TIM6",
                     "label": "Unknown Epoch Day 14.0",
-                    "description": "Timing from previous to Unknown Epoch, Day 14",					
+                    "description": "Timing from previous to Unknown Epoch, Day 14",
                     "type": {
-                      "id": "Code_411",
+                      "id": "Code_5006",
                       "extensionAttributes": [],
                       "code": "C201356",
                       "codeSystem": "http://www.cdisc.org",
                       "codeSystemVersion": "2025-09-26",
                       "decode": "After",
                       "instanceType": "Code"
-                    },					
+                    },
                     "value": "P1D",
-                    "valueLabel": "1 day",					
+                    "valueLabel": "1 day",
                     "relativeToFrom": {
-                      "id": "Code_412",
+                      "id": "Code_5106",
                       "extensionAttributes": [],
                       "code": "C201355",
                       "codeSystem": "http://www.cdisc.org",
                       "codeSystemVersion": "2025-09-26",
                       "decode": "Start to Start",
                       "instanceType": "Code"
-                    },					
+                    },
                     "relativeFromScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_7",
                     "relativeToScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_6",
                     "windowLowerBound": "-P1D",
@@ -1625,27 +1631,61 @@
                     "extensionAttributes": [],
                     "name": "TIM7",
                     "label": "Unknown Epoch",
-                    "description": "Timing from previous to Unknown Epoch, Day Unknown",					
+                    "description": "Timing from previous to Unknown Epoch, Day Unknown",
                     "type": {
-                      "id": "Code_413",
+                      "id": "Code_5007",
                       "extensionAttributes": [],
                       "code": "C201356",
                       "codeSystem": "http://www.cdisc.org",
                       "codeSystemVersion": "2025-09-26",
                       "decode": "After",
                       "instanceType": "Code"
-                    },					
+                    },
                     "value": "P1D",
-                    "valueLabel": "1 day",					
+                    "valueLabel": "1 day",
                     "relativeToFrom": {
-                      "id": "Code_414",
+                      "id": "Code_5107",
                       "extensionAttributes": [],
                       "code": "C201355",
                       "codeSystem": "http://www.cdisc.org",
                       "codeSystemVersion": "2025-09-26",
                       "decode": "Start to Start",
                       "instanceType": "Code"
-                    },					
+                    },
+                    "relativeFromScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_8",
+                    "relativeToScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_7",
+                    "windowLowerBound": "-P1D",
+                    "windowLowerBoundLabel": "-1 day",
+                    "windowUpperBound": "P1D",
+                    "windowUpperBoundLabel": "+1 day",
+                    "instanceType": "Timing"
+                  },
+                  {
+                    "id": "Schedule_1_Timing_8",
+                    "extensionAttributes": [],
+                    "name": "TIM8",
+                    "label": "Unknown Epoch",
+                    "description": "Timing from previous to Unknown Epoch, Day Unknown",
+                    "type": {
+                      "id": "Code_5008",
+                      "extensionAttributes": [],
+                      "code": "C201356",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "After",
+                      "instanceType": "Code"
+                    },
+                    "value": "P1D",
+                    "valueLabel": "1 day",
+                    "relativeToFrom": {
+                      "id": "Code_5108",
+                      "extensionAttributes": [],
+                      "code": "C201355",
+                      "codeSystem": "http://www.cdisc.org",
+                      "codeSystemVersion": "2025-09-26",
+                      "decode": "Start to Start",
+                      "instanceType": "Code"
+                    },
                     "relativeFromScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_8",
                     "relativeToScheduledInstanceId": "Schedule_1_ScheduledActivityInstance_7",
                     "windowLowerBound": "-P1D",
@@ -1666,40 +1706,40 @@
                     "epochId": "StudyEpoch_1",
                     "encounterId": "Schedule_1_Encounter_1",
                     "activityIds": [
-                      "Activity_14",
-                      "Activity_32",
-                      "Activity_6",
-                      "Activity_30",
-                      "Activity_10",
-                      "Activity_1",
-                      "Activity_17",
-                      "Activity_43",
                       "Activity_56",
-                      "Activity_11",
-                      "Activity_53",
-                      "Activity_22",
-                      "Activity_48",
-                      "Activity_5",
-                      "Activity_27",
-                      "Activity_29",
-                      "Activity_3",
-                      "Activity_38",
-                      "Activity_9",
-                      "Activity_49",
-                      "Activity_25",
-                      "Activity_46",
-                      "Activity_24",
-                      "Activity_50",
-                      "Activity_34",
-                      "Activity_40",
                       "Activity_4",
-                      "Activity_44",
-                      "Activity_42",
-                      "Activity_13",
+                      "Activity_55",
+                      "Activity_2",
                       "Activity_36",
+                      "Activity_32",
+                      "Activity_22",
+                      "Activity_21",
+                      "Activity_24",
                       "Activity_45",
+                      "Activity_10",
+                      "Activity_28",
+                      "Activity_26",
+                      "Activity_6",
+                      "Activity_3",
+                      "Activity_53",
+                      "Activity_9",
+                      "Activity_7",
+                      "Activity_11",
+                      "Activity_1",
+                      "Activity_51",
+                      "Activity_5",
+                      "Activity_30",
+                      "Activity_52",
+                      "Activity_50",
+                      "Activity_40",
+                      "Activity_31",
+                      "Activity_16",
+                      "Activity_38",
                       "Activity_41",
-                      "Activity_19"
+                      "Activity_43",
+                      "Activity_15",
+                      "Activity_23",
+                      "Activity_12"
                     ],
                     "scheduledAtTimingId": null,
                     "defaultDuration": "PT162M",
@@ -1716,51 +1756,51 @@
                     "epochId": "StudyEpoch_1",
                     "encounterId": "Schedule_1_Encounter_2",
                     "activityIds": [
-                      "Activity_47",
-                      "Activity_55",
-                      "Activity_32",
-                      "Activity_43",
-                      "Activity_52",
-                      "Activity_23",
-                      "Activity_22",
-                      "Activity_48",
-                      "Activity_54",
-                      "Activity_51",
-                      "Activity_21",
-                      "Activity_26",
+                      "Activity_13",
                       "Activity_18",
-                      "Activity_8",
-                      "Activity_5",
-                      "Activity_27",
-                      "Activity_29",
-                      "Activity_3",
-                      "Activity_38",
-                      "Activity_9",
-                      "Activity_49",
-                      "Activity_37",
-                      "Activity_33",
-                      "Activity_16",
-                      "Activity_39",
-                      "Activity_7",
-                      "Activity_35",
-                      "Activity_12",
+                      "Activity_4",
+                      "Activity_21",
                       "Activity_25",
                       "Activity_46",
-                      "Activity_24",
-                      "Activity_50",
-                      "Activity_34",
-                      "Activity_40",
-                      "Activity_4",
-                      "Activity_44",
-                      "Activity_42",
-                      "Activity_13",
-                      "Activity_36",
-                      "Activity_45",
                       "Activity_28",
+                      "Activity_26",
+                      "Activity_27",
+                      "Activity_37",
                       "Activity_17",
-                      "Activity_41",
+                      "Activity_47",
+                      "Activity_57",
+                      "Activity_29",
+                      "Activity_6",
+                      "Activity_3",
+                      "Activity_53",
+                      "Activity_9",
+                      "Activity_7",
+                      "Activity_11",
+                      "Activity_1",
+                      "Activity_54",
+                      "Activity_20",
+                      "Activity_35",
+                      "Activity_44",
+                      "Activity_14",
+                      "Activity_19",
+                      "Activity_42",
+                      "Activity_51",
+                      "Activity_5",
+                      "Activity_30",
+                      "Activity_52",
+                      "Activity_50",
+                      "Activity_40",
                       "Activity_31",
-                      "Activity_2"
+                      "Activity_16",
+                      "Activity_38",
+                      "Activity_41",
+                      "Activity_43",
+                      "Activity_15",
+                      "Activity_48",
+                      "Activity_22",
+                      "Activity_23",
+                      "Activity_33",
+                      "Activity_8"
                     ],
                     "scheduledAtTimingId": null,
                     "defaultDuration": "PT225M",
@@ -1777,39 +1817,39 @@
                     "epochId": "StudyEpoch_2",
                     "encounterId": "Schedule_1_Encounter_3",
                     "activityIds": [
-                      "Activity_55",
-                      "Activity_43",
-                      "Activity_52",
-                      "Activity_48",
-                      "Activity_51",
-                      "Activity_21",
-                      "Activity_26",
                       "Activity_18",
-                      "Activity_8",
-                      "Activity_33",
-                      "Activity_16",
-                      "Activity_39",
-                      "Activity_7",
-                      "Activity_35",
-                      "Activity_37",
-                      "Activity_12",
-                      "Activity_2",
-                      "Activity_20",
+                      "Activity_21",
                       "Activity_25",
-                      "Activity_46",
-                      "Activity_24",
-                      "Activity_50",
-                      "Activity_34",
-                      "Activity_40",
-                      "Activity_4",
-                      "Activity_44",
-                      "Activity_42",
-                      "Activity_13",
-                      "Activity_36",
-                      "Activity_45",
+                      "Activity_26",
+                      "Activity_37",
                       "Activity_17",
+                      "Activity_47",
+                      "Activity_57",
+                      "Activity_29",
+                      "Activity_20",
+                      "Activity_35",
+                      "Activity_44",
+                      "Activity_14",
+                      "Activity_19",
+                      "Activity_54",
+                      "Activity_42",
+                      "Activity_8",
+                      "Activity_39",
+                      "Activity_51",
+                      "Activity_5",
+                      "Activity_30",
+                      "Activity_52",
+                      "Activity_50",
+                      "Activity_40",
+                      "Activity_31",
+                      "Activity_16",
+                      "Activity_38",
                       "Activity_41",
-                      "Activity_31"
+                      "Activity_43",
+                      "Activity_15",
+                      "Activity_22",
+                      "Activity_23",
+                      "Activity_33"
                     ],
                     "scheduledAtTimingId": null,
                     "defaultDuration": "PT110M",
@@ -1826,49 +1866,49 @@
                     "epochId": "StudyEpoch_2",
                     "encounterId": "Schedule_1_Encounter_4",
                     "activityIds": [
-                      "Activity_55",
-                      "Activity_15",
-                      "Activity_43",
-                      "Activity_52",
-                      "Activity_22",
-                      "Activity_48",
-                      "Activity_54",
-                      "Activity_51",
-                      "Activity_21",
-                      "Activity_26",
                       "Activity_18",
-                      "Activity_8",
+                      "Activity_34",
+                      "Activity_21",
+                      "Activity_25",
+                      "Activity_28",
+                      "Activity_26",
                       "Activity_27",
-                      "Activity_5",
+                      "Activity_37",
+                      "Activity_17",
+                      "Activity_47",
+                      "Activity_57",
                       "Activity_29",
                       "Activity_3",
-                      "Activity_38",
+                      "Activity_6",
+                      "Activity_53",
                       "Activity_9",
-                      "Activity_49",
-                      "Activity_33",
-                      "Activity_16",
-                      "Activity_39",
                       "Activity_7",
-                      "Activity_35",
-                      "Activity_37",
-                      "Activity_12",
-                      "Activity_2",
+                      "Activity_11",
+                      "Activity_1",
                       "Activity_20",
-                      "Activity_25",
-                      "Activity_46",
-                      "Activity_24",
-                      "Activity_50",
-                      "Activity_34",
-                      "Activity_40",
-                      "Activity_4",
+                      "Activity_35",
                       "Activity_44",
+                      "Activity_14",
+                      "Activity_19",
+                      "Activity_54",
                       "Activity_42",
-                      "Activity_13",
-                      "Activity_36",
-                      "Activity_45",
-                      "Activity_17",
+                      "Activity_8",
+                      "Activity_39",
+                      "Activity_51",
+                      "Activity_5",
+                      "Activity_30",
+                      "Activity_52",
+                      "Activity_50",
+                      "Activity_40",
+                      "Activity_31",
+                      "Activity_16",
+                      "Activity_38",
                       "Activity_41",
-                      "Activity_31"
+                      "Activity_43",
+                      "Activity_15",
+                      "Activity_22",
+                      "Activity_23",
+                      "Activity_33"
                     ],
                     "scheduledAtTimingId": null,
                     "defaultDuration": "PT140M",
@@ -1885,24 +1925,24 @@
                     "epochId": "StudyEpoch_2",
                     "encounterId": "Schedule_1_Encounter_5",
                     "activityIds": [
-                      "Activity_43",
-                      "Activity_52",
-                      "Activity_48",
+                      "Activity_21",
                       "Activity_25",
-                      "Activity_46",
-                      "Activity_24",
+                      "Activity_26",
+                      "Activity_51",
+                      "Activity_5",
+                      "Activity_30",
+                      "Activity_52",
                       "Activity_50",
-                      "Activity_34",
                       "Activity_40",
-                      "Activity_4",
-                      "Activity_44",
-                      "Activity_42",
-                      "Activity_13",
-                      "Activity_36",
-                      "Activity_45",
-                      "Activity_17",
+                      "Activity_31",
+                      "Activity_16",
+                      "Activity_38",
                       "Activity_41",
-                      "Activity_31"
+                      "Activity_43",
+                      "Activity_15",
+                      "Activity_22",
+                      "Activity_23",
+                      "Activity_33"
                     ],
                     "scheduledAtTimingId": null,
                     "defaultDuration": "PT70M",
@@ -1919,49 +1959,49 @@
                     "epochId": "StudyEpoch_2",
                     "encounterId": "Schedule_1_Encounter_6",
                     "activityIds": [
-                      "Activity_15",
-                      "Activity_43",
-                      "Activity_52",
-                      "Activity_22",
-                      "Activity_48",
-                      "Activity_54",
-                      "Activity_51",
+                      "Activity_34",
                       "Activity_21",
+                      "Activity_25",
+                      "Activity_28",
                       "Activity_26",
-                      "Activity_18",
-                      "Activity_8",
                       "Activity_27",
+                      "Activity_37",
+                      "Activity_17",
+                      "Activity_47",
+                      "Activity_57",
                       "Activity_29",
                       "Activity_3",
-                      "Activity_38",
+                      "Activity_53",
                       "Activity_9",
-                      "Activity_49",
-                      "Activity_5",
-                      "Activity_33",
-                      "Activity_16",
-                      "Activity_39",
                       "Activity_7",
-                      "Activity_35",
-                      "Activity_37",
-                      "Activity_12",
-                      "Activity_2",
+                      "Activity_11",
+                      "Activity_1",
+                      "Activity_6",
                       "Activity_20",
-                      "Activity_25",
-                      "Activity_46",
-                      "Activity_24",
-                      "Activity_50",
-                      "Activity_34",
-                      "Activity_40",
-                      "Activity_4",
+                      "Activity_35",
                       "Activity_44",
+                      "Activity_14",
+                      "Activity_19",
+                      "Activity_54",
                       "Activity_42",
-                      "Activity_13",
-                      "Activity_36",
-                      "Activity_28",
-                      "Activity_45",
-                      "Activity_17",
+                      "Activity_8",
+                      "Activity_39",
+                      "Activity_51",
+                      "Activity_5",
+                      "Activity_30",
+                      "Activity_52",
+                      "Activity_50",
+                      "Activity_40",
+                      "Activity_31",
+                      "Activity_16",
+                      "Activity_38",
                       "Activity_41",
-                      "Activity_31"
+                      "Activity_43",
+                      "Activity_48",
+                      "Activity_15",
+                      "Activity_22",
+                      "Activity_23",
+                      "Activity_33"
                     ],
                     "scheduledAtTimingId": null,
                     "defaultDuration": "PT235M",
@@ -1978,34 +2018,34 @@
                     "epochId": "StudyEpoch_3",
                     "encounterId": "Schedule_1_Encounter_7",
                     "activityIds": [
-                      "Activity_10",
-                      "Activity_1",
-                      "Activity_17",
-                      "Activity_43",
-                      "Activity_52",
-                      "Activity_22",
-                      "Activity_48",
-                      "Activity_27",
-                      "Activity_5",
-                      "Activity_29",
-                      "Activity_3",
-                      "Activity_38",
-                      "Activity_9",
-                      "Activity_49",
-                      "Activity_25",
-                      "Activity_46",
-                      "Activity_24",
-                      "Activity_50",
-                      "Activity_34",
-                      "Activity_40",
-                      "Activity_4",
-                      "Activity_44",
-                      "Activity_42",
-                      "Activity_13",
                       "Activity_36",
-                      "Activity_45",
+                      "Activity_32",
+                      "Activity_22",
+                      "Activity_21",
+                      "Activity_25",
+                      "Activity_28",
+                      "Activity_26",
+                      "Activity_3",
+                      "Activity_6",
+                      "Activity_53",
+                      "Activity_9",
+                      "Activity_7",
+                      "Activity_11",
+                      "Activity_1",
+                      "Activity_51",
+                      "Activity_5",
+                      "Activity_30",
+                      "Activity_52",
+                      "Activity_50",
+                      "Activity_40",
+                      "Activity_31",
+                      "Activity_16",
+                      "Activity_38",
                       "Activity_41",
-                      "Activity_31"
+                      "Activity_43",
+                      "Activity_15",
+                      "Activity_23",
+                      "Activity_33"
                     ],
                     "scheduledAtTimingId": null,
                     "defaultDuration": "PT117M",
@@ -2018,39 +2058,39 @@
                     "name": "DAY_UNK_8",
                     "label": "Unknown",
                     "description": "Unknown Epoch, Day Unknown",
+                    "timelineExitId": "Exit_1",
                     "epochId": "StudyEpoch_3",
                     "encounterId": "Schedule_1_Encounter_8",
-					"timelineExitId": "Exit_1",					
                     "activityIds": [
-                      "Activity_15",
-                      "Activity_10",
-                      "Activity_1",
-                      "Activity_17",
-                      "Activity_43",
-                      "Activity_52",
-                      "Activity_22",
-                      "Activity_48",
-                      "Activity_27",
-                      "Activity_5",
-                      "Activity_29",
-                      "Activity_3",
-                      "Activity_38",
-                      "Activity_9",
-                      "Activity_49",
-                      "Activity_25",
-                      "Activity_46",
-                      "Activity_24",
-                      "Activity_50",
                       "Activity_34",
-                      "Activity_40",
-                      "Activity_4",
-                      "Activity_44",
-                      "Activity_42",
-                      "Activity_13",
                       "Activity_36",
-                      "Activity_45",
+                      "Activity_32",
+                      "Activity_22",
+                      "Activity_21",
+                      "Activity_25",
+                      "Activity_28",
+                      "Activity_26",
+                      "Activity_3",
+                      "Activity_6",
+                      "Activity_53",
+                      "Activity_9",
+                      "Activity_7",
+                      "Activity_11",
+                      "Activity_1",
+                      "Activity_51",
+                      "Activity_5",
+                      "Activity_30",
+                      "Activity_52",
+                      "Activity_50",
+                      "Activity_40",
+                      "Activity_31",
+                      "Activity_16",
+                      "Activity_38",
                       "Activity_41",
-                      "Activity_31"
+                      "Activity_43",
+                      "Activity_15",
+                      "Activity_23",
+                      "Activity_33"
                     ],
                     "scheduledAtTimingId": null,
                     "defaultDuration": "PT122M",
@@ -2086,8 +2126,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 1",
                     "description": "Proportion of patients showing a clinically relevant decrease in ESSDAI score from baseline after 12 weeks.",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_601",
                       "extensionAttributes": [],
@@ -2122,8 +2162,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 1",
                     "description": "Proportion of individuals showing a clinically relevant decrease in ESSPRI score after 12 weeks where a clinically relevant decrease in ESSPRI score is defined as a decrease of \u2265 1 point.",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_601",
                       "extensionAttributes": [],
@@ -2140,8 +2180,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 2",
                     "description": "Change from baseline in ESSDAI, ESSPRI and SF-36 scores after 12 weeks.",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_602",
                       "extensionAttributes": [],
@@ -2158,8 +2198,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 3",
                     "description": "Change from baseline in each of the individual components of the ESSPRI (dryness, fatigue and pain) after 12 weeks.",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_603",
                       "extensionAttributes": [],
@@ -2194,8 +2234,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 1",
                     "description": "RO5459072 plasma concentration data will be pooled with data from other studies (Study WP29542 and Study BP29772) for population pharmacokinetic modelling. The modelling results will be reported separately.",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_601",
                       "extensionAttributes": [],
@@ -2230,8 +2270,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 1",
                     "description": "The incidence and severity of AEs.",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_601",
                       "extensionAttributes": [],
@@ -2248,8 +2288,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 2",
                     "description": "The incidence of SAEs or withdrawals because of AEs.",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_602",
                       "extensionAttributes": [],
@@ -2266,8 +2306,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 3",
                     "description": "The incidence of out-of-reference-range values for vital signs and ECGs, and laboratory tests.",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_603",
                       "extensionAttributes": [],
@@ -2284,8 +2324,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 4",
                     "description": "Change from baseline in vital signs and ECGs, and laboratory tests by visit.",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_604",
                       "extensionAttributes": [],
@@ -2320,8 +2360,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 1",
                     "description": "Comparisons of the performance of alternative composite endpoints (e.g., Sj\u00f6gren\u2019s response index [SSRI-30]) as predictive markers of drug treatment response.",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_601",
                       "extensionAttributes": [],
@@ -2356,8 +2396,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 1",
                     "description": "Change from Week 12 to follow-up for ESSDAI, ESSPRI and SF-36 scores in each treatment group.",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_601",
                       "extensionAttributes": [],
@@ -2392,8 +2432,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 1",
                     "description": "Comparisons of drug treatment effects between genotypes.",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_601",
                       "extensionAttributes": [],
@@ -2428,8 +2468,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 1",
                     "description": "Patterns of use of selected concomitant medications.",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_601",
                       "extensionAttributes": [],
@@ -2464,8 +2504,8 @@
                     "extensionAttributes": [],
                     "name": "Endpoint 1",
                     "description": "Change from Week 12 to follow-up for ESSDAI, ESSPRI and SF-36 scores in each treatment group.",
-					"text": "",
-					"purpose": "",
+                    "text": "",
+                    "purpose": "",
                     "level": {
                       "id": "Code_601",
                       "extensionAttributes": [],
@@ -2566,9 +2606,9 @@
               {
                 "id": "Schedule_1_Encounter_1",
                 "extensionAttributes": [],
-                "name": "E1_neg1_to_neg7",
-                "label": "Main Day -1 to -7",
-                "description": "Study encounter for Main Day -1 to -7",
+                "name": "E1_1",
+                "label": "Main Day 42",
+                "description": "Study encounter for Main Day 42",
                 "type": {
                   "id": "Code_3901",
                   "extensionAttributes": [],
@@ -2578,7 +2618,7 @@
                   "decode": "Visit",
                   "instanceType": "Code"
                 },
-                "epochId": "StudyEpoch_1",
+                "epochId": "StudyEpoch_3",
                 "scheduledAtId": "Schedule_1_Timing_1",
                 "environmentalSettings": [
                   {
@@ -2608,9 +2648,9 @@
               {
                 "id": "Schedule_1_Encounter_2",
                 "extensionAttributes": [],
-                "name": "E2_neg8_to_neg28",
-                "label": "Main Day -8 to -28",
-                "description": "Study encounter for Main Day -8 to -28",
+                "name": "E1_2",
+                "label": "Main Day 1",
+                "description": "Study encounter for Main Day 1",
                 "type": {
                   "id": "Code_3902",
                   "extensionAttributes": [],
@@ -2650,9 +2690,9 @@
               {
                 "id": "Schedule_1_Encounter_3",
                 "extensionAttributes": [],
-                "name": "E3_14",
-                "label": "Main Day 14",
-                "description": "Study encounter for Main Day 14",
+                "name": "E1_3",
+                "label": "Main Day 8",
+                "description": "Study encounter for Main Day 8",
                 "type": {
                   "id": "Code_3903",
                   "extensionAttributes": [],
@@ -2692,9 +2732,9 @@
               {
                 "id": "Schedule_1_Encounter_4",
                 "extensionAttributes": [],
-                "name": "E4_42",
-                "label": "Main Day 42",
-                "description": "Study encounter for Main Day 42",
+                "name": "E1_4",
+                "label": "Main Day 63",
+                "description": "Study encounter for Main Day 63",
                 "type": {
                   "id": "Code_3904",
                   "extensionAttributes": [],
@@ -2704,7 +2744,7 @@
                   "decode": "Visit",
                   "instanceType": "Code"
                 },
-                "epochId": "StudyEpoch_1",
+                "epochId": "StudyEpoch_3",
                 "scheduledAtId": "Schedule_1_Timing_4",
                 "environmentalSettings": [
                   {
@@ -2734,9 +2774,9 @@
               {
                 "id": "Schedule_1_Encounter_5",
                 "extensionAttributes": [],
-                "name": "E5_63",
-                "label": "Main Day 63",
-                "description": "Study encounter for Main Day 63",
+                "name": "E1_5",
+                "label": "Main Day 5",
+                "description": "Study encounter for Main Day 5",
                 "type": {
                   "id": "Code_3905",
                   "extensionAttributes": [],
@@ -2776,9 +2816,9 @@
               {
                 "id": "Schedule_1_Encounter_6",
                 "extensionAttributes": [],
-                "name": "E6_84",
-                "label": "Main Day 84",
-                "description": "Study encounter for Main Day 84",
+                "name": "E1_6",
+                "label": "Main Day 14",
+                "description": "Study encounter for Main Day 14",
                 "type": {
                   "id": "Code_3906",
                   "extensionAttributes": [],
@@ -2788,7 +2828,7 @@
                   "decode": "Visit",
                   "instanceType": "Code"
                 },
-                "epochId": "StudyEpoch_1",
+                "epochId": "StudyEpoch_2",
                 "scheduledAtId": "Schedule_1_Timing_6",
                 "environmentalSettings": [
                   {
@@ -2818,9 +2858,9 @@
               {
                 "id": "Schedule_1_Encounter_7",
                 "extensionAttributes": [],
-                "name": "E7_98",
-                "label": "Main Day 98",
-                "description": "Study encounter for Main Day 98",
+                "name": "E1_7",
+                "label": "Main Day 14",
+                "description": "Study encounter for Main Day 14",
                 "type": {
                   "id": "Code_3907",
                   "extensionAttributes": [],
@@ -2830,7 +2870,7 @@
                   "decode": "Visit",
                   "instanceType": "Code"
                 },
-                "epochId": "StudyEpoch_1",
+                "epochId": "StudyEpoch_2",
                 "scheduledAtId": "Schedule_1_Timing_7",
                 "environmentalSettings": [
                   {
@@ -2846,6 +2886,48 @@
                 "contactModes": [
                   {
                     "id": "Code_4007",
+                    "extensionAttributes": [],
+                    "code": "C175574",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2025-09-26",
+                    "decode": "In Person",
+                    "instanceType": "Code"
+                  }
+                ],
+                "notes": [],
+                "instanceType": "Encounter"
+              },
+              {
+                "id": "Schedule_1_Encounter_8",
+                "extensionAttributes": [],
+                "name": "E1_8",
+                "label": "Main Day 84",
+                "description": "Study encounter for Main Day 84",
+                "type": {
+                  "id": "Code_3908",
+                  "extensionAttributes": [],
+                  "code": "C25716",
+                  "codeSystem": "http://www.cdisc.org",
+                  "codeSystemVersion": "2025-09-26",
+                  "decode": "Visit",
+                  "instanceType": "Code"
+                },
+                "epochId": "StudyEpoch_3",
+                "scheduledAtId": "Schedule_1_Timing_8",
+                "environmentalSettings": [
+                  {
+                    "id": "Code_3958",
+                    "extensionAttributes": [],
+                    "code": "C51282",
+                    "codeSystem": "http://www.cdisc.org",
+                    "codeSystemVersion": "2025-09-26",
+                    "decode": "Clinic",
+                    "instanceType": "Code"
+                  }
+                ],
+                "contactModes": [
+                  {
+                    "id": "Code_4008",
                     "extensionAttributes": [],
                     "code": "C175574",
                     "codeSystem": "http://www.cdisc.org",
@@ -2877,13 +2959,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -2904,9 +2980,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -2927,13 +3001,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -2954,10 +3022,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -2978,15 +3043,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3007,13 +3064,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3034,13 +3085,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3061,12 +3106,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_6"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3087,13 +3127,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3114,9 +3148,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3137,13 +3169,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3164,9 +3190,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3187,9 +3211,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3210,12 +3232,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_6"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3236,15 +3253,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3265,15 +3274,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3294,12 +3295,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_6"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3320,11 +3316,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3345,12 +3337,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_6"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3371,12 +3358,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_6"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3397,15 +3379,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3426,15 +3400,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3455,15 +3421,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3484,9 +3442,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3507,14 +3463,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3535,15 +3484,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3564,11 +3505,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_6"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3589,13 +3526,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3616,12 +3547,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_6"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3642,15 +3568,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3671,15 +3589,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3700,10 +3610,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3724,14 +3631,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3752,10 +3652,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_6"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3776,12 +3673,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_6"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3802,10 +3694,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3826,12 +3715,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_6"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3852,15 +3736,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3881,11 +3757,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_6"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3906,15 +3778,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3935,15 +3799,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3964,12 +3820,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_6"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -3990,15 +3841,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4019,12 +3862,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_6"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4045,9 +3883,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4068,9 +3904,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4091,12 +3925,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_6"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4117,10 +3946,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_6"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4162,15 +3988,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4191,15 +4009,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4220,15 +4030,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_5",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4249,13 +4051,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_2",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_6",
-                  "Schedule_1_Encounter_7"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4276,12 +4072,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_6"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4302,9 +4093,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4325,9 +4114,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_2"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               },
               {
@@ -4348,12 +4135,7 @@
                   }
                 ],
                 "analysisLocations": [],
-                "encounterIds": [
-                  "Schedule_1_Encounter_1",
-                  "Schedule_1_Encounter_3",
-                  "Schedule_1_Encounter_4",
-                  "Schedule_1_Encounter_6"
-                ],
+                "encounterIds": [],
                 "instanceType": "Activity"
               }
             ],
@@ -4414,7 +4196,7 @@
     ],
     "instanceType": "Study"
   },
-  "usdmVersion": "4.0",
+  "usdmVersion": "4.0.0",
   "systemName": "USDM Template v12",
   "systemVersion": "12.0.0"
 }
