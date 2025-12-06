@@ -758,14 +758,14 @@ namespace TransCelerate.SDR.DataAccess.Filters
             var scopeLookup = searchResponse.Organizations.ToDictionary(org => org.Id, org => org);
 
             var sponsorIdentifier = searchResponse.StudyIdentifiers
-                .FirstOrDefault(x => scopeLookup.ContainsKey(x.ScopeId) &&
+                .FirstOrDefault(x => x.ScopeId != null && scopeLookup.ContainsKey(x.ScopeId) &&
                     (
                         scopeLookup[x.ScopeId]?.Type?.Decode?.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower() ||
                         scopeLookup[x.ScopeId]?.Type?.Decode?.ToLower() == Constants.IdType.SPONSOR_ID_V2.ToLower()
                     )
                 );
 
-            return sponsorIdentifier != null && scopeLookup.ContainsKey(sponsorIdentifier.ScopeId)
+            return sponsorIdentifier?.ScopeId != null && scopeLookup.ContainsKey(sponsorIdentifier.ScopeId)
                 ? scopeLookup[sponsorIdentifier.ScopeId]?.Identifier ?? ""
                 : "";
         }
