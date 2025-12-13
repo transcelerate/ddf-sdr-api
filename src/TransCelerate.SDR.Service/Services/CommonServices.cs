@@ -639,9 +639,8 @@ namespace TransCelerate.SDR.Services.Services
                     searchResponseDtos.ForEach(searchResponseDto =>
                     {
                         var searchResponseV5 = searchResponse.FirstOrDefault(x => x.StudyId == searchResponseDto.Study.StudyId && x.SDRUploadVersion == searchResponseDto.AuditTrail.SDRUploadVersion);
-                        var studyTitleV5 = searchResponseV5.StudyTitle != null ? JsonConvert.DeserializeObject<List<CommonStudyTitle>>(JsonConvert.SerializeObject(searchResponseV5.StudyTitle)) : null;
 
-                        searchResponseDto.Study.StudyTitle = studyTitleV5 != null && studyTitleV5.Any(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle) ? studyTitleV5.Find(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle).Text : null;
+                        searchResponseDto.Study.StudyTitle = searchResponseV5.StudyTitle?.GetStudyTitleV5(Constants.StudyTitle.OfficialStudyTitle);
 
                         var commonStudyIdentifiers = new List<CommonStudyIdentifiersDto>();
                         if (searchResponseV5.StudyIdentifiers != null)

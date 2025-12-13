@@ -8,6 +8,7 @@ using TransCelerate.SDR.Core.Entities.Common;
 using TransCelerate.SDR.Core.Entities.StudyV5;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
+using TransCelerate.SDR.Core.Utilities.Helpers;
 
 namespace TransCelerate.SDR.DataAccess.Filters
 {
@@ -718,7 +719,8 @@ namespace TransCelerate.SDR.DataAccess.Filters
                 return property.ToLower() switch
                 {
                     //Sort by studyTitle
-                    "studytitle" => asc ? searchResponses.OrderBy(s => s.StudyTitle) : searchResponses.OrderByDescending(s => s.StudyTitle),
+                    "studytitle" => asc ? searchResponses.OrderBy(s => s.StudyTitle?.GetStudyTitleV5(Constants.StudyTitle.OfficialStudyTitle))
+                                        : searchResponses.OrderByDescending(s => s.StudyTitle?.GetStudyTitleV5(Constants.StudyTitle.OfficialStudyTitle)),
 
                     //Sort by studyIdentifier: orgCode
                     "sponsorid" => asc ? searchResponses.OrderBy(s => GetSponsorId(s))
