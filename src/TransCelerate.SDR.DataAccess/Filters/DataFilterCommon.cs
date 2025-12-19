@@ -8,6 +8,7 @@ using TransCelerate.SDR.Core.Entities.Common;
 using TransCelerate.SDR.Core.Entities.StudyV5;
 using TransCelerate.SDR.Core.Utilities;
 using TransCelerate.SDR.Core.Utilities.Common;
+using TransCelerate.SDR.Core.Utilities.Helpers;
 
 namespace TransCelerate.SDR.DataAccess.Filters
 {
@@ -718,7 +719,8 @@ namespace TransCelerate.SDR.DataAccess.Filters
                 return property.ToLower() switch
                 {
                     //Sort by studyTitle
-                    "studytitle" => asc ? searchResponses.OrderBy(s => s.StudyTitle) : searchResponses.OrderByDescending(s => s.StudyTitle),
+                    "studytitle" => asc ? searchResponses.OrderBy(s => s.StudyTitle?.GetStudyTitleV5(Constants.StudyTitle.OfficialStudyTitle))
+                                        : searchResponses.OrderByDescending(s => s.StudyTitle?.GetStudyTitleV5(Constants.StudyTitle.OfficialStudyTitle)),
 
                     //Sort by studyIdentifier: orgCode
                     "sponsorid" => asc ? searchResponses.OrderBy(s => GetSponsorId(s))
@@ -758,14 +760,14 @@ namespace TransCelerate.SDR.DataAccess.Filters
             var scopeLookup = searchResponse.Organizations.ToDictionary(org => org.Id, org => org);
 
             var sponsorIdentifier = searchResponse.StudyIdentifiers
-                .FirstOrDefault(x => scopeLookup.ContainsKey(x.ScopeId) &&
+                .FirstOrDefault(x => x.ScopeId != null && scopeLookup.ContainsKey(x.ScopeId) &&
                     (
                         scopeLookup[x.ScopeId]?.Type?.Decode?.ToLower() == Constants.IdType.SPONSOR_ID_V1.ToLower() ||
                         scopeLookup[x.ScopeId]?.Type?.Decode?.ToLower() == Constants.IdType.SPONSOR_ID_V2.ToLower()
                     )
                 );
 
-            return sponsorIdentifier != null && scopeLookup.ContainsKey(sponsorIdentifier.ScopeId)
+            return sponsorIdentifier?.ScopeId != null && scopeLookup.ContainsKey(sponsorIdentifier.ScopeId)
                 ? scopeLookup[sponsorIdentifier.ScopeId]?.Identifier ?? ""
                 : "";
         }

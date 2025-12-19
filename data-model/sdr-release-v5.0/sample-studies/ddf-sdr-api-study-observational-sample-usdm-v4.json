@@ -10,7 +10,9 @@
         "extensionAttributes": [],
         "versionIdentifier": "1",
         "rationale": "A simple test",
-        "documentVersionIds": ["StudyDefinitionDocumentVersion_1"],
+        "documentVersionIds": [
+          "StudyDefinitionDocumentVersion_1"
+        ],
         "dateValues": [
           {
             "id": "GovernanceDate_1",
@@ -783,7 +785,7 @@
                     "code": "C51282",
                     "codeSystem": "http://www.cdisc.org",
                     "codeSystemVersion": "2024-09-27",
-                    "decode": "CLINIC",
+                    "decode": "Clinic",
                     "instanceType": "Code"
                   }
                 ],
@@ -794,7 +796,7 @@
                     "code": "C175574",
                     "codeSystem": "http://www.cdisc.org",
                     "codeSystemVersion": "2024-09-27",
-                    "decode": "IN PERSON",
+                    "decode": "In Person",
                     "instanceType": "Code"
                   }
                 ],
@@ -844,7 +846,7 @@
                     "code": "C51282",
                     "codeSystem": "http://www.cdisc.org",
                     "codeSystemVersion": "2024-09-27",
-                    "decode": "CLINIC",
+                    "decode": "Clinic",
                     "instanceType": "Code"
                   }
                 ],
@@ -855,7 +857,7 @@
                     "code": "C175574",
                     "codeSystem": "http://www.cdisc.org",
                     "codeSystemVersion": "2024-09-27",
-                    "decode": "IN PERSON",
+                    "decode": "In Person",
                     "instanceType": "Code"
                   }
                 ],
@@ -889,7 +891,7 @@
                     "code": "C51282",
                     "codeSystem": "http://www.cdisc.org",
                     "codeSystemVersion": "2024-09-27",
-                    "decode": "CLINIC",
+                    "decode": "Clinic",
                     "instanceType": "Code"
                   }
                 ],
@@ -900,7 +902,7 @@
                     "code": "C175574",
                     "codeSystem": "http://www.cdisc.org",
                     "codeSystemVersion": "2024-09-27",
-                    "decode": "IN PERSON",
+                    "decode": "In Person",
                     "instanceType": "Code"
                   }
                 ],
@@ -942,7 +944,7 @@
                     "code": "C51282",
                     "codeSystem": "http://www.cdisc.org",
                     "codeSystemVersion": "2024-09-27",
-                    "decode": "CLINIC",
+                    "decode": "Clinic",
                     "instanceType": "Code"
                   }
                 ],
@@ -953,7 +955,7 @@
                     "code": "C175574",
                     "codeSystem": "http://www.cdisc.org",
                     "codeSystemVersion": "2024-09-27",
-                    "decode": "IN PERSON",
+                    "decode": "In Person",
                     "instanceType": "Code"
                   }
                 ],
@@ -987,7 +989,7 @@
                     "code": "C51282",
                     "codeSystem": "http://www.cdisc.org",
                     "codeSystemVersion": "2024-09-27",
-                    "decode": "CLINIC",
+                    "decode": "Clinic",
                     "instanceType": "Code"
                   }
                 ],
@@ -998,7 +1000,7 @@
                     "code": "C175574",
                     "codeSystem": "http://www.cdisc.org",
                     "codeSystemVersion": "2024-09-27",
-                    "decode": "IN PERSON",
+                    "decode": "In Person",
                     "instanceType": "Code"
                   }
                 ],
@@ -1032,7 +1034,7 @@
                     "code": "C18002",
                     "codeSystem": "http://www.cdisc.org",
                     "codeSystemVersion": "2024-09-27",
-                    "decode": "HOME",
+                    "decode": "Home",
                     "instanceType": "Code"
                   }
                 ],
@@ -1043,7 +1045,7 @@
                     "code": "C171537",
                     "codeSystem": "http://www.cdisc.org",
                     "codeSystemVersion": "2024-09-27",
-                    "decode": "TELEPHONE CALL",
+                    "decode": "Telephone Call",
                     "instanceType": "Code"
                   }
                 ],
@@ -1119,7 +1121,7 @@
                       "code": "12345679",
                       "codeSystem": "SNOMED",
                       "codeSystemVersion": "January 31, 2018",
-                      "decode": "Test2",
+                      "decode": "Test",
                       "instanceType": "Code"
                     },
                     "studyInterventionId": null,
@@ -1144,7 +1146,9 @@
                 "nextId": "Activity_4",
                 "childIds": [],
                 "definedProcedures": [],
-                "biomedicalConceptIds": ["BiomedicalConcept_5"],
+                "biomedicalConceptIds": [
+                  "BiomedicalConcept_5"
+                ],
                 "bcCategoryIds": [],
                 "bcSurrogateIds": [],
                 "timelineId": null,
@@ -1238,7 +1242,9 @@
                 "extensionAttributes": [],
                 "armId": "StudyArm_1",
                 "epochId": "StudyEpoch_1",
-                "elementIds": ["StudyElement_1"],
+                "elementIds": [
+                  "StudyElement_1"
+                ],
                 "instanceType": "StudyCell"
               },
               {
@@ -1246,7 +1252,9 @@
                 "extensionAttributes": [],
                 "armId": "StudyArm_1",
                 "epochId": "StudyEpoch_2",
-                "elementIds": ["StudyElement_2"],
+                "elementIds": [
+                  "StudyElement_2"
+                ],
                 "instanceType": "StudyCell"
               },
               {
@@ -1254,7 +1262,10 @@
                 "extensionAttributes": [],
                 "armId": "StudyArm_1",
                 "epochId": "StudyEpoch_3",
-                "elementIds": ["StudyElement_3", "StudyElement_5"],
+                "elementIds": [
+                  "StudyElement_3",
+                  "StudyElement_5"
+                ],
                 "instanceType": "StudyCell"
               },
               {
@@ -1262,7 +1273,9 @@
                 "extensionAttributes": [],
                 "armId": "StudyArm_1",
                 "epochId": "StudyEpoch_4",
-                "elementIds": ["StudyElement_4"],
+                "elementIds": [
+                  "StudyElement_4"
+                ],
                 "instanceType": "StudyCell"
               },
               {
@@ -1270,7 +1283,9 @@
                 "extensionAttributes": [],
                 "armId": "StudyArm_2",
                 "epochId": "StudyEpoch_1",
-                "elementIds": ["StudyElement_1"],
+                "elementIds": [
+                  "StudyElement_1"
+                ],
                 "instanceType": "StudyCell"
               },
               {
@@ -1278,7 +1293,9 @@
                 "extensionAttributes": [],
                 "armId": "StudyArm_2",
                 "epochId": "StudyEpoch_2",
-                "elementIds": ["StudyElement_2"],
+                "elementIds": [
+                  "StudyElement_2"
+                ],
                 "instanceType": "StudyCell"
               },
               {
@@ -1286,7 +1303,10 @@
                 "extensionAttributes": [],
                 "armId": "StudyArm_2",
                 "epochId": "StudyEpoch_3",
-                "elementIds": ["StudyElement_5", "StudyElement_3"],
+                "elementIds": [
+                  "StudyElement_5",
+                  "StudyElement_3"
+                ],
                 "instanceType": "StudyCell"
               },
               {
@@ -1294,7 +1314,9 @@
                 "extensionAttributes": [],
                 "armId": "StudyArm_2",
                 "epochId": "StudyEpoch_4",
-                "elementIds": ["StudyElement_4"],
+                "elementIds": [
+                  "StudyElement_4"
+                ],
                 "instanceType": "StudyCell"
               }
             ],
@@ -1532,7 +1554,9 @@
                 "description": "",
                 "populationSummary": "Survival of all patients",
                 "analysisPopulationId": "AnalysisPopulation_1",
-                "interventionIds": ["StudyIntervention_1"],
+                "interventionIds": [
+                  "StudyIntervention_1"
+                ],
                 "variableOfInterestId": "Endpoint_1",
                 "intercurrentEvents": [
                   {
@@ -1583,7 +1607,9 @@
                 "description": "",
                 "populationSummary": "Something else",
                 "analysisPopulationId": "AnalysisPopulation_2",
-                "interventionIds": ["StudyIntervention_2"],
+                "interventionIds": [
+                  "StudyIntervention_2"
+                ],
                 "variableOfInterestId": "Endpoint_2",
                 "intercurrentEvents": [
                   {
@@ -1788,7 +1814,7 @@
                   "code": "C49636",
                   "codeSystem": "http://www.cdisc.org",
                   "codeSystemVersion": "2024-09-27",
-                  "decode": "BOTH",
+                  "decode": "Both",
                   "instanceType": "Code"
                 }
               ],
@@ -2162,7 +2188,11 @@
                     "instanceType": "ScheduledActivityInstance",
                     "timelineId": null,
                     "timelineExitId": null,
-                    "activityIds": ["Activity_1", "Activity_2", "Activity_3"],
+                    "activityIds": [
+                      "Activity_1",
+                      "Activity_2",
+                      "Activity_3"
+                    ],
                     "encounterId": "Encounter_1"
                   },
                   {
@@ -2176,7 +2206,9 @@
                     "instanceType": "ScheduledActivityInstance",
                     "timelineId": null,
                     "timelineExitId": null,
-                    "activityIds": ["Activity_2"],
+                    "activityIds": [
+                      "Activity_2"
+                    ],
                     "encounterId": "Encounter_2"
                   },
                   {
@@ -2190,7 +2222,9 @@
                     "instanceType": "ScheduledActivityInstance",
                     "timelineId": null,
                     "timelineExitId": null,
-                    "activityIds": ["Activity_2"],
+                    "activityIds": [
+                      "Activity_2"
+                    ],
                     "encounterId": "Encounter_3"
                   },
                   {
@@ -2204,7 +2238,10 @@
                     "instanceType": "ScheduledActivityInstance",
                     "timelineId": null,
                     "timelineExitId": null,
-                    "activityIds": ["Activity_2", "Activity_3"],
+                    "activityIds": [
+                      "Activity_2",
+                      "Activity_3"
+                    ],
                     "encounterId": "Encounter_4"
                   },
                   {
@@ -2237,7 +2274,9 @@
                     "instanceType": "ScheduledActivityInstance",
                     "timelineId": null,
                     "timelineExitId": null,
-                    "activityIds": ["Activity_4"],
+                    "activityIds": [
+                      "Activity_4"
+                    ],
                     "encounterId": "Encounter_5"
                   },
                   {
@@ -2251,7 +2290,9 @@
                     "instanceType": "ScheduledActivityInstance",
                     "timelineId": null,
                     "timelineExitId": "ScheduleTimelineExit_1",
-                    "activityIds": ["Activity_2"],
+                    "activityIds": [
+                      "Activity_2"
+                    ],
                     "encounterId": "Encounter_6"
                   }
                 ],
@@ -2274,7 +2315,7 @@
                   "code": "C25532",
                   "codeSystem": "http://www.cdisc.org",
                   "codeSystemVersion": "2024-09-27",
-                  "decode": "INCLUSION",
+                  "decode": "Inclusion Criteria",
                   "instanceType": "Code"
                 },
                 "identifier": "1",
@@ -2296,7 +2337,7 @@
                   "code": "C25532",
                   "codeSystem": "http://www.cdisc.org",
                   "codeSystemVersion": "2024-09-27",
-                  "decode": "INCLUSION",
+                  "decode": "Inclusion Criteria",
                   "instanceType": "Code"
                 },
                 "identifier": "2",
@@ -2318,7 +2359,7 @@
                   "code": "C25370",
                   "codeSystem": "http://www.cdisc.org",
                   "codeSystemVersion": "2024-09-27",
-                  "decode": "EXCLUSION",
+                  "decode": "Exclusion Criteria",
                   "instanceType": "Code"
                 },
                 "identifier": "1",
@@ -2340,7 +2381,7 @@
                   "code": "C25370",
                   "codeSystem": "http://www.cdisc.org",
                   "codeSystemVersion": "2024-09-27",
-                  "decode": "EXCLUSION",
+                  "decode": "Exclusion Criteria",
                   "instanceType": "Code"
                 },
                 "identifier": "2",
@@ -2362,7 +2403,7 @@
                   "code": "C25370",
                   "codeSystem": "http://www.cdisc.org",
                   "codeSystemVersion": "2024-09-27",
-                  "decode": "EXCLUSION",
+                  "decode": "Exclusion Criteria",
                   "instanceType": "Code"
                 },
                 "identifier": "3",
@@ -2381,7 +2422,9 @@
                 "label": null,
                 "description": null,
                 "text": "ITT",
-                "subsetOfIds": ["StudyCohort_1"],
+                "subsetOfIds": [
+                  "StudyCohort_1"
+                ],
                 "notes": [],
                 "instanceType": "AnalysisPopulation"
               },
@@ -2392,7 +2435,9 @@
                 "label": null,
                 "description": null,
                 "text": "ITT",
-                "subsetOfIds": ["StudyCohort_2"],
+                "subsetOfIds": [
+                  "StudyCohort_2"
+                ],
                 "notes": [],
                 "instanceType": "AnalysisPopulation"
               }
@@ -2640,7 +2685,9 @@
               "id": "Address_1",
               "extensionAttributes": [],
               "text": "line, city, district, state, postal_code, United Kingdom of Great Britain and Northern Ireland",
-              "lines": ["line"],
+              "lines": [
+                "line"
+              ],
               "city": "city",
               "district": "district",
               "state": "state",
@@ -2679,7 +2726,9 @@
               "id": "Address_2",
               "extensionAttributes": [],
               "text": "Somewhere, In a City, In a District, In a big state, 12345, France",
-              "lines": ["Somewhere"],
+              "lines": [
+                "Somewhere"
+              ],
               "city": "In a City",
               "district": "In a District",
               "state": "In a big state",
@@ -2778,7 +2827,9 @@
               "id": "Address_3",
               "extensionAttributes": [],
               "text": "Somewhere, In a City, In a District, In a big state, 7777, Denmark",
-              "lines": ["Somewhere"],
+              "lines": [
+                "Somewhere"
+              ],
               "city": "In a City",
               "district": "In a District",
               "state": "In a big state",
@@ -2852,7 +2903,9 @@
               "id": "Address_4",
               "extensionAttributes": [],
               "text": "Somewhere, In a City, In a District, In a big state, 1234-5, Denmark",
-              "lines": ["Somewhere"],
+              "lines": [
+                "Somewhere"
+              ],
               "city": "In a City",
               "district": "In a District",
               "state": "In a big state",
@@ -2912,7 +2965,7 @@
               "code": "C1909",
               "codeSystem": "http://www.cdisc.org",
               "codeSystemVersion": "2024-09-27",
-              "decode": "DRUG",
+              "decode": "Pharmacologic Substance",
               "instanceType": "Code"
             },
             "minimumResponseDuration": {
@@ -2971,7 +3024,7 @@
                         "code": "C25613",
                         "codeSystem": "http://www.cdisc.org",
                         "codeSystemVersion": "2024-09-27",
-                        "decode": "%",
+                        "decode": "Percentage",
                         "instanceType": "Code"
                       },
                       "standardCodeAliases": [],
@@ -3013,7 +3066,7 @@
                     "code": "C38197",
                     "codeSystem": "http://www.cdisc.org",
                     "codeSystemVersion": "2024-09-27",
-                    "decode": "DENTAL",
+                    "decode": "Dental Route of Administration",
                     "instanceType": "Code"
                   },
                   "standardCodeAliases": [],
@@ -3028,7 +3081,7 @@
                     "code": "C139179",
                     "codeSystem": "http://www.cdisc.org",
                     "codeSystemVersion": "2024-09-27",
-                    "decode": "10 DAYS PER MONTH",
+                    "decode": "Ten Days Per Month",
                     "instanceType": "Code"
                   },
                   "standardCodeAliases": [],
@@ -3064,7 +3117,7 @@
               "code": "C1909",
               "codeSystem": "http://www.cdisc.org",
               "codeSystemVersion": "2024-09-27",
-              "decode": "DRUG",
+              "decode": "Pharmacologic Substance",
               "instanceType": "Code"
             },
             "minimumResponseDuration": {
@@ -3123,7 +3176,7 @@
                         "code": "C25613",
                         "codeSystem": "http://www.cdisc.org",
                         "codeSystemVersion": "2024-09-27",
-                        "decode": "%",
+                        "decode": "Percentage",
                         "instanceType": "Code"
                       },
                       "standardCodeAliases": [],
@@ -3165,7 +3218,7 @@
                     "code": "C38197",
                     "codeSystem": "http://www.cdisc.org",
                     "codeSystemVersion": "2024-09-27",
-                    "decode": "DENTAL",
+                    "decode": "Dental Route of Administration",
                     "instanceType": "Code"
                   },
                   "standardCodeAliases": [],
@@ -3180,7 +3233,7 @@
                     "code": "C139179",
                     "codeSystem": "http://www.cdisc.org",
                     "codeSystemVersion": "2024-09-27",
-                    "decode": "10 DAYS PER MONTH",
+                    "decode": "Ten Days Per Month",
                     "instanceType": "Code"
                   },
                   "standardCodeAliases": [],
@@ -3205,7 +3258,9 @@
             "extensionAttributes": [],
             "name": "Subject Age",
             "label": "Subject Age",
-            "synonyms": ["Age"],
+            "synonyms": [
+              "Age"
+            ],
             "reference": "/mdr/bc/packages/2025-04-01/biomedicalconcepts/C69260",
             "properties": [
               {
@@ -3429,7 +3484,9 @@
             "extensionAttributes": [],
             "name": "Race",
             "label": "Race",
-            "synonyms": ["Racial Group"],
+            "synonyms": [
+              "Racial Group"
+            ],
             "reference": "/mdr/bc/packages/2025-04-01/biomedicalconcepts/C17049",
             "properties": [
               {
@@ -3510,7 +3567,10 @@
             "extensionAttributes": [],
             "name": "Weight",
             "label": "Weight",
-            "synonyms": ["WEIGHT", "Body Weight"],
+            "synonyms": [
+              "WEIGHT",
+              "Body Weight"
+            ],
             "reference": "/mdr/specializations/sdtm/packages/2024-12-16/datasetspecializations/WEIGHT",
             "properties": [
               {
@@ -3697,7 +3757,10 @@
             "extensionAttributes": [],
             "name": "Weight",
             "label": "Weight",
-            "synonyms": ["WEIGHT", "Body Weight"],
+            "synonyms": [
+              "WEIGHT",
+              "Body Weight"
+            ],
             "reference": "/mdr/specializations/sdtm/packages/2024-12-16/datasetspecializations/WEIGHT",
             "properties": [
               {
@@ -3884,7 +3947,10 @@
             "extensionAttributes": [],
             "name": "Systolic Blood Pressure",
             "label": "Systolic Blood Pressure",
-            "synonyms": ["SYSBP", "Systolic Blood Pressure"],
+            "synonyms": [
+              "SYSBP",
+              "Systolic Blood Pressure"
+            ],
             "reference": "/mdr/specializations/sdtm/packages/2025-04-01/datasetspecializations/SYSBP",
             "properties": [
               {
@@ -4324,7 +4390,10 @@
             "extensionAttributes": [],
             "name": "Diastolic Blood Pressure",
             "label": "Diastolic Blood Pressure",
-            "synonyms": ["DIABP", "Diastolic Blood Pressure"],
+            "synonyms": [
+              "DIABP",
+              "Diastolic Blood Pressure"
+            ],
             "reference": "/mdr/specializations/sdtm/packages/2025-04-01/datasetspecializations/DIABP",
             "properties": [
               {
@@ -4840,8 +4909,12 @@
             "dictionaryId": null,
             "notes": [],
             "instanceType": "Condition",
-            "contextIds": ["Activity_2"],
-            "appliesToIds": ["Procedure_1"]
+            "contextIds": [
+              "Activity_2"
+            ],
+            "appliesToIds": [
+              "Procedure_1"
+            ]
           },
           {
             "id": "Condition_2",
@@ -4853,8 +4926,12 @@
             "dictionaryId": null,
             "notes": [],
             "instanceType": "Condition",
-            "contextIds": ["Activity_2"],
-            "appliesToIds": ["Procedure_2"]
+            "contextIds": [
+              "Activity_2"
+            ],
+            "appliesToIds": [
+              "Procedure_2"
+            ]
           },
           {
             "id": "Condition_3",
@@ -4867,7 +4944,9 @@
             "notes": [],
             "instanceType": "Condition",
             "contextIds": [],
-            "appliesToIds": ["Activity_3"]
+            "appliesToIds": [
+              "Activity_3"
+            ]
           }
         ],
         "notes": [],
@@ -5034,7 +5113,10 @@
                 "sectionTitle": "INTRODUCTION",
                 "displaySectionNumber": true,
                 "displaySectionTitle": true,
-                "childIds": ["NarrativeContent_7", "NarrativeContent_8"],
+                "childIds": [
+                  "NarrativeContent_7",
+                  "NarrativeContent_8"
+                ],
                 "previousId": "NarrativeContent_5",
                 "nextId": "NarrativeContent_7",
                 "contentItemId": "NarrativeContentItem_6",
@@ -5076,7 +5158,9 @@
                 "sectionTitle": "TRIAL OBJECTIVES, ENDPOINTS AND ESTIMANDS",
                 "displaySectionNumber": true,
                 "displaySectionTitle": true,
-                "childIds": ["NarrativeContent_10"],
+                "childIds": [
+                  "NarrativeContent_10"
+                ],
                 "previousId": "NarrativeContent_8",
                 "nextId": "NarrativeContent_10",
                 "contentItemId": "NarrativeContentItem_6",
@@ -5123,7 +5207,9 @@
                 "sectionTitle": "Description of Trial Design",
                 "displaySectionNumber": true,
                 "displaySectionTitle": true,
-                "childIds": ["NarrativeContent_13"],
+                "childIds": [
+                  "NarrativeContent_13"
+                ],
                 "previousId": "NarrativeContent_11",
                 "nextId": "NarrativeContent_13",
                 "contentItemId": "NarrativeContentItem_6",
@@ -5456,7 +5542,9 @@
                 "sectionTitle": "Dosing and Administration",
                 "displaySectionNumber": true,
                 "displaySectionTitle": true,
-                "childIds": ["NarrativeContent_35"],
+                "childIds": [
+                  "NarrativeContent_35"
+                ],
                 "previousId": "NarrativeContent_33",
                 "nextId": "NarrativeContent_35",
                 "contentItemId": "NarrativeContentItem_6",
@@ -6136,7 +6224,10 @@
                 "sectionTitle": "Pregnancy and Postpartum Information",
                 "displaySectionNumber": true,
                 "displaySectionTitle": true,
-                "childIds": ["NarrativeContent_80", "NarrativeContent_81"],
+                "childIds": [
+                  "NarrativeContent_80",
+                  "NarrativeContent_81"
+                ],
                 "previousId": "NarrativeContent_78",
                 "nextId": "NarrativeContent_80",
                 "contentItemId": "NarrativeContentItem_6",
@@ -6310,7 +6401,9 @@
                 "sectionTitle": "Immunogenicity Assessments",
                 "displaySectionNumber": true,
                 "displaySectionTitle": true,
-                "childIds": ["NarrativeContent_92"],
+                "childIds": [
+                  "NarrativeContent_92"
+                ],
                 "previousId": "NarrativeContent_90",
                 "nextId": "NarrativeContent_92",
                 "contentItemId": "NarrativeContentItem_6",

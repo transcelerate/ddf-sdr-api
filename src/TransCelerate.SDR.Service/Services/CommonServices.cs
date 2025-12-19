@@ -286,11 +286,14 @@ namespace TransCelerate.SDR.Services.Services
                                 var scope = GetScopeFromSearchResponseV5(studySearchResponseV5, studyIdentifier.Id);
 
                                 var commonOrganization = new CommonOrganisationDto();
-                                commonOrganization.Id = scope.Id;
-                                commonOrganization.OrganisationIdentifier = scope.Identifier;
-                                commonOrganization.OrganisationIdentifierScheme = scope.IdentifierScheme;
-                                commonOrganization.OrganisationName = scope.Name;
-                                commonOrganization.OrganisationType = _mapper.Map<CommonCodeDto>(scope.Type);
+                                if (scope != null)
+                                {
+                                    commonOrganization.Id = scope.Id;
+                                    commonOrganization.OrganisationIdentifier = scope.Identifier;
+                                    commonOrganization.OrganisationIdentifierScheme = scope.IdentifierScheme;
+                                    commonOrganization.OrganisationName = scope.Name;
+                                    commonOrganization.OrganisationType = _mapper.Map<CommonCodeDto>(scope.Type);
+                                }
 
                                 var commonStudyIdentifier = new CommonStudyIdentifiersDto
                                 {
@@ -436,11 +439,14 @@ namespace TransCelerate.SDR.Services.Services
                                 var scope = GetScopeFromSearchResponseV5(searchResponse, studyIdentifier.Id);
 
                                 var commonOrganization = new CommonOrganisationDto();
-                                commonOrganization.Id = scope.Id;
-                                commonOrganization.OrganisationIdentifier = scope.Identifier;
-                                commonOrganization.OrganisationIdentifierScheme = scope.IdentifierScheme;
-                                commonOrganization.OrganisationName = scope.Name;
-                                commonOrganization.OrganisationType = _mapper.Map<CommonCodeDto>(scope.Type);
+                                if (scope != null)
+                                {
+                                    commonOrganization.Id = scope.Id;
+                                    commonOrganization.OrganisationIdentifier = scope.Identifier;
+                                    commonOrganization.OrganisationIdentifierScheme = scope.IdentifierScheme;
+                                    commonOrganization.OrganisationName = scope.Name;
+                                    commonOrganization.OrganisationType = _mapper.Map<CommonCodeDto>(scope.Type);
+                                }
 
                                 var commonStudyIdentifier = new CommonStudyIdentifiersDto
                                 {
@@ -633,9 +639,8 @@ namespace TransCelerate.SDR.Services.Services
                     searchResponseDtos.ForEach(searchResponseDto =>
                     {
                         var searchResponseV5 = searchResponse.FirstOrDefault(x => x.StudyId == searchResponseDto.Study.StudyId && x.SDRUploadVersion == searchResponseDto.AuditTrail.SDRUploadVersion);
-                        var studyTitleV5 = searchResponseV5.StudyTitle != null ? JsonConvert.DeserializeObject<List<CommonStudyTitle>>(JsonConvert.SerializeObject(searchResponseV5.StudyTitle)) : null;
 
-                        searchResponseDto.Study.StudyTitle = studyTitleV5 != null && studyTitleV5.Any(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle) ? studyTitleV5.Find(x => x.Type?.Decode == Constants.StudyTitle.OfficialStudyTitle).Text : null;
+                        searchResponseDto.Study.StudyTitle = searchResponseV5.StudyTitle?.GetStudyTitleV5(Constants.StudyTitle.OfficialStudyTitle);
 
                         var commonStudyIdentifiers = new List<CommonStudyIdentifiersDto>();
                         if (searchResponseV5.StudyIdentifiers != null)
@@ -645,11 +650,14 @@ namespace TransCelerate.SDR.Services.Services
                                 var scope = GetScopeFromSearchResponseV5(searchResponseV5, studyIdentifier.Id);
 
                                 var commonOrganization = new CommonOrganisationDto();
-                                commonOrganization.Id = scope.Id;
-                                commonOrganization.OrganisationIdentifier = scope.Identifier;
-                                commonOrganization.OrganisationIdentifierScheme = scope.IdentifierScheme;
-                                commonOrganization.OrganisationName = scope.Name;
-                                commonOrganization.OrganisationType = _mapper.Map<CommonCodeDto>(scope.Type);
+                                if (scope != null)
+                                {
+                                    commonOrganization.Id = scope.Id;
+                                    commonOrganization.OrganisationIdentifier = scope.Identifier;
+                                    commonOrganization.OrganisationIdentifierScheme = scope.IdentifierScheme;
+                                    commonOrganization.OrganisationName = scope.Name;
+                                    commonOrganization.OrganisationType = _mapper.Map<CommonCodeDto>(scope.Type);
+                                }
 
                                 var commonStudyIdentifier = new CommonStudyIdentifiersDto
                                 {
@@ -690,7 +698,7 @@ namespace TransCelerate.SDR.Services.Services
             var organizationLookup = searchResponseV5.Organizations.ToDictionary(org => org.Id, org => org);
             var studyIdentifier = searchResponseV5.StudyIdentifiers.Find(y => y.Id == studyIdentifierId);
 
-            return studyIdentifier != null && organizationLookup.ContainsKey(studyIdentifier.ScopeId)
+            return studyIdentifier?.ScopeId != null && organizationLookup.ContainsKey(studyIdentifier.ScopeId)
                 ? organizationLookup[studyIdentifier.ScopeId]
                 : null;
         }
