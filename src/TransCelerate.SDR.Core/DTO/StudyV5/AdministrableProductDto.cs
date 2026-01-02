@@ -10,9 +10,9 @@ namespace TransCelerate.SDR.Core.DTO.StudyV5
         public string Description { get; set; }
         public string Label { get; set; }
         public List<CommentAnnotationDto> Notes { get; set; }
-        public List<IngredientDto> Ingredients { get; set; }
-        public List<AdministrableProductPropertyDto> Properties { get; set; }
-        public List<AdministrableProductIdentifierDto> Identifiers { get; set; }
+        public List<IngredientDto> Ingredients { get; set; } = [];
+        public List<AdministrableProductPropertyDto> Properties { get; set; } = [];
+        public List<AdministrableProductIdentifierDto> Identifiers { get; set; } = [];
         public AliasCodeDto AdministrableDoseForm { get; set; }
         public CodeDto PharmacologicClass { get; set; }
         public CodeDto ProductDesignation { get; set; }
