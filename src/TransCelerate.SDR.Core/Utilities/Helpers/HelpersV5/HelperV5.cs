@@ -1445,22 +1445,6 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                             List<string> tempInstanceIds = instanceIds.ToList();
                             tempInstanceIds.RemoveAll(x => x == timelineInstance.Id);
 
-                            if (!String.IsNullOrWhiteSpace(timelineInstance.TimelineExitId) && !scheduleTimelineExitIds.Contains(timelineInstance.TimelineExitId))
-                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
-                                    $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
-                                    $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
-                                    $"{nameof(StudyDesignDto.ScheduleTimelines)}[{design.ScheduleTimelines.IndexOf(scheduleTimeline)}]." +
-                                    $"{nameof(ScheduleTimelineDto.Instances)}[{scheduleTimeline.Instances.IndexOf(timelineInstance)}]." +
-                                    $"{nameof(ScheduledInstanceDto.TimelineExitId)}");
-
-                            if (!String.IsNullOrWhiteSpace(timelineInstance.TimelineId) && !scheduledTimelineIds.Contains(timelineInstance.TimelineId))
-                                errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
-                                    $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
-                                    $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
-                                    $"{nameof(StudyDesignDto.ScheduleTimelines)}[{design.ScheduleTimelines.IndexOf(scheduleTimeline)}]." +
-                                    $"{nameof(ScheduleTimelineDto.Instances)}[{scheduleTimeline.Instances.IndexOf(timelineInstance)}]." +
-                                    $"{nameof(ScheduledInstanceDto.TimelineId)}");
-
                             if (!String.IsNullOrWhiteSpace(timelineInstance.EpochId) && !epochIds.Contains(timelineInstance.EpochId))
                                 errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
                                     $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
@@ -1480,6 +1464,23 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                             if (timelineInstance.GetType() == typeof(ScheduledActivityInstanceDto))
                             {
                                 var activityTimelineInstance = timelineInstance as ScheduledActivityInstanceDto;
+
+                                if (!String.IsNullOrWhiteSpace(activityTimelineInstance.TimelineExitId) && !scheduleTimelineExitIds.Contains(activityTimelineInstance.TimelineExitId))
+                                    errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                        $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
+                                        $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
+                                        $"{nameof(StudyDesignDto.ScheduleTimelines)}[{design.ScheduleTimelines.IndexOf(scheduleTimeline)}]." +
+                                        $"{nameof(ScheduleTimelineDto.Instances)}[{scheduleTimeline.Instances.IndexOf(timelineInstance)}]." +
+                                        $"{nameof(ScheduledActivityInstanceDto.TimelineExitId)}");
+
+                                if (!String.IsNullOrWhiteSpace(activityTimelineInstance.TimelineId) && !scheduledTimelineIds.Contains(activityTimelineInstance.TimelineId))
+                                    errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
+                                        $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
+                                        $"{nameof(StudyVersionDto.StudyDesigns)}[{indexOfDesign}]." +
+                                        $"{nameof(StudyDesignDto.ScheduleTimelines)}[{design.ScheduleTimelines.IndexOf(scheduleTimeline)}]." +
+                                        $"{nameof(ScheduleTimelineDto.Instances)}[{scheduleTimeline.Instances.IndexOf(timelineInstance)}]." +
+                                        $"{nameof(ScheduledActivityInstanceDto.TimelineId)}");
+
                                 var activityIds = activityTimelineInstance.ActivityIds;
                                 if (activityIds is not null && activityIds.Any())
                                 {
@@ -1494,6 +1495,7 @@ namespace TransCelerate.SDR.Core.Utilities.Helpers.HelpersV5
                                                 $"{nameof(ScheduledActivityInstanceDto.ActivityIds)}[{activityIds.IndexOf(id)}]");
                                     });
                                 }
+
                                 if (!String.IsNullOrWhiteSpace(activityTimelineInstance.EncounterId) && !encounterIds.Contains(activityTimelineInstance.EncounterId))
                                     errors.Add($"{nameof(StudyDefinitionsDto.Study)}." +
                                         $"{nameof(StudyDto.Versions)}[{studyVersionIndex}]." +
