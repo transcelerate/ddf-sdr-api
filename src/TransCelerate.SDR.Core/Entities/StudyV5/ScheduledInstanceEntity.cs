@@ -1,4 +1,4 @@
-﻿using JsonSubTypes;
+using JsonSubTypes;
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 using TransCelerate.SDR.Core.Utilities;

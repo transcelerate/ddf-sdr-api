@@ -1,4 +1,4 @@
-﻿using JsonSubTypes;
+using JsonSubTypes;
 using Newtonsoft.Json;
 using TransCelerate.SDR.Core.Utilities;
 
