@@ -15,12 +15,17 @@ Available as JSON and PDF:
 •	Allergan depression study (NCT03739203)  
 
 | Filename | Complete or Partial Representation of the PDF | Sections or Parts of PDF Represented in JSON |  
-| CDISC Pilot Study (LZZT) | Partial | |  
-| Eli Lilly Diabetes Study (NCT03421379) | Partial | |  
-| Alexion Wilson's Disease Study (NCT04573309) | Partial | |  
-| Bayer Stroke Study protocol (NCT04304508) | Partial | |  
-| Roche Phase 2a study (NCT02701985) | Partial | |  
-| Allergan depression study (NCT03739203) | Partial | |  
+| | |   |  
+| CDISC Pilot Study (LZZT) | Partial |   |  
+| | | |  | Eli Lilly Diabetes Study (NCT03421379) | Partial |   |  
+| | | |  
+| Alexion Wilson's Disease Study (NCT04573309) | Partial |   |  
+| | | |  
+| Bayer Stroke Study protocol (NCT04304508) | Partial |   |  
+| | | |  
+| Roche Phase 2a study (NCT02701985) | Partial |   |  
+| | | |  
+| Allergan depression study (NCT03739203) | Partial |   |  
 
 In addition, two temporary examples have been included. The data contained within these examples is test data and does not map directly to an existing protocol.  
 •	Devices: This file shows the handling of medical devices.  
