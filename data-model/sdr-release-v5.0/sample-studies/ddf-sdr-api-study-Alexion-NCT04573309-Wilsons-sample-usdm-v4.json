@@ -11807,7 +11807,7 @@
 			},
 			"notes": [],
 			"instanceType": "AdministrableProduct"
-		},
+		}
 		],
         "medicalDevices": [],
         "productOrganizationRoles": [],
